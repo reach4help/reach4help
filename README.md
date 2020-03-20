@@ -23,3 +23,7 @@ root of this repository.
 At this point running `yarn add` or `yarn install` in any of the sub directories
 should update the appropriate `package.json`,
 and update the `yarn.lock` in the root of the repo.
+
+## Code of Conduct
+
+We expect everyone to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it.
