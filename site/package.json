@@ -16,14 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EmaSuriano/gatsby-starter-mate.git"
+    "url": "git+https://github.com/covidaidapp/covidaid/tree/master/site.git"
   },
   "keywords": [
     "gatsby",
     "starter",
     "contentful",
-    "PWA",
-    "portfolio"
+    "PWA"
   ],
   "license": "MIT",
   "dependencies": {
