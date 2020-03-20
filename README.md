@@ -41,9 +41,3 @@ please check out the [info repository](https://github.com/covidaidapp/info).
 ## Code of Conduct
 
 We expect everyone to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it.
-
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
-<!-- ALL-CONTRIBUTORS-BADGE:END --> 
