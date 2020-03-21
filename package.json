@@ -7,6 +7,9 @@
   "devDependencies": {
     "husky": "^4.2.3"
   },
+  "scripts": {
+    "lint": "yarn workspaces run lint"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn workspaces run pre-commit"
