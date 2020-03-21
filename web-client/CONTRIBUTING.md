@@ -1,4 +1,4 @@
-# Contributing to COVID Aid
+# Contributing to web-client for Reach4Help
 
 🎉🚀🙌🏻 First off, thanks for taking the time to contribute! 🙌🏻🚀🎉
 
@@ -37,12 +37,33 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 
 #### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
 
-## Projects
+## Run the project
 
-Each project counts with it's own contributing guidelines, since they are different.
-So to read the specific guidelines for each project please refer to:
+1 - Install dependencies
 
-[**web-client**](web-client/CONTRIBUTING.md)
+```
+yarn
+```
+
+2 - Run the `web-client` project in development mode.
+
+```
+cd ./web-client && yarn start
+```
+
+3 - The client is now available under [localhost:3000](http://localhost:3000)
+
+# React version and Functional Components
+
+### We are on the latest version of React.
+
+- We favour functional components and hooks to class components.
+- We also prefer multiple small components to a big one
+- We are leveraging `TypeScript`
+- We use `styled-components` for styling
+- We use Prettier and ESLint to maintain consistent code
+
+[Check here for latest version of React](https://reactjs.org/versions)
 
 # How to report a bug
 
@@ -58,14 +79,19 @@ So to read the specific guidelines for each project please refer to:
 
 Your contribution will have to be Approved by a member of the Organization before being merged.
 
-> The core team looks at Pull Requests on a regular basis.
-> After feedback has been given we expect responses within two weeks. After two weeks we may close the pull request if it isn't showing any activity.
+> The core team looks at Pull Requests on a regular basis. After feedback has been given we expect responses within two weeks. After two weeks we may close the pull request if it isn't showing any activity.
 
 # Code, commit message and labeling conventions
 
 ### Commit message conventions.
 
 We follow the conventional commits guidelines. Check [here](https://www.conventionalcommits.org/en/v1.0.0/)
+
+### Code Style Enforced by Prettier
+
+Prettier guarantees the code style adopted and runs on commit, stick to this code style.
+
+<img height="42" width="42" src="https://prettier.io/icon.png" alt="Prettier">[ Prettier site for more information](https://prettier.io/ 'Prettier site for more information')
 
 # PULL Requests
 
