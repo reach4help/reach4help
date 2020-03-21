@@ -27,7 +27,8 @@ module.exports = {
         tsx: 'never'
       }
     ],
-    'import/no-unresolved': 'error'
+    'import/no-unresolved': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
   'settings': {
     'import/parsers': {
