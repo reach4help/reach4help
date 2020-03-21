@@ -46,6 +46,8 @@ and update the `yarn.lock` in the root of the repo.
 ### Site
 This is the landing page for the organization. It shows a lot of helpful tips and general information.
 
+More info [here](site/README.md)
+
 ### Web client
 This is the web client with which our people in need and our volunteers interact with the platform.
 

@@ -1,51 +1,84 @@
-# Contributing
+# Contributing to covidaid/site
 
-First off, thank you for considering contributing to Gatsby Mate Starter. With the help of all the contributors this starter is always up to date and free of bugs, resulting in a better application for everybody 😄
+🎉🚀🙌🏻 First off, thanks for taking the time to contribute! 🙌🏻🚀🎉
 
-Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue,
-assessing changes, and helping you finalize your pull requests.
+> First off, thank you for considering contributing to this repository. It's people like you that make Open Source so great.
 
-## Where do I go from here?
+### Please read our guidelines before you start.
 
-If you've noticed a bug or have a feature request, search the [issue tracker](https://github.com/EmaSuriano/gatsby-starter-mate/issues?q=something) to see if someone else in the community has already created a ticket. If not, go ahead and make one!
+> Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
 
-## Fork & create a branch
+### Contributions we are looking for.
 
-If this is something you think you can fix, then [fork Gatsby Starter Mate](https://help.github.com/articles/fork-a-repo) and create a branch with a descriptive name.
+We keep an open mind! Improving documentation, bug triage, or writing tutorials are all examples of helpful contributions that mean less work for you.
 
-The name of the branch must start with the type of the pull request, followed with a short description of what it's trying to achieve.
+# Ground Rules
+
+### Follow our Code of Conduct.
+
+We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it. 🤝
+
+# Your First Contribution
+
+Here are a couple of friendly tutorials to help you get started: http://makeapullrequest.com/ and http://www.firsttimersonly.com/
+
+> Working on your first Pull Request? You can learn how from this _free_ series, [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
+
+At this point, you're ready to make your changes! Feel free to ask for help; everyone is a beginner at first :smile_cat:
+
+# Getting started
+
+## Prerequisites
+
+### You will need at least `node` and `yarn` installed.
+
+- [Download Node Here](https://nodejs.org/en/download/ 'Download Node Here')
+- [Download Yarn Here](https://yarnpkg.com/lang/en/docs/install/ 'Download Yarn Here')
+
+#### In this repo we favour `yarn` over `npm` as the "official" package manager.
+
+## Run the project
+
+1 - Install dependencies
 
 ```
-feat  - A new feature.
-fix   - A bug fix.
-docs  - Documentation only changes
+yarn
 ```
 
-Example: `feat/new-top-bar` or `fix/broken-project-link`
-
-## Setting Up the Code for Local Development
-
-1. Fork the `gatsby-mate-starter` repo on GitHub.
-2. Create a branch for local development::
-
-```bash
-  $ git checkout -b name-of-your-bugfix-or-feature
-```
-
-3. Install dependencies
+2 - Run the project in development mode (in the `site` directory).
 
 ```
-  $ yarn
+cd ./site
+gatsby develop
 ```
 
-4. Commit your changes and push your branch to GitHub::
+# How to report a bug
 
-```bash
-  $ git add .
-  $ git commit -m "Your detailed description of your changes."
-  $ git push origin name-of-your-bugfix-or-feature
-```
+> If you find a security vulnerability, do NOT open an issue. Email <email> instead.
 
-5. Submit a pull request through the GitHub website.
+> Open an issue using the BUG template provided.
 
-After the pull request is submitted TravisCI is going to run all the automated tasks that ensure a minimium code quality. **This is a mandatory requirement in order to merge your pul request.**
+# How to suggest a feature or enhancement
+
+> Open an issue using the FEATURE template provided.
+
+# Code review process
+
+### For your contribution to get accepted after it’s been submitted.
+
+Your contribution will have to be Approved by a member of the Core Team before being merged.
+
+> The core team looks at Pull Requests on a regular basis.
+> After feedback has been given we expect responses within two weeks. After two weeks we may close the pull request if it isn't showing any activity.
+
+# Code, commit message and labeling conventions
+
+### Commit message conventions.
+
+We follow the conventional commits guidelines. Check [here](https://www.conventionalcommits.org/en/v1.0.0/)
+
+### Code Style Enforced by Prettier
+
+Prettier guarantees the code style adopted and runs on commit, stick to this code style.
+
+<img height="42" width="42" src="https://prettier.io/icon.png" alt="Prettier">[ Prettier site for more information](https://prettier.io/ 'Prettier site for more information')
