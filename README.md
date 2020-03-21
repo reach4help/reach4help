@@ -1,12 +1,12 @@
-# Monorepo for COVID Aid
+# Monorepo for Reach4Help
 
-This is the main repository for the [COVID Aid project](https://covidaid.app/).
+This is the main repository for the [Reach4Help](https://reach4help.org/).
 
 People who are at high risk from COVID-19 or are quarantined are unable to leave their houses and obtain necessities like food and medical supplies without putting themselves or others at risk. To mitigate this, many local groups and organizations, big and small, have started initiatives to try and get resources such as food and medicine to these people, and help out with important tasks such as walking dogs.
 
 Unfortunately, a number of these organizations are struggling with certain logistics, such as coordinating their volunteer workforce, prioritizing the most urgent requests, and ensuring that all requests get fulfilled.
 
-COVID Aid is an open project that is completely run by volunteers that aims to address these issues, not only enabling those in need to receive help, but also enabling partner groups and organizations to help more efficiently by mobilizing their volunteers with the help of our own tracking and ticketing system.
+Reach4Help is an open project that is completely run by volunteers that aims to address these issues, not only enabling those in need to receive help, but also enabling partner groups and organizations to help more efficiently by mobilizing their volunteers with the help of our own tracking and ticketing system.
 
 We’re part of [Helpful Engineering](https://www.helpfulengineering.org/),
 a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commercial goals.
@@ -18,7 +18,7 @@ If you’d like to help and join one of our [teams](https://github.com/covidaida
 
 ## Preparing the repository
 
-We use Yarn workspaces to manage this repository,
+We use `Yarn workspaces` to manage this repository,
 so all NPM packages,
 for all directories,
 can be installed using the following command in the root directory:
@@ -37,6 +37,20 @@ root of this repository.
 At this point running `yarn add` or `yarn install` in any of the sub directories
 should update the appropriate `package.json`,
 and update the `yarn.lock` in the root of the repo.
+
+## Sub Projects
+
+### Site
+This is the landing page for the organization. It shows a lot of helpful tips and general information.
+
+### Web client
+This is the web client with which our people in need and our volunteers interact with the platform.
+
+More info [here](web-client/README.md)
+
+## Contributing
+
+We have several projects under this monorepo. If you want to contribute please read [CONTRIBUTING](CONTRIBUTING.md)
 
 ## Code of Conduct
 

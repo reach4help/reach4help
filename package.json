@@ -6,6 +6,8 @@
     "web-client"
   ],
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "husky": "^4.2.3"
   },
   "scripts": {
@@ -13,7 +15,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn workspaces run pre-commit"
+      "pre-commit": "yarn workspaces run pre-commit",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }
