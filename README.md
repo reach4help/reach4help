@@ -1,6 +1,6 @@
 # Monorepo for Reach4Help
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This is the main repository for the [Reach4Help](https://reach4help.org/).
@@ -69,6 +69,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/comoser"><img src="https://avatars2.githubusercontent.com/u/5495320?v=4" width="100px;" alt=""/><br /><sub><b>David Alecrim</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=comoser" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/commits?author=comoser" title="Documentation">📖</a> <a href="#ideas-comoser" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-comoser" title="Maintenance">🚧</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Acomoser" title="Reviewed Pull Requests">👀</a> <a href="#projectManagement-comoser" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://sam.lanni.ng"><img src="https://avatars0.githubusercontent.com/u/3319932?v=4" width="100px;" alt=""/><br /><sub><b>Sam Lanning</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=s0" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/commits?author=s0" title="Documentation">📖</a> <a href="#ideas-s0" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-s0" title="Maintenance">🚧</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3As0" title="Reviewed Pull Requests">👀</a> <a href="#content-s0" title="Content">🖋</a> <a href="#projectManagement-s0" title="Project Management">📆</a></td>
   </tr>
 </table>
 
