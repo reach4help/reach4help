@@ -48,19 +48,20 @@ const Footer = () => (
           <FooterContainer>
             <Fade left>
               <TextFooter fontSize={[2, 3]}>
-                <span>{`${name} - Powered by `}</span>
-                <Link href="https://www.gatsbyjs.org/">Gatsby</Link>
-                <span>, </span>
-                <Link href="https://www.contentful.com/" mr={1}>
-                  Contentful
-                </Link>
-                <span> and </span>
+                <span>{`${name} `}</span>
                 <Link href="https://www.netlify.com/" mr={1}>
-                  Netlify
+                  site is Powered by Netlify
                 </Link>
                 <span role="img" aria-label="heart">
                   ❤️
                 </span>
+                <span> | </span>
+                <Link
+                  fontSize={[1, 2]}
+                  href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+                >
+                  Code of Conduct
+                </Link>
               </TextFooter>
             </Fade>
             <Flex>
