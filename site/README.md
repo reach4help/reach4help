@@ -31,7 +31,7 @@ We expect everyone to abide by our [**Code of Conduct**](https://github.com/luis
 
 Check out our [**Contributing Guide**](CONTRIBUTING.md) for information on contributing.
 
-## :memo: License
+## 📝 License
 
 Licensed under the [MIT License](LICENSE).
 
