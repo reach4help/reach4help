@@ -3,5 +3,13 @@
   "workspaces": [
     "site",
     "web-client"
-  ]
+  ],
+  "devDependencies": {
+    "husky": "^4.2.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn workspaces run pre-commit"
+    }
+  }
 }
