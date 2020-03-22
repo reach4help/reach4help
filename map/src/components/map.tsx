@@ -10,6 +10,7 @@ export type SelectMarkerCallback = ((marker: number) => void) | null;
 interface Props {
   className?: string;
   filter: Filter;
+  searchInput: HTMLInputElement | null;
   updateResults: (results: MarkerInfo[]) => void;
   /**
    * Set a callback that expects the index from the results array representing
@@ -65,15 +66,27 @@ class Map extends React.Component<Props, {}> {
 
   private map: MapInfo | null = null;
 
+  private searchBox: {
+    searchInput: HTMLInputElement;
+    box: google.maps.places.SearchBox;
+  } | null = null;
+
   private infoWindow: google.maps.InfoWindow | null = null;
+
+  public componentDidMount() {
+    this.initializeSearch();
+  }
 
   public componentDidUpdate() {
     const { filter } = this.props;
+    // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
       updateMarkersVisiblility(this.map.markers, filter);
       this.map.markerClusterer.repaint();
       this.map.currentFilter = filter;
     }
+    // Update search box if changed
+    this.initializeSearch();
   }
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
@@ -119,40 +132,11 @@ class Map extends React.Component<Props, {}> {
 
     updateMarkersVisiblility(markers, filter);
 
-    // This also likely needs a separate service
-    // // Create the search box and link it to the UI element.
-    // if (this.map) {
-    //   const input = document.getElementById('address-input');
-    //   const searchBox = new window.google.maps.places.SearchBox(input);
-    //
-    //   this.map.addListener('bounds_changed', () => {
-    //     searchBox.setBounds(this.map.getBounds());
-    //   });
-    //
-    //   searchBox.addListener('places_changed', () => {
-    //     const places = searchBox.getPlaces();
-    //     const bounds = new window.google.maps.LatLngBounds();
-    //
-    //     if (places.length === 0) {
-    //       return;
-    //     }
-    //
-    //     places.forEach((place: any) => {
-    //       if (!place.geometry) {
-    //         console.log("Returned place contains no geometry");
-    //         return;
-    //       }
-    //
-    //       if (place.geometry.viewport) {
-    //         bounds.union(place.geometry.viewport);
-    //       } else {
-    //         bounds.extend(place.geometry.location);
-    //       }
-    //     });
-    //
-    //     this.map.fitBounds(bounds);
-    //   })
-    // }
+    map.addListener('bounds_changed', () => {
+      const bounds = map.getBounds();
+      if (this.searchBox && bounds)
+        this.searchBox.box.setBounds(bounds);
+    });
 
     // We iterate over all locations to create markers
     // This pretty much orchestrates everything since the map is the main interaction window
@@ -310,6 +294,46 @@ class Map extends React.Component<Props, {}> {
     dist *= 1609.344; // for meters
     return dist
   };
+
+  private initializeSearch() {
+    const { searchInput } = this.props;
+    if (this.searchBox?.searchInput !== searchInput) {
+      if (!searchInput) {
+        this.searchBox = null;
+        return;
+      }
+      const box = new google.maps.places.SearchBox(searchInput);
+      this.searchBox = {
+        searchInput,
+        box,
+      };
+
+      this.searchBox.box.addListener('places_changed', () => {
+        if (!this.map) return;
+
+        const places = box.getPlaces();
+        const bounds = new window.google.maps.LatLngBounds();
+
+        if (places.length === 0) {
+          return;
+        }
+
+        places.forEach(place => {
+          if (!place.geometry) {
+            return;
+          }
+
+          if (place.geometry.viewport) {
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        });
+
+        this.map.map.fitBounds(bounds);
+      });
+    }
+  }
 
   public render() {
     const {className} = this.props;

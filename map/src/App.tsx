@@ -7,6 +7,8 @@ import Filters, { FilterMutator } from './components/filters';
 import Map, { SelectMarkerCallback } from './components/map';
 import Results from './components/results';
 import MapLoader from './components/map-loader';
+import Search from './components/search';
+
 import { MarkerInfo } from './data/markers';
 
 interface Props {
@@ -17,6 +19,7 @@ interface State {
   filter: Filter;
   results: MarkerInfo[];
   selectMarkerCallback: SelectMarkerCallback;
+  searchInput: HTMLInputElement | null;
 }
 
 class App extends React.Component<Props, State> {
@@ -27,6 +30,7 @@ class App extends React.Component<Props, State> {
       filter: {},
       results: [],
       selectMarkerCallback: null,
+      searchInput: null,
     };
   }
 
@@ -42,19 +46,30 @@ class App extends React.Component<Props, State> {
     this.setState({ selectMarkerCallback: callback });
   }
 
+  private updateSearchInput = (searchInput: HTMLInputElement | null) => {
+    this.setState({ searchInput });
+  }
+
   public render() {
     const {className} = this.props;
-    const { filter, results, selectMarkerCallback } = this.state;
+    const {
+      filter,
+      results,
+      selectMarkerCallback,
+      searchInput,
+    } = this.state;
     return (
       <div className={className}>
         <header>
           <h1>Reach4Help</h1>
           <Filters filter={filter} updateFilter={this.updateFilter} />
+          <Search updateSearchInput={this.updateSearchInput} />
         </header>
         <main>
           <MapLoader child={() => (
             <Map
               filter={filter}
+              searchInput={searchInput}
               updateResults={this.updateResults}
               setSelectMarkerCallback={this.setSelectMarkerCallback}
             />
