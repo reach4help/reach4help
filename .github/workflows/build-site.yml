@@ -23,6 +23,10 @@ jobs:
         SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
         ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
 
+    - name: Copy CNAME
+      run: |
+        cp site/CNAME site/public/CNAME
+
     - name: Deploy
       uses: s0/git-publish-subdir-action@master
       env:
