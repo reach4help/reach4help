@@ -1,6 +1,9 @@
 name: Build & Deploy Site
 
-on: push
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   deploy-to-gh-pages:
