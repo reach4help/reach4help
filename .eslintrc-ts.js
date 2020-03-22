@@ -29,6 +29,11 @@ module.exports = {
     ],
     'import/no-unresolved': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    'no-restricted-syntax': 'off',
+    'react/no-array-index-key': 'off',
+    // Accessibility Disabled for now
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off'
   },
   'settings': {
     'import/parsers': {
