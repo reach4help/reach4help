@@ -3,7 +3,7 @@ name: Build & Deploy Site
 on: push
 
 jobs:
-  deploy-to-ghe:
+  deploy-to-gh-pages:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
