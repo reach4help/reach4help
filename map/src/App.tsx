@@ -23,7 +23,6 @@ interface State {
 }
 
 class App extends React.Component<Props, State> {
-
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -35,29 +34,24 @@ class App extends React.Component<Props, State> {
   }
 
   private updateFilter = (mutator: FilterMutator) => {
-    this.setState(state => ({filter: mutator(state.filter)}))
-  }
+    this.setState(state => ({ filter: mutator(state.filter) }));
+  };
 
   private updateResults = (results: MarkerInfo[]) => {
-    this.setState({results});
-  }
+    this.setState({ results });
+  };
 
   private setSelectMarkerCallback = (callback: SelectMarkerCallback) => {
     this.setState({ selectMarkerCallback: callback });
-  }
+  };
 
   private updateSearchInput = (searchInput: HTMLInputElement | null) => {
     this.setState({ searchInput });
-  }
+  };
 
   public render() {
-    const {className} = this.props;
-    const {
-      filter,
-      results,
-      selectMarkerCallback,
-      searchInput,
-    } = this.state;
+    const { className } = this.props;
+    const { filter, results, selectMarkerCallback, searchInput } = this.state;
     return (
       <div className={className}>
         <header>
@@ -66,14 +60,15 @@ class App extends React.Component<Props, State> {
           <Search updateSearchInput={this.updateSearchInput} />
         </header>
         <main>
-          <MapLoader child={() => (
-            <Map
-              filter={filter}
-              searchInput={searchInput}
-              updateResults={this.updateResults}
-              setSelectMarkerCallback={this.setSelectMarkerCallback}
-            />
-          )}
+          <MapLoader
+            child={() => (
+              <Map
+                filter={filter}
+                searchInput={searchInput}
+                updateResults={this.updateResults}
+                setSelectMarkerCallback={this.setSelectMarkerCallback}
+              />
+            )}
           />
           <Results
             results={results}

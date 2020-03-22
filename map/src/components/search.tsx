@@ -7,19 +7,10 @@ interface Props {
 }
 
 class Search extends React.Component<Props, {}> {
-
   public render() {
-    const { className, updateSearchInput} = this.props;
-    return (
-      <input
-        className={className}
-        ref={updateSearchInput}
-        type='text'
-      />
-    );
+    const { className, updateSearchInput } = this.props;
+    return <input className={className} ref={updateSearchInput} type="text" />;
   }
 }
 
-export default styled(Search)`
-`;
-
+export default styled(Search)``;

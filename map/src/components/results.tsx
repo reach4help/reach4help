@@ -18,9 +18,8 @@ const Results = (props: Props) => {
           key={index}
           className="result"
           onClick={
-            selectMarkerCallback ?
-            (() => selectMarkerCallback(index)) : undefined
-}
+            selectMarkerCallback ? () => selectMarkerCallback(index) : undefined
+          }
         >
           <div>{index + 1}</div>
           <div>{result.contentTitle}</div>
@@ -28,10 +27,9 @@ const Results = (props: Props) => {
       ))}
     </div>
   );
-}
+};
 
 export default styled(Results)`
   width: 400px;
   background: #9f9;
 `;
-

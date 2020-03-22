@@ -26,11 +26,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "prettier": "prettier --check \"./**/*.{ts,tsx,js}\""
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "eslint . --fix --ext .js,.ts,.tsx",
+      "prettier --write",
       "git add"
     ],
     "*.md": [

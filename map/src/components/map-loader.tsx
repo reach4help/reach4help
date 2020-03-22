@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const REQUIRED_SCRIPTS = [
   'https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js',
-  'https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ywRBOAoyjwic5SzT9q3MPjLT1aibHO8&libraries=places'
-]
+  'https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ywRBOAoyjwic5SzT9q3MPjLT1aibHO8&libraries=places',
+];
 
 interface Props {
   className?: string;
@@ -20,16 +20,14 @@ interface State {
  * in the correct order.
  */
 class MapLoader extends React.Component<Props, State> {
-
   public constructor(props: Props) {
     super(props);
     this.state = {
-      loaded: false
+      loaded: false,
     };
   }
 
   componentDidMount(): void {
-
     let lastScript: HTMLScriptElement | null = null;
     for (const src of REQUIRED_SCRIPTS) {
       const script = document.createElement('script');
@@ -46,7 +44,7 @@ class MapLoader extends React.Component<Props, State> {
 
     if (lastScript) {
       lastScript.addEventListener('load', () => {
-        this.setState({loaded: true});
+        this.setState({ loaded: true });
       });
     }
   }
@@ -56,7 +54,7 @@ class MapLoader extends React.Component<Props, State> {
     const { child, className } = this.props;
     return (
       <div className={className}>
-        {loaded ? child() : (<span>Loading...</span>)}
+        {loaded ? child() : <span>Loading...</span>}
       </div>
     );
   }

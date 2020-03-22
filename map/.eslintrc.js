@@ -1,7 +1,5 @@
 module.exports = {
-  extends: [
-    '../.eslintrc-ts.js',
-  ],
+  extends: ['../.eslintrc-ts.js'],
   parserOptions: {
     project: 'tsconfig.json',
     ecmaFeatures: {
