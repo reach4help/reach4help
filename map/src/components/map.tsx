@@ -1,5 +1,5 @@
 import React from 'react';
-import {Filter} from 'src/data';
+import {Filter, SERVICES} from 'src/data';
 import styled from 'styled-components';
 import {MARKERS, MarkerInfo} from "../data/markers";
 
@@ -167,20 +167,7 @@ class Map extends React.Component<Props, {}> {
 
       const info = getInfo(marker);
 
-      let color: string;
-      const services = (marker.getTitle() || '').split(',')
-      if (services.includes('mobility')) {
-        color = '#742388'
-      } else if (services.includes('medicine')) {
-        color = '#4285F4'
-      } else if (services.includes('food')) {
-        color = '#DB4437'
-      } else if (services.includes('supplies')) {
-        color = '#0F9D58'
-      } else {
-        color = '#F4B400'
-      }
-
+      const {color} = SERVICES[info.services[0]];
       const mapBoundingBox = map.getBounds();
       if (mapBoundingBox) {
         const topRight = mapBoundingBox.getNorthEast();

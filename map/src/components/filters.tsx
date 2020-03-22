@@ -28,9 +28,9 @@ class Filters extends React.Component<Props, {}> {
         Service:
         <select onChange={this.changeService} value={filter.service || ''}>
           <option key='all' value=''>Any</option>
-          {Object.entries(SERVICES).map(([value, label]) => (
+          {Object.entries(SERVICES).map(([value, data]) => (
             <option key={value} value={value}>
-              {label}
+              {data.label}
             </option>
           ))}
         </select>

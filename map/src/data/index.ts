@@ -1,9 +1,24 @@
 export const SERVICES = {
-  food: 'Food',
-  supplies: 'Supplies',
-  aid: 'Aid',
-  mobility: 'Mobility',
-  medicine: 'Medicine'
+  food: {
+    label: 'Food',
+    color: '#DB4437',
+  },
+  supplies: {
+    label: 'Supplies',
+    color: '#0F9D58',
+  },
+  aid: {
+    label: 'Aid',
+    color: '#F4B400',
+  },
+  mobility: {
+    label: 'Mobility',
+    color: '#742388',
+  },
+  medicine: {
+    label: 'Medicine',
+    color: '#4285F4',
+  },
 } as const;
 
 export type Service = keyof typeof SERVICES;
