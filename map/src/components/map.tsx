@@ -128,62 +128,6 @@ class Map extends React.Component<Props, {}> {
         map.setZoom(18);
       });
 
-      // The Marker Cluster app doesn't have events for when it renders a single marker without a cluster.
-      // We want to piggyback on an existing event so that we can render a circle of influence
-      // when the marker cluster lib tells us it's singled out a marker.
-      marker.addListener('title_changed', () => {
-        // Save some processing juice here by skipping on hidden markers (based on a filter users select for service types)
-        if (!marker.getVisible()) {
-          return;
-        }
-        if (m.clustering?.state !== 'idle') {
-          return;
-        }
-
-        let color: string;
-        const services = (marker.getTitle() || '').split(',')
-        if (services.includes('mobility')) {
-          color = '#742388'
-        } else if (services.includes('medicine')) {
-          color = '#4285F4'
-        } else if (services.includes('food')) {
-          color = '#DB4437'
-        } else if (services.includes('supplies')) {
-          color = '#0F9D58'
-        } else {
-          color = '#F4B400'
-        }
-
-        const mapBoundingBox = map.getBounds();
-        if (mapBoundingBox) {
-          const topRight = mapBoundingBox.getNorthEast();
-          const bottomLeft = mapBoundingBox.getSouthWest();
-          const markerPosition = marker.getPosition();
-          const radius = location.serviceRadius;
-
-          // Now compare the distance from the marker to corners of the box;
-          if (markerPosition) {
-            const distanceToTopRight = this.haversineDistance(markerPosition, topRight);
-            const distanceToBottomLeft = this.haversineDistance(markerPosition, bottomLeft);
-
-            if (distanceToBottomLeft > radius || distanceToTopRight > radius) {
-              m.clustering.serviceCircles.push(new window.google.maps.Circle({
-                strokeColor: color,
-                strokeOpacity: 0.3,
-                strokeWeight: 1,
-                fillColor: color,
-                fillOpacity: 0.15,
-                map,
-                center: marker.getPosition() || undefined,
-                radius
-              }));
-            } else {
-              // TODO: Add to border of map instead of adding a circle
-            }
-          }
-        }
-      });
-
       return marker;
     });
 
@@ -192,6 +136,57 @@ class Map extends React.Component<Props, {}> {
       if (position)
         map.setCenter(position);
     }
+
+    const drawMarkerServiceArea = (marker: google.maps.Marker) => {
+      if (m.clustering?.state !== 'idle') {
+        return;
+      }
+
+      const info: MarkerInfo = marker.get('info');
+
+      let color: string;
+      const services = (marker.getTitle() || '').split(',')
+      if (services.includes('mobility')) {
+        color = '#742388'
+      } else if (services.includes('medicine')) {
+        color = '#4285F4'
+      } else if (services.includes('food')) {
+        color = '#DB4437'
+      } else if (services.includes('supplies')) {
+        color = '#0F9D58'
+      } else {
+        color = '#F4B400'
+      }
+
+      const mapBoundingBox = map.getBounds();
+      if (mapBoundingBox) {
+        const topRight = mapBoundingBox.getNorthEast();
+        const bottomLeft = mapBoundingBox.getSouthWest();
+        const markerPosition = marker.getPosition();
+        const radius = info.serviceRadius;
+
+        // Now compare the distance from the marker to corners of the box;
+        if (markerPosition) {
+          const distanceToTopRight = this.haversineDistance(markerPosition, topRight);
+          const distanceToBottomLeft = this.haversineDistance(markerPosition, bottomLeft);
+
+          if (distanceToBottomLeft > radius || distanceToTopRight > radius) {
+            m.clustering.serviceCircles.push(new window.google.maps.Circle({
+              strokeColor: color,
+              strokeOpacity: 0.3,
+              strokeWeight: 1,
+              fillColor: color,
+              fillOpacity: 0.15,
+              map,
+              center: marker.getPosition() || undefined,
+              radius
+            }));
+          } else {
+            // TODO: Add to border of map instead of adding a circle
+          }
+        }
+      }
+    };
 
     // Add a marker clusterer to manage the markers.
     const markerCluster = new MarkerClusterer(map, markers, {
@@ -213,6 +208,7 @@ class Map extends React.Component<Props, {}> {
 
     // The clusters have been computed so we can
     markerCluster.addListener('clusteringend', (newClusterParent: MarkerClusterer) => {
+      console.log('clusteringend');
       m.clustering = {
         state: 'idle',
         serviceCircles: []
@@ -232,7 +228,7 @@ class Map extends React.Component<Props, {}> {
 
         // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
         if (maxMarker) {
-          maxMarker.setTitle(maxMarker.getTitle() || null) // Trigger Radius Drawing on max radius marker for the cluster
+          drawMarkerServiceArea(maxMarker);
         }
       });
 
