@@ -1,4 +1,6 @@
 import React from 'react';
+import isEqual from 'lodash/isEqual';
+
 import {Filter, SERVICES} from 'src/data';
 import styled from 'styled-components';
 import {MARKERS, MarkerInfo} from "../data/markers";
@@ -19,6 +21,11 @@ interface Props {
 interface MapInfo {
   map: google.maps.Map;
   markers: google.maps.Marker[];
+  markerClusterer: MarkerClusterer;
+  /**
+   * The filter that is currently being used to display the markers on the map
+   */
+  currentFilter: Filter;
   clustering?: {
     state: 'idle';
     /** The circles we rendered for the current visible markers */
@@ -45,12 +52,32 @@ function getInfo(marker: google.maps.Marker): MarkerInfo {
   return marker.get('info');
 }
 
+function updateMarkersVisiblility(markers: google.maps.Marker[], filter: Filter) {
+  for (const marker of markers) {
+    const info = getInfo(marker);
+    const visible =
+      !filter.service || info.services.includes(filter.service);
+      marker.setVisible(visible);
+  }
+}
+
 class Map extends React.Component<Props, {}> {
+
+  private map: MapInfo | null = null;
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
+  public componentDidUpdate() {
+    const { filter } = this.props;
+    if (this.map && !isEqual(filter, this.map.currentFilter)) {
+      updateMarkersVisiblility(this.map.markers, filter);
+      this.map.markerClusterer.repaint();
+      this.map.currentFilter = filter;
+    }
+  }
+
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
-    const { setSelectMarkerCallback } = this.props;
+    const { filter, setSelectMarkerCallback } = this.props;
     if (!ref) {
       setSelectMarkerCallback(null);
       return;
@@ -65,10 +92,21 @@ class Map extends React.Component<Props, {}> {
       return marker;
     });
 
+    // Add a marker clusterer to manage the markers.
+    const markerClusterer = new MarkerClusterer(map, markers, {
+      imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+      ignoreHidden: true,
+      averageCenter: true,
+      gridSize: 30
+    });
+
     const m: MapInfo = {
       map,
-      markers
+      markers,
+      currentFilter: filter,
+      markerClusterer
     };
+    this.map = m;
 
     setSelectMarkerCallback(index => {
       if (m.clustering?.state === 'idle') {
@@ -78,6 +116,8 @@ class Map extends React.Component<Props, {}> {
         }
       }
     });
+
+    updateMarkersVisiblility(markers, filter);
 
     // This also likely needs a separate service
     // // Create the search box and link it to the UI element.
@@ -198,16 +238,8 @@ class Map extends React.Component<Props, {}> {
       }
     };
 
-    // Add a marker clusterer to manage the markers.
-    const markerCluster = new MarkerClusterer(map, markers, {
-      imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-      ignoreHidden: true,
-      averageCenter: true,
-      gridSize: 30
-    });
-
     // Set up event listeners to tell us when the map has started refreshing.
-    markerCluster.addListener('clusteringbegin', () => {
+    markerClusterer.addListener('clusteringbegin', () => {
       if (m.clustering?.state === 'idle') {
         m.clustering.serviceCircles.forEach(circle => {
           circle.setMap(null);
@@ -217,7 +249,7 @@ class Map extends React.Component<Props, {}> {
     });
 
     // The clusters have been computed so we can
-    markerCluster.addListener('clusteringend', (newClusterParent: MarkerClusterer) => {
+    markerClusterer.addListener('clusteringend', (newClusterParent: MarkerClusterer) => {
       m.clustering = {
         state: 'idle',
         serviceCircles: [],
@@ -280,11 +312,9 @@ class Map extends React.Component<Props, {}> {
   };
 
   public render() {
-    const {className, filter} = this.props;
+    const {className} = this.props;
     return (
-      <div className={className} id="google-map" ref={this.updateGoogleMapRef}>
-        {filter.service}
-      </div>
+      <div className={className} id="google-map" ref={this.updateGoogleMapRef} />
     )
   }
 }
