@@ -104,6 +104,7 @@ class Map extends React.Component<Props, {}> {
               `<div id="bodyContent">${location.contentBody}</div>` +
               '<div>' +
               '<hr>' +
+              `<p>Website: <a href="${location.contact.web}">${location.contact.web}</a></p>` +
               `<p>Email: <a href="mailto:${location.contact.email}">${location.contact.email}</a></p>` +
               `<p>Phone: <a href="tel:${location.contact.phone}">${location.contact.phone}</a></p>` +
               '<div>' +
