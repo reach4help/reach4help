@@ -225,21 +225,27 @@ class Map extends React.Component<Props, {}> {
       };
 
       for(const cluster of newClusterParent.getClusters()) {
-        const maxMarkerRadius = 0;
-        let maxMarker: google.maps.Marker | null = null;
+        let maxMarker: {
+          marker: google.maps.Marker;
+          serviceRadius: number;
+        } | null = null;
 
         // Figure out which marker in each cluster will generate a circle.
         for (const marker of cluster.getMarkers()) {
           // Update maxMarker to higher value if found.
           const info = getInfo(marker);
-          const newPotentialMaxMarkerRadius = Math.max(maxMarkerRadius, info.serviceRadius);
-          maxMarker = newPotentialMaxMarkerRadius > maxMarkerRadius ? marker : maxMarker;
+          if (!maxMarker || maxMarker.serviceRadius < info.serviceRadius) {
+            maxMarker = {
+              marker,
+              serviceRadius: info.serviceRadius
+            };
+          }
           m.clustering.visibleMarkers.push(marker);
         }
 
         // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
         if (maxMarker) {
-          drawMarkerServiceArea(maxMarker);
+          drawMarkerServiceArea(maxMarker.marker);
         }
       }
 
