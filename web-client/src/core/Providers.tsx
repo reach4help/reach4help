@@ -1,16 +1,14 @@
 import { Provider } from 'react-redux';
 import React, { ReactNode } from 'react'
-import { createStore } from 'redux';
 import PropTypes from 'prop-types';
-import rootReducer from './core/rootReducer';
-
+import configureStore from '../store';
 
 interface ProvidersProps {
     children: ReactNode;
 }
 
 const Providers: React.SFC<ProvidersProps> = ({ children }) => {
-    const store = createStore(rootReducer)
+    const store = configureStore()
     return <Provider store={store}>{children}</Provider>;
 }
 
