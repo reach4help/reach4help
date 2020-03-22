@@ -197,13 +197,7 @@ class Map extends React.Component<Props, {}> {
       }
 
       const info = getInfo(marker);
-
-      let color;
-      if (m.currentFilter.service) {
-        color = SERVICES[m.currentFilter.service].color;
-      } else {
-        color = SERVICES[info.services[0]].color;
-      }
+      const {color} = SERVICES[m.currentFilter.service || info.services[0]];
 
       const mapBoundingBox = map.getBounds();
       if (mapBoundingBox) {
