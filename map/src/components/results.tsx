@@ -1,15 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MarkerInfo } from 'src/data/markers';
 
 interface Props {
   className?: string;
+  results: MarkerInfo[];
 }
 
 const Results = (props: Props) => {
-  const {className} = props;
+  const { className, results} = props;
   return (
     <div className={className}>
-      Results
+      {results.map((result, index) => (
+        <div key={index} className="result">
+          <div>{index + 1}</div>
+          <div>{result.contentTitle}</div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -17,7 +24,5 @@ const Results = (props: Props) => {
 export default styled(Results)`
   width: 400px;
   background: #9f9;
-  font-size: 70px;
-  text-align: center;
 `;
 

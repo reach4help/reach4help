@@ -7,6 +7,7 @@ import Filters, { FilterMutator } from './components/filters';
 import Map from './components/map';
 import Results from './components/results';
 import MapLoader from './components/map-loader';
+import { MarkerInfo } from './data/markers';
 
 interface Props {
   className?: string;
@@ -14,6 +15,7 @@ interface Props {
 
 interface State {
   filter: Filter;
+  results: MarkerInfo[];
 }
 
 class App extends React.Component<Props, State> {
@@ -21,7 +23,8 @@ class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      filter: {}
+      filter: {},
+      results: []
     };
   }
 
@@ -29,9 +32,13 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({filter: mutator(state.filter)}))
   }
 
+  private updateResults = (results: MarkerInfo[]) => {
+    this.setState({results});
+  }
+
   public render() {
     const {className} = this.props;
-    const {filter} = this.state;
+    const { filter, results } = this.state;
     return (
       <div className={className}>
         <header>
@@ -40,10 +47,10 @@ class App extends React.Component<Props, State> {
         </header>
         <main>
           <MapLoader child={() => (
-            <Map filter={filter} />
+            <Map filter={filter} updateResults={this.updateResults} />
           )}
           />
-          <Results />
+          <Results results={results} />
         </main>
       </div>
     );

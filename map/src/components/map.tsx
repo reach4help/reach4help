@@ -6,6 +6,7 @@ import {MARKERS, MarkerInfo} from "../data/markers";
 interface Props {
   className?: string;
   filter: Filter;
+  updateResults: (results: MarkerInfo[]) => void;
 }
 
 interface MapInfo {
@@ -44,7 +45,6 @@ class Map extends React.Component<Props, {}> {
     const markers = MARKERS.map(info => {
       const marker = new window.google.maps.Marker({
         position: info,
-        label: info.label,
         title: info.services.join(',')
       });
       marker.set('info', info);
@@ -208,11 +208,14 @@ class Map extends React.Component<Props, {}> {
 
     // The clusters have been computed so we can
     markerCluster.addListener('clusteringend', (newClusterParent: MarkerClusterer) => {
-      console.log('clusteringend');
       m.clustering = {
         state: 'idle',
         serviceCircles: []
       };
+      const visibleMarkers: Array<{
+        marker: google.maps.Marker;
+        info: MarkerInfo;
+      }> = [];
 
       newClusterParent.getClusters().forEach(cluster => {
         const maxMarkerRadius = 0;
@@ -224,6 +227,7 @@ class Map extends React.Component<Props, {}> {
           const info = marker.get('info') as MarkerInfo;
           const newPotentialMaxMarkerRadius = Math.max(maxMarkerRadius, info.serviceRadius);
           maxMarker = newPotentialMaxMarkerRadius > maxMarkerRadius ? marker : maxMarker;
+          visibleMarkers.push({marker, info});
         }
 
         // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
@@ -232,35 +236,18 @@ class Map extends React.Component<Props, {}> {
         }
       });
 
-      // Commented out as this is likely handled via react reducers and stuff I don't understand :P
-      // // Prepare HTML content for side list view
-      // let newListContent = '';
-      // // Rebuild list using currently visible markers
-      // this.visibleMarkers.forEach((marker: any) => {
-      //   const location = MARKERS[marker.getLabel()];
-      //
-      //   newListContent +=
-      //       '<a onclick="window.sourcecode.activateMarker(' + marker.getLabel() + ');" class="list-group-item list-group-item-action flex-column align-items-start">' +
-      //       '<div class="d-flex w-100 justify-content-between">' +
-      //       '<h5 class="mb-1">' + location.label + ': ' + location.contentTitle + '</h5>' +
-      //       '<small class="text-muted">' + location.types.join(', ') + '</small>' +
-      //       '</div >' +
-      //       '<p class="mb-1">' + location.contentBody + '</p>' +
-      //       '</a >'
-      // })
-      //
-      // // In case there aren't any visible markers show a friendly message
-      // if (!newListContent) {
-      //   newListContent = '<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">' +
-      //       '<div class="d-flex w-100 justify-content-between">' +
-      //       '<h5 class="mb-1">No Locations Found</h5>' +
-      //       '</div >' +
-      //       '<p class="mb-1">Try looking at a different area of the map</p>' +
-      //       '</a >'
-      // }
-      //
-      // // Refresh the HTML element on the right scroll view
-      // $("#visible-markers").html(newListContent);
+      // Clear all marker labels
+      for (const marker of markers) {
+        marker.setLabel('');
+      }
+
+      // Update labels of markers to be based on index in visibleMarkers
+      visibleMarkers.forEach(({marker}, index) => {
+        marker.setLabel((index + 1).toString());
+      });
+
+      const { updateResults } = this.props;
+      updateResults(visibleMarkers.map(marker => marker.info));
     });
   };
 
