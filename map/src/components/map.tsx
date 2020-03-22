@@ -41,7 +41,7 @@ class Map extends React.Component<Props, {}> {
       return;
     }
     const map = createGoogleMap(ref);
-    const markers = Object.values(MARKERS).map(info => {
+    const markers = MARKERS.map(info => {
       const marker = new window.google.maps.Marker({
         position: info,
         label: info.label,
