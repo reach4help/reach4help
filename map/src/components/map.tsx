@@ -3,10 +3,17 @@ import {Filter} from 'src/data';
 import styled from 'styled-components';
 import {MARKERS, MarkerInfo} from "../data/markers";
 
+export type SelectMarkerCallback = ((marker: number) => void) | null;
+
 interface Props {
   className?: string;
   filter: Filter;
   updateResults: (results: MarkerInfo[]) => void;
+  /**
+   * Set a callback that expects the index from the results array representing
+   * the marker that has been selected;
+   */
+  setSelectMarkerCallback: (callback: SelectMarkerCallback) => void;
 }
 
 interface MapInfo {
@@ -16,6 +23,7 @@ interface MapInfo {
     state: 'idle';
     /** The circles we rendered for the current visible markers */
     serviceCircles: google.maps.Circle[];
+    visibleMarkers: google.maps.Marker[];
   } | {
     /** A clustering is in progress */
     state: 'active';
@@ -33,12 +41,18 @@ function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
   });
 };
 
+function getInfo(marker: google.maps.Marker): MarkerInfo {
+  return marker.get('info');
+}
+
 class Map extends React.Component<Props, {}> {
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
+    const { setSelectMarkerCallback } = this.props;
     if (!ref) {
+      setSelectMarkerCallback(null);
       return;
     }
     const map = createGoogleMap(ref);
@@ -55,6 +69,15 @@ class Map extends React.Component<Props, {}> {
       map,
       markers
     };
+
+    setSelectMarkerCallback(index => {
+      if (m.clustering?.state === 'idle') {
+        const marker = m.clustering.visibleMarkers[index];
+        if (marker) {
+          google.maps.event.trigger(marker, 'click');
+        }
+      }
+    });
 
     // This also likely needs a separate service
     // // Create the search box and link it to the UI element.
@@ -95,7 +118,7 @@ class Map extends React.Component<Props, {}> {
     // This pretty much orchestrates everything since the map is the main interaction window
     markers.forEach(marker => {
 
-      const location = marker.get('info') as MarkerInfo;
+      const location = getInfo(marker);
 
       marker.addListener('click', () => {
         const contentString = '<div id="content">' +
@@ -142,7 +165,7 @@ class Map extends React.Component<Props, {}> {
         return;
       }
 
-      const info: MarkerInfo = marker.get('info');
+      const info = getInfo(marker);
 
       let color: string;
       const services = (marker.getTitle() || '').split(',')
@@ -210,31 +233,28 @@ class Map extends React.Component<Props, {}> {
     markerCluster.addListener('clusteringend', (newClusterParent: MarkerClusterer) => {
       m.clustering = {
         state: 'idle',
-        serviceCircles: []
+        serviceCircles: [],
+        visibleMarkers: []
       };
-      const visibleMarkers: Array<{
-        marker: google.maps.Marker;
-        info: MarkerInfo;
-      }> = [];
 
-      newClusterParent.getClusters().forEach(cluster => {
+      for(const cluster of newClusterParent.getClusters()) {
         const maxMarkerRadius = 0;
         let maxMarker: google.maps.Marker | null = null;
 
         // Figure out which marker in each cluster will generate a circle.
         for (const marker of cluster.getMarkers()) {
           // Update maxMarker to higher value if found.
-          const info = marker.get('info') as MarkerInfo;
+          const info = getInfo(marker);
           const newPotentialMaxMarkerRadius = Math.max(maxMarkerRadius, info.serviceRadius);
           maxMarker = newPotentialMaxMarkerRadius > maxMarkerRadius ? marker : maxMarker;
-          visibleMarkers.push({marker, info});
+          m.clustering.visibleMarkers.push(marker);
         }
 
         // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
         if (maxMarker) {
           drawMarkerServiceArea(maxMarker);
         }
-      });
+      }
 
       // Clear all marker labels
       for (const marker of markers) {
@@ -242,12 +262,12 @@ class Map extends React.Component<Props, {}> {
       }
 
       // Update labels of markers to be based on index in visibleMarkers
-      visibleMarkers.forEach(({marker}, index) => {
+      m.clustering.visibleMarkers.forEach((marker, index) => {
         marker.setLabel((index + 1).toString());
       });
 
       const { updateResults } = this.props;
-      updateResults(visibleMarkers.map(marker => marker.info));
+      updateResults(m.clustering.visibleMarkers.map(marker => getInfo(marker)));
     });
   };
 
