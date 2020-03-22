@@ -29,15 +29,15 @@ interface MapInfo {
   currentFilter: Filter;
   clustering?:
     | {
-    state: 'idle';
-    /** The circles we rendered for the current visible markers */
-    serviceCircles: google.maps.Circle[];
-    visibleMarkers: google.maps.Marker[];
-  }
+        state: 'idle';
+        /** The circles we rendered for the current visible markers */
+        serviceCircles: google.maps.Circle[];
+        visibleMarkers: google.maps.Marker[];
+      }
     | {
-    /** A clustering is in progress */
-    state: 'active';
-  };
+        /** A clustering is in progress */
+        state: 'active';
+      };
 }
 
 function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
@@ -197,7 +197,7 @@ class Map extends React.Component<Props, {}> {
       }
 
       const info = getInfo(marker);
-      const {color} = SERVICES[(m.currentFilter && m.currentFilter.service) || info.services[0]];
+      const { color } = SERVICES[m.currentFilter.service || info.services[0]];
 
       const mapBoundingBox = map.getBounds();
       if (mapBoundingBox) {
