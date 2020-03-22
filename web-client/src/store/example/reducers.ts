@@ -8,10 +8,10 @@ export const exampleReducer = (state: ExampleState = initialState, action: Examp
     const nextState = { ...state };
     switch (action.type) {
         case INCREMENT:
-            nextState.value = + 1
+            nextState.value += 1
             return nextState
         case DECREMENT:
-            nextState.value = - 1
+            nextState.value -= 1
             return nextState
         case SUM:
             nextState.value += action.payload.value

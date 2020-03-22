@@ -1,19 +1,19 @@
 import { INCREMENT, DECREMENT, SUM } from './types';
 
 
-export function increment() {
+export function incrementAction() {
     return {
         type: INCREMENT,
     };
 }
 
-export function decrement() {
+export function decrementAction() {
     return {
         type: DECREMENT,
     };
 }
 
-export function sum(value: number) {
+export function sumAction(value: number) {
     return {
         type: SUM,
         payload: {
