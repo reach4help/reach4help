@@ -29,15 +29,15 @@ interface MapInfo {
   currentFilter: Filter;
   clustering?:
     | {
-        state: 'idle';
-        /** The circles we rendered for the current visible markers */
-        serviceCircles: google.maps.Circle[];
-        visibleMarkers: google.maps.Marker[];
-      }
+    state: 'idle';
+    /** The circles we rendered for the current visible markers */
+    serviceCircles: google.maps.Circle[];
+    visibleMarkers: google.maps.Marker[];
+  }
     | {
-        /** A clustering is in progress */
-        state: 'active';
-      };
+    /** A clustering is in progress */
+    state: 'active';
+  };
 }
 
 function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
