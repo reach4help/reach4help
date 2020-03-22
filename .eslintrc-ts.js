@@ -29,6 +29,7 @@ module.exports = {
     ],
     'import/no-unresolved': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    'no-restricted-syntax': 'off',
   },
   'settings': {
     'import/parsers': {

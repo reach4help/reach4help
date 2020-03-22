@@ -6,6 +6,7 @@ import { Filter } from './data';
 import Filters, { FilterMutator } from './components/filters';
 import Map from './components/map';
 import Results from './components/results';
+import MapLoader from './components/map-loader';
 
 interface Props {
   className?: string;
@@ -38,7 +39,10 @@ class App extends React.Component<Props, State> {
           <Filters filter={filter} updateFilter={this.updateFilter} />
         </header>
         <main>
-          <Map filter={filter} />
+          <MapLoader child={() => (
+            <Map filter={filter} />
+          )}
+          />
           <Results />
         </main>
       </div>

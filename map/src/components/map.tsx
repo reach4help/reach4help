@@ -1,266 +1,274 @@
 import React from 'react';
-import styled from 'styled-components';
 import {Filter} from 'src/data';
-import {MARKERS} from "../data/markers";
+import styled from 'styled-components';
+import {MARKERS, MarkerInfo} from "../data/markers";
 
 interface Props {
   className?: string;
   filter: Filter;
 }
 
+interface MapInfo {
+  map: google.maps.Map;
+  markers: google.maps.Marker[];
+  clustering?: {
+    state: 'idle';
+    /** The circles we rendered for the current visible markers */
+    serviceCircles: google.maps.Circle[];
+  } | {
+    /** A clustering is in progress */
+    state: 'active';
+  };
+};
+
+function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
+  return new google.maps.Map(ref, {
+    zoom: 3,
+    center: { lat: -28.024, lng: 140.887 },
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    streetViewControl: false,
+    clickableIcons: false,
+    mapTypeControl: false
+  });
+};
+
 class Map extends React.Component<Props, {}> {
-  private readonly googleMapRef: React.RefObject<any>;
 
-  private map: any;
+  private infoWindow: google.maps.InfoWindow | null = null;
 
-  private markers: any[] = [];
-
-  private serviceCircles: any[] = [];
-
-  private markerCluster: any = null;
-
-  private visibleMarkers: any = [];
-
-  private infoWindow: any = null;
-
-  private activeMarker: any = null;
-
-
-  constructor(props: Props) {
-    super(props);
-    this.googleMapRef = React.createRef();
-  }
-
-  componentDidMount(): void {
-
-    const googleMapScript = document.createElement('script');
-    googleMapScript.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ywRBOAoyjwic5SzT9q3MPjLT1aibHO8&libraries=places'
-
-    const clusterLibScript = document.createElement('script');
-    clusterLibScript.src = 'https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js';
-
-    // Load the scripts in order
-    window.document.body.appendChild(clusterLibScript);
-    clusterLibScript.addEventListener('load', () => {
-      window.document.body.appendChild(googleMapScript);
+  private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
+    if (!ref) {
+      return;
+    }
+    const map = createGoogleMap(ref);
+    const markers = Object.values(MARKERS).map(info => {
+      const marker = new window.google.maps.Marker({
+        position: info,
+        label: info.label,
+        title: info.services.join(',')
+      });
+      marker.set('info', info);
+      return marker;
     });
 
-    googleMapScript.addEventListener('load', () => {
-      this.map = this.createGoogleMap();
+    const m: MapInfo = {
+      map,
+      markers
+    };
 
-      // This also likely needs a separate service
-      // // Create the search box and link it to the UI element.
-      // if (this.map) {
-      //   const input = document.getElementById('address-input');
-      //   // @ts-ignore
-      //   const searchBox = new window.google.maps.places.SearchBox(input);
-      //
-      //   this.map.addListener('bounds_changed', () => {
-      //     searchBox.setBounds(this.map.getBounds());
-      //   });
-      //
-      //   searchBox.addListener('places_changed', () => {
-      //     const places = searchBox.getPlaces();
-      //     // @ts-ignore
-      //     const bounds = new window.google.maps.LatLngBounds();
-      //
-      //     if (places.length === 0) {
-      //       return;
-      //     }
-      //
-      //     places.forEach((place: any) => {
-      //       if (!place.geometry) {
-      //         console.log("Returned place contains no geometry");
-      //         return;
-      //       }
-      //
-      //       if (place.geometry.viewport) {
-      //         bounds.union(place.geometry.viewport);
-      //       } else {
-      //         bounds.extend(place.geometry.location);
-      //       }
-      //     });
-      //
-      //     this.map.fitBounds(bounds);
-      //   })
-      // }
+    // This also likely needs a separate service
+    // // Create the search box and link it to the UI element.
+    // if (this.map) {
+    //   const input = document.getElementById('address-input');
+    //   const searchBox = new window.google.maps.places.SearchBox(input);
+    //
+    //   this.map.addListener('bounds_changed', () => {
+    //     searchBox.setBounds(this.map.getBounds());
+    //   });
+    //
+    //   searchBox.addListener('places_changed', () => {
+    //     const places = searchBox.getPlaces();
+    //     const bounds = new window.google.maps.LatLngBounds();
+    //
+    //     if (places.length === 0) {
+    //       return;
+    //     }
+    //
+    //     places.forEach((place: any) => {
+    //       if (!place.geometry) {
+    //         console.log("Returned place contains no geometry");
+    //         return;
+    //       }
+    //
+    //       if (place.geometry.viewport) {
+    //         bounds.union(place.geometry.viewport);
+    //       } else {
+    //         bounds.extend(place.geometry.location);
+    //       }
+    //     });
+    //
+    //     this.map.fitBounds(bounds);
+    //   })
+    // }
 
-      // We iterate over all locations to create markers
-      // This pretty much orchestrates everything since the map is the main interaction window
-      this.markers = Object.values(MARKERS).map((location) => {
-        // @ts-ignore
-        const marker = new window.google.maps.Marker({
-          position: location,
-          label: location.label,
-          // @ts-ignore
-          title: location.services.join(',')
-        });
+    // We iterate over all locations to create markers
+    // This pretty much orchestrates everything since the map is the main interaction window
+    markers.forEach(marker => {
 
-        marker.addListener('click', () => {
-          const contentString = '<div id="content">' +
-              '<div id="siteNotice">' +
-              '</div>' +
-              `<h1 id="firstHeading" class="firstHeading">${location.contentTitle}</h1>` +
-              `<div id="bodyContent">${location.contentBody}</div>` +
-              '<div>' +
-              '<hr>' +
-              `<p>Website: <a href="${location.contact.web}">${location.contact.web}</a></p>` +
-              `<p>Email: <a href="mailto:${location.contact.email}">${location.contact.email}</a></p>` +
-              `<p>Phone: <a href="tel:${location.contact.phone}">${location.contact.phone}</a></p>` +
-              '<div>' +
-              '</div>';
+      const location = marker.get('info') as MarkerInfo;
 
-          // Reuse the info window or not
-          if (this.infoWindow && this.infoWindow.setContent) {
-            this.infoWindow.open(this.map, marker);
-            this.infoWindow.setContent(contentString)
-          } else {
-            // @ts-ignore
-            this.infoWindow = new window.google.maps.InfoWindow({
-              content: contentString
-            });
-            this.infoWindow.open(this.map, marker);
-          }
+      marker.addListener('click', () => {
+        const contentString = '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            `<h1 id="firstHeading" class="firstHeading">${location.contentTitle}</h1>` +
+            `<div id="bodyContent">${location.contentBody}</div>` +
+            '<div>' +
+            '<hr>' +
+            `<p>Website: <a href="${location.contact.web}">${location.contact.web}</a></p>` +
+            `<p>Email: <a href="mailto:${location.contact.email}">${location.contact.email}</a></p>` +
+            `<p>Phone: <a href="tel:${location.contact.phone}">${location.contact.phone}</a></p>` +
+            '<div>' +
+            '</div>';
 
-          this.map.panTo(marker.getPosition())
-          this.map.setZoom(18)
-        });
+        // Reuse the info window or not
+        if (this.infoWindow && this.infoWindow.setContent) {
+          this.infoWindow.open(map, marker);
+          this.infoWindow.setContent(contentString)
+        } else {
+          this.infoWindow = new window.google.maps.InfoWindow({
+            content: contentString
+          });
+          this.infoWindow.open(map, marker);
+        }
 
-        // The Marker Cluster app doesn't have events for when it renders a single marker without a cluster.
-        // We want to piggyback on an existing event so that we can render a circle of influence
-        // when the marker cluster lib tells us it's singled out a marker.
-        marker.addListener('title_changed', () => {
-          // Save some processing juice here by skipping on hidden markers (based on a filter users select for service types)
-          if (!marker.getVisible()) {
-            return;
-          }
+        const pos = marker.getPosition();
+        if (pos)
+          map.panTo(pos);
+        map.setZoom(18);
+      });
 
-          let color: string;
-          const services = marker.title.split(',')
-          if (services.indexOf('mobility') !== -1) {
-            color = '#742388'
-          } else if (services.indexOf('medicine') !== -1) {
-            color = '#4285F4'
-          } else if (services.indexOf('food') !== -1) {
-            color = '#DB4437'
-          } else if (services.indexOf('supplies') !== -1) {
-            color = '#0F9D58'
-          } else {
-            color = '#F4B400'
-          }
+      // The Marker Cluster app doesn't have events for when it renders a single marker without a cluster.
+      // We want to piggyback on an existing event so that we can render a circle of influence
+      // when the marker cluster lib tells us it's singled out a marker.
+      marker.addListener('title_changed', () => {
+        // Save some processing juice here by skipping on hidden markers (based on a filter users select for service types)
+        if (!marker.getVisible()) {
+          return;
+        }
+        if (m.clustering?.state !== 'idle') {
+          return;
+        }
 
-          const mapBoundingBox = this.map.getBounds();
+        let color: string;
+        const services = (marker.getTitle() || '').split(',')
+        if (services.includes('mobility')) {
+          color = '#742388'
+        } else if (services.includes('medicine')) {
+          color = '#4285F4'
+        } else if (services.includes('food')) {
+          color = '#DB4437'
+        } else if (services.includes('supplies')) {
+          color = '#0F9D58'
+        } else {
+          color = '#F4B400'
+        }
+
+        const mapBoundingBox = map.getBounds();
+        if (mapBoundingBox) {
           const topRight = mapBoundingBox.getNorthEast();
           const bottomLeft = mapBoundingBox.getSouthWest();
-          const markerPosition = marker.position;
+          const markerPosition = marker.getPosition();
           const radius = location.serviceRadius;
 
           // Now compare the distance from the marker to corners of the box;
-          const distanceToTopRight = this.haversineDistance(markerPosition, topRight);
-          const distanceToBottomLeft = this.haversineDistance(markerPosition, bottomLeft);
+          if (markerPosition) {
+            const distanceToTopRight = this.haversineDistance(markerPosition, topRight);
+            const distanceToBottomLeft = this.haversineDistance(markerPosition, bottomLeft);
 
-          if (distanceToBottomLeft > radius || distanceToTopRight > radius) {
-            // @ts-ignore
-            this.serviceCircles.push(new window.google.maps.Circle({
-              strokeColor: color,
-              strokeOpacity: 0.3,
-              strokeWeight: 1,
-              fillColor: color,
-              fillOpacity: 0.15,
-              map: this.map,
-              center: marker.position,
-              radius
-            }));
-          } else {
-            // TODO: Add to border of map instead of adding a circle
+            if (distanceToBottomLeft > radius || distanceToTopRight > radius) {
+              m.clustering.serviceCircles.push(new window.google.maps.Circle({
+                strokeColor: color,
+                strokeOpacity: 0.3,
+                strokeWeight: 1,
+                fillColor: color,
+                fillOpacity: 0.15,
+                map,
+                center: marker.getPosition() || undefined,
+                radius
+              }));
+            } else {
+              // TODO: Add to border of map instead of adding a circle
+            }
           }
-        });
-
-        return marker;
+        }
       });
 
-      if (this.markers.length) {
-        this.map.setCenter(this.markers[0].getPosition());
+      return marker;
+    });
+
+    if (markers.length) {
+      const position = markers[0].getPosition();
+      if (position)
+        map.setCenter(position);
+    }
+
+    // Add a marker clusterer to manage the markers.
+    const markerCluster = new MarkerClusterer(map, markers, {
+      imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+      ignoreHidden: true,
+      averageCenter: true,
+      gridSize: 30
+    });
+
+    // Set up event listeners to tell us when the map has started refreshing.
+    markerCluster.addListener('clusteringbegin', () => {
+      if (m.clustering?.state === 'idle') {
+        m.clustering.serviceCircles.forEach(circle => {
+          circle.setMap(null);
+        });
       }
+      // $("#visible-markers").html('<h2>Loading List View ... </h2>');
+    });
 
-      // Add a marker clusterer to manage the markers.
-      // @ts-ignore
-      this.markerCluster = new MarkerClusterer(this.map, this.markers, {
-        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-        ignoreHidden: true,
-        averageCenter: true,
-        gridSize: 30
+    // The clusters have been computed so we can
+    markerCluster.addListener('clusteringend', (newClusterParent: MarkerClusterer) => {
+      m.clustering = {
+        state: 'idle',
+        serviceCircles: []
+      };
+
+      newClusterParent.getClusters().forEach(cluster => {
+        const maxMarkerRadius = 0;
+        let maxMarker: google.maps.Marker | null = null;
+
+        // Figure out which marker in each cluster will generate a circle.
+        for (const marker of cluster.getMarkers()) {
+          // Update maxMarker to higher value if found.
+          const info = marker.get('info') as MarkerInfo;
+          const newPotentialMaxMarkerRadius = Math.max(maxMarkerRadius, info.serviceRadius);
+          maxMarker = newPotentialMaxMarkerRadius > maxMarkerRadius ? marker : maxMarker;
+        }
+
+        // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
+        if (maxMarker) {
+          maxMarker.setTitle(maxMarker.getTitle() || null) // Trigger Radius Drawing on max radius marker for the cluster
+        }
       });
 
-      // Set up event listeners to tell us when the map has started refreshing.
-      this.markerCluster.addListener('clusteringbegin', (mc: any) => {
-        // $("#visible-markers").html('<h2>Loading List View ... </h2>');
-
-        this.serviceCircles.forEach(function (circle) {
-          // Check this first since not everything we put into serviceCircles is a valid circle object, some may be null
-          if (circle.setMap) {
-            circle.setMap(null);
-          }
-        })
-      });
-
-      // The clusters have been computed so we can
-      this.markerCluster.addListener('clusteringend', (newClusterParent: any) => {
-        this.visibleMarkers = [];
-        this.serviceCircles = [];
-
-        newClusterParent.getClusters().forEach((cluster: any) => {
-          const maxMarkerRadius = 0;
-          let maxMarker: any;
-
-          // Figure out which marker in each cluster will generate a circle.
-          cluster.getMarkers().forEach((singleMarker: any) => {
-            // Update maxMarker to higher value if found.
-            const newPotentialMaxMarkerRadius = Math.max(maxMarkerRadius, MARKERS[singleMarker.label].serviceRadius);
-            maxMarker = newPotentialMaxMarkerRadius > maxMarkerRadius ? singleMarker : maxMarker;
-            this.visibleMarkers.push(singleMarker); // Register it so we can clear or manipulate it later
-          });
-
-          // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
-          if (maxMarker) {
-            maxMarker.setTitle(maxMarker.getTitle()) // Trigger Radius Drawing on max radius marker for the cluster
-          }
-        });
-
-        // Commented out as this is likely handled via react reducers and stuff I don't understand :P
-        // // Prepare HTML content for side list view
-        // let newListContent = '';
-        // // Rebuild list using currently visible markers
-        // this.visibleMarkers.forEach((marker: any) => {
-        //   const location = MARKERS[marker.getLabel()];
-        //
-        //   newListContent +=
-        //       '<a onclick="window.sourcecode.activateMarker(' + marker.getLabel() + ');" class="list-group-item list-group-item-action flex-column align-items-start">' +
-        //       '<div class="d-flex w-100 justify-content-between">' +
-        //       '<h5 class="mb-1">' + location.label + ': ' + location.contentTitle + '</h5>' +
-        //       '<small class="text-muted">' + location.types.join(', ') + '</small>' +
-        //       '</div >' +
-        //       '<p class="mb-1">' + location.contentBody + '</p>' +
-        //       '</a >'
-        // })
-        //
-        // // In case there aren't any visible markers show a friendly message
-        // if (!newListContent) {
-        //   newListContent = '<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">' +
-        //       '<div class="d-flex w-100 justify-content-between">' +
-        //       '<h5 class="mb-1">No Locations Found</h5>' +
-        //       '</div >' +
-        //       '<p class="mb-1">Try looking at a different area of the map</p>' +
-        //       '</a >'
-        // }
-        //
-        // // Refresh the HTML element on the right scroll view
-        // $("#visible-markers").html(newListContent);
-      })
-    })
+      // Commented out as this is likely handled via react reducers and stuff I don't understand :P
+      // // Prepare HTML content for side list view
+      // let newListContent = '';
+      // // Rebuild list using currently visible markers
+      // this.visibleMarkers.forEach((marker: any) => {
+      //   const location = MARKERS[marker.getLabel()];
+      //
+      //   newListContent +=
+      //       '<a onclick="window.sourcecode.activateMarker(' + marker.getLabel() + ');" class="list-group-item list-group-item-action flex-column align-items-start">' +
+      //       '<div class="d-flex w-100 justify-content-between">' +
+      //       '<h5 class="mb-1">' + location.label + ': ' + location.contentTitle + '</h5>' +
+      //       '<small class="text-muted">' + location.types.join(', ') + '</small>' +
+      //       '</div >' +
+      //       '<p class="mb-1">' + location.contentBody + '</p>' +
+      //       '</a >'
+      // })
+      //
+      // // In case there aren't any visible markers show a friendly message
+      // if (!newListContent) {
+      //   newListContent = '<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">' +
+      //       '<div class="d-flex w-100 justify-content-between">' +
+      //       '<h5 class="mb-1">No Locations Found</h5>' +
+      //       '</div >' +
+      //       '<p class="mb-1">Try looking at a different area of the map</p>' +
+      //       '</a >'
+      // }
+      //
+      // // Refresh the HTML element on the right scroll view
+      // $("#visible-markers").html(newListContent);
+    });
   };
 
-  private haversineDistance = (latLng1: any, latLng2: any): number => {
+  private haversineDistance = (latLng1: google.maps.LatLng, latLng2: google.maps.LatLng): number => {
     const lon1 = latLng1.lng();
     const lon2 = latLng2.lng();
     const radlat1 = Math.PI * latLng1.lat() / 180;
@@ -275,23 +283,10 @@ class Map extends React.Component<Props, {}> {
     return dist
   };
 
-  private createGoogleMap = (): any => {
-    // @ts-ignore
-    return new window.google.maps.Map(this.googleMapRef.current, {
-      zoom: 3,
-      center: { lat: -28.024, lng: 140.887 },
-      // @ts-ignore
-      mapTypeId: window.google.maps.MapTypeId.ROADMAP,
-      streetViewControl: false,
-      clickableIcons: false,
-      mapTypeControl: false
-    });
-  };
-
   public render() {
     const {className, filter} = this.props;
     return (
-      <div className={className} id="google-map" ref={this.googleMapRef}>
+      <div className={className} id="google-map" ref={this.updateGoogleMapRef}>
         {filter.service}
       </div>
     )
@@ -299,8 +294,5 @@ class Map extends React.Component<Props, {}> {
 }
 
 export default styled(Map)`
-  flex-grow: 1;
-  background: #f99;
-  font-size: 70px;
-  text-align: center;
+  height: 100%;
 `;
