@@ -61,7 +61,6 @@ class MapLoader extends React.Component<Props, State> {
 }
 
 export default styled(MapLoader)`
-  flex-grow: 1;
   background: #f99;
   font-size: 70px;
   text-align: center;

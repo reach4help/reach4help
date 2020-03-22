@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from './styling';
 
 import { Filter } from './data';
 
@@ -57,19 +57,25 @@ class App extends React.Component<Props, State> {
         <header>
           <h1>Reach4Help</h1>
           <Filters filter={filter} updateFilter={this.updateFilter} />
-          <Search updateSearchInput={this.updateSearchInput} />
         </header>
         <main>
-          <MapLoader
-            child={() => (
-              <Map
-                filter={filter}
-                searchInput={searchInput}
-                updateResults={this.updateResults}
-                setSelectMarkerCallback={this.setSelectMarkerCallback}
-              />
-            )}
-          />
+          <div className="map-area">
+            <MapLoader
+              className="map"
+              child={() => (
+                <Map
+                  filter={filter}
+                  searchInput={searchInput}
+                  updateResults={this.updateResults}
+                  setSelectMarkerCallback={this.setSelectMarkerCallback}
+                />
+              )}
+            />
+            <Search
+              className="search"
+              updateSearchInput={this.updateSearchInput}
+            />
+          </div>
           <Results
             results={results}
             selectMarkerCallback={selectMarkerCallback}
@@ -98,5 +104,25 @@ export default styled(App)`
   > main {
     display: flex;
     flex-grow: 1;
+
+    > .map-area {
+      flex-grow: 1;
+      position: relative;
+      .map {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      > .search {
+        position: absolute;
+        z-index: 100;
+        max-width: 500px;
+        top: 10px;
+        left: 10px;
+        right: 60px;
+      }
+    }
   }
 `;
