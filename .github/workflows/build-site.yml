@@ -1,4 +1,4 @@
-name: Build Site
+name: Build & Deploy Site
 
 on: push
 
@@ -22,3 +22,11 @@ jobs:
       env:
         SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
         ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+
+    - name: Deploy
+      uses: s0/git-publish-subdir-action@master
+      env:
+        REPO: git@github.com:reach4help/reach4help-gh-pages.git
+        BRANCH: gh-pages
+        FOLDER: site/public
+        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY_SITE }}
