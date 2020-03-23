@@ -57,6 +57,11 @@ This is the web client with which our people in need and our volunteers interact
 
 More info [here](web-client/README.md)
 
+### API
+This is the API that will manage our data for the [Web client](web-client/README.md).
+
+More info [here](api/README.md)
+
 ## Contributing
 
 We have several projects under this monorepo. If you want to contribute please read [CONTRIBUTING](CONTRIBUTING.md)
