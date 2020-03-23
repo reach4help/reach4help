@@ -13,5 +13,5 @@ collections:
         label: "Landing Page"
         name: "index"
         fields:
-          - {label: Test, name: test, widget: string}
+          - {label: Heading, name: heading, widget: string}
 
