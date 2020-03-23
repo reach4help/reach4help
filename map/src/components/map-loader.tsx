@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '../styling';
 
 const REQUIRED_SCRIPTS = [
   'https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js',

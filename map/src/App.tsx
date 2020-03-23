@@ -3,7 +3,8 @@ import styled from './styling';
 
 import { Filter } from './data';
 
-import Filters, { FilterMutator } from './components/filters';
+import { FilterMutator } from './components/filters';
+import Header from './components/header';
 import Map, { SelectMarkerCallback } from './components/map';
 import Results from './components/results';
 import MapLoader from './components/map-loader';
@@ -54,10 +55,7 @@ class App extends React.Component<Props, State> {
     const { filter, results, selectMarkerCallback, searchInput } = this.state;
     return (
       <div className={className}>
-        <header>
-          <h1>Reach4Help</h1>
-          <Filters filter={filter} updateFilter={this.updateFilter} />
-        </header>
+        <Header filter={filter} updateFilter={this.updateFilter} />
         <main>
           <div className="map-area">
             <MapLoader
@@ -95,12 +93,6 @@ export default styled(App)`
   display: flex;
   flex-direction: column;
 
-  > header {
-    > h1 {
-      margin: 0;
-      padding: 10px;
-    }
-  }
   > main {
     display: flex;
     flex-grow: 1;

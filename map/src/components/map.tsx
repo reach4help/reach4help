@@ -2,7 +2,7 @@ import React from 'react';
 import isEqual from 'lodash/isEqual';
 
 import { Filter, SERVICES } from 'src/data';
-import styled from 'styled-components';
+import styled from '../styling';
 import { MARKERS, MarkerInfo } from '../data/markers';
 
 export type SelectMarkerCallback = ((marker: number) => void) | null;
