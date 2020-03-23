@@ -8,10 +8,10 @@ export type AppState = ReturnType<typeof rootReducer>;
 
 export default function configureStore() {
     // const middlewares = [thunkMiddleware];
-
+    
     const store = createStore(
         rootReducer,
-        composeWithDevTools()
+        process.env.NODE_ENV === 'development' ? composeWithDevTools() : undefined
     );
 
     return store;
