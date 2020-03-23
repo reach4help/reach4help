@@ -74,6 +74,19 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "wr46",
+      "name": "Wilson Rodrigues",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5550776?v=4",
+      "profile": "https://github.com/wr46",
+      "contributions": [
+        "code",
+        "ideas",
+        "projectManagement",
+        "maintenance",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
