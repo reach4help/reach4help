@@ -71,18 +71,22 @@ function contactInfo(label: string, info?: ContactDetails): string {
     return '';
   }
   const items: Array<{ href: string; label: string }> = [];
-  items.push(
-    ...info.phone.map(number => ({
-      href: `tel:${number.replace(/\s/g, '')}`,
-      label: number,
-    })),
-  );
-  items.push(
-    ...info.email.map(email => ({
-      href: `mailto:${email}`,
-      label: email,
-    })),
-  );
+  if (info.phone) {
+    items.push(
+      ...info.phone.map(number => ({
+        href: `tel:${number.replace(/\s/g, '')}`,
+        label: number,
+      })),
+    );
+  }
+  if (info.email) {
+    items.push(
+      ...info.email.map(email => ({
+        href: `mailto:${email}`,
+        label: email,
+      })),
+    );
+  }
   if (info.facebookGroup) {
     items.push({
       href: info.facebookGroup,

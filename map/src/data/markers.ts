@@ -3,13 +3,13 @@ import { Service } from './index';
 export interface ContactDetails {
   facebookGroup?: string;
   web?: string;
-  phone: string[];
-  email: string[];
+  phone?: string[];
+  email?: string[];
 }
 
 export interface MarkerInfo {
   contentTitle: string;
-  contentBody: string;
+  contentBody?: string;
   services: Service[];
   contact: {
     general?: ContactDetails;
