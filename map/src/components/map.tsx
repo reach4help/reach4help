@@ -40,10 +40,46 @@ interface MapInfo {
       };
 }
 
+function updateQueryString(update: Partial<QueryStringData>) {
+  if (!URLSearchParams) {
+    return window.location.search;
+  }
+  const params = new URLSearchParams(window.location.search);
+  if (update.map) {
+    params.set(
+      'map',
+      [update.map.pos.lat, update.map.pos.lng, update.map.zoom].join(','),
+    );
+  }
+  return `?${params.toString()}`;
+}
+
+function parseQueryString(): QueryStringData {
+  const result: QueryStringData = {};
+  if (URLSearchParams) {
+    const params = new URLSearchParams(window.location.search);
+    const map = params.get('map');
+    if (map) {
+      const split = map.split(',').map(s => parseFloat(s));
+      if (split.length === 3 && split.every(v => !Number.isNaN(v))) {
+        result.map = {
+          zoom: split[2],
+          pos: {
+            lat: split[0],
+            lng: split[1],
+          },
+        };
+      }
+    }
+  }
+  return result;
+}
+
 function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
+  const query = parseQueryString();
   return new google.maps.Map(ref, {
-    zoom: 3,
-    center: { lat: -28.024, lng: 140.887 },
+    zoom: query.map ? query.map.zoom : 3,
+    center: query.map ? query.map.pos : { lat: 0, lng: 0 },
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     streetViewControl: false,
     clickableIcons: false,
@@ -127,6 +163,16 @@ function infoWindoContent(info: MarkerInfo): string {
   </div>`;
 }
 
+interface QueryStringData {
+  map?: {
+    pos: {
+      lat: number;
+      lng: number;
+    };
+    zoom: number;
+  };
+}
+
 class Map extends React.Component<Props, {}> {
   private map: MapInfo | null = null;
 
@@ -202,6 +248,20 @@ class Map extends React.Component<Props, {}> {
       if (this.searchBox && bounds) {
         this.searchBox.box.setBounds(bounds);
       }
+      if ('replaceState' in window.history) {
+        const pos = map.getCenter();
+        const zoom = map.getZoom();
+        window.history.replaceState(
+          null,
+          '',
+          updateQueryString({
+            map: {
+              pos: { lat: pos.lat(), lng: pos.lng() },
+              zoom,
+            },
+          }),
+        );
+      }
     });
 
     // We iterate over all locations to create markers
@@ -235,7 +295,8 @@ class Map extends React.Component<Props, {}> {
 
     if (markers.length) {
       const position = markers[0].getPosition();
-      if (position) {
+      const existingPos = parseQueryString();
+      if (position && !existingPos.map) {
         map.setCenter(position);
       }
     }
