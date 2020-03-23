@@ -15,6 +15,8 @@ $ yarn install
 docker-compose up 
 ```
 
+Create a `.env` file in the project root using the `example.env`.
+
 ```bash
 # development
 $ yarn run start

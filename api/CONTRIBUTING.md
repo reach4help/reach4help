@@ -51,19 +51,21 @@ yarn install
 docker-compose up
 ```
 
-3 - Run the `api` project in development mode.
+3 - Create a `.env` file in the project root using the `example.env`.
+
+4 - Run the `api` project in development mode.
 
 ```
 yarn run start:dev
 ```
 
-4 - Run database migrations
+5 - Run database migrations
 
 ```
 yarn typeorm migration:run
 ```
 
-5 - The api swagger-ui is now available under [localhost:3001](http://localhost:3001)
+6 - The api swagger-ui is now available under [localhost:3001](http://localhost:3001)
 
 
 # How to report a bug
