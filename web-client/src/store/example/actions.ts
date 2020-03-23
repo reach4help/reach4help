@@ -1,15 +1,11 @@
 import { INCREMENT, DECREMENT, SUM } from './types';
 
-export function incrementAction() {
-    return {
+export const incrementAction = {
         type: INCREMENT,
-    };
 }
 
-export function decrementAction() {
-    return {
+export const decrementAction = {
         type: DECREMENT,
-    };
 }
 
 export function sumAction(value: number) {
@@ -23,8 +19,7 @@ export function sumAction(value: number) {
 
 export function incrementAsyncAction() {
     return (dispatch: Function) => {
-      setTimeout(() => {
-        dispatch(incrementAction());
-      }, 1000);
+
+      setTimeout(() => dispatch(incrementAction), 1000);
     };
   }

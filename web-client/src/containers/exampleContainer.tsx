@@ -7,7 +7,7 @@ const ExampleContainer: React.FC = () => {
     const value = useSelector((state: AppState) => state.exampleReducer.value)
     const dispatch = useDispatch()
     const increment = useCallback(
-        () => dispatch(incrementAction()),
+        () => dispatch(incrementAction),
         [dispatch]
     )
 
@@ -17,7 +17,7 @@ const ExampleContainer: React.FC = () => {
     )
 
     const decrement = useCallback(
-        () => dispatch(decrementAction()),
+        () => dispatch(decrementAction),
         [dispatch]
     )
 
