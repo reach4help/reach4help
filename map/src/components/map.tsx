@@ -166,7 +166,7 @@ function infoWindoContent(info: MarkerInfo): string {
   </div>`;
 }
 
-const throttledReplaceHistory = debounce((map: google.maps.Map) => {
+const debouncedReplaceHistory = debounce((map: google.maps.Map) => {
   const pos = map.getCenter();
   const zoom = map.getZoom();
   window.history.replaceState(
@@ -267,7 +267,7 @@ class Map extends React.Component<Props, {}> {
         this.searchBox.box.setBounds(bounds);
       }
       if ('replaceState' in window.history) {
-        throttledReplaceHistory(map);
+        debouncedReplaceHistory(map);
       }
     });
 
