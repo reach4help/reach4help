@@ -165,6 +165,44 @@ function infoWindoContent(info: MarkerInfo): string {
   </div>`;
 }
 
+/**
+ * limits your function to be called at most every W milliseconds, where W is wait.
+ * Calls over W get dropped.
+ * Thanks to Pat Migliaccio.
+ * see https://medium.com/@pat_migliaccio/rate-limiting-throttling-consecutive-function-calls-with-queues-4c9de7106acc
+ * @param fn
+ * @param wait
+ * @example let throttledFunc = throttle(myFunc,500);
+ */
+function throttle(fn: Function, wait: number) {
+  let isCalled = false;
+
+  return (...args: any[]) => {
+    if (!isCalled) {
+      fn(...args);
+      isCalled = true;
+      setTimeout(() => {
+        isCalled = false;
+      }, wait);
+    }
+  };
+}
+
+const throttledReplaceHistory = throttle((map: google.maps.Map) => {
+  const pos = map.getCenter();
+  const zoom = map.getZoom();
+  window.history.replaceState(
+    null,
+    '',
+    updateQueryString({
+      map: {
+        pos: { lat: pos.lat(), lng: pos.lng() },
+        zoom,
+      },
+    }),
+  );
+}, 299); // max is 100 times in 30 seconds
+
 interface QueryStringData {
   map?: {
     pos: {
@@ -251,18 +289,7 @@ class Map extends React.Component<Props, {}> {
         this.searchBox.box.setBounds(bounds);
       }
       if ('replaceState' in window.history) {
-        const pos = map.getCenter();
-        const zoom = map.getZoom();
-        window.history.replaceState(
-          null,
-          '',
-          updateQueryString({
-            map: {
-              pos: { lat: pos.lat(), lng: pos.lng() },
-              zoom,
-            },
-          }),
-        );
+        throttledReplaceHistory(map);
       }
     });
 
