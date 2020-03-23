@@ -1,23 +1,22 @@
-import { INCREMENT, DECREMENT, SUM } from './types';
-
+import { DECREMENT, INCREMENT, SUM } from './types';
 
 export function incrementAction() {
-    return {
-        type: INCREMENT,
-    };
+  return {
+    type: INCREMENT,
+  };
 }
 
 export function decrementAction() {
-    return {
-        type: DECREMENT,
-    };
+  return {
+    type: DECREMENT,
+  };
 }
 
 export function sumAction(value: number) {
-    return {
-        type: SUM,
-        payload: {
-            value
-        }
-    };
+  return {
+    type: SUM,
+    payload: {
+      value,
+    },
+  };
 }
