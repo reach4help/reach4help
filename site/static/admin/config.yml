@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: master
+
+media_folder: /media
+public_folder: /static
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - file: "static/content/index.md"
+        label: "Landing Page"
+        name: "index"
+        fields:
+          - {label: Test, name: test, widget: string}
+
