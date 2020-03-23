@@ -1,7 +1,11 @@
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
+import { enableAllPlugins } from "immer"
 import ExampleContainer from './containers/exampleContainer';
 import configureStore from './store';
+
+// Later we can check if we need all immer plugins
+enableAllPlugins()
 
 function App(): ReactElement {
   const store = configureStore()

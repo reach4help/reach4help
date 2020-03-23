@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import { ExampleState, ExampleActionTypes, INCREMENT, DECREMENT, SUM } from './types';
 
 const initialState: ExampleState = {
@@ -5,18 +6,20 @@ const initialState: ExampleState = {
 }
 // eslint-disable-next-line import/prefer-default-export
 export const exampleReducer = (state: ExampleState = initialState, action: ExampleActionTypes): ExampleState => {
-    const nextState = { ...state };
-    switch (action.type) {
-        case INCREMENT:
-            nextState.value += 1
-            return nextState
-        case DECREMENT:
-            nextState.value -= 1
-            return nextState
-        case SUM:
-            nextState.value += action.payload.value
-            return nextState
-        default:
-            return state
-    }
+    return produce(state, draftState => {
+        switch (action.type) {
+            case INCREMENT:
+                draftState.value += 1
+                return draftState
+            case DECREMENT:
+                draftState.value -= 1
+                return draftState
+            case SUM:
+                draftState.value += action.payload.value
+                return draftState
+            default:
+                return draftState
+        }
+    })
+
 }

@@ -16,6 +16,9 @@ module.exports = {
     es6: true,
   },
   rules: {
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['draftState'] }],
+
+
   }
 };
