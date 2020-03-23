@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { incrementAction, decrementAction, sumAction } from '../store/example/actions';
+import { incrementAction, decrementAction, sumAction, incrementAsyncAction } from '../store/example/actions';
 import { AppState } from '../store';
 
 const ExampleContainer: React.FC = () => {
@@ -10,6 +10,12 @@ const ExampleContainer: React.FC = () => {
         () => dispatch(incrementAction()),
         [dispatch]
     )
+
+    const incrementAsync = useCallback(
+      () => dispatch(incrementAsyncAction()),
+      [dispatch]
+    )
+
     const decrement = useCallback(
         () => dispatch(decrementAction()),
         [dispatch]
@@ -24,6 +30,7 @@ const ExampleContainer: React.FC = () => {
       <div>
         {value}
         <button type="button" onClick={increment}>Increment</button>
+        <button type="button" onClick={incrementAsync}>Increment with Delay</button>
         <button type="button" onClick={() => sum(5)}>Add 5</button>
         <button type="button" onClick={decrement}>Decrement</button>
       </div>

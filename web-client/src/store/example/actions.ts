@@ -1,6 +1,5 @@
 import { INCREMENT, DECREMENT, SUM } from './types';
 
-
 export function incrementAction() {
     return {
         type: INCREMENT,
@@ -21,3 +20,11 @@ export function sumAction(value: number) {
         }
     };
 }
+
+export function incrementAsyncAction() {
+    return (dispatch: Function) => {
+      setTimeout(() => {
+        dispatch(incrementAction());
+      }, 1000);
+    };
+  }
