@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { MarkerInfo } from 'src/data/markers';
+import styled from '../styling';
 import { SelectMarkerCallback } from './map';
 
 interface Props {

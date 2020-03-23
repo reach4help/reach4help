@@ -27,7 +27,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "pre-commit": "lint-staged",
-    "prettier": "prettier --check \"./**/*.{ts,tsx,js}\""
+    "prettier": "prettier --check \"./**/*.{ts,tsx,js}\"",
+    "prettier-fix": "prettier --write \"./**/*.{ts,tsx,js}\""
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
