@@ -27,6 +27,28 @@ export interface MarkerInfo {
 }
 
 const LOCATIONS = {
+  DE: {
+    BERLIN: {
+      locationDescription: 'Berlin, Germany',
+      lat: 52.511528,
+      lng: 13.406853,
+      serviceRadius: 24000,
+    },
+  },
+  GB: {
+    NEWCASTLE_TYNE: {
+      locationDescription: 'Newcastle upon Tyne, UK',
+      lat: 54.975601,
+      lng: -1.613076,
+      serviceRadius: 9000,
+    },
+    UK: {
+      locationDescription: 'UK',
+      lat: 53.176332,
+      lng: -2.610528,
+      serviceRadius: 345330,
+    },
+  },
   USA: {
     AL_BHAM: {
       description: 'Birmingham, Alabama',
@@ -631,6 +653,8 @@ export const MARKERS: MarkerInfo[] = [
       general: {
         web: {
           Website: 'https://webportalapp.com/webform/essentialworkers',
+          'State Resources':
+            'https://docs.google.com/document/d/17DJMyLZR_Fk7MzaCD9AU0O8a61VGVvoeNs4qbVk0z3E/edit?fbclid=IwAR0UB0Ze_G0H6Nz6_WYC-p5BW89J_l7pFoLtYfI3qhXxFgLTzvoSsgu0u04',
         },
       },
     },
@@ -1017,5 +1041,76 @@ export const MARKERS: MarkerInfo[] = [
       },
     },
     loc: LOCATIONS.USA.WY_STATE,
+  },
+  {
+    contentTitle: 'Queer Relief Covid-19 Berlin',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        email: ['relief@karada-house.de', ' info@karada-house.de'],
+      },
+      getHelp: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSeYAX7N5xqNqwQRRz8mBH4uL9oL23Kn60uUOwmssfE6sEg2gg/viewform',
+          'Non Hartz IV Eligible Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSeYAX7N5xqNqwQRRz8mBH4uL9oL23Kn60uUOwmssfE6sEg2gg/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          'Google Form': 'https://forms.gle/iS6DeGTnFj5v6cwHA',
+        },
+      },
+    },
+    loc: LOCATIONS.DE.BERLIN,
+  },
+  {
+    contentTitle: 'Newcastle upon Tyne Covid 19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/NewcastleCovid19/?ref=share',
+      },
+    },
+    loc: LOCATIONS.GB.NEWCASTLE_TYNE,
+  },
+  {
+    contentTitle: 'COVID-10 Mutual Aid UK',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://covidmutualaid.org',
+          Resources:
+            'https://docs.google.com/spreadsheets/u/2/d/18P898HWbdR5ouW61sAxW_iBl3yiZlgJu0nSmepn6NwM/htmlview?sle=true#gid=1451634215',
+        },
+        facebookGroup: 'https://www.facebook.com/CovidAidUK',
+        email: ['covidmutualaid.cc@gmail.com'],
+      },
+    },
+    loc: LOCATIONS.GB.UK,
   },
 ];
