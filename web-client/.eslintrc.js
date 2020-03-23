@@ -74,7 +74,7 @@ module.exports = {
     "object-curly-spacing": "error",
     "no-param-reassign": ["error", {
       "props": true,
-      "ignorePropertyModificationsFor": ["draft", "state", "sum"]
+      "ignorePropertyModificationsFor": ["draft", "draftState", "state", "sum"]
     }
     ],
     "no-plusplus": "off",
@@ -97,6 +97,7 @@ module.exports = {
     "sort-vars": "error",
     "import/no-unresolved": "off",
     "import/no-extraneous-dependencies": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
   }
 };
