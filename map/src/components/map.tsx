@@ -162,7 +162,7 @@ class Map extends React.Component<Props, {}> {
     const map = createGoogleMap(ref);
     const markers = MARKERS.map(info => {
       const marker = new window.google.maps.Marker({
-        position: info,
+        position: info.loc,
         title: info.services.join(','),
       });
       marker.set('info', info);
@@ -253,7 +253,7 @@ class Map extends React.Component<Props, {}> {
         const topRight = mapBoundingBox.getNorthEast();
         const bottomLeft = mapBoundingBox.getSouthWest();
         const markerPosition = marker.getPosition();
-        const radius = info.serviceRadius;
+        const radius = info.loc.serviceRadius;
 
         // Now compare the distance from the marker to corners of the box;
         if (markerPosition) {
@@ -316,10 +316,13 @@ class Map extends React.Component<Props, {}> {
           for (const marker of cluster.getMarkers()) {
             // Update maxMarker to higher value if found.
             const info = getInfo(marker);
-            if (!maxMarker || maxMarker.serviceRadius < info.serviceRadius) {
+            if (
+              !maxMarker ||
+              maxMarker.serviceRadius < info.loc.serviceRadius
+            ) {
               maxMarker = {
                 marker,
-                serviceRadius: info.serviceRadius,
+                serviceRadius: info.loc.serviceRadius,
               };
             }
             m.clustering.visibleMarkers.push(marker);
