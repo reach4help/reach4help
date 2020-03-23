@@ -35,14 +35,14 @@ const LOCATIONS = {
       serviceRadius: 24000,
     },
   },
-  GB: {
+  UK: {
     NEWCASTLE_TYNE: {
       locationDescription: 'Newcastle upon Tyne, UK',
       lat: 54.975601,
       lng: -1.613076,
       serviceRadius: 9000,
     },
-    UK: {
+    ALL: {
       locationDescription: 'UK',
       lat: 53.176332,
       lng: -2.610528,
@@ -1088,7 +1088,7 @@ export const MARKERS: MarkerInfo[] = [
           'https://www.facebook.com/groups/NewcastleCovid19/?ref=share',
       },
     },
-    loc: LOCATIONS.GB.NEWCASTLE_TYNE,
+    loc: LOCATIONS.UK.NEWCASTLE_TYNE,
   },
   {
     contentTitle: 'COVID-10 Mutual Aid UK',
@@ -1111,6 +1111,6 @@ export const MARKERS: MarkerInfo[] = [
         email: ['covidmutualaid.cc@gmail.com'],
       },
     },
-    loc: LOCATIONS.GB.UK,
+    loc: LOCATIONS.UK.ALL,
   },
 ];
