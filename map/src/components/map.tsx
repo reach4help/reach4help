@@ -94,10 +94,12 @@ function contactInfo(label: string, info?: ContactDetails): string {
     });
   }
   if (info.web) {
-    items.push({
-      href: info.web,
-      label: 'Website',
-    });
+    items.push(
+      ...Object.entries(info.web).map(entry => ({
+        href: entry[1],
+        label: entry[0],
+      })),
+    );
   }
   if (items.length === 0) {
     return '';
@@ -115,7 +117,7 @@ function infoWindoContent(info: MarkerInfo): string {
     <div id="siteNotice">
     </div>
     <h1 id="firstHeading" class="firstHeading">${info.contentTitle}</h1>
-    <div id="bodyContent">${info.contentBody}</div>
+    ${info.contentBody ? `<div id="bodyContent">${info.contentBody}</div>` : ''}
     <div>
       <hr>
       ${contactInfo('General Inquiries', info.contact.general)}
