@@ -336,12 +336,6 @@ class Map extends React.Component<Props, {}> {
           });
           this.infoWindow.open(map, marker);
         }
-
-        const pos = marker.getPosition();
-        if (pos) {
-          map.panTo(pos);
-        }
-        map.setZoom(18);
       });
 
       return marker;
