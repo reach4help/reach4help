@@ -430,9 +430,35 @@ class Map extends React.Component<Props, {}> {
         }
 
         // Update labels of markers to be based on index in visibleMarkers
-        m.clustering.visibleMarkers.forEach((marker, index) => {
-          marker.setLabel((index + 1).toString());
-        });
+        m.clustering.visibleMarkers
+          .sort((a, b): number => {
+            const aPosition = a.getPosition();
+            const bPosition = b.getPosition();
+            const mapCenter = map.getCenter();
+
+            if (aPosition && bPosition) {
+              const aFromCenter = this.haversineDistance(aPosition, mapCenter);
+              const bFromCenter = this.haversineDistance(bPosition, mapCenter);
+
+              if (aFromCenter > bFromCenter) {
+                return 1;
+              }
+              if (aFromCenter < bFromCenter) {
+                return -1;
+              }
+              return 0;
+            }
+            if (!aPosition) {
+              return -1;
+            }
+            if (!bPosition) {
+              return 1;
+            }
+            return 0;
+          })
+          .forEach((marker, index) => {
+            marker.setLabel((index + 1).toString());
+          });
 
         const { updateResults } = this.props;
         updateResults(
