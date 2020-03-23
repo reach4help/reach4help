@@ -112,6 +112,72 @@ const LOCATIONS = {
       lng: -119.078374,
       serviceRadius: 55000,
     },
+    WA_SEATTLE_AREA: {
+      locationDescription: 'Seattle Area, Washington',
+      lat: 47.602591,
+      lng: -122.333826,
+      serviceRadius: 96020,
+    },
+    WA_SEATTLE: {
+      locationDescription: 'Seattle, Washington',
+      lat: 47.602591,
+      lng: -122.333826,
+      serviceRadius: 14450,
+    },
+    WA_SOUTH_SEATTLE: {
+      locationDescription: 'Southside Seattle, Washington',
+      lat: 47.563911,
+      lng: -122.331661,
+      serviceRadius: 9200,
+    },
+    WA_TACOMA: {
+      locationDescription: 'Tacoma, Washington',
+      lat: 47.248302,
+      lng: -122.445154,
+      serviceRadius: 26000,
+    },
+    WA_WHITMAN_COUNTY: {
+      locationDescription: 'Whitman County, Washington',
+      lat: 46.931241,
+      lng: -117.509873,
+      serviceRadius: 44000,
+    },
+    WI_APPLETON: {
+      locationDescription: 'Appleton, Wisconsin',
+      lat: 44.256519,
+      lng: -88.415864,
+      serviceRadius: 40000,
+    },
+    WI_DANE_COUNTY: {
+      locationDescription: 'Dane County, Wisconsin',
+      lat: 43.058324,
+      lng: -89.398872,
+      serviceRadius: 40000,
+    },
+    WI_MADISON: {
+      locationDescription: 'Madison, Wisconsin',
+      lat: 43.058324,
+      lng: -89.398872,
+      serviceRadius: 16960,
+    },
+    WY_LARAMIE: {
+      locationDescription: 'Laramie, Wyoming',
+      lat: 41.315027,
+      lng: -105.593089,
+      serviceRadius: 7000,
+    },
+    WY_CHEYENNE: {
+      locationDescription: 'Cheyenne, Wyoming',
+      lat: 41.133032,
+      lng: -104.813754,
+      serviceRadius: 12630,
+    },
+    WY_STATE: {
+      locationDescription: 'Wyoming',
+      lat: 42.901456,
+      lng: -107.553939,
+      serviceRadius: 289450,
+    },
   },
 };
 
@@ -147,8 +213,6 @@ export const MARKERS: MarkerInfo[] = [
         web: {
           Form: 'https://bit.ly/BHAMMA_RequestsForm',
         },
-        phone: ['+1 213 545 2062'],
-        email: ['contact@removela.com'],
       },
       volunteers: {
         web: {
@@ -463,5 +527,294 @@ export const MARKERS: MarkerInfo[] = [
       },
     },
     loc: LOCATIONS.USA.CA_VENTURA_COUNTY,
+  },
+  {
+    contentTitle: 'Seattle Artist Relief Fund Amid COVID-19',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          url: 'https://www.gofundme.com/f/for-artists',
+        },
+        email: ['covid19mutualaideastside@gmail.com'],
+        facebookGroup: 'www.facebook.com/groups/555635161739149/ ',
+      },
+      getHelp: {
+        web: {
+          'Google Form': 'https://www.surveymonkey.com/r/LHJNLQV',
+        },
+        facebookGroup: 'https://www.facebook.com/LangstonSeattle/',
+      },
+      volunteers: {
+        web: {
+          Donate: 'https://www.gofundme.com/f/for-artists',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.WA_SEATTLE,
+  },
+  {
+    contentTitle: 'Washington / South Seattle and Eastside: COVID-19',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          url: 'https://www.gofundme.com/f/covid19-eastside-survival-fund',
+        },
+        email: ['covid19mutualaideastside@gmail.com'],
+        facebookGroup: 'www.facebook.com/groups/555635161739149/ ',
+      },
+      getHelp: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSdFzVouVJHJ2jRyrR90zDRr7iV-nPJZHjKBTKVYuobP29BZ5g/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          Donate: 'https://www.gofundme.com/f/covid19-eastside-survival-fund',
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSdqoK6a4mmYc2tpVPVTDfq2EDjsSMDct8Am5duoCx44i-fIoQ/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.WA_SOUTH_SEATTLE,
+  },
+  {
+    contentTitle: 'GLP SANI: Sex Worker Aid Network Initiative',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          donate: 'https://www.gofundme.com/f/hzudk7',
+        },
+        email: ['sxwsani@gmail.com', 'GLPsxwsani@gmail.com'],
+      },
+      getHelp: {
+        email: ['GLPsani@protonmail.com'],
+      },
+      volunteers: {
+        email: ['GLPsxwsani@gmail.com'],
+      },
+    },
+    loc: LOCATIONS.USA.WA_SEATTLE,
+  },
+  {
+    contentTitle: 'Seattle Area COVID-19',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          url:
+            'https://docs.google.com/document/u/2/d/101hAWGpF4kowM1k2KkHgY5yjpKTvErCGa2FTEg3mGu4/mobilebasic?urp=gmail_link',
+          Donate:
+            'https://www.gofundme.com/f/covid19-survival-fund-for-the-people',
+        },
+        facebookGroup: 'https://www.facebook.com/covid19mutualaid',
+        email: ['covid19mutualaidsea@gmail.com'],
+      },
+      getHelp: {
+        web: {
+          English:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdgbAX21UARi98rKKX6b6mpvpVHW4b63F2n2beJlHielcdU2Q/viewform?fbclid=IwAR1EuVigIGNylglDtL-vTHlOM3WRhVnmzn-fBpfuirlPiQKdUG--ToA_KDY',
+          'Español (Spanish)':
+            'https://docs.google.com/forms/d/1Peh9KEnZ0EFF7j4mV8opmG345hpo5s49DnsBJbVAiBY/viewform',
+          'አማርኛ (Amharic)':
+            'https://docs.google.com/forms/d/1FiOtf2cwUr7ZDbnpVH_OpdzAORBNp2fKYtibf0QAuOQ/viewform',
+          'ትግርኛ (Tigrinya)':
+            'https://docs.google.com/forms/d/1ohZqiW5k9L0mfxSRbdJo_pXJOZIPP03MY_P6pSAPQrs/viewform',
+          'Tiếng Việt (Vietnamese)':
+            'https://docs.google.com/forms/d/1EAdyq-vcW803i9MMoceyd9WgTsds6zs1--asljcTLZM/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          English:
+            'https://docs.google.com/forms/d/16ESS-9g9S58wpEGavsGu3aj6LnhvVYNdJJd-Qp_PfUY/viewform',
+          'Donate Items':
+            'https://www.facebook.com/This-cold-cold-world-101964174676844/',
+        },
+        facebookGroup:
+          'https://www.facebook.com/This-cold-cold-world-101964174676844/',
+      },
+    },
+    loc: LOCATIONS.USA.WA_SEATTLE_AREA,
+  },
+  {
+    contentTitle: 'Washington / Tacoma: Tacoma Mutual Aid Network',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/TacomaMutualAidCollective/',
+      },
+    },
+    loc: LOCATIONS.USA.WA_TACOMA,
+  },
+  {
+    contentTitle:
+      'Washington / Whitman County: Whitman County COVID-19 Community Response and Recovery',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/240389003760287/',
+      },
+    },
+    loc: LOCATIONS.USA.WA_WHITMAN_COUNTY,
+  },
+  {
+    contentTitle: 'Appleton, WI Community Care and Mutual Aid Signup',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfGdbGcq8y_fh3qS7O_HJdCLB3dr8MJYktVmdQ6--ffAWJ6cQ/viewform',
+        },
+        email: ['foxcitiescommunitycare@gmail.com'],
+      },
+      getHelp: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSfGdbGcq8y_fh3qS7O_HJdCLB3dr8MJYktVmdQ6--ffAWJ6cQ/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSfGdbGcq8y_fh3qS7O_HJdCLB3dr8MJYktVmdQ6--ffAWJ6cQ/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.WI_APPLETON,
+  },
+  {
+    contentTitle:
+      'Wisconsin / Madison: Volunteer or Donate for Coronavirus Quarantine Support with the Madison General Defense Committee',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://docs.google.com/forms/d/e/1FAIpQLScnpw-ScLBjjNCaPq2T0-E6GTBj3hrYJ_UVJS6_ZfH8T3WOJQ/viewform?fbclid=IwAR2ZXHalBZ6iynibcL7OrEfCivuSKH0RL30UcoR5vCn9wOQ8i4LVwBdcBGw',
+        },
+      },
+      getHelp: {
+        web: {
+          'Request Help':
+            'https://www.google.com/url?q=https://tinyurl.com/quarantine-support&sa=D&ust=1584994208551000&usg=AFQjCNFNkqG1gNvFyiXTldi7_aLmPR6vBA',
+        },
+      },
+      volunteers: {
+        web: {
+          Donate:
+            'https://docs.google.com/forms/d/e/1FAIpQLScnpw-ScLBjjNCaPq2T0-E6GTBj3hrYJ_UVJS6_ZfH8T3WOJQ/viewform?fbclid=IwAR2ZXHalBZ6iynibcL7OrEfCivuSKH0RL30UcoR5vCn9wOQ8i4LVwBdcBGw',
+          'Help Out':
+            'https://www.google.com/url?q=https://tinyurl.com/quarantine-volunteer&sa=D&ust=1584994208551000&usg=AFQjCNFM70k4iQP3BkPRDGTsm9d0Fg80YA',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.WI_DANE_COUNTY,
+  },
+  {
+    contentTitle: 'COVID-19 Community Needs | Laramie',
+    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/657547154818946',
+      },
+    },
+    loc: LOCATIONS.USA.WY_LARAMIE,
+  },
+  {
+    contentTitle: 'Wyoming / Cheyenne: Safe Neighbors',
+    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/Safe-Neighbors-104569204510137/',
+      },
+      getHelp: {
+        web: {
+          'FB Messenger Link':
+            'https://l.facebook.com/l.php?u=https%3A%2F%2Fm.me%2F104569204510137%3Ffbclid%3DIwAR2svFGCLTs2s2Zvc4x7vlTPcLceJq31uIsjnIzkwUvawsf2bg3VnOGAPyQ&h=AT3oq8S8FBbogI3UBs-fa7iLDb-LxK8DjpyKrEn0M1AT-gZP_FazbYqypOE-KKsibu9gssdCSttCUYmnC1lOP89UALeEk8dDnmf-inO3QmI5IMuvfC4Kt1c8-Mz8ixZZfVSmYzAh',
+        },
+      },
+      volunteers: {
+        web: {
+          'FB Messenger Link':
+            'https://l.facebook.com/l.php?u=https%3A%2F%2Fm.me%2F104569204510137%3Ffbclid%3DIwAR2svFGCLTs2s2Zvc4x7vlTPcLceJq31uIsjnIzkwUvawsf2bg3VnOGAPyQ&h=AT3oq8S8FBbogI3UBs-fa7iLDb-LxK8DjpyKrEn0M1AT-gZP_FazbYqypOE-KKsibu9gssdCSttCUYmnC1lOP89UALeEk8dDnmf-inO3QmI5IMuvfC4Kt1c8-Mz8ixZZfVSmYzAh',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.WY_CHEYENNE,
+  },
+  {
+    contentTitle: 'Wyoming: Wyoming COVID-19 Mutual Aid and Resource Page',
+    services: ['information'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://docs.google.com/document/d/14_GKzvsNFcs0ZHiGHwQ_2rOwIvBMqSUu6IzFwdxQFNs/edit',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.WY_STATE,
   },
 ];

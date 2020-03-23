@@ -143,7 +143,9 @@ function contactInfo(label: string, info?: ContactDetails): string {
   return `
     <div>
       <span>${label}:</span>
-      ${items.map(item => `<a href="${item.href}">${item.label}</a> `)}
+      ${items.map(
+        item => `<a href="${item.href}" target="_blank">${item.label}</a> `,
+      )}
     </div>
     `;
 }
