@@ -23,6 +23,14 @@ export const SERVICES = {
     label: 'Manufacturing',
     color: '#f47400',
   },
+  financial: {
+    label: 'Financial',
+    color: '#f47400',
+  },
+  information: {
+    label: 'Information',
+    color: '#f47400',
+  },
 } as const;
 
 export type Service = keyof typeof SERVICES;
