@@ -1,5 +1,6 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
+import debounce from 'lodash/debounce';
 
 import { Filter, SERVICES } from 'src/data';
 import styled from '../styling';
@@ -165,30 +166,7 @@ function infoWindoContent(info: MarkerInfo): string {
   </div>`;
 }
 
-/**
- * limits your function to be called at most every W milliseconds, where W is wait.
- * Calls over W get dropped.
- * Thanks to Pat Migliaccio.
- * see https://medium.com/@pat_migliaccio/rate-limiting-throttling-consecutive-function-calls-with-queues-4c9de7106acc
- * @param fn
- * @param wait
- * @example let throttledFunc = throttle(myFunc,500);
- */
-function throttle(fn: Function, wait: number) {
-  let isCalled = false;
-
-  return (...args: any[]) => {
-    if (!isCalled) {
-      fn(...args);
-      isCalled = true;
-      setTimeout(() => {
-        isCalled = false;
-      }, wait);
-    }
-  };
-}
-
-const throttledReplaceHistory = throttle((map: google.maps.Map) => {
+const throttledReplaceHistory = debounce((map: google.maps.Map) => {
   const pos = map.getCenter();
   const zoom = map.getZoom();
   window.history.replaceState(
@@ -430,11 +408,11 @@ class Map extends React.Component<Props, {}> {
         }
 
         // Update labels of markers to be based on index in visibleMarkers
+        const mapCenter = map.getCenter();
         m.clustering.visibleMarkers
           .sort((a, b): number => {
             const aPosition = a.getPosition();
             const bPosition = b.getPosition();
-            const mapCenter = map.getCenter();
 
             if (aPosition && bPosition) {
               const aFromCenter = this.haversineDistance(aPosition, mapCenter);
