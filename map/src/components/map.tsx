@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 
 import { Filter, SERVICES } from 'src/data';
 import styled from '../styling';
-import { MARKERS, MarkerInfo } from '../data/markers';
+import { MARKERS, MarkerInfo, ContactDetails } from '../data/markers';
 
 export type SelectMarkerCallback = ((marker: number) => void) | null;
 
@@ -64,6 +64,61 @@ function updateMarkersVisiblility(
     const visible = !filter.service || info.services.includes(filter.service);
     marker.setVisible(visible);
   }
+}
+
+function contactInfo(label: string, info?: ContactDetails): string {
+  if (!info) {
+    return '';
+  }
+  const items: Array<{ href: string; label: string }> = [];
+  items.push(
+    ...info.phone.map(number => ({
+      href: `tel:${number.replace(/\s/g, '')}`,
+      label: number,
+    })),
+  );
+  items.push(
+    ...info.email.map(email => ({
+      href: `mailto:${email}`,
+      label: email,
+    })),
+  );
+  if (info.facebookGroup) {
+    items.push({
+      href: info.facebookGroup,
+      label: 'Facebook',
+    });
+  }
+  if (info.web) {
+    items.push({
+      href: info.web,
+      label: 'Website',
+    });
+  }
+  if (items.length === 0) {
+    return '';
+  }
+  return `
+    <div>
+      <span>${label}:</span>
+      ${items.map(item => `<a href="${item.href}">${item.label}</a> `)}
+    </div>
+    `;
+}
+
+function infoWindoContent(info: MarkerInfo): string {
+  return `<div id="content">
+    <div id="siteNotice">
+    </div>
+    <h1 id="firstHeading" class="firstHeading">${info.contentTitle}</h1>
+    <div id="bodyContent">${info.contentBody}</div>
+    <div>
+      <hr>
+      ${contactInfo('General Inquiries', info.contact.general)}
+      ${contactInfo('Volunteer', info.contact.volunteers)}
+      ${contactInfo('Request Help', info.contact.getHelp)}
+    <div>
+  </div>`;
 }
 
 class Map extends React.Component<Props, {}> {
@@ -149,19 +204,7 @@ class Map extends React.Component<Props, {}> {
       const location = getInfo(marker);
 
       marker.addListener('click', () => {
-        const contentString =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          '</div>' +
-          `<h1 id="firstHeading" class="firstHeading">${location.contentTitle}</h1>` +
-          `<div id="bodyContent">${location.contentBody}</div>` +
-          '<div>' +
-          '<hr>' +
-          `<p>Website: <a href="${location.contact.web}">${location.contact.web}</a></p>` +
-          `<p>Email: <a href="mailto:${location.contact.email}">${location.contact.email}</a></p>` +
-          `<p>Phone: <a href="tel:${location.contact.phone}">${location.contact.phone}</a></p>` +
-          '<div>' +
-          '</div>';
+        const contentString = infoWindoContent(location);
 
         // Reuse the info window or not
         if (this.infoWindow && this.infoWindow.setContent) {

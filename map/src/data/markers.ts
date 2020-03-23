@@ -1,13 +1,20 @@
 import { Service } from './index';
 
+export interface ContactDetails {
+  facebookGroup?: string;
+  web?: string;
+  phone: string[];
+  email: string[];
+}
+
 export interface MarkerInfo {
   contentTitle: string;
   contentBody: string;
   services: Service[];
   contact: {
-    web: string;
-    phone: string;
-    email: string;
+    general?: ContactDetails;
+    getHelp?: ContactDetails;
+    volunteers?: ContactDetails;
   };
   lat: number;
   lng: number;
@@ -21,9 +28,11 @@ export const MARKERS: MarkerInfo[] = [
       'REMOVE is a small business modernizing trash and junk removal services through community outreach and redistribution. We can help provide moving and removal services for families and individuals who need help clearing space in their yards or their home as they "stay in place". Additionally, any who needs any items (beds, tables, appliances) please reach out as we have many items we can give away free of charge.',
     services: ['aid', 'mobility'],
     contact: {
-      web: 'https://www.removela.com',
-      phone: '+12135452062',
-      email: 'contact@removela.com',
+      getHelp: {
+        web: 'https://www.removela.com',
+        phone: ['+1 213 545 2062'],
+        email: ['contact@removela.com'],
+      },
     },
     lat: 34.047364,
     lng: -118.242999,
