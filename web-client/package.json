@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "heroku-postbuild": "echo 'nothing to do'"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
