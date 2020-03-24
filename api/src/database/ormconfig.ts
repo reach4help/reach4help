@@ -35,4 +35,6 @@ if (process.env.DATABASE_URL) {
   };
 }
 
-export default config
+module.exports = config;
+
+export default config;
