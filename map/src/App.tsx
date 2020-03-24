@@ -18,7 +18,7 @@ interface Props {
 
 interface State {
   filter: Filter;
-  results: MarkerInfo[];
+  results: MarkerInfo[] | null;
   selectMarkerCallback: SelectMarkerCallback;
   searchInput: HTMLInputElement | null;
 }
@@ -28,7 +28,7 @@ class App extends React.Component<Props, State> {
     super(props);
     this.state = {
       filter: {},
-      results: [],
+      results: null,
       selectMarkerCallback: null,
       searchInput: null,
     };
@@ -64,8 +64,9 @@ class App extends React.Component<Props, State> {
                 <Map
                   filter={filter}
                   searchInput={searchInput}
+                  results={results}
                   updateResults={this.updateResults}
-                  setSelectMarkerCallback={this.setSelectMarkerCallback}
+                  setSelectResultCallback={this.setSelectMarkerCallback}
                 />
               )}
             />

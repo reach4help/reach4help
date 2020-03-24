@@ -8,21 +8,9 @@ import { MARKERS, MarkerInfo, ContactDetails } from '../data/markers';
 
 export type SelectMarkerCallback = ((marker: number) => void) | null;
 
-interface Props {
-  className?: string;
-  filter: Filter;
-  searchInput: HTMLInputElement | null;
-  updateResults: (results: MarkerInfo[]) => void;
-  /**
-   * Set a callback that expects the index from the results array representing
-   * the marker that has been selected;
-   */
-  setSelectMarkerCallback: (callback: SelectMarkerCallback) => void;
-}
-
 interface MapInfo {
   map: google.maps.Map;
-  markers: google.maps.Marker[];
+  markers: Map<MarkerInfo, google.maps.Marker>;
   markerClusterer: MarkerClusterer;
   /**
    * The filter that is currently being used to display the markers on the map
@@ -33,7 +21,7 @@ interface MapInfo {
         state: 'idle';
         /** The circles we rendered for the current visible markers */
         serviceCircles: google.maps.Circle[];
-        visibleMarkers: google.maps.Marker[];
+        // visibleMarkers: google.maps.Marker[];
       }
     | {
         /** A clustering is in progress */
@@ -93,10 +81,10 @@ function getInfo(marker: google.maps.Marker): MarkerInfo {
 }
 
 function updateMarkersVisiblility(
-  markers: google.maps.Marker[],
+  markers: Map<MarkerInfo, google.maps.Marker>,
   filter: Filter,
 ) {
-  for (const marker of markers) {
+  for (const marker of markers.values()) {
     const info = getInfo(marker);
     const visible = !filter.service || info.services.includes(filter.service);
     marker.setVisible(visible);
@@ -238,7 +226,30 @@ interface QueryStringData {
   };
 }
 
-class Map extends React.Component<Props, {}> {
+interface Props {
+  className?: string;
+  filter: Filter;
+  searchInput: HTMLInputElement | null;
+  results: MarkerInfo[] | null;
+  updateResults: (results: MarkerInfo[]) => void;
+  /**
+   * Set a callback that expects the index from the results array representing
+   * the marker that has been selected;
+   */
+  setSelectResultCallback: (callback: SelectMarkerCallback) => void;
+}
+
+interface State {
+  /**
+   * List of results to display next for the current map bounds
+   */
+  nextResults?: {
+    markers: google.maps.Marker[];
+    results: MarkerInfo[];
+  };
+}
+
+class MapComponent extends React.Component<Props, State> {
   private map: MapInfo | null = null;
 
   private searchBox: {
@@ -247,6 +258,11 @@ class Map extends React.Component<Props, {}> {
   } | null = null;
 
   private infoWindow: google.maps.InfoWindow | null = null;
+
+  public constructor(props: Props) {
+    super(props);
+    this.state = {};
+  }
 
   public componentDidMount() {
     this.initializeSearch();
@@ -265,29 +281,34 @@ class Map extends React.Component<Props, {}> {
   }
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
-    const { filter, setSelectMarkerCallback } = this.props;
+    const { filter, setSelectResultCallback } = this.props;
     if (!ref) {
-      setSelectMarkerCallback(null);
+      setSelectResultCallback(null);
       return;
     }
     const map = createGoogleMap(ref);
-    const markers = MARKERS.map(info => {
+    const markers = new Map<MarkerInfo, google.maps.Marker>();
+    for (const m of MARKERS) {
       const marker = new window.google.maps.Marker({
-        position: info.loc,
-        title: info.services.join(','),
+        position: m.loc,
+        title: m.services.join(','),
       });
-      marker.set('info', info);
-      return marker;
-    });
+      marker.set('info', m);
+      markers.set(m, marker);
+    }
 
     // Add a marker clusterer to manage the markers.
-    const markerClusterer = new MarkerClusterer(map, markers, {
-      imagePath:
-        'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-      ignoreHidden: true,
-      averageCenter: true,
-      gridSize: 30,
-    });
+    const markerClusterer = new MarkerClusterer(
+      map,
+      Array.from(markers.values()),
+      {
+        imagePath:
+          'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+        ignoreHidden: true,
+        averageCenter: true,
+        gridSize: 30,
+      },
+    );
 
     const m: MapInfo = {
       map,
@@ -297,9 +318,12 @@ class Map extends React.Component<Props, {}> {
     };
     this.map = m;
 
-    setSelectMarkerCallback(index => {
+    setSelectResultCallback(index => {
+      const { results } = this.props;
       if (m.clustering?.state === 'idle') {
-        const marker = m.clustering.visibleMarkers[index];
+        // The index represents which result in results
+        const markerInfo = results && results[index];
+        const marker = markerInfo && markers.get(markerInfo);
         if (marker) {
           google.maps.event.trigger(marker, 'click');
         }
@@ -340,14 +364,6 @@ class Map extends React.Component<Props, {}> {
 
       return marker;
     });
-
-    if (markers.length) {
-      const position = markers[0].getPosition();
-      const existingPos = parseQueryString();
-      if (position && !existingPos.map) {
-        map.setCenter(position);
-      }
-    }
 
     const drawMarkerServiceArea = (marker: google.maps.Marker) => {
       if (m.clustering?.state !== 'idle') {
@@ -412,8 +428,8 @@ class Map extends React.Component<Props, {}> {
         m.clustering = {
           state: 'idle',
           serviceCircles: [],
-          visibleMarkers: [],
         };
+        const visibleMarkers: google.maps.Marker[] = [];
 
         for (const cluster of newClusterParent.getClusters()) {
           let maxMarker: {
@@ -434,7 +450,7 @@ class Map extends React.Component<Props, {}> {
                 serviceRadius: info.loc.serviceRadius,
               };
             }
-            m.clustering.visibleMarkers.push(marker);
+            visibleMarkers.push(marker);
           }
 
           // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
@@ -443,25 +459,45 @@ class Map extends React.Component<Props, {}> {
           }
         }
 
-        // Clear all marker labels
-        for (const marker of markers) {
-          marker.setLabel('');
-        }
-
-        // Update labels of markers to be based on index in visibleMarkers
+        // Sort markers based on distance from center of screen
         const mapCenter = map.getCenter();
-        m.clustering.visibleMarkers
-          .sort(generateSortBasedOnMapCenter(mapCenter))
-          .forEach((marker, index) => {
-            marker.setLabel((index + 1).toString());
-          });
+        visibleMarkers.sort(generateSortBasedOnMapCenter(mapCenter));
 
-        const { updateResults } = this.props;
-        updateResults(
-          m.clustering.visibleMarkers.map(marker => getInfo(marker)),
+        // Store the next results in the state
+        const nextResults = {
+          markers: visibleMarkers,
+          results: visibleMarkers.map(marker => getInfo(marker)),
+        };
+        this.setState(
+          state =>
+            isEqual(state.nextResults, nextResults) ? {} : { nextResults },
+          () => {
+            // If there have been no results set yet, update them!
+            const { results } = this.props;
+            if (results === null) {
+              this.updateResults();
+            }
+          },
         );
       },
     );
+  };
+
+  private updateResults = () => {
+    const { results, updateResults } = this.props;
+    const { nextResults } = this.state;
+    if (this.map && nextResults && results !== nextResults.results) {
+      // Clear all existing marker labels
+      for (const marker of this.map.markers.values()) {
+        marker.setLabel('');
+      }
+      // Relabel marker labels based on theri index
+      nextResults.markers.forEach((marker, index) => {
+        marker.setLabel((index + 1).toString());
+      });
+      // Update the new results state
+      updateResults(nextResults.results);
+    }
   };
 
   private initializeSearch() {
@@ -507,17 +543,48 @@ class Map extends React.Component<Props, {}> {
   }
 
   public render() {
-    const { className } = this.props;
+    const { className, results } = this.props;
+    const { nextResults } = this.state;
+    const hasNewResults = nextResults && nextResults.results !== results;
     return (
-      <div
-        className={className}
-        id="google-map"
-        ref={this.updateGoogleMapRef}
-      />
+      <div className={className}>
+        <div ref={this.updateGoogleMapRef} />
+        {hasNewResults && (
+          <button type="button" onClick={this.updateResults}>
+            Update results for this area
+          </button>
+        )}
+      </div>
     );
   }
 }
 
-export default styled(Map)`
+export default styled(MapComponent)`
   height: 100%;
+  position: relative;
+
+  > div {
+    height: 100%;
+  }
+
+  > button {
+    position: absolute;
+    bottom: ${p => p.theme.spacingPx}px;
+    left: ${p => p.theme.spacingPx}px;
+    right: ${p => p.theme.spacingPx}px;
+    margin: 0 auto;
+    color: #333;
+    background: #fff;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding: 9px 9px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+    }
+  }
 `;

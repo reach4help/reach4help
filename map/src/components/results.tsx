@@ -5,7 +5,7 @@ import { SelectMarkerCallback } from './map';
 
 interface Props {
   className?: string;
-  results: MarkerInfo[];
+  results: MarkerInfo[] | null;
   selectMarkerCallback: SelectMarkerCallback;
 }
 
@@ -13,7 +13,7 @@ const Results = (props: Props) => {
   const { className, results, selectMarkerCallback } = props;
   return (
     <div className={className}>
-      {results.map((result, index) => (
+      {(results || []).map((result, index) => (
         <div
           key={index}
           className="result"
