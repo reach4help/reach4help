@@ -136,32 +136,10 @@ const Writing = () => (
   <StaticQuery
     query={graphql`
       query MediumPostQuery {
-        site {
-          siteMetadata {
-            isMediumUserDefined
+        markdownRemark(frontmatter: {title: {eq: "Medium"}}) {
+          internal {
+            content
           }
-        }
-        allMediumPost(limit: 7, sort: { fields: createdAt, order: DESC }) {
-          totalCount
-          edges {
-            node {
-              id
-              uniqueSlug
-              title
-              createdAt(formatString: "MMM YYYY")
-              virtuals {
-                subtitle
-                readingTime
-                previewImage {
-                  imageId
-                }
-              }
-            }
-          }
-        }
-        author: mediumUser {
-          username
-          name
         }
       }
     `}
