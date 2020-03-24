@@ -1,4 +1,4 @@
-import { Connection, ConnectionOptions, createConnection } from 'typeorm';
+import { Connection, createConnection } from 'typeorm';
 import { DATABASE_CONNECTION } from 'src/constants';
 import * as PostgresConnectionStringParser from 'pg-connection-string';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
