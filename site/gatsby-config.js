@@ -13,6 +13,8 @@ const getAboutEntry = entry => entry.sys.contentType.sys.id === 'about';
 
 const plugins = [
   'gatsby-plugin-react-helmet',
+  'gatsby-plugin-netlify-cms',
+  'gatsby-plugin-netlify-identity-widget',
   {
     resolve: 'gatsby-plugin-web-font-loader',
     options: {
@@ -34,6 +36,13 @@ const plugins = [
     },
   },
   'gatsby-transformer-remark',
+  {
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      name: 'content',
+      path: `${__dirname}/src/content`,
+    },
+  },
   'gatsby-plugin-offline',
 ];
 
