@@ -1,7 +1,6 @@
 import { IsString, IsEmail } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-// eslint-disable-next-line import/prefer-default-export
 export class CreateUserDto {
     @ApiProperty({
         example: 'John',

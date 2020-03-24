@@ -1,4 +1,4 @@
-# Contributing to web-client for Reach4Help
+# Contributing to API for Reach4Help
 
 🎉🚀🙌🏻 First off, thanks for taking the time to contribute! 🙌🏻🚀🎉
 
@@ -69,7 +69,7 @@ yarn typeorm migration:run
 
 # How to report a bug
 
-> If you find a security vulnerability, open an issue describing the problem.
+> If you find a security vulnerability, please send a report to <security@reach4help.org>
 
 # How to suggest a feature or enhancement
 
@@ -97,4 +97,4 @@ Prettier guarantees the code style adopted and runs on commit, stick to this cod
 
 # PULL Requests
 
-Opening pull requests should be done with enough information and screenshots for visual changes to facilitate the reviewers job. Its MANDATORY to add a link to the issue related
+Opening pull requests should be done with enough information to facilitate the reviewers job. Its MANDATORY to add a link to the issue related
