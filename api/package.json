@@ -20,10 +20,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "pre-commit": "lint-staged",
-    "heroku-postbuild": "nest build && yarn typeorm migration:run -f src/database/ormconfig.ts"
+    "heroku-postbuild": "nest build && yarn typeorm migration:run -f src/database/ormconfig.js"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
+    "*.{ts,tsx}": [
       "eslint . --fix --ext .ts",
       "git add"
     ],

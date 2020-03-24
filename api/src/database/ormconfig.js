@@ -1,12 +1,10 @@
-import { ConnectionOptions, createConnection } from 'typeorm';
-import * as PostgresConnectionStringParser from 'pg-connection-string';
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+const PostgresConnectionStringParser = require('pg-connection-string');
 
-let config: ConnectionOptions;
+let config;
 
 // On heroku we use a connection string
 if (process.env.DATABASE_URL) {
-  const databaseUrl: string = process.env.DATABASE_URL;
+  const databaseUrl = process.env.DATABASE_URL;
   const connectionOptions = PostgresConnectionStringParser.parse(databaseUrl);
   config = {
     type: "postgres",
@@ -36,4 +34,4 @@ if (process.env.DATABASE_URL) {
   }
 }
 
-export = config;
+module.exports = config;
