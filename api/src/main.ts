@@ -13,6 +13,15 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(parseInt(process.env.API_PORT));
+  // Heroku send PORT
+  await app.listen(parseInt((process.env.PORT || process.env.API_PORT), 10));
 }
-bootstrap();
+
+bootstrap()
+  .then(() => {
+    console.log('Bootstrap Completed')
+  })
+  .catch((error) => {
+    console.log('FATAL ERROR', error);
+    process.exit(1)
+  });

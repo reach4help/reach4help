@@ -13,7 +13,8 @@
     "husky": "^4.2.3"
   },
   "scripts": {
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint",
+    "heroku-postbuild": "yarn workspace api run heroku-postbuild"
   },
   "husky": {
     "hooks": {
