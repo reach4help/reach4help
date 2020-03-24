@@ -33,8 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "pre-commit": "lint-staged",
-    "heroku-postbuild": "echo 'Not Deploying to Heroku'"
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
