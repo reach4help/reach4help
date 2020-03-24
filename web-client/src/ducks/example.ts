@@ -1,12 +1,11 @@
 import { produce } from 'immer';
 import { Reducer } from 'redux';
 
-import request from '../http/Request';
-
 // Action Types
 const INCREMENT = 'INCREMENT';
 const SUM = 'SUM';
 const DECREMENT = 'DECREMENT';
+const FETCH_USERS = 'FETCH_USERS';
 const FETCH_USERS_COMPLETED = 'FETCH_USERS_COMPLETED';
 
 interface IncrementAction {
@@ -22,7 +21,12 @@ interface SumValueAction {
     payload: ExampleState;
 }
 
-interface FetchUsersCompletedAction {
+interface FetchUsersAction {
+  type: typeof FETCH_USERS;
+  payload: ExampleState;
+}
+
+interface FetchUsersActionCompleted {
   type: typeof FETCH_USERS_COMPLETED;
   payload: ExampleState;
 }
@@ -31,7 +35,8 @@ type ActionTypes =
     | IncrementAction
     | DecrementAction
     | SumValueAction
-    | FetchUsersCompletedAction;
+    | FetchUsersAction
+    | FetchUsersActionCompleted;
 
 // Reducer
 
@@ -57,7 +62,7 @@ export const exampleReducer: Reducer = (state: ExampleState = initialState, acti
       draftState.value += action.payload.value;
       return draftState;
     case FETCH_USERS_COMPLETED:
-      draftState.users = action.payload.users;
+      draftState.users = action.payload;
       return draftState;
     default:
       return draftState;
@@ -81,20 +86,22 @@ export const sumAction = (value: number) => ({
   },
 });
 
-const fetchUsersCompleted = (data: any) => ({
-  type: FETCH_USERS_COMPLETED,
-  payload: {
-    users: data,
-  },
-});
-
-export const fetchUsersAction = () => (dispatch: Function) => {
-  request({
+const GetUsers = (request: Function) => {
+  const axiosConfig = {
     method: 'GET',
     url: '/users',
-  })
-    .then(req => req.data.data)
-    .then(data => dispatch(fetchUsersCompleted(data)));
+  };
+
+  return request(axiosConfig).then((response: any) => response.data);
+};
+
+export const fetchUsersAction = () => (dispatch: Function) => {
+
+  dispatch({
+    type: FETCH_USERS,
+    api: GetUsers,
+  });
+
 };
 
 export default exampleReducer;
