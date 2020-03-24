@@ -58,12 +58,12 @@ export default styled(Results)`
   flex-direction: column;
   width: 26%;
   min-width: 300px;
+  border-left: ${p => p.theme.borderLight};
 
   > .header {
     padding: ${p => p.theme.spacingPx}px;
     background: ${p => p.theme.bg};
     border-bottom: ${p => p.theme.borderLight};
-    border-top: ${p => p.theme.borderLight};
   }
 
   > .list {
