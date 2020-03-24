@@ -32,6 +32,9 @@ module.exports = {
     'no-restricted-syntax': 'off',
     'react/no-array-index-key': 'off',
     'import/prefer-default-export': 'off',
+    // consistent-return is uneccesary for typescript and encourages you to
+    // write uneccesary return statements instead of return types
+    'consistent-return': 'off',
     // Accessibility Disabled for now
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',

@@ -11,7 +11,7 @@ import {
   haversineDistance,
   generateSortBasedOnMapCenter,
 } from './map-utils/google-maps';
-import infoWindoContent from './map-utils/info-window';
+import infoWindowContent from './map-utils/info-window';
 
 interface MapInfo {
   map: google.maps.Map;
@@ -26,7 +26,8 @@ interface MapInfo {
         state: 'idle';
         /** The circles we rendered for the current visible markers */
         serviceCircles: google.maps.Circle[];
-        // visibleMarkers: google.maps.Marker[];
+        /** Map from original marker to position of cluster if in a cluster */
+        clusterMarkers: Map<google.maps.Marker, google.maps.LatLng>;
       }
     | {
         /** A clustering is in progress */
@@ -54,9 +55,11 @@ interface Props {
   filter: Filter;
   searchInput: HTMLInputElement | null;
   results: MarkerInfo[] | null;
-  nextResults?: NextResults;
   setResults: (results: MarkerInfo[]) => void;
+  nextResults?: NextResults;
   setNextResults: (nextResults: NextResults) => void;
+  selectedResult: MarkerInfo | null;
+  setSelectedResult: (selectedResult: MarkerInfo | null) => void;
   /**
    * Call this
    */
@@ -87,8 +90,8 @@ class MapComponent extends React.Component<Props, {}> {
     setUpdateResultsCallback(this.updateResults);
   }
 
-  public componentDidUpdate() {
-    const { filter, results, nextResults } = this.props;
+  public componentDidUpdate(prevProps: Props) {
+    const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
       updateMarkersVisiblilityUsingFilter(this.map.markers, filter);
@@ -101,6 +104,10 @@ class MapComponent extends React.Component<Props, {}> {
       // If we have next results queued up, but no results yet, set the results
       this.updateResults();
     }
+    // Update selected point if changed
+    if (selectedResult !== prevProps.selectedResult) {
+      this.updateInfoWindow();
+    }
   }
 
   public componentWillUnmount() {
@@ -109,7 +116,7 @@ class MapComponent extends React.Component<Props, {}> {
   }
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
-    const { filter } = this.props;
+    const { filter, setSelectedResult } = this.props;
     if (!ref) {
       return;
     }
@@ -160,21 +167,10 @@ class MapComponent extends React.Component<Props, {}> {
     // We iterate over all locations to create markers
     // This pretty much orchestrates everything since the map is the main interaction window
     markers.forEach(marker => {
-      const location = getInfo(marker);
+      const info = getInfo(marker);
 
       marker.addListener('click', () => {
-        const contentString = infoWindoContent(location);
-
-        // Reuse the info window or not
-        if (this.infoWindow && this.infoWindow.setContent) {
-          this.infoWindow.open(map, marker);
-          this.infoWindow.setContent(contentString);
-        } else {
-          this.infoWindow = new window.google.maps.InfoWindow({
-            content: contentString,
-          });
-          this.infoWindow.open(map, marker);
-        }
+        setSelectedResult(info);
       });
 
       return marker;
@@ -243,6 +239,7 @@ class MapComponent extends React.Component<Props, {}> {
         m.clustering = {
           state: 'idle',
           serviceCircles: [],
+          clusterMarkers: new Map(),
         };
         const visibleMarkers: google.maps.Marker[] = [];
 
@@ -251,9 +248,10 @@ class MapComponent extends React.Component<Props, {}> {
             marker: google.maps.Marker;
             serviceRadius: number;
           } | null = null;
-
+          const center = cluster.getCenter();
+          const clusterMarkers = cluster.getMarkers();
           // Figure out which marker in each cluster will generate a circle.
-          for (const marker of cluster.getMarkers()) {
+          for (const marker of clusterMarkers) {
             // Update maxMarker to higher value if found.
             const info = getInfo(marker);
             if (
@@ -266,6 +264,9 @@ class MapComponent extends React.Component<Props, {}> {
               };
             }
             visibleMarkers.push(marker);
+            if (clusterMarkers.length > 1) {
+              m.clustering.clusterMarkers.set(marker, center);
+            }
           }
 
           // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
@@ -285,6 +286,10 @@ class MapComponent extends React.Component<Props, {}> {
         };
         const { setNextResults: updateNextResults } = this.props;
         updateNextResults(nextResults);
+
+        // Update tooltip position if neccesary
+        // (marker may be newly in or out of cluster)
+        this.updateInfoWindow();
       },
     );
   };
@@ -302,6 +307,43 @@ class MapComponent extends React.Component<Props, {}> {
       });
       // Update the new results state
       updateResults(nextResults.results);
+    }
+  };
+
+  /**
+   * Open the tooltip for the currently selected marker, or close it if none is
+   * selected. And return the coordinates that were used to place the tooltip.
+   */
+  private updateInfoWindow = (): google.maps.LatLng | undefined => {
+    const { selectedResult, setSelectedResult } = this.props;
+    if (!this.map) {
+      return;
+    }
+    const marker = selectedResult && this.map.markers.get(selectedResult);
+    if (selectedResult && marker) {
+      const clusterCenter =
+        this.map.clustering?.state === 'idle' &&
+        this.map.clustering.clusterMarkers.get(marker);
+      const contentString = infoWindowContent(selectedResult);
+      if (!this.infoWindow) {
+        this.infoWindow = new window.google.maps.InfoWindow({
+          content: contentString,
+        });
+        this.infoWindow.addListener('closeclick', () =>
+          setSelectedResult(null),
+        );
+      }
+      this.infoWindow.setContent(contentString);
+      if (clusterCenter) {
+        this.infoWindow.open(this.map.map);
+        this.infoWindow.setPosition(clusterCenter);
+        return clusterCenter;
+      }
+      this.infoWindow.open(this.map.map, marker);
+      return marker.getPosition() || undefined;
+    }
+    if (this.infoWindow) {
+      this.infoWindow.close();
     }
   };
 

@@ -96,6 +96,8 @@ class App extends React.Component<Props, State> {
                   nextResults={nextResults}
                   setResults={this.setResults}
                   setNextResults={this.setNextResults}
+                  selectedResult={selectedResult}
+                  setSelectedResult={this.setSelectedResult}
                   setUpdateResultsCallback={this.setUpdateResultsCallback}
                 />
               )}
@@ -161,5 +163,10 @@ export default styled(App)`
       color: ${p => p.theme.textLinkHoverColor};
       text-decoration: underline;
     }
+  }
+
+  .info-window {
+    font-size: 1rem;
+    font-weight: 400;
   }
 `;
