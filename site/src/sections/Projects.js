@@ -181,28 +181,16 @@ const Projects = () => (
     <StaticQuery
       query={graphql`
         query ProjectsQuery {
-          contentfulAbout {
-            projects {
-              id
-              name
-              description
-              projectUrl
-              repositoryUrl
-              publishedDate(formatString: "YYYY")
-              type
-              logo {
-                title
-                image: resize(width: 200, quality: 100) {
-                  src
-                }
-              }
+          markdownRemark(frontmatter: { title: { eq: "Projects" } }) {
+            internal {
+              content
             }
           }
         }
       `}
-      render={({ contentfulAbout }) => (
+      render={({ markdownRemark }) => (
         <CardContainer minWidth="350px">
-          {contentfulAbout.projects.map((p, i) => (
+          {markdownRemark.internal.content.map((p, i) => (
             <Fade bottom delay={i * 200} key={p.id}>
               <Project {...p} />
             </Fade>
