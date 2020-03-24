@@ -17,7 +17,7 @@ if (process.env.DATABASE_URL) {
     username: connectionOptions.user,
     password: connectionOptions.password,
     database: connectionOptions.database,
-    synchronize: true,
+    synchronize: false,
     entities: [
       __dirname + '/../**/*.entity{.ts,.js}',
     ],
