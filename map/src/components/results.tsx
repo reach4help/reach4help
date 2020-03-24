@@ -1,5 +1,6 @@
 import React from 'react';
 import { MarkerInfo } from 'src/data/markers';
+import { SERVICES } from 'src/data';
 import styled from '../styling';
 import { SelectMarkerCallback } from './map';
 
@@ -31,6 +32,18 @@ const Results = (props: Props) => {
                 <div className="location">{result.loc.description}</div>
               )}
               <div className="name">{result.contentTitle}</div>
+              <div className="services">
+                {result.services.map(service => (
+                  <span
+                    key={service}
+                    style={{
+                      backgroundColor: SERVICES[service].color,
+                    }}
+                  >
+                    {SERVICES[service].label}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         ))}
@@ -43,7 +56,8 @@ export default styled(Results)`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 26%;
+  min-width: 300px;
 
   > .header {
     padding: ${p => p.theme.spacingPx}px;
@@ -85,6 +99,22 @@ export default styled(Results)`
         color: ${p => p.theme.textColorExtraLight};
         font-size: 0.9rem;
         margin-bottom: ${p => p.theme.spacingPx / 2}px;
+      }
+
+      .services {
+        display: flex;
+        flex-wrap: wrap;
+        margin: ${p => p.theme.spacingPx / 2}px -${p =>
+            p.theme.spacingPx / 4}px -${p => p.theme.spacingPx / 2}px;
+        > span {
+          margin: ${p => p.theme.spacingPx / 4}px;
+          padding: 3px 5px;
+          color: #fff;
+          border-radius: 3px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          opacity: 0.8;
+        }
       }
     }
   }
