@@ -4,23 +4,26 @@ import { DATABASE_CONNECTION } from 'src/constants';
 // TODO dedupe with ormconfig.js
 // import config = require('./ormconfig.js');
 import { parse } from 'pg-connection-string';
+
 let config;
 // On heroku we use a connection string
 if (process.env.DATABASE_URL) {
   const databaseUrl = process.env.DATABASE_URL;
   const connectionOptions = parse(databaseUrl);
   config = {
-    type: "postgres",
+    type: 'postgres',
     host: connectionOptions.host,
     port: parseInt(connectionOptions.port, 10),
     username: connectionOptions.user,
     password: connectionOptions.password,
     database: connectionOptions.database,
     synchronize: true,
-    entities: ["target/entity/**/*.js"],
+    entities: [
+      __dirname + '/../**/*.entity{.ts,.js}',
+    ],
     extra: {
-      ssl: connectionOptions.ssl
-    }
+      ssl: connectionOptions.ssl,
+    },
   };
 } else {
   config = {
@@ -34,7 +37,7 @@ if (process.env.DATABASE_URL) {
       __dirname + '/../**/*.entity{.ts,.js}',
     ],
     synchronize: false,
-  }
+  };
 }
 // end dupe
 
