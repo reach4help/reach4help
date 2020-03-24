@@ -14,7 +14,7 @@
   },
   "scripts": {
     "lint": "yarn workspaces run lint",
-    "heroku-postbuild": "yarn workspaces heroku-postbuild"
+    "heroku-postbuild": "yarn workspaces run heroku-postbuild"
   },
   "husky": {
     "hooks": {
