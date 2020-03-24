@@ -85,7 +85,7 @@ class App extends React.Component<Props, State> {
 }
 
 export default styled(App)`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -96,6 +96,7 @@ export default styled(App)`
   > main {
     display: flex;
     flex-grow: 1;
+    height: 0;
 
     > .map-area {
       flex-grow: 1;
