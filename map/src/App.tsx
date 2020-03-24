@@ -1,11 +1,13 @@
 import React from 'react';
+import isEqual from 'lodash/isEqual';
+
 import styled from './styling';
 
 import { Filter } from './data';
 
 import { FilterMutator } from './components/filters';
 import Header from './components/header';
-import Map, { SelectMarkerCallback } from './components/map';
+import Map, { NextResults } from './components/map';
 import Results from './components/results';
 import MapLoader from './components/map-loader';
 import Search from './components/search';
@@ -18,8 +20,10 @@ interface Props {
 
 interface State {
   filter: Filter;
-  results: MarkerInfo[];
-  selectMarkerCallback: SelectMarkerCallback;
+  results: MarkerInfo[] | null;
+  nextResults?: NextResults;
+  selectedResult: MarkerInfo | null;
+  updateResultsCallback: (() => void) | null;
   searchInput: HTMLInputElement | null;
 }
 
@@ -28,34 +32,58 @@ class App extends React.Component<Props, State> {
     super(props);
     this.state = {
       filter: {},
-      results: [],
-      selectMarkerCallback: null,
+      results: null,
+      selectedResult: null,
+      updateResultsCallback: null,
       searchInput: null,
     };
   }
 
-  private updateFilter = (mutator: FilterMutator) => {
+  private setFilter = (mutator: FilterMutator) => {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private updateResults = (results: MarkerInfo[]) => {
+  private setResults = (results: MarkerInfo[]) => {
     this.setState({ results });
   };
 
-  private setSelectMarkerCallback = (callback: SelectMarkerCallback) => {
-    this.setState({ selectMarkerCallback: callback });
+  private setUpdateResultsCallback = (callback: (() => void) | null) => {
+    this.setState({ updateResultsCallback: callback });
   };
 
-  private updateSearchInput = (searchInput: HTMLInputElement | null) => {
+  private setSearchInput = (searchInput: HTMLInputElement | null) => {
     this.setState({ searchInput });
+  };
+
+  private setSelectedResult = (selectedResult: MarkerInfo | null) => {
+    this.setState({ selectedResult });
+  };
+
+  private setNextResults = (nextResults: NextResults) => {
+    this.setState(state =>
+      isEqual(state.nextResults, nextResults) ? {} : { nextResults },
+    );
+  };
+
+  private updateResults = () => {
+    const { updateResultsCallback } = this.state;
+    if (updateResultsCallback) {
+      updateResultsCallback();
+    }
   };
 
   public render() {
     const { className } = this.props;
-    const { filter, results, selectMarkerCallback, searchInput } = this.state;
+    const {
+      filter,
+      results,
+      nextResults,
+      selectedResult,
+      searchInput,
+    } = this.state;
     return (
       <div className={className}>
-        <Header filter={filter} updateFilter={this.updateFilter} />
+        <Header filter={filter} updateFilter={this.setFilter} />
         <main>
           <div className="map-area">
             <MapLoader
@@ -64,19 +92,27 @@ class App extends React.Component<Props, State> {
                 <Map
                   filter={filter}
                   searchInput={searchInput}
-                  updateResults={this.updateResults}
-                  setSelectMarkerCallback={this.setSelectMarkerCallback}
+                  results={results}
+                  nextResults={nextResults}
+                  setResults={this.setResults}
+                  setNextResults={this.setNextResults}
+                  selectedResult={selectedResult}
+                  setSelectedResult={this.setSelectedResult}
+                  setUpdateResultsCallback={this.setUpdateResultsCallback}
                 />
               )}
             />
             <Search
               className="search"
-              updateSearchInput={this.updateSearchInput}
+              updateSearchInput={this.setSearchInput}
             />
           </div>
           <Results
             results={results}
-            selectMarkerCallback={selectMarkerCallback}
+            nextResults={nextResults?.results || null}
+            selectedResult={selectedResult}
+            setSelectedResult={this.setSelectedResult}
+            updateResults={this.updateResults}
           />
         </main>
       </div>
@@ -85,7 +121,7 @@ class App extends React.Component<Props, State> {
 }
 
 export default styled(App)`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -96,6 +132,7 @@ export default styled(App)`
   > main {
     display: flex;
     flex-grow: 1;
+    height: 0;
 
     > .map-area {
       flex-grow: 1;
@@ -116,5 +153,20 @@ export default styled(App)`
         right: 60px;
       }
     }
+  }
+
+  a {
+    color: ${p => p.theme.textLinkColor};
+    text-decoration: none;
+
+    &:hover {
+      color: ${p => p.theme.textLinkHoverColor};
+      text-decoration: underline;
+    }
+  }
+
+  .info-window {
+    font-size: 1rem;
+    font-weight: 400;
   }
 `;

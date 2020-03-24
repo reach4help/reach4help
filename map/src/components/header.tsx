@@ -46,6 +46,7 @@ const Header = (props: Props) => {
 export default styled(Header)`
   color: #333;
   padding: ${p => p.theme.spacingPx}px;
+  border-bottom: ${p => p.theme.borderLight};
 
   > h1 {
     margin: 0;
