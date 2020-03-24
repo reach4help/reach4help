@@ -1,7 +1,7 @@
 const manifestConfig = require('./manifest-config');
 require('dotenv').config();
 
-const { MEDIUMUSER, ANALYTICS_ID, DETERMINISTIC } = process.env;
+const { ANALYTICS_ID, DETERMINISTIC } = process.env;
 
 const plugins = [
   'gatsby-plugin-react-helmet',
@@ -36,15 +36,6 @@ if (ANALYTICS_ID) {
     resolve: 'gatsby-plugin-google-analytics',
     options: {
       trackingId: ANALYTICS_ID,
-    },
-  });
-}
-
-if (MEDIUMUSER) {
-  plugins.push({
-    resolve: 'gatsby-source-medium',
-    options: {
-      username: MEDIUMUSER || '@medium',
     },
   });
 }
@@ -86,7 +77,6 @@ module.exports = {
           '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=32&fl=progressive&q=50',
       },
     },
-    isMediumUserDefined: !!MEDIUMUSER,
     deterministicBehaviour: !!DETERMINISTIC,
   },
   plugins,
