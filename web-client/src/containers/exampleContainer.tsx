@@ -1,6 +1,6 @@
+import { Button } from 'antd';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from 'src/components/Button/Buttons';
 
 import { AppState } from '../store';
 import { decrementAction, incrementAction, incrementAsyncAction, sumAction } from '../store/example/actions';
@@ -32,10 +32,10 @@ const ExampleContainer: React.FC = () => {
   return (
     <div>
       {value}
-      <Button type="button" color="#0F0" onClick={increment}>Increment</Button>
-      <Button type="button" onClick={incrementAsync}>Increment with Delay</Button>
-      <Button type="button" onClick={() => sum(5)}>Add 5</Button>
-      <Button type="button" color="#F00" onClick={decrement}>Decrement</Button>
+      <Button type="primary" color="#0F0" onClick={increment}>Increment</Button>
+      <Button type="primary" onClick={incrementAsync}>Increment with Delay</Button>
+      <Button type="primary" onClick={() => sum(5)}>Add 5</Button>
+      <Button type="primary" color="#F00" onClick={decrement}>Decrement</Button>
     </div>
   );
 };
