@@ -1,8 +1,6 @@
 import { createConnection } from 'typeorm';
 import { DATABASE_CONNECTION } from 'src/constants';
 
-// TODO dedupe with ormconfig.js
-// import config = require('./ormconfig.js');
 import { parse } from 'pg-connection-string';
 
 let config;
