@@ -1,6 +1,6 @@
 import { createConnection } from 'typeorm';
 import { DATABASE_CONNECTION } from 'src/constants';
-import config = require('./ormconfig');
+import config = require('./ormconfig.js');
 
 const connectionPromise = createConnection(config);
 
