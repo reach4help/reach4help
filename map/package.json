@@ -28,7 +28,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx",
     "pre-commit": "lint-staged",
     "prettier": "prettier --check \"./**/*.{ts,tsx,js}\"",
-    "prettier-fix": "prettier --write \"./**/*.{ts,tsx,js}\""
+    "prettier-fix": "prettier --write \"./**/*.{ts,tsx,js}\"",
+    "heroku-postbuild": "echo 'Not Deploying to Heroku'"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
