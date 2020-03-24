@@ -1,20 +1,36 @@
 import React from 'react';
 import { MarkerInfo } from 'src/data/markers';
 import { SERVICES } from 'src/data';
+import { button } from 'src/styling/mixins';
 import styled from '../styling';
 import { SelectMarkerCallback } from './map';
 
 interface Props {
   className?: string;
   results: MarkerInfo[] | null;
+  nextResults: MarkerInfo[] | null;
+  updateResults: () => void;
   selectMarkerCallback: SelectMarkerCallback;
 }
 
 const Results = (props: Props) => {
-  const { className, results, selectMarkerCallback } = props;
+  const {
+    className,
+    results,
+    nextResults,
+    selectMarkerCallback,
+    updateResults,
+  } = props;
   return (
     <div className={className}>
-      <div className="header">{`${(results || []).length} results`}</div>
+      <div className="header">
+        <span>{`${(results || []).length} results`}</span>
+        {nextResults !== results && (
+          <button onClick={updateResults} type="button">
+            Update results for current area
+          </button>
+        )}
+      </div>
       <div className="list">
         {(results || []).map((result, index) => (
           <div
@@ -64,6 +80,25 @@ export default styled(Results)`
     padding: ${p => p.theme.spacingPx}px;
     background: ${p => p.theme.bg};
     border-bottom: ${p => p.theme.borderLight};
+    display: flex;
+    align-items: center;
+
+    > span {
+      flex-grow: 1;
+      margin-right: ${p => p.theme.spacingPx}px;
+      line-height: 22px;
+    }
+
+    button {
+      ${button};
+      background-color: ${p => p.theme.colors.grayLight2};
+      border: 1px solid ${p => p.theme.colors.grayLight1};
+      margin: -${p => p.theme.spacingPx / 2}px;
+
+      &:hover {
+        background-color: ${p => p.theme.colors.grayLight3};
+      }
+    }
   }
 
   > .list {
@@ -81,7 +116,7 @@ export default styled(Results)`
       cursor: pointer;
 
       &:hover {
-        background: ${p => p.theme.colors.grayLight3};
+        background: ${p => p.theme.colors.grayLight4};
 
         .location {
           color: ${p => p.theme.textColorLight};

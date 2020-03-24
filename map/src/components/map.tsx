@@ -2,6 +2,7 @@ import React from 'react';
 import isEqual from 'lodash/isEqual';
 
 import { Filter, SERVICES } from 'src/data';
+import { button } from 'src/styling/mixins';
 import styled from '../styling';
 import { MARKERS, MarkerInfo } from '../data/markers';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
@@ -56,13 +57,17 @@ interface Props {
   searchInput: HTMLInputElement | null;
   results: MarkerInfo[] | null;
   nextResults?: NextResults;
-  updateResults: (results: MarkerInfo[]) => void;
-  updateNextResults: (nextResults: NextResults) => void;
+  setResults: (results: MarkerInfo[]) => void;
+  setNextResults: (nextResults: NextResults) => void;
   /**
    * Set a callback that expects the index from the results array representing
    * the marker that has been selected;
    */
   setSelectResultCallback: (callback: SelectMarkerCallback) => void;
+  /**
+   * Call this
+   */
+  setUpdateResultsCallback: (callback: (() => void) | null) => void;
 }
 
 /**
@@ -84,7 +89,9 @@ class MapComponent extends React.Component<Props, {}> {
   private infoWindow: google.maps.InfoWindow | null = null;
 
   public componentDidMount() {
+    const { setUpdateResultsCallback } = this.props;
     this.initializeSearch();
+    setUpdateResultsCallback(this.updateResults);
   }
 
   public componentDidUpdate() {
@@ -101,6 +108,11 @@ class MapComponent extends React.Component<Props, {}> {
       // If we have next results queued up, but no results yet, set the results
       this.updateResults();
     }
+  }
+
+  public componentWillUnmount() {
+    const { setUpdateResultsCallback } = this.props;
+    setUpdateResultsCallback(null);
   }
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
@@ -291,14 +303,14 @@ class MapComponent extends React.Component<Props, {}> {
           markers: visibleMarkers,
           results: visibleMarkers.map(marker => getInfo(marker)),
         };
-        const { updateNextResults } = this.props;
+        const { setNextResults: updateNextResults } = this.props;
         updateNextResults(nextResults);
       },
     );
   };
 
   private updateResults = () => {
-    const { results, nextResults, updateResults } = this.props;
+    const { results, nextResults, setResults: updateResults } = this.props;
     if (this.map && nextResults && results !== nextResults.results) {
       // Clear all existing marker labels
       for (const marker of this.map.markers.values()) {
@@ -380,23 +392,13 @@ export default styled(MapComponent)`
   }
 
   > button {
+    ${button};
     position: absolute;
     bottom: ${p => p.theme.spacingPx}px;
     left: ${p => p.theme.spacingPx}px;
     right: ${p => p.theme.spacingPx}px;
-    margin: 0 auto;
-    color: #333;
-    background: #fff;
-    border: none;
-    outline: none;
-    font-size: 15px;
-    padding: 9px 9px;
-    border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-    cursor: pointer;
-
-    &:hover {
-      color: #000;
-    }
+    margin: 0 auto;
+    background: #fff;
   }
 `;

@@ -23,6 +23,7 @@ interface State {
   results: MarkerInfo[] | null;
   nextResults?: NextResults;
   selectMarkerCallback: SelectMarkerCallback;
+  updateResultsCallback: (() => void) | null;
   searchInput: HTMLInputElement | null;
 }
 
@@ -33,6 +34,7 @@ class App extends React.Component<Props, State> {
       filter: {},
       results: null,
       selectMarkerCallback: null,
+      updateResultsCallback: null,
       searchInput: null,
     };
   }
@@ -41,7 +43,7 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private updateResults = (results: MarkerInfo[]) => {
+  private setResults = (results: MarkerInfo[]) => {
     this.setState({ results });
   };
 
@@ -49,14 +51,25 @@ class App extends React.Component<Props, State> {
     this.setState({ selectMarkerCallback: callback });
   };
 
+  private setUpdateResultsCallback = (callback: (() => void) | null) => {
+    this.setState({ updateResultsCallback: callback });
+  };
+
   private updateSearchInput = (searchInput: HTMLInputElement | null) => {
     this.setState({ searchInput });
   };
 
-  private updateNextResults = (nextResults: NextResults) => {
+  private setNextResults = (nextResults: NextResults) => {
     this.setState(state =>
       isEqual(state.nextResults, nextResults) ? {} : { nextResults },
     );
+  };
+
+  private updateResults = () => {
+    const { updateResultsCallback } = this.state;
+    if (updateResultsCallback) {
+      updateResultsCallback();
+    }
   };
 
   public render() {
@@ -81,9 +94,10 @@ class App extends React.Component<Props, State> {
                   searchInput={searchInput}
                   results={results}
                   nextResults={nextResults}
-                  updateResults={this.updateResults}
-                  updateNextResults={this.updateNextResults}
+                  setResults={this.setResults}
+                  setNextResults={this.setNextResults}
                   setSelectResultCallback={this.setSelectMarkerCallback}
+                  setUpdateResultsCallback={this.setUpdateResultsCallback}
                 />
               )}
             />
@@ -94,7 +108,9 @@ class App extends React.Component<Props, State> {
           </div>
           <Results
             results={results}
+            nextResults={nextResults?.results || null}
             selectMarkerCallback={selectMarkerCallback}
+            updateResults={this.updateResults}
           />
         </main>
       </div>
