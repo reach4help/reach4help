@@ -2,8 +2,8 @@ import React from 'react';
 import isEqual from 'lodash/isEqual';
 
 import { Filter, SERVICES } from 'src/data';
-import styled from 'styled-components';
-import { MARKERS, MarkerInfo } from '../data/markers';
+import styled from '../styling';
+import { MARKERS, MarkerInfo, ContactDetails } from '../data/markers';
 
 export type SelectMarkerCallback = ((marker: number) => void) | null;
 
@@ -40,10 +40,46 @@ interface MapInfo {
       };
 }
 
+function updateQueryString(update: Partial<QueryStringData>) {
+  if (!URLSearchParams) {
+    return window.location.search;
+  }
+  const params = new URLSearchParams(window.location.search);
+  if (update.map) {
+    params.set(
+      'map',
+      [update.map.pos.lat, update.map.pos.lng, update.map.zoom].join(','),
+    );
+  }
+  return `?${params.toString()}`;
+}
+
+function parseQueryString(): QueryStringData {
+  const result: QueryStringData = {};
+  if (URLSearchParams) {
+    const params = new URLSearchParams(window.location.search);
+    const map = params.get('map');
+    if (map) {
+      const split = map.split(',').map(s => parseFloat(s));
+      if (split.length === 3 && split.every(v => !Number.isNaN(v))) {
+        result.map = {
+          zoom: split[2],
+          pos: {
+            lat: split[0],
+            lng: split[1],
+          },
+        };
+      }
+    }
+  }
+  return result;
+}
+
 function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
+  const query = parseQueryString();
   return new google.maps.Map(ref, {
-    zoom: 3,
-    center: { lat: -28.024, lng: 140.887 },
+    zoom: query.map ? query.map.zoom : 3,
+    center: query.map ? query.map.pos : { lat: 0, lng: 0 },
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     streetViewControl: false,
     clickableIcons: false,
@@ -64,6 +100,79 @@ function updateMarkersVisiblility(
     const visible = !filter.service || info.services.includes(filter.service);
     marker.setVisible(visible);
   }
+}
+
+function contactInfo(label: string, info?: ContactDetails): string {
+  if (!info) {
+    return '';
+  }
+  const items: Array<{ href: string; label: string }> = [];
+  if (info.phone) {
+    items.push(
+      ...info.phone.map(number => ({
+        href: `tel:${number.replace(/\s/g, '')}`,
+        label: number,
+      })),
+    );
+  }
+  if (info.email) {
+    items.push(
+      ...info.email.map(email => ({
+        href: `mailto:${email}`,
+        label: email,
+      })),
+    );
+  }
+  if (info.facebookGroup) {
+    items.push({
+      href: info.facebookGroup,
+      label: 'Facebook',
+    });
+  }
+  if (info.web) {
+    items.push(
+      ...Object.entries(info.web).map(entry => ({
+        href: entry[1],
+        label: entry[0],
+      })),
+    );
+  }
+  if (items.length === 0) {
+    return '';
+  }
+  return `
+    <div>
+      <span>${label}:</span>
+      ${items.map(
+        item => `<a href="${item.href}" target="_blank">${item.label}</a> `,
+      )}
+    </div>
+    `;
+}
+
+function infoWindoContent(info: MarkerInfo): string {
+  return `<div id="content">
+    <div id="siteNotice">
+    </div>
+    <h1 id="firstHeading" class="firstHeading">${info.contentTitle}</h1>
+    ${info.contentBody ? `<div id="bodyContent">${info.contentBody}</div>` : ''}
+    <div>
+      <hr>
+      ${contactInfo('General Inquiries', info.contact.general)}
+      ${contactInfo('Volunteer', info.contact.volunteers)}
+      ${contactInfo('Request Help', info.contact.getHelp)}
+    <div>
+  </div>`;
+}
+
+interface QueryStringData {
+  map?: {
+    pos: {
+      lat: number;
+      lng: number;
+    };
+    zoom: number;
+  };
 }
 
 class Map extends React.Component<Props, {}> {
@@ -101,7 +210,7 @@ class Map extends React.Component<Props, {}> {
     const map = createGoogleMap(ref);
     const markers = MARKERS.map(info => {
       const marker = new window.google.maps.Marker({
-        position: info,
+        position: info.loc,
         title: info.services.join(','),
       });
       marker.set('info', info);
@@ -141,6 +250,20 @@ class Map extends React.Component<Props, {}> {
       if (this.searchBox && bounds) {
         this.searchBox.box.setBounds(bounds);
       }
+      if ('replaceState' in window.history) {
+        const pos = map.getCenter();
+        const zoom = map.getZoom();
+        window.history.replaceState(
+          null,
+          '',
+          updateQueryString({
+            map: {
+              pos: { lat: pos.lat(), lng: pos.lng() },
+              zoom,
+            },
+          }),
+        );
+      }
     });
 
     // We iterate over all locations to create markers
@@ -149,19 +272,7 @@ class Map extends React.Component<Props, {}> {
       const location = getInfo(marker);
 
       marker.addListener('click', () => {
-        const contentString =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          '</div>' +
-          `<h1 id="firstHeading" class="firstHeading">${location.contentTitle}</h1>` +
-          `<div id="bodyContent">${location.contentBody}</div>` +
-          '<div>' +
-          '<hr>' +
-          `<p>Website: <a href="${location.contact.web}">${location.contact.web}</a></p>` +
-          `<p>Email: <a href="mailto:${location.contact.email}">${location.contact.email}</a></p>` +
-          `<p>Phone: <a href="tel:${location.contact.phone}">${location.contact.phone}</a></p>` +
-          '<div>' +
-          '</div>';
+        const contentString = infoWindoContent(location);
 
         // Reuse the info window or not
         if (this.infoWindow && this.infoWindow.setContent) {
@@ -186,7 +297,8 @@ class Map extends React.Component<Props, {}> {
 
     if (markers.length) {
       const position = markers[0].getPosition();
-      if (position) {
+      const existingPos = parseQueryString();
+      if (position && !existingPos.map) {
         map.setCenter(position);
       }
     }
@@ -204,7 +316,7 @@ class Map extends React.Component<Props, {}> {
         const topRight = mapBoundingBox.getNorthEast();
         const bottomLeft = mapBoundingBox.getSouthWest();
         const markerPosition = marker.getPosition();
-        const radius = info.serviceRadius;
+        const radius = info.loc.serviceRadius;
 
         // Now compare the distance from the marker to corners of the box;
         if (markerPosition) {
@@ -267,10 +379,13 @@ class Map extends React.Component<Props, {}> {
           for (const marker of cluster.getMarkers()) {
             // Update maxMarker to higher value if found.
             const info = getInfo(marker);
-            if (!maxMarker || maxMarker.serviceRadius < info.serviceRadius) {
+            if (
+              !maxMarker ||
+              maxMarker.serviceRadius < info.loc.serviceRadius
+            ) {
               maxMarker = {
                 marker,
-                serviceRadius: info.serviceRadius,
+                serviceRadius: info.loc.serviceRadius,
               };
             }
             m.clustering.visibleMarkers.push(marker);
