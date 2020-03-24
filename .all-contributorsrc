@@ -100,6 +100,15 @@
         "ideas",
         "code"
       ]
+    },
+    {
+      "login": "micaelr95",
+      "name": "Micael Rodrigues",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12500655?v=4",
+      "profile": "https://micaelr95.github.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
