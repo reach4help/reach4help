@@ -1,10 +1,16 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
-import debounce from 'lodash/debounce';
 
 import { Filter, SERVICES } from 'src/data';
 import styled from '../styling';
-import { MARKERS, MarkerInfo, ContactDetails } from '../data/markers';
+import { MARKERS, MarkerInfo } from '../data/markers';
+import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
+import {
+  createGoogleMap,
+  haversineDistance,
+  generateSortBasedOnMapCenter,
+} from './map-utils/google-maps';
+import infoWindoContent from './map-utils/info-window';
 
 export type SelectMarkerCallback = ((marker: number) => void) | null;
 
@@ -29,58 +35,11 @@ interface MapInfo {
       };
 }
 
-function updateQueryString(update: Partial<QueryStringData>) {
-  if (!URLSearchParams) {
-    return window.location.search;
-  }
-  const params = new URLSearchParams(window.location.search);
-  if (update.map) {
-    params.set(
-      'map',
-      [update.map.pos.lat, update.map.pos.lng, update.map.zoom].join(','),
-    );
-  }
-  return `?${params.toString()}`;
-}
-
-function parseQueryString(): QueryStringData {
-  const result: QueryStringData = {};
-  if (URLSearchParams) {
-    const params = new URLSearchParams(window.location.search);
-    const map = params.get('map');
-    if (map) {
-      const split = map.split(',').map(s => parseFloat(s));
-      if (split.length === 3 && split.every(v => !Number.isNaN(v))) {
-        result.map = {
-          zoom: split[2],
-          pos: {
-            lat: split[0],
-            lng: split[1],
-          },
-        };
-      }
-    }
-  }
-  return result;
-}
-
-function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
-  const query = parseQueryString();
-  return new google.maps.Map(ref, {
-    zoom: query.map ? query.map.zoom : 3,
-    center: query.map ? query.map.pos : { lat: 0, lng: 0 },
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    streetViewControl: false,
-    clickableIcons: false,
-    mapTypeControl: false,
-  });
-}
-
 function getInfo(marker: google.maps.Marker): MarkerInfo {
   return marker.get('info');
 }
 
-function updateMarkersVisiblility(
+function updateMarkersVisiblilityUsingFilter(
   markers: Map<MarkerInfo, google.maps.Marker>,
   filter: Filter,
 ) {
@@ -89,141 +48,6 @@ function updateMarkersVisiblility(
     const visible = !filter.service || info.services.includes(filter.service);
     marker.setVisible(visible);
   }
-}
-
-function contactInfo(label: string, info?: ContactDetails): string {
-  if (!info) {
-    return '';
-  }
-  const items: Array<{ href: string; label: string }> = [];
-  if (info.phone) {
-    items.push(
-      ...info.phone.map(number => ({
-        href: `tel:${number.replace(/\s/g, '')}`,
-        label: number,
-      })),
-    );
-  }
-  if (info.email) {
-    items.push(
-      ...info.email.map(email => ({
-        href: `mailto:${email}`,
-        label: email,
-      })),
-    );
-  }
-  if (info.facebookGroup) {
-    items.push({
-      href: info.facebookGroup,
-      label: 'Facebook',
-    });
-  }
-  if (info.web) {
-    items.push(
-      ...Object.entries(info.web).map(entry => ({
-        href: entry[1],
-        label: entry[0],
-      })),
-    );
-  }
-  if (items.length === 0) {
-    return '';
-  }
-  return `
-    <div>
-      <span>${label}:</span>
-      ${items.map(
-        item => `<a href="${item.href}" target="_blank">${item.label}</a> `,
-      )}
-    </div>
-    `;
-}
-
-function infoWindoContent(info: MarkerInfo): string {
-  return `<div id="content">
-    <div id="siteNotice">
-    </div>
-    <h1 id="firstHeading" class="firstHeading">${info.contentTitle}</h1>
-    ${info.contentBody ? `<div id="bodyContent">${info.contentBody}</div>` : ''}
-    <div>
-      <hr>
-      ${contactInfo('General Inquiries', info.contact.general)}
-      ${contactInfo('Volunteer', info.contact.volunteers)}
-      ${contactInfo('Request Help', info.contact.getHelp)}
-    <div>
-  </div>`;
-}
-
-const debouncedReplaceHistory = debounce((map: google.maps.Map) => {
-  const pos = map.getCenter();
-  const zoom = map.getZoom();
-  window.history.replaceState(
-    null,
-    '',
-    updateQueryString({
-      map: {
-        pos: { lat: pos.lat(), lng: pos.lng() },
-        zoom,
-      },
-    }),
-  );
-}, 299); // max is 100 times in 30 seconds
-
-const haversineDistance = (
-  latLng1: google.maps.LatLng,
-  latLng2: google.maps.LatLng,
-): number => {
-  const lon1 = latLng1.lng();
-  const lon2 = latLng2.lng();
-  const radlat1 = (Math.PI * latLng1.lat()) / 180;
-  const radlat2 = (Math.PI * latLng2.lat()) / 180;
-  const theta = lon1 - lon2;
-  const radtheta = (Math.PI * theta) / 180;
-  let dist =
-    Math.sin(radlat1) * Math.sin(radlat2) +
-    Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-  dist = Math.acos(dist);
-  dist = (dist * 180) / Math.PI;
-  dist = dist * 60 * 1.1515;
-  dist *= 1609.344; // for meters
-  return dist;
-};
-
-const generateSortBasedOnMapCenter = (mapCenter: google.maps.LatLng) => {
-  return (a: google.maps.Marker, b: google.maps.Marker): number => {
-    const aPosition = a.getPosition();
-    const bPosition = b.getPosition();
-
-    if (aPosition && bPosition) {
-      const aFromCenter = haversineDistance(aPosition, mapCenter);
-      const bFromCenter = haversineDistance(bPosition, mapCenter);
-
-      if (aFromCenter > bFromCenter) {
-        return 1;
-      }
-      if (aFromCenter < bFromCenter) {
-        return -1;
-      }
-      return 0;
-    }
-    if (!aPosition) {
-      return -1;
-    }
-    if (!bPosition) {
-      return 1;
-    }
-    return 0;
-  };
-};
-
-interface QueryStringData {
-  map?: {
-    pos: {
-      lat: number;
-      lng: number;
-    };
-    zoom: number;
-  };
 }
 
 interface Props {
@@ -267,7 +91,7 @@ class MapComponent extends React.Component<Props, {}> {
     const { filter, results, nextResults } = this.props;
     // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
-      updateMarkersVisiblility(this.map.markers, filter);
+      updateMarkersVisiblilityUsingFilter(this.map.markers, filter);
       this.map.markerClusterer.repaint();
       this.map.currentFilter = filter;
     }
@@ -329,7 +153,7 @@ class MapComponent extends React.Component<Props, {}> {
       }
     });
 
-    updateMarkersVisiblility(markers, filter);
+    updateMarkersVisiblilityUsingFilter(markers, filter);
 
     map.addListener('bounds_changed', () => {
       const bounds = map.getBounds();
@@ -337,7 +161,7 @@ class MapComponent extends React.Component<Props, {}> {
         this.searchBox.box.setBounds(bounds);
       }
       if ('replaceState' in window.history) {
-        debouncedReplaceHistory(map);
+        debouncedUpdateQueryStringMapLocation(map);
       }
     });
 
