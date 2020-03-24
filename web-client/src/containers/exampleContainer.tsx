@@ -8,6 +8,7 @@ import { decrementAction, incrementAction, incrementAsyncAction, sumAction } fro
 const ExampleContainer: React.FC = () => {
   const value = useSelector((state: AppState) => state.exampleReducer.value);
   const dispatch = useDispatch();
+
   const increment = useCallback(
     () => dispatch(incrementAction),
     [dispatch],
