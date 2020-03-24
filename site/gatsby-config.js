@@ -67,6 +67,21 @@ module.exports = client.getEntries().then(entries => {
 
   return {
     siteMetadata: {
+      title: 'Reach4Help',
+      socialLinks: [
+        {
+          fontAwesomeIcon: 'github',
+          id: '1268ee25-408e-5358-b8d4-510ac106e5a0',
+          name: 'Github',
+          url: 'https://github.com/reach4help/reach4help',
+        },
+        {
+          fontAwesomeIcon: "envelope",
+          id: "265755e6-9146-55ba-9916-5175bfd799b8",
+          name: "Email Us",
+          url: "mailto:info@reach4help.org",
+        }
+      ],
       isMediumUserDefined: !!mediumUser,
       deterministicBehaviour: !!DETERMINISTIC,
     },
