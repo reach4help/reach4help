@@ -1,5 +1,4 @@
-import { enableAllPlugins } from 'immer'
-;
+import { enableAllPlugins } from 'immer';
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import {

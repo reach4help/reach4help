@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from 'src/components/Button/Buttons';
 
 import { AppState } from '../store';
-import { decrementAction, incrementAction, incrementAsyncAction, sumAction } from '../store/example/actions';
+import { decrementAction, fetchUsersAction, incrementAction, sumAction } from '../store/example/actions';
 
 const ExampleContainer: React.FC = () => {
   const value = useSelector((state: AppState) => state.exampleReducer.value);
+  const users = useSelector((state: AppState) => state.exampleReducer.users);
   const dispatch = useDispatch();
   const increment = useCallback(
     () => dispatch(incrementAction),
     [dispatch],
   );
 
-  const incrementAsync = useCallback(
-    () => dispatch(incrementAsyncAction()),
+  const fetchUsers = useCallback(
+    () => dispatch(fetchUsersAction()),
     [dispatch],
   );
 
@@ -32,9 +33,10 @@ const ExampleContainer: React.FC = () => {
     <div>
       {value}
       <Button type="button" color="#0F0" onClick={increment}>Increment</Button>
-      <Button type="button" onClick={incrementAsync}>Increment with Delay</Button>
+      <Button type="button" onClick={fetchUsers}>Fetch users</Button>
       <Button type="button" onClick={() => sum(5)}>Add 5</Button>
       <Button type="button" color="#F00" onClick={decrement}>Decrement</Button>
+      {users.map((user: any) => user.email)}
     </div>
   );
 };

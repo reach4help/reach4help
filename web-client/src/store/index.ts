@@ -8,7 +8,7 @@ const rootReducer = combineReducers({ exampleReducer });
 
 export type AppState = ReturnType<typeof rootReducer>;
 
-export default function configureStore() {
+const configureStore = () => {
   const middlewares = [thunk];
 
   const store = createStore(
@@ -20,4 +20,6 @@ export default function configureStore() {
   );
 
   return store;
-}
+};
+
+export default configureStore;
