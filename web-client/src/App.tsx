@@ -2,8 +2,14 @@ import { enableAllPlugins } from 'immer'
 ;
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+} from 'react-router-dom';
 
-import ExampleContainer from './containers/exampleContainer';
+import Index from './pages/index';
+import NotFound from './pages/not-found';
 import configureStore from './store';
 
 // Later we can check if we need all immer plugins
@@ -13,10 +19,16 @@ function App(): ReactElement {
   const store = configureStore();
   return (
     <Provider store={store}>
-      <div className="App">
-        Reach4Help
-        <ExampleContainer />
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Index />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
     </Provider>
   );
 }

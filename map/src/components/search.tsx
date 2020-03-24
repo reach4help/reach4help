@@ -14,7 +14,7 @@ class Search extends React.Component<Props, {}> {
         <input
           ref={updateSearchInput}
           type="text"
-          placeholder="Enter location on map"
+          placeholder="Jump to a location on the map..."
         />
       </div>
     );

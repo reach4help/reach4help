@@ -47,7 +47,7 @@ const About = () => (
     <StaticQuery
       query={graphql`
         {
-          markdownRemark(frontmatter: {title: {eq: "About"}}) {
+          markdownRemark(frontmatter: { title: { eq: "About" } }) {
             internal {
               content
             }
