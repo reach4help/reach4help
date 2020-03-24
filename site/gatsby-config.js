@@ -41,7 +41,7 @@ const plugins = [
     options: {
       name: 'content',
       path: `${__dirname}/src/content`,
-    }
+    },
   },
   'gatsby-plugin-offline',
 ];
