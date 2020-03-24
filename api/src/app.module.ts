@@ -4,11 +4,7 @@ import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    DatabaseModule,
-    UsersModule
-  ],
+  imports: [ConfigModule.forRoot(), DatabaseModule, UsersModule],
   controllers: [],
   providers: [],
 })

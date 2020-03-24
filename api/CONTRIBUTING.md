@@ -67,7 +67,6 @@ yarn typeorm migration:run
 
 6 - The api swagger-ui is now available under [localhost:3001](http://localhost:3001)
 
-
 # How to report a bug
 
 > If you find a security vulnerability, open an issue describing the problem.

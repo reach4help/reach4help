@@ -3,7 +3,7 @@ version: '3'
 services:
   database:
     image: postgres:12.2-alpine
-    container_name: "api_postgres_db"
+    container_name: 'api_postgres_db'
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres

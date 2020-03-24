@@ -4,7 +4,6 @@ import { GenericEntity } from 'src/generic/generic.entity';
 
 @Entity()
 export class User extends GenericEntity {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,5 +18,4 @@ export class User extends GenericEntity {
   @Column()
   @IsEmail()
   email: string;
-
 }
