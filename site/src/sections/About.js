@@ -46,36 +46,28 @@ const About = () => (
     <Section.Header name="About" icon="🙋‍♂️" label="person" />
     <StaticQuery
       query={graphql`
-        query AboutMeQuery {
-          contentfulAbout {
-            aboutMe {
-              childMarkdownRemark {
-                rawMarkdownBody
-              }
-            }
-            profile {
-              title
-              image: resize(width: 450, quality: 100) {
-                src
-              }
+        {
+          markdownRemark(frontmatter: {title: {eq: "About"}}) {
+            internal {
+              content
             }
           }
         }
       `}
       render={data => {
-        const { aboutMe, profile } = data.contentfulAbout;
+        // const { edges } = data.;
         return (
           <Flex justifyContent="center" alignItems="center" flexWrap="wrap">
             <Box width={[1, 1, 4 / 6]} px={[1, 2, 4]}>
               <Fade bottom>
                 <ReactMarkdown
-                  source={aboutMe.childMarkdownRemark.rawMarkdownBody}
+                  source={data.markdownRemark.internal.content}
                   renderers={markdownRenderer}
                 />
               </Fade>
             </Box>
 
-            <Box
+            {/* <Box
               width={[1, 1, 2 / 6]}
               style={{ maxWidth: '300px', margin: 'auto' }}
             >
@@ -87,7 +79,7 @@ const About = () => (
                   ml={[0, 0, 1]}
                 />
               </Fade>
-            </Box>
+            </Box> */}
           </Flex>
         );
       }}
