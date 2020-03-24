@@ -44,9 +44,9 @@ const LOCATIONS = {
     },
     ALL: {
       locationDescription: 'UK',
-      lat: 53.176332,
-      lng: -2.610528,
-      serviceRadius: 345330,
+      lat: 54.200981,
+      lng: -4.513111,
+      serviceRadius: 545330,
     },
   },
   USA: {
