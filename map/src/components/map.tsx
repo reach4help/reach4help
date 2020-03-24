@@ -231,7 +231,9 @@ interface Props {
   filter: Filter;
   searchInput: HTMLInputElement | null;
   results: MarkerInfo[] | null;
+  nextResults?: NextResults;
   updateResults: (results: MarkerInfo[]) => void;
+  updateNextResults: (nextResults: NextResults) => void;
   /**
    * Set a callback that expects the index from the results array representing
    * the marker that has been selected;
@@ -239,17 +241,15 @@ interface Props {
   setSelectResultCallback: (callback: SelectMarkerCallback) => void;
 }
 
-interface State {
-  /**
-   * List of results to display next for the current map bounds
-   */
-  nextResults?: {
-    markers: google.maps.Marker[];
-    results: MarkerInfo[];
-  };
+/**
+ * List of results to display next for the current map bounds
+ */
+export interface NextResults {
+  markers: google.maps.Marker[];
+  results: MarkerInfo[];
 }
 
-class MapComponent extends React.Component<Props, State> {
+class MapComponent extends React.Component<Props, {}> {
   private map: MapInfo | null = null;
 
   private searchBox: {
@@ -259,17 +259,12 @@ class MapComponent extends React.Component<Props, State> {
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
-  public constructor(props: Props) {
-    super(props);
-    this.state = {};
-  }
-
   public componentDidMount() {
     this.initializeSearch();
   }
 
   public componentDidUpdate() {
-    const { filter } = this.props;
+    const { filter, results, nextResults } = this.props;
     // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
       updateMarkersVisiblility(this.map.markers, filter);
@@ -278,6 +273,10 @@ class MapComponent extends React.Component<Props, State> {
     }
     // Update search box if changed
     this.initializeSearch();
+    if (nextResults && !results) {
+      // If we have next results queued up, but no results yet, set the results
+      this.updateResults();
+    }
   }
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
@@ -468,24 +467,14 @@ class MapComponent extends React.Component<Props, State> {
           markers: visibleMarkers,
           results: visibleMarkers.map(marker => getInfo(marker)),
         };
-        this.setState(
-          state =>
-            isEqual(state.nextResults, nextResults) ? {} : { nextResults },
-          () => {
-            // If there have been no results set yet, update them!
-            const { results } = this.props;
-            if (results === null) {
-              this.updateResults();
-            }
-          },
-        );
+        const { updateNextResults } = this.props;
+        updateNextResults(nextResults);
       },
     );
   };
 
   private updateResults = () => {
-    const { results, updateResults } = this.props;
-    const { nextResults } = this.state;
+    const { results, nextResults, updateResults } = this.props;
     if (this.map && nextResults && results !== nextResults.results) {
       // Clear all existing marker labels
       for (const marker of this.map.markers.values()) {
@@ -543,8 +532,7 @@ class MapComponent extends React.Component<Props, State> {
   }
 
   public render() {
-    const { className, results } = this.props;
-    const { nextResults } = this.state;
+    const { className, results, nextResults } = this.props;
     const hasNewResults = nextResults && nextResults.results !== results;
     return (
       <div className={className}>

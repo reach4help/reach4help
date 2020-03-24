@@ -1,11 +1,13 @@
 import React from 'react';
+import isEqual from 'lodash/isEqual';
+
 import styled from './styling';
 
 import { Filter } from './data';
 
 import { FilterMutator } from './components/filters';
 import Header from './components/header';
-import Map, { SelectMarkerCallback } from './components/map';
+import Map, { SelectMarkerCallback, NextResults } from './components/map';
 import Results from './components/results';
 import MapLoader from './components/map-loader';
 import Search from './components/search';
@@ -19,6 +21,7 @@ interface Props {
 interface State {
   filter: Filter;
   results: MarkerInfo[] | null;
+  nextResults?: NextResults;
   selectMarkerCallback: SelectMarkerCallback;
   searchInput: HTMLInputElement | null;
 }
@@ -50,9 +53,21 @@ class App extends React.Component<Props, State> {
     this.setState({ searchInput });
   };
 
+  private updateNextResults = (nextResults: NextResults) => {
+    this.setState(state =>
+      isEqual(state.nextResults, nextResults) ? {} : { nextResults },
+    );
+  };
+
   public render() {
     const { className } = this.props;
-    const { filter, results, selectMarkerCallback, searchInput } = this.state;
+    const {
+      filter,
+      results,
+      nextResults,
+      selectMarkerCallback,
+      searchInput,
+    } = this.state;
     return (
       <div className={className}>
         <Header filter={filter} updateFilter={this.updateFilter} />
@@ -65,7 +80,9 @@ class App extends React.Component<Props, State> {
                   filter={filter}
                   searchInput={searchInput}
                   results={results}
+                  nextResults={nextResults}
                   updateResults={this.updateResults}
+                  updateNextResults={this.updateNextResults}
                   setSelectResultCallback={this.setSelectMarkerCallback}
                 />
               )}
