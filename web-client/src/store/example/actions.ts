@@ -8,18 +8,14 @@ export const decrementAction = {
   type: DECREMENT,
 };
 
-export function sumAction(value: number) {
-  return {
-    type: SUM,
-    payload: {
-      value,
-    },
-  };
-}
+export const sumAction = (value: number) => ({
+  type: SUM,
+  payload: {
+    value,
+  },
+});
 
-export function incrementAsyncAction() {
-  return (dispatch: Function) => {
+export const incrementAsyncAction = () => (dispatch: Function) => {
 
-    setTimeout(() => dispatch(incrementAction), 1000);
-  };
-}
+  setTimeout(() => dispatch(incrementAction), 1000);
+};
