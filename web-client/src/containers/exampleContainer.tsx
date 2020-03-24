@@ -2,15 +2,15 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'src/components/Button/Buttons';
 
+import { decrementAction, fetchUsersAction, incrementAction, sumAction } from '../ducks/example';
 import { AppState } from '../store';
-import { decrementAction, fetchUsersAction, incrementAction, sumAction } from '../store/example/actions';
 
 const ExampleContainer: React.FC = () => {
-  const value = useSelector((state: AppState) => state.exampleReducer.value);
-  const users = useSelector((state: AppState) => state.exampleReducer.users);
+  const value = useSelector((state: AppState) => state.example.value);
+  const users = useSelector((state: AppState) => state.example.users);
   const dispatch = useDispatch();
   const increment = useCallback(
-    () => dispatch(incrementAction),
+    () => dispatch(incrementAction()),
     [dispatch],
   );
 
@@ -20,7 +20,7 @@ const ExampleContainer: React.FC = () => {
   );
 
   const decrement = useCallback(
-    () => dispatch(decrementAction),
+    () => dispatch(decrementAction()),
     [dispatch],
   );
 

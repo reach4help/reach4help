@@ -1,10 +1,13 @@
 import { produce } from 'immer';
 import { Reducer } from 'redux';
 
+import request from '../http/Request';
+
 // Action Types
 const INCREMENT = 'INCREMENT';
 const SUM = 'SUM';
 const DECREMENT = 'DECREMENT';
+const FETCH_USERS_COMPLETED = 'FETCH_USERS_COMPLETED';
 
 interface IncrementAction {
     type: typeof INCREMENT;
@@ -19,22 +22,30 @@ interface SumValueAction {
     payload: ExampleState;
 }
 
+interface FetchUsersCompletedAction {
+  type: typeof FETCH_USERS_COMPLETED;
+  payload: ExampleState;
+}
+
 type ActionTypes =
     | IncrementAction
     | DecrementAction
-    | SumValueAction;
+    | SumValueAction
+    | FetchUsersCompletedAction;
 
 // Reducer
 
 interface ExampleState {
   value: number;
+  users: any;
 }
 
 const initialState: ExampleState = {
   value: 0,
+  users: [],
 };
 
-const exampleReducer: Reducer = (state: ExampleState = initialState, action: ActionTypes): ExampleState => produce(state, draftState => {
+export const exampleReducer: Reducer = (state: ExampleState = initialState, action: ActionTypes): ExampleState => produce(state, draftState => {
   switch (action.type) {
     case INCREMENT:
       draftState.value += 1;
@@ -44,6 +55,9 @@ const exampleReducer: Reducer = (state: ExampleState = initialState, action: Act
       return draftState;
     case SUM:
       draftState.value += action.payload.value;
+      return draftState;
+    case FETCH_USERS_COMPLETED:
+      draftState.users = action.payload.users;
       return draftState;
     default:
       return draftState;
@@ -60,16 +74,27 @@ export const decrementAction = (): DecrementAction => ({
   type: DECREMENT,
 });
 
-export const sumAction = (value: number): SumValueAction => ({
+export const sumAction = (value: number) => ({
   type: SUM,
   payload: {
     value,
   },
 });
 
-export const incrementAsyncAction = () => (dispatch: Function): void => {
+const fetchUsersCompleted = (data: any) => ({
+  type: FETCH_USERS_COMPLETED,
+  payload: {
+    users: data,
+  },
+});
 
-  setTimeout(() => dispatch(incrementAction()), 1000);
+export const fetchUsersAction = () => (dispatch: Function) => {
+  request({
+    method: 'GET',
+    url: '/users',
+  })
+    .then(req => req.data.data)
+    .then(data => dispatch(fetchUsersCompleted(data)));
 };
 
 export default exampleReducer;
