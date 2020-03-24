@@ -31,7 +31,6 @@ const Helmet = ({ theme = {} }) => (
       }
     `}
     render={({site}) => {
-      console.log(site);
       const { title, description, profile } = site.siteMetadata;
 
       return (
