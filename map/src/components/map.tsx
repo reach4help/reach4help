@@ -13,8 +13,6 @@ import {
 } from './map-utils/google-maps';
 import infoWindoContent from './map-utils/info-window';
 
-export type SelectMarkerCallback = ((marker: number) => void) | null;
-
 interface MapInfo {
   map: google.maps.Map;
   markers: Map<MarkerInfo, google.maps.Marker>;

@@ -7,7 +7,7 @@ import { Filter } from './data';
 
 import { FilterMutator } from './components/filters';
 import Header from './components/header';
-import Map, { SelectMarkerCallback, NextResults } from './components/map';
+import Map, { NextResults } from './components/map';
 import Results from './components/results';
 import MapLoader from './components/map-loader';
 import Search from './components/search';
@@ -150,6 +150,16 @@ export default styled(App)`
         left: 10px;
         right: 60px;
       }
+    }
+  }
+
+  a {
+    color: ${p => p.theme.textLinkColor};
+    text-decoration: none;
+
+    &:hover {
+      color: ${p => p.theme.textLinkHoverColor};
+      text-decoration: underline;
     }
   }
 `;

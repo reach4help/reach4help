@@ -7,6 +7,8 @@ const COLORS = {
   grayLight3: '#e3e3e3',
   grayLight4: '#f6f6f6',
   red: '#ea4335',
+  blue: '#4285f4',
+  blueDark: '#2b63c1',
 };
 
 export const THEME = {
@@ -16,6 +18,8 @@ export const THEME = {
   textColor: COLORS.grayDark,
   textColorLight: COLORS.gray,
   textColorExtraLight: COLORS.grayLight,
+  textLinkColor: COLORS.blueDark,
+  textLinkHoverColor: COLORS.blue,
   colors: COLORS,
 };
 

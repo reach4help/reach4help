@@ -1,7 +1,12 @@
 import React from 'react';
-import { MarkerInfo } from 'src/data/markers';
+import { MarkerInfo, ContactDetails } from 'src/data/markers';
 import { button } from 'src/styling/mixins';
-import { MdKeyboardArrowLeft } from 'react-icons/md';
+import {
+  MdKeyboardArrowLeft,
+  MdPhone,
+  MdEmail,
+  MdLanguage,
+} from 'react-icons/md';
 import styled from '../styling';
 import Services from './services';
 
@@ -13,6 +18,74 @@ interface Props {
   selectedResult: MarkerInfo | null;
   setSelectedResult: (selectedResult: MarkerInfo | null) => void;
 }
+
+const contactInfo = (label: string, info?: ContactDetails) => {
+  if (!info) {
+    return null;
+  }
+  const items: Array<JSX.Element> = [];
+  if (info.phone) {
+    items.push(
+      ...info.phone.map(number => (
+        <a key={items.length} href={`tel:${number.replace(/\s/g, '')}`}>
+          <MdPhone />
+          {number}
+        </a>
+      )),
+    );
+  }
+  if (info.email) {
+    items.push(
+      ...info.email.map(email => (
+        <a key={items.length} href={`mailto:${email}`}>
+          <MdEmail />
+          {email}
+        </a>
+      )),
+    );
+  }
+  if (info.facebookGroup) {
+    items.push(
+      <a
+        key={items.length}
+        href={info.facebookGroup}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <MdLanguage />
+        Facebook Group
+      </a>,
+    );
+  }
+  if (info.web) {
+    items.push(
+      ...Object.entries(info.web).map(entry => (
+        <a
+          key={items.length}
+          href={entry[1]}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <MdLanguage />
+          {entry[0]}
+        </a>
+      )),
+    );
+  }
+  if (items.length === 0) {
+    return null;
+  }
+  return (
+    <div className="contact-group">
+      <strong>{label}</strong>
+      <ul>
+        {items.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 const Results = (props: Props) => {
   const {
@@ -69,6 +142,9 @@ const Results = (props: Props) => {
           {selectedResult.contentBody && (
             <div className="content">{selectedResult.contentBody}</div>
           )}
+          {contactInfo('General Information:', selectedResult.contact.general)}
+          {contactInfo('Get Help:', selectedResult.contact.getHelp)}
+          {contactInfo('Volunteer:', selectedResult.contact.volunteers)}
         </div>
       )}
     </div>
@@ -182,7 +258,6 @@ export default styled(Results)`
 
   > .details {
     z-index: 100;
-    color: ${p => p.theme.textColor};
     background: #fff;
     position: absolute;
     top: ${HEADER_HEIGHT_PX}px;
@@ -204,6 +279,29 @@ export default styled(Results)`
 
     > .services {
       margin-bottom: ${p => p.theme.spacingPx / 2}px;
+    }
+
+    > .contact-group {
+      margin-top: ${p => p.theme.spacingPx}px;
+      color: ${p => p.theme.textColorLight};
+
+      ul {
+        padding-left: ${p => p.theme.spacingPx}px;
+        margin-left: ${p => p.theme.spacingPx}px;
+        a {
+          display: inline-flex;
+          align-items: center;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+          svg {
+            margin-right: ${p => p.theme.spacingPx / 2}px;
+          }
+        }
+      }
     }
   }
 `;
