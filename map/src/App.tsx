@@ -22,7 +22,7 @@ interface State {
   filter: Filter;
   results: MarkerInfo[] | null;
   nextResults?: NextResults;
-  selectMarkerCallback: SelectMarkerCallback;
+  selectedResult: MarkerInfo | null;
   updateResultsCallback: (() => void) | null;
   searchInput: HTMLInputElement | null;
 }
@@ -33,13 +33,13 @@ class App extends React.Component<Props, State> {
     this.state = {
       filter: {},
       results: null,
-      selectMarkerCallback: null,
+      selectedResult: null,
       updateResultsCallback: null,
       searchInput: null,
     };
   }
 
-  private updateFilter = (mutator: FilterMutator) => {
+  private setFilter = (mutator: FilterMutator) => {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
@@ -47,16 +47,16 @@ class App extends React.Component<Props, State> {
     this.setState({ results });
   };
 
-  private setSelectMarkerCallback = (callback: SelectMarkerCallback) => {
-    this.setState({ selectMarkerCallback: callback });
-  };
-
   private setUpdateResultsCallback = (callback: (() => void) | null) => {
     this.setState({ updateResultsCallback: callback });
   };
 
-  private updateSearchInput = (searchInput: HTMLInputElement | null) => {
+  private setSearchInput = (searchInput: HTMLInputElement | null) => {
     this.setState({ searchInput });
+  };
+
+  private setSelectedResult = (selectedResult: MarkerInfo | null) => {
+    this.setState({ selectedResult });
   };
 
   private setNextResults = (nextResults: NextResults) => {
@@ -78,12 +78,12 @@ class App extends React.Component<Props, State> {
       filter,
       results,
       nextResults,
-      selectMarkerCallback,
+      selectedResult,
       searchInput,
     } = this.state;
     return (
       <div className={className}>
-        <Header filter={filter} updateFilter={this.updateFilter} />
+        <Header filter={filter} updateFilter={this.setFilter} />
         <main>
           <div className="map-area">
             <MapLoader
@@ -96,20 +96,20 @@ class App extends React.Component<Props, State> {
                   nextResults={nextResults}
                   setResults={this.setResults}
                   setNextResults={this.setNextResults}
-                  setSelectResultCallback={this.setSelectMarkerCallback}
                   setUpdateResultsCallback={this.setUpdateResultsCallback}
                 />
               )}
             />
             <Search
               className="search"
-              updateSearchInput={this.updateSearchInput}
+              updateSearchInput={this.setSearchInput}
             />
           </div>
           <Results
             results={results}
             nextResults={nextResults?.results || null}
-            selectMarkerCallback={selectMarkerCallback}
+            selectedResult={selectedResult}
+            setSelectedResult={this.setSelectedResult}
             updateResults={this.updateResults}
           />
         </main>

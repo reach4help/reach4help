@@ -60,11 +60,6 @@ interface Props {
   setResults: (results: MarkerInfo[]) => void;
   setNextResults: (nextResults: NextResults) => void;
   /**
-   * Set a callback that expects the index from the results array representing
-   * the marker that has been selected;
-   */
-  setSelectResultCallback: (callback: SelectMarkerCallback) => void;
-  /**
    * Call this
    */
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
@@ -116,9 +111,8 @@ class MapComponent extends React.Component<Props, {}> {
   }
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
-    const { filter, setSelectResultCallback } = this.props;
+    const { filter } = this.props;
     if (!ref) {
-      setSelectResultCallback(null);
       return;
     }
     const map = createGoogleMap(ref);
@@ -152,18 +146,6 @@ class MapComponent extends React.Component<Props, {}> {
       markerClusterer,
     };
     this.map = m;
-
-    setSelectResultCallback(index => {
-      const { results } = this.props;
-      if (m.clustering?.state === 'idle') {
-        // The index represents which result in results
-        const markerInfo = results && results[index];
-        const marker = markerInfo && markers.get(markerInfo);
-        if (marker) {
-          google.maps.event.trigger(marker, 'click');
-        }
-      }
-    });
 
     updateMarkersVisiblilityUsingFilter(markers, filter);
 
