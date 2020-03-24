@@ -31,5 +31,6 @@ const Results = (props: Props) => {
 
 export default styled(Results)`
   width: 400px;
+  overflow-y: scroll;
   background: #9f9;
 `;

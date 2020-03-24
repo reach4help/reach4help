@@ -1,5 +1,6 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
+import debounce from 'lodash/debounce';
 
 import { Filter, SERVICES } from 'src/data';
 import styled from '../styling';
@@ -165,6 +166,68 @@ function infoWindoContent(info: MarkerInfo): string {
   </div>`;
 }
 
+const debouncedReplaceHistory = debounce((map: google.maps.Map) => {
+  const pos = map.getCenter();
+  const zoom = map.getZoom();
+  window.history.replaceState(
+    null,
+    '',
+    updateQueryString({
+      map: {
+        pos: { lat: pos.lat(), lng: pos.lng() },
+        zoom,
+      },
+    }),
+  );
+}, 299); // max is 100 times in 30 seconds
+
+const haversineDistance = (
+  latLng1: google.maps.LatLng,
+  latLng2: google.maps.LatLng,
+): number => {
+  const lon1 = latLng1.lng();
+  const lon2 = latLng2.lng();
+  const radlat1 = (Math.PI * latLng1.lat()) / 180;
+  const radlat2 = (Math.PI * latLng2.lat()) / 180;
+  const theta = lon1 - lon2;
+  const radtheta = (Math.PI * theta) / 180;
+  let dist =
+    Math.sin(radlat1) * Math.sin(radlat2) +
+    Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+  dist = Math.acos(dist);
+  dist = (dist * 180) / Math.PI;
+  dist = dist * 60 * 1.1515;
+  dist *= 1609.344; // for meters
+  return dist;
+};
+
+const generateSortBasedOnMapCenter = (mapCenter: google.maps.LatLng) => {
+  return (a: google.maps.Marker, b: google.maps.Marker): number => {
+    const aPosition = a.getPosition();
+    const bPosition = b.getPosition();
+
+    if (aPosition && bPosition) {
+      const aFromCenter = haversineDistance(aPosition, mapCenter);
+      const bFromCenter = haversineDistance(bPosition, mapCenter);
+
+      if (aFromCenter > bFromCenter) {
+        return 1;
+      }
+      if (aFromCenter < bFromCenter) {
+        return -1;
+      }
+      return 0;
+    }
+    if (!aPosition) {
+      return -1;
+    }
+    if (!bPosition) {
+      return 1;
+    }
+    return 0;
+  };
+};
+
 interface QueryStringData {
   map?: {
     pos: {
@@ -251,18 +314,7 @@ class Map extends React.Component<Props, {}> {
         this.searchBox.box.setBounds(bounds);
       }
       if ('replaceState' in window.history) {
-        const pos = map.getCenter();
-        const zoom = map.getZoom();
-        window.history.replaceState(
-          null,
-          '',
-          updateQueryString({
-            map: {
-              pos: { lat: pos.lat(), lng: pos.lng() },
-              zoom,
-            },
-          }),
-        );
+        debouncedReplaceHistory(map);
       }
     });
 
@@ -284,12 +336,6 @@ class Map extends React.Component<Props, {}> {
           });
           this.infoWindow.open(map, marker);
         }
-
-        const pos = marker.getPosition();
-        if (pos) {
-          map.panTo(pos);
-        }
-        map.setZoom(18);
       });
 
       return marker;
@@ -320,11 +366,11 @@ class Map extends React.Component<Props, {}> {
 
         // Now compare the distance from the marker to corners of the box;
         if (markerPosition) {
-          const distanceToTopRight = this.haversineDistance(
+          const distanceToTopRight = haversineDistance(
             markerPosition,
             topRight,
           );
-          const distanceToBottomLeft = this.haversineDistance(
+          const distanceToBottomLeft = haversineDistance(
             markerPosition,
             bottomLeft,
           );
@@ -403,9 +449,12 @@ class Map extends React.Component<Props, {}> {
         }
 
         // Update labels of markers to be based on index in visibleMarkers
-        m.clustering.visibleMarkers.forEach((marker, index) => {
-          marker.setLabel((index + 1).toString());
-        });
+        const mapCenter = map.getCenter();
+        m.clustering.visibleMarkers
+          .sort(generateSortBasedOnMapCenter(mapCenter))
+          .forEach((marker, index) => {
+            marker.setLabel((index + 1).toString());
+          });
 
         const { updateResults } = this.props;
         updateResults(
@@ -413,26 +462,6 @@ class Map extends React.Component<Props, {}> {
         );
       },
     );
-  };
-
-  private haversineDistance = (
-    latLng1: google.maps.LatLng,
-    latLng2: google.maps.LatLng,
-  ): number => {
-    const lon1 = latLng1.lng();
-    const lon2 = latLng2.lng();
-    const radlat1 = (Math.PI * latLng1.lat()) / 180;
-    const radlat2 = (Math.PI * latLng2.lat()) / 180;
-    const theta = lon1 - lon2;
-    const radtheta = (Math.PI * theta) / 180;
-    let dist =
-      Math.sin(radlat1) * Math.sin(radlat2) +
-      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    dist = Math.acos(dist);
-    dist = (dist * 180) / Math.PI;
-    dist = dist * 60 * 1.1515;
-    dist *= 1609.344; // for meters
-    return dist;
   };
 
   private initializeSearch() {

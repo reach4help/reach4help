@@ -90,6 +90,16 @@
         "maintenance",
         "doc"
       ]
+    },
+    {
+      "login": "namadnuno",
+      "name": "Nuno Alexandre",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/9502562?v=4",
+      "profile": "http://namadnuno.alojamento-gratis.com/",
+      "contributions": [
+        "ideas",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

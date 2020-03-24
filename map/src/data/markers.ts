@@ -27,6 +27,28 @@ export interface MarkerInfo {
 }
 
 const LOCATIONS = {
+  DE: {
+    BERLIN: {
+      locationDescription: 'Berlin, Germany',
+      lat: 52.511528,
+      lng: 13.406853,
+      serviceRadius: 24000,
+    },
+  },
+  UK: {
+    NEWCASTLE_TYNE: {
+      locationDescription: 'Newcastle upon Tyne, UK',
+      lat: 54.975601,
+      lng: -1.613076,
+      serviceRadius: 9000,
+    },
+    ALL: {
+      locationDescription: 'UK',
+      lat: 54.200981,
+      lng: -4.513111,
+      serviceRadius: 545330,
+    },
+  },
   USA: {
     AL_BHAM: {
       description: 'Birmingham, Alabama',
@@ -111,6 +133,36 @@ const LOCATIONS = {
       lat: 34.515831,
       lng: -119.078374,
       serviceRadius: 55000,
+    },
+    VT_BARRE: {
+      locationDescription: 'Greater Barre, Vermont',
+      lat: 44.194269,
+      lng: -72.501209,
+      serviceRadius: 7000,
+    },
+    VT_ADDISON_COUNTY: {
+      locationDescription: 'Addison County, Vermont',
+      lat: 44.047818,
+      lng: -73.165371,
+      serviceRadius: 30000,
+    },
+    VT_STATE: {
+      locationDescription: 'Vermont',
+      lat: 43.987126,
+      lng: -72.717293,
+      serviceRadius: 132230,
+    },
+    VA_NORFOLK: {
+      locationDescription: 'Norfolk, Virginia',
+      lat: 36.846224,
+      lng: -76.284361,
+      serviceRadius: 32670,
+    },
+    VA_AUGUSTA: {
+      locationDescription: 'Augusta, Virginia',
+      lat: 38.14915,
+      lng: -79.122097,
+      serviceRadius: 32670,
     },
     WA_SEATTLE_AREA: {
       locationDescription: 'Seattle Area, Washington',
@@ -529,6 +581,179 @@ export const MARKERS: MarkerInfo[] = [
     loc: LOCATIONS.USA.CA_VENTURA_COUNTY,
   },
   {
+    contentTitle: 'Greater Barre Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://barremutualaid.recovers.org',
+        },
+        email: ['barretownresponseteam@gmail.com.'],
+        facebookGroup:
+          'https://www.facebook.com/pages/Recovers/182766635129248',
+      },
+      getHelp: {
+        web: {
+          Form: 'https://barremutualaid.recovers.org/needs/new',
+        },
+      },
+      volunteers: {
+        web: {
+          'Area Form': 'https://barremutualaid.recovers.org/volunteer_info/new',
+          'Town Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSd9g1jjGGEQxbaYgF19Y9hrJG-8I6vCtdikrjen7eTdBii7Ow/viewform',
+          Donate: 'https://barremutualaid.recovers.org/donations/new',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.VT_BARRE,
+  },
+  {
+    contentTitle: 'Addison County Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://sites.google.com/view/acvtmutualaid/',
+        },
+      },
+      getHelp: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSd0Vb6YwJbKRB1nWamFOzDalpzZTJ03k5Q0TGBF2iEarcwVRg/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSfQOlYvwEaiwzjC8RzgViwFFbZhMv2TwJiQUrikhpJcEOwlQg/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.VT_ADDISON_COUNTY,
+  },
+  {
+    contentTitle: 'Vermont Essential Workers Child Care Program',
+    services: ['aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://webportalapp.com/webform/essentialworkers',
+          'State Resources':
+            'https://docs.google.com/document/d/17DJMyLZR_Fk7MzaCD9AU0O8a61VGVvoeNs4qbVk0z3E/edit?fbclid=IwAR0UB0Ze_G0H6Nz6_WYC-p5BW89J_l7pFoLtYfI3qhXxFgLTzvoSsgu0u04',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.VT_STATE,
+  },
+  {
+    contentTitle: 'Vermont Mutual Aid',
+    contentBody:
+      'Contains information for all vermont areas of aid and contact information.',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://www.pjcvt.org/mutual-aid-and-other-resources-related-to-covid-19/?fbclid=IwAR0faU4LHRpiLwIgBDFXOXZxxEzdILAgnDYn1VnVDRKlPk1IajIPOrCffZ4',
+        },
+        phone: ['(802) 863-2345'],
+        email: ['volunteer@pjcvt.org'],
+        facebookGroup: 'https://www.facebook.com/PJCVermont',
+      },
+    },
+    loc: LOCATIONS.USA.VT_STATE,
+  },
+  {
+    contentTitle: 'Virginia / Hampton Roads: Corona Aid 757',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website: 'http://coronaaid757.com/',
+        },
+        phone: ['(757) 598-1480'],
+        email: ['coronaaid757@gmail.com'],
+        facebookGroup: 'https://www.facebook.com/groups/510830746536540',
+      },
+      getHelp: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSd9YBCXcnk-vLWVWhMcVgxFm0clrTKKVmli_qVsbpn4ncUQCA/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSdmxE431orW5JZSS6kNWbGlExB8aasGodccb3aIKatxTMB2lg/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.VA_NORFOLK,
+  },
+  {
+    contentTitle:
+      'Virginia / Staughton, Augusta, and Waynesboro: Mutual Aid Infrastructure',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website: 'http://mutualaidsaw.com/',
+        },
+        facebookGroup:
+          'https://www.facebook.com/groups/210048547033677/?ref=share',
+      },
+      getHelp: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/1SPMd2Snkinm_s8Y2_iolKHtVyIkDiVILnQA0f80bNkQ/viewform?fbclid=IwAR1DT1OGSRAdH3xSDQnLl3F5bLqili44-dMqnZMRdJ42xPEc9W-R1oDXA2s&edit_requested=true',
+        },
+      },
+      volunteers: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/1LCFpKO3ueODpfdrWASaWEYk0UzXqSMAv1RxV3UNffpE/viewform?fbclid=IwAR2Ls5KTCTWAedhj_nci9BpLIq1sRDj7K8FYUIfT4i1n_CxS96XuJO2U7o8&edit_requested=true',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.VA_AUGUSTA,
+  },
+  {
     contentTitle: 'Seattle Artist Relief Fund Amid COVID-19',
     services: [
       'aid',
@@ -541,7 +766,7 @@ export const MARKERS: MarkerInfo[] = [
     contact: {
       general: {
         web: {
-          url: 'https://www.gofundme.com/f/for-artists',
+          Website: 'https://www.gofundme.com/f/for-artists',
         },
         email: ['covid19mutualaideastside@gmail.com'],
         facebookGroup: 'www.facebook.com/groups/555635161739149/ ',
@@ -573,7 +798,7 @@ export const MARKERS: MarkerInfo[] = [
     contact: {
       general: {
         web: {
-          url: 'https://www.gofundme.com/f/covid19-eastside-survival-fund',
+          Website: 'https://www.gofundme.com/f/covid19-eastside-survival-fund',
         },
         email: ['covid19mutualaideastside@gmail.com'],
         facebookGroup: 'www.facebook.com/groups/555635161739149/ ',
@@ -816,5 +1041,76 @@ export const MARKERS: MarkerInfo[] = [
       },
     },
     loc: LOCATIONS.USA.WY_STATE,
+  },
+  {
+    contentTitle: 'Queer Relief Covid-19 Berlin',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        email: ['relief@karada-house.de', ' info@karada-house.de'],
+      },
+      getHelp: {
+        web: {
+          'Google Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSeYAX7N5xqNqwQRRz8mBH4uL9oL23Kn60uUOwmssfE6sEg2gg/viewform',
+          'Non Hartz IV Eligible Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSeYAX7N5xqNqwQRRz8mBH4uL9oL23Kn60uUOwmssfE6sEg2gg/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          'Google Form': 'https://forms.gle/iS6DeGTnFj5v6cwHA',
+        },
+      },
+    },
+    loc: LOCATIONS.DE.BERLIN,
+  },
+  {
+    contentTitle: 'Newcastle upon Tyne Covid 19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/NewcastleCovid19/?ref=share',
+      },
+    },
+    loc: LOCATIONS.UK.NEWCASTLE_TYNE,
+  },
+  {
+    contentTitle: 'COVID-10 Mutual Aid UK',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://covidmutualaid.org',
+          Resources:
+            'https://docs.google.com/spreadsheets/u/2/d/18P898HWbdR5ouW61sAxW_iBl3yiZlgJu0nSmepn6NwM/htmlview?sle=true#gid=1451634215',
+        },
+        facebookGroup: 'https://www.facebook.com/CovidAidUK',
+        email: ['covidmutualaid.cc@gmail.com'],
+      },
+    },
+    loc: LOCATIONS.UK.ALL,
   },
 ];
