@@ -139,6 +139,7 @@ class MapComponent extends React.Component<Props, {}> {
         imagePath:
           'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         ignoreHidden: true,
+        zoomOnClick: false,
         averageCenter: true,
         gridSize: 30,
       },
@@ -230,6 +231,17 @@ class MapComponent extends React.Component<Props, {}> {
         });
       }
       // $("#visible-markers").html('<h2>Loading List View ... </h2>');
+    });
+
+    markerClusterer.addListener('click', (cluster: MarkerClusterer) => {
+      // Store the next results in the state
+      const nextResults = {
+        markers: cluster.getMarkers(),
+        results: cluster.getMarkers().map(marker => getInfo(marker)),
+      };
+      const { setNextResults: updateNextResults } = this.props;
+      updateNextResults(nextResults);
+      this.updateResults();
     });
 
     // The clusters have been computed so we can
