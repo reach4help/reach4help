@@ -1,7 +1,16 @@
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // configure toast component
-toast.configure();
+toast.configure({
+  position: 'bottom-center',
+  autoClose: 1000,
+  hideProgressBar: false,
+  newestOnTop: false,
+  closeOnClick: true,
+  closeButton: false,
+  draggable: true,
+});
 
 export enum NOTIFICATION_TYPE {
   DEFAULT,
@@ -14,19 +23,19 @@ export enum NOTIFICATION_TYPE {
 export const showNotification = (notificationType: NOTIFICATION_TYPE, message: string ) => {
   switch (notificationType) {
     case NOTIFICATION_TYPE.SUCCESS:
-      toast.success(message, { position: toast.POSITION.BOTTOM_CENTER });
+      toast.success(message);
       break;
     case NOTIFICATION_TYPE.ERROR:
-      toast.error(message, { position: toast.POSITION.BOTTOM_CENTER });
+      toast.error(message);
       break;
     case NOTIFICATION_TYPE.WARN:
-      toast.warn(message, { position: toast.POSITION.BOTTOM_CENTER });
+      toast.warn(message);
       break;
     case NOTIFICATION_TYPE.INFO:
-      toast.info(message, { position: toast.POSITION.BOTTOM_CENTER });
+      toast.info(message);
       break;
     default:
-      toast(message, { position: toast.POSITION.BOTTOM_CENTER });
+      toast(message);
       break;
   }
 };
