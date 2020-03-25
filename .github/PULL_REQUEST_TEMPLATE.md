@@ -29,3 +29,5 @@ If you checked any of those, please request a review from `@application-security
 
 Additional Notes
 ----------------
+
+If this PR fixes an issue, please add "closes #issue-id" here, otherwise add a reference to the issue it relates to.
