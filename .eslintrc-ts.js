@@ -27,6 +27,7 @@ module.exports = {
         tsx: 'never'
       }
     ],
+    "@typescript-eslint/interface-name-prefix": 'off',
     'import/no-unresolved': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
     'no-restricted-syntax': 'off',

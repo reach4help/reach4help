@@ -1,4 +1,4 @@
-import { GetUsers } from 'src/http/AxiosConfigs/users';
+import { GetUsers } from 'src/http/resources/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 import createReducer, { Action } from 'src/store/utils/createReducer';
 

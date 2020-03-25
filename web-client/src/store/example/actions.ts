@@ -1,4 +1,4 @@
-import request from '../../http/Request';
+import HTTPRequest from '../../http/HTTPRequest';
 import { DECREMENT, FETCH_USERS_COMPLETED, INCREMENT, SUM } from './types';
 
 export const incrementAction = {
@@ -23,10 +23,10 @@ export const fetchUsersCompleted = (data: any) => ({
 });
 
 export const fetchUsersAction = () => (dispatch: Function) => {
-  request({
+  HTTPRequest.getInstance().execute({
     method: 'GET',
     url: '/users',
   })
-    .then(req => req.data.data)
-    .then(data => dispatch(fetchUsersCompleted(data)));
+    .then((req: any) => req.data.data)
+    .then((data: any) => dispatch(fetchUsersCompleted(data)));
 };

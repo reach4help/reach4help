@@ -1,6 +1,8 @@
-import request from '../../http/Request';
+import HTTPRequest, { IHTTPRequest } from '../../http/HTTPRequest';
 
-const injectRequestMiddleware = ({ dispatch }: {dispatch: Function}) => (next: Function) => async (action: Record<string, any>) => {
+const request: IHTTPRequest = HTTPRequest.getInstance();
+
+const injectRequestMiddleware = ({ dispatch }: { dispatch: Function }) => (next: Function) => async (action: Record<string, any>) => {
   if (action.api && typeof action.api === 'function') {
 
     dispatch({
@@ -9,7 +11,6 @@ const injectRequestMiddleware = ({ dispatch }: {dispatch: Function}) => (next: F
     });
 
     try {
-
       const response = await action.api(request, action.payload);
 
       return next({
