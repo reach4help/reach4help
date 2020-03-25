@@ -54,9 +54,8 @@ gatsby develop
 
 # How to report a bug
 
-> If you find a security vulnerability, do NOT open an issue. Email <email> instead.
-
-> Open an issue using the BUG template provided.
+> If you find a security vulnerability, please contact us directly at `security@reach4help.org`.
+> For any other non security-related issues, open an issue describing the problem.
 
 # How to suggest a feature or enhancement
 
