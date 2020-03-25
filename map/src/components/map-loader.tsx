@@ -3,7 +3,7 @@ import styled from '../styling';
 
 const REQUIRED_SCRIPTS = [
   'https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js',
-  'https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ywRBOAoyjwic5SzT9q3MPjLT1aibHO8&libraries=places',
+  'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9MNxwBw6ZAOqrSVDPZFiaYhFmuRwtobc&libraries=places',
 ];
 
 interface Props {
