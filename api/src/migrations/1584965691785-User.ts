@@ -8,6 +8,7 @@ export class User1584965691785 implements MigrationInterface {
              id                BIGSERIAL NOT NULL,
              authentication_id BIGINT    NOT NULL,
              contact_id        BIGINT    NOT NULL,
+             address_id        BIGINT    NOT NULL,
              username          VARCHAR   NOT NULL,
              first_name        VARCHAR   NOT NULL,
              middle_name       VARCHAR   NOT NULL,
