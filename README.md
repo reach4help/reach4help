@@ -5,7 +5,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 People who are at high risk from COVID-19 or are quarantined are unable to leave their houses and obtain necessities like food and medical supplies without putting themselves or others at risk. To mitigate this, many local groups and organizations, big and small, have started initiatives to try and get resources such as food and medicine to these people, and help out with important tasks such as walking dogs.
@@ -89,6 +89,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="http://namadnuno.alojamento-gratis.com/"><img src="https://avatars1.githubusercontent.com/u/9502562?v=4" width="100px;" alt=""/><br /><sub><b>Nuno Alexandre</b></sub></a><br /><a href="#ideas-namadnuno" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/commits?author=namadnuno" title="Code">💻</a></td>
     <td align="center"><a href="https://micaelr95.github.io/"><img src="https://avatars3.githubusercontent.com/u/12500655?v=4" width="100px;" alt=""/><br /><sub><b>Micael Rodrigues</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=micaelr95" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mdeous"><img src="https://avatars1.githubusercontent.com/u/393165?v=4" width="100px;" alt=""/><br /><sub><b>Mathieu Deous</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=mdeous" title="Documentation">📖</a></td>
   </tr>
 </table>
 
