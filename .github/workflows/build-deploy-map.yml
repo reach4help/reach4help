@@ -19,6 +19,8 @@ jobs:
 
     - name: Build Map
       run: yarn workspace map build
+      env:
+        SKIP_PREFLIGHT_CHECK: 'true'
 
     - name: Deploy
       uses: s0/git-publish-subdir-action@v2.1.0
