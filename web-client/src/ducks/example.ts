@@ -1,14 +1,17 @@
 import { produce } from 'immer';
 import { Reducer } from 'redux';
+import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
+
+const { syncType, asyncType } = createActionTypeFactory('EXAMPLE');
 
 // Action Types
-const INCREMENT = 'INCREMENT';
-const SUM = 'SUM';
-const DECREMENT = 'DECREMENT';
-const FETCH_USERS = 'FETCH_USERS';
-const FETCH_USERS_COMPLETED = 'FETCH_USERS_COMPLETED';
+const INCREMENT = syncType('INCREMENT');
+const SUM = syncType('SUM');
+const DECREMENT = syncType('DECREMENT');
 
-interface IncrementAction {
+const FETCH_USERS = asyncType('FETCH_USERS');
+
+/* interface IncrementAction {
     type: typeof INCREMENT;
 }
 
@@ -19,24 +22,24 @@ interface DecrementAction {
 interface SumValueAction {
     type: typeof SUM;
     payload: ExampleState;
-}
+} */
 
-interface FetchUsersAction {
+/* interface FetchUsersAction {
   type: typeof FETCH_USERS;
   payload: ExampleState;
-}
-
-interface FetchUsersActionCompleted {
-  type: typeof FETCH_USERS_COMPLETED;
-  payload: ExampleState;
-}
+} 
 
 type ActionTypes =
-    | IncrementAction
-    | DecrementAction
-    | SumValueAction
-    | FetchUsersAction
-    | FetchUsersActionCompleted;
+| IncrementAction
+| DecrementAction
+| SumValueAction
+| FetchUsersAction; */
+interface Action {
+  type: string;
+  payload?: any;
+  meta?: any;
+  api?: Function;
+}
 
 // Reducer
 
@@ -50,7 +53,7 @@ const initialState: ExampleState = {
   users: [],
 };
 
-export const exampleReducer: Reducer = (state: ExampleState = initialState, action: ActionTypes): ExampleState => produce(state, draftState => {
+export const exampleReducer: Reducer = (state: ExampleState = initialState, action: Action): ExampleState => produce(state, draftState => {
   switch (action.type) {
     case INCREMENT:
       draftState.value += 1;
@@ -61,7 +64,7 @@ export const exampleReducer: Reducer = (state: ExampleState = initialState, acti
     case SUM:
       draftState.value += action.payload.value;
       return draftState;
-    case FETCH_USERS_COMPLETED:
+    case FETCH_USERS.COMPLETED:
       draftState.users = action.payload;
       return draftState;
     default:
@@ -71,15 +74,15 @@ export const exampleReducer: Reducer = (state: ExampleState = initialState, acti
 
 // Action Creators
 
-export const incrementAction = (): IncrementAction => ({
+export const incrementAction = (): Action => ({
   type: INCREMENT,
 });
 
-export const decrementAction = (): DecrementAction => ({
+export const decrementAction = (): Action => ({
   type: DECREMENT,
 });
 
-export const sumAction = (value: number) => ({
+export const sumAction = (value: number): Action => ({
   type: SUM,
   payload: {
     value,
