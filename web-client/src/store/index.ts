@@ -4,6 +4,12 @@ import thunk from 'redux-thunk';
 
 import { exampleReducer } from './example/reducers';
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
 const rootReducer = combineReducers({ exampleReducer });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -15,7 +21,8 @@ export default function configureStore() {
     rootReducer,
     compose(
       applyMiddleware(...middlewares),
-      process.env.NODE_ENV === 'development' ? composeWithDevTools() : (f: Function) => f,
+      process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        composeWithDevTools() : (f: Function) => f,
     ),
   );
 
