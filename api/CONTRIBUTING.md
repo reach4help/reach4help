@@ -16,7 +16,7 @@ We keep an open mind! Improving documentation, bug triaging, or writing tutorial
 
 ### Follow our Code of Conduct.
 
-We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it. 🤝
+We expect everyone to abide by our [**Code of Conduct**](/CODE_OF_CONDUCT.md). Please read it. 🤝
 
 # Your First Contribution
 
@@ -73,8 +73,7 @@ yarn typeorm migration:run
 
 # How to suggest a feature or enhancement
 
-> If you find a security vulnerability, please contact us directly at `security@reach4help.org`.
-> For any other non security-related issues, open an issue describing the problem.
+> If you find a security vulnerability, please contact us directly at `security@reach4help.org`. For any other non security-related issues, open an issue describing the problem.
 
 # Code review process
 
