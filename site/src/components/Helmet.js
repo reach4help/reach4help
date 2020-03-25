@@ -7,30 +7,31 @@ import PropTypes from 'prop-types';
 const Helmet = ({ theme = {} }) => (
   <StaticQuery
     query={graphql`
-      query HelmetQuery {
-        contentfulAbout {
-          name
-          description
-          profile {
-            favicon16: resize(width: 16) {
-              src
+      {
+        site {
+          siteMetadata {
+            profile {
+              appleIcon {
+                src
+              }
+              bigIcon {
+                src
+              }
+              favicon16 {
+                src
+              }
+              favicon32 {
+                src
+              }
             }
-            favicon32: resize(width: 32) {
-              src
-            }
-            bigIcon: resize(width: 192) {
-              src
-            }
-            appleIcon: resize(width: 180) {
-              src
-            }
+            description
+            title
           }
         }
       }
     `}
-    render={data => {
-      const { name, description, profile } = data.contentfulAbout;
-      const title = `${name}`;
+    render={({ site }) => {
+      const { title, description, profile } = site.siteMetadata;
 
       return (
         <ReactHelmet htmlAttributes={{ lang: 'en' }}>

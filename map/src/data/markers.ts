@@ -8,7 +8,7 @@ export interface ContactDetails {
 }
 
 export interface Location {
-  description?: string;
+  description: string;
   lat: number;
   lng: number;
   serviceRadius: number;
@@ -29,7 +29,7 @@ export interface MarkerInfo {
 const LOCATIONS = {
   DE: {
     BERLIN: {
-      locationDescription: 'Berlin, Germany',
+      description: 'Berlin, Germany',
       lat: 52.511528,
       lng: 13.406853,
       serviceRadius: 24000,
@@ -37,13 +37,13 @@ const LOCATIONS = {
   },
   UK: {
     NEWCASTLE_TYNE: {
-      locationDescription: 'Newcastle upon Tyne, UK',
+      description: 'Newcastle upon Tyne, UK',
       lat: 54.975601,
       lng: -1.613076,
       serviceRadius: 9000,
     },
     ALL: {
-      locationDescription: 'UK',
+      description: 'UK',
       lat: 54.200981,
       lng: -4.513111,
       serviceRadius: 545330,
@@ -75,157 +75,157 @@ const LOCATIONS = {
       serviceRadius: 45000,
     },
     CA_BAY_AREA: {
-      locationDescription: 'Bay Area, California',
+      description: 'Bay Area, California',
       lat: 37.8272,
       lng: -122.2913,
       serviceRadius: 85000,
     },
     CA_BAY_AREA_EAST: {
-      locationDescription: 'East Bay, California',
+      description: 'East Bay, California',
       lat: 37.8334,
       lng: -122.2601,
       serviceRadius: 15000,
     },
     CA_BAY_AREA_OAKLAND: {
-      locationDescription: 'Oakland, California',
+      description: 'Oakland, California',
       lat: 37.8044,
       lng: -122.2712,
       serviceRadius: 5000,
     },
     CA_LONG_BEACH: {
-      locationDescription: 'Long Beach, California',
+      description: 'Long Beach, California',
       lat: 33.8045,
       lng: -118.1678,
       serviceRadius: 9000,
     },
     CA_LA: {
-      locationDescription: 'Los Angeles, California',
+      description: 'Los Angeles, California',
       lat: 34.0522,
       lng: -118.2437,
       serviceRadius: 25000,
     },
     CA_ORANGE_COUNTY: {
-      locationDescription: 'Orange County, California',
+      description: 'Orange County, California',
       lat: 33.702964,
       lng: -117.759801,
       serviceRadius: 28000,
     },
     CA_SACRAMENTO: {
-      locationDescription: 'Sacramento, California',
+      description: 'Sacramento, California',
       lat: 38.575042,
       lng: -121.496461,
       serviceRadius: 13000,
     },
     CA_SANTA_CLARA: {
-      locationDescription: 'Santa Clara County, California',
+      description: 'Santa Clara County, California',
       lat: 37.368645,
       lng: -121.967235,
       serviceRadius: 7000,
     },
     CA_SOUTH_BAY: {
-      locationDescription: 'South Bay Area, California',
+      description: 'South Bay Area, California',
       lat: 37.279845,
       lng: -121.831213,
       serviceRadius: 30000,
     },
     CA_VENTURA_COUNTY: {
-      locationDescription: 'Ventura County, California',
+      description: 'Ventura County, California',
       lat: 34.515831,
       lng: -119.078374,
       serviceRadius: 55000,
     },
     VT_BARRE: {
-      locationDescription: 'Greater Barre, Vermont',
+      description: 'Greater Barre, Vermont',
       lat: 44.194269,
       lng: -72.501209,
       serviceRadius: 7000,
     },
     VT_ADDISON_COUNTY: {
-      locationDescription: 'Addison County, Vermont',
+      description: 'Addison County, Vermont',
       lat: 44.047818,
       lng: -73.165371,
       serviceRadius: 30000,
     },
     VT_STATE: {
-      locationDescription: 'Vermont',
+      description: 'Vermont',
       lat: 43.987126,
       lng: -72.717293,
       serviceRadius: 132230,
     },
     VA_NORFOLK: {
-      locationDescription: 'Norfolk, Virginia',
+      description: 'Norfolk, Virginia',
       lat: 36.846224,
       lng: -76.284361,
       serviceRadius: 32670,
     },
     VA_AUGUSTA: {
-      locationDescription: 'Augusta, Virginia',
+      description: 'Augusta, Virginia',
       lat: 38.14915,
       lng: -79.122097,
       serviceRadius: 32670,
     },
     WA_SEATTLE_AREA: {
-      locationDescription: 'Seattle Area, Washington',
+      description: 'Seattle Area, Washington',
       lat: 47.602591,
       lng: -122.333826,
       serviceRadius: 96020,
     },
     WA_SEATTLE: {
-      locationDescription: 'Seattle, Washington',
+      description: 'Seattle, Washington',
       lat: 47.602591,
       lng: -122.333826,
       serviceRadius: 14450,
     },
     WA_SOUTH_SEATTLE: {
-      locationDescription: 'Southside Seattle, Washington',
+      description: 'Southside Seattle, Washington',
       lat: 47.563911,
       lng: -122.331661,
       serviceRadius: 9200,
     },
     WA_TACOMA: {
-      locationDescription: 'Tacoma, Washington',
+      description: 'Tacoma, Washington',
       lat: 47.248302,
       lng: -122.445154,
       serviceRadius: 26000,
     },
     WA_WHITMAN_COUNTY: {
-      locationDescription: 'Whitman County, Washington',
+      description: 'Whitman County, Washington',
       lat: 46.931241,
       lng: -117.509873,
       serviceRadius: 44000,
     },
     WI_APPLETON: {
-      locationDescription: 'Appleton, Wisconsin',
+      description: 'Appleton, Wisconsin',
       lat: 44.256519,
       lng: -88.415864,
       serviceRadius: 40000,
     },
     WI_DANE_COUNTY: {
-      locationDescription: 'Dane County, Wisconsin',
+      description: 'Dane County, Wisconsin',
       lat: 43.058324,
       lng: -89.398872,
       serviceRadius: 40000,
     },
     WI_MADISON: {
-      locationDescription: 'Madison, Wisconsin',
+      description: 'Madison, Wisconsin',
       lat: 43.058324,
       lng: -89.398872,
       serviceRadius: 16960,
     },
     WY_LARAMIE: {
-      locationDescription: 'Laramie, Wyoming',
+      description: 'Laramie, Wyoming',
       lat: 41.315027,
       lng: -105.593089,
       serviceRadius: 7000,
     },
     WY_CHEYENNE: {
-      locationDescription: 'Cheyenne, Wyoming',
+      description: 'Cheyenne, Wyoming',
       lat: 41.133032,
       lng: -104.813754,
       serviceRadius: 12630,
     },
     WY_STATE: {
-      locationDescription: 'Wyoming',
+      description: 'Wyoming',
       lat: 42.901456,
       lng: -107.553939,
       serviceRadius: 289450,

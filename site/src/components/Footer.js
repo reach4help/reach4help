@@ -27,28 +27,29 @@ const TextFooter = styled(Text)`
 const Footer = () => (
   <StaticQuery
     query={graphql`
-      query FooterQuery {
-        contentfulAbout {
-          name
-          roles
-          socialLinks {
-            id
-            url
-            name
-            fontAwesomeIcon
+      query {
+        site {
+          siteMetadata {
+            title
+            socialLinks {
+              fontAwesomeIcon
+              id
+              name
+              url
+            }
           }
         }
       }
     `}
-    render={data => {
-      const { name, socialLinks } = data.contentfulAbout;
+    render={({ site }) => {
+      const { title, socialLinks } = site.siteMetadata;
 
       return (
         <Box p={3} backgroundColor="primaryDark" as="footer">
           <FooterContainer>
             <Fade left>
               <TextFooter fontSize={[2, 3]}>
-                <span>{`${name} `}</span>
+                <span>{`${title} `}</span>
                 <Link href="https://www.netlify.com/" mr={1}>
                   site is Powered by Netlify
                 </Link>

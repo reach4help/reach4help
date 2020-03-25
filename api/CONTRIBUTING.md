@@ -73,7 +73,7 @@ yarn typeorm migration:run
 
 # How to suggest a feature or enhancement
 
-> Open an issue using with the suggestion you wish to give.
+> If you find a security vulnerability, please contact us directly at `security@reach4help.org`. For any other non security-related issues, open an issue describing the problem.
 
 # Code review process
 

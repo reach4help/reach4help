@@ -9,6 +9,7 @@ const ExampleContainer: React.FC = () => {
   const value = useSelector((state: AppState) => state.example.value);
   const users = useSelector((state: AppState) => state.example.users);
   const dispatch = useDispatch();
+
   const increment = useCallback(
     () => dispatch(incrementAction()),
     [dispatch],
