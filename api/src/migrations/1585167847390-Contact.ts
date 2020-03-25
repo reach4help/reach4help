@@ -7,11 +7,11 @@ export class Contact1585167847390 implements MigrationInterface {
     await queryRunner.query(
         `CREATE TABLE "contact"
          (
-             id          BIGSERIAL    NOT NULL,
-             email       VARCHAR(320) NOT NULL,
-             phone       VARCHAR(15)  NOT NULL,
-             created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-             updated_at  TIMESTAMP
+             id         BIGSERIAL    NOT NULL,
+             email      VARCHAR(320) NOT NULL,
+             phone      VARCHAR(15)  NOT NULL,
+             created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+             updated_at TIMESTAMP WITH TIME ZONE
          );`,
     );
   }

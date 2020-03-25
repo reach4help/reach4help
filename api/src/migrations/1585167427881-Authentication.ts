@@ -7,13 +7,13 @@ export class Authentication1585167427881 implements MigrationInterface {
     await queryRunner.query(
         `CREATE TABLE "authentication"
          (
-             id                 BIGSERIAL NOT NULL,
-             type               VARCHAR   NOT NULL,
-             access_tokens_hash TEXT      NOT NULL,
-             expiration_time    TIMESTAMP NOT NULL,
-             last_activity      TIMESTAMP NOT NULL,
-             created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-             updated_at         TIMESTAMP
+             id                 BIGSERIAL                NOT NULL,
+             type               VARCHAR                  NOT NULL,
+             access_tokens_hash TEXT                     NOT NULL,
+             expiration_time    TIMESTAMP WITH TIME ZONE NOT NULL,
+             last_activity      TIMESTAMP WITH TIME ZONE NOT NULL,
+             created_at         TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+             updated_at         TIMESTAMP WITH TIME ZONE
          );`,
     );
   }

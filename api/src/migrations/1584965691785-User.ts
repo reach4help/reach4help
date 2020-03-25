@@ -12,8 +12,8 @@ export class User1584965691785 implements MigrationInterface {
              first_name        VARCHAR   NOT NULL,
              middle_name       VARCHAR   NOT NULL,
              last_name         VARCHAR   NOT NULL,
-             created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-             updated_at        TIMESTAMP
+             created_at        TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+             updated_at        TIMESTAMP WITH TIME ZONE
          );`,
     );
   }

@@ -59,8 +59,8 @@ export class Address1585152819436 implements MigrationInterface {
              postal_code VARCHAR,
              latitude    DOUBLE PRECISION NOT NULL,
              longitude   DOUBLE PRECISION NOT NULL,
-             created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-             updated_at  TIMESTAMP
+             created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+             updated_at  TIMESTAMP WITH TIME ZONE
          );`,
     );
   }
