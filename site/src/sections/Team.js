@@ -40,7 +40,7 @@ const Resources = () => (
     <StaticQuery
       query={graphql`
         {
-          markdownRemark(frontmatter: {title: {eq: "Team"}}) {
+          markdownRemark(frontmatter: { title: { eq: "Team" } }) {
             internal {
               content
             }

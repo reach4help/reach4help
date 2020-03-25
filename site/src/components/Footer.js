@@ -41,7 +41,7 @@ const Footer = () => (
         }
       }
     `}
-    render={({ site })=> {
+    render={({ site }) => {
       const { title, socialLinks } = site.siteMetadata;
 
       return (

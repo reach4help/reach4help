@@ -1,9 +1,29 @@
 import React from 'react';
 import styled from '../styling';
 
+declare global {
+  interface Window {
+    GOOGLE_MAPS_API_KEY?: string;
+  }
+}
+
+/**
+ * This API key is what's used on the live site,
+ * and is restricted to map.reach4help.org
+ *
+ * To use your own key,
+ * set the environment variable `REACT_APP_GOOGLE_MAPS_API_KEY` to the key.
+ */
+const PUBLIC_API_KEY = 'AIzaSyC9MNxwBw6ZAOqrSVDPZFiaYhFmuRwtobc';
+
+const apiKey =
+  (window.GOOGLE_MAPS_API_KEY !== '%REACT_APP_GOOGLE_MAPS_API_KEY%' &&
+    window.GOOGLE_MAPS_API_KEY) ||
+  PUBLIC_API_KEY;
+
 const REQUIRED_SCRIPTS = [
   'https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js',
-  'https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ywRBOAoyjwic5SzT9q3MPjLT1aibHO8&libraries=places',
+  `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`,
 ];
 
 interface Props {

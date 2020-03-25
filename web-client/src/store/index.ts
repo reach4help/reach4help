@@ -2,7 +2,8 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import { exampleReducer } from './example/reducers';
+import ducks from '../ducks';
+import injectRequestMiddleware from './middlewares/injectRequestMiddleware';
 
 declare global {
   interface Window {
@@ -10,12 +11,12 @@ declare global {
   }
 }
 
-const rootReducer = combineReducers({ exampleReducer });
+const rootReducer = combineReducers(ducks);
 
 export type AppState = ReturnType<typeof rootReducer>;
 
-export default function configureStore() {
-  const middlewares = [thunk];
+const configureStore = () => {
+  const middlewares = [thunk, injectRequestMiddleware];
 
   const store = createStore(
     rootReducer,
@@ -27,4 +28,6 @@ export default function configureStore() {
   );
 
   return store;
-}
+};
+
+export default configureStore;
