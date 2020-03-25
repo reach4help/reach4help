@@ -1,0 +1,12 @@
+{
+  "en": {
+    "common": {
+      "welcome": "Welcome!"
+    }
+  },
+  "pt": {
+    "common": {
+      "welcome": "Bem-vindo!" 
+    }
+  }
+}

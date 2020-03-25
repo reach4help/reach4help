@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:12.2-alpine
+    container_name: 'api_postgres_db'
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8080:8080

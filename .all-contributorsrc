@@ -51,7 +51,10 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/961844?v=4",
       "profile": "http://freethinking.it",
       "contributions": [
-        "review"
+        "review",
+        "code",
+        "ideas",
+        "maintenance"
       ]
     },
     {
@@ -74,6 +77,74 @@
         "code",
         "ideas",
         "review"
+      ]
+    },
+    {
+      "login": "wr46",
+      "name": "Wilson Rodrigues",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5550776?v=4",
+      "profile": "https://github.com/wr46",
+      "contributions": [
+        "code",
+        "ideas",
+        "projectManagement",
+        "maintenance",
+        "doc"
+      ]
+    },
+    {
+      "login": "namadnuno",
+      "name": "Nuno Alexandre",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/9502562?v=4",
+      "profile": "http://namadnuno.alojamento-gratis.com/",
+      "contributions": [
+        "ideas",
+        "code"
+      ]
+    },
+    {
+      "login": "micaelr95",
+      "name": "Micael Rodrigues",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12500655?v=4",
+      "profile": "https://micaelr95.github.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mdeous",
+      "name": "Mathieu Deous",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/393165?v=4",
+      "profile": "https://github.com/mdeous",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "cinthyaejh",
+      "name": "cinthyaejh",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/40286823?v=4",
+      "profile": "https://github.com/cinthyaejh",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "PatriciaMiranda",
+      "name": "PatriciaMiranda",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/62437898?v=4",
+      "profile": "https://github.com/PatriciaMiranda",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "r13serra11",
+      "name": "Rita Serra",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/62537457?v=4",
+      "profile": "https://github.com/r13serra11",
+      "contributions": [
+        "design"
       ]
     }
   ],

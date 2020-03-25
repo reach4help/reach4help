@@ -1,19 +1,33 @@
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
-import { exampleReducer } from './example/reducers';
+import ducks from '../ducks';
+import injectRequestMiddleware from './middlewares/injectRequestMiddleware';
 
-const rootReducer = combineReducers({ exampleReducer });
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const rootReducer = combineReducers(ducks);
 
 export type AppState = ReturnType<typeof rootReducer>;
 
-export default function configureStore() {
-  // const middlewares = [thunkMiddleware];
+const configureStore = () => {
+  const middlewares = [thunk, injectRequestMiddleware];
 
   const store = createStore(
     rootReducer,
-    process.env.NODE_ENV === 'development' ? composeWithDevTools() : undefined,
+    compose(
+      applyMiddleware(...middlewares),
+      process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        composeWithDevTools() : (f: Function) => f,
+    ),
   );
 
   return store;
-}
+};
+
+export default configureStore;

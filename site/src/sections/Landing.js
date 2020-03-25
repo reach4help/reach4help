@@ -45,28 +45,22 @@ const LandingPage = () => (
   <Section.Container id="home" Background={Background}>
     <StaticQuery
       query={graphql`
-        query SiteTitleQuery {
-          contentfulAbout {
-            name
-            roles
-            socialLinks {
-              id
-              url
-              name
-              fontAwesomeIcon
-            }
-          }
+        query {
           site {
             siteMetadata {
-              deterministicBehaviour
+              title
+              socialLinks {
+                fontAwesomeIcon
+                id
+                name
+                url
+              }
             }
           }
         }
       `}
-      render={({ contentfulAbout, site }) => {
-        const { name, socialLinks, roles } = contentfulAbout;
-        // const { deterministicBehaviour } = site.siteMetadata;
-
+      render={({ site }) => {
+        const { title, socialLinks } = site.siteMetadata;
         return (
           <Fragment>
             <Heading
@@ -76,7 +70,7 @@ const LandingPage = () => (
               fontSize={[5, 6, 8]}
               mb={[3, 4, 5]}
             >
-              {name}
+              {title}
             </Heading>
 
             {/* <Heading */}

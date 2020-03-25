@@ -4,7 +4,8 @@
   "workspaces": [
     "map",
     "site",
-    "web-client"
+    "web-client",
+    "api"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
@@ -12,7 +13,8 @@
     "husky": "^4.2.3"
   },
   "scripts": {
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint",
+    "heroku-postbuild": "yarn workspace api run heroku-postbuild"
   },
   "husky": {
     "hooks": {
