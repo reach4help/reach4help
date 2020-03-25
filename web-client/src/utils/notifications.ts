@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,22 +21,28 @@ export enum NOTIFICATION_TYPE {
   INFO,
 }
 
-export const showNotification = (notificationType: NOTIFICATION_TYPE, message: string ) => {
-  switch (notificationType) {
-    case NOTIFICATION_TYPE.SUCCESS:
-      toast.success(message);
-      break;
-    case NOTIFICATION_TYPE.ERROR:
-      toast.error(message);
-      break;
-    case NOTIFICATION_TYPE.WARN:
-      toast.warn(message);
-      break;
-    case NOTIFICATION_TYPE.INFO:
-      toast.info(message);
-      break;
-    default:
-      toast(message);
-      break;
+export const showNotification = (notificationType: NOTIFICATION_TYPE, message: string | ReactElement, Component?: JSX.Element ) => {
+  if (!Component) {
+    switch (notificationType) {
+      case NOTIFICATION_TYPE.SUCCESS:
+        toast.success(message);
+        break;
+      case NOTIFICATION_TYPE.ERROR:
+        toast.error(message);
+        break;
+      case NOTIFICATION_TYPE.WARN:
+        toast.warn(message);
+        break;
+      case NOTIFICATION_TYPE.INFO:
+        toast.info(message);
+        break;
+      default:
+        toast(message);
+        break;
+    }
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('test');
+    toast(Component);
   }
 };

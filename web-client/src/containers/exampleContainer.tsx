@@ -30,6 +30,11 @@ const ExampleContainer: React.FC = () => {
     [dispatch],
   );
 
+  const TestToast = () => <div>
+    Test
+    <button type="button">Test</button>
+  </div>;
+
   return (
     <div>
       {value}
@@ -37,7 +42,7 @@ const ExampleContainer: React.FC = () => {
       <Button type="button" onClick={incrementAsync}>Increment with Delay</Button>
       <Button type="button" onClick={() => sum(5)}>Add 5</Button>
       <Button type="button" color="#F00" onClick={decrement}>Decrement</Button>
-      <Button type="button" onClick={() => showNotification(NOTIFICATION_TYPE.ERROR, 'test')}>Toast</Button>
+      <Button type="button" onClick={() => showNotification(NOTIFICATION_TYPE.ERROR, 'test', <TestToast />)}>Toast</Button>
     </div>
   );
 };
