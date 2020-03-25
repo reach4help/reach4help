@@ -1,7 +1,6 @@
-import { produce } from 'immer';
-import { Reducer } from 'redux';
 import { GetUsers } from 'src/http/AxiosConfigs/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
+import createReducer, { Action } from 'src/store/utils/createReducer';
 
 const { syncType, asyncType } = createActionTypeFactory('EXAMPLE');
 
@@ -35,12 +34,6 @@ type ActionTypes =
 | DecrementAction
 | SumValueAction
 | FetchUsersAction; */
-interface Action {
-  type: string;
-  payload?: any;
-  meta?: any;
-  api?: Function;
-}
 
 // Reducer
 
@@ -54,24 +47,20 @@ const initialState: ExampleState = {
   users: [],
 };
 
-export const exampleReducer: Reducer = (state: ExampleState = initialState, action: Action): ExampleState => produce(state, draftState => {
-  switch (action.type) {
-    case INCREMENT:
-      draftState.value += 1;
-      return draftState;
-    case DECREMENT:
-      draftState.value -= 1;
-      return draftState;
-    case SUM:
-      draftState.value += action.payload.value;
-      return draftState;
-    case FETCH_USERS.COMPLETED:
-      draftState.users = action.payload;
-      return draftState;
-    default:
-      return draftState;
-  }
-});
+const exampleReducer = createReducer<ExampleState>({
+  [INCREMENT]: (state: ExampleState) => {
+    state.value += 1;
+  },
+  [DECREMENT]: (state: ExampleState) => {
+    state.value -= 1;
+  },
+  [SUM]: (state: ExampleState, { payload }: { payload: any }) => {
+    state.value += payload.value;
+  },
+  [FETCH_USERS.COMPLETED]: (state: ExampleState, { payload }: { payload: any }) => {
+    state.users = payload;
+  },
+}, initialState);
 
 // Action Creators
 
