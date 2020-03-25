@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import { Reducer } from 'redux';
+import { GetUsers } from 'src/http/AxiosConfigs/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 const { syncType, asyncType } = createActionTypeFactory('EXAMPLE');
@@ -88,15 +89,6 @@ export const sumAction = (value: number): Action => ({
     value,
   },
 });
-
-const GetUsers = (request: Function) => {
-  const axiosConfig = {
-    method: 'GET',
-    url: '/users',
-  };
-
-  return request(axiosConfig).then((response: any) => response.data);
-};
 
 export const fetchUsersAction = () => (dispatch: Function) => {
 
