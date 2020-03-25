@@ -1,4 +1,5 @@
-# Monorepo for Reach4Help
+# Reach4Help
+
 [![Reach4Help site released under the MIT license.](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
@@ -7,28 +8,26 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This is the main repository for the [Reach4Help](https://reach4help.org/).
-
 People who are at high risk from COVID-19 or are quarantined are unable to leave their houses and obtain necessities like food and medical supplies without putting themselves or others at risk. To mitigate this, many local groups and organizations, big and small, have started initiatives to try and get resources such as food and medicine to these people, and help out with important tasks such as walking dogs.
 
 Unfortunately, a number of these organizations are struggling with certain logistics, such as coordinating their volunteer workforce, prioritizing the most urgent requests, and ensuring that all requests get fulfilled.
 
 Reach4Help is an open project that is completely run by volunteers that aims to address these issues, not only enabling those in need to receive help, but also enabling partner groups and organizations to help more efficiently by mobilizing their volunteers with the help of our own tracking and ticketing system.
 
-We’re part of [Helpful Engineering](https://www.helpfulengineering.org/),
-a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commercial goals.
+We’re part of [Helpful Engineering](https://www.helpfulengineering.org/), a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commercial goals.
 
-# Project Status
+## Project Status
 Right now we’re in the very early stages of project development, but moving very rapidly! We’re currently assembling [teams](https://github.com/covidaidapp/info#project-team), speaking to organizations to assess needs, designing app workflows, and building the initial MVP.
 
 If you’d like to help and join one of our [teams](https://github.com/covidaidapp/info#project-team), please take a look at the [instructions for getting involved](https://github.com/covidaidapp/info#get-involved).
 
+# Development
+
+This is the main/mono-repo for the [Reach4Help](https://reach4help.org/).
+
 ## Preparing the repository
 
-We use `Yarn workspaces` to manage this repository,
-so all NPM packages,
-for all directories,
-can be installed using the following command in the root directory:
+We use `Yarn workspaces` to manage this repository, so all NPM packages, for all directories, can be installed using the following command in the root directory:
 
 ```
 yarn install
