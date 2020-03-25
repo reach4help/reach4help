@@ -9,7 +9,7 @@ export class Request1585154959923 implements MigrationInterface {
              id                BIGSERIAL NOT NULL,
              requester_user_id BIGINT    NOT NULL,
              volunteer_user_id BIGINT,
-             description       TEXT      NOT NULL,
+             content           TEXT      NOT NULL,
              status            VARCHAR,
              created_at        TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
              updated_at        TIMESTAMP WITH TIME ZONE
