@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class Authentication1585167427881 implements MigrationInterface {
-  name = 'Authentication1585167427881';
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
         `CREATE TABLE "authentication"
