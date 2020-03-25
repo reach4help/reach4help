@@ -46,7 +46,8 @@ So to read the specific guidelines for each project please refer to:
 
 # How to report a bug
 
-> If you find a security vulnerability, open an issue describing the problem.
+> If you find a security vulnerability, please contact us directly at `security@reach4help.org`.
+> For any other non security-related issues, open an issue describing the problem.
 
 # How to suggest a feature or enhancement
 
