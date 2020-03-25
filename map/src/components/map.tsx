@@ -234,14 +234,13 @@ class MapComponent extends React.Component<Props, {}> {
     });
 
     markerClusterer.addListener('click', (cluster: MarkerClusterer) => {
-      // Store the next results in the state
-      const nextResults = {
+      // Immidiately change the result list to the cluster instead
+      // Don't update nextResults as we want that to still be for the current
+      // viewport
+      this.updateResultsTo({
         markers: cluster.getMarkers(),
         results: cluster.getMarkers().map(marker => getInfo(marker)),
-      };
-      const { setNextResults: updateNextResults } = this.props;
-      updateNextResults(nextResults);
-      this.updateResults();
+      });
     });
 
     // The clusters have been computed so we can
@@ -307,18 +306,25 @@ class MapComponent extends React.Component<Props, {}> {
   };
 
   private updateResults = () => {
-    const { results, nextResults, setResults: updateResults } = this.props;
+    const { results, nextResults } = this.props;
     if (this.map && nextResults && results !== nextResults.results) {
+      this.updateResultsTo(nextResults);
+    }
+  };
+
+  private updateResultsTo = (results: NextResults) => {
+    const { setResults } = this.props;
+    if (this.map) {
       // Clear all existing marker labels
       for (const marker of this.map.markers.values()) {
         marker.setLabel('');
       }
       // Relabel marker labels based on theri index
-      nextResults.markers.forEach((marker, index) => {
+      results.markers.forEach((marker, index) => {
         marker.setLabel((index + 1).toString());
       });
       // Update the new results state
-      updateResults(nextResults.results);
+      setResults(results.results);
     }
   };
 
