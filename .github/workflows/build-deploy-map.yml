@@ -1,0 +1,35 @@
+name: Build & Deploy Map
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-to-gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Install Packages
+      run: yarn install
+
+    - name: Build Map
+      run: yarn workspace map build
+      env:
+        SKIP_PREFLIGHT_CHECK: 'true'
+
+    - name: Deploy
+      uses: s0/git-publish-subdir-action@v2.1.0
+      env:
+        REPO: git@github.com:reach4help/gh-pages-map.git
+        BRANCH: gh-pages
+        FOLDER: map/build
+        # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOo9gQ7Yj2Lyttdn5j2NbkAta3ztW/vXLlL1Zxp/u5my
+        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY_MAP }}
