@@ -19,7 +19,7 @@ export class Authentication1585167427881 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE IF EXISTS "authentication"`, undefined);
+    await queryRunner.query(`DROP TABLE IF EXISTS "authentication"`);
   }
 
 }

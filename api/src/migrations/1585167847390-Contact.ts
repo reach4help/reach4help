@@ -17,7 +17,7 @@ export class Contact1585167847390 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE IF EXISTS "contact"`, undefined);
+    await queryRunner.query(`DROP TABLE IF EXISTS "contact"`);
   }
 
 }
