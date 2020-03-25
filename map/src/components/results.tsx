@@ -37,7 +37,12 @@ const contactInfo = (label: string, info?: ContactDetails) => {
   if (info.email) {
     items.push(
       ...info.email.map(email => (
-        <a key={items.length} href={`mailto:${email}`}>
+        <a
+          key={items.length}
+          href={`mailto:${email}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <MdEmail />
           {email}
         </a>
