@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'src/components/Button/Buttons';
+import { NOTIFICATION_TYPE, showNotification } from 'src/utils/notifications';
 
 import { AppState } from '../store';
 import { decrementAction, incrementAction, incrementAsyncAction, sumAction } from '../store/example/actions';
@@ -36,6 +37,7 @@ const ExampleContainer: React.FC = () => {
       <Button type="button" onClick={incrementAsync}>Increment with Delay</Button>
       <Button type="button" onClick={() => sum(5)}>Add 5</Button>
       <Button type="button" color="#F00" onClick={decrement}>Decrement</Button>
+      <Button type="button" onClick={() => showNotification(NOTIFICATION_TYPE.ERROR, 'test')}>Toast</Button>
     </div>
   );
 };
