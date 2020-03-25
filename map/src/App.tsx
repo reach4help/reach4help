@@ -44,7 +44,7 @@ class App extends React.Component<Props, State> {
   };
 
   private setResults = (results: MarkerInfo[]) => {
-    this.setState({ results });
+    this.setState({ results, selectedResult: null });
   };
 
   private setUpdateResultsCallback = (callback: (() => void) | null) => {
