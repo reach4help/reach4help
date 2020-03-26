@@ -75,7 +75,8 @@
       "profile": "https://github.com/rbgoncalves",
       "contributions": [
         "code",
-        "ideas"
+        "ideas",
+        "review"
       ]
     },
     {
@@ -108,6 +109,42 @@
       "profile": "https://micaelr95.github.io/",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "mdeous",
+      "name": "Mathieu Deous",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/393165?v=4",
+      "profile": "https://github.com/mdeous",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "cinthyaejh",
+      "name": "cinthyaejh",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/40286823?v=4",
+      "profile": "https://github.com/cinthyaejh",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "PatriciaMiranda",
+      "name": "PatriciaMiranda",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/62437898?v=4",
+      "profile": "https://github.com/PatriciaMiranda",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "r13serra11",
+      "name": "Rita Serra",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/62537457?v=4",
+      "profile": "https://github.com/r13serra11",
+      "contributions": [
+        "design"
       ]
     }
   ],

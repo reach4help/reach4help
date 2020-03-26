@@ -30,7 +30,7 @@ const Helmet = ({ theme = {} }) => (
         }
       }
     `}
-    render={({site}) => {
+    render={({ site }) => {
       const { title, description, profile } = site.siteMetadata;
 
       return (

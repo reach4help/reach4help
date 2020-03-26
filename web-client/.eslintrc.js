@@ -20,7 +20,8 @@ module.exports = {
     "import-helpers",
     "react",
     "prettier",
-    "react-hooks"
+    "react-hooks",
+    "prefer-arrow"
   ],
   rules: {
     "semi": ["error", "always"],
@@ -99,5 +100,13 @@ module.exports = {
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "prefer-arrow/prefer-arrow-functions": [
+      "warn",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ]
   }
 };

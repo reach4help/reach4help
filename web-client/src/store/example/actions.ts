@@ -1,4 +1,5 @@
-import { DECREMENT, INCREMENT, SUM } from './types';
+import HTTPRequest from '../../http/HTTPRequest';
+import { DECREMENT, FETCH_USERS_COMPLETED, INCREMENT, SUM } from './types';
 
 export const incrementAction = {
   type: INCREMENT,
@@ -8,18 +9,24 @@ export const decrementAction = {
   type: DECREMENT,
 };
 
-export function sumAction(value: number) {
-  return {
-    type: SUM,
-    payload: {
-      value,
-    },
-  };
-}
+export const sumAction = (value: number) => ({
+  type: SUM,
+  payload: {
+    value,
+  },
+});
+export const fetchUsersCompleted = (data: any) => ({
+  type: FETCH_USERS_COMPLETED,
+  payload: {
+    users: data,
+  },
+});
 
-export function incrementAsyncAction() {
-  return (dispatch: Function) => {
-
-    setTimeout(() => dispatch(incrementAction), 1000);
-  };
-}
+export const fetchUsersAction = () => (dispatch: Function) => {
+  HTTPRequest.getInstance().execute({
+    method: 'GET',
+    url: '/users',
+  })
+    .then((req: any) => req.data.data)
+    .then((data: any) => dispatch(fetchUsersCompleted(data)));
+};

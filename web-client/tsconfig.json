@@ -20,6 +20,9 @@
     "noEmit": true,
     "jsx": "react"
   },
+  "rules": {
+    "interface-name" : [true, "never-prefix"]
+  },
   "include": [
     "src"
   ]
