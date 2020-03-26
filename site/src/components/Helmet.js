@@ -32,10 +32,10 @@ const Helmet = ({ theme = {} }) => (
           <meta name="description" content={description} />
           <link rel="shortcut icon" href={`${siteUrl}/images/logo32.png`} />
           <meta name="theme-color" content={theme.background} />
-          <meta name="image" content={`${siteUrl}/images/logo32.png`} />
+          <meta name="image" content={`${siteUrl}/images/logo512.png`} />
           <meta itemProp="name" content={title} />
           <meta itemProp="description" content={description} />
-          <meta itemProp="image" content={`${siteUrl}/images/logo32.png`} />
+          <meta itemProp="image" content={`${siteUrl}/images/logo512.png`} />
           <meta name="og:title" content={title} />
           <meta name="og:description" content={description} />
           <meta name="og:image" content={`${siteUrl}/images/logo512.png`} />
