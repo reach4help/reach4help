@@ -27,7 +27,7 @@ const Helmet = ({ theme = {} }) => (
       return (
         <ReactHelmet htmlAttributes={{ lang: 'en' }}>
           <meta charSet="utf-8" />
-          <title>{title}</title>
+          <title>{`${title} - ${description}`}</title>
           <meta name="description" content={description} />
           <link rel="shortcut icon" href={logo32} />
           <meta name="theme-color" content={theme.background} />

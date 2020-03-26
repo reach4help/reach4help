@@ -54,8 +54,23 @@ module.exports = {
       {
         fontAwesomeIcon: 'envelope',
         id: '265755e6-9146-55ba-9916-5175bfd799b8',
-        name: 'Email Us',
+        name: 'Email us',
         url: 'mailto:info@reach4help.org',
+      },
+      {
+        fontAwesomeIcon: 'instagram',
+        name: 'Follow us on instagram',
+        url: 'https://www.instagram.com/reach4helporg/',
+      },
+      {
+        fontAwesomeIcon: 'twitter',
+        name: 'Follow us on twitter',
+        url: 'https://twitter.com/reach4helporg',
+      },
+      {
+        fontAwesomeIcon: 'facebook',
+        name: 'Like our facebook page',
+        url: 'https://www.facebook.com/Reach4HelpOrg/',
       },
     ],
     deterministicBehaviour: !!DETERMINISTIC,
