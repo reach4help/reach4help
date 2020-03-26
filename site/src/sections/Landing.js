@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import { Heading, Flex, Box, Text } from 'rebass';
-import TextLoop from 'react-text-loop';
+import { Heading, Flex, Box, Image } from 'rebass';
 import { SectionLink } from 'react-scroll-section';
 import Section from '../components/Section';
 import SocialLink from '../components/SocialLink';
 import MouseIcon from '../components/MouseIcon';
 import Triangle from '../components/Triangle';
+import logo from '../images/logo.svg';
 
 const Background = () => (
   <div>
@@ -49,6 +49,7 @@ const LandingPage = () => (
           site {
             siteMetadata {
               title
+              description
               socialLinks {
                 fontAwesomeIcon
                 id
@@ -60,41 +61,40 @@ const LandingPage = () => (
         }
       `}
       render={({ site }) => {
-        const { title, socialLinks } = site.siteMetadata;
+        const { title, description, socialLinks } = site.siteMetadata;
         return (
           <Fragment>
+            <Image
+              src={logo}
+              alt="Reach4Help Logo"
+              style={centerHorizontally}
+              width={['100px', '150px', '200px']}
+              mb={[3, 4, 4]}
+            />
             <Heading
               textAlign="center"
               as="h1"
               color="primary"
-              fontSize={[5, 6, 8]}
-              mb={[3, 4, 5]}
+              fontSize={[5, 6, 7]}
+              mb={[2, 3, 3]}
             >
               {title}
             </Heading>
 
-            {/* <Heading */}
-            {/*  as="h2" */}
-            {/*  color="primary" */}
-            {/*  fontSize={[4, 5, 6]} */}
-            {/*  mb={[3, 5]} */}
-            {/*  textAlign="center" */}
-            {/*  style={centerHorizontally} */}
-            {/* > */}
-            {/*  <TextLoop interval={5000}> */}
-            {/*    {roles */}
-            {/*      .sort(() => deterministicBehaviour || Math.random() - 0.5) */}
-            {/*      .map(text => ( */}
-            {/*        <Text width={[300, 500]} key={text}> */}
-            {/*          {text} */}
-            {/*        </Text> */}
-            {/*      ))} */}
-            {/*  </TextLoop> */}
-            {/* </Heading> */}
+            <Heading
+              as="h2"
+              color="primary"
+              fontSize={[3, 4, 5]}
+              mb={[2, 3, 3]}
+              textAlign="center"
+              style={centerHorizontally}
+            >
+              {description}
+            </Heading>
 
             <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
               {socialLinks.map(({ id, ...rest }) => (
-                <Box mx={3} fontSize={[5, 6, 6]} key={id}>
+                <Box mx={3} fontSize={5} key={id}>
                   <SocialLink {...rest} />
                 </Box>
               ))}

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "gatsby clean && gatsby build",
-    "develop": "gatsby clean && gatsby develop",
+    "develop": "gatsby clean && GATSBY_SITE_URL=http://localhost:8000 gatsby develop",
     "start": "yarn develop",
     "serve": "yarn build && gatsby serve -p 9000",
     "lint": "eslint ./src",
