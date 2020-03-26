@@ -105,6 +105,6 @@ export interface MarkerInfo {
 
 ## How to Contribute
 
-You may submit PRs to this repository to add markers to the map. Submit your changes to [marker source file](/map/src/data/markers.ts).
+You may submit PRs to this repository to add markers to the map. Submit your changes to the [marker source file](/map/src/data/markers.ts).
 
 You may test your changes locally by following the steps outlined in [the map README](/map/README.md).
