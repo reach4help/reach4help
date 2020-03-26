@@ -6,7 +6,7 @@ import Section from '../components/Section';
 import SocialLink from '../components/SocialLink';
 import MouseIcon from '../components/MouseIcon';
 import Triangle from '../components/Triangle';
-import logo from '../components/images/logo.svg';
+import logo from '../images/logo.svg';
 
 const Background = () => (
   <div>
@@ -94,7 +94,7 @@ const LandingPage = () => (
 
             <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
               {socialLinks.map(({ id, ...rest }) => (
-                <Box mx={3} fontSize={[5, 5, 5]} key={id}>
+                <Box mx={3} fontSize={5} key={id}>
                   <SocialLink {...rest} />
                 </Box>
               ))}

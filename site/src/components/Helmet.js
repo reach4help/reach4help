@@ -4,10 +4,10 @@ import { StaticQuery, graphql } from 'gatsby';
 import { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 
-import logo16 from '../../media/logo16.png';
-import logo32 from '../../media/logo32.png';
-import logo180 from '../../media/logo180.png';
-import logo512 from '../../media/logo512.png';
+// import logo16 from '../../media/logo16.png';
+// import logo32 from '../../media/logo32.png';
+// import logo180 from '../../media/logo180.png';
+// import logo512 from '../../media/logo512.png';
 
 const Helmet = ({ theme = {} }) => (
   <StaticQuery
@@ -15,6 +15,7 @@ const Helmet = ({ theme = {} }) => (
       {
         site {
           siteMetadata {
+            siteUrl
             description
             title
           }
@@ -22,33 +23,53 @@ const Helmet = ({ theme = {} }) => (
       }
     `}
     render={({ site }) => {
-      const { title, description, profile } = site.siteMetadata;
+      const { title, description, siteUrl } = site.siteMetadata;
 
       return (
         <ReactHelmet htmlAttributes={{ lang: 'en' }}>
           <meta charSet="utf-8" />
           <title>{`${title} - ${description}`}</title>
           <meta name="description" content={description} />
-          <link rel="shortcut icon" href={logo32} />
+          <link rel="shortcut icon" href={`${siteUrl}/images/logo32.png`} />
           <meta name="theme-color" content={theme.background} />
-          <meta name="image" content={logo32} />
+          <meta name="image" content={`${siteUrl}/images/logo32.png`} />
           <meta itemProp="name" content={title} />
           <meta itemProp="description" content={description} />
-          <meta itemProp="image" content={logo32} />
+          <meta itemProp="image" content={`${siteUrl}/images/logo32.png`} />
           <meta name="og:title" content={title} />
           <meta name="og:description" content={description} />
-          <meta name="og:image" content={logo512} />
+          <meta name="og:image" content={`${siteUrl}/images/logo512.png`} />
           <meta name="og:site_name" content={title} />
           <meta name="og:locale" content="en_US" />
           <meta name="og:type" content="website" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={logo512} />
-          <meta name="twitter:image:src" content={logo512} />
-          <link rel="apple-touch-icon" sizes="180x180" href={logo180} />
-          <link rel="icon" type="image/png" sizes="32x32" href={logo32} />
-          <link rel="icon" type="image/png" sizes="16x16" href={logo16} />
+          <meta
+            name="twitter:image"
+            content={`${siteUrl}/images/logo512.png`}
+          />
+          <meta
+            name="twitter:image:src"
+            content={`${siteUrl}/images/logo512.png`}
+          />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href={`${siteUrl}/images/logo180.png`}
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href={`${siteUrl}/images/logo32.png`}
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href={`${siteUrl}/images/logo16.png`}
+          />
         </ReactHelmet>
       );
     }}

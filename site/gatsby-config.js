@@ -43,6 +43,10 @@ if (ANALYTICS_ID) {
 module.exports = {
   siteMetadata: {
     title: 'Reach4Help',
+    siteUrl:
+      process.env.GATSBY_SITE_URL ||
+      process.env.DEPLOY_PRIME_URL ||
+      'https://reach4help.org',
     description: 'Unifying help around the world.',
     socialLinks: [
       {
