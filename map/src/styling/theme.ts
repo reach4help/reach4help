@@ -38,8 +38,8 @@ export const THEME = {
   textColorLight: COLORS.brand.primaryLight,
   secondaryTextColor: COLORS.brand.secondaryDark,
   secondaryTextColorLight: COLORS.brand.secondary,
-  textLinkColor: COLORS.purple,
-  textLinkHoverColor: COLORS.purpleDark,
+  textLinkColor: COLORS.purpleLight,
+  textLinkHoverColor: COLORS.purple,
   colors: COLORS,
 };
 

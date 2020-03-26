@@ -1,5 +1,8 @@
 import React from 'react';
+import { MdAdd } from 'react-icons/md';
+
 import { Filter } from 'src/data';
+import { buttonPrimary, iconButton } from 'src/styling/mixins';
 import styled from '../styling';
 
 import Filters, { FilterMutator } from './filters';
@@ -8,10 +11,11 @@ interface Props {
   className?: string;
   filter: Filter;
   updateFilter: (mutator: FilterMutator) => void;
+  setAddInstructionsOpen: (open: boolean) => void;
 }
 
 const Header = (props: Props) => {
-  const { className, filter, updateFilter } = props;
+  const { className, filter, updateFilter, setAddInstructionsOpen } = props;
   return (
     <header className={className}>
       <div className="row">
@@ -35,8 +39,7 @@ const Header = (props: Props) => {
             <a href="https://github.com/reach4help/reach4help/tree/master/map">
               {' found on GitHub'}
             </a>
-            . For any enquiries, or to add an organization or group to this map,
-            you can reach us as at
+            . For any enquiries, you can reach us as at
             <a href="mailto:map@reach4help.org">{' map@reach4help.org'}</a>.
           </p>
         </div>
@@ -47,6 +50,15 @@ const Header = (props: Props) => {
           filter={filter}
           updateFilter={updateFilter}
         />
+        <div className="grow" />
+        <button
+          className="add"
+          type="button"
+          onClick={() => setAddInstructionsOpen(true)}
+        >
+          <MdAdd className="icon-left" />
+          <span>Add information to this map</span>
+        </button>
       </div>
     </header>
   );
@@ -84,16 +96,39 @@ export default styled(Header)`
         &.muted {
           color: ${p => p.theme.textColorLight};
           font-style: italic;
+
+          a {
+            color: ${p => p.theme.textColor};
+          }
+        }
+
+        &:last-child {
+          padding-bottom: 0;
         }
       }
     }
   }
 
   .tools {
-    padding: ${p => p.theme.spacingPx / 2}px ${p => p.theme.spacingPx}px;
+    padding: 0 ${p => p.theme.spacingPx / 2}px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     border-top: 1px solid ${p => p.theme.colors.grayLight2};
     background: ${p => p.theme.colors.grayLight3};
+
+    > .filters {
+      padding: ${p => p.theme.spacingPx / 2}px;
+    }
+
+    .grow {
+      flex-grow: 1;
+    }
+
+    > .add {
+      margin: ${p => p.theme.spacingPx / 2}px 0;
+      ${buttonPrimary};
+      ${iconButton};
+    }
   }
 `;

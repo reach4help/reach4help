@@ -17,6 +17,17 @@ export const button = css`
   }
 `;
 
+export const iconButton = css`
+  display: flex;
+  align-items: center;
+
+  .icon-left {
+    height: 24px;
+    width: 24px;
+    margin: -4px 4px -4px -8px;
+  }
+`;
+
 export const buttonPrimary = css`
   ${button};
   background: ${p => p.theme.colors.brand.primary};
