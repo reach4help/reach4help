@@ -1,11 +1,12 @@
 import { parse } from 'pg-connection-string';
 
-let config;
+let tempConfig;
 // On heroku we use a connection string
 if (process.env.DATABASE_URL) {
   const databaseUrl = process.env.DATABASE_URL;
   const connectionOptions = parse(databaseUrl);
-  config = {
+
+  tempConfig = {
     type: 'postgres',
     host: connectionOptions.host,
     port: parseInt(connectionOptions.port, 10),
@@ -16,12 +17,15 @@ if (process.env.DATABASE_URL) {
     entities: [
       __dirname + '/../**/*.entity{.ts,.js}',
     ],
+    migrations: [
+      __dirname + '/../migrations/*{.ts,.js}',
+    ],
     extra: {
-      ssl: connectionOptions.ssl,
+      ssl: connectionOptions.ssl || false,
     },
   };
 } else {
-  config = {
+  tempConfig = {
     type: 'postgres',
     host: process.env.TYPEORM_HOST,
     port: parseInt(process.env.TYPEORM_PORT),
@@ -31,10 +35,11 @@ if (process.env.DATABASE_URL) {
     entities: [
       __dirname + '/../**/*.entity{.ts,.js}',
     ],
+    migrations: [
+      __dirname + '/../migrations/*{.ts,.js}',
+    ],
     synchronize: false,
   };
 }
 
-module.exports = config;
-
-export default config;
+module.exports = tempConfig;
