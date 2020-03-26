@@ -24,6 +24,7 @@
     "interface-name" : [true, "never-prefix"]
   },
   "include": [
-    "src"
+    "src",
+    "config-overrides.js"
   ]
 }
