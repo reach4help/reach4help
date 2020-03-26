@@ -1,6 +1,6 @@
+import { Button } from 'antd';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from 'src/components/Button/Buttons';
 
 import { decrementAction, fetchUsersAction, incrementAction, sumAction } from '../ducks/example';
 import { AppState } from '../store';
@@ -33,10 +33,11 @@ const ExampleContainer: React.FC = () => {
   return (
     <div>
       {value}
-      <Button type="button" color="#0F0" onClick={increment}>Increment</Button>
-      <Button type="button" onClick={fetchUsers}>Fetch users</Button>
-      <Button type="button" onClick={() => sum(5)}>Add 5</Button>
-      <Button type="button" color="#F00" onClick={decrement}>Decrement</Button>
+      <button type="button" style={{ backgroundColor: '#0F0' }} onClick={increment}>Increment</button>
+      <button type="button" onClick={fetchUsers}>Fetch users</button>
+      <button type="button" onClick={() => sum(5)}>Add 5</button>
+      <button type="button" style={{ backgroundColor: '#F00' }} onClick={decrement}>Decrement</button>
+      <Button type="primary" color="#F00" onClick={decrement}>Some button</Button>
       {users.map((user: any) => user.email)}
     </div>
   );

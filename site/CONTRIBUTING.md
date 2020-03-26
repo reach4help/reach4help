@@ -16,7 +16,7 @@ We keep an open mind! Improving documentation, bug triage, or writing tutorials 
 
 ### Follow our Code of Conduct.
 
-We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it. 🤝
+We expect everyone to abide by our [**Code of Conduct**](/CODE_OF_CONDUCT.md). Please read it. 🤝
 
 # Your First Contribution
 

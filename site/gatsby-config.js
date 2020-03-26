@@ -43,8 +43,11 @@ if (ANALYTICS_ID) {
 module.exports = {
   siteMetadata: {
     title: 'Reach4Help',
-    description:
-      'An app to help people at high risk get help from neighbors and volunteers closest to them. A part of Helpful Engineering.',
+    siteUrl:
+      process.env.GATSBY_SITE_URL ||
+      process.env.DEPLOY_PRIME_URL ||
+      'https://reach4help.org',
+    description: 'Unifying help around the world.',
     socialLinks: [
       {
         fontAwesomeIcon: 'github',
@@ -55,28 +58,25 @@ module.exports = {
       {
         fontAwesomeIcon: 'envelope',
         id: '265755e6-9146-55ba-9916-5175bfd799b8',
-        name: 'Email Us',
+        name: 'Email us',
         url: 'mailto:info@reach4help.org',
       },
+      {
+        fontAwesomeIcon: 'instagram',
+        name: 'Follow us on instagram',
+        url: 'https://www.instagram.com/reach4helporg/',
+      },
+      {
+        fontAwesomeIcon: 'twitter',
+        name: 'Follow us on twitter',
+        url: 'https://twitter.com/reach4helporg',
+      },
+      {
+        fontAwesomeIcon: 'facebook',
+        name: 'Like our facebook page',
+        url: 'https://www.facebook.com/Reach4HelpOrg/',
+      },
     ],
-    profile: {
-      appleIcon: {
-        src:
-          '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=180&fl=progressive&q=50',
-      },
-      bigIcon: {
-        src:
-          '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=192&fl=progressive&q=50',
-      },
-      favicon16: {
-        src:
-          '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=16&fl=progressive&q=50',
-      },
-      favicon32: {
-        src:
-          '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=32&fl=progressive&q=50',
-      },
-    },
     deterministicBehaviour: !!DETERMINISTIC,
   },
   plugins,
