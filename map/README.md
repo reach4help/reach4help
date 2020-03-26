@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Contributing Data
 
-You may find instructions on how to contribute [here](/map/src/data/DOCUMENTATION.md)
+You may find instructions on how to contribute [here](src/data/DOCUMENTATION.md)
 
 ## Available Scripts
 
