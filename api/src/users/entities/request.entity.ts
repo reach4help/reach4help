@@ -11,7 +11,7 @@ export enum RequestStatus {
   // When CAV has been assigned and has accepted
   CAV_ACCEPTED = 'accepted',
   // When the CAV has stated "ive done this"
-  PENDING_PIN_REVIEW = 'pending_pin_review',
+  PENDING_PIN_CONFIRMATION = 'pending_pin_confirmation',
   // When the PIN has agreed "this has been done"
   COMPLETED = 'completed', //
 
