@@ -43,8 +43,7 @@ if (ANALYTICS_ID) {
 module.exports = {
   siteMetadata: {
     title: 'Reach4Help',
-    description:
-      'An app to help people at high risk get help from neighbors and volunteers closest to them. A part of Helpful Engineering.',
+    description: 'Unifying help around the world.',
     socialLinks: [
       {
         fontAwesomeIcon: 'github',
@@ -59,24 +58,6 @@ module.exports = {
         url: 'mailto:info@reach4help.org',
       },
     ],
-    profile: {
-      appleIcon: {
-        src:
-          '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=180&fl=progressive&q=50',
-      },
-      bigIcon: {
-        src:
-          '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=192&fl=progressive&q=50',
-      },
-      favicon16: {
-        src:
-          '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=16&fl=progressive&q=50',
-      },
-      favicon32: {
-        src:
-          '//images.ctfassets.net/yganfevmefwf/6nf3rNaaVaUqYcoAcciSeC/6d000f6c6ff8cd1af2d1622ae6b9647a/Mate_Logo.png?w=32&fl=progressive&q=50',
-      },
-    },
     deterministicBehaviour: !!DETERMINISTIC,
   },
   plugins,
