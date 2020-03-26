@@ -1,35 +1,37 @@
+import { COLORS } from '../styling/theme';
+
 export const SERVICES = {
   food: {
     label: 'Food',
-    color: '#DB4437',
+    color: COLORS.red,
   },
   supplies: {
     label: 'Supplies',
-    color: '#0F9D58',
+    color: COLORS.green,
   },
   aid: {
     label: 'Aid',
-    color: '#F4B400',
+    color: COLORS.yellow,
   },
   mobility: {
     label: 'Mobility',
-    color: '#742388',
+    color: COLORS.purple,
   },
   medicine: {
     label: 'Medicine',
-    color: '#4285F4',
+    color: COLORS.blue,
   },
   manufacturing: {
     label: 'Manufacturing',
-    color: '#f47400',
+    color: COLORS.orange,
   },
   financial: {
     label: 'Financial',
-    color: '#f47400',
+    color: COLORS.orange,
   },
   information: {
     label: 'Information',
-    color: '#f47400',
+    color: COLORS.orange,
   },
 } as const;
 

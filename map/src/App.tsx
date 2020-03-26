@@ -130,6 +130,7 @@ export default styled(App)`
   left: 0;
   display: flex;
   flex-direction: column;
+  color: ${p => p.theme.textColor};
 
   > main {
     display: flex;
