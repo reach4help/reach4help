@@ -1,5 +1,6 @@
 import React from 'react';
 import { SERVICES, isService, Filter } from 'src/data';
+import { buttonPrimary } from 'src/styling/mixins';
 import styled from '../styling';
 
 export type FilterMutator = (filter: Filter) => Filter;
@@ -45,5 +46,11 @@ class Filters extends React.Component<Props, {}> {
 export default styled(Filters)`
   select {
     margin-left: 5px;
+    ${buttonPrimary};
+    padding: 7px 11px;
+
+    &:focus {
+      background: ${p => p.theme.colors.brand.primaryLight};
+    }
   }
 `;
