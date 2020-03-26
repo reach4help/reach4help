@@ -11,7 +11,7 @@ export class Request1585154959923 implements MigrationInterface {
              content           TEXT      NOT NULL,
              status            VARCHAR,
              created_at        TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-             updated_at        TIMESTAMP WITH TIME ZONE
+             updated_at        TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
          );`,
     );
   }

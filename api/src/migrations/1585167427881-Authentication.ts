@@ -11,7 +11,7 @@ export class Authentication1585167427881 implements MigrationInterface {
              expiration_time    TIMESTAMP WITH TIME ZONE NOT NULL,
              last_activity      TIMESTAMP WITH TIME ZONE NOT NULL,
              created_at         TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-             updated_at         TIMESTAMP WITH TIME ZONE
+             updated_at         TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
          );`,
     );
   }

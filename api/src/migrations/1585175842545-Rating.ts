@@ -11,7 +11,7 @@ export class Rating1585175842545 implements MigrationInterface {
              from_user_id BIGINT    NOT NULL,
              rating       INT       NOT NULL,
              created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-             updated_at   TIMESTAMP WITH TIME ZONE
+             updated_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
          );`,
     );
   }

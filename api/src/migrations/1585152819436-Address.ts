@@ -59,7 +59,7 @@ export class Address1585152819436 implements MigrationInterface {
              country_id  BIGINT    NOT NULL,
              latlng      POINT     NOT NULL,
              created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-             updated_at  TIMESTAMP WITH TIME ZONE
+             updated_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
          );`,
     );
   }

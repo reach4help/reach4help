@@ -9,7 +9,7 @@ export class Contact1585167847390 implements MigrationInterface {
              email      VARCHAR(320) NOT NULL,
              phone      VARCHAR(15)  NOT NULL,
              created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-             updated_at TIMESTAMP WITH TIME ZONE
+             updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
          );`,
     );
   }
