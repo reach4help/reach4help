@@ -49,17 +49,18 @@ export class Address1585152819436 implements MigrationInterface {
     await queryRunner.query(
         `CREATE TABLE "address"
          (
-             id          BIGSERIAL NOT NULL,
-             address1    VARCHAR   NOT NULL,
-             address2    VARCHAR,
-             address3    VARCHAR,
-             locality1   VARCHAR,
-             locality2   VARCHAR,
-             postal_code VARCHAR,
-             country_id  BIGINT    NOT NULL,
-             latlng      POINT     NOT NULL,
-             created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-             updated_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+             id                  BIGSERIAL NOT NULL,
+             address1            VARCHAR   NOT NULL,
+             address2            VARCHAR,
+             address3            VARCHAR,
+             locality            VARCHAR,
+             administrativeArea1 VARCHAR,
+             administrativeArea2 VARCHAR,
+             postal_code         VARCHAR,
+             country_id          BIGINT    NOT NULL,
+             latlng              POINT     NOT NULL,
+             created_at          TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+             updated_at          TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
          );`,
     );
   }

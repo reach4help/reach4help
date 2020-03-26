@@ -30,13 +30,17 @@ export class Address extends GenericEntity {
   @IsString({ always: true })
   address3: string;
 
-  @Column({ name: 'locality1' })
+  @Column({ name: 'locality' })
   @IsString({ always: true })
-  locality1: string;
+  locality: string;
 
-  @Column({ name: 'locality2' })
+  @Column({ name: 'administrative_area_1' })
   @IsString({ always: true })
-  locality2: string;
+  administrativeArea1: string;
+
+  @Column({ name: 'administrative_area_2' })
+  @IsString({ always: true })
+  administrativeArea2: string;
 
   @Column({ name: 'postal_code' })
   @IsString({ always: true })
