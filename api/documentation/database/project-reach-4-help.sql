@@ -13,6 +13,17 @@ CREATE TYPE "request_status" AS ENUM (
     'rejected'
     );
 
+CREATE TYPE "service_type" AS ENUM (
+    'food',
+    'supplies',
+    'aid',
+    'mobility',
+    'medicine',
+    'manufacturing',
+    'financial',
+    'information'
+    );
+
 CREATE TABLE "authentication"
 (
     "id"                 BIGSERIAL PRIMARY KEY NOT NULL,
@@ -42,8 +53,8 @@ CREATE TABLE "user"
 CREATE TABLE "country"
 (
     "id"         BIGSERIAL PRIMARY KEY NOT NULL,
-    "name"       VARCHAR,
-    "code"       VARCHAR,
+    "name"       VARCHAR            NOT NULL,
+    "code"       VARCHAR            NOT NULL,
     "created_at" timestamp          NOT NULL,
     "updated_at" timestamp          NOT NULL
 );
@@ -67,8 +78,8 @@ CREATE TABLE "address"
 CREATE TABLE "contact"
 (
     "id"         BIGSERIAL PRIMARY KEY NOT NULL,
-    "email"      VARCHAR            NOT NULL,
-    "phone"      VARCHAR            NOT NULL,
+    "email"      VARCHAR,
+    "phone"      VARCHAR,
     "created_at" timestamp          NOT NULL,
     "updated_at" timestamp          NOT NULL
 );
@@ -106,11 +117,11 @@ CREATE TABLE "team"
 
 CREATE TABLE "team_user"
 (
-    "id"         BIGSERIAL PRIMARY KEY NOT NULL,
-    "team_id"    BIGINT,
-    "user_id"    BIGINT,
-    "created_at" timestamp          NOT NULL,
-    "updated_at" timestamp          NOT NULL
+    "team_id"    BIGINT    NOT NULL,
+    "user_id"    BIGINT    NOT NULL,
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp NOT NULL,
+    PRIMARY KEY ("team_id", "user_id")
 );
 
 CREATE TABLE "organization"
@@ -118,9 +129,18 @@ CREATE TABLE "organization"
     "id"         BIGSERIAL PRIMARY KEY NOT NULL,
     "contact_id" BIGINT,
     "address_id" BIGINT,
-    "name"       VARCHAR,
+    "name"       VARCHAR            NOT NULL,
     "created_at" timestamp          NOT NULL,
     "updated_at" timestamp          NOT NULL
+);
+
+CREATE TABLE "service"
+(
+    "id"              BIGSERIAL PRIMARY KEY NOT NULL,
+    "organization_id" BIGINT             NOT NULL,
+    "type"            service_type       NOT NULL,
+    "radius"          INT                NOT NULL,
+    "latlng"          POINT              NOT NULL
 );
 
 CREATE TABLE "rating"
@@ -181,6 +201,9 @@ ALTER TABLE "contact"
 
 ALTER TABLE "address"
     ADD FOREIGN KEY ("id") REFERENCES "organization" ("address_id");
+
+ALTER TABLE "organization"
+    ADD FOREIGN KEY ("id") REFERENCES "service" ("organization_id");
 
 ALTER TABLE "request"
     ADD FOREIGN KEY ("id") REFERENCES "comment" ("request_id");
