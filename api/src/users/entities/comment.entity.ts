@@ -11,11 +11,11 @@ export class Comment extends GenericEntity {
 
   @ManyToOne(type => User)
   @JoinColumn({ name: 'user_id' })
-  requester: User;
+  user: User;
 
   @ManyToOne(type => Request)
   @JoinColumn({ name: 'request_id' })
-  volunteer: Request;
+  request: Request;
 
   @Column({ name: 'content', type: 'text' })
   @IsString({ always: true })
