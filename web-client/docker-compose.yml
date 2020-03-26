@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  web-client:
+    build: .
+    ports:
+    - "3002:3000"
+    env_file:
+    - .env
+    environment:
+    - CI=true
+    volumes:
+    - ./src:/app/src
+    - /app/node_modules
