@@ -3,32 +3,32 @@ import styled from '../styling';
 
 const FooterWrapper = styled.footer`
   display: flex;
-  height: 30px;
-  background-color: #f6f6f6;
-  color: #666;
-  box-shadow: gba(0, 0, 0, 0.3) 0px 1px 4px;
-  padding: 0 20px 0 20px;
-  text-align: center;
-  align-items: baseline;
-  justify-content: space-between;
+  padding: ${p => p.theme.spacingPx * 0.75}px;
+  background: ${p => p.theme.bg};
+  border-top: ${p => p.theme.borderLight};
+  font-size: 0.8rem;
+
+  .grow {
+    flex-grow: 1;
+  }
+
+  > a {
+    margin-left: ${p => p.theme.spacingPx}px;
+  }
 `;
 
 const Footer = () => {
   return (
     <FooterWrapper>
-      <div>
-        Reach4Help Aid Map&nbsp;
-        <a href="https://www.netlify.com/" style={{ fontStyle: 'italic' }}>
-          site is Powered by Netlify&nbsp;
-        </a>
+      <div className="grow">
+        This map&nbsp;
+        <a href="https://www.netlify.com/">is hosted by Netlify&nbsp;</a>
         <span aria-label="heart emoji" role="img">
           ❤️
         </span>
       </div>
-      <a
-        href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
-        style={{ fontSize: 14 }}
-      >
+      <a href="https://github.com/reach4help/reach4help/">GitHub Repo</a>
+      <a href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md">
         Code of Conduct
       </a>
     </FooterWrapper>
