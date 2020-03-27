@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Contributing Data to The Map
+
+You may find instructions on how to contribute data to the map [here](src/data/README.md).
+
 ## Available Scripts
 
 In the project directory, you can run:
