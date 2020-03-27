@@ -7,6 +7,7 @@ import { Filter } from './data';
 
 import { FilterMutator } from './components/filters';
 import Header from './components/header';
+import Footer from './components/footer';
 import Map, { NextResults } from './components/map';
 import Results from './components/results';
 import MapLoader from './components/map-loader';
@@ -115,6 +116,7 @@ class App extends React.Component<Props, State> {
             updateResults={this.updateResults}
           />
         </main>
+        <Footer />
       </div>
     );
   }
