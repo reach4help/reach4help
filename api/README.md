@@ -26,8 +26,6 @@ docker-compose up -d
 Start api server [localhost:3001](http://localhost:3001)
 
 ```bash
-export DATABASE_URL=postgresql://reach4help_api:reach4help@localhost:15432/reach4help_api_db
-
 # development
 $ yarn run start
 
