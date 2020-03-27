@@ -23,12 +23,6 @@ Start database and pgadmin container
 docker-compose up -d
 ```
 
-Run migrations
-
-```bash
-yarn typeorm migration:run
-```
-
 Start api server [localhost:3001](http://localhost:3001)
 
 ```bash
@@ -42,6 +36,12 @@ $ yarn run start:dev
 
 # production mode
 $ yarn run start:prod
+```
+
+Run migrations
+
+```bash
+yarn typeorm migration:run
 ```
 
 ## Test
