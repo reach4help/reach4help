@@ -80,7 +80,16 @@ const Header = () => (
             return (
               <Fragment>
                 {homeLink}
-                <Flex mr={[0, 3, 5]}>{navLinks}</Flex>
+                <Flex mr={[0, 3, 5]}>
+                  <RouteLink
+                    onClick={() =>
+                      (window.location.href = 'https://map.reach4help.org')
+                    }
+                    selected={false}
+                    name="Map"
+                  />
+                  {navLinks}
+                </Flex>
               </Fragment>
             );
           }}
