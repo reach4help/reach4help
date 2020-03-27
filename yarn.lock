@@ -17207,13 +17207,6 @@ react-fast-compare@2.0.4, react-fast-compare@^2.0.1, react-fast-compare@^2.0.2:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-fontawesome@^1.6.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.7.1.tgz#f74f5a338fef3ee3b379820109c1cba47290f035"
-  integrity sha512-kottReWW1I9Uupub6A5YX4VK7qfpFnEjAcm5zB4Aepst7iofONT27GJYdTcRsj7q5uQu9PXBL7GsxAFKANNUVg==
-  dependencies:
-    prop-types "^15.5.6"
-
 react-frame-component@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/react-frame-component/-/react-frame-component-4.1.1.tgz#ea8f7c518ef6b5ad72146dd1f648752369826894"

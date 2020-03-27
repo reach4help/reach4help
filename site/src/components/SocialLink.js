@@ -3,8 +3,22 @@ import { Link } from 'rebass';
 import Tippy from '@tippy.js/react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import FontAwesomeIcon from 'react-fontawesome';
+import {
+  FaGithub,
+  FaEnvelope,
+  FaInstagram,
+  FaTwitter,
+  FaFacebookF,
+} from 'react-icons/fa';
 import 'tippy.js/dist/tippy.css'; // eslint-disable-line
+
+const ICONS_MAPPER = {
+  github: <FaGithub />,
+  envelope: <FaEnvelope />,
+  instagram: <FaInstagram />,
+  twitter: <FaTwitter />,
+  facebook: <FaFacebookF />,
+};
 
 const IconLink = styled(Link)`
   transition: color 0.5s;
@@ -26,7 +40,7 @@ const SocialLink = ({ fontAwesomeIcon, name, url, color }) => (
       rel="noreferrer"
       aria-label={name}
     >
-      <FontAwesomeIcon name={fontAwesomeIcon} />
+      {ICONS_MAPPER[fontAwesomeIcon]}
     </IconLink>
   </Tippy>
 );

@@ -50,7 +50,7 @@ const Footer = () => (
             <Fade left>
               <TextFooter fontSize={[2, 3]}>
                 <span>{`${title} `}</span>
-                <Link href="https://www.netlify.com/" mr={1}>
+                <Link href="https://www.netlify.com/" py={16} mr={1}>
                   site is Powered by Netlify
                 </Link>
                 <span role="img" aria-label="heart">
@@ -58,6 +58,7 @@ const Footer = () => (
                 </span>
                 <span> | </span>
                 <Link
+                  py={16}
                   fontSize={[1, 2]}
                   href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
                 >

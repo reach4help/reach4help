@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { ScrollingProvider } from 'react-scroll-section';
@@ -25,19 +25,7 @@ const GlobalStyle = createGlobalStyle`
 
 config({ ssrFadeout: true });
 
-const loadScript = src => {
-  const tag = document.createElement('script');
-  tag.src = src;
-  tag.defer = true;
-
-  document.getElementsByTagName('body')[0].appendChild(tag);
-};
-
 const Layout = ({ children }) => {
-  useEffect(() => {
-    loadScript('https://use.fontawesome.com/fd58d214b9.js');
-  }, []);
-
   return (
     <main>
       <GlobalStyle />
