@@ -1,0 +1,8 @@
+# If you would like to report a security issue, please use the contact information below
+Contact: mailto:security@reach4help.org
+
+# Our security policy
+Policy: https://github.com/reach4help/reach4help/blob/master/SECURITY.md
+
+# You can contribute to our project, it's open-source
+Contribute: https://github.com/reach4help/info
