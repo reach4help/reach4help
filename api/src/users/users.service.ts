@@ -21,9 +21,10 @@ export class UsersService {
 
   create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
+    user.profilePhoto = createUserDto.profilePhoto;
+    user.username = createUserDto.username;
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
-    user.email = createUserDto.email;
     return this.usersRepository.save(user);
   }
 
