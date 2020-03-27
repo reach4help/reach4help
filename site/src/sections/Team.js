@@ -49,7 +49,7 @@ const Resources = () => (
       `}
       render={data => {
         return (
-          <Flex alignItems="center" flexWrap="wrap">
+          <Flex justifyContent="center" alignItems="center" flexWrap="wrap">
             <Box width={[1, 1, 4 / 6]} px={[1, 2, 4]}>
               <Fade bottom>
                 <ReactMarkdown
