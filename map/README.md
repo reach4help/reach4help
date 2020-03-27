@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Contributing Data to The Map
 
-You may find instructions on how to contribute data to the map [here](src/data/DOCUMENTATION.md).
+You may find instructions on how to contribute data to the map [here](src/data/README.md).
 
 ## Available Scripts
 
