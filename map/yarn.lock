@@ -1,0 +1,4 @@
+# Put an empty yarn.lock file here so that Netlify uses yarn in its
+# monorepo support, otherwise the wrong dependencies may be installed.
+#
+# As suggested here: https://community.netlify.com/t/difficulty-with-new-monorepo-deployment-options/4381/9
