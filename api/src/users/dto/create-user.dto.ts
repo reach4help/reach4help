@@ -1,5 +1,8 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Authentication } from '../entities/authentication.entity';
+import { Contact } from '../../shared/entities/contact.entity';
+import { Address } from '../../addresses/entities/address.entity';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -29,4 +32,8 @@ export class CreateUserDto {
   })
   @IsString()
   readonly profilePhoto: string;
+
+  readonly authentication: Authentication;
+  readonly contact: Contact;
+  readonly address: Address;
 }

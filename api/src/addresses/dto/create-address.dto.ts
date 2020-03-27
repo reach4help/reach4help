@@ -1,7 +1,8 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Country } from '../entities/country.entity';
+import { Country } from '../../countries/entities/country.entity';
 import { Point } from '../entities/address.entity';
+import { CreateCountryDto } from '../../countries/dto/create-country.dto';
 
 export class CreateAddressDto {
   @ApiProperty({

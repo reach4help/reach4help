@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { GenericEntity } from 'src/generic/generic.entity';
-import { User } from './user.entity';
-import { Request } from './request.entity';
+import { User } from '../../users/entities/user.entity';
+import { Request } from '../../requests/entities/request.entity';
 import { IsInt, Max, Min } from 'class-validator';
 
 @Entity()

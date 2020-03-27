@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IsString } from 'class-validator';
 import { GenericEntity } from 'src/generic/generic.entity';
-import { Country } from './country.entity';
+import { Country } from '../../countries/entities/country.entity';
 
 export class Point {
   lat: number;

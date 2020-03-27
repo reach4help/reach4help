@@ -2,8 +2,8 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'ty
 import { IsString, IsUrl } from 'class-validator';
 import { GenericEntity } from 'src/generic/generic.entity';
 import { Authentication } from './authentication.entity';
-import { Contact } from './contact.entity';
-import { Address } from './address.entity';
+import { Contact } from '../../shared/entities/contact.entity';
+import { Address } from '../../addresses/entities/address.entity';
 
 @Entity()
 export class User extends GenericEntity {
