@@ -84,3 +84,16 @@ nest generate class user users/entities
 #CREATE src/users/entities/user.spec.ts
 #CREATE src/users/entities/user.ts
 ```
+
+## Database administration - [pgAdmin](https://www.pgadmin.org/)
+
+The tool to check the database is pgadmin. You can use it after run the `docker-compose up` command.
+
+Create a new setup using:
+
+- name: reach4help
+- host: reach4help_api_db
+- port: 5432
+- maintenance databse: reach4help_api_db
+- username: reach4help_api
+- password: reach4help
