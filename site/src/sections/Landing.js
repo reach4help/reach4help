@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import { Heading, Flex, Box, Image } from 'rebass';
+import { Heading, Flex, Box, Image, Link } from 'rebass';
+import styled from 'styled-components';
 import { SectionLink } from 'react-scroll-section';
+
+const colors = require('../../colors');
 import Section from '../components/Section';
 import SocialLink from '../components/SocialLink';
 import MouseIcon from '../components/MouseIcon';
@@ -38,6 +41,15 @@ const Background = () => (
     />
   </div>
 );
+
+const ButtonLink = styled(Link)`
+  text-decoration: none;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: ${colors.secondary};
+  }
+`;
 
 const centerHorizontally = { marginRight: 'auto', marginLeft: 'auto' };
 
@@ -98,6 +110,24 @@ const LandingPage = () => (
                   <SocialLink {...rest} />
                 </Box>
               ))}
+            </Flex>
+            <Flex
+              alignItems="center"
+              justifyContent="center"
+              flexWrap="wrap"
+              mt={[2, 3, 3]}
+            >
+              <ButtonLink
+                mx={3}
+                backgroundColor="primary"
+                color="white"
+                className="button"
+                fontSize={[2, 3]}
+                padding={2}
+                href="https://map.reach4help.org"
+              >
+                View Mutual Aid Map
+              </ButtonLink>
             </Flex>
             <SectionLink section="about">
               {({ onClick }) => <MouseIcon onClick={onClick} />}
