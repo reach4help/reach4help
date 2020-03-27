@@ -23,7 +23,7 @@ Start database and pgadmin container
 docker-compose up -d
 ```
 
-Access swagger-ui at [localhost:3001/api](http://localhost:3001/api)
+Start api server (access swagger-ui at [localhost:3001/api](http://localhost:3001/api))
 
 ```bash
 # development
