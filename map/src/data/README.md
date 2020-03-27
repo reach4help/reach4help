@@ -52,6 +52,22 @@ export interface MarkerInfo {
 }
 ```
 
+### How to Capture Lat, Long, and Radius
+
+1. Open Google Maps
+2. Click and hold (~1 sec.) until a marker appears.
+3. Click the "Lat., Long" on the marker to open it.
+4. Now you can copy the numbers with ease.
+5. Right-click on the map to open the option menu.
+6. Select the "Measure Distance" (or clear it if it's already on).
+7. Click on the map to make a start point, and again to make an end point.
+8. You can drag the measure around to identify the correct radius.
+9. Remember to convert the radius from KM to Meters
+
+See the video below if you have any questions.
+
+![ezgif com-optimize](https://user-images.githubusercontent.com/961844/77779477-ce871100-700f-11ea-9d81-be316d3bdc77.gif)
+
 ### Sample Marker
 
 ```json
