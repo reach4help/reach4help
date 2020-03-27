@@ -5,6 +5,7 @@ import styled from './styling';
 
 import { Filter } from './data';
 
+import AddInstructions from './components/add-instructions';
 import { FilterMutator } from './components/filters';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -26,6 +27,7 @@ interface State {
   selectedResult: MarkerInfo | null;
   updateResultsCallback: (() => void) | null;
   searchInput: HTMLInputElement | null;
+  addInstructionsOpen: boolean;
 }
 
 class App extends React.Component<Props, State> {
@@ -37,6 +39,7 @@ class App extends React.Component<Props, State> {
       selectedResult: null,
       updateResultsCallback: null,
       searchInput: null,
+      addInstructionsOpen: false,
     };
   }
 
@@ -66,6 +69,10 @@ class App extends React.Component<Props, State> {
     );
   };
 
+  private setAddInstructionsOpen = (addInstructionsOpen: boolean) => {
+    this.setState({ addInstructionsOpen });
+  };
+
   private updateResults = () => {
     const { updateResultsCallback } = this.state;
     if (updateResultsCallback) {
@@ -81,10 +88,15 @@ class App extends React.Component<Props, State> {
       nextResults,
       selectedResult,
       searchInput,
+      addInstructionsOpen,
     } = this.state;
     return (
       <div className={className}>
-        <Header filter={filter} updateFilter={this.setFilter} />
+        <Header
+          filter={filter}
+          updateFilter={this.setFilter}
+          setAddInstructionsOpen={this.setAddInstructionsOpen}
+        />
         <main>
           <div className="map-area">
             <MapLoader
@@ -117,6 +129,10 @@ class App extends React.Component<Props, State> {
           />
         </main>
         <Footer />
+        <AddInstructions
+          open={addInstructionsOpen}
+          setAddInstructionsOpen={this.setAddInstructionsOpen}
+        />
       </div>
     );
   }
@@ -130,6 +146,7 @@ export default styled(App)`
   left: 0;
   display: flex;
   flex-direction: column;
+  color: ${p => p.theme.textColor};
 
   > main {
     display: flex;
