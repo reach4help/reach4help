@@ -10,14 +10,30 @@ $ yarn install
 
 ## Running the app
 
-```bash
-# setup database and adminer container
-docker-compose up
-```
-
 Create a `.env` file in the project root using the `example.env`.
 
 ```bash
+cp example.env .env
+```
+
+Start database and pgadmin container
+
+```bash
+# -d to run in background (optional)
+docker-compose up -d
+```
+
+Run migrations
+
+```bash
+yarn typeorm migration:run
+```
+
+Start api server [localhost:3001](http://localhost:3001)
+
+```bash
+export DATABASE_URL=postgresql://reach4help_api:reach4help@localhost:15432/reach4help_api_db
+
 # development
 $ yarn run start
 
@@ -26,11 +42,6 @@ $ yarn run start:dev
 
 # production mode
 $ yarn run start:prod
-```
-
-```bash
-# run migrations
-yarn typeorm migration:run
 ```
 
 ## Test
@@ -87,13 +98,27 @@ nest generate class user users/entities
 
 ## Database administration - [pgAdmin](https://www.pgadmin.org/)
 
-The tool to check the database is pgadmin. You can use it after run the `docker-compose up` command.
+The tool to check the database is pgadmin. You can use it after run the `docker-compose up` command in your browser [localhost:5050](http://localhost:5050)
+
+PgAdmin Login:
+
+- username: db@reach4help.org
+- password: reach4help
 
 Create a new setup using:
 
 - name: reach4help
 - host: reach4help_api_db
 - port: 5432
-- maintenance databse: reach4help_api_db
+- maintenance database: reach4help_api_db
 - username: reach4help_api
 - password: reach4help
+
+## Delete database volume
+
+If you want to start with a clean database you can delete the database volume using `-v`:
+
+```
+# -v to delete database volume
+docker-compose down -v
+```
