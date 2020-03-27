@@ -9,13 +9,21 @@ A map marker represents an organization or community effort to orchestrate aid. 
 ### Data Model
 
 ```typescript
+/**
+ * Contact details capture various methods to contact an organization.
+ */
 export interface ContactDetails {
   facebookGroup?: string;
-  web?: { [id: string]: string };
+  web?: { [id: string]: string }; // List of URLs
   phone?: string[];
   email?: string[];
 }
 
+/**
+ * Locations can be saved so they can be re-used for other markers.
+ *
+ * See the LOCATIONS array.
+ */
 export interface Location {
   description: string; // human readable name of the location
   lat: number;
@@ -23,6 +31,11 @@ export interface Location {
   serviceRadius: number; // distance in meters
 }
 
+/**
+ * A marker that will be rendered on the map. A short title and description is also visible to users.
+ *
+ * It contains an array of services
+ */
 export interface MarkerInfo {
   // name of the organization or community effort
   contentTitle: string;
@@ -42,13 +55,14 @@ export interface MarkerInfo {
     'information',
   ];
 
+  // Three contact detail objects cover various opportunities available at each organization
   contact: {
-    general?: ContactDetails;
-    getHelp?: ContactDetails;
-    volunteers?: ContactDetails;
+    general?: ContactDetails; // For general info
+    getHelp?: ContactDetails; // For showcasing how those who need help can interact with the organization
+    volunteers?: ContactDetails; // For showcasing how those who want to help can interact with the organization
   };
 
-  loc: Location;
+  loc: Location; // The location data for this organization
 }
 ```
 
