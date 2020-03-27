@@ -13,3 +13,5 @@ const {
 
 export { css, createGlobalStyle, keyframes, ThemeProvider, THEME };
 export default styled;
+
+export const SMALL_DEVICES = '@media only screen and (max-width: 600px)';
