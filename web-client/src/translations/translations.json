@@ -1,12 +1,21 @@
 {
   "en": {
     "common": {
-      "welcome": "Welcome!"
+      "welcome": "Welcome!",
+      "login": {
+        "title": "Reach4Help",
+        "sub_title": "Please Note",
+        "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience."
+      }
     }
   },
   "pt": {
     "common": {
-      "welcome": "Bem-vindo!" 
+      "welcome": "Bem-vindo!",
+      "login": {
+        "title": "Reach4Help",
+        "sub_title": "Atenção"
+      }
     }
   }
 }
