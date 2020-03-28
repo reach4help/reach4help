@@ -92,12 +92,11 @@ module.exports = {
     "prefer-template": "error",
     "react/jsx-boolean-value": ["error", "never"],
     "react/no-unknown-property": "error",
-    "react/prop-types": "error",
+    "react/prop-types": "off",
     "react/sort-comp": "error",
     "react/require-default-props": "off",
     "sort-vars": "error",
     "import/no-unresolved": "off",
-    "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "prefer-arrow/prefer-arrow-functions": [
