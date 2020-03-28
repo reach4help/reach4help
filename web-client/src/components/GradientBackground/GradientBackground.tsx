@@ -7,8 +7,8 @@ const Background = styled.div`
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  background: ${COLORS.primary};
-  background: linear-gradient(125.44deg, ${COLORS.primary} 0.39%, ${COLORS.link} 124.45%);
+  background: ${COLORS.backgroundAlternative};
+  background: linear-gradient(125.44deg, ${COLORS.backgroundAlternative} 0.39%, ${COLORS.link} 124.45%);
 `;
 
 const GradientBackground: React.FC<WrapperProps> = ({ children }): React.ReactElement => (
