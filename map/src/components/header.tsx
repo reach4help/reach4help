@@ -3,7 +3,7 @@ import { MdAdd } from 'react-icons/md';
 
 import { Filter } from 'src/data';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
-import styled from '../styling';
+import styled, { SMALL_DEVICES } from '../styling';
 
 import Filters, { FilterMutator } from './filters';
 
@@ -129,6 +129,16 @@ export default styled(Header)`
       margin: ${p => p.theme.spacingPx / 2}px 0;
       ${buttonPrimary};
       ${iconButton};
+    }
+  }
+
+  ${SMALL_DEVICES} {
+    .row {
+      flex-direction: column;
+    }
+
+    .tools {
+      display: none;
     }
   }
 `;

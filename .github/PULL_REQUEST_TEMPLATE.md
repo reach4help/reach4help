@@ -25,9 +25,17 @@ This PR creates, modifies, or deletes:
 - [ ] Cryptography: Encryption, hashing, certificates, signatures, random numbers, etc.
 - [ ] User data: personal information handling, logs, error messages, etc.
 
-If you checked any of those, please request a review from `@application-security`.
+<!--
+
+If you checked any of those, please request a review from `@reach4help/application-security`.
+
+-->
 
 Additional Notes
 ----------------
 
+<!--
+
 If this PR fixes an issue, please add "closes #issue-id" here, otherwise add a reference to the issue it relates to.
+
+-->

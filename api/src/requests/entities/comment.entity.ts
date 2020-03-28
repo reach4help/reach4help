@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IsString } from 'class-validator';
 import { GenericEntity } from 'src/generic/generic.entity';
-import { User } from './user.entity';
+import { User } from '../../users/entities/user.entity';
 import { Request } from './request.entity';
 
 @Entity()
