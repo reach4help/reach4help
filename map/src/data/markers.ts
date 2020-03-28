@@ -16,10 +16,16 @@ export interface ContactDetails {
  * See the LOCATIONS array.
  */
 export interface Location {
-  description: string; // Human readable name for the location -- displayed on the web.
+  /**
+   * Human readable name for the location -- displayed on the web.
+   */
+  description: string;
   lat: number;
   lng: number;
-  serviceRadius: number; // Measured in Meters (per Google Maps standard)
+  /**
+   *  Measured in Meters (per Google Maps standard)
+   */
+  serviceRadius: number;
 }
 
 /**
@@ -28,19 +34,28 @@ export interface Location {
  * It contains an array of services
  */
 export interface MarkerInfo {
-  // name of the organization or community effort
+  /** name of the organization or community effort */
   contentTitle: string;
-  // description of the organization or community effort
+  /** description of the organization or community effort */
   contentBody?: string;
-  // a list of services provided -- at least one is required
+  /** a list of services provided -- at least one is required */
   services: Service[];
-  // Three contact detail objects cover various opportunities available at each organization
+  /**
+   * the different avenues with which to contact an organization,
+   * depending on your desired involvement
+   */
   contact: {
-    general?: ContactDetails; // For general info
-    getHelp?: ContactDetails; // For showcasing how those who need help can interact with the organization
-    volunteers?: ContactDetails; // For showcasing how those who want to help can interact with the organization
+    /** general contact information */
+    general?: ContactDetails;
+    /** details of how those that need help can interact with the organization  */
+    getHelp?: ContactDetails;
+    /** details of how those who want to help can interact with the organization  */
+    volunteers?: ContactDetails;
   };
-  loc: Location; // The location data for this organization
+  /**
+   * The location data for this organization
+   */
+  loc: Location;
 }
 
 const LOCATIONS = {
