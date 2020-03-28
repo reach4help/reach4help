@@ -36,7 +36,7 @@ Container.propTypes = {
 
 const Header = ({ name, icon = '', label = '' }) => (
   <Slide left>
-    <Heading color="secondaryDark" mb={4}>
+    <Heading color="primary" mb={4}>
       <LinkAnimated selected>
         {name}
         {icon && (
