@@ -35,12 +35,10 @@
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "eslint . --fix --ext .js,.ts,.tsx",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.md": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "eslintConfig": {

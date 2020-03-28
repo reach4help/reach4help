@@ -24,12 +24,10 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint . --fix --ext .ts",
-      "git add"
+      "eslint . --fix --ext .ts"
     ],
     "*.md": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "dependencies": {
