@@ -16,5 +16,5 @@ export const initializeMockServer = () => {
       }));
     },
   });
-  window.fetch(`${process.env.REACT_APP_API_BASE_URL}/api/login`, { method: 'post' }).then();
+  // window.fetch(`${process.env.REACT_APP_API_BASE_URL}/api/login`, { method: 'post' }).then();
 };
