@@ -55,6 +55,11 @@ This is the landing page for the organization. It shows a lot of helpful tips an
 
 More info [here](site/README.md)
 
+### Map
+This is the interactive map visualizing aid around the world. It allows users to quickly find organizations in their area.
+
+More info [here](map/README.md)
+
 ### Web client
 This is the web client with which our people in need and our volunteers interact with the platform.
 

@@ -1,0 +1,183 @@
+Enum "auth_type" {
+  "facebook"
+}
+
+Enum "request_status" {
+  "pending_cav_assignment"
+  "pending_cav_acceptance"
+  "accepted"
+  "pending_pin_confirmation"
+  "completed"
+  "reviewed"
+  "canceled"
+  "rejected"
+}
+
+Enum "service_type" {
+  "food"
+  "supplies"
+  "aid"
+  "mobility"
+  "medicine"
+  "manufacturing"
+  "financial"
+  "information"
+}
+
+Table "authentication" {
+  "id" BIGINT [pk, not null, increment]
+  "type" auth_type [not null]
+  "access_tokens_hash" VARCHAR [not null]
+  "expiration_time" timestamp [not null]
+  "last_activity" timestamp [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Table "user" {
+  "id" BIGINT [pk, not null, increment]
+  "authentication_id" BIGINT [not null]
+  "contact_id" BIGINT
+  "address_id" BIGINT
+  "profile_photo" VARCHAR
+  "username" VARCHAR [not null]
+  "first_name" VARCHAR [not null]
+  "middle_name" VARCHAR
+  "last_name" VARCHAR [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+
+Indexes {
+  username [unique, name: "unique_username"]
+}
+}
+
+Table "country" {
+  "id" BIGINT [pk, not null, increment]
+  "name" VARCHAR [not null]
+  "code" VARCHAR [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Table "address" {
+  "id" BIGINT [pk, not null, increment]
+  "address1" VARCHAR [not null]
+  "address2" VARCHAR
+  "address3" VARCHAR
+  "locality" VARCHAR [not null]
+  "administrative_area_1" VARCHAR
+  "administrative_area_2" VARCHAR
+  "postal_code" VARCHAR
+  "country_id" BIGINT [not null]
+  "latlng" POINT [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Table "contact" {
+  "id" BIGINT [pk, not null, increment]
+  "email" VARCHAR
+  "phone" VARCHAR
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Table "request" {
+  "id" BIGINT [pk, not null, increment]
+  "requester_user_id" BIGINT
+  "volunteer_user_id" BIGINT
+  "content" VARCHAR [not null]
+  "status" request_status [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+
+Table "comment" {
+  "id" BIGINT [pk, not null, increment]
+  "user_id" BIGINT [not null]
+  "request_id" BIGINT [not null]
+  "content" text [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Table "team" {
+  "id" BIGINT [pk, not null, increment]
+  "address_id" BIGINT
+  "name" VARCHAR
+  "organization_id" BIGINT
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Table "team_user" {
+  "team_id" BIGINT [pk, not null]
+  "user_id" BIGINT [pk, not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Table "organization" {
+  "id" BIGINT [pk, not null, increment]
+  "contact_id" BIGINT
+  "address_id" BIGINT
+  "name" VARCHAR [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Table "service" {
+  "id" BIGINT [pk, not null, increment]
+  "organization_id" BIGINT [not null]
+  "type" service_type [not null]
+  "radius" INT [not null]
+  "latlng" POINT [not null]
+}
+
+Table "rating" {
+  "id" BIGINT [pk, not null, increment]
+  "request_id" BIGINT [not null]
+  "to_user_id" BIGINT [not null]
+  "from_user_id" BIGINT [not null]
+  "rating" INT [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+
+Ref:"comment"."user_id" < "user"."id"
+
+Ref:"user"."contact_id" < "contact"."id"
+
+Ref:"user"."address_id" < "address"."id"
+
+Ref:"address"."country_id" < "country"."id"
+
+Ref:"user"."authentication_id" < "authentication"."id"
+
+Ref:"request"."requester_user_id" < "user"."id"
+
+Ref:"request"."volunteer_user_id" < "user"."id"
+
+Ref:"rating"."request_id" < "request"."id"
+
+Ref:"rating"."to_user_id" < "user"."id"
+
+Ref:"rating"."from_user_id" < "user"."id"
+
+Ref:"team"."address_id" < "address"."id"
+
+Ref:"team"."organization_id" < "organization"."id"
+
+Ref:"team_user"."team_id" < "team"."id"
+
+Ref:"team_user"."user_id" < "user"."id"
+
+Ref:"organization"."contact_id" < "contact"."id"
+
+Ref:"organization"."address_id" < "address"."id"
+
+Ref:"service"."organization_id" < "organization"."id"
+
+Ref: "comment"."request_id" < "request"."id"

@@ -7,7 +7,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import Index from './pages/index';
+import Login from './pages/login';
 import NotFound from './pages/not-found';
 import configureStore from './store';
 
@@ -21,7 +21,7 @@ const App = (): ReactElement => {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Index />
+            <Login />
           </Route>
           <Route path="*">
             <NotFound />

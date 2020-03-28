@@ -1,17 +1,41 @@
-version: '3'
+version: "3.7"
 
 services:
-  database:
+  postgres:
     image: postgres:12.2-alpine
-    container_name: 'api_postgres_db'
+    container_name: reach4help_api_db
     restart: always
     environment:
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${TYPEORM_DATABASE}
+      POSTGRES_USER: ${TYPEORM_USERNAME}
+      POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
     ports:
-      - 5432:5432
+      - ${TYPEORM_PORT}:5432
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - reach4help_api
 
-  adminer:
-    image: adminer:latest
-    restart: always
+  pgadmin:
+    container_name: pgadmin_reach4help_api_db
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-db@reach4help.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-reach4help}
+    volumes:
+      - pgadmin:/root/.pgadmin
     ports:
-      - 8080:8080
+      - "${PGADMIN_PORT:-5050}:80"
+    depends_on:
+      - postgres
+    networks:
+      - reach4help_api
+    restart: unless-stopped
+
+networks:
+  reach4help_api:
+    driver: bridge
+
+volumes:
+  dbdata:
+  pgadmin:

@@ -12,6 +12,9 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/dataSources.*
+.idea/sqldialects.xml
+.idea/jsLibraryMappings.xml
 
 # Generated files
 .idea/**/contentModel.xml

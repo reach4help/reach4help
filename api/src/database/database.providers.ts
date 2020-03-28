@@ -1,8 +1,10 @@
 import { createConnection } from 'typeorm';
 import { DATABASE_CONNECTION } from 'src/constants';
-import config from './ormconfig';
+import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions';
 
-const connectionPromise = createConnection(config);
+import * as config from './ormconfig';
+
+const connectionPromise = createConnection(config as ConnectionOptions);
 
 export const databaseProviders = [
   {

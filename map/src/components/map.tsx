@@ -2,7 +2,8 @@ import React from 'react';
 import isEqual from 'lodash/isEqual';
 
 import { Filter, SERVICES } from 'src/data';
-import { button } from 'src/styling/mixins';
+import { button, iconButton } from 'src/styling/mixins';
+import { MdRefresh } from 'react-icons/md';
 import styled from '../styling';
 import { MARKERS, MarkerInfo } from '../data/markers';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
@@ -415,6 +416,7 @@ class MapComponent extends React.Component<Props, {}> {
         <div ref={this.updateGoogleMapRef} />
         {hasNewResults && (
           <button type="button" onClick={this.updateResults}>
+            <MdRefresh className="icon-left" />
             Update results for this area
           </button>
         )}
@@ -433,6 +435,7 @@ export default styled(MapComponent)`
 
   > button {
     ${button};
+    ${iconButton};
     position: absolute;
     bottom: ${p => p.theme.spacingPx}px;
     left: ${p => p.theme.spacingPx}px;

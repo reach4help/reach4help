@@ -1,11 +1,11 @@
-import { IsString, IsEmail } from 'class-validator';
+import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
-    @ApiProperty({
-        example: 'John',
-        description: 'The user first name',
-    })
+  @ApiProperty({
+    example: 'John',
+    description: 'The user first name',
+  })
   @IsString()
   readonly firstName: string;
 
@@ -17,9 +17,16 @@ export class CreateUserDto {
   readonly lastName: string;
 
   @ApiProperty({
-    example: 'example@domain.com',
-    description: 'The user email',
+    example: 'johndoe',
+    description: 'The username for the user',
   })
-  @IsEmail()
-  readonly email: string;
+  @IsString()
+  readonly username: string;
+
+  @ApiProperty({
+    example: 'https://reach4help.org/static/logo-78d2063bcc5e542bf67195e3c6fb6fcf.svg',
+    description: 'The user\'s profile photo',
+  })
+  @IsString()
+  readonly profilePhoto: string;
 }

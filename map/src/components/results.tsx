@@ -1,6 +1,6 @@
 import React from 'react';
 import { MarkerInfo, ContactDetails } from 'src/data/markers';
-import { button } from 'src/styling/mixins';
+import { button, buttonPrimary } from 'src/styling/mixins';
 import {
   MdKeyboardArrowLeft,
   MdPhone,
@@ -112,7 +112,7 @@ const Results = (props: Props) => {
         >
           <MdKeyboardArrowLeft size={24} />
         </button>
-        <span>{`${(results || []).length} results`}</span>
+        <span className="count">{`${(results || []).length} results`}</span>
         {nextResults !== results && (
           <button className="update" onClick={updateResults} type="button">
             Update results for current area
@@ -185,7 +185,7 @@ export default styled(Results)`
       background: none;
       border: none;
       outline: none;
-      color: ${p => p.theme.colors.grayLight};
+      color: ${p => p.theme.colors.brand.primary};
 
       width: ${p => p.theme.spacingPx}px;
       opacity: 0;
@@ -202,25 +202,19 @@ export default styled(Results)`
       }
 
       &:hover {
-        color: ${p => p.theme.colors.grayLight1};
+        color: ${p => p.theme.colors.brand.primaryLight};
       }
     }
 
-    > span {
+    > .count {
       flex-grow: 1;
       margin-right: ${p => p.theme.spacingPx}px;
       line-height: 22px;
+      white-space: nowrap;
     }
 
     > .update {
-      ${button};
-      background-color: ${p => p.theme.colors.grayLight2};
-      border: 1px solid ${p => p.theme.colors.grayLight1};
-      margin: -${p => p.theme.spacingPx / 2}px;
-
-      &:hover {
-        background-color: ${p => p.theme.colors.grayLight3};
-      }
+      ${buttonPrimary};
     }
   }
 
@@ -239,7 +233,7 @@ export default styled(Results)`
       cursor: pointer;
 
       &:hover {
-        background: ${p => p.theme.colors.grayLight4};
+        background: ${p => p.theme.colors.grayLight5};
 
         .location {
           color: ${p => p.theme.textColorLight};
@@ -247,14 +241,14 @@ export default styled(Results)`
       }
 
       .number {
-        color: ${p => p.theme.colors.red};
+        color: ${p => p.theme.textColor};
         font-size: 20px;
         font-weight: 600;
         margin-right: ${p => p.theme.spacingPx}px;
       }
 
       .location {
-        color: ${p => p.theme.textColorExtraLight};
+        color: ${p => p.theme.textColorLight};
         font-size: 0.9rem;
         margin-bottom: ${p => p.theme.spacingPx / 2}px;
       }
@@ -278,7 +272,7 @@ export default styled(Results)`
     }
 
     > .location {
-      color: ${p => p.theme.textColorExtraLight};
+      color: ${p => p.theme.textColorLight};
       font-size: 0.9rem;
     }
 
