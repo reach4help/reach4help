@@ -15,6 +15,7 @@ module.exports = override(
       '@primary-color': COLORS.primary,
       '@link-color': COLORS.link,
       '@highlight-color': COLORS.highlight,
+      'hack': `true;@import "${require.resolve('./src/theme/themeOverrides.less')}";`,
     },
   }),
 );

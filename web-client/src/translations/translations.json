@@ -5,7 +5,8 @@
       "login": {
         "title": "Reach4Help",
         "sub_title": "Please Note",
-        "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience."
+        "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
+        "facebookButtonLabel": "Continue with Facebook"
       }
     }
   },
@@ -14,7 +15,8 @@
       "welcome": "Bem-vindo!",
       "login": {
         "title": "Reach4Help",
-        "sub_title": "Atenção"
+        "sub_title": "Atenção",
+        "facebookButtonLabel": "Continuar com o Facebook"
       }
     }
   }
