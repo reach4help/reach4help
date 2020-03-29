@@ -8,18 +8,22 @@ export class CloudflareFilterMiddleware implements NestMiddleware {
   constructor(private cloudflareIpService: CloudflareIpService) {}
 
   use(req: Request, res: Response, next: (any?) => void) {
-    const ipType = req.ip.match(':') ? 6 : 4;
-    this.cloudflareIpService.getIPs(ipType).toPromise().then(
-      cidrs => {
-        const checks = cidrs.map(cidr => inRange(req.ip, cidr));
-        if (checks.some(el => !el)) {
-          next(new HttpException(
-            // TODO: once checked on dev platform, msg should be made more generic
-            'Forbidden IP: ' + req.ip,
-            HttpStatus.FORBIDDEN
-          ));
+    if (process.env.ENVIRONMENT !== 'dev') {
+      const ipType = req.ip.match(':') ? 6 : 4;
+      this.cloudflareIpService.getIPs(ipType).toPromise().then(
+        cidrs => {
+          const checks = cidrs.map(cidr => inRange(req.ip, cidr));
+          if (checks.some(el => !el)) {
+            next(new HttpException(
+              // TODO: once checked on dev platform, msg should be made more generic
+              'Forbidden IP: ' + req.ip,
+              HttpStatus.FORBIDDEN
+            ));
+          }
         }
-      }
-    ).then(() => next());
+      ).then(() => next());
+    } else {
+      next();
+    }
   }
 }
