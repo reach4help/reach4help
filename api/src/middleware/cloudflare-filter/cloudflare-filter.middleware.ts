@@ -8,7 +8,7 @@ export class CloudflareFilterMiddleware implements NestMiddleware {
   constructor(private cloudflareIpService: CloudflareIpService) {}
 
   use(req: Request, res: Response, next: (any?) => void) {
-    if (process.env.ENVIRONMENT !== 'dev') {
+    if (process.env.NODE_ENV !== 'development') {
       const ipType = req.ip.match(':') ? 6 : 4;
       this.cloudflareIpService.getIPs(ipType).toPromise().then(
         cidrs => {
