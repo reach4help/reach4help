@@ -7,12 +7,15 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import { initializeMockServer } from './http/MockServer';
 import Login from './pages/login';
 import NotFound from './pages/not-found';
 import configureStore from './store';
 
 // Later we can check if we need all immer plugins
 enableAllPlugins();
+
+initializeMockServer();
 
 const App = (): ReactElement => {
   const store = configureStore();
