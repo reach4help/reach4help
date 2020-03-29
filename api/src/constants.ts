@@ -2,3 +2,4 @@ export const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
 export const USER_REPOSITORY = 'USER_REPOSITORY';
 export const COUNTRY_REPOSITORY = 'COUNTRY_REPOSITORY';
 export const ADDRESS_REPOSITORY = 'ADDRESS_REPOSITORY';
+export const CLOUDFLARE_RANGES_BASE_URL = 'https://www.cloudflare.com/ips-v';
