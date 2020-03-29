@@ -14,20 +14,18 @@ const FBButton = (props: any) => {
     </Button>
   );
 };
+interface FacebookLoginButtonProps {
+  onAuthenticate: Function;
+}
 
-const FacebookLoginButton: React.FC = (): React.ReactElement => {
-  const authenticate = (res: any) => {
-    alert(JSON.stringify(res));
-  };
-  return (
-    <>
-      <FacebookAuth
-        appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-        callback={authenticate}
-        component={FBButton}
-      />
-    </>
-  );
-};
+const FacebookLoginButton: React.FC<FacebookLoginButtonProps> = ({ onAuthenticate }): React.ReactElement => (
+  <>
+    <FacebookAuth
+      appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+      callback={onAuthenticate}
+      component={FBButton}
+    />
+  </>
+);
 
 export default FacebookLoginButton;

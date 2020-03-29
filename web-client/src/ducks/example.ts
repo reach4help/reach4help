@@ -1,4 +1,4 @@
-import { GetUsers } from 'src/http/resources/users';
+import { getUsers } from 'src/http/resources/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 import createReducer, { Action } from 'src/store/utils/createReducer';
 
@@ -83,7 +83,7 @@ export const fetchUsersAction = () => (dispatch: Function) => {
 
   dispatch({
     type: FETCH_USERS,
-    api: GetUsers,
+    api: getUsers,
   });
 
 };

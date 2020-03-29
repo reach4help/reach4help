@@ -2,12 +2,12 @@ import React from 'react';
 
 import CenteredCard from '../components/CenteredCard/CenteredCard';
 import GradientBackground from '../components/GradientBackground/GradientBackground';
-import LoginIntro from '../components/LoginIntro/LoginIntro';
+import LoginContainer from '../containers/LoginContainer';
 
 const LoginPage: React.FC = () => (
   <GradientBackground>
     <CenteredCard>
-      <LoginIntro />
+      <LoginContainer />
     </CenteredCard>
   </GradientBackground>
 );
