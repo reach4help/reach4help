@@ -622,13 +622,13 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
         facebookGroup: 'https://www.facebook.com/BLMDC',
       },
       getHelp: {
-        phone: '202-630-0336',
+        phone: ['+1 202 630 0336'],
       },
       volunteers: {
         web: {
           Donate: 'https://www.gofundme.com/f/blmcovid',
         },
-        phone: '202-630-0336',
+        phone: ['+1 202 630 0336'],
       },
     },
     loc: LOCATIONS.DC.DC_ANACOSTIA,
