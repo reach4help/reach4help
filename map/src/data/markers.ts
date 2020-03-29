@@ -631,7 +631,7 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
         phone: ['+1 202 630 0336'],
       },
     },
-    loc: LOCATIONS.DC.DC_ANACOSTIA,
+    loc: LOCATIONS.USA.DC_ANACOSTIA,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
