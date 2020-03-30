@@ -32,7 +32,8 @@ export interface MarkerInfo {
   contentTitle: string;
   // description of the organization or community effort
   contentBody?: string;
-  // a list of services provided -- at least one is required
+  // a list of services provided -- at least one of the following is required:
+  // food | supplies | aid | mobility | medicine | manufacturing | financial | information
   services: Service[];
   // Three contact detail objects cover various opportunities available at each organization
   contact: {
@@ -683,7 +684,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
 
   {
     contentTitle: 'Baltimore Neighborhood Quarantine Response Teams',
-    services: ['aid', 'visit', 'quarantine response', 'services'],
+    services: ['aid', 'visit', 'supplies'],
     contact: {
       general: {
         web: {
@@ -856,7 +857,7 @@ this is a friendly no judgement zone.
 if you are shy or embarrassed to post something you need. Direct Message me Rachel Picon and I will find a way to get you whatever it is :)
 please invite your friends in the northern va region to join! the more people sticking together the better!!
 stay safe and be well! and remember we are not alone!`,
-    services: ['aid', 'food', 'services', 'comfort', 'advice'],
+    services: ['aid', 'food', 'mobility', 'supplies', 'information'],
     contact: {
       general: {
         facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
