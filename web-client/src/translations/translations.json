@@ -7,6 +7,10 @@
         "sub_title": "Please Note",
         "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
         "facebookButtonLabel": "Continue with Facebook"
+      },
+      "loading": {
+        "title": "Your request has been created.\n You will be contacted by one of our volunteers shortly.",
+        "pleaseWaitLabel": "Please wait..."
       }
     }
   },
@@ -17,6 +21,10 @@
         "title": "Reach4Help",
         "sub_title": "Atenção",
         "facebookButtonLabel": "Continuar com o Facebook"
+      },
+      "loading": {
+        "title": "O seu pedido foi criado. \n Brevemente será contactado por um dos nossos voluntários.",
+        "pleaseWaitLabel": "Aguarde por favor..."
       }
     }
   }
