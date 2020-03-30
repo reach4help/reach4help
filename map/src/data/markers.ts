@@ -221,6 +221,12 @@ const LOCATIONS = {
       lng: -72.93047,
       serviceRadius: 7300,
     },
+    CT_NEW_LONDON: {
+      description: 'New London, Connecticut',
+      lat: 41.352049,
+      lng: -72.091404,
+      serviceRadius: 5190,
+    },
     DC: {
       description: 'District of Columbia / Washington',
       lat: 38.897851,
@@ -239,11 +245,53 @@ const LOCATIONS = {
       lng: -82.424077,
       serviceRadius: 25250,
     },
-    CT_NEW_LONDON: {
-      description: 'New London, Connecticut',
-      lat: 41.352049,
-      lng: -72.091404,
-      serviceRadius: 5190,
+    GA_ATHENS: {
+      description: 'Athens, Georgia',
+      lat: 33.944255,
+      lng: -83.372645,
+      serviceRadius: 14660,
+    },
+    IL_CHICAGO: {
+      description: 'Chicago, Illinois',
+      lat: 41.856756,
+      lng: -87.628718,
+      serviceRadius: 32460,
+    },
+    IN: {
+      description: 'Indiana',
+      lat: 39.72427,
+      lng: -86.15267,
+      serviceRadius: 263360,
+    },
+    IN_MONROE_COUNTY: {
+      description: 'Monroe County, Indiana',
+      lat: 39.161021,
+      lng: -86.527803,
+      serviceRadius: 22290,
+    },
+    KS_KANSAS_CITY: {
+      description: 'Kansas City, Kansas',
+      lat: 39.085067,
+      lng: -94.580735,
+      serviceRadius: 43890,
+    },
+    KY: {
+      description: 'Kentucky',
+      lat: 37.513389,
+      lng: -85.259611,
+      serviceRadius: 382260,
+    },
+    KY_LEXINGTON: {
+      description: 'Lexington, Kentucky',
+      lat: 38.048063,
+      lng: -84.499267,
+      serviceRadius: 27510,
+    },
+    KY_LOUSVILLE: {
+      description: 'Louisville, Kentucky',
+      lat: 38.266396,
+      lng: -85.760549,
+      serviceRadius: 35040,
     },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
@@ -1069,6 +1117,245 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.FL_TAMPA,
+  },
+  {
+    contentTitle: 'Athens Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLScLk5cBYHJzwNbkh78mOErATlOKuUQtxY7U-iXxx26l-u8YdA/viewform',
+          Website: 'https://www.skinsandclaystudio.com/',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.GA_ATHENS,
+  },
+  {
+    contentTitle: 'COVID-19 Mutual Aid Volunteer Sign-up',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd0MK1dnny1BTlzvohuRlnlC6fHqXKqez0hrZJLuZ6F4-qu9w/viewform?fbclid=IwAR2Hv2nPiztvHDf3Np_ncwJh3os4V0-k0xmS6cSLk5uR7w3pysPDar_5OfE',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IL_CHICAGO,
+  },
+  {
+    contentTitle: '73.5 Neighborhood Resource Pool',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IL_CHICAGO,
+  },
+  {
+    contentTitle: 'Indiana Music Industry Relief Fund',
+    contentBody: `A relief fund for women-identifying and non-binary musicians, music industry professionals, non-profit music organizations, based in the state of Indiana that are affected by loss of work, cancellations, and loss of revenue due to COVID-19.`,
+    services: ['financial'],
+    contact: {
+      general: {
+        web: {
+          'Main Website': 'https://www.midwaymusicspeaks.org/imirf',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IN,
+  },
+  {
+    contentTitle: 'Monroe County Area Mutual Aid for Covid-19',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/243876030127431/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.IN_MONROE_COUNTY,
+  },
+  {
+    contentTitle: 'No Space for Hate COVID 19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Resources:
+            'https://docs.google.com/document/d/1_kQWB9Yns0WhqdNvOvdHb99daJEvTbwbaWZgFyoHOuE/edit',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd-No5BLo6y-9ubpTnQAzFyOk7Q7gwel7iLpD-7Q9gpPF36sg/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd-No5BLo6y-9ubpTnQAzFyOk7Q7gwel7iLpD-7Q9gpPF36sg/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IN_MONROE_COUNTY,
+  },
+  {
+    contentTitle: 'Strawberry Hill Coronavirus Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/136824581089511/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.KS_KANSAS_CITY,
+  },
+  {
+    contentTitle:
+      'Kentucky Student Environmental Coalition, COVID-19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://www.kystudentenvironmentalcoalition.org/covid-19-mutual-aid.html',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY,
+  },
+  {
+    contentTitle: 'Covid 19 Mutual Aid Lexington Kentucky',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY_LEXINGTON,
+  },
+  {
+    contentTitle: 'Mutual Aid Louisville',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY_LOUSVILLE,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
