@@ -233,6 +233,18 @@ const LOCATIONS = {
       lng: -77.030027,
       serviceRadius: 10310,
     },
+    FL_GAINESVILLE: {
+      description: 'Gainesville, Florida',
+      lat: 29.670145,
+      lng: -82.342751,
+      serviceRadius: 12530,
+    },
+    FL_TAMPA: {
+      description: 'Tampa, Florida',
+      lat: 27.996837,
+      lng: -82.424077,
+      serviceRadius: 25250,
+    },
     CT_NEW_LONDON: {
       description: 'New London, Connecticut',
       lat: 41.352049,
@@ -1003,6 +1015,66 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.DC,
+  },
+  {
+    contentTitle: 'Gainesville COVID-19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/243135496869312/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.FL_GAINESVILLE,
+  },
+  {
+    contentTitle: 'Mutual Aid Greater Tampa - Resources and Information',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          'Google Doc':
+            'https://docs.google.com/document/d/1qSt4xTJpEZ0pa5-ZxbUi5WZX5w6JI4Do8u4zU6nENLg/edit',
+          'Google Drive':
+            'https://drive.google.com/drive/folders/1dCGSfkz8pQwJj2bjiCXk3FiWGbtwEofW',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.FL_TAMPA,
+  },
+  {
+    contentTitle: 'Tampa Mutual Aid Response- Coronavirus',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Document:
+            'https://docs.google.com/document/d/1opIYkD-cXzUu2tLp59EkktPHExZeBqPN9k7i107X3UE/mobilebasic',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.FL_TAMPA,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
