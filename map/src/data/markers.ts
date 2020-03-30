@@ -251,6 +251,12 @@ const LOCATIONS = {
       lng: -83.372645,
       serviceRadius: 14660,
     },
+    IL_CHICAGO: {
+      description: 'Chicago, Illinois',
+      lat: 41.856756,
+      lng: -87.628718,
+      serviceRadius: 32460,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -1096,6 +1102,58 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.GA_ATHENS,
+  },
+  {
+    contentTitle: 'COVID-19 Mutual Aid Volunteer Sign-up',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd0MK1dnny1BTlzvohuRlnlC6fHqXKqez0hrZJLuZ6F4-qu9w/viewform?fbclid=IwAR2Hv2nPiztvHDf3Np_ncwJh3os4V0-k0xmS6cSLk5uR7w3pysPDar_5OfE',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IL_CHICAGO,
+  },
+  {
+    contentTitle: '73.5 Neighborhood Resource Pool',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IL_CHICAGO,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
