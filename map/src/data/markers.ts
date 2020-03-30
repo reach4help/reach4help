@@ -157,6 +157,12 @@ const LOCATIONS = {
       lng: -76.984917,
       serviceRadius: 30000,
     },
+    MD_BALTIMORE: {
+      description: 'Baltimore, Maryland',
+      lat: 39.17,
+      lng: -76.37,
+      serviceRadius: 60000,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -175,17 +181,23 @@ const LOCATIONS = {
       lng: -72.717293,
       serviceRadius: 132230,
     },
+    VA_AUGUSTA: {
+      description: 'Augusta, Virginia',
+      lat: 38.14915,
+      lng: -79.122097,
+      serviceRadius: 32670,
+    },
     VA_NORFOLK: {
       description: 'Norfolk, Virginia',
       lat: 36.846224,
       lng: -76.284361,
       serviceRadius: 32670,
     },
-    VA_AUGUSTA: {
-      description: 'Augusta, Virginia',
-      lat: 38.14915,
-      lng: -79.122097,
-      serviceRadius: 32670,
+    VA_NOVA: {
+      description: 'Northern Virginia',
+      lat: 38.896749,
+      lng: -77.260354,
+      serviceRadius: 70000,
     },
     WA_SEATTLE_AREA: {
       description: 'Seattle Area, Washington',
@@ -634,6 +646,70 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
     loc: LOCATIONS.USA.DC_ANACOSTIA,
   },
   {
+    contentTitle: 'Mutual Aid/Relief Fundraiser',
+    contentBody: `Focused on distributing needed items to working class black and brown people, seniors, queer and trans folx. If you have extra baby formula, pampers, over the counter medication such as cold and flu meds, Ibuprofen, boxed food, canned food, bagged food, water or toiletries message the FB link and coordinated volunteers can schedule a drop off of those items at a private location for our Baltimore Mutual Aid/Emergency Relief efforts! 
+Food, Clothing & Resistance Collective - Maroon Movement is doing a mutual aid & emergency relief fundraising drive providing electronic or delivered distributions of resources for anyone who may need some "extra assistance" to stock up food, toiletries and medical supplies in Baltimore during this still very early stage of an emerging pandemic (Covid-19), in the middle of another pandemic (Influenza).
+Due to so many local closures and loss of income for some now, and many others possibly in the near future, we as usual want to do our part to help out those who are most vulnerable in our community. Please help us with a monetary donation or donation of canned, boxed or bagged food items, baby formula, produce, toiletries (including pampers) and over the counter medical supplies.
+For more info, or to set up a scheduled drop off of items, or to volunteer please message us or email us at: maroonmovement@gmail.com. Thank you for your solidarity!`,
+    services: ['aid', 'medecine', 'food', 'supplies', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website: '',
+          Twitter: '',
+          Instagram: '',
+          PayPal: 'Paypal: fcrcollective@gmail.com',
+          Cashapp: '$Simaleerbg',
+          Venmo: 'Venmo: @Simaleerbg',
+        },
+        email: ['maroonmovement@gmail.com'],
+        phone: [''],
+        facebookGroup:
+          'https://www.facebook.com/donate/201582851152373/563301290955017/',
+      },
+      getHelp: {
+        email: ['maroonmovement@gmail.com'],
+      },
+      volunteers: {
+        email: ['maroonmovement@gmail.com'],
+        web: {
+          Donate:
+            'https://www.facebook.com/donate/201582851152373/563301290955017/',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.MD_BALTIMORE,
+  },
+
+  {
+    contentTitle: 'Baltimore Neighborhood Quarantine Response Teams',
+    services: ['aid', 'visit', 'quarantine response', 'services'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://docs.google.com/document/d/1G5JcyxmywcTdNeaSGxUNycl9mtCdGkF4MYPVxEBH4SY/mobilebasic?urp=gmail_link',
+        },
+        email: ['celesteperilla@gmail.com'],
+      },
+      getHelp: {
+        web: {
+          Website:
+            'https://docs.google.com/document/d/1G5JcyxmywcTdNeaSGxUNycl9mtCdGkF4MYPVxEBH4SY/mobilebasic?urp=gmail_link',
+        },
+      },
+      volunteers: {
+        email: ['celesteperilla@gmail.com'],
+        web: {
+          Website:
+            'https://drive.google.com/drive/u/0/folders/1PcTEcMtjdLzak7C_ty6e-5pHM_LHJu9J',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.MD_BALTIMORE,
+  },
+
+  {
     contentTitle: 'Greater Barre Mutual Aid',
     services: [
       'aid',
@@ -771,6 +847,64 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.VA_NORFOLK,
+  },
+
+  {
+    contentTitle: 'Northern Va COVID-19 Craziness Supply Exchange',
+    contentBody: `This group is for people located in Northern Virginia to join and post if they are in need of supplies or food. anything from diapers to soap to bread and milk... some of us may have more than we need of something and be running out of other things. if you have extras your willing to part with the actual value of the item and not for profit or for trade ..if you see grocery stores that have supplies, or if you are in need of anything at all..especially if you or someone you know has nothing to eat or an elderly person in need . please post here.
+this is a friendly no judgement zone.
+if you are shy or embarrassed to post something you need. Direct Message me Rachel Picon and I will find a way to get you whatever it is :)
+please invite your friends in the northern va region to join! the more people sticking together the better!!
+stay safe and be well! and remember we are not alone!`,
+    services: ['aid', 'food', 'services', 'comfort', 'advice'],
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
+      },
+      getHelp: {
+        facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
+      },
+      volunteers: {
+        facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
+      },
+    },
+    loc: LOCATIONS.USA.VA_NOVA,
+  },
+  {
+    contentTitle: 'Corona Aid 757',
+    contentBody: `Helping Hampton Roads Weather the COVID19 Crisis 
+We are a group of autonomous disaster relief workers attempting to alleviate stress and slow/stop the spread of Coronavirus/COVID-19 in our community. If you are in need of assistance with groceries and medical supplies, physical and mental health check-ins, or any other type of errand, follow this link to submit a request.
+If you are a low-risk individual with transportation and time to spare, sign up here to help the more vulnerable members of our community.`,
+    services: ['food', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'http://coronaaid757.com/',
+          PayPal: '',
+          Cashapp: 'https://cash.app/$757mutualaid',
+        },
+        email: ['coronaaid757@gmail.com'],
+        phone: ['+1 757 598 1480', '+1 757 598 1480 (para espanol)'],
+        facebookGroup: 'https://www.facebook.com/groups/510830746536540',
+      },
+      getHelp: {
+        email: ['CoronaAid757@gmail.com'],
+        phone: ['+1 757 598 1480', '+1 757 598 1480 (para espanol)'],
+        web: {
+          'Request Service':
+            'https://docs.google.com/forms/d/e/1FAIpQLSd9YBCXcnk-vLWVWhMcVgxFm0clrTKKVmli_qVsbpn4ncUQCA/viewform',
+        },
+      },
+      volunteers: {
+        email: ['CoronaAid757@gmail.com'],
+        web: {
+          Donate: 'http://coronaaid757.com/donate/',
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdmxE431orW5JZSS6kNWbGlExB8aasGodccb3aIKatxTMB2lg/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.MD_BALTIMORE,
   },
   {
     contentTitle:
