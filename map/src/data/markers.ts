@@ -172,6 +172,48 @@ const LOCATIONS = {
       lng: -76.984917,
       serviceRadius: 30000,
     },
+    CO: {
+      description: 'Colorado',
+      lat: 39.026468,
+      lng: -105.414834,
+      serviceRadius: 308820,
+    },
+    CO_AURORA: {
+      description: 'Aurora, Colorado',
+      lat: 39.71408,
+      lng: -104.70603,
+      serviceRadius: 17700,
+    },
+    CO_BOULDER: {
+      description: 'Boulder, Colorado',
+      lat: 40.014671,
+      lng: -105.282252,
+      serviceRadius: 12160,
+    },
+    CO_DENVER: {
+      description: 'Denver, Colorado',
+      lat: 39.727881,
+      lng: -104.992892,
+      serviceRadius: 31500,
+    },
+    CO_SPRINGS: {
+      description: 'Colorado Springs, Colorado',
+      lat: 38.825097,
+      lng: -104.823277,
+      serviceRadius: 24200,
+    },
+    CO_DURANGO_LA_PLATA: {
+      description: 'Durango & La Plata County, Colorado',
+      lat: 37.310604,
+      lng: -107.884585,
+      serviceRadius: 55030,
+    },
+    CO_GRAND_JUNCTION: {
+      description: 'Grand Junction, Colorado',
+      lat: 39.07661,
+      lng: -108.554731,
+      serviceRadius: 11820,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -648,6 +690,204 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
     },
     loc: LOCATIONS.USA.DC_ANACOSTIA,
   },
+  {
+    contentTitle: 'Front Range Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      getHelp: {
+        web: {
+          Form: 'http://bit.ly/getcovidaidcolorado',
+        },
+      },
+      volunteers: {
+        web: {
+          Form: 'http://bit.ly/covidaidcolorado',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO,
+  },
+  {
+    contentTitle: 'Mutual Aid Infrastructure- Aurora, Colorado',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/2704399092941296/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CO_AURORA,
+  },
+  {
+    contentTitle: 'Boulder Coronavirus Community Coping Crew',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/199467514668513/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CO_BOULDER,
+  },
+  {
+    contentTitle: 'COS Mutual Aid Network = Red de Ayuda Mutua en COS',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/580039515935157/?ref=share',
+        web: {
+          Etherpad:
+            'https://pad.disroot.org/p/COS_Mutual_Aid_Links?fbclid=IwAR1cl_yvgZXzlRXKmzksgxa0Evbb8cn-2hcxeH1Bcidup1VzeT4HwjyLm50',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO_SPRINGS,
+  },
+  {
+    contentTitle: 'CV19 Quarantine Delivery Taskforce',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/1750449275097011/?ref=share',
+        web: {
+          'Logistics Document':
+            'https://docs.google.com/document/d/198HdHPMreqPaWhsFjQjVWl-qx9rcik1vIPOYvR5Kiig/edit',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO_DENVER,
+  },
+  {
+    contentTitle: 'Help Needed in Denver Metro',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/516631032588738/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CO_DENVER,
+  },
+  {
+    contentTitle:
+      'Durango & La Plata County Area Donation Opportunities + Community & Information Resources',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+      'financial',
+    ],
+    contact: {
+      general: {
+        web: {
+          'Main Document':
+            'https://docs.google.com/document/d/1odc1Vtb8StICRLBHEC9bvOJyFUQYkHjaBwqaLa1iap8/edit',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO_DURANGO_LA_PLATA,
+  },
+  {
+    contentTitle: 'Be KIND Durango CO',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/beKINDurango/',
+      },
+    },
+    loc: LOCATIONS.USA.CO_DURANGO_LA_PLATA,
+  },
+  {
+    contentTitle: 'Stand Together Durango COVID19',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/2710235775748052/?ref=group_header',
+      },
+    },
+    loc: LOCATIONS.USA.CO_DURANGO_LA_PLATA,
+  },
+  {
+    contentTitle: 'Grand Junction Mutual Aid #grandjunctionmutualaid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/606348506878942/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CO_GRAND_JUNCTION,
+  },
+
   {
     contentTitle: 'Greater Barre Mutual Aid',
     services: [
