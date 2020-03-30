@@ -166,12 +166,6 @@ const LOCATIONS = {
       lng: -119.078374,
       serviceRadius: 55000,
     },
-    DC_ANACOSTIA: {
-      description: 'Anacostia, Washington, D.C.',
-      lat: 38.863245,
-      lng: -76.984917,
-      serviceRadius: 30000,
-    },
     CO: {
       description: 'Colorado',
       lat: 39.026468,
@@ -725,7 +719,7 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
         phone: ['+1 202 630 0336'],
       },
     },
-    loc: LOCATIONS.USA.DC_ANACOSTIA,
+    loc: LOCATIONS.USA.DC,
   },
   {
     contentTitle: 'Front Range Mutual Aid',
