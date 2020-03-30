@@ -221,6 +221,12 @@ const LOCATIONS = {
       lng: -72.93047,
       serviceRadius: 7300,
     },
+    CT_NEW_LONDON: {
+      description: 'New London, Connecticut',
+      lat: 41.352049,
+      lng: -72.091404,
+      serviceRadius: 5190,
+    },
     DC: {
       description: 'District of Columbia / Washington',
       lat: 38.897851,
@@ -238,12 +244,6 @@ const LOCATIONS = {
       lat: 27.996837,
       lng: -82.424077,
       serviceRadius: 25250,
-    },
-    CT_NEW_LONDON: {
-      description: 'New London, Connecticut',
-      lat: 41.352049,
-      lng: -72.091404,
-      serviceRadius: 5190,
     },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
