@@ -39,8 +39,8 @@ export interface MarkerInfo {
   /** description of the organization or community effort */
   contentBody?: string;
   /** a list of services provided -- at least one is required :
-  *  food | supplies | aid | mobility | medicine | manufacturing | financial | information
-  */
+   *  food | supplies | aid | mobility | medicine | manufacturing | financial | information
+   */
   services: Service[];
   /**
    * the different avenues with which to contact an organization,
@@ -1119,7 +1119,6 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     },
     loc: LOCATIONS.USA.MD_BALTIMORE,
   },
-
   {
     contentTitle: 'Baltimore Neighborhood Quarantine Response Teams',
     services: ['aid', 'supplies'],
@@ -1147,7 +1146,597 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     },
     loc: LOCATIONS.USA.MD_BALTIMORE,
   },
-
+  {
+    contentTitle: 'BENZIE COUNTY COVID-19 RESOURCES AND NEEDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/document/d/1FYcqcbY2qMuuy75GIIM9UuqvFR_-YlVKfFcrqJOy9mw/edit?fbclid=IwAR1Lfd0mZrm4GgqOwmcXAeJGnTLUEQ0wmooezGvgnVYjXvKEZT8EYPU2tUI',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 44.633482,
+      lng: -85.98999,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'GRAND RAPIDS AREA PANDEMIC RESOURCES',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/209101217168617/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/1tVSwz0xYnrDJEjk3MWU32eS6q0eE5TSA0jOUL-frKcA/viewform?ts=5e766a19&fbclid=IwAR0Od69ftV6DJlqNpr_6knR6SQexBbZyodz2Mgi3k_C9HbNU318hTEJZGa4&edit_requested=true#responses',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 43.086943,
+      lng: -85.740738,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'WASHTENAW COUNTY MUTUAL AID + RESOURCES',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer: 'https://www.facebook.com/groups/2424471741198383/',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.208176,
+      lng: -83.987732,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'SAUGATUCK/DOUGLAS SECOND RESPONDERS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: 'https://sdvolunteers.com/' },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSdKd62iT4GEWLACz9tJnekgh4iWxiVOVHxjBqiV1469B8JFnw/viewform',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.658494,
+      lng: -86.205861,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle:
+      'GRAND TRAVERSE BAND OF OTTAWA AND CHIPPEWA INDIANS MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: 'petosjoh@umich.edu' },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 44.995845,
+      lng: -85.65501,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'KALAMAZOO MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/225779971877883/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSeW-Dmt_Z_QPu81ad0jo5gs4vjx2zREupOmdoLnn2JBntapGg/viewform',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.274765,
+      lng: -85.588179,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'SOUTHWEST MICHIGAN MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer: 'https://www.facebook.com/groups/3137606989603526/',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.032974,
+      lng: -86.044922,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'BAY MILLS INDIAN COMMUNITY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://docs.google.com/spreadsheets/u/1/d/1CduPghNgY92MufdZDoYjkcjmbYp-l_43EQPRhxlmVPU/htmlview?fbclid=IwAR0tCQI5Av8UgCe5XVcW_cb9TQarlhFoiJO4LcU90FF39JEnNic7F3FrnMc',
+        },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 46.444495,
+      lng: -84.745826,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'SPARK IN THE DARK',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.facebook.com/groups/sparkinthedark/' },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 44.735028,
+      lng: -85.523071,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'COMBATING COVID IN SOUTHWEST DETROIT',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSdrdIvdO3AHzCJBXloy-KExxQabrMUSbr_xgo4Y9NBI-GHnTA/viewform',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.332174,
+      lng: -83.11068,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'MUTUAL AID OF NORTHWEST MICHIGAN',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup:
+          'https://www.facebook.com/groups/784134155443201/?hc_location=ufi',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 44.736979,
+      lng: -85.567017,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'DETROIT-BASED COVID-19 MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/2554127328195074/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/spreadsheets/d/1-m6QBgqejlk2h6uJ0WGkphZuZ5MR3-uWCkv2vSZcHY8/edit?fbclid=IwAR2dcKuYe-I787XJLyl2I6DtTrPMrfxTkdPRQT6VE59CdoykxNOBgMvGIHs#gid=1526320049',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.383444,
+      lng: -83.10232,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'The MUTUAL AID NETWORK OF YPSILANTI (MANY)',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.facebook.com/ypsimutualaid' },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.236398,
+      lng: -83.61866,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'GRAND RAPIDS AREA COVID-19 MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/GRAMutAid/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSclYE9PAOHDVJi-lIGMFrdmOYq7s-NiFgHA9q6zTpxcaJVcLg/viewform?fbclid=IwAR1wbfk2GSK4phL97Ny1etdVGm7fGUsQnkx7AH15-1Y-loLR-hSa6lqeVHQ',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.96146,
+      lng: -85.655716,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'OAKLAND COUNTY COVID RESPONSE',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: 'https://www.mycovidresponse.org/' },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.mycovidresponse.org/signup/' },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.660276,
+      lng: -83.385791,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'CHARLEVOIX COUNTY HELPING HANDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/696771177745067/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 45.319323,
+      lng: -85.256653,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'PONTIAC CORONAVIRUS EMERGENCY RELIEF FOOD/SUPPLIES',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer: 'https://www.signupgenius.com/go/30e0b48aaa628a13-drive',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.649252,
+      lng: -83.287809,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'YOOPERS HELPING YOOPERS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://docs.google.com/spreadsheets/d/1-WZDwFkAKEyECe3fG07EgZ5J1vOKgtKJG93eyYW5lx8/edit?fbclid=IwAR0ml-9cpxfgIOOrex7O4jxAHFb10dupGmA4oHZGhm-MPseLL5FOhuqNIj8#gid=0',
+        },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 47.129951,
+      lng: -88.582764,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'LEONI TOWNSHIP MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.facebook.com/groups/144130126892991/' },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.260795,
+      lng: -84.293804,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'GRAND TRAVERSE COUNTY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLScfSUoYchrIXnzTCdDIwsM-2YGa04XzTLE6xU5SGezE6rI1OA/viewform',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 44.668581,
+      lng: -85.56058,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'FEED THE NEED ALLEGAN COUNTY',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.facebook.com/groups/886253631847481/' },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.5913,
+      lng: -85.888462,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'HURON VALLEY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSdhW2voPOll9Jmy_QR0AXk1Pge1JGn3tByJ-SlPfKNsMjcHLg/viewform',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.253197,
+      lng: -83.83878,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'KALKASKA RESPONSE TEAM',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://elizabethannedunha.wixsite.com/kalkaskaresponseteam?fbclid=IwAR09WdGWtqzgC63_kaaN4ZoZvah4hTM521lOy_HvOnYw_PEfM0eG3BMAWQE',
+        },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSdTo09tnTPEUXfIBF9AudVIcb2EeDYggWYTvnRVeHuByZqrAw/viewform',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 44.684592,
+      lng: -85.090253,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'ANTRIM COUNTY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/2228122717494765',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSckdiDnfMenlqmraSxU7PjKi3M1GWK66E5GQsWnBIfd79Zx-A/viewform',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 44.99904,
+      lng: -85.140227,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'LANSING AREA MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/1Du9AJTV6Z4uZ5Kmi6fBcE6_WN1RFPPaBmCpPYUUAEf4/viewform?edit_requested=true',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 42.73418,
+      lng: -84.552549,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'EMMET COUNTY HELPING HANDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/234362584615594',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSc1HSE7-la427QVGIDV27an6QaK7rNA-oSwRjv5YWingpbrJA/viewform?fbclid=IwAR3wHmqwTou2MRW1e6kg_y6wcSRr8ncyt245ssz_-gaSvVrtgB-n_eQAiX4',
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'MICHIGAN, USA',
+      lat: 45.52057,
+      lng: -84.890727,
+      serviceRadius: 20000,
+    },
+  },
   {
     contentTitle: 'Greater Barre Mutual Aid',
     services: [
