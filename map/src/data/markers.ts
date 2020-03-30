@@ -681,7 +681,6 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     },
     loc: LOCATIONS.USA.MD_BALTIMORE,
   },
-
   {
     contentTitle: 'Baltimore Neighborhood Quarantine Response Teams',
     services: ['aid', 'supplies'],
@@ -709,7 +708,509 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     },
     loc: LOCATIONS.USA.MD_BALTIMORE,
   },
-
+  {
+    contentTitle: 'BENZIE COUNTY COVID-19 RESOURCES AND NEEDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/document/d/1FYcqcbY2qMuuy75GIIM9UuqvFR_-YlVKfFcrqJOy9mw/edit?fbclid=IwAR1Lfd0mZrm4GgqOwmcXAeJGnTLUEQ0wmooezGvgnVYjXvKEZT8EYPU2tUI',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 44.633482, lng: -85.98999 },
+  },
+  {
+    contentTitle: 'GRAND RAPIDS AREA PANDEMIC RESOURCES',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/209101217168617/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/1tVSwz0xYnrDJEjk3MWU32eS6q0eE5TSA0jOUL-frKcA/viewform?ts=5e766a19&fbclid=IwAR0Od69ftV6DJlqNpr_6knR6SQexBbZyodz2Mgi3k_C9HbNU318hTEJZGa4&edit_requested=true#responses',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 43.086943, lng: -85.740738 },
+  },
+  {
+    contentTitle: 'WASHTENAW COUNTY MUTUAL AID + RESOURCES',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer: 'https://www.facebook.com/groups/2424471741198383/',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.208176, lng: -83.987732 },
+  },
+  {
+    contentTitle: 'SAUGATUCK/DOUGLAS SECOND RESPONDERS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSdKd62iT4GEWLACz9tJnekgh4iWxiVOVHxjBqiV1469B8JFnw/viewform',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.658494, lng: -86.205861 },
+  },
+  {
+    contentTitle:
+      'GRAND TRAVERSE BAND OF OTTAWA AND CHIPPEWA INDIANS MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: { lat: 44.995845, lng: -85.65501 },
+  },
+  {
+    contentTitle: 'KALAMAZOO MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/225779971877883/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSeW-Dmt_Z_QPu81ad0jo5gs4vjx2zREupOmdoLnn2JBntapGg/viewform',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.274765, lng: -85.588179 },
+  },
+  {
+    contentTitle: 'SOUTHWEST MICHIGAN MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer: 'https://www.facebook.com/groups/3137606989603526/',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.032974, lng: -86.044922 },
+  },
+  {
+    contentTitle: 'BAY MILLS INDIAN COMMUNITY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: { lat: 46.444495, lng: -84.745826 },
+  },
+  {
+    contentTitle: 'SPARK IN THE DARK',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.facebook.com/groups/sparkinthedark/' },
+    },
+    contentBody: '',
+    loc: { lat: 44.735028, lng: -85.523071 },
+  },
+  {
+    contentTitle: 'COMBATING COVID IN SOUTHWEST DETROIT',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSdrdIvdO3AHzCJBXloy-KExxQabrMUSbr_xgo4Y9NBI-GHnTA/viewform',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.332174, lng: -83.11068 },
+  },
+  {
+    contentTitle: 'MUTUAL AID OF NORTHWEST MICHIGAN',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup:
+          'https://www.facebook.com/groups/784134155443201/?hc_location=ufi',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: { lat: 44.736979, lng: -85.567017 },
+  },
+  {
+    contentTitle: 'DETROIT-BASED COVID-19 MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/2554127328195074/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/spreadsheets/d/1-m6QBgqejlk2h6uJ0WGkphZuZ5MR3-uWCkv2vSZcHY8/edit?fbclid=IwAR2dcKuYe-I787XJLyl2I6DtTrPMrfxTkdPRQT6VE59CdoykxNOBgMvGIHs#gid=1526320049',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.383444, lng: -83.10232 },
+  },
+  {
+    contentTitle: 'The MUTUAL AID NETWORK OF YPSILANTI (MANY)',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.facebook.com/ypsimutualaid' },
+    },
+    contentBody: '',
+    loc: { lat: 42.236398, lng: -83.61866 },
+  },
+  {
+    contentTitle: 'GRAND RAPIDS AREA COVID-19 MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/GRAMutAid/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSclYE9PAOHDVJi-lIGMFrdmOYq7s-NiFgHA9q6zTpxcaJVcLg/viewform?fbclid=IwAR1wbfk2GSK4phL97Ny1etdVGm7fGUsQnkx7AH15-1Y-loLR-hSa6lqeVHQ',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.96146, lng: -85.655716 },
+  },
+  {
+    contentTitle: 'OAKLAND COUNTY COVID RESPONSE',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.mycovidresponse.org/signup/' },
+    },
+    contentBody: '',
+    loc: { lat: 42.660276, lng: -83.385791 },
+  },
+  {
+    contentTitle: 'CHARLEVOIX COUNTY HELPING HANDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/696771177745067/',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: { lat: 45.319323, lng: -85.256653 },
+  },
+  {
+    contentTitle: 'PONTIAC CORONAVIRUS EMERGENCY RELIEF FOOD/SUPPLIES',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer: 'https://www.signupgenius.com/go/30e0b48aaa628a13-drive',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.649252, lng: -83.287809 },
+  },
+  {
+    contentTitle: 'YOOPERS HELPING YOOPERS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: { email: [], web: {} },
+    contentBody: '',
+    loc: { lat: 47.129951, lng: -88.582764 },
+  },
+  {
+    contentTitle: 'LEONI TOWNSHIP MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.facebook.com/groups/144130126892991/' },
+    },
+    contentBody: '',
+    loc: { lat: 42.260795, lng: -84.293804 },
+  },
+  {
+    contentTitle: 'GRAND TRAVERSE COUNTY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLScfSUoYchrIXnzTCdDIwsM-2YGa04XzTLE6xU5SGezE6rI1OA/viewform',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 44.668581, lng: -85.56058 },
+  },
+  {
+    contentTitle: 'FEED THE NEED ALLEGAN COUNTY',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: { Volunteer: 'https://www.facebook.com/groups/886253631847481/' },
+    },
+    contentBody: '',
+    loc: { lat: 42.5913, lng: -85.888462 },
+  },
+  {
+    contentTitle: 'HURON VALLEY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSdhW2voPOll9Jmy_QR0AXk1Pge1JGn3tByJ-SlPfKNsMjcHLg/viewform',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.253197, lng: -83.83878 },
+  },
+  {
+    contentTitle: 'KALKASKA RESPONSE TEAM',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://elizabethannedunha.wixsite.com/kalkaskaresponseteam?fbclid=IwAR09WdGWtqzgC63_kaaN4ZoZvah4hTM521lOy_HvOnYw_PEfM0eG3BMAWQE',
+        },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSdTo09tnTPEUXfIBF9AudVIcb2EeDYggWYTvnRVeHuByZqrAw/viewform',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 44.684592, lng: -85.090253 },
+  },
+  {
+    contentTitle: 'ANTRIM COUNTY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/2228122717494765',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSckdiDnfMenlqmraSxU7PjKi3M1GWK66E5GQsWnBIfd79Zx-A/viewform',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 44.99904, lng: -85.140227 },
+  },
+  {
+    contentTitle: 'LANSING AREA MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: '',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/1Du9AJTV6Z4uZ5Kmi6fBcE6_WN1RFPPaBmCpPYUUAEf4/viewform?edit_requested=true',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 42.73418, lng: -84.552549 },
+  },
+  {
+    contentTitle: 'EMMET COUNTY HELPING HANDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: null },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/234362584615594',
+      },
+    },
+    getHelp: { email: [], web: {} },
+    volunteers: {
+      email: [],
+      web: {
+        Volunteer:
+          'https://docs.google.com/forms/d/e/1FAIpQLSc1HSE7-la427QVGIDV27an6QaK7rNA-oSwRjv5YWingpbrJA/viewform?fbclid=IwAR3wHmqwTou2MRW1e6kg_y6wcSRr8ncyt245ssz_-gaSvVrtgB-n_eQAiX4',
+      },
+    },
+    contentBody: '',
+    loc: { lat: 45.52057, lng: -84.890727 },
+  },
   {
     contentTitle: 'Greater Barre Mutual Aid',
     services: [
@@ -849,7 +1350,6 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     },
     loc: LOCATIONS.USA.VA_NORFOLK,
   },
-
   {
     contentTitle: 'Northern Va COVID-19 Craziness Supply Exchange',
     contentBody: `This group is for people located in Northern Virginia to join and post if they are in need of supplies or food. anything from diapers to soap to bread and milk... some of us may have more than we need of something and be running out of other things. if you have extras your willing to part with the actual value of the item and not for profit or for trade ..if you see grocery stores that have supplies, or if you are in need of anything at all..especially if you or someone you know has nothing to eat or an elderly person in need . please post here.
