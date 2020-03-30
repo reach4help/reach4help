@@ -10,7 +10,9 @@
       },
       "loading": {
         "title": "Your request has been created.\n You will be contacted by one of our volunteers shortly.",
-        "pleaseWaitLabel": "Please wait..."
+        "pleaseWaitLabel": "Please wait...",
+        "tip_title": "Remember",
+        "tip_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
       }
     }
   },
@@ -24,7 +26,9 @@
       },
       "loading": {
         "title": "O seu pedido foi criado. \n Brevemente será contactado por um dos nossos voluntários.",
-        "pleaseWaitLabel": "Aguarde por favor..."
+        "pleaseWaitLabel": "Aguarde por favor...",
+        "tip_title": "Lembrete",
+        "tip_info": "Assim que um voluntário oferecer ajuda, deve aceitar a sua ajuda para que ele consiga ver os seus contactos"
       }
     }
   }
