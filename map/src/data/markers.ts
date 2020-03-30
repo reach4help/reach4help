@@ -1876,7 +1876,6 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     },
     loc: LOCATIONS.USA.VA_NORFOLK,
   },
-
   {
     contentTitle: 'Northern Va COVID-19 Craziness Supply Exchange',
     contentBody: `This group is for people located in Northern Virginia to join and post if they are in need of supplies or food. anything from diapers to soap to bread and milk... some of us may have more than we need of something and be running out of other things. if you have extras your willing to part with the actual value of the item and not for profit or for trade ..if you see grocery stores that have supplies, or if you are in need of anything at all..especially if you or someone you know has nothing to eat or an elderly person in need . please post here.
