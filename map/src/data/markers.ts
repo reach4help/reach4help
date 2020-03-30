@@ -651,7 +651,7 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
 Food, Clothing & Resistance Collective - Maroon Movement is doing a mutual aid & emergency relief fundraising drive providing electronic or delivered distributions of resources for anyone who may need some "extra assistance" to stock up food, toiletries and medical supplies in Baltimore during this still very early stage of an emerging pandemic (Covid-19), in the middle of another pandemic (Influenza).
 Due to so many local closures and loss of income for some now, and many others possibly in the near future, we as usual want to do our part to help out those who are most vulnerable in our community. Please help us with a monetary donation or donation of canned, boxed or bagged food items, baby formula, produce, toiletries (including pampers) and over the counter medical supplies.
 For more info, or to set up a scheduled drop off of items, or to volunteer please message us or email us at: maroonmovement@gmail.com. Thank you for your solidarity!`,
-    services: ['aid', 'medecine', 'food', 'supplies', 'information'],
+    services: ['aid', 'medicine', 'food', 'supplies', 'information'],
     contact: {
       general: {
         web: {
