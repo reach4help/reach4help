@@ -151,6 +151,12 @@ const LOCATIONS = {
       lng: -119.078374,
       serviceRadius: 55000,
     },
+    DC_ANACOSTIA: {
+      description: 'Anacostia, Washington, D.C.',
+      lat: 38.863245,
+      lng: -76.984917,
+      serviceRadius: 30000,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -596,6 +602,36 @@ export const MARKERS: MarkerInfo[] = [
       },
     },
     loc: LOCATIONS.USA.CA_VENTURA_COUNTY,
+  },
+  {
+    contentTitle: 'DC Mutual Aid Network East of the River',
+    contentBody: `In the wake of the COVID-19, the people of D.C. are mobilizing to launch and expand real grassroots mutual aid efforts.
+Black Lives Matter DC is raising funds for our Mutual Aid Network East of the River in Washington, D.C.
+Black Lives Matter DC is a member-based abolitionist organization centering Black people most at risk for state violence in DC, creating the conditions for Black Liberation through the abolition of systems and institutions of white supremacy, capitalism, patriarchy, and colonialism. We are located in Washington, DC,
+This Mutual Aid Network is a grassroots, community focused and lead ecosystem for folks in DC (District of Columbia) are engaged in or are looking to plug in. We are collecting and purchasing supplies to make hygiene bags, sack lunches and provide other material support that we have started distributing. We are working to support as many of our neighbors who are housing and food insecure as well as others that need support East of the River in Wards 7 & 8 as possible.`,
+    services: ['aid', 'food', 'supplies', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.gofundme.com/f/blmcovid',
+          Twitter: 'https://twitter.com/DMVBlackLives',
+          Instagram: 'https://www.instagram.com/blacklivesmatterdc/',
+        },
+        email: ['info@dcblm.org'],
+        phone: ['+1 202 630 0336'],
+        facebookGroup: 'https://www.facebook.com/BLMDC',
+      },
+      getHelp: {
+        phone: ['+1 202 630 0336'],
+      },
+      volunteers: {
+        web: {
+          Donate: 'https://www.gofundme.com/f/blmcovid',
+        },
+        phone: ['+1 202 630 0336'],
+      },
+    },
+    loc: LOCATIONS.USA.DC_ANACOSTIA,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
