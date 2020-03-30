@@ -245,6 +245,12 @@ const LOCATIONS = {
       lng: -82.424077,
       serviceRadius: 25250,
     },
+    GA_ATHENS: {
+      description: 'Athens, Georgia',
+      lat: 33.944255,
+      lng: -83.372645,
+      serviceRadius: 14660,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -1069,6 +1075,27 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.FL_TAMPA,
+  },
+  {
+    contentTitle: 'Athens Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLScLk5cBYHJzwNbkh78mOErATlOKuUQtxY7U-iXxx26l-u8YdA/viewform',
+          Website: 'https://www.skinsandclaystudio.com/',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.GA_ATHENS,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
