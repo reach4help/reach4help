@@ -11,10 +11,12 @@ const TitleWrapper = styled.div`
 `;
 
 const StyledTitle = styled(Title)`
+  white-space: pre-line;
+  text-align: center;
   :after {
     content: ' ';
     position: absolute;
-    width: 30%;
+    width: 40px;
     height: 6px;
     left: 50%;
     bottom: 0;

@@ -33,14 +33,14 @@ const Header = (props: Props) => {
             entering private information that you don&apos;t want to be public.
           </p>
           <p className="muted">
-            This map is part of
-            <a href="https://reach4help.org">{' reach4help.org'}</a>, a
-            volunteer-run project. It is open source and can be
+            This map is part of&nbsp;
+            <a href="https://reach4help.org">reach4help.org</a>, a volunteer-run
+            project. It is open source and can be&nbsp;
             <a href="https://github.com/reach4help/reach4help/tree/master/map">
-              {' found on GitHub'}
+              found on GitHub
             </a>
-            . For any enquiries, you can reach us as at
-            <a href="mailto:map@reach4help.org">{' map@reach4help.org'}</a>.
+            . For any enquiries, you can reach us as at&nbsp;
+            <a href="mailto:map@reach4help.org">map@reach4help.org</a>.
           </p>
         </div>
       </div>
