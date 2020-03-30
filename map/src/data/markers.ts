@@ -39,8 +39,8 @@ export interface MarkerInfo {
   /** description of the organization or community effort */
   contentBody?: string;
   /** a list of services provided -- at least one is required :
-  *  food | supplies | aid | mobility | medicine | manufacturing | financial | information
-  */
+   *  food | supplies | aid | mobility | medicine | manufacturing | financial | information
+   */
   services: Service[];
   /**
    * the different avenues with which to contact an organization,
@@ -1151,7 +1151,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1172,7 +1172,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/209101217168617/',
       },
@@ -1193,7 +1193,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1213,7 +1213,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1235,7 +1235,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1250,7 +1250,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/225779971877883/',
       },
@@ -1271,7 +1271,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1291,7 +1291,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1306,7 +1306,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1324,7 +1324,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1345,7 +1345,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup:
           'https://www.facebook.com/groups/784134155443201/?hc_location=ufi',
@@ -1361,7 +1361,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/2554127328195074/',
       },
@@ -1382,7 +1382,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1400,7 +1400,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: 'https://www.facebook.com/GRAMutAid/',
       },
@@ -1421,7 +1421,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1439,7 +1439,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/696771177745067/',
       },
@@ -1454,7 +1454,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1474,7 +1474,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1489,7 +1489,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1507,7 +1507,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1528,7 +1528,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1546,7 +1546,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1591,7 +1591,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/2228122717494765',
       },
@@ -1612,7 +1612,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: '',
       },
@@ -1633,7 +1633,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: null },
+        web: { Website: '' },
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/234362584615594',
       },
