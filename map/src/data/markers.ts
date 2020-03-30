@@ -275,6 +275,24 @@ const LOCATIONS = {
       lng: -94.580735,
       serviceRadius: 43890,
     },
+    KY: {
+      description: 'Kentucky',
+      lat: 37.513389,
+      lng: -85.259611,
+      serviceRadius: 382260,
+    },
+    KY_LEXINGTON: {
+      description: 'Lexington, Kentucky',
+      lat: 38.048063,
+      lng: -84.499267,
+      serviceRadius: 27510,
+    },
+    KY_LOUSVILLE: {
+      description: 'Louisville, Kentucky',
+      lat: 38.266396,
+      lng: -85.760549,
+      serviceRadius: 35040,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -1253,6 +1271,91 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.KS_KANSAS_CITY,
+  },
+  {
+    contentTitle:
+      'Kentucky Student Environmental Coalition, COVID-19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://www.kystudentenvironmentalcoalition.org/covid-19-mutual-aid.html',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY,
+  },
+  {
+    contentTitle: 'Covid 19 Mutual Aid Lexington Kentucky',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY_LEXINGTON,
+  },
+  {
+    contentTitle: 'Mutual Aid Louisville',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY_LOUSVILLE,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
