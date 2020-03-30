@@ -55,7 +55,7 @@ class AddInstructions extends React.Component<Props, {}> {
             </li>
           </ul>
           <p>
-            If you have any questions, you can reach us as at{' '}
+            If you have any questions, you can reach us as at&nbsp;
             <a
               href="mailto:map@reach4help.org"
               target="_blank"
