@@ -269,6 +269,12 @@ const LOCATIONS = {
       lng: -86.527803,
       serviceRadius: 22290,
     },
+    KS_KANSAS_CITY: {
+      description: 'Kansas City, Kansas',
+      lat: 39.085067,
+      lng: -94.580735,
+      serviceRadius: 43890,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -1229,6 +1235,24 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.IN_MONROE_COUNTY,
+  },
+  {
+    contentTitle: 'Strawberry Hill Coronavirus Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/136824581089511/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.KS_KANSAS_CITY,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
