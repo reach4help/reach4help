@@ -10,6 +10,7 @@ import {
 import { initializeMockServer } from './http/MockServer';
 import Login from './pages/login';
 import NotFound from './pages/not-found';
+import Role from './pages/role';
 import configureStore from './store';
 
 // Later we can check if we need all immer plugins
@@ -25,6 +26,9 @@ const App = (): ReactElement => {
         <Switch>
           <Route exact path="/">
             <Login />
+          </Route>
+          <Route exact path="/role">
+            <Role />
           </Route>
           <Route path="*">
             <NotFound />

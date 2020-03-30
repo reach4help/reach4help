@@ -13,6 +13,15 @@
         "pleaseWaitLabel": "Please wait...",
         "tip_title": "Remember",
         "tip_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      },
+      "roleinfo": {
+        "title": "Reach4Help",
+        "sub_title": "How can we assist you ?",
+        "info": "Please tell us what is your purpose to use Reach4Help",
+        "info_pin": "I'm here because I need help",
+        "c2a_pin": "Get help now!",
+        "info_cav": "I'm here because I want to help people in need",
+        "c2a_cav": "Start helping now!"
       }
     }
   },
@@ -29,6 +38,13 @@
         "pleaseWaitLabel": "Aguarde por favor...",
         "tip_title": "Lembrete",
         "tip_info": "Assim que um voluntário oferecer ajuda, deve aceitar a sua ajuda para que ele consiga ver os seus contactos"
+      },
+      "roleinfo": {
+        "title": "Reach4Help",
+        "sub_title": "Como podemos ajudá-lo(a) ?",
+        "info": "Please tell us what is your purpose to use Reach4Help",
+        "info_pin": "I need help",
+        "info_cav": "I'm here to help"
       }
     }
   }
