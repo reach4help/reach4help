@@ -227,6 +227,12 @@ const LOCATIONS = {
       lng: -72.93047,
       serviceRadius: 7300,
     },
+    DC: {
+      description: 'District of Columbia / Washington',
+      lat: 38.897851,
+      lng: -77.030027,
+      serviceRadius: 10310,
+    },
     CT_NEW_LONDON: {
       description: 'New London, Connecticut',
       lat: 41.352049,
@@ -979,6 +985,24 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.CT_NEW_LONDON,
+  },
+  {
+    contentTitle: 'DC Mutual Aid Network',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/492881801379594/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.DC,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
