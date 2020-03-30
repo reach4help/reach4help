@@ -257,6 +257,18 @@ const LOCATIONS = {
       lng: -87.628718,
       serviceRadius: 32460,
     },
+    IN: {
+      description: 'Indiana',
+      lat: 39.72427,
+      lng: -86.15267,
+      serviceRadius: 263360,
+    },
+    IN_MONROE_COUNTY: {
+      description: 'Monroe County, Indiana',
+      lat: 39.161021,
+      lng: -86.527803,
+      serviceRadius: 22290,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -1154,6 +1166,69 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.IL_CHICAGO,
+  },
+  {
+    contentTitle: 'Indiana Music Industry Relief Fund',
+    contentBody: `A relief fund for women-identifying and non-binary musicians, music industry professionals, non-profit music organizations, based in the state of Indiana that are affected by loss of work, cancellations, and loss of revenue due to COVID-19.`,
+    services: ['financial'],
+    contact: {
+      general: {
+        web: {
+          'Main Website': 'https://www.midwaymusicspeaks.org/imirf',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IN,
+  },
+  {
+    contentTitle: 'Monroe County Area Mutual Aid for Covid-19',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/243876030127431/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.IN_MONROE_COUNTY,
+  },
+  {
+    contentTitle: 'No Space for Hate COVID 19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Resources:
+            'https://docs.google.com/document/d/1_kQWB9Yns0WhqdNvOvdHb99daJEvTbwbaWZgFyoHOuE/edit',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd-No5BLo6y-9ubpTnQAzFyOk7Q7gwel7iLpD-7Q9gpPF36sg/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd-No5BLo6y-9ubpTnQAzFyOk7Q7gwel7iLpD-7Q9gpPF36sg/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IN_MONROE_COUNTY,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
