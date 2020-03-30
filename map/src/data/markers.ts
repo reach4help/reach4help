@@ -214,6 +214,25 @@ const LOCATIONS = {
       lng: -108.554731,
       serviceRadius: 11820,
     },
+    CT_HBWNH: {
+      description:
+        'Connecticut: Hartford, Bridgeport, Waterbury, and New Haven',
+      lat: 41.480676,
+      lng: -72.919991,
+      serviceRadius: 43720,
+    },
+    CT_NEW_HAVEN: {
+      description: 'New Haven, Connecticut',
+      lat: 41.305505,
+      lng: -72.93047,
+      serviceRadius: 7300,
+    },
+    CT_NEW_LONDON: {
+      description: 'New London, Connecticut',
+      lat: 41.352049,
+      lng: -72.091404,
+      serviceRadius: 5190,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -887,7 +906,80 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
     },
     loc: LOCATIONS.USA.CO_GRAND_JUNCTION,
   },
-
+  {
+    contentTitle: 'Mutual Aid Waterbury, Bridgeport, New Haven',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          English: 'http://bit.ly/2Wg2pvc',
+          Español: 'http://bit.ly/38N1Z24',
+          عربى:
+            'https://docs.google.com/document/d/1FqsjuQxZltQD1e-24ZYSzu8qKsw7OfjzuZQfpKy4yiM/edit',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSftDN2mV9dCv_5uF2n341h21hNfT80bzNYmVJQaBFHUvi909A/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          'Offerings Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSeWN1V25kvvY-zO5yNpeLf1_VpFVfz1RXntPw98TBin3g0GXw/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CT_HBWNH,
+  },
+  {
+    contentTitle:
+      'Información y apoyo mutuo durante el coronavirus: New Haven, Connecticut',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/apoyo.mutuo.new.haven/?ref=share',
+        web: {
+          Newsletter: 'https://ulanewhaven.org/informacion-coronavirus/',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CT_NEW_HAVEN,
+  },
+  {
+    contentTitle: 'New London Mutual Aid Collective - Community Network',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/646521702359874/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CT_NEW_LONDON,
+  },
   {
     contentTitle: 'Greater Barre Mutual Aid',
     services: [
