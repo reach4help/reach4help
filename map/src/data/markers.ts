@@ -684,7 +684,7 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
 
   {
     contentTitle: 'Baltimore Neighborhood Quarantine Response Teams',
-    services: ['aid', 'visit', 'supplies'],
+    services: ['aid', 'supplies'],
     contact: {
       general: {
         web: {
