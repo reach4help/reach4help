@@ -22,6 +22,7 @@ const Logo = styled.img`
 
 const Description = styled(Text)`
   margin-top: 3rem;
+  text-align: center;
 `;
 
 const StyledInput = styled(Input)`
