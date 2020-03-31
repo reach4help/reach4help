@@ -12,36 +12,6 @@
   },
   "hosting": [
     {
-      "target": "site",
-      "public": "site/public",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "map",
-      "public": "map/build",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
       "target": "web-client",
       "public": "web-client/build",
       "ignore": [

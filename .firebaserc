@@ -7,12 +7,6 @@
   "targets": {
     "reach4help-dev": {
       "hosting": {
-        "site": [
-          "reach4help-dev"
-        ],
-        "map": [
-          "reach4help-dev-map"
-        ],
         "web-client": [
           "reach4help-dev-web-client"
         ]
@@ -20,12 +14,6 @@
     },
     "reach4help-staging": {
       "hosting": {
-        "site": [
-          "reach4help-staging"
-        ],
-        "map": [
-          "reach4help-staging-map"
-        ],
         "web-client": [
           "reach4help-staging-web-client"
         ]
@@ -33,12 +21,6 @@
     },
     "reach4help-34372": {
       "hosting": {
-        "site": [
-          "reach4help-34372"
-        ],
-        "map": [
-          "reach4help-map"
-        ],
         "web-client": [
           "reach4help-web-client"
         ]
