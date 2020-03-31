@@ -1151,18 +1151,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/document/d/1FYcqcbY2qMuuy75GIIM9UuqvFR_-YlVKfFcrqJOy9mw/edit?fbclid=IwAR1Lfd0mZrm4GgqOwmcXAeJGnTLUEQ0wmooezGvgnVYjXvKEZT8EYPU2tUI',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/document/d/1FYcqcbY2qMuuy75GIIM9UuqvFR_-YlVKfFcrqJOy9mw/edit?fbclid=IwAR1Lfd0mZrm4GgqOwmcXAeJGnTLUEQ0wmooezGvgnVYjXvKEZT8EYPU2tUI',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Homestead Township, MI, USA',
       lat: 44.633482,
       lng: -85.98999,
       serviceRadius: 20000,
@@ -1177,18 +1177,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/209101217168617/',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/1tVSwz0xYnrDJEjk3MWU32eS6q0eE5TSA0jOUL-frKcA/viewform?ts=5e766a19&fbclid=IwAR0Od69ftV6DJlqNpr_6knR6SQexBbZyodz2Mgi3k_C9HbNU318hTEJZGa4&edit_requested=true#responses',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/1tVSwz0xYnrDJEjk3MWU32eS6q0eE5TSA0jOUL-frKcA/viewform?ts=5e766a19&fbclid=IwAR0Od69ftV6DJlqNpr_6knR6SQexBbZyodz2Mgi3k_C9HbNU318hTEJZGa4&edit_requested=true#responses',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Alpine Township, MI, USA',
       lat: 43.086943,
       lng: -85.740738,
       serviceRadius: 20000,
@@ -1199,17 +1199,17 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer: 'https://www.facebook.com/groups/2424471741198383/',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/2424471741198383/',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Freedom Township, MI, USA',
       lat: 42.208176,
       lng: -83.987732,
       serviceRadius: 20000,
@@ -1224,18 +1224,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: '',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLSdKd62iT4GEWLACz9tJnekgh4iWxiVOVHxjBqiV1469B8JFnw/viewform',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdKd62iT4GEWLACz9tJnekgh4iWxiVOVHxjBqiV1469B8JFnw/viewform',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Saugatuck, MI 49453, USA',
       lat: 42.658494,
       lng: -86.205861,
       serviceRadius: 20000,
@@ -1247,16 +1247,16 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: {
-        web: { Website: 'petosjoh@umich.edu' },
-        email: [],
+        web: { Website: '' },
+        email: ['petosjoh@umich.edu'],
         facebookGroup: '',
       },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
     },
-    getHelp: { email: [], web: {} },
-    volunteers: { email: [], web: {} },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Suttons Bay Township, MI, USA',
       lat: 44.995845,
       lng: -85.65501,
       serviceRadius: 20000,
@@ -1271,18 +1271,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/225779971877883/',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLSeW-Dmt_Z_QPu81ad0jo5gs4vjx2zREupOmdoLnn2JBntapGg/viewform',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeW-Dmt_Z_QPu81ad0jo5gs4vjx2zREupOmdoLnn2JBntapGg/viewform',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Southside, Kalamazoo, MI, USA',
       lat: 42.274765,
       lng: -85.588179,
       serviceRadius: 20000,
@@ -1293,17 +1293,17 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer: 'https://www.facebook.com/groups/3137606989603526/',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/3137606989603526/',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Wayne Township, MI, USA',
       lat: 42.032974,
       lng: -86.044922,
       serviceRadius: 20000,
@@ -1321,12 +1321,12 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: '',
       },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
     },
-    getHelp: { email: [], web: {} },
-    volunteers: { email: [], web: {} },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Bay Mills Township, MI, USA',
       lat: 46.444495,
       lng: -84.745826,
       serviceRadius: 20000,
@@ -1337,15 +1337,17 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: { Volunteer: 'https://www.facebook.com/groups/sparkinthedark/' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/sparkinthedark/',
+        },
+      },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'East Bay Township, MI, USA',
       lat: 44.735028,
       lng: -85.523071,
       serviceRadius: 20000,
@@ -1356,18 +1358,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLSdrdIvdO3AHzCJBXloy-KExxQabrMUSbr_xgo4Y9NBI-GHnTA/viewform',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdrdIvdO3AHzCJBXloy-KExxQabrMUSbr_xgo4Y9NBI-GHnTA/viewform',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Detroit, MI, USA',
       lat: 42.332174,
       lng: -83.11068,
       serviceRadius: 20000,
@@ -1383,12 +1385,12 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         facebookGroup:
           'https://www.facebook.com/groups/784134155443201/?hc_location=ufi',
       },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
     },
-    getHelp: { email: [], web: {} },
-    volunteers: { email: [], web: {} },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Traverse City, MI, USA',
       lat: 44.736979,
       lng: -85.567017,
       serviceRadius: 20000,
@@ -1403,18 +1405,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/2554127328195074/',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/spreadsheets/d/1-m6QBgqejlk2h6uJ0WGkphZuZ5MR3-uWCkv2vSZcHY8/edit?fbclid=IwAR2dcKuYe-I787XJLyl2I6DtTrPMrfxTkdPRQT6VE59CdoykxNOBgMvGIHs#gid=1526320049',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/spreadsheets/d/1-m6QBgqejlk2h6uJ0WGkphZuZ5MR3-uWCkv2vSZcHY8/edit?fbclid=IwAR2dcKuYe-I787XJLyl2I6DtTrPMrfxTkdPRQT6VE59CdoykxNOBgMvGIHs#gid=1526320049',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Dexter Linwood, Detroit, MI, USA',
       lat: 42.383444,
       lng: -83.10232,
       serviceRadius: 20000,
@@ -1425,15 +1427,15 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: { Volunteer: 'https://www.facebook.com/ypsimutualaid' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: { Volunteer: 'https://www.facebook.com/ypsimutualaid' },
+      },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Ypsilanti, MI, USA',
       lat: 42.236398,
       lng: -83.61866,
       serviceRadius: 20000,
@@ -1448,18 +1450,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: 'https://www.facebook.com/GRAMutAid/',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLSclYE9PAOHDVJi-lIGMFrdmOYq7s-NiFgHA9q6zTpxcaJVcLg/viewform?fbclid=IwAR1wbfk2GSK4phL97Ny1etdVGm7fGUsQnkx7AH15-1Y-loLR-hSa6lqeVHQ',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSclYE9PAOHDVJi-lIGMFrdmOYq7s-NiFgHA9q6zTpxcaJVcLg/viewform?fbclid=IwAR1wbfk2GSK4phL97Ny1etdVGm7fGUsQnkx7AH15-1Y-loLR-hSa6lqeVHQ',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Heritage Hill, Grand Rapids, MI 49503, USA',
       lat: 42.96146,
       lng: -85.655716,
       serviceRadius: 20000,
@@ -1474,15 +1476,15 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: '',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: { Volunteer: 'https://www.mycovidresponse.org/signup/' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: { Volunteer: 'https://www.mycovidresponse.org/signup/' },
+      },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Waterford Twp, MI, USA',
       lat: 42.660276,
       lng: -83.385791,
       serviceRadius: 20000,
@@ -1497,12 +1499,12 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/696771177745067/',
       },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
     },
-    getHelp: { email: [], web: {} },
-    volunteers: { email: [], web: {} },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Charlevoix, MI 49720, USA',
       lat: 45.319323,
       lng: -85.256653,
       serviceRadius: 20000,
@@ -1513,17 +1515,17 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer: 'https://www.signupgenius.com/go/30e0b48aaa628a13-drive',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.signupgenius.com/go/30e0b48aaa628a13-drive',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Pontiac, MI, USA',
       lat: 42.649252,
       lng: -83.287809,
       serviceRadius: 20000,
@@ -1541,12 +1543,12 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: '',
       },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
     },
-    getHelp: { email: [], web: {} },
-    volunteers: { email: [], web: {} },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Quincy Township, MI 49930, USA',
       lat: 47.129951,
       lng: -88.582764,
       serviceRadius: 20000,
@@ -1557,15 +1559,17 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: { Volunteer: 'https://www.facebook.com/groups/144130126892991/' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/144130126892991/',
+        },
+      },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Leoni Township, MI, USA',
       lat: 42.260795,
       lng: -84.293804,
       serviceRadius: 20000,
@@ -1576,18 +1580,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLScfSUoYchrIXnzTCdDIwsM-2YGa04XzTLE6xU5SGezE6rI1OA/viewform',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLScfSUoYchrIXnzTCdDIwsM-2YGa04XzTLE6xU5SGezE6rI1OA/viewform',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'East Bay Township, MI, USA',
       lat: 44.668581,
       lng: -85.56058,
       serviceRadius: 20000,
@@ -1598,15 +1602,17 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: { Volunteer: 'https://www.facebook.com/groups/886253631847481/' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/886253631847481/',
+        },
+      },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Allegan Township, MI 49010, USA',
       lat: 42.5913,
       lng: -85.888462,
       serviceRadius: 20000,
@@ -1617,18 +1623,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLSdhW2voPOll9Jmy_QR0AXk1Pge1JGn3tByJ-SlPfKNsMjcHLg/viewform',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdhW2voPOll9Jmy_QR0AXk1Pge1JGn3tByJ-SlPfKNsMjcHLg/viewform',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Lakewood, Ann Arbor, MI 48103, USA',
       lat: 42.253197,
       lng: -83.83878,
       serviceRadius: 20000,
@@ -1646,18 +1652,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: '',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLSdTo09tnTPEUXfIBF9AudVIcb2EeDYggWYTvnRVeHuByZqrAw/viewform',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdTo09tnTPEUXfIBF9AudVIcb2EeDYggWYTvnRVeHuByZqrAw/viewform',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Oliver Township, MI, USA',
       lat: 44.684592,
       lng: -85.090253,
       serviceRadius: 20000,
@@ -1672,18 +1678,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/2228122717494765',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLSckdiDnfMenlqmraSxU7PjKi3M1GWK66E5GQsWnBIfd79Zx-A/viewform',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSckdiDnfMenlqmraSxU7PjKi3M1GWK66E5GQsWnBIfd79Zx-A/viewform',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Kearney Township, MI, USA',
       lat: 44.99904,
       lng: -85.140227,
       serviceRadius: 20000,
@@ -1694,18 +1700,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     services: ['aid', 'information'],
     contact: {
       general: { web: { Website: '' }, email: [], facebookGroup: '' },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/1Du9AJTV6Z4uZ5Kmi6fBcE6_WN1RFPPaBmCpPYUUAEf4/viewform?edit_requested=true',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/1Du9AJTV6Z4uZ5Kmi6fBcE6_WN1RFPPaBmCpPYUUAEf4/viewform?edit_requested=true',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Downtown, Lansing, MI, USA',
       lat: 42.73418,
       lng: -84.552549,
       serviceRadius: 20000,
@@ -1720,18 +1726,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         email: [],
         facebookGroup: 'https://www.facebook.com/groups/234362584615594',
       },
-    },
-    getHelp: { email: [], web: {} },
-    volunteers: {
-      email: [],
-      web: {
-        Volunteer:
-          'https://docs.google.com/forms/d/e/1FAIpQLSc1HSE7-la427QVGIDV27an6QaK7rNA-oSwRjv5YWingpbrJA/viewform?fbclid=IwAR3wHmqwTou2MRW1e6kg_y6wcSRr8ncyt245ssz_-gaSvVrtgB-n_eQAiX4',
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSc1HSE7-la427QVGIDV27an6QaK7rNA-oSwRjv5YWingpbrJA/viewform?fbclid=IwAR3wHmqwTou2MRW1e6kg_y6wcSRr8ncyt245ssz_-gaSvVrtgB-n_eQAiX4',
+        },
       },
     },
     contentBody: '',
     loc: {
-      description: 'MICHIGAN, USA',
+      description: 'Pleasantview Township, MI, USA',
       lat: 45.52057,
       lng: -84.890727,
       serviceRadius: 20000,
