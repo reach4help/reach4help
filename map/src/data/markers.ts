@@ -39,7 +39,9 @@ export interface MarkerInfo {
   contentTitle: string;
   /** description of the organization or community effort */
   contentBody?: string;
-  /** a list of services provided -- at least one is required */
+  /** a list of services provided -- at least one is required :
+   *  food | supplies | aid | mobility | medicine | manufacturing | financial | information
+   */
   services: Service[];
   /**
    * the different avenues with which to contact an organization,
@@ -294,6 +296,12 @@ const LOCATIONS = {
       lng: -85.760549,
       serviceRadius: 35040,
     },
+    MD_BALTIMORE: {
+      description: 'Baltimore, Maryland',
+      lat: 39.17,
+      lng: -76.37,
+      serviceRadius: 60000,
+    },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
       lat: 44.194269,
@@ -312,17 +320,23 @@ const LOCATIONS = {
       lng: -72.717293,
       serviceRadius: 132230,
     },
+    VA_AUGUSTA: {
+      description: 'Augusta, Virginia',
+      lat: 38.14915,
+      lng: -79.122097,
+      serviceRadius: 32670,
+    },
     VA_NORFOLK: {
       description: 'Norfolk, Virginia',
       lat: 36.846224,
       lng: -76.284361,
       serviceRadius: 32670,
     },
-    VA_AUGUSTA: {
-      description: 'Augusta, Virginia',
-      lat: 38.14915,
-      lng: -79.122097,
-      serviceRadius: 32670,
+    VA_NOVA: {
+      description: 'Northern Virginia',
+      lat: 38.896749,
+      lng: -77.260354,
+      serviceRadius: 70000,
     },
     WA_SEATTLE_AREA: {
       description: 'Seattle Area, Washington',
@@ -1120,244 +1134,663 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
     loc: LOCATIONS.USA.FL_TAMPA,
   },
   {
-    contentTitle: 'Athens Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
-    contact: {
-      volunteers: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLScLk5cBYHJzwNbkh78mOErATlOKuUQtxY7U-iXxx26l-u8YdA/viewform',
-          Website: 'https://www.skinsandclaystudio.com/',
-        },
-      },
-    },
-    loc: LOCATIONS.USA.GA_ATHENS,
-  },
-  {
-    contentTitle: 'COVID-19 Mutual Aid Volunteer Sign-up',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
-    contact: {
-      volunteers: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSd0MK1dnny1BTlzvohuRlnlC6fHqXKqez0hrZJLuZ6F4-qu9w/viewform?fbclid=IwAR2Hv2nPiztvHDf3Np_ncwJh3os4V0-k0xmS6cSLk5uR7w3pysPDar_5OfE',
-        },
-      },
-    },
-    loc: LOCATIONS.USA.IL_CHICAGO,
-  },
-  {
-    contentTitle: '73.5 Neighborhood Resource Pool',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    contentTitle: 'Mutual Aid/Relief Fundraiser',
+    contentBody: `Focused on distributing needed items to working class black and brown people, seniors, queer and trans folx. If you have extra baby formula, pampers, over the counter medication such as cold and flu meds, Ibuprofen, boxed food, canned food, bagged food, water or toiletries message the FB link and coordinated volunteers can schedule a drop off of those items at a private location for our Baltimore Mutual Aid/Emergency Relief efforts! 
+Food, Clothing & Resistance Collective - Maroon Movement is doing a mutual aid & emergency relief fundraising drive providing electronic or delivered distributions of resources for anyone who may need some "extra assistance" to stock up food, toiletries and medical supplies in Baltimore during this still very early stage of an emerging pandemic (Covid-19), in the middle of another pandemic (Influenza).
+Due to so many local closures and loss of income for some now, and many others possibly in the near future, we as usual want to do our part to help out those who are most vulnerable in our community. Please help us with a monetary donation or donation of canned, boxed or bagged food items, baby formula, produce, toiletries (including pampers) and over the counter medical supplies.
+For more info, or to set up a scheduled drop off of items, or to volunteer please message us or email us at: maroonmovement@gmail.com. Thank you for your solidarity!`,
+    services: ['aid', 'medicine', 'food', 'supplies', 'information'],
     contact: {
       general: {
         web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+          Website: '',
+          Twitter: '',
+          Instagram: '',
+          PayPal: 'Paypal: fcrcollective@gmail.com',
+          Cashapp: '$Simaleerbg',
+          Venmo: 'Venmo: @Simaleerbg',
         },
-      },
-      volunteers: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
-        },
+        email: ['maroonmovement@gmail.com'],
+        phone: [''],
+        facebookGroup:
+          'https://www.facebook.com/donate/201582851152373/563301290955017/',
       },
       getHelp: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
-        },
-      },
-    },
-    loc: LOCATIONS.USA.IL_CHICAGO,
-  },
-  {
-    contentTitle: 'Indiana Music Industry Relief Fund',
-    contentBody:
-      'A relief fund for women-identifying and non-binary musicians, music industry professionals, non-profit music organizations, based in the state of Indiana that are affected by loss of work, cancellations, and loss of revenue due to COVID-19.',
-    services: ['financial'],
-    contact: {
-      general: {
-        web: {
-          'Main Website': 'https://www.midwaymusicspeaks.org/imirf',
-        },
-      },
-    },
-    loc: LOCATIONS.USA.IN,
-  },
-  {
-    contentTitle: 'Monroe County Area Mutual Aid for Covid-19',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
-    contact: {
-      general: {
-        facebookGroup:
-          'https://www.facebook.com/groups/243876030127431/?ref=share',
-      },
-    },
-    loc: LOCATIONS.USA.IN_MONROE_COUNTY,
-  },
-  {
-    contentTitle: 'No Space for Hate COVID 19 Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
-    contact: {
-      general: {
-        web: {
-          Resources:
-            'https://docs.google.com/document/d/1_kQWB9Yns0WhqdNvOvdHb99daJEvTbwbaWZgFyoHOuE/edit',
-        },
+        email: ['maroonmovement@gmail.com'],
       },
       volunteers: {
+        email: ['maroonmovement@gmail.com'],
         web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSd-No5BLo6y-9ubpTnQAzFyOk7Q7gwel7iLpD-7Q9gpPF36sg/viewform',
-        },
-      },
-      getHelp: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSd-No5BLo6y-9ubpTnQAzFyOk7Q7gwel7iLpD-7Q9gpPF36sg/viewform',
+          Donate:
+            'https://www.facebook.com/donate/201582851152373/563301290955017/',
         },
       },
     },
-    loc: LOCATIONS.USA.IN_MONROE_COUNTY,
+    loc: LOCATIONS.USA.MD_BALTIMORE,
   },
   {
-    contentTitle: 'Strawberry Hill Coronavirus Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
-    contact: {
-      general: {
-        facebookGroup:
-          'https://www.facebook.com/groups/136824581089511/?ref=share',
-      },
-    },
-    loc: LOCATIONS.USA.KS_KANSAS_CITY,
-  },
-  {
-    contentTitle:
-      'Kentucky Student Environmental Coalition, COVID-19 Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    contentTitle: 'Baltimore Neighborhood Quarantine Response Teams',
+    services: ['aid', 'supplies'],
     contact: {
       general: {
         web: {
           Website:
-            'https://www.kystudentenvironmentalcoalition.org/covid-19-mutual-aid.html',
+            'https://docs.google.com/document/d/1G5JcyxmywcTdNeaSGxUNycl9mtCdGkF4MYPVxEBH4SY/mobilebasic?urp=gmail_link',
         },
-      },
-    },
-    loc: LOCATIONS.USA.KY,
-  },
-  {
-    contentTitle: 'Covid 19 Mutual Aid Lexington Kentucky',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
-    contact: {
-      general: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
-        },
-      },
-      volunteers: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
-        },
+        email: ['celesteperilla@gmail.com'],
       },
       getHelp: {
         web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
-        },
-      },
-    },
-    loc: LOCATIONS.USA.KY_LEXINGTON,
-  },
-  {
-    contentTitle: 'Mutual Aid Louisville',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
-    contact: {
-      general: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+          Website:
+            'https://docs.google.com/document/d/1G5JcyxmywcTdNeaSGxUNycl9mtCdGkF4MYPVxEBH4SY/mobilebasic?urp=gmail_link',
         },
       },
       volunteers: {
+        email: ['celesteperilla@gmail.com'],
         web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
-        },
-      },
-      getHelp: {
-        web: {
-          Form:
-            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+          Website:
+            'https://drive.google.com/drive/u/0/folders/1PcTEcMtjdLzak7C_ty6e-5pHM_LHJu9J',
         },
       },
     },
-    loc: LOCATIONS.USA.KY_LOUSVILLE,
+    loc: LOCATIONS.USA.MD_BALTIMORE,
+  },
+  {
+    contentTitle: 'BENZIE COUNTY COVID-19 RESOURCES AND NEEDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/document/d/1FYcqcbY2qMuuy75GIIM9UuqvFR_-YlVKfFcrqJOy9mw/edit?fbclid=IwAR1Lfd0mZrm4GgqOwmcXAeJGnTLUEQ0wmooezGvgnVYjXvKEZT8EYPU2tUI',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Homestead Township, MI, USA',
+      lat: 44.633482,
+      lng: -85.98999,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'GRAND RAPIDS AREA PANDEMIC RESOURCES',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/209101217168617/',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/1tVSwz0xYnrDJEjk3MWU32eS6q0eE5TSA0jOUL-frKcA/viewform?ts=5e766a19&fbclid=IwAR0Od69ftV6DJlqNpr_6knR6SQexBbZyodz2Mgi3k_C9HbNU318hTEJZGa4&edit_requested=true#responses',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Alpine Township, MI, USA',
+      lat: 43.086943,
+      lng: -85.740738,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'WASHTENAW COUNTY MUTUAL AID + RESOURCES',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/2424471741198383/',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Freedom Township, MI, USA',
+      lat: 42.208176,
+      lng: -83.987732,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'SAUGATUCK/DOUGLAS SECOND RESPONDERS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: 'https://sdvolunteers.com/' },
+        email: [],
+        facebookGroup: '',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdKd62iT4GEWLACz9tJnekgh4iWxiVOVHxjBqiV1469B8JFnw/viewform',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Saugatuck, MI 49453, USA',
+      lat: 42.658494,
+      lng: -86.205861,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle:
+      'GRAND TRAVERSE BAND OF OTTAWA AND CHIPPEWA INDIANS MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: ['petosjoh@umich.edu'],
+        facebookGroup: '',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Suttons Bay Township, MI, USA',
+      lat: 44.995845,
+      lng: -85.65501,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'KALAMAZOO MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/225779971877883/',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeW-Dmt_Z_QPu81ad0jo5gs4vjx2zREupOmdoLnn2JBntapGg/viewform',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Southside, Kalamazoo, MI, USA',
+      lat: 42.274765,
+      lng: -85.588179,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'SOUTHWEST MICHIGAN MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/3137606989603526/',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Wayne Township, MI, USA',
+      lat: 42.032974,
+      lng: -86.044922,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'BAY MILLS INDIAN COMMUNITY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://docs.google.com/spreadsheets/u/1/d/1CduPghNgY92MufdZDoYjkcjmbYp-l_43EQPRhxlmVPU/htmlview?fbclid=IwAR0tCQI5Av8UgCe5XVcW_cb9TQarlhFoiJO4LcU90FF39JEnNic7F3FrnMc',
+        },
+        email: [],
+        facebookGroup: '',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Bay Mills Township, MI, USA',
+      lat: 46.444495,
+      lng: -84.745826,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'SPARK IN THE DARK',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/sparkinthedark/',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'East Bay Township, MI, USA',
+      lat: 44.735028,
+      lng: -85.523071,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'COMBATING COVID IN SOUTHWEST DETROIT',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdrdIvdO3AHzCJBXloy-KExxQabrMUSbr_xgo4Y9NBI-GHnTA/viewform',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Detroit, MI, USA',
+      lat: 42.332174,
+      lng: -83.11068,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'MUTUAL AID OF NORTHWEST MICHIGAN',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup:
+          'https://www.facebook.com/groups/784134155443201/?hc_location=ufi',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Traverse City, MI, USA',
+      lat: 44.736979,
+      lng: -85.567017,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'DETROIT-BASED COVID-19 MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/2554127328195074/',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/spreadsheets/d/1-m6QBgqejlk2h6uJ0WGkphZuZ5MR3-uWCkv2vSZcHY8/edit?fbclid=IwAR2dcKuYe-I787XJLyl2I6DtTrPMrfxTkdPRQT6VE59CdoykxNOBgMvGIHs#gid=1526320049',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Dexter Linwood, Detroit, MI, USA',
+      lat: 42.383444,
+      lng: -83.10232,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'The MUTUAL AID NETWORK OF YPSILANTI (MANY)',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: { Volunteer: 'https://www.facebook.com/ypsimutualaid' },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Ypsilanti, MI, USA',
+      lat: 42.236398,
+      lng: -83.61866,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'GRAND RAPIDS AREA COVID-19 MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/GRAMutAid/',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSclYE9PAOHDVJi-lIGMFrdmOYq7s-NiFgHA9q6zTpxcaJVcLg/viewform?fbclid=IwAR1wbfk2GSK4phL97Ny1etdVGm7fGUsQnkx7AH15-1Y-loLR-hSa6lqeVHQ',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Heritage Hill, Grand Rapids, MI 49503, USA',
+      lat: 42.96146,
+      lng: -85.655716,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'OAKLAND COUNTY COVID RESPONSE',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: 'https://www.mycovidresponse.org/' },
+        email: [],
+        facebookGroup: '',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: { Volunteer: 'https://www.mycovidresponse.org/signup/' },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Waterford Twp, MI, USA',
+      lat: 42.660276,
+      lng: -83.385791,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'CHARLEVOIX COUNTY HELPING HANDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/696771177745067/',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Charlevoix, MI 49720, USA',
+      lat: 45.319323,
+      lng: -85.256653,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'PONTIAC CORONAVIRUS EMERGENCY RELIEF FOOD/SUPPLIES',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.signupgenius.com/go/30e0b48aaa628a13-drive',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Pontiac, MI, USA',
+      lat: 42.649252,
+      lng: -83.287809,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'YOOPERS HELPING YOOPERS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://docs.google.com/spreadsheets/d/1-WZDwFkAKEyECe3fG07EgZ5J1vOKgtKJG93eyYW5lx8/edit?fbclid=IwAR0ml-9cpxfgIOOrex7O4jxAHFb10dupGmA4oHZGhm-MPseLL5FOhuqNIj8#gid=0',
+        },
+        email: [],
+        facebookGroup: '',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: { email: [], web: {} },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Quincy Township, MI 49930, USA',
+      lat: 47.129951,
+      lng: -88.582764,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'LEONI TOWNSHIP MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/144130126892991/',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Leoni Township, MI, USA',
+      lat: 42.260795,
+      lng: -84.293804,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'GRAND TRAVERSE COUNTY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLScfSUoYchrIXnzTCdDIwsM-2YGa04XzTLE6xU5SGezE6rI1OA/viewform',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'East Bay Township, MI, USA',
+      lat: 44.668581,
+      lng: -85.56058,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'FEED THE NEED ALLEGAN COUNTY',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer: 'https://www.facebook.com/groups/886253631847481/',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Allegan Township, MI 49010, USA',
+      lat: 42.5913,
+      lng: -85.888462,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'HURON VALLEY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdhW2voPOll9Jmy_QR0AXk1Pge1JGn3tByJ-SlPfKNsMjcHLg/viewform',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Lakewood, Ann Arbor, MI 48103, USA',
+      lat: 42.253197,
+      lng: -83.83878,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'KALKASKA RESPONSE TEAM',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://elizabethannedunha.wixsite.com/kalkaskaresponseteam?fbclid=IwAR09WdGWtqzgC63_kaaN4ZoZvah4hTM521lOy_HvOnYw_PEfM0eG3BMAWQE',
+        },
+        email: [],
+        facebookGroup: '',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdTo09tnTPEUXfIBF9AudVIcb2EeDYggWYTvnRVeHuByZqrAw/viewform',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Oliver Township, MI, USA',
+      lat: 44.684592,
+      lng: -85.090253,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'ANTRIM COUNTY MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/2228122717494765',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSckdiDnfMenlqmraSxU7PjKi3M1GWK66E5GQsWnBIfd79Zx-A/viewform',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Kearney Township, MI, USA',
+      lat: 44.99904,
+      lng: -85.140227,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'LANSING AREA MUTUAL AID',
+    services: ['aid', 'information'],
+    contact: {
+      general: { web: { Website: '' }, email: [], facebookGroup: '' },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/1Du9AJTV6Z4uZ5Kmi6fBcE6_WN1RFPPaBmCpPYUUAEf4/viewform?edit_requested=true',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Downtown, Lansing, MI, USA',
+      lat: 42.73418,
+      lng: -84.552549,
+      serviceRadius: 20000,
+    },
+  },
+  {
+    contentTitle: 'EMMET COUNTY HELPING HANDS',
+    services: ['aid', 'information'],
+    contact: {
+      general: {
+        web: { Website: '' },
+        email: [],
+        facebookGroup: 'https://www.facebook.com/groups/234362584615594',
+      },
+      getHelp: { email: [], web: {} },
+      volunteers: {
+        email: [],
+        web: {
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSc1HSE7-la427QVGIDV27an6QaK7rNA-oSwRjv5YWingpbrJA/viewform?fbclid=IwAR3wHmqwTou2MRW1e6kg_y6wcSRr8ncyt245ssz_-gaSvVrtgB-n_eQAiX4',
+        },
+      },
+    },
+    contentBody: '',
+    loc: {
+      description: 'Pleasantview Township, MI, USA',
+      lat: 45.52057,
+      lng: -84.890727,
+      serviceRadius: 20000,
+    },
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
@@ -1497,6 +1930,63 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
       },
     },
     loc: LOCATIONS.USA.VA_NORFOLK,
+  },
+  {
+    contentTitle: 'Northern Va COVID-19 Craziness Supply Exchange',
+    contentBody: `This group is for people located in Northern Virginia to join and post if they are in need of supplies or food. anything from diapers to soap to bread and milk... some of us may have more than we need of something and be running out of other things. if you have extras your willing to part with the actual value of the item and not for profit or for trade ..if you see grocery stores that have supplies, or if you are in need of anything at all..especially if you or someone you know has nothing to eat or an elderly person in need . please post here.
+this is a friendly no judgement zone.
+if you are shy or embarrassed to post something you need. Direct Message me Rachel Picon and I will find a way to get you whatever it is :)
+please invite your friends in the northern va region to join! the more people sticking together the better!!
+stay safe and be well! and remember we are not alone!`,
+    services: ['aid', 'food', 'mobility', 'supplies', 'information'],
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
+      },
+      getHelp: {
+        facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
+      },
+      volunteers: {
+        facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
+      },
+    },
+    loc: LOCATIONS.USA.VA_NOVA,
+  },
+  {
+    contentTitle: 'Corona Aid 757',
+    contentBody: `Helping Hampton Roads Weather the COVID19 Crisis 
+We are a group of autonomous disaster relief workers attempting to alleviate stress and slow/stop the spread of Coronavirus/COVID-19 in our community. If you are in need of assistance with groceries and medical supplies, physical and mental health check-ins, or any other type of errand, follow this link to submit a request.
+If you are a low-risk individual with transportation and time to spare, sign up here to help the more vulnerable members of our community.`,
+    services: ['food', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'http://coronaaid757.com/',
+          PayPal: '',
+          Cashapp: 'https://cash.app/$757mutualaid',
+        },
+        email: ['coronaaid757@gmail.com'],
+        phone: ['+1 757 598 1480', '+1 757 598 1480 (para espanol)'],
+        facebookGroup: 'https://www.facebook.com/groups/510830746536540',
+      },
+      getHelp: {
+        email: ['CoronaAid757@gmail.com'],
+        phone: ['+1 757 598 1480', '+1 757 598 1480 (para espanol)'],
+        web: {
+          'Request Service':
+            'https://docs.google.com/forms/d/e/1FAIpQLSd9YBCXcnk-vLWVWhMcVgxFm0clrTKKVmli_qVsbpn4ncUQCA/viewform',
+        },
+      },
+      volunteers: {
+        email: ['CoronaAid757@gmail.com'],
+        web: {
+          Donate: 'http://coronaaid757.com/donate/',
+          Volunteer:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdmxE431orW5JZSS6kNWbGlExB8aasGodccb3aIKatxTMB2lg/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.MD_BALTIMORE,
   },
   {
     contentTitle:
