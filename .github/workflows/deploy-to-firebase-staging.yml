@@ -1,6 +1,8 @@
 name: Deploy to Staging
 
-on: push
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   deploy-staging:
@@ -21,6 +23,6 @@ jobs:
       - name: Build
         run: yarn workspaces run build
 
-      - name: Deploy Dev
+      - name: Deploy
         run: |
           yarn run firebase --token "${{secrets.FIREBASE_TOKEN}}" deploy -P reach4help-staging
