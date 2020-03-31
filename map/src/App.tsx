@@ -1,20 +1,17 @@
-import React from 'react';
 import isEqual from 'lodash/isEqual';
-
-import styled, { SMALL_DEVICES } from './styling';
-
-import { Filter } from './data';
+import React from 'react';
 
 import AddInstructions from './components/add-instructions';
 import { FilterMutator } from './components/filters';
-import Header from './components/header';
 import Footer from './components/footer';
+import Header from './components/header';
 import Map, { NextResults } from './components/map';
-import Results from './components/results';
 import MapLoader from './components/map-loader';
+import Results from './components/results';
 import Search from './components/search';
-
+import { Filter } from './data';
 import { MarkerInfo } from './data/markers';
+import styled, { SMALL_DEVICES } from './styling';
 
 interface Props {
   className?: string;

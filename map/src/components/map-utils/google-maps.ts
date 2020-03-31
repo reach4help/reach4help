@@ -1,6 +1,6 @@
 import { parseQueryString } from './query-string';
 
-export function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
+export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
   const query = parseQueryString();
   return new google.maps.Map(ref, {
     zoom: query.map ? query.map.zoom : 3,
@@ -10,12 +10,12 @@ export function createGoogleMap(ref: HTMLDivElement): google.maps.Map {
     clickableIcons: false,
     mapTypeControl: false,
   });
-}
+};
 
-export function haversineDistance(
+export const haversineDistance = (
   latLng1: google.maps.LatLng,
   latLng2: google.maps.LatLng,
-): number {
+): number => {
   const lon1 = latLng1.lng();
   const lon2 = latLng2.lng();
   const radlat1 = (Math.PI * latLng1.lat()) / 180;
@@ -30,31 +30,32 @@ export function haversineDistance(
   dist = dist * 60 * 1.1515;
   dist *= 1609.344; // for meters
   return dist;
-}
+};
 
-export function generateSortBasedOnMapCenter(mapCenter: google.maps.LatLng) {
-  return (a: google.maps.Marker, b: google.maps.Marker): number => {
-    const aPosition = a.getPosition();
-    const bPosition = b.getPosition();
+export const generateSortBasedOnMapCenter = (mapCenter: google.maps.LatLng) => (
+  a: google.maps.Marker,
+  b: google.maps.Marker,
+): number => {
+  const aPosition = a.getPosition();
+  const bPosition = b.getPosition();
 
-    if (aPosition && bPosition) {
-      const aFromCenter = haversineDistance(aPosition, mapCenter);
-      const bFromCenter = haversineDistance(bPosition, mapCenter);
+  if (aPosition && bPosition) {
+    const aFromCenter = haversineDistance(aPosition, mapCenter);
+    const bFromCenter = haversineDistance(bPosition, mapCenter);
 
-      if (aFromCenter > bFromCenter) {
-        return 1;
-      }
-      if (aFromCenter < bFromCenter) {
-        return -1;
-      }
-      return 0;
-    }
-    if (!aPosition) {
-      return -1;
-    }
-    if (!bPosition) {
+    if (aFromCenter > bFromCenter) {
       return 1;
     }
+    if (aFromCenter < bFromCenter) {
+      return -1;
+    }
     return 0;
-  };
-}
+  }
+  if (!aPosition) {
+    return -1;
+  }
+  if (!bPosition) {
+    return 1;
+  }
+  return 0;
+};

@@ -39,7 +39,9 @@ interface LoginProps {
   onLoginFacebook: Function;
 }
 
-const Login: React.FC<LoginProps> = ({ onLoginFacebook }): React.ReactElement => {
+const Login: React.FC<LoginProps> = ({
+  onLoginFacebook,
+}): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

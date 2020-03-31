@@ -1,18 +1,18 @@
-import React from 'react';
 import isEqual from 'lodash/isEqual';
-
+import React from 'react';
+import { MdRefresh } from 'react-icons/md';
 import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
-import { MdRefresh } from 'react-icons/md';
+
+import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
-import { MARKERS, MarkerInfo } from '../data/markers';
-import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 import {
   createGoogleMap,
-  haversineDistance,
   generateSortBasedOnMapCenter,
+  haversineDistance,
 } from './map-utils/google-maps';
 import infoWindowContent from './map-utils/info-window';
+import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
 interface MapInfo {
   map: google.maps.Map;
@@ -36,20 +36,18 @@ interface MapInfo {
       };
 }
 
-function getInfo(marker: google.maps.Marker): MarkerInfo {
-  return marker.get('info');
-}
+const getInfo = (marker: google.maps.Marker): MarkerInfo => marker.get('info');
 
-function updateMarkersVisiblilityUsingFilter(
+const updateMarkersVisiblilityUsingFilter = (
   markers: Map<MarkerInfo, google.maps.Marker>,
   filter: Filter,
-) {
+) => {
   for (const marker of markers.values()) {
     const info = getInfo(marker);
     const visible = !filter.service || info.services.includes(filter.service);
     marker.setVisible(visible);
   }
-}
+};
 
 interface Props {
   className?: string;

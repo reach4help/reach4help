@@ -7,16 +7,20 @@ import { AppState } from 'src/store';
 
 import { LoginRedirectProps } from './constants';
 
-const LoginContainer: React.FC<LoginRedirectProps> = ({ redirectBack = '/' }) => {
+const LoginContainer: React.FC<LoginRedirectProps> = ({
+  redirectBack = '/',
+}) => {
   const dispatch = useDispatch();
   const token = useSelector((state: AppState) => state.auth.token);
   const history = useHistory();
 
   const handleLoginFacebook = (values: any) => {
-    dispatch(loginAction({
-      facebookAuthToken: values.accessToken,
-      userId: values.userID,
-    }));
+    dispatch(
+      loginAction({
+        facebookAuthToken: values.accessToken,
+        userId: values.userID,
+      }),
+    );
   };
 
   if (token) {
@@ -30,7 +34,6 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({ redirectBack = '/' }) =>
   );
 };
 
-LoginContainer.propTypes = {
-};
+LoginContainer.propTypes = {};
 
 export default LoginContainer;

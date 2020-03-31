@@ -8,6 +8,4 @@ export const loginAction = (payload: LoginAction) => (dispatch: Function) => {
     payload,
     api: login,
   });
-
 };
-

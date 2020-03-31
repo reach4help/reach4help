@@ -2,9 +2,10 @@ import HTTPRequest, { IHTTPRequest } from '../../http/HTTPRequest';
 
 const request: IHTTPRequest = HTTPRequest.getInstance();
 
-const injectRequestMiddleware = ({ dispatch }: { dispatch: Function }) => (next: Function) => async (action: Record<string, any>) => {
+const injectRequestMiddleware = ({ dispatch }: { dispatch: Function }) => (
+  next: Function,
+) => async (action: Record<string, any>) => {
   if (action.api && typeof action.api === 'function') {
-
     dispatch({
       type: `${action.type}_PENDING`,
       payload: action.payload,
@@ -19,7 +20,6 @@ const injectRequestMiddleware = ({ dispatch }: { dispatch: Function }) => (next:
         meta: action.payload,
         api: action.api,
       });
-
     } catch {
       return next({
         type: `${action.type}_REJECTED`,

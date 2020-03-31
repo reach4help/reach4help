@@ -3,13 +3,13 @@ import { StaticQuery, graphql } from 'gatsby';
 import { Heading, Flex, Box, Image, Link } from 'rebass';
 import styled from 'styled-components';
 import { SectionLink } from 'react-scroll-section';
-
-const colors = require('../../colors');
 import Section from '../components/Section';
 import SocialLink from '../components/SocialLink';
 import MouseIcon from '../components/MouseIcon';
 import Triangle from '../components/Triangle';
 import logo from '../images/logo.svg';
+
+const colors = require('../../colors');
 
 const Background = () => (
   <div>

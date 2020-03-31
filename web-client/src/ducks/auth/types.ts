@@ -5,6 +5,6 @@ const { asyncType } = createActionTypeFactory('AUTH');
 export const LOGIN = asyncType('LOGIN');
 
 export interface LoginAction {
-    facebookAuthToken: string;
-    userId: string;
+  facebookAuthToken: string;
+  userId: string;
 }

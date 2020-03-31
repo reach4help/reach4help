@@ -1,6 +1,7 @@
 import React from 'react';
-import { SERVICES, isService, Filter } from 'src/data';
+import { Filter, isService, SERVICES } from 'src/data';
 import { buttonPrimary } from 'src/styling/mixins';
+
 import styled from '../styling';
 
 export type FilterMutator = (filter: Filter) => Filter;
