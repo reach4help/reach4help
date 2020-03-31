@@ -34,7 +34,12 @@ const Info = styled(Text)`
 const FacebookContainer = styled.div`
   padding-top: 80px;
 `;
-const LoginIntro: React.FC = (): React.ReactElement => {
+
+interface LoginProps {
+  onLoginFacebook: Function;
+}
+
+const Login: React.FC<LoginProps> = ({ onLoginFacebook }): React.ReactElement => {
   const { t } = useTranslation();
 
   return (
@@ -44,10 +49,10 @@ const LoginIntro: React.FC = (): React.ReactElement => {
       <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
       <Info>{t('login.info')}</Info>
       <FacebookContainer>
-        <FacebookLoginButton />
+        <FacebookLoginButton onAuthenticate={onLoginFacebook} />
       </FacebookContainer>
     </StyledIntro>
   );
 };
 
-export default LoginIntro;
+export default Login;

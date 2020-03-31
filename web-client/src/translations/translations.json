@@ -13,6 +13,12 @@
         "title": "Welcome",
         "sub_title": "Enter your telephone number to begin",
         "info": "This information is fundamental to validate your account. Data and rates may apply."
+      },
+      "loading": {
+        "title": "Your request has been created.\n You will be contacted by one of our volunteers shortly.",
+        "pleaseWaitLabel": "Please wait...",
+        "tip_title": "Remember",
+        "tip_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
       }
     }
   },
@@ -29,6 +35,12 @@
         "title": "Bem-vindo",
         "sub_title": "Introduza o seu número de telefone para começar",
         "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas."
+    },
+      "loading": {
+        "title": "O seu pedido foi criado. \n Brevemente será contactado por um dos nossos voluntários.",
+        "pleaseWaitLabel": "Aguarde por favor...",
+        "tip_title": "Lembrete",
+        "tip_info": "Assim que um voluntário oferecer ajuda, deve aceitar a sua ajuda para que ele consiga ver os seus contactos"
       }
     }
   }

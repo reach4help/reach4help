@@ -16,10 +16,16 @@ export interface ContactDetails {
  * See the LOCATIONS array.
  */
 export interface Location {
-  description: string; // Human readable name for the location -- displayed on the web.
+  /**
+   * Human readable name for the location -- displayed on the web.
+   */
+  description: string;
   lat: number;
   lng: number;
-  serviceRadius: number; // Measured in Meters (per Google Maps standard)
+  /**
+   *  Measured in Meters (per Google Maps standard)
+   */
+  serviceRadius: number;
 }
 
 /**
@@ -28,19 +34,28 @@ export interface Location {
  * It contains an array of services
  */
 export interface MarkerInfo {
-  // name of the organization or community effort
+  /** name of the organization or community effort */
   contentTitle: string;
-  // description of the organization or community effort
+  /** description of the organization or community effort */
   contentBody?: string;
-  // a list of services provided -- at least one is required
+  /** a list of services provided -- at least one is required */
   services: Service[];
-  // Three contact detail objects cover various opportunities available at each organization
+  /**
+   * the different avenues with which to contact an organization,
+   * depending on your desired involvement
+   */
   contact: {
-    general?: ContactDetails; // For general info
-    getHelp?: ContactDetails; // For showcasing how those who need help can interact with the organization
-    volunteers?: ContactDetails; // For showcasing how those who want to help can interact with the organization
+    /** general contact information */
+    general?: ContactDetails;
+    /** details of how those that need help can interact with the organization  */
+    getHelp?: ContactDetails;
+    /** details of how those who want to help can interact with the organization  */
+    volunteers?: ContactDetails;
   };
-  loc: Location; // The location data for this organization
+  /**
+   * The location data for this organization
+   */
+  loc: Location;
 }
 
 const LOCATIONS = {
@@ -151,11 +166,132 @@ const LOCATIONS = {
       lng: -119.078374,
       serviceRadius: 55000,
     },
-    DC_ANACOSTIA: {
-      description: 'Anacostia, Washington, D.C.',
-      lat: 38.863245,
-      lng: -76.984917,
-      serviceRadius: 30000,
+    CO: {
+      description: 'Colorado',
+      lat: 39.026468,
+      lng: -105.414834,
+      serviceRadius: 308820,
+    },
+    CO_AURORA: {
+      description: 'Aurora, Colorado',
+      lat: 39.71408,
+      lng: -104.70603,
+      serviceRadius: 17700,
+    },
+    CO_BOULDER: {
+      description: 'Boulder, Colorado',
+      lat: 40.014671,
+      lng: -105.282252,
+      serviceRadius: 12160,
+    },
+    CO_DENVER: {
+      description: 'Denver, Colorado',
+      lat: 39.727881,
+      lng: -104.992892,
+      serviceRadius: 31500,
+    },
+    CO_SPRINGS: {
+      description: 'Colorado Springs, Colorado',
+      lat: 38.825097,
+      lng: -104.823277,
+      serviceRadius: 24200,
+    },
+    CO_DURANGO_LA_PLATA: {
+      description: 'Durango & La Plata County, Colorado',
+      lat: 37.310604,
+      lng: -107.884585,
+      serviceRadius: 55030,
+    },
+    CO_GRAND_JUNCTION: {
+      description: 'Grand Junction, Colorado',
+      lat: 39.07661,
+      lng: -108.554731,
+      serviceRadius: 11820,
+    },
+    CT_HBWNH: {
+      description:
+        'Connecticut: Hartford, Bridgeport, Waterbury, and New Haven',
+      lat: 41.480676,
+      lng: -72.919991,
+      serviceRadius: 43720,
+    },
+    CT_NEW_HAVEN: {
+      description: 'New Haven, Connecticut',
+      lat: 41.305505,
+      lng: -72.93047,
+      serviceRadius: 7300,
+    },
+    CT_NEW_LONDON: {
+      description: 'New London, Connecticut',
+      lat: 41.352049,
+      lng: -72.091404,
+      serviceRadius: 5190,
+    },
+    DC: {
+      description: 'District of Columbia / Washington',
+      lat: 38.897851,
+      lng: -77.030027,
+      serviceRadius: 10310,
+    },
+    FL_GAINESVILLE: {
+      description: 'Gainesville, Florida',
+      lat: 29.670145,
+      lng: -82.342751,
+      serviceRadius: 12530,
+    },
+    FL_TAMPA: {
+      description: 'Tampa, Florida',
+      lat: 27.996837,
+      lng: -82.424077,
+      serviceRadius: 25250,
+    },
+    GA_ATHENS: {
+      description: 'Athens, Georgia',
+      lat: 33.944255,
+      lng: -83.372645,
+      serviceRadius: 14660,
+    },
+    IL_CHICAGO: {
+      description: 'Chicago, Illinois',
+      lat: 41.856756,
+      lng: -87.628718,
+      serviceRadius: 32460,
+    },
+    IN: {
+      description: 'Indiana',
+      lat: 39.72427,
+      lng: -86.15267,
+      serviceRadius: 263360,
+    },
+    IN_MONROE_COUNTY: {
+      description: 'Monroe County, Indiana',
+      lat: 39.161021,
+      lng: -86.527803,
+      serviceRadius: 22290,
+    },
+    KS_KANSAS_CITY: {
+      description: 'Kansas City, Kansas',
+      lat: 39.085067,
+      lng: -94.580735,
+      serviceRadius: 43890,
+    },
+    KY: {
+      description: 'Kentucky',
+      lat: 37.513389,
+      lng: -85.259611,
+      serviceRadius: 382260,
+    },
+    KY_LEXINGTON: {
+      description: 'Lexington, Kentucky',
+      lat: 38.048063,
+      lng: -84.499267,
+      serviceRadius: 27510,
+    },
+    KY_LOUSVILLE: {
+      description: 'Louisville, Kentucky',
+      lat: 38.266396,
+      lng: -85.760549,
+      serviceRadius: 35040,
     },
     VT_BARRE: {
       description: 'Greater Barre, Vermont',
@@ -631,7 +767,595 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
         phone: ['+1 202 630 0336'],
       },
     },
-    loc: LOCATIONS.USA.DC_ANACOSTIA,
+    loc: LOCATIONS.USA.DC,
+  },
+  {
+    contentTitle: 'Front Range Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      getHelp: {
+        web: {
+          Form: 'http://bit.ly/getcovidaidcolorado',
+        },
+      },
+      volunteers: {
+        web: {
+          Form: 'http://bit.ly/covidaidcolorado',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO,
+  },
+  {
+    contentTitle: 'Mutual Aid Infrastructure- Aurora, Colorado',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/2704399092941296/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CO_AURORA,
+  },
+  {
+    contentTitle: 'Boulder Coronavirus Community Coping Crew',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/199467514668513/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CO_BOULDER,
+  },
+  {
+    contentTitle: 'COS Mutual Aid Network = Red de Ayuda Mutua en COS',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/580039515935157/?ref=share',
+        web: {
+          Etherpad:
+            'https://pad.disroot.org/p/COS_Mutual_Aid_Links?fbclid=IwAR1cl_yvgZXzlRXKmzksgxa0Evbb8cn-2hcxeH1Bcidup1VzeT4HwjyLm50',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO_SPRINGS,
+  },
+  {
+    contentTitle: 'CV19 Quarantine Delivery Taskforce',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/1750449275097011/?ref=share',
+        web: {
+          'Logistics Document':
+            'https://docs.google.com/document/d/198HdHPMreqPaWhsFjQjVWl-qx9rcik1vIPOYvR5Kiig/edit',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO_DENVER,
+  },
+  {
+    contentTitle: 'Help Needed in Denver Metro',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/516631032588738/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CO_DENVER,
+  },
+  {
+    contentTitle:
+      'Durango & La Plata County Area Donation Opportunities + Community & Information Resources',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+      'financial',
+    ],
+    contact: {
+      general: {
+        web: {
+          'Main Document':
+            'https://docs.google.com/document/d/1odc1Vtb8StICRLBHEC9bvOJyFUQYkHjaBwqaLa1iap8/edit',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO_DURANGO_LA_PLATA,
+  },
+  {
+    contentTitle: 'Be KIND Durango CO',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/beKINDurango/',
+      },
+    },
+    loc: LOCATIONS.USA.CO_DURANGO_LA_PLATA,
+  },
+  {
+    contentTitle: 'Stand Together Durango COVID19',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/2710235775748052/?ref=group_header',
+      },
+    },
+    loc: LOCATIONS.USA.CO_DURANGO_LA_PLATA,
+  },
+  {
+    contentTitle: 'Grand Junction Mutual Aid #grandjunctionmutualaid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/606348506878942/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CO_GRAND_JUNCTION,
+  },
+  {
+    contentTitle: 'Mutual Aid Waterbury, Bridgeport, New Haven',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          English: 'http://bit.ly/2Wg2pvc',
+          Español: 'http://bit.ly/38N1Z24',
+          عربى:
+            'https://docs.google.com/document/d/1FqsjuQxZltQD1e-24ZYSzu8qKsw7OfjzuZQfpKy4yiM/edit',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSftDN2mV9dCv_5uF2n341h21hNfT80bzNYmVJQaBFHUvi909A/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          'Offerings Form':
+            'https://docs.google.com/forms/d/e/1FAIpQLSeWN1V25kvvY-zO5yNpeLf1_VpFVfz1RXntPw98TBin3g0GXw/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CT_HBWNH,
+  },
+  {
+    contentTitle:
+      'Información y apoyo mutuo durante el coronavirus: New Haven, Connecticut',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/apoyo.mutuo.new.haven/?ref=share',
+        web: {
+          Newsletter: 'https://ulanewhaven.org/informacion-coronavirus/',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CT_NEW_HAVEN,
+  },
+  {
+    contentTitle: 'New London Mutual Aid Collective - Community Network',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/646521702359874/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.CT_NEW_LONDON,
+  },
+  {
+    contentTitle: 'DC Mutual Aid Network',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/492881801379594/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.DC,
+  },
+  {
+    contentTitle: 'Gainesville COVID-19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/243135496869312/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.FL_GAINESVILLE,
+  },
+  {
+    contentTitle: 'Mutual Aid Greater Tampa - Resources and Information',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          'Google Doc':
+            'https://docs.google.com/document/d/1qSt4xTJpEZ0pa5-ZxbUi5WZX5w6JI4Do8u4zU6nENLg/edit',
+          'Google Drive':
+            'https://drive.google.com/drive/folders/1dCGSfkz8pQwJj2bjiCXk3FiWGbtwEofW',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.FL_TAMPA,
+  },
+  {
+    contentTitle: 'Tampa Mutual Aid Response- Coronavirus',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Document:
+            'https://docs.google.com/document/d/1opIYkD-cXzUu2tLp59EkktPHExZeBqPN9k7i107X3UE/mobilebasic',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.FL_TAMPA,
+  },
+  {
+    contentTitle: 'Athens Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLScLk5cBYHJzwNbkh78mOErATlOKuUQtxY7U-iXxx26l-u8YdA/viewform',
+          Website: 'https://www.skinsandclaystudio.com/',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.GA_ATHENS,
+  },
+  {
+    contentTitle: 'COVID-19 Mutual Aid Volunteer Sign-up',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd0MK1dnny1BTlzvohuRlnlC6fHqXKqez0hrZJLuZ6F4-qu9w/viewform?fbclid=IwAR2Hv2nPiztvHDf3Np_ncwJh3os4V0-k0xmS6cSLk5uR7w3pysPDar_5OfE',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IL_CHICAGO,
+  },
+  {
+    contentTitle: '73.5 Neighborhood Resource Pool',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfF1NPewbkuQSQynD1cFad0zgTPhhervhMH-VBRNRqhW-T33w/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IL_CHICAGO,
+  },
+  {
+    contentTitle: 'Indiana Music Industry Relief Fund',
+    contentBody: `A relief fund for women-identifying and non-binary musicians, music industry professionals, non-profit music organizations, based in the state of Indiana that are affected by loss of work, cancellations, and loss of revenue due to COVID-19.`,
+    services: ['financial'],
+    contact: {
+      general: {
+        web: {
+          'Main Website': 'https://www.midwaymusicspeaks.org/imirf',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IN,
+  },
+  {
+    contentTitle: 'Monroe County Area Mutual Aid for Covid-19',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/243876030127431/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.IN_MONROE_COUNTY,
+  },
+  {
+    contentTitle: 'No Space for Hate COVID 19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Resources:
+            'https://docs.google.com/document/d/1_kQWB9Yns0WhqdNvOvdHb99daJEvTbwbaWZgFyoHOuE/edit',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd-No5BLo6y-9ubpTnQAzFyOk7Q7gwel7iLpD-7Q9gpPF36sg/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSd-No5BLo6y-9ubpTnQAzFyOk7Q7gwel7iLpD-7Q9gpPF36sg/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.IN_MONROE_COUNTY,
+  },
+  {
+    contentTitle: 'Strawberry Hill Coronavirus Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        facebookGroup:
+          'https://www.facebook.com/groups/136824581089511/?ref=share',
+      },
+    },
+    loc: LOCATIONS.USA.KS_KANSAS_CITY,
+  },
+  {
+    contentTitle:
+      'Kentucky Student Environmental Coalition, COVID-19 Mutual Aid',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://www.kystudentenvironmentalcoalition.org/covid-19-mutual-aid.html',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY,
+  },
+  {
+    contentTitle: 'Covid 19 Mutual Aid Lexington Kentucky',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSeP4koOM1yO-tb6VicTWjZhCHTSrarceghikJROf6QL2Nc8eQ/viewform?fbclid=IwAR36e-f2AdpyseehKsQ-0NqfPLyOV-2PP0d6d3rEDgZO2O_u1ykne77n2po',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY_LEXINGTON,
+  },
+  {
+    contentTitle: 'Mutual Aid Louisville',
+    services: [
+      'aid',
+      'mobility',
+      'food',
+      'supplies',
+      'medicine',
+      'information',
+    ],
+    contact: {
+      general: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+      volunteers: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+      getHelp: {
+        web: {
+          Form:
+            'https://docs.google.com/forms/d/e/1FAIpQLSdoUHjttKCV5tiTNbBh5Ym5C9MwFWt9S5wFeo_Yz42jKwWALw/viewform',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.KY_LOUSVILLE,
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',

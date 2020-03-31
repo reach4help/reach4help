@@ -1,5 +1,5 @@
-import example from './example';
+import auth from './auth/reducer';
 
 export default {
-  example,
+  auth,
 };
