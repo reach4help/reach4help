@@ -50,7 +50,8 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "eslint . --fix --ext .js,.ts,.tsx"
+      "eslint . --fix --ext .js,.ts,.tsx",
+      "prettier --write"
     ],
     "*.md": [
       "prettier --write"
