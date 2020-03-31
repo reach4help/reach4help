@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const StyledIntro = styled.div`
   display: flex;
-  flex-grow : 5;
+  flex-grow: 5;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -27,7 +27,7 @@ const StyledIntro = styled.div`
 
 const Footer = styled.div`
   display: flex;
-  flex-grow : 1;
+  flex-grow: 1;
   background: rgba(0, 0, 0, 0.05);
   flex-direction: column;
   align-items: center;

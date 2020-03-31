@@ -12,11 +12,9 @@ const StyledCard = styled(Card)`
   overflow-y: scroll;
 `;
 
-const CenteredCard: React.FC<CenteredScreenProps> = ({ children }): React.ReactElement => (
-  <StyledCard>
-    {children}
-  </StyledCard>
-);
+const CenteredCard: React.FC<CenteredScreenProps> = ({
+  children,
+}): React.ReactElement => <StyledCard>{children}</StyledCard>;
 
 interface CenteredScreenProps {
   children: React.ReactNode;

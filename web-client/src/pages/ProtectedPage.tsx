@@ -20,9 +20,7 @@ const ProtectedPage: React.FC<ProtectedPageProps> = ({ children }) => {
     });
     return null;
   }
-  return (
-    <>{children}</>
-  );
+  return <>{children}</>;
 };
 
 export default ProtectedPage;

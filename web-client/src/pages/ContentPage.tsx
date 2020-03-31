@@ -1,8 +1,5 @@
 import React, { ReactElement } from 'react';
-import {
-  Route,
-  BrowserRouter as Router,
-} from 'react-router-dom';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 const ContentPage = (): ReactElement => (
   <Router>
