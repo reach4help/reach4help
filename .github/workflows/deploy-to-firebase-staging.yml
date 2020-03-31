@@ -1,9 +1,9 @@
-name: Deploy to Dev
+name: Deploy to Staging
 
 on: push
 
 jobs:
-  deploy-dev:
+  deploy-staging:
     name: Compile Web Apps and Functions
     runs-on: ubuntu-latest
     steps:
@@ -23,4 +23,4 @@ jobs:
 
       - name: Deploy Dev
         run: |
-          yarn run firebase --token "${{secrets.FIREBASE_TOKEN}}" deploy -P reach4help-dev
+          yarn run firebase --token "${{secrets.FIREBASE_TOKEN}}" deploy -P reach4help-staging
