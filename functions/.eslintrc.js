@@ -12,7 +12,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   env: {
-    browser: true,
+    browser: false,
     es6: true,
   },
   /*
