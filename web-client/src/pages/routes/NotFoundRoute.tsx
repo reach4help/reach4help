@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NotFound: React.FC = () => (
+const NotFoundRoute: React.FC = () => (
   <div>
     <h3>
       Whoops! Not found!
@@ -8,4 +8,4 @@ const NotFound: React.FC = () => (
   </div>
 );
 
-export default NotFound;
+export default NotFoundRoute;

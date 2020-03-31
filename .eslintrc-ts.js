@@ -17,6 +17,7 @@ module.exports = {
   ],
   rules: {
     'react/jsx-filename-extension': [1, { 'extensions': ['.tsx'] }],
+    "@typescript-eslint/no-unbound-method": [0],
     'import/extensions': [
       'error',
       'ignorePackages',
