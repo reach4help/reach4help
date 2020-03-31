@@ -1,10 +1,9 @@
 import React from 'react';
 import { MdAdd } from 'react-icons/md';
-
 import { Filter } from 'src/data';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
-import styled, { SMALL_DEVICES } from '../styling';
 
+import styled, { SMALL_DEVICES } from '../styling';
 import Filters, { FilterMutator } from './filters';
 
 interface Props {

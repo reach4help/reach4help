@@ -1,12 +1,13 @@
 import React from 'react';
-import { MarkerInfo, ContactDetails } from 'src/data/markers';
-import { button, buttonPrimary } from 'src/styling/mixins';
 import {
-  MdKeyboardArrowLeft,
-  MdPhone,
   MdEmail,
+  MdKeyboardArrowLeft,
   MdLanguage,
+  MdPhone,
 } from 'react-icons/md';
+import { ContactDetails, MarkerInfo } from 'src/data/markers';
+import { button, buttonPrimary } from 'src/styling/mixins';
+
 import styled from '../styling';
 import Services from './services';
 

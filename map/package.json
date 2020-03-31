@@ -27,14 +27,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "pre-commit": "lint-staged",
-    "prettier": "prettier --check \"./**/*.{ts,tsx,js}\"",
-    "prettier-fix": "prettier --write \"./**/*.{ts,tsx,js}\""
+    "lint": "eslint . --ext .ts,.tsx && prettier --check \"./**/*.{ts,tsx}\"",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx && prettier --write \"./**/*.{ts,tsx}\"",
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "eslint . --fix --ext .js,.ts,.tsx",
+      "eslint . --fix --ext .ts,.tsx",
       "prettier --write"
     ],
     "*.md": [

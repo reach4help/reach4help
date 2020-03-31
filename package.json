@@ -5,14 +5,19 @@
     "map",
     "site",
     "web-client",
-    "api"
+    "functions"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "firebase-tools": "^7.16.2",
     "husky": "^4.2.3"
   },
   "scripts": {
+    "firebase": "firebase",
+    "deploy:dev": "yarn workspaces run build && firebase deploy -P reach4help-dev",
+    "deploy:staging": "yarn workspaces run build && firebase deploy -P reach4help-staging",
+    "deploy:prod": "yarn workspaces run build && firebase deploy -P reach4help-34372",
     "lint": "yarn workspaces run lint",
     "heroku-postbuild": "yarn workspace api run heroku-postbuild"
   },
@@ -21,5 +26,8 @@
       "pre-commit": "yarn workspaces run pre-commit",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "resolutions": {
+    "@babel/preset-env": "^7.8.7"
   }
 }

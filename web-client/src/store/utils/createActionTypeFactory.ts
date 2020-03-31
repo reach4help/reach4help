@@ -6,14 +6,13 @@ interface AsyncActionType {
 }
 
 const createActionTypeFactory = (module: string) => {
-
   const asyncType = (actionName: string): AsyncActionType => {
     const baseName = `${module}/${actionName}`;
 
     const baseAction: AsyncActionType = {
-      PENDING: `${baseName }_PENDING`,
-      COMPLETED: `${baseName }_COMPLETED`,
-      REJECTED: `${baseName }_REJECTED`,
+      PENDING: `${baseName}_PENDING`,
+      COMPLETED: `${baseName}_COMPLETED`,
+      REJECTED: `${baseName}_REJECTED`,
       toString: () => baseName,
     };
 

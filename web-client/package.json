@@ -23,6 +23,7 @@
     "immer": "^6.0.2",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.1",
@@ -43,12 +44,14 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint": "eslint . --ext .js,.ts,.tsx && prettier --check \"./src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx && prettier --write \"./src/**/*.{ts,tsx}\"",
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "eslint . --fix --ext .js,.ts,.tsx"
+      "eslint . --fix --ext .js,.ts,.tsx",
+      "prettier --write"
     ],
     "*.md": [
       "prettier --write"
