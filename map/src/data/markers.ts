@@ -223,6 +223,12 @@ const LOCATIONS = {
       lng: -72.93047,
       serviceRadius: 7300,
     },
+    CT_NEW_LONDON: {
+      description: 'New London, Connecticut',
+      lat: 41.352049,
+      lng: -72.091404,
+      serviceRadius: 5190,
+    },
     DC: {
       description: 'District of Columbia / Washington',
       lat: 38.897851,
@@ -241,11 +247,53 @@ const LOCATIONS = {
       lng: -82.424077,
       serviceRadius: 25250,
     },
-    CT_NEW_LONDON: {
-      description: 'New London, Connecticut',
-      lat: 41.352049,
-      lng: -72.091404,
-      serviceRadius: 5190,
+    GA_ATHENS: {
+      description: 'Athens, Georgia',
+      lat: 33.944255,
+      lng: -83.372645,
+      serviceRadius: 14660,
+    },
+    IL_CHICAGO: {
+      description: 'Chicago, Illinois',
+      lat: 41.856756,
+      lng: -87.628718,
+      serviceRadius: 32460,
+    },
+    IN: {
+      description: 'Indiana',
+      lat: 39.72427,
+      lng: -86.15267,
+      serviceRadius: 263360,
+    },
+    IN_MONROE_COUNTY: {
+      description: 'Monroe County, Indiana',
+      lat: 39.161021,
+      lng: -86.527803,
+      serviceRadius: 22290,
+    },
+    KS_KANSAS_CITY: {
+      description: 'Kansas City, Kansas',
+      lat: 39.085067,
+      lng: -94.580735,
+      serviceRadius: 43890,
+    },
+    KY: {
+      description: 'Kentucky',
+      lat: 37.513389,
+      lng: -85.259611,
+      serviceRadius: 382260,
+    },
+    KY_LEXINGTON: {
+      description: 'Lexington, Kentucky',
+      lat: 38.048063,
+      lng: -84.499267,
+      serviceRadius: 27510,
+    },
+    KY_LOUSVILLE: {
+      description: 'Louisville, Kentucky',
+      lat: 38.266396,
+      lng: -85.760549,
+      serviceRadius: 35040,
     },
     MD_BALTIMORE: {
       description: 'Baltimore, Maryland',
