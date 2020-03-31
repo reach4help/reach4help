@@ -27,10 +27,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .ts,.tsx",
-    "pre-commit": "lint-staged",
-    "prettier": "prettier --check \"./**/*.{ts,tsx}\"",
-    "prettier-fix": "prettier --write \"./**/*.{ts,tsx}\""
+    "lint": "eslint . --ext .ts,.tsx && prettier --check \"./**/*.{ts,tsx}\"",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx && prettier --write \"./**/*.{ts,tsx}\"",
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
