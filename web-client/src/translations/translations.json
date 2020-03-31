@@ -1,7 +1,7 @@
 {
   "en": {
     "common": {
-      "welcome": "Welcome!",
+      "welcome": "Welcome",
       "continue": "Continue",
       "login": {
         "title": "Reach4Help",
@@ -10,7 +10,6 @@
         "facebookButtonLabel": "Continue with Facebook"
       },
       "phoneNumber": {
-        "title": "Welcome",
         "sub_title": "Enter your telephone number to begin",
         "info": "This information is fundamental to validate your account. Data and rates may apply."
       },
@@ -24,7 +23,7 @@
   },
   "pt": {
     "common": {
-      "welcome": "Bem-vindo!",
+      "welcome": "Bem-vindo",
       "continue": "Continuar",
       "login": {
         "title": "Reach4Help",
@@ -32,7 +31,6 @@
         "facebookButtonLabel": "Continuar com o Facebook"
       },
       "phoneNumber": {
-        "title": "Bem-vindo",
         "sub_title": "Introduza o seu número de telefone para começar",
         "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas."
     },

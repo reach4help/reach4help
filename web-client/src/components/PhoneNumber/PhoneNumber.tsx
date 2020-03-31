@@ -46,7 +46,7 @@ const PhoneNumber: React.FC = (): React.ReactElement => {
   return (
     <StyledIntro>
       <Logo src={logo} alt="logo" />
-      <TitleWithAddon level={4}>{t('phoneNumber.title')}</TitleWithAddon>
+      <TitleWithAddon level={4}>{t('welcome')}</TitleWithAddon>
       <Description>{t('phoneNumber.sub_title')}</Description>
       <StyledInput placeholder="+0 000 000 000 000" />
       <Info>{t('phoneNumber.info')}</Info>
