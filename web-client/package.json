@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "lint": "eslint . --ext .js,.ts,.tsx",
@@ -85,6 +85,8 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.1",
+    "@babel/compat-data": "7.9.0",
+    "@babel/preset-env": "7.9.0",
     "lint-staged": "^10.0.8",
     "miragejs": "^0.1.35",
     "prettier": "^1.19.1",

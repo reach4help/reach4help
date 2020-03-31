@@ -1,0 +1,41 @@
+{
+  "name": "functions",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "pre-commit": "lint-staged"
+  },
+  "main": "lib/index.js",
+  "lint-staged": {
+    "*.{ts}": [
+      "tslint --project tsconfig.json"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.6.0",
+    "firebase-functions": "^3.3.0"
+  },
+  "devDependencies": {
+    "lint-staged": "^10.0.9",
+    "prettier": "^1.19.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2",
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}

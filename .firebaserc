@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "reach4help-dev"
+  },
+  "targets": {
+    "reach4help-dev": {
+      "hosting": {
+        "map": [
+          "reach4help-dev-map"
+        ],
+        "web-client": [
+          "reach4help-dev-web-client"
+        ]
+      }
+    }
+  }
+}
