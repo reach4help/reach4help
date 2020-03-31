@@ -1,3 +1,4 @@
+/* eslint max-len: 0 */
 import { Service } from './index';
 
 /**
@@ -1193,7 +1194,8 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Indiana Music Industry Relief Fund',
-    contentBody: `A relief fund for women-identifying and non-binary musicians, music industry professionals, non-profit music organizations, based in the state of Indiana that are affected by loss of work, cancellations, and loss of revenue due to COVID-19.`,
+    contentBody:
+      'A relief fund for women-identifying and non-binary musicians, music industry professionals, non-profit music organizations, based in the state of Indiana that are affected by loss of work, cancellations, and loss of revenue due to COVID-19.',
     services: ['financial'],
     contact: {
       general: {

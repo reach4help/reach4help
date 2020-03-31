@@ -37,9 +37,8 @@ export const SERVICES = {
 
 export type Service = keyof typeof SERVICES;
 
-export function isService(service: string): service is Service {
-  return service in SERVICES;
-}
+export const isService = (service: string): service is Service =>
+  service in SERVICES;
 
 export const SERVICE_TYPES = Object.keys(SERVICES) as Service[];
 

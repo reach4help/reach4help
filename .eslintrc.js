@@ -2,6 +2,7 @@ module.exports = {
   extends: [
     'airbnb',
     'prettier',
+    'prettier/react',
     'plugin:cypress/recommended',
     'plugin:react/recommended',
   ],

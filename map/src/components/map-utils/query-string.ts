@@ -10,7 +10,7 @@ export interface QueryStringData {
   };
 }
 
-export function updateQueryString(update: Partial<QueryStringData>) {
+export const updateQueryString = (update: Partial<QueryStringData>) => {
   if (!URLSearchParams) {
     return window.location.search;
   }
@@ -22,9 +22,9 @@ export function updateQueryString(update: Partial<QueryStringData>) {
     );
   }
   return `?${params.toString()}`;
-}
+};
 
-export function parseQueryString(): QueryStringData {
+export const parseQueryString = (): QueryStringData => {
   const result: QueryStringData = {};
   if (URLSearchParams) {
     const params = new URLSearchParams(window.location.search);
@@ -43,7 +43,7 @@ export function parseQueryString(): QueryStringData {
     }
   }
   return result;
-}
+};
 
 export const debouncedUpdateQueryStringMapLocation = debounce(
   (map: google.maps.Map) => {

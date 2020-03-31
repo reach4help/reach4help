@@ -25,11 +25,12 @@ const StyledTitle = styled(Title)`
   }
 `;
 
-const TitleWithAddon: React.FC<TitleWithAddonProps> = ({ children, level }): React.ReactElement => (
+const TitleWithAddon: React.FC<TitleWithAddonProps> = ({
+  children,
+  level,
+}): React.ReactElement => (
   <TitleWrapper>
-    <StyledTitle level={level}>
-      {children}
-    </StyledTitle>
+    <StyledTitle level={level}>{children}</StyledTitle>
   </TitleWrapper>
 );
 

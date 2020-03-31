@@ -18,7 +18,9 @@ interface FacebookLoginButtonProps {
   onAuthenticate: Function;
 }
 
-const FacebookLoginButton: React.FC<FacebookLoginButtonProps> = ({ onAuthenticate }): React.ReactElement => (
+const FacebookLoginButton: React.FC<FacebookLoginButtonProps> = ({
+  onAuthenticate,
+}): React.ReactElement => (
   <>
     <FacebookAuth
       appId={process.env.REACT_APP_FACEBOOK_APP_ID}

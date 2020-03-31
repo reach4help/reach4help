@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 export interface IHTTPRequest {
-  execute (config: AxiosRequestConfig): Promise<any>;
+  execute(config: AxiosRequestConfig): Promise<any>;
 }
 
 class HTTPRequest {
@@ -23,7 +23,8 @@ class HTTPRequest {
     return HTTPRequest.instance;
   }
 
-  public execute = (config: AxiosRequestConfig): Promise<any> => this.axiosInstance(config)
+  public execute = (config: AxiosRequestConfig): Promise<any> =>
+    this.axiosInstance(config);
 }
 
 export default HTTPRequest;
