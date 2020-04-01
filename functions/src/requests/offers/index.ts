@@ -17,7 +17,7 @@ export interface IOffer extends FirebaseFirestore.DocumentData {
   pinUserRef: FirebaseFirestore.DocumentReference<IUser>;
   cavUserSnapshot: IUser;
   message: string;
-  status: string;
+  status: OfferStatus;
 }
 
 export class Offer implements IOffer {

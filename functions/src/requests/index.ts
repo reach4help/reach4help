@@ -34,7 +34,7 @@ export interface IRequest extends FirebaseFirestore.DocumentData {
   title: string;
   description: string;
   latLng: GeoPoint;
-  status: string;
+  status: RequestStatus;
   rating: number | null;
 }
 
