@@ -10,6 +10,9 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+// Firebase needs special configs
+// https://firebase.google.com/docs/hosting/reserved-urls#reserved_urls_and_service_workers
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
