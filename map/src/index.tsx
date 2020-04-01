@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-import { createGlobalStyle, ThemeProvider, THEME } from './styling';
+import { createGlobalStyle, THEME, ThemeProvider } from './styling';
 
 const GlobalStyle = createGlobalStyle`
   body {

@@ -1,0 +1,30 @@
+{
+  "projects": {
+    "default": "reach4help-dev",
+    "staging": "reach4help-staging",
+    "production": "reach4help-34372"
+  },
+  "targets": {
+    "reach4help-dev": {
+      "hosting": {
+        "web-client": [
+          "reach4help-dev-web-client"
+        ]
+      }
+    },
+    "reach4help-staging": {
+      "hosting": {
+        "web-client": [
+          "reach4help-staging-web-client"
+        ]
+      }
+    },
+    "reach4help-34372": {
+      "hosting": {
+        "web-client": [
+          "reach4help-web-client"
+        ]
+      }
+    }
+  }
+}

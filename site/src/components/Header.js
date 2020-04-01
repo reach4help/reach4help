@@ -82,9 +82,9 @@ const Header = () => (
                 {homeLink}
                 <Flex mr={[0, 3, 5]}>
                   <RouteLink
-                    onClick={() =>
-                      (window.location.href = 'https://map.reach4help.org')
-                    }
+                    onClick={() => {
+                      window.location.href = 'https://map.reach4help.org';
+                    }}
                     selected={false}
                     name="Map"
                   />
