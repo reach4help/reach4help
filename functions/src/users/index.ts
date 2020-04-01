@@ -3,6 +3,7 @@ export interface IUser {
   casesCompleted: number;
   requestsMade: number;
   username: string;
+  displayName: string | null;
 }
 
 export class User implements IUser {
@@ -10,12 +11,20 @@ export class User implements IUser {
   private _casesCompleted: number;
   private _requestsMade: number;
   private _username: string;
+  private _displayName: string | null;
 
-  constructor(averageRating: number, casesCompleted: number, requestsMade: number, username: string) {
+  constructor(
+    averageRating: number,
+    casesCompleted: number,
+    requestsMade: number,
+    username: string,
+    displayName: string | null = null,
+  ) {
     this._averageRating = averageRating;
     this._casesCompleted = casesCompleted;
     this._requestsMade = requestsMade;
     this._username = username;
+    this._displayName = displayName;
   }
 
   static factory = (data: IUser): User => new User(
@@ -23,6 +32,7 @@ export class User implements IUser {
     data.casesCompleted,
     data.requestsMade,
     data.username,
+    data.displayName,
   );
 
   get averageRating(): number {
@@ -55,5 +65,13 @@ export class User implements IUser {
 
   set username(value: string) {
     this._username = value;
+  }
+
+  get displayName(): string | null {
+    return this._displayName;
+  }
+
+  set displayName(value: string | null) {
+    this._displayName = value;
   }
 }

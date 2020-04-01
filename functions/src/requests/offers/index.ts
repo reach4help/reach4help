@@ -13,7 +13,7 @@ export enum OfferStatus {
 export interface IOffer extends FirebaseFirestore.DocumentData {
   cavUserRef: FirebaseFirestore.DocumentReference<IUser>;
   pinUserRef: FirebaseFirestore.DocumentReference<IUser>;
-  cavUserSnapshot: User;
+  cavUserSnapshot: IUser;
   message: string;
   status: OfferStatus;
 }
@@ -42,7 +42,7 @@ export class Offer implements IOffer {
   static factory = (data: IOffer): Offer => new Offer(
     data.cavUserRef,
     data.pinUserRef,
-    data.cavUserSnapshot,
+    User.factory(data.cavUserSnapshot),
     data.message,
     data.status,
   );

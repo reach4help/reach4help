@@ -3,7 +3,7 @@ import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
-import { IUser } from '../users';
+import { IUser, User } from '../users';
 import GeoPoint = admin.firestore.DocumentReference;
 
 export enum RequestStatus {
@@ -16,7 +16,8 @@ export enum RequestStatus {
 
 export interface IRequest extends FirebaseFirestore.DocumentData {
   cavUserRef: FirebaseFirestore.DocumentReference<IUser> | null;
-  pinUserRef: FirebaseFirestore.DocumentReference<IUser> | null;
+  pinUserRef: FirebaseFirestore.DocumentReference<IUser>;
+  pinUserSnapshot: IUser;
   title: string;
   description: string;
   latLng: GeoPoint;
@@ -26,7 +27,8 @@ export interface IRequest extends FirebaseFirestore.DocumentData {
 
 export class Request implements IRequest {
   private _cavUserRef: FirebaseFirestore.DocumentReference<IUser> | null;
-  private _pinUserRef: FirebaseFirestore.DocumentReference<IUser> | null;
+  private _pinUserRef: FirebaseFirestore.DocumentReference<IUser>;
+  private _pinUserSnapshot: User;
   private _title: string;
   private _description: string;
   private _latLng: GeoPoint;
@@ -35,7 +37,8 @@ export class Request implements IRequest {
 
   constructor(
     cavUserRef: FirebaseFirestore.DocumentReference<IUser> | null,
-    pinUserRef: FirebaseFirestore.DocumentReference<IUser> | null,
+    pinUserRef: FirebaseFirestore.DocumentReference<IUser>,
+    pinUserSnapshot: User,
     title: string,
     description: string,
     latLng: GeoPoint,
@@ -44,6 +47,7 @@ export class Request implements IRequest {
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
+    this._pinUserSnapshot = pinUserSnapshot;
     this._title = title;
     this._description = description;
     this._latLng = latLng;
@@ -54,10 +58,12 @@ export class Request implements IRequest {
   static factory = (data: IRequest): Request => new Request(
     data.cavUserRef,
     data.pinUserRef,
+    User.factory(data.pinUserSnapshot),
     data.title,
     data.description,
     data.latLng,
     data.status,
+    data.rating,
   );
 
   get cavUserRef(): FirebaseFirestore.DocumentReference<IUser> | null {
@@ -68,12 +74,20 @@ export class Request implements IRequest {
     this._cavUserRef = value;
   }
 
-  get pinUserRef(): FirebaseFirestore.DocumentReference<IUser> | null {
+  get pinUserRef(): FirebaseFirestore.DocumentReference<IUser> {
     return this._pinUserRef;
   }
 
-  set pinUserRef(value: FirebaseFirestore.DocumentReference<IUser> | null) {
+  set pinUserRef(value: FirebaseFirestore.DocumentReference<IUser>) {
     this._pinUserRef = value;
+  }
+
+  get pinUserSnapshot(): User {
+    return this._pinUserSnapshot;
+  }
+
+  set pinUserSnapshot(value: User) {
+    this._pinUserSnapshot = value;
   }
 
   get title(): string {
