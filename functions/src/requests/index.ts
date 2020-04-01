@@ -194,10 +194,10 @@ const queueRatingUpdatedTriggers = (change: Change<DocumentSnapshot>, context: E
   const operations: Promise<void>[] = [];
 
   // We have a new rating -  Update CAV rating average but only this time.
-  if (requestBefore && requestAfter && requestBefore.rating === null && requestAfter.rating !== null) {
+  if (requestBefore?.rating === null && requestAfter?.rating !== null) {
     // TODO: Adjust the avg rating based on the new rating
     operations.push(Promise.resolve());
-  } else if (requestBefore && requestAfter && requestBefore.rating !== null && requestAfter.rating !== null) {
+  } else if (requestBefore?.rating !== null && requestAfter?.rating !== null) {
     // TODO: Adjust the avg rating based on the old rating and the new rating
     operations.push(Promise.resolve());
   }
