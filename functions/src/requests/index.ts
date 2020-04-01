@@ -39,6 +39,8 @@ export interface IRequest extends FirebaseFirestore.DocumentData {
   status: RequestStatus;
   rating: number | null;
   ratedAt: Timestamp | null;
+  createdAt?: Timestamp;
+  updatedAt?: Timestamp;
 }
 
 export class Request implements IRequest {
@@ -66,6 +68,18 @@ export class Request implements IRequest {
   @IsEnum(RequestStatus)
   private _status: RequestStatus;
 
+  /* TODO: When we reach greater than 500 requests created per second:
+     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
+   */
+  @IsObject()
+  private _createdAt: Timestamp;
+
+  /* TODO: When we reach greater than 500 requests updated per second:
+     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
+   */
+  @IsObject()
+  private _updatedAt: Timestamp;
+
   @IsInt()
   @Min(1)
   @Max(5)
@@ -82,6 +96,8 @@ export class Request implements IRequest {
     description: string,
     latLng: GeoPoint,
     status: RequestStatus,
+    createdAt = Timestamp.now(),
+    updatedAt = Timestamp.now(),
     rating: number | null = null,
     ratedAt: Timestamp | null = null,
   ) {
@@ -92,6 +108,8 @@ export class Request implements IRequest {
     this._description = description;
     this._latLng = latLng;
     this._status = status;
+    this._createdAt = createdAt;
+    this._updatedAt = updatedAt;
     this._rating = rating;
     this._ratedAt = ratedAt;
   }
@@ -104,6 +122,8 @@ export class Request implements IRequest {
     data.description,
     data.latLng,
     data.status,
+    data.createdAt,
+    data.updatedAt,
     data.rating,
     data.ratedAt,
   );
@@ -162,6 +182,22 @@ export class Request implements IRequest {
 
   set status(value: RequestStatus) {
     this._status = value;
+  }
+
+  get createdAt(): FirebaseFirestore.Timestamp {
+    return this._createdAt;
+  }
+
+  set createdAt(value: FirebaseFirestore.Timestamp) {
+    this._createdAt = value;
+  }
+
+  get updatedAt(): FirebaseFirestore.Timestamp {
+    return this._updatedAt;
+  }
+
+  set updatedAt(value: FirebaseFirestore.Timestamp) {
+    this._updatedAt = value;
   }
 
   get rating(): number | null {

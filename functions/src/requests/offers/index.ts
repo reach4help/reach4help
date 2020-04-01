@@ -1,10 +1,12 @@
 import { IsEnum, IsNotEmpty, IsObject, IsString, validate, ValidateNested } from 'class-validator';
+import * as admin from 'firebase-admin';
 import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
 import { IUser, User } from '../../users';
+import Timestamp = admin.firestore.Timestamp;
 
 export enum OfferStatus {
   pending = 'pending',
@@ -18,6 +20,7 @@ export interface IOffer extends FirebaseFirestore.DocumentData {
   cavUserSnapshot: IUser;
   message: string;
   status: OfferStatus;
+  createdAt?: Timestamp;
 }
 
 export class Offer implements IOffer {
@@ -38,18 +41,26 @@ export class Offer implements IOffer {
   @IsEnum(OfferStatus)
   private _status: OfferStatus;
 
+  /* TODO: When we reach greater than 500 offers per request created per second:
+     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
+   */
+  @IsObject()
+  private _createdAt: Timestamp;
+
   constructor(
     cavUserRef: FirebaseFirestore.DocumentReference<IUser>,
     pinUserRef: FirebaseFirestore.DocumentReference<IUser>,
     cavUserSnapshot: User,
     message: string,
     status: OfferStatus,
+    createdAt = Timestamp.now(),
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
     this._cavUserSnapshot = cavUserSnapshot;
     this._message = message;
     this._status = status;
+    this._createdAt = createdAt;
   }
 
   static factory = (data: IOffer): Offer => new Offer(
@@ -57,7 +68,8 @@ export class Offer implements IOffer {
     data.pinUserRef,
     User.factory(data.cavUserSnapshot),
     data.message,
-    data.status as OfferStatus,
+    data.status,
+    data.createdAt,
   );
 
   get cavUserRef(): FirebaseFirestore.DocumentReference<IUser> {
@@ -99,6 +111,14 @@ export class Offer implements IOffer {
   set status(value: OfferStatus) {
     this._status = value;
   }
+
+  get createdAt(): FirebaseFirestore.Timestamp {
+    return this._createdAt;
+  }
+
+  set createdAt(value: FirebaseFirestore.Timestamp) {
+    this._createdAt = value;
+  }
 }
 
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -110,10 +130,11 @@ const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: Ev
 
   // A request has just been accepted -- Update request with new information (CAV, new status)
   if (offerBefore?.status !== OfferStatus.accepted && offerAfter?.status === OfferStatus.accepted) {
-    // TODO: Update the request with the current CAV as well as set it's status.
-    // This will enable the CAV to access the address of the request.
-    // const requestId = context.params.requestId;
-    // Use the id to find the request and update it's status and current CAV
+    /* TODO: Update the request with the current CAV as well as set it's status.
+       This will enable the CAV to access the address of the request.
+       const requestId = context.params.requestId;
+       Use the id to find the request and update it's status and current CAV
+     */
     operations.push(Promise.resolve());
   }
 
