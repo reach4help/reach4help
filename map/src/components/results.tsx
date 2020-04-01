@@ -161,11 +161,11 @@ const Results = (props: Props) => {
 const HEADER_HEIGHT_PX = 52;
 
 export default styled(Results)`
+  background: #fff;
+  z-index: 100;
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 26%;
-  min-width: 300px;
   border-left: ${p => p.theme.borderLight};
 
   > .header {

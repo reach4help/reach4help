@@ -30,6 +30,12 @@ interface State {
   searchInput: HTMLInputElement | null;
   addInstructionsOpen: boolean;
   fullScreen: boolean;
+  /**
+   * * open: (default) the results are open
+   * * closed: the results are closed
+   * * open-auto: the results are open because a point is selected
+   */
+  resultsMode: 'open' | 'closed' | 'open-auto';
 }
 
 class App extends React.Component<Props, State> {
@@ -43,6 +49,7 @@ class App extends React.Component<Props, State> {
       searchInput: null,
       addInstructionsOpen: false,
       fullScreen: false,
+      resultsMode: 'open',
     };
   }
 
@@ -63,7 +70,16 @@ class App extends React.Component<Props, State> {
   };
 
   private setSelectedResult = (selectedResult: MarkerInfo | null) => {
-    this.setState({ selectedResult });
+    this.setState(state => {
+      let { resultsMode } = state;
+      if (selectedResult && state.resultsMode === 'closed') {
+        resultsMode = 'open-auto';
+      }
+      if (!selectedResult && state.resultsMode === 'open-auto') {
+        resultsMode = 'closed';
+      }
+      return { selectedResult, resultsMode };
+    });
   };
 
   private setNextResults = (nextResults: NextResults) => {
@@ -87,6 +103,12 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ fullScreen: !state.fullScreen }));
   };
 
+  private toggleResults = () => {
+    this.setState(state => ({
+      resultsMode: state.resultsMode === 'closed' ? 'open' : 'closed',
+    }));
+  };
+
   public render() {
     const { className } = this.props;
     const {
@@ -97,7 +119,10 @@ class App extends React.Component<Props, State> {
       searchInput,
       addInstructionsOpen,
       fullScreen,
+      resultsMode,
     } = this.state;
+    const effectiveResultsMode =
+      resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
       <div className={className}>
         <Header
@@ -107,7 +132,7 @@ class App extends React.Component<Props, State> {
           fullScreen={fullScreen}
           toggleFullscreen={this.toggleFullscreen}
         />
-        <main>
+        <main className={`results-${effectiveResultsMode}`}>
           <div className="map-area">
             <MapLoader
               className="map"
@@ -122,6 +147,8 @@ class App extends React.Component<Props, State> {
                   selectedResult={selectedResult}
                   setSelectedResult={this.setSelectedResult}
                   setUpdateResultsCallback={this.setUpdateResultsCallback}
+                  resultsMode={effectiveResultsMode}
+                  toggleResults={this.toggleResults}
                 />
               )}
             />
@@ -131,6 +158,7 @@ class App extends React.Component<Props, State> {
             />
           </div>
           <Results
+            className="results"
             results={results}
             nextResults={nextResults?.results || null}
             selectedResult={selectedResult}
@@ -186,7 +214,18 @@ export default styled(App)`
         max-width: 500px;
         top: 10px;
         left: 10px;
-        right: 60px;
+        right: 40px;
+      }
+    }
+
+    > .results {
+      width: 26%;
+      min-width: 300px;
+    }
+
+    &.results-closed {
+      > .results {
+        display: none;
       }
     }
   }
