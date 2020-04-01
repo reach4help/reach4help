@@ -39,7 +39,9 @@
     "firebase-tools": "^7.16.2",
     "lint-staged": "^10.0.9",
     "prettier": "^1.19.1",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "jest": "^25.2.4",
+    "ts-jest": "^25.3.0"
   },
   "private": true
 }
