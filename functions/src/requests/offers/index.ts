@@ -109,7 +109,7 @@ const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: Ev
   const operations: Promise<void>[] = [];
 
   // A request has just been accepted -- Update request with new information (CAV, new status)
-  if (offerBefore && offerBefore.status !== OfferStatus.accepted && offerAfter && offerAfter.status === OfferStatus.accepted) {
+  if (offerBefore?.status !== OfferStatus.accepted && offerAfter?.status === OfferStatus.accepted) {
     // TODO: Update the request with the current CAV as well as set it's status.
     // This will enable the CAV to access the address of the request.
     // const requestId = context.params.requestId;
