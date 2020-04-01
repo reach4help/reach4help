@@ -1,10 +1,10 @@
 import { IsEnum, IsNotEmpty, IsObject, IsString, validate, ValidateNested } from 'class-validator';
+import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
 import { IUser, User } from '../../users';
-import { firestore } from 'firebase-admin';
 
 export enum OfferStatus {
   pending = 'pending',
@@ -131,7 +131,7 @@ export const triggerEventsWhenOfferIsCreated = functions.firestore.document('req
   // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
     return validateOffer(snapshot.data() as IOffer)
-      .catch((errors) => {
+      .catch(errors => {
         console.error('Invalid Offer Found: ', errors);
         return firestore()
           .collection('requests').doc(context.params.requestId)
