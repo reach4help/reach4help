@@ -1,8 +1,8 @@
-import { Typography } from 'antd';
-import React from 'react';
-import styled from 'styled-components';
+import { Typography } from "antd";
+import React from "react";
+import styled from "styled-components";
 
-import { COLORS } from '../../theme/colors';
+import { COLORS } from "../../theme/colors";
 
 const { Title } = Typography;
 
@@ -10,15 +10,26 @@ const TitleWrapper = styled.div`
   position: relative;
 `;
 
+const doAddonAlignment = (align: string | undefined) => {
+  switch (align) {
+    case "left":
+      return "12%";
+    case "right":
+      return "88%";
+    default:
+      return "50%";
+  }
+};
+
 const StyledTitle = styled(Title)`
   white-space: pre-line;
   text-align: center;
   :after {
-    content: ' ';
+    content: " ";
     position: absolute;
     width: 40px;
     height: 6px;
-    left: 50%;
+    left: ${(props: TitleWithAddonProps) => doAddonAlignment(props.alignAddon)};
     bottom: 0;
     transform: translate(-50%, 0);
     background-color: ${COLORS.highlight};
@@ -28,15 +39,20 @@ const StyledTitle = styled(Title)`
 const TitleWithAddon: React.FC<TitleWithAddonProps> = ({
   children,
   level,
+  alignAddon
 }): React.ReactElement => (
   <TitleWrapper>
-    <StyledTitle level={level}>{children}</StyledTitle>
+    <StyledTitle alignAddon={alignAddon} level={level}>
+      {children}
+    </StyledTitle>
   </TitleWrapper>
 );
 
 interface TitleWithAddonProps {
   children: React.ReactNode;
   level: 1 | 2 | 3 | 4;
+  // REVIEW: I need help defining this type
+  alignAddon?: string;
 }
 
 export default TitleWithAddon;

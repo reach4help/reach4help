@@ -42,7 +42,9 @@ const NewRequest: React.FC<NewRequestProps> = ({
         <IconImage src="https://reach4help.org/static/logo-78d2063bcc5e542bf67195e3c6fb6fcf.svg" />
       </IconDiv>
       <FormDiv>
-        <TitleWithAddon level={2}>{t("newRequest.title")}</TitleWithAddon>
+        <TitleWithAddon alignAddon="left" level={2}>
+          {t("newRequest.title")}
+        </TitleWithAddon>
         <Descriptions>
           <Descriptions.Item label="H">
             No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
