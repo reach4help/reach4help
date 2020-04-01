@@ -114,3 +114,5 @@ export const triggerEventsWhenOfferIsCreated = functions.firestore.document('use
           .delete();
       });
   });
+
+export * from './privilegedInformation';

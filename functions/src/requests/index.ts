@@ -297,3 +297,6 @@ export const triggerEventsWhenRequestIsUpdated = functions.firestore.document('r
         ]);
       });
   });
+
+export * from './offers';
+export * from './priviledgedInformation';
