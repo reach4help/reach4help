@@ -172,7 +172,7 @@ const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: Ev
   const operations: Promise<void>[] = [];
 
   // A request has just been completed - Update CAV request completed count
-  if (requestBefore && requestBefore.status !== RequestStatus.completed && requestAfter && requestAfter.status === RequestStatus.completed) {
+  if (requestBefore?.status !== RequestStatus.completed && requestAfter?.status === RequestStatus.completed) {
     // TODO: Update CAV User Ref count for number of cases completed.
     operations.push(Promise.resolve());
   }
