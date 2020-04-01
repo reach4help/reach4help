@@ -1,5 +1,4 @@
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase';
 
 const config = {
   development: {
@@ -9,8 +8,8 @@ const config = {
     projectId: 'reach4help-dev',
     storageBucket: 'reach4help-dev.appspot.com',
     messagingSenderId: '664078449280',
-    appId: '1:664078449280:web:fad2c3b30771213e5f4465',
-    measurementId: 'G-WFTRYNEQBB',
+    appId: '1:664078449280:web:115f33485dfc48e35f4465',
+    measurementId: 'G-DKH4PLZ62L',
   },
   test: {
     apiKey: 'AIzaSyCIzCEMWDHtseNjDTdmXYu5SfpkeevIi9w',
