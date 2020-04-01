@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CenteredCard from '../components/CenteredCard/CenteredCard';
-import GradientBackground from '../components/GradientBackground/GradientBackground';
-import PhoneNumber from '../components/PhoneNumber/PhoneNumber';
+import CenteredCard from '../../components/CenteredCard/CenteredCard';
+import GradientBackground from '../../components/GradientBackground/GradientBackground';
+import PhoneNumber from '../../components/PhoneNumber/PhoneNumber';
 
 const PhoneNumberPage: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
