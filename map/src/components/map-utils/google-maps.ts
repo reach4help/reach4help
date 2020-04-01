@@ -9,6 +9,10 @@ export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
     streetViewControl: false,
     clickableIcons: false,
     mapTypeControl: false,
+    fullscreenControl: false,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.LEFT_BOTTOM,
+    },
   });
 };
 
