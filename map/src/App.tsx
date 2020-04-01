@@ -11,7 +11,11 @@ import Results from './components/results';
 import Search from './components/search';
 import { Filter } from './data';
 import { MarkerInfo } from './data/markers';
-import styled, { SMALL_DEVICES } from './styling';
+import styled, {
+  CLS_SCREEN_LG_ONLY,
+  LARGE_DEVICES,
+  SMALL_DEVICES,
+} from './styling';
 
 interface Props {
   className?: string;
@@ -25,6 +29,13 @@ interface State {
   updateResultsCallback: (() => void) | null;
   searchInput: HTMLInputElement | null;
   addInstructionsOpen: boolean;
+  fullScreen: boolean;
+  /**
+   * * open: (default) the results are open
+   * * closed: the results are closed
+   * * open-auto: the results are open because a point is selected
+   */
+  resultsMode: 'open' | 'closed' | 'open-auto';
 }
 
 class App extends React.Component<Props, State> {
@@ -37,6 +48,8 @@ class App extends React.Component<Props, State> {
       updateResultsCallback: null,
       searchInput: null,
       addInstructionsOpen: false,
+      fullScreen: false,
+      resultsMode: 'open',
     };
   }
 
@@ -57,7 +70,16 @@ class App extends React.Component<Props, State> {
   };
 
   private setSelectedResult = (selectedResult: MarkerInfo | null) => {
-    this.setState({ selectedResult });
+    this.setState(state => {
+      let { resultsMode } = state;
+      if (selectedResult && state.resultsMode === 'closed') {
+        resultsMode = 'open-auto';
+      }
+      if (!selectedResult && state.resultsMode === 'open-auto') {
+        resultsMode = 'closed';
+      }
+      return { selectedResult, resultsMode };
+    });
   };
 
   private setNextResults = (nextResults: NextResults) => {
@@ -77,6 +99,19 @@ class App extends React.Component<Props, State> {
     }
   };
 
+  private toggleFullscreen = () => {
+    this.setState(state => ({
+      fullScreen: !state.fullScreen,
+      resultsMode: state.fullScreen ? 'open' : 'closed',
+    }));
+  };
+
+  private toggleResults = () => {
+    this.setState(state => ({
+      resultsMode: state.resultsMode === 'closed' ? 'open' : 'closed',
+    }));
+  };
+
   public render() {
     const { className } = this.props;
     const {
@@ -86,15 +121,21 @@ class App extends React.Component<Props, State> {
       selectedResult,
       searchInput,
       addInstructionsOpen,
+      fullScreen,
+      resultsMode,
     } = this.state;
+    const effectiveResultsMode =
+      resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
-      <div className={className}>
+      <div className={className + (fullScreen ? ' fullscreen' : '')}>
         <Header
           filter={filter}
           updateFilter={this.setFilter}
           setAddInstructionsOpen={this.setAddInstructionsOpen}
+          fullScreen={fullScreen}
+          toggleFullscreen={this.toggleFullscreen}
         />
-        <main>
+        <main className={`results-${effectiveResultsMode}`}>
           <div className="map-area">
             <MapLoader
               className="map"
@@ -109,6 +150,8 @@ class App extends React.Component<Props, State> {
                   selectedResult={selectedResult}
                   setSelectedResult={this.setSelectedResult}
                   setUpdateResultsCallback={this.setUpdateResultsCallback}
+                  resultsMode={effectiveResultsMode}
+                  toggleResults={this.toggleResults}
                 />
               )}
             />
@@ -118,6 +161,7 @@ class App extends React.Component<Props, State> {
             />
           </div>
           <Results
+            className="results"
             results={results}
             nextResults={nextResults?.results || null}
             selectedResult={selectedResult}
@@ -135,7 +179,7 @@ class App extends React.Component<Props, State> {
             coming days. Until then, please open page on a different device.
           </p>
         </div>
-        <Footer />
+        {!fullScreen && <Footer />}
         <AddInstructions
           open={addInstructionsOpen}
           setAddInstructionsOpen={this.setAddInstructionsOpen}
@@ -145,24 +189,43 @@ class App extends React.Component<Props, State> {
   }
 }
 
+const RESULTS_TRANSITION_IN = '300ms';
+const RESULTS_TRANSITION_OUT = '250ms';
+const RESULTS_WIDTH = '400px';
+
 export default styled(App)`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   color: ${p => p.theme.textColor};
 
+  &.fullscreen {
+    /**
+     * These styles prevent scrolling on mobile / tablets when in full-screen
+     * mode (where the address-bar can collapse)
+     */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: initial;
+  }
+
   > main {
+    overflow: hidden;
+    position: relative;
     display: flex;
     flex-grow: 1;
     height: 0;
+    min-height: 150px;
 
     > .map-area {
       flex-grow: 1;
       position: relative;
+      margin-right: ${RESULTS_WIDTH};
+      transition: margin-right ${RESULTS_TRANSITION_OUT};
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       .map {
         position: absolute;
         top: 0;
@@ -176,7 +239,28 @@ export default styled(App)`
         max-width: 500px;
         top: 10px;
         left: 10px;
-        right: 60px;
+        right: 40px;
+      }
+    }
+
+    > .results {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      right: 0;
+      width: ${RESULTS_WIDTH};
+      transition: right ${RESULTS_TRANSITION_OUT};
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &.results-closed {
+      > .map-area {
+        margin-right: 0;
+        transition: margin-right ${RESULTS_TRANSITION_IN};
+      }
+      > .results {
+        right: -${RESULTS_WIDTH};
+        transition: right ${RESULTS_TRANSITION_IN};
       }
     }
   }
@@ -215,6 +299,14 @@ export default styled(App)`
     }
     .mobile-message {
       display: block;
+    }
+  }
+
+  .${CLS_SCREEN_LG_ONLY} {
+    display: none;
+
+    ${LARGE_DEVICES} {
+      display: initial;
     }
   }
 `;

@@ -1,6 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdRefresh } from 'react-icons/md';
+import { MdExpandLess, MdExpandMore, MdRefresh } from 'react-icons/md';
 import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
@@ -63,6 +63,8 @@ interface Props {
    * Call this
    */
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
+  resultsMode: 'open' | 'closed';
+  toggleResults: () => void;
 }
 
 /**
@@ -407,27 +409,47 @@ class MapComponent extends React.Component<Props, {}> {
   }
 
   public render() {
-    const { className, results, nextResults } = this.props;
+    const {
+      className,
+      results,
+      nextResults,
+      resultsMode,
+      toggleResults,
+    } = this.props;
     const hasNewResults = nextResults && nextResults.results !== results;
+    const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
     return (
       <div className={className}>
-        <div ref={this.updateGoogleMapRef} />
+        <div className="map" ref={this.updateGoogleMapRef} />
         {hasNewResults && (
           <button type="button" onClick={this.updateResults}>
-            <MdRefresh className="icon-left" />
+            <MdRefresh className="icon icon-left" />
             Update results for this area
           </button>
         )}
+        <div className="results-tab" onClick={toggleResults}>
+          <div>
+            <ExpandIcon />
+            <span>
+              {resultsMode === 'open'
+                ? 'close'
+                : `${results?.length || 0} result(s)`}
+            </span>
+            <ExpandIcon />
+          </div>
+        </div>
       </div>
     );
   }
 }
 
+const TAB_WIDTH_PX = 30;
+
 export default styled(MapComponent)`
   height: 100%;
   position: relative;
 
-  > div {
+  > .map {
     height: 100%;
   }
 
@@ -441,5 +463,45 @@ export default styled(MapComponent)`
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
     margin: 0 auto;
     background: #fff;
+  }
+
+  > .results-tab {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: ${TAB_WIDTH_PX}px;
+    pointer-events: none;
+
+    > div {
+      z-index: 50;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: ${TAB_WIDTH_PX}px;
+      line-height: ${TAB_WIDTH_PX}px;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      pointer-events: all;
+
+      ${button};
+      padding: 0 5px;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+      background: #fff;
+      font-size: 1rem;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      display: flex;
+      align-items: center;
+
+      > span {
+        margin: 0 5px;
+      }
+
+      > svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 `;
