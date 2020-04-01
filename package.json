@@ -4,8 +4,7 @@
   "workspaces": [
     "map",
     "site",
-    "web-client",
-    "functions"
+    "web-client"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
