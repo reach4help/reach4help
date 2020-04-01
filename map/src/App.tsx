@@ -189,6 +189,10 @@ class App extends React.Component<Props, State> {
   }
 }
 
+const RESULTS_TRANSITION_IN = '300ms';
+const RESULTS_TRANSITION_OUT = '250ms';
+const RESULTS_WIDTH = '400px';
+
 export default styled(App)`
   height: 100vh;
   display: flex;
@@ -209,6 +213,8 @@ export default styled(App)`
   }
 
   > main {
+    overflow: hidden;
+    position: relative;
     display: flex;
     flex-grow: 1;
     height: 0;
@@ -217,6 +223,9 @@ export default styled(App)`
     > .map-area {
       flex-grow: 1;
       position: relative;
+      margin-right: ${RESULTS_WIDTH};
+      transition: margin-right ${RESULTS_TRANSITION_OUT};
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       .map {
         position: absolute;
         top: 0;
@@ -235,13 +244,23 @@ export default styled(App)`
     }
 
     > .results {
-      width: 26%;
-      min-width: 300px;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      right: 0;
+      width: ${RESULTS_WIDTH};
+      transition: right ${RESULTS_TRANSITION_OUT};
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     &.results-closed {
+      > .map-area {
+        margin-right: 0;
+        transition: margin-right ${RESULTS_TRANSITION_IN};
+      }
       > .results {
-        display: none;
+        right: -${RESULTS_WIDTH};
+        transition: right ${RESULTS_TRANSITION_IN};
       }
     }
   }
