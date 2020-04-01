@@ -43,7 +43,10 @@
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
-    "build": "NODE_ENV=development react-app-rewired build",
+    "build": "react-app-rewired build",
+    "build:dev": "NODE_ENV='DEVELOPMENT' react-app-rewired build",
+    "build:staging": "NODE_ENV='STAGING' react-app-rewired build",
+    "build:prod": "NODE_ENV='PRODUCTION' react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "lint": "eslint . --ext .js,.ts,.tsx && prettier --check \"./src/**/*.{ts,tsx}\"",

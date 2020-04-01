@@ -7,6 +7,9 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "build": "tsc",
+    "build:dev": "tsc",
+    "build:staging": "tsc",
+    "build:prod": "tsc",
     "serve": "yarn run build && firebase emulators:start --only functions",
     "shell": "yarn run build && firebase functions:shell",
     "start": "yarn run shell",
