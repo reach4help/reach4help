@@ -59,7 +59,7 @@ const Cav = styled.img``;
 
 const LoginIntro: React.FC = (): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  i18n.changeLanguage('pt-PT');
+  // i18n.changeLanguage('pt-PT');
   return (
     <StyledIntro>
       <TitleWithAddon level={2}>{t('roleinfo.sub_title')}</TitleWithAddon>
