@@ -3,7 +3,7 @@ module.exports = {
     '../.eslintrc-ts.js',
   ],
   parserOptions: {
-    project: './tsconfig.json',
+    project: ['src/tsconfig.json', 'tests/tsconfig.json'],
     ecmaFeatures: {
       jsx: true,
     },

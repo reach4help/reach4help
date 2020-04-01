@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "compileOnSave": true,
+  "include": [
+    "."
+  ]
+}

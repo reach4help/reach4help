@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint . --ext .ts",
-    "build": "tsc",
+    "build": "tsc --build src/tsconfig.json",
     "serve": "yarn run build && firebase emulators:start --only functions",
     "shell": "yarn run build && firebase functions:shell",
     "start": "yarn run shell",
