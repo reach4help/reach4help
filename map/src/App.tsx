@@ -11,7 +11,11 @@ import Results from './components/results';
 import Search from './components/search';
 import { Filter } from './data';
 import { MarkerInfo } from './data/markers';
-import styled, { SMALL_DEVICES } from './styling';
+import styled, {
+  CLS_SCREEN_LG_ONLY,
+  LARGE_DEVICES,
+  SMALL_DEVICES,
+} from './styling';
 
 interface Props {
   className?: string;
@@ -25,6 +29,7 @@ interface State {
   updateResultsCallback: (() => void) | null;
   searchInput: HTMLInputElement | null;
   addInstructionsOpen: boolean;
+  fullScreen: boolean;
 }
 
 class App extends React.Component<Props, State> {
@@ -37,6 +42,7 @@ class App extends React.Component<Props, State> {
       updateResultsCallback: null,
       searchInput: null,
       addInstructionsOpen: false,
+      fullScreen: false,
     };
   }
 
@@ -77,6 +83,10 @@ class App extends React.Component<Props, State> {
     }
   };
 
+  private toggleFullscreen = () => {
+    this.setState(state => ({ fullScreen: !state.fullScreen }));
+  };
+
   public render() {
     const { className } = this.props;
     const {
@@ -86,6 +96,7 @@ class App extends React.Component<Props, State> {
       selectedResult,
       searchInput,
       addInstructionsOpen,
+      fullScreen,
     } = this.state;
     return (
       <div className={className}>
@@ -93,6 +104,8 @@ class App extends React.Component<Props, State> {
           filter={filter}
           updateFilter={this.setFilter}
           setAddInstructionsOpen={this.setAddInstructionsOpen}
+          fullScreen={fullScreen}
+          toggleFullscreen={this.toggleFullscreen}
         />
         <main>
           <div className="map-area">
@@ -135,7 +148,7 @@ class App extends React.Component<Props, State> {
             coming days. Until then, please open page on a different device.
           </p>
         </div>
-        <Footer />
+        {!fullScreen && <Footer />}
         <AddInstructions
           open={addInstructionsOpen}
           setAddInstructionsOpen={this.setAddInstructionsOpen}
@@ -212,6 +225,14 @@ export default styled(App)`
     }
     .mobile-message {
       display: block;
+    }
+  }
+
+  .${CLS_SCREEN_LG_ONLY} {
+    display: none;
+
+    ${LARGE_DEVICES} {
+      display: initial;
     }
   }
 `;

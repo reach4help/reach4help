@@ -21,10 +21,14 @@ export const iconButton = css`
   display: flex;
   align-items: center;
 
-  .icon-left {
+  .icon {
     height: 24px;
     width: 24px;
-    margin: -4px 4px -4px -8px;
+    margin: -4px -4px;
+
+    &.icon-left {
+      margin: -4px 4px -4px -8px;
+    }
   }
 `;
 

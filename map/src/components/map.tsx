@@ -414,7 +414,7 @@ class MapComponent extends React.Component<Props, {}> {
         <div ref={this.updateGoogleMapRef} />
         {hasNewResults && (
           <button type="button" onClick={this.updateResults}>
-            <MdRefresh className="icon-left" />
+            <MdRefresh className="icon icon-left" />
             Update results for this area
           </button>
         )}
