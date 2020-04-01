@@ -58,7 +58,7 @@ const Pin = styled.img``;
 const Cav = styled.img``;
 
 const LoginIntro: React.FC = (): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   // i18n.changeLanguage('pt-PT');
   return (
     <StyledIntro>
