@@ -1,4 +1,4 @@
-import { Button, Input, Typography } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -32,7 +32,6 @@ const StyledInput = styled(Input)`
 
 const Info = styled(Text)`
   color: #ddd;
-  /* margin-top: 40px; */
   text-align: center;
 `;
 
@@ -40,17 +39,43 @@ const StyledButton = styled(Button)`
   margin-top: 40px;
 `;
 
-const PhoneNumber: React.FC = (): React.ReactElement => {
+interface NewRequestProps {
+  handleFormSubmit: Function;
+}
+
+const PhoneNumber: React.FC<NewRequestProps> = ({
+  handleFormSubmit,
+}): React.ReactElement => {
   const { t } = useTranslation();
+  const [form] = Form.useForm();
 
   return (
     <StyledIntro>
       <Logo src={logo} alt="logo" />
       <TitleWithAddon level={4}>{t('welcome')}</TitleWithAddon>
-      <Description>{t('phoneNumber.sub_title')}</Description>
-      <StyledInput placeholder="+0 000 000 000 000" />
-      <Info>{t('phoneNumber.info')}</Info>
-      <StyledButton type="primary">{t('continue')}</StyledButton>
+      <Form
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+        layout="vertical"
+        form={form}
+        onFinish={values => {
+          handleFormSubmit(values);
+        }}
+      >
+        <Description>{t('phoneNumber.sub_title')}</Description>
+        <Form.Item style={{ textAlign: 'center' }} name="phoneNumber">
+          <StyledInput placeholder="+0 000 000 000 000" />
+        </Form.Item>
+        <Info>{t('phoneNumber.info')}</Info>
+        <Form.Item>
+          <StyledButton htmlType="submit" type="primary">
+            {t('continue')}
+          </StyledButton>
+        </Form.Item>
+      </Form>
     </StyledIntro>
   );
 };
