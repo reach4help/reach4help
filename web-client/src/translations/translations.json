@@ -19,6 +19,13 @@
         "pleaseWaitLabel": "Please wait...",
         "tip_title": "Remember",
         "tip_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      },
+      "newRequest": {
+        "title": "New Request",
+        "form": {
+          "title": "Title",
+          "body": "Enter details of what is needed"
+        }
       }
     }
   },
