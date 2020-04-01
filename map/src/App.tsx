@@ -100,7 +100,10 @@ class App extends React.Component<Props, State> {
   };
 
   private toggleFullscreen = () => {
-    this.setState(state => ({ fullScreen: !state.fullScreen }));
+    this.setState(state => ({
+      fullScreen: !state.fullScreen,
+      resultsMode: state.fullScreen ? 'open' : 'closed',
+    }));
   };
 
   private toggleResults = () => {
