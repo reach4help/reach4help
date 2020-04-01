@@ -127,7 +127,7 @@ class App extends React.Component<Props, State> {
     const effectiveResultsMode =
       resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
-      <div className={className}>
+      <div className={className + (fullScreen ? ' fullscreen' : '')}>
         <Header
           filter={filter}
           updateFilter={this.setFilter}
@@ -194,6 +194,19 @@ export default styled(App)`
   display: flex;
   flex-direction: column;
   color: ${p => p.theme.textColor};
+
+  &.fullscreen {
+    /**
+     * These styles prevent scrolling on mobile / tablets when in full-screen
+     * mode (where the address-bar can collapse)
+     */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: initial;
+  }
 
   > main {
     display: flex;
