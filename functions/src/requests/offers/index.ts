@@ -1,9 +1,10 @@
-import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsObject, IsString, validate, ValidateNested } from 'class-validator';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
 import { IUser, User } from '../../users';
+import { firestore } from 'firebase-admin';
 
 export enum OfferStatus {
   pending = 'pending',
@@ -119,7 +120,40 @@ const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: Ev
   return Promise.all(operations);
 };
 
+const validateOffer = (value: IOffer): Promise<void> => {
+  return validate(Offer.factory(value))
+    .then(() => {
+      return Promise.resolve();
+    });
+};
+
+export const triggerEventsWhenOfferIsCreated = functions.firestore.document('requests/{requestId}/offers/{offerId}')
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+  .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
+    return validateOffer(snapshot.data() as IOffer)
+      .catch((errors) => {
+        console.error('Invalid Offer Found: ', errors);
+        return firestore()
+          .collection('requests').doc(context.params.requestId)
+          .collection('offers').doc(context.params.offerId)
+          .delete();
+      });
+  });
+
 export const triggerEventsWhenOfferIsUpdated = functions.firestore.document('requests/{requestId}/offers/{offerId}')
-  .onUpdate((change: Change<DocumentSnapshot>, context: EventContext) => Promise.all([
-    queueStatusUpdateTriggers(change, context),
-  ]));
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+  .onUpdate((change: Change<DocumentSnapshot>, context: EventContext) => {
+    return validateOffer(change.after.data() as IOffer)
+      .catch(errors => {
+        console.error('Invalid Offer Found: ', errors);
+        return firestore()
+          .collection('requests').doc(context.params.requestId)
+          .collection('offers').doc(context.params.offerId)
+          .delete();
+      })
+      .then(() => {
+        return Promise.all([
+          queueStatusUpdateTriggers(change, context),
+        ]);
+      });
+  });

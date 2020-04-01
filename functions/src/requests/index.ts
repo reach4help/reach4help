@@ -1,5 +1,17 @@
-import { Allow, IsEnum, IsInt, IsNotEmpty, IsObject, IsString, Max, Min, ValidateNested } from 'class-validator';
+import {
+  Allow,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+  Max,
+  Min,
+  validate,
+  ValidateNested,
+} from 'class-validator';
 import * as admin from 'firebase-admin';
+import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
@@ -193,8 +205,38 @@ const queueRatingUpdatedTriggers = (change: Change<DocumentSnapshot>, context: E
   return Promise.all(operations);
 };
 
+const validateRequest = (value: IRequest): Promise<void> => {
+  return validate(Request.factory(value))
+    .then(() => {
+      return Promise.resolve();
+    });
+};
+
+export const triggerEventsWhenRequestIsCreated = functions.firestore.document('requests/{requestId}')
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+  .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
+    return validateRequest(snapshot.data() as IRequest)
+      .catch(errors => {
+        console.error('Invalid Request Found: ', errors);
+        return firestore()
+          .collection('requests').doc(context.params.requestId)
+          .delete();
+      });
+  });
+
 export const triggerEventsWhenRequestIsUpdated = functions.firestore.document('requests/{requestId}')
-  .onUpdate((change: Change<DocumentSnapshot>, context: EventContext) => Promise.all([
-    queueStatusUpdateTriggers(change, context),
-    queueRatingUpdatedTriggers(change, context),
-  ]));
+  .onUpdate((change: Change<DocumentSnapshot>, context: EventContext) => {
+    return validateRequest(change.after.data() as IRequest)
+      .catch(errors => {
+        console.error('Invalid Request Found: ', errors);
+        return firestore()
+          .collection('requests').doc(context.params.requestId)
+          .delete();
+      })
+      .then(() => {
+        return Promise.all([
+          queueStatusUpdateTriggers(change, context),
+          queueRatingUpdatedTriggers(change, context),
+        ]);
+      });
+  });
