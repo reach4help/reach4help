@@ -15,9 +15,11 @@ import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
+import * as moment from 'moment';
 
 import { IUser, User } from '../users';
-import GeoPoint = admin.firestore.DocumentReference;
+import GeoPoint = admin.firestore.GeoPoint;
+import Timestamp = admin.firestore.Timestamp;
 
 export enum RequestStatus {
   pending = 'pending',
@@ -36,6 +38,7 @@ export interface IRequest extends FirebaseFirestore.DocumentData {
   latLng: GeoPoint;
   status: RequestStatus;
   rating: number | null;
+  ratedAt: Timestamp | null;
 }
 
 export class Request implements IRequest {
@@ -68,6 +71,9 @@ export class Request implements IRequest {
   @Max(5)
   private _rating: number | null;
 
+  @Allow()
+  private _ratedAt: Timestamp | null;
+
   constructor(
     cavUserRef: FirebaseFirestore.DocumentReference<IUser> | null,
     pinUserRef: FirebaseFirestore.DocumentReference<IUser>,
@@ -77,6 +83,7 @@ export class Request implements IRequest {
     latLng: GeoPoint,
     status: RequestStatus,
     rating: number | null = null,
+    ratedAt: Timestamp | null = null,
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
@@ -86,6 +93,7 @@ export class Request implements IRequest {
     this._latLng = latLng;
     this._status = status;
     this._rating = rating;
+    this._ratedAt = ratedAt;
   }
 
   static factory = (data: IRequest): Request => new Request(
@@ -95,8 +103,9 @@ export class Request implements IRequest {
     data.title,
     data.description,
     data.latLng,
-    data.status as RequestStatus,
+    data.status,
     data.rating,
+    data.ratedAt,
   );
 
   get cavUserRef(): FirebaseFirestore.DocumentReference<IUser> | null {
@@ -139,11 +148,11 @@ export class Request implements IRequest {
     this._description = value;
   }
 
-  get latLng(): FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData> {
+  get latLng(): FirebaseFirestore.GeoPoint {
     return this._latLng;
   }
 
-  set latLng(value: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>) {
+  set latLng(value: FirebaseFirestore.GeoPoint) {
     this._latLng = value;
   }
 
@@ -162,11 +171,19 @@ export class Request implements IRequest {
   set rating(value: number | null) {
     this._rating = value;
   }
+
+  get ratedAt(): FirebaseFirestore.Timestamp | null {
+    return this._ratedAt;
+  }
+
+  set ratedAt(value: FirebaseFirestore.Timestamp | null) {
+    this._ratedAt = value;
+  }
 }
 
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: EventContext): Promise<void[]> => {
-  const requestBefore = change.before ? change.before.data() as Request : null;
+  const requestBefore = change.before.data() ? change.before.data() as Request : null;
   const requestAfter = change.after.data() ? change.after.data() as Request : null;
 
   const operations: Promise<void>[] = [];
@@ -178,8 +195,7 @@ const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: Ev
   }
 
   // We have a new record -  Update PIN requests made count
-  if (requestBefore === null) {
-    // TODO: Update the PIN User Ref count for how many times they have requested help
+  if (!requestBefore) {
     operations.push(Promise.resolve());
   }
 
@@ -197,9 +213,14 @@ const queueRatingUpdatedTriggers = (change: Change<DocumentSnapshot>, context: E
   if (requestBefore?.rating === null && requestAfter?.rating !== null) {
     // TODO: Adjust the avg rating based on the new rating
     operations.push(Promise.resolve());
-  } else if (requestBefore?.rating !== null && requestAfter?.rating !== null) {
-    // TODO: Adjust the avg rating based on the old rating and the new rating
-    operations.push(Promise.resolve());
+  } else if (requestBefore?.rating !== null && requestAfter?.rating !== null && requestBefore?.ratedAt && requestAfter?.ratedAt) {
+    const previousRatedAt = moment(requestBefore.ratedAt.toDate());
+    const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
+    const currentRatedAt = moment(requestAfter.ratedAt.toDate());
+    if (currentRatedAt.isSameOrBefore(fiveMinutesPastPreviousRatedAt)) {
+      // TODO: Adjust the avg rating based on the old rating and the new rating
+      operations.push(Promise.resolve());
+    }
   }
 
   return Promise.all(operations);
