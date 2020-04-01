@@ -4,7 +4,7 @@ import CenteredCard from '../components/CenteredCard/CenteredCard';
 import GradientBackground from '../components/GradientBackground/GradientBackground';
 import RoleInfo from '../components/RoleInfo/RoleInfo';
 
-const LoginPage: React.FC = () => (
+const RoleInfoPage: React.FC = () => (
   <GradientBackground>
     <CenteredCard>
       <RoleInfo />
@@ -12,4 +12,4 @@ const LoginPage: React.FC = () => (
   </GradientBackground>
 );
 
-export default LoginPage;
+export default RoleInfoPage;

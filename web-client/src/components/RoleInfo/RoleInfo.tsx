@@ -4,12 +4,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-// import logo from '../../assets/logo.png';
 import cav from '../../assets/role_cav.png';
 import pin from '../../assets/role_pin.png';
 import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
-
-// const { Title, Text } = Typography;
 
 const StyledIntro = styled.div`
   display: flex;
@@ -18,25 +15,6 @@ const StyledIntro = styled.div`
   padding: 50px 50px;
 `;
 
-// const Logo = styled.img`
-//   height: 125px;
-//   width: 125px;
-// `;
-
-// const StyledTitle = styled(Title)`
-//   margin-top: 20px;
-//   margin-bottom: 50px !important;
-// `;
-
-// const Info = styled(Text)`
-//   margin-top: 40px;
-//   text-align: center;
-//   font-size: 20px;
-// `;
-
-// const Coll = styled(Col)`
-//   text-align: center;
-// `;
 const Container = styled.div`
   margin-top: 40px;
 `;
