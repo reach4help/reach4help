@@ -146,6 +146,20 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "telmodias",
+      "name": "Telmo Dias",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/30916?v=4",
+      "profile": "https://github.com/telmodias",
+      "contributions": [
+        "ideas",
+        "doc",
+        "code",
+        "review",
+        "projectManagement",
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
