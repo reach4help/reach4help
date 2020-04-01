@@ -1,3 +1,5 @@
+import { IsInt, IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator';
+
 export interface IUser {
   averageRating: number;
   casesCompleted: number;
@@ -7,16 +9,31 @@ export interface IUser {
 }
 
 export class User implements IUser {
+
+  @IsNumber()
+  @Min(1)
+  @Max(5)
   private _averageRating: number;
+
+  @IsInt()
+  @Min(0)
   private _casesCompleted: number;
+
+  @IsInt()
+  @Min(0)
   private _requestsMade: number;
+
+  @IsString()
+  @IsNotEmpty()
   private _username: string;
+
+  @IsString()
   private _displayName: string | null;
 
   constructor(
     averageRating: number,
-    casesCompleted: number,
-    requestsMade: number,
+    casesCompleted = 0,
+    requestsMade = 0,
     username: string,
     displayName: string | null = null,
   ) {

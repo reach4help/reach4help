@@ -25,7 +25,6 @@ module.exports = {
   rules: {
     // see ../.eslintrc-ts.js
     "no-underscore-dangle": "off", // We need to shadow variables
-    "lines-between-class-members": "off",
     "import/newline-after-import": "off"
   }
 };

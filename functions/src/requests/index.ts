@@ -1,3 +1,4 @@
+import { IsEnum, IsInt, IsNotEmpty, IsObject, IsString, Max, Min, ValidateNested } from 'class-validator';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
@@ -21,18 +22,36 @@ export interface IRequest extends FirebaseFirestore.DocumentData {
   title: string;
   description: string;
   latLng: GeoPoint;
-  status: RequestStatus;
+  status: string;
   rating: number | null;
 }
 
 export class Request implements IRequest {
+
   private _cavUserRef: FirebaseFirestore.DocumentReference<IUser> | null;
+
+  @IsObject()
   private _pinUserRef: FirebaseFirestore.DocumentReference<IUser>;
+
+  @ValidateNested()
   private _pinUserSnapshot: User;
+
+  @IsString()
+  @IsNotEmpty()
   private _title: string;
+
+  @IsString()
+  @IsNotEmpty()
   private _description: string;
+
   private _latLng: GeoPoint;
+
+  @IsEnum(RequestStatus)
   private _status: RequestStatus;
+
+  @IsInt()
+  @Min(1)
+  @Max(5)
   private _rating: number | null;
 
   constructor(
@@ -62,7 +81,7 @@ export class Request implements IRequest {
     data.title,
     data.description,
     data.latLng,
-    data.status,
+    data.status as RequestStatus,
     data.rating,
   );
 

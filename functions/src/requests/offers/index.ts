@@ -1,3 +1,4 @@
+import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
@@ -15,14 +16,25 @@ export interface IOffer extends FirebaseFirestore.DocumentData {
   pinUserRef: FirebaseFirestore.DocumentReference<IUser>;
   cavUserSnapshot: IUser;
   message: string;
-  status: OfferStatus;
+  status: string;
 }
 
 export class Offer implements IOffer {
+
+  @IsObject()
   private _cavUserRef: FirebaseFirestore.DocumentReference<IUser>;
+
+  @IsObject()
   private _pinUserRef: FirebaseFirestore.DocumentReference<IUser>;
+
+  @ValidateNested()
   private _cavUserSnapshot: User;
+
+  @IsString()
+  @IsNotEmpty()
   private _message: string;
+
+  @IsEnum(OfferStatus)
   private _status: OfferStatus;
 
   constructor(
@@ -44,7 +56,7 @@ export class Offer implements IOffer {
     data.pinUserRef,
     User.factory(data.cavUserSnapshot),
     data.message,
-    data.status,
+    data.status as OfferStatus,
   );
 
   get cavUserRef(): FirebaseFirestore.DocumentReference<IUser> {
