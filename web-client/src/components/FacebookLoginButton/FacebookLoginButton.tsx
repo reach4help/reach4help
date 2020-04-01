@@ -1,6 +1,5 @@
 import { Button } from 'antd';
 import React from 'react';
-import FacebookAuth from 'react-facebook-auth';
 import { useTranslation } from 'react-i18next';
 
 const FBButton = (props: any) => {
@@ -22,11 +21,7 @@ const FacebookLoginButton: React.FC<FacebookLoginButtonProps> = ({
   onAuthenticate,
 }): React.ReactElement => (
   <>
-    <FacebookAuth
-      appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-      callback={onAuthenticate}
-      component={FBButton}
-    />
+    <FBButton onClick={onAuthenticate} />
   </>
 );
 
