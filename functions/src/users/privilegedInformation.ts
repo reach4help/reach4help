@@ -1,0 +1,14 @@
+import * as admin from 'firebase-admin';
+import * as functions from 'firebase-functions';
+import Timestamp = admin.firestore.Timestamp;
+
+export interface PrivateUserData extends FirebaseFirestore.DocumentData {
+  address: google.maps.GeocoderResult;
+  termsAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
+  termsVersion: string;
+}
+
+export const triggerEventsWhenRequestPrivilegedInformationIsCreated =
+  functions.firestore.document('users/{userId}/privilegedInformation/{informationId}')
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+    .onCreate((snapshot, context) => Promise.resolve());
