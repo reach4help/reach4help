@@ -1,12 +1,12 @@
 import { AlertTwoTone, HeartTwoTone } from '@ant-design/icons';
-import { Button, Col, Row, Typography } from 'antd';
+import { Button, Col, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 // import logo from '../../assets/logo.png';
-import pin from '../../assets/role_pin.png';
 import cav from '../../assets/role_cav.png';
+import pin from '../../assets/role_pin.png';
 import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
 // const { Title, Text } = Typography;
@@ -58,8 +58,8 @@ const Pin = styled.img``;
 const Cav = styled.img``;
 
 const LoginIntro: React.FC = (): React.ReactElement => {
-  const { t } = useTranslation();
-
+  const { t, i18n } = useTranslation();
+  i18n.changeLanguage('pt-PT');
   return (
     <StyledIntro>
       <TitleWithAddon level={2}>{t('roleinfo.sub_title')}</TitleWithAddon>

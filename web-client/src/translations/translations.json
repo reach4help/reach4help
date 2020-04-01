@@ -20,7 +20,7 @@
         "info": "Please tell us what is your purpose to use Reach4Help",
         "info_pin": "I'm here because I need help",
         "c2a_pin": "Get help now!",
-        "info_cav": "I'm here because I want to help people in need",
+        "info_cav": "I'm here because I want to help people",
         "c2a_cav": "Start helping now!"
       }
     }
@@ -42,9 +42,11 @@
       "roleinfo": {
         "title": "Reach4Help",
         "sub_title": "Como podemos ajudá-lo(a) ?",
-        "info": "Please tell us what is your purpose to use Reach4Help",
-        "info_pin": "I need help",
-        "info_cav": "I'm here to help"
+        "info": "Por favor diga-nos como pretende usar o Reach4Help",
+        "info_pin": "Estou aqui porque preciso de ajuda",
+        "c2a_pin": "Obter ajuda agora!",
+        "info_cav": "Estou aqui porque quero ajudar",
+        "c2a_cav": "Comece a ajudar agora!"
       }
     }
   }
