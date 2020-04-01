@@ -14,7 +14,7 @@ export interface PrivateUserData extends FirebaseFirestore.DocumentData {
   pinQuestionnaire: { [key: string]: any };
 }
 
-export const triggerEventsWhenRequestPrivilegedInformationIsCreated =
+export const triggerEventsWhenUserPrivilegedInformationIsCreated =
   functions.firestore.document('users/{userId}/privilegedInformation/{informationId}')
     // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
     .onCreate((snapshot, context) => Promise.resolve());

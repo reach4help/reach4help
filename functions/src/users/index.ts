@@ -104,7 +104,7 @@ const validateUser = (value: IUser): Promise<void> => {
     });
 };
 
-export const triggerEventsWhenOfferIsCreated = functions.firestore.document('users/{userId}')
+export const triggerEventsWhenUserIsCreated = functions.firestore.document('users/{userId}')
   // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
     return validateUser(snapshot.data() as IUser)
