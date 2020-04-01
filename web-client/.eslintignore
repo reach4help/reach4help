@@ -1,2 +1,4 @@
 src/serviceWorker.ts
 custom.d.ts
+build
+node_modules

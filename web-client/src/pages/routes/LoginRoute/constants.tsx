@@ -1,1 +1,3 @@
-export const LOGIN_PATH = '/login';
+import Location from 'react-app-location';
+
+export const LoginLocation = new Location('/login');

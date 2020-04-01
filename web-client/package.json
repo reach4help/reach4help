@@ -25,6 +25,7 @@
     "less-loader": "^5.0.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
+    "react-app-location": "^1.2.0",
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.1",
     "react-facebook-auth": "^1.4.0",

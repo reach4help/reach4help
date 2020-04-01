@@ -3447,6 +3447,15 @@ apollo-utilities@1.3.3, apollo-utilities@^1.3.0, apollo-utilities@^1.3.3:
     ts-invariant "^0.4.0"
     tslib "^1.10.0"
 
+app-location@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/app-location/-/app-location-1.1.1.tgz#64aa052c5f1b1b5dbf17a6159f6073d0b52d2c84"
+  integrity sha512-zGzO2iQgabkJRghaX6uDZcvm+Wt7v67oxRN5FplgdtqdfbaEZkNPdhdBuN8Bly1X3eC+UuXdLnMD2DpSI9iL5Q==
+  dependencies:
+    path-to-regexp "^1.7.0"
+    querystringify "^2.0.0"
+    warning "^4.0.2"
+
 application-config-path@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/application-config-path/-/application-config-path-0.1.0.tgz#193c5f0a86541a4c66fba1e2dc38583362ea5e8f"
@@ -16788,7 +16797,7 @@ querystring@0.2.0, querystring@^0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
-querystringify@^2.1.1:
+querystringify@^2.0.0, querystringify@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
@@ -17222,6 +17231,15 @@ re-resizable@^4.11.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-4.11.0.tgz#d5df10bda445c4ec0945751a223bf195afb61890"
   integrity sha512-dye+7rERqNf/6mDT1iwps+4Gf42420xuZgygF33uX178DxffqcyeuHbBuJ382FIcB5iP6mMZOhfW7kI0uXwb/Q==
+
+react-app-location@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-app-location/-/react-app-location-1.2.0.tgz#f4be6f26e5448fee1ccc7293a02bafe77bc9ced2"
+  integrity sha512-RLpkXCYgKR5fZGvQt8cFHM7ajbrGEWynEFNcnv1RI+DHEPrWirLMrwgyFRXwXFUs9L+9THSufAidRdIh80F3AQ==
+  dependencies:
+    app-location "^1.1.1"
+    querystringify "^2.0.0"
+    warning "^4.0.2"
 
 react-app-polyfill@^1.0.6:
   version "1.0.6"
@@ -21482,7 +21500,7 @@ warning@^3.0.0:
   dependencies:
     loose-envify "^1.0.0"
 
-warning@^4.0.1, warning@^4.0.3, warning@~4.0.3:
+warning@^4.0.1, warning@^4.0.2, warning@^4.0.3, warning@~4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
   integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
