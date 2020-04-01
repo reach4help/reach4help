@@ -24,7 +24,9 @@
         "title": "New Request",
         "form": {
           "title": "Title",
-          "body": "Enter details of what is needed"
+          "body": "Enter details of what is needed",
+          "consent": "Allow Push Notifications. You can always change this in your Settings later.",
+          "submit": "Send my need"
         }
       }
     }

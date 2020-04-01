@@ -42,6 +42,10 @@ const TitleWithAddon: React.FC<TitleWithAddonProps> = ({
   alignAddon
 }): React.ReactElement => (
   <TitleWrapper>
+    {/* 
+    There is a bug with styled-components regarding camelCase props. I will not try to workaround,
+    and wait until it's fixed 
+    https://github.com/styled-components/styled-components/issues/2131 */}
     <StyledTitle alignAddon={alignAddon} level={level}>
       {children}
     </StyledTitle>
