@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 // import logo from '../../assets/logo.png';
-import doctor from '../../assets/doctor.png';
-import nurse from '../../assets/nurse.png';
+import pin from '../../assets/role_pin.png';
+import cav from '../../assets/role_cav.png';
 import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
 // const { Title, Text } = Typography;
@@ -50,12 +50,12 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 445px;
-  height: 385px;
+  width: 310px;
+  height: 290px;
 `;
 
-const Doctor = styled.img``;
-const Nurse = styled.img``;
+const Pin = styled.img``;
+const Cav = styled.img``;
 
 const LoginIntro: React.FC = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -67,24 +67,28 @@ const LoginIntro: React.FC = (): React.ReactElement => {
         <Row>
           <Col span={12}>
             <Box>
-              <Doctor src={doctor} />
+              <Pin src={pin} />
 
               <p>{t('roleinfo.info_pin')}</p>
 
-              <Button type="default" shape="round" icon={<AlertTwoTone />}>
+              <Button
+                type="default"
+                shape="round"
+                icon={<AlertTwoTone twoToneColor="#FF7B02" />}
+              >
                 {t('roleinfo.c2a_pin')}
               </Button>
             </Box>
           </Col>
           <Col span={12}>
             <Box>
-              <Nurse src={nurse} />
+              <Cav src={cav} />
               <p>{t('roleinfo.info_cav')}</p>
 
               <Button
                 type="default"
                 shape="round"
-                icon={<HeartTwoTone twoToneColor="#eb2f96" />}
+                icon={<HeartTwoTone twoToneColor="#C0458A" />}
               >
                 {t('roleinfo.c2a_cav')}
               </Button>
