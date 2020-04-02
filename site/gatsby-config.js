@@ -47,8 +47,7 @@ module.exports = {
       process.env.GATSBY_SITE_URL ||
       process.env.DEPLOY_PRIME_URL ||
       'https://reach4help.org',
-    description:
-      'Reach4Help is an open project that is completely run by volunteers, and is part of Helpful Engineering, a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commercial goals. We’re looking for more people to join our teams, if you’d like to join, please take a look at the instructions for getting involved.',
+    description: 'Unifying help around the world.',
     url:
       process.env.GATSBY_SITE_URL ||
       process.env.DEPLOY_PRIME_URL ||
