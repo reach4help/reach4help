@@ -24,7 +24,7 @@ export default createReducer<AuthState>(
       state: AuthState,
       { payload }: { payload: firebase.auth.UserCredential },
     ) => {
-      state.token = (payload.credential as firebase.auth.OAuthCredential).accessToken;
+      state.token = payload.credential.accessToken;
     },
   },
   initialState,
