@@ -11,7 +11,8 @@
       },
       "phoneNumber": {
         "sub_title": "Enter your telephone number to begin",
-        "info": "This information is fundamental to validate your account. Data and rates may apply."
+        "info": "This information is fundamental to validate your account. Data and rates may apply.",
+        "error_message": "Please input your phone number!"
       },
       "loading": {
         "title": "Your request has been created.\n You will be contacted by one of our volunteers shortly.",
@@ -32,7 +33,8 @@
       },
       "phoneNumber": {
         "sub_title": "Introduza o seu número de telefone para começar",
-        "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas."
+        "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas.",
+        "error_message": "Por favor insira o seu número de telefone!"
     },
       "loading": {
         "title": "O seu pedido foi criado. \n Brevemente será contactado por um dos nossos voluntários.",

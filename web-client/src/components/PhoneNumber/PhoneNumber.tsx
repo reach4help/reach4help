@@ -66,8 +66,17 @@ const PhoneNumber: React.FC<NewRequestProps> = ({
         }}
       >
         <Description>{t('phoneNumber.sub_title')}</Description>
-        <Form.Item style={{ textAlign: 'center' }} name="phoneNumber">
-          <StyledInput placeholder="+0 000 000 000 000" />
+        <Form.Item
+          style={{ textAlign: 'center' }}
+          name="phoneNumber"
+          rules={[
+            {
+              required: true,
+              message: t('phoneNumber.error_message'),
+            },
+          ]}
+        >
+          <StyledInput placeholder="+0 000 000 000 000" maxLength={14} />
         </Form.Item>
         <Info>{t('phoneNumber.info')}</Info>
         <Form.Item>
