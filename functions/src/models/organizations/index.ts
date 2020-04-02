@@ -4,8 +4,8 @@ import { firestore } from 'firebase-admin';
 import DocumentData = firestore.DocumentData;
 
 export enum OrganizationType {
-  healthCare = 'health care',
-  socialServices = 'social services',
+  healthCare = 'health_care',
+  socialServices = 'social_services',
   welfare = 'welfare',
 }
 
