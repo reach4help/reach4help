@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
     "build": "tsc",
     "serve": "yarn run build && firebase emulators:start --only functions",
     "shell": "yarn run build && firebase functions:shell",
@@ -17,7 +18,7 @@
   "main": "lib/index.js",
   "lint-staged": {
     "*.{ts}": [
-      "eslint . --fix --ext .ts"
+      "eslint . --ext .ts"
     ],
     "*.md": [
       "prettier --write"
