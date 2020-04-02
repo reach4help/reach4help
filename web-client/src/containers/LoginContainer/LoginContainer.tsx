@@ -1,14 +1,14 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import Login from "src/components/Login/Login";
-import { loginWithFirebaseAction } from "src/ducks/auth/actions";
-import { AppState } from "src/store";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import Login from 'src/components/Login/Login';
+import { loginWithFirebaseAction } from 'src/ducks/auth/actions';
+import { AppState } from 'src/store';
 
-import { LoginRedirectProps } from "./constants";
+import { LoginRedirectProps } from './constants';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
-  redirectBack = "/"
+  redirectBack = '/',
 }) => {
   const dispatch = useDispatch();
   const token = useSelector((state: AppState) => state.auth.token);

@@ -1,10 +1,10 @@
-import { Button, Checkbox, Descriptions, Form, Input } from "antd";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import { Button, Checkbox, Descriptions, Form, Input } from 'antd';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
-import { COLORS } from "../../theme/colors";
-import TitleWithAddon from "../TitleWithAddon/TitleWithAddon";
+import { COLORS } from '../../theme/colors';
+import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
 const MainDiv = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ interface NewRequestProps {
 }
 
 const NewRequest: React.FC<NewRequestProps> = ({
-  handleFormSubmit
+  handleFormSubmit,
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -66,7 +66,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
       </IconDiv>
       <FormDiv>
         <TitleWithAddon alignAddon="left" level={2}>
-          {t("newRequest.title")}
+          {t('newRequest.title')}
         </TitleWithAddon>
         <Descriptions>
           <Descriptions.Item label="AntdIconHere">
@@ -82,19 +82,19 @@ const NewRequest: React.FC<NewRequestProps> = ({
             handleFormSubmit(values);
           }}
         >
-          <Form.Item name="title" label={t("newRequest.form.title")}>
-            <Input placeholder={t("newRequest.form.title")} />
+          <Form.Item name="title" label={t('newRequest.form.title')}>
+            <Input placeholder={t('newRequest.form.title')} />
           </Form.Item>
-          <Form.Item name="body" label={t("newRequest.form.body")}>
-            <Input.TextArea placeholder={t("newRequest.form.body")} />
+          <Form.Item name="body" label={t('newRequest.form.body')}>
+            <Input.TextArea placeholder={t('newRequest.form.body')} />
           </Form.Item>
           <ConsentAndSubmitDiv>
             <Form.Item valuePropName="checked" name="consent">
-              <Checkbox>{t("newRequest.form.consent")}</Checkbox>
+              <Checkbox>{t('newRequest.form.consent')}</Checkbox>
             </Form.Item>
             <Form.Item>
               <SubmitButton htmlType="submit" type="primary">
-                {t("newRequest.form.submit")}
+                {t('newRequest.form.submit')}
               </SubmitButton>
             </Form.Item>
           </ConsentAndSubmitDiv>

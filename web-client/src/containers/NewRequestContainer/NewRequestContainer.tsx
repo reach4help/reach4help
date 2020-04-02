@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import NewRequest from "../../components/NewRequest/NewRequest";
+import NewRequest from '../../components/NewRequest/NewRequest';
 
 const NewRequestContainer: React.FC = () => {
   // eslint-disable-next-line no-unused-vars

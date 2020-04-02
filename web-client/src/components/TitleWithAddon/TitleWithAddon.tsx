@@ -1,8 +1,8 @@
-import { Typography } from "antd";
-import React from "react";
-import styled from "styled-components";
+import { Typography } from 'antd';
+import React from 'react';
+import styled from 'styled-components';
 
-import { COLORS } from "../../theme/colors";
+import { COLORS } from '../../theme/colors';
 
 const { Title } = Typography;
 
@@ -12,12 +12,12 @@ const TitleWrapper = styled.div`
 
 const doAddonAlignment = (align: string | undefined) => {
   switch (align) {
-    case "left":
-      return "12%";
-    case "right":
-      return "88%";
+    case 'left':
+      return '12%';
+    case 'right':
+      return '88%';
     default:
-      return "50%";
+      return '50%';
   }
 };
 
@@ -25,7 +25,7 @@ const StyledTitle = styled(Title)`
   white-space: pre-line;
   text-align: center;
   :after {
-    content: " ";
+    content: ' ';
     position: absolute;
     width: 40px;
     height: 6px;
@@ -39,7 +39,7 @@ const StyledTitle = styled(Title)`
 const TitleWithAddon: React.FC<TitleWithAddonProps> = ({
   children,
   level,
-  alignAddon
+  alignAddon,
 }): React.ReactElement => (
   <TitleWrapper>
     {/* 

@@ -5,7 +5,9 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <p align="center">
@@ -21,6 +23,7 @@ Reach4Help is an open project that is completely run by volunteers that aims to 
 We’re part of [Helpful Engineering](https://www.helpfulengineering.org/), a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commercial goals.
 
 ## Project Status
+
 Right now we’re in the very early stages of project development, but moving very rapidly! We’re currently assembling [teams](https://github.com/covidaidapp/info#project-team), speaking to organizations to assess needs, designing app workflows, and building the initial MVP.
 
 If you’d like to help and join one of our [teams](https://github.com/covidaidapp/info#project-team), please take a look at the [instructions for getting involved](https://github.com/covidaidapp/info#get-involved).
@@ -51,21 +54,25 @@ and update the `yarn.lock` in the root of the repo.
 ## Sub Projects
 
 ### Site
+
 This is the landing page for the organization. It shows a lot of helpful tips and general information.
 
 More info [here](site/README.md)
 
 ### Map
+
 This is the interactive map visualizing aid around the world. It allows users to quickly find organizations in their area.
 
 More info [here](map/README.md)
 
 ### Web client
+
 This is the web client with which our people in need and our volunteers interact with the platform.
 
 More info [here](web-client/README.md)
 
 ### API
+
 This is the API that will manage our data for the [Web client](web-client/README.md).
 
 More info [here](api/README.md)
@@ -108,6 +115,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

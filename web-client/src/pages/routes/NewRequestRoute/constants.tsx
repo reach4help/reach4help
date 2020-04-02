@@ -1,1 +1,1 @@
-export const NEW_REQUEST_PATH = "/new-request";
+export const NEW_REQUEST_PATH = '/new-request';

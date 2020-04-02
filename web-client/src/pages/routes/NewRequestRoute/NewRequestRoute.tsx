@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement } from 'react';
 
-import CenteredCard from "../../../components/CenteredCard/CenteredCard";
-import GradientBackground from "../../../components/GradientBackground/GradientBackground";
-import NewRequestContainer from "../../../containers/NewRequestContainer/NewRequestContainer";
+import CenteredCard from '../../../components/CenteredCard/CenteredCard';
+import GradientBackground from '../../../components/GradientBackground/GradientBackground';
+import NewRequestContainer from '../../../containers/NewRequestContainer/NewRequestContainer';
 
 const NewRequestRoute: React.FC = (): ReactElement => (
   <GradientBackground>
