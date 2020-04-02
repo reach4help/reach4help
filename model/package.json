@@ -5,7 +5,17 @@
     "lint": "eslint src tests --ext .ts && prettier --check \"{src,tests}/**/*.ts\"",
     "lint:fix": "eslint src tests --fix --ext .ts && prettier --write \"{src,tests}/**/*.ts\"",
     "build": "rm -rf lib && tsc --build src/tsconfig.json",
-    "test": "yarn run jest"
+    "test": "yarn run jest",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint src tests --fix --ext .ts",
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "jest": "^25.2.6",
