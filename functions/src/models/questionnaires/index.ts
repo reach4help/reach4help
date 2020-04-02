@@ -16,7 +16,6 @@ export enum QuestionnaireType {
 }
 
 export interface IQuestionnaire extends DocumentData {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   parentRef: DocumentReference<IUser | ITeam | IOrganization>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: { [key: string]: any };
