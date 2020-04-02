@@ -28,5 +28,7 @@ module.exports = {
     'import/newline-after-import': 'off',
     'no-console': 'off',
     'arrow-body-style': 'off',
+    'class-methods-use-this': 'off',
+    'import/no-cycle': 'warn',
   },
 };
