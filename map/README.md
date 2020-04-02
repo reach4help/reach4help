@@ -1,7 +1,7 @@
 # COVID-19 Mutual Aid Map
 
 <p align="center">
-  <img src="branding/banners/swarm_banner_map_alt.png">
+  <img src="../branding/banners/swarm_banner_map_alt.png">
 </p>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

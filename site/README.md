@@ -2,6 +2,10 @@
   COVID Aid website
 </h1>
 
+<p align="center">
+  <img src="../branding/banners/swarm_banner_main.png">
+</p>
+
 <h3 align="center">
   The website for <a href="https://covidaid.app/">COVID Aid project</a>
 </h3>
@@ -42,4 +46,3 @@ Thank's goes to these wonderful people ([emoji key](https://allcontributors.org/
 Check them [here](https://github.com/reach4help/reach4help#contributors-)
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
