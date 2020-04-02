@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
+import PhoneNumberPage from './routes/PhoneNumberPage';
+
 const ContentPage = (): ReactElement => (
   <Router>
     <Route path="*">
-      {/* <ExampleProtectedRoute /> */}
-      Protected route - This route is now accessible because login succeeded
-      TODO: No routes available
+      <PhoneNumberPage />
     </Route>
   </Router>
 );

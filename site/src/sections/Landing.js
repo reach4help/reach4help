@@ -73,7 +73,7 @@ const LandingPage = () => (
         }
       `}
       render={({ site }) => {
-        const { title, description, socialLinks } = site.siteMetadata;
+        const { title, headerDescription, socialLinks } = site.siteMetadata;
         return (
           <Fragment>
             <Image
@@ -101,7 +101,7 @@ const LandingPage = () => (
               textAlign="center"
               style={centerHorizontally}
             >
-              {description}
+              {headerDescription}
             </Heading>
 
             <Flex alignItems="center" justifyContent="center" flexWrap="wrap">

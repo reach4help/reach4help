@@ -1,12 +1,18 @@
 {
   "en": {
     "common": {
-      "welcome": "Welcome!",
+      "welcome": "Welcome",
+      "continue": "Continue",
       "login": {
         "title": "Reach4Help",
         "sub_title": "Please Note",
         "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
         "facebookButtonLabel": "Continue with Facebook"
+      },
+      "phoneNumber": {
+        "sub_title": "Enter your telephone number to begin",
+        "info": "This information is fundamental to validate your account. Data and rates may apply.",
+        "error_message": "Please input your phone number!"
       },
       "loading": {
         "title": "Your request has been created.\n You will be contacted by one of our volunteers shortly.",
@@ -18,12 +24,18 @@
   },
   "pt": {
     "common": {
-      "welcome": "Bem-vindo!",
+      "welcome": "Bem-vindo",
+      "continue": "Continuar",
       "login": {
         "title": "Reach4Help",
         "sub_title": "Atenção",
         "facebookButtonLabel": "Continuar com o Facebook"
       },
+      "phoneNumber": {
+        "sub_title": "Introduza o seu número de telefone para começar",
+        "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas.",
+        "error_message": "Por favor insira o seu número de telefone!"
+    },
       "loading": {
         "title": "O seu pedido foi criado. \n Brevemente será contactado por um dos nossos voluntários.",
         "pleaseWaitLabel": "Aguarde por favor...",
