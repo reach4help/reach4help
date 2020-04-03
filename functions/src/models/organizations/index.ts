@@ -7,6 +7,7 @@ export enum OrganizationType {
   healthCare = 'health_care',
   socialServices = 'social_services',
   welfare = 'welfare',
+  mutualAid = 'mutual_aid',
 }
 
 export interface IOrganization extends DocumentData {
