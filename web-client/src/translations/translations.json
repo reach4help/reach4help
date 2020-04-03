@@ -3,6 +3,13 @@
     "common": {
       "welcome": "Welcome",
       "continue": "Continue",
+      "name": "Name",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "adress": "Adress",
+      "city": "City",
+      "code": "Code",
+      "country": "Country",
       "login": {
         "title": "Reach4Help",
         "sub_title": "Please Note",
@@ -19,6 +26,14 @@
         "pleaseWaitLabel": "Please wait...",
         "tip_title": "Remember",
         "tip_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      },
+      "user_data_form": {
+        "sub_title": "Please fill out the personal details bellow.",
+        "gps_button": "Use GPS to get my address",
+        "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+        "policy_link": "Privacy & Security Policy.",
+        "terms_conditions_text": "I understand and acknowledge the ",
+        "terms_conditions_link": "Terms & Conditions."
       }
     }
   },
@@ -26,6 +41,13 @@
     "common": {
       "welcome": "Bem-vindo",
       "continue": "Continuar",
+      "name": "Nome",
+      "first_name": "Primeiro nome",
+      "last_name": "Ultimo nome",
+      "adress": "Morada",
+      "city": "Cidade",
+      "code": "Código",
+      "country": "País",
       "login": {
         "title": "Reach4Help",
         "sub_title": "Atenção",
@@ -41,6 +63,14 @@
         "pleaseWaitLabel": "Aguarde por favor...",
         "tip_title": "Lembrete",
         "tip_info": "Assim que um voluntário oferecer ajuda, deve aceitar a sua ajuda para que ele consiga ver os seus contactos"
+      },
+      "user_data_form": {
+        "sub_title": "Por favor preencha os seus dados pessois em baixo.",
+        "gps_button": "Usar GPS para descobrir o meu endereço",
+        "policy_text": "Nós precisamos destes dados para assegurar que a ajuda chega ao destino correto. Para quaisquer preocupações, leia os nossos termos de ",
+        "policy_link": "Privacidade & Segurança.",
+        "terms_conditions_text": "Eu percebo e reconheço os ",
+        "terms_conditions_link": "Termos & Condições."
       }
     }
   }
