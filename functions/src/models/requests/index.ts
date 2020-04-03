@@ -34,7 +34,8 @@ export interface IRequest extends DocumentData {
   description: string;
   latLng: GeoPoint;
   status: RequestStatus;
-  rating: number | null;
+  pinRating: number | null;
+  cavRating: number | null;
   ratedAt: Timestamp | null;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
@@ -80,7 +81,12 @@ export class Request implements IRequest {
   @IsInt()
   @Min(1)
   @Max(5)
-  private _rating: number | null;
+  private _pinRating: number | null;
+
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  private _cavRating: number | null;
 
   @Allow()
   private _ratedAt: Timestamp | null;
@@ -95,7 +101,8 @@ export class Request implements IRequest {
     status: RequestStatus,
     createdAt = Timestamp.now(),
     updatedAt = Timestamp.now(),
-    rating: number | null = null,
+    pinRating: number | null = null,
+    cavRating: number | null = null,
     ratedAt: Timestamp | null = null,
   ) {
     this._cavUserRef = cavUserRef;
@@ -107,7 +114,8 @@ export class Request implements IRequest {
     this._status = status;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
-    this._rating = rating;
+    this._pinRating = pinRating;
+    this._cavRating = cavRating;
     this._ratedAt = ratedAt;
   }
 
@@ -121,7 +129,8 @@ export class Request implements IRequest {
     data.status,
     data.createdAt,
     data.updatedAt,
-    data.rating,
+    data.pinRating,
+    data.cavRating,
     data.ratedAt,
   );
 
@@ -197,12 +206,20 @@ export class Request implements IRequest {
     this._updatedAt = value;
   }
 
-  get rating(): number | null {
-    return this._rating;
+  get pinRating(): number | null {
+    return this._pinRating;
   }
 
-  set rating(value: number | null) {
-    this._rating = value;
+  set pinRating(value: number | null) {
+    this._pinRating = value;
+  }
+
+  get cavRating(): number | null {
+    return this._cavRating;
+  }
+
+  set cavRating(value: number | null) {
+    this._cavRating = value;
   }
 
   get ratedAt(): Timestamp | null {

@@ -3,6 +3,7 @@ import { firestore } from 'firebase-admin';
 
 import { IOrganization } from '../organizations';
 import { ITeam } from '../organizations/teams';
+// eslint-disable-next-line import/no-cycle
 import { IUser } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;

@@ -1,4 +1,4 @@
-import { validate } from 'class-validator';
+import { validateOrReject } from 'class-validator';
 import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
@@ -35,11 +35,25 @@ const queueRatingUpdatedTriggers = (change: Change<DocumentSnapshot>, context: E
 
   const operations: Promise<void>[] = [];
 
-  // We have a new rating -  Update CAV rating average but only this time.
-  if (requestBefore?.rating === null && requestAfter?.rating !== null) {
+  // We have a new PIN rating -  Update PIN rating average but only this time.
+  if (requestBefore?.pinRating === null && requestAfter?.pinRating !== null) {
     // TODO: Adjust the avg rating based on the new rating
     operations.push(Promise.resolve());
-  } else if (requestBefore?.rating !== null && requestAfter?.rating !== null && requestBefore?.ratedAt && requestAfter?.ratedAt) {
+  } else if (requestBefore?.pinRating !== null && requestAfter?.pinRating !== null && requestBefore?.ratedAt && requestAfter?.ratedAt) {
+    const previousRatedAt = moment(requestBefore.ratedAt.toDate());
+    const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
+    const currentRatedAt = moment(requestAfter.ratedAt.toDate());
+    if (currentRatedAt.isSameOrBefore(fiveMinutesPastPreviousRatedAt)) {
+      // TODO: Adjust the avg rating based on the old rating and the new rating
+      operations.push(Promise.resolve());
+    }
+  }
+
+  // We have a new CAV rating -  Update CAV rating average but only this time.
+  if (requestBefore?.cavRating === null && requestAfter?.cavRating !== null) {
+    // TODO: Adjust the avg rating based on the new rating
+    operations.push(Promise.resolve());
+  } else if (requestBefore?.cavRating !== null && requestAfter?.cavRating !== null && requestBefore?.ratedAt && requestAfter?.ratedAt) {
     const previousRatedAt = moment(requestBefore.ratedAt.toDate());
     const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
     const currentRatedAt = moment(requestAfter.ratedAt.toDate());
@@ -53,7 +67,7 @@ const queueRatingUpdatedTriggers = (change: Change<DocumentSnapshot>, context: E
 };
 
 const validateRequest = (value: IRequest): Promise<void> => {
-  return validate(Request.factory(value))
+  return validateOrReject(Request.factory(value))
     .then(() => {
       return Promise.resolve();
     });

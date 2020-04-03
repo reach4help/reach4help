@@ -1,4 +1,4 @@
-import { validate } from 'class-validator';
+import { validateOrReject } from 'class-validator';
 import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
@@ -27,7 +27,7 @@ const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: Ev
 };
 
 const validateOffer = (value: IOffer): Promise<void> => {
-  return validate(Offer.factory(value))
+  return validateOrReject(Offer.factory(value))
     .then(() => {
       return Promise.resolve();
     });
