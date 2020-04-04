@@ -16,8 +16,7 @@ export const facebookLoginWithFirebasePopUp = async (): Promise<
 > => {
   const provider = new firebase.auth.FacebookAuthProvider();
   const result = await firebaseAuth.signInWithPopup(provider);
-  const token = await result.user?.getIdToken();
-  return token;
+  return result.user?.getIdToken();
 };
 
 export const facebookLoginWithFirebaseRedirect = (): void => {
@@ -27,10 +26,7 @@ export const facebookLoginWithFirebaseRedirect = (): void => {
 
 export const completeLoginWithFirebaseRedirect = async (
   payload: firebase.auth.UserCredential | { user: firebase.User },
-): Promise<string | undefined> => {
-  const token = await payload.user?.getIdToken();
-  return token;
-};
+): Promise<string | undefined> => payload.user?.getIdToken();
 
 export interface LoginResponse {
   userId: string;

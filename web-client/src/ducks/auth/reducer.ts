@@ -28,93 +28,55 @@ export default createReducer<AuthState>(
     ) => {
       state.token = payload.accessToken;
     },
-    [FIREBASE_FACEBOOK_LOGIN_POPUP.PENDING]: (state: AuthState) => ({
-      ...state,
-      actionInProgress: true,
-    }),
+    [FIREBASE_FACEBOOK_LOGIN_POPUP.PENDING]: (state: AuthState) => {
+      state.actionInProgress = true;
+    },
     [FIREBASE_FACEBOOK_LOGIN_POPUP.COMPLETED]: (
       state: AuthState,
       { payload }: { payload: string },
     ) => {
-      const token = payload;
-      const actionInProgress = false;
-      return {
-        ...state,
-        token,
-        actionInProgress,
-      };
+      state.token = payload;
+      state.actionInProgress = false;
     },
     [FIREBASE_FACEBOOK_LOGIN_POPUP.REJECTED]: (
       state: AuthState,
       { payload }: { payload: Error },
     ) => {
-      const error = payload;
-      const actionInProgress = false;
-      return {
-        ...state,
-        error,
-        actionInProgress,
-      };
+      state.error = payload;
+      state.actionInProgress = false;
     },
     [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.PENDING]: (state: AuthState) => {
       window.localStorage.setItem('redirect_started', new Date().toISOString());
-      const actionInProgress = true;
-      return {
-        ...state,
-        actionInProgress,
-      };
+      state.actionInProgress = true;
     },
     [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.REJECTED]: (
       state: AuthState,
       { payload }: { payload: Error },
     ) => {
       window.localStorage.removeItem('redirect_started');
-      const error = payload;
-      const actionInProgress = false;
-      return {
-        ...state,
-        error,
-        actionInProgress,
-      };
+      state.error = payload;
+      state.actionInProgress = false;
     },
     [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.COMPLETED]: (state: AuthState) => {
-      const actionInProgress = false;
-      return {
-        ...state,
-        actionInProgress,
-      };
+      state.actionInProgress = false;
     },
     [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.PENDING]: (state: AuthState) => {
       window.localStorage.removeItem('redirect_started');
-      const actionInProgress = true;
-      return {
-        ...state,
-        actionInProgress,
-      };
+      state.actionInProgress = true;
     },
     [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.COMPLETED]: (
       state: AuthState,
       { payload }: { payload: string },
     ) => {
-      const token = payload;
-      const actionInProgress = false;
-      return {
-        ...state,
-        token,
-        actionInProgress,
-      };
+      state.token = payload;
+      state.actionInProgress = false;
     },
     [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.REJECTED]: (
       state: AuthState,
       { payload }: { payload: Error },
     ) => {
-      const error = payload;
-      const actionInProgress = false;
-      return {
-        ...state,
-        error,
-        actionInProgress,
-      };
+      state.error = payload;
+      state.actionInProgress = false;
     },
   },
   initialState,
