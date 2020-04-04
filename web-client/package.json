@@ -28,6 +28,7 @@
     "react": "^16.13.1",
     "react-app-location": "^1.2.0",
     "react-app-rewired": "^2.1.5",
+    "react-device-detect": "^1.11.14",
     "react-dom": "^16.13.1",
     "react-facebook-auth": "^1.4.0",
     "react-i18next": "^11.3.4",
@@ -43,7 +44,7 @@
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
-    "build": "NODE_ENV=development react-app-rewired build",
+    "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "lint": "eslint . --ext .js,.ts,.tsx && prettier --check \"./src/**/*.{ts,tsx}\"",

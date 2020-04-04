@@ -6,6 +6,7 @@ export interface Action {
   payload?: any;
   meta?: any;
   api?: Function;
+  firebase?: Function;
 }
 
 const createReducer = <T>(

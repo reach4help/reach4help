@@ -26,10 +26,10 @@ const injectRequestMiddleware = ({ dispatch }: { dispatch: Function }) => (
         api: action.api,
         firebase: !!action.firebase,
       });
-    } catch {
+    } catch (error) {
       return next({
         type: `${action.type}_REJECTED`,
-        payload: action.payload,
+        payload: error,
       });
     }
   }

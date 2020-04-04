@@ -1,7 +1,15 @@
-import { facebookLoginWithFirebase, login } from 'src/http/resources/auth';
+import firebase from 'src/firebase';
+import {
+  completeLoginWithFirebaseRedirect,
+  facebookLoginWithFirebasePopUp,
+  facebookLoginWithFirebaseRedirect,
+  login,
+} from 'src/http/resources/auth';
 
 import {
-  FIREBASE_FACEBOOK_LOGIN,
+  FIREBASE_FACEBOOK_LOGIN_POPUP,
+  FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
+  FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
   LOGIN,
   LoginAction,
   /*
@@ -19,10 +27,28 @@ export const loginAction = (payload: LoginAction) => (dispatch: Function) => {
   });
 };
 
-export const loginWithFirebaseAction = () => (dispatch: Function) => {
+export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
   dispatch({
-    type: FIREBASE_FACEBOOK_LOGIN,
+    type: FIREBASE_FACEBOOK_LOGIN_POPUP,
     payload: {},
-    firebase: facebookLoginWithFirebase,
+    firebase: facebookLoginWithFirebasePopUp,
+  });
+};
+
+export const loginWithFirebaseActionRedirect = () => (dispatch: Function) => {
+  dispatch({
+    type: FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
+    payload: {},
+    firebase: facebookLoginWithFirebaseRedirect,
+  });
+};
+
+export const completeLoginWithFirebaseActionRedirect = (
+  payload: firebase.auth.UserCredential | { user: firebase.User },
+) => (dispatch: Function) => {
+  dispatch({
+    type: FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
+    payload,
+    firebase: completeLoginWithFirebaseRedirect,
   });
 };
