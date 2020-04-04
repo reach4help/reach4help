@@ -54,10 +54,11 @@ please read our [Getting Involved / Onboarding](GETTING_INVOLVED.md) document.
 | @Rita Serra          |                                                        | Design      | UTC-0 (+1)     |
 | You?                 |                                                        |             |                |
 
-### User Testing / QA
+### User Testing / QA (`#team-user-testing`)
 
 | Slack                | GitHub Handle                                          | Role        | Timezone (DST) |
 |----------------------|--------------------------------------------------------|-------------|----------------|
+| @Dan Benamy          | [@dbenamy](https://github.com/dbenamy)                 | Lead        | UTC+4 (+5)     |
 | You?                 |                                                        |             |                |
 
 ### Marketing / PR (`#team-marketing`)
