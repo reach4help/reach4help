@@ -87,6 +87,12 @@ module.exports = {
         name: 'Like our facebook page',
         url: 'https://www.facebook.com/Reach4HelpOrg/',
       },
+      {
+        id: 'linkedin',
+        fontAwesomeIcon: 'linkedin',
+        name: 'Follow us on LinkedIn',
+        url: 'https://www.linkedin.com/company/reach4help-org/',
+      },
     ],
   },
   plugins,
