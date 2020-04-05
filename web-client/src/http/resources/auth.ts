@@ -11,12 +11,11 @@ export const login = (request: IHTTPRequest) => {
   return request.execute(config).then((response: any) => response.data);
 };
 
-export const facebookLoginWithFirebasePopUp = async (): Promise<
-  string | undefined
-> => {
+export const facebookLoginWithFirebasePopUp = async (): Promise<firebase.auth.UserCredential> => {
   const provider = new firebase.auth.FacebookAuthProvider();
-  const result = await firebaseAuth.signInWithPopup(provider);
-  return result.user?.getIdToken();
+  return firebaseAuth.signInWithPopup(provider);
+  // const result = await firebaseAuth.signInWithPopup(provider);
+  // return result.user?.getIdToken();
 };
 
 export const facebookLoginWithFirebaseRedirect = (): void => {
@@ -24,6 +23,10 @@ export const facebookLoginWithFirebaseRedirect = (): void => {
   firebaseAuth.signInWithRedirect(provider);
 };
 
+export const observeUser = (nextValue: Function): firebase.Unsubscribe =>
+  firebaseAuth.onAuthStateChanged((user: firebase.User | null) => {
+    nextValue(user);
+  });
 export const completeLoginWithFirebaseRedirect = async (
   payload: firebase.auth.UserCredential | { user: firebase.User },
 ): Promise<string | undefined> => payload.user?.getIdToken();

@@ -6,10 +6,12 @@ import {
   FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
   FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
   LOGIN,
+  OBSERVE_USER,
 } from './types';
 
 interface AuthState {
   token?: string;
+  user?: firebase.auth.UserCredential;
   actionInProgress?: boolean;
   error?: Error;
 }
@@ -18,6 +20,7 @@ const initialState: AuthState = {
   token: undefined,
   actionInProgress: false,
   error: undefined,
+  // user: undefined,
 };
 
 export default createReducer<AuthState>(
@@ -77,6 +80,13 @@ export default createReducer<AuthState>(
     ) => {
       state.error = payload;
       state.actionInProgress = false;
+    },
+    [OBSERVE_USER.UPDATED]: (
+      state: AuthState,
+      { payload }: { payload: any },
+    ) => {
+      // eslint-disable-next-line no-console
+      console.log(payload);
     },
   },
   initialState,

@@ -7,6 +7,7 @@ import {
   completeLoginWithFirebaseActionRedirect,
   loginWithFirebaseActionPopUp,
   loginWithFirebaseActionRedirect,
+  observeUserAction,
 } from 'src/ducks/auth/actions';
 import { firebaseAuth } from 'src/firebase';
 import { AppState } from 'src/store';
@@ -18,7 +19,13 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
 }) => {
   const dispatch = useDispatch();
   const token = useSelector((state: AppState) => state.auth.token);
+  // const user = useSelector((state: AppState) => state.auth.user);
   const history = useHistory();
+
+  useEffect((): any => {
+    // eslint-disable-next-line no-console
+    console.log('here', observeUserAction(dispatch));
+  });
 
   const redirectStarted = window.localStorage.getItem('redirect_started');
   if (redirectStarted) {
@@ -26,12 +33,11 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
       dispatch(completeLoginWithFirebaseActionRedirect(result));
     });
   }
-
-  firebaseAuth.onAuthStateChanged((user: firebase.User | null) => {
-    if (user) {
-      dispatch(completeLoginWithFirebaseActionRedirect({ user }));
-    }
-  });
+  // // firebaseAuth.onAuthStateChanged((user: firebase.User | null) => {
+  // if (user) {
+  //   dispatch(completeLoginWithFirebaseActionRedirect({ user }));
+  // }
+  // // });
 
   useEffect(() => {
     if (token) {

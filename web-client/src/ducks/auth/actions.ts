@@ -4,6 +4,7 @@ import {
   facebookLoginWithFirebasePopUp,
   facebookLoginWithFirebaseRedirect,
   login,
+  observeUser,
 } from 'src/http/resources/auth';
 
 import {
@@ -12,6 +13,7 @@ import {
   FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
   LOGIN,
   LoginAction,
+  OBSERVE_USER,
   /*
     THESE ARE SOME MORE EXAMPLES
     FIREBASE_PHONE_LOGIN_START, PhoneLoginStartWithFirebaseAction,
@@ -51,4 +53,17 @@ export const completeLoginWithFirebaseActionRedirect = (
     payload,
     firebase: completeLoginWithFirebaseRedirect,
   });
+};
+
+export const observeUserAction = (dispatch: Function) => {
+  dispatch({
+    type: OBSERVE_USER,
+    observer: observeUser,
+  });
+
+  return () =>
+    dispatch({
+      type: OBSERVE_USER.UNSUBSCRIBE,
+      observerName: OBSERVE_USER,
+    });
 };
