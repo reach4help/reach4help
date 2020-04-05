@@ -73,7 +73,7 @@ const LandingPage = () => (
         }
       `}
       render={({ site }) => {
-        const { title, description, socialLinks } = site.siteMetadata;
+        const { title, headerDescription, socialLinks } = site.siteMetadata;
         return (
           <Fragment>
             <Image
@@ -101,7 +101,7 @@ const LandingPage = () => (
               textAlign="center"
               style={centerHorizontally}
             >
-              {description}
+              {headerDescription}
             </Heading>
 
             <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
@@ -127,6 +127,17 @@ const LandingPage = () => (
                 href="https://map.reach4help.org"
               >
                 View Mutual Aid Map
+              </ButtonLink>
+              <ButtonLink
+                mx={3}
+                backgroundColor="primary"
+                color="white"
+                className="button"
+                fontSize={[2, 3]}
+                padding={2}
+                href="https://github.com/reach4help/reach4help/blob/master/docs/GETTING_INVOLVED.md"
+              >
+                Get Involved
               </ButtonLink>
             </Flex>
             <SectionLink section="about">
