@@ -27,14 +27,6 @@ export const loginAction = (payload: LoginAction) => (dispatch: Function) => {
   });
 };
 
-export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
-  dispatch({
-    type: FIREBASE_FACEBOOK_LOGIN_POPUP,
-    payload: {},
-    firebase: facebookLoginWithFirebasePopUp,
-  });
-};
-
 export const loginWithFirebaseActionRedirect = () => (dispatch: Function) => {
   dispatch({
     type: FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
@@ -50,5 +42,14 @@ export const completeLoginWithFirebaseActionRedirect = (
     type: FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
     payload,
     firebase: completeLoginWithFirebaseRedirect,
+  });
+};
+
+export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
+  dispatch({
+    type: FIREBASE_FACEBOOK_LOGIN_POPUP,
+    payload: {},
+    firebase: facebookLoginWithFirebasePopUp,
+    fallback: loginWithFirebaseActionRedirect,
   });
 };
