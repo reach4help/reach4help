@@ -74,7 +74,7 @@ please read our [Getting Involved / Onboarding](GETTING_INVOLVED.md) document.
 |----------------------|--------------------------------------------------------|----------|----------------|
 | **@Mathieu Deous**       | **[@mdeous](https://github.com/mdeous)**                   | **Lead**     | UTC+1 (+2)     |
 | @Miguel Fernandes    | [@mdmfernandes](https://github.com/mdmfernandes)       |          | UTC+0 (+1)     |
-| You?                 |                                                        |          |                |
+| @AlexV               | [@TheRealAlexV](https://github.com/TheRealAlexV)       |          | UTC-5 (-4)     |
 
 ### Map Project (`#team-map`)
 
