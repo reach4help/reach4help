@@ -14,22 +14,23 @@ export const login = (request: IHTTPRequest) => {
 export const facebookLoginWithFirebasePopUp = async (): Promise<firebase.auth.UserCredential> => {
   const provider = new firebase.auth.FacebookAuthProvider();
   return firebaseAuth.signInWithPopup(provider);
-  // const result = await firebaseAuth.signInWithPopup(provider);
-  // return result.user?.getIdToken();
 };
 
-export const facebookLoginWithFirebaseRedirect = (): void => {
+export const loginWithFirebaseRedirect = (): void => {
   const provider = new firebase.auth.FacebookAuthProvider();
   firebaseAuth.signInWithRedirect(provider);
 };
+export const getRedirectResult = (): Promise<firebase.auth.UserCredential> =>
+  firebaseAuth.getRedirectResult();
 
 export const observeUser = (nextValue: Function): firebase.Unsubscribe =>
   firebaseAuth.onAuthStateChanged((user: firebase.User | null) => {
     nextValue(user);
   });
-export const completeLoginWithFirebaseRedirect = async (
-  payload: firebase.auth.UserCredential | { user: firebase.User },
-): Promise<string | undefined> => payload.user?.getIdToken();
+
+// export const completeLoginWithFirebaseRedirect = (
+//   payload: firebase.auth.UserCredential | { user: firebase.User },
+// ): Promise<string | undefined> => payload.user;
 
 export interface LoginResponse {
   userId: string;

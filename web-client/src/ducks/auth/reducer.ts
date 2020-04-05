@@ -1,92 +1,73 @@
-import { LoginResponse } from 'src/http/resources/auth';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
   FIREBASE_FACEBOOK_LOGIN_POPUP,
-  FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
-  FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
-  LOGIN,
+  GET_LOGIN_REDIRECT_RESULT,
   OBSERVE_USER,
+  TRIGGER_LOGIN_WITH_REDIRECT,
 } from './types';
 
 interface AuthState {
-  token?: string;
-  user?: firebase.auth.UserCredential;
-  actionInProgress?: boolean;
+  user?: firebase.User | null;
+  loading?: boolean;
   error?: Error;
 }
 
 const initialState: AuthState = {
-  token: undefined,
-  actionInProgress: false,
+  loading: true,
   error: undefined,
-  // user: undefined,
+  user: undefined,
 };
 
 export default createReducer<AuthState>(
   {
-    [LOGIN.COMPLETED]: (
-      state: AuthState,
-      { payload }: { payload: LoginResponse },
-    ) => {
-      state.token = payload.accessToken;
-    },
     [FIREBASE_FACEBOOK_LOGIN_POPUP.PENDING]: (state: AuthState) => {
-      state.actionInProgress = true;
+      state.loading = true;
     },
-    [FIREBASE_FACEBOOK_LOGIN_POPUP.COMPLETED]: (
-      state: AuthState,
-      { payload }: { payload: string },
-    ) => {
-      state.token = payload;
-      state.actionInProgress = false;
-    },
+
     [FIREBASE_FACEBOOK_LOGIN_POPUP.REJECTED]: (
       state: AuthState,
       { payload }: { payload: Error },
     ) => {
       state.error = payload;
-      state.actionInProgress = false;
+      state.loading = false;
     },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.PENDING]: (state: AuthState) => {
+    [FIREBASE_FACEBOOK_LOGIN_POPUP.COMPLETED]: (
+      state: AuthState,
+      { payload }: { payload: firebase.auth.UserCredential },
+    ) => {
+      state.user = payload.user;
+      state.loading = false;
+    },
+    [TRIGGER_LOGIN_WITH_REDIRECT.PENDING]: (state: AuthState) => {
       window.localStorage.setItem('redirect_started', new Date().toISOString());
-      state.actionInProgress = true;
+      state.loading = true;
     },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.REJECTED]: (
+    [GET_LOGIN_REDIRECT_RESULT.REJECTED]: (
       state: AuthState,
       { payload }: { payload: Error },
     ) => {
       window.localStorage.removeItem('redirect_started');
       state.error = payload;
-      state.actionInProgress = false;
+      state.loading = false;
     },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.COMPLETED]: (state: AuthState) => {
-      state.actionInProgress = false;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.PENDING]: (state: AuthState) => {
-      window.localStorage.removeItem('redirect_started');
-      state.actionInProgress = true;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.COMPLETED]: (
+    [GET_LOGIN_REDIRECT_RESULT.COMPLETED]: (
       state: AuthState,
-      { payload }: { payload: string },
+      { payload }: { payload: firebase.auth.UserCredential },
     ) => {
-      state.token = payload;
-      state.actionInProgress = false;
+      state.user = payload.user;
+      state.loading = false;
     },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.REJECTED]: (
-      state: AuthState,
-      { payload }: { payload: Error },
-    ) => {
-      state.error = payload;
-      state.actionInProgress = false;
+    [OBSERVE_USER.SUBSCRIBE]: (state: AuthState) => {
+      state.loading = true;
     },
     [OBSERVE_USER.UPDATED]: (
       state: AuthState,
-      { payload }: { payload: any },
+      { payload }: { payload: Record<string, firebase.User | null> },
     ) => {
-      // eslint-disable-next-line no-console
-      console.log(payload);
+      // eslint-disable-next-line prefer-destructuring
+      state.user = payload[0];
+      state.loading = false;
     },
   },
   initialState,

@@ -35,6 +35,8 @@ const observerMiddleware = ({ dispatch }: { dispatch: Function }) => (
       const subscribe: SubscribeFunction = () =>
         action.observer?.(nextValue, action.payload);
       observerManagerInstance.register(action.type, subscribe);
+
+      return;
     } catch (error) {
       observerManagerInstance.unsubscribe(action.type);
       return next({

@@ -8,7 +8,7 @@ export interface IObserverManager {
 
 interface ObserverInfo {
   unsubscribe: Function;
-  numberOfListeners: number;
+  // numberOfListeners: number;
 }
 class ObserverManager {
   private static instance: IObserverManager;
@@ -38,13 +38,13 @@ class ObserverManager {
   };
 
   public register = (observerName: string, subscribe: SubscribeFunction) => {
-    if (this.isSubscribed(observerName)) {
-      this.subscribedObservers[observerName].numberOfListeners += 1;
-      return;
-    }
+    // if (this.isSubscribed(observerName)) {
+    //   this.subscribedObservers[observerName].numberOfListeners += 1;
+    //   return;
+    // }
     const unsubscribe = subscribe();
     this.subscribedObservers[observerName] = {
-      numberOfListeners: 1,
+      // numberOfListeners: 1,
       unsubscribe,
     };
   };
