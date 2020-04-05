@@ -68,7 +68,7 @@ please read our [Getting Involved / Onboarding](GETTING_INVOLVED.md) document.
 | **@Miranda**             |                                                        | **Lead**        | UTC+0 (+1)     |
 | You?                 |                                                        |             |                |
 
-### Application Security (`#team-security`)
+### Security (`#team-security`)
 
 | Slack                | GitHub Handle                                          | Role     | Timezone (DST) |
 |----------------------|--------------------------------------------------------|----------|----------------|
