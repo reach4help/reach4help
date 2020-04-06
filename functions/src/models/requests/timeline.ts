@@ -10,7 +10,6 @@ import DocumentData = firestore.DocumentData;
 export interface ITimelineItem extends DocumentData {
   offerSnapshot: IOffer;
   requestSnapshot: IRequest;
-  status: RequestStatus;
   createdAt?: Timestamp;
 }
 
