@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
