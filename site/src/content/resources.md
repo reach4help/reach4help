@@ -4,6 +4,7 @@ title: Resources
 
 Until we get something ready, there may be some other resources that are useful to you now:
 
+- [COVID-19 Mutual Aid Map](https://map.reach4help.org/)
 - [Original list of groups / organizations](https://docs.google.com/document/d/1uP49OQGhosfBN4BOYQvyy_Mu3mpCSOYzip13LksC-S8/edit#)
 - [Help with COVID 19 - a database of project looking for volunteers](https://helpwithcovid.com/)
 - If you are in the Netherlands: [coronahelpers.nl](https://www.coronahelpers.nl/), [localheroesonline.nl](http://localheroesonline.nl/) or [nearones.nl](https://www.nearones.nl/)
