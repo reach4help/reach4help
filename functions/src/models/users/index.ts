@@ -1,11 +1,15 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsInt, IsNotEmpty, IsNumber, IsObject, IsString, Max, Min } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsString, Max, Min } from 'class-validator';
 import { firestore } from 'firebase-admin';
-
 // eslint-disable-next-line import/no-cycle
 import { IQuestionnaire } from '../questionnaires';
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
+
+export enum ApplicationPreference {
+  pin = 'pin',
+  cav = 'cav'
+}
 
 export interface IUser extends DocumentData {
   cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
@@ -15,6 +19,7 @@ export interface IUser extends DocumentData {
   requestsMade: number;
   username: string;
   displayName: string | null;
+  applicationPreference?: ApplicationPreference;
 }
 
 export class User implements IUser, FirestoreDataConverter<User> {
@@ -45,6 +50,9 @@ export class User implements IUser, FirestoreDataConverter<User> {
   @IsString()
   private _displayName: string | null;
 
+  @IsEnum(ApplicationPreference)
+  private _applicationPreference: ApplicationPreference;
+
   constructor(
     cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
     pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
@@ -53,6 +61,7 @@ export class User implements IUser, FirestoreDataConverter<User> {
     requestsMade = 0,
     username: string,
     displayName: string | null = null,
+    applicationPreference = ApplicationPreference.pin,
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
     this._pinQuestionnaireRef = pinQuestionnaireRef;
@@ -61,6 +70,7 @@ export class User implements IUser, FirestoreDataConverter<User> {
     this._requestsMade = requestsMade;
     this._username = username;
     this._displayName = displayName;
+    this._applicationPreference = applicationPreference;
   }
 
   static factory = (data: IUser): User => new User(
@@ -71,6 +81,7 @@ export class User implements IUser, FirestoreDataConverter<User> {
     data.requestsMade,
     data.username,
     data.displayName,
+    data.applicationPreference,
   );
 
   get cavQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
@@ -129,6 +140,14 @@ export class User implements IUser, FirestoreDataConverter<User> {
     this._displayName = value;
   }
 
+  get applicationPreference(): ApplicationPreference {
+    return this._applicationPreference;
+  }
+
+  set applicationPreference(value: ApplicationPreference) {
+    this._applicationPreference = value;
+  }
+
   fromFirestore(data: IUser): User {
     return User.factory(data);
   }
@@ -142,6 +161,7 @@ export class User implements IUser, FirestoreDataConverter<User> {
       requestsMade: modelObject.requestsMade,
       username: modelObject.username,
       displayName: modelObject.displayName,
+      applicationPreference: modelObject.applicationPreference,
     };
   }
 }
