@@ -1,9 +1,9 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsEnum, IsObject } from 'class-validator';
+import { IsObject } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { IOffer } from '../offers';
-import { IRequest, RequestStatus } from './index';
+import { IRequest } from './index';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 
@@ -26,16 +26,12 @@ export class TimelineItem implements ITimelineItem, FirestoreDataConverter<Timel
   @IsObject()
   private _requestSnapshot: IRequest;
 
-  @IsEnum(RequestStatus)
-  private _status: RequestStatus;
-
   @IsObject()
   private _createdAt: Timestamp;
 
-  constructor(offerSnapshot: IOffer, requestSnapshot: IRequest, status: RequestStatus, createdAt: Timestamp) {
+  constructor(offerSnapshot: IOffer, requestSnapshot: IRequest, createdAt: Timestamp) {
     this._offerSnapshot = offerSnapshot;
     this._requestSnapshot = requestSnapshot;
-    this._status = status;
     this._createdAt = createdAt;
   }
 
@@ -43,7 +39,6 @@ export class TimelineItem implements ITimelineItem, FirestoreDataConverter<Timel
     return new TimelineItem(
       data.offerSnapshot,
       data.requestSnapshot,
-      data.status,
       data.createdAt || Timestamp.now(),
     );
   }
@@ -64,14 +59,6 @@ export class TimelineItem implements ITimelineItem, FirestoreDataConverter<Timel
     this._requestSnapshot = value;
   }
 
-  get status(): RequestStatus {
-    return this._status;
-  }
-
-  set status(value: RequestStatus) {
-    this._status = value;
-  }
-
   get createdAt(): Timestamp {
     return this._createdAt;
   }
@@ -88,7 +75,6 @@ export class TimelineItem implements ITimelineItem, FirestoreDataConverter<Timel
     return {
       offerSnapshot: modelObject.offerSnapshot,
       requestSnapshot: modelObject.requestSnapshot,
-      status: modelObject.status,
       createdAt: modelObject._createdAt,
     };
   }
