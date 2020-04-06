@@ -6,7 +6,7 @@
       "name": "Name",
       "first_name": "First name",
       "last_name": "Last name",
-      "adress": "Adress",
+      "address": "Address",
       "city": "City",
       "code": "Code",
       "country": "Country",
