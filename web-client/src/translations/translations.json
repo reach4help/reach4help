@@ -14,6 +14,11 @@
         "info": "This information is fundamental to validate your account. Data and rates may apply.",
         "error_message": "Please input your phone number!"
       },
+      "otpVerify": {
+        "sub_title": "We just texted you a confirmation code. \nPlease Enter it below.",
+        "info": "If you didn't receive the code, please click ",
+        "error_message": "Please input the OTP codes!"
+      },
       "loading": {
         "title": "Your request has been created.\n You will be contacted by one of our volunteers shortly.",
         "pleaseWaitLabel": "Please wait...",

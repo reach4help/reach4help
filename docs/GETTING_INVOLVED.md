@@ -75,7 +75,7 @@ but just in case, it's worth checking out that list too!
 ## Initial Onboarding Steps
 
 1. Firstly, [join our Slack](https://join.slack.com/t/reach4help/shared_invite/zt-cu9pfz83-pAIKBDha17r5~W4thvn2Bw). (This is our primary communication channel).
-1. Then fill out [our onboarding form](https://forms.gle/CjF4p8sgbiGdxPGL9).
+1. Then fill out [our onboarding form](https://airtable.com/shr9WK5lm36pE3ESr).
 1. After that, it's time to join a team...
 
 ## Joining a [Team](TEAMS.md)
