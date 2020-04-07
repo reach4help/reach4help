@@ -3,12 +3,12 @@ import { SubscribeFunction } from '../types';
 export interface IObserverManager {
   isSubscribed(observerName: string): boolean;
   register(observerName: string, subscribe: SubscribeFunction): void;
-  unsubscribe(observerName: string): void;
+  unsubscribe(observerName: string): boolean;
 }
 
 interface ObserverInfo {
   unsubscribe: Function;
-  // numberOfListeners: number;
+  numberOfListeners: number;
 }
 class ObserverManager {
   private static instance: IObserverManager;
@@ -30,21 +30,27 @@ class ObserverManager {
   public isSubscribed = (observerName: string): boolean =>
     !!this.subscribedObservers[observerName];
 
-  public unsubscribe = (observerName: string) => {
+  public unsubscribe = (observerName: string): boolean => {
     if (!this.subscribedObservers[observerName]) {
-      return;
+      return false;
     }
-    this.subscribedObservers[observerName].unsubscribe();
+    this.subscribedObservers[observerName].numberOfListeners -= 1;
+
+    if (this.subscribedObservers[observerName].numberOfListeners <= 0) {
+      this.subscribedObservers[observerName].unsubscribe();
+      return true;
+    }
+    return false;
   };
 
   public register = (observerName: string, subscribe: SubscribeFunction) => {
-    // if (this.isSubscribed(observerName)) {
-    //   this.subscribedObservers[observerName].numberOfListeners += 1;
-    //   return;
-    // }
+    if (this.isSubscribed(observerName)) {
+      this.subscribedObservers[observerName].numberOfListeners += 1;
+      return;
+    }
     const unsubscribe = subscribe();
     this.subscribedObservers[observerName] = {
-      // numberOfListeners: 1,
+      numberOfListeners: 1,
       unsubscribe,
     };
   };
