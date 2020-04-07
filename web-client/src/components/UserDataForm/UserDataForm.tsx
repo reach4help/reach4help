@@ -129,6 +129,7 @@ const UserDataForm: React.FC<NewRequestProps> = ({
           rules={[
             {
               required: true,
+              message: t('user_data_form.terms_conditions_error'),
             },
           ]}
         >

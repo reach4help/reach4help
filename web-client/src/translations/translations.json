@@ -39,7 +39,8 @@
         "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
         "policy_link": "Privacy & Security Policy.",
         "terms_conditions_text": "I understand and acknowledge the ",
-        "terms_conditions_link": "Terms & Conditions."
+        "terms_conditions_link": "Terms & Conditions.",
+        "terms_conditions_error": "You need to accept the Terms & Conditions."
       }
     }
   },
@@ -82,7 +83,8 @@
         "policy_text": "Nós precisamos destes dados para assegurar que a ajuda chega ao destino correto. Para quaisquer preocupações, leia os nossos termos de ",
         "policy_link": "Privacidade & Segurança.",
         "terms_conditions_text": "Eu percebo e reconheço os ",
-        "terms_conditions_link": "Termos & Condições."
+        "terms_conditions_link": "Termos & Condições.",
+        "terms_conditions_error": "Precisa de aceitar os Termos & Condições."
       }
     }
   }
