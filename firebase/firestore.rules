@@ -1,8 +1,87 @@
 rules_version = '2';
+
+function isAuthenticated() {
+  return request.auth.uid != null;
+}
+
+function isUser(id) {
+  return isAuthenticated() && request.auth.uid == id;
+}
+
+function isVerifiedCAV() {
+  return isAuthenticated() && true;
+}
+
+function isVerifiedPIN() {
+  return isAuthenticated() && true;
+}
+
+function currentUserIsCurrentPINRef(request) {
+  return isUser(request.resource.data.pinUserRef.uid)
+}
+
+function currentUserIsCurrentCAVRef(request) {
+  return isUser(request.resource.data.cavUserRef.uid)
+}
+
+function isNotSameCAVPIN(request) {
+  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid
+}
+
+function verifyUserDataComplete(request) {
+   return request.resource.data.averageRating >= 1 &&
+          request.resource.data.casesCompleted >= 0 &&
+          request.resource.data.requestsMade >= 0 &&
+          ('username' in request.resource.data)
+}
+
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Catch all -- Dont read/write to collections without rules
     match /{document=**} {
       allow read, write: if false;
+    }
+
+    match /users/{userID} {
+      // Anyone can read your profile
+      allow read: if isAuthenticated();
+      // Only you can edit your own profile
+      allow write: if isUser(userID) && verifyUserDataComplete(request);
+    }
+
+    // 1: Read + Writes to sub-collection can only be done by the owner
+    // 2: Writes to sub-collections must match userID chain so we can always directly reference
+    match /users/{userID}/privilegedInformation/{subDocID} {
+        allow read, write: if isUser(userID) && userID == subDocID;
+    }
+
+    match /offers/{offerID} {
+      // Only the PIN or CAV of the request can read the offers
+      allow read: if currentUserIsCurrentPINRef(request)
+                    || currentUserIsCurrentCAVRef(request)
+      // Only CAVs can submit offers (as themselves)
+      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);
+    }
+
+    match /requests/{reqID} {
+      // Only CAVs can see requests
+      allow read: if isVerifiedCAV();
+      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);
+    }
+
+    match /questionnaires/{questID} {
+      // Can only read + write my own data
+      allow read, write: if isUser(request.resource.data.parentRef.uid);
+    }
+
+    // Don't allow writing to Teams and Orgs
+    match /organizations/{orgID} {
+      allow read;
+      allow write: if false;
+    }
+    match /teams/{orgID} {
+      allow read;
+      allow write: if false;
     }
   }
 }

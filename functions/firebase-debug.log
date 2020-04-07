@@ -1,0 +1,883 @@
+[debug] [2020-04-07T20:25:10.801Z] ----------------------------------------------------------------------
+[debug] [2020-04-07T20:25:10.803Z] Command:       /Users/dansabin/.nvm/versions/node/v10.16.3/bin/node /Users/dansabin/.nvm/versions/node/v10.16.3/bin/firebase emulators:start
+[debug] [2020-04-07T20:25:10.803Z] CLI Version:   8.0.2
+[debug] [2020-04-07T20:25:10.803Z] Platform:      darwin
+[debug] [2020-04-07T20:25:10.803Z] Node Version:  v10.16.3
+[debug] [2020-04-07T20:25:10.804Z] Time:          Tue Apr 07 2020 13:25:10 GMT-0700 (Pacific Daylight Time)
+[debug] [2020-04-07T20:25:10.804Z] ----------------------------------------------------------------------
+[debug] [2020-04-07T20:25:10.804Z] 
+[debug] [2020-04-07T20:25:10.810Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-07T20:25:10.810Z] > authorizing via signed-in user
+[info] i  emulators: Starting emulators: functions, firestore, hosting
+[debug] [2020-04-07T20:25:10.856Z] [hub] writing locator at /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/hub-reach4help-dev.json
+[info] ✔  hub: emulator hub started at http://localhost:4400
+[info] ✔  functions: Using node@10 from host.
+[info] ✔  functions: functions emulator started at http://localhost:5001
+[warn] ⚠  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration.
+[debug] [2020-04-07T20:25:10.877Z] Ignoring unsupported arg: projectId
+[debug] [2020-04-07T20:25:10.877Z] Ignoring unsupported arg: auto_download
+[debug] [2020-04-07T20:25:10.877Z] Starting firestore emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/dansabin/.cache/firebase/emulators/cloud-firestore-emulator-v1.11.2.jar","--host","localhost","--port",8080,"--rules","/Users/dansabin/projects/freethinkingit/reach4help/firebase/firestore.rules","--functions_emulator","localhost:5001"],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false}
+[info] i  firestore: firestore emulator logging to firestore-debug.log
+[debug] [2020-04-07T20:25:11.686Z] API endpoint: http://localhost:
+[debug] [2020-04-07T20:25:11.686Z] 8080
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=localhost:8080
+
+Dev App Server is now running.
+
+
+[info] ✔  firestore: firestore emulator started at http://localhost:8080
+[info] i  firestore: For testing set FIRESTORE_EMULATOR_HOST=localhost:8080
+[debug] [2020-04-07T20:25:11.903Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/reach4help-dev/webApps/-/config  
+ 
+[debug] [2020-04-07T20:25:12.268Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Tue, 07 Apr 2020 20:25:12 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[web-client]: Serving hosting files from: web-client/build
+[info] ✔  hosting[web-client]: Local server: http://localhost:5000
+[info] ✔  hosting: hosting emulator started at http://localhost:5000
+[info] i  functions: Watching "/Users/dansabin/projects/freethinkingit/reach4help/functions" for Cloud Functions...
+[debug] [2020-04-07T20:25:12.559Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:25:12.559Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-04-07T20:25:12.559Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:25:12.560Z] [worker-~diagnostic~-73b84ae2-c8ac-496c-a7ca-63c180260c2b]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57465.sock 
+[debug] [2020-04-07T20:25:12.560Z] [worker-~diagnostic~-73b84ae2-c8ac-496c-a7ca-63c180260c2b]: BUSY 
+[debug] [2020-04-07T20:25:12.839Z] [runtime-status] [57465] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:25:12.840Z] [runtime-status] [57465] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:25:12.842Z] [runtime-status] [57465] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:25:12.843Z] [runtime-status] [57465] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:25:12.846Z] [runtime-status] [57465] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:25:12.874Z] [runtime-status] [57465] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:25:12.875Z] [runtime-status] [57465] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:25:12.875Z] [runtime-status] [57465] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:25:12.876Z] [runtime-status] [57465] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:25:12.876Z] [runtime-status] [57465] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:25:13.082Z] addFirestoreTrigger "{\"eventTrigger\":{\"resource\":\"projects/reach4help-dev/databases/(default)/documents/users/{userId}\",\"eventType\":\"providers/cloud.firestore/eventTypes/document.create\",\"service\":\"firestore.googleapis.com\"}}"
+[debug] [2020-04-07T20:25:13.083Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev/triggers/triggerEventsWhenUserIsCreated  
+ {"eventTrigger":{"resource":"projects/reach4help-dev/databases/(default)/documents/users/{userId}","eventType":"providers/cloud.firestore/eventTypes/document.create","service":"firestore.googleapis.com"}}
+[debug] [2020-04-07T20:25:13.084Z] [worker-~diagnostic~-73b84ae2-c8ac-496c-a7ca-63c180260c2b]: IDLE 
+[debug] [2020-04-07T20:25:13.121Z] Apr 07, 2020 1:25:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:25:13.249Z] Apr 07, 2020 1:25:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:25:13.857Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"4"}
+[debug] [2020-04-07T20:25:13.857Z] addFirestoreTrigger "{\"eventTrigger\":{\"resource\":\"projects/reach4help-dev/databases/(default)/documents/users/{userId}/privilegedInformation/{informationId}\",\"eventType\":\"providers/cloud.firestore/eventTypes/document.create\",\"service\":\"firestore.googleapis.com\"}}"
+[debug] [2020-04-07T20:25:13.858Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev/triggers/triggerEventsWhenUserPrivilegedInformationIsCreated  
+ {"eventTrigger":{"resource":"projects/reach4help-dev/databases/(default)/documents/users/{userId}/privilegedInformation/{informationId}","eventType":"providers/cloud.firestore/eventTypes/document.create","service":"firestore.googleapis.com"}}
+[debug] [2020-04-07T20:25:13.868Z] Apr 07, 2020 1:25:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:25:13.877Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"4"}
+[debug] [2020-04-07T20:25:13.877Z] addFirestoreTrigger "{\"eventTrigger\":{\"resource\":\"projects/reach4help-dev/databases/(default)/documents/requests/{requestId}\",\"eventType\":\"providers/cloud.firestore/eventTypes/document.create\",\"service\":\"firestore.googleapis.com\"}}"
+[debug] [2020-04-07T20:25:13.877Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev/triggers/triggerEventsWhenRequestIsCreated  
+ {"eventTrigger":{"resource":"projects/reach4help-dev/databases/(default)/documents/requests/{requestId}","eventType":"providers/cloud.firestore/eventTypes/document.create","service":"firestore.googleapis.com"}}
+[debug] [2020-04-07T20:25:13.888Z] Apr 07, 2020 1:25:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:25:13.894Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"4"}
+[debug] [2020-04-07T20:25:13.894Z] addFirestoreTrigger "{\"eventTrigger\":{\"resource\":\"projects/reach4help-dev/databases/(default)/documents/requests/{requestId}\",\"eventType\":\"providers/cloud.firestore/eventTypes/document.update\",\"service\":\"firestore.googleapis.com\"}}"
+[debug] [2020-04-07T20:25:13.894Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev/triggers/triggerEventsWhenRequestIsUpdated  
+ {"eventTrigger":{"resource":"projects/reach4help-dev/databases/(default)/documents/requests/{requestId}","eventType":"providers/cloud.firestore/eventTypes/document.update","service":"firestore.googleapis.com"}}
+[debug] [2020-04-07T20:25:13.905Z] Apr 07, 2020 1:25:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:25:13.910Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"4"}
+[debug] [2020-04-07T20:25:13.910Z] addFirestoreTrigger "{\"eventTrigger\":{\"resource\":\"projects/reach4help-dev/databases/(default)/documents/offers/{offerId}\",\"eventType\":\"providers/cloud.firestore/eventTypes/document.create\",\"service\":\"firestore.googleapis.com\"}}"
+[debug] [2020-04-07T20:25:13.911Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev/triggers/triggerEventsWhenOfferIsCreated  
+ {"eventTrigger":{"resource":"projects/reach4help-dev/databases/(default)/documents/offers/{offerId}","eventType":"providers/cloud.firestore/eventTypes/document.create","service":"firestore.googleapis.com"}}
+[debug] [2020-04-07T20:25:13.921Z] Apr 07, 2020 1:25:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:25:13.926Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"4"}
+[debug] [2020-04-07T20:25:13.926Z] addFirestoreTrigger "{\"eventTrigger\":{\"resource\":\"projects/reach4help-dev/databases/(default)/documents/offers/{offerId}\",\"eventType\":\"providers/cloud.firestore/eventTypes/document.update\",\"service\":\"firestore.googleapis.com\"}}"
+[debug] [2020-04-07T20:25:13.926Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev/triggers/triggerEventsWhenOfferIsUpdated  
+ {"eventTrigger":{"resource":"projects/reach4help-dev/databases/(default)/documents/offers/{offerId}","eventType":"providers/cloud.firestore/eventTypes/document.update","service":"firestore.googleapis.com"}}
+[debug] [2020-04-07T20:25:13.936Z] Apr 07, 2020 1:25:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:25:13.942Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"4"}
+[debug] [2020-04-07T20:25:13.942Z] addFirestoreTrigger "{\"eventTrigger\":{\"resource\":\"projects/reach4help-dev/databases/(default)/documents/requests/{requestId}/privilegedInformation/{informationId}\",\"eventType\":\"providers/cloud.firestore/eventTypes/document.create\",\"service\":\"firestore.googleapis.com\"}}"
+[debug] [2020-04-07T20:25:13.942Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev/triggers/triggerEventsWhenRequestPrivilegedInformationIsCreated  
+ {"eventTrigger":{"resource":"projects/reach4help-dev/databases/(default)/documents/requests/{requestId}/privilegedInformation/{informationId}","eventType":"providers/cloud.firestore/eventTypes/document.create","service":"firestore.googleapis.com"}}
+[debug] [2020-04-07T20:25:13.952Z] Apr 07, 2020 1:25:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:25:13.957Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"4"}
+[info] ✔  functions[triggerEventsWhenUserIsCreated]: firestore function initialized.
+[info] ✔  functions[triggerEventsWhenUserPrivilegedInformationIsCreated]: firestore function initialized.
+[info] ✔  functions[triggerEventsWhenRequestIsCreated]: firestore function initialized.
+[info] ✔  functions[triggerEventsWhenRequestIsUpdated]: firestore function initialized.
+[info] ✔  functions[triggerEventsWhenOfferIsCreated]: firestore function initialized.
+[info] ✔  functions[triggerEventsWhenOfferIsUpdated]: firestore function initialized.
+[info] ✔  functions[triggerEventsWhenRequestPrivilegedInformationIsCreated]: firestore function initialized.
+[info] ✔  emulators: All emulators started, it is now safe to connect.
+[debug] [2020-04-07T20:28:38.881Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:28:39.888Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:28:39.889Z] [worker-~diagnostic~-73b84ae2-c8ac-496c-a7ca-63c180260c2b]: FINISHING 
+[debug] [2020-04-07T20:28:39.897Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:28:39.898Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:28:39.898Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:28:39.898Z] [worker-~diagnostic~-c1ef1dae-df50-4b46-b7aa-b98d355933f0]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57497.sock 
+[debug] [2020-04-07T20:28:39.899Z] [worker-~diagnostic~-c1ef1dae-df50-4b46-b7aa-b98d355933f0]: BUSY 
+[debug] [2020-04-07T20:28:39.901Z] [worker-~diagnostic~-73b84ae2-c8ac-496c-a7ca-63c180260c2b]: exited 
+[debug] [2020-04-07T20:28:39.902Z] [worker-~diagnostic~-73b84ae2-c8ac-496c-a7ca-63c180260c2b]: FINISHED 
+[debug] [2020-04-07T20:28:40.417Z] [runtime-status] [57497] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:28:40.419Z] [runtime-status] [57497] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:28:40.422Z] [runtime-status] [57497] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:28:40.424Z] [runtime-status] [57497] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:28:40.428Z] [runtime-status] [57497] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:28:40.483Z] [runtime-status] [57497] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:28:40.484Z] [runtime-status] [57497] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:28:40.484Z] [runtime-status] [57497] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:28:40.485Z] [runtime-status] [57497] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:28:40.485Z] [runtime-status] [57497] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:28:40.923Z] [worker-~diagnostic~-c1ef1dae-df50-4b46-b7aa-b98d355933f0]: IDLE 
+[debug] [2020-04-07T20:28:51.010Z] Apr 07, 2020 1:28:51 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:28:51.231Z] Apr 07, 2020 1:28:51 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:28:51.763Z] Apr 07, 2020 1:28:51 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+Null value error. for 'create' @ L50, Property averageRating is undefined on object. for 'create' @ L51, Null value error. for 'create' @ L90
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:29:26.270Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n  return\n    request.resource.data.averageRating != null &&\n    request.resource.data.averageRating != undefined &&\n    request.resource.data.casesCompleted != null &&\n    request.resource.data.casesCompleted != undefined &&\n    request.resource.data.requestsMade != null &&\n    request.resource.data.requestsMade != undefined &&\n    request.resource.data.username != null &&\n    request.resource.data.username != undefined\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n      allow create: if verifyUserDataComplete(request) && isUser(userID);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:29:26.285Z] Apr 07, 2020 1:29:26 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:29:26.393Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"1243"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:34:44 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:36:45 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:38:43 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:40:39 - WARNING Invalid variable name: undefined.
+[info] ✔  firestore: Rules updated.
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:29:33.498Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n  return\n    request.resource.data.averageRating != null &&\n    request.resource.data.averageRating != undefined &&\n    request.resource.data.casesCompleted != null &&\n    request.resource.data.casesCompleted != undefined &&\n    request.resource.data.requestsMade != null &&\n    request.resource.data.requestsMade != undefined &&\n    request.resource.data.username != null &&\n    request.resource.data.username != undefined\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow create, write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:29:33.510Z] Apr 07, 2020 1:29:33 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:29:33.564Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"1243"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:34:44 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:36:45 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:38:43 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:40:39 - WARNING Invalid variable name: undefined.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:29:42.837Z] Apr 07, 2020 1:29:42 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:29:42.892Z] Apr 07, 2020 1:29:42 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:42:32.008Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:42:32.010Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n  return\n    request.resource.data.averageRating != null &&\n    request.resource.data.averageRating != undefined &&\n    request.resource.data.casesCompleted != null &&\n    request.resource.data.casesCompleted != undefined &&\n    request.resource.data.requestsMade != null &&\n    request.resource.data.requestsMade != undefined &&\n    request.resource.data.username != null &&\n    request.resource.data.username != undefined\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:42:32.025Z] Apr 07, 2020 1:42:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:42:32.075Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"1243"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:34:44 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:36:45 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:38:43 - WARNING Invalid variable name: undefined.
+[warn] ⚠  ../firebase/firestore.rules:40:39 - WARNING Invalid variable name: undefined.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:42:33.009Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:42:33.009Z] [worker-~diagnostic~-c1ef1dae-df50-4b46-b7aa-b98d355933f0]: FINISHING 
+[debug] [2020-04-07T20:42:33.010Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:42:33.014Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:42:33.014Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:42:33.014Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:42:33.016Z] [worker-~diagnostic~-9a4ef255-e8db-431d-866b-a4665741cf49]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57592.sock 
+[debug] [2020-04-07T20:42:33.016Z] [worker-~diagnostic~-9a4ef255-e8db-431d-866b-a4665741cf49]: BUSY 
+[debug] [2020-04-07T20:42:33.017Z] [worker-~diagnostic~-c1ef1dae-df50-4b46-b7aa-b98d355933f0]: exited 
+[debug] [2020-04-07T20:42:33.017Z] [worker-~diagnostic~-c1ef1dae-df50-4b46-b7aa-b98d355933f0]: FINISHED 
+[debug] [2020-04-07T20:42:33.508Z] [runtime-status] [57592] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:42:33.511Z] [runtime-status] [57592] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:42:33.512Z] [runtime-status] [57592] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:42:33.513Z] [runtime-status] [57592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:42:33.517Z] [runtime-status] [57592] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:42:33.577Z] [runtime-status] [57592] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:42:33.577Z] [runtime-status] [57592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:42:33.577Z] [runtime-status] [57592] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:42:33.577Z] [runtime-status] [57592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:42:33.578Z] [runtime-status] [57592] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:42:34.049Z] [worker-~diagnostic~-9a4ef255-e8db-431d-866b-a4665741cf49]: IDLE 
+[debug] [2020-04-07T20:43:05.281Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:43:06.282Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:43:06.283Z] [worker-~diagnostic~-9a4ef255-e8db-431d-866b-a4665741cf49]: FINISHING 
+[debug] [2020-04-07T20:43:06.283Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:43:06.287Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:43:06.287Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:43:06.287Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:43:06.287Z] [worker-~diagnostic~-e3913262-0121-465f-b5a0-d9a54c7fc7cf]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57597.sock 
+[debug] [2020-04-07T20:43:06.288Z] [worker-~diagnostic~-e3913262-0121-465f-b5a0-d9a54c7fc7cf]: BUSY 
+[debug] [2020-04-07T20:43:06.289Z] [worker-~diagnostic~-9a4ef255-e8db-431d-866b-a4665741cf49]: exited 
+[debug] [2020-04-07T20:43:06.289Z] [worker-~diagnostic~-9a4ef255-e8db-431d-866b-a4665741cf49]: FINISHED 
+[debug] [2020-04-07T20:43:06.575Z] [runtime-status] [57597] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:43:06.577Z] [runtime-status] [57597] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:43:06.579Z] [runtime-status] [57597] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:43:06.581Z] [runtime-status] [57597] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:06.584Z] [runtime-status] [57597] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:43:06.618Z] [runtime-status] [57597] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:43:06.619Z] [runtime-status] [57597] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:06.620Z] [runtime-status] [57597] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:43:06.620Z] [runtime-status] [57597] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:06.620Z] [runtime-status] [57597] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:43:06.828Z] [worker-~diagnostic~-e3913262-0121-465f-b5a0-d9a54c7fc7cf]: IDLE 
+[debug] [2020-04-07T20:43:12.062Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:43:13.063Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:43:13.063Z] [worker-~diagnostic~-e3913262-0121-465f-b5a0-d9a54c7fc7cf]: FINISHING 
+[debug] [2020-04-07T20:43:13.063Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:43:13.066Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:43:13.066Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:43:13.067Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:43:13.067Z] [worker-~diagnostic~-a52231aa-9d5c-4767-b17b-7fc2cbf0f37e]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57600.sock 
+[debug] [2020-04-07T20:43:13.067Z] [worker-~diagnostic~-a52231aa-9d5c-4767-b17b-7fc2cbf0f37e]: BUSY 
+[debug] [2020-04-07T20:43:13.068Z] [worker-~diagnostic~-e3913262-0121-465f-b5a0-d9a54c7fc7cf]: exited 
+[debug] [2020-04-07T20:43:13.068Z] [worker-~diagnostic~-e3913262-0121-465f-b5a0-d9a54c7fc7cf]: FINISHED 
+[debug] [2020-04-07T20:43:13.327Z] [runtime-status] [57600] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:43:13.329Z] [runtime-status] [57600] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:43:13.331Z] [runtime-status] [57600] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:43:13.332Z] [runtime-status] [57600] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:13.336Z] [runtime-status] [57600] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:43:13.369Z] [runtime-status] [57600] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:43:13.378Z] [runtime-status] [57600] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:13.379Z] [runtime-status] [57600] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:43:13.379Z] [runtime-status] [57600] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:13.379Z] [runtime-status] [57600] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:43:13.589Z] [worker-~diagnostic~-a52231aa-9d5c-4767-b17b-7fc2cbf0f37e]: IDLE 
+[debug] [2020-04-07T20:43:37.620Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:43:38.621Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:43:38.621Z] [worker-~diagnostic~-a52231aa-9d5c-4767-b17b-7fc2cbf0f37e]: FINISHING 
+[debug] [2020-04-07T20:43:38.622Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:43:38.625Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:43:38.625Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:43:38.625Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:43:38.626Z] [worker-~diagnostic~-a0734c69-cb2b-4fa8-8b4e-44b93f1ef50f]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57604.sock 
+[debug] [2020-04-07T20:43:38.626Z] [worker-~diagnostic~-a0734c69-cb2b-4fa8-8b4e-44b93f1ef50f]: BUSY 
+[debug] [2020-04-07T20:43:38.627Z] [worker-~diagnostic~-a52231aa-9d5c-4767-b17b-7fc2cbf0f37e]: exited 
+[debug] [2020-04-07T20:43:38.627Z] [worker-~diagnostic~-a52231aa-9d5c-4767-b17b-7fc2cbf0f37e]: FINISHED 
+[debug] [2020-04-07T20:43:38.920Z] [runtime-status] [57604] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:43:38.922Z] [runtime-status] [57604] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:43:38.924Z] [runtime-status] [57604] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:43:38.924Z] [runtime-status] [57604] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:38.927Z] [runtime-status] [57604] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:43:38.955Z] [runtime-status] [57604] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:43:38.955Z] [runtime-status] [57604] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:38.957Z] [runtime-status] [57604] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:43:38.957Z] [runtime-status] [57604] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:38.957Z] [runtime-status] [57604] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:43:39.174Z] [worker-~diagnostic~-a0734c69-cb2b-4fa8-8b4e-44b93f1ef50f]: IDLE 
+[debug] [2020-04-07T20:43:49.340Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:43:50.341Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:43:50.342Z] [worker-~diagnostic~-a0734c69-cb2b-4fa8-8b4e-44b93f1ef50f]: FINISHING 
+[debug] [2020-04-07T20:43:50.342Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:43:50.344Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:43:50.344Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:43:50.344Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:43:50.344Z] [worker-~diagnostic~-d4364639-27cd-41d9-88e6-30b374ca6718]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57610.sock 
+[debug] [2020-04-07T20:43:50.344Z] [worker-~diagnostic~-d4364639-27cd-41d9-88e6-30b374ca6718]: BUSY 
+[debug] [2020-04-07T20:43:50.346Z] [worker-~diagnostic~-a0734c69-cb2b-4fa8-8b4e-44b93f1ef50f]: exited 
+[debug] [2020-04-07T20:43:50.346Z] [worker-~diagnostic~-a0734c69-cb2b-4fa8-8b4e-44b93f1ef50f]: FINISHED 
+[debug] [2020-04-07T20:43:50.584Z] [runtime-status] [57610] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:43:50.586Z] [runtime-status] [57610] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:43:50.589Z] [runtime-status] [57610] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:43:50.589Z] [runtime-status] [57610] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:50.592Z] [runtime-status] [57610] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:43:50.619Z] [runtime-status] [57610] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:43:50.619Z] [runtime-status] [57610] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:50.620Z] [runtime-status] [57610] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:43:50.620Z] [runtime-status] [57610] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:43:50.621Z] [runtime-status] [57610] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:43:50.813Z] [worker-~diagnostic~-d4364639-27cd-41d9-88e6-30b374ca6718]: IDLE 
+[debug] [2020-04-07T20:44:43.520Z] Apr 07, 2020 1:44:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:44:43.574Z] Apr 07, 2020 1:44:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:44:51.535Z] Apr 07, 2020 1:44:51 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:44:51.583Z] Apr 07, 2020 1:44:51 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:44:51.752Z] Apr 07, 2020 1:44:51 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+Null value error. for 'create' @ L50, Null value error. for 'create' @ L89
+
+[debug] [2020-04-07T20:45:23.097Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:45:24.097Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:45:24.097Z] [worker-~diagnostic~-d4364639-27cd-41d9-88e6-30b374ca6718]: FINISHING 
+[debug] [2020-04-07T20:45:24.097Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:45:24.101Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:45:24.101Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:45:24.101Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:45:24.102Z] [worker-~diagnostic~-2af8e9e6-b810-4b0c-8cfa-a5045f65d4f2]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57632.sock 
+[debug] [2020-04-07T20:45:24.102Z] [worker-~diagnostic~-2af8e9e6-b810-4b0c-8cfa-a5045f65d4f2]: BUSY 
+[debug] [2020-04-07T20:45:24.104Z] [worker-~diagnostic~-d4364639-27cd-41d9-88e6-30b374ca6718]: exited 
+[debug] [2020-04-07T20:45:24.104Z] [worker-~diagnostic~-d4364639-27cd-41d9-88e6-30b374ca6718]: FINISHED 
+[debug] [2020-04-07T20:45:24.366Z] [runtime-status] [57632] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:45:24.368Z] [runtime-status] [57632] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:45:24.370Z] [runtime-status] [57632] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:45:24.370Z] [runtime-status] [57632] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:24.373Z] [runtime-status] [57632] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:45:24.406Z] [runtime-status] [57632] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:45:24.406Z] [runtime-status] [57632] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:24.407Z] [runtime-status] [57632] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:45:24.407Z] [runtime-status] [57632] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:24.407Z] [runtime-status] [57632] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:45:24.664Z] [worker-~diagnostic~-2af8e9e6-b810-4b0c-8cfa-a5045f65d4f2]: IDLE 
+[debug] [2020-04-07T20:45:28.300Z] Apr 07, 2020 1:45:28 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:45:28.346Z] Apr 07, 2020 1:45:28 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:45:28.533Z] Apr 07, 2020 1:45:28 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+Null value error. for 'create' @ L50, Null value error. for 'create' @ L89
+
+[debug] [2020-04-07T20:45:46.527Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/package.json changed, reloading triggers 
+[debug] [2020-04-07T20:45:47.529Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:45:47.530Z] [worker-~diagnostic~-2af8e9e6-b810-4b0c-8cfa-a5045f65d4f2]: FINISHING 
+[debug] [2020-04-07T20:45:47.530Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:45:47.533Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:45:47.533Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:45:47.533Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:45:47.533Z] [worker-~diagnostic~-39321f2d-45e7-4a25-8e60-a3250a7d7e14]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57649.sock 
+[debug] [2020-04-07T20:45:47.533Z] [worker-~diagnostic~-39321f2d-45e7-4a25-8e60-a3250a7d7e14]: BUSY 
+[debug] [2020-04-07T20:45:47.537Z] [worker-~diagnostic~-2af8e9e6-b810-4b0c-8cfa-a5045f65d4f2]: exited 
+[debug] [2020-04-07T20:45:47.538Z] [worker-~diagnostic~-2af8e9e6-b810-4b0c-8cfa-a5045f65d4f2]: FINISHED 
+[debug] [2020-04-07T20:45:47.584Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/package.json changed, reloading triggers 
+[debug] [2020-04-07T20:45:47.914Z] [runtime-status] [57649] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:45:47.915Z] [runtime-status] [57649] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:45:47.918Z] [runtime-status] [57649] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:45:47.919Z] [runtime-status] [57649] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:47.924Z] [runtime-status] [57649] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:45:47.970Z] [runtime-status] [57649] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:45:47.971Z] [runtime-status] [57649] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:47.972Z] [runtime-status] [57649] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:45:47.973Z] [runtime-status] [57649] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:47.973Z] [runtime-status] [57649] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:45:48.265Z] [worker-~diagnostic~-39321f2d-45e7-4a25-8e60-a3250a7d7e14]: IDLE 
+[debug] [2020-04-07T20:45:48.584Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:45:48.585Z] [worker-~diagnostic~-39321f2d-45e7-4a25-8e60-a3250a7d7e14]: FINISHING 
+[debug] [2020-04-07T20:45:48.585Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:45:48.588Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:45:48.588Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:45:48.588Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:45:48.588Z] [worker-~diagnostic~-ad66e66b-5d77-488a-8e73-927ae7045b40]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57654.sock 
+[debug] [2020-04-07T20:45:48.588Z] [worker-~diagnostic~-ad66e66b-5d77-488a-8e73-927ae7045b40]: BUSY 
+[debug] [2020-04-07T20:45:48.590Z] [worker-~diagnostic~-39321f2d-45e7-4a25-8e60-a3250a7d7e14]: exited 
+[debug] [2020-04-07T20:45:48.590Z] [worker-~diagnostic~-39321f2d-45e7-4a25-8e60-a3250a7d7e14]: FINISHED 
+[debug] [2020-04-07T20:45:48.920Z] [runtime-status] [57654] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:45:48.922Z] [runtime-status] [57654] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:45:48.925Z] [runtime-status] [57654] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:45:48.926Z] [runtime-status] [57654] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:48.930Z] [runtime-status] [57654] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:45:48.967Z] [runtime-status] [57654] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:45:48.968Z] [runtime-status] [57654] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:48.968Z] [runtime-status] [57654] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:45:48.969Z] [runtime-status] [57654] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:45:48.969Z] [runtime-status] [57654] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:45:49.223Z] [worker-~diagnostic~-ad66e66b-5d77-488a-8e73-927ae7045b40]: IDLE 
+[debug] [2020-04-07T20:46:02.589Z] Apr 07, 2020 1:46:02 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:46:02.642Z] Apr 07, 2020 1:46:02 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:46:02.842Z] Apr 07, 2020 1:46:02 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+Null value error. for 'create' @ L50, Null value error. for 'create' @ L89
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:47:10.892Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n  return\n    \n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:47:10.905Z] Apr 07, 2020 1:47:10 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:47:10.964Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"431"}
+[warn] ⚠  ../firebase/firestore.rules:34:1 - ERROR mismatched input '}' expecting {'--', '++', '{', '[', '(', '-', '!', '/', 'false', 'null', 'true', PATH_SEGMENT, IDENTIFIER, NUM_INT, NUM_FLOAT, UNPAIRED_DOUBLE_QUOTE, UNPAIRED_SINGLE_QUOTE, STRING, BYTES}
+[info] ✔  firestore: Rules updated.
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:48:39.184Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n  return\n    resource.data.keys().hasAll(['averageRating', 'casesCompleted', 'requestsMade', 'username'])\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:48:39.186Z] Apr 07, 2020 1:48:39 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:48:39.250Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"497"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:31:33 - WARNING Unused variable: request.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:48:47.553Z] Apr 07, 2020 1:48:47 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:48:47.597Z] Apr 07, 2020 1:48:47 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:48:47.795Z] Apr 07, 2020 1:48:47 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+Null value error. for 'create' @ L43, Null value error. for 'create' @ L82
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:50:33.512Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n  return\n    request.resource.data.averageRating > 1 &&\n    request.resource.data.casesCompleted > 0 &&\n    request.resource.data.requestsMade > 0 &&\n    request.resource.data.username\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:50:33.525Z] Apr 07, 2020 1:50:33 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:50:33.562Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:50:43.688Z] Apr 07, 2020 1:50:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:50:43.722Z] Apr 07, 2020 1:50:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:50:43.923Z] Apr 07, 2020 1:50:43 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L46, Null value error. for 'create' @ L85
+
+[debug] [2020-04-07T20:50:58.884Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:50:59.886Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:50:59.886Z] [worker-~diagnostic~-ad66e66b-5d77-488a-8e73-927ae7045b40]: FINISHING 
+[debug] [2020-04-07T20:50:59.886Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:50:59.891Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:50:59.891Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:50:59.891Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:50:59.891Z] [worker-~diagnostic~-c31b29c3-ff61-4b7c-9b81-c6140bfe43dd]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57713.sock 
+[debug] [2020-04-07T20:50:59.891Z] [worker-~diagnostic~-c31b29c3-ff61-4b7c-9b81-c6140bfe43dd]: BUSY 
+[debug] [2020-04-07T20:50:59.894Z] [worker-~diagnostic~-ad66e66b-5d77-488a-8e73-927ae7045b40]: exited 
+[debug] [2020-04-07T20:50:59.894Z] [worker-~diagnostic~-ad66e66b-5d77-488a-8e73-927ae7045b40]: FINISHED 
+[debug] [2020-04-07T20:51:00.404Z] [runtime-status] [57713] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:51:00.405Z] [runtime-status] [57713] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:51:00.407Z] [runtime-status] [57713] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:51:00.409Z] [runtime-status] [57713] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:00.411Z] [runtime-status] [57713] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:51:00.463Z] [runtime-status] [57713] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:51:00.464Z] [runtime-status] [57713] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:00.464Z] [runtime-status] [57713] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:51:00.465Z] [runtime-status] [57713] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:00.465Z] [runtime-status] [57713] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:51:00.804Z] [worker-~diagnostic~-c31b29c3-ff61-4b7c-9b81-c6140bfe43dd]: IDLE 
+[debug] [2020-04-07T20:51:04.199Z] Apr 07, 2020 1:51:04 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:51:04.229Z] Apr 07, 2020 1:51:04 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:51:04.412Z] Apr 07, 2020 1:51:04 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L46, Null value error. for 'create' @ L85
+
+[debug] [2020-04-07T20:51:06.806Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:51:07.810Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:51:07.810Z] [worker-~diagnostic~-c31b29c3-ff61-4b7c-9b81-c6140bfe43dd]: FINISHING 
+[debug] [2020-04-07T20:51:07.810Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:51:07.814Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:51:07.814Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:51:07.814Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:51:07.815Z] [worker-~diagnostic~-d45767c5-a4ba-4b35-8609-bde80617a117]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57729.sock 
+[debug] [2020-04-07T20:51:07.815Z] [worker-~diagnostic~-d45767c5-a4ba-4b35-8609-bde80617a117]: BUSY 
+[debug] [2020-04-07T20:51:07.817Z] [worker-~diagnostic~-c31b29c3-ff61-4b7c-9b81-c6140bfe43dd]: exited 
+[debug] [2020-04-07T20:51:07.817Z] [worker-~diagnostic~-c31b29c3-ff61-4b7c-9b81-c6140bfe43dd]: FINISHED 
+[debug] [2020-04-07T20:51:08.114Z] [runtime-status] [57729] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:51:08.116Z] [runtime-status] [57729] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:51:08.119Z] [runtime-status] [57729] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:51:08.119Z] [runtime-status] [57729] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:08.123Z] [runtime-status] [57729] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:51:08.160Z] [runtime-status] [57729] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:51:08.160Z] [runtime-status] [57729] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:08.161Z] [runtime-status] [57729] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:51:08.161Z] [runtime-status] [57729] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:08.161Z] [runtime-status] [57729] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:51:08.367Z] [worker-~diagnostic~-d45767c5-a4ba-4b35-8609-bde80617a117]: IDLE 
+[debug] [2020-04-07T20:51:09.487Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:51:10.488Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:51:10.488Z] [worker-~diagnostic~-d45767c5-a4ba-4b35-8609-bde80617a117]: FINISHING 
+[debug] [2020-04-07T20:51:10.488Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:51:10.491Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:51:10.492Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:51:10.492Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:51:10.492Z] [worker-~diagnostic~-75c2970b-49e9-4490-9217-1f2c8becf873]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57732.sock 
+[debug] [2020-04-07T20:51:10.492Z] [worker-~diagnostic~-75c2970b-49e9-4490-9217-1f2c8becf873]: BUSY 
+[debug] [2020-04-07T20:51:10.494Z] [worker-~diagnostic~-d45767c5-a4ba-4b35-8609-bde80617a117]: exited 
+[debug] [2020-04-07T20:51:10.494Z] [worker-~diagnostic~-d45767c5-a4ba-4b35-8609-bde80617a117]: FINISHED 
+[debug] [2020-04-07T20:51:10.745Z] [runtime-status] [57732] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:51:10.746Z] [runtime-status] [57732] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:51:10.748Z] [runtime-status] [57732] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:51:10.749Z] [runtime-status] [57732] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:10.753Z] [runtime-status] [57732] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:51:10.779Z] [runtime-status] [57732] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:51:10.779Z] [runtime-status] [57732] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:10.780Z] [runtime-status] [57732] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:51:10.780Z] [runtime-status] [57732] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:51:10.780Z] [runtime-status] [57732] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:51:10.998Z] [worker-~diagnostic~-75c2970b-49e9-4490-9217-1f2c8becf873]: IDLE 
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:51:18.669Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n    return false\n  return\n    request.resource.data.averageRating > 1 &&\n    request.resource.data.casesCompleted > 0 &&\n    request.resource.data.requestsMade > 0 &&\n    request.resource.data.username\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:51:18.672Z] Apr 07, 2020 1:51:18 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:51:18.691Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"370"}
+[warn] ⚠  ../firebase/firestore.rules:33:3 - ERROR mismatched input 'return' expecting {'&&', '.', '==', '>', '>=', '[', '<', '<=', '-', '%', '!=', '||', '+', '}', ';', '/', '*', '?', 'in', 'is'}
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:51:24.281Z] Apr 07, 2020 1:51:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:51:24.297Z] Apr 07, 2020 1:51:24 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: Error compiling rules:
+L33:3 mismatched input 'return' expecting {'&&', '.', '==', '>', '>=', '[', '<', '<=', '-', '%', '!=', '||', '+', '}', ';', '/', '*', '?', 'in', 'is'}
+
+[debug] [2020-04-07T20:51:24.304Z] Apr 07, 2020 1:51:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:51:24.483Z] Apr 07, 2020 1:51:24 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L46, Null value error. for 'create' @ L85
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:51:33.966Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n    return false\n\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:51:33.969Z] Apr 07, 2020 1:51:33 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:51:33.993Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"497"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:31:33 - WARNING Unused variable: request.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:51:37.038Z] Apr 07, 2020 1:51:37 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:51:37.074Z] Apr 07, 2020 1:51:37 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:51:37.255Z] Apr 07, 2020 1:51:37 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L43, Null value error. for 'create' @ L82
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:52:10.493Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n    return false\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:52:10.493Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/index.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:52:10.495Z] Apr 07, 2020 1:52:10 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:52:10.534Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"497"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:31:33 - WARNING Unused variable: request.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:52:11.495Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:52:11.495Z] [worker-~diagnostic~-75c2970b-49e9-4490-9217-1f2c8becf873]: FINISHING 
+[debug] [2020-04-07T20:52:11.496Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:52:11.500Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:52:11.500Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:52:11.500Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:52:11.500Z] [worker-~diagnostic~-b97a4d65-836e-49f9-9c93-c0da8a7118c2]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57760.sock 
+[debug] [2020-04-07T20:52:11.500Z] [worker-~diagnostic~-b97a4d65-836e-49f9-9c93-c0da8a7118c2]: BUSY 
+[debug] [2020-04-07T20:52:11.502Z] [worker-~diagnostic~-75c2970b-49e9-4490-9217-1f2c8becf873]: exited 
+[debug] [2020-04-07T20:52:11.502Z] [worker-~diagnostic~-75c2970b-49e9-4490-9217-1f2c8becf873]: FINISHED 
+[debug] [2020-04-07T20:52:11.990Z] [runtime-status] [57760] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:52:11.992Z] [runtime-status] [57760] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:52:11.995Z] [runtime-status] [57760] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:52:11.996Z] [runtime-status] [57760] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:52:12.000Z] [runtime-status] [57760] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:52:12.046Z] [runtime-status] [57760] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:52:12.046Z] [runtime-status] [57760] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:52:12.047Z] [runtime-status] [57760] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:52:12.048Z] [runtime-status] [57760] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:52:12.048Z] [runtime-status] [57760] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:52:12.406Z] [worker-~diagnostic~-b97a4d65-836e-49f9-9c93-c0da8a7118c2]: IDLE 
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:52:57.303Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return false\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:52:57.304Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/firestore-rules.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:52:57.306Z] Apr 07, 2020 1:52:57 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:52:57.349Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"497"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:31:33 - WARNING Unused variable: request.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:52:58.305Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:52:58.305Z] [worker-~diagnostic~-b97a4d65-836e-49f9-9c93-c0da8a7118c2]: FINISHING 
+[debug] [2020-04-07T20:52:58.305Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:52:58.310Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:52:58.310Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:52:58.310Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:52:58.310Z] [worker-~diagnostic~-cfe0c66b-4034-40c8-a7d7-ce3881ef8ac2]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57767.sock 
+[debug] [2020-04-07T20:52:58.310Z] [worker-~diagnostic~-cfe0c66b-4034-40c8-a7d7-ce3881ef8ac2]: BUSY 
+[debug] [2020-04-07T20:52:58.314Z] [worker-~diagnostic~-b97a4d65-836e-49f9-9c93-c0da8a7118c2]: exited 
+[debug] [2020-04-07T20:52:58.314Z] [worker-~diagnostic~-b97a4d65-836e-49f9-9c93-c0da8a7118c2]: FINISHED 
+[debug] [2020-04-07T20:52:58.816Z] [runtime-status] [57767] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:52:58.818Z] [runtime-status] [57767] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:52:58.821Z] [runtime-status] [57767] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:52:58.821Z] [runtime-status] [57767] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:52:58.825Z] [runtime-status] [57767] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:52:58.875Z] [runtime-status] [57767] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:52:58.876Z] [runtime-status] [57767] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:52:58.877Z] [runtime-status] [57767] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:52:58.877Z] [runtime-status] [57767] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:52:58.877Z] [runtime-status] [57767] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:52:59.309Z] [worker-~diagnostic~-cfe0c66b-4034-40c8-a7d7-ce3881ef8ac2]: IDLE 
+[debug] [2020-04-07T20:53:07.793Z] Apr 07, 2020 1:53:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:53:07.836Z] Apr 07, 2020 1:53:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:53:08.024Z] Apr 07, 2020 1:53:08 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Null value error. for 'create' @ L81
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:53:45.708Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return false\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow create, write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:53:45.710Z] Apr 07, 2020 1:53:45 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:53:45.772Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"497"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:31:33 - WARNING Unused variable: request.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:53:52.030Z] Apr 07, 2020 1:53:52 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:53:52.055Z] Apr 07, 2020 1:53:52 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:53:52.239Z] Apr 07, 2020 1:53:52 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Null value error. for 'create' @ L81
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:56:07.183Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return false\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Only authorized Reads\n    match /{document=**} {\n      allow read, write: if isAuthenticated();\n    }\n    \n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow create, write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:56:07.186Z] Apr 07, 2020 1:56:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:56:07.212Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"497"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[warn] ⚠  ../firebase/firestore.rules:31:33 - WARNING Unused variable: request.
+[info] ✔  firestore: Rules updated.
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:56:27.862Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return false\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow create, write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:56:27.865Z] Apr 07, 2020 1:56:27 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:56:27.882Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"270"}
+[warn] ⚠  ../firebase/firestore.rules:39:26 - ERROR Missing 'if' before conditional expression.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:56:45.357Z] File /Users/dansabin/projects/freethinkingit/reach4help/functions/tests/index.test.ts changed, reloading triggers 
+[debug] [2020-04-07T20:56:46.359Z] [worker-pool] Shutting down IDLE worker (~diagnostic~) 
+[debug] [2020-04-07T20:56:46.359Z] [worker-~diagnostic~-cfe0c66b-4034-40c8-a7d7-ce3881ef8ac2]: FINISHING 
+[debug] [2020-04-07T20:56:46.359Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1 
+[debug] [2020-04-07T20:56:46.362Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-07T20:56:46.362Z] [worker-pool] Adding worker with key ~diagnostic~, total=2 
+[debug] [2020-04-07T20:56:46.363Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-07T20:56:46.363Z] [worker-~diagnostic~-b1d20b78-c98d-440a-87d5-286f957c1964]: Assigning socketPath: /var/folders/dm/551fywzx6s7bzdg5c71v9wnc0000gn/T/fire_emu_57817.sock 
+[debug] [2020-04-07T20:56:46.363Z] [worker-~diagnostic~-b1d20b78-c98d-440a-87d5-286f957c1964]: BUSY 
+[debug] [2020-04-07T20:56:46.365Z] [worker-~diagnostic~-cfe0c66b-4034-40c8-a7d7-ce3881ef8ac2]: exited 
+[debug] [2020-04-07T20:56:46.365Z] [worker-~diagnostic~-cfe0c66b-4034-40c8-a7d7-ce3881ef8ac2]: FINISHED 
+[debug] [2020-04-07T20:56:46.771Z] [runtime-status] [57817] Functions runtime initialized. {"cwd":"/Users/dansabin/projects/freethinkingit/reach4help/functions","node_version":"10.16.3"} 
+[debug] [2020-04-07T20:56:46.773Z] [runtime-status] [57817] Disabled runtime features: undefined 
+[debug] [2020-04-07T20:56:46.775Z] [runtime-status] [57817] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:56:46.776Z] [runtime-status] [57817] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:56:46.779Z] [runtime-status] [57817] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-07T20:56:46.821Z] [runtime-status] [57817] Checked functions.config() {"config":{}} 
+[debug] [2020-04-07T20:56:46.822Z] [runtime-status] [57817] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:56:46.823Z] [runtime-status] [57817] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-07T20:56:46.823Z] [runtime-status] [57817] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.5.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-07T20:56:46.823Z] [runtime-status] [57817] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/dansabin/projects/freethinkingit/reach4help/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-07T20:56:47.172Z] [worker-~diagnostic~-b1d20b78-c98d-440a-87d5-286f957c1964]: IDLE 
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:57:01.386Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating > 1 &&\n          request.resource.data.casesCompleted > 0 &&\n          request.resource.data.requestsMade > 0 &&\n          request.resource.data.username\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow create, write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:57:01.389Z] Apr 07, 2020 1:57:01 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:57:01.406Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"272"}
+[warn] ⚠  ../firebase/firestore.rules:42:26 - ERROR Missing 'if' before conditional expression.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:57:08.849Z] Apr 07, 2020 1:57:08 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:57:08.874Z] Apr 07, 2020 1:57:08 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: Error compiling rules:
+L42:26 Missing 'if' before conditional expression.
+
+[debug] [2020-04-07T20:57:08.881Z] Apr 07, 2020 1:57:08 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:57:09.089Z] Apr 07, 2020 1:57:09 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Null value error. for 'create' @ L81
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:57:30.671Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating > 1 &&\n          request.resource.data.casesCompleted > 0 &&\n          request.resource.data.requestsMade > 0 &&\n          request.resource.data.username\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: if false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow create, write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:57:30.673Z] Apr 07, 2020 1:57:30 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:57:30.703Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:59:04.088Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating > 1 &&\n          request.resource.data.casesCompleted > 0 &&\n          request.resource.data.requestsMade > 0 &&\n          request.resource.data.username.length > 0\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: if false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow create, write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:59:04.091Z] Apr 07, 2020 1:59:04 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:59:04.120Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T20:59:12.149Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating > 1 &&\n          request.resource.data.casesCompleted > 0 &&\n          request.resource.data.requestsMade > 0 &&\n          request.resource.data.username\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: if false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow create, write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T20:59:12.151Z] Apr 07, 2020 1:59:12 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T20:59:12.175Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T20:59:36.339Z] Apr 07, 2020 1:59:36 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:59:36.369Z] Apr 07, 2020 1:59:36 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T20:59:36.587Z] Apr 07, 2020 1:59:36 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, false for 'create' @ L49
+
+[debug] [2020-04-07T20:59:36.639Z] Apr 07, 2020 1:59:36 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, false for 'create' @ L49
+
+[debug] [2020-04-07T20:59:36.695Z] Apr 07, 2020 1:59:36 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Property averageRating is undefined on object. for 'create' @ L49
+
+[debug] [2020-04-07T20:59:36.702Z] Apr 07, 2020 1:59:36 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, false for 'create' @ L49
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T21:00:00.774Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating > 1 &&\n          request.resource.data.casesCompleted > 0 &&\n          request.resource.data.requestsMade > 0 &&\n          request.resource.data.username\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: if false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T21:00:00.778Z] Apr 07, 2020 2:00:00 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T21:00:00.806Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T21:00:06.604Z] Apr 07, 2020 2:00:06 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T21:00:06.640Z] Apr 07, 2020 2:00:06 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T21:00:06.838Z] Apr 07, 2020 2:00:06 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, false for 'create' @ L49
+
+[debug] [2020-04-07T21:00:06.887Z] Apr 07, 2020 2:00:06 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, false for 'create' @ L49
+
+[debug] [2020-04-07T21:00:06.937Z] Apr 07, 2020 2:00:06 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Property averageRating is undefined on object. for 'create' @ L49
+
+[debug] [2020-04-07T21:00:06.944Z] Apr 07, 2020 2:00:06 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, false for 'create' @ L49
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T21:01:33.700Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating >= 1 &&\n          request.resource.data.casesCompleted >= 0 &&\n          request.resource.data.requestsMade >= 0 &&\n          request.resource.data.username\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: if false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T21:01:33.704Z] Apr 07, 2020 2:01:33 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T21:01:33.751Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T21:01:38.778Z] Apr 07, 2020 2:01:38 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T21:01:38.817Z] Apr 07, 2020 2:01:38 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T21:01:38.992Z] Apr 07, 2020 2:01:38 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Null value error. for 'create' @ L49
+
+[debug] [2020-04-07T21:01:39.042Z] Apr 07, 2020 2:01:39 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, false for 'create' @ L49
+
+[debug] [2020-04-07T21:01:39.083Z] Apr 07, 2020 2:01:39 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Property averageRating is undefined on object. for 'create' @ L49
+
+[debug] [2020-04-07T21:01:39.089Z] Apr 07, 2020 2:01:39 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Type error. Received: [string] Expected: [bool]. for 'create' @ L49
+
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T21:01:57.803Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating >= 1 &&\n          request.resource.data.casesCompleted >= 0 &&\n          request.resource.data.requestsMade >= 0 &&\n          request.resource\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: if false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T21:01:57.806Z] Apr 07, 2020 2:01:57 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T21:01:57.836Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T21:02:34.815Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating >= 1 &&\n          request.resource.data.casesCompleted >= 0 &&\n          request.resource.data.requestsMade >= 0 &&\n          ('assignee' in request.resource.data)\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: if false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T21:02:34.817Z] Apr 07, 2020 2:02:34 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T21:02:34.847Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[info] i  firestore: Change detected, updating rules...
+[debug] [2020-04-07T21:02:38.026Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/reach4help-dev:securityRules  
+ {"ignore_errors":true,"rules":{"files":[{"name":"security.rules","content":"rules_version = '2';\n\nfunction isAuthenticated() {\n  return request.auth.uid != null;\n}\n\nfunction isUser(id) {\n  return isAuthenticated() && request.auth.uid == id;\n}\n\nfunction isVerifiedCAV() {\n  return isAuthenticated() && true;\n}\n\nfunction isVerifiedPIN() {\n  return isAuthenticated() && true;\n}\n\nfunction currentUserIsCurrentPINRef(request) {\n  return isUser(request.resource.data.pinUserRef.uid)\n}\n\nfunction currentUserIsCurrentCAVRef(request) {\n  return isUser(request.resource.data.cavUserRef.uid)\n}\n\nfunction isNotSameCAVPIN(request) {\n  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid\n}\n\nfunction verifyUserDataComplete(request) {\n   return request.resource.data.averageRating >= 1 &&\n          request.resource.data.casesCompleted >= 0 &&\n          request.resource.data.requestsMade >= 0 &&\n          ('username' in request.resource.data)\n}\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Catch all -- Dont read/write to collections without rules\n    match /{document=**} {\n      allow read, write: if false;\n    }\n\n    match /users/{userID} {\n      // Anyone can read your profile\n      allow read: if isAuthenticated();\n      // Only you can edit your own profile\n      allow write: if isUser(userID) && verifyUserDataComplete(request);\n    }\n\n    // 1: Read + Writes to sub-collection can only be done by the owner\n    // 2: Writes to sub-collections must match userID chain so we can always directly reference\n    match /users/{userID}/privilegedInformation/{subDocID} {\n        allow read, write: if isUser(userID) && userID == subDocID;\n    }\n\n    match /offers/{offerID} {\n      // Only the PIN or CAV of the request can read the offers\n      allow read: if currentUserIsCurrentPINRef(request)\n                    || currentUserIsCurrentCAVRef(request)\n      // Only CAVs can submit offers (as themselves)\n      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);\n    }\n\n    match /requests/{reqID} {\n      // Only CAVs can see requests\n      allow read: if isVerifiedCAV();\n      allow write: if isVerifiedCAV() && isNotSameCAVPIN(request);\n    }\n\n    match /questionnaires/{questID} {\n      // Can only read + write my own data\n      allow read, write: if isUser(request.resource.data.parentRef.uid);\n    }\n\n    // Don't allow writing to Teams and Orgs\n    match /organizations/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n    match /teams/{orgID} {\n      allow read;\n      allow write: if false;\n    }\n  }\n}\n"}]}}
+[debug] [2020-04-07T21:02:38.033Z] Apr 07, 2020 2:02:38 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+
+[debug] [2020-04-07T21:02:38.056Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"260"}
+[warn] ⚠  ../firebase/firestore.rules:15:10 - WARNING Unused function: isVerifiedPIN.
+[info] ✔  firestore: Rules updated.
+[debug] [2020-04-07T21:02:44.295Z] Apr 07, 2020 2:02:44 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T21:02:44.320Z] Apr 07, 2020 2:02:44 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+
+[debug] [2020-04-07T21:02:44.502Z] Apr 07, 2020 2:02:44 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Null value error. for 'create' @ L49
+
+[debug] [2020-04-07T21:02:44.544Z] Apr 07, 2020 2:02:44 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, false for 'create' @ L49
+
+[debug] [2020-04-07T21:02:44.588Z] Apr 07, 2020 2:02:44 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: 
+false for 'create' @ L42, Property averageRating is undefined on object. for 'create' @ L49
+
