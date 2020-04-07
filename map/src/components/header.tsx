@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdAdd, MdFullscreen, MdFullscreenExit } from 'react-icons/md';
 import { Filter } from 'src/data';
+import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
 
 import styled, { CLS_SCREEN_LG_ONLY, SMALL_DEVICES } from '../styling';
@@ -33,7 +34,7 @@ const Header = (props: Props) => {
             <img src="/logo-compat.svg" alt="Reach4Help Logo" />
           </div>
           <div className="info">
-            <h1>COVID-19 Mutual Aid Map - Reach4Help</h1>
+            <h1>{t(s => s.title)} - Reach4Help</h1>
             <p>
               To help people find and join mutual aid efforts where they live,
               offer inspiration to start their own, and/or simply lift spirits,
@@ -65,7 +66,11 @@ const Header = (props: Props) => {
         <div className="grow" />
         <button className="fs" type="button" onClick={toggleFullscreen}>
           <FullScreenIcon className="icon icon-left" />
-          <span>{fullScreen && 'Exit '}Fullscreen</span>
+          <span>
+            {t(s =>
+              fullScreen ? s.buttons.exitFullScreen : s.buttons.fullScreen,
+            )}
+          </span>
         </button>
         <button
           className="add"
