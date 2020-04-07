@@ -27,6 +27,9 @@ const injectRequestMiddleware = ({ dispatch }: { dispatch: Function }) => (
         firebase: !!action.firebase,
       });
     } catch (error) {
+      if (action.fallback && typeof action.fallback === 'function') {
+        dispatch(action.fallback());
+      }
       return next({
         type: `${action.type}_REJECTED`,
         payload: error,

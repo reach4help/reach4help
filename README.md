@@ -79,11 +79,11 @@ This is the web client with which our people in need and our volunteers interact
 
 More info [here](web-client/README.md)!
 
-### Backend REST API
+### Backend
 
-This is the API that will manage our data for the [Web client](web-client/README.md).
+This is the layer that will manage our data for the [Web client](web-client/README.md).
 
-More info [here](api/README.md)!
+More info [here](functions/README.md)!
 
 ## Code of Conduct
 

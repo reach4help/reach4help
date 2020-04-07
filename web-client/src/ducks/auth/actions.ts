@@ -28,18 +28,19 @@ export const loginAction = (payload: LoginAction) => (dispatch: Function) => {
   });
 };
 
+export const triggerLoginWithRedirect = () => (dispatch: Function) => {
+  dispatch({
+    type: TRIGGER_LOGIN_WITH_REDIRECT,
+    firebase: loginWithFirebaseRedirect,
+  });
+};
+
 export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
   dispatch({
     type: FIREBASE_FACEBOOK_LOGIN_POPUP,
     payload: {},
     firebase: facebookLoginWithFirebasePopUp,
-  });
-};
-
-export const triggerLoginWithRedirect = () => (dispatch: Function) => {
-  dispatch({
-    type: TRIGGER_LOGIN_WITH_REDIRECT,
-    firebase: loginWithFirebaseRedirect,
+    fallback: triggerLoginWithRedirect,
   });
 };
 

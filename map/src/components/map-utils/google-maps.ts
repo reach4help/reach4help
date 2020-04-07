@@ -1,10 +1,19 @@
+import { MARKERS } from '../../data/markers';
 import { parseQueryString } from './query-string';
+
+const average = (arr: Array<number>) =>
+  arr.reduce((acc, curr) => acc + curr) / arr.length;
 
 export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
   const query = parseQueryString();
   return new google.maps.Map(ref, {
     zoom: query.map ? query.map.zoom : 3,
-    center: query.map ? query.map.pos : { lat: 0, lng: 0 },
+    center: query.map
+      ? query.map.pos
+      : {
+          lat: average(MARKERS.map(m => m.loc.lat)),
+          lng: average(MARKERS.map(m => m.loc.lng)),
+        },
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     streetViewControl: false,
     clickableIcons: false,
