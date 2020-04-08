@@ -13,10 +13,12 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-icons": "^3.0.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.0",
+    "react-icons": "^3.9.0",
+    "react-scripts": "3.4.1",
     "styled-components": "^5.0.1",
     "typescript": "~3.7.2"
   },
@@ -25,20 +27,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "pre-commit": "lint-staged",
-    "prettier": "prettier --check \"./**/*.{ts,tsx,js}\"",
-    "prettier-fix": "prettier --write \"./**/*.{ts,tsx,js}\""
+    "lint": "eslint . --ext .ts,.tsx && prettier --check \"./**/*.{ts,tsx}\"",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx && prettier --write \"./**/*.{ts,tsx}\"",
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "eslint . --fix --ext .js,.ts,.tsx",
-      "prettier --write",
-      "git add"
+      "eslint . --ext .ts,.tsx",
+      "prettier --write"
     ],
     "*.md": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "eslintConfig": {

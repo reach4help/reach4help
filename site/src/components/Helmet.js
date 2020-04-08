@@ -1,78 +1,89 @@
 import React from 'react';
 import ReactHelmet from 'react-helmet';
-import { StaticQuery, graphql } from 'gatsby';
+import { graphql, StaticQuery } from 'gatsby';
 import { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
+
+// import logo16 from '../../media/logo16.png';
+// import logo32 from '../../media/logo32.png';
+// import logo180 from '../../media/logo180.png';
+// import logo512 from '../../media/logo512.png';
 
 const Helmet = ({ theme = {} }) => (
   <StaticQuery
     query={graphql`
-      query HelmetQuery {
-        contentfulAbout {
-          name
-          description
-          profile {
-            favicon16: resize(width: 16) {
-              src
-            }
-            favicon32: resize(width: 32) {
-              src
-            }
-            bigIcon: resize(width: 192) {
-              src
-            }
-            appleIcon: resize(width: 180) {
-              src
-            }
+      {
+        site {
+          siteMetadata {
+            siteUrl
+            description
+            title
           }
         }
       }
     `}
-    render={data => {
-      const { name, description, profile } = data.contentfulAbout;
-      const title = `${name}`;
+    render={({ site }) => {
+      const { title, description, siteUrl } = site.siteMetadata;
 
       return (
         <ReactHelmet htmlAttributes={{ lang: 'en' }}>
           <meta charSet="utf-8" />
-          <title>{title}</title>
+
+          <title>{`${title}`}</title>
           <meta name="description" content={description} />
-          <link rel="shortcut icon" href={`https:${profile.favicon32.src}`} />
           <meta name="theme-color" content={theme.background} />
-          <meta name="image" content={`https:${profile.favicon32.src}`} />
+
           <meta itemProp="name" content={title} />
           <meta itemProp="description" content={description} />
-          <meta itemProp="image" content={`https:${profile.favicon32.src}`} />
-          <meta name="og:title" content={title} />
-          <meta name="og:description" content={description} />
-          <meta name="og:image" content={`https:${profile.bigIcon.src}`} />
-          <meta name="og:site_name" content={title} />
-          <meta name="og:locale" content="en_US" />
-          <meta name="og:type" content="website" />
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content={title} />
-          <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={`https:${profile.bigIcon.src}`} />
+          <meta
+            itemProp="image"
+            content={`${siteUrl}/images/swarm_banner_main.png`}
+          />
+
+          <meta property="og:site_name" content="Reach4Help" />
+          <meta property="fb:app_id" content="1626611720838538" />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta
+            property="og:image"
+            content={`${siteUrl}/images/swarm_banner_main.png`}
+          />
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:type" content="website" />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@Reach4HelpOrg" />
+          <meta name="twitter:creator" content="@Reach4HelpOrg" />
+          <meta
+            name="twitter:image"
+            content={`${siteUrl}/images/swarm_banner_main.png`}
+          />
           <meta
             name="twitter:image:src"
-            content={`https:${profile.bigIcon.src}`}
+            content={`${siteUrl}/images/swarm_banner_main.png`}
           />
+          <meta
+            name="twitter:image:alt"
+            content="Reach 4 Help / Unifying help around the world."
+          />
+
+          <link rel="shortcut icon" href={`${siteUrl}/images/logo32.png`} />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href={`https:${profile.appleIcon.src}`}
+            href={`${siteUrl}/images/logo180.png`}
           />
           <link
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href={`https:${profile.favicon32.src}`}
+            href={`${siteUrl}/images/logo32.png`}
           />
           <link
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href={`https:${profile.favicon16.src}`}
+            href={`${siteUrl}/images/logo16.png`}
           />
         </ReactHelmet>
       );

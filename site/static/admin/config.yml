@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: feat/#78-netlify-cms-setup
+  branch: cms-content
 
 media_folder: /media
 public_folder: /static

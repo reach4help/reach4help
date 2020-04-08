@@ -27,29 +27,30 @@ const TextFooter = styled(Text)`
 const Footer = () => (
   <StaticQuery
     query={graphql`
-      query FooterQuery {
-        contentfulAbout {
-          name
-          roles
-          socialLinks {
-            id
-            url
-            name
-            fontAwesomeIcon
+      query {
+        site {
+          siteMetadata {
+            title
+            socialLinks {
+              fontAwesomeIcon
+              id
+              name
+              url
+            }
           }
         }
       }
     `}
-    render={data => {
-      const { name, socialLinks } = data.contentfulAbout;
+    render={({ site }) => {
+      const { title, socialLinks } = site.siteMetadata;
 
       return (
         <Box p={3} backgroundColor="primaryDark" as="footer">
           <FooterContainer>
             <Fade left>
               <TextFooter fontSize={[2, 3]}>
-                <span>{`${name} `}</span>
-                <Link href="https://www.netlify.com/" mr={1}>
+                <span>{`${title} `}</span>
+                <Link href="https://www.netlify.com/" py={16} mr={1}>
                   site is Powered by Netlify
                 </Link>
                 <span role="img" aria-label="heart">
@@ -57,6 +58,7 @@ const Footer = () => (
                 </span>
                 <span> | </span>
                 <Link
+                  py={16}
                   fontSize={[1, 2]}
                   href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
                 >

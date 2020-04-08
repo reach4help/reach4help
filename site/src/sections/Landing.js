@@ -1,12 +1,15 @@
 import React, { Fragment } from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import { Heading, Flex, Box, Text } from 'rebass';
-import TextLoop from 'react-text-loop';
+import { Heading, Flex, Box, Image, Link } from 'rebass';
+import styled from 'styled-components';
 import { SectionLink } from 'react-scroll-section';
 import Section from '../components/Section';
 import SocialLink from '../components/SocialLink';
 import MouseIcon from '../components/MouseIcon';
 import Triangle from '../components/Triangle';
+import logo from '../images/logo.svg';
+
+const colors = require('../../colors');
 
 const Background = () => (
   <div>
@@ -39,71 +42,103 @@ const Background = () => (
   </div>
 );
 
+const ButtonLink = styled(Link)`
+  text-decoration: none;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: ${colors.secondary};
+  }
+`;
+
 const centerHorizontally = { marginRight: 'auto', marginLeft: 'auto' };
 
 const LandingPage = () => (
   <Section.Container id="home" Background={Background}>
     <StaticQuery
       query={graphql`
-        query SiteTitleQuery {
-          contentfulAbout {
-            name
-            roles
-            socialLinks {
-              id
-              url
-              name
-              fontAwesomeIcon
-            }
-          }
+        query {
           site {
             siteMetadata {
-              deterministicBehaviour
+              title
+              description
+              socialLinks {
+                fontAwesomeIcon
+                id
+                name
+                url
+              }
             }
           }
         }
       `}
-      render={({ contentfulAbout, site }) => {
-        const { name, socialLinks, roles } = contentfulAbout;
-        // const { deterministicBehaviour } = site.siteMetadata;
-
+      render={({ site }) => {
+        const { title, headerDescription, socialLinks } = site.siteMetadata;
         return (
           <Fragment>
+            <Image
+              src={logo}
+              alt="Reach4Help Logo"
+              style={centerHorizontally}
+              width={['100px', '150px', '200px']}
+              mb={[3, 4, 4]}
+            />
             <Heading
               textAlign="center"
               as="h1"
               color="primary"
-              fontSize={[5, 6, 8]}
-              mb={[3, 4, 5]}
+              fontSize={[5, 6, 7]}
+              mb={[2, 3, 3]}
             >
-              {name}
+              {title}
             </Heading>
 
-            {/* <Heading */}
-            {/*  as="h2" */}
-            {/*  color="primary" */}
-            {/*  fontSize={[4, 5, 6]} */}
-            {/*  mb={[3, 5]} */}
-            {/*  textAlign="center" */}
-            {/*  style={centerHorizontally} */}
-            {/* > */}
-            {/*  <TextLoop interval={5000}> */}
-            {/*    {roles */}
-            {/*      .sort(() => deterministicBehaviour || Math.random() - 0.5) */}
-            {/*      .map(text => ( */}
-            {/*        <Text width={[300, 500]} key={text}> */}
-            {/*          {text} */}
-            {/*        </Text> */}
-            {/*      ))} */}
-            {/*  </TextLoop> */}
-            {/* </Heading> */}
+            <Heading
+              as="h2"
+              color="primary"
+              fontSize={[3, 4, 5]}
+              mb={[2, 3, 3]}
+              textAlign="center"
+              style={centerHorizontally}
+            >
+              {headerDescription}
+            </Heading>
 
             <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
               {socialLinks.map(({ id, ...rest }) => (
-                <Box mx={3} fontSize={[5, 6, 6]} key={id}>
+                <Box mx={3} fontSize={5} key={id}>
                   <SocialLink {...rest} />
                 </Box>
               ))}
+            </Flex>
+            <Flex
+              alignItems="center"
+              justifyContent="center"
+              flexWrap="wrap"
+              mt={[2, 3, 3]}
+            >
+              <ButtonLink
+                mx={3}
+                backgroundColor="primary"
+                color="white"
+                className="button"
+                fontSize={[2, 3]}
+                padding={2}
+                href="https://map.reach4help.org"
+              >
+                View Mutual Aid Map
+              </ButtonLink>
+              <ButtonLink
+                mx={3}
+                backgroundColor="primary"
+                color="white"
+                className="button"
+                fontSize={[2, 3]}
+                padding={2}
+                href="https://github.com/reach4help/reach4help/blob/master/docs/GETTING_INVOLVED.md"
+              >
+                Get Involved
+              </ButtonLink>
             </Flex>
             <SectionLink section="about">
               {({ onClick }) => <MouseIcon onClick={onClick} />}

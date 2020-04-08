@@ -37,24 +37,21 @@ const Resources = () => (
     <Section.Header name="Resources" icon="🛠" label="tools" />
     <StaticQuery
       query={graphql`
-        query ResourcesQuery {
-          contentfulResources {
-            resourcesListV2 {
-              childMarkdownRemark {
-                rawMarkdownBody
-              }
+        {
+          markdownRemark(frontmatter: { title: { eq: "Resources" } }) {
+            internal {
+              content
             }
           }
         }
       `}
       render={data => {
-        const { resourcesListV2 } = data.contentfulResources;
         return (
-          <Flex alignItems="center" flexWrap="wrap">
+          <Flex justifyContent="center" alignItems="center" flexWrap="wrap">
             <Box width={[1, 1, 4 / 6]} px={[1, 2, 4]}>
               <Fade bottom>
                 <ReactMarkdown
-                  source={resourcesListV2.childMarkdownRemark.rawMarkdownBody}
+                  source={data.markdownRemark.internal.content}
                   renderers={markdownRenderer}
                 />
               </Fade>

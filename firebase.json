@@ -1,0 +1,34 @@
+{
+  "firestore": {
+    "rules": "firebase/firestore.rules",
+    "indexes": "firebase/firestore.indexes.json"
+  },
+  "functions": {
+    "predeploy": [
+      "yarn --ignore-engines --cwd functions install",
+      "yarn --ignore-engines --cwd functions lint",
+      "yarn --ignore-engines --cwd functions build"
+    ]
+  },
+  "hosting": [
+    {
+      "target": "web-client",
+      "public": "web-client/build",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ],
+  "storage": {
+    "rules": "firebase/storage.rules"
+  },
+  "emulators": {}
+}

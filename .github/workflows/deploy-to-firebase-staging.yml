@@ -1,0 +1,28 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy-staging:
+    name: Compile Web Apps and Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
+      - name: Install Deps
+        run: yarn install
+
+      - name: Build
+        run: yarn workspaces run build
+
+      - name: Deploy
+        run: |
+          yarn run firebase --token "${{secrets.FIREBASE_TOKEN}}" deploy -P reach4help-staging
