@@ -62,7 +62,6 @@ const NewRequest: React.FC<NewRequestProps> = ({
   return (
     <MainDiv>
       <IconDiv>
-        {/* ATENTION!! THIS IS WRONG, JUST A HACK UNTIL I FIND SOMETHING BETTER */}
         <IconImage src={Logo} />
       </IconDiv>
       <FormDiv>
