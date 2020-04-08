@@ -2,14 +2,11 @@ import { enableAllPlugins } from 'immer';
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 
-import { initializeMockServer } from './http/MockServer';
 import MasterPage from './pages/MasterPage';
 import configureStore from './store';
 
 // Later we can check if we need all immer plugins
 enableAllPlugins();
-
-initializeMockServer();
 
 const App = (): ReactElement => {
   const store = configureStore();

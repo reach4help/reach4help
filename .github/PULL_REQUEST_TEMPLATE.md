@@ -22,7 +22,7 @@ This PR creates, modifies, or deletes:
 
 <!--
 
-If you checked any of those, please request a review from `@reach4help/application-security`.
+If you checked any of those, please request a review from `@reach4help/security`.
 
 -->
 
