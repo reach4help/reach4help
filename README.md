@@ -115,6 +115,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://btuerker.com"><img src="https://avatars0.githubusercontent.com/u/46192266?v=4" width="100px;" alt=""/><br /><sub><b>Burhan Tuerker</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=btuerker" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ashwinkjoseph"><img src="https://avatars2.githubusercontent.com/u/13694998?v=4" width="100px;" alt=""/><br /><sub><b>Joseph Ashwin Kottapurath</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ashwinkjoseph" title="Code">💻</a></td>
   </tr>
 </table>
 
