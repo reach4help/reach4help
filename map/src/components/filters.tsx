@@ -1,6 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import { SERVICES, isService, Filter } from 'src/data';
+import { Filter, isService, SERVICES } from 'src/data';
+import { buttonPrimary } from 'src/styling/mixins';
+
+import styled from '../styling';
 
 export type FilterMutator = (filter: Filter) => Filter;
 
@@ -26,7 +28,7 @@ class Filters extends React.Component<Props, {}> {
     const { className, filter } = this.props;
     return (
       <div className={className}>
-        Service:
+        Filter by need:
         <select onChange={this.changeService} value={filter.service || ''}>
           <option key="all" value="">
             Any
@@ -43,9 +45,13 @@ class Filters extends React.Component<Props, {}> {
 }
 
 export default styled(Filters)`
-  margin: 0 10px 10px;
-
   select {
     margin-left: 5px;
+    ${buttonPrimary};
+    padding: 7px 11px;
+
+    &:focus {
+      background: ${p => p.theme.colors.brand.primaryLight};
+    }
   }
 `;

@@ -9,7 +9,7 @@ import LinkAnimated from './LinkAnimated';
 const SectionContainer = styled.div`
   min-height: 100vh;
   min-width: 320px;
-  max-width: 1366px;
+  max-width: 1100px;
   display: flex;
   margin: auto;
   flex: 0 1 auto;
@@ -36,7 +36,7 @@ Container.propTypes = {
 
 const Header = ({ name, icon = '', label = '' }) => (
   <Slide left>
-    <Heading color="secondaryDark" mb={4}>
+    <Heading color="primary" mb={4}>
       <LinkAnimated selected>
         {name}
         {icon && (

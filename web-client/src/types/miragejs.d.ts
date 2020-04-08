@@ -1,0 +1,2 @@
+// FIXME
+declare module 'miragejs';

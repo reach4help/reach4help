@@ -2,6 +2,10 @@
   COVID Aid website
 </h1>
 
+<p align="center">
+  <img src="../branding/banners/swarm_banner_main.png">
+</p>
+
 <h3 align="center">
   The website for <a href="https://covidaid.app/">COVID Aid project</a>
 </h3>

@@ -1,16 +1,47 @@
-# Contributing to COVID Aid
+# Contributing Code to Reach4Help
 
-🎉🚀🙌🏻 First off, thanks for taking the time to contribute! 🙌🏻🚀🎉
+First off, thank you for considering contributing to this project.
+Whether you're interested in contributing code,
+or contributing in some other manner,
+we're happy to have you on board!
 
-> First off, thank you for considering contributing to this repository. It's people like you that make Open Source so great.
+This document describes how to contribute the software aspects of our project,
+if you want to contribute by other means,
+please see our [Getting Involved / Onboarding](docs/GETTING_INVOLVED.md) document.
 
-### Please read our guidelines before you start.
+## Please read our guidelines before you start.
 
-> Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
+This project is moving very fast at the moment,
+both from development and organizational standpoints,
+and so it's very important you **read this guide fully**
+to reduce the additional work for our development and management teams.
 
-### Contributions we are looking for.
+Following these guidelines helps to communicate that you respect the time
+of the team leads managing and developing this open source project.
+In return,
+they should reciprocate that respect in addressing your issue,
+assessing changes, and helping you finalize your
+pull requests and other contributions.
 
-We keep an open mind! Improving documentation, bug triaging, or writing tutorials are all examples of helpful contributions that mean less work for you.
+## Code contributions we are looking for.
+
+Lots of people are working on this project at the same time,
+so we try our best to explicitly assign tasks to individuals
+to reduce the likelihood of duplicated or wasted effort.
+
+Before we can assign any tasks to you,
+we ask that you read and complete the process detailed in our
+[Getting Involved / Onboarding](docs/GETTING_INVOLVED.md) document,
+and in particular **Join a Team** if possible.
+
+Once you have done this,
+we will start being able to assign issues to you.
+You may take a look at the open issues,
+in particular,
+those labelled
+[good first issue](https://github.com/reach4help/reach4help/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+or
+[help wanted](https://github.com/reach4help/reach4help/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
 
 # Ground Rules
 
@@ -46,7 +77,8 @@ So to read the specific guidelines for each project please refer to:
 
 # How to report a bug
 
-> If you find a security vulnerability, open an issue describing the problem.
+> If you find a security vulnerability, please contact us directly at `security@reach4help.org`.
+> For any other non security-related issues, open an issue describing the problem.
 
 # How to suggest a feature or enhancement
 
