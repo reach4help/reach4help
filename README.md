@@ -61,7 +61,7 @@ and update the `yarn.lock` in the root of the repo.
 
 ### Our Website
 
-This is our landing page. It's  It shows a lot of helpful tips and general information.
+This is our landing page. It's It shows a lot of helpful tips and general information.
 
 More info [here](site/README.md)!
 
