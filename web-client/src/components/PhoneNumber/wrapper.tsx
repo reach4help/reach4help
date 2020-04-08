@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import logo from '../../assets/logo.png';
-import CenteredCard from '../CenteredCard/CenteredCard';
-import GradientBackground from '../GradientBackground/GradientBackground';
 import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
 const StyledIntro = styled.div`
@@ -32,18 +30,14 @@ const PhoneNumberWrapper: React.FC<Props> = ({
   const { t } = useTranslation();
   return (
     <>
-      <GradientBackground>
-        <CenteredCard>
-          {errorMessage && errorMessage !== '' ? (
-            <Alert message={errorMessage} type="error" />
-          ) : null}
-          <StyledIntro>
-            <Logo src={logo} alt="logo" />
-            <TitleWithAddon level={4}>{t('welcome')}</TitleWithAddon>
-            {children}
-          </StyledIntro>
-        </CenteredCard>
-      </GradientBackground>
+      {errorMessage && errorMessage !== '' ? (
+        <Alert message={errorMessage} type="error" />
+      ) : null}
+      <StyledIntro>
+        <Logo src={logo} alt="logo" />
+        <TitleWithAddon level={4}>{t('welcome')}</TitleWithAddon>
+        {children}
+      </StyledIntro>
     </>
   );
 };

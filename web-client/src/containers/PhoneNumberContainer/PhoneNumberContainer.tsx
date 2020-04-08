@@ -40,25 +40,17 @@ const PhoneNumberVerifierContainer: React.FC<Props> = ({ type }) => {
     );
   };
 
-  if (type === 'entry') {
-    return (
-      <>
-        <Wrapper
-          loading={loading}
-          errorMessage={error && error.message ? error.message : null}
-        >
-          <Entry loading={loading} handleFormSubmit={handleEntrySubmit} />
-        </Wrapper>
-      </>
-    );
-  }
   return (
     <>
       <Wrapper
         loading={loading}
         errorMessage={error && error.message ? error.message : null}
       >
-        <Verify loading={loading} handleFormSubmit={handleVerifySubmit} />
+        {type === 'entry' ? (
+          <Entry loading={loading} handleFormSubmit={handleEntrySubmit} />
+        ) : (
+          <Verify loading={loading} handleFormSubmit={handleVerifySubmit} />
+        )}
       </Wrapper>
     </>
   );
