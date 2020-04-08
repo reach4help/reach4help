@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
+import Logo from '../../assets/logo.svg';
 import { COLORS } from '../../theme/colors';
 import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
@@ -62,7 +63,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
     <MainDiv>
       <IconDiv>
         {/* ATENTION!! THIS IS WRONG, JUST A HACK UNTIL I FIND SOMETHING BETTER */}
-        <IconImage src="https://reach4help.org/static/logo-78d2063bcc5e542bf67195e3c6fb6fcf.svg" />
+        <IconImage src={Logo} />
       </IconDiv>
       <FormDiv>
         <TitleWithAddon alignAddon="left" level={2}>
