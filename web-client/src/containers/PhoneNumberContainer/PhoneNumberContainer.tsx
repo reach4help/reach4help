@@ -18,9 +18,9 @@ const PhoneNumberVerifierContainer: React.FC<Props> = ({ type }) => {
   const loading = useSelector((state: AppState) => state.auth.loading);
   const error: Error = useSelector((state: AppState) => state.auth.error);
 
-  // eslint-disable-next-line @typescript-eslint/camelcase
   const handleEntrySubmit = (
     values: { phoneNumber: string },
+    // eslint-disable-next-line @typescript-eslint/camelcase
     recaptchaVerifier: firebase.auth.RecaptchaVerifier_Instance,
   ) => {
     dispatch(

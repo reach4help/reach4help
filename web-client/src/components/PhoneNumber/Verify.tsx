@@ -50,22 +50,22 @@ const Verify: React.FC<NewRequestProps> = ({
         handleFormSubmit({ otp });
       }}
     >
-      <Description>{t('otpVerify.sub_title')}</Description>
+      <Description>{t('verificationCode.sub_title')}</Description>
       <Form.Item
         style={{ textAlign: 'center' }}
         name="otp"
         rules={[
           {
             required: true,
-            message: t('otpVerify.error_message'),
+            message: t('verificationCode.error_message'),
           },
         ]}
       >
         <StyledInput placeholder="123456" maxLength={6} />
       </Form.Item>
       <Info>
-        {t('otpVerify.info')}
-        <Link to="/phone">Resend</Link>
+        {t('verificationCode.info')}
+        <Link to="/phone">{t('verificationCode.resend')}</Link>
       </Info>
       <Form.Item>
         <StyledButton loading={loading} htmlType="submit" type="primary">

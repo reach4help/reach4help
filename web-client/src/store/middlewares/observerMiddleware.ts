@@ -13,10 +13,15 @@ const observerMiddleware = ({ dispatch }: { dispatch: Function }) => (
 ) => (action: ObserverAction) => {
   const observerManagerInstance = ObserverManager.getInstance();
   if (action.observerName && action.observerName === 'string') {
-    observerManagerInstance.unsubscribe(action.observerName);
-    return next({
-      type: `${action.type}`,
-    });
+    const shouldUnsubscribe = observerManagerInstance.unsubscribe(
+      action.observerName,
+    );
+    if (shouldUnsubscribe) {
+      return next({
+        type: `${action.type}`,
+      });
+    }
+    return;
   }
 
   if (action.observer && typeof action.observer === 'function') {

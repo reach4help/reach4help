@@ -38,4 +38,6 @@ Additional Notes
 
 If this PR fixes an issue, please add "closes #issue-id" here, otherwise add a reference to the issue it relates to.
 
+If this PR adds or changes visual, please add a screenshot of the changes.
+
 -->

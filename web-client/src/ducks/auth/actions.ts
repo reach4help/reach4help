@@ -41,6 +41,15 @@ export const triggerLoginWithRedirect = () => (dispatch: Function) => {
   });
 };
 
+export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
+  dispatch({
+    type: FIREBASE_FACEBOOK_LOGIN_POPUP,
+    payload: {},
+    firebase: facebookLoginWithFirebasePopUp,
+    fallback: triggerLoginWithRedirect,
+  });
+};
+
 export const getLoginRedirectResult = () => (dispatch: Function) => {
   dispatch({
     type: GET_LOGIN_REDIRECT_RESULT,
@@ -59,15 +68,6 @@ export const observeUserAction = (dispatch: Function): Function => {
       type: OBSERVE_USER.UNSUBSCRIBE,
       observerName: OBSERVE_USER,
     });
-};
-
-export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
-  dispatch({
-    type: FIREBASE_FACEBOOK_LOGIN_POPUP,
-    payload: {},
-    firebase: facebookLoginWithFirebasePopUp,
-    fallback: triggerLoginWithRedirect,
-  });
 };
 
 export const triggerLoginWithPhone = (payload: IPhoneNumberAuth) => (
