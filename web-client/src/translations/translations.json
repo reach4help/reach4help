@@ -62,6 +62,15 @@
         "pleaseWaitLabel": "Aguarde por favor...",
         "tip_title": "Lembrete",
         "tip_info": "Assim que um voluntário oferecer ajuda, deve aceitar a sua ajuda para que ele consiga ver os seus contactos"
+      },
+      "newRequest": {
+        "title": "Novo Pedido",
+        "form": {
+          "title": "Título",
+          "body": "Introduza os detalhes do que necessita",
+          "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
+          "submit": "Enviar o meu pedido"
+        }
       }
     }
   }
