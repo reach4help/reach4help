@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NewRequest from '../../components/NewRequest/NewRequest';
+import NewRequestForm from '../../components/NewRequestForm/NewRequestForm';
 
 const NewRequestContainer: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
@@ -10,7 +10,7 @@ const NewRequestContainer: React.FC = () => {
 
   return (
     <>
-      <NewRequest handleFormSubmit={handleFormSubmit} />
+      <NewRequestForm handleFormSubmit={handleFormSubmit} />
     </>
   );
 };
