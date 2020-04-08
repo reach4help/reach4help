@@ -9,23 +9,33 @@ function isUser(id) {
 }
 
 function isVerifiedCAV() {
+  // TODO: Actually use auth claims
   return isAuthenticated() && true;
 }
 
 function isVerifiedPIN() {
+  // TODO: Actually use auth claims
   return isAuthenticated() && true;
 }
 
-function currentUserIsCurrentPINRef(request) {
-  return isUser(request.resource.data.pinUserRef.uid)
+function currentUserIsCurrentPINRef(database, data) {
+  return isAuthenticated() &&
+  ('pinUserRef' in data) &&
+  data.pinUserRef == /databases/$(database)/documents/users/$(request.auth.uid)
 }
 
-function currentUserIsCurrentCAVRef(request) {
-  return isUser(request.resource.data.cavUserRef.uid)
+function currentUserIsCurrentCAVRef(database, data) {
+  return isAuthenticated() &&
+     ('cavUserRef' in data) &&
+     data.cavUserRef == /databases/$(database)/documents/users/$(request.auth.uid)
+}
+
+function confirmEitherPINorCAV(database, data) {
+    return currentUserIsCurrentPINRef(database, data) || currentUserIsCurrentCAVRef(database, data)
 }
 
 function isNotSameCAVPIN(request) {
-  return request.resource.data.cavUserRef.uid != request.resource.data.pinUserRef.uid
+  return request.resource.data.cavUserRef != request.resource.data.pinUserRef
 }
 
 function verifyUserDataComplete(request) {
@@ -33,6 +43,13 @@ function verifyUserDataComplete(request) {
           request.resource.data.casesCompleted >= 0 &&
           request.resource.data.requestsMade >= 0 &&
           ('username' in request.resource.data)
+}
+
+// TODO: Further validate address object.
+function verifyUserPrivilegedInformationDataComplete(request) {
+   return ('address' in request.resource.data) &&
+          ('termsAccepted' in request.resource.data) &&
+          ('termsVersion' in request.resource.data)
 }
 
 service cloud.firestore {
@@ -52,15 +69,15 @@ service cloud.firestore {
     // 1: Read + Writes to sub-collection can only be done by the owner
     // 2: Writes to sub-collections must match userID chain so we can always directly reference
     match /users/{userID}/privilegedInformation/{subDocID} {
-        allow read, write: if isUser(userID) && userID == subDocID;
+        allow read: if isUser(userID) && userID == subDocID;
+        allow write: if isUser(userID) && userID == subDocID && verifyUserPrivilegedInformationDataComplete(request);
     }
 
     match /offers/{offerID} {
       // Only the PIN or CAV of the request can read the offers
-      allow read: if currentUserIsCurrentPINRef(request)
-                    || currentUserIsCurrentCAVRef(request)
+      allow read: if confirmEitherPINorCAV(database, get(/databases/$(database)/documents/offers/$(offerID)).data)
       // Only CAVs can submit offers (as themselves)
-      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(request);
+      allow write: if isVerifiedCAV() && currentUserIsCurrentCAVRef(database, request.resource.data);
     }
 
     match /requests/{reqID} {

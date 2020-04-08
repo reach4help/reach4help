@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 const projectId = 'reach-4-help-test';
 
-const rules = fs.readFileSync(__dirname + '/../../firebase/firestore.rules', 'utf8');
+const rules = fs.readFileSync(`${__dirname}/../../firebase/firestore.rules`, 'utf8');
 
 /**
  * Creates a new app with authentication data matching the input.
@@ -18,11 +18,6 @@ const authedApp = (auth: any) => {
     .firestore();
 };
 
-/*
- * ============
- *  Test Cases
- * ============
- */
 beforeAll(async () => {
   await firebase.loadFirestoreRules({ projectId, rules });
 });
@@ -43,9 +38,21 @@ describe('users', () => {
     await firebase.assertFails(profile.get());
   });
 
+  it('require users to log in before listing profiles', async () => {
+    const db = authedApp(null);
+    const profile = db.collection('users');
+    await firebase.assertFails(profile.get());
+  });
+
   it('authenticated users can read other users profiles', async () => {
     const db = authedApp({ uid: '1234' });
     const profile = db.collection('users').doc('5678');
+    await firebase.assertSucceeds(profile.get());
+  });
+
+  it('authenticated users can list users profiles', async () => {
+    const db = authedApp({ uid: '1234' });
+    const profile = db.collection('users');
     await firebase.assertSucceeds(profile.get());
   });
 
@@ -75,7 +82,17 @@ describe('users', () => {
     );
   });
 
-  it('should enforce the correct user data in user profiles', async () => {
+  it('user id chain must be intact when writing to user.privilegedInformation', async () => {
+    const db = authedApp({ uid: '1234' });
+    const data = db.collection('users').doc('1234').collection('privilegedInformation').doc('5678');
+    await firebase.assertFails(
+      data.set({
+        data: 1,
+      }),
+    );
+  });
+
+  it('should enforce the correct user data in users collection', async () => {
     const db = authedApp({ uid: '1234' });
     const profile = db.collection('users').doc('1234');
     await firebase.assertFails(profile.set({ username: 'test_user' }));
@@ -88,86 +105,85 @@ describe('users', () => {
       }),
     );
   });
+
+  it('should enforce the correct user data in user.privilegedInformation collection', async () => {
+    const db = authedApp({ uid: '1234' });
+    const data = db.collection('users').doc('1234').collection('privilegedInformation').doc('1234');
+    await firebase.assertFails(data.set({ fail: 'missing-keys' }));
+    await firebase.assertSucceeds(
+      data.set({
+        address: { a: 1 },
+        termsAccepted: firebase.firestore.FieldValue.serverTimestamp(),
+        termsVersion: '1.0',
+      }),
+    );
+  });
 });
 
-/*
-
-  @test
-  async 'should only let users create their own profile'() {
-    const db = authedApp({ uid: 'alice' });
+describe('offers', () => {
+  beforeAll(async () => {
+    const dbPin = authedApp({ uid: 'pin-1' });
     await firebase.assertSucceeds(
-      db
+      dbPin
         .collection('users')
-        .doc('alice')
+        .doc('pin-1')
         .set({
-          birthday: 'January 1',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          averageRating: 1,
+          casesCompleted: 0,
+          requestsMade: 0,
+          username: 'pin-1',
         }),
     );
-    await firebase.assertFails(
-      db
-        .collection('users')
-        .doc('bob')
-        .set({
-          birthday: 'January 1',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        }),
-    );
-  }
 
-  async 'should let anyone read any profile'() {
+    const dbCav = authedApp({ uid: 'cav-1' });
+    await firebase.assertSucceeds(
+      dbCav
+        .collection('users')
+        .doc('cav-1')
+        .set({
+          averageRating: 1,
+          casesCompleted: 0,
+          requestsMade: 0,
+          username: 'cav-1',
+        }),
+    );
+
+    await firebase.assertSucceeds(
+      dbCav
+        .collection('offers')
+        .doc('offer-1')
+        .set({
+          cavUserRef: dbCav.collection('users').doc('cav-1'),
+          pinUserRef: dbCav.collection('users').doc('pin-1'),
+          requestRef: dbCav.collection('requests').doc('request-1'),
+          cavSnapshot: {
+            averageRating: 1,
+            casesCompleted: 0,
+            requestsMade: 0,
+            username: 'CAV User',
+          },
+          message: 'I can help!',
+          status: 'pending',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        }),
+    );
+  });
+
+  it('require users to log in before listing offers', async () => {
     const db = authedApp(null);
-    const profile = db.collection('users').doc('alice');
-    await firebase.assertSucceeds(profile.get());
-  }
+    const offers = db.collection('offers');
+    await firebase.assertFails(offers.get());
+  });
 
-  async 'should let anyone create a room'() {
-    const db = authedApp({ uid: 'alice' });
-    const room = db.collection('rooms').doc('firebase');
-    await firebase.assertSucceeds(
-      room.set({
-        owner: 'alice',
-        topic: 'All Things Firebase',
-      }),
-    );
-  }
+  it.skip('only pins can list offers that belong to them', async () => {
+    // Read from DB authed as PIN2, but filter by PIN1 - ERROR
+    const dbPin2 = authedApp({ uid: 'pin-2' });
+    const pin1RefAsPin2 = dbPin2.collection('users').doc('pin-1');
+    await firebase.assertFails(dbPin2.collection('offers').where('pinUserRef', '==', pin1RefAsPin2).get());
 
-  async 'should force people to name themselves as room owner when creating a room'() {
-    const db = authedApp({ uid: 'alice' });
-    const room = db.collection('rooms').doc('firebase');
-    await firebase.assertFails(
-      room.set({
-        owner: 'scott',
-        topic: 'Firebase Rocks!',
-      }),
-    );
-  }
-
-  @test
-  async 'should not let one user steal a room from another user'() {
-    const alice = authedApp({ uid: 'alice' });
-    const bob = authedApp({ uid: 'bob' });
-
-    await firebase.assertSucceeds(
-      bob
-        .collection('rooms')
-        .doc('snow')
-        .set({
-          owner: 'bob',
-          topic: 'All Things Snowboarding',
-        }),
-    );
-
-    await firebase.assertFails(
-      alice
-        .collection('rooms')
-        .doc('snow')
-        .set({
-          owner: 'alice',
-          topic: 'skiing > snowboarding',
-        }),
-    );
-  }
-}
-
- */
+    // Read from DB authed as PIN1, filter by PIN1 - SUCCESS
+    const dbPin1 = authedApp({ uid: 'pin-1' });
+    const pin1Ref = dbPin1.collection('users').doc('pin-1');
+    await firebase.assertSucceeds(dbPin1.collection('offers').where('pinUserRef', '==', pin1Ref).get());
+  });
+});
