@@ -1,6 +1,11 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdExpandLess, MdExpandMore, MdRefresh } from 'react-icons/md';
+import {
+  MdExpandLess,
+  MdExpandMore,
+  MdMyLocation,
+  MdRefresh,
+} from 'react-icons/md';
 import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
@@ -366,6 +371,19 @@ class MapComponent extends React.Component<Props, {}> {
     }
   };
 
+  private centerToGeolocation = () => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      if (!this.map) {
+        return;
+      }
+      this.map.map.setCenter(pos);
+    });
+  };
+
   private initializeSearch() {
     const { searchInput } = this.props;
     if (this.searchBox?.searchInput !== searchInput) {
@@ -421,12 +439,20 @@ class MapComponent extends React.Component<Props, {}> {
     return (
       <div className={className}>
         <div className="map" ref={this.updateGoogleMapRef} />
-        {hasNewResults && (
-          <button type="button" onClick={this.updateResults}>
-            <MdRefresh className="icon icon-left" />
-            Update results for this area
-          </button>
-        )}
+        <div className="map-actions">
+          {hasNewResults && (
+            <button type="button" onClick={this.updateResults}>
+              <MdRefresh className="icon icon-left" />
+              Update results for this area
+            </button>
+          )}
+          {navigator.geolocation && (
+            <button type="button" onClick={this.centerToGeolocation}>
+              <MdMyLocation className="icon icon-left" />
+              My Location
+            </button>
+          )}
+        </div>
         <div className="results-tab" onClick={toggleResults}>
           <div>
             <ExpandIcon />
@@ -453,16 +479,21 @@ export default styled(MapComponent)`
     height: 100%;
   }
 
-  > button {
-    ${button};
-    ${iconButton};
+  > .map-actions {
     position: absolute;
     bottom: ${p => p.theme.spacingPx}px;
     left: ${p => p.theme.spacingPx}px;
     right: ${p => p.theme.spacingPx}px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-    margin: 0 auto;
-    background: #fff;
+    display: flex;
+    justify-content: center;
+
+    > button {
+      ${button};
+      ${iconButton};
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+      margin: 0 5px;
+      background: #fff;
+    }
   }
 
   > .results-tab {
