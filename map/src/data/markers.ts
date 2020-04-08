@@ -151,6 +151,12 @@ const LOCATIONS = {
       lng: -121.496461,
       serviceRadius: 13000,
     },
+    CA_SAN_DIEGO: {
+      description: 'San Diego, California',
+      lat: 32.838665,
+      lng: -117.146094,
+      serviceRadius: 25000,
+    },
     CA_SANTA_CLARA: {
       description: 'Santa Clara County, California',
       lat: 37.368645,
@@ -649,6 +655,92 @@ export const MARKERS: MarkerInfo[] = [
       },
     },
     loc: LOCATIONS.USA.CA_SACRAMENTO,
+  },
+  {
+    contentTitle: 'The Jacobs & Cushman San Diego Food Bank',
+    services: ['aid', 'food'],
+    contentBody: `The Jacobs & Cushman San Diego Food Bank and our North County Food Bank chapter comprise the largest hunger-relief organization in San Diego County. Last year, the Food Bank distributed 28 million pounds of food, and the Food Bank serves, on average, 350,000 people per month in San Diego County.
+
+    Through our North County Food Bank chapter and by partnering with nearly 500 nonprofit partners with feeding programs, the Food Bank provides nutritious food to individuals and families in need in communities throughout San Diego County.`,
+    contact: {
+      general: {
+        web: {
+          Homepage: 'https://sandiegofoodbank.org/',
+          Programs: 'https://sandiegofoodbank.org/programs/',
+        },
+        phone: ['+1 858 527 1419', '+1 866 350 3663'],
+      },
+      getHelp: {
+        web: {
+          'Contact Help':
+            'https://sandiegofoodbank.org/contact/?looking-for=Help',
+        },
+        phone: ['+1 858 527 1419'],
+      },
+      volunteers: {
+        web: {
+          Volunteer: 'https://sandiegofoodbank.org/volunteer/',
+          'Donate Food':
+            'https://sandiegofoodbank.org/food-drives/host-a-food-drive/',
+          'Donate Funds':
+            'https://interland3.donorperfect.net/weblink/weblink.aspx?name=E33999&id=3',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CA_SAN_DIEGO,
+  },
+  {
+    contentTitle: 'Serving Seniors',
+    services: ['aid', 'food', 'supplies', 'information'],
+    contentBody: `Serving Seniors is a nonprofit organization in San Diego, California, serving low-income older adults aged 60 and above. We help poor and homeless seniors thrive using an innovative model of whole-person, wraparound support including meals, housing, health and social services, and lifelong learning.
+
+    Working at 15 sites across the county and in the homes of hundreds of homebound seniors, we provide 640,000 meals and coordinated services to 5,000 older adults each year, most of them living on less than $1,000 per month. Serving Seniors is the largest provider of meals to seniors in the county, and one of the only organizations in the nation providing such a broad base of services to vulnerable, at-risk older adults.`,
+    contact: {
+      general: {
+        web: {
+          Homepage: 'https://servingseniors.org/',
+          Mission: 'https://servingseniors.org/who-we-are/mission.html',
+          Team: 'https://servingseniors.org/who-we-are/board-leadership.html',
+        },
+        phone: ['+1 619 235 6572'],
+      },
+      volunteers: {
+        web: {
+          Volunteer: 'https://servingseniors.org/get-involved/volunteer.html',
+          'Donate Funds': 'https://servingseniors.org/get-involved/donate.html',
+        },
+        phone: ['+1 619 487 0605'],
+        email: ['elle.leidy@servingseniors.org'],
+      },
+    },
+    loc: LOCATIONS.USA.CA_SAN_DIEGO,
+  },
+  {
+    contentTitle: 'United Way of San Diego County',
+    services: ['aid', 'information', 'food', 'financial'],
+    contentBody: `We strengthen our community when we align with partners and leverage our resources to transform lives.
+
+    UWSD works in alignment with partners to address inequities in our region and help underserved communities. Together, we leverage the use of data and our partners’ expertise to better understand root causes, and put impactful solutions into action.
+    
+    Today, in partnership with others, we use shared goals, innovation, and proven practices to resolve inequities and transform the lives of children, young adults, and families.`,
+    contact: {
+      general: {
+        web: {
+          Homepage: 'https://uwsd.org/',
+          Team: 'https://uwsd.org/about-us/leadership/',
+        },
+        email: ['info@uwsd.org'],
+        phone: ['+1 858 492 2000'],
+      },
+      volunteers: {
+        web: {
+          Volunteer: 'https://uwsd.org/get-involved/volunteer/',
+          'Donate Funds': 'https://uwsd.org/donate/',
+          'Planned Giving': 'https://uwsd.org/get-involved/planned-giving/',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CA_SAN_DIEGO,
   },
   {
     contentTitle: 'How Can I Help? Bay Area',
