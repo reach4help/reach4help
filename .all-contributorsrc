@@ -161,6 +161,15 @@
         "projectManagement",
         "design"
       ]
+    },
+    {
+      "login": "btuerker",
+      "name": "Burhan Tuerker",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/46192266?v=4",
+      "profile": "https://btuerker.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
