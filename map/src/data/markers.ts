@@ -62,6 +62,32 @@ export interface MarkerInfo {
 }
 
 const LOCATIONS = {
+  PT: {
+    ALMADA: {
+      description: 'Almada, Portugal',
+      lat: 38.678506,
+      lng: -9.164985,
+      serviceRadius: 5000,
+    },
+    LISBON_BELEM: {
+      description: 'Lisbon, Belém, Portugal',
+      lat: 38.7026973,
+      lng: -9.2089478,
+      serviceRadius: 2000,
+    },
+    PORTO_FOZ_DO_DOURO: {
+      description: 'Porto, Foz do Douro, Portugal',
+      lat: 41.1675792,
+      lng: -8.7027557,
+      serviceRadius: 2000,
+    },
+    ALL: {
+      description: 'PT',
+      lat: 54.200981,
+      lng: -4.513111,
+      serviceRadius: 280610,
+    },
+  },
   DE: {
     BERLIN: {
       description: 'Berlin, Germany',
@@ -2473,5 +2499,82 @@ If you are a low-risk individual with transportation and time to spare, sign up 
       },
     },
     loc: LOCATIONS.UK.ALL,
+  },
+  {
+    contentTitle: 'Refood Almada',
+    services: ['food', 'supplies', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.facebook.com/almada.refood/',
+        },
+        phone: ['+351 21 259 0467'],
+        email: ['refoodalmadavoluntarios@gmail.com'],
+        facebookGroup: 'https://www.facebook.com/almada.refood/',
+      },
+    },
+    loc: LOCATIONS.PT.ALMADA,
+  },
+  {
+    contentTitle: 'CMA Plano de Emergência Social',
+    services: ['food', 'supplies', 'medicine', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'http://www.m-almada.pt/xportal/xmain?xpid=cmav2&xpgid=noticias_detalhe&noticia_detalhe_qry=BOUI=653849736&noticia_titulo_qry=BOUI=653849736',
+        },
+        phone: ['+351 800 102 040'],
+        email: ['almadainforma@cma.m-almada.pt'],
+        facebookGroup: 'https://www.facebook.com/cmalmada/',
+      },
+    },
+    loc: LOCATIONS.PT.ALMADA,
+  },
+  {
+    contentTitle: 'Refood',
+    services: ['food', 'supplies', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.re-food.org/',
+        },
+        phone: ['+351 218 077 615'],
+        email: ['comunicacao@re-food.org'],
+        facebookGroup: 'https://www.facebook.com/refoodportugal',
+      },
+    },
+    loc: LOCATIONS.PT.ALL,
+  },
+  {
+    contentTitle: 'Refood Belém',
+    services: ['food', 'supplies', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.re-food.org/pt/nucleos/portugal/lisboa/belem',
+        },
+        phone: ['+351 910 486 313'],
+        email: ['voluntariado.refood.belem@gmail.com'],
+        facebookGroup: 'https://www.facebook.com/refood.belem/',
+      },
+    },
+    loc: LOCATIONS.PT.LISBON_BELEM,
+  },
+  {
+    contentTitle: 'Refood Foz do Douro',
+    services: ['food', 'supplies', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://www.re-food.org/pt/nucleos/portugal/porto/foz-do-douro',
+        },
+        phone: ['+351 932 264 747'],
+        email: ['fozdodouro.refood.voluntarios@gmail.com'],
+        facebookGroup: 'www.facebook.com/refood.fozdodouro',
+      },
+    },
+    loc: LOCATIONS.PT.PORTO_FOZ_DO_DOURO,
   },
 ];
