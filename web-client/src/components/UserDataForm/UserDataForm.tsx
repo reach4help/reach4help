@@ -1,5 +1,6 @@
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
-import React from 'react';
+import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -36,6 +37,12 @@ const UserDataForm: React.FC<NewRequestProps> = ({
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const [fullName, setFullName] = useState('');
+  const [displayName, setDisplayName] = useState('');
+
+  useEffect(() => {
+    setDisplayName(_.words(fullName)[0]);
+  }, [fullName]);
 
   return (
     <StyledIntro>
@@ -74,8 +81,14 @@ const UserDataForm: React.FC<NewRequestProps> = ({
                 marginRight: '15px',
               }}
               placeholder={t('full_name')}
+              value={fullName}
+              onChange={e => setFullName(e.target.value)}
             />
-            <Input placeholder={t('display_name')} />
+            <Input
+              placeholder={t('display_name')}
+              value={displayName}
+              onChange={e => setDisplayName(e.target.value)}
+            />
           </div>
         </Form.Item>
         <Form.Item
