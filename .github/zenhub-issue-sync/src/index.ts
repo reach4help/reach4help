@@ -160,6 +160,8 @@ interface IssueInfo {
   const issueString = (issueId: number, issue: IssueInfo) => {
     const githubData = getIssueGitHubData(issueId, issue);
     const open = githubData.state === 'open';
+    const assignments = githubData.assignees
+      .map(a => `[@${a.login}](https://github.com/${a.login})`);
     const blocking = issue.blocking
       .map(i => getIssueGitHubData(i))
       .map(i => `[#${i.number}](${i.html_url})`);
@@ -170,8 +172,11 @@ interface IssueInfo {
     return (
       (open ? '' : '~~') +
       (issue.epic ? `**[EPIC]** ` : '') +
-      (blocking.length > 0 ? `**[BLOCKING: ${blocking.join(', ')}]** ` : '') +
-      (blockers.length > 0 ? `[BLOCKED BY: ${blockers.join(', ')}] ` : '') +
+      (open ? (
+        (blocking.length > 0 ? `**[BLOCKING: ${blocking.join(', ')}]** ` : '') +
+        (blockers.length > 0 ? `[BLOCKED BY: ${blockers.join(', ')}] ` : '') +
+        (assignments.length > 0 ? `[${assignments.join(', ')}] ` : '[UNASSIGNED] ')
+      ) : '') +
       `[#${issueId} - ${githubData.title}](${githubData.html_url})` +
       (open ? '' : '~~')
     );
