@@ -30,7 +30,7 @@ interface NewRequestProps {
   loading: boolean;
 }
 
-const Verify: React.FC<NewRequestProps> = ({
+const PhoneNumberVerifyForm: React.FC<NewRequestProps> = ({
   handleFormSubmit,
   loading,
 }): React.ReactElement => {
@@ -76,4 +76,4 @@ const Verify: React.FC<NewRequestProps> = ({
   );
 };
 
-export default Verify;
+export default PhoneNumberVerifyForm;

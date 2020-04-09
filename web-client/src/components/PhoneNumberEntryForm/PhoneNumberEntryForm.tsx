@@ -30,7 +30,7 @@ interface NewRequestProps {
   loading: boolean;
 }
 
-const Entry: React.FC<NewRequestProps> = ({
+const PhoneNumberEntryForm: React.FC<NewRequestProps> = ({
   handleFormSubmit,
   loading,
 }): React.ReactElement => {
@@ -86,4 +86,4 @@ const Entry: React.FC<NewRequestProps> = ({
   );
 };
 
-export default Entry;
+export default PhoneNumberEntryForm;
