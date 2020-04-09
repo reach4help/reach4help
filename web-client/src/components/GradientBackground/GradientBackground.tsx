@@ -9,9 +9,9 @@ const Background = styled.div`
   width: 100%;
   background: ${COLORS.backgroundAlternative};
   background: linear-gradient(
-    125.44deg,
-    ${COLORS.backgroundAlternative} 0.39%,
-    ${COLORS.link} 124.45%
+    135deg,
+    ${COLORS.backgroundAlternative} 0,
+    ${COLORS.link} 100%
   );
 `;
 
