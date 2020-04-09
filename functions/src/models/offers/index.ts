@@ -1,4 +1,3 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
@@ -7,6 +6,7 @@ import { IUser, User } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
+import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
 
 export enum OfferStatus {
   pending = 'pending',
@@ -24,7 +24,7 @@ export interface IOffer extends DocumentData {
   createdAt?: Timestamp;
 }
 
-export class Offer implements IOffer, FirestoreDataConverter<Offer> {
+export class Offer implements IOffer {
 
   @IsObject()
   private _cavUserRef: DocumentReference<IUser>;
@@ -135,11 +135,24 @@ export class Offer implements IOffer, FirestoreDataConverter<Offer> {
     this._createdAt = value;
   }
 
-  fromFirestore(data: IOffer): Offer {
-    return Offer.factory(data);
+  toObject(): object {
+    return {
+      cavUserRef: this.cavUserRef.path,
+      pinUserRef: this.pinUserRef.path,
+      requestRef: this.requestRef.path,
+      cavUserSnapshot: User.factory(this.cavUserSnapshot),
+      message: this.message,
+      status: this.status,
+      createdAt: this.createdAt.toDate(),
+    };
   }
+}
 
-  toFirestore(modelObject: Offer): IOffer {
+export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
+    return Offer.factory(data.data());
+  },
+  toFirestore: (modelObject: Offer): IOffer => {
     return {
       cavUserRef: modelObject.cavUserRef,
       pinUserRef: modelObject.pinUserRef,
@@ -149,5 +162,5 @@ export class Offer implements IOffer, FirestoreDataConverter<Offer> {
       status: modelObject.status,
       createdAt: modelObject.createdAt,
     };
-  }
-}
+  },
+};

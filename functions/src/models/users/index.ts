@@ -1,9 +1,8 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsInt, IsNotEmpty, IsNumber, IsObject, IsString, IsUrl, Max, Min } from 'class-validator';
 import { firestore } from 'firebase-admin';
-
 // eslint-disable-next-line import/no-cycle
 import { IQuestionnaire } from '../questionnaires';
+import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
 
@@ -20,7 +19,7 @@ export interface IUser extends DocumentData {
   displayPicture: string | null;
 }
 
-export class User implements IUser, FirestoreDataConverter<User> {
+export class User implements IUser {
 
   @IsObject()
   private _cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
@@ -175,12 +174,13 @@ export class User implements IUser, FirestoreDataConverter<User> {
   set displayPicture(value: string | null) {
     this._displayPicture = value;
   }
+}
 
-  fromFirestore(data: IUser): User {
-    return User.factory(data);
-  }
-
-  toFirestore(modelObject: User): IUser {
+export const UserFirestoreConverter: FirestoreDataConverter<User> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IUser>): User => {
+    return User.factory(data.data());
+  },
+  toFirestore: (modelObject: User): IUser => {
     return {
       cavQuestionnaireRef: modelObject.cavQuestionnaireRef,
       pinQuestionnaireRef: modelObject.pinQuestionnaireRef,
@@ -193,5 +193,5 @@ export class User implements IUser, FirestoreDataConverter<User> {
       displayName: modelObject.displayName,
       displayPicture: modelObject.displayPicture,
     };
-  }
-}
+  },
+};

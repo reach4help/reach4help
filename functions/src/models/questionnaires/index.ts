@@ -1,7 +1,9 @@
+import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
 import { IsEnum, IsNotEmpty, IsNotEmptyObject, IsObject, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
-
+// eslint-disable-next-line import/no-cycle
 import { IOrganization } from '../organizations';
+// eslint-disable-next-line import/no-cycle
 import { ITeam } from '../organizations/teams';
 // eslint-disable-next-line import/no-cycle
 import { IUser } from '../users';
@@ -62,6 +64,14 @@ export class Questionnaire implements IQuestionnaire {
     this._version = version;
   }
 
+  static factory = (data: IQuestionnaire): Questionnaire => new Questionnaire(
+    data.parentRef,
+    data.data,
+    data.type,
+    data.createdAt,
+    data.version,
+  );
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get parentRef(): DocumentReference<IUser | ITeam | IOrganization> {
     return this._parentRef;
@@ -106,3 +116,18 @@ export class Questionnaire implements IQuestionnaire {
     this._version = value;
   }
 }
+
+export const QuestionnaireFirestoreConverter: FirestoreDataConverter<Questionnaire> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IQuestionnaire>): Questionnaire => {
+    return Questionnaire.factory(data.data());
+  },
+  toFirestore: (modelObject: Questionnaire): IQuestionnaire => {
+    return {
+      parentRef: modelObject.parentRef,
+      data: modelObject.data,
+      type: modelObject.type,
+      createdAt: modelObject.createdAt,
+      version: modelObject.version,
+    };
+  },
+};

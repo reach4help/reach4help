@@ -1,16 +1,17 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { OrganizationType } from './index';
 import DocumentData = firestore.DocumentData;
+import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
+import { Offer } from '../offers';
 
 export interface ITeam extends DocumentData {
   name: string;
   types: OrganizationType[];
 }
 
-export class Team implements ITeam, FirestoreDataConverter<Team> {
+export class Team implements ITeam {
   @IsString()
   @IsNotEmpty()
   private _name: string;
@@ -43,17 +44,16 @@ export class Team implements ITeam, FirestoreDataConverter<Team> {
   set types(value: OrganizationType[]) {
     this._types = value;
   }
+}
 
-  // eslint-disable-next-line class-methods-use-this
-  fromFirestore(data: ITeam): Team {
-    return Team.factory(data);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  toFirestore(modelObject: Team): ITeam {
+export const TeamFirestoreConverter: FirestoreDataConverter<Team> = {
+  fromFirestore: (data: QueryDocumentSnapshot<ITeam>): Team => {
+    return Team.factory(data.data());
+  },
+  toFirestore: (modelObject: Team): ITeam => {
     return {
       name: modelObject.name,
       types: modelObject.types,
     };
-  }
-}
+  },
+};

@@ -12,7 +12,8 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
-import { IUser, User } from '../users';
+import { IUser, User, UserFirestoreConverter } from '../users';
+import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
 import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
@@ -90,7 +91,10 @@ export class Request implements IRequest {
   private _cavRating: number | null;
 
   @Allow()
-  private _ratedAt: Timestamp | null;
+  private _pinRatedAt: Timestamp | null;
+
+  @Allow()
+  private _cavRatedAt: Timestamp | null;
 
   constructor(
     cavUserRef: DocumentReference<IUser> | null,
@@ -104,7 +108,8 @@ export class Request implements IRequest {
     updatedAt = Timestamp.now(),
     pinRating: number | null = null,
     cavRating: number | null = null,
-    ratedAt: Timestamp | null = null,
+    pinRatedAt: Timestamp | null = null,
+    cavRatedAt: Timestamp | null = null,
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
@@ -117,7 +122,8 @@ export class Request implements IRequest {
     this._updatedAt = updatedAt;
     this._pinRating = pinRating;
     this._cavRating = cavRating;
-    this._ratedAt = ratedAt;
+    this._pinRatedAt = pinRatedAt;
+    this._cavRatedAt = cavRatedAt;
   }
 
   static factory = (data: IRequest): Request => new Request(
@@ -132,7 +138,8 @@ export class Request implements IRequest {
     data.updatedAt,
     data.pinRating,
     data.cavRating,
-    data.ratedAt,
+    data.pinRatedAt,
+    data.cavRatedAt,
   );
 
   get cavUserRef(): DocumentReference<IUser> | null {
@@ -223,11 +230,42 @@ export class Request implements IRequest {
     this._cavRating = value;
   }
 
-  get ratedAt(): Timestamp | null {
-    return this._ratedAt;
+  get pinRatedAt(): Timestamp | null {
+    return this._pinRatedAt;
   }
 
-  set ratedAt(value: Timestamp | null) {
-    this._ratedAt = value;
+  set pinRatedAt(value: Timestamp | null) {
+    this._pinRatedAt = value;
+  }
+
+  get cavRatedAt(): Timestamp | null {
+    return this._cavRatedAt;
+  }
+
+  set cavRatedAt(value: Timestamp | null) {
+    this._cavRatedAt = value;
   }
 }
+
+export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IRequest>): Request => {
+    return Request.factory(data.data());
+  },
+  toFirestore: (modelObject: Request): IRequest => {
+    return {
+      cavUserRef: modelObject.cavUserRef,
+      pinUserRef: modelObject.pinUserRef,
+      pinUserSnapshot: UserFirestoreConverter.fromFirestore(modelObject.pinUserSnapshot),
+      title: modelObject.title,
+      description: modelObject.description,
+      latLng: modelObject.latLng,
+      status: modelObject.status,
+      createdAt: modelObject.createdAt,
+      updatedAt: modelObject.updatedAt,
+      pinRating: modelObject.pinRating,
+      cavRating: modelObject.cavRating,
+      pinRatedAt: modelObject.pinRatedAt,
+      cavRatedAt: modelObject.cavRatedAt,
+    };
+  },
+};

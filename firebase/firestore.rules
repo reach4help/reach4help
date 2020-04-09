@@ -19,8 +19,7 @@ function isVerifiedPIN() {
 }
 
 function currentUserIsCurrentPINRef(userID, database, data) {
-  return isAuthenticated() &&
-  ('pinUserRef' in data) &&
+  return ('pinUserRef' in data) &&
   data.pinUserRef == /databases/$(database)/documents/users/$(userID)
 }
 
@@ -128,8 +127,8 @@ service cloud.firestore {
 
     match /offers/{offerID} {
       // Only the PIN or CAV of the request can read the offers
-      allow read: if (isVerifiedCAV() || isVerifiedPIN()) &&
-        confirmEitherPINorCAV(request.auth.uid, database, resource.data)
+      allow list: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
+      allow get: if resource.data.pinUserRef == /databases/$(database)/documents/users/$(request.auth.uid) || resource.data.cavUserRef == /databases/$(database)/documents/users/$(request.auth.uid)
       // Only CAVs can submit offers (as themselves)
       allow write: if isVerifiedCAV() &&
        currentUserIsCurrentCAVRef(request.auth.uid, database, request.resource.data) &&

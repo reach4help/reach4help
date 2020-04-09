@@ -1,6 +1,6 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
+import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
 import DocumentData = firestore.DocumentData;
 
 export enum OrganizationType {
@@ -15,7 +15,7 @@ export interface IOrganization extends DocumentData {
   types: OrganizationType[];
 }
 
-export class Organization implements IOrganization, FirestoreDataConverter<Organization> {
+export class Organization implements IOrganization {
   @IsString()
   @IsNotEmpty()
   private _name: string;
@@ -48,17 +48,16 @@ export class Organization implements IOrganization, FirestoreDataConverter<Organ
   set types(value: OrganizationType[]) {
     this._types = value;
   }
+}
 
-  // eslint-disable-next-line class-methods-use-this
-  fromFirestore(data: IOrganization): Organization {
-    return Organization.factory(data);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  toFirestore(modelObject: Organization): IOrganization {
+export const OrganizationFirestoreConverter: FirestoreDataConverter<Organization> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IOrganization>): Organization => {
+    return Organization.factory(data.data());
+  },
+  toFirestore: (modelObject: Organization): IOrganization => {
     return {
       name: modelObject.name,
       types: modelObject.types,
     };
-  }
-}
+  },
+};
