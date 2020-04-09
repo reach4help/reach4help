@@ -178,7 +178,10 @@ interface IssueInfo {
       (open ? (
         (blocking.length > 0 ? `**[BLOCKING: ${blocking.join(', ')}]** ` : '') +
         (blockers.length > 0 ? `[BLOCKED BY: ${blockers.join(', ')}] ` : '') +
-        (assignments.length > 0 ? `[${assignments.join(', ')}] ` : '')
+        (assignments.length > 0 ? `[${assignments.join(', ')}] ` : (
+          // Highlight unassigned tasks that are also blocking
+          blocking.length > 0 ? '**[UNASSIGNED]** ' : ''
+        ))
       ) : '') +
       `[#${issueId} - ${githubData.title}](${githubData.html_url})` +
       (open ? '' : '~~')
