@@ -38,7 +38,7 @@ interface MapInfo {
 
 const getInfo = (marker: google.maps.Marker): MarkerInfo => marker.get('info');
 
-const updateMarkersVisiblilityUsingFilter = (
+const updateMarkersVisibilityUsingFilter = (
   markers: Map<MarkerInfo, google.maps.Marker>,
   filter: Filter,
 ) => {
@@ -95,7 +95,7 @@ class MapComponent extends React.Component<Props, {}> {
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
-      updateMarkersVisiblilityUsingFilter(this.map.markers, filter);
+      updateMarkersVisibilityUsingFilter(this.map.markers, filter);
       this.map.markerClusterer.repaint();
       this.map.currentFilter = filter;
     }
@@ -154,7 +154,7 @@ class MapComponent extends React.Component<Props, {}> {
     };
     this.map = m;
 
-    updateMarkersVisiblilityUsingFilter(markers, filter);
+    updateMarkersVisibilityUsingFilter(markers, filter);
 
     map.addListener('bounds_changed', () => {
       const bounds = map.getBounds();
