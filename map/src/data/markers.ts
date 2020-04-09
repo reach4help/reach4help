@@ -83,8 +83,8 @@ const LOCATIONS = {
     },
     ALL: {
       description: 'PT',
-      lat: 54.200981,
-      lng: -4.513111,
+      lat: 37.1458994,
+      lng: -23.3165484,
       serviceRadius: 280610,
     },
   },
