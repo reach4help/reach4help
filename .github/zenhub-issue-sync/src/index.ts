@@ -11,6 +11,9 @@ const ZENHUB_TOKEN = process.env.ZENHUB_TOKEN;
 
 const REPO_EXTRACT = /^([^\/]+)\/([^\/]+)$/;
 
+const START_BOUNDARY_COMMENT = `\n\n<!--zenhub info:`
+const END_BOUNDARY_COMMENT = `<!--zenhub info end-->`
+
 interface Epic {
   issues: number[];
 }
@@ -175,7 +178,7 @@ interface IssueInfo {
       (open ? (
         (blocking.length > 0 ? `**[BLOCKING: ${blocking.join(', ')}]** ` : '') +
         (blockers.length > 0 ? `[BLOCKED BY: ${blockers.join(', ')}] ` : '') +
-        (assignments.length > 0 ? `[${assignments.join(', ')}] ` : '[UNASSIGNED] ')
+        (assignments.length > 0 ? `[${assignments.join(', ')}] ` : '')
       ) : '') +
       `[#${issueId} - ${githubData.title}](${githubData.html_url})` +
       (open ? '' : '~~')
@@ -198,8 +201,9 @@ interface IssueInfo {
   for (const i of issueData.entries()) {
     const issueId = i[0];
     const issue = i[1];
-    let extraBody = (
-`--------
+    const githubData =getIssueGitHubData(issueId, issue);
+    let extraBody = (`
+--------
 ### [ZenHub Information](https://app.zenhub.com/workspaces/${repoInfo.owner}-${workspaceId}/issues/${repoInfo.owner}/${repoInfo.repo}/${issueId})
 
 *This information is updated automatically. To modify it, please use ZenHub.*
@@ -226,6 +230,36 @@ interface IssueInfo {
     if (issue.epic) {
       extraBody += `\n**Children:**\n\n${getEpicTree(issue.epic, 0)}`;
       console.log(extraBody);
+    }
+
+    let before: string;
+    let after: string;
+    const startBoundary = githubData.body.indexOf(START_BOUNDARY_COMMENT);
+    if (startBoundary === -1) {
+      before = githubData.body;
+      after = '';
+    } else {
+      before = githubData.body.substr(0, startBoundary);
+      const endBoundary = githubData.body.indexOf(END_BOUNDARY_COMMENT);
+      if (endBoundary === -1) {
+        after = '';
+      } else {
+        after = githubData.body.substr(endBoundary + END_BOUNDARY_COMMENT.length);
+      }
+    }
+    const newBody = (
+      before +
+      START_BOUNDARY_COMMENT +
+      'do not edit anything after this line, ' +
+      'it will be automatically changed-->\n' +
+      extraBody +
+      '\n' +
+      END_BOUNDARY_COMMENT
+    );
+    if (newBody !== githubData.body) {
+      console.log(`Updating description for issue ${issueId}`);
+      console.log(newBody);
+      break;
     }
   }
 
