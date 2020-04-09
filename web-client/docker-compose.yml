@@ -1,14 +1,14 @@
-version: "3"
+version: '3'
 
 services:
   web-client:
     build: .
     ports:
-    - "3002:3000"
+      - '3002:3000'
     env_file:
-    - .env
+      - .env
     environment:
-    - CI=true
+      - CI=true
     volumes:
-    - ./src:/app/src
-    - /app/node_modules
+      - ./src:/app/src
+      - /app/node_modules

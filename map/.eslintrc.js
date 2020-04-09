@@ -21,5 +21,5 @@ module.exports = {
   ],
   rules: {
     // see ../.eslintrc-ts.js
-  }
+  },
 };

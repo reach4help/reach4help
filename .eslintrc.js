@@ -7,7 +7,7 @@ module.exports = {
     'plugin:react/recommended',
   ],
   rules: {
-    'curly': [2, 'all'],
+    curly: [2, 'all'],
     'brace-style': [2, '1tbs'],
-  }
+  },
 };

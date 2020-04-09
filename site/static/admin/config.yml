@@ -6,12 +6,11 @@ media_folder: /media
 public_folder: /static
 
 collections:
-  - name: "pages"
-    label: "Pages"
+  - name: 'pages'
+    label: 'Pages'
     files:
-      - file: "static/content/index.md"
-        label: "Landing Page"
-        name: "index"
+      - file: 'static/content/index.md'
+        label: 'Landing Page'
+        name: 'index'
         fields:
-          - {label: Heading, name: heading, widget: string}
-
+          - { label: Heading, name: heading, widget: string }
