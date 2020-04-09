@@ -2,7 +2,7 @@
   "name": "zenhub-issue-sync",
   "version": "0.0.1",
   "scripts": {
-    "build": "tsc --build src/tsconfig.json",
+    "build": "tsc --build src/tsconfig.json && ncc build build",
     "start": "node build"
   },
   "devDependencies": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "@octokit/rest": "^17.2.0",
     "@types/node-fetch": "^2.5.5",
+    "@zeit/ncc": "^0.22.1",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.0"
   }

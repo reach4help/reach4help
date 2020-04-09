@@ -112,6 +112,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.11.1.tgz#49a2a83df9d26daacead30d0ccc8762b128d53c7"
   integrity sha512-eWQGP3qtxwL8FGneRrC5DwrJLGN4/dH1clNTuLfN81HCrxVtxRjygDTUoZJ5ASlDEeo0ppYFQjQIlXhtXpOn6g==
 
+"@zeit/ncc@^0.22.1":
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/@zeit/ncc/-/ncc-0.22.1.tgz#480e8f550f857a50942828993661b08393fbb49b"
+  integrity sha512-Qq3bMuonkcnV/96jhy9SQYdh39NXHxNMJ1O31ZFzWG9n52fR2DLtgrNzhj/ahlEjnBziMLGVWDbaS9sf03/fEw==
+
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"

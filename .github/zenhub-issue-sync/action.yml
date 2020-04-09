@@ -1,0 +1,10 @@
+# action.yml
+name: 'Sync issues with ZenHub'
+description: 'Copy ZenHub information to issue descriptions'
+author: 'Sam Lanning <sam@samlanning.com>'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'refresh-cw'
+  color: 'purple'
