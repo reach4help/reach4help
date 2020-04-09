@@ -3221,7 +3221,7 @@ var dotenv_1 = __webpack_require__(63);
 var rest_1 = __webpack_require__(889);
 var zenhub_1 = __webpack_require__(341);
 dotenv_1.config();
-var GITHUB_REPO = process.env.GITHUB_REPO;
+var GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 var GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 var ZENHUB_TOKEN = process.env.ZENHUB_TOKEN;
 var REPO_EXTRACT = /^([^\/]+)\/([^\/]+)$/;
@@ -3233,7 +3233,7 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
     return __generator(this, function (_r) {
         switch (_r.label) {
             case 0:
-                if (!GITHUB_REPO) {
+                if (!GITHUB_REPOSITORY) {
                     console.error('Environment variable GITHUB_REPO must be defined');
                     process.exit(1);
                 }
@@ -3245,7 +3245,7 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                     console.error('Environment variable ZENHUB_TOKEN must be defined');
                     process.exit(1);
                 }
-                repoExtract = REPO_EXTRACT.exec(GITHUB_REPO);
+                repoExtract = REPO_EXTRACT.exec(GITHUB_REPOSITORY);
                 if (!repoExtract) {
                     console.error('Invalid repo GITHUB_REPO');
                     process.exit(1);

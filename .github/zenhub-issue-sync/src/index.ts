@@ -5,7 +5,7 @@ import { ZenHub } from './zenhub';
 
 enableDotenv();
 
-const GITHUB_REPO = process.env.GITHUB_REPO;
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const ZENHUB_TOKEN = process.env.ZENHUB_TOKEN;
 
@@ -46,7 +46,7 @@ interface IssueInfo {
 }
 
 (async () => {
-  if (!GITHUB_REPO) {
+  if (!GITHUB_REPOSITORY) {
     console.error('Environment variable GITHUB_REPO must be defined');
     process.exit(1);
   }
@@ -59,7 +59,7 @@ interface IssueInfo {
     process.exit(1);
   }
 
-  const repoExtract = REPO_EXTRACT.exec(GITHUB_REPO);
+  const repoExtract = REPO_EXTRACT.exec(GITHUB_REPOSITORY);
   if (!repoExtract) {
     console.error('Invalid repo GITHUB_REPO');
     process.exit(1);
