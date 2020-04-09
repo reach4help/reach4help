@@ -5,8 +5,12 @@ import { COLORS } from '../../theme/colors';
 
 const Background = styled.div`
   min-height: 100vh;
-  height: 100%;
-  width: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
   background: ${COLORS.backgroundAlternative};
   background: linear-gradient(
     125.44deg,
