@@ -10,9 +10,10 @@ import { PhoneVerifyLocation } from './routes/PhoneVerifyRoute/constants';
 import PhoneVerifyRoute from './routes/PhoneVerifyRoute/PhoneVerifyRoute';
 
 const PhoneVerificationPage: React.FC = () => {
-  const user: firebase.User = useSelector((state: AppState) => state.auth.user);
-
-  if (user.phoneNumber) {
+  const phoneNumber: firebase.User = useSelector(
+    (state: AppState) => state.auth.user.phoneNumber,
+  );
+  if (phoneNumber) {
     return (
       <Redirect
         to={{

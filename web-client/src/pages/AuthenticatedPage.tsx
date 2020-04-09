@@ -16,9 +16,11 @@ const AuthenticatedPage: React.FC<AuthenticatedPageProps> = ({ children }) => {
   const location = useLocation();
 
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
-  if (auth.loading) {
+
+  if (auth.loading && !auth.user) {
     return <>Loading</>;
   }
+
   if (!auth.user) {
     return (
       <Redirect

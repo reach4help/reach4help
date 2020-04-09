@@ -1,11 +1,13 @@
 import { Alert } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 import IntroWrapper from 'src/components/IntroWrapper/IntroWrapper';
 import { triggerLoginWithPhone, verifyOTPPhone } from 'src/ducks/auth/actions';
 import firebase from 'src/firebase';
+import { PhoneVerifyLocation } from 'src/pages/routes/PhoneVerifyRoute/constants';
 import { AppState } from 'src/store';
 
 import logo from '../../assets/logo.png';
@@ -22,8 +24,18 @@ const PhoneNumberVerifierContainer: React.FC<Props> = ({ type }) => {
   const dispatch = useDispatch();
   const user: firebase.User = useSelector((state: AppState) => state.auth.user);
   const loading = useSelector((state: AppState) => state.auth.loading);
+  const confirmationResult = useSelector(
+    (state: AppState) => state.auth.confirmationResult,
+  );
   const error: Error = useSelector((state: AppState) => state.auth.error);
+  const history = useHistory();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (confirmationResult) {
+      history.push(PhoneVerifyLocation.path);
+    }
+  }, [confirmationResult, history]);
 
   const handleEntrySubmit = (
     values: { phoneNumber: string },
