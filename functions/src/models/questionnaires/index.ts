@@ -41,7 +41,7 @@ export class Questionnaire implements IQuestionnaire {
 
   @IsObject()
   @IsNotEmptyObject()
-  private _createdAt: FirebaseFirestore.Timestamp;
+  private _createdAt: Timestamp;
 
   @IsString()
   @IsNotEmpty()
@@ -52,7 +52,7 @@ export class Questionnaire implements IQuestionnaire {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: { [p: string]: any },
     type: QuestionnaireType,
-    createdAt: FirebaseFirestore.Timestamp,
+    createdAt: Timestamp,
     version: string,
   ) {
     this._parentRef = parentRef;

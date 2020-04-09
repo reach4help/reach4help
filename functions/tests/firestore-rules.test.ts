@@ -1,5 +1,6 @@
 import * as firebase from '@firebase/testing';
 import * as fs from 'fs';
+import { QuestionnaireType } from '../src/models/questionnaires';
 
 const projectId = 'reach-4-help-test';
 
@@ -249,5 +250,40 @@ describe('requests', () => {
     const db = authedApp(null);
     const requests = db.collection('requests');
     await firebase.assertFails(requests.get());
+  });
+});
+
+describe('questionnaires', () => {
+  beforeAll(async () => {
+    const userDb = authedApp({ uid: 'user-1' });
+    await firebase.assertSucceeds(
+      userDb
+        .collection('questionnaires')
+        .doc('questionnaire-1')
+        .set({
+          parentRef: userDb.collection('users').doc('user-1'),
+          data: { a: 1 },
+          type: QuestionnaireType.pin,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          version: '1.0',
+        }),
+    );
+  });
+
+  it('require users to log in before listing questionnaires', async () => {
+    const db = authedApp(null);
+    const requests = db.collection('requests');
+    await firebase.assertFails(requests.get());
+  });
+
+  it('only the current user can access their questionnaires', async () => {
+    const userDb1 = authedApp({ uid: 'user-1' });
+    const userDb2 = authedApp({ uid: 'user-2' });
+
+    const user1Questionnaire = userDb1.collection('questionnaires').doc('questionnaire-1');
+    const user1QuestionnaireAsUser2 = userDb2.collection('questionnaires').doc('questionnaire-1');
+
+    await firebase.assertFails(user1QuestionnaireAsUser2.get());
+    await firebase.assertSucceeds(user1Questionnaire.get());
   });
 });

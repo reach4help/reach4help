@@ -18,20 +18,26 @@ function isVerifiedPIN() {
   return isAuthenticated() && true;
 }
 
-function currentUserIsCurrentPINRef(database, data) {
+function currentUserIsCurrentPINRef(userID, database, data) {
   return isAuthenticated() &&
   ('pinUserRef' in data) &&
-  data.pinUserRef == /databases/$(database)/documents/users/$(request.auth.uid)
+  data.pinUserRef == /databases/$(database)/documents/users/$(userID)
 }
 
-function currentUserIsCurrentCAVRef(database, data) {
+function currentUserIsCurrentCAVRef(userID, database, data) {
   return isAuthenticated() &&
   ('cavUserRef' in data) &&
-  data.cavUserRef == /databases/$(database)/documents/users/$(request.auth.uid)
+  data.cavUserRef == /databases/$(database)/documents/users/$(userID)
 }
 
-function confirmEitherPINorCAV(database, data) {
-    return currentUserIsCurrentPINRef(database, data) || currentUserIsCurrentCAVRef(database, data)
+function questionnaireBelongsToUser(userID, database, data) {
+    return isAuthenticated() &&
+           ('parentRef' in data) &&
+           data.parentRef == /databases/$(database)/documents/users/$(userID)
+}
+
+function confirmEitherPINorCAV(userID, database, data) {
+    return currentUserIsCurrentPINRef(userID, database, data) || currentUserIsCurrentCAVRef(userID, database, data)
 }
 
 function isNotSameCAVPIN(data) {
@@ -43,6 +49,14 @@ function verifyUserDataComplete(data) {
           data.casesCompleted >= 0 &&
           data.requestsMade >= 0 &&
           ('username' in data)
+}
+
+function verifyQuestionnaireComplete(data) {
+   return ('parentRef' in data) &&
+          ('data' in data) &&
+          ('type' in data) &&
+          ('createdAt' in data) &&
+          ('version' in data)
 }
 
 // Completed requests need ratings on all sides
@@ -115,10 +129,10 @@ service cloud.firestore {
     match /offers/{offerID} {
       // Only the PIN or CAV of the request can read the offers
       allow read: if (isVerifiedCAV() || isVerifiedPIN()) &&
-        confirmEitherPINorCAV(database, resource.data)
+        confirmEitherPINorCAV(request.auth.uid, database, resource.data)
       // Only CAVs can submit offers (as themselves)
       allow write: if isVerifiedCAV() &&
-       currentUserIsCurrentCAVRef(database, request.resource.data) &&
+       currentUserIsCurrentCAVRef(request.auth.uid, database, request.resource.data) &&
        verifyOfferDataComplete(request.resource.data);
     }
 
@@ -132,8 +146,11 @@ service cloud.firestore {
 
     match /questionnaires/{questID} {
       // Can only read + write my own data
-      allow read: if isAuthenticated();
-      allow write: if isUser(request.resource.data.parentRef.uid);
+      allow read: if isAuthenticated() && questionnaireBelongsToUser(request.auth.uid, database, resource.data);
+      // TODO: Change this rule once we allow other entities to submit questionnaires
+      allow write: if isAuthenticated() &&
+        verifyQuestionnaireComplete(request.resource.data) &&
+        questionnaireBelongsToUser(request.auth.uid, database, request.resource.data);
     }
 
     // Don't allow reading/writing to Teams and Orgs.
