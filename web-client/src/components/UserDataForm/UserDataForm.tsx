@@ -61,14 +61,14 @@ const UserDataForm: React.FC<NewRequestProps> = ({
         <Description>{t('user_data_form.sub_title')}</Description>
         <Form.Item
           style={{ textAlign: 'center', width: '100%' }}
-          name="fullName"
+          name="name"
           rules={[
             {
               required: true,
               message: t('user_data_form.full_name_error_message'),
             },
           ]}
-          label={t('full_name')}
+          label={t('name')}
         >
           <div
             style={{
