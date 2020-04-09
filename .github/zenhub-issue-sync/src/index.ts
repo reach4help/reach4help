@@ -271,8 +271,6 @@ interface IssueInfo {
         issue_number: issueId,
         body: newBody
       });
-      console.log(newBody);
-      break;
     }
   }
 

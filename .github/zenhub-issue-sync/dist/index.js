@@ -3517,8 +3517,7 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                 return [4 /*yield*/, octokit.issues.update(__assign(__assign({}, repoInfo), { issue_number: issueId, body: newBody }))];
             case 17:
                 _r.sent();
-                console.log(newBody);
-                return [3 /*break*/, 19];
+                _r.label = 18;
             case 18:
                 _d = _c.next();
                 return [3 /*break*/, 16];
