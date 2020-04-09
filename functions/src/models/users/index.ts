@@ -1,10 +1,12 @@
+import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsInt, IsNotEmpty, IsNumber, IsObject, IsString, IsUrl, Max, Min } from 'class-validator';
 import { firestore } from 'firebase-admin';
+
 // eslint-disable-next-line import/no-cycle
 import { IQuestionnaire } from '../questionnaires';
-import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
+import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export interface IUser extends DocumentData {
   cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;

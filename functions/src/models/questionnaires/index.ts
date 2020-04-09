@@ -1,6 +1,7 @@
-import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
+import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsNotEmptyObject, IsObject, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
+
 // eslint-disable-next-line import/no-cycle
 import { IOrganization } from '../organizations';
 // eslint-disable-next-line import/no-cycle
@@ -10,6 +11,7 @@ import { IUser } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
+import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export enum QuestionnaireType {
   pin = 'pin',
@@ -24,8 +26,8 @@ export interface IQuestionnaire extends DocumentData {
   data: { [key: string]: any };
 
   type: QuestionnaireType;
-  createdAt: Timestamp;
   version: string;
+  createdAt?: Timestamp;
 }
 
 export class Questionnaire implements IQuestionnaire {
@@ -41,35 +43,36 @@ export class Questionnaire implements IQuestionnaire {
   @IsEnum(QuestionnaireType)
   private _type: QuestionnaireType;
 
-  @IsObject()
-  @IsNotEmptyObject()
-  private _createdAt: Timestamp;
-
   @IsString()
   @IsNotEmpty()
   private _version: string;
+
+  @IsObject()
+  @IsNotEmptyObject()
+  private _createdAt: Timestamp;
 
   constructor(
     parentRef: DocumentReference<IUser | ITeam | IOrganization>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: { [p: string]: any },
     type: QuestionnaireType,
-    createdAt: Timestamp,
     version: string,
+    createdAt = Timestamp.now(),
   ) {
     this._parentRef = parentRef;
-    this._createdAt = createdAt;
     this._data = data;
     this._type = type;
     this._version = version;
+    this._createdAt = createdAt;
+
   }
 
   static factory = (data: IQuestionnaire): Questionnaire => new Questionnaire(
     data.parentRef,
     data.data,
     data.type,
-    data.createdAt,
     data.version,
+    data.createdAt,
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

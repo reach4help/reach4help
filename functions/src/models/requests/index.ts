@@ -1,3 +1,4 @@
+import { FirestoreDataConverter } from '@google-cloud/firestore';
 import {
   Allow,
   IsEnum,
@@ -13,11 +14,11 @@ import {
 import { firestore } from 'firebase-admin';
 
 import { IUser, User, UserFirestoreConverter } from '../users';
-import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
 import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
+import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export enum RequestStatus {
   pending = 'pending',

@@ -5,6 +5,8 @@ import { User } from '../src/models/users';
 describe('user validation', () => {
   it('fails when you pass it negative ratings ', () => {
     const user = User.factory({
+        cavRatingsReceived: 0,
+        pinRatingsReceived: 0,
         cavQuestionnaireRef: null,
         pinQuestionnaireRef: null,
         averageRating: -1,
@@ -12,6 +14,7 @@ describe('user validation', () => {
         requestsMade: 0,
         username: 'TestUser',
         displayName: null,
+        displayPicture: null,
       },
     );
 

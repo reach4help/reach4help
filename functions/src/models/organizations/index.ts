@@ -1,7 +1,8 @@
+import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
-import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
 import DocumentData = firestore.DocumentData;
+import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export enum OrganizationType {
   healthCare = 'health_care',

@@ -1,3 +1,4 @@
+import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
@@ -6,7 +7,7 @@ import { IUser, User } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
-import { FirestoreDataConverter, QueryDocumentSnapshot } from '@google-cloud/firestore/build/src';
+import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export enum OfferStatus {
   pending = 'pending',
