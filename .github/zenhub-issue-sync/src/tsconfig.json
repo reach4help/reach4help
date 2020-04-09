@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "../build",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    /** To be removed when this bug is fixed: https://github.com/octokit/types.ts/issues/40 */
+    "noImplicitAny": false
+  },
+  "include": [
+    ".",
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "zenhub-issue-sync",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc --build src/tsconfig.json",
+    "start": "node build"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@octokit/rest": "^17.2.0",
+    "dotenv": "^8.2.0"
+  }
+}
