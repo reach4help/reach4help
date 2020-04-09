@@ -258,7 +258,7 @@ interface IssueInfo {
     const newBody = (
       before +
       START_BOUNDARY_COMMENT +
-      'do not edit anything after this line, ' +
+      ' do not edit anything after this line, ' +
       'it will be automatically changed-->\n' +
       extraBody +
       '\n' +
@@ -266,6 +266,11 @@ interface IssueInfo {
     );
     if (newBody !== githubData.body) {
       console.log(`Updating description for issue ${issueId}`);
+      await octokit.issues.update({
+        ...repoInfo,
+        issue_number: issueId,
+        body: newBody
+      });
       console.log(newBody);
       break;
     }
