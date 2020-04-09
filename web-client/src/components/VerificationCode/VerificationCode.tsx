@@ -1,10 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import logo from '../../assets/logo.png';
-import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
 const { Text } = Typography;
 
@@ -15,7 +15,7 @@ const StyledIntro = styled.div`
   padding: 50px 50px;
 `;
 
-const Logo = styled.img`
+const Avatar = styled.img`
   height: 125px;
   width: 125px;
 `;
@@ -51,8 +51,7 @@ const PhoneNumber: React.FC<NewRequestProps> = ({
 
   return (
     <StyledIntro>
-      <Logo src={logo} alt="logo" />
-      <TitleWithAddon level={4}>{t('welcome')}</TitleWithAddon>
+      <Avatar src={logo} alt="avatar" />
       <Form
         style={{
           display: 'flex',
@@ -65,20 +64,23 @@ const PhoneNumber: React.FC<NewRequestProps> = ({
           handleFormSubmit(values);
         }}
       >
-        <Description>{t('phoneNumber.sub_title')}</Description>
+        <Description>{t('verificationCode.sub_title')}</Description>
         <Form.Item
           style={{ textAlign: 'center' }}
-          name="phoneNumber"
+          name="confirmationCode"
           rules={[
             {
               required: true,
-              message: t('phoneNumber.error_message'),
+              message: t('verificationCode.error_message'),
             },
           ]}
         >
-          <StyledInput placeholder="+0 000 000 000 000" maxLength={14} />
+          <StyledInput placeholder="000 000" maxLength={14} />
         </Form.Item>
-        <Info>{t('phoneNumber.info')}</Info>
+        <Info>
+          {t('verificationCode.info')}
+          <a href="#">{t('verificationCode.resend')}</a>
+        </Info>
         <Form.Item>
           <StyledButton htmlType="submit" type="primary">
             {t('continue')}

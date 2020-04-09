@@ -14,11 +14,26 @@
         "info": "This information is fundamental to validate your account. Data and rates may apply.",
         "error_message": "Please input your phone number!"
       },
+      "verificationCode": {
+        "sub_title": "We just texted you a confirmation code. Please enter it bellow.",
+        "info": "If you did not receive a code please click ",
+        "resend": "resend",
+        "error_message": "Insert the received number here!"
+      },
       "loading": {
         "title": "Your request has been created.\n You will be contacted by one of our volunteers shortly.",
         "pleaseWaitLabel": "Please wait...",
         "tip_title": "Remember",
         "tip_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      },
+      "newRequest": {
+        "title": "New Request",
+        "form": {
+          "title": "Title",
+          "body": "Enter details of what is needed",
+          "consent": "Allow Push Notifications. You can always change this in your Settings later.",
+          "submit": "Send my need"
+        }
       }
     }
   },
@@ -35,12 +50,27 @@
         "sub_title": "Introduza o seu número de telefone para começar",
         "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas.",
         "error_message": "Por favor insira o seu número de telefone!"
-    },
+      },
+      "verificationCode": {
+        "sub_title": "Enviámos um código de confirmação. Por favor insira o código em baixo.",
+        "info": "Se não recebeu o código clique ",
+        "resend": "reenviar",
+        "error_message": "Insira o código recebido aqui!"
+      },
       "loading": {
         "title": "O seu pedido foi criado. \n Brevemente será contactado por um dos nossos voluntários.",
         "pleaseWaitLabel": "Aguarde por favor...",
         "tip_title": "Lembrete",
         "tip_info": "Assim que um voluntário oferecer ajuda, deve aceitar a sua ajuda para que ele consiga ver os seus contactos"
+      },
+      "newRequest": {
+        "title": "Novo Pedido",
+        "form": {
+          "title": "Título",
+          "body": "Introduza os detalhes do que necessita",
+          "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
+          "submit": "Enviar o meu pedido"
+        }
       }
     }
   }

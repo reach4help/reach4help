@@ -1,5 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsInt, IsNotEmpty, IsNumber, IsObject, IsString, IsUrl, Max, Min } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsString, IsUrl, Max, Min } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 // eslint-disable-next-line import/no-cycle
@@ -7,6 +7,11 @@ import { IQuestionnaire } from '../questionnaires';
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
+
+export enum ApplicationPreference {
+  pin = 'pin',
+  cav = 'cav'
+}
 
 export interface IUser extends DocumentData {
   cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
@@ -19,6 +24,7 @@ export interface IUser extends DocumentData {
   username: string;
   displayName: string | null;
   displayPicture: string | null;
+  applicationPreference?: ApplicationPreference;
 }
 
 export class User implements IUser {
@@ -60,6 +66,9 @@ export class User implements IUser {
   @IsUrl()
   private _displayPicture: string | null;
 
+  @IsEnum(ApplicationPreference)
+  private _applicationPreference: ApplicationPreference;
+
   constructor(
     cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
     pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
@@ -71,6 +80,7 @@ export class User implements IUser {
     username: string,
     displayName: string | null = null,
     displayPicture: string | null = null,
+    applicationPreference = ApplicationPreference.pin,
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
     this._pinQuestionnaireRef = pinQuestionnaireRef;
@@ -82,6 +92,7 @@ export class User implements IUser {
     this._username = username;
     this._displayName = displayName;
     this._displayPicture = displayPicture;
+    this._applicationPreference = applicationPreference;
   }
 
   static factory = (data: IUser): User => new User(
@@ -95,6 +106,7 @@ export class User implements IUser {
     data.username,
     data.displayName,
     data.displayPicture,
+    data.applicationPreference,
   );
 
   get cavQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
@@ -176,6 +188,14 @@ export class User implements IUser {
   set displayPicture(value: string | null) {
     this._displayPicture = value;
   }
+
+  get applicationPreference(): ApplicationPreference {
+    return this._applicationPreference;
+  }
+
+  set applicationPreference(value: ApplicationPreference) {
+    this._applicationPreference = value;
+  }
 }
 
 export const UserFirestoreConverter: FirestoreDataConverter<User> = {
@@ -194,6 +214,7 @@ export const UserFirestoreConverter: FirestoreDataConverter<User> = {
       username: modelObject.username,
       displayName: modelObject.displayName,
       displayPicture: modelObject.displayPicture,
+      applicationPreference: modelObject.applicationPreference,
     };
   },
 };

@@ -2,9 +2,9 @@ import React from 'react';
 
 import CenteredCard from '../../components/CenteredCard/CenteredCard';
 import GradientBackground from '../../components/GradientBackground/GradientBackground';
-import PhoneNumber from '../../components/PhoneNumber/PhoneNumber';
+import VerificationCode from '../../components/VerificationCode/VerificationCode';
 
-const PhoneNumberPage: React.FC = () => {
+const VerificationCodePage: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
   const handleFormSubmit = (values: { body: string; title: string }) => {
     // console.log('Form Data:', values);
@@ -13,10 +13,10 @@ const PhoneNumberPage: React.FC = () => {
   return (
     <GradientBackground>
       <CenteredCard>
-        <PhoneNumber handleFormSubmit={handleFormSubmit} />
+        <VerificationCode handleFormSubmit={handleFormSubmit} />
       </CenteredCard>
     </GradientBackground>
   );
 };
 
-export default PhoneNumberPage;
+export default VerificationCodePage;

@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
+import AuthenticatedPage from './AuthenticatedPage';
 import ContentPage from './ContentPage';
-import ProtectedPage from './ProtectedPage';
+import PhoneVerificationPage from './PhoneVerificationPage';
 import { LoginLocation } from './routes/LoginRoute/constants';
 import LoginRoute from './routes/LoginRoute/LoginRoute';
 import NotFoundRoute from './routes/NotFoundRoute';
@@ -11,9 +12,10 @@ const MasterPage = (): ReactElement => (
   <Router>
     <Switch>
       <Route path={LoginLocation.path} component={LoginRoute} exact />
-      <ProtectedPage>
+      <AuthenticatedPage>
+        <PhoneVerificationPage />
         <ContentPage />
-      </ProtectedPage>
+      </AuthenticatedPage>
       <Route path="*">
         <NotFoundRoute />
       </Route>

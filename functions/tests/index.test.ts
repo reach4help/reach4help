@@ -1,6 +1,6 @@
 import { validate } from 'class-validator';
 
-import { User } from '../src/models/users';
+import { ApplicationPreference, User } from '../src/models/users';
 
 describe('user validation', () => {
   it('fails when you pass it negative ratings ', () => {
@@ -15,6 +15,7 @@ describe('user validation', () => {
         username: 'TestUser',
         displayName: null,
         displayPicture: null,
+        applicationPreference: ApplicationPreference.pin,
       },
     );
 
