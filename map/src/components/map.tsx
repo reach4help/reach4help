@@ -386,19 +386,26 @@ class MapComponent extends React.Component<Props, {}> {
   };
 
   private centerToGeolocation = () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      if (!this.map) {
-        return;
-      }
-      this.map.map.setCenter(pos);
-      this.map.map.setZoom(8);
-      const { setUpdateResultsOnNextClustering } = this.props;
-      setUpdateResultsOnNextClustering(true);
-    });
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        if (!this.map) {
+          return;
+        }
+        this.map.map.setCenter(pos);
+        this.map.map.setZoom(8);
+        const { setUpdateResultsOnNextClustering } = this.props;
+        setUpdateResultsOnNextClustering(true);
+      },
+      error => {
+        alert('Unable to get geolocation!');
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+      },
+    );
   };
 
   private initializeSearch() {
