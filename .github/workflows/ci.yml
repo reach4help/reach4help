@@ -20,3 +20,6 @@ jobs:
 
       - name: Lint
         run: yarn run lint
+
+      - name: Test Functions
+        run: yarn --cwd functions test
