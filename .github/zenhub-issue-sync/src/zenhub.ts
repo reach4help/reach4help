@@ -14,10 +14,13 @@ interface Pipeline {
   pipeline_id: string;
 }
 
-interface Issue {
+interface IssueId {
   issue_number: number;
-  is_epic: boolean;
   repo_id: number;
+}
+
+interface Issue extends IssueId {
+  is_epic: boolean;
   estimate: {
     value: number;
   };
@@ -35,6 +38,13 @@ interface Epic {
   pipeline: Pipeline;
   pipelines: Pipeline[];
   issues: Issue[];
+}
+
+interface Dependencies {
+  dependencies: Array<{
+    blocking: IssueId;
+    blocked: IssueId;
+  }>;
 }
 
 export class ZenHub {
@@ -59,5 +69,9 @@ export class ZenHub {
 
   public getEpic(repoId: number, issueId: number): Promise<Epic> {
     return this.get(`/p1/repositories/${repoId}/epics/${issueId}`);
+  }
+
+  public getDependencies(repoId: number): Promise<Dependencies> {
+    return this.get(`/p1/repositories/${repoId}/dependencies`);
   }
 }

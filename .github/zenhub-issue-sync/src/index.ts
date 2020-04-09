@@ -15,6 +15,16 @@ interface Epic {
   issues: number[];
 }
 
+interface IssueInfo {
+  /**
+   * Set if the issue is an epic
+   */
+  epic?: Epic;
+  parentEpics: number[];
+  blocking: number[];
+  blockedBy: number[];
+}
+
 (async () => {
   if (!GITHUB_REPO) {
     console.error('Environment variable GITHUB_REPO must be defined');
@@ -43,6 +53,21 @@ interface Epic {
     auth: GITHUB_TOKEN
   });
 
+  const issueData = new Map<number, IssueInfo>();
+
+  const getIssue = (issue: number) => {
+    let i = issueData.get(issue);
+    if (!i) {
+      i = {
+        parentEpics: [],
+        blockedBy: [],
+        blocking: []
+      };
+      issueData.set(issue, i);
+    }
+    return i;
+  }
+
   const zenhub = new ZenHub(ZENHUB_TOKEN);
 
   const repo = (await octokit.repos.get(repoInfo)).data;
@@ -55,31 +80,28 @@ interface Epic {
     // Map to ID
     .map(epic => epic.issue_number);
 
-  const epics = new Map<number, Epic>();
-  /** Map from issues to the epics they're contained within */
-  const parents = new Map<number, number[]>();
   for (const epicIssue of epicIssues) {
     console.log(`fetching info for EPIC: ${epicIssue}`);
     const epic = await zenhub.getEpic(repo.id, epicIssue);
     const issues = epic.issues
       .filter(i => i.repo_id === repo.id)
       .map(i => i.issue_number);
-    epics.set(epicIssue, { issues });
+    getIssue(epicIssue).epic = { issues };
     // Update the parents array for each of the included issues
     for (const issue of issues) {
-      let p = parents.get(issue);
-      if (!p) {
-        p = [];
-        parents.set(issue, p);
-      }
-      p.push(epicIssue);
+      getIssue(issue).parentEpics.push(epicIssue);
     }
     // TODO: remove
-    if (epics.size > 3) break;
+    if (issueData.size > 3) break;
   }
 
-  
+  const dependencies = (await zenhub.getDependencies(repo.id)).dependencies
+    .filter(d => d.blocked.repo_id === repo.id && d.blocking.repo_id === repo.id);
+  for (const dep of dependencies) {
+    getIssue(dep.blocked.issue_number).blockedBy.push(dep.blocking.issue_number);
+    getIssue(dep.blocking.issue_number).blocking.push(dep.blocked.issue_number);
+  }
 
-  console.log(parents);
+  console.log(issueData);
 
 })();
