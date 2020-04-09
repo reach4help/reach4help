@@ -2,15 +2,14 @@ import React, { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Login from 'src/components/Login/Login';
 import {
   getLoginRedirectResult,
   loginWithFirebaseActionPopUp,
-  observeUserAction,
   triggerLoginWithRedirect,
 } from 'src/ducks/auth/actions';
 import { AppState } from 'src/store';
 
+import Login from '../../components/Login/Login';
 import { LoginRedirectProps } from './constants';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
@@ -20,7 +19,6 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   const user = useSelector((state: AppState) => state.auth.user);
   const history = useHistory();
   const loading = useSelector((state: AppState) => state.auth.loading);
-  useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
   useEffect(() => {
     const redirectStarted = window.localStorage.getItem('redirect_started');

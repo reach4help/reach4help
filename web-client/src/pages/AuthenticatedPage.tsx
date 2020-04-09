@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
+import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
 import { AppState } from 'src/store';
 
 import { AuthState } from '../ducks/auth/reducer';
-import { LoginLocation } from './routes/LoginRoute/constants';
 
 interface AuthenticatedPageProps {
   children: React.ReactNode;
@@ -20,7 +20,6 @@ const AuthenticatedPage: React.FC<AuthenticatedPageProps> = ({ children }) => {
   if (auth.loading && !auth.user) {
     return <>Loading</>;
   }
-
   if (!auth.user) {
     return (
       <Redirect

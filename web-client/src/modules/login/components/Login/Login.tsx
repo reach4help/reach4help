@@ -1,12 +1,12 @@
 import { Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import logo from 'src/assets/logo.png';
+import IntroLogo from 'src/components/IntroLogo/IntroLogo';
+import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
-import logo from '../../assets/logo.png';
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
-import IntroLogo from '../IntroLogo/IntroLogo';
-import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
 const { Title, Text } = Typography;
 
