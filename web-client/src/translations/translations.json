@@ -40,7 +40,9 @@
         "policy_link": "Privacy & Security Policy.",
         "terms_conditions_text": "I understand and acknowledge the ",
         "terms_conditions_link": "Terms & Conditions.",
-        "terms_conditions_error": "You need to accept the Terms & Conditions."
+        "terms_conditions_error": "You need to accept the Terms & Conditions.",
+        "full_name_error_message": "You need to fill your name.",
+        "address_error_message": "You need to fill your address."
       },
       "newRequest": {
         "title": "New Request",

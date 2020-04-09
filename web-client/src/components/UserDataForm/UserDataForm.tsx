@@ -58,6 +58,7 @@ const UserDataForm: React.FC<NewRequestProps> = ({
           rules={[
             {
               required: true,
+              message: t('user_data_form.full_name_error_message'),
             },
           ]}
           label={t('full_name')}
@@ -83,6 +84,7 @@ const UserDataForm: React.FC<NewRequestProps> = ({
           rules={[
             {
               required: true,
+              message: t('user_data_form.address_error_message'),
             },
           ]}
           label={t('address')}
@@ -94,6 +96,7 @@ const UserDataForm: React.FC<NewRequestProps> = ({
           rules={[
             {
               required: true,
+              message: t('user_data_form.address_error_message'),
             },
           ]}
         >
