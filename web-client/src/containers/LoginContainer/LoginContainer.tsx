@@ -17,11 +17,9 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',
 }) => {
   const dispatch = useDispatch();
-  // const token = useSelector((state: AppState) => state.auth.token);
   const user = useSelector((state: AppState) => state.auth.user);
   const history = useHistory();
   const loading = useSelector((state: AppState) => state.auth.loading);
-
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
   useEffect(() => {
