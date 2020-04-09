@@ -70,6 +70,10 @@ interface Props {
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
   resultsMode: 'open' | 'closed';
   toggleResults: () => void;
+  updateResultsOnNextClustering: boolean;
+  setUpdateResultsOnNextClustering: (
+    updateResultsOnNextClustering: boolean,
+  ) => void;
 }
 
 /**
@@ -301,9 +305,19 @@ class MapComponent extends React.Component<Props, {}> {
           markers: visibleMarkers,
           results: visibleMarkers.map(marker => getInfo(marker)),
         };
-        const { setNextResults: updateNextResults } = this.props;
+
+        const {
+          setNextResults: updateNextResults,
+          updateResultsOnNextClustering,
+          setUpdateResultsOnNextClustering,
+        } = this.props;
+
         updateNextResults(nextResults);
 
+        if (updateResultsOnNextClustering) {
+          setUpdateResultsOnNextClustering(false);
+          this.updateResults();
+        }
         // Update tooltip position if neccesary
         // (marker may be newly in or out of cluster)
         this.updateInfoWindow();
@@ -381,6 +395,9 @@ class MapComponent extends React.Component<Props, {}> {
         return;
       }
       this.map.map.setCenter(pos);
+      this.map.map.setZoom(8);
+      const { setUpdateResultsOnNextClustering } = this.props;
+      setUpdateResultsOnNextClustering(true);
     });
   };
 
