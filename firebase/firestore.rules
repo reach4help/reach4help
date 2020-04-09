@@ -136,14 +136,12 @@ service cloud.firestore {
       allow write: if isUser(request.resource.data.parentRef.uid);
     }
 
-    // Don't allow writing to Teams and Orgs
+    // Don't allow reading/writing to Teams and Orgs.
     match /organizations/{orgID} {
-      allow read;
-      allow write: if false;
+      allow read, write: if false;
     }
     match /teams/{orgID} {
-      allow read;
-      allow write: if false;
+      allow read, write: if false;
     }
   }
 }
