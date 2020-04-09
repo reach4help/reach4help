@@ -8,7 +8,8 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     /** To be removed when this bug is fixed: https://github.com/octokit/types.ts/issues/40 */
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "downlevelIteration": true
   },
   "include": [
     ".",

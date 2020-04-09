@@ -20,6 +20,7 @@ interface GitHubUser {
 }
 
 interface GitHubIssue {
+  number: number;
   title: string;
   body: string;
   state: string;
@@ -27,6 +28,7 @@ interface GitHubIssue {
     name: string;
   }>;
   assignees: GitHubUser[];
+  html_url: string;
 }
 
 interface IssueInfo {
@@ -64,12 +66,16 @@ interface IssueInfo {
     repo: repoExtract[2]
   }
 
+  // Instantiate APIs
+
   const octokit = new Octokit({
     auth: GITHUB_TOKEN
   });
+  const zenhub = new ZenHub(ZENHUB_TOKEN);
+
+  // Define data to collect
 
   const issueData = new Map<number, IssueInfo>();
-
   const getIssue = (issue: number) => {
     let i = issueData.get(issue);
     if (!i) {
@@ -83,10 +89,10 @@ interface IssueInfo {
     return i;
   }
 
-  const zenhub = new ZenHub(ZENHUB_TOKEN);
+  // Start collecting data
 
   const repo = (await octokit.repos.get(repoInfo)).data;
-  console.log(repo.id);
+  let workspaceId: string | null = null;
 
   /** IDs of all issues in repo that are epics */
   const epicIssues = (await zenhub.getEpics(repo.id)).epic_issues
@@ -98,6 +104,12 @@ interface IssueInfo {
   for (const epicIssue of epicIssues) {
     console.log(`fetching info for EPIC: ${epicIssue}`);
     const epic = await zenhub.getEpic(repo.id, epicIssue);
+    if (!workspaceId) {
+      workspaceId = epic.pipeline.workspace_id;
+    } else if (workspaceId !== epic.pipeline.workspace_id) {
+      console.error('Unsupported, repo belongs to multiple workspaces')
+      process.exit(1);
+    }
     const issues = epic.issues
       .filter(i => i.repo_id === repo.id)
       .map(i => i.issue_number);
@@ -106,8 +118,6 @@ interface IssueInfo {
     for (const issue of issues) {
       getIssue(issue).parentEpics.push(epicIssue);
     }
-    // TODO: remove
-    if (issueData.size > 3) break;
   }
 
   const dependencies = (await zenhub.getDependencies(repo.id)).dependencies
@@ -123,6 +133,8 @@ interface IssueInfo {
     console.log(`Getting page ${nextPage} of issues from GitHub`);
     const getIssues = await octokit.issues.listForRepo({
       ...repoInfo,
+      page: nextPage,
+      state: 'all',
       per_page: 100
     });
     const hasNext = (getIssues.headers.link || '').indexOf('rel="next"') > -1;
@@ -132,9 +144,84 @@ interface IssueInfo {
         getIssue(issue.number).data = issue;
       }
     }
-    nextPage = null;
   }
 
-  console.log(issueData);
+  const getIssueGitHubData = (issueNumber: number, issue: IssueInfo | null = null): GitHubIssue => {
+    if (!issue)
+      issue = getIssue(issueNumber);
+    if (issue.data) {
+      return issue.data;
+    } else {
+      console.error(`Missing data for issue: ${issueNumber}`);
+      process.exit(1);
+    }
+  }
+
+  const issueString = (issueId: number, issue: IssueInfo) => {
+    const githubData = getIssueGitHubData(issueId, issue);
+    const open = githubData.state === 'open';
+    const blocking = issue.blocking
+      .map(i => getIssueGitHubData(i))
+      .map(i => `[#${i.number}](${i.html_url})`);
+    const blockers = issue.blockedBy
+      .map(i => getIssueGitHubData(i))
+      .filter(i => i.state === 'open')
+      .map(i => `[#${i.number}](${i.html_url})`);
+    return (
+      (open ? '' : '~~') +
+      (issue.epic ? `**[EPIC]** ` : '') +
+      (blocking.length > 0 ? `**[BLOCKING: ${blocking.join(', ')}]** ` : '') +
+      (blockers.length > 0 ? `[BLOCKED BY: ${blockers.join(', ')}] ` : '') +
+      `[#${issueId} - ${githubData.title}](${githubData.html_url})` +
+      (open ? '' : '~~')
+    );
+  }
+
+  const getEpicTree = (epic: Epic, indent: number): string => {
+    let tree = '';
+    for (const issueId of epic.issues) {
+      const issue = getIssue(issueId);
+      tree += `${'  '.repeat(indent)}* ${issueString(issueId, issue)}\n`
+      if (issue.epic) {
+        tree += getEpicTree(issue.epic, indent + 1);
+      }
+    }
+
+    return tree;
+  }
+
+  for (const i of issueData.entries()) {
+    const issueId = i[0];
+    const issue = i[1];
+    let extraBody = (
+`--------
+### [ZenHub Information](https://app.zenhub.com/workspaces/${repoInfo.owner}-${workspaceId}/issues/${repoInfo.owner}/${repoInfo.repo}/${issueId})
+
+*This information is updated automatically. To modify it, please use ZenHub.*
+`
+    );
+    if (issue.blockedBy.length > 0) {
+      extraBody += `\n**Blocked By:**\n`;
+      for (const blockerId of issue.blockedBy) {
+        extraBody += (
+          `\n* ${issueString(issueId, getIssue(blockerId)) }}`
+        );
+      }
+      extraBody += '\n';
+    }
+    if (issue.blocking.length > 0) {
+      extraBody += `\n**Blocking:**\n`;
+      for (const blockeeId of issue.blocking) {
+        extraBody += (
+          `\n* ${ issueString(issueId, getIssue(blockeeId)) }}`
+        );
+      }
+      extraBody += '\n';
+    }
+    if (issue.epic) {
+      extraBody += `\n**Children:**\n\n${getEpicTree(issue.epic, 0)}`;
+      console.log(extraBody);
+    }
+  }
 
 })();
