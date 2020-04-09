@@ -1,5 +1,5 @@
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
-import _ from 'lodash';
+import words from 'lodash/words';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -41,7 +41,7 @@ const UserDataForm: React.FC<NewRequestProps> = ({
   const [displayName, setDisplayName] = useState('');
 
   useEffect(() => {
-    setDisplayName(_.words(fullName)[0]);
+    setDisplayName(words(fullName)[0]);
   }, [fullName]);
 
   return (
