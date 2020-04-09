@@ -1,0 +1,14 @@
+name: Sync Issues with ZenHub
+
+on: push
+
+jobs:
+  sync-issues-with-zenhub:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Sync
+      uses: ./.github/zenhub-issue-sync
+      env:
+        ZENHUB_TOKEN: ${{ secrets.ZENHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
