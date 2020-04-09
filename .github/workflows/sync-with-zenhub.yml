@@ -1,6 +1,8 @@
 name: Sync Issues with ZenHub
 
-on: push
+on:
+  schedule:
+    - cron:  '0,20,40 * * * *'
 
 jobs:
   sync-issues-with-zenhub:
