@@ -41,6 +41,15 @@
         "terms_conditions_text": "I understand and acknowledge the ",
         "terms_conditions_link": "Terms & Conditions.",
         "terms_conditions_error": "You need to accept the Terms & Conditions."
+      },
+      "newRequest": {
+        "title": "New Request",
+        "form": {
+          "title": "Title",
+          "body": "Enter details of what is needed",
+          "consent": "Allow Push Notifications. You can always change this in your Settings later.",
+          "submit": "Send my need"
+        }
       }
     }
   },
@@ -85,6 +94,15 @@
         "terms_conditions_text": "Eu percebo e reconheço os ",
         "terms_conditions_link": "Termos & Condições.",
         "terms_conditions_error": "Precisa de aceitar os Termos & Condições."
+      },
+      "newRequest": {
+        "title": "Novo Pedido",
+        "form": {
+          "title": "Título",
+          "body": "Introduza os detalhes do que necessita",
+          "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
+          "submit": "Enviar o meu pedido"
+        }
       }
     }
   }

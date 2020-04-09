@@ -1,17 +1,18 @@
-import firebase from 'src/firebase';
 import {
-  completeLoginWithFirebaseRedirect,
   facebookLoginWithFirebasePopUp,
-  facebookLoginWithFirebaseRedirect,
+  getRedirectResult,
   login,
+  loginWithFirebaseRedirect,
+  observeUser,
 } from 'src/http/resources/auth';
 
 import {
   FIREBASE_FACEBOOK_LOGIN_POPUP,
-  FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
-  FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
+  GET_LOGIN_REDIRECT_RESULT,
   LOGIN,
   LoginAction,
+  OBSERVE_USER,
+  TRIGGER_LOGIN_WITH_REDIRECT,
   /*
     THESE ARE SOME MORE EXAMPLES
     FIREBASE_PHONE_LOGIN_START, PhoneLoginStartWithFirebaseAction,
@@ -27,21 +28,10 @@ export const loginAction = (payload: LoginAction) => (dispatch: Function) => {
   });
 };
 
-export const loginWithFirebaseActionRedirect = () => (dispatch: Function) => {
+export const triggerLoginWithRedirect = () => (dispatch: Function) => {
   dispatch({
-    type: FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
-    payload: {},
-    firebase: facebookLoginWithFirebaseRedirect,
-  });
-};
-
-export const completeLoginWithFirebaseActionRedirect = (
-  payload: firebase.auth.UserCredential | { user: firebase.User },
-) => (dispatch: Function) => {
-  dispatch({
-    type: FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
-    payload,
-    firebase: completeLoginWithFirebaseRedirect,
+    type: TRIGGER_LOGIN_WITH_REDIRECT,
+    firebase: loginWithFirebaseRedirect,
   });
 };
 
@@ -50,6 +40,26 @@ export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
     type: FIREBASE_FACEBOOK_LOGIN_POPUP,
     payload: {},
     firebase: facebookLoginWithFirebasePopUp,
-    fallback: loginWithFirebaseActionRedirect,
+    fallback: triggerLoginWithRedirect,
   });
+};
+
+export const getLoginRedirectResult = () => (dispatch: Function) => {
+  dispatch({
+    type: GET_LOGIN_REDIRECT_RESULT,
+    firebase: getRedirectResult,
+  });
+};
+
+export const observeUserAction = (dispatch: Function): Function => {
+  dispatch({
+    type: OBSERVE_USER,
+    observer: observeUser,
+  });
+
+  return () =>
+    dispatch({
+      type: OBSERVE_USER.UNSUBSCRIBE,
+      observerName: OBSERVE_USER,
+    });
 };
