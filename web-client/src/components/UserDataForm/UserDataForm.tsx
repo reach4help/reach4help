@@ -54,13 +54,13 @@ const UserDataForm: React.FC<NewRequestProps> = ({
         <Description>{t('user_data_form.sub_title')}</Description>
         <Form.Item
           style={{ textAlign: 'center', width: '100%' }}
-          name="firstName"
+          name="fullName"
           rules={[
             {
               required: true,
             },
           ]}
-          label={t('name')}
+          label={t('full_name')}
         >
           <div
             style={{
@@ -72,9 +72,9 @@ const UserDataForm: React.FC<NewRequestProps> = ({
               style={{
                 marginRight: '15px',
               }}
-              placeholder={t('first_name')}
+              placeholder={t('full_name')}
             />
-            <Input placeholder={t('last_name')} />
+            <Input placeholder={t('display_name')} />
           </div>
         </Form.Item>
         <Form.Item
@@ -91,7 +91,6 @@ const UserDataForm: React.FC<NewRequestProps> = ({
         </Form.Item>
         <Form.Item
           style={{ textAlign: 'center', width: '100%' }}
-          name="firstName"
           rules={[
             {
               required: true,
