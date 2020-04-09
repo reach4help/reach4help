@@ -38,7 +38,7 @@ interface MapInfo {
 
 const getInfo = (marker: google.maps.Marker): MarkerInfo => marker.get('info');
 
-const updateMarkersVisiblilityUsingFilter = (
+const updateMarkersVisibilityUsingFilter = (
   markers: Map<MarkerInfo, google.maps.Marker>,
   filter: Filter,
 ) => {
