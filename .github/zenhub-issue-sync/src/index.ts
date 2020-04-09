@@ -189,7 +189,13 @@ interface IssueInfo {
     let tree = '';
     for (const issueId of epic.issues) {
       const issue = getIssue(issueId);
-      tree += `${'  '.repeat(indent)}* ${issueString(issueId, issue)}\n`
+      const githubData = getIssueGitHubData(issueId, issue);
+      tree += (
+        '  '.repeat(indent) +
+        `* [${githubData.state === 'closed' ? 'x' : ' '}] ` +
+        issueString(issueId, issue) +
+        `\n`
+      );
       if (issue.epic) {
         tree += getEpicTree(issue.epic, indent + 1);
       }
@@ -229,7 +235,6 @@ interface IssueInfo {
     }
     if (issue.epic) {
       extraBody += `\n**Children:**\n\n${getEpicTree(issue.epic, 0)}`;
-      console.log(extraBody);
     }
 
     let before: string;
