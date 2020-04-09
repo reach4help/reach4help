@@ -1,7 +1,6 @@
-import React, { ReactElement, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactElement } from 'react';
+import { useSelector } from 'react-redux';
 import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom';
-import { observeUserAction } from 'src/ducks/auth/actions';
 import { AppState } from 'src/store';
 
 import { NEW_REQUEST_PATH } from './routes/NewRequestRoute/constants';
@@ -10,8 +9,6 @@ import { PhoneEntryLocation } from './routes/PhoneEntryRoute/constants';
 
 const ContentPage = (): ReactElement => {
   const user: firebase.User = useSelector((state: AppState) => state.auth.user);
-  const dispatch = useDispatch();
-  useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
   if (!user || !user.phoneNumber) {
     return (

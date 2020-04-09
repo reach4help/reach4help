@@ -57,13 +57,11 @@ const PhoneNumberVerifierContainer: React.FC<Props> = ({ type }) => {
   );
   return (
     <IntroWrapper>
-      {errorMessage && errorMessage !== '' ? (
-        <Alert message={errorMessage} type="error" />
-      ) : null}
+      {errorMessage && <Alert message={errorMessage} type="error" />}
       <IntroLogo src={profilePhoto} alt="User logo" />
-      <TitleWithAddon level={4}>{`${t('welcome')}, ${
-        user.displayName
-      }`}</TitleWithAddon>
+      <TitleWithAddon level={4}>
+        {`${t('welcome')}, ${user.displayName}`}
+      </TitleWithAddon>
       {type === PhoneNumberSteps.ENTRY ? (
         <PhoneNumberEntryForm
           loading={loading}

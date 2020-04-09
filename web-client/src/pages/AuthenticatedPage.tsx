@@ -2,21 +2,24 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
-import firebase from 'src/firebase';
 import { AppState } from 'src/store';
 
+import { AuthState } from '../ducks/auth/reducer';
 import { LoginLocation } from './routes/LoginRoute/constants';
 
-interface ProtectedPageProps {
+interface AuthenticatedPageProps {
   children: React.ReactNode;
 }
-const ProtectedPage: React.FC<ProtectedPageProps> = ({ children }) => {
-  const user: firebase.User = useSelector((state: AppState) => state.auth.user);
+const AuthenticatedPage: React.FC<AuthenticatedPageProps> = ({ children }) => {
+  const auth: AuthState = useSelector((state: AppState) => state.auth);
   const dispatch = useDispatch();
   const location = useLocation();
-  useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
-  if (!user) {
+  useEffect((): any => observeUserAction(dispatch), [dispatch]);
+  if (auth.loading) {
+    return <>Loading</>;
+  }
+  if (!auth.user) {
     return (
       <Redirect
         to={{
@@ -30,4 +33,4 @@ const ProtectedPage: React.FC<ProtectedPageProps> = ({ children }) => {
   return <>{children}</>;
 };
 
-export default ProtectedPage;
+export default AuthenticatedPage;

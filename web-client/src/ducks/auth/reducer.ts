@@ -9,7 +9,7 @@ import {
   TRIGGER_LOGIN_WITH_REDIRECT,
 } from './types';
 
-interface AuthState {
+export interface AuthState {
   user?: firebase.User | null;
   loading?: boolean;
   error?: Error;
@@ -17,7 +17,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  loading: false,
+  loading: true,
   error: undefined,
   user: undefined,
   confirmationResult: undefined,
