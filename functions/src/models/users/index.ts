@@ -1,5 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsInt, IsNotEmpty, IsNumber, IsObject, IsString, Max, Min } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber, IsObject, IsString, IsUrl, Max, Min } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 // eslint-disable-next-line import/no-cycle
@@ -13,8 +13,11 @@ export interface IUser extends DocumentData {
   averageRating: number;
   casesCompleted: number;
   requestsMade: number;
+  pinRatingsReceived: number;
+  cavRatingsReceived: number;
   username: string;
   displayName: string | null;
+  displayPicture: string | null;
 }
 
 export class User implements IUser, FirestoreDataConverter<User> {
@@ -38,6 +41,14 @@ export class User implements IUser, FirestoreDataConverter<User> {
   @Min(0)
   private _requestsMade: number;
 
+  @IsInt()
+  @Min(0)
+  private _pinRatingsReceived: number;
+
+  @IsInt()
+  @Min(0)
+  private _cavRatingsReceived: number;
+
   @IsString()
   @IsNotEmpty()
   private _username: string;
@@ -45,22 +56,31 @@ export class User implements IUser, FirestoreDataConverter<User> {
   @IsString()
   private _displayName: string | null;
 
+  @IsUrl()
+  private _displayPicture: string | null;
+
   constructor(
     cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
     pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
     averageRating: number,
     casesCompleted = 0,
     requestsMade = 0,
+    pinRatingsReceived = 0,
+    cavRatingsReceived = 0,
     username: string,
     displayName: string | null = null,
+    displayPicture: string | null = null,
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
     this._pinQuestionnaireRef = pinQuestionnaireRef;
     this._averageRating = averageRating;
     this._casesCompleted = casesCompleted;
     this._requestsMade = requestsMade;
+    this._pinRatingsReceived = pinRatingsReceived;
+    this._cavRatingsReceived = cavRatingsReceived;
     this._username = username;
     this._displayName = displayName;
+    this._displayPicture = displayPicture;
   }
 
   static factory = (data: IUser): User => new User(
@@ -69,8 +89,11 @@ export class User implements IUser, FirestoreDataConverter<User> {
     data.averageRating,
     data.casesCompleted,
     data.requestsMade,
+    data.pinRatingsReceived,
+    data.cavRatingsReceived,
     data.username,
     data.displayName,
+    data.displayPicture,
   );
 
   get cavQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
@@ -113,6 +136,22 @@ export class User implements IUser, FirestoreDataConverter<User> {
     this._requestsMade = value;
   }
 
+  get pinRatingsReceived(): number {
+    return this._pinRatingsReceived;
+  }
+
+  set pinRatingsReceived(value: number) {
+    this._pinRatingsReceived = value;
+  }
+
+  get cavRatingsReceived(): number {
+    return this._cavRatingsReceived;
+  }
+
+  set cavRatingsReceived(value: number) {
+    this._cavRatingsReceived = value;
+  }
+
   get username(): string {
     return this._username;
   }
@@ -129,6 +168,14 @@ export class User implements IUser, FirestoreDataConverter<User> {
     this._displayName = value;
   }
 
+  get displayPicture(): string | null {
+    return this._displayPicture;
+  }
+
+  set displayPicture(value: string | null) {
+    this._displayPicture = value;
+  }
+
   fromFirestore(data: IUser): User {
     return User.factory(data);
   }
@@ -140,8 +187,11 @@ export class User implements IUser, FirestoreDataConverter<User> {
       averageRating: modelObject.averageRating,
       casesCompleted: modelObject.casesCompleted,
       requestsMade: modelObject.requestsMade,
+      pinRatingsReceived: modelObject.pinRatingsReceived,
+      cavRatingsReceived: modelObject.cavRatingsReceived,
       username: modelObject.username,
       displayName: modelObject.displayName,
+      displayPicture: modelObject.displayPicture,
     };
   }
 }

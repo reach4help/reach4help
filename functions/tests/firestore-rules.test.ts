@@ -148,6 +148,19 @@ describe('offers', () => {
         }),
     );
 
+    const dbCav2 = authedApp({ uid: 'cav-2' });
+    await firebase.assertSucceeds(
+      dbCav2
+        .collection('users')
+        .doc('cav-2')
+        .set({
+          averageRating: 1,
+          casesCompleted: 0,
+          requestsMade: 0,
+          username: 'cav-2',
+        }),
+    );
+
     await firebase.assertSucceeds(
       dbCav
         .collection('offers')
@@ -156,13 +169,33 @@ describe('offers', () => {
           cavUserRef: dbCav.collection('users').doc('cav-1'),
           pinUserRef: dbCav.collection('users').doc('pin-1'),
           requestRef: dbCav.collection('requests').doc('request-1'),
-          cavSnapshot: {
+          cavUserSnapshot: {
             averageRating: 1,
             casesCompleted: 0,
             requestsMade: 0,
-            username: 'CAV User',
+            username: 'cav-1',
           },
           message: 'I can help!',
+          status: 'pending',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        }),
+    );
+
+    await firebase.assertSucceeds(
+      dbCav2
+        .collection('offers')
+        .doc('offer-2')
+        .set({
+          cavUserRef: dbCav.collection('users').doc('cav-2'),
+          pinUserRef: dbCav.collection('users').doc('pin-1'),
+          requestRef: dbCav.collection('requests').doc('request-1'),
+          cavUserSnapshot: {
+            averageRating: 1,
+            casesCompleted: 0,
+            requestsMade: 0,
+            username: 'cav-2',
+          },
+          message: 'I can help!!',
           status: 'pending',
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         }),
@@ -175,7 +208,7 @@ describe('offers', () => {
     await firebase.assertFails(offers.get());
   });
 
-  it.skip('only pins can list offers that belong to them', async () => {
+  it('only pins can list offers that belong to them', async () => {
     // Read from DB authed as PIN2, but filter by PIN1 - ERROR
     const dbPin2 = authedApp({ uid: 'pin-2' });
     const pin1RefAsPin2 = dbPin2.collection('users').doc('pin-1');
@@ -185,5 +218,36 @@ describe('offers', () => {
     const dbPin1 = authedApp({ uid: 'pin-1' });
     const pin1Ref = dbPin1.collection('users').doc('pin-1');
     await firebase.assertSucceeds(dbPin1.collection('offers').where('pinUserRef', '==', pin1Ref).get());
+  });
+
+  it('only cavs can list offers that belong to them', async () => {
+    // Read from DB authed as CAV3, but filter by CAV1 - ERROR
+    const dbCav3 = authedApp({ uid: 'cav-3' });
+    const cav1RefAsCav3 = dbCav3.collection('users').doc('cav-1');
+    await firebase.assertFails(dbCav3.collection('offers').where('cavUserRef', '==', cav1RefAsCav3).get());
+
+    // Read from DB authed as CAV1, filter by CAV1 - SUCCESS
+    const dbCav1 = authedApp({ uid: 'cav-1' });
+    const cav1Ref = dbCav1.collection('users').doc('cav-1');
+    await firebase.assertSucceeds(dbCav1.collection('offers').where('cavUserRef', '==', cav1Ref).get());
+  });
+
+  // Check this for more info: https://firebase.google.com/docs/firestore/security/rules-conditions
+  it('Users cannot list the entire offers collection without a query on PIN or CAV', async () => {
+    const dbPin1 = authedApp({ uid: 'pin-1' });
+    const dbPin2 = authedApp({ uid: 'pin-2' });
+
+    // Even though there is only data with pin-1 as the ref...
+    await firebase.assertFails(dbPin1.collection('offers').get());
+    // Would fail anyways as all the records mention pin-1 as the ref...
+    await firebase.assertFails(dbPin2.collection('offers').get());
+  });
+});
+
+describe('requests', () => {
+  it('require users to log in before listing requests', async () => {
+    const db = authedApp(null);
+    const requests = db.collection('requests');
+    await firebase.assertFails(requests.get());
   });
 });

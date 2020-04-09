@@ -1,7 +1,28 @@
+rules_version = '2';
+
+function isAuthenticated() {
+  return request.auth.uid != null;
+}
+
+function isUser(id) {
+  return isAuthenticated() && request.auth.uid == id;
+}
+
 service firebase.storage {
   match /b/{bucket}/o {
+    // No one can do anything with the storage layer
     match /{allPaths=**} {
-      allow read, write: if request.auth!=null;
+      allow read, write: if false;
+    }
+
+    // Only you can read/write to your storage collection
+    match /{userID}/{allPaths=**} {
+      allow read, write: if isUser(userID)
+    }
+
+    // Other users can see your profile photo as long as they are authenticated
+    match /{userID}/displayPicture/{allPaths=**} {
+      allow read: if isAuthenticated()
     }
   }
 }

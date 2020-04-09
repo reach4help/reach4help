@@ -36,7 +36,8 @@ export interface IRequest extends DocumentData {
   status: RequestStatus;
   pinRating: number | null;
   cavRating: number | null;
-  ratedAt: Timestamp | null;
+  pinRatedAt: Timestamp | null;
+  cavRatedAt: Timestamp | null;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
 }
