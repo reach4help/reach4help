@@ -15,11 +15,26 @@ interface Epic {
   issues: number[];
 }
 
+interface GitHubUser {
+  login: string;
+}
+
+interface GitHubIssue {
+  title: string;
+  body: string;
+  state: string;
+  labels: Array<{
+    name: string;
+  }>;
+  assignees: GitHubUser[];
+}
+
 interface IssueInfo {
   /**
    * Set if the issue is an epic
    */
   epic?: Epic;
+  data?: GitHubIssue;
   parentEpics: number[];
   blocking: number[];
   blockedBy: number[];
@@ -100,6 +115,24 @@ interface IssueInfo {
   for (const dep of dependencies) {
     getIssue(dep.blocked.issue_number).blockedBy.push(dep.blocking.issue_number);
     getIssue(dep.blocking.issue_number).blocking.push(dep.blocked.issue_number);
+  }
+
+  // Get all github issues
+  let nextPage: number | null = 1;
+  while (nextPage !== null) {
+    console.log(`Getting page ${nextPage} of issues from GitHub`);
+    const getIssues = await octokit.issues.listForRepo({
+      ...repoInfo,
+      per_page: 100
+    });
+    const hasNext = (getIssues.headers.link || '').indexOf('rel="next"') > -1;
+    nextPage = hasNext ? ( nextPage + 1 ) : null;
+    for (const issue of getIssues.data) {
+      if (!issue.pull_request) {
+        getIssue(issue.number).data = issue;
+      }
+    }
+    nextPage = null;
   }
 
   console.log(issueData);
