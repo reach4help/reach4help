@@ -1,6 +1,11 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdExpandLess, MdExpandMore, MdRefresh } from 'react-icons/md';
+import {
+  MdExpandLess,
+  MdExpandMore,
+  MdMyLocation,
+  MdRefresh,
+} from 'react-icons/md';
 import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
@@ -65,6 +70,10 @@ interface Props {
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
   resultsMode: 'open' | 'closed';
   toggleResults: () => void;
+  updateResultsOnNextClustering: boolean;
+  setUpdateResultsOnNextClustering: (
+    updateResultsOnNextClustering: boolean,
+  ) => void;
 }
 
 /**
@@ -296,9 +305,19 @@ class MapComponent extends React.Component<Props, {}> {
           markers: visibleMarkers,
           results: visibleMarkers.map(marker => getInfo(marker)),
         };
-        const { setNextResults: updateNextResults } = this.props;
+
+        const {
+          setNextResults: updateNextResults,
+          updateResultsOnNextClustering,
+          setUpdateResultsOnNextClustering,
+        } = this.props;
+
         updateNextResults(nextResults);
 
+        if (updateResultsOnNextClustering) {
+          setUpdateResultsOnNextClustering(false);
+          this.updateResults();
+        }
         // Update tooltip position if neccesary
         // (marker may be newly in or out of cluster)
         this.updateInfoWindow();
@@ -366,6 +385,29 @@ class MapComponent extends React.Component<Props, {}> {
     }
   };
 
+  private centerToGeolocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        if (!this.map) {
+          return;
+        }
+        this.map.map.setCenter(pos);
+        this.map.map.setZoom(8);
+        const { setUpdateResultsOnNextClustering } = this.props;
+        setUpdateResultsOnNextClustering(true);
+      },
+      error => {
+        alert('Unable to get geolocation!');
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+      },
+    );
+  };
+
   private initializeSearch() {
     const { searchInput } = this.props;
     if (this.searchBox?.searchInput !== searchInput) {
@@ -421,12 +463,20 @@ class MapComponent extends React.Component<Props, {}> {
     return (
       <div className={className}>
         <div className="map" ref={this.updateGoogleMapRef} />
-        {hasNewResults && (
-          <button type="button" onClick={this.updateResults}>
-            <MdRefresh className="icon icon-left" />
-            Update results for this area
-          </button>
-        )}
+        <div className="map-actions">
+          {hasNewResults && (
+            <button type="button" onClick={this.updateResults}>
+              <MdRefresh className="icon icon-left" />
+              Update results for this area
+            </button>
+          )}
+          {navigator.geolocation && (
+            <button type="button" onClick={this.centerToGeolocation}>
+              <MdMyLocation className="icon icon-left" />
+              My Location
+            </button>
+          )}
+        </div>
         <div className="results-tab" onClick={toggleResults}>
           <div>
             <ExpandIcon />
@@ -453,16 +503,21 @@ export default styled(MapComponent)`
     height: 100%;
   }
 
-  > button {
-    ${button};
-    ${iconButton};
+  > .map-actions {
     position: absolute;
     bottom: ${p => p.theme.spacingPx}px;
     left: ${p => p.theme.spacingPx}px;
     right: ${p => p.theme.spacingPx}px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-    margin: 0 auto;
-    background: #fff;
+    display: flex;
+    justify-content: center;
+
+    > button {
+      ${button};
+      ${iconButton};
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+      margin: 0 5px;
+      background: #fff;
+    }
   }
 
   > .results-tab {
