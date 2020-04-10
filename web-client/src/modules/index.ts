@@ -1,8 +1,13 @@
 import { Module } from 'src/types/module';
 
+import Login from './login';
+import Phone from './phone';
+import Request from './request';
+
 const modules: Record<string, Module> = {
-  // Login, Shouldn't be included
-  // Phone, Shouldn't be included
+  Login,
+  Phone,
+  Request,
 };
 
 export default modules;

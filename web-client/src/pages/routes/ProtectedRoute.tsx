@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
+import { PhoneEntryLocation } from 'src/modules/phone/pages/routes/PhoneEntryRoute/constants';
 import { AppState } from 'src/store';
 
-import { AuthState } from '../ducks/auth/reducer';
+import { AuthState } from '../../ducks/auth/reducer';
 
-interface AuthenticatedPageProps {
-  children: React.ReactNode;
-}
-const AuthenticatedPage: React.FC<AuthenticatedPageProps> = ({ children }) => {
+const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   const auth: AuthState = useSelector((state: AppState) => state.auth);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -20,6 +18,7 @@ const AuthenticatedPage: React.FC<AuthenticatedPageProps> = ({ children }) => {
   if (auth.loading && !auth.user) {
     return <>Loading</>;
   }
+
   if (!auth.user) {
     return (
       <Redirect
@@ -31,7 +30,17 @@ const AuthenticatedPage: React.FC<AuthenticatedPageProps> = ({ children }) => {
     );
   }
 
-  return <>{children}</>;
+  if (!auth.user.phoneNumber) {
+    return (
+      <Redirect
+        to={{
+          pathname: PhoneEntryLocation.path,
+        }}
+      />
+    );
+  }
+
+  return <Route path={path} component={component} />;
 };
 
-export default AuthenticatedPage;
+export default ProtectedRoute;

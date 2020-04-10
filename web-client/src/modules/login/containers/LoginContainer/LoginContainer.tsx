@@ -26,7 +26,6 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
       dispatch(getLoginRedirectResult());
     }
   }, [dispatch]);
-
   useEffect(() => {
     if (user) {
       history.replace(redirectBack);

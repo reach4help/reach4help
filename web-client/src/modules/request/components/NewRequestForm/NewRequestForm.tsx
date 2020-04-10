@@ -1,11 +1,11 @@
 import { Button, Checkbox, Descriptions, Form, Input } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
-import Logo from '../../assets/logo.svg';
-import { COLORS } from '../../theme/colors';
-import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
+import Logo from '../../../../assets/logo.svg';
+import { COLORS } from '../../../../theme/colors';
 
 const MainDiv = styled.div`
   display: flex;

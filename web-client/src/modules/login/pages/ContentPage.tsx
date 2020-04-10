@@ -1,10 +1,12 @@
 import get from 'lodash/get';
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
+import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
+import { LoginLocation } from './routes/LoginRoute/constants';
 import LoginRoute from './routes/LoginRoute/LoginRoute';
 
 const ContentPage = (): ReactElement => {
@@ -33,9 +35,10 @@ const ContentPage = (): ReactElement => {
     );
   }
   return (
-    <>
-      <Route path="/login" component={LoginRoute} exact />
-    </>
+    <Switch>
+      <Route path={LoginLocation.path} component={LoginRoute} exact />
+      <Route path="*" component={NotFoundRoute} />
+    </Switch>
   );
 };
 
