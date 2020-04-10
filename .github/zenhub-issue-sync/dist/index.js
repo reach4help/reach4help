@@ -3456,7 +3456,7 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                     try {
                         for (_e = (e_6 = void 0, __values(issue.parentEpics)), _f = _e.next(); !_f.done; _f = _e.next()) {
                             epicId = _f.value;
-                            extraBody += ("\n* " + issueString(epicId, getIssue(epicId)) + "}");
+                            extraBody += ("\n* " + issueString(epicId, getIssue(epicId)));
                         }
                     }
                     catch (e_6_1) { e_6 = { error: e_6_1 }; }
@@ -3473,7 +3473,7 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                     try {
                         for (_g = (e_7 = void 0, __values(issue.blockedBy)), _h = _g.next(); !_h.done; _h = _g.next()) {
                             blockerId = _h.value;
-                            extraBody += ("\n* " + issueString(issueId, getIssue(blockerId)) + "}");
+                            extraBody += ("\n* " + issueString(issueId, getIssue(blockerId)));
                         }
                     }
                     catch (e_7_1) { e_7 = { error: e_7_1 }; }
@@ -3490,7 +3490,7 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                     try {
                         for (_j = (e_8 = void 0, __values(issue.blocking)), _k = _j.next(); !_k.done; _k = _j.next()) {
                             blockeeId = _k.value;
-                            extraBody += ("\n* " + issueString(issueId, getIssue(blockeeId)) + "}");
+                            extraBody += ("\n* " + issueString(issueId, getIssue(blockeeId)));
                         }
                     }
                     catch (e_8_1) { e_8 = { error: e_8_1 }; }
