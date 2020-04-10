@@ -1,11 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsNotEmptyObject,
-  IsObject,
-  IsString,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNotEmptyObject, IsObject, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
 // eslint-disable-next-line import/no-cycle
 import { IOrganization } from '../organizations';
@@ -122,6 +116,16 @@ export class Questionnaire implements IQuestionnaire {
       data.version,
       data.createdAt,
     );
+
+  toObject(): object {
+    return {
+      parentRef: this.parentRef.path,
+      data: this.data,
+      type: this.type,
+      version: this.version,
+      createdAt: this.createdAt.toDate(),
+    };
+  }
 }
 
 export const QuestionnaireFirestoreConverter: FirestoreDataConverter<Questionnaire> = {

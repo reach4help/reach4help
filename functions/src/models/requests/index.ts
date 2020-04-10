@@ -246,6 +246,24 @@ export class Request implements IRequest {
       data.pinRatedAt,
       data.cavRatedAt,
     );
+
+  toObject(): object {
+    return {
+      cavUserRef: this.cavUserRef?.path,
+      pinUserRef: this.pinUserRef.path,
+      pinUserSnapshot: this.pinUserSnapshot.toObject(),
+      title: this.title,
+      description: this.description,
+      latLng: this.latLng,
+      status: this.status,
+      createdAt: this.createdAt.toDate(),
+      updatedAt: this.updatedAt.toDate(),
+      pinRating: this.pinRating,
+      cavRating: this.cavRating,
+      pinRatedAt: this.pinRatedAt?.toDate(),
+      cavRatedAt: this.cavRatedAt?.toDate(),
+    };
+  }
 }
 
 export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {

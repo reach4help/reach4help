@@ -6,6 +6,7 @@ import { IQuestionnaire } from '../questionnaires';
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
+import Timestamp = firestore.Timestamp;
 
 export enum ApplicationPreference {
   pin = 'pin',
@@ -24,6 +25,7 @@ export interface IUser extends DocumentData {
   displayName: string | null;
   displayPicture: string | null;
   applicationPreference?: ApplicationPreference;
+  createdAt?: Timestamp;
 }
 
 export class User implements IUser {
@@ -39,6 +41,7 @@ export class User implements IUser {
     displayName: string | null = null,
     displayPicture: string | null = null,
     applicationPreference = ApplicationPreference.pin,
+    createdAt = Timestamp.now(),
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
     this._pinQuestionnaireRef = pinQuestionnaireRef;
@@ -51,6 +54,7 @@ export class User implements IUser {
     this._displayName = displayName;
     this._displayPicture = displayPicture;
     this._applicationPreference = applicationPreference;
+    this._createdAt = createdAt;
   }
 
   @IsObject()
@@ -186,6 +190,20 @@ export class User implements IUser {
     this._applicationPreference = value;
   }
 
+  /* TODO: When we reach greater than 500 offers per request created per second:
+     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
+   */
+  @IsObject()
+  private _createdAt: Timestamp;
+
+  get createdAt(): Timestamp {
+    return this._createdAt;
+  }
+
+  set createdAt(value: Timestamp) {
+    this._createdAt = value;
+  }
+
   static factory = (data: IUser): User =>
     new User(
       data.cavQuestionnaireRef,
@@ -199,7 +217,25 @@ export class User implements IUser {
       data.displayName,
       data.displayPicture,
       data.applicationPreference,
+      data.createdAt,
     );
+
+  toObject(): object {
+    return {
+      cavQuestionnaireRef: this.cavQuestionnaireRef?.path,
+      pinQuestionnaireRef: this.pinQuestionnaireRef?.path,
+      username: this.username,
+      casesCompleted: this.casesCompleted,
+      requestsMade: this.requestsMade,
+      pinRatingsReceived: this.pinRatingsReceived,
+      cavRatingsReceived: this.cavRatingsReceived,
+      averageRating: this.averageRating,
+      displayName: this.displayName,
+      displayPicture: this.displayPicture,
+      applicationPreference: this.applicationPreference,
+      createdAt: this.createdAt.toDate(),
+    };
+  }
 }
 
 export const UserFirestoreConverter: FirestoreDataConverter<User> = {
@@ -219,6 +255,7 @@ export const UserFirestoreConverter: FirestoreDataConverter<User> = {
       displayName: modelObject.displayName,
       displayPicture: modelObject.displayPicture,
       applicationPreference: modelObject.applicationPreference,
+      createdAt: modelObject.createdAt,
     };
   },
 };
