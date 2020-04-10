@@ -12,7 +12,7 @@ import { PhoneVerifyLocation } from './routes/PhoneVerifyRoute/constants';
 import PhoneVerifyRoute from './routes/PhoneVerifyRoute/PhoneVerifyRoute';
 
 const ContentPage = (): ReactElement => {
-  const user: firebase.User = useSelector((state: AppState) => state.auth.user);
+  const user = useSelector((state: AppState) => state.auth.user);
   const loading = useSelector((state: AppState) => state.auth.loading);
   const dispatch = useDispatch();
   const location = useLocation();

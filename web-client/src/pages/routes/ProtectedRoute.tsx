@@ -6,16 +6,14 @@ import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constan
 import { PhoneEntryLocation } from 'src/modules/phone/pages/routes/PhoneEntryRoute/constants';
 import { AppState } from 'src/store';
 
-import { AuthState } from '../../ducks/auth/reducer';
-
 const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
-  const auth: AuthState = useSelector((state: AppState) => state.auth);
+  const auth = useSelector((state: AppState) => state.auth);
   const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
-  if (auth.loading && !auth.user) {
+  if (!auth.observerReceivedFirstUpdate) {
     return <>Loading</>;
   }
 

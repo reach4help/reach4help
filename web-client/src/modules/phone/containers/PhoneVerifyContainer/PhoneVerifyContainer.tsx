@@ -7,8 +7,7 @@ import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 import IntroWrapper from 'src/components/IntroWrapper/IntroWrapper';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
-import { verifyOTPPhone } from 'src/ducks/auth/actions';
-import firebase from 'src/firebase';
+import { verifyOTPPhone } from 'src/ducks/auth/phone/actions';
 import { AppState } from 'src/store';
 
 import PhoneNumberVerifyForm from '../../components/PhoneNumberVerifyForm/PhoneNumberVerifyForm';
@@ -16,12 +15,12 @@ import { PhoneEntryLocation } from '../../pages/routes/PhoneEntryRoute/constants
 
 const PhoneVerifyContainer: React.FC = () => {
   const dispatch = useDispatch();
-  const user: firebase.User = useSelector((state: AppState) => state.auth.user);
+  const user = useSelector((state: AppState) => state.auth.user);
   const loading = useSelector((state: AppState) => state.auth.loading);
   const confirmationResult = useSelector(
     (state: AppState) => state.auth.confirmationResult,
   );
-  const error: Error = useSelector((state: AppState) => state.auth.error);
+  const error = useSelector((state: AppState) => state.auth.error);
   const { t } = useTranslation();
 
   const handleVerifySubmit = ({ otp }: { otp: string }) => {
@@ -37,7 +36,7 @@ const PhoneVerifyContainer: React.FC = () => {
     [error],
   );
   const profilePhoto = useMemo(
-    () => (user.photoURL ? `${user.photoURL}?height=300` : logo),
+    () => (user?.photoURL ? `${user.photoURL}?height=300` : logo),
     [user],
   );
 
@@ -55,7 +54,7 @@ const PhoneVerifyContainer: React.FC = () => {
       {errorMessage && <Alert message={errorMessage} type="error" />}
       <IntroLogo src={profilePhoto} alt="User logo" />
       <TitleWithAddon level={4}>
-        {`${t('welcome')}, ${user.displayName}`}
+        {`${t('welcome')}, ${user?.displayName}`}
       </TitleWithAddon>
       <PhoneNumberVerifyForm
         loading={loading}

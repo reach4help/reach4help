@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import {} from 'src/ducks/auth/actions';
 import {
   getLoginRedirectResult,
   loginWithFirebaseActionPopUp,
   triggerLoginWithRedirect,
-} from 'src/ducks/auth/actions';
+} from 'src/ducks/auth/facebook/actions';
 import { AppState } from 'src/store';
 
 import Login from '../../components/Login/Login';
@@ -18,10 +19,9 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.auth.user);
   const history = useHistory();
-  const loading = useSelector((state: AppState) => state.auth.loading);
 
   useEffect(() => {
-    const redirectStarted = window.localStorage.getItem('redirect_started');
+    const redirectStarted = window.sessionStorage.getItem('redirect_started');
     if (redirectStarted) {
       dispatch(getLoginRedirectResult());
     }
@@ -39,9 +39,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
       dispatch(loginWithFirebaseActionPopUp());
     }
   };
-  if (loading) {
-    return <>loading</>;
-  }
+
   return (
     <>
       <Login onLoginFacebook={handleLoginFacebook} />

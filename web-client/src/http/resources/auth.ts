@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { IOTPAuth, IPhoneNumberAuth } from 'src/ducks/auth/types';
+import { IOTPAuth, IPhoneNumberAuth } from 'src/ducks/auth/phone/types';
 import firebase, { firebaseAuth } from 'src/firebase';
 
 import { IHTTPRequest } from '../HTTPRequest';

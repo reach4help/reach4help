@@ -10,9 +10,9 @@ import { LoginLocation } from './routes/LoginRoute/constants';
 import LoginRoute from './routes/LoginRoute/LoginRoute';
 
 const ContentPage = (): ReactElement => {
-  const user: firebase.User = useSelector((state: AppState) => state.auth.user);
-  const loading: firebase.User = useSelector(
-    (state: AppState) => state.auth.loading,
+  const user = useSelector((state: AppState) => state.auth.user);
+  const observerReceivedFirstUpdate = useSelector(
+    (state: AppState) => state.auth.observerReceivedFirstUpdate,
   );
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const ContentPage = (): ReactElement => {
   const location = useLocation();
   const redirectBack = get(location, 'state.redirectBack') || '/';
 
-  if (loading && !user) {
+  if (!observerReceivedFirstUpdate) {
     return <>Loading</>;
   }
 
