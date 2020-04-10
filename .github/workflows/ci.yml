@@ -3,8 +3,8 @@ name: Run CI Checks
 on: push
 
 jobs:
-  lint-and-test:
-    name: Run linters and unit tests
+  lint:
+    name: Run linters
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
