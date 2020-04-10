@@ -3,8 +3,8 @@ name: Run CI Checks
 on: push
 
 jobs:
-  lint:
-    name: Run linters
+  lint-and-test:
+    name: Run linters and unit tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
@@ -22,4 +22,4 @@ jobs:
         run: yarn run lint
 
       - name: Test Functions
-        run: yarn --cwd functions test
+        run: yarn run firebase emulators:exec --only firestore 'yarn -cwd functions jest'"
