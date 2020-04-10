@@ -29,7 +29,7 @@ export class TimelineItem implements ITimelineItem, FirestoreDataConverter<Timel
   @IsObject()
   private _createdAt: Timestamp;
 
-  constructor(offerSnapshot: IOffer, requestSnapshot: IRequest, createdAt: Timestamp) {
+  constructor(offerSnapshot: IOffer, requestSnapshot: IRequest, createdAt = Timestamp.now()) {
     this._offerSnapshot = offerSnapshot;
     this._requestSnapshot = requestSnapshot;
     this._createdAt = createdAt;
