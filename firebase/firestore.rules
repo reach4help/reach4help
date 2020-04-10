@@ -44,9 +44,10 @@ function isNotSameCAVPIN(data) {
 }
 
 function verifyUserDataComplete(data) {
-   return data.averageRating >= 1 &&
-          data.casesCompleted >= 0 &&
+   return data.casesCompleted >= 0 &&
           data.requestsMade >= 0 &&
+          data.cavRatingsReceived >= 0 &&
+          data.pinRatingsReceived >= 0 &&
           ('username' in data)
 }
 
