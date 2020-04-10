@@ -1,5 +1,11 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { IRequest } from '../requests';
@@ -26,32 +32,6 @@ export interface IOffer extends DocumentData {
 }
 
 export class Offer implements IOffer {
-
-  @IsObject()
-  private _cavUserRef: DocumentReference<IUser>;
-
-  @IsObject()
-  private _pinUserRef: DocumentReference<IUser>;
-
-  @IsObject()
-  private _requestRef: DocumentReference<IRequest>;
-
-  @ValidateNested()
-  private _cavUserSnapshot: User;
-
-  @IsString()
-  @IsNotEmpty()
-  private _message: string;
-
-  @IsEnum(OfferStatus)
-  private _status: OfferStatus;
-
-  /* TODO: When we reach greater than 500 offers per request created per second:
-     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
-   */
-  @IsObject()
-  private _createdAt: Timestamp;
-
   constructor(
     cavUserRef: DocumentReference<IUser>,
     pinUserRef: DocumentReference<IUser>,
@@ -70,15 +50,8 @@ export class Offer implements IOffer {
     this._createdAt = createdAt;
   }
 
-  static factory = (data: IOffer): Offer => new Offer(
-    data.cavUserRef,
-    data.pinUserRef,
-    data.requestRef,
-    User.factory(data.cavUserSnapshot),
-    data.message,
-    data.status,
-    data.createdAt,
-  );
+  @IsObject()
+  private _cavUserRef: DocumentReference<IUser>;
 
   get cavUserRef(): DocumentReference<IUser> {
     return this._cavUserRef;
@@ -88,6 +61,9 @@ export class Offer implements IOffer {
     this._cavUserRef = value;
   }
 
+  @IsObject()
+  private _pinUserRef: DocumentReference<IUser>;
+
   get pinUserRef(): DocumentReference<IUser> {
     return this._pinUserRef;
   }
@@ -95,6 +71,9 @@ export class Offer implements IOffer {
   set pinUserRef(value: DocumentReference<IUser>) {
     this._pinUserRef = value;
   }
+
+  @IsObject()
+  private _requestRef: DocumentReference<IRequest>;
 
   get requestRef(): FirebaseFirestore.DocumentReference<IRequest> {
     return this._requestRef;
@@ -104,6 +83,9 @@ export class Offer implements IOffer {
     this._requestRef = value;
   }
 
+  @ValidateNested()
+  private _cavUserSnapshot: User;
+
   get cavUserSnapshot(): User {
     return this._cavUserSnapshot;
   }
@@ -111,6 +93,10 @@ export class Offer implements IOffer {
   set cavUserSnapshot(value: User) {
     this._cavUserSnapshot = value;
   }
+
+  @IsString()
+  @IsNotEmpty()
+  private _message: string;
 
   get message(): string {
     return this._message;
@@ -120,6 +106,9 @@ export class Offer implements IOffer {
     this._message = value;
   }
 
+  @IsEnum(OfferStatus)
+  private _status: OfferStatus;
+
   get status(): OfferStatus {
     return this._status;
   }
@@ -128,6 +117,12 @@ export class Offer implements IOffer {
     this._status = value;
   }
 
+  /* TODO: When we reach greater than 500 offers per request created per second:
+     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
+   */
+  @IsObject()
+  private _createdAt: Timestamp;
+
   get createdAt(): Timestamp {
     return this._createdAt;
   }
@@ -135,6 +130,17 @@ export class Offer implements IOffer {
   set createdAt(value: Timestamp) {
     this._createdAt = value;
   }
+
+  static factory = (data: IOffer): Offer =>
+    new Offer(
+      data.cavUserRef,
+      data.pinUserRef,
+      data.requestRef,
+      User.factory(data.cavUserSnapshot),
+      data.message,
+      data.status,
+      data.createdAt,
+    );
 
   toObject(): object {
     return {

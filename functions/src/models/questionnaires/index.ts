@@ -1,5 +1,11 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsEnum, IsNotEmpty, IsNotEmptyObject, IsObject, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNotEmptyObject,
+  IsObject,
+  IsString,
+} from 'class-validator';
 import { firestore } from 'firebase-admin';
 // eslint-disable-next-line import/no-cycle
 import { IOrganization } from '../organizations';
@@ -16,7 +22,7 @@ export enum QuestionnaireType {
   pin = 'pin',
   cav = 'cav',
   org = 'org',
-  team = 'team'
+  team = 'team',
 }
 
 export interface IQuestionnaire extends DocumentData {
@@ -30,26 +36,6 @@ export interface IQuestionnaire extends DocumentData {
 }
 
 export class Questionnaire implements IQuestionnaire {
-
-  @IsNotEmptyObject()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _parentRef: DocumentReference<IUser | ITeam | IOrganization>;
-
-  @IsNotEmptyObject()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _data: { [p: string]: any };
-
-  @IsEnum(QuestionnaireType)
-  private _type: QuestionnaireType;
-
-  @IsString()
-  @IsNotEmpty()
-  private _version: string;
-
-  @IsObject()
-  @IsNotEmptyObject()
-  private _createdAt: Timestamp;
-
   constructor(
     parentRef: DocumentReference<IUser | ITeam | IOrganization>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,16 +49,11 @@ export class Questionnaire implements IQuestionnaire {
     this._type = type;
     this._version = version;
     this._createdAt = createdAt;
-
   }
 
-  static factory = (data: IQuestionnaire): Questionnaire => new Questionnaire(
-    data.parentRef,
-    data.data,
-    data.type,
-    data.version,
-    data.createdAt,
-  );
+  @IsNotEmptyObject()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private _parentRef: DocumentReference<IUser | ITeam | IOrganization>;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get parentRef(): DocumentReference<IUser | ITeam | IOrganization> {
@@ -84,13 +65,9 @@ export class Questionnaire implements IQuestionnaire {
     this._parentRef = value;
   }
 
-  get createdAt(): Timestamp {
-    return this._createdAt;
-  }
-
-  set createdAt(value: Timestamp) {
-    this._createdAt = value;
-  }
+  @IsNotEmptyObject()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private _data: { [p: string]: any };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get data(): { [p: string]: any } {
@@ -102,6 +79,9 @@ export class Questionnaire implements IQuestionnaire {
     this._data = value;
   }
 
+  @IsEnum(QuestionnaireType)
+  private _type: QuestionnaireType;
+
   get type(): QuestionnaireType {
     return this._type;
   }
@@ -110,6 +90,10 @@ export class Questionnaire implements IQuestionnaire {
     this._type = value;
   }
 
+  @IsString()
+  @IsNotEmpty()
+  private _version: string;
+
   get version(): string {
     return this._version;
   }
@@ -117,10 +101,33 @@ export class Questionnaire implements IQuestionnaire {
   set version(value: string) {
     this._version = value;
   }
+
+  @IsObject()
+  @IsNotEmptyObject()
+  private _createdAt: Timestamp;
+
+  get createdAt(): Timestamp {
+    return this._createdAt;
+  }
+
+  set createdAt(value: Timestamp) {
+    this._createdAt = value;
+  }
+
+  static factory = (data: IQuestionnaire): Questionnaire =>
+    new Questionnaire(
+      data.parentRef,
+      data.data,
+      data.type,
+      data.version,
+      data.createdAt,
+    );
 }
 
 export const QuestionnaireFirestoreConverter: FirestoreDataConverter<Questionnaire> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IQuestionnaire>): Questionnaire => {
+  fromFirestore: (
+    data: QueryDocumentSnapshot<IQuestionnaire>,
+  ): Questionnaire => {
     return Questionnaire.factory(data.data());
   },
   toFirestore: (modelObject: Questionnaire): IQuestionnaire => {

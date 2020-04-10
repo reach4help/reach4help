@@ -23,7 +23,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn workspaces run pre-commit",
+      "pre-commit": "yarn workspaces run pre-commit && yarn --cwd functions run pre-commit",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },

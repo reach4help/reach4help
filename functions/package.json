@@ -7,8 +7,8 @@
   "scripts": {
     "test:firestore": "firebase emulators:exec --only firestore 'yarn jest'",
     "test": "yarn run test:firestore",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix --ext .ts",
+    "lint": "eslint . --ext .ts && prettier --check \"./**/*.ts\"",
+    "lint:fix": "eslint . --fix --ext .ts && prettier --write \"./**/*.ts\"",
     "build": "tsc --build src/tsconfig.json",
     "serve": "yarn run build && firebase emulators:start",
     "shell": "yarn run build && firebase functions:shell",
@@ -19,8 +19,9 @@
   },
   "main": "lib/index.js",
   "lint-staged": {
-    "*.{ts}": [
-      "eslint . --ext .ts"
+    "*.ts": [
+      "eslint . --ext .ts",
+      "prettier --write"
     ],
     "*.md": [
       "prettier --write"

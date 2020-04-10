@@ -21,5 +21,8 @@ jobs:
       - name: Lint
         run: yarn run lint
 
+      - name: Lint Functions
+        run: yarn --cwd functions run lint
+
       - name: Test Functions
-        run: yarn run firebase emulators:exec --only firestore 'yarn -cwd functions jest'"
+        run: yarn run firebase emulators:exec --only firestore 'yarn -cwd functions jest'

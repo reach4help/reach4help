@@ -2,11 +2,17 @@ import * as firebase from '@firebase/testing';
 import * as fs from 'fs';
 
 import { OfferFirestoreConverter } from '../src/models/offers';
-import { QuestionnaireFirestoreConverter, QuestionnaireType } from '../src/models/questionnaires';
+import {
+  QuestionnaireFirestoreConverter,
+  QuestionnaireType,
+} from '../src/models/questionnaires';
 
 const projectId = 'reach-4-help-test';
 
-const rules = fs.readFileSync(`${__dirname}/../../firebase/firestore.rules`, 'utf8');
+const rules = fs.readFileSync(
+  `${__dirname}/../../firebase/firestore.rules`,
+  'utf8',
+);
 
 /**
  * Creates a new app with authentication data matching the input.
@@ -16,9 +22,7 @@ const rules = fs.readFileSync(`${__dirname}/../../firebase/firestore.rules`, 'ut
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const authedApp = (auth: any) => {
-  return firebase
-    .initializeTestApp({ projectId, auth })
-    .firestore();
+  return firebase.initializeTestApp({ projectId, auth }).firestore();
 };
 /**
  * Creates a new app with admin authentication.
@@ -27,9 +31,7 @@ const authedApp = (auth: any) => {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const adminApp = () => {
-  return firebase
-    .initializeAdminApp({ projectId })
-    .firestore();
+  return firebase.initializeAdminApp({ projectId }).firestore();
 };
 
 beforeAll(async () => {
@@ -98,7 +100,11 @@ describe('users', () => {
 
   it('user id chain must be intact when writing to user.privilegedInformation', async () => {
     const db = authedApp({ uid: '1234' });
-    const data = db.collection('users').doc('1234').collection('privilegedInformation').doc('5678');
+    const data = db
+      .collection('users')
+      .doc('1234')
+      .collection('privilegedInformation')
+      .doc('5678');
     await firebase.assertFails(
       data.set({
         data: 1,
@@ -122,7 +128,11 @@ describe('users', () => {
 
   it('should enforce the correct user data in user.privilegedInformation collection', async () => {
     const db = authedApp({ uid: '1234' });
-    const data = db.collection('users').doc('1234').collection('privilegedInformation').doc('1234');
+    const data = db
+      .collection('users')
+      .doc('1234')
+      .collection('privilegedInformation')
+      .doc('1234');
     await firebase.assertFails(data.set({ fail: 'missing-keys' }));
     await firebase.assertSucceeds(
       data.set({
@@ -224,7 +234,12 @@ describe('offers', () => {
     const dbPin2 = authedApp({ uid: 'pin-2' });
     const pin1RefAsPin2 = dbPin2.collection('users').doc('pin-1');
     const offer1RefAsPin2 = dbPin2.collection('offers').doc('offer-1');
-    await firebase.assertFails(dbPin2.collection('offers').where('pinUserRef', '==', pin1RefAsPin2).get());
+    await firebase.assertFails(
+      dbPin2
+        .collection('offers')
+        .where('pinUserRef', '==', pin1RefAsPin2)
+        .get(),
+    );
     await firebase.assertFails(offer1RefAsPin2.get());
 
     // Read from DB authed as PIN1, filter by PIN1 - SUCCESS
@@ -233,11 +248,14 @@ describe('offers', () => {
     const offer1RefAsPin1 = dbPin1.collection('offers').doc('offer-1');
 
     await firebase.assertSucceeds(
-      dbPin1.collection('offers').where('pinUserRef', '==', pin1Ref)
+      dbPin1
+        .collection('offers')
+        .where('pinUserRef', '==', pin1Ref)
         .withConverter(OfferFirestoreConverter)
         .get()
         .then(querySnapshot => {
-          querySnapshot.docs.map(value => value.data())
+          querySnapshot.docs
+            .map(value => value.data())
             .forEach(offer => {
               expect(offer.pinUserRef.id).toBe('pin-1');
             });
@@ -260,7 +278,12 @@ describe('offers', () => {
     const dbCav3 = authedApp({ uid: 'cav-3' });
     const cav1RefAsCav3 = dbCav3.collection('users').doc('cav-1');
     const offer1RefAsCav3 = dbCav3.collection('offers').doc('offer-1');
-    await firebase.assertFails(dbCav3.collection('offers').where('cavUserRef', '==', cav1RefAsCav3).get());
+    await firebase.assertFails(
+      dbCav3
+        .collection('offers')
+        .where('cavUserRef', '==', cav1RefAsCav3)
+        .get(),
+    );
     await firebase.assertFails(offer1RefAsCav3.get());
 
     // Read from DB authed as CAV1, filter by CAV1 - SUCCESS
@@ -268,11 +291,14 @@ describe('offers', () => {
     const cav1Ref = dbCav1.collection('users').doc('cav-1');
     const offer1RefAsCav1 = dbCav1.collection('offers').doc('offer-1');
     await firebase.assertSucceeds(
-      dbCav1.collection('offers').where('cavUserRef', '==', cav1Ref)
+      dbCav1
+        .collection('offers')
+        .where('cavUserRef', '==', cav1Ref)
         .withConverter(OfferFirestoreConverter)
         .get()
         .then(querySnapshot => {
-          querySnapshot.docs.map(value => value.data())
+          querySnapshot.docs
+            .map(value => value.data())
             .forEach(offer => {
               expect(offer.cavUserRef.id).toBe('cav-1');
             });
@@ -335,7 +361,9 @@ describe('questionnaires', () => {
     await createData();
 
     const userDb1 = authedApp({ uid: 'user-1' });
-    const user1Questionnaire = userDb1.collection('questionnaires').doc('questionnaire-1');
+    const user1Questionnaire = userDb1
+      .collection('questionnaires')
+      .doc('questionnaire-1');
     await firebase.assertSucceeds(
       user1Questionnaire
         .withConverter(QuestionnaireFirestoreConverter)
@@ -346,7 +374,9 @@ describe('questionnaires', () => {
     );
 
     const userDb2 = authedApp({ uid: 'user-2' });
-    const user1QuestionnaireAsUser2 = userDb2.collection('questionnaires').doc('questionnaire-1');
+    const user1QuestionnaireAsUser2 = userDb2
+      .collection('questionnaires')
+      .doc('questionnaire-1');
     await firebase.assertFails(user1QuestionnaireAsUser2.get());
   });
 });

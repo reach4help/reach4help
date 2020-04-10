@@ -17,22 +17,14 @@ export interface IOrganization extends DocumentData {
 }
 
 export class Organization implements IOrganization {
-  @IsString()
-  @IsNotEmpty()
-  private _name: string;
-
-  @IsArray()
-  private _types: OrganizationType[];
-
   constructor(name: string, types: OrganizationType[]) {
     this._name = name;
     this._types = types;
   }
 
-  static factory = (data: IOrganization): Organization => new Organization(
-    data.name,
-    data.types,
-  );
+  @IsString()
+  @IsNotEmpty()
+  private _name: string;
 
   get name(): string {
     return this._name;
@@ -42,6 +34,9 @@ export class Organization implements IOrganization {
     this._name = value;
   }
 
+  @IsArray()
+  private _types: OrganizationType[];
+
   get types(): OrganizationType[] {
     return this._types;
   }
@@ -49,6 +44,9 @@ export class Organization implements IOrganization {
   set types(value: OrganizationType[]) {
     this._types = value;
   }
+
+  static factory = (data: IOrganization): Organization =>
+    new Organization(data.name, data.types);
 }
 
 export const OrganizationFirestoreConverter: FirestoreDataConverter<Organization> = {
