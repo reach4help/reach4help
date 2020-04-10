@@ -19,6 +19,7 @@
     "deploy:prod": "yarn workspaces run build && firebase deploy -P reach4help-34372",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
+    "postinstall": "yarn --cwd functions install",
     "heroku-postbuild": "yarn workspace api run heroku-postbuild"
   },
   "husky": {

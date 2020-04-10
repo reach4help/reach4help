@@ -16,9 +16,7 @@ jobs:
           node-version: 10.x
 
       - name: Install Deps
-        run: |
-          yarn install
-          yarn --cwd functions install
+        run: yarn install
 
       - name: Lint
         run: yarn run lint
