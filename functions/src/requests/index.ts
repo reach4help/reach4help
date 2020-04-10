@@ -39,10 +39,10 @@ const queueRatingUpdatedTriggers = (change: Change<DocumentSnapshot>, context: E
   if (requestBefore?.pinRating === null && requestAfter?.pinRating !== null) {
     // TODO: Adjust the avg rating based on the new rating
     operations.push(Promise.resolve());
-  } else if (requestBefore?.pinRating !== null && requestAfter?.pinRating !== null && requestBefore?.ratedAt && requestAfter?.ratedAt) {
-    const previousRatedAt = moment(requestBefore.ratedAt.toDate());
+  } else if (requestBefore?.pinRating !== null && requestAfter?.pinRating !== null && requestBefore?.pinRatedAt && requestAfter?.pinRatedAt) {
+    const previousRatedAt = moment(requestBefore.pinRatedAt.toDate());
     const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
-    const currentRatedAt = moment(requestAfter.ratedAt.toDate());
+    const currentRatedAt = moment(requestAfter.pinRatedAt.toDate());
     if (currentRatedAt.isSameOrBefore(fiveMinutesPastPreviousRatedAt)) {
       // TODO: Adjust the avg rating based on the old rating and the new rating
       operations.push(Promise.resolve());
@@ -53,10 +53,10 @@ const queueRatingUpdatedTriggers = (change: Change<DocumentSnapshot>, context: E
   if (requestBefore?.cavRating === null && requestAfter?.cavRating !== null) {
     // TODO: Adjust the avg rating based on the new rating
     operations.push(Promise.resolve());
-  } else if (requestBefore?.cavRating !== null && requestAfter?.cavRating !== null && requestBefore?.ratedAt && requestAfter?.ratedAt) {
-    const previousRatedAt = moment(requestBefore.ratedAt.toDate());
+  } else if (requestBefore?.cavRating !== null && requestAfter?.cavRating !== null && requestBefore?.cavRatedAt && requestAfter?.cavRatedAt) {
+    const previousRatedAt = moment(requestBefore.cavRatedAt.toDate());
     const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
-    const currentRatedAt = moment(requestAfter.ratedAt.toDate());
+    const currentRatedAt = moment(requestAfter.cavRatedAt.toDate());
     if (currentRatedAt.isSameOrBefore(fiveMinutesPastPreviousRatedAt)) {
       // TODO: Adjust the avg rating based on the old rating and the new rating
       operations.push(Promise.resolve());
@@ -102,5 +102,4 @@ export const triggerEventsWhenRequestIsUpdated = functions.firestore.document('r
       });
   });
 
-export * from '../offers';
 export * from './privilegedInformation';

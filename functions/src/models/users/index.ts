@@ -1,7 +1,6 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsString, IsUrl, Max, Min } from 'class-validator';
 import { firestore } from 'firebase-admin';
-
 // eslint-disable-next-line import/no-cycle
 import { IQuestionnaire } from '../questionnaires';
 import DocumentData = firestore.DocumentData;

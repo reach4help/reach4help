@@ -1,7 +1,6 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsNotEmptyObject, IsObject, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
-
 // eslint-disable-next-line import/no-cycle
 import { IOrganization } from '../organizations';
 // eslint-disable-next-line import/no-cycle
