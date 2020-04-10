@@ -1,6 +1,6 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsArray, IsNotEmpty, IsObject, IsString } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 
 import { OrganizationType } from './index';
 import DocumentData = firestore.DocumentData;
@@ -72,7 +72,7 @@ export const TeamFirestoreConverter: FirestoreDataConverter<Team> = {
   fromFirestore: (data: QueryDocumentSnapshot<ITeam>): Team => {
     return Team.factory(data.data());
   },
-  toFirestore: (modelObject: Team): ITeam => {
+  toFirestore: (modelObject: Team): DocumentData => {
     return {
       name: modelObject.name,
       types: modelObject.types,

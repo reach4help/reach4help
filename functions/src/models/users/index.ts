@@ -1,8 +1,6 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, IsUrl, Max, Min } from 'class-validator';
-import { firestore } from 'firebase-admin';
-// eslint-disable-next-line import/no-cycle
-import { IQuestionnaire } from '../questionnaires';
+import { firestore } from 'firebase';
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
@@ -14,25 +12,26 @@ export enum ApplicationPreference {
 }
 
 export interface IUser extends DocumentData {
-  cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
-  pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
-  averageRating: number | null;
-  casesCompleted: number;
-  requestsMade: number;
-  pinRatingsReceived: number;
-  cavRatingsReceived: number;
   username: string;
-  displayName: string | null;
-  displayPicture: string | null;
+
+  cavQuestionnaireRef?: DocumentReference<DocumentData> | null;
+  pinQuestionnaireRef?: DocumentReference<DocumentData> | null;
+  averageRating?: number | null;
+  casesCompleted?: number;
+  requestsMade?: number;
+  pinRatingsReceived?: number;
+  cavRatingsReceived?: number;
+  displayName?: string | null;
+  displayPicture?: string | null;
   applicationPreference?: ApplicationPreference;
   createdAt?: Timestamp;
 }
 
 export class User implements IUser {
   constructor(
-    cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
-    pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
     username: string,
+    pinQuestionnaireRef: DocumentReference<DocumentData> | null = null,
+    cavQuestionnaireRef: DocumentReference<DocumentData> | null = null,
     casesCompleted = 0,
     requestsMade = 0,
     pinRatingsReceived = 0,
@@ -59,25 +58,25 @@ export class User implements IUser {
 
   @IsObject()
   @IsOptional()
-  private _cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
+  private _cavQuestionnaireRef: DocumentReference<DocumentData> | null;
 
-  get cavQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
+  get cavQuestionnaireRef(): DocumentReference<DocumentData> | null {
     return this._cavQuestionnaireRef;
   }
 
-  set cavQuestionnaireRef(value: DocumentReference<IQuestionnaire> | null) {
+  set cavQuestionnaireRef(value: DocumentReference<DocumentData> | null) {
     this._cavQuestionnaireRef = value;
   }
 
   @IsObject()
   @IsOptional()
-  private _pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
+  private _pinQuestionnaireRef: DocumentReference<DocumentData> | null;
 
-  get pinQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
+  get pinQuestionnaireRef(): DocumentReference<DocumentData> | null {
     return this._pinQuestionnaireRef;
   }
 
-  set pinQuestionnaireRef(value: DocumentReference<IQuestionnaire> | null) {
+  set pinQuestionnaireRef(value: DocumentReference<DocumentData> | null) {
     this._pinQuestionnaireRef = value;
   }
 
@@ -206,9 +205,9 @@ export class User implements IUser {
 
   static factory = (data: IUser): User =>
     new User(
-      data.cavQuestionnaireRef,
-      data.pinQuestionnaireRef,
       data.username,
+      data.pinQuestionnaireRef,
+      data.cavQuestionnaireRef,
       data.casesCompleted,
       data.requestsMade,
       data.pinRatingsReceived,
@@ -242,7 +241,7 @@ export const UserFirestoreConverter: FirestoreDataConverter<User> = {
   fromFirestore: (data: QueryDocumentSnapshot<IUser>): User => {
     return User.factory(data.data());
   },
-  toFirestore: (modelObject: User): IUser => {
+  toFirestore: (modelObject: User): DocumentData => {
     return {
       cavQuestionnaireRef: modelObject.cavQuestionnaireRef,
       pinQuestionnaireRef: modelObject.pinQuestionnaireRef,

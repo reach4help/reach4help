@@ -11,7 +11,7 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 
 import { IUser, User, UserFirestoreConverter } from '../users';
 import GeoPoint = firestore.GeoPoint;
@@ -270,11 +270,11 @@ export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
   fromFirestore: (data: QueryDocumentSnapshot<IRequest>): Request => {
     return Request.factory(data.data());
   },
-  toFirestore: (modelObject: Request): IRequest => {
+  toFirestore: (modelObject: Request): DocumentData => {
     return {
       cavUserRef: modelObject.cavUserRef,
       pinUserRef: modelObject.pinUserRef,
-      pinUserSnapshot: UserFirestoreConverter.fromFirestore(
+      pinUserSnapshot: UserFirestoreConverter.toFirestore(
         modelObject.pinUserSnapshot,
       ),
       title: modelObject.title,

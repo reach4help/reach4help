@@ -1,11 +1,9 @@
 import * as firebase from '@firebase/testing';
 import * as fs from 'fs';
 
-import { OfferFirestoreConverter } from '../src/models/offers';
-import {
-  QuestionnaireFirestoreConverter,
-  QuestionnaireType,
-} from '../src/models/questionnaires';
+import { Offer, OfferFirestoreConverter, OfferStatus } from '../src/models/offers';
+import { Questionnaire, QuestionnaireFirestoreConverter, QuestionnaireType } from '../src/models/questionnaires';
+import { User, UserFirestoreConverter } from '../src/models/users';
 
 const projectId = 'reach-4-help-test';
 
@@ -76,12 +74,12 @@ describe('users', () => {
     const db = authedApp(null);
     const profile = db.collection('users').doc('1234');
     await firebase.assertFails(
-      profile.set({
-        averageRating: 1,
-        casesCompleted: 0,
-        requestsMade: 0,
-        username: 'TestUser',
-      }),
+      profile
+        .withConverter(UserFirestoreConverter)
+        .set(User.factory({
+            username: 'test_user',
+          }),
+        ),
     );
   });
 
@@ -89,12 +87,12 @@ describe('users', () => {
     const db = authedApp({ uid: '1234' });
     const profile = db.collection('users').doc('5678');
     await firebase.assertFails(
-      profile.set({
-        averageRating: 1,
-        casesCompleted: 0,
-        requestsMade: 0,
-        username: 'TestUser',
-      }),
+      profile
+        .withConverter(UserFirestoreConverter)
+        .set(User.factory({
+            username: 'test_user',
+          }),
+        ),
     );
   });
 
@@ -107,7 +105,9 @@ describe('users', () => {
       .doc('5678');
     await firebase.assertFails(
       data.set({
-        data: 1,
+        address: { a: 1 },
+        termsAccepted: firebase.firestore.FieldValue.serverTimestamp(),
+        termsVersion: '1.0',
       }),
     );
   });
@@ -117,12 +117,12 @@ describe('users', () => {
     const profile = db.collection('users').doc('1234');
     await firebase.assertFails(profile.set({ username: 'test_user' }));
     await firebase.assertSucceeds(
-      profile.set({
-        averageRating: 1,
-        casesCompleted: 0,
-        requestsMade: 0,
-        username: 'test_user',
-      }),
+      profile
+        .withConverter(UserFirestoreConverter)
+        .set(User.factory({
+            username: 'test_user',
+          }),
+        ),
     );
   });
 
@@ -151,73 +151,72 @@ describe('offers', () => {
       db
         .collection('users')
         .doc('pin-1')
-        .set({
-          averageRating: 1,
-          casesCompleted: 0,
-          requestsMade: 0,
-          username: 'pin-1',
-        }),
+        .withConverter(UserFirestoreConverter)
+        .set(User.factory({
+            username: 'pin-1',
+          }),
+        ),
     );
     await firebase.assertSucceeds(
       db
         .collection('users')
         .doc('cav-1')
-        .set({
-          averageRating: 1,
-          casesCompleted: 0,
-          requestsMade: 0,
-          username: 'cav-1',
-        }),
+        .withConverter(UserFirestoreConverter)
+        .set(User.factory({
+            username: 'cav-1',
+          }),
+        ),
     );
     await firebase.assertSucceeds(
       db
         .collection('users')
         .doc('cav-2')
-        .set({
-          averageRating: 1,
-          casesCompleted: 0,
-          requestsMade: 0,
-          username: 'cav-2',
-        }),
+        .withConverter(UserFirestoreConverter)
+        .set(User.factory({
+            username: 'cav-2',
+          }),
+        ),
     );
     await firebase.assertSucceeds(
       db
         .collection('offers')
         .doc('offer-1')
-        .set({
-          cavUserRef: db.collection('users').doc('cav-1'),
-          pinUserRef: db.collection('users').doc('pin-1'),
-          requestRef: db.collection('requests').doc('request-1'),
-          cavUserSnapshot: {
-            averageRating: 1,
-            casesCompleted: 0,
-            requestsMade: 0,
-            username: 'cav-1',
-          },
-          message: 'I can help!',
-          status: 'pending',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        }),
+        .withConverter(OfferFirestoreConverter)
+        .set(Offer.factory({
+            cavUserRef: db.collection('users').doc('cav-1'),
+            pinUserRef: db.collection('users').doc('pin-1'),
+            requestRef: db.collection('requests').doc('request-1'),
+            cavUserSnapshot: {
+              averageRating: 1,
+              casesCompleted: 0,
+              requestsMade: 0,
+              username: 'cav-1',
+            },
+            message: 'I can help!',
+            status: OfferStatus.pending,
+          }),
+        ),
     );
 
     await firebase.assertSucceeds(
       db
         .collection('offers')
         .doc('offer-2')
-        .set({
-          cavUserRef: db.collection('users').doc('cav-2'),
-          pinUserRef: db.collection('users').doc('pin-1'),
-          requestRef: db.collection('requests').doc('request-1'),
-          cavUserSnapshot: {
-            averageRating: 1,
-            casesCompleted: 0,
-            requestsMade: 0,
-            username: 'cav-2',
-          },
-          message: 'I can help!!',
-          status: 'pending',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        }),
+        .withConverter(OfferFirestoreConverter)
+        .set(Offer.factory({
+            cavUserRef: db.collection('users').doc('cav-2'),
+            pinUserRef: db.collection('users').doc('pin-1'),
+            requestRef: db.collection('requests').doc('request-1'),
+            cavUserSnapshot: {
+              averageRating: 1,
+              casesCompleted: 0,
+              requestsMade: 0,
+              username: 'cav-2',
+            },
+            message: 'I can help!!',
+            status: OfferStatus.pending,
+          }),
+        ),
     );
   };
 
@@ -341,13 +340,14 @@ describe('questionnaires', () => {
       db
         .collection('questionnaires')
         .doc('questionnaire-1')
-        .set({
-          parentRef: db.collection('users').doc('user-1'),
-          data: { a: 1 },
-          type: QuestionnaireType.pin,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          version: '1.0',
-        }),
+        .withConverter(QuestionnaireFirestoreConverter)
+        .set(Questionnaire.factory({
+            parentRef: db.collection('users').doc('user-1'),
+            data: { a: 1 },
+            type: QuestionnaireType.pin,
+            version: '1.0',
+          }),
+        ),
     );
   };
 

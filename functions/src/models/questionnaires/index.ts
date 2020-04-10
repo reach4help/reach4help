@@ -1,12 +1,6 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsNotEmptyObject, IsObject, IsString } from 'class-validator';
-import { firestore } from 'firebase-admin';
-// eslint-disable-next-line import/no-cycle
-import { IOrganization } from '../organizations';
-// eslint-disable-next-line import/no-cycle
-import { ITeam } from '../organizations/teams';
-// eslint-disable-next-line import/no-cycle
-import { IUser } from '../users';
+import { firestore } from 'firebase';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
@@ -20,7 +14,7 @@ export enum QuestionnaireType {
 }
 
 export interface IQuestionnaire extends DocumentData {
-  parentRef: DocumentReference<IUser | ITeam | IOrganization>;
+  parentRef: DocumentReference<DocumentData>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: { [key: string]: any };
 
@@ -31,7 +25,7 @@ export interface IQuestionnaire extends DocumentData {
 
 export class Questionnaire implements IQuestionnaire {
   constructor(
-    parentRef: DocumentReference<IUser | ITeam | IOrganization>,
+    parentRef: DocumentReference<DocumentData>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: { [p: string]: any },
     type: QuestionnaireType,
@@ -47,15 +41,15 @@ export class Questionnaire implements IQuestionnaire {
 
   @IsNotEmptyObject()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _parentRef: DocumentReference<IUser | ITeam | IOrganization>;
+  private _parentRef: DocumentReference<DocumentData>;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get parentRef(): DocumentReference<IUser | ITeam | IOrganization> {
+  get parentRef(): DocumentReference<DocumentData> {
     return this._parentRef;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set parentRef(value: DocumentReference<IUser | ITeam | IOrganization>) {
+  set parentRef(value: DocumentReference<DocumentData>) {
     this._parentRef = value;
   }
 
@@ -134,7 +128,7 @@ export const QuestionnaireFirestoreConverter: FirestoreDataConverter<Questionnai
   ): Questionnaire => {
     return Questionnaire.factory(data.data());
   },
-  toFirestore: (modelObject: Questionnaire): IQuestionnaire => {
+  toFirestore: (modelObject: Questionnaire): DocumentData => {
     return {
       parentRef: modelObject.parentRef,
       data: modelObject.data,

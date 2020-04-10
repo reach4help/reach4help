@@ -1,19 +1,12 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsObject,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
+import { firestore } from 'firebase';
 
-import { IRequest } from '../requests';
-import { IUser, User } from '../users';
+import { IUser, User, UserFirestoreConverter } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
-import DocumentReference = firestore.DocumentReference;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
+import DocumentReference = firestore.DocumentReference;
 
 export enum OfferStatus {
   pending = 'pending',
@@ -22,9 +15,9 @@ export enum OfferStatus {
 }
 
 export interface IOffer extends DocumentData {
-  cavUserRef: DocumentReference<IUser>;
-  pinUserRef: DocumentReference<IUser>;
-  requestRef: DocumentReference<IRequest>;
+  cavUserRef: DocumentReference<DocumentData>;
+  pinUserRef: DocumentReference<DocumentData>;
+  requestRef: DocumentReference<DocumentData>;
   cavUserSnapshot: IUser;
   message: string;
   status: OfferStatus;
@@ -33,9 +26,9 @@ export interface IOffer extends DocumentData {
 
 export class Offer implements IOffer {
   constructor(
-    cavUserRef: DocumentReference<IUser>,
-    pinUserRef: DocumentReference<IUser>,
-    requestRef: DocumentReference<IRequest>,
+    cavUserRef: DocumentReference<DocumentData>,
+    pinUserRef: DocumentReference<DocumentData>,
+    requestRef: DocumentReference<DocumentData>,
     cavUserSnapshot: User,
     message: string,
     status: OfferStatus,
@@ -51,35 +44,35 @@ export class Offer implements IOffer {
   }
 
   @IsObject()
-  private _cavUserRef: DocumentReference<IUser>;
+  private _cavUserRef: DocumentReference<DocumentData>;
 
-  get cavUserRef(): DocumentReference<IUser> {
+  get cavUserRef(): DocumentReference<DocumentData> {
     return this._cavUserRef;
   }
 
-  set cavUserRef(value: DocumentReference<IUser>) {
+  set cavUserRef(value: DocumentReference<DocumentData>) {
     this._cavUserRef = value;
   }
 
   @IsObject()
-  private _pinUserRef: DocumentReference<IUser>;
+  private _pinUserRef: DocumentReference<DocumentData>;
 
-  get pinUserRef(): DocumentReference<IUser> {
+  get pinUserRef(): DocumentReference<DocumentData> {
     return this._pinUserRef;
   }
 
-  set pinUserRef(value: DocumentReference<IUser>) {
+  set pinUserRef(value: DocumentReference<DocumentData>) {
     this._pinUserRef = value;
   }
 
   @IsObject()
-  private _requestRef: DocumentReference<IRequest>;
+  private _requestRef: DocumentReference<DocumentData>;
 
-  get requestRef(): FirebaseFirestore.DocumentReference<IRequest> {
+  get requestRef(): DocumentReference<DocumentData> {
     return this._requestRef;
   }
 
-  set requestRef(value: FirebaseFirestore.DocumentReference<IRequest>) {
+  set requestRef(value: DocumentReference<DocumentData>) {
     this._requestRef = value;
   }
 
@@ -131,8 +124,8 @@ export class Offer implements IOffer {
     this._createdAt = value;
   }
 
-  static factory = (data: IOffer): Offer =>
-    new Offer(
+  static factory = (data: IOffer): Offer => {
+    return new Offer(
       data.cavUserRef,
       data.pinUserRef,
       data.requestRef,
@@ -141,6 +134,7 @@ export class Offer implements IOffer {
       data.status,
       data.createdAt,
     );
+  };
 
   toObject(): object {
     return {
@@ -159,12 +153,12 @@ export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
   fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
     return Offer.factory(data.data());
   },
-  toFirestore: (modelObject: Offer): IOffer => {
+  toFirestore: (modelObject: Offer): DocumentData => {
     return {
       cavUserRef: modelObject.cavUserRef,
       pinUserRef: modelObject.pinUserRef,
       requestRef: modelObject.requestRef,
-      cavUserSnapshot: modelObject.cavUserSnapshot,
+      cavUserSnapshot: UserFirestoreConverter.toFirestore(modelObject.cavUserSnapshot),
       message: modelObject.message,
       status: modelObject.status,
       createdAt: modelObject.createdAt,

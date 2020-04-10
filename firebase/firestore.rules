@@ -48,7 +48,9 @@ function verifyUserDataComplete(data) {
           data.requestsMade >= 0 &&
           data.cavRatingsReceived >= 0 &&
           data.pinRatingsReceived >= 0 &&
-          ('username' in data)
+          ('username' in data) &&
+          ('createdAt' in data) &&
+          data.createdAt is timestamp
 }
 
 function verifyQuestionnaireComplete(data) {
@@ -56,6 +58,7 @@ function verifyQuestionnaireComplete(data) {
           ('data' in data) &&
           ('type' in data) &&
           ('createdAt' in data) &&
+          data.createdAt is timestamp &&
           ('version' in data)
 }
 
@@ -76,16 +79,22 @@ function verifyHelpRequestAttributesForStatus(status, data) {
            true // for other statuses we don't have extra requirements
 }
 
+function verifyLatLngObject(latLng) {
+    return true
+}
+
 function verifyHelpRequestDataComplete(data) {
    return ('pinUserRef' in data) &&
           ('pinUserSnapshot' in data) &&
           ('title' in data) &&
           ('description' in data) &&
-          ('latLng' in data) &&
           ('status' in data) &&
           ('createdAt' in data) &&
           ('updatedAt' in data) &&
-          verifyHelpRequestAttributesForStatus(data.status, data)
+          verifyHelpRequestAttributesForStatus(data.status, data) &&
+          verifyLatLngObject(data.latLng) &&
+          ('createdAt' in data) &&
+          data.createdAt is timestamp
 }
 
 function verifyOfferDataComplete(data) {
@@ -95,13 +104,15 @@ function verifyOfferDataComplete(data) {
           ('cavUserSnapshot' in data) &&
           ('message' in data) &&
           ('status' in data) &&
-          ('createdAt' in data)
+          ('createdAt' in data) &&
+          data.createdAt is timestamp
 }
 
 // TODO: Further validate address object.
 function verifyUserPrivilegedInformationDataComplete(data) {
    return ('address' in data) &&
           ('termsAccepted' in data) &&
+          data.termsAccepted is timestamp &&
           ('termsVersion' in data)
 }
 
@@ -128,8 +139,7 @@ service cloud.firestore {
 
     match /offers/{offerID} {
       // Only the PIN or CAV of the request can read the offers
-      allow list: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
-      allow get: if resource.data.pinUserRef == /databases/$(database)/documents/users/$(request.auth.uid) || resource.data.cavUserRef == /databases/$(database)/documents/users/$(request.auth.uid)
+      allow read: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
       // Only CAVs can submit offers (as themselves)
       allow write: if isVerifiedCAV() &&
        currentUserIsCurrentCAVRef(request.auth.uid, database, request.resource.data) &&

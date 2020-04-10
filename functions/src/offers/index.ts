@@ -1,5 +1,5 @@
 import { validateOrReject } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 
