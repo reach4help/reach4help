@@ -1,15 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import {
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsNumber,
-  IsObject,
-  IsString,
-  IsUrl,
-  Max,
-  Min,
-} from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, IsUrl, Max, Min } from 'class-validator';
 import { firestore } from 'firebase-admin';
 // eslint-disable-next-line import/no-cycle
 import { IQuestionnaire } from '../questionnaires';
@@ -25,7 +15,7 @@ export enum ApplicationPreference {
 export interface IUser extends DocumentData {
   cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
   pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
-  averageRating: number;
+  averageRating: number | null;
   casesCompleted: number;
   requestsMade: number;
   pinRatingsReceived: number;
@@ -40,12 +30,12 @@ export class User implements IUser {
   constructor(
     cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
     pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
-    averageRating: number,
+    username: string,
     casesCompleted = 0,
     requestsMade = 0,
     pinRatingsReceived = 0,
     cavRatingsReceived = 0,
-    username: string,
+    averageRating: number | null = null,
     displayName: string | null = null,
     displayPicture: string | null = null,
     applicationPreference = ApplicationPreference.pin,
@@ -64,6 +54,7 @@ export class User implements IUser {
   }
 
   @IsObject()
+  @IsOptional()
   private _cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
 
   get cavQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
@@ -75,6 +66,7 @@ export class User implements IUser {
   }
 
   @IsObject()
+  @IsOptional()
   private _pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
 
   get pinQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
@@ -88,13 +80,14 @@ export class User implements IUser {
   @IsNumber()
   @Min(1)
   @Max(5)
-  private _averageRating: number;
+  @IsOptional()
+  private _averageRating: number | null;
 
-  get averageRating(): number {
+  get averageRating(): number | null {
     return this._averageRating;
   }
 
-  set averageRating(value: number) {
+  set averageRating(value: number | null) {
     this._averageRating = value;
   }
 
@@ -159,6 +152,7 @@ export class User implements IUser {
   }
 
   @IsString()
+  @IsOptional()
   private _displayName: string | null;
 
   get displayName(): string | null {
@@ -170,6 +164,7 @@ export class User implements IUser {
   }
 
   @IsUrl()
+  @IsOptional()
   private _displayPicture: string | null;
 
   get displayPicture(): string | null {
@@ -195,12 +190,12 @@ export class User implements IUser {
     new User(
       data.cavQuestionnaireRef,
       data.pinQuestionnaireRef,
-      data.averageRating,
+      data.username,
       data.casesCompleted,
       data.requestsMade,
       data.pinRatingsReceived,
       data.cavRatingsReceived,
-      data.username,
+      data.averageRating,
       data.displayName,
       data.displayPicture,
       data.applicationPreference,
