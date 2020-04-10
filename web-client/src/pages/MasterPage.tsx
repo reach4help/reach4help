@@ -1,5 +1,11 @@
 import React, { ReactElement } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  BrowserRouter as Router,
+  Switch,
+} from 'react-router-dom';
+import { NewRequestLocation } from 'src/modules/request/pages/routes/NewRequestRoute/constants';
 
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
@@ -27,6 +33,14 @@ const MasterPage = (): ReactElement => {
     <Router>
       <Switch>
         {renderModules()}
+        {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
+        <Route path="/" exact>
+          <Redirect
+            to={{
+              pathname: NewRequestLocation.path,
+            }}
+          />
+        </Route>
         <Route path="*" component={NotFoundRoute} />
       </Switch>
     </Router>
