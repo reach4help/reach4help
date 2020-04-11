@@ -9,13 +9,11 @@ function isUser(id) {
 }
 
 function isVerifiedCAV() {
-  // TODO: Actually use auth claims
-  return isAuthenticated() && true;
+  return isAuthenticated() && request.auth.token.cav == true;
 }
 
 function isVerifiedPIN() {
-  // TODO: Actually use auth claims
-  return isAuthenticated() && true;
+  return isAuthenticated() && request.auth.token.pin == true;
 }
 
 function currentUserIsCurrentPINRef(userID, database, data) {
@@ -80,7 +78,7 @@ function verifyHelpRequestAttributesForStatus(status, data) {
 }
 
 function verifyLatLngObject(latLng) {
-    return true
+    return latLng is latlng
 }
 
 function verifyHelpRequestDataComplete(data) {
@@ -108,9 +106,13 @@ function verifyOfferDataComplete(data) {
           data.createdAt is timestamp
 }
 
-// TODO: Further validate address object.
+function verifyAddressDataComplete(address) {
+    // TODO: Further validate address object.
+    return true
+}
+
 function verifyUserPrivilegedInformationDataComplete(data) {
-   return ('address' in data) &&
+   return ('address' in data) && verifyAddressDataComplete(data.address) &&
           ('termsAccepted' in data) &&
           data.termsAccepted is timestamp &&
           ('termsVersion' in data)

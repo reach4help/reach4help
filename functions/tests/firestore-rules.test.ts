@@ -4,6 +4,9 @@ import * as fs from 'fs';
 import { Offer, OfferFirestoreConverter, OfferStatus } from '../src/models/offers';
 import { Questionnaire, QuestionnaireFirestoreConverter, QuestionnaireType } from '../src/models/questionnaires';
 import { User, UserFirestoreConverter } from '../src/models/users';
+import { Request, RequestFirestoreConverter } from '../src/models/requests';
+import * as firebaseApp from 'firebase';
+import GeoPoint = firebaseApp.firestore.GeoPoint;
 
 const projectId = 'reach-4-help-test';
 
@@ -230,7 +233,7 @@ describe('offers', () => {
     await createData();
 
     // Read from DB authed as PIN2, but filter by PIN1 - ERROR
-    const dbPin2 = authedApp({ uid: 'pin-2' });
+    const dbPin2 = authedApp({ uid: 'pin-2', pin: true });
     const pin1RefAsPin2 = dbPin2.collection('users').doc('pin-1');
     const offer1RefAsPin2 = dbPin2.collection('offers').doc('offer-1');
     await firebase.assertFails(
@@ -242,7 +245,7 @@ describe('offers', () => {
     await firebase.assertFails(offer1RefAsPin2.get());
 
     // Read from DB authed as PIN1, filter by PIN1 - SUCCESS
-    const dbPin1 = authedApp({ uid: 'pin-1' });
+    const dbPin1 = authedApp({ uid: 'pin-1', pin: true });
     const pin1Ref = dbPin1.collection('users').doc('pin-1');
     const offer1RefAsPin1 = dbPin1.collection('offers').doc('offer-1');
 
@@ -274,7 +277,7 @@ describe('offers', () => {
     await createData();
 
     // Read from DB authed as CAV3, but filter by CAV1 - ERROR
-    const dbCav3 = authedApp({ uid: 'cav-3' });
+    const dbCav3 = authedApp({ uid: 'cav-3', cav: true });
     const cav1RefAsCav3 = dbCav3.collection('users').doc('cav-1');
     const offer1RefAsCav3 = dbCav3.collection('offers').doc('offer-1');
     await firebase.assertFails(
@@ -286,7 +289,7 @@ describe('offers', () => {
     await firebase.assertFails(offer1RefAsCav3.get());
 
     // Read from DB authed as CAV1, filter by CAV1 - SUCCESS
-    const dbCav1 = authedApp({ uid: 'cav-1' });
+    const dbCav1 = authedApp({ uid: 'cav-1', cav: true });
     const cav1Ref = dbCav1.collection('users').doc('cav-1');
     const offer1RefAsCav1 = dbCav1.collection('offers').doc('offer-1');
     await firebase.assertSucceeds(
@@ -316,20 +319,57 @@ describe('offers', () => {
   // Check this for more info: https://firebase.google.com/docs/firestore/security/rules-conditions
   it('Users cannot list the entire offers collection without a query on PIN or CAV', async () => {
     // Even though there is only data with pin-1 as the ref...
-    const dbPin1 = authedApp({ uid: 'pin-1' });
+    const dbPin1 = authedApp({ uid: 'pin-1', pin: true });
     await firebase.assertFails(dbPin1.collection('offers').get());
 
     // Would fail anyways as all the records mention pin-1 as the ref...
-    const dbPin2 = authedApp({ uid: 'pin-2' });
+    const dbPin2 = authedApp({ uid: 'pin-2', pin: true });
     await firebase.assertFails(dbPin2.collection('offers').get());
   });
 });
 
 describe('requests', () => {
+  const createData = async () => {
+    const db = adminApp();
+
+    const user = User.factory({ username: 'pin-1' });
+    const userRef = db.collection('users').doc('pin-1');
+    await firebase.assertSucceeds(
+      userRef
+        .withConverter(UserFirestoreConverter)
+        .set(user),
+    );
+    await firebase.assertSucceeds(
+      db
+        .collection('questionnaires')
+        .doc('questionnaire-1')
+        .withConverter(RequestFirestoreConverter)
+        .set(Request.factory({
+            pinUserRef: userRef,
+            pinUserSnapshot: user,
+            title: 'Sample Request',
+            description: 'I Need Stuff',
+            latLng: new GeoPoint(0, 0),
+          }),
+        ),
+    );
+  };
+
   it('require users to log in before listing requests', async () => {
     const db = authedApp(null);
     const requests = db.collection('requests');
     await firebase.assertFails(requests.get());
+  });
+
+  it('only pins and cavs can see requests', async () => {
+    await createData();
+    const dbCav1 = authedApp({ uid: 'cav-1', cav: true });
+    const dbPin2 = authedApp({ uid: 'pin-2', pin: true });
+    const dbUser = authedApp({ uid: 'user-1' });
+
+    await firebase.assertSucceeds(dbCav1.collection('requests').withConverter(RequestFirestoreConverter).get());
+    await firebase.assertSucceeds(dbPin2.collection('requests').withConverter(RequestFirestoreConverter).get());
+    await firebase.assertFails(dbUser.collection('requests').withConverter(RequestFirestoreConverter).get());
   });
 });
 

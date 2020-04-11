@@ -29,30 +29,30 @@ export enum RequestStatus {
 }
 
 export interface IRequest extends DocumentData {
-  cavUserRef: DocumentReference<IUser> | null;
-  pinUserRef: DocumentReference<IUser>;
+  cavUserRef?: DocumentReference<DocumentData> | null;
+  pinUserRef: DocumentReference<DocumentData>;
   pinUserSnapshot: IUser;
   title: string;
   description: string;
   latLng: GeoPoint;
-  status: RequestStatus;
-  pinRating: number | null;
-  cavRating: number | null;
-  pinRatedAt: Timestamp | null;
-  cavRatedAt: Timestamp | null;
+  status?: RequestStatus;
+  pinRating?: number | null;
+  cavRating?: number | null;
+  pinRatedAt?: Timestamp | null;
+  cavRatedAt?: Timestamp | null;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
 }
 
 export class Request implements IRequest {
   constructor(
-    cavUserRef: DocumentReference<IUser> | null,
-    pinUserRef: DocumentReference<IUser>,
+    pinUserRef: DocumentReference<DocumentData>,
     pinUserSnapshot: User,
     title: string,
     description: string,
     latLng: GeoPoint,
-    status: RequestStatus,
+    cavUserRef: DocumentReference<DocumentData> | null = null,
+    status = RequestStatus.pending,
     createdAt = Timestamp.now(),
     updatedAt = Timestamp.now(),
     pinRating: number | null = null,
@@ -76,24 +76,24 @@ export class Request implements IRequest {
   }
 
   @Allow()
-  private _cavUserRef: DocumentReference<IUser> | null;
+  private _cavUserRef: DocumentReference<DocumentData> | null;
 
-  get cavUserRef(): DocumentReference<IUser> | null {
+  get cavUserRef(): DocumentReference<DocumentData> | null {
     return this._cavUserRef;
   }
 
-  set cavUserRef(value: DocumentReference<IUser> | null) {
+  set cavUserRef(value: DocumentReference<DocumentData> | null) {
     this._cavUserRef = value;
   }
 
   @IsNotEmptyObject()
-  private _pinUserRef: DocumentReference<IUser>;
+  private _pinUserRef: DocumentReference<DocumentData>;
 
-  get pinUserRef(): DocumentReference<IUser> {
+  get pinUserRef(): DocumentReference<DocumentData> {
     return this._pinUserRef;
   }
 
-  set pinUserRef(value: DocumentReference<IUser>) {
+  set pinUserRef(value: DocumentReference<DocumentData>) {
     this._pinUserRef = value;
   }
 
@@ -232,12 +232,12 @@ export class Request implements IRequest {
 
   static factory = (data: IRequest): Request =>
     new Request(
-      data.cavUserRef,
       data.pinUserRef,
       User.factory(data.pinUserSnapshot),
       data.title,
       data.description,
       data.latLng,
+      data.cavUserRef,
       data.status,
       data.createdAt,
       data.updatedAt,
