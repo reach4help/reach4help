@@ -2,11 +2,11 @@ import { AlertTwoTone, HeartTwoTone } from '@ant-design/icons';
 import { Button, Col, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
 import cav from '../../assets/role_cav.png';
 import pin from '../../assets/role_pin.png';
-import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
 const StyledIntro = styled.div`
   display: flex;
@@ -35,7 +35,7 @@ const Box = styled.div`
 const Pin = styled.img``;
 const Cav = styled.img``;
 
-const LoginIntro: React.FC = (): React.ReactElement => {
+const RoleInfo: React.FC = (): React.ReactElement => {
   const { t } = useTranslation();
   // i18n.changeLanguage('pt-PT');
   return (
@@ -78,4 +78,4 @@ const LoginIntro: React.FC = (): React.ReactElement => {
   );
 };
 
-export default LoginIntro;
+export default RoleInfo;

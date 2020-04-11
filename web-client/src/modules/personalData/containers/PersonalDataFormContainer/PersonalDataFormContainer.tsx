@@ -2,12 +2,12 @@ import React from 'react';
 
 import PersonaDataForm from '../../components/PersonaDataForm/PersonaDataForm';
 
-const LoginContainer: React.FC = () => (
+const PersonalDataFormContainer: React.FC = () => (
   <>
     <PersonaDataForm handleFormSubmit={() => null} />
   </>
 );
 
-LoginContainer.propTypes = {};
+PersonalDataFormContainer.propTypes = {};
 
-export default LoginContainer;
+export default PersonalDataFormContainer;

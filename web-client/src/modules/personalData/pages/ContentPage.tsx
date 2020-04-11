@@ -8,6 +8,8 @@ import { AppState } from 'src/store';
 
 import { PersonalDataLocation } from './routes/PersonalDataRoute/constants';
 import PersonalDataRoute from './routes/PersonalDataRoute/PersonalDataRoute';
+import { RoleInfoLocation } from './routes/RoleInfoRoute/constants';
+import RoleInfoRoute from './routes/RoleInfoRoute/RoleInfoRoute';
 
 const ContentPage = (): ReactElement => {
   const user: firebase.User = useSelector((state: AppState) => state.auth.user);
@@ -51,6 +53,7 @@ const ContentPage = (): ReactElement => {
         component={PersonalDataRoute}
         exact
       />
+      <Route path={RoleInfoLocation.path} component={RoleInfoRoute} exact />
       <Route path="*" component={NotFoundRoute} />
     </Switch>
   );
