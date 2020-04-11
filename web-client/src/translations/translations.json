@@ -52,6 +52,15 @@
           "consent": "Allow Push Notifications. You can always change this in your Settings later.",
           "submit": "Send my need"
         }
+      },
+      "roleinfo": {
+        "title": "Reach4Help",
+        "sub_title": "How can we assist you ?",
+        "info": "Please tell us what is your purpose to use Reach4Help",
+        "info_pin": "I'm here because I need help",
+        "c2a_pin": "Get help now!",
+        "info_cav": "I'm here because I want to help people",
+        "c2a_cav": "Start helping now!"
       }
     }
   },
@@ -105,6 +114,15 @@
           "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
           "submit": "Enviar o meu pedido"
         }
+      },
+      "roleinfo": {
+        "title": "Reach4Help",
+        "sub_title": "Como podemos ajudá-lo(a) ?",
+        "info": "Por favor diga-nos como pretende usar o Reach4Help",
+        "info_pin": "Estou aqui porque preciso de ajuda",
+        "c2a_pin": "Obter ajuda agora!",
+        "info_cav": "Estou aqui porque quero ajudar",
+        "c2a_cav": "Comece a ajudar agora!"
       }
     }
   }
