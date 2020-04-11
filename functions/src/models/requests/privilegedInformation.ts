@@ -1,4 +1,4 @@
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 import DocumentData = firestore.DocumentData;
 
 export interface PrivilegedRequestInformation extends DocumentData {

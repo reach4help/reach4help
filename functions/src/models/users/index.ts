@@ -1,112 +1,102 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsString, Max, Min } from 'class-validator';
-import { firestore } from 'firebase-admin';
-// eslint-disable-next-line import/no-cycle
-import { IQuestionnaire } from '../questionnaires';
+import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, IsUrl, Max, Min } from 'class-validator';
+import { firestore } from 'firebase';
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
+import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
+import Timestamp = firestore.Timestamp;
 
 export enum ApplicationPreference {
   pin = 'pin',
-  cav = 'cav'
+  cav = 'cav',
 }
 
 export interface IUser extends DocumentData {
-  cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
-  pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
-  averageRating: number;
-  casesCompleted: number;
-  requestsMade: number;
   username: string;
-  displayName: string | null;
+
+  cavQuestionnaireRef?: DocumentReference<DocumentData> | null;
+  pinQuestionnaireRef?: DocumentReference<DocumentData> | null;
+  averageRating?: number | null;
+  casesCompleted?: number;
+  requestsMade?: number;
+  pinRatingsReceived?: number;
+  cavRatingsReceived?: number;
+  displayName?: string | null;
+  displayPicture?: string | null;
   applicationPreference?: ApplicationPreference;
+  createdAt?: Timestamp;
 }
 
-export class User implements IUser, FirestoreDataConverter<User> {
-
-  @IsObject()
-  private _cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
-
-  @IsObject()
-  private _pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null;
-
-  @IsNumber()
-  @Min(1)
-  @Max(5)
-  private _averageRating: number;
-
-  @IsInt()
-  @Min(0)
-  private _casesCompleted: number;
-
-  @IsInt()
-  @Min(0)
-  private _requestsMade: number;
-
-  @IsString()
-  @IsNotEmpty()
-  private _username: string;
-
-  @IsString()
-  private _displayName: string | null;
-
-  @IsEnum(ApplicationPreference)
-  private _applicationPreference: ApplicationPreference;
-
+export class User implements IUser {
   constructor(
-    cavQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
-    pinQuestionnaireRef: DocumentReference<IQuestionnaire> | null,
-    averageRating: number,
+    username: string,
+    pinQuestionnaireRef: DocumentReference<DocumentData> | null = null,
+    cavQuestionnaireRef: DocumentReference<DocumentData> | null = null,
     casesCompleted = 0,
     requestsMade = 0,
-    username: string,
+    pinRatingsReceived = 0,
+    cavRatingsReceived = 0,
+    averageRating: number | null = null,
     displayName: string | null = null,
+    displayPicture: string | null = null,
     applicationPreference = ApplicationPreference.pin,
+    createdAt = Timestamp.now(),
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
     this._pinQuestionnaireRef = pinQuestionnaireRef;
     this._averageRating = averageRating;
     this._casesCompleted = casesCompleted;
     this._requestsMade = requestsMade;
+    this._pinRatingsReceived = pinRatingsReceived;
+    this._cavRatingsReceived = cavRatingsReceived;
     this._username = username;
     this._displayName = displayName;
+    this._displayPicture = displayPicture;
     this._applicationPreference = applicationPreference;
+    this._createdAt = createdAt;
   }
 
-  static factory = (data: IUser): User => new User(
-    data.cavQuestionnaireRef,
-    data.pinQuestionnaireRef,
-    data.averageRating,
-    data.casesCompleted,
-    data.requestsMade,
-    data.username,
-    data.displayName,
-    data.applicationPreference,
-  );
+  @IsObject()
+  @IsOptional()
+  private _cavQuestionnaireRef: DocumentReference<DocumentData> | null;
 
-  get cavQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
+  get cavQuestionnaireRef(): DocumentReference<DocumentData> | null {
     return this._cavQuestionnaireRef;
   }
 
-  set cavQuestionnaireRef(value: DocumentReference<IQuestionnaire> | null) {
+  set cavQuestionnaireRef(value: DocumentReference<DocumentData> | null) {
     this._cavQuestionnaireRef = value;
   }
 
-  get pinQuestionnaireRef(): DocumentReference<IQuestionnaire> | null {
+  @IsObject()
+  @IsOptional()
+  private _pinQuestionnaireRef: DocumentReference<DocumentData> | null;
+
+  get pinQuestionnaireRef(): DocumentReference<DocumentData> | null {
     return this._pinQuestionnaireRef;
   }
 
-  set pinQuestionnaireRef(value: DocumentReference<IQuestionnaire> | null) {
+  set pinQuestionnaireRef(value: DocumentReference<DocumentData> | null) {
     this._pinQuestionnaireRef = value;
   }
 
-  get averageRating(): number {
+  @IsNumber()
+  @Min(1)
+  @Max(5)
+  @IsOptional()
+  private _averageRating: number | null;
+
+  get averageRating(): number | null {
     return this._averageRating;
   }
 
-  set averageRating(value: number) {
+  set averageRating(value: number | null) {
     this._averageRating = value;
   }
+
+  @IsInt()
+  @Min(0)
+  private _casesCompleted: number;
 
   get casesCompleted(): number {
     return this._casesCompleted;
@@ -116,6 +106,10 @@ export class User implements IUser, FirestoreDataConverter<User> {
     this._casesCompleted = value;
   }
 
+  @IsInt()
+  @Min(0)
+  private _requestsMade: number;
+
   get requestsMade(): number {
     return this._requestsMade;
   }
@@ -123,6 +117,34 @@ export class User implements IUser, FirestoreDataConverter<User> {
   set requestsMade(value: number) {
     this._requestsMade = value;
   }
+
+  @IsInt()
+  @Min(0)
+  private _pinRatingsReceived: number;
+
+  get pinRatingsReceived(): number {
+    return this._pinRatingsReceived;
+  }
+
+  set pinRatingsReceived(value: number) {
+    this._pinRatingsReceived = value;
+  }
+
+  @IsInt()
+  @Min(0)
+  private _cavRatingsReceived: number;
+
+  get cavRatingsReceived(): number {
+    return this._cavRatingsReceived;
+  }
+
+  set cavRatingsReceived(value: number) {
+    this._cavRatingsReceived = value;
+  }
+
+  @IsString()
+  @IsNotEmpty()
+  private _username: string;
 
   get username(): string {
     return this._username;
@@ -132,6 +154,10 @@ export class User implements IUser, FirestoreDataConverter<User> {
     this._username = value;
   }
 
+  @IsString()
+  @IsOptional()
+  private _displayName: string | null;
+
   get displayName(): string | null {
     return this._displayName;
   }
@@ -139,6 +165,21 @@ export class User implements IUser, FirestoreDataConverter<User> {
   set displayName(value: string | null) {
     this._displayName = value;
   }
+
+  @IsUrl()
+  @IsOptional()
+  private _displayPicture: string | null;
+
+  get displayPicture(): string | null {
+    return this._displayPicture;
+  }
+
+  set displayPicture(value: string | null) {
+    this._displayPicture = value;
+  }
+
+  @IsEnum(ApplicationPreference)
+  private _applicationPreference: ApplicationPreference;
 
   get applicationPreference(): ApplicationPreference {
     return this._applicationPreference;
@@ -148,20 +189,72 @@ export class User implements IUser, FirestoreDataConverter<User> {
     this._applicationPreference = value;
   }
 
-  fromFirestore(data: IUser): User {
-    return User.factory(data);
+  /* TODO: When we reach greater than 500 offers per request created per second:
+     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
+   */
+  @IsObject()
+  private _createdAt: Timestamp;
+
+  get createdAt(): Timestamp {
+    return this._createdAt;
   }
 
-  toFirestore(modelObject: User): IUser {
+  set createdAt(value: Timestamp) {
+    this._createdAt = value;
+  }
+
+  static factory = (data: IUser): User =>
+    new User(
+      data.username,
+      data.pinQuestionnaireRef,
+      data.cavQuestionnaireRef,
+      data.casesCompleted,
+      data.requestsMade,
+      data.pinRatingsReceived,
+      data.cavRatingsReceived,
+      data.averageRating,
+      data.displayName,
+      data.displayPicture,
+      data.applicationPreference,
+      data.createdAt,
+    );
+
+  toObject(): object {
+    return {
+      cavQuestionnaireRef: this.cavQuestionnaireRef?.path,
+      pinQuestionnaireRef: this.pinQuestionnaireRef?.path,
+      username: this.username,
+      casesCompleted: this.casesCompleted,
+      requestsMade: this.requestsMade,
+      pinRatingsReceived: this.pinRatingsReceived,
+      cavRatingsReceived: this.cavRatingsReceived,
+      averageRating: this.averageRating,
+      displayName: this.displayName,
+      displayPicture: this.displayPicture,
+      applicationPreference: this.applicationPreference,
+      createdAt: this.createdAt.toDate(),
+    };
+  }
+}
+
+export const UserFirestoreConverter: FirestoreDataConverter<User> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IUser>): User => {
+    return User.factory(data.data());
+  },
+  toFirestore: (modelObject: User): DocumentData => {
     return {
       cavQuestionnaireRef: modelObject.cavQuestionnaireRef,
       pinQuestionnaireRef: modelObject.pinQuestionnaireRef,
       averageRating: modelObject.averageRating,
       casesCompleted: modelObject.casesCompleted,
       requestsMade: modelObject.requestsMade,
+      pinRatingsReceived: modelObject.pinRatingsReceived,
+      cavRatingsReceived: modelObject.cavRatingsReceived,
       username: modelObject.username,
       displayName: modelObject.displayName,
+      displayPicture: modelObject.displayPicture,
       applicationPreference: modelObject.applicationPreference,
+      createdAt: modelObject.createdAt,
     };
-  }
-}
+  },
+};
