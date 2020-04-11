@@ -78,6 +78,7 @@ function verifyHelpRequestAttributesForStatus(status, data) {
 }
 
 function verifyLatLngObject(latLng) {
+    // Check the the attribute 'latLng' is of the data type 'latlng'
     return latLng is latlng
 }
 
