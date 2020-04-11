@@ -32,7 +32,7 @@ interface NewRequestProps {
   handleFormSubmit: Function;
 }
 
-const UserDataForm: React.FC<NewRequestProps> = ({
+const PersonaDataForm: React.FC<NewRequestProps> = ({
   handleFormSubmit,
 }): React.ReactElement => {
   const { t } = useTranslation();
@@ -163,4 +163,4 @@ const UserDataForm: React.FC<NewRequestProps> = ({
   );
 };
 
-export default UserDataForm;
+export default PersonaDataForm;
