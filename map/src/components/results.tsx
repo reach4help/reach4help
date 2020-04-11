@@ -8,7 +8,7 @@ import {
 import { ContactDetails, MarkerInfo } from 'src/data/markers';
 import { button, buttonPrimary } from 'src/styling/mixins';
 
-import styled from '../styling';
+import styled, { CLS_SCREEN_LG_ONLY } from '../styling';
 import Services from './services';
 
 interface Props {
@@ -116,7 +116,8 @@ const Results = (props: Props) => {
         <span className="count">{`${(results || []).length} results`}</span>
         {nextResults !== results && (
           <button className="update" onClick={updateResults} type="button">
-            Update results for current area
+            Update results
+            <span className={CLS_SCREEN_LG_ONLY}>&nbsp;for current area</span>
           </button>
         )}
       </div>
@@ -160,11 +161,11 @@ const Results = (props: Props) => {
 const HEADER_HEIGHT_PX = 52;
 
 export default styled(Results)`
+  background: #fff;
+  z-index: 100;
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 26%;
-  min-width: 300px;
   border-left: ${p => p.theme.borderLight};
 
   > .header {

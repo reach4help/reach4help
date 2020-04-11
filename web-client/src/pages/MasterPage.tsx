@@ -1,26 +1,49 @@
 import React, { ReactElement } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  BrowserRouter as Router,
+  Switch,
+} from 'react-router-dom';
+import { NewRequestLocation } from 'src/modules/request/pages/routes/NewRequestRoute/constants';
 
-import ContentPage from './ContentPage';
-import ProtectedPage from './ProtectedPage';
-import { LOGIN_PATH } from './routes/LoginRoute/constants';
-import LoginRoute from './routes/LoginRoute/LoginRoute';
+import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
+import ProtectedRoute from './routes/ProtectedRoute';
 
-const MasterPage = (): ReactElement => (
-  <Router>
-    <Switch>
-      <Route exact path={LOGIN_PATH}>
-        <LoginRoute />
-      </Route>
-      <ProtectedPage>
-        <ContentPage />
-      </ProtectedPage>
-      <Route path="*">
-        <NotFoundRoute />
-      </Route>
-    </Switch>
-  </Router>
-);
-
+const MasterPage = (): ReactElement => {
+  const renderModules = () =>
+    Object.keys(modules).map(moduleName => {
+      const routeModule = modules[moduleName];
+      return routeModule.protected ? (
+        <ProtectedRoute
+          key={moduleName}
+          path={routeModule.path}
+          component={routeModule.component}
+        />
+      ) : (
+        <Route
+          key={moduleName}
+          path={routeModule.path}
+          component={routeModule.component}
+        />
+      );
+    });
+  return (
+    <Router>
+      <Switch>
+        {renderModules()}
+        {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
+        <Route path="/" exact>
+          <Redirect
+            to={{
+              pathname: NewRequestLocation.path,
+            }}
+          />
+        </Route>
+        <Route path="*" component={NotFoundRoute} />
+      </Switch>
+    </Router>
+  );
+};
 export default MasterPage;

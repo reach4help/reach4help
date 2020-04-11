@@ -4,8 +4,7 @@
   "workspaces": [
     "map",
     "site",
-    "web-client",
-    "functions"
+    "web-client"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
@@ -19,6 +18,7 @@
     "deploy:staging": "yarn workspaces run build && firebase deploy -P reach4help-staging",
     "deploy:prod": "yarn workspaces run build && firebase deploy -P reach4help-34372",
     "lint": "yarn workspaces run lint",
+    "lint:fix": "yarn workspaces run lint:fix",
     "heroku-postbuild": "yarn workspace api run heroku-postbuild"
   },
   "husky": {

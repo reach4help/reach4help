@@ -1,6 +1,11 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdRefresh } from 'react-icons/md';
+import {
+  MdExpandLess,
+  MdExpandMore,
+  MdMyLocation,
+  MdRefresh,
+} from 'react-icons/md';
 import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
@@ -38,7 +43,7 @@ interface MapInfo {
 
 const getInfo = (marker: google.maps.Marker): MarkerInfo => marker.get('info');
 
-const updateMarkersVisiblilityUsingFilter = (
+const updateMarkersVisibilityUsingFilter = (
   markers: Map<MarkerInfo, google.maps.Marker>,
   filter: Filter,
 ) => {
@@ -63,6 +68,12 @@ interface Props {
    * Call this
    */
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
+  resultsMode: 'open' | 'closed';
+  toggleResults: () => void;
+  updateResultsOnNextClustering: boolean;
+  setUpdateResultsOnNextClustering: (
+    updateResultsOnNextClustering: boolean,
+  ) => void;
 }
 
 /**
@@ -93,7 +104,7 @@ class MapComponent extends React.Component<Props, {}> {
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
-      updateMarkersVisiblilityUsingFilter(this.map.markers, filter);
+      updateMarkersVisibilityUsingFilter(this.map.markers, filter);
       this.map.markerClusterer.repaint();
       this.map.currentFilter = filter;
     }
@@ -152,7 +163,7 @@ class MapComponent extends React.Component<Props, {}> {
     };
     this.map = m;
 
-    updateMarkersVisiblilityUsingFilter(markers, filter);
+    updateMarkersVisibilityUsingFilter(markers, filter);
 
     map.addListener('bounds_changed', () => {
       const bounds = map.getBounds();
@@ -294,9 +305,19 @@ class MapComponent extends React.Component<Props, {}> {
           markers: visibleMarkers,
           results: visibleMarkers.map(marker => getInfo(marker)),
         };
-        const { setNextResults: updateNextResults } = this.props;
+
+        const {
+          setNextResults: updateNextResults,
+          updateResultsOnNextClustering,
+          setUpdateResultsOnNextClustering,
+        } = this.props;
+
         updateNextResults(nextResults);
 
+        if (updateResultsOnNextClustering) {
+          setUpdateResultsOnNextClustering(false);
+          this.updateResults();
+        }
         // Update tooltip position if neccesary
         // (marker may be newly in or out of cluster)
         this.updateInfoWindow();
@@ -364,6 +385,29 @@ class MapComponent extends React.Component<Props, {}> {
     }
   };
 
+  private centerToGeolocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        if (!this.map) {
+          return;
+        }
+        this.map.map.setCenter(pos);
+        this.map.map.setZoom(8);
+        const { setUpdateResultsOnNextClustering } = this.props;
+        setUpdateResultsOnNextClustering(true);
+      },
+      error => {
+        alert('Unable to get geolocation!');
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+      },
+    );
+  };
+
   private initializeSearch() {
     const { searchInput } = this.props;
     if (this.searchBox?.searchInput !== searchInput) {
@@ -407,39 +451,112 @@ class MapComponent extends React.Component<Props, {}> {
   }
 
   public render() {
-    const { className, results, nextResults } = this.props;
+    const {
+      className,
+      results,
+      nextResults,
+      resultsMode,
+      toggleResults,
+    } = this.props;
     const hasNewResults = nextResults && nextResults.results !== results;
+    const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
     return (
       <div className={className}>
-        <div ref={this.updateGoogleMapRef} />
-        {hasNewResults && (
-          <button type="button" onClick={this.updateResults}>
-            <MdRefresh className="icon-left" />
-            Update results for this area
-          </button>
-        )}
+        <div className="map" ref={this.updateGoogleMapRef} />
+        <div className="map-actions">
+          {hasNewResults && (
+            <button type="button" onClick={this.updateResults}>
+              <MdRefresh className="icon icon-left" />
+              Update results for this area
+            </button>
+          )}
+          {navigator.geolocation && (
+            <button type="button" onClick={this.centerToGeolocation}>
+              <MdMyLocation className="icon icon-left" />
+              My Location
+            </button>
+          )}
+        </div>
+        <div className="results-tab" onClick={toggleResults}>
+          <div>
+            <ExpandIcon />
+            <span>
+              {resultsMode === 'open'
+                ? 'close'
+                : `${results?.length || 0} result(s)`}
+            </span>
+            <ExpandIcon />
+          </div>
+        </div>
       </div>
     );
   }
 }
 
+const TAB_WIDTH_PX = 30;
+
 export default styled(MapComponent)`
   height: 100%;
   position: relative;
 
-  > div {
+  > .map {
     height: 100%;
   }
 
-  > button {
-    ${button};
-    ${iconButton};
+  > .map-actions {
     position: absolute;
     bottom: ${p => p.theme.spacingPx}px;
     left: ${p => p.theme.spacingPx}px;
     right: ${p => p.theme.spacingPx}px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-    margin: 0 auto;
-    background: #fff;
+    display: flex;
+    justify-content: center;
+
+    > button {
+      ${button};
+      ${iconButton};
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+      margin: 0 5px;
+      background: #fff;
+    }
+  }
+
+  > .results-tab {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: ${TAB_WIDTH_PX}px;
+    pointer-events: none;
+
+    > div {
+      z-index: 50;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: ${TAB_WIDTH_PX}px;
+      line-height: ${TAB_WIDTH_PX}px;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      pointer-events: all;
+
+      ${button};
+      padding: 0 5px;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+      background: #fff;
+      font-size: 1rem;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      display: flex;
+      align-items: center;
+
+      > span {
+        margin: 0 5px;
+      }
+
+      > svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 `;

@@ -1,9 +1,7 @@
 module.exports = {
-  extends: [
-    '../.eslintrc-ts.js',
-  ],
+  extends: ['../.eslintrc-ts.js'],
   parserOptions: {
-    project: './tsconfig.json',
+    project: ['src/tsconfig.json', 'tests/tsconfig.json'],
     ecmaFeatures: {
       jsx: true,
     },
@@ -24,5 +22,11 @@ module.exports = {
   ],
   rules: {
     // see ../.eslintrc-ts.js
-  }
+    'no-underscore-dangle': 'off', // We need to shadow variables
+    'import/newline-after-import': 'off',
+    'no-console': 'off',
+    'arrow-body-style': 'off',
+    'class-methods-use-this': 'off',
+    'import/no-cycle': 'warn',
+  },
 };

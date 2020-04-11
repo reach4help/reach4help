@@ -62,6 +62,32 @@ export interface MarkerInfo {
 }
 
 const LOCATIONS = {
+  PT: {
+    ALMADA: {
+      description: 'Almada, Portugal',
+      lat: 38.678506,
+      lng: -9.164985,
+      serviceRadius: 5000,
+    },
+    LISBON_BELEM: {
+      description: 'Lisbon, Belém, Portugal',
+      lat: 38.7026973,
+      lng: -9.2089478,
+      serviceRadius: 2000,
+    },
+    PORTO_FOZ_DO_DOURO: {
+      description: 'Porto, Foz do Douro, Portugal',
+      lat: 41.1675792,
+      lng: -8.7027557,
+      serviceRadius: 2000,
+    },
+    ALL: {
+      description: 'PT',
+      lat: 39.475803,
+      lng: -8.591411,
+      serviceRadius: 311000,
+    },
+  },
   DE: {
     BERLIN: {
       description: 'Berlin, Germany',
@@ -150,6 +176,12 @@ const LOCATIONS = {
       lat: 38.575042,
       lng: -121.496461,
       serviceRadius: 13000,
+    },
+    CA_SAN_DIEGO: {
+      description: 'San Diego, California',
+      lat: 32.838665,
+      lng: -117.146094,
+      serviceRadius: 25000,
     },
     CA_SANTA_CLARA: {
       description: 'Santa Clara County, California',
@@ -649,6 +681,92 @@ export const MARKERS: MarkerInfo[] = [
       },
     },
     loc: LOCATIONS.USA.CA_SACRAMENTO,
+  },
+  {
+    contentTitle: 'The Jacobs & Cushman San Diego Food Bank',
+    services: ['aid', 'food'],
+    contentBody: `The Jacobs & Cushman San Diego Food Bank and our North County Food Bank chapter comprise the largest hunger-relief organization in San Diego County. Last year, the Food Bank distributed 28 million pounds of food, and the Food Bank serves, on average, 350,000 people per month in San Diego County.
+
+    Through our North County Food Bank chapter and by partnering with nearly 500 nonprofit partners with feeding programs, the Food Bank provides nutritious food to individuals and families in need in communities throughout San Diego County.`,
+    contact: {
+      general: {
+        web: {
+          Homepage: 'https://sandiegofoodbank.org/',
+          Programs: 'https://sandiegofoodbank.org/programs/',
+        },
+        phone: ['+1 858 527 1419', '+1 866 350 3663'],
+      },
+      getHelp: {
+        web: {
+          'Contact Help':
+            'https://sandiegofoodbank.org/contact/?looking-for=Help',
+        },
+        phone: ['+1 858 527 1419'],
+      },
+      volunteers: {
+        web: {
+          Volunteer: 'https://sandiegofoodbank.org/volunteer/',
+          'Donate Food':
+            'https://sandiegofoodbank.org/food-drives/host-a-food-drive/',
+          'Donate Funds':
+            'https://interland3.donorperfect.net/weblink/weblink.aspx?name=E33999&id=3',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CA_SAN_DIEGO,
+  },
+  {
+    contentTitle: 'Serving Seniors',
+    services: ['aid', 'food', 'supplies', 'information'],
+    contentBody: `Serving Seniors is a nonprofit organization in San Diego, California, serving low-income older adults aged 60 and above. We help poor and homeless seniors thrive using an innovative model of whole-person, wraparound support including meals, housing, health and social services, and lifelong learning.
+
+    Working at 15 sites across the county and in the homes of hundreds of homebound seniors, we provide 640,000 meals and coordinated services to 5,000 older adults each year, most of them living on less than $1,000 per month. Serving Seniors is the largest provider of meals to seniors in the county, and one of the only organizations in the nation providing such a broad base of services to vulnerable, at-risk older adults.`,
+    contact: {
+      general: {
+        web: {
+          Homepage: 'https://servingseniors.org/',
+          Mission: 'https://servingseniors.org/who-we-are/mission.html',
+          Team: 'https://servingseniors.org/who-we-are/board-leadership.html',
+        },
+        phone: ['+1 619 235 6572'],
+      },
+      volunteers: {
+        web: {
+          Volunteer: 'https://servingseniors.org/get-involved/volunteer.html',
+          'Donate Funds': 'https://servingseniors.org/get-involved/donate.html',
+        },
+        phone: ['+1 619 487 0605'],
+        email: ['elle.leidy@servingseniors.org'],
+      },
+    },
+    loc: LOCATIONS.USA.CA_SAN_DIEGO,
+  },
+  {
+    contentTitle: 'United Way of San Diego County',
+    services: ['aid', 'information', 'food', 'financial'],
+    contentBody: `We strengthen our community when we align with partners and leverage our resources to transform lives.
+
+    UWSD works in alignment with partners to address inequities in our region and help underserved communities. Together, we leverage the use of data and our partners’ expertise to better understand root causes, and put impactful solutions into action.
+    
+    Today, in partnership with others, we use shared goals, innovation, and proven practices to resolve inequities and transform the lives of children, young adults, and families.`,
+    contact: {
+      general: {
+        web: {
+          Homepage: 'https://uwsd.org/',
+          Team: 'https://uwsd.org/about-us/leadership/',
+        },
+        email: ['info@uwsd.org'],
+        phone: ['+1 858 492 2000'],
+      },
+      volunteers: {
+        web: {
+          Volunteer: 'https://uwsd.org/get-involved/volunteer/',
+          'Donate Funds': 'https://uwsd.org/donate/',
+          'Planned Giving': 'https://uwsd.org/get-involved/planned-giving/',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CA_SAN_DIEGO,
   },
   {
     contentTitle: 'How Can I Help? Bay Area',
@@ -2381,5 +2499,82 @@ If you are a low-risk individual with transportation and time to spare, sign up 
       },
     },
     loc: LOCATIONS.UK.ALL,
+  },
+  {
+    contentTitle: 'Refood Almada',
+    services: ['food', 'supplies', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.facebook.com/almada.refood/',
+        },
+        phone: ['+351 21 259 0467'],
+        email: ['refoodalmadavoluntarios@gmail.com'],
+        facebookGroup: 'https://www.facebook.com/almada.refood/',
+      },
+    },
+    loc: LOCATIONS.PT.ALMADA,
+  },
+  {
+    contentTitle: 'CMA Plano de Emergência Social',
+    services: ['food', 'supplies', 'medicine', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'http://www.m-almada.pt/xportal/xmain?xpid=cmav2&xpgid=noticias_detalhe&noticia_detalhe_qry=BOUI=653849736&noticia_titulo_qry=BOUI=653849736',
+        },
+        phone: ['+351 800 102 040'],
+        email: ['almadainforma@cma.m-almada.pt'],
+        facebookGroup: 'https://www.facebook.com/cmalmada/',
+      },
+    },
+    loc: LOCATIONS.PT.ALMADA,
+  },
+  {
+    contentTitle: 'Refood',
+    services: ['food', 'supplies', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.re-food.org/',
+        },
+        phone: ['+351 218 077 615'],
+        email: ['comunicacao@re-food.org'],
+        facebookGroup: 'https://www.facebook.com/refoodportugal',
+      },
+    },
+    loc: LOCATIONS.PT.ALL,
+  },
+  {
+    contentTitle: 'Refood Belém',
+    services: ['food', 'supplies', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.re-food.org/pt/nucleos/portugal/lisboa/belem',
+        },
+        phone: ['+351 910 486 313'],
+        email: ['voluntariado.refood.belem@gmail.com'],
+        facebookGroup: 'https://www.facebook.com/refood.belem/',
+      },
+    },
+    loc: LOCATIONS.PT.LISBON_BELEM,
+  },
+  {
+    contentTitle: 'Refood Foz do Douro',
+    services: ['food', 'supplies', 'aid'],
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://www.re-food.org/pt/nucleos/portugal/porto/foz-do-douro',
+        },
+        phone: ['+351 932 264 747'],
+        email: ['fozdodouro.refood.voluntarios@gmail.com'],
+        facebookGroup: 'www.facebook.com/refood.fozdodouro',
+      },
+    },
+    loc: LOCATIONS.PT.PORTO_FOZ_DO_DOURO,
   },
 ];

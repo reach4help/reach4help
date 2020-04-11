@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 import ducks from '../ducks';
 import injectRequestMiddleware from './middlewares/injectRequestMiddleware';
+import observerMiddleware from './middlewares/observerMiddleware';
 
 declare global {
   interface Window {
@@ -16,7 +17,7 @@ const rootReducer = combineReducers(ducks);
 export type AppState = ReturnType<typeof rootReducer>;
 
 const configureStore = () => {
-  const middlewares = [thunk, injectRequestMiddleware];
+  const middlewares = [thunk, injectRequestMiddleware, observerMiddleware];
 
   const store = createStore(
     rootReducer,

@@ -1,21 +1,16 @@
-Description
------------
+## Description
 
-Motivation
-----------
+## Motivation
 
-Testing Guidelines
-------------------
+## Testing Guidelines
 
-Release Checklist
------------------
+## Release Checklist
 
 - [ ] This code has unit tests
 - [ ] I have a plan to verify that these changes are working as expected after deploy
 - [ ] I have a plan for how to revert, rollback, or disable these changes if things are not working as expected
 
-Security Checklist
--------------------
+## Security Checklist
 
 This PR creates, modifies, or deletes:
 
@@ -27,15 +22,16 @@ This PR creates, modifies, or deletes:
 
 <!--
 
-If you checked any of those, please request a review from `@reach4help/application-security`.
+If you checked any of those, please request a review from `@reach4help/security`.
 
 -->
 
-Additional Notes
-----------------
+## Additional Notes
 
 <!--
 
 If this PR fixes an issue, please add "closes #issue-id" here, otherwise add a reference to the issue it relates to.
+
+If this PR adds or changes visual, please add a screenshot of the changes.
 
 -->

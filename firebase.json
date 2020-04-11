@@ -5,9 +5,9 @@
   },
   "functions": {
     "predeploy": [
-      "yarn install",
-      "yarn workspace functions lint",
-      "yarn workspace functions build"
+      "yarn --ignore-engines --cwd functions install",
+      "yarn --ignore-engines --cwd functions lint",
+      "yarn --ignore-engines --cwd functions build"
     ]
   },
   "hosting": [
