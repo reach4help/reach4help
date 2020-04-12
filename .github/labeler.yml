@@ -1,0 +1,28 @@
+backend:
+  - functions/**/*
+
+documentation:
+  - docs/**/*
+  - ./*.md
+
+firebase-rules:
+  - firebase/**/*
+
+frontend:
+  - web-client/**/*
+
+css:
+  - ./**/*.css
+
+map:
+  - map/**/*
+
+site:
+  - site/**/*
+
+security:
+  - firebase/**/*
+
+"mgmt / ops / product":
+  - .github/**/*
+  - branding/**/*
