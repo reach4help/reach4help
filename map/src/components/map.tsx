@@ -4,7 +4,7 @@ import { MdExpandLess, MdExpandMore, MdRefresh } from 'react-icons/md';
 import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
-import { MarkerInfo, MARKERS } from '../data/markers';
+import { MarkerData, MarkerInfo } from '../data/markers';
 import styled from '../styling';
 import {
   createGoogleMap,
@@ -123,6 +123,8 @@ class MapComponent extends React.Component<Props, {}> {
     }
     const map = createGoogleMap(ref);
     const markers = new Map<MarkerInfo, google.maps.Marker>();
+    const markerData = new MarkerData();
+    const MARKERS = markerData.getMarkerData();
     for (const m of MARKERS) {
       const marker = new window.google.maps.Marker({
         position: m.loc,
@@ -170,7 +172,6 @@ class MapComponent extends React.Component<Props, {}> {
     // This pretty much orchestrates everything since the map is the main interaction window
     markers.forEach(marker => {
       const info = getInfo(marker);
-
       marker.addListener('click', () => {
         setSelectedResult(info);
       });
@@ -253,8 +254,8 @@ class MapComponent extends React.Component<Props, {}> {
           serviceCircles: [],
           clusterMarkers: new Map(),
         };
-        const visibleMarkers: google.maps.Marker[] = [];
 
+        const visibleMarkers: google.maps.Marker[] = [];
         for (const cluster of newClusterParent.getClusters()) {
           let maxMarker: {
             marker: google.maps.Marker;
@@ -320,7 +321,7 @@ class MapComponent extends React.Component<Props, {}> {
       for (const marker of this.map.markers.values()) {
         marker.setLabel('');
       }
-      // Relabel marker labels based on theri index
+      // Relabel marker labels based on their index
       results.markers.forEach((marker, index) => {
         marker.setLabel((index + 1).toString());
       });

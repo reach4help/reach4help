@@ -1,5 +1,8 @@
-import { MARKERS } from '../../data/markers';
+import { MarkerData } from '../../data/markers';
 import { parseQueryString } from './query-string';
+
+const markerData = new MarkerData();
+const MARKERS = markerData.getMarkerData();
 
 const average = (arr: Array<number>) =>
   arr.reduce((acc, curr) => acc + curr) / arr.length;
