@@ -1,18 +1,21 @@
 import { validateOrReject } from 'class-validator';
 import { firestore } from 'firebase';
+import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
+import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
 import { IOffer, Offer, OfferStatus } from '../models/offers';
-import DocumentSnapshot = firestore.DocumentSnapshot;
+import { RequestStatus } from '../models/requests';
 
-const queueStatusUpdateTriggers = (
+admin.initializeApp();
+const db = admin.firestore();
+
+const queueStatusUpdateTriggers = async (
   change: Change<DocumentSnapshot>,
 ): Promise<void[]> => {
-  const offerBefore = change.before ? (change.before.data() as Offer) : null;
-  const offerAfter = change.after.data()
-    ? (change.after.data() as Offer)
-    : null;
+  const offerBefore = change.before.exists ? (change.before.data() as Offer) : null;
+  const offerAfter = (change.after.data() as Offer);
 
   const operations: Promise<void>[] = [];
 
@@ -21,12 +24,21 @@ const queueStatusUpdateTriggers = (
     offerBefore?.status !== OfferStatus.accepted &&
     offerAfter?.status === OfferStatus.accepted
   ) {
-    /* TODO: Update the request with the current CAV as well as set it's status.
-       This will enable the CAV to access the address of the request.
-       const requestId = context.params.requestId;
-       Use the id to find the request and update it's status and current CAV
-     */
-    operations.push(Promise.resolve());
+    operations.push(offerAfter.requestRef.update({
+      cavUserRef: offerAfter.cavUserRef,
+      status: RequestStatus.ongoing
+    }));
+    let offersToReject = await db.collection('offers').where('requestRef', '==', offerAfter.requestRef).get();
+    offersToReject.forEach(offer => {
+      if(offer.ref !== change.after.ref){
+        operations.push((async () => {
+          await offer.ref.update({
+            status: OfferStatus.rejected
+          });
+          Promise.resolve();
+        })()); 
+      }
+    });
   }
 
   return Promise.all(operations);

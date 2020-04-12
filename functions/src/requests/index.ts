@@ -6,8 +6,9 @@ import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import * as moment from 'moment';
 
 import { IRequest, Request, RequestStatus } from '../models/requests';
+import { UserFirestoreConverter } from '../models/users';
 
-const queueStatusUpdateTriggers = (
+const queueStatusUpdateTriggers = async (
   change: Change<DocumentSnapshot>,
 ): Promise<void[]> => {
   const requestBefore = change.before.data()
@@ -22,10 +23,13 @@ const queueStatusUpdateTriggers = (
   // A request has just been completed - Update CAV request completed count
   if (
     requestBefore?.status !== RequestStatus.completed &&
-    requestAfter?.status === RequestStatus.completed
+    requestAfter?.status === RequestStatus.completed &&
+    requestAfter.cavUserRef
   ) {
-    // TODO: Update CAV User Ref count for number of cases completed.
-    operations.push(Promise.resolve());
+    let user = UserFirestoreConverter.fromFirestore((await requestAfter.cavUserRef.get()));
+    operations.push(requestAfter.cavUserRef.update({
+      casesCompleted: user.casesCompleted + 1
+    }));
   }
 
   // We have a new record -  Update PIN requests made count
@@ -36,22 +40,28 @@ const queueStatusUpdateTriggers = (
   return Promise.all(operations);
 };
 
-const queueRatingUpdatedTriggers = (
+const queueRatingUpdatedTriggers = async (
   change: Change<DocumentSnapshot>,
 ): Promise<void[]> => {
   const requestBefore = change.before
     ? (change.before.data() as Request)
     : null;
-  const requestAfter = change.after.data()
-    ? (change.after.data() as Request)
-    : null;
+  const requestAfter = (change.after.data() as Request);
 
   const operations: Promise<void>[] = [];
 
   // We have a new PIN rating -  Update PIN rating average but only this time.
   if (requestBefore?.pinRating === null && requestAfter?.pinRating !== null) {
-    // TODO: Adjust the avg rating based on the new rating
-    operations.push(Promise.resolve());
+    let user = UserFirestoreConverter.fromFirestore(await requestAfter.pinUserRef.get());
+    let average = user.averageRating ? user.averageRating : 0;
+    //Pin Ratings Received will store the number of rating received for the pin so far
+    let pinRatingsReceived = user.pinRatingsReceived ? user.pinRatingsReceived + 1 : 1;
+    //Calculate New Average
+    let newAverage = average + ((requestAfter.pinRating - average) / pinRatingsReceived)
+    operations.push(requestAfter.pinUserRef.update({
+      averageRating: newAverage,
+      pinRatingsReceived
+    }));
   } else if (
     requestBefore?.pinRating !== null &&
     requestAfter?.pinRating !== null &&
@@ -62,27 +72,52 @@ const queueRatingUpdatedTriggers = (
     const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
     const currentRatedAt = moment(requestAfter.pinRatedAt.toDate());
     if (currentRatedAt.isSameOrBefore(fiveMinutesPastPreviousRatedAt)) {
-      // TODO: Adjust the avg rating based on the old rating and the new rating
-      operations.push(Promise.resolve());
+      let user = UserFirestoreConverter.fromFirestore(await requestAfter.pinUserRef.get());
+      let average = user.averageRating ? user.averageRating : 0;
+      let pinRatingsReceived = user.pinRatingsReceived ? user.pinRatingsReceived : 2;
+      //Substract the old rating from the average and reverse the average to what it was before the old rating was given
+      average = (average * pinRatingsReceived - requestBefore.pinRating) / (pinRatingsReceived - 1)
+      //Add the new rating to the average and calculate the new average
+      let newAverage = average + ((requestAfter.pinRating - average) / pinRatingsReceived)
+      operations.push(requestAfter.pinUserRef.update({
+        averageRating: newAverage
+      }));
     }
   }
 
   // We have a new CAV rating -  Update CAV rating average but only this time.
-  if (requestBefore?.cavRating === null && requestAfter?.cavRating !== null) {
-    // TODO: Adjust the avg rating based on the new rating
-    operations.push(Promise.resolve());
+  if (requestBefore?.cavRating === null && requestAfter?.cavRating !== null && requestAfter.cavUserRef) {
+    let user = UserFirestoreConverter.fromFirestore(await requestAfter.cavUserRef.get());
+    let average = user.averageRating ? user.averageRating : 0;
+    //Pin Ratings Received will store the number of rating received for the pin so far
+    let cavRatingsReceived = user.cavRatingsReceived ? user.cavRatingsReceived + 1 : 1;
+    //Calculate New Average
+    let newAverage = average + ((requestAfter.cavRating - average) / cavRatingsReceived)
+    operations.push(requestAfter.cavUserRef.update({
+      averageRating: newAverage,
+      cavRatingsReceived
+    }));
   } else if (
     requestBefore?.cavRating !== null &&
     requestAfter?.cavRating !== null &&
     requestBefore?.cavRatedAt &&
-    requestAfter?.cavRatedAt
+    requestAfter?.cavRatedAt &&
+    requestAfter.cavUserRef
   ) {
     const previousRatedAt = moment(requestBefore.cavRatedAt.toDate());
     const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
     const currentRatedAt = moment(requestAfter.cavRatedAt.toDate());
     if (currentRatedAt.isSameOrBefore(fiveMinutesPastPreviousRatedAt)) {
-      // TODO: Adjust the avg rating based on the old rating and the new rating
-      operations.push(Promise.resolve());
+      let user = UserFirestoreConverter.fromFirestore(await requestAfter.cavUserRef.get());
+      let average = user.averageRating ? user.averageRating : 0;
+      let cavRatingsReceived = user.cavRatingsReceived ? user.cavRatingsReceived : 2;
+      //Substract the old rating from the average and reverse the average to what it was before the old rating was given
+      average = (average * cavRatingsReceived - requestBefore.cavRating) / (cavRatingsReceived - 1)
+      //Add the new rating to the average and calculate the new average
+      let newAverage = average + ((requestAfter.cavRating - average) / cavRatingsReceived)
+      operations.push(requestAfter.cavUserRef.update({
+        averageRating: newAverage
+      }));
     }
   }
 
