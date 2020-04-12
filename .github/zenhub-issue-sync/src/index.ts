@@ -218,11 +218,20 @@ interface IssueInfo {
 *This information is updated automatically. To modify it, please use ZenHub.*
 `
     );
+    if (issue.parentEpics.length > 0) {
+      extraBody += `\n**Belonging to Epics:**\n`;
+      for (const epicId of issue.parentEpics) {
+        extraBody += (
+          `\n* ${issueString(epicId, getIssue(epicId))}`
+        );
+      }
+      extraBody += '\n';
+    }
     if (issue.blockedBy.length > 0) {
       extraBody += `\n**Blocked By:**\n`;
       for (const blockerId of issue.blockedBy) {
         extraBody += (
-          `\n* ${issueString(issueId, getIssue(blockerId)) }}`
+          `\n* ${issueString(issueId, getIssue(blockerId)) }`
         );
       }
       extraBody += '\n';
@@ -231,7 +240,7 @@ interface IssueInfo {
       extraBody += `\n**Blocking:**\n`;
       for (const blockeeId of issue.blocking) {
         extraBody += (
-          `\n* ${ issueString(issueId, getIssue(blockeeId)) }}`
+          `\n* ${ issueString(issueId, getIssue(blockeeId)) }`
         );
       }
       extraBody += '\n';

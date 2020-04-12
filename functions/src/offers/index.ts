@@ -1,20 +1,26 @@
 import { validateOrReject } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import DocumentSnapshot = firestore.DocumentSnapshot;
 
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: EventContext): Promise<void[]> => {
-  const offerBefore = change.before ? change.before.data() as Offer : null;
-  const offerAfter = change.after.data() ? change.after.data() as Offer : null;
+const queueStatusUpdateTriggers = (
+  change: Change<DocumentSnapshot>,
+): Promise<void[]> => {
+  const offerBefore = change.before ? (change.before.data() as Offer) : null;
+  const offerAfter = change.after.data()
+    ? (change.after.data() as Offer)
+    : null;
 
   const operations: Promise<void>[] = [];
 
   // A request has just been accepted -- Update request with new information (CAV, new status)
-  if (offerBefore?.status !== OfferStatus.accepted && offerAfter?.status === OfferStatus.accepted) {
+  if (
+    offerBefore?.status !== OfferStatus.accepted &&
+    offerAfter?.status === OfferStatus.accepted
+  ) {
     /* TODO: Update the request with the current CAV as well as set it's status.
        This will enable the CAV to access the address of the request.
        const requestId = context.params.requestId;
@@ -27,37 +33,35 @@ const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>, context: Ev
 };
 
 const validateOffer = (value: IOffer): Promise<void> => {
-  return validateOrReject(Offer.factory(value))
-    .then(() => {
-      return Promise.resolve();
-    });
+  return validateOrReject(Offer.factory(value)).then(() => {
+    return Promise.resolve();
+  });
 };
 
-export const triggerEventsWhenOfferIsCreated = functions.firestore.document('offers/{offerId}')
-  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const triggerEventsWhenOfferIsCreated = functions.firestore
+  .document('offers/{offerId}')
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
-    return validateOffer(snapshot.data() as IOffer)
-      .catch(errors => {
-        console.error('Invalid Offer Found: ', errors);
-        return firestore()
-          .collection('offers').doc(context.params.offerId)
-          .delete();
-      });
+    return validateOffer(snapshot.data() as IOffer).catch(errors => {
+      console.error('Invalid Offer Found: ', errors);
+      return firestore()
+        .collection('offers')
+        .doc(context.params.offerId)
+        .delete();
+    });
   });
 
-export const triggerEventsWhenOfferIsUpdated = functions.firestore.document('offers/{offerId}')
-  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const triggerEventsWhenOfferIsUpdated = functions.firestore
+  .document('offers/{offerId}')
   .onUpdate((change: Change<DocumentSnapshot>, context: EventContext) => {
     return validateOffer(change.after.data() as IOffer)
       .catch(errors => {
         console.error('Invalid Offer Found: ', errors);
         return firestore()
-          .collection('offers').doc(context.params.offerId)
+          .collection('offers')
+          .doc(context.params.offerId)
           .delete();
       })
       .then(() => {
-        return Promise.all([
-          queueStatusUpdateTriggers(change, context),
-        ]);
+        return Promise.all([queueStatusUpdateTriggers(change)]);
       });
   });

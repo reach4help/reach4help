@@ -1,4 +1,4 @@
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 
