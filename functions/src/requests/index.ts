@@ -124,6 +124,20 @@ const queueRatingUpdatedTriggers = async (
   return Promise.all(operations);
 };
 
+const queueCreateTriggers = async (
+  snapshot: DocumentSnapshot,
+): Promise<void[]> => {
+  const operations: Promise<void>[] = [];
+  let data = snapshot.data();
+  if(data){
+    let user = UserFirestoreConverter.fromFirestore(await data.pinUserRef.get());
+    operations.push(snapshot.data()?.pinUserRef.update({
+      requestsMade: user.requestsMade + 1
+    }));
+  }
+  return Promise.all(operations);
+}
+
 const validateRequest = (value: IRequest): Promise<void> => {
   return validateOrReject(Request.factory(value)).then(() => {
     return Promise.resolve();
@@ -134,12 +148,16 @@ export const triggerEventsWhenRequestIsCreated = functions.firestore
   .document('requests/{requestId}')
   // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
-    return validateRequest(snapshot.data() as IRequest).catch(errors => {
+    return validateRequest(snapshot.data() as IRequest)
+    .catch(errors => {
       console.error('Invalid Request Found: ', errors);
       return firestore()
         .collection('requests')
         .doc(context.params.requestId)
         .delete();
+    })
+    .then(()=>{
+      return Promise.all([queueCreateTriggers(snapshot)]);
     });
   });
 
