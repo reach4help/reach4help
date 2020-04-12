@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {} from 'src/ducks/auth/actions';
 import {
   getLoginRedirectResult,
   loginWithFirebaseActionPopUp,

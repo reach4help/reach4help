@@ -2,7 +2,7 @@ import {
   facebookLoginWithFirebasePopUp,
   getRedirectResult,
   loginWithFirebaseRedirect,
-} from 'src/http/resources/auth';
+} from 'src/http/resources/auth/facebookAuth';
 
 import {
   FIREBASE_FACEBOOK_LOGIN_POPUP,

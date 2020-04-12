@@ -1,7 +1,7 @@
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
-const { asyncType } = createActionTypeFactory('AUTH');
-const { observerType } = createActionTypeFactory('FIREBASE');
+export const { asyncType } = createActionTypeFactory('AUTH');
+export const { observerType } = createActionTypeFactory('FIREBASE');
 
 export const LOGIN = asyncType('LOGIN');
 
@@ -13,4 +13,15 @@ export interface AuthState {
   observerReceivedFirstUpdate: boolean;
   error?: Error;
   confirmationResult?: firebase.auth.ConfirmationResult;
+}
+
+export interface IPhoneNumberAuth {
+  phoneNumber: string;
+  currentUser?: firebase.User;
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  recaptchaVerifier: firebase.auth.RecaptchaVerifier_Instance;
+}
+
+export interface IOTPAuth {
+  otp: string;
 }

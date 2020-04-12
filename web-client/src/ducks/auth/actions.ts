@@ -1,4 +1,4 @@
-import { observeUser } from 'src/http/resources/auth';
+import { observeUser } from 'src/http/resources/auth/auth';
 
 import { OBSERVE_USER } from './types';
 
