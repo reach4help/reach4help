@@ -24,5 +24,7 @@ security:
   - firebase/**/*
 
 "mgmt / ops / product":
-  - .github/**/*
   - branding/**/*
+
+"infra / devops":
+  - .github/**/*
