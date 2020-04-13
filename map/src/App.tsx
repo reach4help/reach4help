@@ -37,6 +37,8 @@ interface State {
    * * open-auto: the results are open because a point is selected
    */
   resultsMode: 'open' | 'closed' | 'open-auto';
+  addInfoOpen: boolean;
+  addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'information-form';
 }
 
 class App extends React.Component<Props, State> {
@@ -52,6 +54,8 @@ class App extends React.Component<Props, State> {
       fullScreen: false,
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
+      addInfoOpen: false,
+      addInfoStep: 'greeting',
     };
   }
 
@@ -100,6 +104,16 @@ class App extends React.Component<Props, State> {
     this.setState({ updateResultsOnNextClustering });
   };
 
+  private setAddInfoOpen = (addInfoOpen: boolean) => {
+    this.setState({ addInfoOpen });
+  };
+
+  private setAddInfoStep = (
+    addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'information-form',
+  ) => {
+    this.setState({ addInfoStep });
+  };
+
   private updateResults = () => {
     const { updateResultsCallback } = this.state;
     if (updateResultsCallback) {
@@ -132,6 +146,8 @@ class App extends React.Component<Props, State> {
       fullScreen,
       resultsMode,
       updateResultsOnNextClustering,
+      addInfoOpen,
+      addInfoStep,
     } = this.state;
     const effectiveResultsMode =
       resultsMode === 'open-auto' ? 'open' : resultsMode;
@@ -165,6 +181,10 @@ class App extends React.Component<Props, State> {
                   setUpdateResultsOnNextClustering={
                     this.setUpdateResultsOnNextClustering
                   }
+                  addInfoOpen={addInfoOpen}
+                  setAddInfoOpen={this.setAddInfoOpen}
+                  addInfoStep={addInfoStep}
+                  setAddInfoStep={this.setAddInfoStep}
                 />
               )}
             />

@@ -41,6 +41,11 @@ interface MapInfo {
       };
 }
 
+interface AddInfo {
+  marker: google.maps.Marker | null;
+  circle: google.maps.Circle | null;
+}
+
 const getInfo = (marker: google.maps.Marker): MarkerInfo => marker.get('info');
 
 const updateMarkersVisibilityUsingFilter = (
@@ -74,6 +79,12 @@ interface Props {
   setUpdateResultsOnNextClustering: (
     updateResultsOnNextClustering: boolean,
   ) => void;
+  addInfoOpen: boolean;
+  setAddInfoOpen: (addInfoOpen: boolean) => void;
+  addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'information-form';
+  setAddInfoStep: (
+    addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'information-form',
+  ) => void;
 }
 
 /**
@@ -86,6 +97,8 @@ export interface NextResults {
 
 class MapComponent extends React.Component<Props, {}> {
   private map: MapInfo | null = null;
+
+  private addInfo: AddInfo | null = null;
 
   private searchBox: {
     searchInput: HTMLInputElement;
@@ -401,11 +414,46 @@ class MapComponent extends React.Component<Props, {}> {
         setUpdateResultsOnNextClustering(true);
       },
       error => {
+        // eslint-disable-next-line no-alert
         alert('Unable to get geolocation!');
         // eslint-disable-next-line no-console
         console.error(error.message);
       },
     );
+  };
+
+  private completeGreetingStep = () => {
+    if (!this.addInfo) {
+      this.addInfo = {
+        marker: null,
+        circle: null,
+      };
+    }
+
+    const { setAddInfoStep } = this.props;
+    setAddInfoStep('set-marker');
+  };
+
+  private completeSetMarkerStep = () => {
+    const { setAddInfoStep } = this.props;
+    setAddInfoStep('set-radius');
+  };
+
+  private completeSetRadiusStep = () => {
+    const { setAddInfoStep } = this.props;
+    setAddInfoStep('information-form');
+  };
+
+  private completeSetFormStep = () => {
+    const { setAddInfoStep } = this.props;
+
+    setAddInfoStep('information-form');
+  };
+
+  private closeAddInfo = () => {
+    const { setAddInfoOpen, setAddInfoStep } = this.props;
+    setAddInfoOpen(false);
+    setAddInfoStep('greeting');
   };
 
   private initializeSearch() {
@@ -457,12 +505,78 @@ class MapComponent extends React.Component<Props, {}> {
       nextResults,
       resultsMode,
       toggleResults,
+      addInfoOpen,
+      addInfoStep,
+      setAddInfoOpen,
+      setAddInfoStep,
     } = this.props;
     const hasNewResults = nextResults && nextResults.results !== results;
     const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
     return (
       <div className={className}>
         <div className="map" ref={this.updateGoogleMapRef} />
+        {addInfoOpen ? (
+          <AddInfoOverlay>
+            <button type="button" onClick={this.closeAddInfo}>
+              Exit
+            </button>
+            {addInfoStep === 'greeting' && (
+              <AddInfoStep>
+                <h2>Add information to this map</h2>
+                <button type="button" onClick={this.completeGreetingStep}>
+                  Continue
+                </button>
+              </AddInfoStep>
+            )}
+            {addInfoStep === 'set-marker' && (
+              <AddInfoStep>
+                <h1>Set Marker Step</h1>
+                <p>Move to the area served.</p>
+                <button
+                  type="button"
+                  onClick={() => setAddInfoStep('greeting')}
+                >
+                  Back
+                </button>
+                <button type="button" onClick={this.completeSetMarkerStep}>
+                  Continue
+                </button>
+              </AddInfoStep>
+            )}
+            {addInfoStep === 'set-radius' && (
+              <AddInfoStep>
+                <h1>Set Circle Step</h1>
+                <button
+                  type="button"
+                  onClick={() => setAddInfoStep('set-marker')}
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => this.completeSetRadiusStep}
+                >
+                  Continue
+                </button>
+              </AddInfoStep>
+            )}
+            {addInfoStep === 'information-form' && (
+              <AddInfoStep>
+                <p>Form Step</p>
+                <button
+                  type="button"
+                  onClick={() => setAddInfoStep('set-radius')}
+                >
+                  Back
+                </button>
+                <button type="button" onClick={this.completeSetFormStep}>
+                  Continue
+                </button>
+              </AddInfoStep>
+            )}
+          </AddInfoOverlay>
+        ) : null}
+
         <div className="map-actions">
           {hasNewResults && (
             <button type="button" onClick={this.updateResults}>
@@ -476,6 +590,9 @@ class MapComponent extends React.Component<Props, {}> {
               My Location
             </button>
           )}
+          <button type="button" onClick={() => setAddInfoOpen(true)}>
+            Start Drawing
+          </button>
         </div>
         <div className="results-tab" onClick={toggleResults}>
           <div>
@@ -492,6 +609,27 @@ class MapComponent extends React.Component<Props, {}> {
     );
   }
 }
+
+const AddInfoOverlay = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  > button {
+    pointer-events: auto;
+    ${button}
+  }
+`;
+
+const AddInfoStep = styled.div`
+  width: 50%;
+  background-color: white;
+  font-size: 18px;
+  opacity: 1 !important;
+  margin: 200px auto;
+  pointer-events: auto;
+`;
 
 const TAB_WIDTH_PX = 30;
 
