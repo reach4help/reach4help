@@ -7,7 +7,7 @@ import {
   MdRefresh,
 } from 'react-icons/md';
 import { Filter, SERVICES } from 'src/data';
-import { button, iconButton } from 'src/styling/mixins';
+import { button, buttonPrimary, iconButton } from 'src/styling/mixins';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
@@ -423,19 +423,69 @@ class MapComponent extends React.Component<Props, {}> {
   };
 
   private completeGreetingStep = () => {
+    if (!this.map) {
+      return;
+    }
     if (!this.addInfo) {
       this.addInfo = {
         marker: null,
         circle: null,
       };
     }
-
     const { setAddInfoStep } = this.props;
     setAddInfoStep('set-marker');
   };
 
   private completeSetMarkerStep = () => {
+    if (!this.map) {
+      return;
+    }
     const { setAddInfoStep } = this.props;
+    if (!this.addInfo) {
+      return;
+    }
+    if (this.addInfo.marker) {
+      this.addInfo.marker.setMap(null);
+    }
+    if (this.addInfo.circle) {
+      this.addInfo.circle.setMap(null);
+    }
+
+    const marker = new google.maps.Marker({
+      map: this.map.map,
+      position: this.map.map.getCenter(),
+      draggable: true,
+    });
+    const circle = new google.maps.Circle({
+      map: this.map.map,
+      center: this.map.map.getCenter(),
+      editable: true,
+      radius: 20000,
+    });
+
+    const meterToKm = (meter: number) => (meter / 1000).toFixed(2);
+    const infoWindow = new google.maps.InfoWindow({
+      content: `Radius: ${meterToKm(circle.getRadius())}km`,
+    });
+
+    infoWindow.open(this.map.map, marker);
+
+    marker.addListener('drag', () => {
+      const position = marker.getPosition();
+      if (!position) {
+        return;
+      }
+      circle.setCenter(new google.maps.LatLng(position.lat(), position.lng()));
+    });
+    circle.addListener('center_changed', () => {
+      marker.setPosition(circle.getCenter());
+    });
+    circle.addListener('radius_changed', () => {
+      infoWindow.setContent(`Radius: ${meterToKm(circle.getRadius())}km`);
+    });
+
+    this.addInfo.marker = marker;
+    this.addInfo.circle = circle;
     setAddInfoStep('set-radius');
   };
 
@@ -530,7 +580,6 @@ class MapComponent extends React.Component<Props, {}> {
             )}
             {addInfoStep === 'set-marker' && (
               <AddInfoStep>
-                <h1>Set Marker Step</h1>
                 <p>Move to the area served.</p>
                 <button
                   type="button"
@@ -618,7 +667,7 @@ const AddInfoOverlay = styled.div`
 
   > button {
     pointer-events: auto;
-    ${button}
+    ${buttonPrimary}
   }
 `;
 
@@ -629,6 +678,10 @@ const AddInfoStep = styled.div`
   opacity: 1 !important;
   margin: 200px auto;
   pointer-events: auto;
+
+  > button {
+    ${buttonPrimary}
+  }
 `;
 
 const TAB_WIDTH_PX = 30;
