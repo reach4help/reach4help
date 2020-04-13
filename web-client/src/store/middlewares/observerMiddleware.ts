@@ -25,10 +25,6 @@ const observerMiddleware = ({ dispatch }: { dispatch: Function }) => (
   }
 
   if (action.observer && typeof action.observer === 'function') {
-    dispatch({
-      type: `${action.type}_SUBSCRIBE`,
-    });
-
     const nextValue = (...values: any) => {
       dispatch({
         type: `${action.type}_UPDATED`,
@@ -37,8 +33,13 @@ const observerMiddleware = ({ dispatch }: { dispatch: Function }) => (
     };
 
     try {
-      const subscribe: SubscribeFunction = () =>
-        action.observer?.(nextValue, action.payload);
+      const subscribe: SubscribeFunction = () => {
+        dispatch({
+          type: `${action.type}_SUBSCRIBE`,
+        });
+        return action.observer?.(nextValue, action.payload);
+      };
+
       observerManagerInstance.register(action.type, subscribe);
 
       return;

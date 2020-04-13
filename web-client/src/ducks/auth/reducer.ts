@@ -1,103 +1,21 @@
+import firebase, { firebaseAuth } from 'src/firebase';
 import createReducer from 'src/store/utils/createReducer';
 
-import {
-  FIREBASE_FACEBOOK_LOGIN_POPUP,
-  FIREBASE_PHONE_TRIGGER,
-  FIREBASE_PHONE_VERIFY,
-  GET_LOGIN_REDIRECT_RESULT,
-  OBSERVE_USER,
-  TRIGGER_LOGIN_WITH_REDIRECT,
-} from './types';
-
-export interface AuthState {
-  user?: firebase.User | null;
-  loading?: boolean;
-  error?: Error;
-  confirmationResult?: firebase.auth.ConfirmationResult;
-}
+import facebookReducer from './facebook/reducer';
+import phoneReducer from './phone/reducer';
+import { AuthState, OBSERVE_USER } from './types';
 
 const initialState: AuthState = {
-  loading: true,
+  loading: false,
   error: undefined,
-  user: undefined,
+  user: firebaseAuth.currentUser,
   confirmationResult: undefined,
+  observerReceivedFirstUpdate: false,
 };
-
 export default createReducer<AuthState>(
   {
-    [FIREBASE_FACEBOOK_LOGIN_POPUP.PENDING]: (state: AuthState) => {
-      state.loading = true;
-    },
-
-    [FIREBASE_FACEBOOK_LOGIN_POPUP.REJECTED]: (
-      state: AuthState,
-      { payload }: { payload: Error },
-    ) => {
-      state.error = payload;
-      state.loading = false;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_POPUP.COMPLETED]: (
-      state: AuthState,
-      { payload }: { payload: firebase.auth.UserCredential },
-    ) => {
-      state.user = payload.user;
-      state.loading = false;
-    },
-    [TRIGGER_LOGIN_WITH_REDIRECT.PENDING]: (state: AuthState) => {
-      window.localStorage.setItem('redirect_started', new Date().toISOString());
-      state.loading = true;
-    },
-    [GET_LOGIN_REDIRECT_RESULT.REJECTED]: (
-      state: AuthState,
-      { payload }: { payload: Error },
-    ) => {
-      window.localStorage.removeItem('redirect_started');
-      state.error = payload;
-      state.loading = false;
-    },
-    [GET_LOGIN_REDIRECT_RESULT.COMPLETED]: (
-      state: AuthState,
-      { payload }: { payload: firebase.auth.UserCredential },
-    ) => {
-      state.user = payload.user;
-      state.loading = false;
-    },
-    [FIREBASE_PHONE_TRIGGER.PENDING]: (state: AuthState) => {
-      state.loading = true;
-    },
-    [FIREBASE_PHONE_TRIGGER.COMPLETED]: (
-      state: AuthState,
-      { payload }: { payload: firebase.auth.ConfirmationResult },
-    ) => {
-      state.confirmationResult = payload;
-      state.loading = false;
-    },
-    [FIREBASE_PHONE_TRIGGER.REJECTED]: (
-      state: AuthState,
-      { payload }: { payload: Error },
-    ) => {
-      state.error = payload;
-      state.confirmationResult = undefined;
-      state.loading = false;
-    },
-    [FIREBASE_PHONE_VERIFY.PENDING]: (state: AuthState) => {
-      state.loading = true;
-    },
-    [FIREBASE_PHONE_VERIFY.COMPLETED]: (
-      state: AuthState,
-      { payload }: { payload: firebase.auth.UserCredential },
-    ) => {
-      state.user = payload.user;
-      state.loading = false;
-    },
-    [FIREBASE_PHONE_VERIFY.REJECTED]: (
-      state: AuthState,
-      { payload }: { payload: Error },
-    ) => {
-      state.error = payload;
-      state.confirmationResult = undefined;
-      state.loading = false;
-    },
+    ...facebookReducer,
+    ...phoneReducer,
     [OBSERVE_USER.SUBSCRIBE]: (state: AuthState) => {
       state.loading = true;
     },
@@ -108,6 +26,7 @@ export default createReducer<AuthState>(
       // eslint-disable-next-line prefer-destructuring
       state.user = payload[0];
       state.loading = false;
+      state.observerReceivedFirstUpdate = true;
     },
   },
   initialState,
