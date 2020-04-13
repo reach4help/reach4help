@@ -3,8 +3,12 @@ import {
   phoneAuthVerify,
 } from 'src/http/resources/auth/phoneAuth';
 
-import { IOTPAuth, IPhoneNumberAuth } from '../types';
-import { FIREBASE_PHONE_TRIGGER, FIREBASE_PHONE_VERIFY } from './types';
+import {
+  FIREBASE_PHONE_TRIGGER,
+  FIREBASE_PHONE_VERIFY,
+  IOTPAuth,
+  IPhoneNumberAuth,
+} from './types';
 
 export const triggerLoginWithPhone = (payload: IPhoneNumberAuth) => (
   dispatch: Function,
