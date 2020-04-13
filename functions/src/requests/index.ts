@@ -170,18 +170,18 @@ export const triggerEventsWhenRequestIsCreated = functions.firestore
   // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
     return validateRequest(snapshot.data() as IRequest)
-      .then(() => {
-        return Promise.all([
-          queueCreateTriggers(snapshot),
-        ]);
-      })
       .catch(errors => {
         console.error('Invalid Request Found: ', errors);
         return db
           .collection('requests')
           .doc(context.params.requestId)
           .delete();
-      });
+      })
+      .then(() => {
+        return Promise.all([
+          queueCreateTriggers(snapshot),
+        ]);
+      })
   });
 
 export const triggerEventsWhenRequestIsUpdated = functions.firestore
