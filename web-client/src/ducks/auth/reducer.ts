@@ -1,4 +1,3 @@
-import merge from 'lodash/merge';
 import firebase, { firebaseAuth } from 'src/firebase';
 import createReducer from 'src/store/utils/createReducer';
 
@@ -14,7 +13,9 @@ const initialState: AuthState = {
   observerReceivedFirstUpdate: false,
 };
 export default createReducer<AuthState>(
-  merge(facebookReducer, phoneReducer, {
+  {
+    ...facebookReducer,
+    ...phoneReducer,
     [OBSERVE_USER.SUBSCRIBE]: (state: AuthState) => {
       state.loading = true;
     },
@@ -27,6 +28,6 @@ export default createReducer<AuthState>(
       state.loading = false;
       state.observerReceivedFirstUpdate = true;
     },
-  }),
+  },
   initialState,
 );

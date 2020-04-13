@@ -1,5 +1,6 @@
-import { IOTPAuth, IPhoneNumberAuth } from 'src/ducks/auth/phone/types';
 import firebase, { firebaseAuth } from 'src/firebase';
+
+import { IOTPAuth, IPhoneNumberAuth } from './types';
 
 export const phoneAuthTrigger = (
   payload: IPhoneNumberAuth,
