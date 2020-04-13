@@ -1,5 +1,4 @@
 import { validateOrReject } from 'class-validator';
-import { firestore } from 'firebase';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
@@ -24,21 +23,17 @@ const queueStatusUpdateTriggers = async (
     offerBefore?.status !== OfferStatus.accepted &&
     offerAfter?.status === OfferStatus.accepted
   ) {
+    // Update Request with new status and CAV.
     operations.push(offerAfter.requestRef.update({
       cavUserRef: offerAfter.cavUserRef,
-      status: RequestStatus.ongoing
+      status: RequestStatus.ongoing,
     }));
-    let offersToReject = await db.collection('offers').where('requestRef', '==', offerAfter.requestRef).get();
-    offersToReject.forEach(offer => {
-      if(offer.ref !== change.after.ref){
-        operations.push((async () => {
-          await offer.ref.update({
-            status: OfferStatus.rejected
-          });
-          Promise.resolve();
-        })()); 
-      }
-    });
+
+    // TODO: Notify CAV that they have been selected.
+
+    // We won't update all offers because it's a waste of reads + writes + additional cloud function triggers
+    // This is not done in a safe manner -- we should use transactions and batched writes, but also remembering
+    // that batched writes are limited to 500 operations so we need to chunk these operations.
   }
 
   return Promise.all(operations);
@@ -55,7 +50,7 @@ export const triggerEventsWhenOfferIsCreated = functions.firestore
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
     return validateOffer(snapshot.data() as IOffer).catch(errors => {
       console.error('Invalid Offer Found: ', errors);
-      return firestore()
+      return db
         .collection('offers')
         .doc(context.params.offerId)
         .delete();
@@ -68,7 +63,7 @@ export const triggerEventsWhenOfferIsUpdated = functions.firestore
     return validateOffer(change.after.data() as IOffer)
       .catch(errors => {
         console.error('Invalid Offer Found: ', errors);
-        return firestore()
+        return db
           .collection('offers')
           .doc(context.params.offerId)
           .delete();
