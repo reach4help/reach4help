@@ -4,7 +4,7 @@ import { MdExpandLess, MdExpandMore, MdRefresh } from 'react-icons/md';
 import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
-import { MarkerData, MarkerInfo } from '../data/markers';
+import { getMarkerData, MarkerInfo } from '../data/markers';
 import styled from '../styling';
 import {
   createGoogleMap,
@@ -67,6 +67,11 @@ interface Props {
   toggleResults: () => void;
 }
 
+interface State {
+  markers: MarkerInfo[] | null;
+  mapRef: HTMLDivElement | null;
+}
+
 /**
  * List of results to display next for the current map bounds
  */
@@ -75,7 +80,7 @@ export interface NextResults {
   results: MarkerInfo[];
 }
 
-class MapComponent extends React.Component<Props, {}> {
+class MapComponent extends React.Component<Props, State> {
   private map: MapInfo | null = null;
 
   private searchBox: {
@@ -85,14 +90,24 @@ class MapComponent extends React.Component<Props, {}> {
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
+  public constructor(props: Props) {
+    super(props);
+    this.state = {
+      markers: null,
+      mapRef: null,
+    };
+  }
+
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
     this.initializeSearch();
     setUpdateResultsCallback(this.updateResults);
+    getMarkerData().then(markers => this.setState({ markers }));
   }
 
-  public componentDidUpdate(prevProps: Props) {
+  public componentDidUpdate(prevProps: Props, prevState: State) {
     const { filter, results, nextResults, selectedResult } = this.props;
+    const { markers, mapRef } = this.state;
     // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
       updateMarkersVisiblilityUsingFilter(this.map.markers, filter);
@@ -109,6 +124,14 @@ class MapComponent extends React.Component<Props, {}> {
     if (selectedResult !== prevProps.selectedResult) {
       this.updateInfoWindow();
     }
+    // Initilize map if neccesary
+    if (
+      (markers !== prevState.markers || mapRef !== prevState.mapRef) &&
+      markers &&
+      mapRef
+    ) {
+      this.initializeMap(mapRef, markers);
+    }
   }
 
   public componentWillUnmount() {
@@ -116,16 +139,15 @@ class MapComponent extends React.Component<Props, {}> {
     setUpdateResultsCallback(null);
   }
 
-  private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
+  private updateGoogleMapRef = (mapRef: HTMLDivElement | null) => {
+    this.setState({ mapRef });
+  };
+
+  private initializeMap = (ref: HTMLDivElement, markersInfo: MarkerInfo[]) => {
     const { filter, setSelectedResult } = this.props;
-    if (!ref) {
-      return;
-    }
-    const map = createGoogleMap(ref);
+    const map = createGoogleMap(markersInfo, ref);
     const markers = new Map<MarkerInfo, google.maps.Marker>();
-    const markerData = new MarkerData();
-    const MARKERS = markerData.getMarkerData();
-    for (const m of MARKERS) {
+    for (const m of markersInfo) {
       const marker = new window.google.maps.Marker({
         position: m.loc,
         title: m.services.join(','),
