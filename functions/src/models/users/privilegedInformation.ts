@@ -7,4 +7,6 @@ export interface PrivilegedUserInformation extends DocumentData {
 
   termsAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
+  privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
+  privacyVersion: string;
 }
