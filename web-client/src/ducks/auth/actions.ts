@@ -1,5 +1,4 @@
-import { observeUser } from 'src/http/resources/auth/auth';
-
+import { observeUser } from './functions';
 import { OBSERVE_USER } from './types';
 
 export const observeUserAction = (dispatch: Function): Function => {

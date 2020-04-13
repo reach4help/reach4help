@@ -1,8 +1,4 @@
-import {
-  phoneAuthTrigger,
-  phoneAuthVerify,
-} from 'src/http/resources/auth/phoneAuth';
-
+import { phoneAuthTrigger, phoneAuthVerify } from './functions';
 import {
   FIREBASE_PHONE_TRIGGER,
   FIREBASE_PHONE_VERIFY,
