@@ -1,15 +1,15 @@
 import React from 'react';
-import { MdClose } from 'react-icons/md';
+import { MdChevronLeft, MdChevronRight, MdClose } from 'react-icons/md';
 
 import styled from '../styling';
-import { button, buttonPrimary } from '../styling/mixins';
+import { button, buttonPrimary, iconButton } from '../styling/mixins';
 
 interface AddInfo {
   marker: google.maps.Marker | null;
   circle: google.maps.Circle | null;
 }
-
 interface Props {
+  htmlFor?: string;
   className?: string;
   map: google.maps.Map | null;
   setAddInfoOpen: (addInfoOpen: boolean) => void;
@@ -62,7 +62,7 @@ class AddInstructions extends React.Component<Props, {}> {
       map,
       center: map.getCenter(),
       editable: true,
-      radius: 20000,
+      radius: Math.floor(3000000 / (map.getZoom() * map.getZoom())),
     });
 
     const meterToKm = (meter: number) => (meter / 1000).toFixed(2);
@@ -126,7 +126,7 @@ class AddInstructions extends React.Component<Props, {}> {
   };
 
   public render() {
-    const { className, addInfoStep, setAddInfoStep } = this.props;
+    const { htmlFor, className, addInfoStep, setAddInfoStep } = this.props;
     return (
       <div className={className}>
         <div className="box">
@@ -146,6 +146,7 @@ class AddInstructions extends React.Component<Props, {}> {
                   onClick={this.completeGreetingStep}
                 >
                   Continue
+                  <MdChevronRight />
                 </button>
               </footer>
             </>
@@ -160,12 +161,14 @@ class AddInstructions extends React.Component<Props, {}> {
                   onClick={this.completeSetMarkerStep}
                 >
                   Continue
+                  <MdChevronRight />
                 </button>
                 <button
                   type="button"
                   className="prev-button"
                   onClick={() => setAddInfoStep('greeting')}
                 >
+                  <MdChevronLeft />
                   Back
                 </button>
               </footer>
@@ -181,12 +184,14 @@ class AddInstructions extends React.Component<Props, {}> {
                   onClick={this.completeSetRadiusStep}
                 >
                   Continue
+                  <MdChevronRight />
                 </button>
                 <button
                   type="button"
                   className="prev-button"
                   onClick={() => setAddInfoStep('set-marker')}
                 >
+                  <MdChevronLeft />
                   Back
                 </button>
               </footer>
@@ -194,7 +199,122 @@ class AddInstructions extends React.Component<Props, {}> {
           )}
           {addInfoStep === 'set-form' && (
             <>
-              <p>Hello, World!</p>
+              <p>Please fill out this form with as much detail as you can</p>
+              <form>
+                <label htmlFor={htmlFor}>
+                  Name of the project / group / initiative
+                  <input type="text" name="name" placeholder="Your answer" />
+                </label>
+                <label htmlFor={htmlFor}>
+                  Area served (e.g. country / state / county / town etc...)
+                  <input type="text" name="area" placeholder="Your answer" />
+                </label>
+                <ul className="services">
+                  What services / help does this project aim to provide?
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Food
+                    </label>
+                  </li>
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Other Supplies
+                    </label>
+                  </li>
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Aid/Assistance
+                    </label>
+                  </li>
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Mobility (e.g driving people places)
+                    </label>
+                  </li>
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Medicine
+                    </label>
+                  </li>
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Manufacturing Supplies
+                    </label>
+                  </li>
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Financial
+                    </label>
+                  </li>
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Information
+                    </label>
+                  </li>
+                  <li>
+                    <label htmlFor={htmlFor}>
+                      <input type="checkbox" />
+                      Other:&nbsp;
+                      <label htmlFor={htmlFor}>
+                        <input type="text" placeholder="Your answer" />
+                      </label>
+                    </label>
+                  </li>
+                </ul>
+                <label htmlFor={htmlFor}>
+                  Optional long-description of what the project does or aims to
+                  do
+                  <input
+                    type="textarea"
+                    name="description"
+                    placeholder="Your answer"
+                  />
+                </label>
+                <label htmlFor={htmlFor}>
+                  Website URL?
+                  <input
+                    type="text"
+                    name="websiteUrl"
+                    placeholder="Your answer"
+                  />
+                </label>
+                <label htmlFor={htmlFor}>
+                  How do people that require help get in touch?
+                  <input type="text" name="tips" placeholder="Your answer" />
+                </label>
+                <label htmlFor={htmlFor}>
+                  How do people that want to volunteer get in touch?
+                  <input
+                    type="text"
+                    name="volunteerTips"
+                    placeholder="Your answer"
+                  />
+                </label>
+                <label htmlFor={htmlFor}>
+                  Any other URLs / Facebook Groups / Contact details?
+                  <input
+                    type="text"
+                    name="otherContact"
+                    placeholder="Your answer"
+                  />
+                </label>
+                <label htmlFor={htmlFor}>
+                  Any other URLs / Facebook Groups / Contact details?
+                  <input
+                    type="text"
+                    name="otherContact"
+                    placeholder="Your answer"
+                  />
+                </label>
+              </form>
               <footer>
                 <button
                   type="button"
@@ -208,6 +328,7 @@ class AddInstructions extends React.Component<Props, {}> {
                   className="prev-button"
                   onClick={() => setAddInfoStep('set-radius')}
                 >
+                  <MdChevronLeft />
                   Back
                 </button>
               </footer>
@@ -239,8 +360,7 @@ export default styled(AddInstructions)`
     margin-top: ${p => p.theme.spacingPx * 5}px;
     width: 100%;
     max-width: 470px;
-    max-height: 100%;
-    max-height: calc(100% - ${p => p.theme.spacingPx * 4}px);
+    max-height: 350px;
     background: #fff;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.5) 0 1px 6px -1px;
@@ -274,6 +394,40 @@ export default styled(AddInstructions)`
       }
     }
 
+    form {
+      border-top: 3px solid ${p => p.theme.textColor};
+      padding-top: 10px;
+
+      label {
+        margin-bottom: 15px;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        height: 1.2rem;
+        padding: 7px 0;
+        font-size: 1rem;
+        margin-bottom: ${p => p.theme.spacingPx}px;
+        border: none;
+        border-bottom: 1px solid ${p => p.theme.textColor};
+        outline: none;
+      }
+
+      .services {
+        padding: 0;
+
+        li {
+          list-style: none;
+
+          input {
+            display: inline-block;
+            width: auto;
+          }
+        }
+      }
+    }
+
     footer {
       display: flex;
       flex-direction: row-reverse;
@@ -281,10 +435,12 @@ export default styled(AddInstructions)`
 
       > .next-button {
         ${buttonPrimary}
+        ${iconButton}
       }
 
       > .prev-button {
         ${button}
+        ${iconButton}
       }
     }
   }
