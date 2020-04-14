@@ -1,6 +1,7 @@
+import { triggerEventsWhenUserIsCreated } from '../../src/users/index'
 import * as firebase from '@firebase/testing';
 import * as fs from 'fs';
-import { User, UserFirestoreConverter } from '../../src/models/users';
+import * as Test from 'firebase-functions-test';
 
 const projectId = 'reach-4-help-test';
 
@@ -10,14 +11,13 @@ const rules = fs.readFileSync(
 );
 
 /**
- * Creates a new app with authentication data matching the input.
+ * Creates a new app with admin authentication.
  *
- * @param {object} auth the object to use for authentication (typically {uid: some-uid})
  * @return {object} the app.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const authedApp = (auth?: object) => {
-  return firebase.initializeTestApp({ projectId, auth }).firestore();
+const adminApp = () => {
+  return firebase.initializeAdminApp({ projectId }).firestore();
 };
 
 beforeAll(async () => {
@@ -33,28 +33,31 @@ afterAll(async () => {
   await Promise.all(firebase.apps().map(app => app.delete()));
 });
 
-describe.skip('user triggers', () => {
+const test = Test();
+
+describe('user triggers', () => {
   it('should delete invalid data', async () => {
-    const db = authedApp({ uid: 'user-1' });
-    const ref = db.collection('users').doc('user-1');
-    await
-      ref
-        .withConverter(UserFirestoreConverter)
-        .set(User.factory({
-            username: 'test_user',
-          }),
-        );
+    const db = adminApp();
+    let userRef = db.collection('users').doc('user1');
+    
+    userRef.set({
+      username: 'fsdfs'
+    }).then(result=>{
+      console.log("result: ", result);
+      userRef.get().then(snap=>{
+        console.log("snap.data: ", snap.data());
 
-    const snapshot = await ref.get();
+        let wrapped = test.wrap(triggerEventsWhenUserIsCreated);
 
-    // Doesn't actually work.
-    await (async () => {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          expect(snapshot.exists).toBeFalsy();
-          resolve();
-        }, 3000);
-      });
-    })();
+        wrapped(snap).then(async ()=>{
+          userRef.get().then(snapAfter=>{
+            console.log("snapAfter: ", snapAfter);
+            console.log("snapAfter: ", snapAfter.data());
+            expect(snapAfter.exists).toBeFalsy();
+          })
+        })
+      })
+    })
+
   });
 });
