@@ -8,6 +8,7 @@ import { RequestStatus } from '../models/requests';
 
 admin.initializeApp();
 const db = admin.firestore();
+const messaging = admin.messaging();
 
 const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Promise<void[]> => {
   const offerBefore = change.before.exists ? (change.before.data() as Offer) : null;
@@ -24,8 +25,19 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
         status: RequestStatus.ongoing,
       }),
     );
+    
+    messaging.send({
+        data:{
+            entity: 'offer',
+            action: 'accepted',
+            id: change.after.id
+        },
+        topic: `${offerAfter.cavUserRef.id}_notifications`
+    });
 
-    // TODO: Notify CAV that they have been selected.
+    //We could also send it to ${offerAfter.requestRef.id}_requestNotification and let everyone who responded 
+    //to the request know that the request accepted an offer. We will provide the offer ID as well. the clients
+    //can either use the id of the offer accepted and compare it with their offer to determine if their offer was rejected or accepted
 
     // We won't update all offers because it's a waste of reads + writes + additional cloud function triggers
     // This is not done in a safe manner -- we should use transactions and batched writes, but also remembering
