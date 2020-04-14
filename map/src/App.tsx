@@ -1,7 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 
-import AddInstructions from './components/add-instructions';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
 import Header from './components/header';
@@ -28,7 +27,6 @@ interface State {
   selectedResult: MarkerInfo | null;
   updateResultsCallback: (() => void) | null;
   searchInput: HTMLInputElement | null;
-  addInstructionsOpen: boolean;
   fullScreen: boolean;
   updateResultsOnNextClustering: boolean;
   /**
@@ -38,7 +36,7 @@ interface State {
    */
   resultsMode: 'open' | 'closed' | 'open-auto';
   addInfoOpen: boolean;
-  addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'information-form';
+  addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'set-form';
 }
 
 class App extends React.Component<Props, State> {
@@ -50,7 +48,6 @@ class App extends React.Component<Props, State> {
       selectedResult: null,
       updateResultsCallback: null,
       searchInput: null,
-      addInstructionsOpen: false,
       fullScreen: false,
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
@@ -94,10 +91,6 @@ class App extends React.Component<Props, State> {
     );
   };
 
-  private setAddInstructionsOpen = (addInstructionsOpen: boolean) => {
-    this.setState({ addInstructionsOpen });
-  };
-
   private setUpdateResultsOnNextClustering = (
     updateResultsOnNextClustering: boolean,
   ) => {
@@ -109,7 +102,7 @@ class App extends React.Component<Props, State> {
   };
 
   private setAddInfoStep = (
-    addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'information-form',
+    addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'set-form',
   ) => {
     this.setState({ addInfoStep });
   };
@@ -142,7 +135,6 @@ class App extends React.Component<Props, State> {
       nextResults,
       selectedResult,
       searchInput,
-      addInstructionsOpen,
       fullScreen,
       resultsMode,
       updateResultsOnNextClustering,
@@ -156,7 +148,7 @@ class App extends React.Component<Props, State> {
         <Header
           filter={filter}
           updateFilter={this.setFilter}
-          setAddInstructionsOpen={this.setAddInstructionsOpen}
+          setAddInfoOpen={this.setAddInfoOpen}
           fullScreen={fullScreen}
           toggleFullscreen={this.toggleFullscreen}
         />
@@ -213,10 +205,6 @@ class App extends React.Component<Props, State> {
           </p>
         </div>
         {!fullScreen && <Footer />}
-        <AddInstructions
-          open={addInstructionsOpen}
-          setAddInstructionsOpen={this.setAddInstructionsOpen}
-        />
       </div>
     );
   }
@@ -270,8 +258,8 @@ export default styled(App)`
         position: absolute;
         z-index: 100;
         max-width: 500px;
-        top: 10px;
-        left: 10px;
+        top: ${p => p.theme.spacingPx}px;
+        left: ${p => p.theme.spacingPx}px;
         right: 40px;
       }
     }

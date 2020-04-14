@@ -10,7 +10,7 @@ interface Props {
   className?: string;
   filter: Filter;
   updateFilter: (mutator: FilterMutator) => void;
-  setAddInstructionsOpen: (open: boolean) => void;
+  setAddInfoOpen: (open: boolean) => void;
   fullScreen: boolean;
   toggleFullscreen: () => void;
 }
@@ -20,7 +20,7 @@ const Header = (props: Props) => {
     className,
     filter,
     updateFilter,
-    setAddInstructionsOpen,
+    setAddInfoOpen,
     fullScreen,
     toggleFullscreen,
   } = props;
@@ -70,7 +70,7 @@ const Header = (props: Props) => {
         <button
           className="add"
           type="button"
-          onClick={() => setAddInstructionsOpen(true)}
+          onClick={() => setAddInfoOpen(true)}
         >
           <MdAdd className="icon icon-left" />
           <span>
