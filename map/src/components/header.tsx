@@ -39,8 +39,8 @@ const Header = (props: Props) => {
               offer inspiration to start their own, and/or simply lift spirits,
               below is a growing list of mutual aid pandemic disaster care
               projects. Note: Each project is autonomous and self-organized;
-              many use public spreadsheets to share information, so be when
-              careful entering private information that you don&apos;t want to
+              many use public spreadsheets to share information, so be
+              careful when entering private information that you don&apos;t want to
               be public.
             </p>
             <p className="muted">
