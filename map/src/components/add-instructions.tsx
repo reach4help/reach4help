@@ -153,7 +153,7 @@ class AddInstructions extends React.Component<Props, {}> {
           )}
           {addInfoStep === 'set-marker' && (
             <>
-              <p>Set marker!</p>
+              <p>Move the map to include the area served</p>
               <footer>
                 <button
                   type="button"
@@ -176,7 +176,10 @@ class AddInstructions extends React.Component<Props, {}> {
           )}
           {addInfoStep === 'set-radius' && (
             <>
-              <p>Hello, World!</p>
+              <p>
+                Set the service area. You can change the service area by using
+                rounds at the side of the circle.
+              </p>
               <footer>
                 <button
                   type="button"
