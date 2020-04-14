@@ -1,38 +1,91 @@
 import React from 'react';
 import { MdChevronLeft, MdChevronRight, MdClose } from 'react-icons/md';
 
+import { SERVICES } from '../data';
 import styled from '../styling';
 import { button, buttonPrimary, iconButton } from '../styling/mixins';
 
-interface AddInfo {
+interface MarkerInfo {
   marker: google.maps.Marker | null;
   circle: google.maps.Circle | null;
 }
+
 interface Props {
   htmlFor?: string;
   className?: string;
   map: google.maps.Map | null;
   setAddInfoOpen: (addInfoOpen: boolean) => void;
-  addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'set-form';
+  addInfoStep:
+    | 'greeting'
+    | 'set-marker'
+    | 'set-radius'
+    | 'set-form'
+    | 'farewell';
   setAddInfoStep: (
-    addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'set-form',
+    addInfoStep:
+      | 'greeting'
+      | 'set-marker'
+      | 'set-radius'
+      | 'set-form'
+      | 'farewell',
   ) => void;
 }
 
-class AddInstructions extends React.Component<Props, {}> {
-  private addInfo: AddInfo | null = null;
+interface State {
+  center: {
+    lat: number;
+    lng: number;
+  } | null;
+  radius: number | null;
+  form: {
+    name: string | '';
+    area: string | '';
+    services: Map<string, boolean>;
+    description?: string;
+    website?: string;
+    instructions?: string;
+    volunteerInstructions?: string;
+    otherContact?: string;
+    otherService?: string;
+  };
+}
+
+class AddInstructions extends React.Component<Props, State> {
+  private markerInfo: MarkerInfo | null = null;
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      center: null,
+      radius: null,
+      form: {
+        name: '',
+        area: '',
+        services: Object.keys(SERVICES).reduce(
+          (map: Map<string, boolean>, key: string) => {
+            map.set(key, false);
+            return map;
+          },
+          new Map(),
+        ),
+      },
+    };
+  }
 
   private completeGreetingStep = () => {
     const { map } = this.props;
     if (!map) {
       return;
     }
-    if (!this.addInfo) {
-      this.addInfo = {
+
+    if (!this.markerInfo) {
+      this.markerInfo = {
         marker: null,
         circle: null,
       };
     }
+
     const { setAddInfoStep } = this.props;
     setAddInfoStep('set-marker');
   };
@@ -42,15 +95,22 @@ class AddInstructions extends React.Component<Props, {}> {
     if (!map) {
       return;
     }
+
     const { setAddInfoStep } = this.props;
-    if (!this.addInfo) {
+    if (!this.markerInfo) {
+      setAddInfoStep('greeting');
       return;
     }
-    if (this.addInfo.marker) {
-      this.addInfo.marker.setMap(null);
-    }
-    if (this.addInfo.circle) {
-      this.addInfo.circle.setMap(null);
+
+    if (this.markerInfo) {
+      if (this.markerInfo.marker) {
+        this.markerInfo.marker.setMap(null);
+        this.markerInfo.marker = null;
+      }
+      if (this.markerInfo.circle) {
+        this.markerInfo.circle.setMap(null);
+        this.markerInfo.circle = null;
+      }
     }
 
     const marker = new google.maps.Marker({
@@ -92,14 +152,14 @@ class AddInstructions extends React.Component<Props, {}> {
       infoWindow.setContent(`${meterToKm(circle.getRadius())}km`);
     });
 
-    this.addInfo.marker = marker;
-    this.addInfo.circle = circle;
+    this.markerInfo.marker = marker;
+    this.markerInfo.circle = circle;
     setAddInfoStep('set-radius');
   };
 
   private completeSetRadiusStep = () => {
     const { setAddInfoStep } = this.props;
-    if (!this.addInfo) {
+    if (!this.markerInfo) {
       setAddInfoStep('set-marker');
     }
     setAddInfoStep('set-form');
@@ -107,17 +167,47 @@ class AddInstructions extends React.Component<Props, {}> {
 
   private submit = () => {
     const { setAddInfoStep } = this.props;
+    if (!this.markerInfo) {
+      setAddInfoStep('greeting');
+      return;
+    }
 
-    setAddInfoStep('set-form');
+    const { marker, circle } = this.markerInfo;
+    if (!marker || !circle) {
+      setAddInfoStep('greeting');
+      return;
+    }
+
+    const position = marker.getPosition();
+    if (!position) {
+      setAddInfoStep('greeting');
+      return;
+    }
+
+    const center = {
+      lat: position.lat(),
+      lng: position.lng(),
+    };
+    this.setState({ center });
+
+    const radius = circle.getRadius();
+    this.setState({ radius });
+
+    const { form } = this.state;
+    if (!form.name || !form.area || !form.services) {
+      setAddInfoStep('set-form');
+      return;
+    }
+    setAddInfoStep('farewell');
   };
 
   private close = () => {
-    if (this.addInfo) {
-      if (this.addInfo.marker) {
-        this.addInfo.marker.setMap(null);
+    if (this.markerInfo) {
+      if (this.markerInfo.marker) {
+        this.markerInfo.marker.setMap(null);
       }
-      if (this.addInfo.circle) {
-        this.addInfo.circle.setMap(null);
+      if (this.markerInfo.circle) {
+        this.markerInfo.circle.setMap(null);
       }
     }
     const { setAddInfoOpen, setAddInfoStep } = this.props;
@@ -125,8 +215,47 @@ class AddInstructions extends React.Component<Props, {}> {
     setAddInfoStep('greeting');
   };
 
+  private handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    const { form } = this.state;
+
+    switch (target.name) {
+      case 'name':
+        form.name = target.value;
+        break;
+      case 'area':
+        form.area = target.value;
+        break;
+      case 'description':
+        form.description = target.value;
+        break;
+      case 'website':
+        form.website = target.value;
+        break;
+      case 'instructions':
+        form.instructions = target.value;
+        break;
+      case 'volunteerInstructions':
+        form.volunteerInstructions = target.value;
+        break;
+      case 'otherContact':
+        form.otherContact = target.value;
+        break;
+      case 'other-service':
+        form.otherService = target.value;
+        break;
+      default:
+        if (target.type === 'checkbox') {
+          form.services.set(target.name, target.checked);
+        }
+        break;
+    }
+    this.setState({ form });
+  };
+
   public render() {
     const { htmlFor, className, addInfoStep, setAddInfoStep } = this.props;
+    const { center, radius, form } = this.state;
     return (
       <div className={className}>
         <div className="box">
@@ -206,68 +335,119 @@ class AddInstructions extends React.Component<Props, {}> {
               <form>
                 <label htmlFor={htmlFor}>
                   Name of the project / group / initiative
-                  <input type="text" name="name" placeholder="Your answer" />
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your answer"
+                    onChange={this.handleInputChange}
+                  />
                 </label>
                 <label htmlFor={htmlFor}>
                   Area served (e.g. country / state / county / town etc...)
-                  <input type="text" name="area" placeholder="Your answer" />
+                  <input
+                    type="text"
+                    name="area"
+                    placeholder="Your answer"
+                    onChange={this.handleInputChange}
+                  />
                 </label>
                 <ul className="services">
                   What services / help does this project aim to provide?
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="food"
+                        onChange={this.handleInputChange}
+                      />
                       Food
                     </label>
                   </li>
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="supplies"
+                        onChange={this.handleInputChange}
+                      />
                       Other Supplies
                     </label>
                   </li>
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="aid"
+                        onChange={this.handleInputChange}
+                      />
                       Aid/Assistance
                     </label>
                   </li>
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="mobility"
+                        onChange={this.handleInputChange}
+                      />
                       Mobility (e.g driving people places)
                     </label>
                   </li>
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="medicine"
+                        onChange={this.handleInputChange}
+                      />
                       Medicine
                     </label>
                   </li>
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="manufacturing"
+                        onChange={this.handleInputChange}
+                      />
                       Manufacturing Supplies
                     </label>
                   </li>
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="financial"
+                        onChange={this.handleInputChange}
+                      />
                       Financial
                     </label>
                   </li>
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="information"
+                        onChange={this.handleInputChange}
+                      />
                       Information
                     </label>
                   </li>
                   <li>
                     <label htmlFor={htmlFor}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        name="other"
+                        onChange={this.handleInputChange}
+                      />
                       Other:&nbsp;
                       <label htmlFor={htmlFor}>
-                        <input type="text" placeholder="Your answer" />
+                        <input
+                          type="text"
+                          placeholder="Your answer"
+                          name="other-service"
+                          onChange={this.handleInputChange}
+                        />
                       </label>
                     </label>
                   </li>
@@ -276,29 +456,37 @@ class AddInstructions extends React.Component<Props, {}> {
                   Optional long-description of what the project does or aims to
                   do
                   <input
-                    type="textarea"
+                    type="text"
                     name="description"
                     placeholder="Your answer"
+                    onChange={this.handleInputChange}
                   />
                 </label>
                 <label htmlFor={htmlFor}>
                   Website URL?
                   <input
                     type="text"
-                    name="websiteUrl"
+                    name="website"
                     placeholder="Your answer"
+                    onChange={this.handleInputChange}
                   />
                 </label>
                 <label htmlFor={htmlFor}>
                   How do people that require help get in touch?
-                  <input type="text" name="tips" placeholder="Your answer" />
+                  <input
+                    type="text"
+                    name="instructions"
+                    placeholder="Your answer"
+                    onChange={this.handleInputChange}
+                  />
                 </label>
                 <label htmlFor={htmlFor}>
                   How do people that want to volunteer get in touch?
                   <input
                     type="text"
-                    name="volunteerTips"
+                    name="volunteerInstructions"
                     placeholder="Your answer"
+                    onChange={this.handleInputChange}
                   />
                 </label>
                 <label htmlFor={htmlFor}>
@@ -307,14 +495,7 @@ class AddInstructions extends React.Component<Props, {}> {
                     type="text"
                     name="otherContact"
                     placeholder="Your answer"
-                  />
-                </label>
-                <label htmlFor={htmlFor}>
-                  Any other URLs / Facebook Groups / Contact details?
-                  <input
-                    type="text"
-                    name="otherContact"
-                    placeholder="Your answer"
+                    onChange={this.handleInputChange}
                   />
                 </label>
               </form>
@@ -335,6 +516,65 @@ class AddInstructions extends React.Component<Props, {}> {
                   Back
                 </button>
               </footer>
+            </>
+          )}
+          {addInfoStep === 'farewell' && (
+            <>
+              <p>Final State</p>
+              <table>
+                <thead>
+                  <tr>
+                    <td>variable</td>
+                    <td>value</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>center</td>
+                    <td>{JSON.stringify(center)}</td>
+                  </tr>
+                  <tr>
+                    <td>radius</td>
+                    <td>{radius}</td>
+                  </tr>
+                  <tr>
+                    <td>form - name</td>
+                    <td>{form.name}</td>
+                  </tr>
+                  <tr>
+                    <td>form - area</td>
+                    <td>{form.area}</td>
+                  </tr>
+                  <tr>
+                    <td>form - services</td>
+                    <td>{JSON.stringify([...form.services])}</td>
+                  </tr>
+                  <tr>
+                    <td>form - description</td>
+                    <td>{form.description}</td>
+                  </tr>
+                  <tr>
+                    <td>form - website</td>
+                    <td>{form.website}</td>
+                  </tr>
+                  <tr>
+                    <td>form - instructions</td>
+                    <td>{form.instructions}</td>
+                  </tr>
+                  <tr>
+                    <td>form - volunteerInstructions</td>
+                    <td>{form.volunteerInstructions}</td>
+                  </tr>
+                  <tr>
+                    <td>form - otherContact</td>
+                    <td>{form.otherContact}</td>
+                  </tr>
+                  <tr>
+                    <td>form - otherService</td>
+                    <td>{form.otherService}</td>
+                  </tr>
+                </tbody>
+              </table>
             </>
           )}
         </div>

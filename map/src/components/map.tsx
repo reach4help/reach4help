@@ -77,9 +77,19 @@ interface Props {
   ) => void;
   addInfoOpen: boolean;
   setAddInfoOpen: (addInfoOpen: boolean) => void;
-  addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'set-form';
+  addInfoStep:
+    | 'greeting'
+    | 'set-marker'
+    | 'set-radius'
+    | 'set-form'
+    | 'farewell';
   setAddInfoStep: (
-    addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'set-form',
+    addInfoStep:
+      | 'greeting'
+      | 'set-marker'
+      | 'set-radius'
+      | 'set-form'
+      | 'farewell',
   ) => void;
 }
 

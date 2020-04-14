@@ -36,7 +36,12 @@ interface State {
    */
   resultsMode: 'open' | 'closed' | 'open-auto';
   addInfoOpen: boolean;
-  addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'set-form';
+  addInfoStep:
+    | 'greeting'
+    | 'set-marker'
+    | 'set-radius'
+    | 'set-form'
+    | 'farewell';
 }
 
 class App extends React.Component<Props, State> {
@@ -102,7 +107,12 @@ class App extends React.Component<Props, State> {
   };
 
   private setAddInfoStep = (
-    addInfoStep: 'greeting' | 'set-marker' | 'set-radius' | 'set-form',
+    addInfoStep:
+      | 'greeting'
+      | 'set-marker'
+      | 'set-radius'
+      | 'set-form'
+      | 'farewell',
   ) => {
     this.setState({ addInfoStep });
   };
