@@ -1,4 +1,4 @@
-import { Button, Checkbox, Form, Input, Typography } from 'antd';
+import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
 import words from 'lodash/words';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,11 +47,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   return (
     <StyledIntro>
       <Form
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
         layout="vertical"
         form={form}
         onFinish={values => {
@@ -59,40 +54,49 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
         }}
       >
         <Description>{t('user_data_form.sub_title')}</Description>
+        <Row gutter={12}>
+          <Col span={24} md={12}>
+            <Form.Item
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: t('user_data_form.full_name_error_message'),
+                },
+              ]}
+              label={t('name')}
+            >
+              <Input
+                style={{
+                  marginRight: '15px',
+                }}
+                placeholder={t('full_name')}
+                value={fullName}
+                onChange={e => setFullName(e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+          <Col span="24" md={12}>
+            <Form.Item
+              name="displayName"
+              label={t('displayName')}
+              rules={[
+                {
+                  required: true,
+                  message: t('user_data_form.full_name_error_message'),
+                },
+              ]}
+            >
+              <Input
+                placeholder={t('display_name')}
+                value={displayName}
+                onChange={e => setDisplayName(e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
         <Form.Item
-          style={{ textAlign: 'center', width: '100%' }}
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: t('user_data_form.full_name_error_message'),
-            },
-          ]}
-          label={t('name')}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}
-          >
-            <Input
-              style={{
-                marginRight: '15px',
-              }}
-              placeholder={t('full_name')}
-              value={fullName}
-              onChange={e => setFullName(e.target.value)}
-            />
-            <Input
-              placeholder={t('display_name')}
-              value={displayName}
-              onChange={e => setDisplayName(e.target.value)}
-            />
-          </div>
-        </Form.Item>
-        <Form.Item
-          style={{ textAlign: 'center', width: '100%' }}
           name="address"
           rules={[
             {
@@ -104,36 +108,54 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
         >
           <Input placeholder={t('address')} />
         </Form.Item>
-        <Form.Item
-          style={{ textAlign: 'center', width: '100%' }}
-          rules={[
-            {
-              required: true,
-              message: t('user_data_form.address_error_message'),
-            },
-          ]}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}
-          >
-            <Input
-              style={{
-                marginRight: '15px',
-              }}
-              placeholder={t('city')}
-            />
-            <Input
-              style={{
-                marginRight: '15px',
-              }}
-              placeholder={t('code')}
-            />
-            <Input placeholder={t('country')} />
-          </div>
-        </Form.Item>
+        <Row gutter={12}>
+          <Col span={24} md={12}>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: t('user_data_form.address_error_message'),
+                },
+              ]}
+            >
+              <Input
+                style={{
+                  marginRight: '15px',
+                }}
+                placeholder={t('city')}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12} md={6}>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: t('user_data_form.address_error_message'),
+                },
+              ]}
+            >
+              <Input
+                style={{
+                  marginRight: '15px',
+                }}
+                placeholder={t('code')}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12} md={6}>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: t('user_data_form.address_error_message'),
+                },
+              ]}
+            >
+              <Input placeholder={t('country')} />
+            </Form.Item>
+          </Col>
+        </Row>
         <Info>
           {t('user_data_form.policy_text')}{' '}
           <Link to="/">{t('user_data_form.policy_link')}</Link>
