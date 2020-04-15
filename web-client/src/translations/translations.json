@@ -6,9 +6,11 @@
       "name": "Name",
       "full_name": "Full name",
       "display_name": "Display name",
-      "address": "Address",
+      "display_name_placeholder": "Name used in greetings, defaults to 1st name",
+      "address1": "Address line 1",
+      "address2": "Address line 2 (optional)",
       "city": "City",
-      "code": "Code",
+      "code": "Postal Code",
       "country": "Country",
       "login": {
         "title": "Reach4Help",
@@ -42,6 +44,7 @@
         "terms_conditions_link": "Terms & Conditions.",
         "terms_conditions_error": "You need to accept the Terms & Conditions.",
         "full_name_error_message": "You need to fill your name.",
+        "display_name_error_message": "You need to fill your display name.",
         "address_error_message": "You need to fill your address."
       },
       "newRequest": {
