@@ -1,9 +1,11 @@
 import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
+import GoogleMapReact from 'google-map-react';
 import words from 'lodash/words';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import gpstarget from '../../../../assets/gpstarget.svg';
 
 const { Text } = Typography;
@@ -29,6 +31,10 @@ const StyledButton = styled(Button)`
   margin-top: 40px;
 `;
 
+const Map = styled.div`
+  height: 0;
+`;
+
 const GPSButton = styled(Button)`
   background-color: #1890ff;
   border-radius: 4px;
@@ -45,6 +51,16 @@ interface NewRequestProps {
   handleFormSubmit: Function;
 }
 
+interface Address {
+  address1: string;
+  address2: string;
+  streetNumber: string;
+  postalCode: string;
+  city: string;
+  state: string;
+  country: string;
+}
+
 const PersonaDataForm: React.FC<NewRequestProps> = ({
   handleFormSubmit,
 }): React.ReactElement => {
@@ -55,12 +71,25 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   // geolocation
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
+  const [city, setCity] = useState('');
+  const [cityState, setCityState] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [country, setCountry] = useState('');
+
   const [geolocationAvailabe, setGeoAvailable] = useState<boolean | undefined>(
     undefined,
   );
   const [geolocationAuthorized, setGeoAuthorized] = useState<
     undefined | boolean
   >(undefined);
+
+  let Geocoder;
+  const initGeocoder = ({ maps }) => {
+    console.log('Geocoder is initialized');
+    Geocoder = new maps.Geocoder();
+  };
 
   const handleGetCoords = () => {
     setIsLoading(true);
@@ -71,11 +100,61 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
         position => {
           setIsLoading(false);
           setGeoAuthorized(true);
-          const newCoords = {
+          const location = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          console.log(newCoords);
+
+          Geocoder.geocode({ location }, (results, status) => {
+            console.log(results, typeof results);
+            if (status === 'OK') {
+              const newAddress: Address = {
+                address1: '',
+                address2: '',
+                streetNumber: '',
+                postalCode: '',
+                city: '',
+                state: '',
+                country: '',
+              };
+              for (let i = 0; i < results[0].address_components.length; i++) {
+                const item = results[0].address_components[i];
+                const v = item.types[0];
+                if (typeof v !== 'undefined') {
+                  switch (v) {
+                    case 'street_number':
+                      newAddress.streetNumber = item.short_name;
+                      setAddress2(newAddress.streetNumber);
+                      break;
+                    case 'route':
+                      newAddress.address1 = item.short_name;
+                      setAddress1(newAddress.address1);
+                      break;
+                    case 'locality':
+                      newAddress.city = item.short_name;
+                      setCity(newAddress.city);
+                      break;
+                    case 'administrative_area_level_1':
+                      newAddress.state = item.short_name;
+                      setCityState(newAddress.state);
+                      break;
+                    case 'country':
+                      newAddress.country = item.long_name;
+                      setCountry(newAddress.country);
+                      break;
+                    case 'postal_code':
+                      newAddress.postalCode = item.short_name;
+                      setPostalCode(newAddress.postalCode);
+                      break;
+                    default:
+                      break;
+                  }
+                }
+              }
+            }
+            console.log(results);
+            console.log(status);
+          });
           // dispatch(setUserGeolocationAction(newCoords));
           // setCoordsExist(true);
         },
@@ -101,8 +180,22 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
     form.setFieldsValue({
       fullName,
       displayName,
+      address1,
+      address2,
+      city,
+      postalCode,
+      country,
     });
-  }, [fullName, displayName, form]);
+  }, [
+    fullName,
+    displayName,
+    address1,
+    address2,
+    city,
+    postalCode,
+    country,
+    form,
+  ]);
 
   return (
     <StyledIntro>
@@ -153,19 +246,38 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
             </Form.Item>
           </Col>
         </Row>
-        {geolocationAuthorized !== false && geolocationAvailabe && (
-          <GPSButton
-            loading={isLoading}
-            icon={<GPSTarget src={gpstarget} />}
-            type="primary"
-            onClick={handleGetCoords}
-          >
-            Use GPS to get my address
-          </GPSButton>
-        )}
-        {geolocationAuthorized === false && (
-          <div>Geolocation not authorized</div>
-        )}
+        <Row>
+          <Col span="24" style={{ textAlign: 'center' }}>
+            {geolocationAuthorized !== false && geolocationAvailabe && (
+              <>
+                <GPSButton
+                  loading={isLoading}
+                  icon={<GPSTarget src={gpstarget} />}
+                  type="primary"
+                  onClick={handleGetCoords}
+                >
+                  Use GPS to get my address
+                </GPSButton>
+                <Map>
+                  <GoogleMapReact
+                    bootstrapURLKeys={{
+                      key: 'AIzaSyAlCVqo1ESsmpeHe93FBbaH5LPiqCS1QJ8',
+                    }}
+                    defaultCenter={{
+                      lat: 59.95,
+                      lng: 30.33,
+                    }}
+                    defaultZoom={11}
+                    onGoogleApiLoaded={initGeocoder}
+                  />
+                </Map>
+              </>
+            )}
+            {geolocationAuthorized === false && (
+              <div>Geolocation not authorized</div>
+            )}
+          </Col>
+        </Row>
         <Form.Item
           name="address1"
           rules={[
@@ -191,6 +303,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
         <Row gutter={12}>
           <Col span={24} md={12}>
             <Form.Item
+              name="city"
               rules={[
                 {
                   required: true,
@@ -208,6 +321,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           </Col>
           <Col span={12} md={6} sm={12} xs={24}>
             <Form.Item
+              name="postalCode"
               rules={[
                 {
                   required: true,
@@ -225,6 +339,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           </Col>
           <Col span={12} md={6} sm={12} xs={24}>
             <Form.Item
+              name="country"
               rules={[
                 {
                   required: true,
