@@ -1,7 +1,65 @@
 /* eslint max-len: 0 */
+import { Service } from './index';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { IMarker } from '../../../functions/src/models/markers';
+/**
+ * Contact details capture various methods to contact an organization.
+ */
+export interface ContactDetails {
+  facebookGroup?: string;
+  web?: { [id: string]: string }; // List of URLs
+  phone?: string[];
+  email?: string[];
+}
+
+/**
+ * Locations can be saved so they can be re-used for other markers.
+ *
+ * See the LOCATIONS array.
+ */
+export interface Location {
+  /**
+   * Human readable name for the location -- displayed on the web.
+   */
+  description: string;
+  lat: number;
+  lng: number;
+  /**
+   *  Measured in Meters (per Google Maps standard)
+   */
+  serviceRadius: number;
+}
+
+/**
+ * A marker that will be rendered on the map. A short title and description is also visible to users.
+ *
+ * It contains an array of services
+ */
+export interface MarkerInfo {
+  /** name of the organization or community effort */
+  contentTitle: string;
+  /** description of the organization or community effort */
+  contentBody?: string;
+  /** a list of services provided -- at least one is required :
+   *  food | supplies | aid | mobility | medicine | manufacturing | financial | information
+   */
+  services: Service[];
+  /**
+   * the different avenues with which to contact an organization,
+   * depending on your desired involvement
+   */
+  contact: {
+    /** general contact information */
+    general?: ContactDetails;
+    /** details of how those that need help can interact with the organization  */
+    getHelp?: ContactDetails;
+    /** details of how those who want to help can interact with the organization  */
+    volunteers?: ContactDetails;
+  };
+  /**
+   * The location data for this organization
+   */
+  loc: Location;
+}
 
 const LOCATIONS = {
   PT: {
@@ -381,7 +439,7 @@ const LOCATIONS = {
   },
 };
 
-export const MARKERS: IMarker[] = [
+export const MARKERS: MarkerInfo[] = [
   {
     contentTitle: 'REMOVE LLC.',
     contentBody:
@@ -2520,6 +2578,3 @@ If you are a low-risk individual with transportation and time to spare, sign up 
     loc: LOCATIONS.PT.PORTO_FOZ_DO_DOURO,
   },
 ];
-
-export type MarkerInfo = IMarker;
-export * from '../../../functions/src/models/markers';

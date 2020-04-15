@@ -10,7 +10,7 @@ import MapLoader from './components/map-loader';
 import Results from './components/results';
 import Search from './components/search';
 import { Filter } from './data';
-import { IMarker } from './data/markers';
+import { MarkerInfo } from './data/markers';
 import styled, {
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
@@ -23,9 +23,9 @@ interface Props {
 
 interface State {
   filter: Filter;
-  results: IMarker[] | null;
+  results: MarkerInfo[] | null;
   nextResults?: NextResults;
-  selectedResult: IMarker | null;
+  selectedResult: MarkerInfo | null;
   updateResultsCallback: (() => void) | null;
   searchInput: HTMLInputElement | null;
   addInstructionsOpen: boolean;
@@ -59,7 +59,7 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private setResults = (results: IMarker[]) => {
+  private setResults = (results: MarkerInfo[]) => {
     this.setState({ results, selectedResult: null });
   };
 
@@ -71,7 +71,7 @@ class App extends React.Component<Props, State> {
     this.setState({ searchInput });
   };
 
-  private setSelectedResult = (selectedResult: IMarker | null) => {
+  private setSelectedResult = (selectedResult: MarkerInfo | null) => {
     this.setState(state => {
       let { resultsMode } = state;
       if (selectedResult && state.resultsMode === 'closed') {
