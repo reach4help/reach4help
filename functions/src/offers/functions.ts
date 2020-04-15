@@ -4,7 +4,7 @@ import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
 import { IOffer, Offer, OfferStatus } from '../models/offers';
-import { RequestStatus } from '../models/requests';
+import { RequestStatus, RequestFirestoreConverter } from '../models/requests';
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -25,12 +25,19 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
         status: RequestStatus.ongoing,
       }),
     );
-    
+
+    const request = (await offerAfter.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+
     messaging.send({
         data:{
             entity: 'offer',
             action: 'accepted',
-            id: change.after.id
+            id: change.after.id,
+            offer_message: offerAfter.message,
+            request_title: request ? request.title : '',
+            request_description: request ? request.description : '',
+            request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+            request_status: request ? request.status : '',
         },
         topic: `${offerAfter.cavUserRef.id}_notifications`
     });
