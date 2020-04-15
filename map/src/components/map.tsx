@@ -9,7 +9,7 @@ import {
 import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
-import { MarkerInfo, MARKERS } from '../data/markers';
+import { IMarker, MARKERS } from '../data/markers';
 import styled from '../styling';
 import {
   createGoogleMap,
@@ -21,7 +21,7 @@ import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string'
 
 interface MapInfo {
   map: google.maps.Map;
-  markers: Map<MarkerInfo, google.maps.Marker>;
+  markers: Map<IMarker, google.maps.Marker>;
   markerClusterer: MarkerClusterer;
   /**
    * The filter that is currently being used to display the markers on the map
@@ -41,10 +41,10 @@ interface MapInfo {
       };
 }
 
-const getInfo = (marker: google.maps.Marker): MarkerInfo => marker.get('info');
+const getInfo = (marker: google.maps.Marker): IMarker => marker.get('info');
 
 const updateMarkersVisibilityUsingFilter = (
-  markers: Map<MarkerInfo, google.maps.Marker>,
+  markers: Map<IMarker, google.maps.Marker>,
   filter: Filter,
 ) => {
   for (const marker of markers.values()) {
@@ -58,12 +58,12 @@ interface Props {
   className?: string;
   filter: Filter;
   searchInput: HTMLInputElement | null;
-  results: MarkerInfo[] | null;
-  setResults: (results: MarkerInfo[]) => void;
+  results: IMarker[] | null;
+  setResults: (results: IMarker[]) => void;
   nextResults?: NextResults;
   setNextResults: (nextResults: NextResults) => void;
-  selectedResult: MarkerInfo | null;
-  setSelectedResult: (selectedResult: MarkerInfo | null) => void;
+  selectedResult: IMarker | null;
+  setSelectedResult: (selectedResult: IMarker | null) => void;
   /**
    * Call this
    */
@@ -81,7 +81,7 @@ interface Props {
  */
 export interface NextResults {
   markers: google.maps.Marker[];
-  results: MarkerInfo[];
+  results: IMarker[];
 }
 
 class MapComponent extends React.Component<Props, {}> {
@@ -131,7 +131,7 @@ class MapComponent extends React.Component<Props, {}> {
       return;
     }
     const map = createGoogleMap(ref);
-    const markers = new Map<MarkerInfo, google.maps.Marker>();
+    const markers = new Map<IMarker, google.maps.Marker>();
     for (const m of MARKERS) {
       const marker = new window.google.maps.Marker({
         position: m.loc,
