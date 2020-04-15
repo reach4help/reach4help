@@ -34,10 +34,11 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
             action: 'accepted',
             id: change.after.id,
             offer_message: offerAfter.message,
+            request_id: offerAfter.requestRef.id,
             request_title: request ? request.title : '',
             request_description: request ? request.description : '',
             request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-            request_status: request ? request.status : '',
+            request_status: RequestStatus.ongoing
         },
         topic: `${offerAfter.cavUserRef.id}_notifications`
     });
