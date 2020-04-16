@@ -6,7 +6,7 @@ import {
   MdMyLocation,
   MdRefresh,
 } from 'react-icons/md';
-import { Filter, SERVICES } from 'src/data';
+import { Filter, MARKER_TYPES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
@@ -49,7 +49,7 @@ const updateMarkersVisibilityUsingFilter = (
 ) => {
   for (const marker of markers.values()) {
     const info = getInfo(marker);
-    const visible = !filter.service || info.services.includes(filter.service);
+    const visible = !filter.type || info.type.type === filter.type;
     marker.setVisible(visible);
   }
 };
@@ -135,7 +135,7 @@ class MapComponent extends React.Component<Props, {}> {
     for (const m of MARKERS) {
       const marker = new window.google.maps.Marker({
         position: m.loc,
-        title: m.services.join(','),
+        title: m.contentTitle,
       });
       marker.set('info', m);
       markers.set(m, marker);
@@ -193,7 +193,7 @@ class MapComponent extends React.Component<Props, {}> {
       }
 
       const info = getInfo(marker);
-      const { color } = SERVICES[m.currentFilter.service || info.services[0]];
+      const { color } = MARKER_TYPES[info.type.type];
 
       const mapBoundingBox = map.getBounds();
       if (mapBoundingBox) {

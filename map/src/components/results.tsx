@@ -134,7 +134,9 @@ const Results = (props: Props) => {
                 <div className="location">{result.loc.description}</div>
               )}
               <div className="name">{result.contentTitle}</div>
-              <Services services={result.services} />
+              {result.type.type === 'org' && (
+                <Services services={result.type.services} />
+              )}
             </div>
           </div>
         ))}
@@ -145,7 +147,9 @@ const Results = (props: Props) => {
           {selectedResult.loc.description && (
             <div className="location">{selectedResult.loc.description}</div>
           )}
-          <Services className="services" services={selectedResult.services} />
+          {selectedResult.type.type === 'org' && (
+            <Services services={selectedResult.type.services} />
+          )}
           {selectedResult.contentBody && (
             <div className="content">{selectedResult.contentBody}</div>
           )}
