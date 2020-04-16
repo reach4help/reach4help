@@ -16,15 +16,15 @@ const validateUser = (value: IUser): Promise<void> => {
 
 export const triggerEventsWhenUserIsCreated = functions.firestore
   .document('users/{userId}')
-  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
-    return validateUser(snapshot.data() as IUser).catch(errors => {
-      console.error('Invalid User Found: ', errors);
-      return db
-        .collection('users')
-        .doc(context.params.userId)
-        .delete();
-    });
+    return validateUser(snapshot.data() as IUser)
+      .catch(errors => {
+        console.error('Invalid User Found: ', errors);
+        return db
+          .collection('users')
+          .doc(context.params.userId)
+          .delete();
+      });
   });
 
 export * from './privilegedInformation';

@@ -2,10 +2,11 @@ import { validateOrReject } from 'class-validator';
 import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
-import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import * as moment from 'moment';
 
 import { IRequest, Request, RequestStatus } from '../models/requests';
+import { indexRequest, removeRequestFromIndex } from '../algolia';
+import DocumentSnapshot = firestore.DocumentSnapshot;
 
 // Init the admin db
 const db = firestore();
@@ -102,32 +103,43 @@ export const triggerEventsWhenRequestIsCreated = functions.firestore
   .document('requests/{requestId}')
   // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
-    return validateRequest(snapshot.data() as IRequest).catch(errors => {
-      console.error('Invalid Request Found: ', errors);
-      return db
-        .collection('requests')
-        .doc(context.params.requestId)
-        .delete();
-    });
+    return validateRequest(snapshot.data() as IRequest)
+      .then(() => {
+        return indexRequest(snapshot);
+      })
+      .catch(errors => {
+        console.error('Invalid Request Found: ', errors);
+        return firestore()
+          .collection('requests')
+          .doc(context.params.requestId)
+          .delete();
+      });
   });
 
 export const triggerEventsWhenRequestIsUpdated = functions.firestore
   .document('requests/{requestId}')
   .onUpdate((change: Change<DocumentSnapshot>, context: EventContext) => {
     return validateRequest(change.after.data() as IRequest)
+      .then(() => {
+        return Promise.all([
+          queueStatusUpdateTriggers(change),
+          queueRatingUpdatedTriggers(change),
+          indexRequest(change.after),
+        ]);
+      })
       .catch(errors => {
         console.error('Invalid Request Found: ', errors);
         return db
           .collection('requests')
           .doc(context.params.requestId)
           .delete();
-      })
-      .then(() => {
-        return Promise.all([
-          queueStatusUpdateTriggers(change),
-          queueRatingUpdatedTriggers(change),
-        ]);
       });
+  });
+
+export const triggerEventsWhenRequestIsDeleted = functions.firestore
+  .document('requests/{requestId}')
+  .onDelete((snapshot: DocumentSnapshot) => {
+    return removeRequestFromIndex(snapshot);
   });
 
 export * from './privilegedInformation';

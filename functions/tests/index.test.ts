@@ -41,8 +41,9 @@ describe('user validation', () => {
       username: 'TestUser',
     });
 
-    return validateOrReject(user).then(() => {
-      expect(true).toBeTruthy();
-    });
+    return validateOrReject(user)
+      .then(() => {
+        expect(true).toBeTruthy();
+      });
   });
 });

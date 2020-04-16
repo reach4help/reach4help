@@ -34,35 +34,37 @@ const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>): Promise<vo
 };
 
 const validateOffer = (value: IOffer): Promise<void> => {
-  return validateOrReject(Offer.factory(value)).then(() => {
-    return Promise.resolve();
-  });
+  return validateOrReject(Offer.factory(value))
+    .then(() => {
+      return Promise.resolve();
+    });
 };
 
 export const triggerEventsWhenOfferIsCreated = functions.firestore
   .document('offers/{offerId}')
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
-    return validateOffer(snapshot.data() as IOffer).catch(errors => {
-      console.error('Invalid Offer Found: ', errors);
-      return db
-        .collection('offers')
-        .doc(context.params.offerId)
-        .delete();
-    });
-  });
-
-export const triggerEventsWhenOfferIsUpdated = functions.firestore
-  .document('offers/{offerId}')
-  .onUpdate((change: Change<DocumentSnapshot>, context: EventContext) => {
-    return validateOffer(change.after.data() as IOffer)
+    return validateOffer(snapshot.data() as IOffer)
       .catch(errors => {
         console.error('Invalid Offer Found: ', errors);
         return db
           .collection('offers')
           .doc(context.params.offerId)
           .delete();
-      })
+      });
+  });
+
+export const triggerEventsWhenOfferIsUpdated = functions.firestore
+  .document('offers/{offerId}')
+  .onUpdate((change: Change<DocumentSnapshot>, context: EventContext) => {
+    return validateOffer(change.after.data() as IOffer)
       .then(() => {
         return Promise.all([queueStatusUpdateTriggers(change)]);
+      })
+      .catch(errors => {
+        console.error('Invalid Offer Found: ', errors);
+        return db
+          .collection('offers')
+          .doc(context.params.offerId)
+          .delete();
       });
   });
