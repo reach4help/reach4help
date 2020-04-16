@@ -27,37 +27,43 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
     );
 
     const request = (await offerAfter.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+    
+    operations.push(((): Promise<void> => {
+        return messaging.send({
+            data:{
+                entity: 'offer',
+                action: 'accepted',
+                id: change.after.id,
+                offer_message: offerAfter.message,
+                request_id: offerAfter.requestRef.id,
+                request_title: request ? request.title : '',
+                request_description: request ? request.description : '',
+                request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+                request_status: RequestStatus.ongoing
+            },
+            topic: `${offerAfter.cavUserRef.id}_notifications`
+        })
+        .then(result=> Promise.resolve())
+    })());
 
-    messaging.send({
-        data:{
-            entity: 'offer',
-            action: 'accepted',
-            id: change.after.id,
-            offer_message: offerAfter.message,
-            request_id: offerAfter.requestRef.id,
-            request_title: request ? request.title : '',
-            request_description: request ? request.description : '',
-            request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-            request_status: RequestStatus.ongoing
-        },
-        topic: `${offerAfter.cavUserRef.id}_notifications`
-    });
-
-    messaging.send({
-        data:{
-            entity: 'request',
-            action: 'offeraccepted',
-            id: offerAfter.requestRef.id,
-            offer_message: offerAfter.message,
-            offer_id: change.after.id,
-            offer_uid: offerAfter.cavUserRef.id,
-            request_title: request ? request.title : '',
-            request_description: request ? request.description : '',
-            request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-            request_status: RequestStatus.ongoing
-        },
-        topic: `${offerAfter.requestRef.id}_request_notifications`
-    });
+    operations.push(((): Promise<void> => {
+        return messaging.send({
+            data:{
+                entity: 'request',
+                action: 'offeraccepted',
+                id: offerAfter.requestRef.id,
+                offer_message: offerAfter.message,
+                offer_id: change.after.id,
+                offer_uid: offerAfter.cavUserRef.id,
+                request_title: request ? request.title : '',
+                request_description: request ? request.description : '',
+                request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+                request_status: RequestStatus.ongoing
+            },
+            topic: `${offerAfter.requestRef.id}_request_notifications`
+        })
+        .then(result => Promise.resolve());
+    })());
 
     //We could also send it to ${offerAfter.requestRef.id}_requestNotification and let everyone who responded 
     //to the request know that the request accepted an offer. We will provide the offer ID as well. the clients
@@ -95,9 +101,7 @@ const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[
                 },
                 topic: `${offer.requestRef.id}_request_notifications`
             })
-            .then(result =>{
-                return Promise.resolve()
-            })
+            .then(result => Promise.resolve())
         })())
 
         operations.push(((): Promise<void> => {
@@ -115,9 +119,7 @@ const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[
                 },
                 topic: `${request?.pinUserRef.id}_notifications`
             })
-            .then(result =>{
-                return Promise.resolve()
-            })
+            .then(result => Promise.resolve())
         })())
 
     }
