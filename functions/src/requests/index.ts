@@ -1,11 +1,12 @@
 import { validateOrReject } from 'class-validator';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
-import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import * as moment from 'moment';
 
 import { IRequest, Request, RequestStatus } from '../models/requests';
+import { indexRequest, removeRequestFromIndex } from '../algolia';
+import DocumentSnapshot = firestore.DocumentSnapshot;
 
 const queueStatusUpdateTriggers = (
   change: Change<DocumentSnapshot>,
@@ -99,13 +100,17 @@ export const triggerEventsWhenRequestIsCreated = functions.firestore
   .document('requests/{requestId}')
   // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
-    return validateRequest(snapshot.data() as IRequest).catch(errors => {
-      console.error('Invalid Request Found: ', errors);
-      return firestore()
-        .collection('requests')
-        .doc(context.params.requestId)
-        .delete();
-    });
+    return validateRequest(snapshot.data() as IRequest)
+      .catch(errors => {
+        console.error('Invalid Request Found: ', errors);
+        return firestore()
+          .collection('requests')
+          .doc(context.params.requestId)
+          .delete();
+      })
+      .then(() => {
+        return indexRequest(snapshot);
+      });
   });
 
 export const triggerEventsWhenRequestIsUpdated = functions.firestore
@@ -123,8 +128,15 @@ export const triggerEventsWhenRequestIsUpdated = functions.firestore
         return Promise.all([
           queueStatusUpdateTriggers(change),
           queueRatingUpdatedTriggers(change),
+          indexRequest(change.after),
         ]);
       });
+  });
+
+export const triggerEventsWhenRequestIsDeleted = functions.firestore
+  .document('requests/{requestId}')
+  .onDelete((snapshot: DocumentSnapshot) => {
+    return removeRequestFromIndex(snapshot);
   });
 
 export * from './privilegedInformation';
