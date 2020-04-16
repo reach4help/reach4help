@@ -43,6 +43,22 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
         topic: `${offerAfter.cavUserRef.id}_notifications`
     });
 
+    messaging.send({
+        data:{
+            entity: 'request',
+            action: 'offeraccepted',
+            id: offerAfter.requestRef.id,
+            offer_message: offerAfter.message,
+            offer_id: change.after.id,
+            offer_uid: offerAfter.cavUserRef.id,
+            request_title: request ? request.title : '',
+            request_description: request ? request.description : '',
+            request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+            request_status: RequestStatus.ongoing
+        },
+        topic: `${offerAfter.requestRef.id}_request_notifications`
+    });
+
     //We could also send it to ${offerAfter.requestRef.id}_requestNotification and let everyone who responded 
     //to the request know that the request accepted an offer. We will provide the offer ID as well. the clients
     //can either use the id of the offer accepted and compare it with their offer to determine if their offer was rejected or accepted

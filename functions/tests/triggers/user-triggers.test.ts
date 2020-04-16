@@ -40,23 +40,25 @@ describe('user triggers', () => {
     const db = adminApp();
     let userRef = db.collection('users').doc('user1');
     
-    userRef.set({
-      username: 'fsdfs'
-    }).then(result=>{
-      console.log("result: ", result);
-      userRef.get().then(snap=>{
-        console.log("snap.data: ", snap.data());
+    return userRef.set({username: 'fsdfs'})
+    .then(result=>{
+      return userRef.get()
+    })
+    .then(snap=>{
+        console.log("snap.data: ", JSON.stringify(snap.data()));
 
         let wrapped = test.wrap(triggerEventsWhenUserIsCreated);
 
-        wrapped(snap).then(async ()=>{
-          userRef.get().then(snapAfter=>{
-            console.log("snapAfter: ", snapAfter);
-            console.log("snapAfter: ", snapAfter.data());
-            expect(snapAfter.exists).toBeFalsy();
-          })
-        })
-      })
+        return wrapped(snap) 
+    })
+    .then(()=>{
+          
+      return userRef.get()
+      
+    })
+    .then(snapAfter=>{
+      console.log("snapAfter: ", snapAfter.data());
+      expect(snapAfter.exists).toBeFalsy();
     })
 
   });
