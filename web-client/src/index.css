@@ -16,8 +16,17 @@
   }
 }
 
+@media (min-width: 667px) {
+  .withContentPaddingDesktop {
+    padding: 50px 50px;
+  }
+}
+
 /* Ant Design Theme override */
 
+.ant-card {
+  border-radius: 4px !important;
+}
 .ant-btn-primary {
   min-width: 200px;
   color: #fff;

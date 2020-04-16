@@ -14,7 +14,6 @@ const StyledIntro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 50px;
 `;
 
 const Description = styled(Text)`
@@ -192,7 +191,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   ]);
 
   return (
-    <StyledIntro>
+    <StyledIntro className="withContentPaddingDesktop">
       <Form
         layout="vertical"
         form={form}
