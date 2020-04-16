@@ -17,10 +17,14 @@ declare global {
  */
 const PUBLIC_API_KEY = 'AIzaSyC9MNxwBw6ZAOqrSVDPZFiaYhFmuRwtobc';
 
+<<<<<<< Updated upstream
 const apiKey =
   (window.GOOGLE_MAPS_API_KEY !== '%REACT_APP_GOOGLE_MAPS_API_KEY%' &&
     window.GOOGLE_MAPS_API_KEY) ||
   PUBLIC_API_KEY;
+=======
+const apiKey = (window.GOOGLE_MAPS_API_KEY !== '%REACT_APP_GOOGLE_MAPS_API_KEY%' && window.GOOGLE_MAPS_API_KEY) || PUBLIC_API_KEY;
+>>>>>>> Stashed changes
 
 const REQUIRED_SCRIPTS = [
   'https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js',

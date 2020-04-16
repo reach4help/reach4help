@@ -412,7 +412,10 @@ const LOCATIONS = {
     },
   },
 };
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 const MARKERS: MarkerInfo[] = [
   {
     contentTitle: 'REMOVE LLC.',
