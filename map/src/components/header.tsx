@@ -1,17 +1,20 @@
 import React from 'react';
 import { MdAdd, MdFullscreen, MdFullscreenExit } from 'react-icons/md';
-import { Filter } from 'src/data';
+import { Filter, Translate } from 'src/data';
 import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
 
 import styled, { CLS_SCREEN_LG_ONLY, SMALL_DEVICES } from '../styling';
 import Filters, { FilterMutator } from './filters';
+import Languages, { TranslateMutator } from './languages';
 
 interface Props {
   className?: string;
   filter: Filter;
+  translate: Translate;
   updateFilter: (mutator: FilterMutator) => void;
   setAddInstructionsOpen: (open: boolean) => void;
+  updateTranslate: (mutator: TranslateMutator) => void;
   fullScreen: boolean;
   toggleFullscreen: () => void;
 }
@@ -24,6 +27,8 @@ const Header = (props: Props) => {
     setAddInstructionsOpen,
     fullScreen,
     toggleFullscreen,
+    translate,
+    updateTranslate,
   } = props;
   const FullScreenIcon = fullScreen ? MdFullscreenExit : MdFullscreen;
   return (
@@ -62,6 +67,11 @@ const Header = (props: Props) => {
           className="filters"
           filter={filter}
           updateFilter={updateFilter}
+        />
+        <Languages
+          className="filters"
+          translate={translate}
+          updateTranslate={updateTranslate}
         />
         <div className="grow" />
         <button className="fs" type="button" onClick={toggleFullscreen}>

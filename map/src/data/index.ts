@@ -45,3 +45,23 @@ export const SERVICE_TYPES = Object.keys(SERVICES) as Service[];
 export interface Filter {
   service?: Service;
 }
+
+export const LANGUAGES = {
+  en: {
+    label: 'English',
+  },
+  ru: {
+    label: 'Russian',
+  },
+};
+
+export type Language = keyof typeof LANGUAGES;
+
+export const isLanguage = (language: string): language is Language =>
+  language in LANGUAGES;
+
+export const LANGUAGE_TYPES = Object.keys(LANGUAGES) as Language[];
+
+export interface Translate {
+  language?: Language;
+}
