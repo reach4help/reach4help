@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 
-import { createRequest, updateRequest, deleteRequest } from './functions';
+import { createRequest, deleteRequest, updateRequest } from './functions';
 
 export const triggerEventsWhenRequestIsCreated = functions.firestore
   .document('requests/{requestId}')

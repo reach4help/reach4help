@@ -4,7 +4,7 @@ import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
 import { IOffer, Offer, OfferStatus } from '../models/offers';
-import { RequestStatus, RequestFirestoreConverter } from '../models/requests';
+import { RequestFirestoreConverter, RequestStatus } from '../models/requests';
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -27,41 +27,41 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
     );
 
     const request = (await offerAfter.requestRef.withConverter(RequestFirestoreConverter).get()).data();
-    
+
     operations.push(((): Promise<void> => {
-        return messaging.send({
-            data:{
-                entity: 'offer',
-                action: 'accepted',
-                id: change.after.id,
-                offer_message: offerAfter.message,
-                request_id: offerAfter.requestRef.id,
-                request_title: request ? request.title : '',
-                request_description: request ? request.description : '',
-                request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-                request_status: RequestStatus.ongoing
-            },
-            topic: `${offerAfter.cavUserRef.id}_notifications`
-        })
-        .then(result=> Promise.resolve())
+      return messaging.send({
+        data: {
+          entity: 'offer',
+          action: 'accepted',
+          id: change.after.id,
+          offer_message: offerAfter.message,
+          request_id: offerAfter.requestRef.id,
+          request_title: request ? request.title : '',
+          request_description: request ? request.description : '',
+          request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+          request_status: RequestStatus.ongoing,
+        },
+        topic: `${offerAfter.cavUserRef.id}_notifications`,
+      })
+        .then(result => Promise.resolve());
     })());
 
     operations.push(((): Promise<void> => {
-        return messaging.send({
-            data:{
-                entity: 'request',
-                action: 'offeraccepted',
-                id: offerAfter.requestRef.id,
-                offer_message: offerAfter.message,
-                offer_id: change.after.id,
-                offer_uid: offerAfter.cavUserRef.id,
-                request_title: request ? request.title : '',
-                request_description: request ? request.description : '',
-                request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-                request_status: RequestStatus.ongoing
-            },
-            topic: `${offerAfter.requestRef.id}_request_notifications`
-        })
+      return messaging.send({
+        data: {
+          entity: 'request',
+          action: 'offeraccepted',
+          id: offerAfter.requestRef.id,
+          offer_message: offerAfter.message,
+          offer_id: change.after.id,
+          offer_uid: offerAfter.cavUserRef.id,
+          request_title: request ? request.title : '',
+          request_description: request ? request.description : '',
+          request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+          request_status: RequestStatus.ongoing,
+        },
+        topic: `${offerAfter.requestRef.id}_request_notifications`,
+      })
         .then(result => Promise.resolve());
     })());
 
@@ -78,54 +78,54 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
 };
 
 const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[]> => {
-    
-    const offer = snap.data() as Offer;
-    const operations: Promise<void>[] = [];
-    
-    if(offer){
-        const request = (await offer.requestRef.withConverter(RequestFirestoreConverter).get()).data();
 
-        operations.push(((): Promise<void> => {
-            return messaging.send({
-                data:{
-                    entity: 'request',
-                    action: 'offercreated',
-                    id: offer.requestRef.id,
-                    offer_message: offer.message,
-                    offer_id: snap.id,
-                    offer_uid: offer.cavUserRef.id,
-                    request_title: request ? request.title : '',
-                    request_description: request ? request.description : '',
-                    request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-                    request_status: request ? request.status : RequestStatus.pending
-                },
-                topic: `${offer.requestRef.id}_request_notifications`
-            })
-            .then(result => Promise.resolve())
-        })())
+  const offer = snap.data() as Offer;
+  const operations: Promise<void>[] = [];
 
-        operations.push(((): Promise<void> => {
-            return messaging.send({
-                data:{
-                    entity: 'request',
-                    action: 'offercreatd',
-                    id: offer.requestRef.id,
-                    offer_message: offer.message,
-                    offer_id: snap.id,
-                    request_title: request ? request.title : '',
-                    request_description: request ? request.description : '',
-                    request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-                    request_status: RequestStatus.ongoing
-                },
-                topic: `${request?.pinUserRef.id}_notifications`
-            })
-            .then(result => Promise.resolve())
-        })())
+  if (offer) {
+    const request = (await offer.requestRef.withConverter(RequestFirestoreConverter).get()).data();
 
-    }
+    operations.push(((): Promise<void> => {
+      return messaging.send({
+        data: {
+          entity: 'request',
+          action: 'offercreated',
+          id: offer.requestRef.id,
+          offer_message: offer.message,
+          offer_id: snap.id,
+          offer_uid: offer.cavUserRef.id,
+          request_title: request ? request.title : '',
+          request_description: request ? request.description : '',
+          request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+          request_status: request ? request.status : RequestStatus.pending,
+        },
+        topic: `${offer.requestRef.id}_request_notifications`,
+      })
+        .then(result => Promise.resolve());
+    })());
 
-    return Promise.all(operations);
-}
+    operations.push(((): Promise<void> => {
+      return messaging.send({
+        data: {
+          entity: 'request',
+          action: 'offercreatd',
+          id: offer.requestRef.id,
+          offer_message: offer.message,
+          offer_id: snap.id,
+          request_title: request ? request.title : '',
+          request_description: request ? request.description : '',
+          request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+          request_status: RequestStatus.ongoing,
+        },
+        topic: `${request?.pinUserRef.id}_notifications`,
+      })
+        .then(result => Promise.resolve());
+    })());
+
+  }
+
+  return Promise.all(operations);
+};
 
 const validateOffer = (value: IOffer): Promise<void> => {
   return validateOrReject(Offer.factory(value)).then(() => {
@@ -134,28 +134,29 @@ const validateOffer = (value: IOffer): Promise<void> => {
 };
 
 export const offerCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
-  return validateOffer(snapshot.data() as IOffer).catch(errors => {
-    console.error('Invalid Offer Found: ', errors);
-    return db
-      .collection('offers')
-      .doc(context.params.offerId)
-      .delete();
-  })
-  .then(()=>{
-    return Promise.all([queueOfferCreationTriggers(snapshot)]);
-  });
-};
-
-export const offerUpdate = (change: Change<DocumentSnapshot>, context: EventContext) => {
-  return validateOffer(change.after.data() as IOffer)
+  return validateOffer(snapshot.data() as IOffer)
+    .then(() => {
+      return Promise.all([queueOfferCreationTriggers(snapshot)]);
+    })
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
       return db
         .collection('offers')
         .doc(context.params.offerId)
         .delete();
-    })
+    });
+};
+
+export const offerUpdate = (change: Change<DocumentSnapshot>, context: EventContext) => {
+  return validateOffer(change.after.data() as IOffer)
     .then(() => {
       return Promise.all([queueStatusUpdateTriggers(change)]);
+    })
+    .catch(errors => {
+      console.error('Invalid Offer Found: ', errors);
+      return db
+        .collection('offers')
+        .doc(context.params.offerId)
+        .delete();
     });
 };

@@ -14,12 +14,12 @@ const validateUser = (value: IUser): Promise<void> => {
 };
 
 export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
-    return validateUser(snapshot.data() as IUser)
+  return validateUser(snapshot.data() as IUser)
     .catch(errors => {
-    console.error('Invalid User Found: ', errors);
-    return db
+      console.error('Invalid User Found: ', errors);
+      return db
         .collection('users')
         .doc(context.params.userId)
         .delete();
     });
-}
+};

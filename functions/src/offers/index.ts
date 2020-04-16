@@ -1,5 +1,4 @@
 import * as functions from 'firebase-functions';
-
 import { offerCreate, offerUpdate } from './functions';
 
 export const triggerEventsWhenOfferIsCreated = functions.firestore

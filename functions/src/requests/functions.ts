@@ -162,30 +162,32 @@ const validateRequest = (value: IRequest): Promise<void> => {
 
 export const createRequest = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateRequest(snapshot.data() as IRequest)
+    .then(() => {
+      return Promise.all([indexRequest(snapshot), queueCreateTriggers(snapshot)]);
+    })
     .catch(errors => {
       console.error('Invalid Request Found: ', errors);
       return db
         .collection('requests')
         .doc(context.params.requestId)
         .delete();
-    })
-    .then(() => {
-      return Promise.all([indexRequest(snapshot), queueCreateTriggers(snapshot)]);
     });
+
 };
 
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
   return validateRequest(change.after.data() as IRequest)
+    .then(() => {
+      return Promise.all([queueStatusUpdateTriggers(change), queueRatingUpdatedTriggers(change), indexRequest(change.after)]);
+    })
     .catch(errors => {
       console.error('Invalid Request Found: ', errors);
       return db
         .collection('requests')
         .doc(context.params.requestId)
         .delete();
-    })
-    .then(() => {
-      return Promise.all([queueStatusUpdateTriggers(change), queueRatingUpdatedTriggers(change), indexRequest(change.after)]);
     });
+
 };
 
 export const deleteRequest = (snapshot: DocumentSnapshot) => removeRequestFromIndex(snapshot);
