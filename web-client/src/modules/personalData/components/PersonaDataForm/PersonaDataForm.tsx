@@ -3,22 +3,31 @@ import GoogleMapReact from 'google-map-react';
 import words from 'lodash/words';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { AppState } from 'src/store';
 import styled from 'styled-components';
 
 import gpstarget from '../../../../assets/gpstarget.svg';
 
 const { Text } = Typography;
 
+const ProfilePhoto = styled.img`
+  border-radius: 4px;
+  margin: 5px 0 20px 0;
+  width: 60px;
+  height: 60px;
+`;
+
+const Title = styled.h1`
+  font-size: 22px;
+  text-align: center;
+`;
+
 const StyledIntro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Description = styled(Text)`
-  margin-top: 3rem;
-  text-align: center;
 `;
 
 const Info = styled(Text)`
@@ -29,6 +38,8 @@ const Info = styled(Text)`
 const StyledButton = styled(Button)`
   margin-top: 40px;
 `;
+
+const GeoWarning = styled.div``;
 
 const Map = styled.div`
   height: 0;
@@ -58,6 +69,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   handleFormSubmit,
 }): React.ReactElement => {
   const { t } = useTranslation();
+  const user = useSelector((state: AppState) => state.auth.user);
   const [form] = Form.useForm();
   const [fullName, setFullName] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -80,7 +92,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
 
   let Geocoder;
   const initGeocoder = ({ maps }) => {
-    console.log('Geocoder is initialized');
     Geocoder = new maps.Geocoder();
   };
 
@@ -99,7 +110,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           };
 
           Geocoder.geocode({ location }, (results, status) => {
-            console.log(results, typeof results);
             if (status === 'OK') {
               const newAddress: Address = {
                 address1: '',
@@ -145,8 +155,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                 }
               }
             }
-            console.log(results);
-            console.log(status);
           });
           // dispatch(setUserGeolocationAction(newCoords));
           // setCoordsExist(true);
@@ -190,8 +198,12 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
     form,
   ]);
 
+  const photo = user && user.photoURL ? String(user.photoURL) : '';
+
   return (
     <StyledIntro className="withContentPaddingDesktop">
+      {photo !== '' && <ProfilePhoto src={photo} />}
+      <Title>{t('user_data_form.sub_title')}</Title>
       <Form
         layout="vertical"
         form={form}
@@ -199,7 +211,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           handleFormSubmit(values);
         }}
       >
-        <Description>{t('user_data_form.sub_title')}</Description>
         <Row gutter={12}>
           <Col span={24} md={12}>
             <Form.Item
@@ -267,7 +278,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
               </>
             )}
             {geolocationAuthorized === false && (
-              <div>Geolocation not authorized</div>
+              <GeoWarning>Geolocation unavailable.</GeoWarning>
             )}
           </Col>
         </Row>
