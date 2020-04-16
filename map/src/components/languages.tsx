@@ -31,6 +31,9 @@ class Languages extends React.Component<Props, {}> {
       <div className={className}>
         Language:
         <select onChange={this.changeLanguage} value={translate.language || ''}>
+          <option key="" value="">
+            Select language
+          </option>
           {Object.entries(LANGUAGES).map(([value, data]) => (
             <option key={value} value={value}>
               {data.label}

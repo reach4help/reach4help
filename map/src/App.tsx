@@ -58,6 +58,13 @@ class App extends React.Component<Props, State> {
     };
   }
 
+  componentDidUpdate(prevProps: Props, prevState: State): void {
+    const { translate } = this.state;
+    if (prevState.translate !== translate) {
+      window.location.reload(false);
+    }
+  }
+
   private setFilter = (mutator: FilterMutator) => {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
