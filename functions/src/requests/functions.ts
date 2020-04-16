@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import * as moment from 'moment';
 
+import { indexRequest, removeRequestFromIndex } from '../algolia';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { UserFirestoreConverter } from '../models/users';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
@@ -50,7 +51,7 @@ const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefo
         operations.push(
           requestAfter.cavUserRef.update({
             averageRating: newAverage,
-            cavRatingsReceived: cavRatingsReceived
+            cavRatingsReceived: cavRatingsReceived,
           }),
         );
       }
@@ -169,7 +170,7 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
         .delete();
     })
     .then(() => {
-      return Promise.all([queueCreateTriggers(snapshot)]);
+      return Promise.all([indexRequest(snapshot), queueCreateTriggers(snapshot)]);
     });
 };
 
@@ -183,6 +184,8 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
         .delete();
     })
     .then(() => {
-      return Promise.all([queueStatusUpdateTriggers(change), queueRatingUpdatedTriggers(change)]);
+      return Promise.all([queueStatusUpdateTriggers(change), queueRatingUpdatedTriggers(change), indexRequest(change.after)]);
     });
 };
+
+export const deleteRequest = (snapshot: DocumentSnapshot) => removeRequestFromIndex(snapshot);
