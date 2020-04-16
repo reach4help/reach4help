@@ -3230,8 +3230,9 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var repoExtract, repoInfo, octokit, zenhub, issueData, getIssue, repo, workspaceId, epicIssues, epicIssues_1, epicIssues_1_1, epicIssue, epic, issues, issues_1, issues_1_1, issue, e_1_1, dependencies, dependencies_1, dependencies_1_1, dep, nextPage, getIssues, hasNext, _a, _b, issue, getIssueGitHubData, issueString, getEpicTree, _c, _d, i, issueId, issue, githubData, extraBody, _e, _f, epicId, _g, _h, blockerId, _j, _k, blockeeId, before, after, startBoundary, endBoundary, newBody, e_2_1;
     var e_1, _l, e_3, _m, e_4, _o, e_5, _p, e_2, _q, e_6, _r, e_7, _s, e_8, _t;
-    return __generator(this, function (_u) {
-        switch (_u.label) {
+    var _u;
+    return __generator(this, function (_v) {
+        switch (_v.label) {
             case 0:
                 if (!GITHUB_REPOSITORY) {
                     console.error('Environment variable GITHUB_REPO must be defined');
@@ -3273,27 +3274,27 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                 };
                 return [4 /*yield*/, octokit.repos.get(repoInfo)];
             case 1:
-                repo = (_u.sent()).data;
+                repo = (_v.sent()).data;
                 workspaceId = null;
                 return [4 /*yield*/, zenhub.getEpics(repo.id)];
             case 2:
-                epicIssues = (_u.sent()).epic_issues
+                epicIssues = (_v.sent()).epic_issues
                     // Filter only epics for this repo
                     .filter(function (epic) { return epic.repo_id === repo.id; })
                     // Map to ID
                     .map(function (epic) { return epic.issue_number; });
-                _u.label = 3;
+                _v.label = 3;
             case 3:
-                _u.trys.push([3, 8, 9, 10]);
+                _v.trys.push([3, 8, 9, 10]);
                 epicIssues_1 = __values(epicIssues), epicIssues_1_1 = epicIssues_1.next();
-                _u.label = 4;
+                _v.label = 4;
             case 4:
                 if (!!epicIssues_1_1.done) return [3 /*break*/, 7];
                 epicIssue = epicIssues_1_1.value;
                 console.log("fetching info for EPIC: " + epicIssue);
                 return [4 /*yield*/, zenhub.getEpic(repo.id, epicIssue)];
             case 5:
-                epic = _u.sent();
+                epic = _v.sent();
                 if (!workspaceId) {
                     workspaceId = epic.pipeline.workspace_id;
                 }
@@ -3319,13 +3320,13 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                     }
                     finally { if (e_3) throw e_3.error; }
                 }
-                _u.label = 6;
+                _v.label = 6;
             case 6:
                 epicIssues_1_1 = epicIssues_1.next();
                 return [3 /*break*/, 4];
             case 7: return [3 /*break*/, 10];
             case 8:
-                e_1_1 = _u.sent();
+                e_1_1 = _v.sent();
                 e_1 = { error: e_1_1 };
                 return [3 /*break*/, 10];
             case 9:
@@ -3336,7 +3337,7 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                 return [7 /*endfinally*/];
             case 10: return [4 /*yield*/, zenhub.getDependencies(repo.id)];
             case 11:
-                dependencies = (_u.sent()).dependencies
+                dependencies = (_v.sent()).dependencies
                     .filter(function (d) { return d.blocked.repo_id === repo.id && d.blocking.repo_id === repo.id; });
                 try {
                     for (dependencies_1 = __values(dependencies), dependencies_1_1 = dependencies_1.next(); !dependencies_1_1.done; dependencies_1_1 = dependencies_1.next()) {
@@ -3353,21 +3354,19 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                     finally { if (e_4) throw e_4.error; }
                 }
                 nextPage = 1;
-                _u.label = 12;
+                _v.label = 12;
             case 12:
                 if (!(nextPage !== null)) return [3 /*break*/, 14];
                 console.log("Getting page " + nextPage + " of issues from GitHub");
                 return [4 /*yield*/, octokit.issues.listForRepo(__assign(__assign({}, repoInfo), { page: nextPage, state: 'all', per_page: 100 }))];
             case 13:
-                getIssues = _u.sent();
+                getIssues = _v.sent();
                 hasNext = (getIssues.headers.link || '').indexOf('rel="next"') > -1;
                 nextPage = hasNext ? (nextPage + 1) : null;
                 try {
                     for (_a = (e_5 = void 0, __values(getIssues.data)), _b = _a.next(); !_b.done; _b = _a.next()) {
                         issue = _b.value;
-                        if (!issue.pull_request) {
-                            getIssue(issue.number).data = issue;
-                        }
+                        getIssue(issue.number).data = issue;
                     }
                 }
                 catch (e_5_1) { e_5 = { error: e_5_1 }; }
@@ -3439,16 +3438,20 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                     }
                     return tree;
                 };
-                _u.label = 15;
+                _v.label = 15;
             case 15:
-                _u.trys.push([15, 20, 21, 22]);
+                _v.trys.push([15, 20, 21, 22]);
                 _c = __values(issueData.entries()), _d = _c.next();
-                _u.label = 16;
+                _v.label = 16;
             case 16:
                 if (!!_d.done) return [3 /*break*/, 19];
                 i = _d.value;
                 issueId = i[0];
                 issue = i[1];
+                // Don't add information to PRs
+                if ((_u = issue.data) === null || _u === void 0 ? void 0 : _u.pull_request) {
+                    return [3 /*break*/, 18];
+                }
                 githubData = getIssueGitHubData(issueId, issue);
                 extraBody = ("\n--------\n### [ZenHub Information](https://app.zenhub.com/workspaces/" + repoInfo.owner + "-" + workspaceId + "/issues/" + repoInfo.owner + "/" + repoInfo.repo + "/" + issueId + ")\n\n*This information is updated automatically. To modify it, please use ZenHub.*\n");
                 if (issue.parentEpics.length > 0) {
@@ -3533,14 +3536,14 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                 console.log("Updating description for issue " + issueId);
                 return [4 /*yield*/, octokit.issues.update(__assign(__assign({}, repoInfo), { issue_number: issueId, body: newBody }))];
             case 17:
-                _u.sent();
-                _u.label = 18;
+                _v.sent();
+                _v.label = 18;
             case 18:
                 _d = _c.next();
                 return [3 /*break*/, 16];
             case 19: return [3 /*break*/, 22];
             case 20:
-                e_2_1 = _u.sent();
+                e_2_1 = _v.sent();
                 e_2 = { error: e_2_1 };
                 return [3 /*break*/, 22];
             case 21:
