@@ -35,12 +35,6 @@ const Map = styled.div`
   height: 0;
 `;
 
-const GPSButton = styled(Button)`
-  background-color: #1890ff;
-  border-radius: 4px;
-  border: none;
-`;
-
 const GPSTarget = styled.img`
   width: 16px;
   height: 16px;
@@ -250,18 +244,18 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           <Col span="24" style={{ textAlign: 'center' }}>
             {geolocationAuthorized !== false && geolocationAvailabe && (
               <>
-                <GPSButton
+                <Button
                   loading={isLoading}
                   icon={<GPSTarget src={gpstarget} />}
                   type="primary"
                   onClick={handleGetCoords}
                 >
                   Use GPS to get my address
-                </GPSButton>
+                </Button>
                 <Map>
                   <GoogleMapReact
                     bootstrapURLKeys={{
-                      key: 'AIzaSyAlCVqo1ESsmpeHe93FBbaH5LPiqCS1QJ8',
+                      key: `${process.env.REACT_APP_GMAPS_API_KEY}`,
                     }}
                     defaultCenter={{
                       lat: 59.95,
@@ -371,7 +365,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
             <Link to="/">{t('user_data_form.terms_conditions_link')}</Link>
           </Checkbox>
         </Form.Item>
-        <Form.Item>
+        <Form.Item style={{ textAlign: 'center' }}>
           <StyledButton htmlType="submit" type="primary">
             {t('continue')}
           </StyledButton>
