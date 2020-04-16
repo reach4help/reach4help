@@ -6,9 +6,10 @@ import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import DocumentSnapshot = firestore.DocumentSnapshot;
 
-const queueStatusUpdateTriggers = (
-  change: Change<DocumentSnapshot>,
-): Promise<void[]> => {
+// Init the admin db
+const db = firestore();
+
+const queueStatusUpdateTriggers = (change: Change<DocumentSnapshot>): Promise<void[]> => {
   const offerBefore = change.before ? (change.before.data() as Offer) : null;
   const offerAfter = change.after.data()
     ? (change.after.data() as Offer)
@@ -43,7 +44,7 @@ export const triggerEventsWhenOfferIsCreated = functions.firestore
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
     return validateOffer(snapshot.data() as IOffer).catch(errors => {
       console.error('Invalid Offer Found: ', errors);
-      return firestore()
+      return db
         .collection('offers')
         .doc(context.params.offerId)
         .delete();
@@ -56,7 +57,7 @@ export const triggerEventsWhenOfferIsUpdated = functions.firestore
     return validateOffer(change.after.data() as IOffer)
       .catch(errors => {
         console.error('Invalid Offer Found: ', errors);
-        return firestore()
+        return db
           .collection('offers')
           .doc(context.params.offerId)
           .delete();

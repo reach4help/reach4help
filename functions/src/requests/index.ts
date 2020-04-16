@@ -7,6 +7,9 @@ import * as moment from 'moment';
 
 import { IRequest, Request, RequestStatus } from '../models/requests';
 
+// Init the admin db
+const db = firestore();
+
 const queueStatusUpdateTriggers = (
   change: Change<DocumentSnapshot>,
 ): Promise<void[]> => {
@@ -101,7 +104,7 @@ export const triggerEventsWhenRequestIsCreated = functions.firestore
   .onCreate((snapshot: DocumentSnapshot, context: EventContext) => {
     return validateRequest(snapshot.data() as IRequest).catch(errors => {
       console.error('Invalid Request Found: ', errors);
-      return firestore()
+      return db
         .collection('requests')
         .doc(context.params.requestId)
         .delete();
@@ -114,7 +117,7 @@ export const triggerEventsWhenRequestIsUpdated = functions.firestore
     return validateRequest(change.after.data() as IRequest)
       .catch(errors => {
         console.error('Invalid Request Found: ', errors);
-        return firestore()
+        return db
           .collection('requests')
           .doc(context.params.requestId)
           .delete();
