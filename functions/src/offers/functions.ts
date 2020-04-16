@@ -71,6 +71,60 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
   return Promise.all(operations);
 };
 
+const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[]> => {
+    
+    const offer = snap.data() as Offer;
+    const operations: Promise<void>[] = [];
+    
+    if(offer){
+        const request = (await offer.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+
+        operations.push(((): Promise<void> => {
+            return messaging.send({
+                data:{
+                    entity: 'request',
+                    action: 'offercreated',
+                    id: offer.requestRef.id,
+                    offer_message: offer.message,
+                    offer_id: snap.id,
+                    offer_uid: offer.cavUserRef.id,
+                    request_title: request ? request.title : '',
+                    request_description: request ? request.description : '',
+                    request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+                    request_status: request ? request.status : RequestStatus.pending
+                },
+                topic: `${offer.requestRef.id}_request_notifications`
+            })
+            .then(result =>{
+                return Promise.resolve()
+            })
+        })())
+
+        operations.push(((): Promise<void> => {
+            return messaging.send({
+                data:{
+                    entity: 'request',
+                    action: 'offercreatd',
+                    id: offer.requestRef.id,
+                    offer_message: offer.message,
+                    offer_id: snap.id,
+                    request_title: request ? request.title : '',
+                    request_description: request ? request.description : '',
+                    request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+                    request_status: RequestStatus.ongoing
+                },
+                topic: `${request?.pinUserRef.id}_notifications`
+            })
+            .then(result =>{
+                return Promise.resolve()
+            })
+        })())
+
+    }
+
+    return Promise.all(operations);
+}
+
 const validateOffer = (value: IOffer): Promise<void> => {
   return validateOrReject(Offer.factory(value)).then(() => {
     return Promise.resolve();
@@ -84,6 +138,9 @@ export const offerCreate = (snapshot: DocumentSnapshot, context: EventContext) =
       .collection('offers')
       .doc(context.params.offerId)
       .delete();
+  })
+  .then(()=>{
+    return Promise.all([queueOfferCreationTriggers(snapshot)]);
   });
 };
 
