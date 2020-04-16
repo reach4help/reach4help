@@ -7,7 +7,7 @@ import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 import IntroWrapper from 'src/components/IntroWrapper/IntroWrapper';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
-import { triggerLoginWithPhone } from 'src/ducks/auth/actions';
+import { triggerLoginWithPhone } from 'src/ducks/auth/phone/actions';
 import firebase from 'src/firebase';
 import { AppState } from 'src/store';
 
@@ -16,12 +16,12 @@ import { PhoneVerifyLocation } from '../../pages/routes/PhoneVerifyRoute/constan
 
 const PhoneEntryContainer: React.FC = () => {
   const dispatch = useDispatch();
-  const user: firebase.User = useSelector((state: AppState) => state.auth.user);
+  const user = useSelector((state: AppState) => state.auth.user);
   const loading = useSelector((state: AppState) => state.auth.loading);
   const confirmationResult = useSelector(
     (state: AppState) => state.auth.confirmationResult,
   );
-  const error: Error = useSelector((state: AppState) => state.auth.error);
+  const error = useSelector((state: AppState) => state.auth.error);
   const history = useHistory();
   const { t } = useTranslation();
 
@@ -36,13 +36,15 @@ const PhoneEntryContainer: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/camelcase
     recaptchaVerifier: firebase.auth.RecaptchaVerifier_Instance,
   ) => {
-    dispatch(
-      triggerLoginWithPhone({
-        currentUser: user,
-        recaptchaVerifier,
-        phoneNumber: values.phoneNumber,
-      }),
-    );
+    if (user) {
+      dispatch(
+        triggerLoginWithPhone({
+          currentUser: user,
+          recaptchaVerifier,
+          phoneNumber: values.phoneNumber,
+        }),
+      );
+    }
   };
 
   const errorMessage = useMemo(
@@ -50,7 +52,7 @@ const PhoneEntryContainer: React.FC = () => {
     [error],
   );
   const profilePhoto = useMemo(
-    () => (user.photoURL ? `${user.photoURL}?height=300` : logo),
+    () => (user?.photoURL ? `${user.photoURL}?height=300` : logo),
     [user],
   );
   return (
@@ -58,7 +60,7 @@ const PhoneEntryContainer: React.FC = () => {
       {errorMessage && <Alert message={errorMessage} type="error" />}
       <IntroLogo src={profilePhoto} alt="User logo" />
       <TitleWithAddon level={4}>
-        {`${t('welcome')}, ${user.displayName}`}
+        {`${t('welcome')}, ${user?.displayName}`}
       </TitleWithAddon>
       <PhoneNumberEntryForm
         loading={loading}

@@ -3,19 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
+import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/PersonalDataRoute/constants';
 import { PhoneEntryLocation } from 'src/modules/phone/pages/routes/PhoneEntryRoute/constants';
 import { AppState } from 'src/store';
 
-import { AuthState } from '../../ducks/auth/reducer';
-
 const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
-  const auth: AuthState = useSelector((state: AppState) => state.auth);
+  const auth = useSelector((state: AppState) => state.auth);
   const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
-  if (auth.loading && !auth.user) {
+  if (!auth.observerReceivedFirstUpdate) {
     return <>Loading</>;
   }
 
@@ -35,6 +34,18 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: PhoneEntryLocation.path,
+        }}
+      />
+    );
+  }
+  // FIXME this should check if the user hasn't yet filled "Personal Data form"
+  // if(!auth.user.geolocation)
+  // eslint-disable-next-line no-constant-condition
+  if (true) {
+    return (
+      <Redirect
+        to={{
+          pathname: PersonalDataLocation.path,
         }}
       />
     );

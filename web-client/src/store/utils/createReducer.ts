@@ -11,8 +11,8 @@ export interface Action {
 
 const createReducer = <T>(
   funcMap: Record<string, Function>,
-  initialStateTEMP: T,
-): Reducer => (state = initialStateTEMP, action: Action) =>
+  initialState: T,
+): Reducer<T> => (state = initialState, action: Action) =>
   Object.prototype.hasOwnProperty.call(funcMap, action.type)
     ? produce(state, (draft: T) => funcMap[action.type](draft, action))
     : state;
