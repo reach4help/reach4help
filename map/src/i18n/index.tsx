@@ -11,7 +11,8 @@ const QUERY_PARAM = 'lang';
 export const LANGUAGES = {
   en,
   // Fill in missing russian strings with english
-  ru: merge({}, en, ru),
+  // TODO: re-enable russian when whole app is translated
+  // ru: merge({}, en, ru),
 };
 
 export type Language = keyof typeof LANGUAGES;
