@@ -1,6 +1,6 @@
-import { Strings } from '../iface';
+import { PartialStrings } from '../iface';
 
-const STRINGS: Strings = {
+const STRINGS: PartialStrings = {
   title: 'COVID-19 Карта Взаимопомощи',
   info:
     'Чтобы помочь людям найти и присоединиться к организациям по оказанию взаимопомощи там, где они живут, ' +
@@ -22,7 +22,6 @@ const STRINGS: Strings = {
   filter: 'Выбрать:',
   services: {
     any: 'Все',
-    aid: 'Помощь',
     financial: 'Финансорование',
     food: 'Продовольствие',
     information: 'Информация',
@@ -33,10 +32,6 @@ const STRINGS: Strings = {
   },
   lang: 'Язык:',
   langSelect: 'Выберите язык',
-  languages: {
-    en: 'Английский',
-    ru: 'Русский',
-  },
 };
 
 export default STRINGS;

@@ -1,10 +1,13 @@
+import merge from 'lodash/merge';
+
 import { Strings } from './iface';
 import en from './langs/en';
 import ru from './langs/ru';
 
 const STRINGS = {
   en,
-  ru,
+  // Fill in missing russian strings with english
+  ru: merge({}, en, ru),
 };
 
 type Language = keyof typeof STRINGS;

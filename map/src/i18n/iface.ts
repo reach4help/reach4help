@@ -14,7 +14,7 @@ export interface Strings {
   filter: string;
   services: {
     any: string;
-    aid: string;
+    support: string;
     financial: string;
     food: string;
     information: string;
@@ -22,11 +22,22 @@ export interface Strings {
     medicine: string;
     mobility: string;
     supplies: string;
+    shelter: string;
+    network: string;
+  };
+  markerTypes: {
+    'mutual-aid-group': string;
+    org: string;
+    financial: string;
+    information: string;
+    other: string;
   };
   lang: string;
   langSelect: string;
-  languages: {
-    en: string;
-    ru: string;
-  };
 }
+
+type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};
+
+export type PartialStrings = RecursivePartial<Strings>;

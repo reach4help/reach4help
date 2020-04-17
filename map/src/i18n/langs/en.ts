@@ -20,21 +20,26 @@ const STRINGS: Strings = {
   filter: 'Filter by need:',
   services: {
     any: 'Any',
-    aid: 'Aid',
     financial: 'Mobility',
     food: 'Food',
     information: 'Information',
     manufacturing: 'Manufactoring',
     medicine: 'Medicine',
     mobility: 'Mobility',
-    supplies: 'Supplies',
+    supplies: 'Other Supplies',
+    network: 'Network',
+    shelter: 'Shelter',
+    support: 'Support',
+  },
+  markerTypes: {
+    'mutual-aid-group': 'Mutual Aid Group',
+    org: 'Organization / Company',
+    financial: 'Financial',
+    information: 'Information',
+    other: 'Other',
   },
   lang: 'Language:',
   langSelect: 'Select Language',
-  languages: {
-    en: 'English',
-    ru: 'Russian',
-  },
 };
 
 export default STRINGS;

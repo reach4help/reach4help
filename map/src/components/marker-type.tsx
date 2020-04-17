@@ -1,4 +1,5 @@
 import React from 'react';
+import { t } from 'src/i18n';
 
 import { MARKER_TYPES, MarkerType, SERVICES } from '../data';
 import styled from '../styling';
@@ -17,7 +18,7 @@ const MarkerTypeDisplay = ({ className, type }: Props) => {
           backgroundColor: MARKER_TYPES[type.type].color,
         }}
       >
-        <span className="label">{MARKER_TYPES[type.type].label}</span>
+        <span className="label">{t(s => s.markerTypes[type.type])}</span>
         {services && (
           <span className="services">
             {services.map(service => (
@@ -27,7 +28,7 @@ const MarkerTypeDisplay = ({ className, type }: Props) => {
                   backgroundColor: SERVICES[service].color,
                 }}
               >
-                {SERVICES[service].label}
+                {t(s => s.services[service])}
               </span>
             ))}
           </span>

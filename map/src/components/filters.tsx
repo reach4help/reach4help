@@ -1,5 +1,5 @@
 import React from 'react';
-import { Filter, isMarkerType, MARKER_TYPES } from 'src/data';
+import { Filter, isMarkerType, MARKER_TYPE_STRINGS } from 'src/data';
 import { t } from 'src/i18n';
 import { buttonPrimary } from 'src/styling/mixins';
 
@@ -33,9 +33,9 @@ class Filters extends React.Component<Props, {}> {
           <option key="all" value="">
             {t(s => s.services.any)}
           </option>
-          {Object.entries(MARKER_TYPES).map(([value, data]) => (
+          {MARKER_TYPE_STRINGS.map(value => (
             <option key={value} value={value}>
-              {data.label}
+              {t(s => s.markerTypes[value])}
             </option>
           ))}
         </select>
