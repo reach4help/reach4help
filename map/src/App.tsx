@@ -1,5 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import * as i18n from 'src/i18n';
 
 import AddInstructions from './components/add-instructions';
@@ -155,6 +156,17 @@ class App extends React.Component<Props, State> {
     return (
       <AppContext.Provider value={{ lang }}>
         <div className={className + (fullScreen ? ' fullscreen' : '')}>
+          <Helmet>
+            {i18n.LANGUAGE_KEYS.map((langKey, i) => (
+              <link
+                key={i}
+                rel="alternate"
+                hrefLang={langKey}
+                href={i18n.canonicalUrl(lang)}
+              />
+            ))}
+            <link rel="canonical" href={i18n.canonicalUrl(lang)} />
+          </Helmet>
           <Header
             filter={filter}
             updateFilter={this.setFilter}

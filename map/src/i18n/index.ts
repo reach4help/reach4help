@@ -101,3 +101,10 @@ export const { removeListener } = manager;
 
 export const t = (lang: Language, extract: (s: Strings) => string): string =>
   extract(LANGUAGES[lang].strings);
+
+export const canonicalUrl = (lang: Language) => {
+  const url = new URL(window.location.href);
+  url.search = '';
+  url.searchParams.set(QUERY_PARAM, lang);
+  return url.href;
+};
