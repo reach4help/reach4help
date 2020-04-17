@@ -52,9 +52,11 @@ class I18nManager {
       return queryLanguage;
     }
 
-    const browserLanguage = window.navigator.language.split('-')[0];
-    if (isValidLanguage(browserLanguage)) {
-      return browserLanguage;
+    const supportedBrowserLanguages = window.navigator.languages
+      .map(l => l.split('-')[0])
+      .filter(isValidLanguage);
+    if (supportedBrowserLanguages.length > 0) {
+      return supportedBrowserLanguages[0];
     }
 
     return 'en';
