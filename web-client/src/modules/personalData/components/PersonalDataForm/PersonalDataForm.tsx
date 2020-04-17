@@ -78,6 +78,7 @@ interface IPersonalData {
   state?: string;
   country?: string;
   coords?: ICoords;
+  geolocation?: boolean;
 }
 
 let Geocoder;
@@ -183,6 +184,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
     newAddress.city = city;
     newAddress.state = cityState;
     newAddress.country = country;
+    newAddress.geolocation = geolocationAuthorized;
 
     if (!geolocationAuthorized) {
       const address = `${address1},${address2},${city},${cityState},${postalCode},${country}`;
