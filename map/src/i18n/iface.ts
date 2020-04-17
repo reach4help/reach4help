@@ -1,3 +1,7 @@
+/**
+ * Interface containing all the strings throughout the application that we want
+ * to have translated
+ */
 export interface Strings {
   title: string;
   info: string;
@@ -40,4 +44,14 @@ type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-export type PartialStrings = RecursivePartial<Strings>;
+type PartialStrings = RecursivePartial<Strings>;
+
+interface L<Strings> {
+  meta: {
+    name: string;
+  };
+  strings: Strings;
+}
+
+export type Language = L<Strings>;
+export type PartialLanguage = L<PartialStrings>;

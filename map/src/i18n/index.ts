@@ -4,13 +4,15 @@ import { Strings } from './iface';
 import en from './langs/en';
 import ru from './langs/ru';
 
-const STRINGS = {
+export const LANGUAGES = {
   en,
   // Fill in missing russian strings with english
   ru: merge({}, en, ru),
 };
 
-type Language = keyof typeof STRINGS;
+type Language = keyof typeof LANGUAGES;
+
+export const LANGUAGE_KEYS = Object.keys(LANGUAGES) as Language[];
 
 const selectedLanguage = localStorage.getItem('selectedLanguage');
 
@@ -18,8 +20,8 @@ const queryLanguage = window.location.href.split('/')[3];
 
 const browserLanguage = window.navigator.language.split('-')[0];
 
-const isValidLanguage = (lang: string | null): lang is Language =>
-  !!(lang && lang in STRINGS);
+export const isValidLanguage = (lang: string | null): lang is Language =>
+  !!(lang && lang in LANGUAGES);
 
 const getLanguage = (): Language => {
   if (isValidLanguage(selectedLanguage)) {
@@ -35,4 +37,8 @@ const getLanguage = (): Language => {
 };
 
 export const t = (extract: (s: Strings) => string): string =>
-  extract(STRINGS[getLanguage()]);
+  extract(LANGUAGES[getLanguage()].strings);
+
+export interface Internationalization {
+  language?: Language;
+}

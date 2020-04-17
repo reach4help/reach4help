@@ -1,33 +1,33 @@
 import React from 'react';
-import { isLanguage, LANGUAGES, Translate } from 'src/data';
-import { t } from 'src/i18n';
+import { Internationalization, isValidLanguage, LANGUAGES, t } from 'src/i18n';
 import { buttonPrimary } from 'src/styling/mixins';
 
 import styled from '../styling';
 
-export type TranslateMutator = (translate: Translate) => Translate;
+export type TranslateMutator = (
+  translate: Internationalization,
+) => Internationalization;
 
 interface Props {
   className?: string;
-  translate: Translate;
-  updateTranslate: (mutator: TranslateMutator) => void;
+  i18n: Internationalization;
+  updateI18n: (mutator: TranslateMutator) => void;
 }
 
 class Languages extends React.Component<Props, {}> {
   private changeLanguage = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ): void => {
-    const { updateTranslate } = this.props;
+    const { updateI18n } = this.props;
     const language = event.currentTarget.value;
     localStorage.setItem('selectedLanguage', language);
-    updateTranslate(translate => ({
-      ...translate,
-      language: isLanguage(language) ? language : undefined,
+    updateI18n(() => ({
+      language: isValidLanguage(language) ? language : undefined,
     }));
   };
 
   public render() {
-    const { className, translate } = this.props;
+    const { className, i18n: translate } = this.props;
     return (
       <div className={className}>
         {t(s => s.lang)}
@@ -37,7 +37,7 @@ class Languages extends React.Component<Props, {}> {
           </option>
           {Object.entries(LANGUAGES).map(([value, data]) => (
             <option key={value} value={value}>
-              {data.label}
+              {data.meta.name}
             </option>
           ))}
         </select>

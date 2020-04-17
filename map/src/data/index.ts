@@ -106,23 +106,3 @@ export const MARKER_TYPE_STRINGS = Object.keys(
 export interface Filter {
   type?: MarkerTypeString;
 }
-
-export const LANGUAGES = {
-  en: {
-    label: 'English',
-  },
-  ru: {
-    label: 'Русский',
-  },
-};
-
-export type Language = keyof typeof LANGUAGES;
-
-export const isLanguage = (language: string): language is Language =>
-  language in LANGUAGES;
-
-export const LANGUAGE_TYPES = Object.keys(LANGUAGES) as Language[];
-
-export interface Translate {
-  language?: Language;
-}
