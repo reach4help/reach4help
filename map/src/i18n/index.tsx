@@ -1,4 +1,5 @@
 import merge from 'lodash/merge';
+import React from 'react';
 
 import { Strings } from './iface';
 import en from './langs/en';
@@ -99,8 +100,44 @@ export const { setLanguage } = manager;
 export const { addListener } = manager;
 export const { removeListener } = manager;
 
-export const t = (lang: Language, extract: (s: Strings) => string): string =>
-  extract(LANGUAGES[lang].strings);
+interface Placeholders {
+  [key: string]: JSX.Element;
+}
+
+const placeholderExtraction = /^([^{]*)\{(\w+)\}(.*)/;
+
+export const t = (
+  lang: Language,
+  extract: (s: Strings) => string,
+  placeholders?: Placeholders,
+) => {
+  const str = extract(LANGUAGES[lang].strings);
+  if (!placeholders) {
+    return str;
+  }
+  const components: JSX.Element[] = [];
+  let next: string | null = str;
+  while (next) {
+    const e = placeholderExtraction.exec(next);
+    if (!e) {
+      components.push(<span>{next}</span>);
+      next = null;
+    } else {
+      const [, prev, placeholderTag, remaining] = e;
+      components.push(<span>{prev}</span>);
+      const component = placeholders[placeholderTag];
+      if (!component) {
+        // eslint-disable-next-line no-console
+        console.log('Unknown i18n placeholder:', placeholderTag);
+      }
+      components.push(
+        component || <span style={{ color: '#f00' }}>ERROR</span>,
+      );
+      next = remaining;
+    }
+  }
+  return components;
+};
 
 export const canonicalUrl = (lang: Language) => {
   const url = new URL(window.location.href);

@@ -1,3 +1,4 @@
+/* eslint max-len: 0 */
 import { Language } from '../iface';
 
 const LANG: Language = {
@@ -11,10 +12,9 @@ const LANG: Language = {
       ' own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. ' +
       'Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be ' +
       "careful when entering private information that you don't want to be public.",
-    source1: 'This map is part of',
-    source2: ', a volunteer-run project. It is open source and can be',
-    source3: 'found on GitHub',
-    source4: '. For any enquiries, you can reach us as at',
+    about:
+      'This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.',
+    githubSourceLabel: 'found on GitHub',
     mdAdd1: 'Add information',
     mdAdd2: 'to this map',
     buttons: {

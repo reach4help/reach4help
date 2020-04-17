@@ -5,10 +5,8 @@
 export interface Strings {
   title: string;
   info: string;
-  source1: string;
-  source2: string;
-  source3: string;
-  source4: string;
+  about: string;
+  githubSourceLabel: string;
   mdAdd1: string;
   mdAdd2: string;
   buttons: {
