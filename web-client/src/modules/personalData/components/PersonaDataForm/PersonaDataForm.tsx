@@ -19,6 +19,7 @@ import styled from 'styled-components';
 
 import geolocationinactive from '../../../../assets/geolocationinactive.svg';
 import gpstarget from '../../../../assets/gpstarget.svg';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 
@@ -49,8 +50,6 @@ const StyledButton = styled(Button)`
   margin-top: 40px;
 `;
 
-const GeoWarning = styled.div``;
-
 const Map = styled.div`
   height: 0;
 `;
@@ -65,7 +64,12 @@ interface NewRequestProps {
   handleFormSubmit: Function;
 }
 
-interface Address {
+interface ICoords {
+  lat: number;
+  lng: number;
+}
+
+interface IAddress {
   address1: string;
   address2: string;
   streetNumber: string;
@@ -96,6 +100,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   const [cityState, setCityState] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
+  const [coords, setCoords] = useState<ICoords | undefined>(undefined);
 
   const [geolocationAvailabe, setGeoAvailable] = useState<boolean | undefined>(
     undefined,
@@ -123,10 +128,11 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+          setCoords(location);
 
           Geocoder.geocode({ location }, (results, status) => {
             if (status === 'OK') {
-              const newAddress: Address = {
+              const newAddress: IAddress = {
                 address1: '',
                 address2: '',
                 streetNumber: '',
@@ -169,9 +175,10 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                   }
                 }
               }
+              console.log(newAddress);
             }
           });
-          // dispatch(setUserGeolocationAction(newCoords));
+          // dispatch(setUserGeolocationAction(location));
           // setCoordsExist(true);
         },
         GeolocationPositionError => {
@@ -181,6 +188,24 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
         },
       );
     }, 1000);
+  };
+
+  const submitForm = () => {
+    if (!geolocationAuthorized) {
+      const address = `${address1},${address2},${city},${cityState},${postalCode},${country}`;
+      Geocoder.geocode({ address }, (results, status) => {
+        console.log(
+          results[0].geometry.location.lat(),
+          results[0].geometry.location.lng(),
+        );
+        const lat = results[0].geometry.location.lat();
+        const lng = results[0].geometry.location.lng();
+        setCoords({ lat, lng });
+        console.log('going to submit now');
+      });
+    } else {
+      console.log('going to submit now');
+    }
   };
 
   // useEffect(() => {
@@ -294,7 +319,13 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
               </>
             )}
             {geolocationAuthorized === false && (
-              <GeoWarning>Geolocation unavailable.</GeoWarning>
+              <Button
+                icon={<GPSTarget src={gpstarget} />}
+                type="danger"
+                onClick={handleGetCoords}
+              >
+                Geolocation unavailable. Retry.
+              </Button>
             )}
           </Col>
         </Row>
@@ -308,7 +339,10 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           ]}
           label={t('address')}
         >
-          <Input placeholder={t('address1')} />
+          <Input
+            placeholder={t('address1')}
+            onChange={e => setAddress1(e.target.value)}
+          />
         </Form.Item>
         <Form.Item
           name="address2"
@@ -318,7 +352,10 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
             },
           ]}
         >
-          <Input placeholder={t('address2')} />
+          <Input
+            placeholder={t('address2')}
+            onChange={e => setAddress2(e.target.value)}
+          />
         </Form.Item>
         <Row gutter={12}>
           <Col span={24} md={12}>
@@ -336,6 +373,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                   marginRight: '15px',
                 }}
                 placeholder={t('city')}
+                onChange={e => setCity(e.target.value)}
               />
             </Form.Item>
           </Col>
@@ -354,6 +392,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                   marginRight: '15px',
                 }}
                 placeholder={t('code')}
+                onChange={e => setPostalCode(e.target.value)}
               />
             </Form.Item>
           </Col>
@@ -367,7 +406,10 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                 },
               ]}
             >
-              <Input placeholder={t('country')} />
+              <Input
+                placeholder={t('country')}
+                onChange={e => setCountry(e.target.value)}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -392,12 +434,13 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           </Checkbox>
         </Form.Item>
         <Form.Item style={{ textAlign: 'center' }}>
-          <StyledButton htmlType="submit" type="primary">
+          <StyledButton type="primary" onClick={submitForm}>
             {t('continue')}
           </StyledButton>
         </Form.Item>
       </Form>
       <Modal
+        closable={false}
         style={{ top: 10 }}
         title=""
         visible={modalVisible}
@@ -464,8 +507,8 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
             </h4>
             <p>
               You can add your location manually, but it would help us get your
-              position more accurately if you used Geolocation. Please choose
-              one of the options below :
+              position more accurately if you would use Geolocation. Please
+              choose one of the options below :
             </p>
           </>
         )}

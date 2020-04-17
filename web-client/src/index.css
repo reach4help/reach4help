@@ -50,3 +50,6 @@
 .ant-modal-footer > .ant-btn {
   margin: 10px 0 0 0 !important;
 }
+.ant-modal-footer {
+  padding-bottom: 30px !important;
+}
