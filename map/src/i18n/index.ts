@@ -5,6 +5,7 @@ import en from './langs/en';
 import ru from './langs/ru';
 
 const LOCAL_STORAGE_KEY = 'selectedLanguage';
+const QUERY_PARAM = 'lang';
 
 export const LANGUAGES = {
   en,
@@ -47,9 +48,12 @@ class I18nManager {
       return selectedLanguage;
     }
 
-    const queryLanguage = window.location.href.split('/')[3];
-    if (isValidLanguage(queryLanguage)) {
-      return queryLanguage;
+    if (URLSearchParams) {
+      const params = new URLSearchParams(window.location.search);
+      const queryLanguage = params.get(QUERY_PARAM);
+      if (isValidLanguage(queryLanguage)) {
+        return queryLanguage;
+      }
     }
 
     const supportedBrowserLanguages = window.navigator.languages
@@ -70,7 +74,12 @@ class I18nManager {
   };
 
   public setLanguage = (language: Language) => {
-    localStorage.setItem('selectedLanguage', language);
+    localStorage.setItem(LOCAL_STORAGE_KEY, language);
+    if (URLSearchParams && window.history.replaceState) {
+      const params = new URLSearchParams(window.location.search);
+      params.set(QUERY_PARAM, language);
+      window.history.replaceState(null, '', `?${params.toString()}`);
+    }
     this.checkLanguage();
   };
 
