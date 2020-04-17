@@ -9,7 +9,7 @@ import { ContactDetails, MarkerInfo } from 'src/data/markers';
 import { button, buttonPrimary } from 'src/styling/mixins';
 
 import styled, { CLS_SCREEN_LG_ONLY } from '../styling';
-import Services from './services';
+import MarkerType from './marker-type';
 
 interface Props {
   className?: string;
@@ -134,7 +134,7 @@ const Results = (props: Props) => {
                 <div className="location">{result.loc.description}</div>
               )}
               <div className="name">{result.contentTitle}</div>
-              <Services services={result.services} />
+              <MarkerType type={result.type} />
             </div>
           </div>
         ))}
@@ -145,7 +145,7 @@ const Results = (props: Props) => {
           {selectedResult.loc.description && (
             <div className="location">{selectedResult.loc.description}</div>
           )}
-          <Services className="services" services={selectedResult.services} />
+          <MarkerType type={selectedResult.type} />
           {selectedResult.contentBody && (
             <div className="content">{selectedResult.contentBody}</div>
           )}
