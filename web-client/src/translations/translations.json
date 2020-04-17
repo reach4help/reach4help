@@ -7,6 +7,7 @@
       "full_name": "Full name",
       "display_name": "Display name",
       "display_name_placeholder": "Name used in greetings, defaults to 1st name",
+      "address": "Address",
       "address1": "Address line 1",
       "address2": "Address line 2 (optional)",
       "city": "City",

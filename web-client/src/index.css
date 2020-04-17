@@ -37,3 +37,16 @@
   -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
+.ant-modal-header,
+.ant-modal-footer {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border: none !important;
+}
+
+.ant-modal-header > .ant-btn,
+.ant-modal-footer > .ant-btn {
+  margin: 10px 0 0 0 !important;
+}

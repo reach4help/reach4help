@@ -1,13 +1,23 @@
-import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Col,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Typography,
+} from 'antd';
 import GoogleMapReact from 'google-map-react';
 import words from 'lodash/words';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
+import geolocationinactive from '../../../../assets/geolocationinactive.svg';
 import gpstarget from '../../../../assets/gpstarget.svg';
 
 const { Text } = Typography;
@@ -74,6 +84,8 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   const [fullName, setFullName] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [instructionsVisible, setInstructionsVisible] = useState(false);
 
   // geolocation
   const [address1, setAddress1] = useState('');
@@ -160,6 +172,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           // setCoordsExist(true);
         },
         GeolocationPositionError => {
+          setModalVisible(true);
           setGeoAuthorized(false);
           setIsLoading(false);
         },
@@ -381,6 +394,104 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           </StyledButton>
         </Form.Item>
       </Form>
+      <Modal
+        style={{ top: 10 }}
+        title=""
+        visible={modalVisible}
+        footer={[
+          <Fragment key="footer1">
+            {!instructionsVisible && (
+              <Button
+                type="primary"
+                key="back"
+                onClick={() => {
+                  setInstructionsVisible(true);
+                }}
+              >
+                Learn how to reactivate geolocation
+              </Button>
+            )}
+            {instructionsVisible && (
+              <Button
+                type="primary"
+                key="back"
+                onClick={() => {
+                  setInstructionsVisible(false);
+                  setModalVisible(false);
+                  handleGetCoords();
+                }}
+              >
+                Retry Geolocation
+              </Button>
+            )}
+          </Fragment>,
+          <Fragment key="footer2">
+            {!instructionsVisible && (
+              <Button
+                type="primary"
+                key="back"
+                onClick={() => {
+                  setModalVisible(false);
+                }}
+              >
+                Continue without Geolocation
+              </Button>
+            )}
+            {instructionsVisible && (
+              <Button
+                type="primary"
+                key="back"
+                onClick={() => {
+                  setInstructionsVisible(false);
+                }}
+              >
+                Go Back
+              </Button>
+            )}
+          </Fragment>,
+        ]}
+      >
+        {!instructionsVisible && (
+          <>
+            <div style={{ textAlign: 'center', marginTop: '-20px' }}>
+              <img alt="Geolocation Inactive" src={geolocationinactive} />
+            </div>
+            <h4 style={{ marginBottom: '20px' }}>
+              Geolocation is not authorized
+            </h4>
+            <p>
+              You can add your location manually, but it would help us get your
+              position more accurately if you used Geolocation. Please choose
+              one of the options below :
+            </p>
+          </>
+        )}
+        {instructionsVisible && (
+          <>
+            <h4>Instructions:</h4>
+            <p>
+              You can add your location manually, but it would help us get your
+              position more accurately if you used Geolocation. If you wish to
+              re-activate it, please follow the link :
+            </p>
+            <p>
+              You can add your location manually, but it would help us get your
+              position more accurately if you used Geolocation. If you wish to
+              re-activate it, please follow the link :
+            </p>
+            <p>
+              You can add your location manually, but it would help us get your
+              position more accurately if you used Geolocation. If you wish to
+              re-activate it, please follow the link :
+            </p>
+            <p>
+              You can add your location manually, but it would help us get your
+              position more accurately if you used Geolocation. If you wish to
+              re-activate it, please follow the link :
+            </p>
+          </>
+        )}
+      </Modal>
     </StyledIntro>
   );
 };
