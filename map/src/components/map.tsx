@@ -80,10 +80,7 @@ interface State {
   markers: MarkerInfo[] | null;
   mapRef: HTMLDivElement | null;
 }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 /**
  * List of results to display next for the current map bounds
  */
