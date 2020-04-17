@@ -1,20 +1,19 @@
 import React from 'react';
 import { MdAdd, MdFullscreen, MdFullscreenExit } from 'react-icons/md';
 import { Filter } from 'src/data';
-import { Internationalization, t } from 'src/i18n';
+import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
 
 import styled, { CLS_SCREEN_LG_ONLY, SMALL_DEVICES } from '../styling';
+import { AppContext } from './context';
 import Filters, { FilterMutator } from './filters';
-import Languages, { TranslateMutator } from './languages';
+import Languages from './languages';
 
 interface Props {
   className?: string;
   filter: Filter;
-  i18n: Internationalization;
   updateFilter: (mutator: FilterMutator) => void;
   setAddInstructionsOpen: (open: boolean) => void;
-  updateI18n: (mutator: TranslateMutator) => void;
   fullScreen: boolean;
   toggleFullscreen: () => void;
 }
@@ -27,62 +26,66 @@ const Header = (props: Props) => {
     setAddInstructionsOpen,
     fullScreen,
     toggleFullscreen,
-    i18n,
-    updateI18n,
   } = props;
   const FullScreenIcon = fullScreen ? MdFullscreenExit : MdFullscreen;
   return (
-    <header className={className}>
-      {!fullScreen && (
-        <div className="row">
-          <div className="logo">
-            <img src="/logo-compat.svg" alt="Reach4Help Logo" />
+    <AppContext.Consumer>
+      {({ lang }) => (
+        <header className={className}>
+          {!fullScreen && (
+            <div className="row">
+              <div className="logo">
+                <img src="/logo-compat.svg" alt="Reach4Help Logo" />
+              </div>
+              <div className="info">
+                <h1>{t(lang, s => s.title)} - Reach4Help</h1>
+                <p>{t(lang, s => s.info)}</p>
+                <p className="muted">
+                  {t(lang, s => s.source1)}&nbsp;
+                  <a href="https://reach4help.org">reach4help.org</a>
+                  {t(lang, s => s.source2)}&nbsp;
+                  <a href="https://github.com/reach4help/reach4help/tree/master/map">
+                    {t(lang, s => s.source3)}
+                  </a>
+                  {t(lang, s => s.source4)}&nbsp;
+                  <a href="mailto:map@reach4help.org">map@reach4help.org</a>.
+                </p>
+              </div>
+            </div>
+          )}
+          <div className="tools">
+            <Filters
+              className="filters"
+              filter={filter}
+              updateFilter={updateFilter}
+            />
+            <Languages className="filters" />
+            <div className="grow" />
+            <button className="fs" type="button" onClick={toggleFullscreen}>
+              <FullScreenIcon className="icon icon-left" />
+              <span>
+                {t(lang, s =>
+                  fullScreen ? s.buttons.exitFullScreen : s.buttons.fullScreen,
+                )}
+              </span>
+            </button>
+            <button
+              className="add"
+              type="button"
+              onClick={() => setAddInstructionsOpen(true)}
+            >
+              <MdAdd className="icon icon-left" />
+              <span>
+                {t(lang, s => s.mdAdd1)}
+                <span className={CLS_SCREEN_LG_ONLY}>
+                  &nbsp;{t(lang, s => s.mdAdd2)}
+                </span>
+              </span>
+            </button>
           </div>
-          <div className="info">
-            <h1>{t(s => s.title)} - Reach4Help</h1>
-            <p>{t(s => s.info)}</p>
-            <p className="muted">
-              {t(s => s.source1)}&nbsp;
-              <a href="https://reach4help.org">reach4help.org</a>
-              {t(s => s.source2)}&nbsp;
-              <a href="https://github.com/reach4help/reach4help/tree/master/map">
-                {t(s => s.source3)}
-              </a>
-              {t(s => s.source4)}&nbsp;
-              <a href="mailto:map@reach4help.org">map@reach4help.org</a>.
-            </p>
-          </div>
-        </div>
+        </header>
       )}
-      <div className="tools">
-        <Filters
-          className="filters"
-          filter={filter}
-          updateFilter={updateFilter}
-        />
-        <Languages className="filters" i18n={i18n} updateI18n={updateI18n} />
-        <div className="grow" />
-        <button className="fs" type="button" onClick={toggleFullscreen}>
-          <FullScreenIcon className="icon icon-left" />
-          <span>
-            {t(s =>
-              fullScreen ? s.buttons.exitFullScreen : s.buttons.fullScreen,
-            )}
-          </span>
-        </button>
-        <button
-          className="add"
-          type="button"
-          onClick={() => setAddInstructionsOpen(true)}
-        >
-          <MdAdd className="icon icon-left" />
-          <span>
-            {t(s => s.mdAdd1)}
-            <span className={CLS_SCREEN_LG_ONLY}>&nbsp;{t(s => s.mdAdd2)}</span>
-          </span>
-        </button>
-      </div>
-    </header>
+    </AppContext.Consumer>
   );
 };
 

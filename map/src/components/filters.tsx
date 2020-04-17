@@ -4,6 +4,7 @@ import { t } from 'src/i18n';
 import { buttonPrimary } from 'src/styling/mixins';
 
 import styled from '../styling';
+import { AppContext } from './context';
 
 export type FilterMutator = (filter: Filter) => Filter;
 
@@ -27,19 +28,23 @@ class Filters extends React.Component<Props, {}> {
   public render() {
     const { className, filter } = this.props;
     return (
-      <div className={className}>
-        Filter by marker:
-        <select onChange={this.changeService} value={filter.type || ''}>
-          <option key="all" value="">
-            {t(s => s.services.any)}
-          </option>
-          {MARKER_TYPE_STRINGS.map(value => (
-            <option key={value} value={value}>
-              {t(s => s.markerTypes[value])}
-            </option>
-          ))}
-        </select>
-      </div>
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div className={className}>
+            Filter by marker:
+            <select onChange={this.changeService} value={filter.type || ''}>
+              <option key="all" value="">
+                {t(lang, s => s.services.any)}
+              </option>
+              {MARKER_TYPE_STRINGS.map(value => (
+                <option key={value} value={value}>
+                  {t(lang, s => s.markerTypes[value])}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }

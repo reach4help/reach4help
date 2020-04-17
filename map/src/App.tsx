@@ -1,12 +1,12 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { Internationalization } from 'src/i18n';
+import * as i18n from 'src/i18n';
 
 import AddInstructions from './components/add-instructions';
+import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
 import Header from './components/header';
-import { TranslateMutator as I18nMutator } from './components/languages';
 import Map, { NextResults } from './components/map';
 import MapLoader from './components/map-loader';
 import Results from './components/results';
@@ -33,7 +33,7 @@ interface State {
   addInstructionsOpen: boolean;
   fullScreen: boolean;
   updateResultsOnNextClustering: boolean;
-  i18n: Internationalization;
+  lang: i18n.Language;
   /**
    * * open: (default) the results are open
    * * closed: the results are closed
@@ -55,15 +55,8 @@ class App extends React.Component<Props, State> {
       fullScreen: false,
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
-      i18n: {},
+      lang: i18n.getLanguage(),
     };
-  }
-
-  componentDidUpdate(prevProps: Props, prevState: State): void {
-    const { i18n: translate } = this.state;
-    if (prevState.i18n !== translate) {
-      window.location.reload(false);
-    }
   }
 
   private setFilter = (mutator: FilterMutator) => {
@@ -131,10 +124,16 @@ class App extends React.Component<Props, State> {
     }));
   };
 
-  private setI18n = (mutator: I18nMutator) => {
-    this.setState(state => ({
-      i18n: mutator(state.i18n),
-    }));
+  private languageUpdated = (lang: i18n.Language) => {
+    this.setState({ lang });
+  };
+
+  public componentDidMount = () => {
+    i18n.addListener(this.languageUpdated);
+  };
+
+  public componentWillUnmount = () => {
+    i18n.removeListener(this.languageUpdated);
   };
 
   public render() {
@@ -149,75 +148,78 @@ class App extends React.Component<Props, State> {
       fullScreen,
       resultsMode,
       updateResultsOnNextClustering,
-      i18n: translate,
+      lang,
     } = this.state;
     const effectiveResultsMode =
       resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
-      <div className={className + (fullScreen ? ' fullscreen' : '')}>
-        <Header
-          filter={filter}
-          i18n={translate}
-          updateFilter={this.setFilter}
-          updateI18n={this.setI18n}
-          setAddInstructionsOpen={this.setAddInstructionsOpen}
-          fullScreen={fullScreen}
-          toggleFullscreen={this.toggleFullscreen}
-        />
-        <main className={`results-${effectiveResultsMode}`}>
-          <div className="map-area">
-            <MapLoader
-              className="map"
-              child={() => (
-                <Map
-                  filter={filter}
-                  searchInput={searchInput}
-                  results={results}
-                  nextResults={nextResults}
-                  setResults={this.setResults}
-                  setNextResults={this.setNextResults}
-                  selectedResult={selectedResult}
-                  setSelectedResult={this.setSelectedResult}
-                  setUpdateResultsCallback={this.setUpdateResultsCallback}
-                  resultsMode={effectiveResultsMode}
-                  toggleResults={this.toggleResults}
-                  updateResultsOnNextClustering={updateResultsOnNextClustering}
-                  setUpdateResultsOnNextClustering={
-                    this.setUpdateResultsOnNextClustering
-                  }
-                />
-              )}
-            />
-            <Search
-              className="search"
-              updateSearchInput={this.setSearchInput}
-            />
-          </div>
-          <Results
-            className="results"
-            results={results}
-            nextResults={nextResults?.results || null}
-            selectedResult={selectedResult}
-            setSelectedResult={this.setSelectedResult}
-            updateResults={this.updateResults}
+      <AppContext.Provider value={{ lang }}>
+        <div className={className + (fullScreen ? ' fullscreen' : '')}>
+          <Header
+            filter={filter}
+            updateFilter={this.setFilter}
+            setAddInstructionsOpen={this.setAddInstructionsOpen}
+            fullScreen={fullScreen}
+            toggleFullscreen={this.toggleFullscreen}
           />
-        </main>
-        <div className="mobile-message">
-          <p>
-            Unfortunately, this map has not been updated to work on devices with
-            small screens.
-          </p>
-          <p>
-            We are currently working on it, and should have an update out in the
-            coming days. Until then, please open page on a different device.
-          </p>
+          <main className={`results-${effectiveResultsMode}`}>
+            <div className="map-area">
+              <MapLoader
+                className="map"
+                child={() => (
+                  <Map
+                    filter={filter}
+                    searchInput={searchInput}
+                    results={results}
+                    nextResults={nextResults}
+                    setResults={this.setResults}
+                    setNextResults={this.setNextResults}
+                    selectedResult={selectedResult}
+                    setSelectedResult={this.setSelectedResult}
+                    setUpdateResultsCallback={this.setUpdateResultsCallback}
+                    resultsMode={effectiveResultsMode}
+                    toggleResults={this.toggleResults}
+                    updateResultsOnNextClustering={
+                      updateResultsOnNextClustering
+                    }
+                    setUpdateResultsOnNextClustering={
+                      this.setUpdateResultsOnNextClustering
+                    }
+                  />
+                )}
+              />
+              <Search
+                className="search"
+                updateSearchInput={this.setSearchInput}
+              />
+            </div>
+            <Results
+              className="results"
+              results={results}
+              nextResults={nextResults?.results || null}
+              selectedResult={selectedResult}
+              setSelectedResult={this.setSelectedResult}
+              updateResults={this.updateResults}
+            />
+          </main>
+          <div className="mobile-message">
+            <p>
+              Unfortunately, this map has not been updated to work on devices
+              with small screens.
+            </p>
+            <p>
+              We are currently working on it, and should have an update out in
+              the coming days. Until then, please open page on a different
+              device.
+            </p>
+          </div>
+          {!fullScreen && <Footer />}
+          <AddInstructions
+            open={addInstructionsOpen}
+            setAddInstructionsOpen={this.setAddInstructionsOpen}
+          />
         </div>
-        {!fullScreen && <Footer />}
-        <AddInstructions
-          open={addInstructionsOpen}
-          setAddInstructionsOpen={this.setAddInstructionsOpen}
-        />
-      </div>
+      </AppContext.Provider>
     );
   }
 }
