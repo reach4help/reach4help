@@ -1,7 +1,9 @@
 import React from 'react';
+import { t } from 'src/i18n';
 
 import { MARKER_TYPES, MarkerType, SERVICES } from '../data';
 import styled from '../styling';
+import { AppContext } from './context';
 
 interface Props {
   className?: string;
@@ -11,29 +13,35 @@ interface Props {
 const MarkerTypeDisplay = ({ className, type }: Props) => {
   const services = type.type === 'org' ? type.services : false;
   return (
-    <div className={`${className} ${services ? 'services' : ''}`}>
-      <span
-        style={{
-          backgroundColor: MARKER_TYPES[type.type].color,
-        }}
-      >
-        <span className="label">{MARKER_TYPES[type.type].label}</span>
-        {services && (
-          <span className="services">
-            {services.map(service => (
-              <span
-                key={service}
-                style={{
-                  backgroundColor: SERVICES[service].color,
-                }}
-              >
-                {SERVICES[service].label}
+    <AppContext.Consumer>
+      {({ lang }) => (
+        <div className={`${className} ${services ? 'services' : ''}`}>
+          <span
+            style={{
+              backgroundColor: MARKER_TYPES[type.type].color,
+            }}
+          >
+            <span className="label">
+              {t(lang, s => s.markerTypes[type.type])}
+            </span>
+            {services && (
+              <span className="services">
+                {services.map(service => (
+                  <span
+                    key={service}
+                    style={{
+                      backgroundColor: SERVICES[service].color,
+                    }}
+                  >
+                    {t(lang, s => s.services[service])}
+                  </span>
+                ))}
               </span>
-            ))}
+            )}
           </span>
-        )}
-      </span>
-    </div>
+        </div>
+      )}
+    </AppContext.Consumer>
   );
 };
 
