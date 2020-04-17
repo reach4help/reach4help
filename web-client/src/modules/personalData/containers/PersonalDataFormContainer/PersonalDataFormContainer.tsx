@@ -1,10 +1,10 @@
 import React from 'react';
 
-import PersonaDataForm from '../../components/PersonaDataForm/PersonaDataForm';
+import PersonalDataForm from '../../components/PersonalDataForm/PersonalDataForm';
 
 const PersonalDataFormContainer: React.FC = () => (
   <>
-    <PersonaDataForm handleFormSubmit={() => null} />
+    <PersonalDataForm handleFormSubmit={() => null} />
   </>
 );
 
