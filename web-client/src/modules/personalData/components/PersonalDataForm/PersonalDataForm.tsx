@@ -19,7 +19,6 @@ import styled from 'styled-components';
 
 import geolocationinactive from '../../../../assets/geolocationinactive.svg';
 import gpstarget from '../../../../assets/gpstarget.svg';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 
@@ -189,7 +188,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
       const address = `${address1},${address2},${city},${cityState},${postalCode},${country}`;
       Geocoder.geocode({ address }, (results, status) => {
         console.log(
-          results[0].geometry.location.lat() + ',',
+          `${results[0].geometry.location.lat()},`,
           results[0].geometry.location.lng(),
         );
         const lat = results[0].geometry.location.lat();
