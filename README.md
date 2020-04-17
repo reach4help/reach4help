@@ -24,7 +24,7 @@ Our goal is to address these issues, not only enabling those in need to receive 
 
 We’re part of [Helpful Engineering](https://www.helpfulengineering.org/), a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commercial goals.
 
-We're also partnering with [CheckUpOn.Me](https://checkupon.me/), an integral part of the Reach4Help family specifically focusing on faciliating communication between those who want to have the peace of mind of having someone check up on their health reguarly.
+We're also partnering with [CheckUpOn.Me](https://checkupon.me/), an integral part of the Reach4Help family specifically focusing on facilitating communication between those who want to have the peace of mind of having someone check up on their health regularly.
 
 ## Project Status
 

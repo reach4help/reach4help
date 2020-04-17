@@ -32,6 +32,7 @@ interface GitHubIssue {
   }>;
   assignees: GitHubUser[];
   html_url: string;
+  pull_request?: {};
 }
 
 interface IssueInfo {
@@ -143,9 +144,7 @@ interface IssueInfo {
     const hasNext = (getIssues.headers.link || '').indexOf('rel="next"') > -1;
     nextPage = hasNext ? ( nextPage + 1 ) : null;
     for (const issue of getIssues.data) {
-      if (!issue.pull_request) {
-        getIssue(issue.number).data = issue;
-      }
+      getIssue(issue.number).data = issue;
     }
   }
 
@@ -210,6 +209,10 @@ interface IssueInfo {
   for (const i of issueData.entries()) {
     const issueId = i[0];
     const issue = i[1];
+    // Don't add information to PRs
+    if (issue.data?.pull_request) {
+      continue;
+    }
     const githubData =getIssueGitHubData(issueId, issue);
     let extraBody = (`
 --------
@@ -218,11 +221,20 @@ interface IssueInfo {
 *This information is updated automatically. To modify it, please use ZenHub.*
 `
     );
+    if (issue.parentEpics.length > 0) {
+      extraBody += `\n**Belonging to Epics:**\n`;
+      for (const epicId of issue.parentEpics) {
+        extraBody += (
+          `\n* ${issueString(epicId, getIssue(epicId))}`
+        );
+      }
+      extraBody += '\n';
+    }
     if (issue.blockedBy.length > 0) {
       extraBody += `\n**Blocked By:**\n`;
       for (const blockerId of issue.blockedBy) {
         extraBody += (
-          `\n* ${issueString(issueId, getIssue(blockerId)) }}`
+          `\n* ${issueString(issueId, getIssue(blockerId)) }`
         );
       }
       extraBody += '\n';
@@ -231,7 +243,7 @@ interface IssueInfo {
       extraBody += `\n**Blocking:**\n`;
       for (const blockeeId of issue.blocking) {
         extraBody += (
-          `\n* ${ issueString(issueId, getIssue(blockeeId)) }}`
+          `\n* ${ issueString(issueId, getIssue(blockeeId)) }`
         );
       }
       extraBody += '\n';

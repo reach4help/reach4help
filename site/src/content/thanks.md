@@ -12,6 +12,8 @@ Below are just a few of them that make what we do possible:
 - [Google Cloud](https://cloud.google.com/)
 - [Google Maps](https://cloud.google.com/maps-platform/)
 - [Datadog](https://www.datadoghq.com)
+- [Slack](https://slack.com/intl/en-gb/resources/using-slack/covid-help)
+- [Algolia](https://www.algolia.com/covid-19/)
 
 More partnerships are in the works and we could gladly use additional support
 

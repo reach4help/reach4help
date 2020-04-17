@@ -30,6 +30,7 @@ interface State {
   searchInput: HTMLInputElement | null;
   addInstructionsOpen: boolean;
   fullScreen: boolean;
+  updateResultsOnNextClustering: boolean;
   /**
    * * open: (default) the results are open
    * * closed: the results are closed
@@ -50,6 +51,7 @@ class App extends React.Component<Props, State> {
       addInstructionsOpen: false,
       fullScreen: false,
       resultsMode: 'open',
+      updateResultsOnNextClustering: false,
     };
   }
 
@@ -92,6 +94,12 @@ class App extends React.Component<Props, State> {
     this.setState({ addInstructionsOpen });
   };
 
+  private setUpdateResultsOnNextClustering = (
+    updateResultsOnNextClustering: boolean,
+  ) => {
+    this.setState({ updateResultsOnNextClustering });
+  };
+
   private updateResults = () => {
     const { updateResultsCallback } = this.state;
     if (updateResultsCallback) {
@@ -123,6 +131,7 @@ class App extends React.Component<Props, State> {
       addInstructionsOpen,
       fullScreen,
       resultsMode,
+      updateResultsOnNextClustering,
     } = this.state;
     const effectiveResultsMode =
       resultsMode === 'open-auto' ? 'open' : resultsMode;
@@ -152,6 +161,10 @@ class App extends React.Component<Props, State> {
                   setUpdateResultsCallback={this.setUpdateResultsCallback}
                   resultsMode={effectiveResultsMode}
                   toggleResults={this.toggleResults}
+                  updateResultsOnNextClustering={updateResultsOnNextClustering}
+                  setUpdateResultsOnNextClustering={
+                    this.setUpdateResultsOnNextClustering
+                  }
                 />
               )}
             />

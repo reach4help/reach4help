@@ -5,10 +5,13 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix --ext .ts",
+    "test:firestore": "firebase emulators:exec --only functions,firestore 'yarn jest'",
+    "test:triggers": "firebase emulators:exec 'yarn jest ./tests/triggers/*.test.ts'",
+    "test": "yarn run test:firestore",
+    "lint": "eslint . --ext .ts && prettier --check \"./**/*.ts\"",
+    "lint:fix": "eslint . --fix --ext .ts && prettier --write \"./**/*.ts\"",
     "build": "tsc --build src/tsconfig.json",
-    "serve": "yarn run build && firebase emulators:start --only functions",
+    "serve": "yarn run build && firebase emulators:start",
     "shell": "yarn run build && firebase functions:shell",
     "start": "yarn run shell",
     "deploy": "firebase deploy --only functions",
@@ -17,8 +20,9 @@
   },
   "main": "lib/index.js",
   "lint-staged": {
-    "*.{ts}": [
-      "eslint . --ext .ts"
+    "*.ts": [
+      "eslint . --ext .ts",
+      "prettier --write"
     ],
     "*.md": [
       "prettier --write"
@@ -31,12 +35,16 @@
     "@google-cloud/firestore": "^3.7.3",
     "@googlemaps/google-maps-services-js": "^2.4.2",
     "@types/googlemaps": "^3.39.3",
+    "algoliasearch": "^4.1.0",
     "class-validator": "^0.11.1",
+    "firebase": "^7.14.0",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
+    "@firebase/testing": "^0.18.2",
     "@types/jest": "^25.1.4",
     "eslint": "^6.8.0",
     "firebase-functions-test": "^0.1.6",

@@ -1,5 +1,5 @@
 /* eslint max-len: 0 */
-import { Service } from './index';
+import { MarkerType } from './index';
 
 /**
  * Contact details capture various methods to contact an organization.
@@ -39,10 +39,10 @@ export interface MarkerInfo {
   contentTitle: string;
   /** description of the organization or community effort */
   contentBody?: string;
-  /** a list of services provided -- at least one is required :
-   *  food | supplies | aid | mobility | medicine | manufacturing | financial | information
+  /**
+   * What type of datapoint is this?
    */
-  services: Service[];
+  type: MarkerType;
   /**
    * the different avenues with which to contact an organization,
    * depending on your desired involvement
@@ -62,6 +62,32 @@ export interface MarkerInfo {
 }
 
 const LOCATIONS = {
+  PT: {
+    ALMADA: {
+      description: 'Almada, Portugal',
+      lat: 38.678506,
+      lng: -9.164985,
+      serviceRadius: 5000,
+    },
+    LISBON_BELEM: {
+      description: 'Lisbon, Belém, Portugal',
+      lat: 38.7026973,
+      lng: -9.2089478,
+      serviceRadius: 2000,
+    },
+    PORTO_FOZ_DO_DOURO: {
+      description: 'Porto, Foz do Douro, Portugal',
+      lat: 41.1675792,
+      lng: -8.7027557,
+      serviceRadius: 2000,
+    },
+    ALL: {
+      description: 'PT',
+      lat: 39.475803,
+      lng: -8.591411,
+      serviceRadius: 311000,
+    },
+  },
   DE: {
     BERLIN: {
       description: 'Berlin, Germany',
@@ -421,7 +447,10 @@ const MARKERS: MarkerInfo[] = [
     contentTitle: 'REMOVE LLC.',
     contentBody:
       'REMOVE is a small business modernizing trash and junk removal services through community outreach and redistribution. We can help provide moving and removal services for families and individuals who need help clearing space in their yards or their home as they "stay in place". Additionally, any who needs any items (beds, tables, appliances) please reach out as we have many items we can give away free of charge.',
-    services: ['aid', 'mobility'],
+    type: {
+      type: 'org',
+      services: ['support', 'mobility'],
+    },
     contact: {
       getHelp: {
         web: {
@@ -435,7 +464,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Birmingham Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup: 'https://www.facebook.com/groups/birminghammutualaid/',
@@ -460,7 +491,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Kinlani (Flagstaff) Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -485,7 +518,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Phoenix Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -500,7 +535,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Tucson Community Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       volunteers: {
         web: {
@@ -513,7 +550,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Covid-19 Financial Solidarity',
-    services: ['financial'],
+    type: {
+      type: 'financial',
+    },
     contact: {
       general: {
         web: {
@@ -530,7 +569,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Bay Area Senior/Disability/Worker Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -555,7 +596,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'East Bay Disabled Folks COVID-19 Support',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       getHelp: {
         web: {
@@ -572,7 +615,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Long Beach Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -585,7 +630,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Coronavirus Long Beach Community support group',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -596,7 +643,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'COVID-19 Mutual Aid - LA - Ground Game',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup: 'http://facebook.com/mutualaidLA',
@@ -610,7 +659,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Oakland At Risk',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -635,7 +686,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Orange County COVID-19 Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -648,7 +701,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Sacramento COVID-19 Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -661,7 +716,10 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'The Jacobs & Cushman San Diego Food Bank',
-    services: ['aid', 'food'],
+    type: {
+      type: 'org',
+      services: ['food'],
+    },
     contentBody: `The Jacobs & Cushman San Diego Food Bank and our North County Food Bank chapter comprise the largest hunger-relief organization in San Diego County. Last year, the Food Bank distributed 28 million pounds of food, and the Food Bank serves, on average, 350,000 people per month in San Diego County.
 
     Through our North County Food Bank chapter and by partnering with nearly 500 nonprofit partners with feeding programs, the Food Bank provides nutritious food to individuals and families in need in communities throughout San Diego County.`,
@@ -694,7 +752,10 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Serving Seniors',
-    services: ['aid', 'food', 'supplies', 'information'],
+    type: {
+      type: 'org',
+      services: ['support', 'food', 'supplies', 'information'],
+    },
     contentBody: `Serving Seniors is a nonprofit organization in San Diego, California, serving low-income older adults aged 60 and above. We help poor and homeless seniors thrive using an innovative model of whole-person, wraparound support including meals, housing, health and social services, and lifelong learning.
 
     Working at 15 sites across the county and in the homes of hundreds of homebound seniors, we provide 640,000 meals and coordinated services to 5,000 older adults each year, most of them living on less than $1,000 per month. Serving Seniors is the largest provider of meals to seniors in the county, and one of the only organizations in the nation providing such a broad base of services to vulnerable, at-risk older adults.`,
@@ -720,7 +781,10 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'United Way of San Diego County',
-    services: ['aid', 'information', 'food', 'financial'],
+    type: {
+      type: 'org',
+      services: ['support', 'information', 'food', 'financial'],
+    },
     contentBody: `We strengthen our community when we align with partners and leverage our resources to transform lives.
 
     UWSD works in alignment with partners to address inequities in our region and help underserved communities. Together, we leverage the use of data and our partners’ expertise to better understand root causes, and put impactful solutions into action.
@@ -749,7 +813,9 @@ const MARKERS: MarkerInfo[] = [
     contentTitle: 'How Can I Help? Bay Area',
     contentBody:
       'Document detailing many ways in which you can help with the COVID-19 crisis in the Bay Area',
-    services: ['information'],
+    type: {
+      type: 'information',
+    },
     contact: {
       general: {
         web: {
@@ -762,7 +828,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'SF Bay Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       getHelp: {
         web: {
@@ -779,7 +847,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Sacramento Mutual Aid',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -791,7 +861,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'Santa Clara County COVID-19 Financial Solidarity',
-    services: ['financial'],
+    type: {
+      type: 'financial',
+    },
     contact: {
       general: {
         web: {
@@ -806,7 +878,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'South Bay Mutual Aid Intake',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       getHelp: {
         web: {
@@ -829,7 +903,9 @@ const MARKERS: MarkerInfo[] = [
   },
   {
     contentTitle: 'COVID-19 Mutual Aid - VENTURA COUNTY DSA',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -855,7 +931,9 @@ const MARKERS: MarkerInfo[] = [
 Black Lives Matter DC is raising funds for our Mutual Aid Network East of the River in Washington, D.C.
 Black Lives Matter DC is a member-based abolitionist organization centering Black people most at risk for state violence in DC, creating the conditions for Black Liberation through the abolition of systems and institutions of white supremacy, capitalism, patriarchy, and colonialism. We are located in Washington, DC,
 This Mutual Aid Network is a grassroots, community focused and lead ecosystem for folks in DC (District of Columbia) are engaged in or are looking to plug in. We are collecting and purchasing supplies to make hygiene bags, sack lunches and provide other material support that we have started distributing. We are working to support as many of our neighbors who are housing and food insecure as well as others that need support East of the River in Wards 7 & 8 as possible.`,
-    services: ['aid', 'food', 'supplies', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -881,14 +959,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Front Range Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       getHelp: {
         web: {
@@ -905,14 +978,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Mutual Aid Infrastructure- Aurora, Colorado',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -923,14 +991,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Boulder Coronavirus Community Coping Crew',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -941,14 +1004,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'COS Mutual Aid Network = Red de Ayuda Mutua en COS',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -963,14 +1021,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'CV19 Quarantine Delivery Taskforce',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -985,14 +1038,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Help Needed in Denver Metro',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -1004,15 +1052,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   {
     contentTitle:
       'Durango & La Plata County Area Donation Opportunities + Community & Information Resources',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-      'financial',
-    ],
+    type: {
+      type: 'information',
+    },
     contact: {
       general: {
         web: {
@@ -1025,14 +1067,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Be KIND Durango CO',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup: 'https://www.facebook.com/groups/beKINDurango/',
@@ -1042,14 +1079,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Stand Together Durango COVID19',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -1060,14 +1092,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Grand Junction Mutual Aid #grandjunctionmutualaid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -1078,14 +1105,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Mutual Aid Waterbury, Bridgeport, New Haven',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -1113,14 +1135,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   {
     contentTitle:
       'Información y apoyo mutuo durante el coronavirus: New Haven, Connecticut',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -1134,14 +1151,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'New London Mutual Aid Collective - Community Network',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -1152,14 +1164,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'DC Mutual Aid Network',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -1170,14 +1177,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Gainesville COVID-19 Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -1188,14 +1190,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Mutual Aid Greater Tampa - Resources and Information',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -1210,14 +1207,9 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Tampa Mutual Aid Response- Coronavirus',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -1234,13 +1226,12 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
 Food, Clothing & Resistance Collective - Maroon Movement is doing a mutual aid & emergency relief fundraising drive providing electronic or delivered distributions of resources for anyone who may need some "extra assistance" to stock up food, toiletries and medical supplies in Baltimore during this still very early stage of an emerging pandemic (Covid-19), in the middle of another pandemic (Influenza).
 Due to so many local closures and loss of income for some now, and many others possibly in the near future, we as usual want to do our part to help out those who are most vulnerable in our community. Please help us with a monetary donation or donation of canned, boxed or bagged food items, baby formula, produce, toiletries (including pampers) and over the counter medical supplies.
 For more info, or to set up a scheduled drop off of items, or to volunteer please message us or email us at: maroonmovement@gmail.com. Thank you for your solidarity!`,
-    services: ['aid', 'medicine', 'food', 'supplies', 'information'],
+    type: {
+      type: 'financial',
+    },
     contact: {
       general: {
         web: {
-          Website: '',
-          Twitter: '',
-          Instagram: '',
           PayPal: 'Paypal: fcrcollective@gmail.com',
           Cashapp: '$Simaleerbg',
           Venmo: 'Venmo: @Simaleerbg',
@@ -1265,7 +1256,9 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'Baltimore Neighborhood Quarantine Response Teams',
-    services: ['aid', 'supplies'],
+    type: {
+      type: 'information',
+    },
     contact: {
       general: {
         web: {
@@ -1274,30 +1267,16 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
         },
         email: ['celesteperilla@gmail.com'],
       },
-      getHelp: {
-        web: {
-          Website:
-            'https://docs.google.com/document/d/1G5JcyxmywcTdNeaSGxUNycl9mtCdGkF4MYPVxEBH4SY/mobilebasic?urp=gmail_link',
-        },
-      },
-      volunteers: {
-        email: ['celesteperilla@gmail.com'],
-        web: {
-          Website:
-            'https://drive.google.com/drive/u/0/folders/1PcTEcMtjdLzak7C_ty6e-5pHM_LHJu9J',
-        },
-      },
     },
     loc: LOCATIONS.USA.MD_BALTIMORE,
   },
   {
     contentTitle: 'BENZIE COUNTY COVID-19 RESOURCES AND NEEDS',
-    services: ['aid', 'information'],
+    type: {
+      type: 'information',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/document/d/1FYcqcbY2qMuuy75GIIM9UuqvFR_-YlVKfFcrqJOy9mw/edit?fbclid=IwAR1Lfd0mZrm4GgqOwmcXAeJGnTLUEQ0wmooezGvgnVYjXvKEZT8EYPU2tUI',
@@ -1314,16 +1293,14 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'GRAND RAPIDS AREA PANDEMIC RESOURCES',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
-        email: [],
         facebookGroup: 'https://www.facebook.com/groups/209101217168617/',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/1tVSwz0xYnrDJEjk3MWU32eS6q0eE5TSA0jOUL-frKcA/viewform?ts=5e766a19&fbclid=IwAR0Od69ftV6DJlqNpr_6knR6SQexBbZyodz2Mgi3k_C9HbNU318hTEJZGa4&edit_requested=true#responses',
@@ -1340,15 +1317,12 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'WASHTENAW COUNTY MUTUAL AID + RESOURCES',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
-      volunteers: {
-        email: [],
-        web: {
-          Volunteer: 'https://www.facebook.com/groups/2424471741198383/',
-        },
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/2424471741198383/',
       },
     },
     contentBody: '',
@@ -1361,16 +1335,16 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'SAUGATUCK/DOUGLAS SECOND RESPONDERS',
-    services: ['aid', 'information'],
+    type: {
+      type: 'org',
+      services: ['support', 'information'],
+    },
     contact: {
       general: {
         web: { Website: 'https://sdvolunteers.com/' },
-        email: [],
         facebookGroup: '',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLSdKd62iT4GEWLACz9tJnekgh4iWxiVOVHxjBqiV1469B8JFnw/viewform',
@@ -1388,15 +1362,13 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   {
     contentTitle:
       'GRAND TRAVERSE BAND OF OTTAWA AND CHIPPEWA INDIANS MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
         email: ['petosjoh@umich.edu'],
-        facebookGroup: '',
       },
-      getHelp: { email: [], web: {} },
-      volunteers: { email: [], web: {} },
     },
     contentBody: '',
     loc: {
@@ -1408,16 +1380,14 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'KALAMAZOO MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
-        email: [],
         facebookGroup: 'https://www.facebook.com/groups/225779971877883/',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLSeW-Dmt_Z_QPu81ad0jo5gs4vjx2zREupOmdoLnn2JBntapGg/viewform',
@@ -1434,12 +1404,11 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'SOUTHWEST MICHIGAN MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer: 'https://www.facebook.com/groups/3137606989603526/',
         },
@@ -1455,18 +1424,17 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'BAY MILLS INDIAN COMMUNITY MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
           Website:
             'https://docs.google.com/spreadsheets/u/1/d/1CduPghNgY92MufdZDoYjkcjmbYp-l_43EQPRhxlmVPU/htmlview?fbclid=IwAR0tCQI5Av8UgCe5XVcW_cb9TQarlhFoiJO4LcU90FF39JEnNic7F3FrnMc',
         },
-        email: [],
         facebookGroup: '',
       },
-      getHelp: { email: [], web: {} },
-      volunteers: { email: [], web: {} },
     },
     contentBody: '',
     loc: {
@@ -1478,15 +1446,12 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'SPARK IN THE DARK',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
-      volunteers: {
-        email: [],
-        web: {
-          Volunteer: 'https://www.facebook.com/groups/sparkinthedark/',
-        },
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/sparkinthedark/',
       },
     },
     contentBody: '',
@@ -1499,12 +1464,11 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'COMBATING COVID IN SOUTHWEST DETROIT',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLSdrdIvdO3AHzCJBXloy-KExxQabrMUSbr_xgo4Y9NBI-GHnTA/viewform',
@@ -1521,16 +1485,14 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'MUTUAL AID OF NORTHWEST MICHIGAN',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
-        email: [],
         facebookGroup:
           'https://www.facebook.com/groups/784134155443201/?hc_location=ufi',
       },
-      getHelp: { email: [], web: {} },
-      volunteers: { email: [], web: {} },
     },
     contentBody: '',
     loc: {
@@ -1542,16 +1504,14 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'DETROIT-BASED COVID-19 MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
-        email: [],
         facebookGroup: 'https://www.facebook.com/groups/2554127328195074/',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/spreadsheets/d/1-m6QBgqejlk2h6uJ0WGkphZuZ5MR3-uWCkv2vSZcHY8/edit?fbclid=IwAR2dcKuYe-I787XJLyl2I6DtTrPMrfxTkdPRQT6VE59CdoykxNOBgMvGIHs#gid=1526320049',
@@ -1568,13 +1528,16 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'The MUTUAL AID NETWORK OF YPSILANTI (MANY)',
-    services: ['aid', 'information'],
+    type: {
+      type: 'org',
+      services: ['network'],
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
-      volunteers: {
-        email: [],
-        web: { Volunteer: 'https://www.facebook.com/ypsimutualaid' },
+      general: {
+        web: {
+          Website: 'https://ypsimutualaid.org/',
+          'Facebook Page': 'https://www.facebook.com/ypsimutualaid',
+        },
       },
     },
     contentBody: '',
@@ -1587,16 +1550,14 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'GRAND RAPIDS AREA COVID-19 MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
-        email: [],
         facebookGroup: 'https://www.facebook.com/GRAMutAid/',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLSclYE9PAOHDVJi-lIGMFrdmOYq7s-NiFgHA9q6zTpxcaJVcLg/viewform?fbclid=IwAR1wbfk2GSK4phL97Ny1etdVGm7fGUsQnkx7AH15-1Y-loLR-hSa6lqeVHQ',
@@ -1613,16 +1574,14 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'OAKLAND COUNTY COVID RESPONSE',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: { Website: 'https://www.mycovidresponse.org/' },
-        email: [],
-        facebookGroup: '',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: { Volunteer: 'https://www.mycovidresponse.org/signup/' },
       },
     },
@@ -1636,15 +1595,13 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'CHARLEVOIX COUNTY HELPING HANDS',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
-        email: [],
         facebookGroup: 'https://www.facebook.com/groups/696771177745067/',
       },
-      getHelp: { email: [], web: {} },
-      volunteers: { email: [], web: {} },
     },
     contentBody: '',
     loc: {
@@ -1656,12 +1613,11 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'PONTIAC CORONAVIRUS EMERGENCY RELIEF FOOD/SUPPLIES',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer: 'https://www.signupgenius.com/go/30e0b48aaa628a13-drive',
         },
@@ -1677,18 +1633,16 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'YOOPERS HELPING YOOPERS',
-    services: ['aid', 'information'],
+    type: {
+      type: 'information',
+    },
     contact: {
       general: {
         web: {
           Website:
-            'https://docs.google.com/spreadsheets/d/1-WZDwFkAKEyECe3fG07EgZ5J1vOKgtKJG93eyYW5lx8/edit?fbclid=IwAR0ml-9cpxfgIOOrex7O4jxAHFb10dupGmA4oHZGhm-MPseLL5FOhuqNIj8#gid=0',
+            'https://docs.google.com/spreadsheets/d/1-WZDwFkAKEyECe3fG07EgZ5J1vOKgtKJG93eyYW5lx8/edit',
         },
-        email: [],
-        facebookGroup: '',
       },
-      getHelp: { email: [], web: {} },
-      volunteers: { email: [], web: {} },
     },
     contentBody: '',
     loc: {
@@ -1700,12 +1654,11 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'LEONI TOWNSHIP MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer: 'https://www.facebook.com/groups/144130126892991/',
         },
@@ -1721,12 +1674,11 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'GRAND TRAVERSE COUNTY MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLScfSUoYchrIXnzTCdDIwsM-2YGa04XzTLE6xU5SGezE6rI1OA/viewform',
@@ -1743,12 +1695,11 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'FEED THE NEED ALLEGAN COUNTY',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer: 'https://www.facebook.com/groups/886253631847481/',
         },
@@ -1764,12 +1715,11 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'HURON VALLEY MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLSdhW2voPOll9Jmy_QR0AXk1Pge1JGn3tByJ-SlPfKNsMjcHLg/viewform',
@@ -1786,19 +1736,18 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'KALKASKA RESPONSE TEAM',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
           Website:
-            'https://elizabethannedunha.wixsite.com/kalkaskaresponseteam?fbclid=IwAR09WdGWtqzgC63_kaaN4ZoZvah4hTM521lOy_HvOnYw_PEfM0eG3BMAWQE',
+            'https://elizabethannedunha.wixsite.com/kalkaskaresponseteam',
         },
-        email: [],
         facebookGroup: '',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLSdTo09tnTPEUXfIBF9AudVIcb2EeDYggWYTvnRVeHuByZqrAw/viewform',
@@ -1815,16 +1764,14 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'ANTRIM COUNTY MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
-        email: [],
         facebookGroup: 'https://www.facebook.com/groups/2228122717494765',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLSckdiDnfMenlqmraSxU7PjKi3M1GWK66E5GQsWnBIfd79Zx-A/viewform',
@@ -1841,12 +1788,11 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'LANSING AREA MUTUAL AID',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
-      general: { web: { Website: '' }, email: [], facebookGroup: '' },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/1Du9AJTV6Z4uZ5Kmi6fBcE6_WN1RFPPaBmCpPYUUAEf4/viewform?edit_requested=true',
@@ -1863,16 +1809,14 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'EMMET COUNTY HELPING HANDS',
-    services: ['aid', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        web: { Website: '' },
-        email: [],
         facebookGroup: 'https://www.facebook.com/groups/234362584615594',
       },
-      getHelp: { email: [], web: {} },
       volunteers: {
-        email: [],
         web: {
           Volunteer:
             'https://docs.google.com/forms/d/e/1FAIpQLSc1HSE7-la427QVGIDV27an6QaK7rNA-oSwRjv5YWingpbrJA/viewform?fbclid=IwAR3wHmqwTou2MRW1e6kg_y6wcSRr8ncyt245ssz_-gaSvVrtgB-n_eQAiX4',
@@ -1889,14 +1833,9 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'Greater Barre Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -1924,14 +1863,9 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'Addison County Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -1955,7 +1889,9 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'Vermont Essential Workers Child Care Program',
-    services: ['aid'],
+    type: {
+      type: 'other',
+    },
     contact: {
       general: {
         web: {
@@ -1971,14 +1907,9 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
     contentTitle: 'Vermont Mutual Aid',
     contentBody:
       'Contains information for all vermont areas of aid and contact information.',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -1994,14 +1925,9 @@ For more info, or to set up a scheduled drop off of items, or to volunteer pleas
   },
   {
     contentTitle: 'Virginia / Hampton Roads: Corona Aid 757',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2033,15 +1959,11 @@ this is a friendly no judgement zone.
 if you are shy or embarrassed to post something you need. Direct Message me Rachel Picon and I will find a way to get you whatever it is :)
 please invite your friends in the northern va region to join! the more people sticking together the better!!
 stay safe and be well! and remember we are not alone!`,
-    services: ['aid', 'food', 'mobility', 'supplies', 'information'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
-        facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
-      },
-      getHelp: {
-        facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
-      },
-      volunteers: {
         facebookGroup: 'https://www.facebook.com/groups/1025571771159434',
       },
     },
@@ -2052,7 +1974,9 @@ stay safe and be well! and remember we are not alone!`,
     contentBody: `Helping Hampton Roads Weather the COVID19 Crisis
 We are a group of autonomous disaster relief workers attempting to alleviate stress and slow/stop the spread of Coronavirus/COVID-19 in our community. If you are in need of assistance with groceries and medical supplies, physical and mental health check-ins, or any other type of errand, follow this link to submit a request.
 If you are a low-risk individual with transportation and time to spare, sign up here to help the more vulnerable members of our community.`,
-    services: ['food', 'aid'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2086,14 +2010,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   {
     contentTitle:
       'Virginia / Staughton, Augusta, and Waynesboro: Mutual Aid Infrastructure',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2119,14 +2038,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Seattle Artist Relief Fund Amid COVID-19',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2151,14 +2065,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Washington / South Seattle and Eastside: COVID-19',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2185,14 +2094,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'GLP SANI: Sex Worker Aid Network Initiative',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2211,14 +2115,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Seattle Area COVID-19',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2259,14 +2158,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Washington / Tacoma: Tacoma Mutual Aid Network',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup: 'https://www.facebook.com/TacomaMutualAidCollective/',
@@ -2277,14 +2171,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   {
     contentTitle:
       'Washington / Whitman County: Whitman County COVID-19 Community Response and Recovery',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup: 'https://www.facebook.com/groups/240389003760287/',
@@ -2294,14 +2183,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Appleton, WI Community Care and Mutual Aid Signup',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2328,14 +2212,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   {
     contentTitle:
       'Wisconsin / Madison: Volunteer or Donate for Coronavirus Quarantine Support with the Madison General Defense Committee',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2362,7 +2241,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'COVID-19 Community Needs | Laramie',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup: 'https://www.facebook.com/groups/657547154818946',
@@ -2372,7 +2253,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Wyoming / Cheyenne: Safe Neighbors',
-    services: ['aid', 'mobility', 'food', 'supplies', 'medicine'],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -2395,7 +2278,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Wyoming: Wyoming COVID-19 Mutual Aid and Resource Page',
-    services: ['information'],
+    type: {
+      type: 'information',
+    },
     contact: {
       general: {
         web: {
@@ -2408,14 +2293,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Queer Relief Covid-19 Berlin',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         email: ['relief@karada-house.de', ' info@karada-house.de'],
@@ -2438,14 +2318,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'Newcastle upon Tyne Covid 19 Mutual Aid',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         facebookGroup:
@@ -2456,14 +2331,9 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
   {
     contentTitle: 'COVID-10 Mutual Aid UK',
-    services: [
-      'aid',
-      'mobility',
-      'food',
-      'supplies',
-      'medicine',
-      'information',
-    ],
+    type: {
+      type: 'mutual-aid-group',
+    },
     contact: {
       general: {
         web: {
@@ -2476,6 +2346,98 @@ If you are a low-risk individual with transportation and time to spare, sign up 
       },
     },
     loc: LOCATIONS.UK.ALL,
+  },
+  {
+    contentTitle: 'Refood Almada',
+    type: {
+      type: 'org',
+      services: ['food', 'supplies', 'support'],
+    },
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.facebook.com/almada.refood/',
+        },
+        phone: ['+351 21 259 0467'],
+        email: ['refoodalmadavoluntarios@gmail.com'],
+        facebookGroup: 'https://www.facebook.com/almada.refood/',
+      },
+    },
+    loc: LOCATIONS.PT.ALMADA,
+  },
+  {
+    contentTitle: 'CMA Plano de Emergência Social',
+    type: {
+      type: 'org',
+      services: ['food', 'supplies', 'support', 'medicine'],
+    },
+    contact: {
+      general: {
+        web: {
+          Website:
+            'http://www.m-almada.pt/xportal/xmain?xpid=cmav2&xpgid=noticias_detalhe&noticia_detalhe_qry=BOUI=653849736&noticia_titulo_qry=BOUI=653849736',
+        },
+        phone: ['+351 800 102 040'],
+        email: ['almadainforma@cma.m-almada.pt'],
+        facebookGroup: 'https://www.facebook.com/cmalmada/',
+      },
+    },
+    loc: LOCATIONS.PT.ALMADA,
+  },
+  {
+    contentTitle: 'Refood',
+    type: {
+      type: 'org',
+      services: ['food', 'supplies', 'support'],
+    },
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.re-food.org/',
+        },
+        phone: ['+351 218 077 615'],
+        email: ['comunicacao@re-food.org'],
+        facebookGroup: 'https://www.facebook.com/refoodportugal',
+      },
+    },
+    loc: LOCATIONS.PT.ALL,
+  },
+  {
+    contentTitle: 'Refood Belém',
+    type: {
+      type: 'org',
+      services: ['food', 'supplies', 'support'],
+    },
+    contact: {
+      general: {
+        web: {
+          Website: 'https://www.re-food.org/pt/nucleos/portugal/lisboa/belem',
+        },
+        phone: ['+351 910 486 313'],
+        email: ['voluntariado.refood.belem@gmail.com'],
+        facebookGroup: 'https://www.facebook.com/refood.belem/',
+      },
+    },
+    loc: LOCATIONS.PT.LISBON_BELEM,
+  },
+  {
+    contentTitle: 'Refood Foz do Douro',
+    type: {
+      type: 'org',
+      services: ['food', 'supplies', 'support'],
+    },
+    contact: {
+      general: {
+        web: {
+          Website:
+            'https://www.re-food.org/pt/nucleos/portugal/porto/foz-do-douro',
+        },
+        phone: ['+351 932 264 747'],
+        email: ['fozdodouro.refood.voluntarios@gmail.com'],
+        facebookGroup: 'www.facebook.com/refood.fozdodouro',
+      },
+    },
+    loc: LOCATIONS.PT.PORTO_FOZ_DO_DOURO,
   },
 ];
 

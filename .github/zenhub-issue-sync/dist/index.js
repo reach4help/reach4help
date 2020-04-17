@@ -3228,10 +3228,11 @@ var REPO_EXTRACT = /^([^\/]+)\/([^\/]+)$/;
 var START_BOUNDARY_COMMENT = "\n\n<!--zenhub info:";
 var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var repoExtract, repoInfo, octokit, zenhub, issueData, getIssue, repo, workspaceId, epicIssues, epicIssues_1, epicIssues_1_1, epicIssue, epic, issues, issues_1, issues_1_1, issue, e_1_1, dependencies, dependencies_1, dependencies_1_1, dep, nextPage, getIssues, hasNext, _a, _b, issue, getIssueGitHubData, issueString, getEpicTree, _c, _d, i, issueId, issue, githubData, extraBody, _e, _f, blockerId, _g, _h, blockeeId, before, after, startBoundary, endBoundary, newBody, e_2_1;
-    var e_1, _j, e_3, _k, e_4, _l, e_5, _m, e_2, _o, e_6, _p, e_7, _q;
-    return __generator(this, function (_r) {
-        switch (_r.label) {
+    var repoExtract, repoInfo, octokit, zenhub, issueData, getIssue, repo, workspaceId, epicIssues, epicIssues_1, epicIssues_1_1, epicIssue, epic, issues, issues_1, issues_1_1, issue, e_1_1, dependencies, dependencies_1, dependencies_1_1, dep, nextPage, getIssues, hasNext, _a, _b, issue, getIssueGitHubData, issueString, getEpicTree, _c, _d, i, issueId, issue, githubData, extraBody, _e, _f, epicId, _g, _h, blockerId, _j, _k, blockeeId, before, after, startBoundary, endBoundary, newBody, e_2_1;
+    var e_1, _l, e_3, _m, e_4, _o, e_5, _p, e_2, _q, e_6, _r, e_7, _s, e_8, _t;
+    var _u;
+    return __generator(this, function (_v) {
+        switch (_v.label) {
             case 0:
                 if (!GITHUB_REPOSITORY) {
                     console.error('Environment variable GITHUB_REPO must be defined');
@@ -3273,27 +3274,27 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                 };
                 return [4 /*yield*/, octokit.repos.get(repoInfo)];
             case 1:
-                repo = (_r.sent()).data;
+                repo = (_v.sent()).data;
                 workspaceId = null;
                 return [4 /*yield*/, zenhub.getEpics(repo.id)];
             case 2:
-                epicIssues = (_r.sent()).epic_issues
+                epicIssues = (_v.sent()).epic_issues
                     // Filter only epics for this repo
                     .filter(function (epic) { return epic.repo_id === repo.id; })
                     // Map to ID
                     .map(function (epic) { return epic.issue_number; });
-                _r.label = 3;
+                _v.label = 3;
             case 3:
-                _r.trys.push([3, 8, 9, 10]);
+                _v.trys.push([3, 8, 9, 10]);
                 epicIssues_1 = __values(epicIssues), epicIssues_1_1 = epicIssues_1.next();
-                _r.label = 4;
+                _v.label = 4;
             case 4:
                 if (!!epicIssues_1_1.done) return [3 /*break*/, 7];
                 epicIssue = epicIssues_1_1.value;
                 console.log("fetching info for EPIC: " + epicIssue);
                 return [4 /*yield*/, zenhub.getEpic(repo.id, epicIssue)];
             case 5:
-                epic = _r.sent();
+                epic = _v.sent();
                 if (!workspaceId) {
                     workspaceId = epic.pipeline.workspace_id;
                 }
@@ -3315,28 +3316,28 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                 catch (e_3_1) { e_3 = { error: e_3_1 }; }
                 finally {
                     try {
-                        if (issues_1_1 && !issues_1_1.done && (_k = issues_1.return)) _k.call(issues_1);
+                        if (issues_1_1 && !issues_1_1.done && (_m = issues_1.return)) _m.call(issues_1);
                     }
                     finally { if (e_3) throw e_3.error; }
                 }
-                _r.label = 6;
+                _v.label = 6;
             case 6:
                 epicIssues_1_1 = epicIssues_1.next();
                 return [3 /*break*/, 4];
             case 7: return [3 /*break*/, 10];
             case 8:
-                e_1_1 = _r.sent();
+                e_1_1 = _v.sent();
                 e_1 = { error: e_1_1 };
                 return [3 /*break*/, 10];
             case 9:
                 try {
-                    if (epicIssues_1_1 && !epicIssues_1_1.done && (_j = epicIssues_1.return)) _j.call(epicIssues_1);
+                    if (epicIssues_1_1 && !epicIssues_1_1.done && (_l = epicIssues_1.return)) _l.call(epicIssues_1);
                 }
                 finally { if (e_1) throw e_1.error; }
                 return [7 /*endfinally*/];
             case 10: return [4 /*yield*/, zenhub.getDependencies(repo.id)];
             case 11:
-                dependencies = (_r.sent()).dependencies
+                dependencies = (_v.sent()).dependencies
                     .filter(function (d) { return d.blocked.repo_id === repo.id && d.blocking.repo_id === repo.id; });
                 try {
                     for (dependencies_1 = __values(dependencies), dependencies_1_1 = dependencies_1.next(); !dependencies_1_1.done; dependencies_1_1 = dependencies_1.next()) {
@@ -3348,32 +3349,30 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                 catch (e_4_1) { e_4 = { error: e_4_1 }; }
                 finally {
                     try {
-                        if (dependencies_1_1 && !dependencies_1_1.done && (_l = dependencies_1.return)) _l.call(dependencies_1);
+                        if (dependencies_1_1 && !dependencies_1_1.done && (_o = dependencies_1.return)) _o.call(dependencies_1);
                     }
                     finally { if (e_4) throw e_4.error; }
                 }
                 nextPage = 1;
-                _r.label = 12;
+                _v.label = 12;
             case 12:
                 if (!(nextPage !== null)) return [3 /*break*/, 14];
                 console.log("Getting page " + nextPage + " of issues from GitHub");
                 return [4 /*yield*/, octokit.issues.listForRepo(__assign(__assign({}, repoInfo), { page: nextPage, state: 'all', per_page: 100 }))];
             case 13:
-                getIssues = _r.sent();
+                getIssues = _v.sent();
                 hasNext = (getIssues.headers.link || '').indexOf('rel="next"') > -1;
                 nextPage = hasNext ? (nextPage + 1) : null;
                 try {
                     for (_a = (e_5 = void 0, __values(getIssues.data)), _b = _a.next(); !_b.done; _b = _a.next()) {
                         issue = _b.value;
-                        if (!issue.pull_request) {
-                            getIssue(issue.number).data = issue;
-                        }
+                        getIssue(issue.number).data = issue;
                     }
                 }
                 catch (e_5_1) { e_5 = { error: e_5_1 }; }
                 finally {
                     try {
-                        if (_b && !_b.done && (_m = _a.return)) _m.call(_a);
+                        if (_b && !_b.done && (_p = _a.return)) _p.call(_a);
                     }
                     finally { if (e_5) throw e_5.error; }
                 }
@@ -3414,7 +3413,7 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                         (open ? '' : '~~'));
                 };
                 getEpicTree = function (epic, indent) {
-                    var e_8, _a;
+                    var e_9, _a;
                     var tree = '';
                     try {
                         for (var _b = __values(epic.issues), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -3430,58 +3429,79 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                             }
                         }
                     }
-                    catch (e_8_1) { e_8 = { error: e_8_1 }; }
+                    catch (e_9_1) { e_9 = { error: e_9_1 }; }
                     finally {
                         try {
                             if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                         }
-                        finally { if (e_8) throw e_8.error; }
+                        finally { if (e_9) throw e_9.error; }
                     }
                     return tree;
                 };
-                _r.label = 15;
+                _v.label = 15;
             case 15:
-                _r.trys.push([15, 20, 21, 22]);
+                _v.trys.push([15, 20, 21, 22]);
                 _c = __values(issueData.entries()), _d = _c.next();
-                _r.label = 16;
+                _v.label = 16;
             case 16:
                 if (!!_d.done) return [3 /*break*/, 19];
                 i = _d.value;
                 issueId = i[0];
                 issue = i[1];
+                // Don't add information to PRs
+                if ((_u = issue.data) === null || _u === void 0 ? void 0 : _u.pull_request) {
+                    return [3 /*break*/, 18];
+                }
                 githubData = getIssueGitHubData(issueId, issue);
                 extraBody = ("\n--------\n### [ZenHub Information](https://app.zenhub.com/workspaces/" + repoInfo.owner + "-" + workspaceId + "/issues/" + repoInfo.owner + "/" + repoInfo.repo + "/" + issueId + ")\n\n*This information is updated automatically. To modify it, please use ZenHub.*\n");
-                if (issue.blockedBy.length > 0) {
-                    extraBody += "\n**Blocked By:**\n";
+                if (issue.parentEpics.length > 0) {
+                    extraBody += "\n**Belonging to Epics:**\n";
                     try {
-                        for (_e = (e_6 = void 0, __values(issue.blockedBy)), _f = _e.next(); !_f.done; _f = _e.next()) {
-                            blockerId = _f.value;
-                            extraBody += ("\n* " + issueString(issueId, getIssue(blockerId)) + "}");
+                        for (_e = (e_6 = void 0, __values(issue.parentEpics)), _f = _e.next(); !_f.done; _f = _e.next()) {
+                            epicId = _f.value;
+                            extraBody += ("\n* " + issueString(epicId, getIssue(epicId)));
                         }
                     }
                     catch (e_6_1) { e_6 = { error: e_6_1 }; }
                     finally {
                         try {
-                            if (_f && !_f.done && (_p = _e.return)) _p.call(_e);
+                            if (_f && !_f.done && (_r = _e.return)) _r.call(_e);
                         }
                         finally { if (e_6) throw e_6.error; }
+                    }
+                    extraBody += '\n';
+                }
+                if (issue.blockedBy.length > 0) {
+                    extraBody += "\n**Blocked By:**\n";
+                    try {
+                        for (_g = (e_7 = void 0, __values(issue.blockedBy)), _h = _g.next(); !_h.done; _h = _g.next()) {
+                            blockerId = _h.value;
+                            extraBody += ("\n* " + issueString(issueId, getIssue(blockerId)));
+                        }
+                    }
+                    catch (e_7_1) { e_7 = { error: e_7_1 }; }
+                    finally {
+                        try {
+                            if (_h && !_h.done && (_s = _g.return)) _s.call(_g);
+                        }
+                        finally { if (e_7) throw e_7.error; }
                     }
                     extraBody += '\n';
                 }
                 if (issue.blocking.length > 0) {
                     extraBody += "\n**Blocking:**\n";
                     try {
-                        for (_g = (e_7 = void 0, __values(issue.blocking)), _h = _g.next(); !_h.done; _h = _g.next()) {
-                            blockeeId = _h.value;
-                            extraBody += ("\n* " + issueString(issueId, getIssue(blockeeId)) + "}");
+                        for (_j = (e_8 = void 0, __values(issue.blocking)), _k = _j.next(); !_k.done; _k = _j.next()) {
+                            blockeeId = _k.value;
+                            extraBody += ("\n* " + issueString(issueId, getIssue(blockeeId)));
                         }
                     }
-                    catch (e_7_1) { e_7 = { error: e_7_1 }; }
+                    catch (e_8_1) { e_8 = { error: e_8_1 }; }
                     finally {
                         try {
-                            if (_h && !_h.done && (_q = _g.return)) _q.call(_g);
+                            if (_k && !_k.done && (_t = _j.return)) _t.call(_j);
                         }
-                        finally { if (e_7) throw e_7.error; }
+                        finally { if (e_8) throw e_8.error; }
                     }
                     extraBody += '\n';
                 }
@@ -3516,19 +3536,19 @@ var END_BOUNDARY_COMMENT = "<!--zenhub info end-->";
                 console.log("Updating description for issue " + issueId);
                 return [4 /*yield*/, octokit.issues.update(__assign(__assign({}, repoInfo), { issue_number: issueId, body: newBody }))];
             case 17:
-                _r.sent();
-                _r.label = 18;
+                _v.sent();
+                _v.label = 18;
             case 18:
                 _d = _c.next();
                 return [3 /*break*/, 16];
             case 19: return [3 /*break*/, 22];
             case 20:
-                e_2_1 = _r.sent();
+                e_2_1 = _v.sent();
                 e_2 = { error: e_2_1 };
                 return [3 /*break*/, 22];
             case 21:
                 try {
-                    if (_d && !_d.done && (_o = _c.return)) _o.call(_c);
+                    if (_d && !_d.done && (_q = _c.return)) _q.call(_c);
                 }
                 finally { if (e_2) throw e_2.error; }
                 return [7 /*endfinally*/];

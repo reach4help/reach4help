@@ -1,1 +1,17 @@
 @import '~antd/dist/antd.css';
+
+@media (max-width: 667px) and (orientation: portrait) {
+  .ant-card {
+    min-width: 100%;
+    /* background: transparent !important; */
+  }
+  /* .ant-card-bordered {
+    border: none !important;
+  } */
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .ant-card {
+    min-width: 50%;
+  }
+}
