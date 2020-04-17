@@ -1,5 +1,5 @@
 import React from 'react';
-import { Filter, isService, SERVICES } from 'src/data';
+import { Filter, isMarkerType, MARKER_TYPES } from 'src/data';
 import { t } from 'src/i18n';
 import { buttonPrimary } from 'src/styling/mixins';
 
@@ -18,10 +18,9 @@ class Filters extends React.Component<Props, {}> {
     event: React.ChangeEvent<HTMLSelectElement>,
   ): void => {
     const { updateFilter } = this.props;
-    const service = event.currentTarget.value;
-    updateFilter(filter => ({
-      ...filter,
-      service: isService(service) ? service : undefined,
+    const type = event.currentTarget.value;
+    updateFilter(() => ({
+      type: isMarkerType(type) ? type : undefined,
     }));
   };
 
@@ -29,12 +28,12 @@ class Filters extends React.Component<Props, {}> {
     const { className, filter } = this.props;
     return (
       <div className={className}>
-        {t(s => s.filter)}
-        <select onChange={this.changeService} value={filter.service || ''}>
+        Filter by marker:
+        <select onChange={this.changeService} value={filter.type || ''}>
           <option key="all" value="">
             {t(s => s.services.any)}
           </option>
-          {Object.entries(SERVICES).map(([value, data]) => (
+          {Object.entries(MARKER_TYPES).map(([value, data]) => (
             <option key={value} value={value}>
               {data.label}
             </option>
