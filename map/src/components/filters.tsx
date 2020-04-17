@@ -1,5 +1,6 @@
 import React from 'react';
 import { Filter, isService, SERVICES } from 'src/data';
+import { t } from 'src/i18n';
 import { buttonPrimary } from 'src/styling/mixins';
 
 import styled from '../styling';
@@ -28,10 +29,10 @@ class Filters extends React.Component<Props, {}> {
     const { className, filter } = this.props;
     return (
       <div className={className}>
-        Filter by need:
+        {t(s => s.filter)}
         <select onChange={this.changeService} value={filter.service || ''}>
           <option key="all" value="">
-            Any
+            {t(s => s.services.any)}
           </option>
           {Object.entries(SERVICES).map(([value, data]) => (
             <option key={value} value={value}>

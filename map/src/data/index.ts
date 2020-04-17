@@ -1,36 +1,38 @@
+import { t } from 'src/i18n';
+
 import { COLORS } from '../styling/theme';
 
 export const SERVICES = {
   food: {
-    label: 'Food',
+    label: t(s => s.services.food),
     color: COLORS.red,
   },
   supplies: {
-    label: 'Supplies',
+    label: t(s => s.services.supplies),
     color: COLORS.green,
   },
   aid: {
-    label: 'Aid',
+    label: t(s => s.services.aid),
     color: COLORS.yellow,
   },
   mobility: {
-    label: 'Mobility',
+    label: t(s => s.services.mobility),
     color: COLORS.purple,
   },
   medicine: {
-    label: 'Medicine',
+    label: t(s => s.services.medicine),
     color: COLORS.blue,
   },
   manufacturing: {
-    label: 'Manufacturing',
+    label: t(s => s.services.manufacturing),
     color: COLORS.orange,
   },
   financial: {
-    label: 'Financial',
+    label: t(s => s.services.financial),
     color: COLORS.orange,
   },
   information: {
-    label: 'Information',
+    label: t(s => s.services.information),
     color: COLORS.orange,
   },
 } as const;
@@ -48,10 +50,10 @@ export interface Filter {
 
 export const LANGUAGES = {
   en: {
-    label: 'English',
+    label: t(s => s.languages.en),
   },
   ru: {
-    label: 'Russian',
+    label: t(s => s.languages.ru),
   },
 };
 

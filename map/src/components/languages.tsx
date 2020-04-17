@@ -1,5 +1,6 @@
 import React from 'react';
 import { isLanguage, LANGUAGES, Translate } from 'src/data';
+import { t } from 'src/i18n';
 import { buttonPrimary } from 'src/styling/mixins';
 
 import styled from '../styling';
@@ -29,10 +30,10 @@ class Languages extends React.Component<Props, {}> {
     const { className, translate } = this.props;
     return (
       <div className={className}>
-        Language:
+        {t(s => s.lang)}
         <select onChange={this.changeLanguage} value={translate.language || ''}>
           <option key="" value="">
-            Select language
+            {t(s => s.langSelect)}
           </option>
           {Object.entries(LANGUAGES).map(([value, data]) => (
             <option key={value} value={value}>

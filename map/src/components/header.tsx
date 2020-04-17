@@ -40,23 +40,15 @@ const Header = (props: Props) => {
           </div>
           <div className="info">
             <h1>{t(s => s.title)} - Reach4Help</h1>
-            <p>
-              To help people find and join mutual aid efforts where they live,
-              offer inspiration to start their own, and/or simply lift spirits,
-              below is a growing list of mutual aid pandemic disaster care
-              projects. Note: Each project is autonomous and self-organized;
-              many use public spreadsheets to share information, so be careful
-              when entering private information that you don&apos;t want to be
-              public.
-            </p>
+            <p>{t(s => s.info)}</p>
             <p className="muted">
-              This map is part of&nbsp;
-              <a href="https://reach4help.org">reach4help.org</a>, a
-              volunteer-run project. It is open source and can be&nbsp;
+              {t(s => s.source1)}&nbsp;
+              <a href="https://reach4help.org">reach4help.org</a>
+              {t(s => s.source2)}&nbsp;
               <a href="https://github.com/reach4help/reach4help/tree/master/map">
-                found on GitHub
+                {t(s => s.source3)}
               </a>
-              . For any enquiries, you can reach us as at&nbsp;
+              {t(s => s.source4)}&nbsp;
               <a href="mailto:map@reach4help.org">map@reach4help.org</a>.
             </p>
           </div>
@@ -89,8 +81,8 @@ const Header = (props: Props) => {
         >
           <MdAdd className="icon icon-left" />
           <span>
-            Add information
-            <span className={CLS_SCREEN_LG_ONLY}>&nbsp;to this map</span>
+            {t(s => s.mdAdd1)}
+            <span className={CLS_SCREEN_LG_ONLY}>&nbsp;{t(s => s.mdAdd2)}</span>
           </span>
         </button>
       </div>
