@@ -75,6 +75,8 @@ interface Address {
   country: string;
 }
 
+let Geocoder;
+
 const PersonaDataForm: React.FC<NewRequestProps> = ({
   handleFormSubmit,
 }): React.ReactElement => {
@@ -102,9 +104,10 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
     undefined | boolean
   >(undefined);
 
-  let Geocoder;
   const initGeocoder = ({ maps }) => {
-    Geocoder = new maps.Geocoder();
+    if (typeof Geocoder === 'undefined') {
+      Geocoder = new maps.Geocoder();
+    }
   };
 
   const handleGetCoords = () => {
@@ -215,6 +218,19 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
 
   return (
     <StyledIntro className="withContentPaddingDesktop">
+      <Map>
+        <GoogleMapReact
+          bootstrapURLKeys={{
+            key: `${process.env.REACT_APP_GMAPS_API_KEY}`,
+          }}
+          defaultCenter={{
+            lat: 59.95,
+            lng: 30.33,
+          }}
+          defaultZoom={11}
+          onGoogleApiLoaded={initGeocoder}
+        />
+      </Map>
       {photo !== '' && <ProfilePhoto src={photo} />}
       <Title>{t('user_data_form.sub_title')}</Title>
       <Form
@@ -275,19 +291,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                 >
                   Use GPS to get my address
                 </Button>
-                <Map>
-                  <GoogleMapReact
-                    bootstrapURLKeys={{
-                      key: `${process.env.REACT_APP_GMAPS_API_KEY}`,
-                    }}
-                    defaultCenter={{
-                      lat: 59.95,
-                      lng: 30.33,
-                    }}
-                    defaultZoom={11}
-                    onGoogleApiLoaded={initGeocoder}
-                  />
-                </Map>
               </>
             )}
             {geolocationAuthorized === false && (
