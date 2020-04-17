@@ -36,6 +36,12 @@ export interface Strings {
   };
   lang: string;
   langSelect: string;
+  footer: {
+    netlifyNote: string;
+    natlifyLinkText: string;
+    githubRepo: string;
+    codeOfConduct: string;
+  };
 }
 
 type RecursivePartial<T> = {

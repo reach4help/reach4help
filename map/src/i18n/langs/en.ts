@@ -41,6 +41,12 @@ const LANG: Language = {
     },
     lang: 'Language:',
     langSelect: 'Select Language',
+    footer: {
+      netlifyNote: 'This map {link}',
+      natlifyLinkText: 'is hosted by Netlify',
+      githubRepo: 'GitHub Repo',
+      codeOfConduct: 'Code of Conduct',
+    },
   },
 };
 
