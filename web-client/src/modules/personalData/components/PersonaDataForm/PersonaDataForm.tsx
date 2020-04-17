@@ -69,14 +69,16 @@ interface ICoords {
   lng: number;
 }
 
-interface IAddress {
-  address1: string;
-  address2: string;
-  streetNumber: string;
-  postalCode: string;
-  city: string;
-  state: string;
-  country: string;
+interface IPersonalData {
+  fullName?: string;
+  displayName?: string;
+  address1?: string;
+  address2?: string;
+  postalCode?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  coords?: ICoords;
 }
 
 let Geocoder;
@@ -94,12 +96,12 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   const [instructionsVisible, setInstructionsVisible] = useState(false);
 
   // geolocation
-  const [address1, setAddress1] = useState('');
-  const [address2, setAddress2] = useState('');
-  const [city, setCity] = useState('');
-  const [cityState, setCityState] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [country, setCountry] = useState('');
+  const [address1, setAddress1] = useState<string | undefined>('');
+  const [address2, setAddress2] = useState<string | undefined>('');
+  const [city, setCity] = useState<string | undefined>('');
+  const [cityState, setCityState] = useState<string | undefined>('');
+  const [postalCode, setPostalCode] = useState<string | undefined>('');
+  const [country, setCountry] = useState<string | undefined>('');
   const [coords, setCoords] = useState<ICoords | undefined>(undefined);
 
   const [geolocationAvailabe, setGeoAvailable] = useState<boolean | undefined>(
@@ -118,93 +120,85 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   const handleGetCoords = () => {
     setIsLoading(true);
 
-    setTimeout(() => {
-      /* geolocation is available */
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          setIsLoading(false);
-          setGeoAuthorized(true);
-          const location = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          setCoords(location);
-
-          Geocoder.geocode({ location }, (results, status) => {
-            if (status === 'OK') {
-              const newAddress: IAddress = {
-                address1: '',
-                address2: '',
-                streetNumber: '',
-                postalCode: '',
-                city: '',
-                state: '',
-                country: '',
-              };
-              for (let i = 0; i < results[0].address_components.length; i++) {
-                const item = results[0].address_components[i];
-                const v = item.types[0];
-                if (typeof v !== 'undefined') {
-                  switch (v) {
-                    case 'street_number':
-                      newAddress.streetNumber = item.short_name;
-                      setAddress2(newAddress.streetNumber);
-                      break;
-                    case 'route':
-                      newAddress.address1 = item.short_name;
-                      setAddress1(newAddress.address1);
-                      break;
-                    case 'locality':
-                      newAddress.city = item.short_name;
-                      setCity(newAddress.city);
-                      break;
-                    case 'administrative_area_level_1':
-                      newAddress.state = item.short_name;
-                      setCityState(newAddress.state);
-                      break;
-                    case 'country':
-                      newAddress.country = item.long_name;
-                      setCountry(newAddress.country);
-                      break;
-                    case 'postal_code':
-                      newAddress.postalCode = item.short_name;
-                      setPostalCode(newAddress.postalCode);
-                      break;
-                    default:
-                      break;
-                  }
+    /* geolocation is available */
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        setIsLoading(false);
+        setGeoAuthorized(true);
+        const location = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        setCoords(location);
+        Geocoder.geocode({ location }, (results, status) => {
+          if (status === 'OK') {
+            for (let i = 0; i < results[0].address_components.length; i++) {
+              const item = results[0].address_components[i];
+              const v = item.types[0];
+              if (typeof v !== 'undefined') {
+                switch (v) {
+                  case 'street_number':
+                    setAddress2(item.short_name);
+                    break;
+                  case 'route':
+                    setAddress1(item.short_name);
+                    break;
+                  case 'locality':
+                    setCity(item.short_name);
+                    break;
+                  case 'administrative_area_level_1':
+                    setCityState(item.short_name);
+                    break;
+                  case 'country':
+                    setCountry(item.long_name);
+                    break;
+                  case 'postal_code':
+                    setPostalCode(item.short_name);
+                    break;
+                  default:
+                    break;
                 }
               }
-              console.log(newAddress);
             }
-          });
-          // dispatch(setUserGeolocationAction(location));
-          // setCoordsExist(true);
-        },
-        GeolocationPositionError => {
-          setModalVisible(true);
-          setGeoAuthorized(false);
-          setIsLoading(false);
-        },
-      );
-    }, 1000);
+          }
+        });
+        // dispatch(setUserGeolocationAction(location));
+        // setCoordsExist(true);
+      },
+      GeolocationPositionError => {
+        setModalVisible(true);
+        setGeoAuthorized(false);
+        setIsLoading(false);
+      },
+    );
   };
 
-  const submitForm = () => {
+  const onSubmitForm = () => {
+    const newAddress: IPersonalData = {};
+    newAddress.fullName = fullName;
+    newAddress.displayName = displayName;
+    newAddress.coords = coords;
+    newAddress.address1 = address1;
+    newAddress.address2 = address2;
+    newAddress.postalCode = postalCode;
+    newAddress.city = city;
+    newAddress.state = cityState;
+    newAddress.country = country;
+
     if (!geolocationAuthorized) {
       const address = `${address1},${address2},${city},${cityState},${postalCode},${country}`;
       Geocoder.geocode({ address }, (results, status) => {
         console.log(
-          results[0].geometry.location.lat(),
+          results[0].geometry.location.lat() + ',',
           results[0].geometry.location.lng(),
         );
         const lat = results[0].geometry.location.lat();
         const lng = results[0].geometry.location.lng();
         setCoords({ lat, lng });
-        console.log('going to submit now');
+        console.log('going to submit now :\n', newAddress);
       });
     } else {
-      console.log('going to submit now');
+      console.log('going to submit now :\n', newAddress);
     }
   };
 
@@ -261,8 +255,9 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
       <Form
         layout="vertical"
         form={form}
-        onFinish={values => {
-          handleFormSubmit(values);
+        onFinish={() => {
+          onSubmitForm();
+          // handleFormSubmit(values);
         }}
       >
         <Row gutter={12}>
@@ -434,7 +429,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           </Checkbox>
         </Form.Item>
         <Form.Item style={{ textAlign: 'center' }}>
-          <StyledButton type="primary" onClick={submitForm}>
+          <StyledButton type="primary" htmlType="submit">
             {t('continue')}
           </StyledButton>
         </Form.Item>
