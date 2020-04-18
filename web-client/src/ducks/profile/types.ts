@@ -10,6 +10,7 @@ export const SET = asyncType('SET');
 
 export interface ProfileState {
   profile: firebase.firestore.DocumentData | undefined;
+  privilegedInformation: firebase.firestore.DocumentData | undefined;
   uid: string | undefined;
   setAction: Record<string, any> | undefined;
   updateAction: Record<string, any> | undefined;

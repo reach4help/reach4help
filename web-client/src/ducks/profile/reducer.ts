@@ -5,6 +5,7 @@ import { GET, ProfileState, SET, UPDATE } from './types';
 
 const initialState: ProfileState = {
   profile: undefined,
+  privilegedInformation: undefined,
   uid: undefined,
   loading: false,
   setAction: undefined,
@@ -20,10 +21,13 @@ export default createReducer<ProfileState>(
     },
     [GET.COMPLETED]: (
       state: ProfileState,
-      { payload }: { payload: firestore.DocumentSnapshot },
+      {
+        payload,
+      }: { payload: [firestore.DocumentSnapshot, firestore.DocumentSnapshot] },
     ) => {
-      state.profile = payload.data();
-      state.uid = payload.id;
+      state.profile = payload[0].data();
+      state.privilegedInformation = payload[1]?.data();
+      state.uid = payload[0].id;
       state.loading = false;
       state.error = undefined;
     },
