@@ -1,8 +1,9 @@
-import { Button, Checkbox, Form, Input, Typography } from 'antd';
+import { Avatar, Button, Checkbox, Form, Input, Typography } from 'antd';
 import words from 'lodash/words';
-import React, { useEffect, useState } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import firebase from 'src/firebase';
 import styled from 'styled-components';
 
 const { Text } = Typography;
@@ -28,21 +29,48 @@ const StyledButton = styled(Button)`
   margin-top: 40px;
 `;
 
+class CustomCheckbox extends PureComponent<Record<string, any>> {
+  render() {
+    const { initialValue, onChange, children } = this.props;
+    return (
+      <Checkbox
+        defaultChecked={initialValue}
+        onChange={({ target }) => onChange(target.checked)}
+      >
+        {children}
+      </Checkbox>
+    );
+  }
+}
+
 interface NewRequestProps {
   handleFormSubmit: Function;
+  user: firebase.User | null | undefined;
+  profile: firebase.firestore.DocumentData | undefined;
+  priviledgedInfo: firebase.firestore.DocumentData | undefined;
 }
 
 const PersonaDataForm: React.FC<NewRequestProps> = ({
   handleFormSubmit,
+  user,
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [fullName, setFullName] = useState('');
   const [displayName, setDisplayName] = useState('');
+  const [displayPicture, setDisplayPicture] = useState('');
 
   useEffect(() => {
     setDisplayName(words(fullName)[0]);
   }, [fullName]);
+
+  useEffect(() => {
+    if (user && user.displayName && user.photoURL) {
+      setFullName(user.displayName);
+      setDisplayName(user.displayName);
+      setDisplayPicture(user.photoURL);
+    }
+  }, [user]);
 
   return (
     <StyledIntro>
@@ -58,6 +86,10 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           handleFormSubmit(values);
         }}
       >
+        <Avatar shape="square" src={displayPicture} size={312} />
+        <Form.Item name="profilepic">
+          <CustomCheckbox>Use This Picture</CustomCheckbox>
+        </Form.Item>
         <Description>{t('user_data_form.sub_title')}</Description>
         <Form.Item
           style={{ textAlign: 'center', width: '100%' }}
@@ -148,13 +180,13 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
             },
           ]}
         >
-          <Checkbox>
+          <CustomCheckbox initialValue={false}>
             {t('user_data_form.terms_conditions_text')}
             <Link to="/">{t('user_data_form.terms_conditions_link')}</Link>
-          </Checkbox>
+          </CustomCheckbox>
         </Form.Item>
         <Form.Item>
-          <StyledButton htmlType="submit" type="primary">
+          <StyledButton id="submitButton" htmlType="submit" type="primary">
             {t('continue')}
           </StyledButton>
         </Form.Item>
