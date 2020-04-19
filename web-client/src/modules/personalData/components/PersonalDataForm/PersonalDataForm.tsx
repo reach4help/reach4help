@@ -78,6 +78,7 @@ interface IUserAddressData {
 export interface IPersonalData {
   fullName?: string | null;
   displayName?: string | null;
+  displayPic?: string | null;
   address: IUserAddressData;
 }
 
@@ -85,11 +86,20 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   Geocoder,
   handleFormSubmit,
   user,
+  profile,
+  priviledgedInfo,
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [fullName, setFullName] = useState<string | undefined | null>('');
   const [displayName, setDisplayName] = useState<string | undefined | null>('');
+  const [displayPic, setDisplayPic] = useState<string | undefined | null>(
+    undefined,
+  );
+  const [tempDisplayPic, setTempDisplayPic] = useState<
+    string | undefined | null
+  >(undefined);
+  const [acceptToUsePhoto, setAcceptToUsePhoto] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [instructionsVisible, setInstructionsVisible] = useState(false);
@@ -173,6 +183,42 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
     );
   };
 
+  useEffect(() => {
+    if (user) {
+      if (acceptToUsePhoto) {
+        setDisplayPic(user.photoURL);
+      }
+      setTempDisplayPic(user.photoURL);
+      setDisplayName(user.displayName);
+      setFullName(user.displayName);
+    }
+    if (profile) {
+      if (profile.displayName) {
+        setDisplayName(profile.displayName);
+      }
+      if (profile.displayPicture) {
+        if (acceptToUsePhoto) {
+          setDisplayPic(profile.displayPicture);
+        }
+        setTempDisplayPic(profile.displayPicture);
+      }
+      if (profile.displayName) {
+        setDisplayName(profile.displayName);
+        setFullName(profile.displayName);
+      }
+    }
+  }, [user, profile, priviledgedInfo]);
+
+  useEffect(() => {
+    if (acceptToUsePhoto) {
+      if (tempDisplayPic) {
+        setDisplayPic(tempDisplayPic);
+      }
+    } else {
+      setDisplayPic(undefined);
+    }
+  }, [acceptToUsePhoto]);
+
   const onSubmitForm = () => {
     const newAddress: IUserAddressData = {
       address1,
@@ -186,6 +232,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
     const newPersonalInfo: IPersonalData = {
       fullName,
       displayName,
+      displayPic,
       address: newAddress,
     };
     handleFormSubmit(newPersonalInfo);
@@ -221,11 +268,9 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
     form,
   ]);
 
-  const photo = user && user.photoURL ? String(user.photoURL) : '';
-
   return (
     <StyledIntro className="withContentPaddingDesktop">
-      {photo && <ProfilePhoto src={photo} />}
+      {displayPic && <ProfilePhoto src={displayPic} />}
       <Title>{t('user_data_form.sub_title')}</Title>
       <Form
         layout="vertical"
@@ -405,6 +450,14 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
           {t('user_data_form.policy_text')}{' '}
           <Link to="/">{t('user_data_form.policy_link')}</Link>
         </Info>
+        <Form.Item style={{ textAlign: 'center' }} name="useProfilePic">
+          <Checkbox
+            defaultChecked
+            onChange={({ target }) => setAcceptToUsePhoto(target.checked)}
+          >
+            {t('user_data_form.accept_to_use_profile_pic')}
+          </Checkbox>
+        </Form.Item>
         <Form.Item
           style={{ textAlign: 'center' }}
           name="terms"
