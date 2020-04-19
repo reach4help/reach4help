@@ -8,7 +8,6 @@ import {
   Row,
   Typography,
 } from 'antd';
-import GoogleMapReact from 'google-map-react';
 import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -49,10 +48,6 @@ const StyledButton = styled(Button)`
   margin-top: 40px;
 `;
 
-const Map = styled.div`
-  height: 0;
-`;
-
 const GPSTarget = styled.img`
   width: 16px;
   height: 16px;
@@ -60,6 +55,7 @@ const GPSTarget = styled.img`
 `;
 
 interface NewRequestProps {
+  Geocoder: any;
   handleFormSubmit: Function;
 }
 
@@ -81,9 +77,8 @@ interface IPersonalData {
   geolocation?: boolean;
 }
 
-let Geocoder;
-
 const PersonaDataForm: React.FC<NewRequestProps> = ({
+  Geocoder,
   handleFormSubmit,
 }): React.ReactElement => {
   const { t } = useTranslation();
@@ -110,12 +105,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   const [geolocationAuthorized, setGeoAuthorized] = useState<
     undefined | boolean
   >(undefined);
-
-  const initGeocoder = ({ maps }) => {
-    if (typeof Geocoder === 'undefined') {
-      Geocoder = new maps.Geocoder();
-    }
-  };
 
   const handleGetCoords = () => {
     setIsLoading(true);
@@ -169,6 +158,9 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
         setModalVisible(true);
         setGeoAuthorized(false);
         setIsLoading(false);
+        if (GeolocationPositionError) {
+          // do something regarding the error
+        }
       },
     );
   };
@@ -185,22 +177,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
     newAddress.state = cityState;
     newAddress.country = country;
     newAddress.geolocation = geolocationAuthorized;
-
-    if (!geolocationAuthorized) {
-      const address = `${address1},${address2},${city},${cityState},${postalCode},${country}`;
-      Geocoder.geocode({ address }, (results, status) => {
-        console.log(
-          `${results[0].geometry.location.lat()},`,
-          results[0].geometry.location.lng(),
-        );
-        const lat = results[0].geometry.location.lat();
-        const lng = results[0].geometry.location.lng();
-        setCoords({ lat, lng });
-        console.log('going to submit now :\n', newAddress);
-      });
-    } else {
-      console.log('going to submit now :\n', newAddress);
-    }
+    handleFormSubmit(newAddress);
   };
 
   // useEffect(() => {
@@ -238,19 +215,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
 
   return (
     <StyledIntro className="withContentPaddingDesktop">
-      <Map>
-        <GoogleMapReact
-          bootstrapURLKeys={{
-            key: `${process.env.REACT_APP_GMAPS_API_KEY}`,
-          }}
-          defaultCenter={{
-            lat: 59.95,
-            lng: 30.33,
-          }}
-          defaultZoom={11}
-          onGoogleApiLoaded={initGeocoder}
-        />
-      </Map>
       {photo !== '' && <ProfilePhoto src={photo} />}
       <Title>{t('user_data_form.sub_title')}</Title>
       <Form
@@ -258,7 +222,6 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
         form={form}
         onFinish={() => {
           onSubmitForm();
-          // handleFormSubmit(values);
         }}
       >
         <Row gutter={12}>
@@ -310,7 +273,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                   type="primary"
                   onClick={handleGetCoords}
                 >
-                  Use GPS to get my address
+                  {t('user_data_form.gps_button')}
                 </Button>
               </>
             )}
@@ -320,7 +283,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                 type="danger"
                 onClick={handleGetCoords}
               >
-                Geolocation unavailable. Retry.
+                {t('user_data_form.gps_button')}
               </Button>
             )}
           </Col>
@@ -450,7 +413,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                   setInstructionsVisible(true);
                 }}
               >
-                Learn how to reactivate geolocation
+                {t('user_data_form.learn_reactivate')}
               </Button>
             )}
             {instructionsVisible && (
@@ -463,7 +426,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                   handleGetCoords();
                 }}
               >
-                Retry Geolocation
+                {t('user_data_form.retry_geolocation')}
               </Button>
             )}
           </Fragment>,
@@ -476,7 +439,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                   setModalVisible(false);
                 }}
               >
-                Continue without Geolocation
+                {t('user_data_form.continue_without_geolocation')}
               </Button>
             )}
             {instructionsVisible && (
@@ -487,7 +450,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                   setInstructionsVisible(false);
                 }}
               >
-                Go Back
+                {t('user_data_form.go_back')}
               </Button>
             )}
           </Fragment>,
@@ -499,43 +462,21 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
               <img alt="Geolocation Inactive" src={geolocationinactive} />
             </div>
             <h4 style={{ marginBottom: '20px' }}>
-              Geolocation is not authorized
+              {t('user_data_form.geolocation_modal_title')}
             </h4>
-            <p>
-              You can add your location manually, but it would help us get your
-              position more accurately if you would use Geolocation. Please
-              choose one of the options below :
-            </p>
+            <p>{t('user_data_form.geolocation_modal_text')}</p>
           </>
         )}
         {instructionsVisible && (
           <>
-            <h4>Instructions:</h4>
-            <p>
-              You can add your location manually, but it would help us get your
-              position more accurately if you used Geolocation. If you wish to
-              re-activate it, please follow the link :
-            </p>
-            <p>
-              You can add your location manually, but it would help us get your
-              position more accurately if you used Geolocation. If you wish to
-              re-activate it, please follow the link :
-            </p>
-            <p>
-              You can add your location manually, but it would help us get your
-              position more accurately if you used Geolocation. If you wish to
-              re-activate it, please follow the link :
-            </p>
-            <p>
-              You can add your location manually, but it would help us get your
-              position more accurately if you used Geolocation. If you wish to
-              re-activate it, please follow the link :
-            </p>
+            <h4>{t('user_data_form.instructions_modal_title')}</h4>
+            <p>{t('user_data_form.instructions_modal_text')}</p>
           </>
         )}
       </Modal>
     </StyledIntro>
   );
 };
-
+// TODO: Instructions modal text needs to be completed and eventually
+// do a browser detection to show the correct instructions message
 export default PersonaDataForm;
