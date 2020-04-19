@@ -2,38 +2,30 @@ import { COLORS } from '../styling/theme';
 
 export const SERVICES = {
   food: {
-    label: 'Food',
     color: COLORS.red,
   },
   medicine: {
-    label: 'Medicine',
     color: COLORS.blue,
   },
   /**
    * Non food-or-medicine supplies
    */
   supplies: {
-    label: 'Other Supplies',
     color: COLORS.green,
   },
   mobility: {
-    label: 'Mobility',
     color: COLORS.purple,
   },
   manufacturing: {
-    label: 'Manufacturing',
     color: COLORS.orange,
   },
   financial: {
-    label: 'Financial',
     color: COLORS.orange,
   },
   information: {
-    label: 'Information',
     color: COLORS.orange,
   },
   shelter: {
-    label: 'Shelter',
     color: COLORS.orange,
   },
   /**
@@ -42,14 +34,12 @@ export const SERVICES = {
    * risk from domestic abuse etc...
    */
   support: {
-    label: 'Support',
     color: COLORS.yellow,
   },
   /**
    * Providing resources for networking (e.g. betwen mutual aid organizations)
    */
   network: {
-    label: 'Network',
     color: COLORS.yellow,
   },
 } as const;
@@ -90,23 +80,18 @@ export type MarkerTypeString = MarkerType['type'];
 
 export const MARKER_TYPES = {
   'mutual-aid-group': {
-    label: 'Mutual Aid Group',
     color: COLORS.red,
   },
   org: {
-    label: 'Organization / Company',
     color: COLORS.blue,
   },
   financial: {
-    label: 'Financial',
     color: COLORS.green,
   },
   information: {
-    label: 'Information',
     color: COLORS.purple,
   },
   other: {
-    label: 'Other',
     color: COLORS.orange,
   },
 };

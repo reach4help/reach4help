@@ -1,6 +1,8 @@
 import React from 'react';
+import { t } from 'src/i18n';
 
 import styled from '../styling';
+import { AppContext } from './context';
 
 const FooterWrapper = styled.footer`
   display: flex;
@@ -19,19 +21,30 @@ const FooterWrapper = styled.footer`
 `;
 
 const Footer = () => (
-  <FooterWrapper>
-    <div className="grow">
-      This map&nbsp;
-      <a href="https://www.netlify.com/">is hosted by Netlify&nbsp;</a>
-      <span aria-label="heart emoji" role="img">
-        ❤️
-      </span>
-    </div>
-    <a href="https://github.com/reach4help/reach4help/">GitHub Repo</a>
-    <a href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md">
-      Code of Conduct
-    </a>
-  </FooterWrapper>
+  <AppContext.Consumer>
+    {({ lang }) => (
+      <FooterWrapper>
+        <div className="grow">
+          {t(lang, s => s.footer.netlifyNote, {
+            link: (
+              <a href="https://www.netlify.com/">
+                {t(lang, s => s.footer.natlifyLinkText)}
+              </a>
+            ),
+          })}
+          <span aria-label="heart emoji" role="img">
+            &nbsp;❤️
+          </span>
+        </div>
+        <a href="https://github.com/reach4help/reach4help/">
+          {t(lang, s => s.footer.githubRepo)}
+        </a>
+        <a href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md">
+          {t(lang, s => s.footer.codeOfConduct)}
+        </a>
+      </FooterWrapper>
+    )}
+  </AppContext.Consumer>
 );
 
 export default Footer;
