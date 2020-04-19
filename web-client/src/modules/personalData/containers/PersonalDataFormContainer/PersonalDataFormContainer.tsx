@@ -7,28 +7,12 @@ import { AuthState } from 'src/ducks/auth/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import styled from 'styled-components';
 
-import PersonalDataForm from '../../components/PersonalDataForm/PersonalDataForm';
+import PersonalDataForm, {
+  IPersonalData,
+} from '../../components/PersonalDataForm/PersonalDataForm';
 
 // is there a place where we should put the interfaces that would be common
 // for the wrapper and for the UI component ?
-
-interface ICoords {
-  lat: number;
-  lng: number;
-}
-
-interface IPersonalData {
-  fullName?: string;
-  displayName?: string;
-  address1?: string;
-  address2?: string;
-  postalCode?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  coords?: ICoords;
-  geolocation?: boolean;
-}
 
 const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
   const profileState = useSelector(
@@ -57,7 +41,8 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
     }
   };
 
-  const handleFormSubmit = (newAddress: IPersonalData) => {
+  const handleFormSubmit = (personalInfo: IPersonalData) => {
+    const { address: newAddress } = personalInfo;
     // eslint-disable-next-line max-len
     const address = `${newAddress.address1},${newAddress.address2},${newAddress.city},${newAddress.state},${newAddress.postalCode},${newAddress.country}`;
     const addressObj = { ...newAddress };

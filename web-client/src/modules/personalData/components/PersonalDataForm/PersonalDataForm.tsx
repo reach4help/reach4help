@@ -65,9 +65,7 @@ interface ICoords {
   lng: number;
 }
 
-interface IPersonalData {
-  fullName?: string;
-  displayName?: string;
+interface IUserAddressData {
   address1?: string;
   address2?: string;
   postalCode?: string;
@@ -75,7 +73,12 @@ interface IPersonalData {
   state?: string;
   country?: string;
   coords?: ICoords;
-  geolocation?: boolean;
+}
+
+export interface IPersonalData {
+  fullName?: string | null;
+  displayName?: string | null;
+  address: IUserAddressData;
 }
 
 const PersonalDataForm: React.FC<NewRequestProps> = ({
@@ -85,8 +88,8 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const [fullName, setFullName] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [fullName, setFullName] = useState<string | undefined | null>('');
+  const [displayName, setDisplayName] = useState<string | undefined | null>('');
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [instructionsVisible, setInstructionsVisible] = useState(false);
@@ -107,6 +110,37 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
     undefined | boolean
   >(undefined);
 
+  const parseAddressComponents = addressComponents => {
+    for (let i = 0; i < addressComponents.length; i++) {
+      const item = addressComponents[i];
+      const v = item.types[0];
+      if (typeof v !== 'undefined') {
+        switch (v) {
+          case 'street_number':
+            setAddress2(item.short_name);
+            break;
+          case 'route':
+            setAddress1(item.short_name);
+            break;
+          case 'locality':
+            setCity(item.short_name);
+            break;
+          case 'administrative_area_level_1':
+            setCityState(item.long_name);
+            break;
+          case 'country':
+            setCountry(item.long_name);
+            break;
+          case 'postal_code':
+            setPostalCode(item.short_name);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  };
+
   const handleGetCoords = () => {
     setIsLoading(true);
 
@@ -122,34 +156,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
         setCoords(location);
         Geocoder.geocode({ location }, (results, status) => {
           if (status === 'OK') {
-            for (let i = 0; i < results[0].address_components.length; i++) {
-              const item = results[0].address_components[i];
-              const v = item.types[0];
-              if (typeof v !== 'undefined') {
-                switch (v) {
-                  case 'street_number':
-                    setAddress2(item.short_name);
-                    break;
-                  case 'route':
-                    setAddress1(item.short_name);
-                    break;
-                  case 'locality':
-                    setCity(item.short_name);
-                    break;
-                  case 'administrative_area_level_1':
-                    setCityState(item.short_name);
-                    break;
-                  case 'country':
-                    setCountry(item.long_name);
-                    break;
-                  case 'postal_code':
-                    setPostalCode(item.short_name);
-                    break;
-                  default:
-                    break;
-                }
-              }
-            }
+            parseAddressComponents(results[0].address_components);
           }
         });
         // dispatch(setUserGeolocationAction(location));
@@ -167,22 +174,25 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   };
 
   const onSubmitForm = () => {
-    const newAddress: IPersonalData = {};
-    newAddress.fullName = fullName;
-    newAddress.displayName = displayName;
-    newAddress.coords = coords;
-    newAddress.address1 = address1;
-    newAddress.address2 = address2;
-    newAddress.postalCode = postalCode;
-    newAddress.city = city;
-    newAddress.state = cityState;
-    newAddress.country = country;
-    newAddress.geolocation = geolocationAuthorized;
-    handleFormSubmit(newAddress);
+    const newAddress: IUserAddressData = {
+      address1,
+      address2,
+      postalCode,
+      city,
+      state: cityState,
+      country,
+      coords,
+    };
+    const newPersonalInfo: IPersonalData = {
+      fullName,
+      displayName,
+      address: newAddress,
+    };
+    handleFormSubmit(newPersonalInfo);
   };
 
   useEffect(() => {
-    if (fullName.includes(' ') && displayName === '') {
+    if (fullName && fullName.includes(' ') && displayName === '') {
       setDisplayName(words(fullName)[0]);
     }
     // detect if browser supports geolocation
@@ -194,6 +204,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
       displayName,
       address1,
       address2,
+      cityState,
       city,
       postalCode,
       country,
@@ -203,6 +214,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
     displayName,
     address1,
     address2,
+    cityState,
     city,
     postalCode,
     country,
@@ -213,7 +225,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
 
   return (
     <StyledIntro className="withContentPaddingDesktop">
-      {photo !== '' && <ProfilePhoto src={photo} />}
+      {photo && <ProfilePhoto src={photo} />}
       <Title>{t('user_data_form.sub_title')}</Title>
       <Form
         layout="vertical"
@@ -315,7 +327,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
           />
         </Form.Item>
         <Row gutter={12}>
-          <Col span={24} md={12}>
+          <Col span={12} md={6} sm={12} xs={24}>
             <Form.Item
               name="city"
               rules={[
@@ -331,6 +343,25 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
                 }}
                 placeholder={t('city')}
                 onChange={e => setCity(e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12} md={6} sm={12} xs={24}>
+            <Form.Item
+              name="cityState"
+              rules={[
+                {
+                  required: true,
+                  message: t('user_data_form.address_error_message'),
+                },
+              ]}
+            >
+              <Input
+                style={{
+                  marginRight: '15px',
+                }}
+                placeholder={t('State')}
+                onChange={e => setCityState(e.target.value)}
               />
             </Form.Item>
           </Col>
