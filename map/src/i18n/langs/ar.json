@@ -1,7 +1,7 @@
 {
   "title": "خريطة المساعدة المجتمعة ضد كوفيد-19",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+  "info": "لمساعدة الناس على إيجاد مجهودات المساعدة المتبادلة والانضمام إليها في مكان معيشتهم وتقديم الإلهام للبدء في بذل جهودهم، و رفع في معنوياتهم، هذه الخريطة تضم مشاريع المعونة المتبادلة للرعاية الوبائية في حالات الكوارث. ملاحظة: كل مشروع مستقل و ذاتي التنظيم؛ يستخدم العديد من جداول البيانات العامة لمشاركة المعلومات، لذا كن حذراً عند إدخال المعلومات الخاصة التي لا تريد أن تصبح في الفضاء العام.",
+  "about": "هذه الخريطة جزء من مبادرة {reach4Help}، مشروع يديره متطوعون. إنه مفتوح المصدر ويمكن وجوده ب: {githubSource}. لأي استفسارات ، يمكنك التواصل بنا عبر {email}.",
   "githubSourceLabel": "found on GitHub",
   "addInformation": {
     "small": "Add information",
