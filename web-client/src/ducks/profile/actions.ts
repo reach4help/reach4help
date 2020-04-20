@@ -26,8 +26,8 @@ export const setUserProfile = (
   addressFromGoogle: google.maps.GeocoderResult,
   termsAndPrivacyAccepted: Date,
   displayName: string,
-  displayPic: string,
   uid: string,
+  displayPic?: string | null,
 ) => (dispatch: Function) => {
   const privilegedPayload = PrivilegedUserInformation.factory({
     addressFromGoogle,

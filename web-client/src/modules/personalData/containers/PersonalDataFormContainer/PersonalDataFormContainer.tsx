@@ -59,22 +59,15 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
           const lat = results[0].geometry.location.lat();
           const lng = results[0].geometry.location.lng();
           newAddress.coords = new firestore.GeoPoint(lat, lng);
-          if (
-            lat &&
-            lng &&
-            termsAndPrivacyAccepted &&
-            displayName &&
-            displayPic &&
-            user
-          ) {
+          if (lat && lng && termsAndPrivacyAccepted && displayName && user) {
             dispatch(
               setUserProfile(
                 newAddress,
                 results[0],
                 termsAndPrivacyAccepted,
                 displayName,
-                displayPic,
                 user.uid,
+                displayPic,
               ),
             );
           } else {
