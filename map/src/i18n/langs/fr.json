@@ -4,14 +4,14 @@
   "about": "Cette carte fait partie de {reach4Help}, un projet porté par des volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter à l'adresse {email}.",
   "githubSourceLabel": "trouvée sur GitHub",
   "addInformation": {
-    "small": "Add information",
-    "large": "Add information to this map"
+    "small": "Ajouter des informations",
+    "large": "Ajouter des informations à cette carte"
   },
   "buttons": {
     "fullScreen": "Plein écran",
     "exitFullScreen": "Quitter le plein écran"
   },
-  "loading": "Loading...",
+  "loading": "Chargement en cours...",
   "filterBy": "Filter by:",
   "services": {
     "any": "Tous",
