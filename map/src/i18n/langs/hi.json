@@ -1,7 +1,7 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
+  "title": "COVID-19 म्यूचुअल एड मैप",
   "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+  "about": "यह नक्शा एक {reach4Help}, स्वयंसेवक द्वारा संचालित परियोजना का हिस्सा है। यह ओपन सोर्स है और {githubSource}। किसी भी पूछताछ के लिए, आप हमें {email} पर लिख सकते हैं।",
   "githubSourceLabel": "गिट हब पर पाया जाता है",
   "addInformation": {
     "small": "जानकारी जोड़ें",
@@ -34,7 +34,7 @@
     "other": "अन्य"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
+    "jumpToLocation": "नक़्शे पर उचित स्थान पर जाएं...",
     "updateResultsForThisArea": "इस क्षेत्र के लिए नतीजे अपडेट करें",
     "myLocation": "मेरा स्थान"
   },
@@ -51,12 +51,12 @@
       "facebookGroup": "फेसबुक ग्रुप"
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "भाषा:",
+  "langSelect": "भाषा का चयन करें",
   "footer": {
     "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
-    "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct"
+    "netlifyLinkText": "नेटलीफाय द्वारा मेजबानी",
+    "githubRepo": "गिटहब कोष",
+    "codeOfConduct": "आचार संहिता"
   }
 }
