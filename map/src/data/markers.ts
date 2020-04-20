@@ -472,8 +472,7 @@ export const MARKERS: MarkerInfo[] = [
     },
     contact: {
       general: {
-        facebookGroup:
-          'https://www.facebook.com/groups/CarbondaleCOMutualAid/',
+        facebookGroup: 'https://www.facebook.com/groups/CarbondaleCOMutualAid/',
         web: {
           'Carbondale Task Force':
             'https://www.carbondalegov.org/government/emergency/index.php',
