@@ -12,7 +12,7 @@
     "exitFullScreen": "Quitter le plein écran"
   },
   "loading": "Chargement en cours...",
-  "filterBy": "Filter by:",
+  "filterBy": "Filtrer par :",
   "services": {
     "any": "Tous",
     "financial": "Mobilité",
@@ -34,28 +34,28 @@
     "other": "Autres "
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "Aller à un emplacement sur la carte...",
+    "updateResultsForThisArea": "Mettre à jour les résultats pour cette zone",
+    "myLocation": "Ma position"
   },
   "results": {
     "updateResults": {
-      "small": "Update results",
-      "large": "Update results for map area"
+      "small": "Actualiser les résultats",
+      "large": "Mettre à jour les résultats pour cette zone"
     },
-    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "count": "{results, plural, \n =1 {# résultat}\n other {# résultats}}",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "Informations Générales:",
+      "getHelp": "Obtenir de l'aide:",
+      "volunteer": "Bénévole:",
+      "facebookGroup": "Groupe Facebook"
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "Langue:",
+  "langSelect": "Sélectionner la langue",
   "footer": {
     "netlifyNote": "Cette carte {link}",
-    "netlifyLinkText": "is hosted by Netlify",
+    "netlifyLinkText": "est hébergé par Netlify",
     "githubRepo": "Dépôt GitHub",
     "codeOfConduct": "Code de conduite"
   }
