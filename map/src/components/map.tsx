@@ -7,10 +7,12 @@ import {
   MdRefresh,
 } from 'react-icons/md';
 import { Filter, MARKER_TYPES } from 'src/data';
+import { t } from 'src/i18n';
 import { button, iconButton } from 'src/styling/mixins';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
+import { AppContext } from './context';
 import {
   createGoogleMap,
   generateSortBasedOnMapCenter,
@@ -461,34 +463,38 @@ class MapComponent extends React.Component<Props, {}> {
     const hasNewResults = nextResults && nextResults.results !== results;
     const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
     return (
-      <div className={className}>
-        <div className="map" ref={this.updateGoogleMapRef} />
-        <div className="map-actions">
-          {hasNewResults && (
-            <button type="button" onClick={this.updateResults}>
-              <MdRefresh className="icon icon-left" />
-              Update results for this area
-            </button>
-          )}
-          {navigator.geolocation && (
-            <button type="button" onClick={this.centerToGeolocation}>
-              <MdMyLocation className="icon icon-left" />
-              My Location
-            </button>
-          )}
-        </div>
-        <div className="results-tab" onClick={toggleResults}>
-          <div>
-            <ExpandIcon />
-            <span>
-              {resultsMode === 'open'
-                ? 'close'
-                : `${results?.length || 0} result(s)`}
-            </span>
-            <ExpandIcon />
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div className={className}>
+            <div className="map" ref={this.updateGoogleMapRef} />
+            <div className="map-actions">
+              {hasNewResults && (
+                <button type="button" onClick={this.updateResults}>
+                  <MdRefresh className="icon icon-left" />
+                  {t(lang, s => s.map.updateResultsForThisArea)}
+                </button>
+              )}
+              {navigator.geolocation && (
+                <button type="button" onClick={this.centerToGeolocation}>
+                  <MdMyLocation className="icon icon-left" />
+                  {t(lang, s => s.map.myLocation)}
+                </button>
+              )}
+            </div>
+            <div className="results-tab" onClick={toggleResults}>
+              <div>
+                <ExpandIcon />
+                <span>
+                  {resultsMode === 'open'
+                    ? 'close'
+                    : `${results?.length || 0} result(s)`}
+                </span>
+                <ExpandIcon />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }

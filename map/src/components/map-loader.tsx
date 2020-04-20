@@ -1,6 +1,8 @@
 import React from 'react';
+import { t } from 'src/i18n';
 
 import styled from '../styling';
+import { AppContext } from './context';
 
 declare global {
   interface Window {
@@ -74,9 +76,13 @@ class MapLoader extends React.Component<Props, State> {
     const { loaded } = this.state;
     const { child, className } = this.props;
     return (
-      <div className={className}>
-        {loaded ? child() : <span>Loading...</span>}
-      </div>
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div className={className}>
+            {loaded ? child() : <span>{t(lang, s => s.loading)}</span>}
+          </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }

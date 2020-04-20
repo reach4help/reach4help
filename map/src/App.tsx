@@ -15,6 +15,7 @@ import Search from './components/search';
 import { Filter } from './data';
 import { MarkerInfo } from './data/markers';
 import styled, {
+  CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
   SMALL_DEVICES,
@@ -357,6 +358,12 @@ export default styled(App)`
 
     ${LARGE_DEVICES} {
       display: initial;
+    }
+  }
+
+  .${CLS_SCREEN_LG_HIDE} {
+    ${LARGE_DEVICES} {
+      display: none;
     }
   }
 `;

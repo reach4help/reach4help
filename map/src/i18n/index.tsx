@@ -1,4 +1,5 @@
 // import merge from 'lodash/merge';
+import IntlMessageFormat from 'intl-messageformat';
 import React from 'react';
 
 import { Strings } from './iface';
@@ -105,13 +106,23 @@ interface Placeholders {
   [key: string]: JSX.Element;
 }
 
+interface FormatValues {
+  [key: string]: number | string;
+}
+
 const placeholderExtraction = /^([^{]*)\{(\w+)\}(.*)/;
 
-export const t = (
+export function t(lang: Language, extract: (s: Strings) => string): string;
+export function t(
+  lang: Language,
+  extract: (s: Strings) => string,
+  placeholders: Placeholders,
+): JSX.Element[];
+export function t(
   lang: Language,
   extract: (s: Strings) => string,
   placeholders?: Placeholders,
-) => {
+) {
   const str = extract(LANGUAGES[lang].strings);
   if (!placeholders) {
     return str;
@@ -138,6 +149,25 @@ export const t = (
     }
   }
   return components;
+}
+
+const formatCache = new Map<string, Map<string, IntlMessageFormat>>();
+
+export const format = (
+  lang: Language,
+  extract: (s: Strings) => string,
+  values: FormatValues,
+) => {
+  const str = extract(LANGUAGES[lang].strings);
+  let langCache = formatCache.get(lang);
+  if (!langCache) {
+    formatCache.set(lang, (langCache = new Map()));
+  }
+  let cache = langCache.get(str);
+  if (!cache) {
+    langCache.set(str, (cache = new IntlMessageFormat(str, lang)));
+  }
+  return cache.format(values);
 };
 
 export const canonicalUrl = (lang: Language) => {
