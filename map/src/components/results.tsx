@@ -203,6 +203,10 @@ export default styled(Results)`
     display: flex;
     align-items: center;
 
+    [dir='rtl'] & {
+      padding: 0 0 0 ${p => p.theme.spacingPx}px;
+    }
+
     > .back {
       display: flex;
       height: 100%;
@@ -219,6 +223,10 @@ export default styled(Results)`
       opacity: 0;
       transition: opacity 200ms, width 200ms;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+      [dir='rtl'] & {
+        transform: rotate(180deg);
+      }
 
       &.visible {
         width: 50px;
@@ -239,6 +247,10 @@ export default styled(Results)`
       margin-right: ${p => p.theme.spacingPx}px;
       line-height: 22px;
       white-space: nowrap;
+
+      [dir='rtl'] & {
+        margin: 0 0 0 ${p => p.theme.spacingPx}px;
+      }
     }
 
     > .update {
@@ -273,6 +285,10 @@ export default styled(Results)`
         font-size: 20px;
         font-weight: 600;
         margin-right: ${p => p.theme.spacingPx}px;
+
+        [dir='rtl'] & {
+          margin: 0 0 0 ${p => p.theme.spacingPx}px;
+        }
       }
 
       .location {
