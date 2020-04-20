@@ -46,7 +46,7 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
 
     semi: ['error', 'always'],
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single', { "avoidEscape": true }],
     'max-len': ['error', { code: 150, ignorePattern: '^import.*/|className=' }],
     'no-trailing-spaces': ['error', { ignoreComments: true }],
     'arrow-parens': ['error', 'as-needed'],

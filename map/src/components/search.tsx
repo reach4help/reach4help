@@ -1,6 +1,8 @@
 import React from 'react';
+import { t } from 'src/i18n';
 
 import styled from '../styling';
+import { AppContext } from './context';
 
 interface Props {
   className?: string;
@@ -11,13 +13,17 @@ class Search extends React.Component<Props, {}> {
   public render() {
     const { className, updateSearchInput } = this.props;
     return (
-      <div className={className}>
-        <input
-          ref={updateSearchInput}
-          type="text"
-          placeholder="Jump to a location on the map..."
-        />
-      </div>
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div className={className}>
+            <input
+              ref={updateSearchInput}
+              type="text"
+              placeholder={t(lang, s => s.map.jumpToLocation)}
+            />
+          </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }

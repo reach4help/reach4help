@@ -1,0 +1,62 @@
+{
+  "title": "خريطة المساعدة المجتمعة ضد كوفيد-19",
+  "info": "لمساعدة الناس على إيجاد مجهودات المساعدة المتبادلة والانضمام إليها في مكان معيشتهم وتقديم الإلهام للبدء في بذل جهودهم، و رفع في معنوياتهم، هذه الخريطة تضم مشاريع المعونة المتبادلة للرعاية الوبائية في حالات الكوارث. ملاحظة: كل مشروع مستقل و ذاتي التنظيم؛ يستخدم العديد من جداول البيانات العامة لمشاركة المعلومات، لذا كن حذراً عند إدخال المعلومات الخاصة التي لا تريد أن تصبح في الفضاء العام.",
+  "about": "هذه الخريطة جزء من مبادرة {reach4Help}، مشروع يديره متطوعون. إنه مفتوح المصدر ويمكن وجوده ب: {githubSource}. لأي استفسارات ، يمكنك التواصل بنا عبر {email}.",
+  "githubSourceLabel": "found on GitHub",
+  "addInformation": {
+    "small": "إضافة معلومات",
+    "large": "إضافة معلومات لهذه الخريطة"
+  },
+  "buttons": {
+    "fullScreen": "ملء الشاشة",
+    "exitFullScreen": "Exit Fullscreen"
+  },
+  "loading": "Loading...",
+  "filterBy": "تصنيف بحسب:",
+  "services": {
+    "any": "الكل",
+    "financial": "التنقّل",
+    "food": "تغذية",
+    "information": "معلومات",
+    "manufacturing": "تصنيع",
+    "medicine": "دواء",
+    "mobility": "التنقّل",
+    "supplies": "لوازم أخرى",
+    "network": "Network",
+    "shelter": "مأوي",
+    "support": "المساندة"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "مجموعة المساعدة المشتركة",
+    "org": "منظمة / شركة",
+    "financial": "الأمور المالية",
+    "information": "معلومات",
+    "other": "أخرى"
+  },
+  "map": {
+    "jumpToLocation": "الانتقال إلى موقع على الخريطة...",
+    "updateResultsForThisArea": "تحديث نتائج هذا المجال",
+    "myLocation": "موقعي"
+  },
+  "results": {
+    "updateResults": {
+      "small": "تحديث النتائج",
+      "large": "تحديث نتائج منطقة الخريطة"
+    },
+    "count": "{results, plural, =0 {لا نتيجة} =1 {# نتيجة} other {# نتائج}}",
+    "contact": {
+      "general": "معلومات عامة:",
+      "getHelp": "الحصول على مساعدة:",
+      "volunteer": "تطوع:",
+      "facebookGroup": "Facebook group"
+    }
+  },
+  "lang": "اللغة:",
+  "langSelect": "اختر اللغة",
+  "footer": {
+    "netlifyNote": "هذه الخريطة {link}",
+    "netlifyLinkText": "is hosted by Netlify",
+    "githubRepo": "GitHub Repo",
+    "codeOfConduct": "Code of Conduct"
+  }
+}

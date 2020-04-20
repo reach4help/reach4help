@@ -1,0 +1,62 @@
+{
+  "title": "COVID-19 Карта Взаимопомощи",
+  "info": "Чтобы помочь людям найти и присоединиться к организациям по оказанию взаимопомощи там, где они живут, вдохновить открыть собственную и/или просто поднять дух, ниже представлен растущий список проектов по оказанию взаимопомощи при пандемических катастрофах. Примечание: каждый проект автономен и самоорганизован; многие используют публичные таблицы для обмена информацией, поэтому будьте осторожны при вводе персональной информации, если вы не хотите чтобы она оказалась в публичном доступе.",
+  "about": "Эта карта часть {reach4Help} проекта осуществляемого добровольцами. Код находится в общем доступе {githubSource}. Если у вас есть вопросы или предложения, пишите на.",
+  "githubSourceLabel": "на GitHub",
+  "addInformation": {
+    "small": "Добавить информацию",
+    "large": "Добавить информацию на карту"
+  },
+  "buttons": {
+    "fullScreen": "Полноэкранный режим",
+    "exitFullScreen": "Выйти из полноэкранного режима"
+  },
+  "loading": "Loading...",
+  "filterBy": "Filter by:",
+  "services": {
+    "any": "Все",
+    "financial": "Мобильность",
+    "food": "Продовольствие",
+    "information": "Информация",
+    "manufacturing": "Производство",
+    "medicine": "Медицина",
+    "mobility": "Мобильность",
+    "supplies": "Other Supplies",
+    "network": "Network",
+    "shelter": "Shelter",
+    "support": "Support"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "Mutual Aid Group",
+    "org": "Organization / Company",
+    "financial": "Financial",
+    "information": "Information",
+    "other": "Other"
+  },
+  "map": {
+    "jumpToLocation": "Jump to a location on the map...",
+    "updateResultsForThisArea": "Update results for this area",
+    "myLocation": "My Location"
+  },
+  "results": {
+    "updateResults": {
+      "small": "Update results",
+      "large": "Update results for map area"
+    },
+    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "contact": {
+      "general": "General Information:",
+      "getHelp": "Get Help:",
+      "volunteer": "Volunteer:",
+      "facebookGroup": "Facebook group"
+    }
+  },
+  "lang": "Язык:",
+  "langSelect": "Select Language",
+  "footer": {
+    "netlifyNote": "This map {link}",
+    "netlifyLinkText": "is hosted by Netlify",
+    "githubRepo": "GitHub Repo",
+    "codeOfConduct": "Code of Conduct"
+  }
+}
