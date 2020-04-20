@@ -1,0 +1,62 @@
+{
+  "title": "COVID-19 Mapa de Organizações de Solidariedade",
+  "info": "Seja para ajudar pessoas a encontrar ou ajudar esforços de ajuda mútua perto de onde vivem, dar inspiração para começar a sua própria, e/ou apenas elevar a alma, abaixo está uma lista de projetos de ajuda mútua face à pandemia. Nota: Cada projeto é autónomo, muitos usam documentos públicos para partilhar informação, tem cuidado ao introduzires informação privada que não queiras que seja pública.",
+  "about": "Este mapa é parte da {reach4Help}, um projeto gerido por voluntários. É de código aberto e pode ser encontrado aqui {githubSource}. Para qualquer dúvida, podes contactar-nos através de {email}.",
+  "githubSourceLabel": "found on GitHub",
+  "addInformation": {
+    "small": "Add information",
+    "large": "Add information to this map"
+  },
+  "buttons": {
+    "fullScreen": "Fullscreen",
+    "exitFullScreen": "Exit Fullscreen"
+  },
+  "loading": "Loading...",
+  "filterBy": "Filter by:",
+  "services": {
+    "any": "Any",
+    "financial": "Mobility",
+    "food": "Food",
+    "information": "Information",
+    "manufacturing": "Manufactoring",
+    "medicine": "Medicine",
+    "mobility": "Mobility",
+    "supplies": "Other Supplies",
+    "network": "Network",
+    "shelter": "Shelter",
+    "support": "Support"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "Mutual Aid Group",
+    "org": "Organization / Company",
+    "financial": "Financial",
+    "information": "Information",
+    "other": "Other"
+  },
+  "map": {
+    "jumpToLocation": "Jump to a location on the map...",
+    "updateResultsForThisArea": "Update results for this area",
+    "myLocation": "My Location"
+  },
+  "results": {
+    "updateResults": {
+      "small": "Update results",
+      "large": "Update results for map area"
+    },
+    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "contact": {
+      "general": "General Information:",
+      "getHelp": "Get Help:",
+      "volunteer": "Volunteer:",
+      "facebookGroup": "Facebook group"
+    }
+  },
+  "lang": "Language:",
+  "langSelect": "Select Language",
+  "footer": {
+    "netlifyNote": "This map {link}",
+    "netlifyLinkText": "is hosted by Netlify",
+    "githubRepo": "GitHub Repo",
+    "codeOfConduct": "Code of Conduct"
+  }
+}
