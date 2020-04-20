@@ -1,9 +1,9 @@
-import merge from 'lodash/merge';
+// import merge from 'lodash/merge';
 import React from 'react';
 
 import { Strings } from './iface';
-import en from './langs/en';
-import ru from './langs/ru';
+import en from './langs/en.json';
+// import ru from './langs/ru.json';
 
 const LOCAL_STORAGE_KEY = 'selectedLanguage';
 const QUERY_PARAM = 'lang';
