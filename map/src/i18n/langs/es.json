@@ -1,7 +1,7 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+  "title": "Mapa de ayuda mutual para COVID-19",
+  "info": "Para ayudar a la gente a unirse a redes de ayuda mutua donde viven, o inspirar a empezarlas, aquí tienen una lista de proyectos de cuidados en tiempos de pandemia. Cada proyecto es autónomo y auto-regulado; muchos usan tablas públicas para compartir información, así que tengan cuidado Al introducir información privada que no quieren que sea pública.",
+  "about": "Este mapa es parte de {reach4Help}, un proyecto administrado por voluntarios. Es de código abierto y puede ser {githubSource}. Para cualquier consulta, puedes contactarnos a través de {email}.",
   "githubSourceLabel": "found on GitHub",
   "addInformation": {
     "small": "Add information",
