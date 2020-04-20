@@ -21,8 +21,8 @@
     "manufacturing": "Manufactoring",
     "medicine": "Tıbbi Erzak",
     "mobility": "Mobility",
-    "supplies": "Other Supplies",
-    "network": "Network",
+    "supplies": "Diğer",
+    "network": "İletişim",
     "shelter": "Barınma",
     "support": "Support"
   },
@@ -30,8 +30,8 @@
     "mutual-aid-group": "Mutual Aid Group",
     "org": "Organization / Company",
     "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "information": "Bilgilendirme",
+    "other": "Diğer"
   },
   "map": {
     "jumpToLocation": "Jump to a location on the map...",
@@ -52,7 +52,7 @@
     }
   },
   "lang": "Dil:",
-  "langSelect": "Select Language",
+  "langSelect": "Bir dil seçin",
   "footer": {
     "netlifyNote": "This map {link}",
     "netlifyLinkText": "is hosted by Netlify",
