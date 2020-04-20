@@ -47,16 +47,16 @@
     "contact": {
       "general": "Información general:",
       "getHelp": "Conseguir ayuda:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "volunteer": "Voluntariado:",
+      "facebookGroup": "Grupo Facebook"
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "Idioma:",
+  "langSelect": "Seleccionar Idioma",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
-    "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct"
+    "netlifyNote": "Este mapa {link}",
+    "netlifyLinkText": "está alojado por Netlify",
+    "githubRepo": "Repositorio de GitHub",
+    "codeOfConduct": "Código de conducta"
   }
 }
