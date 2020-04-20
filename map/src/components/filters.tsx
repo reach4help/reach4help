@@ -51,7 +51,7 @@ class Filters extends React.Component<Props, {}> {
 
 export default styled(Filters)`
   select {
-    margin-left: 5px;
+    margin: 0 5px;
     ${buttonPrimary};
     padding: 7px 11px;
 

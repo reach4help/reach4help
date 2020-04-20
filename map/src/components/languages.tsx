@@ -42,7 +42,7 @@ class Languages extends React.Component<Props, {}> {
 
 export default styled(Languages)`
   select {
-    margin-left: 5px;
+    margin: 0 5px;
     ${buttonPrimary};
     padding: 7px 11px;
 
