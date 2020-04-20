@@ -155,7 +155,10 @@ class App extends React.Component<Props, State> {
       resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
       <AppContext.Provider value={{ lang }}>
-        <div className={className + (fullScreen ? ' fullscreen' : '')}>
+        <div
+          dir={i18n.getMeta(lang).direction}
+          className={className + (fullScreen ? ' fullscreen' : '')}
+        >
           <Helmet>
             {i18n.LANGUAGE_KEYS.map((langKey, i) => (
               <link

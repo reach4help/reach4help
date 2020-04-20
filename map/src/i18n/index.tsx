@@ -146,3 +146,5 @@ export const canonicalUrl = (lang: Language) => {
   url.searchParams.set(QUERY_PARAM, lang);
   return url.href;
 };
+
+export const getMeta = (lang: Language) => LANGUAGES[lang].meta;

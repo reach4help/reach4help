@@ -5,6 +5,7 @@ import strings from './en.json';
 const LANG: Language = {
   meta: {
     name: 'English',
+    direction: 'ltr',
   },
   strings,
 };

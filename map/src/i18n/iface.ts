@@ -15,6 +15,10 @@ type PartialStrings = RecursivePartial<Strings>;
 interface L<Strings> {
   meta: {
     name: string;
+    /**
+     * What direction does this language use? Right-To-Left of Left-To-Right?
+     */
+    direction: 'rtl' | 'ltr';
   };
   strings: Strings;
 }
