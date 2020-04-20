@@ -1,23 +1,26 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-  "githubSourceLabel": "found on GitHub",
-  "mdAdd1": "Add information",
-  "mdAdd2": "to this map",
-  "buttons": {
-    "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+  "title": "COVID-19 Карта Взаимопомощи",
+  "info": "Чтобы помочь людям найти и присоединиться к организациям по оказанию взаимопомощи там, где они живут, вдохновить открыть собственную и/или просто поднять дух, ниже представлен растущий список проектов по оказанию взаимопомощи при пандемических катастрофах. Примечание: каждый проект автономен и самоорганизован; многие используют публичные таблицы для обмена информацией, поэтому будьте осторожны при вводе персональной информации, если вы не хотите чтобы она оказалась в публичном доступе.",
+  "about": "Эта карта часть {reach4Help} проекта осуществляемого добровольцами. Код находится в общем доступе {githubSource}. Если у вас есть вопросы или предложения, пишите на.",
+  "githubSourceLabel": "на GitHub",
+  "addInformation": {
+    "small": "Add information",
+    "large": "Add information to this map"
   },
-  "filter": "Filter by need:",
+  "buttons": {
+    "fullScreen": "Полноэкранный режим",
+    "exitFullScreen": "Выйти из полноэкранного режима"
+  },
+  "loading": "Loading...",
+  "filterBy": "Filter by:",
   "services": {
-    "any": "Any",
-    "financial": "Mobility",
-    "food": "Food",
-    "information": "Information",
-    "manufacturing": "Manufactoring",
-    "medicine": "Medicine",
-    "mobility": "Mobility",
+    "any": "Все",
+    "financial": "Мобильность",
+    "food": "Продовольствие",
+    "information": "Информация",
+    "manufacturing": "Производство",
+    "medicine": "Медицина",
+    "mobility": "Мобильность",
     "supplies": "Other Supplies",
     "network": "Network",
     "shelter": "Shelter",
@@ -30,11 +33,29 @@
     "information": "Information",
     "other": "Other"
   },
-  "lang": "Language:",
+  "map": {
+    "jumpToLocation": "Jump to a location on the map...",
+    "updateResultsForThisArea": "Update results for this area",
+    "myLocation": "My Location"
+  },
+  "results": {
+    "updateResults": {
+      "small": "Update results",
+      "large": "Update results for map area"
+    },
+    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "contact": {
+      "general": "General Information:",
+      "getHelp": "Get Help:",
+      "volunteer": "Volunteer:",
+      "facebookGroup": "Facebook group"
+    }
+  },
+  "lang": "Язык:",
   "langSelect": "Select Language",
   "footer": {
     "netlifyNote": "This map {link}",
-    "natlifyLinkText": "is hosted by Netlify",
+    "netlifyLinkText": "is hosted by Netlify",
     "githubRepo": "GitHub Repo",
     "codeOfConduct": "Code of Conduct"
   }
