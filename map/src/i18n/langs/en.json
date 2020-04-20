@@ -34,7 +34,7 @@
   "langSelect": "Select Language",
   "footer": {
     "netlifyNote": "This map {link}",
-    "natlifyLinkText": "is hosted by Netlify",
+    "netlifyLinkText": "is hosted by Netlify",
     "githubRepo": "GitHub Repo",
     "codeOfConduct": "Code of Conduct"
   }

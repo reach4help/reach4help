@@ -28,7 +28,7 @@ const Footer = () => (
           {t(lang, s => s.footer.netlifyNote, {
             link: (
               <a href="https://www.netlify.com/">
-                {t(lang, s => s.footer.natlifyLinkText)}
+                {t(lang, s => s.footer.netlifyLinkText)}
               </a>
             ),
           })}
