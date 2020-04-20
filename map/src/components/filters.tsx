@@ -31,7 +31,7 @@ class Filters extends React.Component<Props, {}> {
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
-            Filter by marker:
+            {t(lang, s => s.filterBy)}
             <select onChange={this.changeService} value={filter.type || ''}>
               <option key="all" value="">
                 {t(lang, s => s.services.any)}

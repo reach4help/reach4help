@@ -15,6 +15,7 @@ import Search from './components/search';
 import { Filter } from './data';
 import { MarkerInfo } from './data/markers';
 import styled, {
+  CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
   SMALL_DEVICES,
@@ -155,7 +156,10 @@ class App extends React.Component<Props, State> {
       resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
       <AppContext.Provider value={{ lang }}>
-        <div className={className + (fullScreen ? ' fullscreen' : '')}>
+        <div
+          dir={i18n.getMeta(lang).direction}
+          className={className + (fullScreen ? ' fullscreen' : '')}
+        >
           <Helmet>
             {i18n.LANGUAGE_KEYS.map((langKey, i) => (
               <link
@@ -354,6 +358,12 @@ export default styled(App)`
 
     ${LARGE_DEVICES} {
       display: initial;
+    }
+  }
+
+  .${CLS_SCREEN_LG_HIDE} {
+    ${LARGE_DEVICES} {
+      display: none;
     }
   }
 `;

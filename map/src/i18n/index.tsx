@@ -1,9 +1,10 @@
-import merge from 'lodash/merge';
+// import merge from 'lodash/merge';
+import IntlMessageFormat from 'intl-messageformat';
 import React from 'react';
 
 import { Strings } from './iface';
 import en from './langs/en';
-import ru from './langs/ru';
+// import ru from './langs/ru';
 
 const LOCAL_STORAGE_KEY = 'selectedLanguage';
 const QUERY_PARAM = 'lang';
@@ -12,7 +13,7 @@ export const LANGUAGES = {
   en,
   // Fill in missing russian strings with english
   // TODO: re-enable russian when whole app is translated
-  ru: merge({}, en, ru),
+  // ru: merge({}, en, ru),
 };
 
 export type Language = keyof typeof LANGUAGES;
@@ -105,13 +106,23 @@ interface Placeholders {
   [key: string]: JSX.Element;
 }
 
+interface FormatValues {
+  [key: string]: number | string;
+}
+
 const placeholderExtraction = /^([^{]*)\{(\w+)\}(.*)/;
 
-export const t = (
+export function t(lang: Language, extract: (s: Strings) => string): string;
+export function t(
+  lang: Language,
+  extract: (s: Strings) => string,
+  placeholders: Placeholders,
+): JSX.Element[];
+export function t(
   lang: Language,
   extract: (s: Strings) => string,
   placeholders?: Placeholders,
-) => {
+) {
   const str = extract(LANGUAGES[lang].strings);
   if (!placeholders) {
     return str;
@@ -138,6 +149,25 @@ export const t = (
     }
   }
   return components;
+}
+
+const formatCache = new Map<string, Map<string, IntlMessageFormat>>();
+
+export const format = (
+  lang: Language,
+  extract: (s: Strings) => string,
+  values: FormatValues,
+) => {
+  const str = extract(LANGUAGES[lang].strings);
+  let langCache = formatCache.get(lang);
+  if (!langCache) {
+    formatCache.set(lang, (langCache = new Map()));
+  }
+  let cache = langCache.get(str);
+  if (!cache) {
+    langCache.set(str, (cache = new IntlMessageFormat(str, lang)));
+  }
+  return cache.format(values);
 };
 
 export const canonicalUrl = (lang: Language) => {
@@ -146,3 +176,5 @@ export const canonicalUrl = (lang: Language) => {
   url.searchParams.set(QUERY_PARAM, lang);
   return url.href;
 };
+
+export const getMeta = (lang: Language) => LANGUAGES[lang].meta;
