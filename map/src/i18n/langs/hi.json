@@ -12,43 +12,43 @@
     "exitFullScreen": "पूर्ण स्क्रीन से बाहर निकलें"
   },
   "loading": "लोड हो रहा है...",
-  "filterBy": "Filter by:",
+  "filterBy": "श्रेणी के अनुसार छाने",
   "services": {
-    "any": "Any",
+    "any": "विभिन्न",
     "financial": "Mobility",
-    "food": "Food",
-    "information": "Information",
-    "manufacturing": "Manufactoring",
-    "medicine": "Medicine",
+    "food": "खान पान",
+    "information": "सूचना",
+    "manufacturing": "उत्पादन",
+    "medicine": "दवा",
     "mobility": "Mobility",
-    "supplies": "Other Supplies",
+    "supplies": "अन्य आपूर्तियाँ",
     "network": "Network",
-    "shelter": "Shelter",
-    "support": "Support"
+    "shelter": "आश्रय",
+    "support": "सहयोग"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "म्यूचुअल एड ग्रुप",
+    "org": "संस्था / समिति",
+    "financial": "वित्तीय",
+    "information": "जानकारी",
+    "other": "अन्य"
   },
   "map": {
     "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "updateResultsForThisArea": "इस क्षेत्र के लिए नतीजे अपडेट करें",
+    "myLocation": "मेरा स्थान"
   },
   "results": {
     "updateResults": {
-      "small": "Update results",
-      "large": "Update results for map area"
+      "small": "नतीजे अपडेट करें",
+      "large": "नक़्शे के क्षेत्र के लिए नतीजे अपडेट करें"
     },
     "count": "{results, plural, =1 {1 result} other {# results}}",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "सामान्य सूचना",
+      "getHelp": "मदद लें:",
+      "volunteer": "स्वयंसेवक",
+      "facebookGroup": "फेसबुक ग्रुप"
     }
   },
   "lang": "Language:",
