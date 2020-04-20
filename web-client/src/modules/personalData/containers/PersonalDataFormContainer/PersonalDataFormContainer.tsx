@@ -108,7 +108,7 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
           handleFormSubmit={handleFormSubmit}
           user={user}
           profile={profileState.profile}
-          priviledgedInfo={profileState.privilegedInformation}
+          privilegedInfo={profileState.privilegedInformation}
         />
       )}
       {typeof Geocoder === 'undefined' && (

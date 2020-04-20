@@ -59,7 +59,7 @@ interface NewRequestProps {
   handleFormSubmit: Function;
   user: firebase.User | null | undefined;
   profile: firebase.firestore.DocumentData | undefined;
-  priviledgedInfo: firebase.firestore.DocumentData | undefined;
+  privilegedInfo: firebase.firestore.DocumentData | undefined;
 }
 
 export interface IPersonalData {
@@ -75,7 +75,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   handleFormSubmit,
   user,
   profile,
-  priviledgedInfo,
+  privilegedInfo,
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -106,7 +106,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
     undefined,
   );
 
-  const [geolocationAvailabe, setGeoAvailable] = useState<boolean | undefined>(
+  const [geolocationAvailable, setGeoAvailable] = useState<boolean | undefined>(
     undefined,
   );
   const [geolocationAuthorized, setGeoAuthorized] = useState<
@@ -200,7 +200,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
         setFullName(profile.displayName);
       }
     }
-  }, [user, profile, priviledgedInfo]);
+  }, [user, profile, privilegedInfo]);
 
   useEffect(() => {
     if (acceptToUsePhoto) {
@@ -314,7 +314,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
         </Row>
         <Row>
           <Col span="24" style={{ textAlign: 'center' }}>
-            {geolocationAuthorized !== false && geolocationAvailabe && (
+            {geolocationAuthorized !== false && geolocationAvailable && (
               <>
                 <Button
                   loading={isLoading}
