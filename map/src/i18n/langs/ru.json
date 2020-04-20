@@ -1,46 +1,41 @@
 {
-  "meta": {
-    "name": "Русский"
+  "title": "COVID-19 Mutual Aid Map",
+  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+  "githubSourceLabel": "found on GitHub",
+  "mdAdd1": "Add information",
+  "mdAdd2": "to this map",
+  "buttons": {
+    "fullScreen": "Fullscreen",
+    "exitFullScreen": "Exit Fullscreen"
   },
-  "strings": {
-    "title": "COVID-19 Карта Взаимопомощи",
-    "info": "Чтобы помочь людям найти и присоединиться к организациям по оказанию взаимопомощи там, где они живут, вдохновить открыть собственную и/или просто поднять дух, ниже представлен растущий список проектов по оказанию взаимопомощи при пандемических катастрофах. Примечание: каждый проект автономен и самоорганизован; многие используют публичные таблицы для обмена информацией, поэтому будьте осторожны при вводе персональной информации, если вы не хотите чтобы она оказалась в публичном доступе.",
-    "about": "Эта карта часть {reach4Help} проекта осуществляемого добровольцами. Код находится в общем доступе {githubSource}. Если у вас есть вопросы или предложения, пишите на",
-    "githubSourceLabel": "на GitHub",
-    "mdAdd1": "Добавить информацию",
-    "mdAdd2": "на карту",
-    "buttons": {
-      "fullScreen": "Полноэкранный режим",
-      "exitFullScreen": "Выйти из полноэкранного режима"
-    },
-    "filter": "Выбрать:",
-    "services": {
-      "any": "Все",
-      "financial": "Финансорование",
-      "food": "Продовольствие",
-      "information": "Информация",
-      "manufacturing": "Производство",
-      "medicine": "Медицина",
-      "mobility": "Мобильность",
-      "supplies": "Предметы снабжения",
-      "network": "Network",
-      "shelter": "Shelter",
-      "support": "Support"
-    },
-    "markerTypes": {
-      "mutual-aid-group": "Mutual Aid Group",
-      "org": "Organization / Company",
-      "financial": "Financial",
-      "information": "Information",
-      "other": "Other"
-    },
-    "lang": "Язык:",
-    "langSelect": "Выберите язык",
-    "footer": {
-      "netlifyNote": "This map {link}",
-      "natlifyLinkText": "is hosted by Netlify",
-      "githubRepo": "GitHub Repo",
-      "codeOfConduct": "Code of Conduct"
-    }
+  "filter": "Filter by need:",
+  "services": {
+    "any": "Any",
+    "financial": "Mobility",
+    "food": "Food",
+    "information": "Information",
+    "manufacturing": "Manufactoring",
+    "medicine": "Medicine",
+    "mobility": "Mobility",
+    "supplies": "Other Supplies",
+    "network": "Network",
+    "shelter": "Shelter",
+    "support": "Support"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "Mutual Aid Group",
+    "org": "Organization / Company",
+    "financial": "Financial",
+    "information": "Information",
+    "other": "Other"
+  },
+  "lang": "Language:",
+  "langSelect": "Select Language",
+  "footer": {
+    "netlifyNote": "This map {link}",
+    "natlifyLinkText": "is hosted by Netlify",
+    "githubRepo": "GitHub Repo",
+    "codeOfConduct": "Code of Conduct"
   }
 }
