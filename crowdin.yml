@@ -1,0 +1,6 @@
+files: [
+  {
+    source : "/map/src/i18n/langs/en.ts",
+    translation : "/map/src/i18n/langs/%two_letters_code%.ts"
+  }
+]
