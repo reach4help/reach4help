@@ -1,6 +1,6 @@
 {
   "title": "COVID-19 Karşılıklı Yardımlaşma Haritası",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+  "info": "Çevrendeki insanların bölgelerindeki karşılıklı yardım gruplarını bulmalarına yardımcı olabilir ya da onlara bir yardımlaşma ağı yaratmaları için ilham verebilirsin. Aşağıda çeşitli pandemi yardımlaşma gruplarının bir listesi bulunmaktadır. Not: Herbir proje bağımsızdır ve birçoğu bilgileri herkes tarafından erişilebilen dökümanlarda tutmaktadır. Bu nedenle paylaşılmasını istemediğiniz kişisel verilerinizi verirken dikkatli olun.",
   "about": "Bu harita {reach4Help} projesinin bir parçasıdır. Proje açık kaynak olarak gönüllülerce yürütülmektedir. Kaynak kodlar {githubSource}. Herhangi bir talebiniz için {email} üzerinden iletişime geçebilirsiniz.",
   "githubSourceLabel": "GitHub'da bulunmaktadır",
   "addInformation": {
