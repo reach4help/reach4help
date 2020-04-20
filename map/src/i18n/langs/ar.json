@@ -4,57 +4,57 @@
   "about": "هذه الخريطة جزء من مبادرة {reach4Help}، مشروع يديره متطوعون. إنه مفتوح المصدر ويمكن وجوده ب: {githubSource}. لأي استفسارات ، يمكنك التواصل بنا عبر {email}.",
   "githubSourceLabel": "found on GitHub",
   "addInformation": {
-    "small": "Add information",
-    "large": "Add information to this map"
+    "small": "إضافة معلومات",
+    "large": "إضافة معلومات لهذه الخريطة"
   },
   "buttons": {
-    "fullScreen": "Fullscreen",
+    "fullScreen": "ملء الشاشة",
     "exitFullScreen": "Exit Fullscreen"
   },
   "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "filterBy": "تصنيف بحسب:",
   "services": {
-    "any": "Any",
-    "financial": "Mobility",
-    "food": "Food",
-    "information": "Information",
-    "manufacturing": "Manufactoring",
-    "medicine": "Medicine",
-    "mobility": "Mobility",
-    "supplies": "Other Supplies",
+    "any": "الكل",
+    "financial": "التنقّل",
+    "food": "تغذية",
+    "information": "معلومات",
+    "manufacturing": "تصنيع",
+    "medicine": "دواء",
+    "mobility": "التنقّل",
+    "supplies": "لوازم أخرى",
     "network": "Network",
-    "shelter": "Shelter",
-    "support": "Support"
+    "shelter": "مأوي",
+    "support": "المساندة"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "مجموعة المساعدة المشتركة",
+    "org": "منظمة / شركة",
+    "financial": "الأمور المالية",
+    "information": "معلومات",
+    "other": "أخرى"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "الانتقال إلى موقع على الخريطة...",
+    "updateResultsForThisArea": "تحديث نتائج هذا المجال",
+    "myLocation": "موقعي"
   },
   "results": {
     "updateResults": {
-      "small": "Update results",
-      "large": "Update results for map area"
+      "small": "تحديث النتائج",
+      "large": "تحديث نتائج منطقة الخريطة"
     },
     "count": "{results, plural, =1 {1 result} other {# results}}",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
+      "general": "معلومات عامة:",
+      "getHelp": "الحصول على مساعدة:",
+      "volunteer": "تطوع:",
       "facebookGroup": "Facebook group"
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "اللغة:",
+  "langSelect": "اختر اللغة",
   "footer": {
-    "netlifyNote": "This map {link}",
+    "netlifyNote": "هذه الخريطة {link}",
     "netlifyLinkText": "is hosted by Netlify",
     "githubRepo": "GitHub Repo",
     "codeOfConduct": "Code of Conduct"
