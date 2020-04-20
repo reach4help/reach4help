@@ -1,6 +1,6 @@
 {
   "title": "Carte d'entraide face au COVID-19",
-  "info": "Afin d'aider les gens à trouver de l'aide et à joindre leurs efforts d'entraide là où ils vivent, vous trouverez, ci-dessous, une liste de d'organisation fournissant aide et assistance en cas de pandémie. N.B. : Chaque projet est autonome et auto-organisé ; Beaucoup utilisent des feuilles de calcul publiques pour partager des informations. Nous vous recommandons d'être prudents lorsque vous saisissez vos informations privées.",
+  "info": "Afin d'aider les gens à trouver de l'aide, à joindre leurs efforts pour s'entraider près de chez eux, leur donner envie de lancer leur propre initiative, et/ou simplement de se remonter le moral, voici une liste de projets d'entraide pour faire face à cette pandémie. N.B.: Chaque projet est autonome et indépendant ; Beaucoup utilisent des feuilles de calcul publiques pour partager des informations. Nous vous recommandons d'être prudents lorsque vous saisissez des informations privées.",
   "about": "Cette carte fait partie de {reach4Help}, un projet porté par des volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter à l'adresse {email}.",
   "githubSourceLabel": "trouvée sur GitHub",
   "addInformation": {
@@ -12,7 +12,7 @@
     "exitFullScreen": "Quitter le plein écran"
   },
   "loading": "Chargement en cours...",
-  "filterBy": "Filtrer par :",
+  "filterBy": "Filtrer par:",
   "services": {
     "any": "Tous",
     "financial": "Mobilité",
@@ -40,7 +40,7 @@
   },
   "results": {
     "updateResults": {
-      "small": "Actualiser les résultats",
+      "small": "Mettre les résultats à jour",
       "large": "Mettre à jour les résultats pour cette zone"
     },
     "count": "{results, plural, \n =1 {# résultat}\n other {# résultats}}",
