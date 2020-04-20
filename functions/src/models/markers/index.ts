@@ -1,8 +1,9 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsArray, IsObject, IsString } from 'class-validator';
 import { firestore } from 'firebase';
+// TODO: Decide how to add this in.
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Service } from 'map/src/data';
+import { MarkerType } from 'map/src/data';
 import DocumentData = firestore.DocumentData;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
@@ -56,7 +57,7 @@ export interface IMarker extends DocumentData {
   /** a list of services provided -- at least one is required :
    *  food | supplies | aid | mobility | medicine | manufacturing | financial | information
    */
-  services: Service[];
+  type: MarkerType;
   /**
    * the different avenues with which to contact an organization,
    * depending on your desired involvement
@@ -69,12 +70,12 @@ export interface IMarker extends DocumentData {
 }
 
 export class Marker implements IMarker {
-  constructor(contact: ContactGroup, contentTitle: string, contentBody: string, loc: Location, services: Service[] = []) {
+  constructor(contact: ContactGroup, contentTitle: string, contentBody: string, loc: Location, type: MarkerType) {
     this._contact = contact;
     this._contentTitle = contentTitle;
     this._contentBody = contentBody;
     this._loc = loc;
-    this._services = services;
+    this._type = type;
   }
 
   @IsObject()
@@ -122,14 +123,14 @@ export class Marker implements IMarker {
   }
 
   @IsArray()
-  private _services: Service[];
+  private _type: MarkerType;
 
-  get services(): Service[] {
-    return this._services;
+  get type(): MarkerType {
+    return this._type;
   }
 
-  set services(value: Service[]) {
-    this._services = value;
+  set type(value: MarkerType) {
+    this._type = value;
   }
 
   static factory = (data: IMarker): Marker => {
@@ -138,7 +139,7 @@ export class Marker implements IMarker {
       data.contentTitle,
       data.contentBody || '',
       data.loc,
-      data.services,
+      data.type,
     );
   };
 
@@ -148,7 +149,7 @@ export class Marker implements IMarker {
       contentTitle: this.contentTitle,
       contentBody: this.contentBody,
       loc: this.loc,
-      services: this.services,
+      services: this.type,
     };
   }
 }
