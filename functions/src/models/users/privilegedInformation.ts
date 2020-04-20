@@ -13,11 +13,12 @@ interface IUserAddress {
   city?: string;
   state?: string;
   country?: string;
+  coords?: firebase.firestore.GeoPoint;
 }
 
 export interface IPrivilegedUserInformation extends DocumentData {
   addressFromGoogle: google.maps.GeocoderResult;
-  addressFromUser: IUserAddress
+  address: IUserAddress
   termsAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
   privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
@@ -28,14 +29,14 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   constructor(
     addressFromGoogle: google.maps.GeocoderResult,
-    addressFromUser: IUserAddress, 
+    address: IUserAddress, 
     privacyAccepted: Timestamp,
     privacyVersion: string,
     termsAccepted: Timestamp,
     termsVersion: string,
   ) {
     this._addressFromGoogle = addressFromGoogle;
-    this._addressFromUser = addressFromUser;
+    this._address = address;
     this._privacyAccepted = privacyAccepted;
     this._privacyVersion = privacyVersion;
     this._termsAccepted = termsAccepted;
@@ -54,14 +55,14 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _addressFromUser : IUserAddress;
+  private _address : IUserAddress;
 
-  get addressFromUser(): IUserAddress {
-    return this._addressFromUser;
+  get address(): IUserAddress {
+    return this._address;
   }
 
-  set addressFromUser(value: IUserAddress) {
-    this._addressFromUser = value;
+  set address(value: IUserAddress) {
+    this._address = value;
   }
 
   @IsObject()
@@ -111,7 +112,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   static factory = (data: IPrivilegedUserInformation): PrivilegedUserInformation =>
     new PrivilegedUserInformation(
       data.addressFromGoogle,
-      data.addressFromUser,
+      data.address,
       data.privacyAccepted,
       data.privacyVersion,
       data.termsAccepted,
@@ -121,7 +122,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   toObject(): object {
     return {
       addressFromGoogle: this.addressFromGoogle,
-      addressFromUser: this.addressFromUser,
+      address: this.address,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,
@@ -137,7 +138,7 @@ export const PrivilegedUserInformationFirestoreConverter: FirestoreDataConverter
   toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => {
     return {
       addressFromGoogle: modelObject.addressFromGoogle,
-      addressFromUser: modelObject.addressFromUser,
+      address: modelObject.address,
       privacyAccepted: modelObject.privacyAccepted,
       privacyVersion: modelObject.privacyVersion,
       termsAccepted: modelObject.termsAccepted,
