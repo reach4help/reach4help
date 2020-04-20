@@ -1,9 +1,9 @@
-import merge from 'lodash/merge';
+// import merge from 'lodash/merge';
 import React from 'react';
 
 import { Strings } from './iface';
 import en from './langs/en';
-import ru from './langs/ru';
+// import ru from './langs/ru';
 
 const LOCAL_STORAGE_KEY = 'selectedLanguage';
 const QUERY_PARAM = 'lang';
@@ -12,7 +12,7 @@ export const LANGUAGES = {
   en,
   // Fill in missing russian strings with english
   // TODO: re-enable russian when whole app is translated
-  ru: merge({}, en, ru),
+  // ru: merge({}, en, ru),
 };
 
 export type Language = keyof typeof LANGUAGES;
