@@ -1,19 +1,22 @@
-// import merge from 'lodash/merge';
 import IntlMessageFormat from 'intl-messageformat';
+import merge from 'lodash/merge';
 import React from 'react';
 
 import { Strings } from './iface';
+import ar from './langs/ar';
 import en from './langs/en';
-// import ru from './langs/ru';
+import fr from './langs/fr';
+import pt from './langs/pt';
 
 const LOCAL_STORAGE_KEY = 'selectedLanguage';
 const QUERY_PARAM = 'lang';
 
 export const LANGUAGES = {
   en,
-  // Fill in missing russian strings with english
-  // TODO: re-enable russian when whole app is translated
-  // ru: merge({}, en, ru),
+  // Fill in missing strings with english
+  ar: merge({}, en, ar),
+  fr: merge({}, en, fr),
+  pt: merge({}, en, pt),
 };
 
 export type Language = keyof typeof LANGUAGES;
