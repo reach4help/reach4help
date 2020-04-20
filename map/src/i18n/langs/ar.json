@@ -43,7 +43,7 @@
       "small": "تحديث النتائج",
       "large": "تحديث نتائج منطقة الخريطة"
     },
-    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "count": "{results, plural, =0 {لا نتيجة} =1 {# نتيجة} other {# نتائج}}",
     "contact": {
       "general": "معلومات عامة:",
       "getHelp": "الحصول على مساعدة:",
