@@ -5,6 +5,6 @@ import ContentPage from './pages/ContentPage';
 const requestModule: Module = {
   path: '/requests',
   component: ContentPage,
-  protected: true,
+  protected: false,
 };
 export default requestModule;
