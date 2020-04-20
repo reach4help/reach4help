@@ -243,6 +243,12 @@ const LOCATIONS = {
       lng: -108.554731,
       serviceRadius: 11820,
     },
+    CO_CARBONDALE: {
+      description: 'Carbondale, Colorado',
+      lat: 39.40057,
+      lng: -107.2135,
+      serviceRadius: 8046,
+    },
     CT_HBWNH: {
       description:
         'Connecticut: Hartford, Bridgeport, Waterbury, and New Haven',
@@ -458,6 +464,22 @@ export const MARKERS: MarkerInfo[] = [
       },
     },
     loc: LOCATIONS.USA.CA_LA,
+  },
+  {
+    contentTitle: 'Carbondale Colorado Mutual Aid',
+    type: {
+      type: 'mutual-aid-group',
+    },
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/CarbondaleCOMutualAid/',
+        web: {
+          'Carbondale Task Force':
+            'https://www.carbondalegov.org/government/emergency/index.php',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO_CARBONDALE,
   },
   {
     contentTitle: 'Birmingham Mutual Aid',

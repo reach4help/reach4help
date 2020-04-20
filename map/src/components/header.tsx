@@ -4,7 +4,11 @@ import { Filter } from 'src/data';
 import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
 
-import styled, { CLS_SCREEN_LG_ONLY, SMALL_DEVICES } from '../styling';
+import styled, {
+  CLS_SCREEN_LG_HIDE,
+  CLS_SCREEN_LG_ONLY,
+  SMALL_DEVICES,
+} from '../styling';
 import { AppContext } from './context';
 import Filters, { FilterMutator } from './filters';
 import Languages from './languages';
@@ -81,9 +85,11 @@ const Header = (props: Props) => {
             >
               <MdAdd className="icon icon-left" />
               <span>
-                {t(lang, s => s.mdAdd1)}
+                <span className={CLS_SCREEN_LG_HIDE}>
+                  {t(lang, s => s.addInformation.small)}
+                </span>
                 <span className={CLS_SCREEN_LG_ONLY}>
-                  &nbsp;{t(lang, s => s.mdAdd2)}
+                  {t(lang, s => s.addInformation.large)}
                 </span>
               </span>
             </button>

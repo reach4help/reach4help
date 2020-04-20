@@ -28,6 +28,10 @@ export const iconButton = css`
 
     &.icon-left {
       margin: -4px 4px -4px -8px;
+
+      [dir='rtl'] & {
+        margin: -4px -8px -4px 4px;
+      }
     }
   }
 `;

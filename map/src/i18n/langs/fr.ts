@@ -1,10 +1,10 @@
 /* eslint max-len: 0 */
 import { PartialLanguage } from '../iface';
-import strings from './ru.json';
+import strings from './fr.json';
 
 const LANG: PartialLanguage = {
   meta: {
-    name: 'Русский',
+    name: 'Français',
     direction: 'ltr',
   },
   strings,

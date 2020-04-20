@@ -1,0 +1,62 @@
+{
+  "title": "Carte d'entraide face au COVID-19",
+  "info": "Afin d'aider les gens à trouver de l'aide et à joindre leurs efforts d'entraide là où ils vivent, vous trouverez, ci-dessous, une liste de d'organisation fournissant aide et assistance en cas de pandémie. N.B. : Chaque projet est autonome et auto-organisé ; Beaucoup utilisent des feuilles de calcul publiques pour partager des informations. Nous vous recommandons d'être prudents lorsque vous saisissez vos informations privées.",
+  "about": "Cette carte fait partie de {reach4Help}, un projet porté par des volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter à l'adresse {email}.",
+  "githubSourceLabel": "trouvée sur GitHub",
+  "addInformation": {
+    "small": "Add information",
+    "large": "Add information to this map"
+  },
+  "buttons": {
+    "fullScreen": "Plein écran",
+    "exitFullScreen": "Quitter le plein écran"
+  },
+  "loading": "Loading...",
+  "filterBy": "Filter by:",
+  "services": {
+    "any": "Tous",
+    "financial": "Mobilité",
+    "food": "Alimentation",
+    "information": "Renseignements ",
+    "manufacturing": "Production",
+    "medicine": "Santé",
+    "mobility": "Mobilité",
+    "supplies": "Autres Fournitures",
+    "network": "Réseau",
+    "shelter": "Refuge",
+    "support": "Support"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "Groupe d’entraide",
+    "org": "Organisation / Entreprise",
+    "financial": "Financier",
+    "information": "Renseignements",
+    "other": "Autres "
+  },
+  "map": {
+    "jumpToLocation": "Jump to a location on the map...",
+    "updateResultsForThisArea": "Update results for this area",
+    "myLocation": "My Location"
+  },
+  "results": {
+    "updateResults": {
+      "small": "Update results",
+      "large": "Update results for map area"
+    },
+    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "contact": {
+      "general": "General Information:",
+      "getHelp": "Get Help:",
+      "volunteer": "Volunteer:",
+      "facebookGroup": "Facebook group"
+    }
+  },
+  "lang": "Language:",
+  "langSelect": "Select Language",
+  "footer": {
+    "netlifyNote": "Cette carte {link}",
+    "netlifyLinkText": "is hosted by Netlify",
+    "githubRepo": "Dépôt GitHub",
+    "codeOfConduct": "Code de conduite"
+  }
+}

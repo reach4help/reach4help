@@ -1,0 +1,62 @@
+{
+  "title": "COVID-19 Karşılıklı Yardımlaşma Haritası",
+  "info": "Çevrendeki insanların bölgelerindeki karşılıklı yardım gruplarını bulmalarına yardımcı olabilir ya da onlara bir yardımlaşma ağı yaratmaları için ilham verebilirsin. Aşağıda çeşitli pandemi yardımlaşma gruplarının bir listesi bulunmaktadır. Not: Herbir proje bağımsızdır ve birçoğu bilgileri herkes tarafından erişilebilen dökümanlarda tutmaktadır. Bu nedenle paylaşılmasını istemediğiniz kişisel verilerinizi verirken dikkatli olun.",
+  "about": "Bu harita {reach4Help} projesinin bir parçasıdır. Proje açık kaynak olarak gönüllülerce yürütülmektedir. Kaynak kodlar {githubSource}. Herhangi bir talebiniz için {email} üzerinden iletişime geçebilirsiniz.",
+  "githubSourceLabel": "GitHub'da bulunmaktadır",
+  "addInformation": {
+    "small": "Add information",
+    "large": "Add information to this map"
+  },
+  "buttons": {
+    "fullScreen": "Tam Ekran",
+    "exitFullScreen": "Tam Ekrandan Çık"
+  },
+  "loading": "Yükleniyor...",
+  "filterBy": "Filtrele:",
+  "services": {
+    "any": "Tümü",
+    "financial": "Mobility",
+    "food": "Gıda",
+    "information": "Bilgilendirme",
+    "manufacturing": "Manufactoring",
+    "medicine": "Tıbbi Erzak",
+    "mobility": "Mobility",
+    "supplies": "Diğer İhtiyaçlar",
+    "network": "İletişim",
+    "shelter": "Barınma",
+    "support": "Destek"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "Karşılıklı Yardımlaşma Grubu",
+    "org": "Organizasyon / Kurum",
+    "financial": "Finansal",
+    "information": "Bilgilendirme",
+    "other": "Diğer"
+  },
+  "map": {
+    "jumpToLocation": "Haritadaki bir bölgeye geç...",
+    "updateResultsForThisArea": "Bu bölge için sonuçları göster",
+    "myLocation": "Konumum"
+  },
+  "results": {
+    "updateResults": {
+      "small": "Sonuçları güncelle",
+      "large": "Harita üzerindeki bölge için sonuçları getir"
+    },
+    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "contact": {
+      "general": "Genel Bilgiler:",
+      "getHelp": "Yardım Al:",
+      "volunteer": "Gönüllü:",
+      "facebookGroup": "Facebook Grubu"
+    }
+  },
+  "lang": "Dil:",
+  "langSelect": "Bir dil seçin",
+  "footer": {
+    "netlifyNote": "Bu harita {link}",
+    "netlifyLinkText": "Netlify sunucularında barındırılmaktadır",
+    "githubRepo": "GitHub Repo",
+    "codeOfConduct": "Topluluk Kuralları"
+  }
+}

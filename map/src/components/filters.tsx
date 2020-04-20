@@ -31,7 +31,7 @@ class Filters extends React.Component<Props, {}> {
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
-            Filter by marker:
+            {t(lang, s => s.filterBy)}
             <select onChange={this.changeService} value={filter.type || ''}>
               <option key="all" value="">
                 {t(lang, s => s.services.any)}
@@ -51,7 +51,7 @@ class Filters extends React.Component<Props, {}> {
 
 export default styled(Filters)`
   select {
-    margin-left: 5px;
+    margin: 0 5px;
     ${buttonPrimary};
     padding: 7px 11px;
 
