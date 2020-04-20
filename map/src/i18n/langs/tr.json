@@ -4,8 +4,8 @@
   "about": "Bu harita {reach4Help} projesinin bir parçasıdır. Proje açık kaynak olarak gönüllülerce yürütülmektedir. Kaynak kodlar {githubSource}. Herhangi bir talebiniz için {email} üzerinden iletişime geçebilirsiniz.",
   "githubSourceLabel": "GitHub'da bulunmaktadır",
   "addInformation": {
-    "small": "Add information",
-    "large": "Add information to this map"
+    "small": "Bilgi ekle",
+    "large": "Haritaya bilgi ekle"
   },
   "buttons": {
     "fullScreen": "Tam Ekran",
@@ -15,12 +15,12 @@
   "filterBy": "Filtrele:",
   "services": {
     "any": "Tümü",
-    "financial": "Mobility",
+    "financial": "Taşıma / Mobilite",
     "food": "Gıda",
     "information": "Bilgilendirme",
-    "manufacturing": "Manufactoring",
+    "manufacturing": "Üretim",
     "medicine": "Tıbbi Erzak",
-    "mobility": "Mobility",
+    "mobility": "Taşıma / Mobilite",
     "supplies": "Diğer İhtiyaçlar",
     "network": "İletişim",
     "shelter": "Barınma",
@@ -41,7 +41,7 @@
   "results": {
     "updateResults": {
       "small": "Sonuçları güncelle",
-      "large": "Harita üzerindeki bölge için sonuçları getir"
+      "large": "Harita üzerindeki bölge için sonuçları listele"
     },
     "count": "{results, plural, =1 {1 result} other {# results}}",
     "contact": {
