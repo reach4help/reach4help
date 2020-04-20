@@ -114,16 +114,21 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   >(undefined);
 
   const parseAddressComponents = addressComponents => {
+    let streetNumber = '';
+    let route = '';
+
     for (let i = 0; i < addressComponents.length; i++) {
       const item = addressComponents[i];
       const v = item.types[0];
+
       if (typeof v !== 'undefined') {
         switch (v) {
+          // Save `street_number` and `route` components to interpolate them into `address1` at the end
           case 'street_number':
-            setAddress2(item.short_name);
+            streetNumber = item.short_name;
             break;
           case 'route':
-            setAddress1(item.short_name);
+            route = item.short_name;
             break;
           case 'locality':
             setCity(item.short_name);
@@ -141,6 +146,15 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
             break;
         }
       }
+    }
+
+    // Interpolate these together into `address1`
+    if (streetNumber && route) {
+      setAddress1(`${streetNumber} ${route}`);
+    } else if (streetNumber) {
+      setAddress1(`${streetNumber}`);
+    } else if (route) {
+      setAddress1(`${route}`);
     }
   };
 
