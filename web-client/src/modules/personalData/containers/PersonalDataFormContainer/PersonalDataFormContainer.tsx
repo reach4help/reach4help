@@ -1,9 +1,11 @@
 import { Spin } from 'antd';
+import { firestore } from 'firebase';
 import GoogleMapReact from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from 'src/ducks/auth/types';
+import { setUserProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import styled from 'styled-components';
 
@@ -19,6 +21,7 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
   const user = useSelector(({ auth }: { auth: AuthState }) => auth.user);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const LoadingScreen = styled.div`
     width: 100%;
@@ -42,21 +45,45 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
   };
 
   const handleFormSubmit = (personalInfo: IPersonalData) => {
-    const { address: newAddress } = personalInfo;
+    const {
+      address: newAddress,
+      termsAndPrivacyAccepted,
+      displayName,
+      displayPic,
+    } = personalInfo;
     // eslint-disable-next-line max-len
     const address = `${newAddress.address1},${newAddress.address2},${newAddress.city},${newAddress.state},${newAddress.postalCode},${newAddress.country}`;
-    const addressObj = { ...newAddress };
     if (typeof Geocoder !== 'undefined') {
       Geocoder.geocode({ address }, (results, status) => {
         if (status === 'OK') {
           const lat = results[0].geometry.location.lat();
           const lng = results[0].geometry.location.lng();
-          addressObj.coords = { lat, lng };
-          // the results object contains the full result of the
-          // geocoding api, you can improve the object to pass
-          // and store in firebase
+          newAddress.coords = new firestore.GeoPoint(lat, lng);
+          if (
+            lat &&
+            lng &&
+            termsAndPrivacyAccepted &&
+            displayName &&
+            displayPic &&
+            user
+          ) {
+            dispatch(
+              setUserProfile(
+                newAddress,
+                results[0],
+                termsAndPrivacyAccepted,
+                displayName,
+                displayPic,
+                user.uid,
+              ),
+            );
+          } else {
+            alert('Missing Data!');
+          }
         } else {
-          // API did not return Ok
+          alert(
+            "Sorry, We couldn't determine your actual address, please try again!",
+          );
         }
       });
     }

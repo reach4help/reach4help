@@ -8,10 +8,12 @@ import {
   Row,
   Typography,
 } from 'antd';
+import { firestore } from 'firebase';
 import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { IUserAddress } from 'src/models/users/privilegedInformation';
 import styled from 'styled-components';
 
 import geolocationinactive from '../../../../assets/geolocationinactive.svg';
@@ -60,26 +62,12 @@ interface NewRequestProps {
   priviledgedInfo: firebase.firestore.DocumentData | undefined;
 }
 
-interface ICoords {
-  lat: number;
-  lng: number;
-}
-
-interface IUserAddressData {
-  address1?: string;
-  address2?: string;
-  postalCode?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  coords?: ICoords;
-}
-
 export interface IPersonalData {
   fullName?: string | null;
   displayName?: string | null;
   displayPic?: string | null;
-  address: IUserAddressData;
+  termsAndPrivacyAccepted?: Date;
+  address: IUserAddress;
 }
 
 const PersonalDataForm: React.FC<NewRequestProps> = ({
@@ -103,6 +91,9 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [instructionsVisible, setInstructionsVisible] = useState(false);
+  const [termsAndPrivacyAccepted, setTermsAndPrivacyAccepted] = useState<
+    Date | undefined
+  >(undefined);
 
   // geolocation
   const [address1, setAddress1] = useState<string | undefined>('');
@@ -111,7 +102,9 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   const [cityState, setCityState] = useState<string | undefined>('');
   const [postalCode, setPostalCode] = useState<string | undefined>('');
   const [country, setCountry] = useState<string | undefined>('');
-  const [coords, setCoords] = useState<ICoords | undefined>(undefined);
+  const [coords, setCoords] = useState<firebase.firestore.GeoPoint | undefined>(
+    undefined,
+  );
 
   const [geolocationAvailabe, setGeoAvailable] = useState<boolean | undefined>(
     undefined,
@@ -163,7 +156,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        setCoords(location);
+        setCoords(new firestore.GeoPoint(location.lat, location.lng));
         Geocoder.geocode({ location }, (results, status) => {
           if (status === 'OK') {
             parseAddressComponents(results[0].address_components);
@@ -220,7 +213,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   }, [acceptToUsePhoto]);
 
   const onSubmitForm = () => {
-    const newAddress: IUserAddressData = {
+    const newAddress: IUserAddress = {
       address1,
       address2,
       postalCode,
@@ -233,6 +226,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
       fullName,
       displayName,
       displayPic,
+      termsAndPrivacyAccepted,
       address: newAddress,
     };
     handleFormSubmit(newPersonalInfo);
@@ -469,7 +463,13 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
           ]}
           valuePropName="checked"
         >
-          <Checkbox>
+          <Checkbox
+            onChange={({ target }) =>
+              target.checked
+                ? setTermsAndPrivacyAccepted(new Date())
+                : setTermsAndPrivacyAccepted(undefined)
+            }
+          >
             {t('user_data_form.terms_conditions_text')}
             <Link to="/">{t('user_data_form.terms_conditions_link')}</Link>
           </Checkbox>
