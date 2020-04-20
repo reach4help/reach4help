@@ -1,62 +1,62 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-  "githubSourceLabel": "found on GitHub",
+  "title": "COVID-19 Mapa de Organizações de Solidariedade",
+  "info": "Seja para ajudar pessoas a encontrar ou ajudar esforços de ajuda mútua perto de onde vivem, dar inspiração para começar a sua própria, e/ou apenas elevar a alma, abaixo está uma lista de projetos de ajuda mútua face à pandemia. Nota: Cada projeto é autónomo, muitos usam documentos públicos para partilhar informação, tem cuidado ao introduzires informação privada que não queiras que seja pública.",
+  "about": "Este mapa é parte da {reach4Help}, um projeto gerido por voluntários. É de código aberto e pode ser {githubSource}. Para qualquer dúvida, podes contactar-nos através de {email}.",
+  "githubSourceLabel": "encontrado no Github",
   "addInformation": {
-    "small": "Add information",
-    "large": "Add information to this map"
+    "small": "Adicionar Informação",
+    "large": "Adicionar informações a este mapa"
   },
   "buttons": {
     "fullScreen": "Fullscreen",
     "exitFullScreen": "Exit Fullscreen"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "A carregar...",
+  "filterBy": "Filtrar por:",
   "services": {
-    "any": "Any",
-    "financial": "Mobility",
-    "food": "Food",
-    "information": "Information",
-    "manufacturing": "Manufactoring",
-    "medicine": "Medicine",
-    "mobility": "Mobility",
-    "supplies": "Other Supplies",
-    "network": "Network",
-    "shelter": "Shelter",
-    "support": "Support"
+    "any": "Qualquer",
+    "financial": "Mobilidade",
+    "food": "Comida",
+    "information": "Informação",
+    "manufacturing": "Manufactura",
+    "medicine": "Medicamentos",
+    "mobility": "Mobilidade",
+    "supplies": "Outros Recursos",
+    "network": "Rede",
+    "shelter": "Abrigo",
+    "support": "Suporte"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "Organização de Solidariedade",
+    "org": "Organização / Empresa",
+    "financial": "Financeiro",
+    "information": "Informação",
+    "other": "Outros"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "Ir para uma localização no mapa...",
+    "updateResultsForThisArea": "Atualizar resultados para esta área",
+    "myLocation": "A Minha Localização"
   },
   "results": {
     "updateResults": {
-      "small": "Update results",
-      "large": "Update results for map area"
+      "small": "Actualizar resultados",
+      "large": "Atualizar resultados para esta área"
     },
-    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "count": "{results, plural, \n =1 {# resultado}\n other {# resultados}}",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "Informações gerais:",
+      "getHelp": "Obter ajuda:",
+      "volunteer": "Voluntário:",
+      "facebookGroup": "Grupo no Facebook"
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "Idioma:",
+  "langSelect": "Seleciona o Idioma",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
+    "netlifyNote": "Este mapa {link}",
+    "netlifyLinkText": "está hospedado por Netlify",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct"
+    "codeOfConduct": "Código de Conduta"
   }
 }
