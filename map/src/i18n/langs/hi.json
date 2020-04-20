@@ -1,6 +1,6 @@
 {
   "title": "COVID-19 म्यूचुअल एड मैप",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+  "info": "लोगों को जहां वे रहते हैं, वहां पारस्परिक सहायता के प्रयासों को खोजने और शामिल करने में मदद करने के लिए, अपने स्वयं के शुरू करने के लिए प्रेरणा प्रदान करें, और / या आत्मविश्वास बढ़ाने के लिए, \nनिम्न लिखित पारस्परिक सहायता, महामारी, आपदा देखभाल परियोजनाओं की सूची है। नोट: प्रत्येक परियोजना स्वायत्त और स्व-संगठित है। कई सार्वजनिक स्प्रेडशीट का उपयोग सूचना साझा करने के लिए करते हैं, इसलिए निजी जानकारी दर्ज करते समय सावधान रहें जिसे आप सार्वजनिक नहीं करना चाहते हैं।",
   "about": "यह नक्शा एक {reach4Help}, स्वयंसेवक द्वारा संचालित परियोजना का हिस्सा है। यह ओपन सोर्स है और {githubSource}। किसी भी पूछताछ के लिए, आप हमें {email} पर लिख सकते हैं।",
   "githubSourceLabel": "गिट हब पर पाया जाता है",
   "addInformation": {
