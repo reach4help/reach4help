@@ -8,6 +8,7 @@ import {
 import { NewRequestLocation } from 'src/modules/request/pages/routes/NewRequestRoute/constants';
 
 import modules from '../modules';
+import DashboardRoute from './routes/DashboardRoute';
 import NotFoundRoute from './routes/NotFoundRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -15,6 +16,17 @@ const MasterPage = (): ReactElement => {
   const renderModules = () =>
     Object.keys(modules).map(moduleName => {
       const routeModule = modules[moduleName];
+      if (routeModule.layout === 'dashboard') {
+        return (
+          <DashboardRoute
+            key={moduleName}
+            path={routeModule.path}
+            component={routeModule.component}
+            menuLinks={routeModule.menuLinks}
+          />
+        );
+      }
+
       return routeModule.protected ? (
         <ProtectedRoute
           key={moduleName}
