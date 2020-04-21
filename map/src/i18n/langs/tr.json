@@ -1,6 +1,6 @@
 {
   "title": "COVID-19 Karşılıklı Yardımlaşma Haritası",
-  "info": "Çevrendeki insanların bölgelerindeki karşılıklı yardım gruplarını bulmalarına yardımcı olabilir ya da onlara bir yardımlaşma ağı yaratmaları için ilham verebilirsin. Aşağıda çeşitli pandemi yardımlaşma gruplarının bir listesi bulunmaktadır. Not: Herbir proje bağımsızdır ve birçoğu bilgileri herkes tarafından erişilebilen dökümanlarda tutmaktadır. Bu nedenle paylaşılmasını istemediğiniz kişisel verilerinizi verirken dikkatli olun.",
+  "info": "Çevrendeki insanların bölgelerindeki karşılıklı yardım gruplarını bulmalarına yardımcı olabilir ya da onlara bir yardımlaşma ağı yaratmaları için ilham verebilirsin. Aşağıda çeşitli pandemi yardımlaşma gruplarının bir listesi bulunmaktadır. Not: Listelenen herbir proje bağımsızdır ve birçoğu verilerini herkes tarafından erişilebilen dökümanlarda tutmaktadır. Bu nedenle paylaşılmasını istemediğiniz kişisel verilerinizi verirken dikkat edin.",
   "about": "Bu harita {reach4Help} projesinin bir parçasıdır. Proje açık kaynak olarak gönüllülerce yürütülmektedir. Kaynak kodlar {githubSource}. Herhangi bir talebiniz için {email} üzerinden iletişime geçebilirsiniz.",
   "githubSourceLabel": "GitHub'da bulunmaktadır",
   "addInformation": {
@@ -43,7 +43,7 @@
       "small": "Sonuçları güncelle",
       "large": "Harita üzerindeki bölge için sonuçları listele"
     },
-    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "count": "{results, plural, one {} =1 {1 result} other {# sonuç}}",
     "contact": {
       "general": "Genel Bilgiler:",
       "getHelp": "Yardım Al:",
