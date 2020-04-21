@@ -16,12 +16,12 @@
   "services": {
     "any": "Tümü",
     "financial": "Taşıma / Mobilite",
-    "food": "Gıda",
+    "food": "Gıda / Yiyecek",
     "information": "Bilgilendirme",
-    "manufacturing": "Üretim",
+    "manufacturing": "Kıyafet / Giyecek",
     "medicine": "Tıbbi Erzak",
     "mobility": "Taşıma / Mobilite",
-    "supplies": "Diğer İhtiyaçlar",
+    "supplies": "Diğer Yardımlar",
     "network": "İletişim",
     "shelter": "Barınma",
     "support": "Destek"
