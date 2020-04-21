@@ -48,15 +48,15 @@
       "general": "Общая информация:",
       "getHelp": "Получить помощь:",
       "volunteer": "Волонтер:",
-      "facebookGroup": "Facebook group"
+      "facebookGroup": "Группа в Facebook"
     }
   },
   "lang": "Язык:",
-  "langSelect": "Select Language",
+  "langSelect": "Выберите язык",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
-    "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct"
+    "netlifyNote": "Эта карта {link}",
+    "netlifyLinkText": "поддерживается Netlify",
+    "githubRepo": "GitHub репо",
+    "codeOfConduct": "Кодекс поведения"
   }
 }
