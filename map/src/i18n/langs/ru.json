@@ -15,13 +15,13 @@
   "filterBy": "Фильтровать по:",
   "services": {
     "any": "Все",
-    "financial": "Financial",
+    "financial": "Финансы",
     "food": "Продовольствие",
     "information": "Информация",
     "manufacturing": "Производство",
     "medicine": "Медицина",
     "mobility": "Мобильность",
-    "supplies": "Other Supplies",
+    "supplies": "Другие ресурсы",
     "network": "Network",
     "shelter": "Shelter",
     "support": "Support"

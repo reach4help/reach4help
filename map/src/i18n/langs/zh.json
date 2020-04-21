@@ -1,8 +1,8 @@
 {
   "title": "COVID-19相互援助地图",
   "info": "为了帮助人们找到并参与他们生活附近的志愿行为，启发他们去帮助他人，或者仅仅是让他们发现身边的善行，以下是日益增加的在这场疫情中的互助救灾项目清单。 注：每个项目都是自主和自我组织的； 许多人使用公开的电子表格来分享信息，所以在输入时请不要分享您不想公开的私人信息。",
-  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-  "githubSourceLabel": "found on GitHub",
+  "about": "这张地图是 {reach4Help}的一部分，由志愿者发起的项目。 它是开源的且可以是 {githubSource}。如果您有任何问题，您可以在 {email} 上联系我们。",
+  "githubSourceLabel": "源码在Github上",
   "addInformation": {
     "small": "添加信息",
     "large": "添加信息到此地图"
@@ -12,38 +12,38 @@
     "exitFullScreen": "退出全屏"
   },
   "loading": "载入中",
-  "filterBy": "Filter by:",
+  "filterBy": "过滤条件：",
   "services": {
     "any": "任何",
-    "financial": "Financial",
+    "financial": "财务上的",
     "food": "食品",
     "information": "信息",
-    "manufacturing": "Manufactoring",
+    "manufacturing": "手工的",
     "medicine": "药物",
-    "mobility": "Mobility",
+    "mobility": "移动能力",
     "supplies": "其他物品",
-    "network": "Network",
+    "network": "社交",
     "shelter": "庇护所",
-    "support": "Support"
+    "support": "支援"
   },
   "markerTypes": {
     "mutual-aid-group": "相互援助小组",
-    "org": "Organization / Company",
-    "financial": "Financial",
+    "org": "组织 / 公司",
+    "financial": "金融",
     "information": "信息",
     "other": "其它"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
+    "jumpToLocation": "跳转到地图上的位置...",
+    "updateResultsForThisArea": "更新此区域的结果",
     "myLocation": "我的位置"
   },
   "results": {
     "updateResults": {
       "small": "更新结果",
-      "large": "Update results for map area"
+      "large": "更新地图区域的结果"
     },
-    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "count": "{results, plural, \n =1 {# 结果}\n other {# 结果}}",
     "contact": {
       "general": "基本信息",
       "getHelp": "获取帮助",
@@ -55,7 +55,7 @@
   "langSelect": "选择语言",
   "footer": {
     "netlifyNote": "这张地图 {link}",
-    "netlifyLinkText": "is hosted by Netlify",
+    "netlifyLinkText": "由Netlify承办",
     "githubRepo": "GitHub 项目源",
     "codeOfConduct": "行为守则"
   }
