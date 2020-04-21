@@ -18,10 +18,10 @@
     "financial": "Taşıma / Mobilite",
     "food": "Gıda / Yiyecek",
     "information": "Bilgilendirme",
-    "manufacturing": "Kıyafet / Giyecek",
-    "medicine": "Tıbbi Erzak",
-    "mobility": "Taşıma / Mobilite",
-    "supplies": "Diğer Yardımlar",
+    "manufacturing": "Kişisel Sağlık Ekipmanı",
+    "medicine": "Tıbbi İhtiyaç",
+    "mobility": "Lojistik / Mobilite",
+    "supplies": "Diğer Erzaklar",
     "network": "İletişim",
     "shelter": "Barınma",
     "support": "Destek"
@@ -43,7 +43,7 @@
       "small": "Sonuçları güncelle",
       "large": "Harita üzerindeki bölge için sonuçları listele"
     },
-    "count": "{results, plural, one {} =1 {1 result} other {# sonuç}}",
+    "count": "{results, plural, one {} =1 {1 sonuç} other {# sonuçlar}}",
     "contact": {
       "general": "Genel Bilgiler:",
       "getHelp": "Yardım Al:",
