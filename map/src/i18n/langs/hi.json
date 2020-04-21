@@ -15,7 +15,7 @@
   "filterBy": "श्रेणी के अनुसार छाने",
   "services": {
     "any": "विभिन्न",
-    "financial": "Financial",
+    "financial": "वित्तीय",
     "food": "खान पान",
     "information": "सूचना",
     "manufacturing": "उत्पादन",
@@ -45,9 +45,9 @@
     },
     "count": "{results, plural, other {# परिणाम}}",
     "contact": {
-      "general": "सामान्य सूचना",
+      "general": "सामान्य सूचना:",
       "getHelp": "मदद लें:",
-      "volunteer": "स्वयंसेवक",
+      "volunteer": "स्वयंसेवक:",
       "facebookGroup": "फेसबुक ग्रुप"
     }
   },
