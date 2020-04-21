@@ -11,15 +11,15 @@ const SideNavMenuItem: React.FC<SideNavMenuItemProps> = ({
   let menuItem: React.ReactNode;
   if (item.children) {
     menuItem = (
-      <SubMenu key={item.title} title={item.title} {...other}>
-        {item.children.map((subItem: MenuItem, index) => (
-          <SideNavMenuItem key={index} item={subItem} {...other} />
+      <SubMenu key={item.id} title={item.title} {...other}>
+        {item.children.map((subItem: MenuItem) => (
+          <SideNavMenuItem key={subItem.id} item={subItem} {...other} />
         ))}
       </SubMenu>
     );
   } else {
     menuItem = (
-      <Menu.Item key={item.title} {...other}>
+      <Menu.Item key={item.id} {...other}>
         {item.title}
       </Menu.Item>
     );
@@ -36,14 +36,13 @@ const SideNavMenuItem: React.FC<SideNavMenuItemProps> = ({
       ) : (
         menuItem
       )}
-      )
     </>
   );
 };
 
 const SideNavMenu: React.FC<SideNavMenuProps> = ({ items }) => (
   <Menu mode="inline" style={{ height: '100%' }}>
-    {items.map((item: any, index) => (
+    {items.map((item: MenuItem, index) => (
       <SideNavMenuItem key={index} item={item} />
     ))}
   </Menu>
