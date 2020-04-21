@@ -15,7 +15,7 @@
   "filterBy": "Filtrele:",
   "services": {
     "any": "Tümü",
-    "financial": "Taşıma / Mobilite",
+    "financial": "Financial",
     "food": "Gıda / Yiyecek",
     "information": "Bilgilendirme",
     "manufacturing": "Kişisel Sağlık Ekipmanı",
@@ -41,9 +41,9 @@
   "results": {
     "updateResults": {
       "small": "Sonuçları güncelle",
-      "large": "Harita üzerindeki bölge için sonuçları listele"
+      "large": "Harita üzerindeki bölge için sonuçları güncelle"
     },
-    "count": "{results, plural, one {} =1 {1 sonuç} other {# sonuçlar}}",
+    "count": "{results, plural, other {# sonuç}}",
     "contact": {
       "general": "Genel Bilgiler:",
       "getHelp": "Yardım Al:",
