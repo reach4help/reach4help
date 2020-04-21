@@ -43,7 +43,7 @@
       "small": "Sonuçları güncelle",
       "large": "Harita üzerindeki bölge için sonuçları güncelle"
     },
-    "count": "{results, plural, other {# sonuç}}",
+    "count": "{results, plural, =0 {Sonuç Yok} other {# sonuç}}",
     "contact": {
       "general": "Genel Bilgiler:",
       "getHelp": "Yardım Al:",
