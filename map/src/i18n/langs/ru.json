@@ -11,11 +11,11 @@
     "fullScreen": "Полноэкранный режим",
     "exitFullScreen": "Выйти из полноэкранного режима"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "Загружается...",
+  "filterBy": "Фильтровать по:",
   "services": {
     "any": "Все",
-    "financial": "Мобильность",
+    "financial": "Financial",
     "food": "Продовольствие",
     "information": "Информация",
     "manufacturing": "Производство",

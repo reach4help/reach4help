@@ -1,6 +1,6 @@
 {
   "title": "COVID-19相互援助地图",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+  "info": "为了帮助人们找到并参与他们生活附近的志愿行为，启发他们去帮助他人，或者仅仅是让他们发现身边的善行，以下是日益增加的在这场疫情中的互助救灾项目清单。 注：每个项目都是自主和自我组织的； 许多人使用公开的电子表格来分享信息，所以在输入时请不要分享您不想公开的私人信息。",
   "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
   "githubSourceLabel": "found on GitHub",
   "addInformation": {
@@ -15,7 +15,7 @@
   "filterBy": "Filter by:",
   "services": {
     "any": "任何",
-    "financial": "Mobility",
+    "financial": "Financial",
     "food": "食品",
     "information": "信息",
     "manufacturing": "Manufactoring",
