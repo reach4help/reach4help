@@ -5,8 +5,12 @@ import React from 'react';
 import { Strings } from './iface';
 import ar from './langs/ar';
 import en from './langs/en';
+import es from './langs/es';
 import fr from './langs/fr';
+import hi from './langs/hi';
 import pt from './langs/pt';
+import tr from './langs/tr';
+import zh from './langs/zh';
 
 const LOCAL_STORAGE_KEY = 'selectedLanguage';
 const QUERY_PARAM = 'lang';
@@ -15,8 +19,12 @@ export const LANGUAGES = {
   en,
   // Fill in missing strings with english
   ar: merge({}, en, ar),
+  es: merge({}, en, es),
   fr: merge({}, en, fr),
+  hi: merge({}, en, hi),
   pt: merge({}, en, pt),
+  tr: merge({}, en, tr),
+  zh: merge({}, en, zh),
 };
 
 export type Language = keyof typeof LANGUAGES;
