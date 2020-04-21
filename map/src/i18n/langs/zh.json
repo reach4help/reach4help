@@ -1,62 +1,62 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-  "githubSourceLabel": "found on GitHub",
+  "title": "COVID-19相互援助地图",
+  "info": "为了帮助人们找到并参与他们生活附近的志愿行为，启发他们去帮助他人，或者仅仅是让他们发现身边的善行，以下是日益增加的在这场疫情中的互助救灾项目清单。 注：每个项目都是自主和自我组织的； 许多人使用公开的电子表格来分享信息，所以在输入时请不要分享您不想公开的私人信息。",
+  "about": "这张地图是 {reach4Help}的一部分，由志愿者发起的项目。 它是开源的且可以是 {githubSource}。如果您有任何问题，您可以在 {email} 上联系我们。",
+  "githubSourceLabel": "源码在Github上",
   "addInformation": {
-    "small": "Add information",
-    "large": "Add information to this map"
+    "small": "添加信息",
+    "large": "添加信息到此地图"
   },
   "buttons": {
-    "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+    "fullScreen": "全屏显示",
+    "exitFullScreen": "退出全屏"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "载入中",
+  "filterBy": "过滤条件：",
   "services": {
-    "any": "Any",
-    "financial": "Financial",
-    "food": "Food",
-    "information": "Information",
-    "manufacturing": "Manufactoring",
-    "medicine": "Medicine",
-    "mobility": "Mobility",
-    "supplies": "Other Supplies",
-    "network": "Network",
-    "shelter": "Shelter",
-    "support": "Support"
+    "any": "任何",
+    "financial": "财务上的",
+    "food": "食品",
+    "information": "信息",
+    "manufacturing": "手工的",
+    "medicine": "药物",
+    "mobility": "移动能力",
+    "supplies": "其他物品",
+    "network": "社交",
+    "shelter": "庇护所",
+    "support": "支援"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "相互援助小组",
+    "org": "组织 / 公司",
+    "financial": "金融",
+    "information": "信息",
+    "other": "其它"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "跳转到地图上的位置...",
+    "updateResultsForThisArea": "更新此区域的结果",
+    "myLocation": "我的位置"
   },
   "results": {
     "updateResults": {
-      "small": "Update results",
-      "large": "Update results for map area"
+      "small": "更新结果",
+      "large": "更新地图区域的结果"
     },
-    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "count": "{results, plural, \n =1 {# 结果}\n other {# 结果}}",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "基本信息",
+      "getHelp": "获取帮助",
+      "volunteer": "志愿者",
+      "facebookGroup": "Facebook 群组"
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "语言:",
+  "langSelect": "选择语言",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
-    "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct"
+    "netlifyNote": "这张地图 {link}",
+    "netlifyLinkText": "由Netlify承办",
+    "githubRepo": "GitHub 项目源",
+    "codeOfConduct": "行为守则"
   }
 }
