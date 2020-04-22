@@ -22,7 +22,7 @@
     "medicine": "दवा",
     "mobility": "परिवहन सहायता",
     "supplies": "अन्य आपूर्तियाँ",
-    "network": "Network",
+    "network": "सहयोग",
     "shelter": "आश्रय",
     "support": "सहयोग"
   },
@@ -43,7 +43,7 @@
       "small": "नतीजे अपडेट करें",
       "large": "नक़्शे के क्षेत्र के लिए नतीजे अपडेट करें"
     },
-    "count": "{results, plural, other {# परिणाम}}",
+    "count": "{results, plural, =1 {1 परिणाम} other {# परिणाम}}",
     "contact": {
       "general": "सामान्य सूचना:",
       "getHelp": "मदद लें:",
