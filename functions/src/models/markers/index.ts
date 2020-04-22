@@ -134,13 +134,7 @@ export class Marker implements IMarker {
   }
 
   static factory = (data: IMarker): Marker => {
-    return new Marker(
-      data.contact,
-      data.contentTitle,
-      data.contentBody || '',
-      data.loc,
-      data.type,
-    );
+    return new Marker(data.contact, data.contentTitle, data.contentBody || '', data.loc, data.type);
   };
 
   toObject(): object {

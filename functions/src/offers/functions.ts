@@ -7,7 +7,6 @@ import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import { RequestFirestoreConverter, RequestStatus } from '../models/requests';
 
-admin.initializeApp();
 const db = admin.firestore();
 const auth = admin.auth();
 
@@ -51,13 +50,13 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
             pinUid: offerAfter.pinUserRef.id,
           },
           actor: user.toJSON(),
-          notify: ['actor', 'affectedEntity']
+          notify: ['actor', 'affectedEntity'],
         });
       })(),
     );
-    //We could also send it to ${offerAfter.requestRef.id}_requestNotification and let everyone who responded
-    //to the request know that the request accepted an offer. We will provide the offer ID as well. the clients
-    //can either use the id of the offer accepted and compare it with their offer to determine if their offer was rejected or accepted
+    // We could also send it to ${offerAfter.requestRef.id}_requestNotification and let everyone who responded
+    // to the request know that the request accepted an offer. We will provide the offer ID as well. the clients
+    // can either use the id of the offer accepted and compare it with their offer to determine if their offer was rejected or accepted
 
     // We won't update all offers because it's a waste of reads + writes + additional cloud function triggers
     // This is not done in a safe manner -- we should use transactions and batched writes, but also remembering
@@ -96,7 +95,7 @@ const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[
             pinUid: offer.pinUserRef.id,
           },
           actor: user.toJSON(),
-          notify: ['actor', 'affectedEntity']
+          notify: ['actor', 'affectedEntity'],
         });
       })(),
     );

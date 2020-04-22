@@ -8,7 +8,6 @@ import { IRequest, Request, RequestStatus } from '../models/requests';
 import { UserFirestoreConverter } from '../models/users';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
-admin.initializeApp();
 const db = admin.firestore();
 
 const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefore: Request | null, requestAfter: Request | null) => {
@@ -51,7 +50,7 @@ const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefo
         operations.push(
           requestAfter.cavUserRef.update({
             averageRating: newAverage,
-            cavRatingsReceived: cavRatingsReceived,
+            cavRatingsReceived,
           }),
         );
       }
@@ -172,7 +171,6 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
         .doc(context.params.requestId)
         .delete();
     });
-
 };
 
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
@@ -187,7 +185,6 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
         .doc(context.params.requestId)
         .delete();
     });
-
 };
 
 export const deleteRequest = (snapshot: DocumentSnapshot) => removeRequestFromIndex(snapshot);

@@ -14,7 +14,7 @@
     "serve": "yarn run build && firebase emulators:start",
     "shell": "yarn run build && firebase functions:shell",
     "start": "yarn run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "yarn run lint:fix && firebase deploy --only functions",
     "logs": "firebase functions:log",
     "pre-commit": "lint-staged"
   },
