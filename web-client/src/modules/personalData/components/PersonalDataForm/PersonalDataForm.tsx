@@ -8,12 +8,12 @@ import {
   Row,
   Typography,
 } from 'antd';
+import { firestore } from 'firebase';
 import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppState } from 'src/store';
+import { IUserAddress } from 'src/models/users/privilegedInformation';
 import styled from 'styled-components';
 
 import geolocationinactive from '../../../../assets/geolocationinactive.svg';
@@ -57,38 +57,43 @@ const GPSTarget = styled.img`
 interface NewRequestProps {
   Geocoder: any;
   handleFormSubmit: Function;
+  user: firebase.User | null | undefined;
+  profile: firebase.firestore.DocumentData | undefined;
+  privilegedInfo: firebase.firestore.DocumentData | undefined;
 }
 
-interface ICoords {
-  lat: number;
-  lng: number;
+export interface IPersonalData {
+  fullName?: string | null;
+  displayName?: string | null;
+  displayPic?: string | null;
+  termsAndPrivacyAccepted?: Date;
+  address: IUserAddress;
 }
 
-interface IPersonalData {
-  fullName?: string;
-  displayName?: string;
-  address1?: string;
-  address2?: string;
-  postalCode?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  coords?: ICoords;
-  geolocation?: boolean;
-}
-
-const PersonaDataForm: React.FC<NewRequestProps> = ({
+const PersonalDataForm: React.FC<NewRequestProps> = ({
   Geocoder,
   handleFormSubmit,
+  user,
+  profile,
+  privilegedInfo,
 }): React.ReactElement => {
   const { t } = useTranslation();
-  const user = useSelector((state: AppState) => state.auth.user);
   const [form] = Form.useForm();
-  const [fullName, setFullName] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [fullName, setFullName] = useState<string | undefined | null>('');
+  const [displayName, setDisplayName] = useState<string | undefined | null>('');
+  const [displayPic, setDisplayPic] = useState<string | undefined | null>(
+    undefined,
+  );
+  const [tempDisplayPic, setTempDisplayPic] = useState<
+    string | undefined | null
+  >(undefined);
+  const [acceptToUsePhoto, setAcceptToUsePhoto] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [instructionsVisible, setInstructionsVisible] = useState(false);
+  const [termsAndPrivacyAccepted, setTermsAndPrivacyAccepted] = useState<
+    Date | undefined
+  >(undefined);
 
   // geolocation
   const [address1, setAddress1] = useState<string | undefined>('');
@@ -97,14 +102,61 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
   const [cityState, setCityState] = useState<string | undefined>('');
   const [postalCode, setPostalCode] = useState<string | undefined>('');
   const [country, setCountry] = useState<string | undefined>('');
-  const [coords, setCoords] = useState<ICoords | undefined>(undefined);
+  const [coords, setCoords] = useState<firebase.firestore.GeoPoint | undefined>(
+    undefined,
+  );
 
-  const [geolocationAvailabe, setGeoAvailable] = useState<boolean | undefined>(
+  const [geolocationAvailable, setGeoAvailable] = useState<boolean | undefined>(
     undefined,
   );
   const [geolocationAuthorized, setGeoAuthorized] = useState<
     undefined | boolean
   >(undefined);
+
+  const parseAddressComponents = addressComponents => {
+    let streetNumber = '';
+    let route = '';
+
+    for (let i = 0; i < addressComponents.length; i++) {
+      const item = addressComponents[i];
+      const v = item.types[0];
+
+      if (typeof v !== 'undefined') {
+        switch (v) {
+          // Save `street_number` and `route` components to interpolate them into `address1` at the end
+          case 'street_number':
+            streetNumber = item.short_name;
+            break;
+          case 'route':
+            route = item.short_name;
+            break;
+          case 'locality':
+            setCity(item.short_name);
+            break;
+          case 'administrative_area_level_1':
+            setCityState(item.long_name);
+            break;
+          case 'country':
+            setCountry(item.long_name);
+            break;
+          case 'postal_code':
+            setPostalCode(item.short_name);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    // Interpolate these together into `address1`
+    if (streetNumber && route) {
+      setAddress1(`${streetNumber} ${route}`);
+    } else if (streetNumber) {
+      setAddress1(`${streetNumber}`);
+    } else if (route) {
+      setAddress1(`${route}`);
+    }
+  };
 
   const handleGetCoords = () => {
     setIsLoading(true);
@@ -118,37 +170,10 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        setCoords(location);
+        setCoords(new firestore.GeoPoint(location.lat, location.lng));
         Geocoder.geocode({ location }, (results, status) => {
           if (status === 'OK') {
-            for (let i = 0; i < results[0].address_components.length; i++) {
-              const item = results[0].address_components[i];
-              const v = item.types[0];
-              if (typeof v !== 'undefined') {
-                switch (v) {
-                  case 'street_number':
-                    setAddress2(item.short_name);
-                    break;
-                  case 'route':
-                    setAddress1(item.short_name);
-                    break;
-                  case 'locality':
-                    setCity(item.short_name);
-                    break;
-                  case 'administrative_area_level_1':
-                    setCityState(item.short_name);
-                    break;
-                  case 'country':
-                    setCountry(item.long_name);
-                    break;
-                  case 'postal_code':
-                    setPostalCode(item.short_name);
-                    break;
-                  default:
-                    break;
-                }
-              }
-            }
+            parseAddressComponents(results[0].address_components);
           }
         });
         // dispatch(setUserGeolocationAction(location));
@@ -165,26 +190,64 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
     );
   };
 
+  useEffect(() => {
+    if (user) {
+      if (acceptToUsePhoto) {
+        setDisplayPic(user.photoURL);
+      }
+      setTempDisplayPic(user.photoURL);
+      setDisplayName(user.displayName);
+      setFullName(user.displayName);
+    }
+    if (profile) {
+      if (profile.displayName) {
+        setDisplayName(profile.displayName);
+      }
+      if (profile.displayPicture) {
+        if (acceptToUsePhoto) {
+          setDisplayPic(profile.displayPicture);
+        }
+        setTempDisplayPic(profile.displayPicture);
+      }
+      if (profile.displayName) {
+        setDisplayName(profile.displayName);
+        setFullName(profile.displayName);
+      }
+    }
+  }, [user, profile, privilegedInfo]);
+
+  useEffect(() => {
+    if (acceptToUsePhoto) {
+      if (tempDisplayPic) {
+        setDisplayPic(tempDisplayPic);
+      }
+    } else {
+      setDisplayPic(undefined);
+    }
+  }, [acceptToUsePhoto]);
+
   const onSubmitForm = () => {
-    const newAddress: IPersonalData = {};
-    newAddress.fullName = fullName;
-    newAddress.displayName = displayName;
-    newAddress.coords = coords;
-    newAddress.address1 = address1;
-    newAddress.address2 = address2;
-    newAddress.postalCode = postalCode;
-    newAddress.city = city;
-    newAddress.state = cityState;
-    newAddress.country = country;
-    newAddress.geolocation = geolocationAuthorized;
-    handleFormSubmit(newAddress);
+    const newAddress: IUserAddress = {
+      address1,
+      address2,
+      postalCode,
+      city,
+      state: cityState,
+      country,
+      coords,
+    };
+    const newPersonalInfo: IPersonalData = {
+      fullName,
+      displayName,
+      displayPic,
+      termsAndPrivacyAccepted,
+      address: newAddress,
+    };
+    handleFormSubmit(newPersonalInfo);
   };
 
-  // useEffect(() => {
-  //   setDisplayName(words(fullName)[0]);
-  // }, [fullName]);
   useEffect(() => {
-    if (fullName.includes(' ') && displayName === '') {
+    if (fullName && fullName.includes(' ') && displayName === '') {
       setDisplayName(words(fullName)[0]);
     }
     // detect if browser supports geolocation
@@ -196,6 +259,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
       displayName,
       address1,
       address2,
+      cityState,
       city,
       postalCode,
       country,
@@ -205,17 +269,16 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
     displayName,
     address1,
     address2,
+    cityState,
     city,
     postalCode,
     country,
     form,
   ]);
 
-  const photo = user && user.photoURL ? String(user.photoURL) : '';
-
   return (
     <StyledIntro className="withContentPaddingDesktop">
-      {photo !== '' && <ProfilePhoto src={photo} />}
+      {displayPic && <ProfilePhoto src={displayPic} />}
       <Title>{t('user_data_form.sub_title')}</Title>
       <Form
         layout="vertical"
@@ -265,7 +328,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
         </Row>
         <Row>
           <Col span="24" style={{ textAlign: 'center' }}>
-            {geolocationAuthorized !== false && geolocationAvailabe && (
+            {geolocationAuthorized !== false && geolocationAvailable && (
               <>
                 <Button
                   loading={isLoading}
@@ -317,7 +380,7 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           />
         </Form.Item>
         <Row gutter={12}>
-          <Col span={24} md={12}>
+          <Col span={12} md={6} sm={12} xs={24}>
             <Form.Item
               name="city"
               rules={[
@@ -333,6 +396,25 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
                 }}
                 placeholder={t('city')}
                 onChange={e => setCity(e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12} md={6} sm={12} xs={24}>
+            <Form.Item
+              name="cityState"
+              rules={[
+                {
+                  required: true,
+                  message: t('user_data_form.address_error_message'),
+                },
+              ]}
+            >
+              <Input
+                style={{
+                  marginRight: '15px',
+                }}
+                placeholder={t('State')}
+                onChange={e => setCityState(e.target.value)}
               />
             </Form.Item>
           </Col>
@@ -376,6 +458,14 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           {t('user_data_form.policy_text')}{' '}
           <Link to="/">{t('user_data_form.policy_link')}</Link>
         </Info>
+        <Form.Item style={{ textAlign: 'center' }} name="useProfilePic">
+          <Checkbox
+            defaultChecked
+            onChange={({ target }) => setAcceptToUsePhoto(target.checked)}
+          >
+            {t('user_data_form.accept_to_use_profile_pic')}
+          </Checkbox>
+        </Form.Item>
         <Form.Item
           style={{ textAlign: 'center' }}
           name="terms"
@@ -387,7 +477,13 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
           ]}
           valuePropName="checked"
         >
-          <Checkbox>
+          <Checkbox
+            onChange={({ target }) =>
+              target.checked
+                ? setTermsAndPrivacyAccepted(new Date())
+                : setTermsAndPrivacyAccepted(undefined)
+            }
+          >
             {t('user_data_form.terms_conditions_text')}
             <Link to="/">{t('user_data_form.terms_conditions_link')}</Link>
           </Checkbox>
@@ -479,4 +575,4 @@ const PersonaDataForm: React.FC<NewRequestProps> = ({
 };
 // TODO: Instructions modal text needs to be completed and eventually
 // do a browser detection to show the correct instructions message
-export default PersonaDataForm;
+export default PersonalDataForm;

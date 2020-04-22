@@ -1,9 +1,6 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
+/* eslint no-underscore-dangle: 0 */
 import { IsArray, IsNotEmpty, IsObject, IsString } from 'class-validator';
 import { firestore } from 'firebase';
-import DocumentData = firestore.DocumentData;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
-import Timestamp = firestore.Timestamp;
 
 export enum OrganizationType {
   healthCare = 'health_care',
@@ -12,14 +9,18 @@ export enum OrganizationType {
   mutualAid = 'mutual_aid',
 }
 
-export interface IOrganization extends DocumentData {
+export interface IOrganization extends firebase.firestore.DocumentData {
   name: string;
   types: OrganizationType[];
-  createdAt?: Timestamp;
+  createdAt?: firebase.firestore.Timestamp;
 }
 
 export class Organization implements IOrganization {
-  constructor(name: string, types: OrganizationType[], createdAt = Timestamp.now()) {
+  constructor(
+    name: string,
+    types: OrganizationType[],
+    createdAt = firestore.Timestamp.now(),
+  ) {
     this._name = name;
     this._types = types;
     this._createdAt = createdAt;
@@ -52,13 +53,13 @@ export class Organization implements IOrganization {
      https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
    */
   @IsObject()
-  private _createdAt: Timestamp;
+  private _createdAt: firebase.firestore.Timestamp;
 
-  get createdAt(): Timestamp {
+  get createdAt(): firebase.firestore.Timestamp {
     return this._createdAt;
   }
 
-  set createdAt(value: Timestamp) {
+  set createdAt(value: firebase.firestore.Timestamp) {
     this._createdAt = value;
   }
 
@@ -69,16 +70,20 @@ export class Organization implements IOrganization {
     return {
       name: this.name,
       types: this.types,
-      createdAt: this.createdAt,
+      createdAt: this.createdAt.toDate(),
     };
   }
 }
 
-export const OrganizationFirestoreConverter: FirestoreDataConverter<Organization> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IOrganization>): Organization => {
-    return Organization.factory(data.data());
-  },
-  toFirestore: (modelObject: Organization): DocumentData => {
-    return modelObject.toObject();
-  },
+export const OrganizationFirestoreConverter: firebase.firestore.FirestoreDataConverter<Organization> = {
+  fromFirestore: (
+    data: firebase.firestore.QueryDocumentSnapshot<IOrganization>,
+  ): Organization => Organization.factory(data.data()),
+  toFirestore: (
+    modelObject: Organization,
+  ): firebase.firestore.DocumentData => ({
+    name: modelObject.name,
+    types: modelObject.types,
+    createdAt: modelObject.createdAt,
+  }),
 };
