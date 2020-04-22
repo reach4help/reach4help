@@ -31,37 +31,3 @@ export const notifyService = (config: Record<string, any>): Promise<void> => {
     }
     return Promise.resolve();
 }
-
-if(require.main === module){
-    const config = {
-        entity: 'user',
-        action: 'accepted',
-        performedOnEntity: {
-          entity: 'offer',
-          id: 'odfghdouhg',
-          message: 'ohfidhg',
-        },
-        affectedEntity: {
-          entity: 'request',
-          id: 'fghie',
-          title: 'hgiuehf',
-          description: 'jhfg',
-          latLng: 'fheurihf',
-          status: 'RequestStatus.ongoing',
-          cavUid: 'gfsdg',
-          pinUid: 'fdfgds',
-        },
-        actor: {
-          email: 'gfhg',
-          phone: 'oghue',
-          entity: 'user'
-        },
-        notify: ['actor', 'affectedEntity']
-    };
-    console.log("flattened: ", flatten(config, {
-        delimiter: '_'
-    }));
-    // for(let key in config){
-        
-    // }
-}

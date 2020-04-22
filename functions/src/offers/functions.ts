@@ -9,7 +9,6 @@ import { RequestFirestoreConverter, RequestStatus } from '../models/requests';
 
 admin.initializeApp();
 const db = admin.firestore();
-const messaging = admin.messaging();
 const auth = admin.auth();
 
 const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Promise<void[]> => {
@@ -76,45 +75,29 @@ const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[
     const request = (await offer.requestRef.withConverter(RequestFirestoreConverter).get()).data();
 
     operations.push(
-      ((): Promise<void> => {
-        return messaging
-          .send({
-            data: {
-              entity: 'request',
-              action: 'offercreated',
-              id: offer.requestRef.id,
-              offer_message: offer.message,
-              offer_id: snap.id,
-              offer_uid: offer.cavUserRef.id,
-              request_title: request ? request.title : '',
-              request_description: request ? request.description : '',
-              request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-              request_status: request ? request.status : RequestStatus.pending,
-            },
-            topic: `${offer.requestRef.id}_request_notifications`,
-          })
-          .then(result => Promise.resolve());
-      })(),
-    );
-
-    operations.push(
-      ((): Promise<void> => {
-        return messaging
-          .send({
-            data: {
-              entity: 'request',
-              action: 'offercreatd',
-              id: offer.requestRef.id,
-              offer_message: offer.message,
-              offer_id: snap.id,
-              request_title: request ? request.title : '',
-              request_description: request ? request.description : '',
-              request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-              request_status: RequestStatus.ongoing,
-            },
-            topic: `${request?.pinUserRef.id}_notifications`,
-          })
-          .then(result => Promise.resolve());
+      (async (): Promise<void> => {
+        const user = await auth.getUser(offer.cavUserRef.id);
+        return dispatch.notifyService({
+          entity: 'user',
+          action: 'created',
+          performedOnEntity: {
+            entity: 'offer',
+            id: snap.id,
+            message: offer.message,
+          },
+          affectedEntity: {
+            entity: 'request',
+            id: offer.requestRef.id,
+            title: request ? request.title : '',
+            description: request ? request.description : '',
+            latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+            status: RequestStatus.ongoing,
+            cavUid: offer.cavUserRef.id,
+            pinUid: offer.pinUserRef.id,
+          },
+          actor: user.toJSON(),
+          notify: ['actor', 'affectedEntity']
+        });
       })(),
     );
   }
