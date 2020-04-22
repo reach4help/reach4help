@@ -106,11 +106,11 @@ export class Questionnaire implements IQuestionnaire {
 
   toObject(): object {
     return {
-      parentRef: this.parentRef.path,
+      parentRef: this.parentRef,
       data: this.data,
       type: this.type,
       version: this.version,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }
@@ -120,12 +120,6 @@ export const QuestionnaireFirestoreConverter: FirestoreDataConverter<Questionnai
     return Questionnaire.factory(data.data());
   },
   toFirestore: (modelObject: Questionnaire): DocumentData => {
-    return {
-      parentRef: modelObject.parentRef,
-      data: modelObject.data,
-      type: modelObject.type,
-      createdAt: modelObject.createdAt,
-      version: modelObject.version,
-    };
+    return modelObject.toObject();
   },
 };

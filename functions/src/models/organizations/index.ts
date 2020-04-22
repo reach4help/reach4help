@@ -68,7 +68,7 @@ export class Organization implements IOrganization {
     return {
       name: this.name,
       types: this.types,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }
@@ -78,10 +78,6 @@ export const OrganizationFirestoreConverter: FirestoreDataConverter<Organization
     return Organization.factory(data.data());
   },
   toFirestore: (modelObject: Organization): DocumentData => {
-    return {
-      name: modelObject.name,
-      types: modelObject.types,
-      createdAt: modelObject.createdAt,
-    };
+    return modelObject.toObject();
   },
 };

@@ -1,11 +1,11 @@
 {
   "title": "COVID-19 Karşılıklı Yardımlaşma Haritası",
-  "info": "Çevrendeki insanların bölgelerindeki karşılıklı yardım gruplarını bulmalarına yardımcı olabilir ya da onlara bir yardımlaşma ağı yaratmaları için ilham verebilirsin. Aşağıda çeşitli pandemi yardımlaşma gruplarının bir listesi bulunmaktadır. Not: Herbir proje bağımsızdır ve birçoğu bilgileri herkes tarafından erişilebilen dökümanlarda tutmaktadır. Bu nedenle paylaşılmasını istemediğiniz kişisel verilerinizi verirken dikkatli olun.",
+  "info": "Çevrendeki insanların bölgelerindeki karşılıklı yardım gruplarını bulmalarına yardımcı olabilir ya da onlara bir yardımlaşma ağı yaratmaları için ilham verebilirsin. Aşağıda çeşitli pandemi yardımlaşma gruplarının bir listesi bulunmaktadır. Not: Listelenen herbir proje bağımsızdır ve birçoğu verilerini herkes tarafından erişilebilen dökümanlarda tutmaktadır. Bu nedenle paylaşılmasını istemediğiniz kişisel verilerinizi verirken dikkat edin.",
   "about": "Bu harita {reach4Help} projesinin bir parçasıdır. Proje açık kaynak olarak gönüllülerce yürütülmektedir. Kaynak kodlar {githubSource}. Herhangi bir talebiniz için {email} üzerinden iletişime geçebilirsiniz.",
   "githubSourceLabel": "GitHub'da bulunmaktadır",
   "addInformation": {
-    "small": "Add information",
-    "large": "Add information to this map"
+    "small": "Bilgi ekle",
+    "large": "Haritaya bilgi ekle"
   },
   "buttons": {
     "fullScreen": "Tam Ekran",
@@ -15,13 +15,13 @@
   "filterBy": "Filtrele:",
   "services": {
     "any": "Tümü",
-    "financial": "Mobility",
-    "food": "Gıda",
+    "financial": "Financial",
+    "food": "Gıda / Yiyecek",
     "information": "Bilgilendirme",
-    "manufacturing": "Manufactoring",
-    "medicine": "Tıbbi Erzak",
-    "mobility": "Mobility",
-    "supplies": "Diğer İhtiyaçlar",
+    "manufacturing": "Kişisel Sağlık Ekipmanı",
+    "medicine": "Tıbbi İhtiyaç",
+    "mobility": "Lojistik / Mobilite",
+    "supplies": "Diğer Erzaklar",
     "network": "İletişim",
     "shelter": "Barınma",
     "support": "Destek"
@@ -41,9 +41,9 @@
   "results": {
     "updateResults": {
       "small": "Sonuçları güncelle",
-      "large": "Harita üzerindeki bölge için sonuçları getir"
+      "large": "Harita üzerindeki bölge için sonuçları güncelle"
     },
-    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "count": "{results, plural, =0 {Sonuç Yok} other {# sonuç}}",
     "contact": {
       "general": "Genel Bilgiler:",
       "getHelp": "Yardım Al:",
