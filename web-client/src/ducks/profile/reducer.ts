@@ -10,6 +10,7 @@ const initialState: ProfileState = {
   loading: false,
   setAction: undefined,
   updateAction: undefined,
+  observerReceivedFirstUpdate: false,
   error: undefined,
 };
 

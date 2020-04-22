@@ -7,9 +7,17 @@ import {
 
 import {
   getUserProfile as getUserProfileFunc,
+  observePrivileged as observePrivilegedFunc,
+  observeProfile as observeProfileFunc,
   setUserProfile as setUserProfileFunc,
 } from './functions';
-import { GET, IgetUserProfile, SET } from './types';
+import {
+  GET,
+  IgetUserProfile,
+  OBSERVE_PRIVILEGED,
+  OBSERVE_PROFILE,
+  SET,
+} from './types';
 
 export const getUserProfile = (payload: IgetUserProfile) => (
   dispatch: Function,
@@ -19,6 +27,32 @@ export const getUserProfile = (payload: IgetUserProfile) => (
     payload,
     firebase: getUserProfileFunc,
   });
+};
+
+export const observeProfile = (dispatch: Function): Function => {
+  dispatch({
+    type: OBSERVE_PROFILE,
+    observer: observeProfileFunc,
+  });
+
+  return () =>
+    dispatch({
+      type: OBSERVE_PROFILE.UNSUBSCRIBE,
+      observerName: OBSERVE_PROFILE,
+    });
+};
+
+export const observePrivileged = (dispatch: Function): Function => {
+  dispatch({
+    type: OBSERVE_PRIVILEGED,
+    observer: observePrivilegedFunc,
+  });
+
+  return () =>
+    dispatch({
+      type: OBSERVE_PRIVILEGED.UNSUBSCRIBE,
+      observerName: OBSERVE_PRIVILEGED,
+    });
 };
 
 export const setUserProfile = (

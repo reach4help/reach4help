@@ -24,6 +24,26 @@ export const getUserProfile = (
       .get(),
   ]);
 
+export const observePrivileged = (
+  nextValue: Function,
+  payload: IgetUserProfile,
+): firebase.Unsubscribe =>
+  firestore
+    .collection('users')
+    .doc(payload.uid)
+    .collection('privilegedInformation')
+    .doc(payload.uid)
+    .onSnapshot(snap => nextValue(snap));
+
+export const observeProfile = (
+  nextValue: Function,
+  payload: IgetUserProfile,
+): firebase.Unsubscribe =>
+  firestore
+    .collection('users')
+    .doc(payload.uid)
+    .onSnapshot(snap => nextValue(snap));
+
 export const setUserProfile = async ({
   uid,
   userPayload,
