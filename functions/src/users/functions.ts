@@ -25,7 +25,7 @@ export const setIsUserCav = (userId: string, status: boolean): Promise<void> => 
 export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateUser(snapshot.data() as IUser)
     .then(() => {
-      const operations = [setIsUserPin(snapshot.id, true)];
+      const operations: Promise<void>[] = [];
       return Promise.all(operations);
     })
     .catch(errors => {
