@@ -11,20 +11,20 @@
     "fullScreen": "Fullscreen",
     "exitFullScreen": "Exit Fullscreen"
   },
-  "loading": "Loading...",
+  "loading": "লোড করা হচ্ছে...",
   "filterBy": "Filter by:",
   "services": {
     "any": "Any",
     "financial": "Financial",
-    "food": "Food",
-    "information": "Information",
+    "food": "খাবার",
+    "information": "তথ্য",
     "manufacturing": "Manufactoring",
-    "medicine": "Medicine",
+    "medicine": "ওষুধ",
     "mobility": "Mobility",
-    "supplies": "Other Supplies",
+    "supplies": "অন্যান্য সরবরাহ",
     "network": "Network",
     "shelter": "Shelter",
-    "support": "Support"
+    "support": "সমর্থন"
   },
   "markerTypes": {
     "mutual-aid-group": "Mutual Aid Group",
@@ -45,17 +45,17 @@
     },
     "count": "{results, plural, =1 {1 result} other {# results}}",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
+      "general": "সাধারণ তথ্য:",
+      "getHelp": "সাহায্য নিন:",
       "volunteer": "Volunteer:",
       "facebookGroup": "Facebook group"
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "ভাষা:",
+  "langSelect": "ভাষা নির্বাচন করুন",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
+    "netlifyNote": "এই মানচিত্রটি {link}",
+    "netlifyLinkText": "নেটলিফায় দ্বারা হোস্ট করা হয়েছে",
     "githubRepo": "GitHub Repo",
     "codeOfConduct": "Code of Conduct"
   }
