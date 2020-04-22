@@ -5,6 +5,13 @@ import { SERVICES } from '../data';
 import styled from '../styling';
 import { button, buttonPrimary, iconButton } from '../styling/mixins';
 
+export type AddInfoStep =
+  | 'greeting'
+  | 'set-marker'
+  | 'set-radius'
+  | 'set-form'
+  | 'farewell';
+
 interface MarkerInfo {
   marker: google.maps.Marker | null;
   circle: google.maps.Circle | null;
@@ -14,21 +21,8 @@ interface Props {
   htmlFor?: string;
   className?: string;
   map: google.maps.Map | null;
-  setAddInfoOpen: (addInfoOpen: boolean) => void;
-  addInfoStep:
-    | 'greeting'
-    | 'set-marker'
-    | 'set-radius'
-    | 'set-form'
-    | 'farewell';
-  setAddInfoStep: (
-    addInfoStep:
-      | 'greeting'
-      | 'set-marker'
-      | 'set-radius'
-      | 'set-form'
-      | 'farewell',
-  ) => void;
+  addInfoStep: AddInfoStep;
+  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
 }
 
 interface State {
@@ -210,9 +204,8 @@ class AddInstructions extends React.Component<Props, State> {
         this.markerInfo.circle.setMap(null);
       }
     }
-    const { setAddInfoOpen, setAddInfoStep } = this.props;
-    setAddInfoOpen(false);
-    setAddInfoStep('greeting');
+    const { setAddInfoStep } = this.props;
+    setAddInfoStep(null);
   };
 
   private handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

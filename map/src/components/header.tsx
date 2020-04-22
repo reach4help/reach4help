@@ -4,13 +4,14 @@ import { Filter } from 'src/data';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
 
 import styled, { CLS_SCREEN_LG_ONLY, SMALL_DEVICES } from '../styling';
+import { AddInfoStep } from './add-instructions';
 import Filters, { FilterMutator } from './filters';
 
 interface Props {
   className?: string;
   filter: Filter;
   updateFilter: (mutator: FilterMutator) => void;
-  setAddInfoOpen: (open: boolean) => void;
+  setAddInfoStep: (addInfoStep: AddInfoStep) => void;
   fullScreen: boolean;
   toggleFullscreen: () => void;
 }
@@ -20,7 +21,7 @@ const Header = (props: Props) => {
     className,
     filter,
     updateFilter,
-    setAddInfoOpen,
+    setAddInfoStep,
     fullScreen,
     toggleFullscreen,
   } = props;
@@ -70,7 +71,7 @@ const Header = (props: Props) => {
         <button
           className="add"
           type="button"
-          onClick={() => setAddInfoOpen(true)}
+          onClick={() => setAddInfoStep('greeting')}
         >
           <MdAdd className="icon icon-left" />
           <span>

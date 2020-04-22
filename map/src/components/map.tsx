@@ -11,7 +11,7 @@ import { button, iconButton } from 'src/styling/mixins';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
-import AddInstructions from './add-instructions';
+import AddInstructions, { AddInfoStep } from './add-instructions';
 import {
   createGoogleMap,
   generateSortBasedOnMapCenter,
@@ -75,22 +75,8 @@ interface Props {
   setUpdateResultsOnNextClustering: (
     updateResultsOnNextClustering: boolean,
   ) => void;
-  addInfoOpen: boolean;
-  setAddInfoOpen: (addInfoOpen: boolean) => void;
-  addInfoStep:
-    | 'greeting'
-    | 'set-marker'
-    | 'set-radius'
-    | 'set-form'
-    | 'farewell';
-  setAddInfoStep: (
-    addInfoStep:
-      | 'greeting'
-      | 'set-marker'
-      | 'set-radius'
-      | 'set-form'
-      | 'farewell',
-  ) => void;
+  addInfoStep: AddInfoStep | null;
+  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
 }
 
 /**
@@ -475,9 +461,7 @@ class MapComponent extends React.Component<Props, {}> {
       nextResults,
       resultsMode,
       toggleResults,
-      addInfoOpen,
       addInfoStep,
-      setAddInfoOpen,
       setAddInfoStep,
     } = this.props;
     const hasNewResults = nextResults && nextResults.results !== results;
@@ -485,10 +469,9 @@ class MapComponent extends React.Component<Props, {}> {
     return (
       <div className={className}>
         <div className="map" ref={this.updateGoogleMapRef} />
-        {addInfoOpen && (
+        {addInfoStep && (
           <AddInstructions
             map={(this.map && this.map.map) || null}
-            setAddInfoOpen={setAddInfoOpen}
             addInfoStep={addInfoStep}
             setAddInfoStep={setAddInfoStep}
           />

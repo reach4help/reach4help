@@ -1,6 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 
+import { AddInfoStep } from './components/add-instructions';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
 import Header from './components/header';
@@ -35,13 +36,7 @@ interface State {
    * * open-auto: the results are open because a point is selected
    */
   resultsMode: 'open' | 'closed' | 'open-auto';
-  addInfoOpen: boolean;
-  addInfoStep:
-    | 'greeting'
-    | 'set-marker'
-    | 'set-radius'
-    | 'set-form'
-    | 'farewell';
+  addInfoStep: AddInfoStep | null;
 }
 
 class App extends React.Component<Props, State> {
@@ -56,8 +51,7 @@ class App extends React.Component<Props, State> {
       fullScreen: false,
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
-      addInfoOpen: false,
-      addInfoStep: 'greeting',
+      addInfoStep: null,
     };
   }
 
@@ -102,18 +96,7 @@ class App extends React.Component<Props, State> {
     this.setState({ updateResultsOnNextClustering });
   };
 
-  private setAddInfoOpen = (addInfoOpen: boolean) => {
-    this.setState({ addInfoOpen });
-  };
-
-  private setAddInfoStep = (
-    addInfoStep:
-      | 'greeting'
-      | 'set-marker'
-      | 'set-radius'
-      | 'set-form'
-      | 'farewell',
-  ) => {
+  private setAddInfoStep = (addInfoStep: AddInfoStep | null) => {
     this.setState({ addInfoStep });
   };
 
@@ -148,7 +131,6 @@ class App extends React.Component<Props, State> {
       fullScreen,
       resultsMode,
       updateResultsOnNextClustering,
-      addInfoOpen,
       addInfoStep,
     } = this.state;
     const effectiveResultsMode =
@@ -158,7 +140,7 @@ class App extends React.Component<Props, State> {
         <Header
           filter={filter}
           updateFilter={this.setFilter}
-          setAddInfoOpen={this.setAddInfoOpen}
+          setAddInfoStep={this.setAddInfoStep}
           fullScreen={fullScreen}
           toggleFullscreen={this.toggleFullscreen}
         />
@@ -183,8 +165,6 @@ class App extends React.Component<Props, State> {
                   setUpdateResultsOnNextClustering={
                     this.setUpdateResultsOnNextClustering
                   }
-                  addInfoOpen={addInfoOpen}
-                  setAddInfoOpen={this.setAddInfoOpen}
                   addInfoStep={addInfoStep}
                   setAddInfoStep={this.setAddInfoStep}
                 />
