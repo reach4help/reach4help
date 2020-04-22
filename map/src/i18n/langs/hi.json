@@ -54,7 +54,7 @@
   "lang": "भाषा:",
   "langSelect": "भाषा का चयन करें",
   "footer": {
-    "netlifyNote": "This map {link}",
+    "netlifyNote": "यह नक्शा {link}",
     "netlifyLinkText": "नेटलीफाय द्वारा मेजबानी",
     "githubRepo": "गिटहब कोष",
     "codeOfConduct": "आचार संहिता"
