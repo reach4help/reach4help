@@ -1,24 +1,41 @@
+import merge from 'lodash/merge';
 import React from 'react';
-import { MdChevronLeft, MdChevronRight, MdClose } from 'react-icons/md';
+import { MdChevronRight } from 'react-icons/md';
+import { MarkerInfo } from 'src/data/markers';
+import { Language, t } from 'src/i18n';
+import { RecursivePartial } from 'src/util';
 
-import { SERVICES } from '../data';
+import { isMarkerType, MARKER_TYPE_STRINGS } from '../data';
 import styled from '../styling';
 import { button, buttonPrimary, iconButton } from '../styling/mixins';
+import { AppContext } from './context';
 
 export type AddInfoStep =
+  | 'information'
   | 'greeting'
   | 'set-marker'
   | 'set-radius'
   | 'set-form'
   | 'farewell';
 
-interface MarkerInfo {
+enum FORM_INPUT_NAMES {
+  type = 'type',
+  name = 'name',
+  description = 'description',
+  locationName = 'locationName',
+};
+
+interface Validation {
+  errors: string[];
+  invalidInputs: FORM_INPUT_NAMES[];
+}
+
+interface MarkerInputInfo {
   marker: google.maps.Marker | null;
   circle: google.maps.Circle | null;
 }
 
 interface Props {
-  htmlFor?: string;
   className?: string;
   map: google.maps.Map | null;
   addInfoStep: AddInfoStep;
@@ -26,45 +43,32 @@ interface Props {
 }
 
 interface State {
-  center: {
-    lat: number;
-    lng: number;
-  } | null;
-  radius: number | null;
-  form: {
-    name: string | '';
-    area: string | '';
-    services: Map<string, boolean>;
-    description?: string;
-    website?: string;
-    instructions?: string;
-    volunteerInstructions?: string;
-    otherContact?: string;
-    otherService?: string;
-  };
+  info: RecursivePartial<MarkerInfo>;
+  validation?: Validation;
 }
 
 class AddInstructions extends React.Component<Props, State> {
-  private markerInfo: MarkerInfo | null = null;
+  private markerInfo: MarkerInputInfo | null = null;
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      center: null,
-      radius: null,
-      form: {
-        name: '',
-        area: '',
-        services: Object.keys(SERVICES).reduce(
-          (map: Map<string, boolean>, key: string) => {
-            map.set(key, false);
-            return map;
-          },
-          new Map(),
-        ),
-      },
+      info: {},
     };
+  }
+
+  private setInfoValues(newInfo: RecursivePartial<MarkerInfo>) {
+    this.setState(({ info }) => ({ info: merge({}, info, newInfo) }));
+  }
+
+  private setInfo(mutate: (info: RecursivePartial<MarkerInfo>) => void) {
+    this.setState(({ info }) => {
+      // eslint-disable-next-line no-param-reassign
+      info = merge({}, info);
+      mutate(info);
+      return { info };
+    });
   }
 
   private completeGreetingStep = () => {
@@ -178,400 +182,180 @@ class AddInstructions extends React.Component<Props, State> {
       return;
     }
 
-    const center = {
-      lat: position.lat(),
-      lng: position.lng(),
-    };
-    this.setState({ center });
+    this.setInfoValues({
+      loc: {
+        lat: position.lat(),
+        lng: position.lng(),
+        serviceRadius: circle.getRadius(),
+      },
+    });
 
-    const radius = circle.getRadius();
-    this.setState({ radius });
-
-    const { form } = this.state;
-    if (!form.name || !form.area || !form.services) {
-      setAddInfoStep('set-form');
-      return;
-    }
-    setAddInfoStep('farewell');
   };
 
-  private close = () => {
-    if (this.markerInfo) {
-      if (this.markerInfo.marker) {
-        this.markerInfo.marker.setMap(null);
-      }
-      if (this.markerInfo.circle) {
-        this.markerInfo.circle.setMap(null);
-      }
-    }
-    const { setAddInfoStep } = this.props;
-    setAddInfoStep(null);
-  };
-
-  private handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  private handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { target } = event;
-    const { form } = this.state;
 
     switch (target.name) {
-      case 'name':
-        form.name = target.value;
-        break;
-      case 'area':
-        form.area = target.value;
-        break;
-      case 'description':
-        form.description = target.value;
-        break;
-      case 'website':
-        form.website = target.value;
-        break;
-      case 'instructions':
-        form.instructions = target.value;
-        break;
-      case 'volunteerInstructions':
-        form.volunteerInstructions = target.value;
-        break;
-      case 'otherContact':
-        form.otherContact = target.value;
-        break;
-      case 'other-service':
-        form.otherService = target.value;
-        break;
-      default:
-        if (target.type === 'checkbox') {
-          form.services.set(target.name, target.checked);
+      case FORM_INPUT_NAMES.type:
+        if (isMarkerType(target.value)) {
+          if (target.value === 'org') {
+            console.error('TODO');
+          } else {
+            this.setInfoValues({ type: { type: target.value } });
+          }
+        } else {
+          this.setInfo(info => {
+            // eslint-disable-next-line no-param-reassign
+            info.type = undefined;
+          });
         }
         break;
+      case FORM_INPUT_NAMES.name:
+        this.setInfoValues({ contentTitle: target.value });
+        break;
+      case FORM_INPUT_NAMES.locationName:
+        this.setInfoValues({ loc: { description: target.value } });
+        break;
+      case FORM_INPUT_NAMES.description:
+        this.setInfoValues({ contentBody: target.value });
+        break;
+      default:
+        throw new Error('Unexpected input element');
     }
-    this.setState({ form });
   };
 
+  private completeInformation = (lang: Language) => {
+    const { info } = this.state;
+    const validation: Validation = {
+      errors: [],
+      invalidInputs: [],
+    };
+    if (!info.type) {
+      validation.errors.push(t(lang, s => s.addInformation.screen.information.form.errors.missingType));
+      validation.invalidInputs.push(FORM_INPUT_NAMES.type);
+    }
+    if (!info.contentTitle) {
+      validation.errors.push(t(lang, s => s.addInformation.screen.information.form.errors.missingTitle));
+      validation.invalidInputs.push(FORM_INPUT_NAMES.name);
+    }
+    if (!info.loc?.description) {
+      validation.errors.push(t(lang, s => s.addInformation.screen.information.form.errors.missingLocationName));
+      validation.invalidInputs.push(FORM_INPUT_NAMES.locationName);
+    }
+    if (validation.errors.length > 0) {
+      this.setState({ validation });
+    } else {
+      console.log('TODO');
+      this.setState({ validation: undefined });
+    }
+  }
+
+  private validatedInput = (input: FORM_INPUT_NAMES, element: (valid: boolean) => JSX.Element) => {
+    const { validation } = this.state;
+    const valid = !(validation?.invalidInputs || []).includes(input);
+    return element(valid);
+  }
+
+  private formTextInput = (input: FORM_INPUT_NAMES, label: string, placeholder?: string) =>
+    this.validatedInput(input, valid => (
+      <>
+        <label className={valid ? '' : 'error'} htmlFor={input}>
+          {label}
+        </label>
+        <input
+          className={valid ? '' : 'error'}
+          type="text"
+          id={input}
+          name={input}
+          placeholder={placeholder}
+          onChange={this.handleInputChange}
+        />
+      </>
+    ));
+
   public render() {
-    const { htmlFor, className, addInfoStep, setAddInfoStep } = this.props;
-    const { center, radius, form } = this.state;
+    const { className, addInfoStep } = this.props;
+    const { info, validation } = this.state;
+    const fillLayout = addInfoStep === 'information';
     return (
-      <div className={className}>
-        <div className="box">
-          <div className="top">
-            <h2>Add information to this map</h2>
-            <button onClick={this.close} type="button">
-              <MdClose size={24} />
-            </button>
-          </div>
-          {addInfoStep === 'greeting' && (
-            <>
-              <p>Hi there!</p>
-              <footer>
-                <button
-                  type="button"
-                  className="next-button"
-                  onClick={this.completeGreetingStep}
-                >
-                  Continue
-                  <MdChevronRight />
-                </button>
-              </footer>
-            </>
-          )}
-          {addInfoStep === 'set-marker' && (
-            <>
-              <p>Move the map to include the area served</p>
-              <footer>
-                <button
-                  type="button"
-                  className="next-button"
-                  onClick={this.completeSetMarkerStep}
-                >
-                  Continue
-                  <MdChevronRight />
-                </button>
-                <button
-                  type="button"
-                  className="prev-button"
-                  onClick={() => setAddInfoStep('greeting')}
-                >
-                  <MdChevronLeft />
-                  Back
-                </button>
-              </footer>
-            </>
-          )}
-          {addInfoStep === 'set-radius' && (
-            <>
-              <p>
-                Set the service area. You can change the service area by using
-                rounds at the side of the circle.
-              </p>
-              <footer>
-                <button
-                  type="button"
-                  className="next-button"
-                  onClick={this.completeSetRadiusStep}
-                >
-                  Continue
-                  <MdChevronRight />
-                </button>
-                <button
-                  type="button"
-                  className="prev-button"
-                  onClick={() => setAddInfoStep('set-marker')}
-                >
-                  <MdChevronLeft />
-                  Back
-                </button>
-              </footer>
-            </>
-          )}
-          {addInfoStep === 'set-form' && (
-            <>
-              <p>Please fill out this form with as much detail as you can</p>
-              <form>
-                <label htmlFor={htmlFor}>
-                  Name of the project / group / initiative
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your answer"
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-                <label htmlFor={htmlFor}>
-                  Area served (e.g. country / state / county / town etc...)
-                  <input
-                    type="text"
-                    name="area"
-                    placeholder="Your answer"
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-                <ul className="services">
-                  What services / help does this project aim to provide?
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="food"
-                        onChange={this.handleInputChange}
-                      />
-                      Food
-                    </label>
-                  </li>
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="supplies"
-                        onChange={this.handleInputChange}
-                      />
-                      Other Supplies
-                    </label>
-                  </li>
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="aid"
-                        onChange={this.handleInputChange}
-                      />
-                      Aid/Assistance
-                    </label>
-                  </li>
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="mobility"
-                        onChange={this.handleInputChange}
-                      />
-                      Mobility (e.g driving people places)
-                    </label>
-                  </li>
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="medicine"
-                        onChange={this.handleInputChange}
-                      />
-                      Medicine
-                    </label>
-                  </li>
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="manufacturing"
-                        onChange={this.handleInputChange}
-                      />
-                      Manufacturing Supplies
-                    </label>
-                  </li>
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="financial"
-                        onChange={this.handleInputChange}
-                      />
-                      Financial
-                    </label>
-                  </li>
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="information"
-                        onChange={this.handleInputChange}
-                      />
-                      Information
-                    </label>
-                  </li>
-                  <li>
-                    <label htmlFor={htmlFor}>
-                      <input
-                        type="checkbox"
-                        name="other"
-                        onChange={this.handleInputChange}
-                      />
-                      Other:&nbsp;
-                      <label htmlFor={htmlFor}>
-                        <input
-                          type="text"
-                          placeholder="Your answer"
-                          name="other-service"
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div className={className}>
+            {fillLayout && (
+              <div className="screen">
+                {addInfoStep === 'information' && (
+                  <>
+                    <h2>{t(lang, s => s.addInformation.screen.title)}</h2>
+                    <p className="muted">{t(lang, s => s.addInformation.screen.information.acceptedInformation)}</p>
+                    <p>{t(lang, s => s.addInformation.screen.information.intro)}</p>
+
+                    {this.validatedInput(FORM_INPUT_NAMES.type, valid => (
+                      <>
+                        <label className={valid ? '' : 'error'} htmlFor={FORM_INPUT_NAMES.type}>
+                          {t(lang, s => s.addInformation.screen.information.form.type)}
+                        </label>
+                        <select
+                          className={valid ? '' : 'error'}
+                          id={FORM_INPUT_NAMES.type}
+                          name={FORM_INPUT_NAMES.type}
+                          value={info?.type?.type || ''}
                           onChange={this.handleInputChange}
-                        />
-                      </label>
-                    </label>
-                  </li>
-                </ul>
-                <label htmlFor={htmlFor}>
-                  Optional long-description of what the project does or aims to
-                  do
-                  <input
-                    type="text"
-                    name="description"
-                    placeholder="Your answer"
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-                <label htmlFor={htmlFor}>
-                  Website URL?
-                  <input
-                    type="text"
-                    name="website"
-                    placeholder="Your answer"
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-                <label htmlFor={htmlFor}>
-                  How do people that require help get in touch?
-                  <input
-                    type="text"
-                    name="instructions"
-                    placeholder="Your answer"
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-                <label htmlFor={htmlFor}>
-                  How do people that want to volunteer get in touch?
-                  <input
-                    type="text"
-                    name="volunteerInstructions"
-                    placeholder="Your answer"
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-                <label htmlFor={htmlFor}>
-                  Any other URLs / Facebook Groups / Contact details?
-                  <input
-                    type="text"
-                    name="otherContact"
-                    placeholder="Your answer"
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-              </form>
-              <footer>
-                <button
-                  type="button"
-                  className="next-button"
-                  onClick={this.submit}
-                >
-                  Submit
-                </button>
-                <button
-                  type="button"
-                  className="prev-button"
-                  onClick={() => setAddInfoStep('set-radius')}
-                >
-                  <MdChevronLeft />
-                  Back
-                </button>
-              </footer>
-            </>
-          )}
-          {addInfoStep === 'farewell' && (
-            <>
-              <p>Final State</p>
-              <table>
-                <thead>
-                  <tr>
-                    <td>variable</td>
-                    <td>value</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>center</td>
-                    <td>{JSON.stringify(center)}</td>
-                  </tr>
-                  <tr>
-                    <td>radius</td>
-                    <td>{radius}</td>
-                  </tr>
-                  <tr>
-                    <td>form - name</td>
-                    <td>{form.name}</td>
-                  </tr>
-                  <tr>
-                    <td>form - area</td>
-                    <td>{form.area}</td>
-                  </tr>
-                  <tr>
-                    <td>form - services</td>
-                    <td>{JSON.stringify([...form.services])}</td>
-                  </tr>
-                  <tr>
-                    <td>form - description</td>
-                    <td>{form.description}</td>
-                  </tr>
-                  <tr>
-                    <td>form - website</td>
-                    <td>{form.website}</td>
-                  </tr>
-                  <tr>
-                    <td>form - instructions</td>
-                    <td>{form.instructions}</td>
-                  </tr>
-                  <tr>
-                    <td>form - volunteerInstructions</td>
-                    <td>{form.volunteerInstructions}</td>
-                  </tr>
-                  <tr>
-                    <td>form - otherContact</td>
-                    <td>{form.otherContact}</td>
-                  </tr>
-                  <tr>
-                    <td>form - otherService</td>
-                    <td>{form.otherService}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </>
-          )}
-        </div>
-      </div>
+                        >
+                          <option value="">Please Select</option>
+                          {MARKER_TYPE_STRINGS.map(type => (
+                            <option key={type} value={type}>{t(lang, s => s.markerTypes[type])}</option>
+                          ))}
+                        </select>
+                      </>
+                    ))}
+
+                    {this.formTextInput(
+                      FORM_INPUT_NAMES.name,
+                      t(lang, s => s.addInformation.screen.information.form.name),
+                      t(lang, s => s.addInformation.screen.information.form.namePlaceholder),
+                    )}
+
+                    {this.formTextInput(
+                      FORM_INPUT_NAMES.description,
+                      t(lang, s => s.addInformation.screen.information.form.description),
+                      t(lang, s => s.addInformation.screen.information.form.namePlaceholder),
+                    )}
+
+                    {this.formTextInput(
+                      FORM_INPUT_NAMES.locationName,
+                      t(lang, s => s.addInformation.screen.information.form.locationName),
+                      t(lang, s => s.addInformation.screen.information.form.locationNamePlaceholder),
+                    )}
+
+                    <p>
+                      {t(lang, s => s.addInformation.screen.information.form.continue)}
+                    </p>
+
+                    {validation && (
+                      <ul className="errors">
+                        {validation.errors.map((error, i) => (
+                          <li key={i}>{error}</li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <div className="actions">
+                      <button
+                        type="button"
+                        className="next-button"
+                        onClick={() => this.completeInformation(lang)}
+                      >
+                        {t(lang, s => s.addInformation.continue)}
+                        <MdChevronRight />
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }
@@ -579,7 +363,6 @@ class AddInstructions extends React.Component<Props, State> {
 export default styled(AddInstructions)`
   z-index: 1000;
   font-size: 1rem;
-  text-align: left;
   position: absolute;
   top: 0;
   left: 0;
@@ -590,6 +373,82 @@ export default styled(AddInstructions)`
   justify-content: flex-start;
   pointer-events: none;
 
+  > .screen {
+    pointer-events: initial;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    overflow-y: auto;
+    padding: ${p => p.theme.spacingPx}px;
+
+    > h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: ${p => p.theme.spacingPx}px;
+      font-weight: bold;
+
+      &.error {
+        color: ${p => p.theme.colors.red};
+      }
+    }
+
+    input {
+      display: block;
+      width: 600px;
+      max-width: 100%;
+    }
+
+    input, select {
+      padding: 7px 5px;
+      font-size: 1rem;
+      margin-top: ${p => p.theme.spacingPx}px;
+      border: 1px solid ${p => p.theme.colors.purpleLight};
+      border-radius: 3px;
+      outline: none;
+      color: ${p => p.theme.textColor};
+      background: #fff;
+
+      &:focus {
+        border-color: ${p => p.theme.colors.purple};
+      }
+
+      &::placeholder {
+        color: ${p => p.theme.textColorLight};
+      }
+
+      &.error {
+        border: 2px solid ${p => p.theme.colors.red};
+      }
+    }
+
+    .errors {
+      color: ${p => p.theme.colors.red};
+    }
+
+    .actions {
+      margin-top: ${p => p.theme.spacingPx}px;
+      display: flex;
+
+      > .next-button {
+        ${buttonPrimary}
+        ${iconButton}
+      }
+
+      > .prev-button {
+        ${button}
+        ${iconButton}
+      }
+    }
+
+  }
+
+  /* TODO: clean up styling below this point */
   > .box {
     z-index: 1100;
     margin: ${p => p.theme.spacingPx}px;
@@ -661,22 +520,6 @@ export default styled(AddInstructions)`
             width: auto;
           }
         }
-      }
-    }
-
-    footer {
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: space-between;
-
-      > .next-button {
-        ${buttonPrimary}
-        ${iconButton}
-      }
-
-      > .prev-button {
-        ${button}
-        ${iconButton}
       }
     }
   }

@@ -5,7 +5,30 @@
   "githubSourceLabel": "found on GitHub",
   "addInformation": {
     "small": "Add information",
-    "large": "Add information to this map"
+    "large": "Add information to this map",
+    "back": "Back to map",
+    "continue": "Continue",
+    "screen": {
+      "title": "Add information to this map",
+      "information": {
+        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
+        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "form": {
+          "type": "Type of project / group / organization / initiative",
+          "name": "Name of the project / group / organization",
+          "namePlaceholder": "e.g. Mutual Aid Antarctica",
+          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
+          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
+          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
+          "continue": "Click continue to enter location information",
+          "errors": {
+            "missingType": "Please enter the type of the project / group / organization",
+            "missingTitle": "Please enter the name of the project / group / organization",
+            "missingLocationName": "Please enter a description of the area served"
+          }
+        }
+      }
+    }
   },
   "buttons": {
     "fullScreen": "Fullscreen",

@@ -166,6 +166,7 @@ class App extends React.Component<Props, State> {
           <Header
             filter={filter}
             updateFilter={this.setFilter}
+            addInfoStep={addInfoStep}
             setAddInfoStep={this.setAddInfoStep}
             fullScreen={fullScreen}
             toggleFullscreen={this.toggleFullscreen}

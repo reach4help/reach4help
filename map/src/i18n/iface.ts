@@ -1,3 +1,5 @@
+import { RecursivePartial } from 'src/util';
+
 import en from './langs/en.json';
 
 /**
@@ -5,10 +7,6 @@ import en from './langs/en.json';
  * to have translated
  */
 export type Strings = typeof en;
-
-type RecursivePartial<T> = {
-  [P in keyof T]?: RecursivePartial<T[P]>;
-};
 
 type PartialStrings = RecursivePartial<Strings>;
 
