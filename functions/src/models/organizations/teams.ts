@@ -63,7 +63,7 @@ export class Team implements ITeam {
     return {
       name: this.name,
       types: this.types,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }
@@ -73,10 +73,6 @@ export const TeamFirestoreConverter: FirestoreDataConverter<Team> = {
     return Team.factory(data.data());
   },
   toFirestore: (modelObject: Team): DocumentData => {
-    return {
-      name: modelObject.name,
-      types: modelObject.types,
-      createdAt: modelObject.createdAt,
-    };
+    return modelObject.toObject();
   },
 };

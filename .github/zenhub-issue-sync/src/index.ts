@@ -32,6 +32,7 @@ interface GitHubIssue {
   }>;
   assignees: GitHubUser[];
   html_url: string;
+  pull_request?: {};
 }
 
 interface IssueInfo {
@@ -143,9 +144,7 @@ interface IssueInfo {
     const hasNext = (getIssues.headers.link || '').indexOf('rel="next"') > -1;
     nextPage = hasNext ? ( nextPage + 1 ) : null;
     for (const issue of getIssues.data) {
-      if (!issue.pull_request) {
-        getIssue(issue.number).data = issue;
-      }
+      getIssue(issue.number).data = issue;
     }
   }
 
@@ -210,6 +209,10 @@ interface IssueInfo {
   for (const i of issueData.entries()) {
     const issueId = i[0];
     const issue = i[1];
+    // Don't add information to PRs
+    if (issue.data?.pull_request) {
+      continue;
+    }
     const githubData =getIssueGitHubData(issueId, issue);
     let extraBody = (`
 --------

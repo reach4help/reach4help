@@ -22,7 +22,7 @@ const rules = fs.readFileSync(
  * @return {object} the app.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const authedApp = (auth: any) => {
+const authedApp = (auth?: object) => {
   return firebase.initializeTestApp({ projectId, auth }).firestore();
 };
 /**
@@ -50,13 +50,13 @@ afterAll(async () => {
 
 describe('users', () => {
   it('require users to log in before reading a profile', async () => {
-    const db = authedApp(null);
+    const db = authedApp();
     const profile = db.collection('users').doc('1234');
     await firebase.assertFails(profile.get());
   });
 
   it('require users to log in before listing profiles', async () => {
-    const db = authedApp(null);
+    const db = authedApp();
     const profile = db.collection('users');
     await firebase.assertFails(profile.get());
   });
@@ -74,7 +74,7 @@ describe('users', () => {
   });
 
   it('require users to log in before creating a profile', async () => {
-    const db = authedApp(null);
+    const db = authedApp();
     const profile = db.collection('users').doc('1234');
     await firebase.assertFails(
       profile
@@ -224,7 +224,7 @@ describe('offers', () => {
   };
 
   it('require users to log in before listing offers', async () => {
-    const db = authedApp(null);
+    const db = authedApp();
     const offers = db.collection('offers');
     await firebase.assertFails(offers.get());
   });
@@ -356,7 +356,7 @@ describe('requests', () => {
   };
 
   it('require users to log in before listing requests', async () => {
-    const db = authedApp(null);
+    const db = authedApp();
     const requests = db.collection('requests');
     await firebase.assertFails(requests.get());
   });
@@ -392,7 +392,7 @@ describe('questionnaires', () => {
   };
 
   it('require users to log in before listing questionnaires', async () => {
-    const db = authedApp(null);
+    const db = authedApp();
     const requests = db.collection('requests');
     await firebase.assertFails(requests.get());
   });

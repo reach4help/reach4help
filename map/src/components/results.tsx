@@ -6,10 +6,12 @@ import {
   MdPhone,
 } from 'react-icons/md';
 import { ContactDetails, MarkerInfo } from 'src/data/markers';
+import { format, Language, t } from 'src/i18n';
 import { button, buttonPrimary } from 'src/styling/mixins';
 
-import styled, { CLS_SCREEN_LG_ONLY } from '../styling';
-import Services from './services';
+import styled, { CLS_SCREEN_LG_HIDE, CLS_SCREEN_LG_ONLY } from '../styling';
+import { AppContext } from './context';
+import MarkerType from './marker-type';
 
 interface Props {
   className?: string;
@@ -20,7 +22,7 @@ interface Props {
   setSelectedResult: (selectedResult: MarkerInfo | null) => void;
 }
 
-const contactInfo = (label: string, info?: ContactDetails) => {
+const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
   if (!info) {
     return null;
   }
@@ -59,7 +61,7 @@ const contactInfo = (label: string, info?: ContactDetails) => {
         rel="noopener noreferrer"
       >
         <MdLanguage />
-        Facebook Group
+        {t(lang, s => s.results.contact.facebookGroup)}
       </a>,
     );
   }
@@ -104,57 +106,81 @@ const Results = (props: Props) => {
   } = props;
   const selectedResultVisible = selectedResult ? 'visible' : '';
   return (
-    <div className={className}>
-      <div className="header">
-        <button
-          className={`back ${selectedResultVisible}`}
-          onClick={() => setSelectedResult(null)}
-          type="button"
-        >
-          <MdKeyboardArrowLeft size={24} />
-        </button>
-        <span className="count">{`${(results || []).length} results`}</span>
-        {nextResults !== results && (
-          <button className="update" onClick={updateResults} type="button">
-            Update results
-            <span className={CLS_SCREEN_LG_ONLY}>&nbsp;for current area</span>
-          </button>
-        )}
-      </div>
-      <div className="list">
-        {(results || []).map((result, index) => (
-          <div
-            key={index}
-            className="result"
-            onClick={() => setSelectedResult(result)}
-          >
-            <div className="number">{index + 1}</div>
-            <div className="info">
-              {result.loc.description && (
-                <div className="location">{result.loc.description}</div>
-              )}
-              <div className="name">{result.contentTitle}</div>
-              <Services services={result.services} />
-            </div>
+    <AppContext.Consumer>
+      {({ lang }) => (
+        <div className={className}>
+          <div className="header">
+            <button
+              className={`back ${selectedResultVisible}`}
+              onClick={() => setSelectedResult(null)}
+              type="button"
+            >
+              <MdKeyboardArrowLeft size={24} />
+            </button>
+            <span className="count">
+              {format(lang, s => s.results.count, {
+                results: (results || []).length,
+              })}
+            </span>
+            {nextResults !== results && (
+              <button className="update" onClick={updateResults} type="button">
+                <span className={CLS_SCREEN_LG_HIDE}>
+                  {t(lang, s => s.results.updateResults.small)}
+                </span>
+                <span className={CLS_SCREEN_LG_ONLY}>
+                  {t(lang, s => s.results.updateResults.large)}
+                </span>
+              </button>
+            )}
           </div>
-        ))}
-      </div>
-      {selectedResult && (
-        <div className="details">
-          <div className="name">{selectedResult.contentTitle}</div>
-          {selectedResult.loc.description && (
-            <div className="location">{selectedResult.loc.description}</div>
+          <div className="list">
+            {(results || []).map((result, index) => (
+              <div
+                key={index}
+                className="result"
+                onClick={() => setSelectedResult(result)}
+              >
+                <div className="number">{index + 1}</div>
+                <div className="info">
+                  {result.loc.description && (
+                    <div className="location">{result.loc.description}</div>
+                  )}
+                  <div className="name">{result.contentTitle}</div>
+                  <MarkerType type={result.type} />
+                </div>
+              </div>
+            ))}
+          </div>
+          {selectedResult && (
+            <div className="details">
+              <div className="name">{selectedResult.contentTitle}</div>
+              {selectedResult.loc.description && (
+                <div className="location">{selectedResult.loc.description}</div>
+              )}
+              <MarkerType type={selectedResult.type} />
+              {selectedResult.contentBody && (
+                <div className="content">{selectedResult.contentBody}</div>
+              )}
+              {contactInfo(
+                lang,
+                t(lang, s => s.results.contact.general),
+                selectedResult.contact.general,
+              )}
+              {contactInfo(
+                lang,
+                t(lang, s => s.results.contact.getHelp),
+                selectedResult.contact.getHelp,
+              )}
+              {contactInfo(
+                lang,
+                t(lang, s => s.results.contact.volunteer),
+                selectedResult.contact.volunteers,
+              )}
+            </div>
           )}
-          <Services className="services" services={selectedResult.services} />
-          {selectedResult.contentBody && (
-            <div className="content">{selectedResult.contentBody}</div>
-          )}
-          {contactInfo('General Information:', selectedResult.contact.general)}
-          {contactInfo('Get Help:', selectedResult.contact.getHelp)}
-          {contactInfo('Volunteer:', selectedResult.contact.volunteers)}
         </div>
       )}
-    </div>
+    </AppContext.Consumer>
   );
 };
 
@@ -177,6 +203,10 @@ export default styled(Results)`
     display: flex;
     align-items: center;
 
+    [dir='rtl'] & {
+      padding: 0 0 0 ${p => p.theme.spacingPx}px;
+    }
+
     > .back {
       display: flex;
       height: 100%;
@@ -193,6 +223,10 @@ export default styled(Results)`
       opacity: 0;
       transition: opacity 200ms, width 200ms;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+      [dir='rtl'] & {
+        transform: rotate(180deg);
+      }
 
       &.visible {
         width: 50px;
@@ -213,6 +247,10 @@ export default styled(Results)`
       margin-right: ${p => p.theme.spacingPx}px;
       line-height: 22px;
       white-space: nowrap;
+
+      [dir='rtl'] & {
+        margin: 0 0 0 ${p => p.theme.spacingPx}px;
+      }
     }
 
     > .update {
@@ -247,6 +285,10 @@ export default styled(Results)`
         font-size: 20px;
         font-weight: 600;
         margin-right: ${p => p.theme.spacingPx}px;
+
+        [dir='rtl'] & {
+          margin: 0 0 0 ${p => p.theme.spacingPx}px;
+        }
       }
 
       .location {

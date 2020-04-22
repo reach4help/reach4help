@@ -1,7 +1,10 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
+import { Helmet } from 'react-helmet';
+import * as i18n from 'src/i18n';
 
 import { AddInfoStep } from './components/add-instructions';
+import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
 import Header from './components/header';
@@ -12,6 +15,7 @@ import Search from './components/search';
 import { Filter } from './data';
 import { MarkerInfo } from './data/markers';
 import styled, {
+  CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
   SMALL_DEVICES,
@@ -30,6 +34,7 @@ interface State {
   searchInput: HTMLInputElement | null;
   fullScreen: boolean;
   updateResultsOnNextClustering: boolean;
+  lang: i18n.Language;
   /**
    * * open: (default) the results are open
    * * closed: the results are closed
@@ -52,6 +57,7 @@ class App extends React.Component<Props, State> {
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
       addInfoStep: null,
+      lang: i18n.getLanguage(),
     };
   }
 
@@ -120,6 +126,18 @@ class App extends React.Component<Props, State> {
     }));
   };
 
+  private languageUpdated = (lang: i18n.Language) => {
+    this.setState({ lang });
+  };
+
+  public componentDidMount = () => {
+    i18n.addListener(this.languageUpdated);
+  };
+
+  public componentWillUnmount = () => {
+    i18n.removeListener(this.languageUpdated);
+  };
+
   public render() {
     const { className } = this.props;
     const {
@@ -132,70 +150,90 @@ class App extends React.Component<Props, State> {
       resultsMode,
       updateResultsOnNextClustering,
       addInfoStep,
+      lang,
     } = this.state;
     const effectiveResultsMode =
       resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
-      <div className={className + (fullScreen ? ' fullscreen' : '')}>
-        <Header
-          filter={filter}
-          updateFilter={this.setFilter}
-          setAddInfoStep={this.setAddInfoStep}
-          fullScreen={fullScreen}
-          toggleFullscreen={this.toggleFullscreen}
-        />
-        <main className={`results-${effectiveResultsMode}`}>
-          <div className="map-area">
-            <MapLoader
-              className="map"
-              child={() => (
-                <Map
-                  filter={filter}
-                  searchInput={searchInput}
-                  results={results}
-                  nextResults={nextResults}
-                  setResults={this.setResults}
-                  setNextResults={this.setNextResults}
-                  selectedResult={selectedResult}
-                  setSelectedResult={this.setSelectedResult}
-                  setUpdateResultsCallback={this.setUpdateResultsCallback}
-                  resultsMode={effectiveResultsMode}
-                  toggleResults={this.toggleResults}
-                  updateResultsOnNextClustering={updateResultsOnNextClustering}
-                  setUpdateResultsOnNextClustering={
-                    this.setUpdateResultsOnNextClustering
-                  }
-                  addInfoStep={addInfoStep}
-                  setAddInfoStep={this.setAddInfoStep}
-                />
-              )}
-            />
-            <Search
-              className="search"
-              updateSearchInput={this.setSearchInput}
-            />
-          </div>
-          <Results
-            className="results"
-            results={results}
-            nextResults={nextResults?.results || null}
-            selectedResult={selectedResult}
-            setSelectedResult={this.setSelectedResult}
-            updateResults={this.updateResults}
+      <AppContext.Provider value={{ lang }}>
+        <div
+          dir={i18n.getMeta(lang).direction}
+          className={className + (fullScreen ? ' fullscreen' : '')}
+        >
+          <Helmet>
+            {i18n.LANGUAGE_KEYS.map((langKey, i) => (
+              <link
+                key={i}
+                rel="alternate"
+                hrefLang={langKey}
+                href={i18n.canonicalUrl(lang)}
+              />
+            ))}
+            <link rel="canonical" href={i18n.canonicalUrl(lang)} />
+          </Helmet>
+          <Header
+            filter={filter}
+            updateFilter={this.setFilter}
+            setAddInfoStep={this.setAddInfoStep}
+            fullScreen={fullScreen}
+            toggleFullscreen={this.toggleFullscreen}
           />
-        </main>
-        <div className="mobile-message">
-          <p>
-            Unfortunately, this map has not been updated to work on devices with
-            small screens.
-          </p>
-          <p>
-            We are currently working on it, and should have an update out in the
-            coming days. Until then, please open page on a different device.
-          </p>
+          <main className={`results-${effectiveResultsMode}`}>
+            <div className="map-area">
+              <MapLoader
+                className="map"
+                child={() => (
+                  <Map
+                    filter={filter}
+                    searchInput={searchInput}
+                    results={results}
+                    nextResults={nextResults}
+                    setResults={this.setResults}
+                    setNextResults={this.setNextResults}
+                    selectedResult={selectedResult}
+                    setSelectedResult={this.setSelectedResult}
+                    setUpdateResultsCallback={this.setUpdateResultsCallback}
+                    resultsMode={effectiveResultsMode}
+                    toggleResults={this.toggleResults}
+                    updateResultsOnNextClustering={
+                      updateResultsOnNextClustering
+                    }
+                    setUpdateResultsOnNextClustering={
+                      this.setUpdateResultsOnNextClustering
+                    }
+                    addInfoStep={addInfoStep}
+                    setAddInfoStep={this.setAddInfoStep}
+                  />
+                )}
+              />
+              <Search
+                className="search"
+                updateSearchInput={this.setSearchInput}
+              />
+            </div>
+            <Results
+              className="results"
+              results={results}
+              nextResults={nextResults?.results || null}
+              selectedResult={selectedResult}
+              setSelectedResult={this.setSelectedResult}
+              updateResults={this.updateResults}
+            />
+          </main>
+          <div className="mobile-message">
+            <p>
+              Unfortunately, this map has not been updated to work on devices
+              with small screens.
+            </p>
+            <p>
+              We are currently working on it, and should have an update out in
+              the coming days. Until then, please open page on a different
+              device.
+            </p>
+          </div>
+          {!fullScreen && <Footer />}
         </div>
-        {!fullScreen && <Footer />}
-      </div>
+      </AppContext.Provider>
     );
   }
 }
@@ -318,6 +356,12 @@ export default styled(App)`
 
     ${LARGE_DEVICES} {
       display: initial;
+    }
+  }
+
+  .${CLS_SCREEN_LG_HIDE} {
+    ${LARGE_DEVICES} {
+      display: none;
     }
   }
 `;

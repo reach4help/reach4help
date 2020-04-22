@@ -6,12 +6,14 @@ import {
   MdMyLocation,
   MdRefresh,
 } from 'react-icons/md';
-import { Filter, SERVICES } from 'src/data';
+import { Filter, MARKER_TYPES } from 'src/data';
+import { t } from 'src/i18n';
 import { button, iconButton } from 'src/styling/mixins';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
 import AddInstructions, { AddInfoStep } from './add-instructions';
+import { AppContext } from './context';
 import {
   createGoogleMap,
   generateSortBasedOnMapCenter,
@@ -50,7 +52,7 @@ const updateMarkersVisibilityUsingFilter = (
 ) => {
   for (const marker of markers.values()) {
     const info = getInfo(marker);
-    const visible = !filter.service || info.services.includes(filter.service);
+    const visible = !filter.type || info.type.type === filter.type;
     marker.setVisible(visible);
   }
 };
@@ -138,7 +140,7 @@ class MapComponent extends React.Component<Props, {}> {
     for (const m of MARKERS) {
       const marker = new window.google.maps.Marker({
         position: m.loc,
-        title: m.services.join(','),
+        title: m.contentTitle,
       });
       marker.set('info', m);
       markers.set(m, marker);
@@ -196,7 +198,7 @@ class MapComponent extends React.Component<Props, {}> {
       }
 
       const info = getInfo(marker);
-      const { color } = SERVICES[m.currentFilter.service || info.services[0]];
+      const { color } = MARKER_TYPES[info.type.type];
 
       const mapBoundingBox = map.getBounds();
       if (mapBoundingBox) {
@@ -467,41 +469,45 @@ class MapComponent extends React.Component<Props, {}> {
     const hasNewResults = nextResults && nextResults.results !== results;
     const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
     return (
-      <div className={className}>
-        <div className="map" ref={this.updateGoogleMapRef} />
-        {addInfoStep && (
-          <AddInstructions
-            map={(this.map && this.map.map) || null}
-            addInfoStep={addInfoStep}
-            setAddInfoStep={setAddInfoStep}
-          />
-        )}
-        <div className="map-actions">
-          {hasNewResults && (
-            <button type="button" onClick={this.updateResults}>
-              <MdRefresh className="icon icon-left" />
-              Update results for this area
-            </button>
-          )}
-          {navigator.geolocation && (
-            <button type="button" onClick={this.centerToGeolocation}>
-              <MdMyLocation className="icon icon-left" />
-              My Location
-            </button>
-          )}
-        </div>
-        <div className="results-tab" onClick={toggleResults}>
-          <div>
-            <ExpandIcon />
-            <span>
-              {resultsMode === 'open'
-                ? 'close'
-                : `${results?.length || 0} result(s)`}
-            </span>
-            <ExpandIcon />
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div className={className}>
+            <div className="map" ref={this.updateGoogleMapRef} />
+            {addInfoStep && (
+              <AddInstructions
+                map={(this.map && this.map.map) || null}
+                addInfoStep={addInfoStep}
+                setAddInfoStep={setAddInfoStep}
+              />
+            )}
+            <div className="map-actions">
+              {hasNewResults && (
+                <button type="button" onClick={this.updateResults}>
+                  <MdRefresh className="icon icon-left" />
+                  {t(lang, s => s.map.updateResultsForThisArea)}
+                </button>
+              )}
+              {navigator.geolocation && (
+                <button type="button" onClick={this.centerToGeolocation}>
+                  <MdMyLocation className="icon icon-left" />
+                  {t(lang, s => s.map.myLocation)}
+                </button>
+              )}
+            </div>
+            <div className="results-tab" onClick={toggleResults}>
+              <div>
+                <ExpandIcon />
+                <span>
+                  {resultsMode === 'open'
+                    ? 'close'
+                    : `${results?.length || 0} result(s)`}
+                </span>
+                <ExpandIcon />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }

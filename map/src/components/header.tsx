@@ -1,11 +1,18 @@
 import React from 'react';
 import { MdAdd, MdFullscreen, MdFullscreenExit } from 'react-icons/md';
 import { Filter } from 'src/data';
+import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
 
-import styled, { CLS_SCREEN_LG_ONLY, SMALL_DEVICES } from '../styling';
+import styled, {
+  CLS_SCREEN_LG_HIDE,
+  CLS_SCREEN_LG_ONLY,
+  SMALL_DEVICES,
+} from '../styling';
 import { AddInfoStep } from './add-instructions';
+import { AppContext } from './context';
 import Filters, { FilterMutator } from './filters';
+import Languages from './languages';
 
 interface Props {
   className?: string;
@@ -27,60 +34,70 @@ const Header = (props: Props) => {
   } = props;
   const FullScreenIcon = fullScreen ? MdFullscreenExit : MdFullscreen;
   return (
-    <header className={className}>
-      {!fullScreen && (
-        <div className="row">
-          <div className="logo">
-            <img src="/logo-compat.svg" alt="Reach4Help Logo" />
+    <AppContext.Consumer>
+      {({ lang }) => (
+        <header className={className}>
+          {!fullScreen && (
+            <div className="row">
+              <div className="logo">
+                <img src="/logo-compat.svg" alt="Reach4Help Logo" />
+              </div>
+              <div className="info">
+                <h1>{t(lang, s => s.title)} - Reach4Help</h1>
+                <p>{t(lang, s => s.info)}</p>
+                <p className="muted">
+                  {t(lang, s => s.about, {
+                    reach4Help: (
+                      <a href="https://reach4help.org">reach4help.org</a>
+                    ),
+                    githubSource: (
+                      <a href="https://github.com/reach4help/reach4help/tree/master/map">
+                        {t(lang, s => s.githubSourceLabel)}
+                      </a>
+                    ),
+                    email: (
+                      <a href="mailto:map@reach4help.org">map@reach4help.org</a>
+                    ),
+                  })}
+                </p>
+              </div>
+            </div>
+          )}
+          <div className="tools">
+            <Filters
+              className="filters"
+              filter={filter}
+              updateFilter={updateFilter}
+            />
+            <Languages className="filters" />
+            <div className="grow" />
+            <button className="fs" type="button" onClick={toggleFullscreen}>
+              <FullScreenIcon className="icon icon-left" />
+              <span>
+                {t(lang, s =>
+                  fullScreen ? s.buttons.exitFullScreen : s.buttons.fullScreen,
+                )}
+              </span>
+            </button>
+            <button
+              className="add"
+              type="button"
+              onClick={() => setAddInfoStep('greeting')}
+            >
+              <MdAdd className="icon icon-left" />
+              <span>
+                <span className={CLS_SCREEN_LG_HIDE}>
+                  {t(lang, s => s.addInformation.small)}
+                </span>
+                <span className={CLS_SCREEN_LG_ONLY}>
+                  {t(lang, s => s.addInformation.large)}
+                </span>
+              </span>
+            </button>
           </div>
-          <div className="info">
-            <h1>COVID-19 Mutual Aid Map - Reach4Help</h1>
-            <p>
-              To help people find and join mutual aid efforts where they live,
-              offer inspiration to start their own, and/or simply lift spirits,
-              below is a growing list of mutual aid pandemic disaster care
-              projects. Note: Each project is autonomous and self-organized;
-              many use public spreadsheets to share information, so be when
-              careful entering private information that you don&apos;t want to
-              be public.
-            </p>
-            <p className="muted">
-              This map is part of&nbsp;
-              <a href="https://reach4help.org">reach4help.org</a>, a
-              volunteer-run project. It is open source and can be&nbsp;
-              <a href="https://github.com/reach4help/reach4help/tree/master/map">
-                found on GitHub
-              </a>
-              . For any enquiries, you can reach us as at&nbsp;
-              <a href="mailto:map@reach4help.org">map@reach4help.org</a>.
-            </p>
-          </div>
-        </div>
+        </header>
       )}
-      <div className="tools">
-        <Filters
-          className="filters"
-          filter={filter}
-          updateFilter={updateFilter}
-        />
-        <div className="grow" />
-        <button className="fs" type="button" onClick={toggleFullscreen}>
-          <FullScreenIcon className="icon icon-left" />
-          <span>{fullScreen && 'Exit '}Fullscreen</span>
-        </button>
-        <button
-          className="add"
-          type="button"
-          onClick={() => setAddInfoStep('greeting')}
-        >
-          <MdAdd className="icon icon-left" />
-          <span>
-            Add information
-            <span className={CLS_SCREEN_LG_ONLY}>&nbsp;to this map</span>
-          </span>
-        </button>
-      </div>
-    </header>
+    </AppContext.Consumer>
   );
 };
 

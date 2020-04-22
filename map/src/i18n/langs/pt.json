@@ -1,0 +1,62 @@
+{
+  "title": "COVID-19 Mapa de Organizações de Solidariedade",
+  "info": "Seja para ajudar pessoas a encontrar ou ajudar esforços de ajuda mútua perto de onde vivem, dar inspiração para começar a sua própria, e/ou apenas elevar a alma, abaixo está uma lista de projetos de ajuda mútua face à pandemia. Nota: Cada projeto é autónomo, muitos usam documentos públicos para partilhar informação, tem cuidado ao introduzires informação privada que não queiras que seja pública.",
+  "about": "Este mapa é parte da {reach4Help}, um projeto gerido por voluntários. É de código aberto e pode ser {githubSource}. Para qualquer dúvida, podes contactar-nos através de {email}.",
+  "githubSourceLabel": "encontrado no Github",
+  "addInformation": {
+    "small": "Adicionar Informação",
+    "large": "Adicionar informações a este mapa"
+  },
+  "buttons": {
+    "fullScreen": "Fullscreen",
+    "exitFullScreen": "Exit Fullscreen"
+  },
+  "loading": "A carregar...",
+  "filterBy": "Filtrar por:",
+  "services": {
+    "any": "Qualquer",
+    "financial": "Financial",
+    "food": "Comida",
+    "information": "Informação",
+    "manufacturing": "Manufactura",
+    "medicine": "Medicamentos",
+    "mobility": "Mobilidade",
+    "supplies": "Outros Recursos",
+    "network": "Rede",
+    "shelter": "Abrigo",
+    "support": "Suporte"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "Organização de Solidariedade",
+    "org": "Organização / Empresa",
+    "financial": "Financeiro",
+    "information": "Informação",
+    "other": "Outros"
+  },
+  "map": {
+    "jumpToLocation": "Ir para uma localização no mapa...",
+    "updateResultsForThisArea": "Atualizar resultados para esta área",
+    "myLocation": "A Minha Localização"
+  },
+  "results": {
+    "updateResults": {
+      "small": "Actualizar resultados",
+      "large": "Atualizar resultados para esta área"
+    },
+    "count": "{results, plural, \n =1 {# resultado}\n other {# resultados}}",
+    "contact": {
+      "general": "Informações gerais:",
+      "getHelp": "Obter ajuda:",
+      "volunteer": "Voluntário:",
+      "facebookGroup": "Grupo no Facebook"
+    }
+  },
+  "lang": "Idioma:",
+  "langSelect": "Seleciona o Idioma",
+  "footer": {
+    "netlifyNote": "Este mapa {link}",
+    "netlifyLinkText": "está hospedado por Netlify",
+    "githubRepo": "GitHub Repo",
+    "codeOfConduct": "Código de Conduta"
+  }
+}
