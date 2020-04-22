@@ -62,8 +62,7 @@ export class Organization implements IOrganization {
     this._createdAt = value;
   }
 
-  static factory = (data: IOrganization): Organization =>
-    new Organization(data.name, data.types, data.createdAt);
+  static factory = (data: IOrganization): Organization => new Organization(data.name, data.types, data.createdAt);
 
   toObject(): object {
     return {

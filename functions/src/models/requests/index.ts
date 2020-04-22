@@ -1,16 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import {
-  Allow,
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsNotEmptyObject,
-  IsObject,
-  IsString,
-  Max,
-  Min,
-  ValidateNested,
-} from 'class-validator';
+import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, Max, Min, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
 import { IUser, User, UserFirestoreConverter } from '../users';
@@ -274,9 +263,7 @@ export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
     return {
       cavUserRef: modelObject.cavUserRef,
       pinUserRef: modelObject.pinUserRef,
-      pinUserSnapshot: UserFirestoreConverter.toFirestore(
-        modelObject.pinUserSnapshot,
-      ),
+      pinUserSnapshot: UserFirestoreConverter.toFirestore(modelObject.pinUserSnapshot),
       title: modelObject.title,
       description: modelObject.description,
       latLng: modelObject.latLng,

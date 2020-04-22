@@ -19,7 +19,6 @@ export interface ITimelineItem extends DocumentData {
  * are created automatically by the system based on status changes.
  */
 export class TimelineItem implements ITimelineItem, FirestoreDataConverter<TimelineItem> {
-
   @IsObject()
   private _offerSnapshot: IOffer;
 
@@ -36,11 +35,7 @@ export class TimelineItem implements ITimelineItem, FirestoreDataConverter<Timel
   }
 
   static factory(data: ITimelineItem): TimelineItem {
-    return new TimelineItem(
-      data.offerSnapshot,
-      data.requestSnapshot,
-      data.createdAt || Timestamp.now(),
-    );
+    return new TimelineItem(data.offerSnapshot, data.requestSnapshot, data.createdAt || Timestamp.now());
   }
 
   get offerSnapshot(): IOffer {

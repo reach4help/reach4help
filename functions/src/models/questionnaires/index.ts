@@ -102,14 +102,7 @@ export class Questionnaire implements IQuestionnaire {
     this._createdAt = value;
   }
 
-  static factory = (data: IQuestionnaire): Questionnaire =>
-    new Questionnaire(
-      data.parentRef,
-      data.data,
-      data.type,
-      data.version,
-      data.createdAt,
-    );
+  static factory = (data: IQuestionnaire): Questionnaire => new Questionnaire(data.parentRef, data.data, data.type, data.version, data.createdAt);
 
   toObject(): object {
     return {
@@ -123,9 +116,7 @@ export class Questionnaire implements IQuestionnaire {
 }
 
 export const QuestionnaireFirestoreConverter: FirestoreDataConverter<Questionnaire> = {
-  fromFirestore: (
-    data: QueryDocumentSnapshot<IQuestionnaire>,
-  ): Questionnaire => {
+  fromFirestore: (data: QueryDocumentSnapshot<IQuestionnaire>): Questionnaire => {
     return Questionnaire.factory(data.data());
   },
   toFirestore: (modelObject: Questionnaire): DocumentData => {

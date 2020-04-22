@@ -4,7 +4,6 @@ import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import { IUser, User } from '../models/users';
 import * as admin from 'firebase-admin';
 
-admin.initializeApp();
 const db = admin.firestore();
 
 const validateUser = (value: IUser): Promise<void> => {
@@ -14,12 +13,11 @@ const validateUser = (value: IUser): Promise<void> => {
 };
 
 export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
-  return validateUser(snapshot.data() as IUser)
-    .catch(errors => {
-      console.error('Invalid User Found: ', errors);
-      return db
-        .collection('users')
-        .doc(context.params.userId)
-        .delete();
-    });
+  return validateUser(snapshot.data() as IUser).catch(errors => {
+    console.error('Invalid User Found: ', errors);
+    return db
+      .collection('users')
+      .doc(context.params.userId)
+      .delete();
+  });
 };
