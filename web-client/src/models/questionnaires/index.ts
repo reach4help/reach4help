@@ -1,10 +1,12 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsEnum, IsNotEmpty, IsNotEmptyObject, IsObject, IsString } from 'class-validator';
+/* eslint no-underscore-dangle: 0 */
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNotEmptyObject,
+  IsObject,
+  IsString,
+} from 'class-validator';
 import { firestore } from 'firebase';
-import Timestamp = firestore.Timestamp;
-import DocumentData = firestore.DocumentData;
-import DocumentReference = firestore.DocumentReference;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export enum QuestionnaireType {
   pin = 'pin',
@@ -13,24 +15,28 @@ export enum QuestionnaireType {
   team = 'team',
 }
 
-export interface IQuestionnaire extends DocumentData {
-  parentRef: DocumentReference<DocumentData>;
+export interface IQuestionnaire extends firebase.firestore.DocumentData {
+  parentRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  >;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: { [key: string]: any };
 
   type: QuestionnaireType;
   version: string;
-  createdAt?: Timestamp;
+  createdAt?: firebase.firestore.Timestamp;
 }
 
 export class Questionnaire implements IQuestionnaire {
   constructor(
-    parentRef: DocumentReference<DocumentData>,
+    parentRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: { [p: string]: any },
     type: QuestionnaireType,
     version: string,
-    createdAt = Timestamp.now(),
+    createdAt = firestore.Timestamp.now(),
   ) {
     this._parentRef = parentRef;
     this._data = data;
@@ -41,15 +47,23 @@ export class Questionnaire implements IQuestionnaire {
 
   @IsNotEmptyObject()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _parentRef: DocumentReference<DocumentData>;
+  private _parentRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  >;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get parentRef(): DocumentReference<DocumentData> {
+  get parentRef(): firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > {
     return this._parentRef;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set parentRef(value: DocumentReference<DocumentData>) {
+  set parentRef(
+    value: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
+  ) {
     this._parentRef = value;
   }
 
@@ -92,13 +106,13 @@ export class Questionnaire implements IQuestionnaire {
 
   @IsObject()
   @IsNotEmptyObject()
-  private _createdAt: Timestamp;
+  private _createdAt: firebase.firestore.Timestamp;
 
-  get createdAt(): Timestamp {
+  get createdAt(): firebase.firestore.Timestamp {
     return this._createdAt;
   }
 
-  set createdAt(value: Timestamp) {
+  set createdAt(value: firebase.firestore.Timestamp) {
     this._createdAt = value;
   }
 
@@ -113,22 +127,26 @@ export class Questionnaire implements IQuestionnaire {
 
   toObject(): object {
     return {
-      parentRef: this.parentRef,
+      parentRef: this.parentRef.path,
       data: this.data,
       type: this.type,
       version: this.version,
-      createdAt: this.createdAt,
+      createdAt: this.createdAt.toDate(),
     };
   }
 }
 
-export const QuestionnaireFirestoreConverter: FirestoreDataConverter<Questionnaire> = {
+export const QuestionnaireFirestoreConverter: firebase.firestore.FirestoreDataConverter<Questionnaire> = {
   fromFirestore: (
-    data: QueryDocumentSnapshot<IQuestionnaire>,
-  ): Questionnaire => {
-    return Questionnaire.factory(data.data());
-  },
-  toFirestore: (modelObject: Questionnaire): DocumentData => {
-    return modelObject.toObject();
-  },
+    data: firebase.firestore.QueryDocumentSnapshot<IQuestionnaire>,
+  ): Questionnaire => Questionnaire.factory(data.data()),
+  toFirestore: (
+    modelObject: Questionnaire,
+  ): firebase.firestore.DocumentData => ({
+    parentRef: modelObject.parentRef,
+    data: modelObject.data,
+    type: modelObject.type,
+    createdAt: modelObject.createdAt,
+    version: modelObject.version,
+  }),
 };

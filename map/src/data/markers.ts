@@ -29,6 +29,15 @@ export interface Location {
   serviceRadius: number;
 }
 
+export interface ContactGroup {
+  /** general contact information */
+  general?: ContactDetails;
+  /** details of how those that need help can interact with the organization  */
+  getHelp?: ContactDetails;
+  /** details of how those who want to help can interact with the organization  */
+  volunteers?: ContactDetails;
+}
+
 /**
  * A marker that will be rendered on the map. A short title and description is also visible to users.
  *
@@ -47,14 +56,7 @@ export interface MarkerInfo {
    * the different avenues with which to contact an organization,
    * depending on your desired involvement
    */
-  contact: {
-    /** general contact information */
-    general?: ContactDetails;
-    /** details of how those that need help can interact with the organization  */
-    getHelp?: ContactDetails;
-    /** details of how those who want to help can interact with the organization  */
-    volunteers?: ContactDetails;
-  };
+  contact: ContactGroup;
   /**
    * The location data for this organization
    */

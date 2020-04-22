@@ -1,0 +1,62 @@
+{
+  "title": "COVID-19 Mutual Aid Map",
+  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+  "githubSourceLabel": "গিটহাবে পাওয়া",
+  "addInformation": {
+    "small": "Add information",
+    "large": "Add information to this map"
+  },
+  "buttons": {
+    "fullScreen": "Fullscreen",
+    "exitFullScreen": "Exit Fullscreen"
+  },
+  "loading": "লোড করা হচ্ছে...",
+  "filterBy": "ফিল্টার করুন:",
+  "services": {
+    "any": "Any",
+    "financial": "আর্থিক",
+    "food": "খাবার",
+    "information": "তথ্য",
+    "manufacturing": "Manufactoring",
+    "medicine": "ওষুধ",
+    "mobility": "Mobility",
+    "supplies": "অন্যান্য সরবরাহ",
+    "network": "Network",
+    "shelter": "Shelter",
+    "support": "সমর্থন"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "Mutual Aid Group",
+    "org": "Organization / Company",
+    "financial": "Financial",
+    "information": "তথ্য",
+    "other": "অন্যান্য"
+  },
+  "map": {
+    "jumpToLocation": "Jump to a location on the map...",
+    "updateResultsForThisArea": "Update results for this area",
+    "myLocation": "আমার অবস্থান"
+  },
+  "results": {
+    "updateResults": {
+      "small": "Update results",
+      "large": "Update results for map area"
+    },
+    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "contact": {
+      "general": "সাধারণ তথ্য:",
+      "getHelp": "সাহায্য নিন:",
+      "volunteer": "Volunteer:",
+      "facebookGroup": "ফেইসবুক (Facebook) গ্রুপ"
+    }
+  },
+  "lang": "ভাষা:",
+  "langSelect": "ভাষা নির্বাচন করুন",
+  "footer": {
+    "netlifyNote": "এই মানচিত্রটি {link}",
+    "netlifyLinkText": "নেটলিফায় দ্বারা হোস্ট করা হয়েছে",
+    "githubRepo": "গিটহাব (GitHub) রিপো",
+    "codeOfConduct": "Code of Conduct"
+  }
+}

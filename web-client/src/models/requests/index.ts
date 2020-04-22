@@ -1,4 +1,4 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
+/* eslint no-underscore-dangle: 0 */
 import {
   Allow,
   IsEnum,
@@ -13,12 +13,7 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-import { IUser, User } from '../users';
-import GeoPoint = firestore.GeoPoint;
-import Timestamp = firestore.Timestamp;
-import DocumentData = firestore.DocumentData;
-import DocumentReference = firestore.DocumentReference;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
+import { IUser, User, UserFirestoreConverter } from '../users';
 
 export enum RequestStatus {
   pending = 'pending',
@@ -28,37 +23,45 @@ export enum RequestStatus {
   removed = 'removed',
 }
 
-export interface IRequest extends DocumentData {
-  cavUserRef?: DocumentReference<DocumentData> | null;
-  pinUserRef: DocumentReference<DocumentData>;
+export interface IRequest extends firebase.firestore.DocumentData {
+  cavUserRef?: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null;
+  pinUserRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  >;
   pinUserSnapshot: IUser;
   title: string;
   description: string;
-  latLng: GeoPoint;
+  latLng: firebase.firestore.GeoPoint;
   status?: RequestStatus;
   pinRating?: number | null;
   cavRating?: number | null;
-  pinRatedAt?: Timestamp | null;
-  cavRatedAt?: Timestamp | null;
-  createdAt?: Timestamp;
-  updatedAt?: Timestamp;
+  pinRatedAt?: firebase.firestore.Timestamp | null;
+  cavRatedAt?: firebase.firestore.Timestamp | null;
+  createdAt?: firebase.firestore.Timestamp;
+  updatedAt?: firebase.firestore.Timestamp;
 }
 
 export class Request implements IRequest {
   constructor(
-    pinUserRef: DocumentReference<DocumentData>,
+    pinUserRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
     pinUserSnapshot: User,
     title: string,
     description: string,
-    latLng: GeoPoint,
-    cavUserRef: DocumentReference<DocumentData> | null = null,
+    latLng: firebase.firestore.GeoPoint,
+    cavUserRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    > | null = null,
     status = RequestStatus.pending,
-    createdAt = Timestamp.now(),
-    updatedAt = Timestamp.now(),
+    createdAt = firestore.Timestamp.now(),
+    updatedAt = firestore.Timestamp.now(),
     pinRating: number | null = null,
     cavRating: number | null = null,
-    pinRatedAt: Timestamp | null = null,
-    cavRatedAt: Timestamp | null = null,
+    pinRatedAt: firebase.firestore.Timestamp | null = null,
+    cavRatedAt: firebase.firestore.Timestamp | null = null,
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
@@ -76,24 +79,40 @@ export class Request implements IRequest {
   }
 
   @Allow()
-  private _cavUserRef: DocumentReference<DocumentData> | null;
+  private _cavUserRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null;
 
-  get cavUserRef(): DocumentReference<DocumentData> | null {
+  get cavUserRef(): firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null {
     return this._cavUserRef;
   }
 
-  set cavUserRef(value: DocumentReference<DocumentData> | null) {
+  set cavUserRef(
+    value: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    > | null,
+  ) {
     this._cavUserRef = value;
   }
 
   @IsNotEmptyObject()
-  private _pinUserRef: DocumentReference<DocumentData>;
+  private _pinUserRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  >;
 
-  get pinUserRef(): DocumentReference<DocumentData> {
+  get pinUserRef(): firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > {
     return this._pinUserRef;
   }
 
-  set pinUserRef(value: DocumentReference<DocumentData>) {
+  set pinUserRef(
+    value: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
+  ) {
     this._pinUserRef = value;
   }
 
@@ -133,13 +152,13 @@ export class Request implements IRequest {
   }
 
   @IsObject()
-  private _latLng: GeoPoint;
+  private _latLng: firebase.firestore.GeoPoint;
 
-  get latLng(): GeoPoint {
+  get latLng(): firebase.firestore.GeoPoint {
     return this._latLng;
   }
 
-  set latLng(value: GeoPoint) {
+  set latLng(value: firebase.firestore.GeoPoint) {
     this._latLng = value;
   }
 
@@ -158,13 +177,13 @@ export class Request implements IRequest {
      https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
    */
   @IsObject()
-  private _createdAt: Timestamp;
+  private _createdAt: firebase.firestore.Timestamp;
 
-  get createdAt(): Timestamp {
+  get createdAt(): firebase.firestore.Timestamp {
     return this._createdAt;
   }
 
-  set createdAt(value: Timestamp) {
+  set createdAt(value: firebase.firestore.Timestamp) {
     this._createdAt = value;
   }
 
@@ -172,13 +191,13 @@ export class Request implements IRequest {
      https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
    */
   @IsObject()
-  private _updatedAt: Timestamp;
+  private _updatedAt: firebase.firestore.Timestamp;
 
-  get updatedAt(): Timestamp {
+  get updatedAt(): firebase.firestore.Timestamp {
     return this._updatedAt;
   }
 
-  set updatedAt(value: Timestamp) {
+  set updatedAt(value: firebase.firestore.Timestamp) {
     this._updatedAt = value;
   }
 
@@ -209,24 +228,24 @@ export class Request implements IRequest {
   }
 
   @Allow()
-  private _pinRatedAt: Timestamp | null;
+  private _pinRatedAt: firebase.firestore.Timestamp | null;
 
-  get pinRatedAt(): Timestamp | null {
+  get pinRatedAt(): firebase.firestore.Timestamp | null {
     return this._pinRatedAt;
   }
 
-  set pinRatedAt(value: Timestamp | null) {
+  set pinRatedAt(value: firebase.firestore.Timestamp | null) {
     this._pinRatedAt = value;
   }
 
   @Allow()
-  private _cavRatedAt: Timestamp | null;
+  private _cavRatedAt: firebase.firestore.Timestamp | null;
 
-  get cavRatedAt(): Timestamp | null {
+  get cavRatedAt(): firebase.firestore.Timestamp | null {
     return this._cavRatedAt;
   }
 
-  set cavRatedAt(value: Timestamp | null) {
+  set cavRatedAt(value: firebase.firestore.Timestamp | null) {
     this._cavRatedAt = value;
   }
 
@@ -249,28 +268,42 @@ export class Request implements IRequest {
 
   toObject(): object {
     return {
-      cavUserRef: this.cavUserRef,
-      pinUserRef: this.pinUserRef,
+      cavUserRef: this.cavUserRef?.path,
+      pinUserRef: this.pinUserRef.path,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
       description: this.description,
       latLng: this.latLng,
       status: this.status,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
+      createdAt: this.createdAt.toDate(),
+      updatedAt: this.updatedAt.toDate(),
       pinRating: this.pinRating,
       cavRating: this.cavRating,
-      pinRatedAt: this.pinRatedAt,
-      cavRatedAt: this.cavRatedAt,
+      pinRatedAt: this.pinRatedAt?.toDate(),
+      cavRatedAt: this.cavRatedAt?.toDate(),
     };
   }
 }
 
-export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IRequest>): Request => {
-    return Request.factory(data.data());
-  },
-  toFirestore: (modelObject: Request): DocumentData => {
-    return modelObject.toObject();
-  },
+export const RequestFirestoreConverter: firebase.firestore.FirestoreDataConverter<Request> = {
+  fromFirestore: (
+    data: firebase.firestore.QueryDocumentSnapshot<IRequest>,
+  ): Request => Request.factory(data.data()),
+  toFirestore: (modelObject: Request): firebase.firestore.DocumentData => ({
+    cavUserRef: modelObject.cavUserRef,
+    pinUserRef: modelObject.pinUserRef,
+    pinUserSnapshot: UserFirestoreConverter.toFirestore(
+      modelObject.pinUserSnapshot,
+    ),
+    title: modelObject.title,
+    description: modelObject.description,
+    latLng: modelObject.latLng,
+    status: modelObject.status,
+    createdAt: modelObject.createdAt,
+    updatedAt: modelObject.updatedAt,
+    pinRating: modelObject.pinRating,
+    cavRating: modelObject.cavRating,
+    pinRatedAt: modelObject.pinRatedAt,
+    cavRatedAt: modelObject.cavRatedAt,
+  }),
 };

@@ -15,48 +15,48 @@
   "filterBy": "Фильтровать по:",
   "services": {
     "any": "Все",
-    "financial": "Financial",
+    "financial": "Финансирование",
     "food": "Продовольствие",
     "information": "Информация",
     "manufacturing": "Производство",
     "medicine": "Медицина",
     "mobility": "Мобильность",
-    "supplies": "Other Supplies",
-    "network": "Network",
-    "shelter": "Shelter",
-    "support": "Support"
+    "supplies": "Другие ресурсы",
+    "network": "Контакты",
+    "shelter": "Укрытие",
+    "support": "Поддержка"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "Группа взаимопомощи",
+    "org": "Организация / Компания",
+    "financial": "Финансирование",
+    "information": "Информация",
+    "other": "Другое"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "Показать на карте...",
+    "updateResultsForThisArea": "Обновить результаты для этой области",
+    "myLocation": "Мое местоположение"
   },
   "results": {
     "updateResults": {
-      "small": "Update results",
-      "large": "Update results for map area"
+      "small": "Обновить результаты",
+      "large": "Обновить результаты на карте"
     },
-    "count": "{results, plural, =1 {1 result} other {# results}}",
+    "count": "{results, plural, one {} few {# результатов} many {# результатов} =1 {1 результат} other {# результатов}}",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "Общая информация:",
+      "getHelp": "Получить помощь:",
+      "volunteer": "Волонтер:",
+      "facebookGroup": "Группа в Facebook"
     }
   },
   "lang": "Язык:",
-  "langSelect": "Select Language",
+  "langSelect": "Выберите язык",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
-    "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct"
+    "netlifyNote": "Эта карта {link}",
+    "netlifyLinkText": "поддерживается Netlify",
+    "githubRepo": "GitHub репо",
+    "codeOfConduct": "Кодекс поведения"
   }
 }

@@ -1,21 +1,32 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, IsUrl, Max, Min } from 'class-validator';
+/* eslint no-underscore-dangle: 0 */
+import {
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+  IsUrl,
+  Max,
+  Min,
+} from 'class-validator';
 import { firestore } from 'firebase';
-import DocumentData = firestore.DocumentData;
-import DocumentReference = firestore.DocumentReference;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
-import Timestamp = firestore.Timestamp;
 
 export enum ApplicationPreference {
   pin = 'pin',
   cav = 'cav',
 }
 
-export interface IUser extends DocumentData {
+export interface IUser extends firebase.firestore.DocumentData {
   username: string;
 
-  cavQuestionnaireRef?: DocumentReference<DocumentData> | null;
-  pinQuestionnaireRef?: DocumentReference<DocumentData> | null;
+  cavQuestionnaireRef?: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null;
+  pinQuestionnaireRef?: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null;
   averageRating?: number | null;
   casesCompleted?: number;
   requestsMade?: number;
@@ -24,23 +35,27 @@ export interface IUser extends DocumentData {
   displayName?: string | null;
   displayPicture?: string | null;
   applicationPreference?: ApplicationPreference;
-  createdAt?: Timestamp;
+  createdAt?: firebase.firestore.Timestamp;
 }
 
 export class User implements IUser {
   constructor(
     username: string,
-    pinQuestionnaireRef: DocumentReference<DocumentData> | null = null,
-    cavQuestionnaireRef: DocumentReference<DocumentData> | null = null,
+    pinQuestionnaireRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    > | null = null,
+    cavQuestionnaireRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    > | null = null,
     casesCompleted = 0,
     requestsMade = 0,
     pinRatingsReceived = 0,
     cavRatingsReceived = 0,
-    averageRating: number | null = null,
+    averageRating: number | null = 1,
     displayName: string | null = null,
     displayPicture: string | null = null,
     applicationPreference = ApplicationPreference.pin,
-    createdAt = Timestamp.now(),
+    createdAt = firestore.Timestamp.now(),
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
     this._pinQuestionnaireRef = pinQuestionnaireRef;
@@ -58,25 +73,41 @@ export class User implements IUser {
 
   @IsObject()
   @IsOptional()
-  private _cavQuestionnaireRef: DocumentReference<DocumentData> | null;
+  private _cavQuestionnaireRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null;
 
-  get cavQuestionnaireRef(): DocumentReference<DocumentData> | null {
+  get cavQuestionnaireRef(): firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null {
     return this._cavQuestionnaireRef;
   }
 
-  set cavQuestionnaireRef(value: DocumentReference<DocumentData> | null) {
+  set cavQuestionnaireRef(
+    value: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    > | null,
+  ) {
     this._cavQuestionnaireRef = value;
   }
 
   @IsObject()
   @IsOptional()
-  private _pinQuestionnaireRef: DocumentReference<DocumentData> | null;
+  private _pinQuestionnaireRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null;
 
-  get pinQuestionnaireRef(): DocumentReference<DocumentData> | null {
+  get pinQuestionnaireRef(): firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null {
     return this._pinQuestionnaireRef;
   }
 
-  set pinQuestionnaireRef(value: DocumentReference<DocumentData> | null) {
+  set pinQuestionnaireRef(
+    value: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    > | null,
+  ) {
     this._pinQuestionnaireRef = value;
   }
 
@@ -193,13 +224,13 @@ export class User implements IUser {
      https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
    */
   @IsObject()
-  private _createdAt: Timestamp;
+  private _createdAt: firebase.firestore.Timestamp;
 
-  get createdAt(): Timestamp {
+  get createdAt(): firebase.firestore.Timestamp {
     return this._createdAt;
   }
 
-  set createdAt(value: Timestamp) {
+  set createdAt(value: firebase.firestore.Timestamp) {
     this._createdAt = value;
   }
 
@@ -221,8 +252,8 @@ export class User implements IUser {
 
   toObject(): object {
     return {
-      cavQuestionnaireRef: this.cavQuestionnaireRef,
-      pinQuestionnaireRef: this.pinQuestionnaireRef,
+      cavQuestionnaireRef: this.cavQuestionnaireRef?.path,
+      pinQuestionnaireRef: this.pinQuestionnaireRef?.path,
       username: this.username,
       casesCompleted: this.casesCompleted,
       requestsMade: this.requestsMade,
@@ -232,16 +263,27 @@ export class User implements IUser {
       displayName: this.displayName,
       displayPicture: this.displayPicture,
       applicationPreference: this.applicationPreference,
-      createdAt: this.createdAt,
+      createdAt: this.createdAt.toDate(),
     };
   }
 }
 
-export const UserFirestoreConverter: FirestoreDataConverter<User> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IUser>): User => {
-    return User.factory(data.data());
-  },
-  toFirestore: (modelObject: User): DocumentData => {
-    return modelObject.toObject();
-  },
+export const UserFirestoreConverter: firebase.firestore.FirestoreDataConverter<User> = {
+  fromFirestore: (
+    data: firebase.firestore.QueryDocumentSnapshot<IUser>,
+  ): User => User.factory(data.data()),
+  toFirestore: (modelObject: User): firebase.firestore.DocumentData => ({
+    cavQuestionnaireRef: modelObject.cavQuestionnaireRef,
+    pinQuestionnaireRef: modelObject.pinQuestionnaireRef,
+    averageRating: modelObject.averageRating,
+    casesCompleted: modelObject.casesCompleted,
+    requestsMade: modelObject.requestsMade,
+    pinRatingsReceived: modelObject.pinRatingsReceived,
+    cavRatingsReceived: modelObject.cavRatingsReceived,
+    username: modelObject.username,
+    displayName: modelObject.displayName,
+    displayPicture: modelObject.displayPicture,
+    applicationPreference: modelObject.applicationPreference,
+    createdAt: modelObject.createdAt,
+  }),
 };
