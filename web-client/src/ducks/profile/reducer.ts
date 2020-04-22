@@ -1,7 +1,14 @@
 import { firestore } from 'firebase';
 import createReducer from 'src/store/utils/createReducer';
 
-import { GET, ProfileState, SET, UPDATE } from './types';
+import {
+  GET,
+  OBSERVE_PRIVILEGED,
+  OBSERVE_PROFILE,
+  ProfileState,
+  SET,
+  UPDATE,
+} from './types';
 
 const initialState: ProfileState = {
   profile: undefined,
@@ -71,6 +78,38 @@ export default createReducer<ProfileState>(
       state.loading = false;
       state.error = payload;
       state.updateAction = undefined;
+    },
+    [OBSERVE_PRIVILEGED.SUBSCRIBE]: (state: ProfileState) => {
+      state.loading = true;
+    },
+    [OBSERVE_PRIVILEGED.UPDATED]: (
+      state: ProfileState,
+      {
+        payload,
+      }: {
+        payload: Record<string, firebase.firestore.DocumentData | undefined>;
+      },
+    ) => {
+      // eslint-disable-next-line prefer-destructuring
+      state.privilegedInformation = payload[0];
+      state.loading = false;
+      state.observerReceivedFirstUpdate = true;
+    },
+    [OBSERVE_PROFILE.SUBSCRIBE]: (state: ProfileState) => {
+      state.loading = true;
+    },
+    [OBSERVE_PROFILE.UPDATED]: (
+      state: ProfileState,
+      {
+        payload,
+      }: {
+        payload: Record<string, firebase.firestore.DocumentData | undefined>;
+      },
+    ) => {
+      // eslint-disable-next-line prefer-destructuring
+      state.profile = payload[0];
+      state.loading = false;
+      state.observerReceivedFirstUpdate = true;
     },
   },
   initialState,
