@@ -3,12 +3,14 @@ import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
+import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import { RequestFirestoreConverter, RequestStatus } from '../models/requests';
 
 admin.initializeApp();
 const db = admin.firestore();
 const messaging = admin.messaging();
+const auth = admin.auth();
 
 const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Promise<void[]> => {
   const offerBefore = change.before.exists ? (change.before.data() as Offer) : null;
@@ -28,44 +30,33 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
 
     const request = (await offerAfter.requestRef.withConverter(RequestFirestoreConverter).get()).data();
 
-    operations.push(((): Promise<void> => {
-      return messaging.send({
-        data: {
-          entity: 'offer',
+    operations.push(
+      (async (): Promise<void> => {
+        const user = await auth.getUser(offerAfter.cavUserRef.id);
+        return dispatch.notifyService({
+          entity: 'user',
           action: 'accepted',
-          id: change.after.id,
-          offer_message: offerAfter.message,
-          request_id: offerAfter.requestRef.id,
-          request_title: request ? request.title : '',
-          request_description: request ? request.description : '',
-          request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-          request_status: RequestStatus.ongoing,
-        },
-        topic: `${offerAfter.cavUserRef.id}_notifications`,
-      })
-        .then(result => Promise.resolve());
-    })());
-
-    operations.push(((): Promise<void> => {
-      return messaging.send({
-        data: {
-          entity: 'request',
-          action: 'offeraccepted',
-          id: offerAfter.requestRef.id,
-          offer_message: offerAfter.message,
-          offer_id: change.after.id,
-          offer_uid: offerAfter.cavUserRef.id,
-          request_title: request ? request.title : '',
-          request_description: request ? request.description : '',
-          request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-          request_status: RequestStatus.ongoing,
-        },
-        topic: `${offerAfter.requestRef.id}_request_notifications`,
-      })
-        .then(result => Promise.resolve());
-    })());
-
-    //We could also send it to ${offerAfter.requestRef.id}_requestNotification and let everyone who responded 
+          performedOnEntity: {
+            entity: 'offer',
+            id: change.after.id,
+            message: offerAfter.message,
+          },
+          affectedEntity: {
+            entity: 'request',
+            id: offerAfter.requestRef.id,
+            title: request ? request.title : '',
+            description: request ? request.description : '',
+            latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+            status: RequestStatus.ongoing,
+            cavUid: offerAfter.cavUserRef.id,
+            pinUid: offerAfter.pinUserRef.id,
+          },
+          actor: user.toJSON(),
+          notify: ['actor', 'affectedEntity']
+        });
+      })(),
+    );
+    //We could also send it to ${offerAfter.requestRef.id}_requestNotification and let everyone who responded
     //to the request know that the request accepted an offer. We will provide the offer ID as well. the clients
     //can either use the id of the offer accepted and compare it with their offer to determine if their offer was rejected or accepted
 
@@ -78,50 +69,54 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
 };
 
 const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[]> => {
-
   const offer = snap.data() as Offer;
   const operations: Promise<void>[] = [];
 
   if (offer) {
     const request = (await offer.requestRef.withConverter(RequestFirestoreConverter).get()).data();
 
-    operations.push(((): Promise<void> => {
-      return messaging.send({
-        data: {
-          entity: 'request',
-          action: 'offercreated',
-          id: offer.requestRef.id,
-          offer_message: offer.message,
-          offer_id: snap.id,
-          offer_uid: offer.cavUserRef.id,
-          request_title: request ? request.title : '',
-          request_description: request ? request.description : '',
-          request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-          request_status: request ? request.status : RequestStatus.pending,
-        },
-        topic: `${offer.requestRef.id}_request_notifications`,
-      })
-        .then(result => Promise.resolve());
-    })());
+    operations.push(
+      ((): Promise<void> => {
+        return messaging
+          .send({
+            data: {
+              entity: 'request',
+              action: 'offercreated',
+              id: offer.requestRef.id,
+              offer_message: offer.message,
+              offer_id: snap.id,
+              offer_uid: offer.cavUserRef.id,
+              request_title: request ? request.title : '',
+              request_description: request ? request.description : '',
+              request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+              request_status: request ? request.status : RequestStatus.pending,
+            },
+            topic: `${offer.requestRef.id}_request_notifications`,
+          })
+          .then(result => Promise.resolve());
+      })(),
+    );
 
-    operations.push(((): Promise<void> => {
-      return messaging.send({
-        data: {
-          entity: 'request',
-          action: 'offercreatd',
-          id: offer.requestRef.id,
-          offer_message: offer.message,
-          offer_id: snap.id,
-          request_title: request ? request.title : '',
-          request_description: request ? request.description : '',
-          request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
-          request_status: RequestStatus.ongoing,
-        },
-        topic: `${request?.pinUserRef.id}_notifications`,
-      })
-        .then(result => Promise.resolve());
-    })());
-
+    operations.push(
+      ((): Promise<void> => {
+        return messaging
+          .send({
+            data: {
+              entity: 'request',
+              action: 'offercreatd',
+              id: offer.requestRef.id,
+              offer_message: offer.message,
+              offer_id: snap.id,
+              request_title: request ? request.title : '',
+              request_description: request ? request.description : '',
+              request_latLng: request ? `${request.latLng.latitude},${request.latLng.longitude}` : '',
+              request_status: RequestStatus.ongoing,
+            },
+            topic: `${request?.pinUserRef.id}_notifications`,
+          })
+          .then(result => Promise.resolve());
+      })(),
+    );
   }
 
   return Promise.all(operations);
