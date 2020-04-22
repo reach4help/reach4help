@@ -12,10 +12,10 @@
     "exitFullScreen": "Exit Fullscreen"
   },
   "loading": "লোড করা হচ্ছে...",
-  "filterBy": "Filter by:",
+  "filterBy": "ফিল্টার করুন:",
   "services": {
     "any": "Any",
-    "financial": "Financial",
+    "financial": "আর্থিক",
     "food": "খাবার",
     "information": "তথ্য",
     "manufacturing": "Manufactoring",
