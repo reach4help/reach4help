@@ -6,6 +6,7 @@ import {
   MdMyLocation,
   MdRefresh,
 } from 'react-icons/md';
+import Search from 'src/components/search';
 import { Filter, MARKER_TYPES } from 'src/data';
 import { t } from 'src/i18n';
 import { button, iconButton } from 'src/styling/mixins';
@@ -60,7 +61,6 @@ const updateMarkersVisibilityUsingFilter = (
 interface Props {
   className?: string;
   filter: Filter;
-  searchInput: HTMLInputElement | null;
   results: MarkerInfo[] | null;
   setResults: (results: MarkerInfo[]) => void;
   nextResults?: NextResults;
@@ -101,7 +101,6 @@ class MapComponent extends React.Component<Props, {}> {
 
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
-    this.initializeSearch();
     setUpdateResultsCallback(this.updateResults);
   }
 
@@ -113,8 +112,6 @@ class MapComponent extends React.Component<Props, {}> {
       this.map.markerClusterer.repaint();
       this.map.currentFilter = filter;
     }
-    // Update search box if changed
-    this.initializeSearch();
     if (nextResults && !results) {
       // If we have next results queued up, but no results yet, set the results
       this.updateResults();
@@ -414,13 +411,8 @@ class MapComponent extends React.Component<Props, {}> {
     );
   };
 
-  private initializeSearch() {
-    const { searchInput } = this.props;
-    if (this.searchBox?.searchInput !== searchInput) {
-      if (!searchInput) {
-        this.searchBox = null;
-        return;
-      }
+  private updateSearchInput = (searchInput: HTMLInputElement | null) => {
+    if (searchInput) {
       const box = new google.maps.places.SearchBox(searchInput);
       this.searchBox = {
         searchInput,
@@ -453,8 +445,10 @@ class MapComponent extends React.Component<Props, {}> {
 
         this.map.map.fitBounds(bounds);
       });
+    } else {
+      this.searchBox = null;
     }
-  }
+  };
 
   public render() {
     const {
@@ -473,6 +467,10 @@ class MapComponent extends React.Component<Props, {}> {
         {({ lang }) => (
           <div className={className}>
             <div className="map" ref={this.updateGoogleMapRef} />
+            <Search
+              className="search"
+              updateSearchInput={this.updateSearchInput}
+            />
             {addInfoStep && (
               <AddInstructions
                 map={(this.map && this.map.map) || null}
@@ -520,6 +518,16 @@ export default styled(MapComponent)`
 
   > .map {
     height: 100%;
+  }
+
+  > .search {
+    position: absolute;
+    display: flex;
+    z-index: 100;
+    max-width: 500px;
+    top: ${p => p.theme.spacingPx}px;
+    left: ${p => p.theme.spacingPx}px;
+    right: 40px;
   }
 
   > .map-actions {

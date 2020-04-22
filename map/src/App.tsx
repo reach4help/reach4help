@@ -11,7 +11,6 @@ import Header from './components/header';
 import Map, { NextResults } from './components/map';
 import MapLoader from './components/map-loader';
 import Results from './components/results';
-import Search from './components/search';
 import { Filter } from './data';
 import { MarkerInfo } from './data/markers';
 import styled, {
@@ -31,7 +30,6 @@ interface State {
   nextResults?: NextResults;
   selectedResult: MarkerInfo | null;
   updateResultsCallback: (() => void) | null;
-  searchInput: HTMLInputElement | null;
   fullScreen: boolean;
   updateResultsOnNextClustering: boolean;
   lang: i18n.Language;
@@ -52,7 +50,6 @@ class App extends React.Component<Props, State> {
       results: null,
       selectedResult: null,
       updateResultsCallback: null,
-      searchInput: null,
       fullScreen: false,
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
@@ -71,10 +68,6 @@ class App extends React.Component<Props, State> {
 
   private setUpdateResultsCallback = (callback: (() => void) | null) => {
     this.setState({ updateResultsCallback: callback });
-  };
-
-  private setSearchInput = (searchInput: HTMLInputElement | null) => {
-    this.setState({ searchInput });
   };
 
   private setSelectedResult = (selectedResult: MarkerInfo | null) => {
@@ -145,7 +138,6 @@ class App extends React.Component<Props, State> {
       results,
       nextResults,
       selectedResult,
-      searchInput,
       fullScreen,
       resultsMode,
       updateResultsOnNextClustering,
@@ -178,14 +170,17 @@ class App extends React.Component<Props, State> {
             fullScreen={fullScreen}
             toggleFullscreen={this.toggleFullscreen}
           />
-          <main className={`results-${effectiveResultsMode}`}>
+          <main
+            className={`results-${effectiveResultsMode} ${
+              addInfoStep ? 'add-info' : ''
+            }`}
+          >
             <div className="map-area">
               <MapLoader
                 className="map"
                 child={() => (
                   <Map
                     filter={filter}
-                    searchInput={searchInput}
                     results={results}
                     nextResults={nextResults}
                     setResults={this.setResults}
@@ -205,10 +200,6 @@ class App extends React.Component<Props, State> {
                     setAddInfoStep={this.setAddInfoStep}
                   />
                 )}
-              />
-              <Search
-                className="search"
-                updateSearchInput={this.setSearchInput}
               />
             </div>
             <Results
@@ -275,20 +266,13 @@ export default styled(App)`
       margin-right: ${RESULTS_WIDTH};
       transition: margin-right ${RESULTS_TRANSITION_OUT};
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
       .map {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-      }
-      > .search {
-        position: absolute;
-        z-index: 100;
-        max-width: 500px;
-        top: ${p => p.theme.spacingPx}px;
-        left: ${p => p.theme.spacingPx}px;
-        right: 40px;
       }
     }
 
@@ -310,6 +294,16 @@ export default styled(App)`
       > .results {
         right: -${RESULTS_WIDTH};
         transition: right ${RESULTS_TRANSITION_IN};
+      }
+    }
+
+    &.add-info {
+      > .map-area {
+        margin-right: 0;
+        transition: none;
+      }
+      > .results {
+        display: none;
       }
     }
   }
