@@ -1,12 +1,9 @@
-import * as admin from 'firebase-admin';
 import * as flatten from 'flat';
 
 import {
     sendToTopic
 } from './fcm';
 import { sendSMS } from './twilio';
-
-admin.initializeApp();
 
 export const notifyService = (config: Record<string, any>): Promise<void> => {
     for(let toNotify of config.notify){
