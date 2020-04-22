@@ -221,8 +221,8 @@ export class User implements IUser {
 
   toObject(): object {
     return {
-      cavQuestionnaireRef: this.cavQuestionnaireRef?.path,
-      pinQuestionnaireRef: this.pinQuestionnaireRef?.path,
+      cavQuestionnaireRef: this.cavQuestionnaireRef,
+      pinQuestionnaireRef: this.pinQuestionnaireRef,
       username: this.username,
       casesCompleted: this.casesCompleted,
       requestsMade: this.requestsMade,
@@ -232,7 +232,7 @@ export class User implements IUser {
       displayName: this.displayName,
       displayPicture: this.displayPicture,
       applicationPreference: this.applicationPreference,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }
@@ -242,19 +242,6 @@ export const UserFirestoreConverter: FirestoreDataConverter<User> = {
     return User.factory(data.data());
   },
   toFirestore: (modelObject: User): DocumentData => {
-    return {
-      cavQuestionnaireRef: modelObject.cavQuestionnaireRef,
-      pinQuestionnaireRef: modelObject.pinQuestionnaireRef,
-      averageRating: modelObject.averageRating,
-      casesCompleted: modelObject.casesCompleted,
-      requestsMade: modelObject.requestsMade,
-      pinRatingsReceived: modelObject.pinRatingsReceived,
-      cavRatingsReceived: modelObject.cavRatingsReceived,
-      username: modelObject.username,
-      displayName: modelObject.displayName,
-      displayPicture: modelObject.displayPicture,
-      applicationPreference: modelObject.applicationPreference,
-      createdAt: modelObject.createdAt,
-    };
+    return modelObject.toObject();
   },
 };
