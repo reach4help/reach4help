@@ -94,7 +94,9 @@ class AddInstructions extends React.Component<Props, State> {
     // If the map updated, add required listeners
     if (prevProps.map !== map) {
       this.markerInfo = null;
-      this.uninitializeMap();
+      if (prevProps.map) {
+        this.uninitializeMap(prevProps.map);
+      }
       if (map) {
         this.initializeMap(map);
       }
@@ -106,19 +108,27 @@ class AddInstructions extends React.Component<Props, State> {
   }
 
   public componentWillUnmount() {
-    const { setAddInfoMapClickedListener } = this.props;
-    this.uninitializeMap();
+    const { map, setAddInfoMapClickedListener } = this.props;
+    if (map) {
+      this.uninitializeMap(map);
+    }
     setAddInfoMapClickedListener(null);
   }
 
   private initializeMap = (map: google.maps.Map) => {
     this.mapsListeners.add(map.addListener('click', this.mapClicked));
+    map.setOptions({
+      draggableCursor: 'pointer',
+    });
   };
 
-  private uninitializeMap = () => {
+  private uninitializeMap = (map: google.maps.Map) => {
     this.markerInfo = null;
     this.mapsListeners.forEach(l => l.remove());
     this.mapsListeners.clear();
+    map.setOptions({
+      draggableCursor: undefined,
+    });
   };
 
   private mapClicked = (evt: google.maps.MouseEvent) => {
