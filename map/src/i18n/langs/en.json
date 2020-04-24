@@ -6,7 +6,8 @@
   "addInformation": {
     "small": "Add information",
     "large": "Add information to this map",
-    "back": "Back to map",
+    "backToMap": "Back to map",
+    "prev": "Back",
     "continue": "Continue",
     "screen": {
       "title": "Add information to this map",
@@ -30,6 +31,10 @@
             "missingLocationName": "Please enter a description of the area served"
           }
         }
+      },
+      "placeMarker": {
+        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
+        "continue": "Once you are happy with the location, click continue to proceed with adding contact information."
       }
     }
   },

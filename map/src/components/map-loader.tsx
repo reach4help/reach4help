@@ -79,7 +79,11 @@ class MapLoader extends React.Component<Props, State> {
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
-            {loaded ? child() : <div className="loader">{t(lang, s => s.loading)}</div>}
+            {loaded ? (
+              child()
+            ) : (
+              <div className="loader">{t(lang, s => s.loading)}</div>
+            )}
           </div>
         )}
       </AppContext.Consumer>

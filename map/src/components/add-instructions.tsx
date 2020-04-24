@@ -1,7 +1,8 @@
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
-import { MdChevronRight } from 'react-icons/md';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import Search from 'src/components/search';
 import { MarkerInfo } from 'src/data/markers';
 import { Language, t } from 'src/i18n';
 import { RecursivePartial } from 'src/util';
@@ -49,6 +50,7 @@ interface Props {
   map: google.maps.Map | null;
   addInfoStep: AddInfoStep;
   setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
+  updateSearchInput: (input: HTMLInputElement | null) => void;
 }
 
 interface State {
@@ -320,6 +322,7 @@ class AddInstructions extends React.Component<Props, State> {
   private formTextInput = (
     input: FORM_INPUT_NAMES,
     label: string,
+    value: string,
     placeholder?: string,
   ) =>
     this.validatedInput(input, valid => (
@@ -334,12 +337,18 @@ class AddInstructions extends React.Component<Props, State> {
           name={input}
           placeholder={placeholder}
           onChange={this.handleInputChange}
+          value={value}
         />
       </>
     ));
 
   public render() {
-    const { className, addInfoStep } = this.props;
+    const {
+      className,
+      addInfoStep,
+      setAddInfoStep,
+      updateSearchInput,
+    } = this.props;
     const { info, validation } = this.state;
     const fillLayout = addInfoStep === 'information';
     return (
@@ -453,6 +462,7 @@ class AddInstructions extends React.Component<Props, State> {
                         lang,
                         s => s.addInformation.screen.information.form.name,
                       ),
+                      info.contentTitle || '',
                       t(
                         lang,
                         s =>
@@ -468,6 +478,7 @@ class AddInstructions extends React.Component<Props, State> {
                         s =>
                           s.addInformation.screen.information.form.description,
                       ),
+                      info.contentBody || '',
                       t(
                         lang,
                         s =>
@@ -483,6 +494,7 @@ class AddInstructions extends React.Component<Props, State> {
                         s =>
                           s.addInformation.screen.information.form.locationName,
                       ),
+                      info.loc?.description || '',
                       t(
                         lang,
                         s =>
@@ -513,11 +525,49 @@ class AddInstructions extends React.Component<Props, State> {
                         onClick={() => this.completeInformation(lang)}
                       >
                         {t(lang, s => s.addInformation.continue)}
-                        <MdChevronRight />
+                        <MdChevronRight className="icon icon-end" />
                       </button>
                     </div>
                   </>
                 )}
+              </div>
+            )}
+            {addInfoStep === 'place-marker' && (
+              <div className="place-marker">
+                <div className="box">
+                  <p>
+                    {t(
+                      lang,
+                      s => s.addInformation.screen.placeMarker.instructions,
+                    )}
+                  </p>
+                  <p>
+                    {t(lang, s => s.addInformation.screen.placeMarker.continue)}
+                  </p>
+                  <div className="actions">
+                    <button
+                      type="button"
+                      className="prev-button"
+                      onClick={() => setAddInfoStep('information')}
+                    >
+                      <MdChevronLeft className="icon icon-start" />
+                      {t(lang, s => s.addInformation.prev)}
+                    </button>
+                    <div className="grow" />
+                    <button
+                      type="button"
+                      className="next-button"
+                      onClick={() => this.completeInformation(lang)}
+                    >
+                      {t(lang, s => s.addInformation.continue)}
+                      <MdChevronRight className="icon icon-end" />
+                    </button>
+                  </div>
+                </div>
+                <Search
+                  className="search"
+                  updateSearchInput={updateSearchInput}
+                />
               </div>
             )}
           </div>
@@ -621,96 +671,48 @@ export default styled(AddInstructions)`
     .errors {
       color: ${p => p.theme.colors.red};
     }
+  }
 
-    .actions {
-      margin-top: ${p => p.theme.spacingPx}px;
-      display: flex;
+  > .place-marker {
+    pointer-events: initial;
+    width: 100%;
 
-      > .next-button {
-        ${buttonPrimary}
-        ${iconButton}
+    > .box {
+      padding: ${p => p.theme.spacingPx}px;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid ${p => p.theme.colors.grayLight2};
+
+      p:first-child {
+        margin-top: 0;
       }
+    }
 
-      > .prev-button {
-        ${button}
-        ${iconButton}
-      }
+    > .search {
+      margin: ${p => p.theme.spacingPx}px;
+      max-width: 500px;
     }
   }
 
-  /* TODO: clean up styling below this point */
-  > .box {
-    z-index: 1100;
-    margin: ${p => p.theme.spacingPx}px;
-    margin-top: ${p => p.theme.spacingPx * 5}px;
-    width: 100%;
-    max-width: 470px;
-    max-height: 350px;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, 0.5) 0 1px 6px -1px;
-    background: #fff;
-    padding: ${p => p.theme.spacingPx}px;
-    overflow-y: auto;
-    pointer-events: auto;
+  .actions {
+    margin-top: ${p => p.theme.spacingPx}px;
+    display: flex;
 
-    .top {
-      display: flex;
-      align-items: start;
-
-      h2 {
-        margin: 0;
-        padding: 0;
-        flex-grow: 1;
-        flex-basis: 0;
-      }
-
-      button {
-        padding: 0;
-        margin: 0;
-        border: 0;
-        background: 0;
-        cursor: pointer;
-        color: ${p => p.theme.textColor};
-
-        &:hover {
-          color: ${p => p.theme.textColorLight};
-        }
-      }
+    > .next-button {
+      ${buttonPrimary}
+      ${iconButton}
     }
 
-    form {
-      border-top: 3px solid ${p => p.theme.textColor};
-      padding-top: 10px;
+    > .grow {
+      flex-grow: 1;
+    }
 
-      label {
-        margin-bottom: 15px;
-      }
+    > .prev-button {
+      ${button}
+      ${iconButton}
+    }
 
-      input {
-        display: block;
-        width: 100%;
-        height: 1.2rem;
-        padding: 7px 0;
-        font-size: 1rem;
-        margin-bottom: ${p => p.theme.spacingPx}px;
-        border: none;
-        border-bottom: 1px solid ${p => p.theme.textColor};
-        outline: none;
-      }
-
-      .services {
-        padding: 0;
-
-        li {
-          list-style: none;
-
-          input {
-            display: inline-block;
-            width: auto;
-          }
-        }
-      }
+    [dir='rtl'] & button svg {
+      transform: rotate(180deg);
     }
   }
 `;

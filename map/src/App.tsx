@@ -268,7 +268,7 @@ export default styled(App)`
       transition: margin-right ${RESULTS_TRANSITION_OUT};
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
-      .map {
+      > .map {
         position: absolute;
         top: 0;
         left: 0;

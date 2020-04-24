@@ -89,13 +89,17 @@ export interface NextResults {
   results: MarkerInfo[];
 }
 
+type SearchBoxes = 'main' | 'add-information';
+
+interface SearchBox {
+  searchInput: HTMLInputElement;
+  box: google.maps.places.SearchBox;
+}
+
 class MapComponent extends React.Component<Props, {}> {
   private map: MapInfo | null = null;
 
-  private searchBox: {
-    searchInput: HTMLInputElement;
-    box: google.maps.places.SearchBox;
-  } | null = null;
+  private readonly searchBoxes = new Map<SearchBoxes, SearchBox>();
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
@@ -169,8 +173,10 @@ class MapComponent extends React.Component<Props, {}> {
 
     map.addListener('bounds_changed', () => {
       const bounds = map.getBounds();
-      if (this.searchBox && bounds) {
-        this.searchBox.box.setBounds(bounds);
+      if (bounds) {
+        for (const box of this.searchBoxes.values()) {
+          box.box.setBounds(bounds);
+        }
       }
       if ('replaceState' in window.history) {
         debouncedUpdateQueryStringMapLocation(map);
@@ -411,42 +417,66 @@ class MapComponent extends React.Component<Props, {}> {
     );
   };
 
+  private initializeSearchInput = (
+    searchInput: HTMLInputElement,
+  ): SearchBox => {
+    const box = new google.maps.places.SearchBox(searchInput);
+    const searchBox: SearchBox = {
+      searchInput,
+      box,
+    };
+
+    searchBox.box.addListener('places_changed', () => {
+      if (!this.map) {
+        return;
+      }
+
+      const places = box.getPlaces();
+      const bounds = new window.google.maps.LatLngBounds();
+
+      if (places.length === 0) {
+        return;
+      }
+
+      places.forEach(place => {
+        if (!place.geometry) {
+          return;
+        }
+
+        if (place.geometry.viewport) {
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+
+      this.map.map.fitBounds(bounds);
+    });
+    if (this.map) {
+      const bounds = this.map.map.getBounds();
+      if (bounds) {
+        searchBox.box.setBounds(bounds);
+      }
+    }
+    return searchBox;
+  };
+
   private updateSearchInput = (searchInput: HTMLInputElement | null) => {
     if (searchInput) {
-      const box = new google.maps.places.SearchBox(searchInput);
-      this.searchBox = {
-        searchInput,
-        box,
-      };
-
-      this.searchBox.box.addListener('places_changed', () => {
-        if (!this.map) {
-          return;
-        }
-
-        const places = box.getPlaces();
-        const bounds = new window.google.maps.LatLngBounds();
-
-        if (places.length === 0) {
-          return;
-        }
-
-        places.forEach(place => {
-          if (!place.geometry) {
-            return;
-          }
-
-          if (place.geometry.viewport) {
-            bounds.union(place.geometry.viewport);
-          } else {
-            bounds.extend(place.geometry.location);
-          }
-        });
-
-        this.map.map.fitBounds(bounds);
-      });
+      this.searchBoxes.set('main', this.initializeSearchInput(searchInput));
     } else {
-      this.searchBox = null;
+      this.searchBoxes.delete('main');
+    }
+  };
+
+  private updateAddInfoSearchInput = (searchInput: HTMLInputElement | null) => {
+    if (searchInput) {
+      this.searchBoxes.set(
+        'add-information',
+        this.initializeSearchInput(searchInput),
+      );
+    } else {
+      this.searchBoxes.delete('add-information');
     }
   };
 
@@ -467,42 +497,47 @@ class MapComponent extends React.Component<Props, {}> {
         {({ lang }) => (
           <div className={className}>
             <div className="map" ref={this.updateGoogleMapRef} />
-            <Search
-              className="search"
-              updateSearchInput={this.updateSearchInput}
-            />
+            {!addInfoStep && (
+              <Search
+                className="search"
+                updateSearchInput={this.updateSearchInput}
+              />
+            )}
             {addInfoStep && (
               <AddInstructions
                 map={(this.map && this.map.map) || null}
                 addInfoStep={addInfoStep}
                 setAddInfoStep={setAddInfoStep}
+                updateSearchInput={this.updateAddInfoSearchInput}
               />
             )}
             <div className="map-actions">
-              {hasNewResults && (
+              {!addInfoStep && hasNewResults && (
                 <button type="button" onClick={this.updateResults}>
-                  <MdRefresh className="icon icon-left" />
+                  <MdRefresh className="icon icon-start" />
                   {t(lang, s => s.map.updateResultsForThisArea)}
                 </button>
               )}
               {navigator.geolocation && (
                 <button type="button" onClick={this.centerToGeolocation}>
-                  <MdMyLocation className="icon icon-left" />
+                  <MdMyLocation className="icon icon-start" />
                   {t(lang, s => s.map.myLocation)}
                 </button>
               )}
             </div>
-            <div className="results-tab" onClick={toggleResults}>
-              <div>
-                <ExpandIcon />
-                <span>
-                  {resultsMode === 'open'
-                    ? 'close'
-                    : `${results?.length || 0} result(s)`}
-                </span>
-                <ExpandIcon />
+            {!addInfoStep && (
+              <div className="results-tab" onClick={toggleResults}>
+                <div>
+                  <ExpandIcon />
+                  <span>
+                    {resultsMode === 'open'
+                      ? 'close'
+                      : `${results?.length || 0} result(s)`}
+                  </span>
+                  <ExpandIcon />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </AppContext.Consumer>
@@ -522,7 +557,6 @@ export default styled(MapComponent)`
 
   > .search {
     position: absolute;
-    display: flex;
     z-index: 100;
     max-width: 500px;
     top: ${p => p.theme.spacingPx}px;

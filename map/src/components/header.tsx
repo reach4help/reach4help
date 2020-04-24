@@ -1,5 +1,10 @@
 import React from 'react';
-import { MdAdd, MdExplore, MdFullscreen, MdFullscreenExit } from 'react-icons/md';
+import {
+  MdAdd,
+  MdExplore,
+  MdFullscreen,
+  MdFullscreenExit,
+} from 'react-icons/md';
 import { Filter } from 'src/data';
 import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
@@ -74,7 +79,7 @@ const Header = (props: Props) => {
             <Languages className="filters" />
             <div className="grow" />
             <button className="fs" type="button" onClick={toggleFullscreen}>
-              <FullScreenIcon className="icon icon-left" />
+              <FullScreenIcon className="icon icon-start" />
               <span>
                 {t(lang, s =>
                   fullScreen ? s.buttons.exitFullScreen : s.buttons.fullScreen,
@@ -86,9 +91,13 @@ const Header = (props: Props) => {
               type="button"
               onClick={() => setAddInfoStep(addInfoStep ? null : 'information')}
             >
-              {addInfoStep ? <MdExplore className="icon icon-left" /> : <MdAdd className="icon icon-left" />}
               {addInfoStep ? (
-                <span>{t(lang, s => s.addInformation.back)}</span>
+                <MdExplore className="icon icon-start" />
+              ) : (
+                <MdAdd className="icon icon-start" />
+              )}
+              {addInfoStep ? (
+                <span>{t(lang, s => s.addInformation.backToMap)}</span>
               ) : (
                 <span>
                   <span className={CLS_SCREEN_LG_HIDE}>

@@ -26,12 +26,16 @@ export const iconButton = css`
     width: 24px;
     margin: -4px -4px;
 
-    &.icon-left {
-      margin: -4px 4px -4px -8px;
+    &.icon-start,
+    [dir='rtl'] &.icon-end {
+      margin-left: -8px;
+      margin-right: 4px;
+    }
 
-      [dir='rtl'] & {
-        margin: -4px -8px -4px 4px;
-      }
+    &.icon-end,
+    [dir='rtl'] &.icon-start {
+      margin-left: 4px;
+      margin-right: -8px;
     }
   }
 `;
