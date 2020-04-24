@@ -34,7 +34,7 @@ enum FORM_INPUT_NAMES {
 }
 
 interface Validation {
-  errors: (keyof Strings['addInformation']['screen']['information']['form']['errors'])[];
+  errors: (keyof Strings['addInformation']['errors'])[];
   invalidInputs: FORM_INPUT_NAMES[];
 }
 
@@ -485,13 +485,7 @@ class AddInstructions extends React.Component<Props, State> {
                       <ul className="errors">
                         {validation.errors.map((error, i) => (
                           <li key={i}>
-                            {t(
-                              lang,
-                              s =>
-                                s.addInformation.screen.information.form.errors[
-                                  error
-                                ],
-                            )}
+                            {t(lang, s => s.addInformation.errors[error])}
                           </li>
                         ))}
                       </ul>

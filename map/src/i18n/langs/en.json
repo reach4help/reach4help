@@ -23,13 +23,7 @@
           "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
           "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
           "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information",
-          "errors": {
-            "missingType": "Please select the type of the project / group / organization",
-            "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-            "missingTitle": "Please enter the name of the project / group / organization",
-            "missingLocationName": "Please enter a description of the area served"
-          }
+          "continue": "Click continue to enter location information"
         }
       },
       "placeMarker": {
@@ -37,6 +31,12 @@
         "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       }
+    },
+    "errors": {
+      "missingType": "Please select the type of the project / group / organization",
+      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
+      "missingTitle": "Please enter the name of the project / group / organization",
+      "missingLocationName": "Please enter a description of the area served"
     }
   },
   "buttons": {
