@@ -281,6 +281,24 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
+  private completeMarkerPlacement = () => {
+    const { setAddInfoStep } = this.props;
+    const { info } = this.state;
+    const validation: Validation = {
+      errors: [],
+      invalidInputs: [],
+    };
+    if (!info.loc?.lat || !info.loc.lng || !info.loc.serviceRadius) {
+      validation.errors.push('markerRequired');
+    }
+    if (validation.errors.length > 0) {
+      this.setState({ validation });
+    } else {
+      setAddInfoStep('contact-details');
+      this.setState({ validation: undefined });
+    }
+  };
+
   private validatedInput = (
     input: FORM_INPUT_NAMES,
     element: (valid: boolean) => JSX.Element | undefined,
@@ -517,6 +535,12 @@ class AddInstructions extends React.Component<Props, State> {
                   <p>
                     {t(lang, s => s.addInformation.screen.placeMarker.continue)}
                   </p>
+                  {validation &&
+                    validation.errors.map((error, i) => (
+                      <p key={i} className="error">
+                        {t(lang, s => s.addInformation.errors[error])}
+                      </p>
+                    ))}
                   <div className="actions">
                     <button
                       type="button"
@@ -530,7 +554,7 @@ class AddInstructions extends React.Component<Props, State> {
                     <button
                       type="button"
                       className="next-button"
-                      onClick={this.completeInformation}
+                      onClick={this.completeMarkerPlacement}
                     >
                       {t(lang, s => s.addInformation.continue)}
                       <MdChevronRight className="icon icon-end" />
@@ -658,6 +682,10 @@ export default styled(AddInstructions)`
         margin-top: 0;
       }
       pointer-events: initial;
+
+      > .error {
+        color: ${p => p.theme.colors.red};
+      }
     }
 
     > .search {

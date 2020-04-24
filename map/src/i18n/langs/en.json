@@ -36,7 +36,8 @@
       "missingType": "Please select the type of the project / group / organization",
       "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
       "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served"
+      "missingLocationName": "Please enter a description of the area served",
+      "markerRequired": "Please click on the map to enter the service area before continuing."
     }
   },
   "buttons": {
