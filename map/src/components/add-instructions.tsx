@@ -42,6 +42,7 @@ interface Validation {
 
 interface MarkerInputInfo {
   circle: google.maps.Circle;
+  radiusInfoWindow: google.maps.InfoWindow;
   updateRadiusFromCircle: () => void;
 }
 
@@ -109,6 +110,11 @@ class AddInstructions extends React.Component<Props, State> {
 
   public componentWillUnmount() {
     const { map, setAddInfoMapClickedListener } = this.props;
+    if (this.markerInfo) {
+      this.markerInfo.circle.setMap(null);
+      this.markerInfo.radiusInfoWindow.close();
+      this.markerInfo = null;
+    }
     if (map) {
       this.uninitializeMap(map);
     }
@@ -148,7 +154,7 @@ class AddInstructions extends React.Component<Props, State> {
           radius,
         });
         const { lang } = this.props;
-        const infoWindow = new google.maps.InfoWindow({
+        const radiusInfoWindow = new google.maps.InfoWindow({
           content: displayKm(lang, radius),
           position: circle.getCenter(),
         });
@@ -157,19 +163,19 @@ class AddInstructions extends React.Component<Props, State> {
           const { lang: updatedLang } = this.props;
           const serviceRadius = circle.getRadius();
           this.setInfoValues({ loc: { serviceRadius } });
-          infoWindow.setContent(displayKm(updatedLang, serviceRadius));
-          infoWindow.open(map);
+          radiusInfoWindow.setContent(displayKm(updatedLang, serviceRadius));
+          radiusInfoWindow.open(map);
         };
         updateRadiusFromCircle();
 
         circle.addListener('center_changed', () => {
           updateLoc(circle.getCenter());
-          infoWindow.setPosition(circle.getCenter());
+          radiusInfoWindow.setPosition(circle.getCenter());
         });
         circle.addListener('radius_changed', updateRadiusFromCircle);
         circle.addListener('click', this.mapClicked);
 
-        this.markerInfo = { circle, updateRadiusFromCircle };
+        this.markerInfo = { circle, radiusInfoWindow, updateRadiusFromCircle };
       } else {
         this.markerInfo.circle.setCenter(evt.latLng);
       }
