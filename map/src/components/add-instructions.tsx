@@ -668,7 +668,6 @@ export default styled(AddInstructions)`
   }
 
   > .place-marker {
-    pointer-events: initial;
     width: 100%;
 
     > .box {
@@ -679,11 +678,13 @@ export default styled(AddInstructions)`
       p:first-child {
         margin-top: 0;
       }
+      pointer-events: initial;
     }
 
     > .search {
       margin: ${p => p.theme.spacingPx}px;
       max-width: 500px;
+      pointer-events: initial;
     }
   }
 
