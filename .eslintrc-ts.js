@@ -138,6 +138,7 @@ module.exports = {
         classPropertiesAllowed: false,
       },
     ],
+    'no-multi-assign': 'off'
   },
   settings: {
     'import/parsers': {

@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { MdAdd, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import Search from 'src/components/search';
 import { MarkerInfo } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
@@ -58,6 +58,13 @@ interface Props {
 
 interface State {
   info: RecursivePartial<MarkerInfo>;
+  /**
+   * Store URLs in state separately as it's easier to manipulate as an array
+   */
+  urls: Array<{
+    label: string;
+    url: string;
+  }>;
   validation?: Validation;
 }
 
@@ -66,6 +73,50 @@ const displayKm = (lang: Language, meters: number): string =>
     kilometers: (meters / 1000).toFixed(2),
     miles: ((meters / 1000) * 0.621371).toFixed(2),
   });
+
+type ContactType = keyof MarkerInfo['contact'];
+const CONTACT_TYPES: ContactType[] = ['general', 'getHelp', 'volunteers'];
+type ContactMethod = keyof (MarkerInfo['contact'][ContactType] & {});
+const CONTACT_METHODS: ContactMethod[] = [
+  'email',
+  'facebookGroup',
+  'phone',
+  'web',
+];
+
+const isContactType = (type: string | undefined): type is ContactType =>
+  (type && CONTACT_TYPES.includes(type as ContactType)) || false;
+
+const isContactMethod = (type: string | undefined): type is ContactMethod =>
+  (type && CONTACT_METHODS.includes(type as ContactMethod)) || false;
+
+const contactInputId = (
+  type: ContactType,
+  method: ContactMethod,
+  index: number,
+) => `${type}-${method}-${index}`;
+
+const contactInputIdData = (
+  type: ContactType,
+  method: ContactMethod,
+  index: number,
+) => ({
+  'data-type': type,
+  'data-method': method,
+  'data-index': index,
+});
+
+const extractContactInputIdData = (target: HTMLElement) => {
+  const { type, method, index } = target.dataset;
+  const i = parseInt(index || '', 10);
+  if (!isContactType(type) || !isContactMethod(method) || Number.isNaN(i)) {
+    return;
+  }
+  return { type, method, i };
+};
+
+const isDefined = <T extends unknown>(val: T | undefined): val is T =>
+  val !== undefined;
 
 class AddInstructions extends React.Component<Props, State> {
   private markerInfo: MarkerInputInfo | null = null;
@@ -77,6 +128,7 @@ class AddInstructions extends React.Component<Props, State> {
 
     this.state = {
       info: {},
+      urls: [],
     };
   }
 
@@ -331,196 +383,391 @@ class AddInstructions extends React.Component<Props, State> {
       </>
     ));
 
+  private actionButtons = (opts: {
+    previousScreen?: AddInfoStep;
+    nextScreen: () => void;
+    nextLabel?: 'continue' | 'submit';
+  }) => {
+    const { lang, setAddInfoStep } = this.props;
+    const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
+    return (
+      <div className="actions">
+        {previousScreen && (
+          <>
+            <button
+              type="button"
+              className="prev-button"
+              onClick={() => setAddInfoStep(previousScreen)}
+            >
+              <MdChevronLeft className="icon icon-start" />
+              {t(lang, s => s.addInformation.prev)}
+            </button>
+            <div className="grow" />
+          </>
+        )}
+        <button type="button" className="next-button" onClick={nextScreen}>
+          {t(lang, s => s.addInformation[nextLabel])}
+          <MdChevronRight className="icon icon-end" />
+        </button>
+      </div>
+    );
+  };
+
+  private contactInputChanged = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { target } = event;
+    const idData = extractContactInputIdData(target);
+    if (!idData) {
+      return;
+    }
+    const { type, method, i } = idData;
+    if (method === 'phone' || method === 'email') {
+      this.setInfo(info => {
+        const arr = info.contact?.[type]?.[method] || [];
+        arr[i] = target.value;
+        const newInfo: RecursivePartial<MarkerInfo> = {
+          contact: { [type]: { [method]: arr } },
+        };
+        merge(info, newInfo);
+      });
+    } else if (method === 'web') {
+      const { part } = target.dataset;
+      if (part === 'url' || part === 'label') {
+        this.setState(state => {
+          const urls = cloneDeep(state.urls);
+          let entry = urls[i];
+          if (!entry) {
+            urls[i] = entry = { label: '', url: '' };
+          }
+          entry[part] = target.value;
+          return { urls };
+        });
+      }
+    }
+  };
+
+  private contactInputBlurred = (
+    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { target } = event;
+    const idData = extractContactInputIdData(target);
+    if (idData && target.value === '') {
+      const { type, method, i } = idData;
+      if (method === 'phone' || method === 'email') {
+        this.setInfo(info => {
+          const arr = info.contact?.[type]?.[method] || [];
+          arr.splice(i, 1);
+          const newInfo: RecursivePartial<MarkerInfo> = {
+            contact: { [type]: { [method]: arr } },
+          };
+          merge(info, newInfo);
+        });
+      } else if (method === 'web') {
+        const { part } = target.dataset;
+        if (part === 'url' || part === 'label') {
+          this.setState(state => {
+            const urls = cloneDeep(state.urls);
+            const entry = urls[i];
+            if (entry && entry.label === '' && entry.url === '') {
+              urls.splice(i, 1);
+            }
+            return { urls };
+          });
+        }
+      }
+    }
+  };
+
+  private contactMethodGroup(type: ContactType, method: 'phone' | 'email') {
+    const { lang } = this.props;
+    const { info } = this.state;
+    const methodInfo = info.contact?.[type]?.[method]?.filter(isDefined) || [];
+    const fields = [...methodInfo, ''];
+    const lastId = contactInputId(type, method, fields.length - 1);
+    return (
+      <div className="contact-method-group">
+        <label htmlFor={lastId}>
+          {t(lang, s => s.addInformation.screen.contactInfo.method[method])}
+        </label>
+        <div className="inputs">
+          {fields.map((value, i) => (
+            <input
+              key={i}
+              type={method === 'phone' ? 'tel' : 'email'}
+              id={contactInputId(type, method, i)}
+              value={value}
+              placeholder={t(
+                lang,
+                s => s.addInformation.screen.contactInfo.placeholder[method],
+              )}
+              onChange={this.contactInputChanged}
+              onBlur={this.contactInputBlurred}
+              {...contactInputIdData(type, method, i)}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  private contactUrlGroup(type: ContactType) {
+    const { lang } = this.props;
+    const { urls } = this.state;
+    const fields = [...urls, { label: '', url: '' }];
+    const lastId = `${contactInputId(type, 'web', fields.length - 1)}-url`;
+    return (
+      <div className="contact-method-group">
+        <label htmlFor={lastId}>
+          {t(lang, s => s.addInformation.screen.contactInfo.method.web)}
+        </label>
+        <div className="inputs">
+          {fields.map(({ label, url }, i) => (
+            <div key={i} className="url">
+              <input
+                type="text"
+                id={`${contactInputId(type, 'web', i)}-label`}
+                value={label}
+                placeholder={t(
+                  lang,
+                  s => s.addInformation.screen.contactInfo.placeholder.webLabel,
+                )}
+                onChange={this.contactInputChanged}
+                onBlur={this.contactInputBlurred}
+                {...contactInputIdData(type, 'web', i)}
+                data-part="label"
+              />
+              <input
+                type="text"
+                id={`${contactInputId(type, 'web', i)}-url`}
+                value={url}
+                placeholder={t(
+                  lang,
+                  s => s.addInformation.screen.contactInfo.placeholder.webURL,
+                )}
+                onChange={this.contactInputChanged}
+                onBlur={this.contactInputBlurred}
+                {...contactInputIdData(type, 'web', i)}
+                data-part="url"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  private contactTypeGroup(type: ContactType) {
+    const { lang } = this.props;
+    const { info } = this.state;
+    return (
+      <div key={type} className="contact-type-group">
+        {info.contact?.[type] ? (
+          <div>
+            <strong>
+              {t(lang, s => s.addInformation.screen.contactInfo.sections[type])}
+            </strong>
+            {this.contactMethodGroup(type, 'phone')}
+            {this.contactMethodGroup(type, 'email')}
+            {this.contactUrlGroup(type)}
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="contact-button"
+            onClick={() => this.setInfoValues({ contact: { [type]: {} } })}
+          >
+            <MdAdd className="icon icon-start" />
+            {t(lang, s => s.addInformation.screen.contactInfo.addInfo[type])}
+          </button>
+        )}
+      </div>
+    );
+  }
+
   public render() {
-    const {
-      className,
-      addInfoStep,
-      setAddInfoStep,
-      updateSearchInput,
-    } = this.props;
+    const { className, addInfoStep, updateSearchInput } = this.props;
     const { info, validation } = this.state;
-    const fillLayout = addInfoStep === 'information';
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
-            {fillLayout && (
+            {addInfoStep === 'information' && (
               <div className="screen">
-                {addInfoStep === 'information' && (
+                <h2>{t(lang, s => s.addInformation.screen.title)}</h2>
+                <p className="muted">
+                  {t(
+                    lang,
+                    s =>
+                      s.addInformation.screen.information.acceptedInformation,
+                  )}
+                </p>
+                <p>{t(lang, s => s.addInformation.screen.information.intro)}</p>
+
+                {this.validatedInput(FORM_INPUT_NAMES.type, valid => (
                   <>
-                    <h2>{t(lang, s => s.addInformation.screen.title)}</h2>
-                    <p className="muted">
+                    <label
+                      className={valid ? '' : 'error'}
+                      htmlFor={FORM_INPUT_NAMES.type}
+                    >
                       {t(
                         lang,
-                        s =>
-                          s.addInformation.screen.information
-                            .acceptedInformation,
+                        s => s.addInformation.screen.information.form.type,
                       )}
-                    </p>
-                    <p>
-                      {t(lang, s => s.addInformation.screen.information.intro)}
-                    </p>
-
-                    {this.validatedInput(FORM_INPUT_NAMES.type, valid => (
-                      <>
-                        <label
-                          className={valid ? '' : 'error'}
-                          htmlFor={FORM_INPUT_NAMES.type}
-                        >
-                          {t(
-                            lang,
-                            s => s.addInformation.screen.information.form.type,
-                          )}
-                        </label>
-                        <select
-                          className={valid ? '' : 'error'}
-                          id={FORM_INPUT_NAMES.type}
-                          name={FORM_INPUT_NAMES.type}
-                          value={info?.type?.type || ''}
-                          onChange={this.handleInputChange}
-                        >
-                          <option value="">
-                            {t(
-                              lang,
-                              s =>
-                                s.addInformation.screen.information.form
-                                  .typePleaseSelect,
-                            )}
-                          </option>
-                          {MARKER_TYPE_STRINGS.map(type => (
-                            <option key={type} value={type}>
-                              {t(lang, s => s.markerTypes[type])}
-                            </option>
-                          ))}
-                        </select>
-                      </>
-                    ))}
-
-                    {this.validatedInput(FORM_INPUT_NAMES.services, valid => {
-                      if (info.type?.type !== 'org') {
-                        return;
-                      }
-                      const services: (Service | undefined)[] =
-                        info.type.services || [];
-                      return (
-                        <>
-                          <span className={`label ${valid ? '' : 'error'}`}>
-                            {t(
-                              lang,
-                              s =>
-                                s.addInformation.screen.information.form
-                                  .services,
-                            )}
-                          </span>
-                          <div className="checkbox-group">
-                            {SERVICE_STRINGS.map(service => {
-                              const description = t(
-                                lang,
-                                s => s.serviceDescriptions[service],
-                              );
-                              return (
-                                <div key={service} className="option">
-                                  <input
-                                    type="checkbox"
-                                    name={`service-${service}`}
-                                    id={`service-${service}`}
-                                    checked={services.includes(service)}
-                                    onChange={this.handleCheckboxChange}
-                                    data-service={service}
-                                  />
-                                  <label htmlFor={`service-${service}`}>
-                                    {t(lang, s => s.services[service])}
-                                    {description && (
-                                      <span>
-                                        &nbsp;-&nbsp;
-                                        {description}
-                                      </span>
-                                    )}
-                                  </label>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </>
-                      );
-                    })}
-
-                    {this.formTextInput(
-                      FORM_INPUT_NAMES.name,
-                      t(
-                        lang,
-                        s => s.addInformation.screen.information.form.name,
-                      ),
-                      info.contentTitle || '',
-                      t(
-                        lang,
-                        s =>
-                          s.addInformation.screen.information.form
-                            .namePlaceholder,
-                      ),
-                    )}
-
-                    {this.formTextInput(
-                      FORM_INPUT_NAMES.description,
-                      t(
-                        lang,
-                        s =>
-                          s.addInformation.screen.information.form.description,
-                      ),
-                      info.contentBody || '',
-                      t(
-                        lang,
-                        s =>
-                          s.addInformation.screen.information.form
-                            .namePlaceholder,
-                      ),
-                    )}
-
-                    {this.formTextInput(
-                      FORM_INPUT_NAMES.locationName,
-                      t(
-                        lang,
-                        s =>
-                          s.addInformation.screen.information.form.locationName,
-                      ),
-                      info.loc?.description || '',
-                      t(
-                        lang,
-                        s =>
-                          s.addInformation.screen.information.form
-                            .locationNamePlaceholder,
-                      ),
-                    )}
-
-                    <p>
-                      {t(
-                        lang,
-                        s => s.addInformation.screen.information.form.continue,
-                      )}
-                    </p>
-
-                    {validation && (
-                      <ul className="errors">
-                        {validation.errors.map((error, i) => (
-                          <li key={i}>
-                            {t(lang, s => s.addInformation.errors[error])}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    <div className="actions">
-                      <button
-                        type="button"
-                        className="next-button"
-                        onClick={this.completeInformation}
-                      >
-                        {t(lang, s => s.addInformation.continue)}
-                        <MdChevronRight className="icon icon-end" />
-                      </button>
-                    </div>
+                    </label>
+                    <select
+                      className={valid ? '' : 'error'}
+                      id={FORM_INPUT_NAMES.type}
+                      name={FORM_INPUT_NAMES.type}
+                      value={info?.type?.type || ''}
+                      onChange={this.handleInputChange}
+                    >
+                      <option value="">
+                        {t(
+                          lang,
+                          s =>
+                            s.addInformation.screen.information.form
+                              .typePleaseSelect,
+                        )}
+                      </option>
+                      {MARKER_TYPE_STRINGS.map(type => (
+                        <option key={type} value={type}>
+                          {t(lang, s => s.markerTypes[type])}
+                        </option>
+                      ))}
+                    </select>
                   </>
+                ))}
+
+                {this.validatedInput(FORM_INPUT_NAMES.services, valid => {
+                  if (info.type?.type !== 'org') {
+                    return;
+                  }
+                  const services: (Service | undefined)[] =
+                    info.type.services || [];
+                  return (
+                    <>
+                      <span className={`label ${valid ? '' : 'error'}`}>
+                        {t(
+                          lang,
+                          s =>
+                            s.addInformation.screen.information.form.services,
+                        )}
+                      </span>
+                      <div className="checkbox-group">
+                        {SERVICE_STRINGS.map(service => {
+                          const description = t(
+                            lang,
+                            s => s.serviceDescriptions[service],
+                          );
+                          return (
+                            <div key={service} className="option">
+                              <input
+                                type="checkbox"
+                                name={`service-${service}`}
+                                id={`service-${service}`}
+                                checked={services.includes(service)}
+                                onChange={this.handleCheckboxChange}
+                                data-service={service}
+                              />
+                              <label htmlFor={`service-${service}`}>
+                                {t(lang, s => s.services[service])}
+                                {description && (
+                                  <span>
+                                    &nbsp;-&nbsp;
+                                    {description}
+                                  </span>
+                                )}
+                              </label>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  );
+                })}
+
+                {this.formTextInput(
+                  FORM_INPUT_NAMES.name,
+                  t(lang, s => s.addInformation.screen.information.form.name),
+                  info.contentTitle || '',
+                  t(
+                    lang,
+                    s =>
+                      s.addInformation.screen.information.form.namePlaceholder,
+                  ),
                 )}
+
+                {this.formTextInput(
+                  FORM_INPUT_NAMES.description,
+                  t(
+                    lang,
+                    s => s.addInformation.screen.information.form.description,
+                  ),
+                  info.contentBody || '',
+                  t(
+                    lang,
+                    s =>
+                      s.addInformation.screen.information.form.namePlaceholder,
+                  ),
+                )}
+
+                {this.formTextInput(
+                  FORM_INPUT_NAMES.locationName,
+                  t(
+                    lang,
+                    s => s.addInformation.screen.information.form.locationName,
+                  ),
+                  info.loc?.description || '',
+                  t(
+                    lang,
+                    s =>
+                      s.addInformation.screen.information.form
+                        .locationNamePlaceholder,
+                  ),
+                )}
+
+                <p>
+                  {t(
+                    lang,
+                    s => s.addInformation.screen.information.form.continue,
+                  )}
+                </p>
+
+                {validation && (
+                  <ul className="errors">
+                    {validation.errors.map((error, i) => (
+                      <li key={i}>
+                        {t(lang, s => s.addInformation.errors[error])}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {this.actionButtons({
+                  nextScreen: this.completeInformation,
+                })}
+              </div>
+            )}
+
+            {addInfoStep === 'contact-details' && (
+              <div className="screen">
+                <h2>
+                  {t(lang, s => s.addInformation.screen.contactInfo.header, {
+                    name: <span>{info.contentTitle}</span>,
+                  })}
+                </h2>
+                <p>
+                  {t(lang, s => s.addInformation.screen.contactInfo.info, {
+                    name: <strong>{info.contentTitle}</strong>,
+                  })}
+                </p>
+                {CONTACT_TYPES.map(type => this.contactTypeGroup(type))}
+                {this.actionButtons({
+                  previousScreen: 'place-marker',
+                  nextScreen: this.completeMarkerPlacement,
+                  nextLabel: 'submit',
+                })}
               </div>
             )}
             {addInfoStep === 'place-marker' && (
@@ -541,25 +788,11 @@ class AddInstructions extends React.Component<Props, State> {
                         {t(lang, s => s.addInformation.errors[error])}
                       </p>
                     ))}
-                  <div className="actions">
-                    <button
-                      type="button"
-                      className="prev-button"
-                      onClick={() => setAddInfoStep('information')}
-                    >
-                      <MdChevronLeft className="icon icon-start" />
-                      {t(lang, s => s.addInformation.prev)}
-                    </button>
-                    <div className="grow" />
-                    <button
-                      type="button"
-                      className="next-button"
-                      onClick={this.completeMarkerPlacement}
-                    >
-                      {t(lang, s => s.addInformation.continue)}
-                      <MdChevronRight className="icon icon-end" />
-                    </button>
-                  </div>
+
+                  {this.actionButtons({
+                    previousScreen: 'information',
+                    nextScreen: this.completeMarkerPlacement,
+                  })}
                 </div>
                 <Search
                   className="search"
@@ -613,13 +846,13 @@ export default styled(AddInstructions)`
       }
     }
 
-    input[type='text'] {
+    input:not([type='checkbox']) {
       display: block;
       width: 600px;
-      max-width: 100%;
+      max-width: 90%;
     }
 
-    input[type='text'],
+    input:not([type='checkbox']),
     select {
       padding: 7px 5px;
       font-size: 1rem;
@@ -660,6 +893,46 @@ export default styled(AddInstructions)`
 
           span {
             font-weight: normal;
+          }
+        }
+      }
+    }
+
+    .contact-button {
+      ${button}
+      ${iconButton}
+    }
+
+    .contact-type-group {
+      margin-top: ${p => p.theme.spacingPx}px;
+
+      .contact-method-group {
+        display: flex;
+
+        > label {
+          line-height: 34px;
+        }
+
+        > .inputs {
+          margin-left: ${p => p.theme.spacingPx}px;
+          width: 10%;
+          flex-grow: 1;
+
+          > .url {
+            display: flex;
+            flex-wrap: wrap;
+            margin: ${p => p.theme.spacingPx}px -${p => p.theme.spacingPx / 2}px
+              0;
+            input {
+              margin: 0 ${p => p.theme.spacingPx / 2}px;
+
+              &[data-part='label'] {
+                width: 200px;
+              }
+              &[data-part='url'] {
+                width: 300px;
+              }
+            }
           }
         }
       }

@@ -9,6 +9,7 @@
     "backToMap": "Back to map",
     "prev": "Back",
     "continue": "Continue",
+    "submit": "Submit",
     "screen": {
       "title": "Add information to this map",
       "information": {
@@ -30,6 +31,31 @@
         "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
         "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
+      },
+      "contactInfo": {
+        "header": "Contact information for {name}",
+        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
+        "addInfo": {
+          "general": "Add general contact information",
+          "volunteers": "Add contact information for volunteers",
+          "getHelp": "Add contact information for people that need help"
+        },
+        "sections": {
+          "general": "General contact info",
+          "volunteers": "Contact info for volunteers",
+          "getHelp": "Contact info for people that need help"
+        },
+        "method": {
+          "phone": "Phone Numbers",
+          "email": "Email Addresses",
+          "web": "Web Links / URLs"
+        },
+        "placeholder": {
+          "phone": "Add a phone number",
+          "email": "Add an email address",
+          "webURL": "URL",
+          "webLabel": "Name"
+        }
       }
     },
     "errors": {
