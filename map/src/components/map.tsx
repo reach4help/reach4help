@@ -505,6 +505,7 @@ class MapComponent extends React.Component<Props, {}> {
             )}
             {addInfoStep && (
               <AddInstructions
+                lang={lang}
                 map={(this.map && this.map.map) || null}
                 addInfoStep={addInfoStep}
                 setAddInfoStep={setAddInfoStep}

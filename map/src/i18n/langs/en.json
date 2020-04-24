@@ -34,7 +34,8 @@
       },
       "placeMarker": {
         "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information."
+        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
+        "distance": "{kilometers, number}km ({miles, number}miles)"
       }
     }
   },

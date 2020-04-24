@@ -178,7 +178,7 @@ export const format = (
   if (!cache) {
     langCache.set(str, (cache = new IntlMessageFormat(str, lang)));
   }
-  return cache.format(values);
+  return cache.format(values) as string;
 };
 
 export const canonicalUrl = (lang: Language) => {

@@ -4,7 +4,7 @@ import React from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import Search from 'src/components/search';
 import { MarkerInfo } from 'src/data/markers';
-import { Language, t } from 'src/i18n';
+import { format, Language, t } from 'src/i18n';
 import { RecursivePartial } from 'src/util';
 
 import {
@@ -41,12 +41,13 @@ interface Validation {
 }
 
 interface MarkerInputInfo {
-  marker: google.maps.Marker | null;
-  circle: google.maps.Circle | null;
+  circle: google.maps.Circle;
+  updateRadiusFromCircle: () => void;
 }
 
 interface Props {
   className?: string;
+  lang: Language;
   map: google.maps.Map | null;
   addInfoStep: AddInfoStep;
   setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
@@ -58,8 +59,16 @@ interface State {
   validation?: Validation;
 }
 
+const displayKm = (lang: Language, meters: number): string =>
+  format(lang, s => s.addInformation.screen.placeMarker.distance, {
+    kilometers: (meters / 1000).toFixed(2),
+    miles: ((meters / 1000) * 0.621371).toFixed(2),
+  });
+
 class AddInstructions extends React.Component<Props, State> {
   private markerInfo: MarkerInputInfo | null = null;
+
+  private readonly mapsListeners = new Set<google.maps.MapsEventListener>();
 
   constructor(props: Props) {
     super(props);
@@ -69,30 +78,106 @@ class AddInstructions extends React.Component<Props, State> {
     };
   }
 
-  private setInfoValues(newInfo: RecursivePartial<MarkerInfo>) {
-    this.setState(({ info }) => ({ info: merge({}, info, newInfo) }));
+  public componentDidMount() {
+    const { map } = this.props;
+    if (map) {
+      this.initializeMap(map);
+    }
   }
 
-  private setInfo(mutate: (info: RecursivePartial<MarkerInfo>) => void) {
+  public componentDidUpdate(prevProps: Props) {
+    const { map, lang } = this.props;
+    // If the map updated, add required listeners
+    if (prevProps.map !== map) {
+      this.markerInfo = null;
+      this.uninitializeMap();
+      if (map) {
+        this.initializeMap(map);
+      }
+    }
+    // If the language has updated, change the radius info window (if applicaable)
+    if (prevProps.lang !== lang && this.markerInfo) {
+      this.markerInfo.updateRadiusFromCircle();
+    }
+  }
+
+  public componentWillUnmount() {
+    this.uninitializeMap();
+  }
+
+  private initializeMap = (map: google.maps.Map) => {
+    this.mapsListeners.add(map.addListener('click', this.mapClicked));
+  };
+
+  private uninitializeMap = () => {
+    this.markerInfo = null;
+    this.mapsListeners.forEach(l => l.remove());
+    this.mapsListeners.clear();
+  };
+
+  private mapClicked = (evt: google.maps.MouseEvent) => {
+    const { map, addInfoStep } = this.props;
+    if (!map) {
+      return;
+    }
+    const updateLoc = (loc: google.maps.LatLng) =>
+      this.setInfoValues({ loc: { lat: loc.lat(), lng: loc.lng() } });
+    if (addInfoStep === 'place-marker') {
+      if (!this.markerInfo) {
+        const radius = Math.floor(3000000 / (map.getZoom() * map.getZoom()));
+        const circle = new google.maps.Circle({
+          map,
+          center: evt.latLng,
+          editable: true,
+          radius,
+        });
+        const { lang } = this.props;
+        const infoWindow = new google.maps.InfoWindow({
+          content: displayKm(lang, radius),
+          position: circle.getCenter(),
+        });
+
+        const updateRadiusFromCircle = () => {
+          const { lang: updatedLang } = this.props;
+          const serviceRadius = circle.getRadius();
+          this.setInfoValues({ loc: { serviceRadius } });
+          infoWindow.setContent(displayKm(updatedLang, serviceRadius));
+          infoWindow.open(map);
+        };
+        updateRadiusFromCircle();
+
+        circle.addListener('center_changed', () => {
+          updateLoc(circle.getCenter());
+          infoWindow.setPosition(circle.getCenter());
+        });
+        circle.addListener('radius_changed', updateRadiusFromCircle);
+        circle.addListener('click', this.mapClicked);
+
+        this.markerInfo = { circle, updateRadiusFromCircle };
+      } else {
+        this.markerInfo.circle.setCenter(evt.latLng);
+      }
+      updateLoc(evt.latLng);
+    }
+  };
+
+  private setInfoValues = (newInfo: RecursivePartial<MarkerInfo>) => {
+    this.setState(({ info }) => ({ info: merge({}, info, newInfo) }));
+  };
+
+  private setInfo = (mutate: (info: RecursivePartial<MarkerInfo>) => void) => {
     this.setState(({ info }) => {
       // eslint-disable-next-line no-param-reassign
       info = cloneDeep(info);
       mutate(info);
       return { info };
     });
-  }
+  };
 
   private completeGreetingStep = () => {
     const { map } = this.props;
     if (!map) {
       return;
-    }
-
-    if (!this.markerInfo) {
-      this.markerInfo = {
-        marker: null,
-        circle: null,
-      };
     }
 
     const { setAddInfoStep } = this.props;
@@ -109,17 +194,6 @@ class AddInstructions extends React.Component<Props, State> {
     if (!this.markerInfo) {
       setAddInfoStep('greeting');
       return;
-    }
-
-    if (this.markerInfo) {
-      if (this.markerInfo.marker) {
-        this.markerInfo.marker.setMap(null);
-        this.markerInfo.marker = null;
-      }
-      if (this.markerInfo.circle) {
-        this.markerInfo.circle.setMap(null);
-        this.markerInfo.circle = null;
-      }
     }
 
     const marker = new google.maps.Marker({
@@ -161,7 +235,7 @@ class AddInstructions extends React.Component<Props, State> {
       infoWindow.setContent(`${meterToKm(circle.getRadius())}km`);
     });
 
-    this.markerInfo.marker = marker;
+    // this.markerInfo.marker = marker;
     this.markerInfo.circle = circle;
     setAddInfoStep('set-radius');
   };
@@ -174,33 +248,33 @@ class AddInstructions extends React.Component<Props, State> {
     setAddInfoStep('set-form');
   };
 
-  private submit = () => {
-    const { setAddInfoStep } = this.props;
-    if (!this.markerInfo) {
-      setAddInfoStep('greeting');
-      return;
-    }
+  // private submit = () => {
+  //   const { setAddInfoStep } = this.props;
+  //   if (!this.markerInfo) {
+  //     setAddInfoStep('greeting');
+  //     return;
+  //   }
 
-    const { marker, circle } = this.markerInfo;
-    if (!marker || !circle) {
-      setAddInfoStep('greeting');
-      return;
-    }
+  //   const { marker, circle } = this.markerInfo;
+  //   if (!marker || !circle) {
+  //     setAddInfoStep('greeting');
+  //     return;
+  //   }
 
-    const position = marker.getPosition();
-    if (!position) {
-      setAddInfoStep('greeting');
-      return;
-    }
+  //   const position = marker.getPosition();
+  //   if (!position) {
+  //     setAddInfoStep('greeting');
+  //     return;
+  //   }
 
-    this.setInfoValues({
-      loc: {
-        lat: position.lat(),
-        lng: position.lng(),
-        serviceRadius: circle.getRadius(),
-      },
-    });
-  };
+  //   this.setInfoValues({
+  //     loc: {
+  //       lat: position.lat(),
+  //       lng: position.lng(),
+  //       serviceRadius: circle.getRadius(),
+  //     },
+  //   });
+  // };
 
   private handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
