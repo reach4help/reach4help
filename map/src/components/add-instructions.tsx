@@ -5,6 +5,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import Search from 'src/components/search';
 import { MarkerInfo } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
+import { Strings } from 'src/i18n/iface';
 import { RecursivePartial } from 'src/util';
 
 import {
@@ -21,11 +22,8 @@ import { AppContext } from './context';
 export type AddInfoStep =
   | 'information'
   | 'place-marker'
-  | 'greeting'
-  | 'set-marker'
-  | 'set-radius'
-  | 'set-form'
-  | 'farewell';
+  | 'contact-details'
+  | 'done';
 
 enum FORM_INPUT_NAMES {
   type = 'type',
@@ -36,7 +34,7 @@ enum FORM_INPUT_NAMES {
 }
 
 interface Validation {
-  errors: string[];
+  errors: (keyof Strings['addInformation']['screen']['information']['form']['errors'])[];
   invalidInputs: FORM_INPUT_NAMES[];
 }
 
@@ -250,7 +248,7 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
-  private completeInformation = (lang: Language) => {
+  private completeInformation = () => {
     const { setAddInfoStep } = this.props;
     const { info } = this.state;
     const validation: Validation = {
@@ -258,42 +256,21 @@ class AddInstructions extends React.Component<Props, State> {
       invalidInputs: [],
     };
     if (!info.type) {
-      validation.errors.push(
-        t(
-          lang,
-          s => s.addInformation.screen.information.form.errors.missingType,
-        ),
-      );
+      validation.errors.push('missingType');
       validation.invalidInputs.push(FORM_INPUT_NAMES.type);
     } else if (
       info.type.type === 'org' &&
       (info.type.services || []).length === 0
     ) {
-      validation.errors.push(
-        t(
-          lang,
-          s => s.addInformation.screen.information.form.errors.missingServices,
-        ),
-      );
+      validation.errors.push('missingServices');
       validation.invalidInputs.push(FORM_INPUT_NAMES.services);
     }
     if (!info.contentTitle) {
-      validation.errors.push(
-        t(
-          lang,
-          s => s.addInformation.screen.information.form.errors.missingTitle,
-        ),
-      );
+      validation.errors.push('missingTitle');
       validation.invalidInputs.push(FORM_INPUT_NAMES.name);
     }
     if (!info.loc?.description) {
-      validation.errors.push(
-        t(
-          lang,
-          s =>
-            s.addInformation.screen.information.form.errors.missingLocationName,
-        ),
-      );
+      validation.errors.push('missingLocationName');
       validation.invalidInputs.push(FORM_INPUT_NAMES.locationName);
     }
     if (validation.errors.length > 0) {
@@ -507,7 +484,15 @@ class AddInstructions extends React.Component<Props, State> {
                     {validation && (
                       <ul className="errors">
                         {validation.errors.map((error, i) => (
-                          <li key={i}>{error}</li>
+                          <li key={i}>
+                            {t(
+                              lang,
+                              s =>
+                                s.addInformation.screen.information.form.errors[
+                                  error
+                                ],
+                            )}
+                          </li>
                         ))}
                       </ul>
                     )}
@@ -516,7 +501,7 @@ class AddInstructions extends React.Component<Props, State> {
                       <button
                         type="button"
                         className="next-button"
-                        onClick={() => this.completeInformation(lang)}
+                        onClick={this.completeInformation}
                       >
                         {t(lang, s => s.addInformation.continue)}
                         <MdChevronRight className="icon icon-end" />
@@ -551,7 +536,7 @@ class AddInstructions extends React.Component<Props, State> {
                     <button
                       type="button"
                       className="next-button"
-                      onClick={() => this.completeInformation(lang)}
+                      onClick={this.completeInformation}
                     >
                       {t(lang, s => s.addInformation.continue)}
                       <MdChevronRight className="icon icon-end" />
