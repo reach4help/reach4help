@@ -123,7 +123,7 @@ interface FormatValues {
 
 const placeholderExtraction = /^([^{]*)\{(\w+)\}(.*)/;
 
-export function t(lang: Language, extract: (s: Strings) => string): string;
+export function t<T>(lang: Language, extract: (s: Strings) => T): T;
 export function t(
   lang: Language,
   extract: (s: Strings) => string,

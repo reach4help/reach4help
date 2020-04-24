@@ -15,6 +15,8 @@
         "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
         "form": {
           "type": "Type of project / group / organization / initiative",
+          "typePleaseSelect": "Please select type",
+          "services": "Services or support that this organization / company provides",
           "name": "Name of the project / group / organization",
           "namePlaceholder": "e.g. Mutual Aid Antarctica",
           "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
@@ -22,7 +24,8 @@
           "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
           "continue": "Click continue to enter location information",
           "errors": {
-            "missingType": "Please enter the type of the project / group / organization",
+            "missingType": "Please select the type of the project / group / organization",
+            "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
             "missingTitle": "Please enter the name of the project / group / organization",
             "missingLocationName": "Please enter a description of the area served"
           }
@@ -38,16 +41,30 @@
   "filterBy": "Filter by:",
   "services": {
     "any": "Any",
-    "financial": "Financial",
     "food": "Food",
-    "information": "Information",
-    "manufacturing": "Manufactoring",
     "medicine": "Medicine",
-    "mobility": "Mobility",
     "supplies": "Other Supplies",
-    "network": "Network",
+    "mobility": "Mobility",
     "shelter": "Shelter",
-    "support": "Support"
+    "support": "Support",
+    "information": "Information",
+    "network": "Network",
+    "manufacturing": "Manufactoring",
+    "financial": "Financial",
+    "other": "Other"
+  },
+  "serviceDescriptions": {
+    "food": null,
+    "medicine": null,
+    "supplies": "Supplies other than food or medicine",
+    "mobility": "Transporting people from one location to another",
+    "shelter": null,
+    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
+    "information": "Help people find relevent information",
+    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
+    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "financial": null,
+    "other": "Something else not on this list"
   },
   "markerTypes": {
     "mutual-aid-group": "Mutual Aid Group",

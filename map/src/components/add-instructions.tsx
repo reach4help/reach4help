@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
 import { MdChevronRight } from 'react-icons/md';
@@ -5,13 +6,20 @@ import { MarkerInfo } from 'src/data/markers';
 import { Language, t } from 'src/i18n';
 import { RecursivePartial } from 'src/util';
 
-import { isMarkerType, MARKER_TYPE_STRINGS } from '../data';
+import {
+  isMarkerType,
+  isService,
+  MARKER_TYPE_STRINGS,
+  Service,
+  SERVICE_STRINGS,
+} from '../data';
 import styled from '../styling';
 import { button, buttonPrimary, iconButton } from '../styling/mixins';
 import { AppContext } from './context';
 
 export type AddInfoStep =
   | 'information'
+  | 'place-marker'
   | 'greeting'
   | 'set-marker'
   | 'set-radius'
@@ -20,10 +28,11 @@ export type AddInfoStep =
 
 enum FORM_INPUT_NAMES {
   type = 'type',
+  services = 'services',
   name = 'name',
   description = 'description',
   locationName = 'locationName',
-};
+}
 
 interface Validation {
   errors: string[];
@@ -65,7 +74,7 @@ class AddInstructions extends React.Component<Props, State> {
   private setInfo(mutate: (info: RecursivePartial<MarkerInfo>) => void) {
     this.setState(({ info }) => {
       // eslint-disable-next-line no-param-reassign
-      info = merge({}, info);
+      info = cloneDeep(info);
       mutate(info);
       return { info };
     });
@@ -189,20 +198,17 @@ class AddInstructions extends React.Component<Props, State> {
         serviceRadius: circle.getRadius(),
       },
     });
-
   };
 
-  private handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  private handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { target } = event;
 
     switch (target.name) {
       case FORM_INPUT_NAMES.type:
         if (isMarkerType(target.value)) {
-          if (target.value === 'org') {
-            console.error('TODO');
-          } else {
-            this.setInfoValues({ type: { type: target.value } });
-          }
+          this.setInfoValues({ type: { type: target.value } });
         } else {
           this.setInfo(info => {
             // eslint-disable-next-line no-param-reassign
@@ -224,39 +230,98 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
+  private handleCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { target } = event;
+    const { service } = target.dataset;
+    const { checked } = target;
+    if (isService(service)) {
+      this.setInfo(info => {
+        if (info.type?.type === 'org') {
+          if (!info.type.services) {
+            // eslint-disable-next-line no-param-reassign
+            info.type.services = [];
+          }
+          if (checked && !info.type.services.includes(service)) {
+            info.type.services.push(service);
+          } else if (!checked) {
+            // eslint-disable-next-line no-param-reassign
+            info.type.services = info.type.services.filter(s => s !== service);
+          }
+        }
+      });
+    }
+  };
+
   private completeInformation = (lang: Language) => {
+    const { setAddInfoStep } = this.props;
     const { info } = this.state;
     const validation: Validation = {
       errors: [],
       invalidInputs: [],
     };
     if (!info.type) {
-      validation.errors.push(t(lang, s => s.addInformation.screen.information.form.errors.missingType));
+      validation.errors.push(
+        t(
+          lang,
+          s => s.addInformation.screen.information.form.errors.missingType,
+        ),
+      );
       validation.invalidInputs.push(FORM_INPUT_NAMES.type);
+    } else if (
+      info.type.type === 'org' &&
+      (info.type.services || []).length === 0
+    ) {
+      validation.errors.push(
+        t(
+          lang,
+          s => s.addInformation.screen.information.form.errors.missingServices,
+        ),
+      );
+      validation.invalidInputs.push(FORM_INPUT_NAMES.services);
     }
     if (!info.contentTitle) {
-      validation.errors.push(t(lang, s => s.addInformation.screen.information.form.errors.missingTitle));
+      validation.errors.push(
+        t(
+          lang,
+          s => s.addInformation.screen.information.form.errors.missingTitle,
+        ),
+      );
       validation.invalidInputs.push(FORM_INPUT_NAMES.name);
     }
     if (!info.loc?.description) {
-      validation.errors.push(t(lang, s => s.addInformation.screen.information.form.errors.missingLocationName));
+      validation.errors.push(
+        t(
+          lang,
+          s =>
+            s.addInformation.screen.information.form.errors.missingLocationName,
+        ),
+      );
       validation.invalidInputs.push(FORM_INPUT_NAMES.locationName);
     }
     if (validation.errors.length > 0) {
       this.setState({ validation });
     } else {
-      console.log('TODO');
+      setAddInfoStep('place-marker');
       this.setState({ validation: undefined });
     }
-  }
+  };
 
-  private validatedInput = (input: FORM_INPUT_NAMES, element: (valid: boolean) => JSX.Element) => {
+  private validatedInput = (
+    input: FORM_INPUT_NAMES,
+    element: (valid: boolean) => JSX.Element | undefined,
+  ) => {
     const { validation } = this.state;
     const valid = !(validation?.invalidInputs || []).includes(input);
     return element(valid);
-  }
+  };
 
-  private formTextInput = (input: FORM_INPUT_NAMES, label: string, placeholder?: string) =>
+  private formTextInput = (
+    input: FORM_INPUT_NAMES,
+    label: string,
+    placeholder?: string,
+  ) =>
     this.validatedInput(input, valid => (
       <>
         <label className={valid ? '' : 'error'} htmlFor={input}>
@@ -286,13 +351,28 @@ class AddInstructions extends React.Component<Props, State> {
                 {addInfoStep === 'information' && (
                   <>
                     <h2>{t(lang, s => s.addInformation.screen.title)}</h2>
-                    <p className="muted">{t(lang, s => s.addInformation.screen.information.acceptedInformation)}</p>
-                    <p>{t(lang, s => s.addInformation.screen.information.intro)}</p>
+                    <p className="muted">
+                      {t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information
+                            .acceptedInformation,
+                      )}
+                    </p>
+                    <p>
+                      {t(lang, s => s.addInformation.screen.information.intro)}
+                    </p>
 
                     {this.validatedInput(FORM_INPUT_NAMES.type, valid => (
                       <>
-                        <label className={valid ? '' : 'error'} htmlFor={FORM_INPUT_NAMES.type}>
-                          {t(lang, s => s.addInformation.screen.information.form.type)}
+                        <label
+                          className={valid ? '' : 'error'}
+                          htmlFor={FORM_INPUT_NAMES.type}
+                        >
+                          {t(
+                            lang,
+                            s => s.addInformation.screen.information.form.type,
+                          )}
                         </label>
                         <select
                           className={valid ? '' : 'error'}
@@ -301,34 +381,121 @@ class AddInstructions extends React.Component<Props, State> {
                           value={info?.type?.type || ''}
                           onChange={this.handleInputChange}
                         >
-                          <option value="">Please Select</option>
+                          <option value="">
+                            {t(
+                              lang,
+                              s =>
+                                s.addInformation.screen.information.form
+                                  .typePleaseSelect,
+                            )}
+                          </option>
                           {MARKER_TYPE_STRINGS.map(type => (
-                            <option key={type} value={type}>{t(lang, s => s.markerTypes[type])}</option>
+                            <option key={type} value={type}>
+                              {t(lang, s => s.markerTypes[type])}
+                            </option>
                           ))}
                         </select>
                       </>
                     ))}
 
+                    {this.validatedInput(FORM_INPUT_NAMES.services, valid => {
+                      if (info.type?.type !== 'org') {
+                        return;
+                      }
+                      const services: (Service | undefined)[] =
+                        info.type.services || [];
+                      return (
+                        <>
+                          <span className={`label ${valid ? '' : 'error'}`}>
+                            {t(
+                              lang,
+                              s =>
+                                s.addInformation.screen.information.form
+                                  .services,
+                            )}
+                          </span>
+                          <div className="checkbox-group">
+                            {SERVICE_STRINGS.map(service => {
+                              const description = t(
+                                lang,
+                                s => s.serviceDescriptions[service],
+                              );
+                              return (
+                                <div key={service} className="option">
+                                  <input
+                                    type="checkbox"
+                                    name={`service-${service}`}
+                                    id={`service-${service}`}
+                                    checked={services.includes(service)}
+                                    onChange={this.handleCheckboxChange}
+                                    data-service={service}
+                                  />
+                                  <label htmlFor={`service-${service}`}>
+                                    {t(lang, s => s.services[service])}
+                                    {description && (
+                                      <span>
+                                        &nbsp;-&nbsp;
+                                        {description}
+                                      </span>
+                                    )}
+                                  </label>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </>
+                      );
+                    })}
+
                     {this.formTextInput(
                       FORM_INPUT_NAMES.name,
-                      t(lang, s => s.addInformation.screen.information.form.name),
-                      t(lang, s => s.addInformation.screen.information.form.namePlaceholder),
+                      t(
+                        lang,
+                        s => s.addInformation.screen.information.form.name,
+                      ),
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form
+                            .namePlaceholder,
+                      ),
                     )}
 
                     {this.formTextInput(
                       FORM_INPUT_NAMES.description,
-                      t(lang, s => s.addInformation.screen.information.form.description),
-                      t(lang, s => s.addInformation.screen.information.form.namePlaceholder),
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form.description,
+                      ),
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form
+                            .namePlaceholder,
+                      ),
                     )}
 
                     {this.formTextInput(
                       FORM_INPUT_NAMES.locationName,
-                      t(lang, s => s.addInformation.screen.information.form.locationName),
-                      t(lang, s => s.addInformation.screen.information.form.locationNamePlaceholder),
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form.locationName,
+                      ),
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form
+                            .locationNamePlaceholder,
+                      ),
                     )}
 
                     <p>
-                      {t(lang, s => s.addInformation.screen.information.form.continue)}
+                      {t(
+                        lang,
+                        s => s.addInformation.screen.information.form.continue,
+                      )}
                     </p>
 
                     {validation && (
@@ -388,7 +555,8 @@ export default styled(AddInstructions)`
       margin-top: 0;
     }
 
-    label {
+    label,
+    .label {
       display: block;
       margin-top: ${p => p.theme.spacingPx}px;
       font-weight: bold;
@@ -398,13 +566,14 @@ export default styled(AddInstructions)`
       }
     }
 
-    input {
+    input[type='text'] {
       display: block;
       width: 600px;
       max-width: 100%;
     }
 
-    input, select {
+    input[type='text'],
+    select {
       padding: 7px 5px;
       font-size: 1rem;
       margin-top: ${p => p.theme.spacingPx}px;
@@ -427,6 +596,28 @@ export default styled(AddInstructions)`
       }
     }
 
+    .checkbox-group {
+      margin-top: ${p => p.theme.spacingPx}px;
+
+      > .option {
+        margin-top: ${p => p.theme.spacingPx / 2}px;
+        input {
+          cursor: pointer;
+          display: inline;
+        }
+
+        label {
+          cursor: pointer;
+          display: inline;
+          margin-left: ${p => p.theme.spacingPx}px;
+
+          span {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+
     .errors {
       color: ${p => p.theme.colors.red};
     }
@@ -445,7 +636,6 @@ export default styled(AddInstructions)`
         ${iconButton}
       }
     }
-
   }
 
   /* TODO: clean up styling below this point */
