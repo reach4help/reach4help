@@ -52,6 +52,9 @@ interface Props {
   addInfoStep: AddInfoStep;
   setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
   updateSearchInput: (input: HTMLInputElement | null) => void;
+  setAddInfoMapClickedListener: (
+    listener: ((evt: google.maps.MouseEvent) => void) | null,
+  ) => void;
 }
 
 interface State {
@@ -79,10 +82,11 @@ class AddInstructions extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    const { map } = this.props;
+    const { map, setAddInfoMapClickedListener } = this.props;
     if (map) {
       this.initializeMap(map);
     }
+    setAddInfoMapClickedListener(this.mapClicked);
   }
 
   public componentDidUpdate(prevProps: Props) {
@@ -102,7 +106,9 @@ class AddInstructions extends React.Component<Props, State> {
   }
 
   public componentWillUnmount() {
+    const { setAddInfoMapClickedListener } = this.props;
     this.uninitializeMap();
+    setAddInfoMapClickedListener(null);
   }
 
   private initializeMap = (map: google.maps.Map) => {

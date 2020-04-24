@@ -99,6 +99,10 @@ interface SearchBox {
 class MapComponent extends React.Component<Props, {}> {
   private map: MapInfo | null = null;
 
+  private addInfoMapClickedListener:
+    | ((evt: google.maps.MouseEvent) => void)
+    | null = null;
+
   private readonly searchBoxes = new Map<SearchBoxes, SearchBox>();
 
   private infoWindow: google.maps.InfoWindow | null = null;
@@ -130,6 +134,23 @@ class MapComponent extends React.Component<Props, {}> {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(null);
   }
+
+  private setAddInfoMapClickedListener = (
+    listener: ((evt: google.maps.MouseEvent) => void) | null,
+  ) => {
+    this.addInfoMapClickedListener = listener;
+  };
+
+  /**
+   * Return true if the usual behaviour for clicking should be supressed
+   */
+  private mapClicked = (evt: google.maps.MouseEvent): boolean => {
+    if (this.addInfoMapClickedListener) {
+      this.addInfoMapClickedListener(evt);
+      return true;
+    }
+    return false;
+  };
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
     const { filter, setSelectedResult } = this.props;
@@ -188,8 +209,10 @@ class MapComponent extends React.Component<Props, {}> {
     markers.forEach(marker => {
       const info = getInfo(marker);
 
-      marker.addListener('click', () => {
-        setSelectedResult(info);
+      marker.addListener('click', event => {
+        if (!this.mapClicked(event)) {
+          setSelectedResult(info);
+        }
       });
 
       return marker;
@@ -232,6 +255,10 @@ class MapComponent extends React.Component<Props, {}> {
                 map,
                 center: marker.getPosition() || undefined,
                 radius,
+                // If we change this, we need to ensure that we make appropriate
+                // changes to the marker placement when adding new data so that
+                // the circle can be clicked to place a marker at the cursor
+                clickable: false,
               }),
             );
           } else {
@@ -510,6 +537,7 @@ class MapComponent extends React.Component<Props, {}> {
                 addInfoStep={addInfoStep}
                 setAddInfoStep={setAddInfoStep}
                 updateSearchInput={this.updateAddInfoSearchInput}
+                setAddInfoMapClickedListener={this.setAddInfoMapClickedListener}
               />
             )}
             <div className="map-actions">
