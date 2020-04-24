@@ -35,6 +35,7 @@
       "contactInfo": {
         "header": "Contact information for {name}",
         "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
+        "deleteInfo": "Delete",
         "addInfo": {
           "general": "Add general contact information",
           "volunteers": "Add contact information for volunteers",

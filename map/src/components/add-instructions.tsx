@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
-import { MdAdd, MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { MdAdd, MdChevronLeft, MdChevronRight, MdDelete } from 'react-icons/md';
 import Search from 'src/components/search';
 import { MarkerInfo } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
@@ -16,7 +16,12 @@ import {
   SERVICE_STRINGS,
 } from '../data';
 import styled from '../styling';
-import { button, buttonPrimary, iconButton } from '../styling/mixins';
+import {
+  button,
+  buttonPrimary,
+  iconButton,
+  iconButtonSmall,
+} from '../styling/mixins';
 import { AppContext } from './context';
 
 export type AddInfoStep =
@@ -564,9 +569,28 @@ class AddInstructions extends React.Component<Props, State> {
       <div key={type} className="contact-type-group">
         {info.contact?.[type] ? (
           <div>
-            <strong>
-              {t(lang, s => s.addInformation.screen.contactInfo.sections[type])}
-            </strong>
+            <div className="contact-type-group-header">
+              <strong>
+                {t(
+                  lang,
+                  s => s.addInformation.screen.contactInfo.sections[type],
+                )}
+              </strong>
+              <button
+                type="button"
+                onClick={() =>
+                  this.setInfo(i => {
+                    if (i.contact) {
+                      // eslint-disable-next-line no-param-reassign
+                      i.contact[type] = undefined;
+                    }
+                  })
+                }
+              >
+                <MdDelete className="icon icon-start" />
+                {t(lang, s => s.addInformation.screen.contactInfo.deleteInfo)}
+              </button>
+            </div>
             {this.contactMethodGroup(type, 'phone')}
             {this.contactMethodGroup(type, 'email')}
             {this.contactUrlGroup(type)}
@@ -905,6 +929,17 @@ export default styled(AddInstructions)`
 
     .contact-type-group {
       margin-top: ${p => p.theme.spacingPx}px;
+
+      .contact-type-group-header {
+        display: flex;
+        align-items: center;
+
+        button {
+          margin: 0 ${p => p.theme.spacingPx}px;
+          ${button}
+          ${iconButtonSmall}
+        }
+      }
 
       .contact-method-group {
         display: flex;

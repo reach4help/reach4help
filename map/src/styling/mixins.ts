@@ -40,6 +40,15 @@ export const iconButton = css`
   }
 `;
 
+export const iconButtonSmall = css`
+  ${iconButton}
+
+  .icon {
+    height: 18px;
+    width: 18px;
+  }
+`;
+
 export const buttonPrimary = css`
   ${button};
   background: ${p => p.theme.colors.brand.primary};
