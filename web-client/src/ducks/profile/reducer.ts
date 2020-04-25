@@ -87,11 +87,13 @@ export default createReducer<ProfileState>(
       {
         payload,
       }: {
-        payload: Record<string, firebase.firestore.DocumentData | undefined>;
+        payload: firebase.firestore.DocumentSnapshot<
+          firebase.firestore.DocumentData
+        >;
       },
     ) => {
       // eslint-disable-next-line prefer-destructuring
-      state.privilegedInformation = payload[0];
+      state.privilegedInformation = payload.data();
       state.loading = false;
       state.observerReceivedFirstUpdate = true;
     },
