@@ -1,7 +1,7 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-  "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+  "title": "কভিড-১৯ পারস্পরিক সাহায্যের মানচিত্র",
+  "info": "লোকেরা যেখানে বাস করেন তাদের পারস্পরিক সহায়তা প্রচেষ্টার সন্ধানে ও যোগ দিতে সহায়তা করার জন্য, তাদের নিজস্ব শুরু করার অনুপ্রেরণা সরবরাহ করুন, এবং / অথবা কেবল প্রফুল্লতা তুলুন, নীচে পারস্পরিক সহায়তা মহামারী দুর্যোগ যত্ন প্রকল্পের ক্রমবর্ধমান তালিকা রয়েছে। দ্রষ্টব্য: প্রতিটি প্রকল্প স্বায়ত্তশাসিত এবং স্ব-সংগঠিত; অনেকে তথ্য ভাগ করে নেওয়ার জন্য পাবলিক স্প্রেডশিট ব্যবহার করেন, তাই ব্যক্তিগত তথ্য প্রবেশের সময় সতর্ক থাকুন যা আপনি সর্বজনীন হতে চান না।",
+  "about": "এই মানচিত্রটি একটি স্বেচ্ছাসেবক-পরিচালিত প্রকল্প {reach4help}। এটি ওপেন সোর্স এবং এটি {githubSource} হতে পারে} কোনও অনুসন্ধানের জন্য, আপনি আমাদের কাছে ই-মেইল দ্বারা পৌঁছাতে পারেন।",
   "githubSourceLabel": "গিটহাবে পাওয়া",
   "addInformation": {
     "small": "Add information",
