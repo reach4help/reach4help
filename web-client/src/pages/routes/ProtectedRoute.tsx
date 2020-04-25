@@ -3,13 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
+import { ProfileState } from 'src/ducks/profile/types';
 import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
 import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/PersonalDataRoute/constants';
+import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
 import { PhoneEntryLocation } from 'src/modules/phone/pages/routes/PhoneEntryRoute/constants';
 import { AppState } from 'src/store';
 
 const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   const auth = useSelector((state: AppState) => state.auth);
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
+  );
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -29,7 +34,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
     return undefined;
   }, [dispatch, auth]);
 
-  if (!auth.observerReceivedFirstUpdate) {
+  if (!auth.observerReceivedFirstUpdate || !auth.observerReceivedFirstUpdate) {
     return <>Loading</>;
   }
 
@@ -53,14 +58,29 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       />
     );
   }
-  // FIXME this should check if the user hasn't yet filled "Personal Data form"
-  // if(!auth.user.geolocation)
-  // eslint-disable-next-line no-constant-condition
-  if (true) {
+
+  if (
+    !(
+      profileState &&
+      profileState.profile &&
+      profileState.profile.displayName &&
+      profileState.privilegedInformation?.address
+    )
+  ) {
     return (
       <Redirect
         to={{
           pathname: PersonalDataLocation.path,
+        }}
+      />
+    );
+  }
+
+  if (!profileState.profile.applicationPreference) {
+    return (
+      <Redirect
+        to={{
+          pathname: RoleInfoLocation.path,
         }}
       />
     );
