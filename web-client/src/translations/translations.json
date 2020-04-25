@@ -26,7 +26,7 @@
         "error_message": "Please input your phone number!"
       },
       "verificationCode": {
-        "sub_title": "We just texted you a confirmation code. Please enter it bellow.",
+        "sub_title": "We just texted you a confirmation code. Please enter it below.",
         "info": "If you did not receive a code please click ",
         "resend": "resend",
         "error_message": "Insert the received number here!"
@@ -38,7 +38,7 @@
         "tip_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
       },
       "user_data_form": {
-        "sub_title": "Please fill out the personal details bellow.",
+        "sub_title": "Please fill out the personal details below.",
         "gps_button": "Use GPS to get my address",
         "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
         "learn_reactivate": "Learn how to reactivate geolocation",
