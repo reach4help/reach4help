@@ -58,7 +58,7 @@ const GPSTarget = styled.img`
   margin-right: 8px;
 `;
 
-interface NewRequestProps {
+interface PersonalDataFormProps {
   Geocoder: any;
   handleFormSubmit: Function;
   user: firebase.User | null | undefined;
@@ -74,7 +74,7 @@ export interface IPersonalData {
   address: IUserAddress;
 }
 
-const PersonalDataForm: React.FC<NewRequestProps> = ({
+const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   Geocoder,
   handleFormSubmit,
   user,
