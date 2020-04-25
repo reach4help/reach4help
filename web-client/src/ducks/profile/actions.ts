@@ -17,6 +17,7 @@ import {
   OBSERVE_PRIVILEGED,
   OBSERVE_PROFILE,
   SET,
+  UPDATE,
 } from './types';
 
 export const getUserProfile = (payload: IgetUserProfile) => (
@@ -98,5 +99,17 @@ export const setUserProfile = (
       userPayload,
     },
     firebase: setUserProfileFunc,
+  });
+};
+
+export const updateUserProfile = (uid: string, user: User) => (
+  dispatch: Function,
+) => {
+  dispatch({
+    type: UPDATE,
+    payload: {
+      uid,
+      userPayload: user,
+    },
   });
 };
