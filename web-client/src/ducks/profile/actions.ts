@@ -29,10 +29,14 @@ export const getUserProfile = (payload: IgetUserProfile) => (
   });
 };
 
-export const observeProfile = (dispatch: Function): Function => {
+export const observeProfile = (
+  dispatch: Function,
+  payload: IgetUserProfile,
+): Function => {
   dispatch({
     type: OBSERVE_PROFILE,
     observer: observeProfileFunc,
+    payload,
   });
 
   return () =>
