@@ -10,6 +10,7 @@ import {
   observePrivileged as observePrivilegedFunc,
   observeProfile as observeProfileFunc,
   setUserProfile as setUserProfileFunc,
+  updateUserProfileData,
 } from './functions';
 import {
   GET,
@@ -111,5 +112,6 @@ export const updateUserProfile = (uid: string, user: User) => (
       uid,
       userPayload: user,
     },
+    firebase: updateUserProfileData,
   });
 };
