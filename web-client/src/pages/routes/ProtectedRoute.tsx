@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
+import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
 import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/PersonalDataRoute/constants';
 import { PhoneEntryLocation } from 'src/modules/phone/pages/routes/PhoneEntryRoute/constants';
@@ -13,6 +14,20 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   const location = useLocation();
 
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
+
+  useEffect((): any => {
+    if (auth.user && auth.user.uid) {
+      return observeProfile(dispatch, { uid: auth.user.uid });
+    }
+    return undefined;
+  }, [dispatch, auth]);
+
+  useEffect((): any => {
+    if (auth.user && auth.user.uid) {
+      return observePrivileged(dispatch, { uid: auth.user.uid });
+    }
+    return undefined;
+  }, [dispatch, auth]);
 
   if (!auth.observerReceivedFirstUpdate) {
     return <>Loading</>;
