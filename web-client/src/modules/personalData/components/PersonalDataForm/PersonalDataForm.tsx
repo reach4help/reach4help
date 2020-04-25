@@ -81,6 +81,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   const [form] = Form.useForm();
   const [userDataSet, setUserDataSet] = useState<boolean>(false);
   const [profileDataSet, setProfileDataSet] = useState<boolean>(false);
+  const [privilegedInfoSet, setPrivilegedInfoSet] = useState<boolean>(false);
   const [fullName, setFullName] = useState<string | undefined | null>(
     undefined,
   );
@@ -222,6 +223,31 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
       if (profile.displayName) {
         setDisplayName(profile.displayName);
         setFullName(profile.displayName);
+      }
+    }
+    if (!privilegedInfoSet && privilegedInfo && privilegedInfo.address) {
+      setPrivilegedInfoSet(true);
+      const addressToSet = privilegedInfo.address;
+      if (addressToSet.address1) {
+        setAddress1(addressToSet.address1);
+      }
+      if (addressToSet.address2) {
+        setAddress2(addressToSet.address2);
+      }
+      if (addressToSet.postalCode) {
+        setPostalCode(addressToSet.postalCode);
+      }
+      if (addressToSet.city) {
+        setCity(addressToSet.city);
+      }
+      if (addressToSet.state) {
+        setCityState(addressToSet.state);
+      }
+      if (addressToSet.country) {
+        setCountry(addressToSet.country);
+      }
+      if (addressToSet.coords) {
+        setCoords(addressToSet.coords);
       }
     }
   }, [user, profile, privilegedInfo]);
