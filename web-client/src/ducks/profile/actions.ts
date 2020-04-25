@@ -46,10 +46,14 @@ export const observeProfile = (
     });
 };
 
-export const observePrivileged = (dispatch: Function): Function => {
+export const observePrivileged = (
+  dispatch: Function,
+  payload: IgetUserProfile,
+): Function => {
   dispatch({
     type: OBSERVE_PRIVILEGED,
     observer: observePrivilegedFunc,
+    payload,
   });
 
   return () =>
