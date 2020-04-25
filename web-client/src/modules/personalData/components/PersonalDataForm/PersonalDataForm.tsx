@@ -79,8 +79,14 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const [fullName, setFullName] = useState<string | undefined | null>('');
-  const [displayName, setDisplayName] = useState<string | undefined | null>('');
+  const [userDataSet, setUserDataSet] = useState<boolean>(false);
+  const [profileDataSet, setProfileDataSet] = useState<boolean>(false);
+  const [fullName, setFullName] = useState<string | undefined | null>(
+    undefined,
+  );
+  const [displayName, setDisplayName] = useState<string | undefined | null>(
+    undefined,
+  );
   const [displayPic, setDisplayPic] = useState<string | undefined | null>(
     undefined,
   );
@@ -96,12 +102,12 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   >(undefined);
 
   // geolocation
-  const [address1, setAddress1] = useState<string | undefined>('');
-  const [address2, setAddress2] = useState<string | undefined>('');
-  const [city, setCity] = useState<string | undefined>('');
-  const [cityState, setCityState] = useState<string | undefined>('');
-  const [postalCode, setPostalCode] = useState<string | undefined>('');
-  const [country, setCountry] = useState<string | undefined>('');
+  const [address1, setAddress1] = useState<string | undefined>(undefined);
+  const [address2, setAddress2] = useState<string | undefined>(undefined);
+  const [city, setCity] = useState<string | undefined>(undefined);
+  const [cityState, setCityState] = useState<string | undefined>(undefined);
+  const [postalCode, setPostalCode] = useState<string | undefined>(undefined);
+  const [country, setCountry] = useState<string | undefined>(undefined);
   const [coords, setCoords] = useState<firebase.firestore.GeoPoint | undefined>(
     undefined,
   );
@@ -191,15 +197,17 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   };
 
   useEffect(() => {
-    if (user) {
+    if (!userDataSet && user && user.email) {
       if (acceptToUsePhoto) {
         setDisplayPic(user.photoURL);
       }
+      setUserDataSet(true);
       setTempDisplayPic(user.photoURL);
       setDisplayName(user.displayName);
       setFullName(user.displayName);
     }
-    if (profile) {
+    if (!profileDataSet && profile && profile.displayName) {
+      setProfileDataSet(true);
       if (profile.displayName) {
         setDisplayName(profile.displayName);
       }
@@ -208,6 +216,8 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
           setDisplayPic(profile.displayPicture);
         }
         setTempDisplayPic(profile.displayPicture);
+      } else {
+        setAcceptToUsePhoto(false);
       }
       if (profile.displayName) {
         setDisplayName(profile.displayName);
@@ -460,7 +470,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
         </Info>
         <Form.Item style={{ textAlign: 'center' }} name="useProfilePic">
           <Checkbox
-            defaultChecked
+            checked={acceptToUsePhoto}
             onChange={({ target }) => setAcceptToUsePhoto(target.checked)}
           >
             {t('user_data_form.accept_to_use_profile_pic')}
