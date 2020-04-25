@@ -1,4 +1,6 @@
 import { firestore } from 'firebase';
+import { User } from 'src/models/users';
+import { PrivilegedUserInformation } from 'src/models/users/privilegedInformation';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
@@ -31,7 +33,12 @@ export default createReducer<ProfileState>(
       state: ProfileState,
       {
         payload,
-      }: { payload: [firestore.DocumentSnapshot, firestore.DocumentSnapshot] },
+      }: {
+        payload: [
+          firestore.DocumentSnapshot<User>,
+          firestore.DocumentSnapshot<PrivilegedUserInformation>,
+        ];
+      },
     ) => {
       state.profile = payload[0].data();
       state.privilegedInformation = payload[1]?.data();
@@ -87,9 +94,7 @@ export default createReducer<ProfileState>(
       {
         payload,
       }: {
-        payload: firebase.firestore.DocumentSnapshot<
-          firebase.firestore.DocumentData
-        >;
+        payload: firebase.firestore.DocumentSnapshot<PrivilegedUserInformation>;
       },
     ) => {
       // eslint-disable-next-line prefer-destructuring
@@ -105,9 +110,7 @@ export default createReducer<ProfileState>(
       {
         payload,
       }: {
-        payload: firebase.firestore.DocumentSnapshot<
-          firebase.firestore.DocumentData
-        >;
+        payload: firebase.firestore.DocumentSnapshot<User>;
       },
     ) => {
       // eslint-disable-next-line prefer-destructuring

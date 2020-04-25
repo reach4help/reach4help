@@ -15,12 +15,14 @@ export const getUserProfile = (
     firestore
       .collection('users')
       .doc(payload.uid)
+      .withConverter(UserFirestoreConverter)
       .get(),
     firestore
       .collection('users')
       .doc(payload.uid)
       .collection('privilegedInformation')
       .doc(payload.uid)
+      .withConverter(PrivilegedUserInformationFirestoreConverter)
       .get(),
   ]);
 
@@ -33,6 +35,7 @@ export const observePrivileged = (
     .doc(payload.uid)
     .collection('privilegedInformation')
     .doc(payload.uid)
+    .withConverter(PrivilegedUserInformationFirestoreConverter)
     .onSnapshot(snap => nextValue(snap));
 
 export const observeProfile = (
@@ -42,6 +45,7 @@ export const observeProfile = (
   firestore
     .collection('users')
     .doc(payload.uid)
+    .withConverter(UserFirestoreConverter)
     .onSnapshot(snap => nextValue(snap));
 
 export const setUserProfile = async ({

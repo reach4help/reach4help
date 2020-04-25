@@ -13,7 +13,11 @@ import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { User } from 'src/models/users';
+import {
+  IUserAddress,
+  PrivilegedUserInformation,
+} from 'src/models/users/privilegedInformation';
 import styled from 'styled-components';
 
 import geolocationinactive from '../../../../assets/geolocationinactive.svg';
@@ -58,8 +62,8 @@ interface NewRequestProps {
   Geocoder: any;
   handleFormSubmit: Function;
   user: firebase.User | null | undefined;
-  profile: firebase.firestore.DocumentData | undefined;
-  privilegedInfo: firebase.firestore.DocumentData | undefined;
+  profile: User | undefined;
+  privilegedInfo: PrivilegedUserInformation | undefined;
 }
 
 export interface IPersonalData {
