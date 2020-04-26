@@ -3,7 +3,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import * as i18n from 'src/i18n';
 
-import { AddInfoStep } from './components/add-instructions';
+import { AddInfoStep } from './components/add-information';
 import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';

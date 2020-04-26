@@ -13,7 +13,7 @@ import { button, iconButton } from 'src/styling/mixins';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
-import AddInstructions, { AddInfoStep } from './add-instructions';
+import AddInstructions, { AddInfoStep } from './add-information';
 import { AppContext } from './context';
 import {
   createGoogleMap,

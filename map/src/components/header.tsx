@@ -14,7 +14,7 @@ import styled, {
   CLS_SCREEN_LG_ONLY,
   SMALL_DEVICES,
 } from '../styling';
-import { AddInfoStep } from './add-instructions';
+import { AddInfoStep } from './add-information';
 import { AppContext } from './context';
 import Filters, { FilterMutator } from './filters';
 import Languages from './languages';
