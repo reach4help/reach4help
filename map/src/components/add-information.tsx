@@ -103,6 +103,12 @@ const contactInputId = (
   index: number,
 ) => `${type}-${method}-${index}`;
 
+const contactWebInputId = (
+  type: ContactType,
+  index: number,
+  part: 'url' | 'label',
+) => `${contactInputId(type, 'web', index)}-${part}`;
+
 const contactInputIdData = (
   type: ContactType,
   method: ContactMethod,
@@ -400,23 +406,42 @@ class AddInstructions extends React.Component<Props, State> {
         for (const type of CONTACT_TYPES) {
           const typeInfo = info.contact?.[type];
           const typeUrls = urls[type] || [];
+          const sectionLabel = (lang: Language) => (
+            <strong>
+              {t(lang, s => s.addInformation.screen.contactInfo.sections[type])}
+            </strong>
+          );
           if (typeInfo) {
             if (Object.keys(typeInfo).length === 0 && typeUrls.length === 0) {
               validation.errors.push(lang =>
                 t(lang, s => s.addInformation.errors.emptyContactSection, {
-                  section: (
-                    <strong>
-                      {t(
-                        lang,
-                        s => s.addInformation.screen.contactInfo.sections[type],
-                      )}
-                    </strong>
-                  ),
+                  section: sectionLabel(lang),
                 }),
               );
               validation.invalidInputs.push(type);
             } else {
               // Check URLs:
+              typeUrls.forEach(({ label, url }, index) => {
+                if (label === '') {
+                  validation.errors.push(lang =>
+                    t(lang, s => s.addInformation.errors.urlMissingLabel, {
+                      section: sectionLabel(lang),
+                    }),
+                  );
+                  validation.invalidInputs.push(
+                    contactWebInputId(type, index, 'label'),
+                  );
+                } else if (url === '') {
+                  validation.errors.push(lang =>
+                    t(lang, s => s.addInformation.errors.urlMissingURL, {
+                      section: sectionLabel(lang),
+                    }),
+                  );
+                  validation.invalidInputs.push(
+                    contactWebInputId(type, index, 'url'),
+                  );
+                }
+              });
             }
           }
         }
@@ -608,9 +633,10 @@ class AddInstructions extends React.Component<Props, State> {
 
   private contactUrlGroup = (type: ContactType) => {
     const { lang } = this.props;
-    const { urls } = this.state;
+    const { urls, validation } = this.state;
     const fields = [...urls[type], { label: '', url: '' }];
-    const lastId = `${contactInputId(type, 'web', fields.length - 1)}-url`;
+    const lastId = `${contactWebInputId(type, fields.length - 1, 'url')}`;
+    const errors = validation?.invalidInputs || [];
     return (
       <div className="contact-method-group">
         <label htmlFor={lastId}>
@@ -621,7 +647,12 @@ class AddInstructions extends React.Component<Props, State> {
             <div key={i} className="url">
               <input
                 type="text"
-                id={`${contactInputId(type, 'web', i)}-label`}
+                id={`${contactWebInputId(type, i, 'label')}`}
+                className={
+                  errors.includes(contactWebInputId(type, i, 'label'))
+                    ? 'error'
+                    : ''
+                }
                 value={label}
                 placeholder={t(
                   lang,
@@ -634,7 +665,12 @@ class AddInstructions extends React.Component<Props, State> {
               />
               <input
                 type="text"
-                id={`${contactInputId(type, 'web', i)}-url`}
+                id={contactWebInputId(type, i, 'url')}
+                className={
+                  errors.includes(contactWebInputId(type, i, 'url'))
+                    ? 'error'
+                    : ''
+                }
                 value={url}
                 placeholder={t(
                   lang,
