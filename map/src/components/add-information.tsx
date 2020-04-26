@@ -1,9 +1,22 @@
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
-import { MdAdd, MdChevronLeft, MdChevronRight, MdDelete } from 'react-icons/md';
+import {
+  MdAdd,
+  MdChevronLeft,
+  MdChevronRight,
+  MdDelete,
+  MdExplore,
+  MdRefresh,
+} from 'react-icons/md';
 import Search from 'src/components/search';
-import { ContactDetails, MarkerInfo } from 'src/data/markers';
+import { submitInformation } from 'src/data/firebase';
+import {
+  ContactDetails,
+  ContactGroup,
+  Location,
+  MarkerInfo,
+} from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
 import { RecursivePartial } from 'src/util';
 
@@ -11,6 +24,7 @@ import {
   isMarkerType,
   isService,
   MARKER_TYPE_STRINGS,
+  MarkerType,
   Service,
   SERVICE_STRINGS,
 } from '../data';
@@ -27,8 +41,7 @@ export type AddInfoStep =
   | 'information'
   | 'place-marker'
   | 'contact-details'
-  | 'submitting'
-  | 'done';
+  | 'submitted';
 
 enum FORM_INPUT_NAMES {
   type = 'type',
@@ -73,7 +86,42 @@ interface State {
     }>;
   };
   validation?: Validation;
+  submissionResult?:
+    | { state: 'success' }
+    | { state: 'error'; error: (lang: Language) => string | JSX.Element[] };
 }
+
+const INITIAL_STATE: State = {
+  info: {},
+  urls: {
+    general: [],
+    getHelp: [],
+    volunteers: [],
+  },
+  submissionResult: undefined,
+  validation: undefined,
+};
+
+const isCompleteMarkerType = (
+  type: RecursivePartial<MarkerType> | undefined,
+): type is MarkerType => {
+  if (!type) {
+    return false;
+  }
+  if (type.type === 'org') {
+    return !!type.services;
+  }
+  return !!type.type;
+};
+
+const isCompleteMarkerLocation = (
+  loc: RecursivePartial<Location> | undefined,
+): loc is Location =>
+  !!loc &&
+  loc.description !== undefined &&
+  loc.lat !== undefined &&
+  loc.lng !== undefined &&
+  loc.serviceRadius !== undefined;
 
 const displayKm = (lang: Language, meters: number): string =>
   format(lang, s => s.addInformation.screen.placeMarker.distance, {
@@ -141,14 +189,7 @@ class AddInstructions extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = {
-      info: {},
-      urls: {
-        general: [],
-        getHelp: [],
-        volunteers: [],
-      },
-    };
+    this.state = INITIAL_STATE;
   }
 
   public componentDidMount() {
@@ -179,16 +220,20 @@ class AddInstructions extends React.Component<Props, State> {
 
   public componentWillUnmount() {
     const { map, setAddInfoMapClickedListener } = this.props;
+    if (map) {
+      this.removeMarkers();
+      this.uninitializeMap(map);
+    }
+    setAddInfoMapClickedListener(null);
+  }
+
+  private removeMarkers = () => {
     if (this.markerInfo) {
       this.markerInfo.circle.setMap(null);
       this.markerInfo.radiusInfoWindow.close();
       this.markerInfo = null;
     }
-    if (map) {
-      this.uninitializeMap(map);
-    }
-    setAddInfoMapClickedListener(null);
-  }
+  };
 
   private initializeMap = (map: google.maps.Map) => {
     this.mapsListeners.add(map.addListener('click', this.mapClicked));
@@ -381,6 +426,51 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
+  private getCompleteInformation = (): MarkerInfo | null => {
+    const { info, urls } = this.state;
+    if (
+      !info.contentTitle ||
+      !isCompleteMarkerType(info.type) ||
+      !isCompleteMarkerLocation(info.loc) ||
+      !info.contact
+    ) {
+      return null;
+    }
+    const contact: ContactGroup = {};
+    for (const type of CONTACT_TYPES) {
+      const completeTypeInfo: ContactDetails = {};
+      const typeInfo = info.contact[type];
+      if (typeInfo) {
+        if (typeInfo.email) {
+          completeTypeInfo.email = typeInfo.email.filter(isDefined);
+        }
+        if (typeInfo.phone) {
+          completeTypeInfo.phone = typeInfo.phone.filter(isDefined);
+        }
+      }
+      const typeUrls = urls[type];
+      if (typeUrls.length > 0) {
+        completeTypeInfo.web = {};
+        for (const { label, url } of typeUrls) {
+          completeTypeInfo.web[label] = url;
+        }
+      }
+      if (Object.keys(completeTypeInfo).length > 0) {
+        contact[type] = completeTypeInfo;
+      }
+    }
+    const completeInfo: MarkerInfo = {
+      contentTitle: info.contentTitle,
+      type: info.type,
+      loc: info.loc,
+      contact,
+    };
+    if (info.contentBody) {
+      completeInfo.contentBody = info.contentBody;
+    }
+    return completeInfo;
+  };
+
   private completeContactInformation = (event: React.FormEvent<unknown>) => {
     event.preventDefault();
     // If we are currently focussed on an input, finalize it (in case it is empty)
@@ -449,10 +539,40 @@ class AddInstructions extends React.Component<Props, State> {
       if (validation.errors.length > 0) {
         this.setState({ validation });
       } else {
-        setAddInfoStep('submitting');
-        this.setState({ validation: undefined });
+        setAddInfoStep('submitted');
+        this.setState({ validation: undefined, submissionResult: undefined });
+        const completeInfo = this.getCompleteInformation();
+        if (!completeInfo) {
+          this.setState({
+            submissionResult: {
+              state: 'error',
+              error: lang => t(lang, s => s.addInformation.errors.dataError),
+            },
+          });
+        } else {
+          submitInformation(completeInfo).then(
+            () => this.setState({ submissionResult: { state: 'success' } }),
+            error =>
+              this.setState({
+                submissionResult: {
+                  state: 'error',
+                  error: lang =>
+                    t(lang, s => s.addInformation.errors.submitError, {
+                      error: <span>{String(error)}</span>,
+                    }),
+                },
+              }),
+          );
+        }
       }
     });
+  };
+
+  private addMore = () => {
+    const { setAddInfoStep } = this.props;
+    this.setState(INITIAL_STATE);
+    setAddInfoStep('information');
+    this.removeMarkers();
   };
 
   private validatedInput = (
@@ -490,7 +610,7 @@ class AddInstructions extends React.Component<Props, State> {
   private actionButtons = (opts: {
     previousScreen?: AddInfoStep;
     nextScreen?: () => void;
-    nextLabel?: 'continue' | 'submit';
+    nextLabel?: 'continue' | 'submit' | 'addMore';
   }) => {
     const { lang, setAddInfoStep } = this.props;
     const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
@@ -739,8 +859,13 @@ class AddInstructions extends React.Component<Props, State> {
   };
 
   public render = () => {
-    const { className, addInfoStep, updateSearchInput } = this.props;
-    const { info, validation } = this.state;
+    const {
+      className,
+      addInfoStep,
+      updateSearchInput,
+      setAddInfoStep,
+    } = this.props;
+    const { info, validation, submissionResult } = this.state;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -962,6 +1087,80 @@ class AddInstructions extends React.Component<Props, State> {
                 </form>
               </div>
             )}
+
+            {addInfoStep === 'submitted' && (
+              <div className="screen">
+                {submissionResult ? (
+                  submissionResult.state === 'error' ? (
+                    <>
+                      <h2>
+                        {t(lang, s => s.addInformation.screen.submitted.error)}
+                      </h2>
+                      <p>{submissionResult.error(lang)}</p>
+                      <div className="actions">
+                        <button
+                          type="button"
+                          className="prev-button"
+                          onClick={() => setAddInfoStep('contact-details')}
+                        >
+                          <MdChevronLeft className="icon icon-start" />
+                          {t(lang, s => s.addInformation.prev)}
+                        </button>
+                        <div className="grow" />
+                        <button
+                          type="button"
+                          className="next-button"
+                          onClick={this.completeContactInformation}
+                        >
+                          <MdRefresh className="icon icon-start" />
+                          {t(lang, s => s.addInformation.tryAgain)}
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <h2>
+                        {t(
+                          lang,
+                          s => s.addInformation.screen.submitted.success,
+                        )}
+                      </h2>
+                      <p>
+                        {t(
+                          lang,
+                          s => s.addInformation.screen.submitted.successExtra,
+                        )}
+                      </p>
+                      <div className="actions">
+                        <button
+                          type="button"
+                          className="prev-button"
+                          onClick={() => setAddInfoStep(null)}
+                        >
+                          <MdExplore className="icon icon-start" />
+                          {t(lang, s => s.addInformation.backToMap)}
+                        </button>
+                        <div className="grow" />
+                        <button
+                          type="button"
+                          className="next-button"
+                          onClick={this.addMore}
+                        >
+                          <MdAdd className="icon icon-start" />
+                          {t(lang, s => s.addInformation.addMore)}
+                        </button>
+                      </div>
+                    </>
+                  )
+                ) : (
+                  <>
+                    <h2>
+                      {t(lang, s => s.addInformation.screen.submitted.loading)}
+                    </h2>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         )}
       </AppContext.Consumer>
@@ -1120,7 +1319,8 @@ export default styled(AddInstructions)`
     }
   }
 
-  > .place-marker {
+  > .place-marker,
+  .submitted {
     width: 100%;
 
     > .box {

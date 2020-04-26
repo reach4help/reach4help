@@ -10,6 +10,8 @@
     "prev": "Back",
     "continue": "Continue",
     "submit": "Submit",
+    "addMore": "Add more info",
+    "tryAgain": "Try again",
     "screen": {
       "title": "Add information to this map",
       "information": {
@@ -57,6 +59,12 @@
           "webURL": "URL",
           "webLabel": "Name"
         }
+      },
+      "submitted": {
+        "loading": "Submitting information to map...",
+        "error": "Error adding information",
+        "success": "Your information was successfully submitted.",
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
       }
     },
     "errors": {
@@ -68,7 +76,9 @@
       "noContactDetails": "Please enter contact details for at least one category",
       "emptyContactSection": "Please enter some contact information for {section} or delete it",
       "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL"
+      "urlMissingURL": "A URL entry for {section} is missing the URL",
+      "dataError": "There was a problem with the information you submitted, please go back and try again",
+      "submitError": "There was a problem submitting your information: {error}. Please try again later"
     }
   },
   "buttons": {
