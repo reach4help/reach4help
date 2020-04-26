@@ -571,7 +571,10 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
-  private contactMethodGroup(type: ContactType, method: 'phone' | 'email') {
+  private contactMethodGroup = (
+    type: ContactType,
+    method: 'phone' | 'email',
+  ) => {
     const { lang } = this.props;
     const { info } = this.state;
     const methodInfo = info.contact?.[type]?.[method]?.filter(isDefined) || [];
@@ -601,9 +604,9 @@ class AddInstructions extends React.Component<Props, State> {
         </div>
       </div>
     );
-  }
+  };
 
-  private contactUrlGroup(type: ContactType) {
+  private contactUrlGroup = (type: ContactType) => {
     const { lang } = this.props;
     const { urls } = this.state;
     const fields = [...urls[type], { label: '', url: '' }];
@@ -647,9 +650,9 @@ class AddInstructions extends React.Component<Props, State> {
         </div>
       </div>
     );
-  }
+  };
 
-  private contactTypeGroup(type: ContactType) {
+  private contactTypeGroup = (type: ContactType) => {
     const { lang } = this.props;
     const { info, validation } = this.state;
     const error = (validation?.invalidInputs || []).includes(type);
@@ -697,9 +700,9 @@ class AddInstructions extends React.Component<Props, State> {
         )}
       </div>
     );
-  }
+  };
 
-  public render() {
+  public render = () => {
     const { className, addInfoStep, updateSearchInput } = this.props;
     const { info, validation } = this.state;
     return (
@@ -927,7 +930,7 @@ class AddInstructions extends React.Component<Props, State> {
         )}
       </AppContext.Consumer>
     );
-  }
+  };
 }
 
 export default styled(AddInstructions)`
