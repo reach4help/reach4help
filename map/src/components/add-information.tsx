@@ -3,9 +3,8 @@ import merge from 'lodash/merge';
 import React from 'react';
 import { MdAdd, MdChevronLeft, MdChevronRight, MdDelete } from 'react-icons/md';
 import Search from 'src/components/search';
-import { MarkerInfo } from 'src/data/markers';
+import { ContactDetails, MarkerInfo } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
-import { Strings } from 'src/i18n/iface';
 import { RecursivePartial } from 'src/util';
 
 import {
@@ -28,6 +27,7 @@ export type AddInfoStep =
   | 'information'
   | 'place-marker'
   | 'contact-details'
+  | 'submitting'
   | 'done';
 
 enum FORM_INPUT_NAMES {
@@ -39,8 +39,8 @@ enum FORM_INPUT_NAMES {
 }
 
 interface Validation {
-  errors: (keyof Strings['addInformation']['errors'])[];
-  invalidInputs: FORM_INPUT_NAMES[];
+  errors: ((lang: Language) => string | JSX.Element[])[];
+  invalidInputs: (FORM_INPUT_NAMES | string)[];
 }
 
 interface MarkerInputInfo {
@@ -66,10 +66,12 @@ interface State {
   /**
    * Store URLs in state separately as it's easier to manipulate as an array
    */
-  urls: Array<{
-    label: string;
-    url: string;
-  }>;
+  urls: {
+    [key in ContactType]: Array<{
+      label: string;
+      url: string;
+    }>;
+  };
   validation?: Validation;
 }
 
@@ -120,6 +122,8 @@ const extractContactInputIdData = (target: HTMLElement) => {
   return { type, method, i };
 };
 
+type ContactInputIdData = ReturnType<typeof extractContactInputIdData>;
+
 const isDefined = <T extends unknown>(val: T | undefined): val is T =>
   val !== undefined;
 
@@ -133,7 +137,11 @@ class AddInstructions extends React.Component<Props, State> {
 
     this.state = {
       info: {},
-      urls: [],
+      urls: {
+        general: [],
+        getHelp: [],
+        volunteers: [],
+      },
     };
   }
 
@@ -305,7 +313,8 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
-  private completeInformation = () => {
+  private completeInformation = (event: React.FormEvent<unknown>) => {
+    event.preventDefault();
     const { setAddInfoStep } = this.props;
     const { info } = this.state;
     const validation: Validation = {
@@ -313,21 +322,29 @@ class AddInstructions extends React.Component<Props, State> {
       invalidInputs: [],
     };
     if (!info.type) {
-      validation.errors.push('missingType');
+      validation.errors.push(lang =>
+        t(lang, s => s.addInformation.errors.missingType),
+      );
       validation.invalidInputs.push(FORM_INPUT_NAMES.type);
     } else if (
       info.type.type === 'org' &&
       (info.type.services || []).length === 0
     ) {
-      validation.errors.push('missingServices');
+      validation.errors.push(lang =>
+        t(lang, s => s.addInformation.errors.missingServices),
+      );
       validation.invalidInputs.push(FORM_INPUT_NAMES.services);
     }
     if (!info.contentTitle) {
-      validation.errors.push('missingTitle');
+      validation.errors.push(lang =>
+        t(lang, s => s.addInformation.errors.missingTitle),
+      );
       validation.invalidInputs.push(FORM_INPUT_NAMES.name);
     }
     if (!info.loc?.description) {
-      validation.errors.push('missingLocationName');
+      validation.errors.push(lang =>
+        t(lang, s => s.addInformation.errors.missingLocationName),
+      );
       validation.invalidInputs.push(FORM_INPUT_NAMES.locationName);
     }
     if (validation.errors.length > 0) {
@@ -346,7 +363,9 @@ class AddInstructions extends React.Component<Props, State> {
       invalidInputs: [],
     };
     if (!info.loc?.lat || !info.loc.lng || !info.loc.serviceRadius) {
-      validation.errors.push('markerRequired');
+      validation.errors.push(lang =>
+        t(lang, s => s.addInformation.errors.markerRequired),
+      );
     }
     if (validation.errors.length > 0) {
       this.setState({ validation });
@@ -354,6 +373,61 @@ class AddInstructions extends React.Component<Props, State> {
       setAddInfoStep('contact-details');
       this.setState({ validation: undefined });
     }
+  };
+
+  private completeContactInformation = (event: React.FormEvent<unknown>) => {
+    event.preventDefault();
+    // If we are currently focussed on an input, finalize it (in case it is empty)
+    if (document.activeElement instanceof HTMLInputElement) {
+      const inputId = extractContactInputIdData(document.activeElement);
+      if (inputId) {
+        this.finalizeContactInput(inputId, document.activeElement);
+      }
+    }
+    // Give time for state changes to apply after input blur
+    this.setState({}, () => {
+      const { setAddInfoStep } = this.props;
+      const { info, urls } = this.state;
+      const validation: Validation = {
+        errors: [],
+        invalidInputs: [],
+      };
+      if (Object.keys(info.contact || {}).length === 0) {
+        validation.errors.push(lang =>
+          t(lang, s => s.addInformation.errors.noContactDetails),
+        );
+      } else {
+        for (const type of CONTACT_TYPES) {
+          const typeInfo = info.contact?.[type];
+          const typeUrls = urls[type] || [];
+          if (typeInfo) {
+            if (Object.keys(typeInfo).length === 0 && typeUrls.length === 0) {
+              validation.errors.push(lang =>
+                t(lang, s => s.addInformation.errors.emptyContactSection, {
+                  section: (
+                    <strong>
+                      {t(
+                        lang,
+                        s => s.addInformation.screen.contactInfo.sections[type],
+                      )}
+                    </strong>
+                  ),
+                }),
+              );
+              validation.invalidInputs.push(type);
+            } else {
+              // Check URLs:
+            }
+          }
+        }
+      }
+      if (validation.errors.length > 0) {
+        this.setState({ validation });
+      } else {
+        setAddInfoStep('submitting');
+        this.setState({ validation: undefined });
+      }
+    });
   };
 
   private validatedInput = (
@@ -390,7 +464,7 @@ class AddInstructions extends React.Component<Props, State> {
 
   private actionButtons = (opts: {
     previousScreen?: AddInfoStep;
-    nextScreen: () => void;
+    nextScreen?: () => void;
     nextLabel?: 'continue' | 'submit';
   }) => {
     const { lang, setAddInfoStep } = this.props;
@@ -410,7 +484,7 @@ class AddInstructions extends React.Component<Props, State> {
             <div className="grow" />
           </>
         )}
-        <button type="button" className="next-button" onClick={nextScreen}>
+        <button type="submit" className="next-button" onClick={nextScreen}>
           {t(lang, s => s.addInformation[nextLabel])}
           <MdChevronRight className="icon icon-end" />
         </button>
@@ -441,9 +515,9 @@ class AddInstructions extends React.Component<Props, State> {
       if (part === 'url' || part === 'label') {
         this.setState(state => {
           const urls = cloneDeep(state.urls);
-          let entry = urls[i];
+          let entry = urls[type][i];
           if (!entry) {
-            urls[i] = entry = { label: '', url: '' };
+            urls[type][i] = entry = { label: '', url: '' };
           }
           entry[part] = target.value;
           return { urls };
@@ -452,30 +526,43 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
-  private contactInputBlurred = (
-    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
+  private contactInputBlurred = (event: React.FocusEvent<HTMLInputElement>) => {
     const { target } = event;
     const idData = extractContactInputIdData(target);
+    this.finalizeContactInput(idData, target);
+  };
+
+  private finalizeContactInput = (
+    idData: ContactInputIdData,
+    target: HTMLInputElement,
+  ) => {
     if (idData && target.value === '') {
       const { type, method, i } = idData;
       if (method === 'phone' || method === 'email') {
         this.setInfo(info => {
-          const arr = info.contact?.[type]?.[method] || [];
-          arr.splice(i, 1);
-          const newInfo: RecursivePartial<MarkerInfo> = {
-            contact: { [type]: { [method]: arr } },
-          };
-          merge(info, newInfo);
+          if (info.contact?.[type]) {
+            const arr: string[] | undefined = (
+              info.contact?.[type]?.[method] || []
+            ).filter(isDefined);
+            arr.splice(i, 1);
+            // Remove array completely if empty
+            if (arr.length === 0) {
+              // eslint-disable-next-line no-param-reassign
+              delete (info.contact[type] as ContactDetails)[method];
+            } else {
+              // eslint-disable-next-line no-param-reassign
+              (info.contact[type] as ContactDetails)[method] = arr;
+            }
+          }
         });
       } else if (method === 'web') {
         const { part } = target.dataset;
         if (part === 'url' || part === 'label') {
           this.setState(state => {
             const urls = cloneDeep(state.urls);
-            const entry = urls[i];
+            const entry = urls[type][i];
             if (entry && entry.label === '' && entry.url === '') {
-              urls.splice(i, 1);
+              urls[type].splice(i, 1);
             }
             return { urls };
           });
@@ -519,7 +606,7 @@ class AddInstructions extends React.Component<Props, State> {
   private contactUrlGroup(type: ContactType) {
     const { lang } = this.props;
     const { urls } = this.state;
-    const fields = [...urls, { label: '', url: '' }];
+    const fields = [...urls[type], { label: '', url: '' }];
     const lastId = `${contactInputId(type, 'web', fields.length - 1)}-url`;
     return (
       <div className="contact-method-group">
@@ -564,12 +651,15 @@ class AddInstructions extends React.Component<Props, State> {
 
   private contactTypeGroup(type: ContactType) {
     const { lang } = this.props;
-    const { info } = this.state;
+    const { info, validation } = this.state;
+    const error = (validation?.invalidInputs || []).includes(type);
     return (
       <div key={type} className="contact-type-group">
         {info.contact?.[type] ? (
           <div>
-            <div className="contact-type-group-header">
+            <div
+              className={`contact-type-group-header ${error ? 'error' : ''}`}
+            >
               <strong>
                 {t(
                   lang,
@@ -627,171 +717,150 @@ class AddInstructions extends React.Component<Props, State> {
                   )}
                 </p>
                 <p>{t(lang, s => s.addInformation.screen.information.intro)}</p>
-
-                {this.validatedInput(FORM_INPUT_NAMES.type, valid => (
-                  <>
-                    <label
-                      className={valid ? '' : 'error'}
-                      htmlFor={FORM_INPUT_NAMES.type}
-                    >
-                      {t(
-                        lang,
-                        s => s.addInformation.screen.information.form.type,
-                      )}
-                    </label>
-                    <select
-                      className={valid ? '' : 'error'}
-                      id={FORM_INPUT_NAMES.type}
-                      name={FORM_INPUT_NAMES.type}
-                      value={info?.type?.type || ''}
-                      onChange={this.handleInputChange}
-                    >
-                      <option value="">
-                        {t(
-                          lang,
-                          s =>
-                            s.addInformation.screen.information.form
-                              .typePleaseSelect,
-                        )}
-                      </option>
-                      {MARKER_TYPE_STRINGS.map(type => (
-                        <option key={type} value={type}>
-                          {t(lang, s => s.markerTypes[type])}
-                        </option>
-                      ))}
-                    </select>
-                  </>
-                ))}
-
-                {this.validatedInput(FORM_INPUT_NAMES.services, valid => {
-                  if (info.type?.type !== 'org') {
-                    return;
-                  }
-                  const services: (Service | undefined)[] =
-                    info.type.services || [];
-                  return (
+                <form onSubmit={this.completeInformation}>
+                  {this.validatedInput(FORM_INPUT_NAMES.type, valid => (
                     <>
-                      <span className={`label ${valid ? '' : 'error'}`}>
+                      <label
+                        className={valid ? '' : 'error'}
+                        htmlFor={FORM_INPUT_NAMES.type}
+                      >
                         {t(
                           lang,
-                          s =>
-                            s.addInformation.screen.information.form.services,
+                          s => s.addInformation.screen.information.form.type,
                         )}
-                      </span>
-                      <div className="checkbox-group">
-                        {SERVICE_STRINGS.map(service => {
-                          const description = t(
+                      </label>
+                      <select
+                        className={valid ? '' : 'error'}
+                        id={FORM_INPUT_NAMES.type}
+                        name={FORM_INPUT_NAMES.type}
+                        value={info?.type?.type || ''}
+                        onChange={this.handleInputChange}
+                      >
+                        <option value="">
+                          {t(
                             lang,
-                            s => s.serviceDescriptions[service],
-                          );
-                          return (
-                            <div key={service} className="option">
-                              <input
-                                type="checkbox"
-                                name={`service-${service}`}
-                                id={`service-${service}`}
-                                checked={services.includes(service)}
-                                onChange={this.handleCheckboxChange}
-                                data-service={service}
-                              />
-                              <label htmlFor={`service-${service}`}>
-                                {t(lang, s => s.services[service])}
-                                {description && (
-                                  <span>
-                                    &nbsp;-&nbsp;
-                                    {description}
-                                  </span>
-                                )}
-                              </label>
-                            </div>
-                          );
-                        })}
-                      </div>
+                            s =>
+                              s.addInformation.screen.information.form
+                                .typePleaseSelect,
+                          )}
+                        </option>
+                        {MARKER_TYPE_STRINGS.map(type => (
+                          <option key={type} value={type}>
+                            {t(lang, s => s.markerTypes[type])}
+                          </option>
+                        ))}
+                      </select>
                     </>
-                  );
-                })}
+                  ))}
 
-                {this.formTextInput(
-                  FORM_INPUT_NAMES.name,
-                  t(lang, s => s.addInformation.screen.information.form.name),
-                  info.contentTitle || '',
-                  t(
-                    lang,
-                    s =>
-                      s.addInformation.screen.information.form.namePlaceholder,
-                  ),
-                )}
+                  {this.validatedInput(FORM_INPUT_NAMES.services, valid => {
+                    if (info.type?.type !== 'org') {
+                      return;
+                    }
+                    const services: (Service | undefined)[] =
+                      info.type.services || [];
+                    return (
+                      <>
+                        <span className={`label ${valid ? '' : 'error'}`}>
+                          {t(
+                            lang,
+                            s =>
+                              s.addInformation.screen.information.form.services,
+                          )}
+                        </span>
+                        <div className="checkbox-group">
+                          {SERVICE_STRINGS.map(service => {
+                            const description = t(
+                              lang,
+                              s => s.serviceDescriptions[service],
+                            );
+                            return (
+                              <div key={service} className="option">
+                                <input
+                                  type="checkbox"
+                                  name={`service-${service}`}
+                                  id={`service-${service}`}
+                                  checked={services.includes(service)}
+                                  onChange={this.handleCheckboxChange}
+                                  data-service={service}
+                                />
+                                <label htmlFor={`service-${service}`}>
+                                  {t(lang, s => s.services[service])}
+                                  {description && (
+                                    <span>
+                                      &nbsp;-&nbsp;
+                                      {description}
+                                    </span>
+                                  )}
+                                </label>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </>
+                    );
+                  })}
 
-                {this.formTextInput(
-                  FORM_INPUT_NAMES.description,
-                  t(
-                    lang,
-                    s => s.addInformation.screen.information.form.description,
-                  ),
-                  info.contentBody || '',
-                  t(
-                    lang,
-                    s =>
-                      s.addInformation.screen.information.form.namePlaceholder,
-                  ),
-                )}
-
-                {this.formTextInput(
-                  FORM_INPUT_NAMES.locationName,
-                  t(
-                    lang,
-                    s => s.addInformation.screen.information.form.locationName,
-                  ),
-                  info.loc?.description || '',
-                  t(
-                    lang,
-                    s =>
-                      s.addInformation.screen.information.form
-                        .locationNamePlaceholder,
-                  ),
-                )}
-
-                <p>
-                  {t(
-                    lang,
-                    s => s.addInformation.screen.information.form.continue,
+                  {this.formTextInput(
+                    FORM_INPUT_NAMES.name,
+                    t(lang, s => s.addInformation.screen.information.form.name),
+                    info.contentTitle || '',
+                    t(
+                      lang,
+                      s =>
+                        s.addInformation.screen.information.form
+                          .namePlaceholder,
+                    ),
                   )}
-                </p>
 
-                {validation && (
-                  <ul className="errors">
-                    {validation.errors.map((error, i) => (
-                      <li key={i}>
-                        {t(lang, s => s.addInformation.errors[error])}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                  {this.formTextInput(
+                    FORM_INPUT_NAMES.description,
+                    t(
+                      lang,
+                      s => s.addInformation.screen.information.form.description,
+                    ),
+                    info.contentBody || '',
+                    t(
+                      lang,
+                      s =>
+                        s.addInformation.screen.information.form
+                          .namePlaceholder,
+                    ),
+                  )}
 
-                {this.actionButtons({
-                  nextScreen: this.completeInformation,
-                })}
-              </div>
-            )}
+                  {this.formTextInput(
+                    FORM_INPUT_NAMES.locationName,
+                    t(
+                      lang,
+                      s =>
+                        s.addInformation.screen.information.form.locationName,
+                    ),
+                    info.loc?.description || '',
+                    t(
+                      lang,
+                      s =>
+                        s.addInformation.screen.information.form
+                          .locationNamePlaceholder,
+                    ),
+                  )}
 
-            {addInfoStep === 'contact-details' && (
-              <div className="screen">
-                <h2>
-                  {t(lang, s => s.addInformation.screen.contactInfo.header, {
-                    name: <span>{info.contentTitle}</span>,
-                  })}
-                </h2>
-                <p>
-                  {t(lang, s => s.addInformation.screen.contactInfo.info, {
-                    name: <strong>{info.contentTitle}</strong>,
-                  })}
-                </p>
-                {CONTACT_TYPES.map(type => this.contactTypeGroup(type))}
-                {this.actionButtons({
-                  previousScreen: 'place-marker',
-                  nextScreen: this.completeMarkerPlacement,
-                  nextLabel: 'submit',
-                })}
+                  <p>
+                    {t(
+                      lang,
+                      s => s.addInformation.screen.information.form.continue,
+                    )}
+                  </p>
+
+                  {validation && (
+                    <ul className="errors">
+                      {validation.errors.map((error, i) => (
+                        <li key={i}>{error(lang)}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {this.actionButtons({})}
+                </form>
               </div>
             )}
             {addInfoStep === 'place-marker' && (
@@ -809,7 +878,7 @@ class AddInstructions extends React.Component<Props, State> {
                   {validation &&
                     validation.errors.map((error, i) => (
                       <p key={i} className="error">
-                        {t(lang, s => s.addInformation.errors[error])}
+                        {error(lang)}
                       </p>
                     ))}
 
@@ -822,6 +891,36 @@ class AddInstructions extends React.Component<Props, State> {
                   className="search"
                   updateSearchInput={updateSearchInput}
                 />
+              </div>
+            )}
+            {addInfoStep === 'contact-details' && (
+              <div className="screen">
+                <h2>
+                  {t(lang, s => s.addInformation.screen.contactInfo.header, {
+                    name: <span>{info.contentTitle}</span>,
+                  })}
+                </h2>
+                <p>
+                  {t(lang, s => s.addInformation.screen.contactInfo.info, {
+                    name: <strong>{info.contentTitle}</strong>,
+                  })}
+                </p>
+                <form onSubmit={this.completeContactInformation}>
+                  {CONTACT_TYPES.map(type => this.contactTypeGroup(type))}
+
+                  {validation && (
+                    <ul className="errors">
+                      {validation.errors.map((error, i) => (
+                        <li key={i}>{error(lang)}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {this.actionButtons({
+                    previousScreen: 'place-marker',
+                    nextLabel: 'submit',
+                  })}
+                </form>
               </div>
             )}
           </div>
@@ -933,6 +1032,10 @@ export default styled(AddInstructions)`
       .contact-type-group-header {
         display: flex;
         align-items: center;
+
+        &.error {
+          color: ${p => p.theme.colors.red};
+        }
 
         button {
           margin: 0 ${p => p.theme.spacingPx}px;
