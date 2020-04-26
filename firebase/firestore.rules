@@ -1,5 +1,17 @@
 rules_version = '2';
 
+function verifyMarkerDataComplete(data) {
+   return ('contentTitle' in data) &&
+          ('type' in data) &&
+          ('type' in data.type) &&
+          ('contact' in data) &&
+          ('loc' in data) &&
+          ('description' in data.loc) &&
+          ('lat' in data.loc) &&
+          ('lng' in data.loc) &&
+          ('serviceRadius' in data.loc)
+}
+
 function isAuthenticated() {
   return request.auth.uid != null;
 }
@@ -124,6 +136,14 @@ service cloud.firestore {
     // Catch all -- Dont read/write to collections without rules
     match /{document=**} {
       allow read, write: if false;
+    }
+
+    match /markers/{markerID} {
+      // Anyone can read any marker
+      allow read: if true;
+      // Any one can add a marker (but not edit it)
+      allow write: if verifyMarkerDataComplete(request.resource.data) &&
+       !exists(/databases/$(database)/documents/markers/$(request.resource.id));
     }
 
     match /users/{userID} {
