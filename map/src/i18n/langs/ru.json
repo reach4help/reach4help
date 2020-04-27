@@ -145,6 +145,8 @@
     "netlifyNote": "Эта карта {link}",
     "netlifyLinkText": "поддерживается Netlify",
     "githubRepo": "GitHub репо",
-    "codeOfConduct": "Кодекс поведения"
+    "codeOfConduct": "Кодекс поведения",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   }
 }
