@@ -172,6 +172,7 @@ class MapComponent extends React.Component<Props, {}> {
         const visible = !filter.type || info?.info.type.type === filter.type;
         marker.setVisible(visible);
       }
+      this.map.markerClusterer.repaint();
     }
   };
 
@@ -261,7 +262,7 @@ class MapComponent extends React.Component<Props, {}> {
         }
       }
       this.map.markerClusterer.removeMarkers(removedMarkers, true);
-      this.map.markerClusterer.repaint();
+      this.updateMarkersVisibilityUsingFilter(this.map.currentFilter);
     }
   };
 
