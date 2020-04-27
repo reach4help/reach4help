@@ -37,6 +37,7 @@ import {
   iconButtonSmall,
 } from '../styling/mixins';
 import { AppContext } from './context';
+import { haversineDistance } from './map-utils/google-maps';
 
 export type AddInfoStep =
   | 'information'
@@ -263,7 +264,10 @@ class AddInstructions extends React.Component<Props, State> {
       });
     if (addInfoStep === 'place-marker') {
       if (!this.markerInfo) {
-        const radius = Math.floor(3000000 / (map.getZoom() * map.getZoom()));
+        const bounds = map.getBounds();
+        const radius = bounds
+          ? haversineDistance(bounds.getNorthEast(), bounds.getCenter()) / 2
+          : 3000;
         const circle = new google.maps.Circle({
           map,
           center: evt.latLng,
