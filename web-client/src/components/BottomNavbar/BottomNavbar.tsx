@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const BottomNavbar: React.FC<BottomNavProps> = ({
-  openMenu,
+  openSider,
   siteLocations,
 }) => (
   <BottomNavWrapper>
-    <NavButton onClick={openMenu}>
+    <NavButton onClick={openSider}>
       <MenuOutlined />
     </NavButton>
     <Link to={{ pathname: siteLocations.map.path }}>
@@ -50,7 +50,7 @@ const BottomNavWrapper = styled.div`
 `;
 
 interface BottomNavProps {
-  openMenu: () => void;
+  openSider: () => void;
   siteLocations: any;
 }
 

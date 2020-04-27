@@ -22,7 +22,7 @@ const MasterPage = (): ReactElement => {
             key={moduleName}
             path={routeModule.path}
             component={routeModule.component}
-            menuLinks={routeModule.menuLinks}
+            menuItems={routeModule.menuItems || []}
           />
         );
       }

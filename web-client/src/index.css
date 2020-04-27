@@ -62,12 +62,12 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  min-width: 0 !important;
-  max-width: 100% !important;
   width: 100% !important;
-  overflow: hidden;
   padding: 0 !important;
   margin: 0 !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden;
 }
 
 .ant-layout-sider-collapsed {

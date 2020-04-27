@@ -6,13 +6,10 @@ import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import SideDrawer from '../SideDrawer/SideDrawer';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
-interface DashboardLayoutProps {
-  menuLinks: Array<MenuItem>;
-  children?: React.ReactNode;
-}
-
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
-  menuLinks,
+  menuItems,
+  profileData,
+  siteLocations,
   children,
 }) => {
   const [siderCollapsed, setSiderCollapsed] = useState(false);
@@ -21,15 +18,32 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       <TopNavbar />
       <SideDrawer
         collapsed={siderCollapsed}
-        menuLinks={menuLinks}
-        closeHandler={() => setSiderCollapsed(true)}
+        closeSider={() => setSiderCollapsed(true)}
+        menuItems={menuItems}
+        profileData={profileData}
+        siteLocations={siteLocations}
       />
       <Layout.Content style={{ marginTop: '64px', marginBottom: '64px' }}>
         {children}
       </Layout.Content>
-      <BottomNavbar menuOnClick={() => setSiderCollapsed(false)} />
+      <BottomNavbar
+        openSider={() => setSiderCollapsed(false)}
+        siteLocations={siteLocations}
+      />
     </Layout>
   );
 };
+
+interface DashboardLayoutProps {
+  menuItems: Array<MenuItem>;
+  profileData: {
+    fullName: string;
+    photoUrl: string;
+    followers: number;
+    stars: number;
+  };
+  siteLocations: any;
+  children?: React.ReactNode;
+}
 
 export default DashboardLayout;

@@ -5,5 +5,5 @@ export interface Module {
   protected?: boolean;
   component: ReactElement;
   layout?: string;
-  menuLinks?: Array<MenuItem>;
+  menuItems?: Array<MenuItem>;
 }
