@@ -256,6 +256,7 @@ class MapComponent extends React.Component<Props, {}> {
       for (const [id, marker] of this.map.activeMarkers.firebase.entries()) {
         if (!update.markers.has(id)) {
           removedMarkers.push(marker);
+          this.map.activeMarkers.firebase.delete(id);
         }
       }
       this.map.markerClusterer.removeMarkers(removedMarkers, true);

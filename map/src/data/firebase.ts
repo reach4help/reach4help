@@ -34,26 +34,53 @@ export const submitInformation = async (info: MarkerInfo) => {
 export interface InformationUpdate {
   loading: boolean;
   markers: Map<string, MarkerInfo>;
+  /**
+   * True iff the data includes hidden markers that have not yet been
+   * reviewed and approved.
+   */
+  includingHidden: boolean;
 }
 
 export type InformationListener = (event: InformationUpdate) => void;
 
+interface CategoryData {
+  initialLoadDone: boolean;
+  markers: Map<string, MarkerInfo>;
+}
+
 const listeners = new Set<InformationListener>();
 const state: {
-  initialLoadDone: boolean;
+  data: {
+    hidden: CategoryData;
+    visible: CategoryData;
+  };
+  includeHidden: boolean;
   loadingOperations: Set<Promise<unknown>>;
-  markers: Map<string, MarkerInfo>;
   errors: Set<Error>;
 } = {
-  initialLoadDone: false,
+  data: {
+    hidden: {
+      initialLoadDone: false,
+      markers: new Map(),
+    },
+    visible: {
+      initialLoadDone: false,
+      markers: new Map(),
+    },
+  },
+  // TODO: get from local storage
+  includeHidden: false,
   loadingOperations: new Set(),
-  markers: new Map(),
   errors: new Set(),
 };
 
 const getInfoForListeners = (): InformationUpdate => ({
   loading: state.loadingOperations.size > 0,
-  markers: state.markers,
+  markers: new Map([
+    ...state.data.visible.markers,
+    ...(state.includeHidden ? state.data.hidden.markers : []),
+  ]),
+  includingHidden: state.includeHidden,
 });
 
 const updateListeners = () => {
@@ -90,22 +117,42 @@ export const removeInformationListener = (l: InformationListener) => {
   listeners.delete(l);
 };
 
-export const loadInitialData = () => {
-  if (state.initialLoadDone) {
+const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
+  if (state.data[mode].initialLoadDone) {
     return;
   }
-  state.initialLoadDone = true;
+  state.data[mode].initialLoadDone = true;
   const promise = markers
-    .where(new firebase.firestore.FieldPath('visible'), '==', false)
+    .where(
+      new firebase.firestore.FieldPath('visible'),
+      '==',
+      mode === 'visible',
+    )
     .get()
     .then(snapshot => {
       snapshot.forEach(doc => {
         const data = doc.data();
         if (isValidMarkerInfo(data)) {
-          state.markers.set(doc.id, data);
+          state.data[mode].markers.set(doc.id, data);
         }
       });
     });
   processPromise(promise);
   return promise;
+};
+
+export const loadInitialData = () => {
+  loadInitialDataForMode('visible');
+  if (state.includeHidden) {
+    loadInitialDataForMode('hidden');
+  }
+};
+
+export const includingHidden = () => state.includeHidden;
+
+export const includeHiddenMarkers = (include: boolean) => {
+  // TODO: save preference in local storage
+  state.includeHidden = include;
+  loadInitialData();
+  updateListeners();
 };
