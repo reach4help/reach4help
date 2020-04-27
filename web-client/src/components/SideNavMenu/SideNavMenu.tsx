@@ -58,6 +58,10 @@ const SideNavMenuWrapper = styled.div`
 
     .ant-menu-item {
       margin: 0;
+      
+      &:after {
+        display: none;
+      }
     }
     
     .ant-menu-submenu {
@@ -72,10 +76,13 @@ const SideNavMenuWrapper = styled.div`
         background-color: inherit;
       } 
     }
-    
-    a > .ant-menu-item-selected {
-      color: white;
-      background: ${COLORS.link} !important;
+    a {
+      color: inherit;
+      
+      .ant-menu-item-selected {
+        color: white;
+        background: ${COLORS.link} !important;
+      }
     }
   }
   
