@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
