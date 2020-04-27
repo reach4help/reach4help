@@ -1,7 +1,9 @@
 import { Menu } from 'antd';
 import React from 'react';
 import { Link, RouteProps } from 'react-router-dom';
+import { COLORS } from 'src/theme/colors';
 import { MenuItem } from 'src/types/menu-item';
+import styled from 'styled-components';
 
 const SideNavMenuItem: React.FC<SideNavMenuItemProps> = ({
   item,
@@ -41,12 +43,50 @@ const SideNavMenuItem: React.FC<SideNavMenuItemProps> = ({
 };
 
 const SideNavMenu: React.FC<SideNavMenuProps> = ({ items }) => (
-  <Menu mode="inline" style={{ height: '100%' }}>
-    {items.map((item: MenuItem, index) => (
-      <SideNavMenuItem key={index} item={item} />
-    ))}
-  </Menu>
+  <SideNavMenuWrapper>
+    <Menu mode="inline">
+      {items.map((item: MenuItem, index) => (
+        <SideNavMenuItem key={index} item={item} />
+      ))}
+    </Menu>
+  </SideNavMenuWrapper>
 );
+
+const SideNavMenuWrapper = styled.div`
+  .ant-menu {
+    background: ${COLORS.backgroundLightGray};
+
+    .ant-menu-item {
+      margin: 0;
+    }
+    
+    .ant-menu-submenu {
+      &.ant-menu-submenu-active {
+        color; inherit;
+      }
+      
+      .ant-menu-submenu-title {
+        margin: 0;
+      }
+      .ant-menu-sub {
+        background-color: inherit;
+      } 
+    }
+    
+    a > .ant-menu-item-selected {
+      color: white;
+      background: ${COLORS.primary} !important;
+    }
+  }
+  .ant-menu-item:hover, 
+  .ant-menu-item-active, 
+  .ant-menu:not(.ant-menu-inline) 
+  .ant-menu-submenu-open, 
+  .ant-menu-submenu-active, 
+  .ant-menu-submenu-title:hover {
+    color: inherit;
+  }
+`;
 
 interface SideNavMenuItemProps extends RouteProps {
   item: MenuItem;

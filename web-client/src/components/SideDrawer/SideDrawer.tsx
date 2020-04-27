@@ -15,14 +15,16 @@ import styled from 'styled-components';
 import SideNavMenu from '../SideNavMenu/SideNavMenu';
 
 const CloseButton = styled.button`
-  float: right;
+  position: absolute;
+  top: 0;
   right: 0;
   padding: 15px;
 `;
 
 const ProfileWrapper = styled.div`
   display: flex;
-  margin: 30px 15px;
+  background: ${COLORS.backgroundLightGray};
+  padding: 30px 15px;
 `;
 
 const ProfileImg = styled.img`
