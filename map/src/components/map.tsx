@@ -175,10 +175,6 @@ class MapComponent extends React.Component<Props, {}> {
     firebase.removeInformationListener(this.informationUpdated);
   }
 
-  private informationUpdated: firebase.InformationListener = () => {
-    // TODO
-  };
-
   private setAddInfoMapClickedListener = (
     listener: ((evt: google.maps.MouseEvent) => void) | null,
   ) => {
@@ -204,34 +200,69 @@ class MapComponent extends React.Component<Props, {}> {
     return info ? { id, info } : null;
   };
 
-  private initializeMarkers = <Set extends DataSet>(
+  private createMarker = (
     activeMarkers: ActiveMarkers,
-    set: Set,
+    set: DataSet,
+    id: string,
+    info: MarkerInfo,
   ) => {
-    const data = this.data[set];
-    for (const [id, info] of data) {
-      const marker = new window.google.maps.Marker({
-        position: {
-          lat: info.loc.latlng.latitude,
-          lng: info.loc.latlng.longitude,
-        },
-        title: info.contentTitle,
-      });
-      const idData: MarkerId = { set, id };
-      marker.set(MARKER_DATA_ID, idData);
-      activeMarkers[set].set(id, marker);
+    const marker = new window.google.maps.Marker({
+      position: {
+        lat: info.loc.latlng.latitude,
+        lng: info.loc.latlng.longitude,
+      },
+      title: info.contentTitle,
+    });
+    const idData: MarkerId = { set, id };
+    marker.set(MARKER_DATA_ID, idData);
+    activeMarkers[set].set(id, marker);
 
-      // Add marker listeners
-      marker.addListener('click', event => {
-        const { setSelectedResult } = this.props;
-        if (!this.mapClicked(event)) {
-          const i = this.getMarkerInfo(marker);
-          if (i) {
-            setSelectedResult(i);
-          }
+    // Add marker listeners
+    marker.addListener('click', event => {
+      const { setSelectedResult } = this.props;
+      if (!this.mapClicked(event)) {
+        const i = this.getMarkerInfo(marker);
+        if (i) {
+          setSelectedResult(i);
         }
-      });
+      }
+    });
+    return marker;
+  };
+
+  private informationUpdated: firebase.InformationListener = update => {
+    // Update existing markers, add new markers and delete removed markers
+    if (this.map) {
+      // Update existing markers and add new markers
+      const newMarkers: google.maps.Marker[] = [];
+      for (const [id, info] of update.markers.entries()) {
+        const marker = this.map.activeMarkers.firebase.get(id);
+        if (marker) {
+          // Update info
+          marker.setPosition({
+            lat: info.loc.latlng.latitude,
+            lng: info.loc.latlng.longitude,
+          });
+          marker.setTitle(info.contentTitle);
+        } else {
+          newMarkers.push(
+            this.createMarker(this.map.activeMarkers, 'firebase', id, info),
+          );
+        }
+      }
+      this.map.markerClusterer.addMarkers(newMarkers, true);
+      // Delete removed markers
+      const removedMarkers: google.maps.Marker[] = [];
+      for (const [id, marker] of this.map.activeMarkers.firebase.entries()) {
+        if (!update.markers.has(id)) {
+          removedMarkers.push(marker);
+        }
+      }
+      this.map.markerClusterer.removeMarkers(removedMarkers, true);
+      this.map.markerClusterer.repaint();
     }
+    this.data.firebase = update.markers;
+    // TODO: redraw cluster circles
   };
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
@@ -247,7 +278,10 @@ class MapComponent extends React.Component<Props, {}> {
 
     // Create initial markers
     for (const set of ['hardcoded', 'firebase'] as const) {
-      this.initializeMarkers(activeMarkers, set);
+      const data = this.data[set];
+      for (const [id, info] of data) {
+        this.createMarker(activeMarkers, set, id, info);
+      }
     }
 
     const allMarkers = [
