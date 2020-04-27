@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 /* eslint max-len: 0 */
 import { MarkerType } from './index';

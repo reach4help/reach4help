@@ -5,9 +5,10 @@ import {
   MdLanguage,
   MdPhone,
 } from 'react-icons/md';
-import { ContactDetails, MarkerInfo } from 'src/data/markers';
+import { MarkerIdAndInfo } from 'src/components/map';
+import { ContactDetails } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
-import { button, buttonPrimary } from 'src/styling/mixins';
+import { buttonPrimary } from 'src/styling/mixins';
 
 import styled, { CLS_SCREEN_LG_HIDE, CLS_SCREEN_LG_ONLY } from '../styling';
 import { AppContext } from './context';
@@ -15,11 +16,11 @@ import MarkerType from './marker-type';
 
 interface Props {
   className?: string;
-  results: MarkerInfo[] | null;
-  nextResults: MarkerInfo[] | null;
+  results: MarkerIdAndInfo[] | null;
+  nextResults?: MarkerIdAndInfo[];
   updateResults: () => void;
-  selectedResult: MarkerInfo | null;
-  setSelectedResult: (selectedResult: MarkerInfo | null) => void;
+  selectedResult: MarkerIdAndInfo | null;
+  setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
 }
 
 const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
@@ -142,39 +143,43 @@ const Results = (props: Props) => {
               >
                 <div className="number">{index + 1}</div>
                 <div className="info">
-                  {result.loc.description && (
-                    <div className="location">{result.loc.description}</div>
+                  {result.info.loc.description && (
+                    <div className="location">
+                      {result.info.loc.description}
+                    </div>
                   )}
-                  <div className="name">{result.contentTitle}</div>
-                  <MarkerType type={result.type} />
+                  <div className="name">{result.info.contentTitle}</div>
+                  <MarkerType type={result.info.type} />
                 </div>
               </div>
             ))}
           </div>
           {selectedResult && (
             <div className="details">
-              <div className="name">{selectedResult.contentTitle}</div>
-              {selectedResult.loc.description && (
-                <div className="location">{selectedResult.loc.description}</div>
+              <div className="name">{selectedResult.info.contentTitle}</div>
+              {selectedResult.info.loc.description && (
+                <div className="location">
+                  {selectedResult.info.loc.description}
+                </div>
               )}
-              <MarkerType type={selectedResult.type} />
-              {selectedResult.contentBody && (
-                <div className="content">{selectedResult.contentBody}</div>
+              <MarkerType type={selectedResult.info.type} />
+              {selectedResult.info.contentBody && (
+                <div className="content">{selectedResult.info.contentBody}</div>
               )}
               {contactInfo(
                 lang,
                 t(lang, s => s.results.contact.general),
-                selectedResult.contact.general,
+                selectedResult.info.contact.general,
               )}
               {contactInfo(
                 lang,
                 t(lang, s => s.results.contact.getHelp),
-                selectedResult.contact.getHelp,
+                selectedResult.info.contact.getHelp,
               )}
               {contactInfo(
                 lang,
                 t(lang, s => s.results.contact.volunteer),
-                selectedResult.contact.volunteers,
+                selectedResult.info.contact.volunteers,
               )}
             </div>
           )}

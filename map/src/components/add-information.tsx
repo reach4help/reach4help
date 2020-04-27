@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
@@ -19,7 +19,7 @@ import {
   MarkerInfo,
 } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
-import { RecursivePartial } from 'src/util';
+import { isDefined, RecursivePartial } from 'src/util';
 
 import {
   isMarkerType,
@@ -179,9 +179,6 @@ const extractContactInputIdData = (target: HTMLElement) => {
 };
 
 type ContactInputIdData = ReturnType<typeof extractContactInputIdData>;
-
-const isDefined = <T extends unknown>(val: T | undefined): val is T =>
-  val !== undefined;
 
 class AddInstructions extends React.Component<Props, State> {
   private markerInfo: MarkerInputInfo | null = null;
@@ -508,8 +505,8 @@ class AddInstructions extends React.Component<Props, State> {
         for (const type of CONTACT_TYPES) {
           const typeInfo = info.contact?.[type];
           const typeUrls = urls[type] || [];
-          const sectionLabel = (lang: Language) => (
-            <strong>
+          const sectionLabel = (key: number, lang: Language) => (
+            <strong key={key}>
               {t(lang, s => s.addInformation.screen.contactInfo.sections[type])}
             </strong>
           );
@@ -517,7 +514,7 @@ class AddInstructions extends React.Component<Props, State> {
             if (Object.keys(typeInfo).length === 0 && typeUrls.length === 0) {
               validation.errors.push(lang =>
                 t(lang, s => s.addInformation.errors.emptyContactSection, {
-                  section: sectionLabel(lang),
+                  section: key => sectionLabel(key, lang),
                 }),
               );
               validation.invalidInputs.push(type);
@@ -527,7 +524,7 @@ class AddInstructions extends React.Component<Props, State> {
                 if (label === '') {
                   validation.errors.push(lang =>
                     t(lang, s => s.addInformation.errors.urlMissingLabel, {
-                      section: sectionLabel(lang),
+                      section: key => sectionLabel(key, lang),
                     }),
                   );
                   validation.invalidInputs.push(
@@ -536,7 +533,7 @@ class AddInstructions extends React.Component<Props, State> {
                 } else if (url === '') {
                   validation.errors.push(lang =>
                     t(lang, s => s.addInformation.errors.urlMissingURL, {
-                      section: sectionLabel(lang),
+                      section: key => sectionLabel(key, lang),
                     }),
                   );
                   validation.invalidInputs.push(
@@ -570,7 +567,7 @@ class AddInstructions extends React.Component<Props, State> {
                   state: 'error',
                   error: lang =>
                     t(lang, s => s.addInformation.errors.submitError, {
-                      error: <span>{String(error)}</span>,
+                      error: key => <span key={key}>{String(error)}</span>,
                     }),
                 },
               }),
@@ -1073,12 +1070,12 @@ class AddInstructions extends React.Component<Props, State> {
               <div className="screen">
                 <h2>
                   {t(lang, s => s.addInformation.screen.contactInfo.header, {
-                    name: <span>{info.contentTitle}</span>,
+                    name: key => <span key={key}>{info.contentTitle}</span>,
                   })}
                 </h2>
                 <p>
                   {t(lang, s => s.addInformation.screen.contactInfo.info, {
-                    name: <strong>{info.contentTitle}</strong>,
+                    name: key => <strong key={key}>{info.contentTitle}</strong>,
                   })}
                 </p>
                 <form onSubmit={this.completeContactInformation}>
