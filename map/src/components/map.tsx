@@ -8,6 +8,7 @@ import {
 } from 'react-icons/md';
 import Search from 'src/components/search';
 import { Filter, MARKER_TYPES } from 'src/data';
+import * as firebase from 'src/data/firebase';
 import { t } from 'src/i18n';
 import { button, iconButton } from 'src/styling/mixins';
 
@@ -110,6 +111,8 @@ class MapComponent extends React.Component<Props, {}> {
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
+    firebase.addInformationListener(this.informationUpdated);
+    firebase.loadInitialData();
   }
 
   public componentDidUpdate(prevProps: Props) {
@@ -133,7 +136,12 @@ class MapComponent extends React.Component<Props, {}> {
   public componentWillUnmount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(null);
+    firebase.removeInformationListener(this.informationUpdated);
   }
+
+  private informationUpdated: firebase.InformationListener = () => {
+    // TODO
+  };
 
   private setAddInfoMapClickedListener = (
     listener: ((evt: google.maps.MouseEvent) => void) | null,
