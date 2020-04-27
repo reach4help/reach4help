@@ -145,6 +145,8 @@
     "netlifyNote": "Bu harita {link}",
     "netlifyLinkText": "Netlify sunucularında barındırılmaktadır",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Topluluk Kuralları"
+    "codeOfConduct": "Topluluk Kuralları",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   }
 }
