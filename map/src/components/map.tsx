@@ -6,12 +6,14 @@ import {
   MdMyLocation,
   MdRefresh,
 } from 'react-icons/md';
+import Search from 'src/components/search';
 import { Filter, MARKER_TYPES } from 'src/data';
 import { t } from 'src/i18n';
 import { button, iconButton } from 'src/styling/mixins';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
+import AddInstructions, { AddInfoStep } from './add-information';
 import { AppContext } from './context';
 import {
   createGoogleMap,
@@ -59,7 +61,6 @@ const updateMarkersVisibilityUsingFilter = (
 interface Props {
   className?: string;
   filter: Filter;
-  searchInput: HTMLInputElement | null;
   results: MarkerInfo[] | null;
   setResults: (results: MarkerInfo[]) => void;
   nextResults?: NextResults;
@@ -76,6 +77,8 @@ interface Props {
   setUpdateResultsOnNextClustering: (
     updateResultsOnNextClustering: boolean,
   ) => void;
+  addInfoStep: AddInfoStep | null;
+  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
 }
 
 /**
@@ -86,19 +89,26 @@ export interface NextResults {
   results: MarkerInfo[];
 }
 
+type SearchBoxes = 'main' | 'add-information';
+
+interface SearchBox {
+  searchInput: HTMLInputElement;
+  box: google.maps.places.SearchBox;
+}
+
 class MapComponent extends React.Component<Props, {}> {
   private map: MapInfo | null = null;
 
-  private searchBox: {
-    searchInput: HTMLInputElement;
-    box: google.maps.places.SearchBox;
-  } | null = null;
+  private addInfoMapClickedListener:
+    | ((evt: google.maps.MouseEvent) => void)
+    | null = null;
+
+  private readonly searchBoxes = new Map<SearchBoxes, SearchBox>();
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
-    this.initializeSearch();
     setUpdateResultsCallback(this.updateResults);
   }
 
@@ -110,8 +120,6 @@ class MapComponent extends React.Component<Props, {}> {
       this.map.markerClusterer.repaint();
       this.map.currentFilter = filter;
     }
-    // Update search box if changed
-    this.initializeSearch();
     if (nextResults && !results) {
       // If we have next results queued up, but no results yet, set the results
       this.updateResults();
@@ -127,6 +135,23 @@ class MapComponent extends React.Component<Props, {}> {
     setUpdateResultsCallback(null);
   }
 
+  private setAddInfoMapClickedListener = (
+    listener: ((evt: google.maps.MouseEvent) => void) | null,
+  ) => {
+    this.addInfoMapClickedListener = listener;
+  };
+
+  /**
+   * Return true if the usual behaviour for clicking should be supressed
+   */
+  private mapClicked = (evt: google.maps.MouseEvent): boolean => {
+    if (this.addInfoMapClickedListener) {
+      this.addInfoMapClickedListener(evt);
+      return true;
+    }
+    return false;
+  };
+
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
     const { filter, setSelectedResult } = this.props;
     if (!ref) {
@@ -136,7 +161,10 @@ class MapComponent extends React.Component<Props, {}> {
     const markers = new Map<MarkerInfo, google.maps.Marker>();
     for (const m of MARKERS) {
       const marker = new window.google.maps.Marker({
-        position: m.loc,
+        position: {
+          lat: m.loc.latlng.latitude,
+          lng: m.loc.latlng.longitude,
+        },
         title: m.contentTitle,
       });
       marker.set('info', m);
@@ -169,8 +197,10 @@ class MapComponent extends React.Component<Props, {}> {
 
     map.addListener('bounds_changed', () => {
       const bounds = map.getBounds();
-      if (this.searchBox && bounds) {
-        this.searchBox.box.setBounds(bounds);
+      if (bounds) {
+        for (const box of this.searchBoxes.values()) {
+          box.box.setBounds(bounds);
+        }
       }
       if ('replaceState' in window.history) {
         debouncedUpdateQueryStringMapLocation(map);
@@ -182,8 +212,10 @@ class MapComponent extends React.Component<Props, {}> {
     markers.forEach(marker => {
       const info = getInfo(marker);
 
-      marker.addListener('click', () => {
-        setSelectedResult(info);
+      marker.addListener('click', event => {
+        if (!this.mapClicked(event)) {
+          setSelectedResult(info);
+        }
       });
 
       return marker;
@@ -226,6 +258,10 @@ class MapComponent extends React.Component<Props, {}> {
                 map,
                 center: marker.getPosition() || undefined,
                 radius,
+                // If we change this, we need to ensure that we make appropriate
+                // changes to the marker placement when adding new data so that
+                // the circle can be clicked to place a marker at the cursor
+                clickable: false,
               }),
             );
           } else {
@@ -403,6 +439,7 @@ class MapComponent extends React.Component<Props, {}> {
         setUpdateResultsOnNextClustering(true);
       },
       error => {
+        // eslint-disable-next-line no-alert
         alert('Unable to get geolocation!');
         // eslint-disable-next-line no-console
         console.error(error.message);
@@ -410,47 +447,68 @@ class MapComponent extends React.Component<Props, {}> {
     );
   };
 
-  private initializeSearch() {
-    const { searchInput } = this.props;
-    if (this.searchBox?.searchInput !== searchInput) {
-      if (!searchInput) {
-        this.searchBox = null;
+  private initializeSearchInput = (
+    searchInput: HTMLInputElement,
+  ): SearchBox => {
+    const box = new google.maps.places.SearchBox(searchInput);
+    const searchBox: SearchBox = {
+      searchInput,
+      box,
+    };
+
+    searchBox.box.addListener('places_changed', () => {
+      if (!this.map) {
         return;
       }
-      const box = new google.maps.places.SearchBox(searchInput);
-      this.searchBox = {
-        searchInput,
-        box,
-      };
 
-      this.searchBox.box.addListener('places_changed', () => {
-        if (!this.map) {
+      const places = box.getPlaces();
+      const bounds = new window.google.maps.LatLngBounds();
+
+      if (places.length === 0) {
+        return;
+      }
+
+      places.forEach(place => {
+        if (!place.geometry) {
           return;
         }
 
-        const places = box.getPlaces();
-        const bounds = new window.google.maps.LatLngBounds();
-
-        if (places.length === 0) {
-          return;
+        if (place.geometry.viewport) {
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
         }
-
-        places.forEach(place => {
-          if (!place.geometry) {
-            return;
-          }
-
-          if (place.geometry.viewport) {
-            bounds.union(place.geometry.viewport);
-          } else {
-            bounds.extend(place.geometry.location);
-          }
-        });
-
-        this.map.map.fitBounds(bounds);
       });
+
+      this.map.map.fitBounds(bounds);
+    });
+    if (this.map) {
+      const bounds = this.map.map.getBounds();
+      if (bounds) {
+        searchBox.box.setBounds(bounds);
+      }
     }
-  }
+    return searchBox;
+  };
+
+  private updateSearchInput = (searchInput: HTMLInputElement | null) => {
+    if (searchInput) {
+      this.searchBoxes.set('main', this.initializeSearchInput(searchInput));
+    } else {
+      this.searchBoxes.delete('main');
+    }
+  };
+
+  private updateAddInfoSearchInput = (searchInput: HTMLInputElement | null) => {
+    if (searchInput) {
+      this.searchBoxes.set(
+        'add-information',
+        this.initializeSearchInput(searchInput),
+      );
+    } else {
+      this.searchBoxes.delete('add-information');
+    }
+  };
 
   public render() {
     const {
@@ -459,6 +517,8 @@ class MapComponent extends React.Component<Props, {}> {
       nextResults,
       resultsMode,
       toggleResults,
+      addInfoStep,
+      setAddInfoStep,
     } = this.props;
     const hasNewResults = nextResults && nextResults.results !== results;
     const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
@@ -467,31 +527,49 @@ class MapComponent extends React.Component<Props, {}> {
         {({ lang }) => (
           <div className={className}>
             <div className="map" ref={this.updateGoogleMapRef} />
+            {!addInfoStep && (
+              <Search
+                className="search"
+                updateSearchInput={this.updateSearchInput}
+              />
+            )}
+            {addInfoStep && (
+              <AddInstructions
+                lang={lang}
+                map={(this.map && this.map.map) || null}
+                addInfoStep={addInfoStep}
+                setAddInfoStep={setAddInfoStep}
+                updateSearchInput={this.updateAddInfoSearchInput}
+                setAddInfoMapClickedListener={this.setAddInfoMapClickedListener}
+              />
+            )}
             <div className="map-actions">
-              {hasNewResults && (
+              {!addInfoStep && hasNewResults && (
                 <button type="button" onClick={this.updateResults}>
-                  <MdRefresh className="icon icon-left" />
+                  <MdRefresh className="icon icon-start" />
                   {t(lang, s => s.map.updateResultsForThisArea)}
                 </button>
               )}
               {navigator.geolocation && (
                 <button type="button" onClick={this.centerToGeolocation}>
-                  <MdMyLocation className="icon icon-left" />
+                  <MdMyLocation className="icon icon-start" />
                   {t(lang, s => s.map.myLocation)}
                 </button>
               )}
             </div>
-            <div className="results-tab" onClick={toggleResults}>
-              <div>
-                <ExpandIcon />
-                <span>
-                  {resultsMode === 'open'
-                    ? 'close'
-                    : `${results?.length || 0} result(s)`}
-                </span>
-                <ExpandIcon />
+            {!addInfoStep && (
+              <div className="results-tab" onClick={toggleResults}>
+                <div>
+                  <ExpandIcon />
+                  <span>
+                    {resultsMode === 'open'
+                      ? 'close'
+                      : `${results?.length || 0} result(s)`}
+                  </span>
+                  <ExpandIcon />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </AppContext.Consumer>
@@ -507,6 +585,15 @@ export default styled(MapComponent)`
 
   > .map {
     height: 100%;
+  }
+
+  > .search {
+    position: absolute;
+    z-index: 100;
+    max-width: 500px;
+    top: ${p => p.theme.spacingPx}px;
+    left: ${p => p.theme.spacingPx}px;
+    right: 40px;
   }
 
   > .map-actions {

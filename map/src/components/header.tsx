@@ -1,5 +1,10 @@
 import React from 'react';
-import { MdAdd, MdFullscreen, MdFullscreenExit } from 'react-icons/md';
+import {
+  MdAdd,
+  MdExplore,
+  MdFullscreen,
+  MdFullscreenExit,
+} from 'react-icons/md';
 import { Filter } from 'src/data';
 import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
@@ -9,6 +14,7 @@ import styled, {
   CLS_SCREEN_LG_ONLY,
   SMALL_DEVICES,
 } from '../styling';
+import { AddInfoStep } from './add-information';
 import { AppContext } from './context';
 import Filters, { FilterMutator } from './filters';
 import Languages from './languages';
@@ -17,7 +23,8 @@ interface Props {
   className?: string;
   filter: Filter;
   updateFilter: (mutator: FilterMutator) => void;
-  setAddInstructionsOpen: (open: boolean) => void;
+  addInfoStep: AddInfoStep | null;
+  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
   fullScreen: boolean;
   toggleFullscreen: () => void;
 }
@@ -27,7 +34,8 @@ const Header = (props: Props) => {
     className,
     filter,
     updateFilter,
-    setAddInstructionsOpen,
+    addInfoStep,
+    setAddInfoStep,
     fullScreen,
     toggleFullscreen,
   } = props;
@@ -71,7 +79,7 @@ const Header = (props: Props) => {
             <Languages className="filters" />
             <div className="grow" />
             <button className="fs" type="button" onClick={toggleFullscreen}>
-              <FullScreenIcon className="icon icon-left" />
+              <FullScreenIcon className="icon icon-start" />
               <span>
                 {t(lang, s =>
                   fullScreen ? s.buttons.exitFullScreen : s.buttons.fullScreen,
@@ -81,17 +89,25 @@ const Header = (props: Props) => {
             <button
               className="add"
               type="button"
-              onClick={() => setAddInstructionsOpen(true)}
+              onClick={() => setAddInfoStep(addInfoStep ? null : 'information')}
             >
-              <MdAdd className="icon icon-left" />
-              <span>
-                <span className={CLS_SCREEN_LG_HIDE}>
-                  {t(lang, s => s.addInformation.small)}
+              {addInfoStep ? (
+                <MdExplore className="icon icon-start" />
+              ) : (
+                <MdAdd className="icon icon-start" />
+              )}
+              {addInfoStep ? (
+                <span>{t(lang, s => s.addInformation.backToMap)}</span>
+              ) : (
+                <span>
+                  <span className={CLS_SCREEN_LG_HIDE}>
+                    {t(lang, s => s.addInformation.small)}
+                  </span>
+                  <span className={CLS_SCREEN_LG_ONLY}>
+                    {t(lang, s => s.addInformation.large)}
+                  </span>
                 </span>
-                <span className={CLS_SCREEN_LG_ONLY}>
-                  {t(lang, s => s.addInformation.large)}
-                </span>
-              </span>
+              )}
             </button>
           </div>
         </header>

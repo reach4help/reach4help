@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+
 /* eslint max-len: 0 */
 import { MarkerType } from './index';
 
@@ -21,8 +23,10 @@ export interface Location {
    * Human readable name for the location -- displayed on the web.
    */
   description: string;
-  lat: number;
-  lng: number;
+  /**
+   * Firestore compatible lat-lng object
+   */
+  latlng: firebase.firestore.GeoPoint;
   /**
    *  Measured in Meters (per Google Maps standard)
    */
@@ -41,9 +45,9 @@ export interface ContactGroup {
 /**
  * A marker that will be rendered on the map. A short title and description is also visible to users.
  *
- * It contains an array of services
+ * TODO: remove type parameter when OldMarkerInfo is deleted
  */
-export interface MarkerInfo {
+interface EitherMarkerInfo<Location> {
   /** name of the organization or community effort */
   contentTitle: string;
   /** description of the organization or community effort */
@@ -62,6 +66,22 @@ export interface MarkerInfo {
    */
   loc: Location;
 }
+
+export interface MarkerInfo extends EitherMarkerInfo<Location> {
+  /**
+   * Whether the marker has been made visible to everyone
+   *
+   * (i.e. has it been reviewed for accuraccy).
+   */
+  visible: boolean;
+}
+
+export type OldMarkerInfo = EitherMarkerInfo<{
+  description: string;
+  lat: number;
+  lng: number;
+  serviceRadius: number;
+}>;
 
 const LOCATIONS = {
   PT: {
@@ -447,7 +467,7 @@ const LOCATIONS = {
   },
 };
 
-export const MARKERS: MarkerInfo[] = [
+const OLD_MARKERS: OldMarkerInfo[] = [
   {
     contentTitle: 'REMOVE LLC.',
     contentBody:
@@ -2461,3 +2481,16 @@ If you are a low-risk individual with transportation and time to spare, sign up 
     loc: LOCATIONS.PT.PORTO_FOZ_DO_DOURO,
   },
 ];
+
+export const MARKERS: MarkerInfo[] = OLD_MARKERS.map(m => ({
+  contentTitle: m.contentTitle,
+  contentBody: m.contentBody,
+  contact: m.contact,
+  type: m.type,
+  loc: {
+    description: m.loc.description,
+    serviceRadius: m.loc.serviceRadius,
+    latlng: new firebase.firestore.GeoPoint(m.loc.lat, m.loc.lng),
+  },
+  visible: true,
+}));

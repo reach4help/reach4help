@@ -29,6 +29,8 @@ class Search extends React.Component<Props, {}> {
 }
 
 export default styled(Search)`
+  display: flex;
+
   input {
     color: #333;
     box-sizing: border-box;
