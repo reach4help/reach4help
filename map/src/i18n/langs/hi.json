@@ -145,6 +145,8 @@
     "netlifyNote": "यह नक्शा {link}",
     "netlifyLinkText": "नेटलीफाय द्वारा मेजबानी",
     "githubRepo": "गिटहब कोष",
-    "codeOfConduct": "आचार संहिता"
+    "codeOfConduct": "आचार संहिता",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   }
 }
