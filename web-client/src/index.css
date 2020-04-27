@@ -53,3 +53,23 @@
 .ant-modal-footer {
   padding-bottom: 30px !important;
 }
+
+/* side-drawer mobile-first */
+.ant-layout-sider {
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  overflow: hidden;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.ant-layout-sider-collapsed {
+  width: 0 !important;
+}
