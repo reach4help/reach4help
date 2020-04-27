@@ -26,8 +26,8 @@ const Footer = () => (
       <FooterWrapper>
         <div className="grow">
           {t(lang, s => s.footer.netlifyNote, {
-            link: (
-              <a href="https://www.netlify.com/">
+            link: key => (
+              <a key={key} href="https://www.netlify.com/">
                 {t(lang, s => s.footer.netlifyLinkText)}
               </a>
             ),

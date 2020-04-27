@@ -54,16 +54,23 @@ const Header = (props: Props) => {
                 <p>{t(lang, s => s.info)}</p>
                 <p className="muted">
                   {t(lang, s => s.about, {
-                    reach4Help: (
-                      <a href="https://reach4help.org">reach4help.org</a>
+                    reach4Help: key => (
+                      <a key={key} href="https://reach4help.org">
+                        reach4help.org
+                      </a>
                     ),
-                    githubSource: (
-                      <a href="https://github.com/reach4help/reach4help/tree/master/map">
+                    githubSource: key => (
+                      <a
+                        key={key}
+                        href="https://github.com/reach4help/reach4help/tree/master/map"
+                      >
                         {t(lang, s => s.githubSourceLabel)}
                       </a>
                     ),
-                    email: (
-                      <a href="mailto:map@reach4help.org">map@reach4help.org</a>
+                    email: key => (
+                      <a key={key} href="mailto:map@reach4help.org">
+                        map@reach4help.org
+                      </a>
                     ),
                   })}
                 </p>
