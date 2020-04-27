@@ -3,17 +3,15 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import * as i18n from 'src/i18n';
 
-import AddInstructions from './components/add-instructions';
+import { AddInfoStep } from './components/add-information';
 import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
 import Header from './components/header';
-import Map, { NextResults } from './components/map';
+import Map, { MarkerIdAndInfo } from './components/map';
 import MapLoader from './components/map-loader';
 import Results from './components/results';
-import Search from './components/search';
 import { Filter } from './data';
-import { MarkerInfo } from './data/markers';
 import styled, {
   CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,
@@ -27,12 +25,10 @@ interface Props {
 
 interface State {
   filter: Filter;
-  results: MarkerInfo[] | null;
-  nextResults?: NextResults;
-  selectedResult: MarkerInfo | null;
+  results: MarkerIdAndInfo[] | null;
+  nextResults?: MarkerIdAndInfo[];
+  selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
-  searchInput: HTMLInputElement | null;
-  addInstructionsOpen: boolean;
   fullScreen: boolean;
   updateResultsOnNextClustering: boolean;
   lang: i18n.Language;
@@ -42,6 +38,7 @@ interface State {
    * * open-auto: the results are open because a point is selected
    */
   resultsMode: 'open' | 'closed' | 'open-auto';
+  addInfoStep: AddInfoStep | null;
 }
 
 class App extends React.Component<Props, State> {
@@ -52,11 +49,10 @@ class App extends React.Component<Props, State> {
       results: null,
       selectedResult: null,
       updateResultsCallback: null,
-      searchInput: null,
-      addInstructionsOpen: false,
       fullScreen: false,
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
+      addInfoStep: null,
       lang: i18n.getLanguage(),
     };
   }
@@ -65,7 +61,7 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private setResults = (results: MarkerInfo[]) => {
+  private setResults = (results: MarkerIdAndInfo[]) => {
     this.setState({ results, selectedResult: null });
   };
 
@@ -73,11 +69,7 @@ class App extends React.Component<Props, State> {
     this.setState({ updateResultsCallback: callback });
   };
 
-  private setSearchInput = (searchInput: HTMLInputElement | null) => {
-    this.setState({ searchInput });
-  };
-
-  private setSelectedResult = (selectedResult: MarkerInfo | null) => {
+  private setSelectedResult = (selectedResult: MarkerIdAndInfo | null) => {
     this.setState(state => {
       let { resultsMode } = state;
       if (selectedResult && state.resultsMode === 'closed') {
@@ -90,20 +82,20 @@ class App extends React.Component<Props, State> {
     });
   };
 
-  private setNextResults = (nextResults: NextResults) => {
+  private setNextResults = (nextResults: MarkerIdAndInfo[]) => {
     this.setState(state =>
       isEqual(state.nextResults, nextResults) ? {} : { nextResults },
     );
-  };
-
-  private setAddInstructionsOpen = (addInstructionsOpen: boolean) => {
-    this.setState({ addInstructionsOpen });
   };
 
   private setUpdateResultsOnNextClustering = (
     updateResultsOnNextClustering: boolean,
   ) => {
     this.setState({ updateResultsOnNextClustering });
+  };
+
+  private setAddInfoStep = (addInfoStep: AddInfoStep | null) => {
+    this.setState({ addInfoStep });
   };
 
   private updateResults = () => {
@@ -145,11 +137,10 @@ class App extends React.Component<Props, State> {
       results,
       nextResults,
       selectedResult,
-      searchInput,
-      addInstructionsOpen,
       fullScreen,
       resultsMode,
       updateResultsOnNextClustering,
+      addInfoStep,
       lang,
     } = this.state;
     const effectiveResultsMode =
@@ -174,18 +165,22 @@ class App extends React.Component<Props, State> {
           <Header
             filter={filter}
             updateFilter={this.setFilter}
-            setAddInstructionsOpen={this.setAddInstructionsOpen}
+            addInfoStep={addInfoStep}
+            setAddInfoStep={this.setAddInfoStep}
             fullScreen={fullScreen}
             toggleFullscreen={this.toggleFullscreen}
           />
-          <main className={`results-${effectiveResultsMode}`}>
+          <main
+            className={`results-${effectiveResultsMode} ${
+              addInfoStep ? 'add-info' : ''
+            }`}
+          >
             <div className="map-area">
               <MapLoader
                 className="map"
                 child={() => (
                   <Map
                     filter={filter}
-                    searchInput={searchInput}
                     results={results}
                     nextResults={nextResults}
                     setResults={this.setResults}
@@ -201,18 +196,16 @@ class App extends React.Component<Props, State> {
                     setUpdateResultsOnNextClustering={
                       this.setUpdateResultsOnNextClustering
                     }
+                    addInfoStep={addInfoStep}
+                    setAddInfoStep={this.setAddInfoStep}
                   />
                 )}
-              />
-              <Search
-                className="search"
-                updateSearchInput={this.setSearchInput}
               />
             </div>
             <Results
               className="results"
               results={results}
-              nextResults={nextResults?.results || null}
+              nextResults={nextResults}
               selectedResult={selectedResult}
               setSelectedResult={this.setSelectedResult}
               updateResults={this.updateResults}
@@ -230,10 +223,6 @@ class App extends React.Component<Props, State> {
             </p>
           </div>
           {!fullScreen && <Footer />}
-          <AddInstructions
-            open={addInstructionsOpen}
-            setAddInstructionsOpen={this.setAddInstructionsOpen}
-          />
         </div>
       </AppContext.Provider>
     );
@@ -277,20 +266,13 @@ export default styled(App)`
       margin-right: ${RESULTS_WIDTH};
       transition: margin-right ${RESULTS_TRANSITION_OUT};
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      .map {
+
+      > .map {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-      }
-      > .search {
-        position: absolute;
-        z-index: 100;
-        max-width: 500px;
-        top: 10px;
-        left: 10px;
-        right: 40px;
       }
     }
 
@@ -312,6 +294,16 @@ export default styled(App)`
       > .results {
         right: -${RESULTS_WIDTH};
         transition: right ${RESULTS_TRANSITION_IN};
+      }
+    }
+
+    &.add-info {
+      > .map-area {
+        margin-right: 0;
+        transition: none;
+      }
+      > .results {
+        display: none;
       }
     }
   }

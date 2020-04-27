@@ -6,12 +6,16 @@ import {
   MdMyLocation,
   MdRefresh,
 } from 'react-icons/md';
+import Search from 'src/components/search';
 import { Filter, MARKER_TYPES } from 'src/data';
+import * as firebase from 'src/data/firebase';
 import { t } from 'src/i18n';
 import { button, iconButton } from 'src/styling/mixins';
+import { isDefined } from 'src/util';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
+import AddInstructions, { AddInfoStep } from './add-information';
 import { AppContext } from './context';
 import {
   createGoogleMap,
@@ -21,9 +25,23 @@ import {
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
+interface MarkerData {
+  hardcoded: Map<string, MarkerInfo>;
+  firebase: Map<string, MarkerInfo>;
+}
+
+type DataSet = keyof MarkerData;
+
+interface ActiveMarkers {
+  /** map from marker index to marker */
+  hardcoded: Map<string, google.maps.Marker>;
+  /** map from firebase id to marker */
+  firebase: Map<string, google.maps.Marker>;
+}
+
 interface MapInfo {
   map: google.maps.Map;
-  markers: Map<MarkerInfo, google.maps.Marker>;
+  activeMarkers: ActiveMarkers;
   markerClusterer: MarkerClusterer;
   /**
    * The filter that is currently being used to display the markers on the map
@@ -43,29 +61,30 @@ interface MapInfo {
       };
 }
 
-const getInfo = (marker: google.maps.Marker): MarkerInfo => marker.get('info');
+const MARKER_DATA_ID = 'id';
 
-const updateMarkersVisibilityUsingFilter = (
-  markers: Map<MarkerInfo, google.maps.Marker>,
-  filter: Filter,
-) => {
-  for (const marker of markers.values()) {
-    const info = getInfo(marker);
-    const visible = !filter.type || info.type.type === filter.type;
-    marker.setVisible(visible);
-  }
-};
+export interface MarkerId {
+  set: DataSet;
+  id: string;
+}
+
+export interface MarkerIdAndInfo {
+  id: MarkerId;
+  info: MarkerInfo;
+}
+
+const getMarkerId = (marker: google.maps.Marker): MarkerId =>
+  marker.get(MARKER_DATA_ID);
 
 interface Props {
   className?: string;
   filter: Filter;
-  searchInput: HTMLInputElement | null;
-  results: MarkerInfo[] | null;
-  setResults: (results: MarkerInfo[]) => void;
-  nextResults?: NextResults;
-  setNextResults: (nextResults: NextResults) => void;
-  selectedResult: MarkerInfo | null;
-  setSelectedResult: (selectedResult: MarkerInfo | null) => void;
+  results: MarkerIdAndInfo[] | null;
+  setResults: (results: MarkerIdAndInfo[]) => void;
+  nextResults?: MarkerIdAndInfo[];
+  setNextResults: (nextResults: MarkerIdAndInfo[]) => void;
+  selectedResult: MarkerIdAndInfo | null;
+  setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
   /**
    * Call this
    */
@@ -76,42 +95,57 @@ interface Props {
   setUpdateResultsOnNextClustering: (
     updateResultsOnNextClustering: boolean,
   ) => void;
+  addInfoStep: AddInfoStep | null;
+  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
 }
 
-/**
- * List of results to display next for the current map bounds
- */
-export interface NextResults {
-  markers: google.maps.Marker[];
-  results: MarkerInfo[];
+type SearchBoxes = 'main' | 'add-information';
+
+interface SearchBox {
+  searchInput: HTMLInputElement;
+  box: google.maps.places.SearchBox;
 }
 
 class MapComponent extends React.Component<Props, {}> {
+  private readonly data: MarkerData = {
+    hardcoded: new Map(),
+    firebase: new Map(),
+  };
+
   private map: MapInfo | null = null;
 
-  private searchBox: {
-    searchInput: HTMLInputElement;
-    box: google.maps.places.SearchBox;
-  } | null = null;
+  private addInfoMapClickedListener:
+    | ((evt: google.maps.MouseEvent) => void)
+    | null = null;
+
+  private readonly searchBoxes = new Map<SearchBoxes, SearchBox>();
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
+  public constructor(props: Props) {
+    super(props);
+
+    // Initialize hardocded data
+    MARKERS.forEach((marker, index) =>
+      this.data.hardcoded.set(index.toString(), marker),
+    );
+  }
+
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
-    this.initializeSearch();
     setUpdateResultsCallback(this.updateResults);
+    firebase.addInformationListener(this.informationUpdated);
+    firebase.loadInitialData();
   }
 
   public componentDidUpdate(prevProps: Props) {
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
-      updateMarkersVisibilityUsingFilter(this.map.markers, filter);
+      this.updateMarkersVisibilityUsingFilter(filter);
       this.map.markerClusterer.repaint();
       this.map.currentFilter = filter;
     }
-    // Update search box if changed
-    this.initializeSearch();
     if (nextResults && !results) {
       // If we have next results queued up, but no results yet, set the results
       this.updateResults();
@@ -125,68 +159,167 @@ class MapComponent extends React.Component<Props, {}> {
   public componentWillUnmount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(null);
+    firebase.removeInformationListener(this.informationUpdated);
   }
 
+  private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
+    if (this.map) {
+      for (const marker of [
+        ...this.map.activeMarkers.hardcoded.values(),
+        ...this.map.activeMarkers.firebase.values(),
+      ]) {
+        const info = this.getMarkerInfo(marker);
+        const visible = !filter.type || info?.info.type.type === filter.type;
+        marker.setVisible(visible);
+      }
+      this.map.markerClusterer.repaint();
+    }
+  };
+
+  private setAddInfoMapClickedListener = (
+    listener: ((evt: google.maps.MouseEvent) => void) | null,
+  ) => {
+    this.addInfoMapClickedListener = listener;
+  };
+
+  /**
+   * Return true if the usual behaviour for clicking should be supressed
+   */
+  private mapClicked = (evt: google.maps.MouseEvent): boolean => {
+    if (this.addInfoMapClickedListener) {
+      this.addInfoMapClickedListener(evt);
+      return true;
+    }
+    return false;
+  };
+
+  private getMarkerInfo = (
+    marker: google.maps.Marker,
+  ): MarkerIdAndInfo | null => {
+    const id = getMarkerId(marker);
+    const info = this.data[id.set].get(id.id);
+    return info ? { id, info } : null;
+  };
+
+  private createMarker = (
+    activeMarkers: ActiveMarkers,
+    set: DataSet,
+    id: string,
+    info: MarkerInfo,
+  ) => {
+    const marker = new window.google.maps.Marker({
+      position: {
+        lat: info.loc.latlng.latitude,
+        lng: info.loc.latlng.longitude,
+      },
+      title: info.contentTitle,
+    });
+    const idData: MarkerId = { set, id };
+    marker.set(MARKER_DATA_ID, idData);
+    activeMarkers[set].set(id, marker);
+
+    // Add marker listeners
+    marker.addListener('click', event => {
+      const { setSelectedResult } = this.props;
+      if (!this.mapClicked(event)) {
+        const i = this.getMarkerInfo(marker);
+        if (i) {
+          setSelectedResult(i);
+        }
+      }
+    });
+    return marker;
+  };
+
+  private informationUpdated: firebase.InformationListener = update => {
+    // Update existing markers, add new markers and delete removed markers
+    this.data.firebase = update.markers;
+    if (this.map) {
+      // Update existing markers and add new markers
+      const newMarkers: google.maps.Marker[] = [];
+      for (const [id, info] of update.markers.entries()) {
+        const marker = this.map.activeMarkers.firebase.get(id);
+        if (marker) {
+          // Update info
+          marker.setPosition({
+            lat: info.loc.latlng.latitude,
+            lng: info.loc.latlng.longitude,
+          });
+          marker.setTitle(info.contentTitle);
+        } else {
+          newMarkers.push(
+            this.createMarker(this.map.activeMarkers, 'firebase', id, info),
+          );
+        }
+      }
+      this.map.markerClusterer.addMarkers(newMarkers, true);
+      // Delete removed markers
+      const removedMarkers: google.maps.Marker[] = [];
+      for (const [id, marker] of this.map.activeMarkers.firebase.entries()) {
+        if (!update.markers.has(id)) {
+          removedMarkers.push(marker);
+          this.map.activeMarkers.firebase.delete(id);
+        }
+      }
+      this.map.markerClusterer.removeMarkers(removedMarkers, true);
+      this.updateMarkersVisibilityUsingFilter(this.map.currentFilter);
+    }
+  };
+
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
-    const { filter, setSelectedResult } = this.props;
+    const { filter } = this.props;
     if (!ref) {
       return;
     }
     const map = createGoogleMap(ref);
-    const markers = new Map<MarkerInfo, google.maps.Marker>();
-    for (const m of MARKERS) {
-      const marker = new window.google.maps.Marker({
-        position: m.loc,
-        title: m.contentTitle,
-      });
-      marker.set('info', m);
-      markers.set(m, marker);
+    const activeMarkers: ActiveMarkers = {
+      firebase: new Map(),
+      hardcoded: new Map(),
+    };
+
+    // Create initial markers
+    for (const set of ['hardcoded', 'firebase'] as const) {
+      const data = this.data[set];
+      for (const [id, info] of data) {
+        this.createMarker(activeMarkers, set, id, info);
+      }
     }
 
+    const allMarkers = [
+      ...activeMarkers.hardcoded.values(),
+      ...activeMarkers.firebase.values(),
+    ];
+
     // Add a marker clusterer to manage the markers.
-    const markerClusterer = new MarkerClusterer(
-      map,
-      Array.from(markers.values()),
-      {
-        imagePath:
-          'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-        ignoreHidden: true,
-        zoomOnClick: false,
-        averageCenter: true,
-        gridSize: 30,
-      },
-    );
+    const markerClusterer = new MarkerClusterer(map, allMarkers, {
+      imagePath:
+        'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+      ignoreHidden: true,
+      zoomOnClick: false,
+      averageCenter: true,
+      gridSize: 30,
+    });
 
     const m: MapInfo = {
       map,
-      markers,
+      activeMarkers,
       currentFilter: filter,
       markerClusterer,
     };
     this.map = m;
 
-    updateMarkersVisibilityUsingFilter(markers, filter);
+    this.updateMarkersVisibilityUsingFilter(filter);
 
     map.addListener('bounds_changed', () => {
       const bounds = map.getBounds();
-      if (this.searchBox && bounds) {
-        this.searchBox.box.setBounds(bounds);
+      if (bounds) {
+        for (const box of this.searchBoxes.values()) {
+          box.box.setBounds(bounds);
+        }
       }
       if ('replaceState' in window.history) {
         debouncedUpdateQueryStringMapLocation(map);
       }
-    });
-
-    // We iterate over all locations to create markers
-    // This pretty much orchestrates everything since the map is the main interaction window
-    markers.forEach(marker => {
-      const info = getInfo(marker);
-
-      marker.addListener('click', () => {
-        setSelectedResult(info);
-      });
-
-      return marker;
     });
 
     const drawMarkerServiceArea = (marker: google.maps.Marker) => {
@@ -194,15 +327,18 @@ class MapComponent extends React.Component<Props, {}> {
         return;
       }
 
-      const info = getInfo(marker);
-      const { color } = MARKER_TYPES[info.type.type];
+      const info = this.getMarkerInfo(marker);
+      if (!info) {
+        return;
+      }
+      const { color } = MARKER_TYPES[info.info.type.type];
 
       const mapBoundingBox = map.getBounds();
       if (mapBoundingBox) {
         const topRight = mapBoundingBox.getNorthEast();
         const bottomLeft = mapBoundingBox.getSouthWest();
         const markerPosition = marker.getPosition();
-        const radius = info.loc.serviceRadius;
+        const radius = info.info.loc.serviceRadius;
 
         // Now compare the distance from the marker to corners of the box;
         if (markerPosition) {
@@ -226,6 +362,10 @@ class MapComponent extends React.Component<Props, {}> {
                 map,
                 center: marker.getPosition() || undefined,
                 radius,
+                // If we change this, we need to ensure that we make appropriate
+                // changes to the marker placement when adding new data so that
+                // the circle can be clicked to place a marker at the cursor
+                clickable: false,
               }),
             );
           } else {
@@ -249,10 +389,12 @@ class MapComponent extends React.Component<Props, {}> {
       // Immidiately change the result list to the cluster instead
       // Don't update nextResults as we want that to still be for the current
       // viewport
-      this.updateResultsTo({
-        markers: cluster.getMarkers(),
-        results: cluster.getMarkers().map(marker => getInfo(marker)),
-      });
+      this.updateResultsTo(
+        cluster
+          .getMarkers()
+          .map(marker => this.getMarkerInfo(marker))
+          .filter(isDefined),
+      );
     });
 
     // The clusters have been computed so we can
@@ -276,19 +418,21 @@ class MapComponent extends React.Component<Props, {}> {
           // Figure out which marker in each cluster will generate a circle.
           for (const marker of clusterMarkers) {
             // Update maxMarker to higher value if found.
-            const info = getInfo(marker);
-            if (
-              !maxMarker ||
-              maxMarker.serviceRadius < info.loc.serviceRadius
-            ) {
-              maxMarker = {
-                marker,
-                serviceRadius: info.loc.serviceRadius,
-              };
-            }
-            visibleMarkers.push(marker);
-            if (clusterMarkers.length > 1) {
-              m.clustering.clusterMarkers.set(marker, center);
+            const info = this.getMarkerInfo(marker);
+            if (info) {
+              if (
+                !maxMarker ||
+                maxMarker.serviceRadius < info.info.loc.serviceRadius
+              ) {
+                maxMarker = {
+                  marker,
+                  serviceRadius: info.info.loc.serviceRadius,
+                };
+              }
+              visibleMarkers.push(marker);
+              if (clusterMarkers.length > 1) {
+                m.clustering.clusterMarkers.set(marker, center);
+              }
             }
           }
 
@@ -303,10 +447,9 @@ class MapComponent extends React.Component<Props, {}> {
         visibleMarkers.sort(generateSortBasedOnMapCenter(mapCenter));
 
         // Store the next results in the state
-        const nextResults = {
-          markers: visibleMarkers,
-          results: visibleMarkers.map(marker => getInfo(marker)),
-        };
+        const nextResults = visibleMarkers
+          .map(marker => this.getMarkerInfo(marker))
+          .filter(isDefined);
 
         const {
           setNextResults: updateNextResults,
@@ -329,24 +472,31 @@ class MapComponent extends React.Component<Props, {}> {
 
   private updateResults = () => {
     const { results, nextResults } = this.props;
-    if (this.map && nextResults && results !== nextResults.results) {
+    if (this.map && nextResults && results !== nextResults) {
       this.updateResultsTo(nextResults);
     }
   };
 
-  private updateResultsTo = (results: NextResults) => {
+  private updateResultsTo = (results: MarkerIdAndInfo[]) => {
     const { setResults } = this.props;
     if (this.map) {
       // Clear all existing marker labels
-      for (const marker of this.map.markers.values()) {
+      for (const marker of [
+        ...this.map.activeMarkers.hardcoded.values(),
+        ...this.map.activeMarkers.firebase.values(),
+      ]) {
         marker.setLabel('');
       }
+      const { activeMarkers } = this.map;
+      const visibleMarkers = results
+        .map(({ id }) => activeMarkers[id.set].get(id.id))
+        .filter(isDefined);
       // Relabel marker labels based on theri index
-      results.markers.forEach((marker, index) => {
+      visibleMarkers.forEach((marker, index) => {
         marker.setLabel((index + 1).toString());
       });
       // Update the new results state
-      setResults(results.results);
+      setResults(results);
     }
   };
 
@@ -359,12 +509,14 @@ class MapComponent extends React.Component<Props, {}> {
     if (!this.map) {
       return;
     }
-    const marker = selectedResult && this.map.markers.get(selectedResult);
+    const marker =
+      selectedResult &&
+      this.map.activeMarkers[selectedResult.id.set].get(selectedResult.id.id);
     if (selectedResult && marker) {
       const clusterCenter =
         this.map.clustering?.state === 'idle' &&
         this.map.clustering.clusterMarkers.get(marker);
-      const contentString = infoWindowContent(selectedResult);
+      const contentString = infoWindowContent(selectedResult.info);
       if (!this.infoWindow) {
         this.infoWindow = new window.google.maps.InfoWindow({
           content: contentString,
@@ -403,6 +555,7 @@ class MapComponent extends React.Component<Props, {}> {
         setUpdateResultsOnNextClustering(true);
       },
       error => {
+        // eslint-disable-next-line no-alert
         alert('Unable to get geolocation!');
         // eslint-disable-next-line no-console
         console.error(error.message);
@@ -410,47 +563,68 @@ class MapComponent extends React.Component<Props, {}> {
     );
   };
 
-  private initializeSearch() {
-    const { searchInput } = this.props;
-    if (this.searchBox?.searchInput !== searchInput) {
-      if (!searchInput) {
-        this.searchBox = null;
+  private initializeSearchInput = (
+    searchInput: HTMLInputElement,
+  ): SearchBox => {
+    const box = new google.maps.places.SearchBox(searchInput);
+    const searchBox: SearchBox = {
+      searchInput,
+      box,
+    };
+
+    searchBox.box.addListener('places_changed', () => {
+      if (!this.map) {
         return;
       }
-      const box = new google.maps.places.SearchBox(searchInput);
-      this.searchBox = {
-        searchInput,
-        box,
-      };
 
-      this.searchBox.box.addListener('places_changed', () => {
-        if (!this.map) {
+      const places = box.getPlaces();
+      const bounds = new window.google.maps.LatLngBounds();
+
+      if (places.length === 0) {
+        return;
+      }
+
+      places.forEach(place => {
+        if (!place.geometry) {
           return;
         }
 
-        const places = box.getPlaces();
-        const bounds = new window.google.maps.LatLngBounds();
-
-        if (places.length === 0) {
-          return;
+        if (place.geometry.viewport) {
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
         }
-
-        places.forEach(place => {
-          if (!place.geometry) {
-            return;
-          }
-
-          if (place.geometry.viewport) {
-            bounds.union(place.geometry.viewport);
-          } else {
-            bounds.extend(place.geometry.location);
-          }
-        });
-
-        this.map.map.fitBounds(bounds);
       });
+
+      this.map.map.fitBounds(bounds);
+    });
+    if (this.map) {
+      const bounds = this.map.map.getBounds();
+      if (bounds) {
+        searchBox.box.setBounds(bounds);
+      }
     }
-  }
+    return searchBox;
+  };
+
+  private updateSearchInput = (searchInput: HTMLInputElement | null) => {
+    if (searchInput) {
+      this.searchBoxes.set('main', this.initializeSearchInput(searchInput));
+    } else {
+      this.searchBoxes.delete('main');
+    }
+  };
+
+  private updateAddInfoSearchInput = (searchInput: HTMLInputElement | null) => {
+    if (searchInput) {
+      this.searchBoxes.set(
+        'add-information',
+        this.initializeSearchInput(searchInput),
+      );
+    } else {
+      this.searchBoxes.delete('add-information');
+    }
+  };
 
   public render() {
     const {
@@ -459,39 +633,59 @@ class MapComponent extends React.Component<Props, {}> {
       nextResults,
       resultsMode,
       toggleResults,
+      addInfoStep,
+      setAddInfoStep,
     } = this.props;
-    const hasNewResults = nextResults && nextResults.results !== results;
+    const hasNewResults = nextResults && nextResults !== results;
     const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
             <div className="map" ref={this.updateGoogleMapRef} />
+            {!addInfoStep && (
+              <Search
+                className="search"
+                updateSearchInput={this.updateSearchInput}
+              />
+            )}
+            {addInfoStep && (
+              <AddInstructions
+                lang={lang}
+                map={(this.map && this.map.map) || null}
+                addInfoStep={addInfoStep}
+                setAddInfoStep={setAddInfoStep}
+                updateSearchInput={this.updateAddInfoSearchInput}
+                setAddInfoMapClickedListener={this.setAddInfoMapClickedListener}
+              />
+            )}
             <div className="map-actions">
-              {hasNewResults && (
+              {!addInfoStep && hasNewResults && (
                 <button type="button" onClick={this.updateResults}>
-                  <MdRefresh className="icon icon-left" />
+                  <MdRefresh className="icon icon-start" />
                   {t(lang, s => s.map.updateResultsForThisArea)}
                 </button>
               )}
               {navigator.geolocation && (
                 <button type="button" onClick={this.centerToGeolocation}>
-                  <MdMyLocation className="icon icon-left" />
+                  <MdMyLocation className="icon icon-start" />
                   {t(lang, s => s.map.myLocation)}
                 </button>
               )}
             </div>
-            <div className="results-tab" onClick={toggleResults}>
-              <div>
-                <ExpandIcon />
-                <span>
-                  {resultsMode === 'open'
-                    ? 'close'
-                    : `${results?.length || 0} result(s)`}
-                </span>
-                <ExpandIcon />
+            {!addInfoStep && (
+              <div className="results-tab" onClick={toggleResults}>
+                <div>
+                  <ExpandIcon />
+                  <span>
+                    {resultsMode === 'open'
+                      ? 'close'
+                      : `${results?.length || 0} result(s)`}
+                  </span>
+                  <ExpandIcon />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </AppContext.Consumer>
@@ -507,6 +701,15 @@ export default styled(MapComponent)`
 
   > .map {
     height: 100%;
+  }
+
+  > .search {
+    position: absolute;
+    z-index: 100;
+    max-width: 500px;
+    top: ${p => p.theme.spacingPx}px;
+    left: ${p => p.theme.spacingPx}px;
+    right: 40px;
   }
 
   > .map-actions {

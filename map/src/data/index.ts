@@ -7,14 +7,23 @@ export const SERVICES = {
   medicine: {
     color: COLORS.blue,
   },
-  /**
-   * Non food-or-medicine supplies
-   */
   supplies: {
     color: COLORS.green,
   },
   mobility: {
     color: COLORS.purple,
+  },
+  shelter: {
+    color: COLORS.orange,
+  },
+  support: {
+    color: COLORS.yellow,
+  },
+  information: {
+    color: COLORS.orange,
+  },
+  network: {
+    color: COLORS.yellow,
   },
   manufacturing: {
     color: COLORS.orange,
@@ -22,29 +31,16 @@ export const SERVICES = {
   financial: {
     color: COLORS.orange,
   },
-  information: {
-    color: COLORS.orange,
-  },
-  shelter: {
-    color: COLORS.orange,
-  },
-  /**
-   * Other types of support Support,
-   * e.g. support tailored for specific groups like vulnerable people, people at
-   * risk from domestic abuse etc...
-   */
-  support: {
-    color: COLORS.yellow,
-  },
-  /**
-   * Providing resources for networking (e.g. betwen mutual aid organizations)
-   */
-  network: {
+  other: {
     color: COLORS.yellow,
   },
 } as const;
 
 export type Service = keyof typeof SERVICES;
+
+export const SERVICE_STRINGS = Object.keys(SERVICES) as Service[];
+export const isService = (type?: string): type is Service =>
+  (type && type in SERVICES) || false;
 
 export type MarkerType =
   | {

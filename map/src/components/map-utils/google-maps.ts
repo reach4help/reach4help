@@ -11,8 +11,8 @@ export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
     center: query.map
       ? query.map.pos
       : {
-          lat: average(MARKERS.map(m => m.loc.lat)),
-          lng: average(MARKERS.map(m => m.loc.lng)),
+          lat: average(MARKERS.map(m => m.loc.latlng.latitude)),
+          lng: average(MARKERS.map(m => m.loc.latlng.longitude)),
         },
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     streetViewControl: false,
