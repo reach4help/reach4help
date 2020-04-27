@@ -19,7 +19,7 @@ import {
   MarkerInfo,
 } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
-import { RecursivePartial } from 'src/util';
+import { isDefined, RecursivePartial } from 'src/util';
 
 import {
   isMarkerType,
@@ -179,9 +179,6 @@ const extractContactInputIdData = (target: HTMLElement) => {
 };
 
 type ContactInputIdData = ReturnType<typeof extractContactInputIdData>;
-
-const isDefined = <T extends unknown>(val: T | undefined): val is T =>
-  val !== undefined;
 
 class AddInstructions extends React.Component<Props, State> {
   private markerInfo: MarkerInputInfo | null = null;

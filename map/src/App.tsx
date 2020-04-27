@@ -8,11 +8,10 @@ import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
 import Header from './components/header';
-import Map, { NextResults } from './components/map';
+import Map, { MarkerIdAndInfo } from './components/map';
 import MapLoader from './components/map-loader';
 import Results from './components/results';
 import { Filter } from './data';
-import { MarkerInfo } from './data/markers';
 import styled, {
   CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,
@@ -26,9 +25,9 @@ interface Props {
 
 interface State {
   filter: Filter;
-  results: MarkerInfo[] | null;
-  nextResults?: NextResults;
-  selectedResult: MarkerInfo | null;
+  results: MarkerIdAndInfo[] | null;
+  nextResults?: MarkerIdAndInfo[];
+  selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
   fullScreen: boolean;
   updateResultsOnNextClustering: boolean;
@@ -62,7 +61,7 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private setResults = (results: MarkerInfo[]) => {
+  private setResults = (results: MarkerIdAndInfo[]) => {
     this.setState({ results, selectedResult: null });
   };
 
@@ -70,7 +69,7 @@ class App extends React.Component<Props, State> {
     this.setState({ updateResultsCallback: callback });
   };
 
-  private setSelectedResult = (selectedResult: MarkerInfo | null) => {
+  private setSelectedResult = (selectedResult: MarkerIdAndInfo | null) => {
     this.setState(state => {
       let { resultsMode } = state;
       if (selectedResult && state.resultsMode === 'closed') {
@@ -83,7 +82,7 @@ class App extends React.Component<Props, State> {
     });
   };
 
-  private setNextResults = (nextResults: NextResults) => {
+  private setNextResults = (nextResults: MarkerIdAndInfo[]) => {
     this.setState(state =>
       isEqual(state.nextResults, nextResults) ? {} : { nextResults },
     );
@@ -206,7 +205,7 @@ class App extends React.Component<Props, State> {
             <Results
               className="results"
               results={results}
-              nextResults={nextResults?.results || null}
+              nextResults={nextResults}
               selectedResult={selectedResult}
               setSelectedResult={this.setSelectedResult}
               updateResults={this.updateResults}
