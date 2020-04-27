@@ -161,7 +161,10 @@ class MapComponent extends React.Component<Props, {}> {
     const markers = new Map<MarkerInfo, google.maps.Marker>();
     for (const m of MARKERS) {
       const marker = new window.google.maps.Marker({
-        position: m.loc,
+        position: {
+          lat: m.loc.latlng.latitude,
+          lng: m.loc.latlng.longitude,
+        },
         title: m.contentTitle,
       });
       marker.set('info', m);

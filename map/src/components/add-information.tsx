@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
@@ -119,8 +120,8 @@ const isCompleteMarkerLocation = (
 ): loc is Location =>
   !!loc &&
   loc.description !== undefined &&
-  loc.lat !== undefined &&
-  loc.lng !== undefined &&
+  loc.latlng?.latitude !== undefined &&
+  loc.latlng.longitude !== undefined &&
   loc.serviceRadius !== undefined;
 
 const displayKm = (lang: Language, meters: number): string =>
@@ -257,7 +258,9 @@ class AddInstructions extends React.Component<Props, State> {
       return;
     }
     const updateLoc = (loc: google.maps.LatLng) =>
-      this.setInfoValues({ loc: { lat: loc.lat(), lng: loc.lng() } });
+      this.setInfoValues({
+        loc: { latlng: new firebase.firestore.GeoPoint(loc.lat(), loc.lng()) },
+      });
     if (addInfoStep === 'place-marker') {
       if (!this.markerInfo) {
         const radius = Math.floor(3000000 / (map.getZoom() * map.getZoom()));
@@ -413,7 +416,11 @@ class AddInstructions extends React.Component<Props, State> {
       errors: [],
       invalidInputs: [],
     };
-    if (!info.loc?.lat || !info.loc.lng || !info.loc.serviceRadius) {
+    if (
+      !info.loc?.latlng?.latitude ||
+      !info.loc.latlng.longitude ||
+      !info.loc.serviceRadius
+    ) {
       validation.errors.push(lang =>
         t(lang, s => s.addInformation.errors.markerRequired),
       );
@@ -464,6 +471,7 @@ class AddInstructions extends React.Component<Props, State> {
       type: info.type,
       loc: info.loc,
       contact,
+      visible: false,
     };
     if (info.contentBody) {
       completeInfo.contentBody = info.contentBody;
