@@ -1,14 +1,14 @@
 rules_version = '2';
 
 function verifyMarkerDataComplete(data) {
-   return ('contentTitle' in data) &&
+   return data.visible == false &&
+          ('contentTitle' in data) &&
           ('type' in data) &&
           ('type' in data.type) &&
           ('contact' in data) &&
           ('loc' in data) &&
           ('description' in data.loc) &&
-          ('lat' in data.loc) &&
-          ('lng' in data.loc) &&
+          verifyLatLngObject(data.loc.latLng) &&
           ('serviceRadius' in data.loc)
 }
 
