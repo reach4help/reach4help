@@ -1,4 +1,10 @@
-import { CloseOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
+import {
+  CloseOutlined,
+  LogoutOutlined,
+  MailOutlined,
+  StarOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
 import { Layout } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -49,6 +55,25 @@ const ProfileLinks = styled.div`
   }
 `;
 
+const BottomLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  margin: 15px;
+  color: inherit;
+
+  a {
+    color: inherit;
+    margin-bottom: 10px;
+    padding: 0 10px;
+
+    svg {
+      margin-right: 10px;
+    }
+  }
+`;
+
 const SideDrawer: React.FC<SideDrawerProps> = ({
   menuLinks,
   closeHandler,
@@ -73,6 +98,16 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
       </ProfileContent>
     </ProfileWrapper>
     <SideNavMenu items={menuLinks || []} />
+    <BottomLinks>
+      <Link to="world">
+        <MailOutlined />
+        Contact us
+      </Link>
+      <Link to="world">
+        <LogoutOutlined />
+        Sign out
+      </Link>
+    </BottomLinks>
   </Layout.Sider>
 );
 
