@@ -232,6 +232,7 @@ class MapComponent extends React.Component<Props, {}> {
 
   private informationUpdated: firebase.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
+    this.data.firebase = update.markers;
     if (this.map) {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
@@ -262,8 +263,6 @@ class MapComponent extends React.Component<Props, {}> {
       this.map.markerClusterer.removeMarkers(removedMarkers, true);
       this.map.markerClusterer.repaint();
     }
-    this.data.firebase = update.markers;
-    // TODO: redraw cluster circles
   };
 
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
