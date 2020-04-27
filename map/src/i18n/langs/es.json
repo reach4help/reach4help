@@ -145,6 +145,8 @@
     "netlifyNote": "Este mapa {link}",
     "netlifyLinkText": "está alojado por Netlify",
     "githubRepo": "Repositorio de GitHub",
-    "codeOfConduct": "Código de conducta"
+    "codeOfConduct": "Código de conducta",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   }
 }
