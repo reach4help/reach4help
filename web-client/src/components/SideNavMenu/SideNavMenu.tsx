@@ -75,9 +75,10 @@ const SideNavMenuWrapper = styled.div`
     
     a > .ant-menu-item-selected {
       color: white;
-      background: ${COLORS.primary} !important;
+      background: ${COLORS.link} !important;
     }
   }
+  
   .ant-menu-item:hover, 
   .ant-menu-item-active, 
   .ant-menu:not(.ant-menu-inline) 
