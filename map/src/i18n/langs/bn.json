@@ -145,6 +145,8 @@
     "netlifyNote": "এই মানচিত্রটি {link}",
     "netlifyLinkText": "নেটলিফায় দ্বারা হোস্ট করা হয়েছে",
     "githubRepo": "গিটহাব (GitHub) রিপো",
-    "codeOfConduct": "Code of Conduct"
+    "codeOfConduct": "Code of Conduct",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   }
 }
