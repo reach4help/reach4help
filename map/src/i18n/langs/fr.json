@@ -145,6 +145,8 @@
     "netlifyNote": "Cette carte {link}",
     "netlifyLinkText": "est hébergé par Netlify",
     "githubRepo": "Dépôt GitHub",
-    "codeOfConduct": "Code de conduite"
+    "codeOfConduct": "Code de conduite",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   }
 }
