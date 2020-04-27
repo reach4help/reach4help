@@ -76,19 +76,6 @@ export interface MarkerIdAndInfo {
 const getMarkerId = (marker: google.maps.Marker): MarkerId =>
   marker.get(MARKER_DATA_ID);
 
-// const updateMarkersVisibilityUsingFilter = (
-//   markerData: MarkerData,
-//   markers: ActiveMarkers,
-//   filter: Filter,
-// ) => {
-//   for (const marker of [...markers.hardcoded.values(), ...markers.firebase.values()]) {
-//     const id = getId(marker);
-//     const info = getInfo(marker);
-//     const visible = !filter.type || info.type.type === filter.type;
-//     marker.setVisible(visible);
-//   }
-// };
-
 interface Props {
   className?: string;
   filter: Filter;
@@ -155,7 +142,7 @@ class MapComponent extends React.Component<Props, {}> {
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
     if (this.map && !isEqual(filter, this.map.currentFilter)) {
-      // updateMarkersVisibilityUsingFilter(this.map.markers, filter);
+      this.updateMarkersVisibilityUsingFilter(filter);
       this.map.markerClusterer.repaint();
       this.map.currentFilter = filter;
     }
@@ -174,6 +161,19 @@ class MapComponent extends React.Component<Props, {}> {
     setUpdateResultsCallback(null);
     firebase.removeInformationListener(this.informationUpdated);
   }
+
+  private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
+    if (this.map) {
+      for (const marker of [
+        ...this.map.activeMarkers.hardcoded.values(),
+        ...this.map.activeMarkers.firebase.values(),
+      ]) {
+        const info = this.getMarkerInfo(marker);
+        const visible = !filter.type || info?.info.type.type === filter.type;
+        marker.setVisible(visible);
+      }
+    }
+  };
 
   private setAddInfoMapClickedListener = (
     listener: ((evt: google.maps.MouseEvent) => void) | null,
@@ -308,7 +308,7 @@ class MapComponent extends React.Component<Props, {}> {
     };
     this.map = m;
 
-    // updateMarkersVisibilityUsingFilter(markers, filter);
+    this.updateMarkersVisibilityUsingFilter(filter);
 
     map.addListener('bounds_changed', () => {
       const bounds = map.getBounds();
