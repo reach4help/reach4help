@@ -3,6 +3,10 @@
   "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, below is a growing list of mutual aid pandemic disaster care projects. Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
   "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
   "githubSourceLabel": "found on GitHub",
+  "menu": {
+    "about": "About",
+    "map": "View Map"
+  },
   "addInformation": {
     "button": "Add information",
     "backToMap": "Back to map",

@@ -6,6 +6,10 @@ import { t } from 'src/i18n';
 import { Page } from 'src/state';
 import styled from 'src/styling';
 
+type PageId = Page['page'];
+
+const MENU = ['about', 'map'] as const;
+
 interface Props {
   className?: string;
   page: Page;
@@ -52,7 +56,20 @@ const Header = (props: Props) => {
               </button>
             </div>
           </div>
-          <div className="secondary" />
+          <div className="secondary">
+            <div className="menu">
+              {MENU.map(p => (
+                <button
+                  key={p}
+                  className={page.page === p ? 'selected' : ''}
+                  type="button"
+                  onClick={() => setPage({ page: p })}
+                >
+                  {t(lang, s => s.menu[p])}
+                </button>
+              ))}
+            </div>
+          </div>
         </header>
       )}
     </AppContext.Consumer>
@@ -145,5 +162,43 @@ export default styled(Header)`
     background: rgba(129, 30, 120, 0.95);
     box-shadow: 0px 4px 10px rgba(31, 0, 41, 0.1);
     margin-bottom: -40px;
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+
+      button {
+        position: relative;
+        margin: 0 25px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.6);
+        outline: none;
+
+        &:hover {
+          color: #fff;
+        }
+
+        &.selected {
+          color: #fff;
+
+          &::after {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -10px;
+            display: block;
+            content: '';
+            width: 20px;
+            height: 5px;
+            background-color: ${p => p.theme.colors.brand.secondaryDark};
+          }
+        }
+      }
+    }
   }
 `;
