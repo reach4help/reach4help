@@ -34,32 +34,7 @@ const Header = (props: Props) => {
               <div className="logo">
                 <img src="/logo-compat.svg" alt="Reach4Help Logo" />
               </div>
-              <div className="info">
-                <h1>{t(lang, s => s.title)} - Reach4Help</h1>
-                <p>{t(lang, s => s.info)}</p>
-                <p className="muted">
-                  {t(lang, s => s.about, {
-                    reach4Help: key => (
-                      <a key={key} href="https://reach4help.org">
-                        reach4help.org
-                      </a>
-                    ),
-                    githubSource: key => (
-                      <a
-                        key={key}
-                        href="https://github.com/reach4help/reach4help/tree/master/map"
-                      >
-                        {t(lang, s => s.githubSourceLabel)}
-                      </a>
-                    ),
-                    email: key => (
-                      <a key={key} href="mailto:map@reach4help.org">
-                        map@reach4help.org
-                      </a>
-                    ),
-                  })}
-                </p>
-              </div>
+              <div className="info" />
             </div>
           )}
           <div className="tools">

@@ -1,6 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import About from 'src/components/about';
 import * as i18n from 'src/i18n';
 import { Page } from 'src/state';
 
@@ -29,7 +30,6 @@ interface State {
   nextResults?: MarkerIdAndInfo[];
   selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
-  fullScreen: boolean;
   updateResultsOnNextClustering: boolean;
   lang: i18n.Language;
   /**
@@ -49,7 +49,6 @@ class App extends React.Component<Props, State> {
       results: null,
       selectedResult: null,
       updateResultsCallback: null,
-      fullScreen: false,
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
       lang: i18n.getLanguage(),
@@ -107,13 +106,6 @@ class App extends React.Component<Props, State> {
     }
   };
 
-  private toggleFullscreen = () => {
-    this.setState(state => ({
-      fullScreen: !state.fullScreen,
-      resultsMode: state.fullScreen ? 'open' : 'closed',
-    }));
-  };
-
   private toggleResults = () => {
     this.setState(state => ({
       resultsMode: state.resultsMode === 'closed' ? 'open' : 'closed',
@@ -139,7 +131,6 @@ class App extends React.Component<Props, State> {
       results,
       nextResults,
       selectedResult,
-      fullScreen,
       resultsMode,
       updateResultsOnNextClustering,
       page,
@@ -149,10 +140,7 @@ class App extends React.Component<Props, State> {
       resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
       <AppContext.Provider value={{ lang }}>
-        <div
-          dir={i18n.getMeta(lang).direction}
-          className={className + (fullScreen ? ' fullscreen' : '')}
-        >
+        <div dir={i18n.getMeta(lang).direction} className={className}>
           <Helmet>
             {i18n.LANGUAGE_KEYS.map((langKey, i) => (
               <link
@@ -165,11 +153,7 @@ class App extends React.Component<Props, State> {
             <link rel="canonical" href={i18n.canonicalUrl(lang)} />
           </Helmet>
           <Header page={page} setPage={this.setPage} />
-          <main
-            className={`results-${effectiveResultsMode} ${
-              page.page === 'add-information' ? 'add-info' : ''
-            }`}
-          >
+          <main className={`results-${effectiveResultsMode} page-${page.page}`}>
             <div className="map-area">
               <MapLoader
                 className="map"
@@ -205,6 +189,7 @@ class App extends React.Component<Props, State> {
               setSelectedResult={this.setSelectedResult}
               updateResults={this.updateResults}
             />
+            <About page={page} setPage={this.setPage} />
           </main>
           <div className="mobile-message">
             <p>
@@ -217,7 +202,7 @@ class App extends React.Component<Props, State> {
               device.
             </p>
           </div>
-          {!fullScreen && <Footer />}
+          <Footer />
         </div>
       </AppContext.Provider>
     );
@@ -238,19 +223,6 @@ export default styled(App)`
     font-family: 'Roboto', sans-serif;
   }
 
-  &.fullscreen {
-    /**
-     * These styles prevent scrolling on mobile / tablets when in full-screen
-     * mode (where the address-bar can collapse)
-     */
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: initial;
-  }
-
   > main {
     overflow: hidden;
     position: relative;
@@ -262,8 +234,8 @@ export default styled(App)`
     > .map-area {
       flex-grow: 1;
       position: relative;
-      margin-right: ${RESULTS_WIDTH};
-      transition: margin-right ${RESULTS_TRANSITION_OUT};
+      margin-right: 0;
+      transition: none;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
       > .map {
@@ -276,6 +248,7 @@ export default styled(App)`
     }
 
     > .results {
+      display: none;
       position: absolute;
       top: 0;
       height: 100%;
@@ -296,13 +269,13 @@ export default styled(App)`
       }
     }
 
-    &.add-info {
+    &.page-map {
       > .map-area {
-        margin-right: 0;
-        transition: none;
+        margin-right: ${RESULTS_WIDTH};
+        transition: margin-right ${RESULTS_TRANSITION_OUT};
       }
       > .results {
-        display: none;
+        display: block;
       }
     }
   }

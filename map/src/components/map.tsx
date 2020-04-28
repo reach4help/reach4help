@@ -667,7 +667,7 @@ class MapComponent extends React.Component<Props, {}> {
                   {t(lang, s => s.map.updateResultsForThisArea)}
                 </button>
               )}
-              {navigator.geolocation && (
+              {page.page !== 'about' && navigator.geolocation && (
                 <button type="button" onClick={this.centerToGeolocation}>
                   <MdMyLocation className="icon icon-start" />
                   {t(lang, s => s.map.myLocation)}
