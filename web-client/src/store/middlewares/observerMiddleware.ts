@@ -25,10 +25,10 @@ const observerMiddleware = ({ dispatch }: { dispatch: Function }) => (
   }
 
   if (action.observer && typeof action.observer === 'function') {
-    const nextValue = (...values: any) => {
+    const nextValue = (values: any) => {
       dispatch({
         type: `${action.type}_UPDATED`,
-        payload: { ...values },
+        payload: values,
       });
     };
 

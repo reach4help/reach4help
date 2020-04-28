@@ -21,10 +21,10 @@ export default createReducer<AuthState>(
     },
     [OBSERVE_USER.UPDATED]: (
       state: AuthState,
-      { payload }: { payload: Record<string, firebase.User | null> },
+      { payload }: { payload: firebase.User },
     ) => {
       // eslint-disable-next-line prefer-destructuring
-      state.user = payload[0];
+      state.user = payload;
       state.loading = false;
       state.observerReceivedFirstUpdate = true;
     },
