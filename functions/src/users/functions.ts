@@ -55,7 +55,6 @@ export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
       return Promise.all(operations);
     })
     .catch(errors => {
-      console.error('Invalid User Found: ', errors);
       return db
         .collection('users')
         .doc(context.params.userId)
