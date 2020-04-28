@@ -1,9 +1,9 @@
+import * as firebaseTest from '@firebase/testing';
 import { validateOrReject } from 'class-validator';
 import { EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import { IUser, User } from '../models/users';
 import * as admin from 'firebase-admin';
-import * as firebaseTest from '@firebase/testing';
 
 const projectId = 'reach-4-help-test';
 
