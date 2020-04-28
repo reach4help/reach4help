@@ -273,7 +273,6 @@ export default styled(Results)`
 
   > .list {
     overflow-y: scroll;
-    height: 0;
     flex-grow: 1;
 
     > .result {

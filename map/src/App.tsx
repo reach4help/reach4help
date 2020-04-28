@@ -244,7 +244,7 @@ export default styled(App)`
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    &.results-closed {
+    &.page-map.results-closed {
       > .map-area {
         margin-right: 0;
         transition: margin-right ${RESULTS_TRANSITION_IN};
