@@ -10,12 +10,13 @@ import Search from 'src/components/search';
 import { Filter, MARKER_TYPES } from 'src/data';
 import * as firebase from 'src/data/firebase';
 import { t } from 'src/i18n';
+import { Page } from 'src/state';
 import { button, iconButton } from 'src/styling/mixins';
 import { isDefined } from 'src/util';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
 import styled from '../styling';
-import AddInstructions, { AddInfoStep } from './add-information';
+import AddInstructions from './add-information';
 import { AppContext } from './context';
 import {
   createGoogleMap,
@@ -95,8 +96,8 @@ interface Props {
   setUpdateResultsOnNextClustering: (
     updateResultsOnNextClustering: boolean,
   ) => void;
-  addInfoStep: AddInfoStep | null;
-  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
+  page: Page;
+  setPage: (page: Page) => void;
 }
 
 type SearchBoxes = 'main' | 'add-information';
@@ -633,8 +634,8 @@ class MapComponent extends React.Component<Props, {}> {
       nextResults,
       resultsMode,
       toggleResults,
-      addInfoStep,
-      setAddInfoStep,
+      page,
+      setPage,
     } = this.props;
     const hasNewResults = nextResults && nextResults !== results;
     const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
@@ -643,24 +644,24 @@ class MapComponent extends React.Component<Props, {}> {
         {({ lang }) => (
           <div className={className}>
             <div className="map" ref={this.updateGoogleMapRef} />
-            {!addInfoStep && (
+            {page.page === 'map' && (
               <Search
                 className="search"
                 updateSearchInput={this.updateSearchInput}
               />
             )}
-            {addInfoStep && (
+            {page.page === 'add-information' && (
               <AddInstructions
                 lang={lang}
                 map={(this.map && this.map.map) || null}
-                addInfoStep={addInfoStep}
-                setAddInfoStep={setAddInfoStep}
+                addInfoStep={page.step}
+                setPage={setPage}
                 updateSearchInput={this.updateAddInfoSearchInput}
                 setAddInfoMapClickedListener={this.setAddInfoMapClickedListener}
               />
             )}
             <div className="map-actions">
-              {!addInfoStep && hasNewResults && (
+              {page.page === 'map' && hasNewResults && (
                 <button type="button" onClick={this.updateResults}>
                   <MdRefresh className="icon icon-start" />
                   {t(lang, s => s.map.updateResultsForThisArea)}
@@ -673,7 +674,7 @@ class MapComponent extends React.Component<Props, {}> {
                 </button>
               )}
             </div>
-            {!addInfoStep && (
+            {page.page === 'map' && (
               <div className="results-tab" onClick={toggleResults}>
                 <div>
                   <ExpandIcon />
@@ -707,7 +708,7 @@ export default styled(MapComponent)`
     position: absolute;
     z-index: 100;
     max-width: 500px;
-    top: ${p => p.theme.spacingPx}px;
+    top: ${p => p.theme.spacingPx + p.theme.secondaryHeaderSizePx}px;
     left: ${p => p.theme.spacingPx}px;
     right: 40px;
   }

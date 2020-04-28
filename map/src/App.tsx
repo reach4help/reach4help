@@ -2,8 +2,8 @@ import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import * as i18n from 'src/i18n';
+import { Page } from 'src/state';
 
-import { AddInfoStep } from './components/add-information';
 import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
@@ -38,7 +38,7 @@ interface State {
    * * open-auto: the results are open because a point is selected
    */
   resultsMode: 'open' | 'closed' | 'open-auto';
-  addInfoStep: AddInfoStep | null;
+  page: Page;
 }
 
 class App extends React.Component<Props, State> {
@@ -52,8 +52,10 @@ class App extends React.Component<Props, State> {
       fullScreen: false,
       resultsMode: 'open',
       updateResultsOnNextClustering: false,
-      addInfoStep: null,
       lang: i18n.getLanguage(),
+      page: {
+        page: 'about',
+      },
     };
   }
 
@@ -94,8 +96,8 @@ class App extends React.Component<Props, State> {
     this.setState({ updateResultsOnNextClustering });
   };
 
-  private setAddInfoStep = (addInfoStep: AddInfoStep | null) => {
-    this.setState({ addInfoStep });
+  private setPage = (page: Page) => {
+    this.setState({ page });
   };
 
   private updateResults = () => {
@@ -140,7 +142,7 @@ class App extends React.Component<Props, State> {
       fullScreen,
       resultsMode,
       updateResultsOnNextClustering,
-      addInfoStep,
+      page,
       lang,
     } = this.state;
     const effectiveResultsMode =
@@ -162,13 +164,10 @@ class App extends React.Component<Props, State> {
             ))}
             <link rel="canonical" href={i18n.canonicalUrl(lang)} />
           </Helmet>
-          <Header
-            addInfoStep={addInfoStep}
-            setAddInfoStep={this.setAddInfoStep}
-          />
+          <Header page={page} setPage={this.setPage} />
           <main
             className={`results-${effectiveResultsMode} ${
-              addInfoStep ? 'add-info' : ''
+              page.page === 'add-information' ? 'add-info' : ''
             }`}
           >
             <div className="map-area">
@@ -192,8 +191,8 @@ class App extends React.Component<Props, State> {
                     setUpdateResultsOnNextClustering={
                       this.setUpdateResultsOnNextClustering
                     }
-                    addInfoStep={addInfoStep}
-                    setAddInfoStep={this.setAddInfoStep}
+                    page={page}
+                    setPage={this.setPage}
                   />
                 )}
               />

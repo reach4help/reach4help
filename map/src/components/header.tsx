@@ -3,18 +3,17 @@ import LogoType from 'src/components/assets/logo-type';
 import { AppContext } from 'src/components/context';
 import Languages from 'src/components/languages';
 import { t } from 'src/i18n';
+import { Page } from 'src/state';
 import styled from 'src/styling';
-
-import { AddInfoStep } from './add-information';
 
 interface Props {
   className?: string;
-  addInfoStep: AddInfoStep | null;
-  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
+  page: Page;
+  setPage: (page: Page) => void;
 }
 
 const Header = (props: Props) => {
-  const { className, addInfoStep, setAddInfoStep } = props;
+  const { className, page, setPage } = props;
   return (
     <AppContext.Consumer>
       {({ lang }) => (
@@ -31,16 +30,29 @@ const Header = (props: Props) => {
                 className="add"
                 type="button"
                 onClick={() =>
-                  setAddInfoStep(addInfoStep ? null : 'information')
+                  setPage(
+                    page.page === 'add-information'
+                      ? {
+                          page: 'map',
+                        }
+                      : {
+                          page: 'add-information',
+                          step: 'information',
+                        },
+                  )
                 }
               >
                 {t(
                   lang,
-                  s => s.addInformation[addInfoStep ? 'backToMap' : 'button'],
+                  s =>
+                    s.addInformation[
+                      page.page === 'add-information' ? 'backToMap' : 'button'
+                    ],
                 )}
               </button>
             </div>
           </div>
+          <div className="secondary" />
         </header>
       )}
     </AppContext.Consumer>
@@ -48,6 +60,7 @@ const Header = (props: Props) => {
 };
 
 export default styled(Header)`
+  z-index: 150;
   > .top {
     height: 70px;
     width: 100%;
@@ -125,5 +138,12 @@ export default styled(Header)`
         }
       }
     }
+  }
+
+  > .secondary {
+    height: ${p => p.theme.secondaryHeaderSizePx}px;
+    background: rgba(129, 30, 120, 0.95);
+    box-shadow: 0px 4px 10px rgba(31, 0, 41, 0.1);
+    margin-bottom: -40px;
   }
 `;

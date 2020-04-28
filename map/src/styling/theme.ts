@@ -34,6 +34,7 @@ export const COLORS = {
 
 export const THEME = {
   spacingPx: 15,
+  secondaryHeaderSizePx: 40,
   bg: COLORS.grayLight4,
   borderLight: `1px solid ${COLORS.grayLight3}`,
   textColor: COLORS.brand.primaryDark,

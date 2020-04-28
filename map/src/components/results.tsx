@@ -192,6 +192,7 @@ const Results = (props: Props) => {
 const HEADER_HEIGHT_PX = 52;
 
 export default styled(Results)`
+  margin-top: ${p => p.theme.secondaryHeaderSizePx}px;
   background: #fff;
   z-index: 100;
   position: relative;

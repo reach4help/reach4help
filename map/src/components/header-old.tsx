@@ -5,7 +5,6 @@ import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
 
 import styled, { SMALL_DEVICES } from '../styling';
-import { AddInfoStep } from './add-information';
 import { AppContext } from './context';
 import Filters, { FilterMutator } from './filters';
 
@@ -13,8 +12,6 @@ interface Props {
   className?: string;
   filter: Filter;
   updateFilter: (mutator: FilterMutator) => void;
-  addInfoStep: AddInfoStep | null;
-  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
   fullScreen: boolean;
   toggleFullscreen: () => void;
 }
