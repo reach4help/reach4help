@@ -162,7 +162,10 @@ class App extends React.Component<Props, State> {
             ))}
             <link rel="canonical" href={i18n.canonicalUrl(lang)} />
           </Helmet>
-          <Header setAddInfoStep={this.setAddInfoStep} />
+          <Header
+            addInfoStep={addInfoStep}
+            setAddInfoStep={this.setAddInfoStep}
+          />
           <main
             className={`results-${effectiveResultsMode} ${
               addInfoStep ? 'add-info' : ''

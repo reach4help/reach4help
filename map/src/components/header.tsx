@@ -9,11 +9,12 @@ import { AddInfoStep } from './add-information';
 
 interface Props {
   className?: string;
+  addInfoStep: AddInfoStep | null;
   setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
 }
 
 const Header = (props: Props) => {
-  const { className, setAddInfoStep } = props;
+  const { className, addInfoStep, setAddInfoStep } = props;
   return (
     <AppContext.Consumer>
       {({ lang }) => (
@@ -29,9 +30,14 @@ const Header = (props: Props) => {
               <button
                 className="add"
                 type="button"
-                onClick={() => setAddInfoStep('information')}
+                onClick={() =>
+                  setAddInfoStep(addInfoStep ? null : 'information')
+                }
               >
-                {t(lang, s => s.addInformation.button)}
+                {t(
+                  lang,
+                  s => s.addInformation[addInfoStep ? 'backToMap' : 'button'],
+                )}
               </button>
             </div>
           </div>
