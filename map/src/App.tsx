@@ -7,7 +7,6 @@ import { Page } from 'src/state';
 
 import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
-import Footer from './components/footer';
 import Header from './components/header';
 import Map, { MarkerIdAndInfo } from './components/map';
 import MapLoader from './components/map-loader';
@@ -17,7 +16,6 @@ import styled, {
   CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
-  SMALL_DEVICES,
 } from './styling';
 
 interface Props {
@@ -191,18 +189,6 @@ class App extends React.Component<Props, State> {
             />
             <About page={page} setPage={this.setPage} />
           </main>
-          <div className="mobile-message">
-            <p>
-              Unfortunately, this map has not been updated to work on devices
-              with small screens.
-            </p>
-            <p>
-              We are currently working on it, and should have an update out in
-              the coming days. Until then, please open page on a different
-              device.
-            </p>
-          </div>
-          <Footer />
         </div>
       </AppContext.Provider>
     );
@@ -303,17 +289,6 @@ export default styled(App)`
     p {
       margin: 0;
       padding: ${p => p.theme.spacingPx / 2}px;
-    }
-  }
-
-  ${SMALL_DEVICES} {
-    position: relative;
-
-    > main {
-      display: none;
-    }
-    .mobile-message {
-      display: block;
     }
   }
 
