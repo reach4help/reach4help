@@ -90,7 +90,8 @@ export default styled(Languages)`
       }
     }
 
-    &:hover {
+    &:hover,
+    &.languages__control--is-focused {
       .languages__single-value,
       .chevron {
         color: ${p => p.theme.colors.brand.primaryDark};

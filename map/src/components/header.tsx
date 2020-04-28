@@ -150,7 +150,7 @@ export default styled(Header)`
         box-sizing: border-box;
         border-radius: 6px;
 
-        &: hover {
+        &: hover, &:focus {
           background: ${p => p.theme.colors.brand.primary};
         }
       }
@@ -179,7 +179,8 @@ export default styled(Header)`
         color: rgba(255, 255, 255, 0.6);
         outline: none;
 
-        &:hover {
+        &:hover,
+        &:focus {
           color: #fff;
         }
 
