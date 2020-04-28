@@ -30,7 +30,7 @@ import {
   Service,
   SERVICE_STRINGS,
 } from '../data';
-import styled from '../styling';
+import styled, { LARGE_DEVICES } from '../styling';
 import {
   button,
   buttonPrimary,
@@ -1172,7 +1172,7 @@ export default styled(AddInstructions)`
   z-index: 100;
   font-size: 1rem;
   position: absolute;
-  top: ${p => p.theme.secondaryHeaderSizePx}px;
+  top: 0;
   left: 0;
   bottom: 0;
   right: 0;
@@ -1180,6 +1180,10 @@ export default styled(AddInstructions)`
   align-items: flex-start;
   justify-content: flex-start;
   pointer-events: none;
+
+  ${LARGE_DEVICES} {
+    top: ${p => p.theme.secondaryHeaderSizePx}px;
+  }
 
   > .screen {
     pointer-events: initial;

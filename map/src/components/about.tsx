@@ -1,7 +1,7 @@
 import React from 'react';
 import { t } from 'src/i18n';
 import { Page } from 'src/state';
-import styled, { NON_LARGE_DEVICES } from 'src/styling';
+import styled, { LARGE_DEVICES, NON_LARGE_DEVICES } from 'src/styling';
 
 import Marker from './assets/marker';
 import { AppContext } from './context';
@@ -94,12 +94,16 @@ export default styled(About)`
   background-size: cover;
   background-position: center;
   position: absolute;
-  top: ${p => p.theme.secondaryHeaderSizePx}px;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 0 20px;
   overflow-y: auto;
+
+  ${LARGE_DEVICES} {
+    top: ${p => p.theme.secondaryHeaderSizePx}px;
+  }
 
   &.page-about {
     opacity: 1;

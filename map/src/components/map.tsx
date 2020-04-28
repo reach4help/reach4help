@@ -15,7 +15,7 @@ import { button, iconButton } from 'src/styling/mixins';
 import { isDefined } from 'src/util';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
-import styled from '../styling';
+import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
 import { AppContext } from './context';
 import {
@@ -708,9 +708,13 @@ export default styled(MapComponent)`
     position: absolute;
     z-index: 100;
     max-width: 500px;
-    top: ${p => p.theme.spacingPx + p.theme.secondaryHeaderSizePx}px;
+    top: ${p => p.theme.spacingPx}px;
     left: ${p => p.theme.spacingPx}px;
     right: 40px;
+
+    ${LARGE_DEVICES} {
+      top: ${p => p.theme.spacingPx + p.theme.secondaryHeaderSizePx}px;
+    }
   }
 
   > .map-actions {

@@ -10,7 +10,11 @@ import { ContactDetails } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
 import { buttonPrimary } from 'src/styling/mixins';
 
-import styled, { CLS_SCREEN_LG_HIDE, CLS_SCREEN_LG_ONLY } from '../styling';
+import styled, {
+  CLS_SCREEN_LG_HIDE,
+  CLS_SCREEN_LG_ONLY,
+  LARGE_DEVICES,
+} from '../styling';
 import { AppContext } from './context';
 import MarkerType from './marker-type';
 
@@ -192,13 +196,16 @@ const Results = (props: Props) => {
 const HEADER_HEIGHT_PX = 52;
 
 export default styled(Results)`
-  margin-top: ${p => p.theme.secondaryHeaderSizePx}px;
   background: #fff;
   z-index: 100;
   position: relative;
   display: flex;
   flex-direction: column;
   border-left: ${p => p.theme.borderLight};
+
+  ${LARGE_DEVICES} {
+    margin-top: ${p => p.theme.secondaryHeaderSizePx}px;
+  }
 
   > .header {
     z-index: 200;

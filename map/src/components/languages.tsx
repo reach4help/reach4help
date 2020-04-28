@@ -31,6 +31,7 @@ const OPTIONS = [...OPTIONS_MAP.values()];
 
 interface Props {
   className?: string;
+  button: boolean;
 }
 
 class Languages extends React.Component<Props, {}> {
@@ -41,18 +42,24 @@ class Languages extends React.Component<Props, {}> {
   };
 
   public render() {
-    const { className } = this.props;
+    const { className, button } = this.props;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <Select
-            className={className}
+            className={`${className} ${button ? 'button' : ''}`}
             classNamePrefix={className}
             value={OPTIONS_MAP.get(lang) || null}
             onChange={this.changeLanguage}
             options={OPTIONS}
             isSearchable={false}
             components={{
+              ValueContainer: props => (
+                <div className="value-container">{props.children}</div>
+              ),
+              SingleValue: props => (
+                <div className="single-value">{props.children}</div>
+              ),
               DropdownIndicator: () => <Chevron className="chevron" />,
               IndicatorSeparator: () => null,
             }}
@@ -68,12 +75,18 @@ export default styled(Languages)`
     border: none;
     box-shadow: none;
     cursor: pointer;
+    background: none;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: middle;
+    padding: 0 10px;
 
-    .languages__value-container {
-      justify-content: flex-end;
+    .value-container {
+      display: flex;
+      margin: 0 2px;
     }
 
-    .languages__single-value {
+    .single-value {
       font-weight: bold;
       font-size: 15px;
       color: ${p => p.theme.colors.brand.primaryDark1};
@@ -82,6 +95,7 @@ export default styled(Languages)`
     .chevron {
       color: ${p => p.theme.colors.brand.primaryDark1};
       opacity: 0.6;
+      margin: 0 2px;
     }
 
     &.languages__control--menu-is-open {
@@ -92,11 +106,15 @@ export default styled(Languages)`
 
     &:hover,
     &.languages__control--is-focused {
-      .languages__single-value,
+      .single-value,
       .chevron {
         color: ${p => p.theme.colors.brand.primaryDark};
       }
     }
+  }
+  .languages__menu {
+    width: initial;
+    min-width: 100%;
   }
   .languages__option {
     cursor: pointer;
@@ -106,5 +124,12 @@ export default styled(Languages)`
   }
   .languages__option--is-selected {
     background: ${p => p.theme.colors.brand.primary};
+  }
+
+  &.button {
+    .languages__control {
+      padding: 11px 30px;
+      background: rgba(31, 0, 41, 0.05);
+    }
   }
 `;
