@@ -1,6 +1,7 @@
 import { Layout } from 'antd';
 import React, { useState } from 'react';
 import { MenuItem } from 'src/types/menu-item';
+import { ProfileData } from 'src/types/profile-data';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import SideDrawer from '../SideDrawer/SideDrawer';
@@ -36,12 +37,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
 interface DashboardLayoutProps {
   menuItems: Array<MenuItem>;
-  profileData: {
-    fullName: string;
-    photoUrl: string;
-    followers: number;
-    stars: number;
-  };
+  profileData: ProfileData;
   siteLocations: any;
   children?: React.ReactNode;
 }

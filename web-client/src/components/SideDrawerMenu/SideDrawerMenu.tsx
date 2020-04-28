@@ -5,16 +5,15 @@ import { COLORS } from 'src/theme/colors';
 import { MenuItem } from 'src/types/menu-item';
 import styled from 'styled-components';
 
-const SideNavMenuItem: React.FC<SideNavMenuItemProps> = ({
+const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
   item,
   closeSider,
   ...other
 }) => {
-  const { SubMenu } = Menu;
   let menuItem: React.ReactNode;
   if (item.children) {
     menuItem = (
-      <SubMenu
+      <Menu.SubMenu
         key={item.id}
         title={
           <>
@@ -25,14 +24,14 @@ const SideNavMenuItem: React.FC<SideNavMenuItemProps> = ({
         {...other}
       >
         {item.children.map((subItem: MenuItem) => (
-          <SideNavMenuItem
+          <SideDrawerMenuItem
             key={subItem.id}
             item={subItem}
             closeSider={closeSider}
             {...other}
           />
         ))}
-      </SubMenu>
+      </Menu.SubMenu>
     );
   } else {
     menuItem = (
@@ -59,17 +58,20 @@ const SideNavMenuItem: React.FC<SideNavMenuItemProps> = ({
   );
 };
 
-const SideNavMenu: React.FC<SideNavMenuProps> = ({ items, closeSider }) => (
-  <SideNavMenuWrapper>
+const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
+  items,
+  closeSider,
+}) => (
+  <Wrapper>
     <Menu mode="inline">
       {items.map((item: MenuItem, index) => (
-        <SideNavMenuItem key={index} item={item} closeSider={closeSider} />
+        <SideDrawerMenuItem key={index} item={item} closeSider={closeSider} />
       ))}
     </Menu>
-  </SideNavMenuWrapper>
+  </Wrapper>
 );
 
-const SideNavMenuWrapper = styled.div`
+const Wrapper = styled.div`
   .ant-menu {
     background: ${COLORS.backgroundLightGray};
 
@@ -117,14 +119,14 @@ const SideNavMenuWrapper = styled.div`
   }
 `;
 
-interface SideNavMenuItemProps extends RouteProps {
+interface SideDrawerMenuItemProps extends RouteProps {
   item: MenuItem;
   closeSider: () => void;
 }
 
-interface SideNavMenuProps extends RouteProps {
+interface SideDrawerMenuProps extends RouteProps {
   items: Array<MenuItem>;
   closeSider: () => void;
 }
 
-export default SideNavMenu;
+export default SideDrawerMenu;

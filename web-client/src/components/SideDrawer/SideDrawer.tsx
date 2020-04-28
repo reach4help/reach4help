@@ -3,10 +3,11 @@ import { Layout } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem } from 'src/types/menu-item';
+import { ProfileData } from 'src/types/profile-data';
 import styled from 'styled-components';
 
+import SideDrawerMenu from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
-import SideNavMenu from '../SideNavMenu/SideNavMenu';
 
 const SideDrawer: React.FC<SideDrawerProps> = ({
   collapsed,
@@ -20,7 +21,7 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
       <CloseOutlined />
     </CloseButton>
     <SideDrawerProfile profileData={profileData} />
-    <SideNavMenu items={menuItems || []} closeSider={closeSider} />
+    <SideDrawerMenu items={menuItems || []} closeSider={closeSider} />
     <BottomLinks>
       <Link to={{ pathname: siteLocations.contact.path }} onClick={closeSider}>
         <MailOutlined />
@@ -67,12 +68,7 @@ interface SideDrawerProps {
   collapsed: boolean;
   closeSider: () => void;
   menuItems: Array<MenuItem>;
-  profileData: {
-    fullName: string;
-    photoUrl: string;
-    followers: number;
-    stars: number;
-  };
+  profileData: ProfileData;
   siteLocations: any;
 }
 
