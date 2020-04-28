@@ -1,20 +1,12 @@
-import {
-  CloseOutlined,
-  LogoutOutlined,
-  MailOutlined,
-  StarOutlined,
-  TeamOutlined,
-} from '@ant-design/icons';
-import { Layout, Typography } from 'antd';
+import { CloseOutlined, LogoutOutlined, MailOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { COLORS } from 'src/theme/colors';
 import { MenuItem } from 'src/types/menu-item';
 import styled from 'styled-components';
 
+import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 import SideNavMenu from '../SideNavMenu/SideNavMenu';
-
-const { Text } = Typography;
 
 const SideDrawer: React.FC<SideDrawerProps> = ({
   collapsed,
@@ -27,22 +19,7 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
     <CloseButton onClick={closeSider}>
       <CloseOutlined />
     </CloseButton>
-    <ProfileWrapper>
-      <ProfileImg src={profileData.photoUrl} />
-      <ProfileContent>
-        <ProfileUserName>{profileData.fullName}</ProfileUserName>
-        <ProfileDetails>
-          <ProfileDetail>
-            <TeamOutlined />
-            {profileData.followers}
-          </ProfileDetail>
-          <ProfileDetail>
-            <StarOutlined />
-            {profileData.stars}
-          </ProfileDetail>
-        </ProfileDetails>
-      </ProfileContent>
-    </ProfileWrapper>
+    <SideDrawerProfile profileData={profileData} />
     <SideNavMenu items={menuItems || []} closeSider={closeSider} />
     <BottomLinks>
       <Link to={{ pathname: siteLocations.contact.path }} onClick={closeSider}>
@@ -65,42 +42,6 @@ const CloseButton = styled.button`
   background: inherit;
   border: none;
   outline: none;
-`;
-
-const ProfileWrapper = styled.div`
-  display: flex;
-  background: ${COLORS.backgroundLightGray};
-  padding: 30px 15px;
-`;
-
-const ProfileImg = styled.img`
-  width: 56px;
-  height: 56px;
-  border-radius: 56px;
-  background-color: darkgray;
-`;
-
-const ProfileContent = styled.div`
-  margin-left: 14px;
-`;
-
-const ProfileUserName = styled(Text)`
-  font-size: 1.2rem;
-`;
-
-const ProfileDetails = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`;
-
-const ProfileDetail = styled.span`
-  color: inherit;
-  font-size: 0.8rem;
-  margin-right: 10px;
-
-  svg {
-    color: ${COLORS.primary};
-  }
 `;
 
 const BottomLinks = styled.div`
