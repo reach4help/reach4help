@@ -7,7 +7,7 @@ import { AddInfoStep } from './components/add-information';
 import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
-import Header from './components/header-old';
+import Header from './components/header';
 import Map, { MarkerIdAndInfo } from './components/map';
 import MapLoader from './components/map-loader';
 import Results from './components/results';
@@ -162,14 +162,7 @@ class App extends React.Component<Props, State> {
             ))}
             <link rel="canonical" href={i18n.canonicalUrl(lang)} />
           </Helmet>
-          <Header
-            filter={filter}
-            updateFilter={this.setFilter}
-            addInfoStep={addInfoStep}
-            setAddInfoStep={this.setAddInfoStep}
-            fullScreen={fullScreen}
-            toggleFullscreen={this.toggleFullscreen}
-          />
+          <Header setAddInfoStep={this.setAddInfoStep} />
           <main
             className={`results-${effectiveResultsMode} ${
               addInfoStep ? 'add-info' : ''
@@ -238,6 +231,10 @@ export default styled(App)`
   display: flex;
   flex-direction: column;
   color: ${p => p.theme.textColor};
+
+  * {
+    font-family: 'Roboto', sans-serif;
+  }
 
   &.fullscreen {
     /**

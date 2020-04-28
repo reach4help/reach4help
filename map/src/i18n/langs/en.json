@@ -4,8 +4,7 @@
   "about": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
   "githubSourceLabel": "found on GitHub",
   "addInformation": {
-    "small": "Add information",
-    "large": "Add information to this map",
+    "button": "Add information",
     "backToMap": "Back to map",
     "prev": "Back",
     "continue": "Continue",

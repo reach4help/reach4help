@@ -1,21 +1,42 @@
 import React from 'react';
-import { isValidLanguage, LANGUAGES, setLanguage, t } from 'src/i18n';
-import { buttonPrimary } from 'src/styling/mixins';
+import Select, { ValueType } from 'react-select';
+import Chevron from 'src/components/assets/chevron';
+import {
+  isValidLanguage,
+  Language,
+  LANGUAGE_KEYS,
+  LANGUAGES,
+  setLanguage,
+} from 'src/i18n';
 
 import styled from '../styling';
 import { AppContext } from './context';
+
+type Option = {
+  value: Language;
+  label: string;
+};
+
+const isOption = (option: ValueType<Option>): option is Option =>
+  !!(option && isValidLanguage((option as Option).value));
+
+const OPTIONS_MAP = new Map(
+  LANGUAGE_KEYS.map(value => [
+    value,
+    { value, label: LANGUAGES[value].meta.name },
+  ]),
+);
+
+const OPTIONS = [...OPTIONS_MAP.values()];
 
 interface Props {
   className?: string;
 }
 
 class Languages extends React.Component<Props, {}> {
-  private changeLanguage = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ): void => {
-    const language = event.currentTarget.value;
-    if (isValidLanguage(language)) {
-      setLanguage(language);
+  private changeLanguage = (option: ValueType<Option>): void => {
+    if (isOption(option)) {
+      setLanguage(option.value);
     }
   };
 
@@ -24,16 +45,18 @@ class Languages extends React.Component<Props, {}> {
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <div className={className}>
-            {t(lang, s => s.lang)}
-            <select onChange={this.changeLanguage} value={lang}>
-              {Object.entries(LANGUAGES).map(([value, data]) => (
-                <option key={value} value={value}>
-                  {data.meta.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <Select
+            className={className}
+            classNamePrefix={className}
+            value={OPTIONS_MAP.get(lang) || null}
+            onChange={this.changeLanguage}
+            options={OPTIONS}
+            isSearchable={false}
+            components={{
+              DropdownIndicator: () => <Chevron className="chevron" />,
+              IndicatorSeparator: () => null,
+            }}
+          />
         )}
       </AppContext.Consumer>
     );
@@ -41,13 +64,46 @@ class Languages extends React.Component<Props, {}> {
 }
 
 export default styled(Languages)`
-  select {
-    margin: 0 5px;
-    ${buttonPrimary};
-    padding: 7px 11px;
+  .languages__control {
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
 
-    &:focus {
-      background: ${p => p.theme.colors.brand.primaryLight};
+    .languages__value-container {
+      justify-content: flex-end;
     }
+
+    .languages__single-value {
+      font-weight: bold;
+      font-size: 15px;
+      color: ${p => p.theme.colors.brand.primaryDark1};
+    }
+
+    .chevron {
+      color: ${p => p.theme.colors.brand.primaryDark1};
+      opacity: 0.6;
+    }
+
+    &.languages__control--menu-is-open {
+      .chevron {
+        transform: rotate(180deg);
+      }
+    }
+
+    &:hover {
+      .languages__single-value,
+      .chevron {
+        color: ${p => p.theme.colors.brand.primaryDark};
+      }
+    }
+  }
+  .languages__option {
+    cursor: pointer;
+  }
+  .languages__option--is-focused {
+    background: ${p => p.theme.colors.brand.primaryLight1};
+  }
+  .languages__option--is-selected {
+    background: ${p => p.theme.colors.brand.primary};
   }
 `;

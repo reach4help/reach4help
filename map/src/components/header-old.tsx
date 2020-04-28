@@ -1,23 +1,13 @@
 import React from 'react';
-import {
-  MdAdd,
-  MdExplore,
-  MdFullscreen,
-  MdFullscreenExit,
-} from 'react-icons/md';
+import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';
 import { Filter } from 'src/data';
 import { t } from 'src/i18n';
 import { buttonPrimary, iconButton } from 'src/styling/mixins';
 
-import styled, {
-  CLS_SCREEN_LG_HIDE,
-  CLS_SCREEN_LG_ONLY,
-  SMALL_DEVICES,
-} from '../styling';
+import styled, { SMALL_DEVICES } from '../styling';
 import { AddInfoStep } from './add-information';
 import { AppContext } from './context';
 import Filters, { FilterMutator } from './filters';
-import Languages from './languages';
 
 interface Props {
   className?: string;
@@ -34,8 +24,6 @@ const Header = (props: Props) => {
     className,
     filter,
     updateFilter,
-    addInfoStep,
-    setAddInfoStep,
     fullScreen,
     toggleFullscreen,
   } = props;
@@ -83,7 +71,6 @@ const Header = (props: Props) => {
               filter={filter}
               updateFilter={updateFilter}
             />
-            <Languages className="filters" />
             <div className="grow" />
             <button className="fs" type="button" onClick={toggleFullscreen}>
               <FullScreenIcon className="icon icon-start" />
@@ -92,29 +79,6 @@ const Header = (props: Props) => {
                   fullScreen ? s.buttons.exitFullScreen : s.buttons.fullScreen,
                 )}
               </span>
-            </button>
-            <button
-              className="add"
-              type="button"
-              onClick={() => setAddInfoStep(addInfoStep ? null : 'information')}
-            >
-              {addInfoStep ? (
-                <MdExplore className="icon icon-start" />
-              ) : (
-                <MdAdd className="icon icon-start" />
-              )}
-              {addInfoStep ? (
-                <span>{t(lang, s => s.addInformation.backToMap)}</span>
-              ) : (
-                <span>
-                  <span className={CLS_SCREEN_LG_HIDE}>
-                    {t(lang, s => s.addInformation.small)}
-                  </span>
-                  <span className={CLS_SCREEN_LG_ONLY}>
-                    {t(lang, s => s.addInformation.large)}
-                  </span>
-                </span>
-              )}
             </button>
           </div>
         </header>
