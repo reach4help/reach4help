@@ -7,7 +7,7 @@ import { AddInfoStep } from './components/add-information';
 import { AppContext } from './components/context';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
-import Header from './components/header';
+import Header from './components/header-old';
 import Map, { MarkerIdAndInfo } from './components/map';
 import MapLoader from './components/map-loader';
 import Results from './components/results';
