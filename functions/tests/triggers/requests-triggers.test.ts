@@ -1,12 +1,6 @@
 import * as firebase from '@firebase/testing';
-import * as fs from 'fs';
 
 const projectId = 'reach-4-help-test';
-
-const rules = fs.readFileSync(
-  `${__dirname}/../../../firebase/firestore.rules`,
-  'utf8',
-);
 
 /**
  * Creates a new app with admin authentication.
@@ -17,10 +11,6 @@ const rules = fs.readFileSync(
 const adminApp = () => {
   return firebase.initializeAdminApp({ projectId }).firestore();
 };
-
-beforeAll(async () => {
-  await firebase.loadFirestoreRules({ projectId, rules });
-});
 
 beforeEach(async () => {
   // Clear the database between tests
