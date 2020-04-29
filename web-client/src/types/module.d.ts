@@ -1,5 +1,3 @@
-import { MenuItem } from './menu-item';
-
 export interface Module {
   path: string;
   protected?: boolean;

@@ -1,10 +1,10 @@
 import { Layout } from 'antd';
 import React, { useState } from 'react';
-import { MenuItem } from 'src/types/menu-item';
-import { ProfileData } from 'src/types/profile-data';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import SideDrawer from '../SideDrawer/SideDrawer';
+import { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
+import { ProfileData } from '../SideDrawerProfile/SideDrawerProfile';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({

@@ -2,12 +2,12 @@ import { CloseOutlined, LogoutOutlined, MailOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MenuItem } from 'src/types/menu-item';
-import { ProfileData } from 'src/types/profile-data';
 import styled from 'styled-components';
 
-import SideDrawerMenu from '../SideDrawerMenu/SideDrawerMenu';
-import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
+import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
+import SideDrawerProfile, {
+  ProfileData,
+} from '../SideDrawerProfile/SideDrawerProfile';
 
 const SideDrawer: React.FC<SideDrawerProps> = ({
   collapsed,

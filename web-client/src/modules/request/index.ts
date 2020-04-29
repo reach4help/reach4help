@@ -9,9 +9,9 @@ import {
 import { uniqueId } from 'lodash';
 import React from 'react';
 import Location from 'react-app-location';
+import { MenuItem } from 'src/components/SideDrawerMenu/SideDrawerMenu';
 import { Module } from 'src/types/module';
 
-import { MenuItem } from '../../types/menu-item';
 import ContentPage from './pages/ContentPage';
 import { NewRequestLocation } from './pages/routes/NewRequestRoute/constants';
 

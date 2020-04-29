@@ -1,8 +1,8 @@
 import { Menu } from 'antd';
 import React from 'react';
+import Location from 'react-app-location';
 import { Link, RouteProps } from 'react-router-dom';
 import { COLORS } from 'src/theme/colors';
-import { MenuItem } from 'src/types/menu-item';
 import styled from 'styled-components';
 
 const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
@@ -118,6 +118,14 @@ const Wrapper = styled.div`
     color: inherit;
   }
 `;
+
+export interface MenuItem {
+  id: string;
+  icon?: React.ReactNode;
+  title: string;
+  children?: Array<MenuItem>;
+  location?: Location;
+}
 
 interface SideDrawerMenuItemProps extends RouteProps {
   item: MenuItem;

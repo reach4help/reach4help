@@ -1,10 +1,9 @@
 import React from 'react';
 import Location from 'react-app-location';
 import { Route, RouteProps } from 'react-router-dom';
-import { MenuItem } from 'src/types/menu-item';
-import { ProfileData } from 'src/types/profile-data';
-
-import DashboardLayout from '../../components/DashboardLayout/DashboardLayout';
+import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
+import { MenuItem } from 'src/components/SideDrawerMenu/SideDrawerMenu';
+import { ProfileData } from 'src/components/SideDrawerProfile/SideDrawerProfile';
 
 // TODO remove when using real profile state
 const mockProfileData: ProfileData = {

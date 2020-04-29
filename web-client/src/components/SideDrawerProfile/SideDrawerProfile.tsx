@@ -4,7 +4,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
-import { ProfileData } from '../../types/profile-data';
 
 const { Text } = Typography;
 
@@ -67,6 +66,13 @@ const Detail = styled.span`
     color: ${COLORS.primary};
   }
 `;
+
+export interface ProfileData {
+  displayName: string;
+  displayPicture: string;
+  casesCompleted: number;
+  averageRating: number;
+}
 
 interface SideDrawerProfileProps {
   profileData: ProfileData;
