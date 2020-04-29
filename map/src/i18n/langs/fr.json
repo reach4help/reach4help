@@ -1,11 +1,25 @@
 {
   "title": "Carte d'entraide face au COVID-19",
-  "info": "Afin d'aider les gens à trouver de l'aide, à joindre leurs efforts pour s'entraider près de chez eux, leur donner envie de lancer leur propre initiative, et/ou simplement de se remonter le moral, voici une liste de projets d'entraide pour faire face à cette pandémie. N.B.: Chaque projet est autonome et indépendant ; Beaucoup utilisent des feuilles de calcul publiques pour partager des informations. Nous vous recommandons d'être prudents lorsque vous saisissez des informations privées.",
-  "about": "Cette carte fait partie de {reach4Help}, un projet porté par des volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter à l'adresse {email}.",
-  "githubSourceLabel": "trouvée sur GitHub",
+  "aboutScreen": {
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "found on GitHub",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasLocations": {
+      "france": "France",
+      "nyc": "New York",
+      "uk": "United Kingdom"
+    }
+  },
+  "menu": {
+    "about": "About",
+    "map": "View Map"
+  },
   "addInformation": {
-    "small": "Ajouter des informations",
-    "large": "Ajouter des informations à cette carte",
+    "button": "Add information",
     "backToMap": "Retour à la carte",
     "prev": "Retour",
     "continue": "Continuer",
@@ -127,10 +141,6 @@
     "myLocation": "Ma position"
   },
   "results": {
-    "updateResults": {
-      "small": "Mettre les résultats à jour",
-      "large": "Mettre à jour les résultats pour cette zone"
-    },
     "count": "{results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "contact": {
       "general": "Informations Générales:",
