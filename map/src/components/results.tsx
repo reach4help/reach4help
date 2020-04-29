@@ -104,7 +104,15 @@ class Results extends React.PureComponent<Props, State> {
     };
   }
 
-  private toggle = () => this.setState(state => ({ open: !state.open }));
+  private toggle = () => {
+    const { selectedResult, setSelectedResult } = this.props;
+    if (selectedResult) {
+      setSelectedResult(null);
+      this.setState({ open: false });
+    } else {
+      this.setState(state => ({ open: !state.open }));
+    }
+  };
 
   public render() {
     const {
@@ -119,7 +127,11 @@ class Results extends React.PureComponent<Props, State> {
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <div className={`${className} ${open ? 'open' : ''}`}>
+          <div
+            className={`${className} ${open ? 'open' : ''} ${
+              selectedResult ? 'selected-result' : ''
+            }`}
+          >
             <div className="header">
               <button type="button" className="toggle" onClick={this.toggle}>
                 <span className="count">
@@ -316,12 +328,9 @@ export default styled(Results)`
 
   > .details {
     background: #fff;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
     padding: ${p => p.theme.spacingPx}px;
     overflow-y: auto;
+    flex-grow: 1;
 
     > .name {
       font-size: 1.5rem;
@@ -372,6 +381,23 @@ export default styled(Results)`
 
     > .list {
       display: block;
+    }
+  }
+
+  &.selected-result {
+    > .header > button.toggle > .chevron {
+      transform: rotate(180deg);
+    }
+
+    > .update {
+      display: none;
+    }
+
+    // Keep visible (rather than display:none) to maintain scroll position
+    > .list {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
     }
   }
 `;
