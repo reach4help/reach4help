@@ -33,10 +33,93 @@ export interface MapInfo {
       };
 }
 
+export type SearchBoxId = 'main' | 'add-information';
+
+interface SearchBox {
+  searchInput: HTMLInputElement;
+  box: google.maps.places.SearchBox;
+}
+
 let state: MapState | null = null;
 
 class MapState {
-  public map: MapInfo | null = null;
+  private _map: MapInfo | null = null;
+
+  private readonly searchBoxes = new Map<SearchBoxId, SearchBox>();
+
+  public set map(map: MapInfo | null) {
+    this._map = map;
+    if (map) {
+      // Add listener that update the search boxes when
+      map.map.addListener('bounds_changed', () => {
+        const bounds = map.map.getBounds();
+        if (bounds) {
+          for (const box of this.searchBoxes.values()) {
+            box.box.setBounds(bounds);
+          }
+        }
+      });
+    }
+  }
+
+  public get map() {
+    return this._map;
+  }
+
+  public updateSearchInputRef = (
+    id: SearchBoxId,
+    searchInput: HTMLInputElement | null,
+  ) => {
+    if (searchInput) {
+      this.searchBoxes.set(id, this.initializeSearchInput(searchInput));
+    } else {
+      this.searchBoxes.delete(id);
+    }
+  };
+
+  private initializeSearchInput = (
+    searchInput: HTMLInputElement,
+  ): SearchBox => {
+    const box = new google.maps.places.SearchBox(searchInput);
+    const searchBox: SearchBox = {
+      searchInput,
+      box,
+    };
+
+    searchBox.box.addListener('places_changed', () => {
+      if (!this.map) {
+        return;
+      }
+
+      const places = box.getPlaces();
+      const bounds = new window.google.maps.LatLngBounds();
+
+      if (places.length === 0) {
+        return;
+      }
+
+      places.forEach(place => {
+        if (!place.geometry) {
+          return;
+        }
+
+        if (place.geometry.viewport) {
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+
+      this.map.map.fitBounds(bounds);
+    });
+    if (this.map) {
+      const bounds = this.map.map.getBounds();
+      if (bounds) {
+        searchBox.box.setBounds(bounds);
+      }
+    }
+    return searchBox;
+  };
 }
 
 export default () => {

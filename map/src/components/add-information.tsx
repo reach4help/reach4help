@@ -65,7 +65,6 @@ interface Props {
   map: google.maps.Map | null;
   addInfoStep: AddInfoStep;
   setPage: (page: Page) => void;
-  updateSearchInput: (input: HTMLInputElement | null) => void;
   setAddInfoMapClickedListener: (
     listener: ((evt: google.maps.MouseEvent) => void) | null,
   ) => void;
@@ -864,7 +863,7 @@ class AddInstructions extends React.Component<Props, State> {
   };
 
   public render = () => {
-    const { className, addInfoStep, updateSearchInput, setPage } = this.props;
+    const { className, addInfoStep, setPage } = this.props;
     const { info, validation, submissionResult } = this.state;
     return (
       <AppContext.Consumer>
@@ -1051,10 +1050,7 @@ class AddInstructions extends React.Component<Props, State> {
                     nextScreen: this.completeMarkerPlacement,
                   })}
                 </div>
-                <Search
-                  className="search"
-                  updateSearchInput={updateSearchInput}
-                />
+                <Search className="search" searchInputId="add-information" />
               </div>
             )}
             {addInfoStep === 'contact-details' && (

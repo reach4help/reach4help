@@ -1,4 +1,5 @@
 import React from 'react';
+import mapState, { SearchBoxId } from 'src/components/map-utils/map-state';
 import { t } from 'src/i18n';
 
 import styled from '../styling';
@@ -6,18 +7,18 @@ import { AppContext } from './context';
 
 interface Props {
   className?: string;
-  updateSearchInput: (input: HTMLInputElement | null) => void;
+  searchInputId: SearchBoxId;
 }
 
 class Search extends React.Component<Props, {}> {
   public render() {
-    const { className, updateSearchInput } = this.props;
+    const { className, searchInputId } = this.props;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
             <input
-              ref={updateSearchInput}
+              ref={ref => mapState().updateSearchInputRef(searchInputId, ref)}
               type="text"
               placeholder={t(lang, s => s.map.jumpToLocation)}
             />

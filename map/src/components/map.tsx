@@ -68,13 +68,6 @@ interface Props {
   setPage: (page: Page) => void;
 }
 
-type SearchBoxes = 'main' | 'add-information';
-
-interface SearchBox {
-  searchInput: HTMLInputElement;
-  box: google.maps.places.SearchBox;
-}
-
 class MapComponent extends React.Component<Props, {}> {
   private readonly data: MarkerData = {
     hardcoded: new Map(),
@@ -84,8 +77,6 @@ class MapComponent extends React.Component<Props, {}> {
   private addInfoMapClickedListener:
     | ((evt: google.maps.MouseEvent) => void)
     | null = null;
-
-  private readonly searchBoxes = new Map<SearchBoxes, SearchBox>();
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
@@ -281,12 +272,6 @@ class MapComponent extends React.Component<Props, {}> {
     this.updateMarkersVisibilityUsingFilter(filter);
 
     map.addListener('bounds_changed', () => {
-      const bounds = map.getBounds();
-      if (bounds) {
-        for (const box of this.searchBoxes.values()) {
-          box.box.setBounds(bounds);
-        }
-      }
       if ('replaceState' in window.history) {
         debouncedUpdateQueryStringMapLocation(map);
       }
@@ -537,70 +522,6 @@ class MapComponent extends React.Component<Props, {}> {
     );
   };
 
-  private initializeSearchInput = (
-    searchInput: HTMLInputElement,
-  ): SearchBox => {
-    const { map } = mapState();
-    const box = new google.maps.places.SearchBox(searchInput);
-    const searchBox: SearchBox = {
-      searchInput,
-      box,
-    };
-
-    searchBox.box.addListener('places_changed', () => {
-      if (!map) {
-        return;
-      }
-
-      const places = box.getPlaces();
-      const bounds = new window.google.maps.LatLngBounds();
-
-      if (places.length === 0) {
-        return;
-      }
-
-      places.forEach(place => {
-        if (!place.geometry) {
-          return;
-        }
-
-        if (place.geometry.viewport) {
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-
-      map.map.fitBounds(bounds);
-    });
-    if (map) {
-      const bounds = map.map.getBounds();
-      if (bounds) {
-        searchBox.box.setBounds(bounds);
-      }
-    }
-    return searchBox;
-  };
-
-  private updateSearchInput = (searchInput: HTMLInputElement | null) => {
-    if (searchInput) {
-      this.searchBoxes.set('main', this.initializeSearchInput(searchInput));
-    } else {
-      this.searchBoxes.delete('main');
-    }
-  };
-
-  private updateAddInfoSearchInput = (searchInput: HTMLInputElement | null) => {
-    if (searchInput) {
-      this.searchBoxes.set(
-        'add-information',
-        this.initializeSearchInput(searchInput),
-      );
-    } else {
-      this.searchBoxes.delete('add-information');
-    }
-  };
-
   public render() {
     const { map } = mapState();
     const { className, results, nextResults, page, setPage } = this.props;
@@ -611,10 +532,7 @@ class MapComponent extends React.Component<Props, {}> {
           <div className={className}>
             <div className="map" ref={this.updateGoogleMapRef} />
             {page.page === 'map' && (
-              <Search
-                className="search"
-                updateSearchInput={this.updateSearchInput}
-              />
+              <Search className="search" searchInputId="main" />
             )}
             {page.page === 'add-information' && (
               <AddInstructions
@@ -622,7 +540,6 @@ class MapComponent extends React.Component<Props, {}> {
                 map={(map && map.map) || null}
                 addInfoStep={page.step}
                 setPage={setPage}
-                updateSearchInput={this.updateAddInfoSearchInput}
                 setAddInfoMapClickedListener={this.setAddInfoMapClickedListener}
               />
             )}
