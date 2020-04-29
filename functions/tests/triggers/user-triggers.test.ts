@@ -1,15 +1,8 @@
 import { triggerEventsWhenUserIsCreated } from '../../src/users/index'
 import * as firebase from '@firebase/testing';
-import * as fs from 'fs';
 import * as Test from 'firebase-functions-test';
 
 const projectId = 'reach-4-help-test';
-
-const rules = fs.readFileSync(
-  `${__dirname}/../../../firebase/firestore.rules`,
-  'utf8',
-);
-
 /**
  * Creates a new app with admin authentication.
  *
@@ -19,10 +12,6 @@ const rules = fs.readFileSync(
 const adminApp = () => {
   return firebase.initializeAdminApp({ projectId }).firestore();
 };
-
-beforeAll(async () => {
-  await firebase.loadFirestoreRules({ projectId, rules });
-});
 
 beforeEach(async () => {
   // Clear the database between tests
@@ -40,24 +29,22 @@ describe('user triggers', () => {
     const db = adminApp();
     let userRef = db.collection('users').doc('user1');
     
-    return userRef.set({username: 'fsdfs'})
-    .then(result=>{
+    return userRef.set({displayName: 'fsdfs'})
+    .then((result): Promise<firebase.firestore.DocumentSnapshot> =>{
       return userRef.get()
     })
     .then(snap=>{
-        console.log("snap.data: ", JSON.stringify(snap.data()));
-
         let wrapped = test.wrap(triggerEventsWhenUserIsCreated);
-
-        return wrapped(snap) 
+        return wrapped(snap, {
+          params: {
+            userId: 'user1'
+          }
+        }) 
     })
     .then(()=>{
-          
       return userRef.get()
-      
     })
     .then(snapAfter=>{
-      console.log("snapAfter: ", snapAfter.data());
       expect(snapAfter.exists).toBeFalsy();
     })
 
