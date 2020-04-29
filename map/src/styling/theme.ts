@@ -46,7 +46,8 @@ export const THEME = {
   textLinkHoverColor: COLORS.purple,
   colors: COLORS,
   opacityTransition: 'opacity 0.2s',
-  overlayPaddingPx: 40,
+  overlayPaddingLargePx: 40,
+  overlayPaddingPx: 17,
   overlayPanelWidthPx: 320,
 };
 

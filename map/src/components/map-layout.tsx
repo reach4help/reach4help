@@ -2,7 +2,7 @@ import React from 'react';
 import MapLoader from 'src/components/map-loader';
 import { Filter } from 'src/data';
 import { Page } from 'src/state';
-import styled, { LARGE_DEVICES } from 'src/styling';
+import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
 import FilterType, { FilterMutator } from './filter-type';
 import MyLocation from './my-location-button';
@@ -75,12 +75,18 @@ export default styled(MapLayout)`
 
     ${LARGE_DEVICES} {
       top: ${p => p.theme.secondaryHeaderSizePx}px;
+      padding: ${p => p.theme.overlayPaddingLargePx}px;
     }
 
     > .panel {
       width: ${p => p.theme.overlayPanelWidthPx}px;
       display: flex;
       flex-direction: column;
+
+      ${SMALL_DEVICES} {
+        width: initial;
+        flex-grow: 1;
+      }
 
       > .controls {
         background: #fff;
