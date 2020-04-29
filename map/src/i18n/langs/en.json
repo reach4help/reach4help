@@ -7,7 +7,7 @@
     "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
     "githubSourceLabel": "found on GitHub",
     "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these dedicated maps instead:",
+    "otherAreasInfo": "Check out these alternative maps instead:",
     "otherAreasLocations": {
       "france": "France",
       "nyc": "New York",
