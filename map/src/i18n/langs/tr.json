@@ -1,11 +1,25 @@
 {
   "title": "COVID-19 Karşılıklı Yardımlaşma Haritası",
-  "info": "Çevrendeki insanların bölgelerindeki karşılıklı yardım gruplarını bulmalarına yardımcı olabilir ya da onlara bir yardımlaşma ağı yaratmaları için ilham verebilirsin. Aşağıda çeşitli pandemi yardımlaşma gruplarının bir listesi bulunmaktadır. Not: Listelenen herbir proje bağımsızdır ve birçoğu verilerini herkes tarafından erişilebilen dökümanlarda tutmaktadır. Bu nedenle paylaşılmasını istemediğiniz kişisel verilerinizi verirken dikkat edin.",
-  "about": "Bu harita {reach4Help} projesinin bir parçasıdır. Proje açık kaynak olarak gönüllülerce yürütülmektedir. Kaynak kodlar {githubSource}. Herhangi bir talebiniz için {email} üzerinden iletişime geçebilirsiniz.",
-  "githubSourceLabel": "GitHub'da bulunmaktadır",
+  "aboutScreen": {
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "found on GitHub",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasLocations": {
+      "france": "France",
+      "nyc": "New York",
+      "uk": "United Kingdom"
+    }
+  },
+  "menu": {
+    "about": "About",
+    "map": "View Map"
+  },
   "addInformation": {
-    "small": "Bilgi ekle",
-    "large": "Haritaya bilgi ekle",
+    "button": "Add information",
     "backToMap": "Back to map",
     "prev": "Back",
     "continue": "Continue",
@@ -127,10 +141,6 @@
     "myLocation": "Konumum"
   },
   "results": {
-    "updateResults": {
-      "small": "Sonuçları güncelle",
-      "large": "Harita üzerindeki bölge için sonuçları güncelle"
-    },
     "count": "{results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "contact": {
       "general": "Genel Bilgiler:",
