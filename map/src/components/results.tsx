@@ -244,6 +244,10 @@ export default styled(Results)`
 
       svg {
         transform: rotate(90deg);
+
+        [dir='rtl'] & {
+          transform: rotate(270deg);
+        }
       }
 
       &:hover,
