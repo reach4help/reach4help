@@ -40,15 +40,18 @@ export default styled(Search)`
   input {
     color: #333;
     box-sizing: border-box;
-    width: 500px;
     max-width: 100%;
     flex-grow: 1;
     background: #fff;
-    border: 0;
+    border: 1px solid ${p => p.theme.colors.borderBase};
     outline: none;
-    font-size: 16px;
-    padding: 11px 10px;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 6px 8px;
+    border-radius: 4px;
+
+    ::placeholder {
+      color: rgba(0, 0, 0, 0.45);
+    }
   }
 `;

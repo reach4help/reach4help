@@ -1050,7 +1050,9 @@ class AddInstructions extends React.Component<Props, State> {
                     nextScreen: this.completeMarkerPlacement,
                   })}
                 </div>
-                <Search className="search" searchInputId="add-information" />
+                <div className="search-wrapper">
+                  <Search className="search" searchInputId="add-information" />
+                </div>
               </div>
             )}
             {addInfoStep === 'contact-details' && (
@@ -1338,10 +1340,19 @@ export default styled(AddInstructions)`
       }
     }
 
-    > .search {
-      margin: ${p => p.theme.spacingPx}px;
-      max-width: 500px;
-      pointer-events: initial;
+    > .search-wrapper {
+      display: flex;
+      margin: ${p => p.theme.overlayPaddingPx}px;
+      background: #fff;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      padding: 18px 16px;
+      max-width: ${p => p.theme.overlayPanelWidthPx}px;
+
+      > .search {
+        flex-grow: 1;
+        pointer-events: initial;
+      }
     }
   }
 

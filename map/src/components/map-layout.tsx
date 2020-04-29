@@ -54,7 +54,7 @@ export default styled(MapLayout)`
     left: 0;
     right: 0;
     display: flex;
-    padding: 40px;
+    padding: ${p => p.theme.overlayPaddingPx}px;
     pointer-events: none;
     opacity: 0;
     transition: ${p => p.theme.opacityTransition};
@@ -65,7 +65,7 @@ export default styled(MapLayout)`
     }
 
     > .panel {
-      width: 320px;
+      width: ${p => p.theme.overlayPanelWidthPx}px;
       display: flex;
       flex-direction: column;
 

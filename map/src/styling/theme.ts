@@ -21,6 +21,7 @@ export const COLORS = {
   grayLight3: '#edceeb',
   grayLight4: '#f6e6f5',
   grayLight5: '#fbf4fa',
+  borderBase: '#D9D9D9',
   red: '#ea4335',
   orange: BRAND_COLORS.secondary,
   blue: '#4285f4',
@@ -45,6 +46,8 @@ export const THEME = {
   textLinkHoverColor: COLORS.purple,
   colors: COLORS,
   opacityTransition: 'opacity 0.2s',
+  overlayPaddingPx: 40,
+  overlayPanelWidthPx: 320,
 };
 
 export type Theme = typeof THEME;
