@@ -19,6 +19,7 @@ import {
   MarkerInfo,
 } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
+import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
 
 import {
@@ -29,7 +30,7 @@ import {
   Service,
   SERVICE_STRINGS,
 } from '../data';
-import styled from '../styling';
+import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
   button,
   buttonPrimary,
@@ -38,12 +39,6 @@ import {
 } from '../styling/mixins';
 import { AppContext } from './context';
 import { haversineDistance } from './map-utils/google-maps';
-
-export type AddInfoStep =
-  | 'information'
-  | 'place-marker'
-  | 'contact-details'
-  | 'submitted';
 
 enum FORM_INPUT_NAMES {
   type = 'type',
@@ -69,8 +64,7 @@ interface Props {
   lang: Language;
   map: google.maps.Map | null;
   addInfoStep: AddInfoStep;
-  setAddInfoStep: (addInfoStep: AddInfoStep | null) => void;
-  updateSearchInput: (input: HTMLInputElement | null) => void;
+  setPage: (page: Page) => void;
   setAddInfoMapClickedListener: (
     listener: ((evt: google.maps.MouseEvent) => void) | null,
   ) => void;
@@ -226,6 +220,11 @@ class AddInstructions extends React.Component<Props, State> {
     setAddInfoMapClickedListener(null);
   }
 
+  private setAddInfoStep = (step: AddInfoStep) => {
+    const { setPage } = this.props;
+    setPage({ page: 'add-information', step });
+  };
+
   private removeMarkers = () => {
     if (this.markerInfo) {
       this.markerInfo.circle.setMap(null);
@@ -370,7 +369,6 @@ class AddInstructions extends React.Component<Props, State> {
 
   private completeInformation = (event: React.FormEvent<unknown>) => {
     event.preventDefault();
-    const { setAddInfoStep } = this.props;
     const { info } = this.state;
     const validation: Validation = {
       errors: [],
@@ -405,13 +403,12 @@ class AddInstructions extends React.Component<Props, State> {
     if (validation.errors.length > 0) {
       this.setState({ validation });
     } else {
-      setAddInfoStep('place-marker');
+      this.setAddInfoStep('place-marker');
       this.setState({ validation: undefined });
     }
   };
 
   private completeMarkerPlacement = () => {
-    const { setAddInfoStep } = this.props;
     const { info } = this.state;
     const validation: Validation = {
       errors: [],
@@ -429,7 +426,7 @@ class AddInstructions extends React.Component<Props, State> {
     if (validation.errors.length > 0) {
       this.setState({ validation });
     } else {
-      setAddInfoStep('contact-details');
+      this.setAddInfoStep('contact-details');
       this.setState({ validation: undefined });
     }
   };
@@ -491,7 +488,6 @@ class AddInstructions extends React.Component<Props, State> {
     }
     // Give time for state changes to apply after input blur
     this.setState({}, () => {
-      const { setAddInfoStep } = this.props;
       const { info, urls } = this.state;
       const validation: Validation = {
         errors: [],
@@ -548,7 +544,7 @@ class AddInstructions extends React.Component<Props, State> {
       if (validation.errors.length > 0) {
         this.setState({ validation });
       } else {
-        setAddInfoStep('submitted');
+        this.setAddInfoStep('submitted');
         this.setState({ validation: undefined, submissionResult: undefined });
         const completeInfo = this.getCompleteInformation();
         if (!completeInfo) {
@@ -578,9 +574,8 @@ class AddInstructions extends React.Component<Props, State> {
   };
 
   private addMore = () => {
-    const { setAddInfoStep } = this.props;
     this.setState(INITIAL_STATE);
-    setAddInfoStep('information');
+    this.setAddInfoStep('information');
     this.removeMarkers();
   };
 
@@ -621,7 +616,7 @@ class AddInstructions extends React.Component<Props, State> {
     nextScreen?: () => void;
     nextLabel?: 'continue' | 'submit' | 'addMore';
   }) => {
-    const { lang, setAddInfoStep } = this.props;
+    const { lang } = this.props;
     const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
     return (
       <div className="actions">
@@ -630,7 +625,7 @@ class AddInstructions extends React.Component<Props, State> {
             <button
               type="button"
               className="prev-button"
-              onClick={() => setAddInfoStep(previousScreen)}
+              onClick={() => this.setAddInfoStep(previousScreen)}
             >
               <MdChevronLeft className="icon icon-start" />
               {t(lang, s => s.addInformation.prev)}
@@ -868,12 +863,7 @@ class AddInstructions extends React.Component<Props, State> {
   };
 
   public render = () => {
-    const {
-      className,
-      addInfoStep,
-      updateSearchInput,
-      setAddInfoStep,
-    } = this.props;
+    const { className, addInfoStep, setPage } = this.props;
     const { info, validation, submissionResult } = this.state;
     return (
       <AppContext.Consumer>
@@ -1060,10 +1050,9 @@ class AddInstructions extends React.Component<Props, State> {
                     nextScreen: this.completeMarkerPlacement,
                   })}
                 </div>
-                <Search
-                  className="search"
-                  updateSearchInput={updateSearchInput}
-                />
+                <div className="search-wrapper">
+                  <Search className="search" searchInputId="add-information" />
+                </div>
               </div>
             )}
             {addInfoStep === 'contact-details' && (
@@ -1110,7 +1099,7 @@ class AddInstructions extends React.Component<Props, State> {
                         <button
                           type="button"
                           className="prev-button"
-                          onClick={() => setAddInfoStep('contact-details')}
+                          onClick={() => this.setAddInfoStep('contact-details')}
                         >
                           <MdChevronLeft className="icon icon-start" />
                           {t(lang, s => s.addInformation.prev)}
@@ -1144,7 +1133,7 @@ class AddInstructions extends React.Component<Props, State> {
                         <button
                           type="button"
                           className="prev-button"
-                          onClick={() => setAddInfoStep(null)}
+                          onClick={() => setPage({ page: 'map' })}
                         >
                           <MdExplore className="icon icon-start" />
                           {t(lang, s => s.addInformation.backToMap)}
@@ -1178,7 +1167,7 @@ class AddInstructions extends React.Component<Props, State> {
 }
 
 export default styled(AddInstructions)`
-  z-index: 1000;
+  z-index: ${Z_INDICES.MAP_ADD_INFORMATION};
   font-size: 1rem;
   position: absolute;
   top: 0;
@@ -1189,6 +1178,10 @@ export default styled(AddInstructions)`
   align-items: flex-start;
   justify-content: flex-start;
   pointer-events: none;
+
+  ${LARGE_DEVICES} {
+    top: ${p => p.theme.secondaryHeaderSizePx}px;
+  }
 
   > .screen {
     pointer-events: initial;
@@ -1347,10 +1340,19 @@ export default styled(AddInstructions)`
       }
     }
 
-    > .search {
-      margin: ${p => p.theme.spacingPx}px;
-      max-width: 500px;
-      pointer-events: initial;
+    > .search-wrapper {
+      display: flex;
+      margin: ${p => p.theme.overlayPaddingPx}px;
+      background: #fff;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      padding: 18px 16px;
+      max-width: ${p => p.theme.overlayPanelWidthPx}px;
+
+      > .search {
+        flex-grow: 1;
+        pointer-events: initial;
+      }
     }
   }
 

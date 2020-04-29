@@ -26,5 +26,6 @@ module.exports = {
      */
     'react/jsx-indent': 'off',
     'react/display-name': 'off',
+    'no-underscore-dangle': 'off',
   },
 };
