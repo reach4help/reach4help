@@ -22,6 +22,7 @@ export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
     zoomControlOptions: {
       position: google.maps.ControlPosition.RIGHT_BOTTOM,
     },
+    gestureHandling: 'greedy',
   });
 };
 
