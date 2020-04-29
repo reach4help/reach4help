@@ -158,7 +158,7 @@ class App extends React.Component<Props, State> {
 }
 
 export default styled(App)`
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   color: ${p => p.theme.textColor};
