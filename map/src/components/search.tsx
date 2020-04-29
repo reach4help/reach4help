@@ -11,14 +11,19 @@ interface Props {
 }
 
 class Search extends React.Component<Props, {}> {
+  private updateSearchInputRef = (ref: HTMLInputElement) => {
+    const { searchInputId } = this.props;
+    mapState().updateSearchInputRef(searchInputId, ref);
+  };
+
   public render() {
-    const { className, searchInputId } = this.props;
+    const { className } = this.props;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
             <input
-              ref={ref => mapState().updateSearchInputRef(searchInputId, ref)}
+              ref={this.updateSearchInputRef}
               type="text"
               placeholder={t(lang, s => s.map.jumpToLocation)}
             />

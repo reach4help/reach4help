@@ -5,7 +5,6 @@ import mapState, {
   ActiveMarkers,
   MapInfo,
 } from 'src/components/map-utils/map-state';
-import Search from 'src/components/search';
 import { Filter, MARKER_TYPES } from 'src/data';
 import * as firebase from 'src/data/firebase';
 import { t } from 'src/i18n';
@@ -531,9 +530,6 @@ class MapComponent extends React.Component<Props, {}> {
         {({ lang }) => (
           <div className={className}>
             <div className="map" ref={this.updateGoogleMapRef} />
-            {page.page === 'map' && (
-              <Search className="search" searchInputId="main" />
-            )}
             {page.page === 'add-information' && (
               <AddInstructions
                 lang={lang}

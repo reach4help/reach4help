@@ -1,7 +1,9 @@
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
 import { Page } from 'src/state';
-import styled from 'src/styling';
+import styled, { LARGE_DEVICES } from 'src/styling';
+
+import Search from './search';
 
 interface Props {
   className?: string;
@@ -19,6 +21,9 @@ const MapLayout = (props: Props) => {
       <MapLoader className="map" child={components.map} />
       <div className="overlay">
         <div className="panel">
+          <div className="controls">
+            <Search className="search" searchInputId="main" />
+          </div>
           {components.results({
             className: 'results',
           })}
@@ -55,14 +60,28 @@ export default styled(MapLayout)`
     transition: ${p => p.theme.opacityTransition};
     pointer-events: none;
 
+    ${LARGE_DEVICES} {
+      top: ${p => p.theme.secondaryHeaderSizePx}px;
+    }
+
     > .panel {
       width: 320px;
       display: flex;
       flex-direction: column;
 
+      > .controls {
+        background: #fff;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        padding: 18px 16px;
+      }
+
       > .results {
-        height: 0;
-        flex-grow: 1;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        overflow: hidden;
       }
     }
   }

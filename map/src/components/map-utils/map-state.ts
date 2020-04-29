@@ -37,7 +37,12 @@ export type SearchBoxId = 'main' | 'add-information';
 
 interface SearchBox {
   searchInput: HTMLInputElement;
-  box: google.maps.places.SearchBox;
+  /**
+   * This is only initialized once we have a map (we have have the search
+   * components before the google maps scripts have loaded), allows for
+   * delayed initializing of search boxes
+   */
+  box?: google.maps.places.SearchBox;
 }
 
 let state: MapState | null = null;
@@ -55,10 +60,18 @@ class MapState {
         const bounds = map.map.getBounds();
         if (bounds) {
           for (const box of this.searchBoxes.values()) {
-            box.box.setBounds(bounds);
+            if (box.box) {
+              box.box.setBounds(bounds);
+            }
           }
         }
       });
+      // Initialize any search boxes that have not yet been initialized
+      for (const box of this.searchBoxes.values()) {
+        if (!box.box) {
+          this.initializeSearchInput(box);
+        }
+      }
     }
   }
 
@@ -71,22 +84,29 @@ class MapState {
     searchInput: HTMLInputElement | null,
   ) => {
     if (searchInput) {
-      this.searchBoxes.set(id, this.initializeSearchInput(searchInput));
+      const searchBox: SearchBox = { searchInput };
+      this.searchBoxes.set(id, searchBox);
+      this.initializeSearchInput(searchBox);
     } else {
       this.searchBoxes.delete(id);
     }
   };
 
-  private initializeSearchInput = (
-    searchInput: HTMLInputElement,
-  ): SearchBox => {
-    const box = new google.maps.places.SearchBox(searchInput);
-    const searchBox: SearchBox = {
-      searchInput,
-      box,
-    };
+  private initializeSearchInput = (search: SearchBox) => {
+    if (!this.map) {
+      // Map has not been initialized yet, wait until it is as the google
+      // libraries may not have loaded yet
+      return;
+    }
+    if (search.box) {
+      // Already initialized!
+      return;
+    }
+    const box = new google.maps.places.SearchBox(search.searchInput);
+    // eslint-disable-next-line no-param-reassign
+    search.box = box;
 
-    searchBox.box.addListener('places_changed', () => {
+    box.addListener('places_changed', () => {
       if (!this.map) {
         return;
       }
@@ -112,13 +132,11 @@ class MapState {
 
       this.map.map.fitBounds(bounds);
     });
-    if (this.map) {
-      const bounds = this.map.map.getBounds();
-      if (bounds) {
-        searchBox.box.setBounds(bounds);
-      }
+
+    const bounds = this.map.map.getBounds();
+    if (bounds) {
+      box.setBounds(bounds);
     }
-    return searchBox;
   };
 }
 
