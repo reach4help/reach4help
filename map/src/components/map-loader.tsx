@@ -1,6 +1,8 @@
 import React from 'react';
+import { t } from 'src/i18n';
 
 import styled from '../styling';
+import { AppContext } from './context';
 
 declare global {
   interface Window {
@@ -74,15 +76,28 @@ class MapLoader extends React.Component<Props, State> {
     const { loaded } = this.state;
     const { child, className } = this.props;
     return (
-      <div className={className}>
-        {loaded ? child() : <span>Loading...</span>}
-      </div>
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div className={className}>
+            {loaded ? (
+              child()
+            ) : (
+              <div className="loader">{t(lang, s => s.loading)}</div>
+            )}
+          </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }
 
 export default styled(MapLoader)`
-  background: #f99;
-  font-size: 70px;
-  text-align: center;
+  > .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: #f99;
+    font-size: 70px;
+  }
 `;

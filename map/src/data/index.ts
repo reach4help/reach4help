@@ -2,59 +2,45 @@ import { COLORS } from '../styling/theme';
 
 export const SERVICES = {
   food: {
-    label: 'Food',
     color: COLORS.red,
   },
   medicine: {
-    label: 'Medicine',
     color: COLORS.blue,
   },
-  /**
-   * Non food-or-medicine supplies
-   */
   supplies: {
-    label: 'Other Supplies',
     color: COLORS.green,
   },
   mobility: {
-    label: 'Mobility',
     color: COLORS.purple,
   },
+  shelter: {
+    color: COLORS.orange,
+  },
+  support: {
+    color: COLORS.yellow,
+  },
+  information: {
+    color: COLORS.orange,
+  },
+  network: {
+    color: COLORS.yellow,
+  },
   manufacturing: {
-    label: 'Manufacturing',
     color: COLORS.orange,
   },
   financial: {
-    label: 'Financial',
     color: COLORS.orange,
   },
-  information: {
-    label: 'Information',
-    color: COLORS.orange,
-  },
-  shelter: {
-    label: 'Shelter',
-    color: COLORS.orange,
-  },
-  /**
-   * Other types of support Support,
-   * e.g. support tailored for specific groups like vulnerable people, people at
-   * risk from domestic abuse etc...
-   */
-  support: {
-    label: 'Support',
-    color: COLORS.yellow,
-  },
-  /**
-   * Providing resources for networking (e.g. betwen mutual aid organizations)
-   */
-  network: {
-    label: 'Network',
+  other: {
     color: COLORS.yellow,
   },
 } as const;
 
 export type Service = keyof typeof SERVICES;
+
+export const SERVICE_STRINGS = Object.keys(SERVICES) as Service[];
+export const isService = (type?: string): type is Service =>
+  (type && type in SERVICES) || false;
 
 export type MarkerType =
   | {
@@ -90,29 +76,25 @@ export type MarkerTypeString = MarkerType['type'];
 
 export const MARKER_TYPES = {
   'mutual-aid-group': {
-    label: 'Mutual Aid Group',
     color: COLORS.red,
   },
   org: {
-    label: 'Organization / Company',
     color: COLORS.blue,
   },
   financial: {
-    label: 'Financial',
     color: COLORS.green,
   },
   information: {
-    label: 'Information',
     color: COLORS.purple,
   },
   other: {
-    label: 'Other',
     color: COLORS.orange,
   },
 };
 
-export const isMarkerType = (type: string): type is MarkerTypeString =>
-  type in MARKER_TYPES;
+export const isMarkerType = (
+  type: string | undefined,
+): type is MarkerTypeString => (type && type in MARKER_TYPES) || false;
 
 export const MARKER_TYPE_STRINGS = Object.keys(
   MARKER_TYPES,

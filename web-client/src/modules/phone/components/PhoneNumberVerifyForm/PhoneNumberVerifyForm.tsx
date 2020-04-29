@@ -25,12 +25,12 @@ const StyledButton = styled(Button)`
   margin-top: 40px;
 `;
 
-interface NewRequestProps {
+interface PhoneNumberVerifyFormProps {
   handleFormSubmit: Function;
   loading: boolean;
 }
 
-const PhoneNumberVerifyForm: React.FC<NewRequestProps> = ({
+const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
   handleFormSubmit,
   loading,
 }): React.ReactElement => {

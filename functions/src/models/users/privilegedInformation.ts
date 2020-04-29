@@ -6,9 +6,19 @@ import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
-export interface IPrivilegedUserInformation extends DocumentData {
-  address: google.maps.GeocoderResult;
+interface IUserAddress {
+  address1?: string;
+  address2?: string;
+  postalCode?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  coords?: firebase.firestore.GeoPoint;
+}
 
+export interface IPrivilegedUserInformation extends DocumentData {
+  addressFromGoogle: google.maps.GeocoderResult;
+  address: IUserAddress
   termsAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
   privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
@@ -18,12 +28,14 @@ export interface IPrivilegedUserInformation extends DocumentData {
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   constructor(
-    address: google.maps.GeocoderResult,
+    addressFromGoogle: google.maps.GeocoderResult,
+    address: IUserAddress, 
     privacyAccepted: Timestamp,
     privacyVersion: string,
     termsAccepted: Timestamp,
     termsVersion: string,
   ) {
+    this._addressFromGoogle = addressFromGoogle;
     this._address = address;
     this._privacyAccepted = privacyAccepted;
     this._privacyVersion = privacyVersion;
@@ -32,13 +44,24 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _address: google.maps.GeocoderResult;
+  private _addressFromGoogle : google.maps.GeocoderResult;
 
-  get address(): google.maps.GeocoderResult {
+  get addressFromGoogle(): google.maps.GeocoderResult {
+    return this._addressFromGoogle;
+  }
+
+  set addressFromGoogle(value: google.maps.GeocoderResult) {
+    this._addressFromGoogle = value;
+  }
+
+  @IsObject()
+  private _address : IUserAddress;
+
+  get address(): IUserAddress {
     return this._address;
   }
 
-  set address(value: google.maps.GeocoderResult) {
+  set address(value: IUserAddress) {
     this._address = value;
   }
 
@@ -88,6 +111,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   static factory = (data: IPrivilegedUserInformation): PrivilegedUserInformation =>
     new PrivilegedUserInformation(
+      data.addressFromGoogle,
       data.address,
       data.privacyAccepted,
       data.privacyVersion,
@@ -97,6 +121,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   toObject(): object {
     return {
+      addressFromGoogle: this.addressFromGoogle,
       address: this.address,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
@@ -112,6 +137,7 @@ export const PrivilegedUserInformationFirestoreConverter: FirestoreDataConverter
   },
   toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => {
     return {
+      addressFromGoogle: modelObject.addressFromGoogle,
       address: modelObject.address,
       privacyAccepted: modelObject.privacyAccepted,
       privacyVersion: modelObject.privacyVersion,

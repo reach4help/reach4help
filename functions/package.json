@@ -5,9 +5,9 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "test:firestore": "firebase emulators:exec --only functions,firestore 'yarn jest'",
-    "test:triggers": "firebase emulators:exec 'yarn jest ./tests/triggers/*.test.ts'",
-    "test": "yarn run test:firestore",
+    "test:firestore": "firebase emulators:exec --only firestore 'yarn jest ./tests/*.test.ts'",
+    "test:triggers": "firebase emulators:exec --only firestore 'yarn jest ./tests/triggers/*.test.ts'",
+    "test": "yarn run test:firestore && yarn run test:triggers",
     "lint": "eslint . --ext .ts && prettier --check \"./**/*.ts\"",
     "lint:fix": "eslint . --fix --ext .ts && prettier --write \"./**/*.ts\"",
     "build": "tsc --build src/tsconfig.json",

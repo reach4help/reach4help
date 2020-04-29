@@ -1,20 +1,21 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
+import { Helmet } from 'react-helmet';
+import About from 'src/components/about';
+import MapLayout from 'src/components/map-layout';
+import * as i18n from 'src/i18n';
+import { Page } from 'src/state';
 
-import AddInstructions from './components/add-instructions';
-import { FilterMutator } from './components/filters';
-import Footer from './components/footer';
+import { AppContext } from './components/context';
+import { FilterMutator } from './components/filter-type';
 import Header from './components/header';
-import Map, { NextResults } from './components/map';
-import MapLoader from './components/map-loader';
+import Map, { MarkerIdAndInfo } from './components/map';
 import Results from './components/results';
-import Search from './components/search';
 import { Filter } from './data';
-import { MarkerInfo } from './data/markers';
 import styled, {
+  CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
-  SMALL_DEVICES,
 } from './styling';
 
 interface Props {
@@ -23,20 +24,12 @@ interface Props {
 
 interface State {
   filter: Filter;
-  results: MarkerInfo[] | null;
-  nextResults?: NextResults;
-  selectedResult: MarkerInfo | null;
+  results: MarkerIdAndInfo[] | null;
+  nextResults?: MarkerIdAndInfo[];
+  selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
-  searchInput: HTMLInputElement | null;
-  addInstructionsOpen: boolean;
-  fullScreen: boolean;
-  updateResultsOnNextClustering: boolean;
-  /**
-   * * open: (default) the results are open
-   * * closed: the results are closed
-   * * open-auto: the results are open because a point is selected
-   */
-  resultsMode: 'open' | 'closed' | 'open-auto';
+  lang: i18n.Language;
+  page: Page;
 }
 
 class App extends React.Component<Props, State> {
@@ -47,11 +40,10 @@ class App extends React.Component<Props, State> {
       results: null,
       selectedResult: null,
       updateResultsCallback: null,
-      searchInput: null,
-      addInstructionsOpen: false,
-      fullScreen: false,
-      resultsMode: 'open',
-      updateResultsOnNextClustering: false,
+      lang: i18n.getLanguage(),
+      page: {
+        page: 'about',
+      },
     };
   }
 
@@ -59,7 +51,7 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private setResults = (results: MarkerInfo[]) => {
+  private setResults = (results: MarkerIdAndInfo[]) => {
     this.setState({ results, selectedResult: null });
   };
 
@@ -67,37 +59,17 @@ class App extends React.Component<Props, State> {
     this.setState({ updateResultsCallback: callback });
   };
 
-  private setSearchInput = (searchInput: HTMLInputElement | null) => {
-    this.setState({ searchInput });
-  };
+  private setSelectedResult = (selectedResult: MarkerIdAndInfo | null) =>
+    this.setState({ selectedResult });
 
-  private setSelectedResult = (selectedResult: MarkerInfo | null) => {
-    this.setState(state => {
-      let { resultsMode } = state;
-      if (selectedResult && state.resultsMode === 'closed') {
-        resultsMode = 'open-auto';
-      }
-      if (!selectedResult && state.resultsMode === 'open-auto') {
-        resultsMode = 'closed';
-      }
-      return { selectedResult, resultsMode };
-    });
-  };
-
-  private setNextResults = (nextResults: NextResults) => {
+  private setNextResults = (nextResults: MarkerIdAndInfo[]) => {
     this.setState(state =>
       isEqual(state.nextResults, nextResults) ? {} : { nextResults },
     );
   };
 
-  private setAddInstructionsOpen = (addInstructionsOpen: boolean) => {
-    this.setState({ addInstructionsOpen });
-  };
-
-  private setUpdateResultsOnNextClustering = (
-    updateResultsOnNextClustering: boolean,
-  ) => {
-    this.setState({ updateResultsOnNextClustering });
+  private setPage = (page: Page) => {
+    this.setState({ page });
   };
 
   private updateResults = () => {
@@ -107,17 +79,16 @@ class App extends React.Component<Props, State> {
     }
   };
 
-  private toggleFullscreen = () => {
-    this.setState(state => ({
-      fullScreen: !state.fullScreen,
-      resultsMode: state.fullScreen ? 'open' : 'closed',
-    }));
+  private languageUpdated = (lang: i18n.Language) => {
+    this.setState({ lang });
   };
 
-  private toggleResults = () => {
-    this.setState(state => ({
-      resultsMode: state.resultsMode === 'closed' ? 'open' : 'closed',
-    }));
+  public componentDidMount = () => {
+    i18n.addListener(this.languageUpdated);
+  };
+
+  public componentWillUnmount = () => {
+    i18n.removeListener(this.languageUpdated);
   };
 
   public render() {
@@ -127,102 +98,73 @@ class App extends React.Component<Props, State> {
       results,
       nextResults,
       selectedResult,
-      searchInput,
-      addInstructionsOpen,
-      fullScreen,
-      resultsMode,
-      updateResultsOnNextClustering,
+      page,
+      lang,
     } = this.state;
-    const effectiveResultsMode =
-      resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
-      <div className={className + (fullScreen ? ' fullscreen' : '')}>
-        <Header
-          filter={filter}
-          updateFilter={this.setFilter}
-          setAddInstructionsOpen={this.setAddInstructionsOpen}
-          fullScreen={fullScreen}
-          toggleFullscreen={this.toggleFullscreen}
-        />
-        <main className={`results-${effectiveResultsMode}`}>
-          <div className="map-area">
-            <MapLoader
-              className="map"
-              child={() => (
-                <Map
-                  filter={filter}
-                  searchInput={searchInput}
-                  results={results}
-                  nextResults={nextResults}
-                  setResults={this.setResults}
-                  setNextResults={this.setNextResults}
-                  selectedResult={selectedResult}
-                  setSelectedResult={this.setSelectedResult}
-                  setUpdateResultsCallback={this.setUpdateResultsCallback}
-                  resultsMode={effectiveResultsMode}
-                  toggleResults={this.toggleResults}
-                  updateResultsOnNextClustering={updateResultsOnNextClustering}
-                  setUpdateResultsOnNextClustering={
-                    this.setUpdateResultsOnNextClustering
-                  }
-                />
-              )}
+      <AppContext.Provider value={{ lang }}>
+        <div dir={i18n.getMeta(lang).direction} className={className}>
+          <Helmet>
+            {i18n.LANGUAGE_KEYS.map((langKey, i) => (
+              <link
+                key={i}
+                rel="alternate"
+                hrefLang={langKey}
+                href={i18n.canonicalUrl(lang)}
+              />
+            ))}
+            <link rel="canonical" href={i18n.canonicalUrl(lang)} />
+          </Helmet>
+          <Header page={page} setPage={this.setPage} />
+          <main className={`page-${page.page}`}>
+            <MapLayout
+              className="map-area"
+              page={page}
+              filter={filter}
+              updateFilter={this.setFilter}
+              components={{
+                map: () => (
+                  <Map
+                    filter={filter}
+                    results={results}
+                    nextResults={nextResults}
+                    setResults={this.setResults}
+                    setNextResults={this.setNextResults}
+                    selectedResult={selectedResult}
+                    setSelectedResult={this.setSelectedResult}
+                    setUpdateResultsCallback={this.setUpdateResultsCallback}
+                    page={page}
+                    setPage={this.setPage}
+                  />
+                ),
+                results: props => (
+                  <Results
+                    className={props.className}
+                    results={results}
+                    nextResults={nextResults}
+                    selectedResult={selectedResult}
+                    setSelectedResult={this.setSelectedResult}
+                    updateResults={this.updateResults}
+                  />
+                ),
+              }}
             />
-            <Search
-              className="search"
-              updateSearchInput={this.setSearchInput}
-            />
-          </div>
-          <Results
-            className="results"
-            results={results}
-            nextResults={nextResults?.results || null}
-            selectedResult={selectedResult}
-            setSelectedResult={this.setSelectedResult}
-            updateResults={this.updateResults}
-          />
-        </main>
-        <div className="mobile-message">
-          <p>
-            Unfortunately, this map has not been updated to work on devices with
-            small screens.
-          </p>
-          <p>
-            We are currently working on it, and should have an update out in the
-            coming days. Until then, please open page on a different device.
-          </p>
+            <About page={page} setPage={this.setPage} />
+          </main>
         </div>
-        {!fullScreen && <Footer />}
-        <AddInstructions
-          open={addInstructionsOpen}
-          setAddInstructionsOpen={this.setAddInstructionsOpen}
-        />
-      </div>
+      </AppContext.Provider>
     );
   }
 }
 
-const RESULTS_TRANSITION_IN = '300ms';
-const RESULTS_TRANSITION_OUT = '250ms';
-const RESULTS_WIDTH = '400px';
-
 export default styled(App)`
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   color: ${p => p.theme.textColor};
 
-  &.fullscreen {
-    /**
-     * These styles prevent scrolling on mobile / tablets when in full-screen
-     * mode (where the address-bar can collapse)
-     */
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: initial;
+  * {
+    font-family: 'Roboto', sans-serif;
   }
 
   > main {
@@ -235,46 +177,6 @@ export default styled(App)`
 
     > .map-area {
       flex-grow: 1;
-      position: relative;
-      margin-right: ${RESULTS_WIDTH};
-      transition: margin-right ${RESULTS_TRANSITION_OUT};
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      .map {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-      > .search {
-        position: absolute;
-        z-index: 100;
-        max-width: 500px;
-        top: 10px;
-        left: 10px;
-        right: 40px;
-      }
-    }
-
-    > .results {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      right: 0;
-      width: ${RESULTS_WIDTH};
-      transition: right ${RESULTS_TRANSITION_OUT};
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    &.results-closed {
-      > .map-area {
-        margin-right: 0;
-        transition: margin-right ${RESULTS_TRANSITION_IN};
-      }
-      > .results {
-        right: -${RESULTS_WIDTH};
-        transition: right ${RESULTS_TRANSITION_IN};
-      }
     }
   }
 
@@ -304,22 +206,17 @@ export default styled(App)`
     }
   }
 
-  ${SMALL_DEVICES} {
-    position: relative;
-
-    > main {
-      display: none;
-    }
-    .mobile-message {
-      display: block;
-    }
-  }
-
   .${CLS_SCREEN_LG_ONLY} {
     display: none;
 
     ${LARGE_DEVICES} {
       display: initial;
+    }
+  }
+
+  .${CLS_SCREEN_LG_HIDE} {
+    ${LARGE_DEVICES} {
+      display: none;
     }
   }
 `;

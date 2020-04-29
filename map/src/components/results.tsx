@@ -1,26 +1,29 @@
 import React from 'react';
-import {
-  MdEmail,
-  MdKeyboardArrowLeft,
-  MdLanguage,
-  MdPhone,
-} from 'react-icons/md';
-import { ContactDetails, MarkerInfo } from 'src/data/markers';
-import { button, buttonPrimary } from 'src/styling/mixins';
+import { MdEmail, MdLanguage, MdPhone } from 'react-icons/md';
+import Chevron from 'src/components/assets/chevron';
+import Refresh from 'src/components/assets/refresh';
+import { MarkerIdAndInfo } from 'src/components/map';
+import { ContactDetails } from 'src/data/markers';
+import { format, Language, t } from 'src/i18n';
 
-import styled, { CLS_SCREEN_LG_ONLY } from '../styling';
+import styled, { Z_INDICES } from '../styling';
+import { AppContext } from './context';
 import MarkerType from './marker-type';
 
 interface Props {
   className?: string;
-  results: MarkerInfo[] | null;
-  nextResults: MarkerInfo[] | null;
+  results: MarkerIdAndInfo[] | null;
+  nextResults?: MarkerIdAndInfo[];
   updateResults: () => void;
-  selectedResult: MarkerInfo | null;
-  setSelectedResult: (selectedResult: MarkerInfo | null) => void;
+  selectedResult: MarkerIdAndInfo | null;
+  setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
 }
 
-const contactInfo = (label: string, info?: ContactDetails) => {
+interface State {
+  open: boolean;
+}
+
+const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
   if (!info) {
     return null;
   }
@@ -59,7 +62,7 @@ const contactInfo = (label: string, info?: ContactDetails) => {
         rel="noopener noreferrer"
       >
         <MdLanguage />
-        Facebook Group
+        {t(lang, s => s.results.contact.facebookGroup)}
       </a>,
     );
   }
@@ -93,136 +96,234 @@ const contactInfo = (label: string, info?: ContactDetails) => {
   );
 };
 
-const Results = (props: Props) => {
-  const {
-    className,
-    results,
-    nextResults,
-    updateResults,
-    selectedResult,
-    setSelectedResult,
-  } = props;
-  const selectedResultVisible = selectedResult ? 'visible' : '';
-  return (
-    <div className={className}>
-      <div className="header">
-        <button
-          className={`back ${selectedResultVisible}`}
-          onClick={() => setSelectedResult(null)}
-          type="button"
-        >
-          <MdKeyboardArrowLeft size={24} />
-        </button>
-        <span className="count">{`${(results || []).length} results`}</span>
-        {nextResults !== results && (
-          <button className="update" onClick={updateResults} type="button">
-            Update results
-            <span className={CLS_SCREEN_LG_ONLY}>&nbsp;for current area</span>
-          </button>
-        )}
-      </div>
-      <div className="list">
-        {(results || []).map((result, index) => (
-          <div
-            key={index}
-            className="result"
-            onClick={() => setSelectedResult(result)}
-          >
-            <div className="number">{index + 1}</div>
-            <div className="info">
-              {result.loc.description && (
-                <div className="location">{result.loc.description}</div>
-              )}
-              <div className="name">{result.contentTitle}</div>
-              <MarkerType type={result.type} />
-            </div>
-          </div>
-        ))}
-      </div>
-      {selectedResult && (
-        <div className="details">
-          <div className="name">{selectedResult.contentTitle}</div>
-          {selectedResult.loc.description && (
-            <div className="location">{selectedResult.loc.description}</div>
-          )}
-          <MarkerType type={selectedResult.type} />
-          {selectedResult.contentBody && (
-            <div className="content">{selectedResult.contentBody}</div>
-          )}
-          {contactInfo('General Information:', selectedResult.contact.general)}
-          {contactInfo('Get Help:', selectedResult.contact.getHelp)}
-          {contactInfo('Volunteer:', selectedResult.contact.volunteers)}
-        </div>
-      )}
-    </div>
-  );
-};
+class Results extends React.PureComponent<Props, State> {
+  public constructor(props: Props) {
+    super(props);
+    this.state = {
+      open: false,
+    };
+  }
 
-const HEADER_HEIGHT_PX = 52;
+  private toggle = () => {
+    const { selectedResult, setSelectedResult } = this.props;
+    if (selectedResult) {
+      setSelectedResult(null);
+      this.setState({ open: false });
+    } else {
+      this.setState(state => ({ open: !state.open }));
+    }
+  };
+
+  private back = () => {
+    const { setSelectedResult } = this.props;
+    setSelectedResult(null);
+    this.setState({ open: true });
+  };
+
+  public render() {
+    const {
+      className,
+      results,
+      nextResults,
+      updateResults,
+      selectedResult,
+      setSelectedResult,
+    } = this.props;
+    const { open } = this.state;
+    return (
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div
+            className={`${className} ${open ? 'open' : ''} ${
+              selectedResult ? 'selected-result' : ''
+            }`}
+          >
+            <div className="header">
+              <button type="button" className="back" onClick={this.back}>
+                <Chevron className="chevron" />
+              </button>
+              <button type="button" className="toggle" onClick={this.toggle}>
+                <span className="count">
+                  {format(lang, s => s.results.count, {
+                    results: (results || []).length,
+                  })}
+                </span>
+                <span className="grow" />
+                <Chevron className="chevron" />
+              </button>
+            </div>
+            {nextResults !== results && (
+              <div className="update">
+                <button onClick={updateResults} type="button">
+                  <Refresh />
+                  <span>{t(lang, s => s.map.updateResultsForThisArea)}</span>
+                </button>
+              </div>
+            )}
+            <div className="list">
+              {(results || []).map((result, index) => (
+                <div
+                  key={index}
+                  className="result"
+                  onClick={() => setSelectedResult(result)}
+                >
+                  <div className="number">{index + 1}</div>
+                  <div className="info">
+                    {result.info.loc.description && (
+                      <div className="location">
+                        {result.info.loc.description}
+                      </div>
+                    )}
+                    <div className="name">{result.info.contentTitle}</div>
+                    <MarkerType type={result.info.type} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            {selectedResult && (
+              <div className="details">
+                <div className="name">{selectedResult.info.contentTitle}</div>
+                {selectedResult.info.loc.description && (
+                  <div className="location">
+                    {selectedResult.info.loc.description}
+                  </div>
+                )}
+                <MarkerType type={selectedResult.info.type} />
+                {selectedResult.info.contentBody && (
+                  <div className="content">
+                    {selectedResult.info.contentBody}
+                  </div>
+                )}
+                {contactInfo(
+                  lang,
+                  t(lang, s => s.results.contact.general),
+                  selectedResult.info.contact.general,
+                )}
+                {contactInfo(
+                  lang,
+                  t(lang, s => s.results.contact.getHelp),
+                  selectedResult.info.contact.getHelp,
+                )}
+                {contactInfo(
+                  lang,
+                  t(lang, s => s.results.contact.volunteer),
+                  selectedResult.info.contact.volunteers,
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </AppContext.Consumer>
+    );
+  }
+}
 
 export default styled(Results)`
+  max-height: 80%;
   background: #fff;
-  z-index: 100;
   position: relative;
   display: flex;
   flex-direction: column;
-  border-left: ${p => p.theme.borderLight};
 
   > .header {
-    z-index: 200;
-    height: ${HEADER_HEIGHT_PX}px;
-    padding: 0 ${p => p.theme.spacingPx}px 0 0;
-    background: ${p => p.theme.bg};
-    border-bottom: ${p => p.theme.borderLight};
+    background: rgba(129, 30, 120, 0.3);
     display: flex;
-    align-items: center;
+    color: ${p => p.theme.colors.brand.primaryDark};
+    padding: 0 8px;
 
-    > .back {
+    > button.back {
+      display: none;
+      color: ${p => p.theme.colors.brand.primaryDark};
+      cursor: pointer;
+      outline: none;
+      border: none;
+      background: none;
+      padding: 0 16px;
+      margin: 0 -8px;
+      z-index: ${Z_INDICES.MAP_OVERLAYS_RESULTS_BACK_BUTTON};
+
+      svg {
+        transform: rotate(90deg);
+
+        [dir='rtl'] & {
+          transform: rotate(270deg);
+        }
+      }
+
+      &:hover,
+      &:focus {
+        opacity: 0.7;
+      }
+    }
+
+    > button.toggle {
+      flex-grow: 1;
+      color: ${p => p.theme.colors.brand.primaryDark};
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 22px;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      background: none;
       display: flex;
-      height: 100%;
+      padding: 5px 16px;
+      align-items: center;
+      margin: 0 -8px;
+
+      > .count {
+        white-space: nowrap;
+      }
+
+      > .grow {
+        flex-grow: 1;
+      }
+
+      &:hover,
+      &:focus {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  > .update {
+    display: none;
+    padding: 20px 16px;
+
+    button {
+      flex-grow: 1;
+      padding: 4px;
+      color: #fff;
+      background: ${p => p.theme.colors.blue};
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      font-size: 14px;
+      line-height: 22px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0;
-      padding: 0;
-      background: none;
       border: none;
-      outline: none;
-      color: ${p => p.theme.colors.brand.primary};
+      cursor: pointer;
 
-      width: ${p => p.theme.spacingPx}px;
-      opacity: 0;
-      transition: opacity 200ms, width 200ms;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
-      &.visible {
-        width: 50px;
-        opacity: 1;
-        cursor: pointer;
+      svg {
+        height: 16px;
+        margin: 0 4px;
       }
 
-      .hidden {
+      span {
+        margin: 0 4px;
       }
 
-      &:hover {
-        color: ${p => p.theme.colors.brand.primaryLight};
+      &:hover,
+      &:focus {
+        opacity: 0.7;
       }
-    }
-
-    > .count {
-      flex-grow: 1;
-      margin-right: ${p => p.theme.spacingPx}px;
-      line-height: 22px;
-      white-space: nowrap;
-    }
-
-    > .update {
-      ${buttonPrimary};
     }
   }
 
   > .list {
-    overflow-y: scroll;
-    height: 0;
+    display: none;
+    overflow-y: auto;
     flex-grow: 1;
 
     > .result {
@@ -247,6 +348,10 @@ export default styled(Results)`
         font-size: 20px;
         font-weight: 600;
         margin-right: ${p => p.theme.spacingPx}px;
+
+        [dir='rtl'] & {
+          margin: 0 0 0 ${p => p.theme.spacingPx}px;
+        }
       }
 
       .location {
@@ -258,15 +363,10 @@ export default styled(Results)`
   }
 
   > .details {
-    z-index: 100;
     background: #fff;
-    position: absolute;
-    top: ${HEADER_HEIGHT_PX}px;
-    left: 0;
-    bottom: 0;
-    right: 0;
     padding: ${p => p.theme.spacingPx}px;
     overflow-y: auto;
+    flex-grow: 1;
 
     > .name {
       font-size: 1.5rem;
@@ -303,6 +403,42 @@ export default styled(Results)`
           }
         }
       }
+    }
+  }
+
+  &.open {
+    > .header > button.toggle > .chevron {
+      transform: rotate(180deg);
+    }
+
+    > .update {
+      display: flex;
+    }
+
+    > .list {
+      display: block;
+    }
+  }
+
+  &.selected-result {
+    > .header {
+      > button.back {
+        display: block;
+      }
+      > button.toggle > .chevron {
+        transform: rotate(180deg);
+      }
+    }
+
+    > .update {
+      display: none;
+    }
+
+    // Keep visible (rather than display:none) to maintain scroll position
+    > .list {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
     }
   }
 `;

@@ -14,8 +14,8 @@ export const createGoogleMap = (
     center: query.map
       ? query.map.pos
       : {
-          lat: average(markers.map(m => m.loc.lat)),
-          lng: average(markers.map(m => m.loc.lng)),
+          lat: average(MARKERS.map(m => m.loc.latlng.latitude)),
+          lng: average(MARKERS.map(m => m.loc.latlng.longitude)),
         },
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     streetViewControl: false,
@@ -23,8 +23,9 @@ export const createGoogleMap = (
     mapTypeControl: false,
     fullscreenControl: false,
     zoomControlOptions: {
-      position: google.maps.ControlPosition.LEFT_BOTTOM,
+      position: google.maps.ControlPosition.RIGHT_BOTTOM,
     },
+    gestureHandling: 'greedy',
   });
 };
 

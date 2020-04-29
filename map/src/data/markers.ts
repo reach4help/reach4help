@@ -1,3 +1,5 @@
+import firebase from 'firebase/app';
+
 /* eslint max-len: 0 */
 import { MarkerType } from './index';
 
@@ -21,20 +23,31 @@ export interface Location {
    * Human readable name for the location -- displayed on the web.
    */
   description: string;
-  lat: number;
-  lng: number;
+  /**
+   * Firestore compatible lat-lng object
+   */
+  latlng: firebase.firestore.GeoPoint;
   /**
    *  Measured in Meters (per Google Maps standard)
    */
   serviceRadius: number;
 }
 
+export interface ContactGroup {
+  /** general contact information */
+  general?: ContactDetails;
+  /** details of how those that need help can interact with the organization  */
+  getHelp?: ContactDetails;
+  /** details of how those who want to help can interact with the organization  */
+  volunteers?: ContactDetails;
+}
+
 /**
  * A marker that will be rendered on the map. A short title and description is also visible to users.
  *
- * It contains an array of services
+ * TODO: remove type parameter when OldMarkerInfo is deleted
  */
-export interface MarkerInfo {
+interface EitherMarkerInfo<Location> {
   /** name of the organization or community effort */
   contentTitle: string;
   /** description of the organization or community effort */
@@ -47,19 +60,28 @@ export interface MarkerInfo {
    * the different avenues with which to contact an organization,
    * depending on your desired involvement
    */
-  contact: {
-    /** general contact information */
-    general?: ContactDetails;
-    /** details of how those that need help can interact with the organization  */
-    getHelp?: ContactDetails;
-    /** details of how those who want to help can interact with the organization  */
-    volunteers?: ContactDetails;
-  };
+  contact: ContactGroup;
   /**
    * The location data for this organization
    */
   loc: Location;
 }
+
+export interface MarkerInfo extends EitherMarkerInfo<Location> {
+  /**
+   * Whether the marker has been made visible to everyone
+   *
+   * (i.e. has it been reviewed for accuraccy).
+   */
+  visible: boolean;
+}
+
+export type OldMarkerInfo = EitherMarkerInfo<{
+  description: string;
+  lat: number;
+  lng: number;
+  serviceRadius: number;
+}>;
 
 const LOCATIONS = {
   PT: {
@@ -242,6 +264,12 @@ const LOCATIONS = {
       lat: 39.07661,
       lng: -108.554731,
       serviceRadius: 11820,
+    },
+    CO_CARBONDALE: {
+      description: 'Carbondale, Colorado',
+      lat: 39.40057,
+      lng: -107.2135,
+      serviceRadius: 8046,
     },
     CT_HBWNH: {
       description:
@@ -439,7 +467,13 @@ const LOCATIONS = {
   },
 };
 
+<<<<<<< HEAD
 const MARKERS: MarkerInfo[] = [
+||||||| merged common ancestors
+export const MARKERS: MarkerInfo[] = [
+=======
+const OLD_MARKERS: OldMarkerInfo[] = [
+>>>>>>> upstream/master
   {
     contentTitle: 'REMOVE LLC.',
     contentBody:
@@ -458,6 +492,22 @@ const MARKERS: MarkerInfo[] = [
       },
     },
     loc: LOCATIONS.USA.CA_LA,
+  },
+  {
+    contentTitle: 'Carbondale Colorado Mutual Aid',
+    type: {
+      type: 'mutual-aid-group',
+    },
+    contact: {
+      general: {
+        facebookGroup: 'https://www.facebook.com/groups/CarbondaleCOMutualAid/',
+        web: {
+          'Carbondale Task Force':
+            'https://www.carbondalegov.org/government/emergency/index.php',
+        },
+      },
+    },
+    loc: LOCATIONS.USA.CO_CARBONDALE,
   },
   {
     contentTitle: 'Birmingham Mutual Aid',
@@ -2438,22 +2488,15 @@ If you are a low-risk individual with transportation and time to spare, sign up 
   },
 ];
 
-const getJSONMarkerData = async () => {
-  const dataResponse = await fetch('/data/reach4helpDataset.json');
-  const data = await dataResponse.json();
-  const info: MarkerInfo[] = [];
-  for (const org of data) {
-    if (org !== undefined) {
-      // Using assertive type instead of type casting since
-      // JSON data is definitively going to follow the MarkerInfo
-      // interface model
-      info.push(org as MarkerInfo);
-    }
-  }
-  return info;
-};
-
-export const getMarkerData = async () => [
-  ...MARKERS,
-  ...(await getJSONMarkerData()),
-];
+export const MARKERS: MarkerInfo[] = OLD_MARKERS.map(m => ({
+  contentTitle: m.contentTitle,
+  contentBody: m.contentBody,
+  contact: m.contact,
+  type: m.type,
+  loc: {
+    description: m.loc.description,
+    serviceRadius: m.loc.serviceRadius,
+    latlng: new firebase.firestore.GeoPoint(m.loc.lat, m.loc.lng),
+  },
+  visible: true,
+}));
