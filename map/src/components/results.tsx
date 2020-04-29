@@ -6,7 +6,7 @@ import { MarkerIdAndInfo } from 'src/components/map';
 import { ContactDetails } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
 
-import styled from '../styling';
+import styled, { Z_INDICES } from '../styling';
 import { AppContext } from './context';
 import MarkerType from './marker-type';
 
@@ -114,6 +114,12 @@ class Results extends React.PureComponent<Props, State> {
     }
   };
 
+  private back = () => {
+    const { setSelectedResult } = this.props;
+    setSelectedResult(null);
+    this.setState({ open: true });
+  };
+
   public render() {
     const {
       className,
@@ -133,6 +139,9 @@ class Results extends React.PureComponent<Props, State> {
             }`}
           >
             <div className="header">
+              <button type="button" className="back" onClick={this.back}>
+                <Chevron className="chevron" />
+              </button>
               <button type="button" className="toggle" onClick={this.toggle}>
                 <span className="count">
                   {format(lang, s => s.results.count, {
@@ -220,6 +229,28 @@ export default styled(Results)`
     background: rgba(129, 30, 120, 0.3);
     display: flex;
     color: ${p => p.theme.colors.brand.primaryDark};
+    padding: 0 8px;
+
+    > button.back {
+      display: none;
+      color: ${p => p.theme.colors.brand.primaryDark};
+      cursor: pointer;
+      outline: none;
+      border: none;
+      background: none;
+      padding: 0 16px;
+      margin: 0 -8px;
+      z-index: ${Z_INDICES.MAP_OVERLAYS_RESULTS_BACK_BUTTON};
+
+      svg {
+        transform: rotate(90deg);
+      }
+
+      &:hover,
+      &:focus {
+        opacity: 0.7;
+      }
+    }
 
     > button.toggle {
       flex-grow: 1;
@@ -234,6 +265,7 @@ export default styled(Results)`
       display: flex;
       padding: 5px 16px;
       align-items: center;
+      margin: 0 -8px;
 
       > .count {
         white-space: nowrap;
@@ -385,8 +417,13 @@ export default styled(Results)`
   }
 
   &.selected-result {
-    > .header > button.toggle > .chevron {
-      transform: rotate(180deg);
+    > .header {
+      > button.back {
+        display: block;
+      }
+      > button.toggle > .chevron {
+        transform: rotate(180deg);
+      }
     }
 
     > .update {
