@@ -53,5 +53,9 @@ export default styled(Search)`
     ::placeholder {
       color: rgba(0, 0, 0, 0.45);
     }
+
+    &:focus {
+      border-color: ${p => p.theme.colors.brand.primaryDark};
+    }
   }
 `;

@@ -92,8 +92,9 @@ export const MARKER_TYPES = {
   },
 };
 
-export const isMarkerType = (type: string): type is MarkerTypeString =>
-  type in MARKER_TYPES;
+export const isMarkerType = (
+  type: string | undefined,
+): type is MarkerTypeString => (type && type in MARKER_TYPES) || false;
 
 export const MARKER_TYPE_STRINGS = Object.keys(
   MARKER_TYPES,

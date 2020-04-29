@@ -70,7 +70,6 @@ class MyLocation extends React.Component<Props, State> {
 }
 
 export default styled(MyLocation)`
-  flex-grow: 1;
   border: 1px solid rgba(0, 0, 0, 0.6);
   background: #fff;
   box-sizing: border-box;
@@ -83,6 +82,12 @@ export default styled(MyLocation)`
   justify-content: center;
   cursor: pointer;
   outline: none;
+
+  &:hover,
+  &:focus {
+    color: ${p => p.theme.colors.brand.primaryDark};
+    border-color: ${p => p.theme.colors.brand.primaryDark};
+  }
 
   &.active {
     color: ${p => p.theme.colors.blue};

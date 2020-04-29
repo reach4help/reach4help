@@ -230,6 +230,11 @@ export default styled(Results)`
       > .grow {
         flex-grow: 1;
       }
+
+      &:hover,
+      &:focus {
+        opacity: 0.7;
+      }
     }
   }
 
@@ -259,6 +264,11 @@ export default styled(Results)`
 
       span {
         margin: 0 4px;
+      }
+
+      &:hover,
+      &:focus {
+        opacity: 0.7;
       }
     }
   }

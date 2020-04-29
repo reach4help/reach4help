@@ -1,14 +1,18 @@
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
+import { Filter } from 'src/data';
 import { Page } from 'src/state';
 import styled, { LARGE_DEVICES } from 'src/styling';
 
+import FilterType, { FilterMutator } from './filter-type';
 import MyLocation from './my-location-button';
 import Search from './search';
 
 interface Props {
   className?: string;
   page: Page;
+  filter: Filter;
+  updateFilter: (mutator: FilterMutator) => void;
   components: {
     map: () => JSX.Element;
     results: (props: { className: string }) => JSX.Element;
@@ -16,7 +20,7 @@ interface Props {
 }
 
 const MapLayout = (props: Props) => {
-  const { className, components, page } = props;
+  const { className, components, page, filter, updateFilter } = props;
   return (
     <div className={`${className} page-${page.page}`}>
       <MapLoader className="map" child={components.map} />
@@ -25,6 +29,11 @@ const MapLayout = (props: Props) => {
           <div className="controls">
             <Search className="search" searchInputId="main" />
             <div className="row">
+              <FilterType
+                className="filter-type"
+                filter={filter}
+                updateFilter={updateFilter}
+              />
               <MyLocation className="my-location" />
             </div>
           </div>
@@ -87,8 +96,11 @@ export default styled(MapLayout)`
         }
 
         .search,
-        .my-location {
+        .my-location,
+        .filter-type {
           margin: 9px 8px;
+          flex-grow: 1;
+          flex-basis: 0;
         }
       }
 

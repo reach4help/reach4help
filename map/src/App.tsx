@@ -7,7 +7,7 @@ import * as i18n from 'src/i18n';
 import { Page } from 'src/state';
 
 import { AppContext } from './components/context';
-import { FilterMutator } from './components/filters';
+import { FilterMutator } from './components/filter-type';
 import Header from './components/header';
 import Map, { MarkerIdAndInfo } from './components/map';
 import Results from './components/results';
@@ -120,6 +120,8 @@ class App extends React.Component<Props, State> {
             <MapLayout
               className="map-area"
               page={page}
+              filter={filter}
+              updateFilter={this.setFilter}
               components={{
                 map: () => (
                   <Map
