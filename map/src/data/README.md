@@ -4,7 +4,23 @@ The purpose of this readme is to outline the data model that the map uses to tra
 
 ## What is a Map Marker
 
-A map marker represents an organization or community effort to orchestrate aid. It consists of several components as well as a latitude, longitude, and area of influence (a radius measured in meters).
+A map marker represents an mutual-aid-group, organization, or community effort to orchestrate aid such as financial and information. It consists of several components as well as a latitude, longitude, and area of influence (a radius measured in meters).
+
+## Note about type field for markers
+
+- type: 'mutual-aid-group' = The main datapoints we're interested in
+- type: 'org' = Organization / Government-Run / NPO / Company
+  - It also contains `services: Service[];` field to indicate the kind of service provided by the org type
+  - The services are:   
+    - 'food'
+    - 'supplies'
+    - 'aid'
+    - 'mobility'
+    - 'medicine'
+    - 'manufacturing'
+    - 'financial'
+    - 'information'
+
 
 ### Data Model
 
@@ -25,45 +41,44 @@ export interface ContactDetails {
  * See the LOCATIONS array.
  */
 export interface Location {
-  description: string; // human readable name of the location
-  lat: number;
-  lng: number;
-  serviceRadius: number; // distance in meters
+  /**
+   * Human readable name for the location -- displayed on the web.
+   */
+  description: string;
+  /**
+   * Firestore compatible lat-lng object
+   */
+  latlng: firebase.firestore.GeoPoint;
+  /**
+   *  Measured in Meters (per Google Maps standard)
+   */
+  serviceRadius: number;
 }
 
 /**
  * A marker that will be rendered on the map. A short title and description is also visible to users.
  *
- * It contains an array of services
+ *
  */
-export interface MarkerInfo {
-  // name of the organization or community effort
-  contentTitle: string;
-
-  // description of the organization or community effort
-  contentBody?: string;
-
-  // a list of services provided -- at least one is required from the list below
-  services: [
-    'food',
-    'supplies',
-    'aid',
-    'mobility',
-    'medicine',
-    'manufacturing',
-    'financial',
-    'information',
-  ];
-
-  // Three contact detail objects cover various opportunities available at each organization
-  contact: {
-    general?: ContactDetails; // For general info
-    getHelp?: ContactDetails; // For showcasing how those who need help can interact with the organization
-    volunteers?: ContactDetails; // For showcasing how those who want to help can interact with the organization
-  };
-
-  loc: Location; // The location data for this organization
-}
+ interface EitherMarkerInfo<Location> {
+   /** name of the organization or community effort */
+   contentTitle: string;
+   /** description of the organization or community effort */
+   contentBody?: string;
+   /**
+    * What type of datapoint is this?
+    */
+   type: MarkerType;
+   /**
+    * the different avenues with which to contact an organization,
+    * depending on your desired involvement
+    */
+   contact: ContactGroup;
+   /**
+    * The location data for this organization
+    */
+   loc: Location;
+ }
 ```
 
 ### How to Capture Lat, Long, and Radius
@@ -84,20 +99,13 @@ See the video below if you have any questions.
 
 ### Sample Marker
 
+
+
 ```json
 {
   "contentTitle": "Community Organization for Aid - SF Bay Area",
   "contentBody": "We are a collective of parents, industry leaders, and volunteers providing aid to anyone who needs it.",
-  "services": [
-    "food",
-    "supplies",
-    "aid",
-    "mobility",
-    "medicine",
-    "manufacturing",
-    "financial",
-    "information"
-  ],
+  "type": ["mutual-aid-group" || "org" || "financial" || "information" || "other"],
   "contact": {
     "general": {
       "facebookGroup": "https://facebook.com/groups/findhelp",
