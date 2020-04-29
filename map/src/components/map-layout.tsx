@@ -116,7 +116,7 @@ export default styled(MapLayout)`
   &.page-map {
     > .overlay {
       opacity: 1;
-      > .panel {
+      > .panel > * {
         pointer-events: initial;
       }
     }
