@@ -44,6 +44,7 @@ export const THEME = {
   textLinkColor: COLORS.purpleLight,
   textLinkHoverColor: COLORS.purple,
   colors: COLORS,
+  opacityTransition: 'opacity 0.2s',
 };
 
 export type Theme = typeof THEME;

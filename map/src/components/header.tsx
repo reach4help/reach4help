@@ -10,6 +10,7 @@ import styled, {
   LARGE_DEVICES,
   NON_LARGE_DEVICES,
   SMALL_DEVICES,
+  Z_INDICES,
 } from 'src/styling';
 
 const MENU = ['about', 'map'] as const;
@@ -114,8 +115,6 @@ class Header extends React.Component<Props, State> {
 const TOP_HEIGHT = '70px';
 
 export default styled(Header)`
-  z-index: 150;
-
   .actions {
     margin: 0 -6px;
     display: flex;
@@ -150,7 +149,7 @@ export default styled(Header)`
   }
 
   > .top {
-    z-index: 275;
+    z-index: ${Z_INDICES.HEADER_PRIMARY};
     height: ${TOP_HEIGHT};
     width: 100%;
     box-sizing: border-box;
@@ -164,10 +163,6 @@ export default styled(Header)`
 
     ${NON_LARGE_DEVICES} {
       padding: 0 15px;
-    }
-
-    > * {
-      z-index: 300;
     }
 
     > .logo {
@@ -196,7 +191,6 @@ export default styled(Header)`
     }
 
     > .title {
-      z-index: 310;
       position: absolute;
       top: 0;
       left: 0;
@@ -262,7 +256,7 @@ export default styled(Header)`
     background: rgba(129, 30, 120, 0.95);
     box-shadow: 0px 4px 10px rgba(31, 0, 41, 0.1);
     margin-bottom: -40px;
-    z-index: 250;
+    z-index: ${Z_INDICES.HEADER_SECONDARY};
 
     > .actions {
       justify-content: center;

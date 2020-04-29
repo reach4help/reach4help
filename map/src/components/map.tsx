@@ -1,11 +1,10 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import {
-  MdExpandLess,
-  MdExpandMore,
-  MdMyLocation,
-  MdRefresh,
-} from 'react-icons/md';
+import { MdMyLocation, MdRefresh } from 'react-icons/md';
+import mapState, {
+  ActiveMarkers,
+  MapInfo,
+} from 'src/components/map-utils/map-state';
 import Search from 'src/components/search';
 import { Filter, MARKER_TYPES } from 'src/data';
 import * as firebase from 'src/data/firebase';
@@ -32,35 +31,6 @@ interface MarkerData {
 }
 
 type DataSet = keyof MarkerData;
-
-interface ActiveMarkers {
-  /** map from marker index to marker */
-  hardcoded: Map<string, google.maps.Marker>;
-  /** map from firebase id to marker */
-  firebase: Map<string, google.maps.Marker>;
-}
-
-interface MapInfo {
-  map: google.maps.Map;
-  activeMarkers: ActiveMarkers;
-  markerClusterer: MarkerClusterer;
-  /**
-   * The filter that is currently being used to display the markers on the map
-   */
-  currentFilter: Filter;
-  clustering?:
-    | {
-        state: 'idle';
-        /** The circles we rendered for the current visible markers */
-        serviceCircles: google.maps.Circle[];
-        /** Map from original marker to position of cluster if in a cluster */
-        clusterMarkers: Map<google.maps.Marker, google.maps.LatLng>;
-      }
-    | {
-        /** A clustering is in progress */
-        state: 'active';
-      };
-}
 
 const MARKER_DATA_ID = 'id';
 
@@ -90,8 +60,6 @@ interface Props {
    * Call this
    */
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
-  resultsMode: 'open' | 'closed';
-  toggleResults: () => void;
   updateResultsOnNextClustering: boolean;
   setUpdateResultsOnNextClustering: (
     updateResultsOnNextClustering: boolean,
@@ -112,8 +80,6 @@ class MapComponent extends React.Component<Props, {}> {
     hardcoded: new Map(),
     firebase: new Map(),
   };
-
-  private map: MapInfo | null = null;
 
   private addInfoMapClickedListener:
     | ((evt: google.maps.MouseEvent) => void)
@@ -140,12 +106,13 @@ class MapComponent extends React.Component<Props, {}> {
   }
 
   public componentDidUpdate(prevProps: Props) {
+    const { map } = mapState();
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
-    if (this.map && !isEqual(filter, this.map.currentFilter)) {
+    if (map && !isEqual(filter, map.currentFilter)) {
       this.updateMarkersVisibilityUsingFilter(filter);
-      this.map.markerClusterer.repaint();
-      this.map.currentFilter = filter;
+      map.markerClusterer.repaint();
+      map.currentFilter = filter;
     }
     if (nextResults && !results) {
       // If we have next results queued up, but no results yet, set the results
@@ -164,16 +131,17 @@ class MapComponent extends React.Component<Props, {}> {
   }
 
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
-    if (this.map) {
+    const { map } = mapState();
+    if (map) {
       for (const marker of [
-        ...this.map.activeMarkers.hardcoded.values(),
-        ...this.map.activeMarkers.firebase.values(),
+        ...map.activeMarkers.hardcoded.values(),
+        ...map.activeMarkers.firebase.values(),
       ]) {
         const info = this.getMarkerInfo(marker);
         const visible = !filter.type || info?.info.type.type === filter.type;
         marker.setVisible(visible);
       }
-      this.map.markerClusterer.repaint();
+      map.markerClusterer.repaint();
     }
   };
 
@@ -235,11 +203,12 @@ class MapComponent extends React.Component<Props, {}> {
   private informationUpdated: firebase.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
     this.data.firebase = update.markers;
-    if (this.map) {
+    const { map } = mapState();
+    if (map) {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
       for (const [id, info] of update.markers.entries()) {
-        const marker = this.map.activeMarkers.firebase.get(id);
+        const marker = map.activeMarkers.firebase.get(id);
         if (marker) {
           // Update info
           marker.setPosition({
@@ -249,21 +218,21 @@ class MapComponent extends React.Component<Props, {}> {
           marker.setTitle(info.contentTitle);
         } else {
           newMarkers.push(
-            this.createMarker(this.map.activeMarkers, 'firebase', id, info),
+            this.createMarker(map.activeMarkers, 'firebase', id, info),
           );
         }
       }
-      this.map.markerClusterer.addMarkers(newMarkers, true);
+      map.markerClusterer.addMarkers(newMarkers, true);
       // Delete removed markers
       const removedMarkers: google.maps.Marker[] = [];
-      for (const [id, marker] of this.map.activeMarkers.firebase.entries()) {
+      for (const [id, marker] of map.activeMarkers.firebase.entries()) {
         if (!update.markers.has(id)) {
           removedMarkers.push(marker);
-          this.map.activeMarkers.firebase.delete(id);
+          map.activeMarkers.firebase.delete(id);
         }
       }
-      this.map.markerClusterer.removeMarkers(removedMarkers, true);
-      this.updateMarkersVisibilityUsingFilter(this.map.currentFilter);
+      map.markerClusterer.removeMarkers(removedMarkers, true);
+      this.updateMarkersVisibilityUsingFilter(map.currentFilter);
     }
   };
 
@@ -307,7 +276,7 @@ class MapComponent extends React.Component<Props, {}> {
       currentFilter: filter,
       markerClusterer,
     };
-    this.map = m;
+    mapState().map = m;
 
     this.updateMarkersVisibilityUsingFilter(filter);
 
@@ -472,23 +441,25 @@ class MapComponent extends React.Component<Props, {}> {
   };
 
   private updateResults = () => {
+    const { map } = mapState();
     const { results, nextResults } = this.props;
-    if (this.map && nextResults && results !== nextResults) {
+    if (map && nextResults && results !== nextResults) {
       this.updateResultsTo(nextResults);
     }
   };
 
   private updateResultsTo = (results: MarkerIdAndInfo[]) => {
+    const { map } = mapState();
     const { setResults } = this.props;
-    if (this.map) {
+    if (map) {
       // Clear all existing marker labels
       for (const marker of [
-        ...this.map.activeMarkers.hardcoded.values(),
-        ...this.map.activeMarkers.firebase.values(),
+        ...map.activeMarkers.hardcoded.values(),
+        ...map.activeMarkers.firebase.values(),
       ]) {
         marker.setLabel('');
       }
-      const { activeMarkers } = this.map;
+      const { activeMarkers } = map;
       const visibleMarkers = results
         .map(({ id }) => activeMarkers[id.set].get(id.id))
         .filter(isDefined);
@@ -506,17 +477,18 @@ class MapComponent extends React.Component<Props, {}> {
    * selected. And return the coordinates that were used to place the tooltip.
    */
   private updateInfoWindow = (): google.maps.LatLng | undefined => {
+    const { map } = mapState();
     const { selectedResult, setSelectedResult } = this.props;
-    if (!this.map) {
+    if (!map) {
       return;
     }
     const marker =
       selectedResult &&
-      this.map.activeMarkers[selectedResult.id.set].get(selectedResult.id.id);
+      map.activeMarkers[selectedResult.id.set].get(selectedResult.id.id);
     if (selectedResult && marker) {
       const clusterCenter =
-        this.map.clustering?.state === 'idle' &&
-        this.map.clustering.clusterMarkers.get(marker);
+        map.clustering?.state === 'idle' &&
+        map.clustering.clusterMarkers.get(marker);
       const contentString = infoWindowContent(selectedResult.info);
       if (!this.infoWindow) {
         this.infoWindow = new window.google.maps.InfoWindow({
@@ -528,11 +500,11 @@ class MapComponent extends React.Component<Props, {}> {
       }
       this.infoWindow.setContent(contentString);
       if (clusterCenter) {
-        this.infoWindow.open(this.map.map);
+        this.infoWindow.open(map.map);
         this.infoWindow.setPosition(clusterCenter);
         return clusterCenter;
       }
-      this.infoWindow.open(this.map.map, marker);
+      this.infoWindow.open(map.map, marker);
       return marker.getPosition() || undefined;
     }
     if (this.infoWindow) {
@@ -547,11 +519,12 @@ class MapComponent extends React.Component<Props, {}> {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        if (!this.map) {
+        const { map } = mapState();
+        if (!map) {
           return;
         }
-        this.map.map.setCenter(pos);
-        this.map.map.setZoom(8);
+        map.map.setCenter(pos);
+        map.map.setZoom(8);
         const { setUpdateResultsOnNextClustering } = this.props;
         setUpdateResultsOnNextClustering(true);
       },
@@ -567,6 +540,7 @@ class MapComponent extends React.Component<Props, {}> {
   private initializeSearchInput = (
     searchInput: HTMLInputElement,
   ): SearchBox => {
+    const { map } = mapState();
     const box = new google.maps.places.SearchBox(searchInput);
     const searchBox: SearchBox = {
       searchInput,
@@ -574,7 +548,7 @@ class MapComponent extends React.Component<Props, {}> {
     };
 
     searchBox.box.addListener('places_changed', () => {
-      if (!this.map) {
+      if (!map) {
         return;
       }
 
@@ -597,10 +571,10 @@ class MapComponent extends React.Component<Props, {}> {
         }
       });
 
-      this.map.map.fitBounds(bounds);
+      map.map.fitBounds(bounds);
     });
-    if (this.map) {
-      const bounds = this.map.map.getBounds();
+    if (map) {
+      const bounds = map.map.getBounds();
       if (bounds) {
         searchBox.box.setBounds(bounds);
       }
@@ -628,17 +602,9 @@ class MapComponent extends React.Component<Props, {}> {
   };
 
   public render() {
-    const {
-      className,
-      results,
-      nextResults,
-      resultsMode,
-      toggleResults,
-      page,
-      setPage,
-    } = this.props;
+    const { map } = mapState();
+    const { className, results, nextResults, page, setPage } = this.props;
     const hasNewResults = nextResults && nextResults !== results;
-    const ExpandIcon = resultsMode === 'open' ? MdExpandMore : MdExpandLess;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -653,7 +619,7 @@ class MapComponent extends React.Component<Props, {}> {
             {page.page === 'add-information' && (
               <AddInstructions
                 lang={lang}
-                map={(this.map && this.map.map) || null}
+                map={(map && map.map) || null}
                 addInfoStep={page.step}
                 setPage={setPage}
                 updateSearchInput={this.updateAddInfoSearchInput}
@@ -674,27 +640,12 @@ class MapComponent extends React.Component<Props, {}> {
                 </button>
               )}
             </div>
-            {page.page === 'map' && (
-              <div className="results-tab" onClick={toggleResults}>
-                <div>
-                  <ExpandIcon />
-                  <span>
-                    {resultsMode === 'open'
-                      ? 'close'
-                      : `${results?.length || 0} result(s)`}
-                  </span>
-                  <ExpandIcon />
-                </div>
-              </div>
-            )}
           </div>
         )}
       </AppContext.Consumer>
     );
   }
 }
-
-const TAB_WIDTH_PX = 30;
 
 export default styled(MapComponent)`
   height: 100%;
@@ -706,7 +657,6 @@ export default styled(MapComponent)`
 
   > .search {
     position: absolute;
-    z-index: 100;
     max-width: 500px;
     top: ${p => p.theme.spacingPx}px;
     left: ${p => p.theme.spacingPx}px;
@@ -731,46 +681,6 @@ export default styled(MapComponent)`
       box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
       margin: 0 5px;
       background: #fff;
-    }
-  }
-
-  > .results-tab {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: ${TAB_WIDTH_PX}px;
-    pointer-events: none;
-
-    > div {
-      z-index: 50;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      height: ${TAB_WIDTH_PX}px;
-      line-height: ${TAB_WIDTH_PX}px;
-      transform: translate(-50%, -50%) rotate(-90deg);
-      pointer-events: all;
-
-      ${button};
-      padding: 0 5px;
-      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-      background: #fff;
-      font-size: 1rem;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-
-      display: flex;
-      align-items: center;
-
-      > span {
-        margin: 0 5px;
-      }
-
-      > svg {
-        width: 20px;
-        height: 20px;
-      }
     }
   }
 `;

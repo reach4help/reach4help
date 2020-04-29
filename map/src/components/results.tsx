@@ -197,7 +197,6 @@ const HEADER_HEIGHT_PX = 52;
 
 export default styled(Results)`
   background: #fff;
-  z-index: 100;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -208,7 +207,6 @@ export default styled(Results)`
   }
 
   > .header {
-    z-index: 200;
     height: ${HEADER_HEIGHT_PX}px;
     padding: 0 ${p => p.theme.spacingPx}px 0 0;
     background: ${p => p.theme.bg};
@@ -312,7 +310,6 @@ export default styled(Results)`
   }
 
   > .details {
-    z-index: 100;
     background: #fff;
     position: absolute;
     top: ${HEADER_HEIGHT_PX}px;

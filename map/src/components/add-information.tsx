@@ -30,7 +30,7 @@ import {
   Service,
   SERVICE_STRINGS,
 } from '../data';
-import styled, { LARGE_DEVICES } from '../styling';
+import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
   button,
   buttonPrimary,
@@ -1169,7 +1169,7 @@ class AddInstructions extends React.Component<Props, State> {
 }
 
 export default styled(AddInstructions)`
-  z-index: 100;
+  z-index: ${Z_INDICES.MAP_ADD_INFORMATION};
   font-size: 1rem;
   position: absolute;
   top: 0;

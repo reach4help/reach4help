@@ -1,7 +1,11 @@
 import React from 'react';
 import { t } from 'src/i18n';
 import { Page } from 'src/state';
-import styled, { LARGE_DEVICES, NON_LARGE_DEVICES } from 'src/styling';
+import styled, {
+  LARGE_DEVICES,
+  NON_LARGE_DEVICES,
+  Z_INDICES,
+} from 'src/styling';
 
 import Marker from './assets/marker';
 import { AppContext } from './context';
@@ -89,7 +93,7 @@ const About = ({ className, page, setPage }: Props) => (
 export default styled(About)`
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s;
+  transition: ${p => p.theme.opacityTransition};
   background: url(/about-bg.svg);
   background-size: cover;
   background-position: center;
@@ -100,6 +104,7 @@ export default styled(About)`
   right: 0;
   padding: 0 20px;
   overflow-y: auto;
+  z-index: ${Z_INDICES.ABOUT_PAGE};
 
   ${LARGE_DEVICES} {
     top: ${p => p.theme.secondaryHeaderSizePx}px;

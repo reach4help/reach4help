@@ -23,3 +23,13 @@ export const NON_LARGE_DEVICES = `@media only screen and (max-width: ${LARGE_BRE
 
 export const CLS_SCREEN_LG_ONLY = 'screen-large-only';
 export const CLS_SCREEN_LG_HIDE = 'screen-large-hide';
+
+export const Z_INDICES = {
+  MAP: 10,
+  MAP_OVERLAYS: 20,
+  MAP_ADD_INFORMATION: 30,
+  ABOUT_PAGE: 40,
+  HEADER_SECONDARY: 50,
+  HEADER_PRIMARY: 60,
+  HEADER_LANGUAGE_DROPDOWN: 70,
+};
