@@ -8,19 +8,21 @@ A map marker represents an mutual-aid-group, organization, or community effort t
 
 ## Note about type field for markers
 
-- type: 'mutual-aid-group' = The main datapoints we're interested in
-- type: 'org' = Organization / Government-Run / NPO / Company
+- `type: mutual-aid-group` = The main datapoints we're interested in
+- `type: org` = Organization / Government-Run / NPO / Company
   - It also contains `services: Service[];` field to indicate the kind of service provided by the org type
   - The services are:   
-    - 'food'
-    - 'supplies'
-    - 'aid'
-    - 'mobility'
-    - 'medicine'
-    - 'manufacturing'
-    - 'financial'
-    - 'information'
-
+    - food
+    - supplies
+    - aid
+    - mobility
+    - medicine
+    - manufacturing
+    - financial
+    - information
+- `type: financial` = A fundraising effort that can be donated to, or have requests made of it
+- `type: information` = An information provider for a specific region (e.g: a local website)
+- `type: other` = Other type of effort
 
 ### Data Model
 
