@@ -1,15 +1,12 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdRefresh } from 'react-icons/md';
 import mapState, {
   ActiveMarkers,
   MapInfo,
 } from 'src/components/map-utils/map-state';
 import { Filter, MARKER_TYPES } from 'src/data';
 import * as firebase from 'src/data/firebase';
-import { t } from 'src/i18n';
 import { Page } from 'src/state';
-import { button, iconButton } from 'src/styling/mixins';
 import { isDefined } from 'src/util';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
@@ -490,8 +487,7 @@ class MapComponent extends React.Component<Props, {}> {
 
   public render() {
     const { map } = mapState();
-    const { className, results, nextResults, page, setPage } = this.props;
-    const hasNewResults = nextResults && nextResults !== results;
+    const { className, page, setPage } = this.props;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -506,14 +502,6 @@ class MapComponent extends React.Component<Props, {}> {
                 setAddInfoMapClickedListener={this.setAddInfoMapClickedListener}
               />
             )}
-            <div className="map-actions">
-              {page.page === 'map' && hasNewResults && (
-                <button type="button" onClick={this.updateResults}>
-                  <MdRefresh className="icon icon-start" />
-                  {t(lang, s => s.map.updateResultsForThisArea)}
-                </button>
-              )}
-            </div>
           </div>
         )}
       </AppContext.Consumer>
@@ -538,23 +526,6 @@ export default styled(MapComponent)`
 
     ${LARGE_DEVICES} {
       top: ${p => p.theme.spacingPx + p.theme.secondaryHeaderSizePx}px;
-    }
-  }
-
-  > .map-actions {
-    position: absolute;
-    bottom: ${p => p.theme.spacingPx}px;
-    left: ${p => p.theme.spacingPx}px;
-    right: ${p => p.theme.spacingPx}px;
-    display: flex;
-    justify-content: center;
-
-    > button {
-      ${button};
-      ${iconButton};
-      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-      margin: 0 5px;
-      background: #fff;
     }
   }
 `;
