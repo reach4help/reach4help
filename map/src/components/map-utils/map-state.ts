@@ -52,6 +52,8 @@ class MapState {
 
   private readonly searchBoxes = new Map<SearchBoxId, SearchBox>();
 
+  private _updateResultsOnNextClustering = false;
+
   public set map(map: MapInfo | null) {
     this._map = map;
     if (map) {
@@ -138,6 +140,14 @@ class MapState {
       box.setBounds(bounds);
     }
   };
+
+  public set updateResultsOnNextClustering(update: boolean) {
+    this._updateResultsOnNextClustering = update;
+  }
+
+  public get updateResultsOnNextClustering() {
+    return this._updateResultsOnNextClustering;
+  }
 }
 
 export default () => {

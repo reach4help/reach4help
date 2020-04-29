@@ -241,7 +241,7 @@ export default styled(Results)`
       flex-grow: 1;
       padding: 4px;
       color: #fff;
-      background: #1890ff;
+      background: ${p => p.theme.colors.blue};
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 4px;
       font-size: 14px;

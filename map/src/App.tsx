@@ -28,7 +28,6 @@ interface State {
   nextResults?: MarkerIdAndInfo[];
   selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
-  updateResultsOnNextClustering: boolean;
   lang: i18n.Language;
   page: Page;
 }
@@ -41,7 +40,6 @@ class App extends React.Component<Props, State> {
       results: null,
       selectedResult: null,
       updateResultsCallback: null,
-      updateResultsOnNextClustering: false,
       lang: i18n.getLanguage(),
       page: {
         page: 'about',
@@ -68,12 +66,6 @@ class App extends React.Component<Props, State> {
     this.setState(state =>
       isEqual(state.nextResults, nextResults) ? {} : { nextResults },
     );
-  };
-
-  private setUpdateResultsOnNextClustering = (
-    updateResultsOnNextClustering: boolean,
-  ) => {
-    this.setState({ updateResultsOnNextClustering });
   };
 
   private setPage = (page: Page) => {
@@ -106,7 +98,6 @@ class App extends React.Component<Props, State> {
       results,
       nextResults,
       selectedResult,
-      updateResultsOnNextClustering,
       page,
       lang,
     } = this.state;
@@ -140,12 +131,6 @@ class App extends React.Component<Props, State> {
                     selectedResult={selectedResult}
                     setSelectedResult={this.setSelectedResult}
                     setUpdateResultsCallback={this.setUpdateResultsCallback}
-                    updateResultsOnNextClustering={
-                      updateResultsOnNextClustering
-                    }
-                    setUpdateResultsOnNextClustering={
-                      this.setUpdateResultsOnNextClustering
-                    }
                     page={page}
                     setPage={this.setPage}
                   />

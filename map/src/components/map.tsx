@@ -1,6 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdMyLocation, MdRefresh } from 'react-icons/md';
+import { MdRefresh } from 'react-icons/md';
 import mapState, {
   ActiveMarkers,
   MapInfo,
@@ -59,10 +59,6 @@ interface Props {
    * Call this
    */
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
-  updateResultsOnNextClustering: boolean;
-  setUpdateResultsOnNextClustering: (
-    updateResultsOnNextClustering: boolean,
-  ) => void;
   page: Page;
   setPage: (page: Page) => void;
 }
@@ -405,16 +401,12 @@ class MapComponent extends React.Component<Props, {}> {
           .map(marker => this.getMarkerInfo(marker))
           .filter(isDefined);
 
-        const {
-          setNextResults: updateNextResults,
-          updateResultsOnNextClustering,
-          setUpdateResultsOnNextClustering,
-        } = this.props;
+        const { setNextResults: updateNextResults } = this.props;
 
         updateNextResults(nextResults);
 
-        if (updateResultsOnNextClustering) {
-          setUpdateResultsOnNextClustering(false);
+        if (mapState().updateResultsOnNextClustering) {
+          mapState().updateResultsOnNextClustering = false;
           this.updateResults();
         }
         // Update tooltip position if neccesary
@@ -496,31 +488,6 @@ class MapComponent extends React.Component<Props, {}> {
     }
   };
 
-  private centerToGeolocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        const { map } = mapState();
-        if (!map) {
-          return;
-        }
-        map.map.setCenter(pos);
-        map.map.setZoom(8);
-        const { setUpdateResultsOnNextClustering } = this.props;
-        setUpdateResultsOnNextClustering(true);
-      },
-      error => {
-        // eslint-disable-next-line no-alert
-        alert('Unable to get geolocation!');
-        // eslint-disable-next-line no-console
-        console.error(error.message);
-      },
-    );
-  };
-
   public render() {
     const { map } = mapState();
     const { className, results, nextResults, page, setPage } = this.props;
@@ -544,12 +511,6 @@ class MapComponent extends React.Component<Props, {}> {
                 <button type="button" onClick={this.updateResults}>
                   <MdRefresh className="icon icon-start" />
                   {t(lang, s => s.map.updateResultsForThisArea)}
-                </button>
-              )}
-              {page.page !== 'about' && navigator.geolocation && (
-                <button type="button" onClick={this.centerToGeolocation}>
-                  <MdMyLocation className="icon icon-start" />
-                  {t(lang, s => s.map.myLocation)}
                 </button>
               )}
             </div>

@@ -3,6 +3,7 @@ import MapLoader from 'src/components/map-loader';
 import { Page } from 'src/state';
 import styled, { LARGE_DEVICES } from 'src/styling';
 
+import MyLocation from './my-location-button';
 import Search from './search';
 
 interface Props {
@@ -23,6 +24,9 @@ const MapLayout = (props: Props) => {
         <div className="panel">
           <div className="controls">
             <Search className="search" searchInputId="main" />
+            <div className="row">
+              <MyLocation className="my-location" />
+            </div>
           </div>
           {components.results({
             className: 'results',
@@ -74,7 +78,18 @@ export default styled(MapLayout)`
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
-        padding: 18px 16px;
+        padding: 9px 8px;
+        display: flex;
+        flex-direction: column;
+
+        .row {
+          display: flex;
+        }
+
+        .search,
+        .my-location {
+          margin: 9px 8px;
+        }
       }
 
       > .results {

@@ -24,7 +24,7 @@ export const COLORS = {
   borderBase: '#D9D9D9',
   red: '#ea4335',
   orange: BRAND_COLORS.secondary,
-  blue: '#4285f4',
+  blue: '#1890FF',
   blueDark: '#2b63c1',
   purple: BRAND_COLORS.primary,
   purpleDark: BRAND_COLORS.primaryDark,
