@@ -8,6 +8,8 @@ import { MarkerType } from './index';
  */
 export interface ContactDetails {
   facebookGroup?: string;
+  instagram?: string;
+  twitter?: string;
   web?: { [id: string]: string }; // List of URLs
   phone?: string[];
   email?: string[];
