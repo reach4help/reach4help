@@ -101,13 +101,58 @@ See the video below if you have any questions.
 
 ### Sample Marker
 
-
+#### JSON scheme for every type described above except type `org`
 
 ```json
 {
   "contentTitle": "Community Organization for Aid - SF Bay Area",
   "contentBody": "We are a collective of parents, industry leaders, and volunteers providing aid to anyone who needs it.",
-  "type": ["mutual-aid-group" || "org" || "financial" || "information" || "other"],
+  "type": "CHOOSE FROM ONE OF THE TYPES DESCRIBED ABOVE EXCEPT TYPE ORG",
+  "contact": {
+    "general": {
+      "facebookGroup": "https://facebook.com/groups/findhelp",
+      "web": {
+        "Homepage": "https://www.findhelp.org",
+        "Our Team": "https://www.findhelp.org/team",
+        "Our Mission": "https://www.findhelp.org/misson"
+      },
+      "phone": ["+1 800 555 1234", "+1 800 555 5678"],
+      "email": ["info@findhelp.org", "another-email@findhelp.org"]
+    },
+    "getHelp": {
+      "web": {
+        "Request Help Form": "https://google.com/forms/get-help.html"
+      },
+      "email": ["helpme@findhelp.org"]
+    },
+    "volunteers": {
+      "web": {
+        "Offer Help Form": "https://google.com/forms/get-help.html",
+        "Donate Funds": "https://gofundme.com/findhelp",
+        "Donate Items": "https://google.com/forms/donate-items.html"
+      },
+      "email": ["offerhelp@findhelp.org"]
+    }
+  },
+  "loc": {
+    "description": "Bay Area, California",
+    "lat": 37.8272,
+    "lng": -122.2913,
+    "serviceRadius": 85000
+  }
+}
+```
+
+### JSON Scheme for type `org` ONLY
+
+```json
+{
+  "contentTitle": "Community Organization for Aid - SF Bay Area",
+  "contentBody": "We are a collective of parents, industry leaders, and volunteers providing aid to anyone who needs it.",
+  "type":{
+    "type": "org",
+    "services": ["food", "supplies", "aid", "mobility", "medicine", "manufacturing", "financial", "information"]
+  },
   "contact": {
     "general": {
       "facebookGroup": "https://facebook.com/groups/findhelp",
