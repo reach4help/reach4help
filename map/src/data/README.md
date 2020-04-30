@@ -101,7 +101,7 @@ See the video below if you have any questions.
 
 ### Sample Marker
 
-#### JSON scheme for every type described above except type `org`
+#### JSON scheme for every type described above EXCEPT type `org`
 
 ```json
 {
@@ -143,13 +143,13 @@ See the video below if you have any questions.
 }
 ```
 
-### JSON Scheme for type `org` ONLY
+#### JSON Scheme for type `org` ONLY
 
 ```json
 {
   "contentTitle": "Community Organization for Aid - SF Bay Area",
   "contentBody": "We are a collective of parents, industry leaders, and volunteers providing aid to anyone who needs it.",
-  "type":{
+  "type": {
     "type": "org",
     "services": ["food", "supplies", "aid", "mobility", "medicine", "manufacturing", "financial", "information"]
   },
