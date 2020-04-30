@@ -1,13 +1,10 @@
-import { MarkerInfo } from '../../data/markers';
+import { MARKERS } from '../../data/markers';
 import { parseQueryString } from './query-string';
 
 const average = (arr: Array<number>) =>
   arr.reduce((acc, curr) => acc + curr) / arr.length;
 
-export const createGoogleMap = (
-  markers: MarkerInfo[],
-  ref: HTMLDivElement,
-): google.maps.Map => {
+export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
   const query = parseQueryString();
   return new google.maps.Map(ref, {
     zoom: query.map ? query.map.zoom : 3,

@@ -467,13 +467,7 @@ const LOCATIONS = {
   },
 };
 
-<<<<<<< HEAD
-const MARKERS: MarkerInfo[] = [
-||||||| merged common ancestors
-export const MARKERS: MarkerInfo[] = [
-=======
 const OLD_MARKERS: OldMarkerInfo[] = [
->>>>>>> upstream/master
   {
     contentTitle: 'REMOVE LLC.',
     contentBody:
