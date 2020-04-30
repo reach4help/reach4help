@@ -5,21 +5,21 @@
     "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
     "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
     "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
+    "githubSourceLabel": "গিটহাবে পাওয়া",
     "otherAreasHeading": "Interested in one of these areas?",
     "otherAreasInfo": "Check out these alternative maps instead:",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York",
-      "uk": "United Kingdom"
+      "france": "ফ্রান্স",
+      "nyc": "নিউ ইয়র্ক",
+      "uk": "ইউনাইটেড কিংডম"
     }
   },
   "menu": {
-    "about": "About",
+    "about": "সম্পর্কে",
     "map": "View Map"
   },
   "addInformation": {
-    "button": "Add information",
+    "button": "তথ্য সম্পাদনা করুন",
     "backToMap": "মানচিত্রে ফিরুন",
     "prev": "পূর্বে",
     "continue": "চালিয়ে",
