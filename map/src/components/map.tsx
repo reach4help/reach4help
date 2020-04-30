@@ -56,7 +56,7 @@ interface Props {
    * Call this
    */
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
-<<<<<<< HEAD
+
   resultsMode: 'open' | 'closed';
   toggleResults: () => void;
   updateResultsOnNextClustering: boolean;
@@ -76,7 +76,7 @@ interface State {
 export interface NextResults {
   markers: google.maps.Marker[];
   results: MarkerInfo[];
-||||||| merged common ancestors
+
   resultsMode: 'open' | 'closed';
   toggleResults: () => void;
   updateResultsOnNextClustering: boolean;
@@ -91,25 +91,23 @@ export interface NextResults {
 export interface NextResults {
   markers: google.maps.Marker[];
   results: MarkerInfo[];
-=======
+
   page: Page;
   setPage: (page: Page) => void;
->>>>>>> upstream/master
+
 }
 
-<<<<<<< HEAD
 class MapComponent extends React.Component<Props, State> {
   private map: MapInfo | null = null;
-||||||| merged common ancestors
+
 class MapComponent extends React.Component<Props, {}> {
   private map: MapInfo | null = null;
-=======
+
 class MapComponent extends React.Component<Props, {}> {
   private readonly data: MarkerData = {
     hardcoded: new Map(),
     firebase: new Map(),
   };
->>>>>>> upstream/master
 
   private addInfoMapClickedListener:
     | ((evt: google.maps.MouseEvent) => void)
@@ -117,7 +115,6 @@ class MapComponent extends React.Component<Props, {}> {
 
   private infoWindow: google.maps.InfoWindow | null = null;
 
-<<<<<<< HEAD
   public constructor(props: Props) {
     super(props);
     this.state = {
@@ -126,8 +123,6 @@ class MapComponent extends React.Component<Props, {}> {
     };
   }
 
-||||||| merged common ancestors
-=======
   public constructor(props: Props) {
     super(props);
 
@@ -137,27 +132,25 @@ class MapComponent extends React.Component<Props, {}> {
     );
   }
 
->>>>>>> upstream/master
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
-<<<<<<< HEAD
+
     getMarkerData().then(markers => this.setState({ markers }));
-||||||| merged common ancestors
-=======
+
+
     firebase.addInformationListener(this.informationUpdated);
     firebase.loadInitialData();
->>>>>>> upstream/master
+
   }
 
-<<<<<<< HEAD
   public componentDidUpdate(prevProps: Props, prevState: State) {
-||||||| merged common ancestors
+
   public componentDidUpdate(prevProps: Props) {
-=======
+
   public componentDidUpdate(prevProps: Props) {
     const { map } = mapState();
->>>>>>> upstream/master
+
     const { filter, results, nextResults, selectedResult } = this.props;
     const { markers, mapRef } = this.state;
     // Update filter if changed
@@ -190,7 +183,6 @@ class MapComponent extends React.Component<Props, {}> {
     firebase.removeInformationListener(this.informationUpdated);
   }
 
-<<<<<<< HEAD
   private updateGoogleMapRef = (mapRef: HTMLDivElement | null) => {
     this.setState({ mapRef });
   };
@@ -206,7 +198,7 @@ class MapComponent extends React.Component<Props, {}> {
       });
       marker.set('info', m);
       markers.set(m, marker);
-||||||| merged common ancestors
+
   private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
     const { filter, setSelectedResult } = this.props;
     if (!ref) {
@@ -221,7 +213,7 @@ class MapComponent extends React.Component<Props, {}> {
       });
       marker.set('info', m);
       markers.set(m, marker);
-=======
+
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
     const { map } = mapState();
     if (map) {
@@ -345,7 +337,6 @@ class MapComponent extends React.Component<Props, {}> {
       for (const [id, info] of data) {
         this.createMarker(activeMarkers, set, id, info);
       }
->>>>>>> upstream/master
     }
 
     const allMarkers = [
@@ -379,7 +370,6 @@ class MapComponent extends React.Component<Props, {}> {
       }
     });
 
-<<<<<<< HEAD
     // We iterate over all locations to create markers
     // This pretty much orchestrates everything since the map is the main interaction window
     markers.forEach(marker => {
@@ -391,7 +381,6 @@ class MapComponent extends React.Component<Props, {}> {
       return marker;
     });
 
-||||||| merged common ancestors
     // We iterate over all locations to create markers
     // This pretty much orchestrates everything since the map is the main interaction window
     markers.forEach(marker => {
@@ -404,8 +393,6 @@ class MapComponent extends React.Component<Props, {}> {
       return marker;
     });
 
-=======
->>>>>>> upstream/master
     const drawMarkerServiceArea = (marker: google.maps.Marker) => {
       if (m.clustering?.state !== 'idle') {
         return;
@@ -569,20 +556,20 @@ class MapComponent extends React.Component<Props, {}> {
       ]) {
         marker.setLabel('');
       }
-<<<<<<< HEAD
+
       // Relabel marker labels based on their index
       results.markers.forEach((marker, index) => {
-||||||| merged common ancestors
+
       // Relabel marker labels based on theri index
       results.markers.forEach((marker, index) => {
-=======
+
       const { activeMarkers } = map;
       const visibleMarkers = results
         .map(({ id }) => activeMarkers[id.set].get(id.id))
         .filter(isDefined);
       // Relabel marker labels based on theri index
       visibleMarkers.forEach((marker, index) => {
->>>>>>> upstream/master
+
         marker.setLabel((index + 1).toString());
       });
       // Update the new results state
