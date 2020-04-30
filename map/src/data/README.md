@@ -6,7 +6,7 @@ The purpose of this readme is to outline the data model that the map uses to tra
 
 A map marker represents an mutual-aid-group, organization, or community effort to orchestrate aid such as financial and information. It consists of several components as well as a latitude, longitude, and area of influence (a radius measured in meters).
 
-## Note about type field for markers
+#### Note about type field for markers
 
 - `type: mutual-aid-group` = The main datapoints we're interested in
 - `type: org` = Organization / Government-Run / NPO / Company
