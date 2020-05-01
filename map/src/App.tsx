@@ -26,6 +26,7 @@ interface State {
   filter: Filter;
   results: MarkerIdAndInfo[] | null;
   nextResults?: MarkerIdAndInfo[];
+  resultsOpen: boolean;
   selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
   lang: i18n.Language;
@@ -38,6 +39,7 @@ class App extends React.Component<Props, State> {
     this.state = {
       filter: {},
       results: null,
+      resultsOpen: false,
       selectedResult: null,
       updateResultsCallback: null,
       lang: i18n.getLanguage(),
@@ -51,8 +53,12 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private setResults = (results: MarkerIdAndInfo[]) => {
-    this.setState({ results, selectedResult: null });
+  private setResults = (results: MarkerIdAndInfo[], openResults?: boolean) => {
+    this.setState(state => ({
+      results,
+      selectedResult: null,
+      resultsOpen: openResults ? true : state.resultsOpen,
+    }));
   };
 
   private setUpdateResultsCallback = (callback: (() => void) | null) => {
@@ -83,6 +89,10 @@ class App extends React.Component<Props, State> {
     this.setState({ lang });
   };
 
+  private setResultsOpen = (resultsOpen: boolean) => {
+    this.setState({ resultsOpen });
+  };
+
   public componentDidMount = () => {
     i18n.addListener(this.languageUpdated);
   };
@@ -97,6 +107,7 @@ class App extends React.Component<Props, State> {
       filter,
       results,
       nextResults,
+      resultsOpen,
       selectedResult,
       page,
       lang,
@@ -142,6 +153,8 @@ class App extends React.Component<Props, State> {
                     className={props.className}
                     results={results}
                     nextResults={nextResults}
+                    open={resultsOpen}
+                    setOpen={this.setResultsOpen}
                     selectedResult={selectedResult}
                     setSelectedResult={this.setSelectedResult}
                     updateResults={this.updateResults}
