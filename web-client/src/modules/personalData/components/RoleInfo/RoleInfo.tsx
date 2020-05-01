@@ -13,7 +13,7 @@ const StyledIntro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 50px;
+  // padding: 50px 50px;
 `;
 
 const Container = styled.div`
@@ -50,7 +50,13 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
       <TitleWithAddon level={2}>{t('roleinfo.sub_title')}</TitleWithAddon>
       <Container>
         <Row>
-          <Col span={12}>
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
+            span={12}
+            xs={24}
+            sm={24}
+            md={12}
+          >
             <Box>
               <Pin src={pin} />
 
@@ -68,7 +74,13 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
               </Button>
             </Box>
           </Col>
-          <Col span={12}>
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
+            span={12}
+            xs={24}
+            sm={24}
+            md={12}
+          >
             <Box>
               <Cav src={cav} />
               <p>{t('roleinfo.info_cav')}</p>
