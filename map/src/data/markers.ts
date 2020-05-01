@@ -1265,7 +1265,7 @@ This Mutual Aid Network is a grassroots, community focused and lead ecosystem fo
   },
   {
     contentTitle: 'Mutual Aid/Relief Fundraiser',
-    contentBody: `Focused on distributing needed items to working class black and brown people, seniors, queer and trans folx. If you have extra baby formula, pampers, over the counter medication such as cold and flu meds, Ibuprofen, boxed food, canned food, bagged food, water or toiletries message the FB link and coordinated volunteers can schedule a drop off of those items at a private location for our Baltimore Mutual Aid/Emergency Relief efforts!
+    contentBody: `Focused on distributing needed items to working class black and brown people, seniors, queer and trans folx. If you have extra baby formula, pampers, over the counter medication such as cold and flu meds, Ibuprofen, boxed food, canned food, bagged food, water or toiletries message the FB link and coordinated volunteers can schedule a drop off of those items at a private location for our Baltimore Mutual Aid/Emergency Relief efforts! 
 Food, Clothing & Resistance Collective - Maroon Movement is doing a mutual aid & emergency relief fundraising drive providing electronic or delivered distributions of resources for anyone who may need some "extra assistance" to stock up food, toiletries and medical supplies in Baltimore during this still very early stage of an emerging pandemic (Covid-19), in the middle of another pandemic (Influenza).
 Due to so many local closures and loss of income for some now, and many others possibly in the near future, we as usual want to do our part to help out those who are most vulnerable in our community. Please help us with a monetary donation or donation of canned, boxed or bagged food items, baby formula, produce, toiletries (including pampers) and over the counter medical supplies.
 For more info, or to set up a scheduled drop off of items, or to volunteer please message us or email us at: maroonmovement@gmail.com. Thank you for your solidarity!`,
@@ -2014,7 +2014,7 @@ stay safe and be well! and remember we are not alone!`,
   },
   {
     contentTitle: 'Corona Aid 757',
-    contentBody: `Helping Hampton Roads Weather the COVID19 Crisis
+    contentBody: `Helping Hampton Roads Weather the COVID19 Crisis 
 We are a group of autonomous disaster relief workers attempting to alleviate stress and slow/stop the spread of Coronavirus/COVID-19 in our community. If you are in need of assistance with groceries and medical supplies, physical and mental health check-ins, or any other type of errand, follow this link to submit a request.
 If you are a low-risk individual with transportation and time to spare, sign up here to help the more vulnerable members of our community.`,
     type: {

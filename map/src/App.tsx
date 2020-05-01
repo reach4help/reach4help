@@ -175,9 +175,11 @@ export default styled(App)`
   display: flex;
   flex-direction: column;
   color: ${p => p.theme.textColor};
+
   * {
     font-family: 'Roboto', sans-serif;
   }
+
   > main {
     overflow: hidden;
     position: relative;
@@ -185,37 +187,46 @@ export default styled(App)`
     flex-grow: 1;
     height: 0;
     min-height: 150px;
+
     > .map-area {
       flex-grow: 1;
     }
   }
+
   a {
     color: ${p => p.theme.textLinkColor};
     text-decoration: none;
+
     &:hover {
       color: ${p => p.theme.textLinkHoverColor};
       text-decoration: underline;
     }
   }
+
   .info-window {
     font-size: 1rem;
     font-weight: 400;
   }
+
   .mobile-message {
     display: none;
     padding: ${p => p.theme.spacingPx / 2}px;
     font-size: 1.5rem;
+
     p {
       margin: 0;
       padding: ${p => p.theme.spacingPx / 2}px;
     }
   }
+
   .${CLS_SCREEN_LG_ONLY} {
     display: none;
+
     ${LARGE_DEVICES} {
       display: initial;
     }
   }
+
   .${CLS_SCREEN_LG_HIDE} {
     ${LARGE_DEVICES} {
       display: none;

@@ -525,15 +525,18 @@ class MapComponent extends React.Component<Props, {}> {
 export default styled(MapComponent)`
   height: 100%;
   position: relative;
+
   > .map {
     height: 100%;
   }
+
   > .search {
     position: absolute;
     max-width: 500px;
     top: ${p => p.theme.spacingPx}px;
     left: ${p => p.theme.spacingPx}px;
     right: 40px;
+
     ${LARGE_DEVICES} {
       top: ${p => p.theme.spacingPx + p.theme.secondaryHeaderSizePx}px;
     }

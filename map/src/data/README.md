@@ -4,25 +4,7 @@ The purpose of this readme is to outline the data model that the map uses to tra
 
 ## What is a Map Marker
 
-A map marker represents an mutual-aid-group, organization, or community effort to orchestrate aid such as financial and information. It consists of several components as well as a latitude, longitude, and area of influence (a radius measured in meters).
-
-#### Note about type field for markers
-
-- `type: mutual-aid-group` = The main datapoints we're interested in
-- `type: org` = Organization / Government-Run / NPO / Company
-  - It also contains `services: Service[];` field to indicate the kind of service provided by the org type
-  - The services are:   
-    - food
-    - supplies
-    - aid
-    - mobility
-    - medicine
-    - manufacturing
-    - financial
-    - information
-- `type: financial` = A fundraising effort that can be donated to, or have requests made of it
-- `type: information` = An information provider for a specific region (e.g: a local website)
-- `type: other` = Other type of effort
+A map marker represents an organization or community effort to orchestrate aid. It consists of several components as well as a latitude, longitude, and area of influence (a radius measured in meters).
 
 ### Data Model
 
@@ -43,44 +25,45 @@ export interface ContactDetails {
  * See the LOCATIONS array.
  */
 export interface Location {
-  /**
-   * Human readable name for the location -- displayed on the web.
-   */
-  description: string;
-  /**
-   * Firestore compatible lat-lng object
-   */
-  latlng: firebase.firestore.GeoPoint;
-  /**
-   *  Measured in Meters (per Google Maps standard)
-   */
-  serviceRadius: number;
+  description: string; // human readable name of the location
+  lat: number;
+  lng: number;
+  serviceRadius: number; // distance in meters
 }
 
 /**
  * A marker that will be rendered on the map. A short title and description is also visible to users.
  *
- *
+ * It contains an array of services
  */
- interface EitherMarkerInfo<Location> {
-   /** name of the organization or community effort */
-   contentTitle: string;
-   /** description of the organization or community effort */
-   contentBody?: string;
-   /**
-    * What type of datapoint is this?
-    */
-   type: MarkerType;
-   /**
-    * the different avenues with which to contact an organization,
-    * depending on your desired involvement
-    */
-   contact: ContactGroup;
-   /**
-    * The location data for this organization
-    */
-   loc: Location;
- }
+export interface MarkerInfo {
+  // name of the organization or community effort
+  contentTitle: string;
+
+  // description of the organization or community effort
+  contentBody?: string;
+
+  // a list of services provided -- at least one is required from the list below
+  services: [
+    'food',
+    'supplies',
+    'aid',
+    'mobility',
+    'medicine',
+    'manufacturing',
+    'financial',
+    'information',
+  ];
+
+  // Three contact detail objects cover various opportunities available at each organization
+  contact: {
+    general?: ContactDetails; // For general info
+    getHelp?: ContactDetails; // For showcasing how those who need help can interact with the organization
+    volunteers?: ContactDetails; // For showcasing how those who want to help can interact with the organization
+  };
+
+  loc: Location; // The location data for this organization
+}
 ```
 
 ### How to Capture Lat, Long, and Radius
@@ -101,58 +84,20 @@ See the video below if you have any questions.
 
 ### Sample Marker
 
-#### JSON scheme for every type described above EXCEPT type `org`
-
 ```json
 {
   "contentTitle": "Community Organization for Aid - SF Bay Area",
   "contentBody": "We are a collective of parents, industry leaders, and volunteers providing aid to anyone who needs it.",
-  "type": "CHOOSE FROM ONE OF THE TYPES DESCRIBED ABOVE EXCEPT TYPE ORG",
-  "contact": {
-    "general": {
-      "facebookGroup": "https://facebook.com/groups/findhelp",
-      "web": {
-        "Homepage": "https://www.findhelp.org",
-        "Our Team": "https://www.findhelp.org/team",
-        "Our Mission": "https://www.findhelp.org/misson"
-      },
-      "phone": ["+1 800 555 1234", "+1 800 555 5678"],
-      "email": ["info@findhelp.org", "another-email@findhelp.org"]
-    },
-    "getHelp": {
-      "web": {
-        "Request Help Form": "https://google.com/forms/get-help.html"
-      },
-      "email": ["helpme@findhelp.org"]
-    },
-    "volunteers": {
-      "web": {
-        "Offer Help Form": "https://google.com/forms/get-help.html",
-        "Donate Funds": "https://gofundme.com/findhelp",
-        "Donate Items": "https://google.com/forms/donate-items.html"
-      },
-      "email": ["offerhelp@findhelp.org"]
-    }
-  },
-  "loc": {
-    "description": "Bay Area, California",
-    "lat": 37.8272,
-    "lng": -122.2913,
-    "serviceRadius": 85000
-  }
-}
-```
-
-#### JSON Scheme for type `org` ONLY
-
-```json
-{
-  "contentTitle": "Community Organization for Aid - SF Bay Area",
-  "contentBody": "We are a collective of parents, industry leaders, and volunteers providing aid to anyone who needs it.",
-  "type": {
-    "type": "org",
-    "services": ["food", "supplies", "aid", "mobility", "medicine", "manufacturing", "financial", "information"]
-  },
+  "services": [
+    "food",
+    "supplies",
+    "aid",
+    "mobility",
+    "medicine",
+    "manufacturing",
+    "financial",
+    "information"
+  ],
   "contact": {
     "general": {
       "facebookGroup": "https://facebook.com/groups/findhelp",
