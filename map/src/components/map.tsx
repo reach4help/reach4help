@@ -40,16 +40,33 @@ export interface MarkerIdAndInfo {
   info: MarkerInfo;
 }
 
+/**
+ * Either the current or next set of results in the results pane
+ */
+export interface ResultsSet {
+  /**
+   * How were these results calculated? E.g. were they from a cluster, or the
+   * current zoom for the whole map.
+   */
+  context: {
+    /**
+     * The bounds of the map at the time the results were calculated
+     */
+    bounds: google.maps.LatLngBounds | null;
+  };
+  results: MarkerIdAndInfo[];
+}
+
 const getMarkerId = (marker: google.maps.Marker): MarkerId =>
   marker.get(MARKER_DATA_ID);
 
 interface Props {
   className?: string;
   filter: Filter;
-  results: MarkerIdAndInfo[] | null;
-  setResults: (results: MarkerIdAndInfo[], openResults?: boolean) => void;
-  nextResults?: MarkerIdAndInfo[];
-  setNextResults: (nextResults: MarkerIdAndInfo[]) => void;
+  results: ResultsSet | null;
+  setResults: (results: ResultsSet, openResults?: boolean) => void;
+  nextResults: ResultsSet | null;
+  setNextResults: (nextResults: ResultsSet) => void;
   selectedResult: MarkerIdAndInfo | null;
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
   /**
@@ -132,6 +149,9 @@ class MapComponent extends React.Component<Props, {}> {
         const visible = !filter.type || info?.info.type.type === filter.type;
         marker.setVisible(visible);
       }
+      // Ensure that the results are updated given the filter has changed
+      mapState().updateResultsOnNextClustering = true;
+      // Trigger reclustering
       map.markerClusterer.repaint();
     }
   };
@@ -345,10 +365,15 @@ class MapComponent extends React.Component<Props, {}> {
       // Don't update nextResults as we want that to still be for the current
       // viewport
       this.updateResultsTo(
-        cluster
-          .getMarkers()
-          .map(marker => this.getMarkerInfo(marker))
-          .filter(isDefined),
+        {
+          context: {
+            bounds: map.getBounds() || null,
+          },
+          results: cluster
+            .getMarkers()
+            .map(marker => this.getMarkerInfo(marker))
+            .filter(isDefined),
+        },
         true,
       );
     });
@@ -403,17 +428,30 @@ class MapComponent extends React.Component<Props, {}> {
         visibleMarkers.sort(generateSortBasedOnMapCenter(mapCenter));
 
         // Store the next results in the state
-        const nextResults = visibleMarkers
-          .map(marker => this.getMarkerInfo(marker))
-          .filter(isDefined);
+        const nextResults: ResultsSet = {
+          context: {
+            bounds: map.getBounds() || null,
+          },
+          results: visibleMarkers
+            .map(marker => this.getMarkerInfo(marker))
+            .filter(isDefined),
+        };
 
-        const { setNextResults: updateNextResults } = this.props;
+        map.getBounds();
+
+        const { results, setNextResults: updateNextResults } = this.props;
 
         updateNextResults(nextResults);
 
-        if (mapState().updateResultsOnNextClustering) {
+        if (
+          // If we need to update on next clustering
+          mapState().updateResultsOnNextClustering ||
+          // If the location hasn't changed (i.e. filter or results themselves)
+          (nextResults.context.bounds &&
+            results?.context.bounds?.equals(nextResults.context.bounds))
+        ) {
           mapState().updateResultsOnNextClustering = false;
-          this.updateResults();
+          this.updateResultsTo(nextResults, false);
         }
         // Update tooltip position if neccesary
         // (marker may be newly in or out of cluster)
@@ -430,10 +468,7 @@ class MapComponent extends React.Component<Props, {}> {
     }
   };
 
-  private updateResultsTo = (
-    results: MarkerIdAndInfo[],
-    openResults: boolean,
-  ) => {
+  private updateResultsTo = (results: ResultsSet, openResults: boolean) => {
     const { map } = mapState();
     const { setResults } = this.props;
     if (map) {
@@ -445,7 +480,7 @@ class MapComponent extends React.Component<Props, {}> {
         marker.setLabel('');
       }
       const { activeMarkers } = map;
-      const visibleMarkers = results
+      const visibleMarkers = results.results
         .map(({ id }) => activeMarkers[id.set].get(id.id))
         .filter(isDefined);
       // Relabel marker labels based on theri index

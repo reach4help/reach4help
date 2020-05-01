@@ -1,8 +1,9 @@
+import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { MdEmail, MdLanguage, MdPhone } from 'react-icons/md';
 import Chevron from 'src/components/assets/chevron';
 import Refresh from 'src/components/assets/refresh';
-import { MarkerIdAndInfo } from 'src/components/map';
+import { MarkerIdAndInfo, ResultsSet } from 'src/components/map';
 import { ContactDetails } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
 
@@ -12,8 +13,8 @@ import MarkerType from './marker-type';
 
 interface Props {
   className?: string;
-  results: MarkerIdAndInfo[] | null;
-  nextResults?: MarkerIdAndInfo[];
+  results: ResultsSet | null;
+  nextResults: ResultsSet | null;
   updateResults: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -121,6 +122,7 @@ class Results extends React.PureComponent<Props, {}> {
       selectedResult,
       setSelectedResult,
     } = this.props;
+    const canUpdateResults = !isEqual(results, nextResults);
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -136,14 +138,14 @@ class Results extends React.PureComponent<Props, {}> {
               <button type="button" className="toggle" onClick={this.toggle}>
                 <span className="count">
                   {format(lang, s => s.results.count, {
-                    results: (results || []).length,
+                    results: (results?.results || []).length,
                   })}
                 </span>
                 <span className="grow" />
                 <Chevron className="chevron" />
               </button>
             </div>
-            {nextResults !== results && (
+            {canUpdateResults && (
               <div className="update">
                 <button onClick={updateResults} type="button">
                   <Refresh />
@@ -153,7 +155,7 @@ class Results extends React.PureComponent<Props, {}> {
             )}
             <div className="grow">
               <div className="list">
-                {(results || []).map((result, index) => (
+                {(results?.results || []).map((result, index) => (
                   <div
                     key={index}
                     className="result"
