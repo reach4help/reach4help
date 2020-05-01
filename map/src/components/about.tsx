@@ -93,7 +93,7 @@ const About = ({ className, page, setPage }: Props) => (
 export default styled(About)`
   opacity: 0;
   pointer-events: none;
-  transition: ${p => p.theme.opacityTransition};
+  transition: opacity ${p => p.theme.transitionSpeedNormal};
   background: url(/about-bg.svg);
   background-size: cover;
   background-position: center;

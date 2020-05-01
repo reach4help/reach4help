@@ -56,7 +56,6 @@ class App extends React.Component<Props, State> {
   private setResults = (results: ResultsSet, openResults?: boolean) => {
     this.setState(state => ({
       results,
-      selectedResult: null,
       resultsOpen: openResults ? true : state.resultsOpen,
     }));
   };
@@ -65,8 +64,9 @@ class App extends React.Component<Props, State> {
     this.setState({ updateResultsCallback: callback });
   };
 
-  private setSelectedResult = (selectedResult: MarkerIdAndInfo | null) =>
+  private setSelectedResult = (selectedResult: MarkerIdAndInfo | null) => {
     this.setState({ selectedResult });
+  };
 
   private setNextResults = (nextResults: ResultsSet | null) => {
     this.setState({

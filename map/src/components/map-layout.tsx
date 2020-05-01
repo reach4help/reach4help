@@ -72,7 +72,7 @@ export default styled(MapLayout)`
     padding: ${p => p.theme.overlayPaddingPx}px;
     pointer-events: none;
     opacity: 0;
-    transition: ${p => p.theme.opacityTransition};
+    transition: opacity ${p => p.theme.transitionSpeedNormal};
     pointer-events: none;
 
     ${LARGE_DEVICES} {
