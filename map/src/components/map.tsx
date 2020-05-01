@@ -103,6 +103,14 @@ class MapComponent extends React.Component<Props, {}> {
     }
     // Update selected point if changed
     if (selectedResult !== prevProps.selectedResult) {
+      if (map && selectedResult) {
+        // Center selected result
+        // selectedResult.info.loc.
+        map.map.panTo({
+          lat: selectedResult.info.loc.latlng.latitude,
+          lng: selectedResult.info.loc.latlng.longitude,
+        });
+      }
       this.updateInfoWindow();
     }
   }
@@ -466,6 +474,7 @@ class MapComponent extends React.Component<Props, {}> {
       if (!this.infoWindow) {
         this.infoWindow = new window.google.maps.InfoWindow({
           content: contentString,
+          disableAutoPan: true,
         });
         this.infoWindow.addListener('closeclick', () =>
           setSelectedResult(null),
