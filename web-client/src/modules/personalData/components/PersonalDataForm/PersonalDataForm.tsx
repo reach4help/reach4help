@@ -13,7 +13,11 @@ import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { User } from 'src/models/users';
+import {
+  IUserAddress,
+  PrivilegedUserInformation,
+} from 'src/models/users/privilegedInformation';
 import styled from 'styled-components';
 
 import geolocationinactive from '../../../../assets/geolocationinactive.svg';
@@ -54,12 +58,12 @@ const GPSTarget = styled.img`
   margin-right: 8px;
 `;
 
-interface NewRequestProps {
+interface PersonalDataFormProps {
   Geocoder: any;
   handleFormSubmit: Function;
   user: firebase.User | null | undefined;
-  profile: firebase.firestore.DocumentData | undefined;
-  privilegedInfo: firebase.firestore.DocumentData | undefined;
+  profile: User | undefined;
+  privilegedInfo: PrivilegedUserInformation | undefined;
 }
 
 export interface IPersonalData {
@@ -70,7 +74,7 @@ export interface IPersonalData {
   address: IUserAddress;
 }
 
-const PersonalDataForm: React.FC<NewRequestProps> = ({
+const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   Geocoder,
   handleFormSubmit,
   user,
@@ -79,8 +83,15 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const [fullName, setFullName] = useState<string | undefined | null>('');
-  const [displayName, setDisplayName] = useState<string | undefined | null>('');
+  const [userDataSet, setUserDataSet] = useState<boolean>(false);
+  const [profileDataSet, setProfileDataSet] = useState<boolean>(false);
+  const [privilegedInfoSet, setPrivilegedInfoSet] = useState<boolean>(false);
+  const [fullName, setFullName] = useState<string | undefined | null>(
+    undefined,
+  );
+  const [displayName, setDisplayName] = useState<string | undefined | null>(
+    undefined,
+  );
   const [displayPic, setDisplayPic] = useState<string | undefined | null>(
     undefined,
   );
@@ -96,12 +107,12 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   >(undefined);
 
   // geolocation
-  const [address1, setAddress1] = useState<string | undefined>('');
-  const [address2, setAddress2] = useState<string | undefined>('');
-  const [city, setCity] = useState<string | undefined>('');
-  const [cityState, setCityState] = useState<string | undefined>('');
-  const [postalCode, setPostalCode] = useState<string | undefined>('');
-  const [country, setCountry] = useState<string | undefined>('');
+  const [address1, setAddress1] = useState<string | undefined>(undefined);
+  const [address2, setAddress2] = useState<string | undefined>(undefined);
+  const [city, setCity] = useState<string | undefined>(undefined);
+  const [cityState, setCityState] = useState<string | undefined>(undefined);
+  const [postalCode, setPostalCode] = useState<string | undefined>(undefined);
+  const [country, setCountry] = useState<string | undefined>(undefined);
   const [coords, setCoords] = useState<firebase.firestore.GeoPoint | undefined>(
     undefined,
   );
@@ -191,15 +202,17 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
   };
 
   useEffect(() => {
-    if (user) {
+    if (!userDataSet && user && user.email) {
       if (acceptToUsePhoto) {
         setDisplayPic(user.photoURL);
       }
+      setUserDataSet(true);
       setTempDisplayPic(user.photoURL);
       setDisplayName(user.displayName);
       setFullName(user.displayName);
     }
-    if (profile) {
+    if (!profileDataSet && profile && profile.displayName) {
+      setProfileDataSet(true);
       if (profile.displayName) {
         setDisplayName(profile.displayName);
       }
@@ -208,10 +221,37 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
           setDisplayPic(profile.displayPicture);
         }
         setTempDisplayPic(profile.displayPicture);
+      } else {
+        setAcceptToUsePhoto(false);
       }
       if (profile.displayName) {
         setDisplayName(profile.displayName);
         setFullName(profile.displayName);
+      }
+    }
+    if (!privilegedInfoSet && privilegedInfo && privilegedInfo.address) {
+      setPrivilegedInfoSet(true);
+      const addressToSet = privilegedInfo.address;
+      if (addressToSet.address1) {
+        setAddress1(addressToSet.address1);
+      }
+      if (addressToSet.address2) {
+        setAddress2(addressToSet.address2);
+      }
+      if (addressToSet.postalCode) {
+        setPostalCode(addressToSet.postalCode);
+      }
+      if (addressToSet.city) {
+        setCity(addressToSet.city);
+      }
+      if (addressToSet.state) {
+        setCityState(addressToSet.state);
+      }
+      if (addressToSet.country) {
+        setCountry(addressToSet.country);
+      }
+      if (addressToSet.coords) {
+        setCoords(addressToSet.coords);
       }
     }
   }, [user, profile, privilegedInfo]);
@@ -460,7 +500,7 @@ const PersonalDataForm: React.FC<NewRequestProps> = ({
         </Info>
         <Form.Item style={{ textAlign: 'center' }} name="useProfilePic">
           <Checkbox
-            defaultChecked
+            checked={acceptToUsePhoto}
             onChange={({ target }) => setAcceptToUsePhoto(target.checked)}
           >
             {t('user_data_form.accept_to_use_profile_pic')}

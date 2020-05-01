@@ -4,8 +4,13 @@ import GoogleMapReact from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { observeUserAction } from 'src/ducks/auth/actions';
 import { AuthState } from 'src/ducks/auth/types';
-import { setUserProfile } from 'src/ducks/profile/actions';
+import {
+  observePrivileged,
+  observeProfile,
+  setUserProfile,
+} from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import styled from 'styled-components';
 
@@ -35,6 +40,22 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
   const Map = styled.div`
     height: 0;
   `;
+
+  useEffect((): any => observeUserAction(dispatch), [dispatch]);
+
+  useEffect((): any => {
+    if (user && user.uid) {
+      return observeProfile(dispatch, { uid: user.uid });
+    }
+    return undefined;
+  }, [dispatch, user]);
+
+  useEffect((): any => {
+    if (user && user.uid) {
+      return observePrivileged(dispatch, { uid: user.uid });
+    }
+    return undefined;
+  }, [dispatch, user]);
 
   const [Geocoder, setGeocoder] = useState<any | undefined>(undefined);
 

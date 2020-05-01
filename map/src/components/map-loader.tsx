@@ -79,7 +79,11 @@ class MapLoader extends React.Component<Props, State> {
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
-            {loaded ? child() : <span>{t(lang, s => s.loading)}</span>}
+            {loaded ? (
+              child()
+            ) : (
+              <div className="loader">{t(lang, s => s.loading)}</div>
+            )}
           </div>
         )}
       </AppContext.Consumer>
@@ -88,7 +92,12 @@ class MapLoader extends React.Component<Props, State> {
 }
 
 export default styled(MapLoader)`
-  background: #f99;
-  font-size: 70px;
-  text-align: center;
+  > .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: #f99;
+    font-size: 70px;
+  }
 `;

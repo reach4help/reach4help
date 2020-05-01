@@ -1,4 +1,5 @@
 import React from 'react';
+import mapState, { SearchBoxId } from 'src/components/map-utils/map-state';
 import { t } from 'src/i18n';
 
 import styled from '../styling';
@@ -6,18 +7,23 @@ import { AppContext } from './context';
 
 interface Props {
   className?: string;
-  updateSearchInput: (input: HTMLInputElement | null) => void;
+  searchInputId: SearchBoxId;
 }
 
 class Search extends React.Component<Props, {}> {
+  private updateSearchInputRef = (ref: HTMLInputElement) => {
+    const { searchInputId } = this.props;
+    mapState().updateSearchInputRef(searchInputId, ref);
+  };
+
   public render() {
-    const { className, updateSearchInput } = this.props;
+    const { className } = this.props;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className}>
             <input
-              ref={updateSearchInput}
+              ref={this.updateSearchInputRef}
               type="text"
               placeholder={t(lang, s => s.map.jumpToLocation)}
             />
@@ -29,18 +35,27 @@ class Search extends React.Component<Props, {}> {
 }
 
 export default styled(Search)`
+  display: flex;
+
   input {
     color: #333;
     box-sizing: border-box;
-    width: 500px;
     max-width: 100%;
     flex-grow: 1;
     background: #fff;
-    border: 0;
+    border: 1px solid ${p => p.theme.colors.borderBase};
     outline: none;
-    font-size: 16px;
-    padding: 11px 10px;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 6px 8px;
+    border-radius: 4px;
+
+    ::placeholder {
+      color: rgba(0, 0, 0, 0.45);
+    }
+
+    &:focus {
+      border-color: ${p => p.theme.colors.brand.primaryDark};
+    }
   }
 `;

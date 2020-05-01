@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   style="fill:none"
+   id="svg4590"
+   version="1.1"
+   viewBox="0 0 1440 1304"
+   height="1304"
+   width="1440">
+  <metadata
+     id="metadata4594">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     style="fill:url(#paint0_linear);stroke:url(#paint1_linear);stroke-width:100"
+     id="path4576"
+     d="M 720.5,1396 C 1132.23,1396 1466,1062.228 1466,650.5 1466,238.7719 1132.23,-95 720.5,-95 308.771,-95 -25,238.7719 -25,650.5 -25,1062.228 308.771,1396 720.5,1396 Z" />
+  <defs
+     id="defs4588">
+    <linearGradient
+       gradientTransform="translate(0,204)"
+       gradientUnits="userSpaceOnUse"
+       y2="1821.5"
+       x2="720"
+       y1="188.5"
+       x1="720"
+       id="paint0_linear">
+      <stop
+         id="stop4578"
+         stop-color="#811E78" />
+      <stop
+         id="stop4580"
+         stop-opacity="0"
+         stop-color="#811E78"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="translate(0,204)"
+       gradientUnits="userSpaceOnUse"
+       y2="1373.5"
+       x2="720.5"
+       y1="-299"
+       x1="720.5"
+       id="paint1_linear">
+      <stop
+         id="stop4583"
+         stop-color="#811E78" />
+      <stop
+         id="stop4585"
+         stop-opacity="0"
+         stop-color="#811E78"
+         offset="1" />
+    </linearGradient>
+  </defs>
+</svg>

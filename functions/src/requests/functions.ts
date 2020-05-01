@@ -1,3 +1,4 @@
+import * as firebaseTest from '@firebase/testing';
 import { validateOrReject } from 'class-validator';
 import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
@@ -8,7 +9,23 @@ import { IRequest, Request, RequestStatus } from '../models/requests';
 import { UserFirestoreConverter } from '../models/users';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
-const db = admin.firestore();
+const projectId = 'reach-4-help-test';
+
+let db: any;
+let test = true;
+
+if (process.env.FIREBASE_CONFIG) {
+  const config = JSON.parse(process.env.FIREBASE_CONFIG);
+  if (config.databaseURL && config.databaseURL !== 'undefined') {
+    admin.initializeApp();
+    db = admin.firestore();
+    test = false;
+  }
+}
+
+if (test) {
+  db = firebaseTest.initializeAdminApp({ projectId }).firestore();
+}
 
 const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefore: Request | null, requestAfter: Request | null) => {
   // We have a new CAV rating -  Update CAV rating average but only this time.
@@ -169,21 +186,31 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
       return db
         .collection('requests')
         .doc(context.params.requestId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
 };
 
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
   return validateRequest(change.after.data() as IRequest)
     .then(() => {
-      return Promise.all([queueStatusUpdateTriggers(change), queueRatingUpdatedTriggers(change), indexRequest(change.after)]);
+      return Promise.all([
+        queueStatusUpdateTriggers(change),
+        queueRatingUpdatedTriggers(change),
+        indexRequest(change.after),
+      ]);
     })
     .catch(errors => {
       console.error('Invalid Request Found: ', errors);
       return db
         .collection('requests')
         .doc(context.params.requestId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
 };
 

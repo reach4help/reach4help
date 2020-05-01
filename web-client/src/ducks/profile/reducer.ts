@@ -1,7 +1,16 @@
 import { firestore } from 'firebase';
+import { User } from 'src/models/users';
+import { PrivilegedUserInformation } from 'src/models/users/privilegedInformation';
 import createReducer from 'src/store/utils/createReducer';
 
-import { GET, ProfileState, SET, UPDATE } from './types';
+import {
+  GET,
+  OBSERVE_PRIVILEGED,
+  OBSERVE_PROFILE,
+  ProfileState,
+  SET,
+  UPDATE,
+} from './types';
 
 const initialState: ProfileState = {
   profile: undefined,
@@ -10,6 +19,7 @@ const initialState: ProfileState = {
   loading: false,
   setAction: undefined,
   updateAction: undefined,
+  observerReceivedFirstUpdate: false,
   error: undefined,
 };
 
@@ -23,7 +33,12 @@ export default createReducer<ProfileState>(
       state: ProfileState,
       {
         payload,
-      }: { payload: [firestore.DocumentSnapshot, firestore.DocumentSnapshot] },
+      }: {
+        payload: [
+          firestore.DocumentSnapshot<User>,
+          firestore.DocumentSnapshot<PrivilegedUserInformation>,
+        ];
+      },
     ) => {
       state.profile = payload[0].data();
       state.privilegedInformation = payload[1]?.data();
@@ -70,6 +85,38 @@ export default createReducer<ProfileState>(
       state.loading = false;
       state.error = payload;
       state.updateAction = undefined;
+    },
+    [OBSERVE_PRIVILEGED.SUBSCRIBE]: (state: ProfileState) => {
+      state.loading = true;
+    },
+    [OBSERVE_PRIVILEGED.UPDATED]: (
+      state: ProfileState,
+      {
+        payload,
+      }: {
+        payload: firebase.firestore.DocumentSnapshot<PrivilegedUserInformation>;
+      },
+    ) => {
+      // eslint-disable-next-line prefer-destructuring
+      state.privilegedInformation = payload.data();
+      state.loading = false;
+      state.observerReceivedFirstUpdate = true;
+    },
+    [OBSERVE_PROFILE.SUBSCRIBE]: (state: ProfileState) => {
+      state.loading = true;
+    },
+    [OBSERVE_PROFILE.UPDATED]: (
+      state: ProfileState,
+      {
+        payload,
+      }: {
+        payload: firebase.firestore.DocumentSnapshot<User>;
+      },
+    ) => {
+      // eslint-disable-next-line prefer-destructuring
+      state.profile = payload.data();
+      state.loading = false;
+      state.observerReceivedFirstUpdate = true;
     },
   },
   initialState,
