@@ -65,7 +65,7 @@
         "title": "Your request has been created",
         "info": "Please be patient until you get an offer from a volunteer.",
         "remember": "Remember",
-        "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contant information."
+        "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
       },
       "roleinfo": {
         "title": "Reach4Help",
@@ -141,10 +141,10 @@
         }
       },
       "newRequestSuccess": {
-        "title": "Your request has been created",
-        "info": "Please be patient until you get an offer from a volunteer.",
-        "remember": "Remember",
-        "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contant information."
+        "title": "O seu pedido foi criado",
+        "info": "Por favor aguarde até receber uma oferta de um voluntário.",
+        "remember": "Lembre-se",
+        "remember_info": "Quando um voluntário oferece ajuda, tem de a aceitar para que este veja as suas informações de contacto."
       },
       "roleinfo": {
         "title": "Reach4Help",
