@@ -232,6 +232,7 @@ export default styled(Results)`
     color: ${p => p.theme.colors.brand.primaryDark};
     padding: 5px 8px;
     align-items: center;
+    pointer-events: initial;
 
     > .chevron,
     .count {
@@ -275,6 +276,7 @@ export default styled(Results)`
     display: none;
     padding: 20px 16px;
     background: #fff;
+    pointer-events: initial;
 
     button {
       flex-grow: 1;
@@ -319,6 +321,7 @@ export default styled(Results)`
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
+      pointer-events: initial;
 
       > .result {
         color: ${p => p.theme.textColor};
@@ -366,6 +369,7 @@ export default styled(Results)`
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
+      pointer-events: initial;
 
       > .name {
         font-size: 1.5rem;

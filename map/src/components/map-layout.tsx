@@ -70,7 +70,6 @@ export default styled(MapLayout)`
     right: 0;
     display: flex;
     padding: ${p => p.theme.overlayPaddingPx}px;
-    pointer-events: none;
     opacity: 0;
     transition: opacity ${p => p.theme.transitionSpeedNormal};
     pointer-events: none;
@@ -98,6 +97,7 @@ export default styled(MapLayout)`
         padding: 9px 8px;
         display: flex;
         flex-direction: column;
+        pointer-events: initial;
 
         .row {
           display: flex;
@@ -118,9 +118,6 @@ export default styled(MapLayout)`
   &.page-map {
     > .overlay {
       opacity: 1;
-      > .panel > * {
-        pointer-events: initial;
-      }
     }
   }
 `;
