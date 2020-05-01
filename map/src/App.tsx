@@ -146,6 +146,7 @@ class App extends React.Component<Props, State> {
                     setUpdateResultsCallback={this.setUpdateResultsCallback}
                     page={page}
                     setPage={this.setPage}
+                    resultsOpen={resultsOpen}
                   />
                 ),
                 results: props => (

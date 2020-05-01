@@ -75,6 +75,7 @@ interface Props {
   setUpdateResultsCallback: (callback: (() => void) | null) => void;
   page: Page;
   setPage: (page: Page) => void;
+  resultsOpen: boolean;
 }
 
 class MapComponent extends React.Component<Props, {}> {
@@ -439,7 +440,12 @@ class MapComponent extends React.Component<Props, {}> {
 
         map.getBounds();
 
-        const { results, setNextResults: updateNextResults } = this.props;
+        const {
+          results,
+          setNextResults: updateNextResults,
+          resultsOpen,
+          selectedResult,
+        } = this.props;
 
         updateNextResults(nextResults);
 
@@ -448,7 +454,10 @@ class MapComponent extends React.Component<Props, {}> {
           mapState().updateResultsOnNextClustering ||
           // If the location hasn't changed (i.e. filter or results themselves)
           (nextResults.context.bounds &&
-            results?.context.bounds?.equals(nextResults.context.bounds))
+            results?.context.bounds?.equals(nextResults.context.bounds)) ||
+          // If the results panel is currently closed, update the results
+          // (so that the count display is fresh)
+          (!resultsOpen && !selectedResult)
         ) {
           mapState().updateResultsOnNextClustering = false;
           this.updateResultsTo(nextResults, false);
