@@ -11,6 +11,11 @@ export interface ActiveMarkers {
   firebase: Map<string, google.maps.Marker>;
 }
 
+export const MARKER_SET_KEYS: Array<keyof ActiveMarkers> = [
+  'firebase',
+  'hardcoded',
+];
+
 export interface MapInfo {
   map: google.maps.Map;
   activeMarkers: ActiveMarkers;

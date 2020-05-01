@@ -3,6 +3,7 @@ import React from 'react';
 import mapState, {
   ActiveMarkers,
   MapInfo,
+  MARKER_SET_KEYS,
 } from 'src/components/map-utils/map-state';
 import { Filter, MARKER_TYPES } from 'src/data';
 import * as firebase from 'src/data/firebase';
@@ -143,13 +144,12 @@ class MapComponent extends React.Component<Props, {}> {
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
     const { map } = mapState();
     if (map) {
-      for (const marker of [
-        ...map.activeMarkers.hardcoded.values(),
-        ...map.activeMarkers.firebase.values(),
-      ]) {
-        const info = this.getMarkerInfo(marker);
-        const visible = !filter.type || info?.info.type.type === filter.type;
-        marker.setVisible(visible);
+      for (const set of MARKER_SET_KEYS) {
+        map.activeMarkers[set].forEach(marker => {
+          const info = this.getMarkerInfo(marker);
+          const visible = !filter.type || info?.info.type.type === filter.type;
+          marker.setVisible(visible);
+        });
       }
       // Ensure that the results are updated given the filter has changed
       mapState().updateResultsOnNextClustering = true;
@@ -265,17 +265,16 @@ class MapComponent extends React.Component<Props, {}> {
     };
 
     // Create initial markers
-    for (const set of ['hardcoded', 'firebase'] as const) {
+    for (const set of MARKER_SET_KEYS) {
       const data = this.data[set];
       for (const [id, info] of data) {
         this.createMarker(activeMarkers, set, id, info);
       }
     }
 
-    const allMarkers = [
-      ...activeMarkers.hardcoded.values(),
-      ...activeMarkers.firebase.values(),
-    ];
+    const allMarkers = MARKER_SET_KEYS.map(s => [
+      ...activeMarkers[s].values(),
+    ]).flat();
 
     // Add a marker clusterer to manage the markers.
     const markerClusterer = new MarkerClusterer(map, allMarkers, {
@@ -382,6 +381,7 @@ class MapComponent extends React.Component<Props, {}> {
           clusterMarkers: new Map(),
         };
         const visibleMarkers: google.maps.Marker[] = [];
+        const markersWithAreaDrawn = new Set<google.maps.Marker>();
 
         for (const cluster of newClusterParent.getClusters()) {
           let maxMarker: {
@@ -413,18 +413,25 @@ class MapComponent extends React.Component<Props, {}> {
 
           // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
           if (maxMarker) {
+            markersWithAreaDrawn.add(maxMarker.marker);
             drawMarkerServiceArea(maxMarker.marker);
           }
-          // And hide the existing circles for all other markers
-          for (const marker of clusterMarkers) {
-            if (marker !== maxMarker?.marker) {
-              const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
+        }
+
+        // Iterate through ALL markers (including hidden ones) to hide all
+        // service areas we don't want to be visible
+        MARKER_SET_KEYS.forEach(s =>
+          m.activeMarkers[s].forEach(marker => {
+            if (!markersWithAreaDrawn.has(marker)) {
+              const circle: google.maps.Circle | undefined = marker.get(
+                MARKER_DATA_CIRCLE,
+              );
               if (circle) {
                 circle.setVisible(false);
               }
             }
-          }
-        }
+          }),
+        );
 
         // Sort markers based on distance from center of screen
         const mapCenter = map.getCenter();
@@ -484,11 +491,8 @@ class MapComponent extends React.Component<Props, {}> {
     const { setResults } = this.props;
     if (map) {
       // Clear all existing marker labels
-      for (const marker of [
-        ...map.activeMarkers.hardcoded.values(),
-        ...map.activeMarkers.firebase.values(),
-      ]) {
-        marker.setLabel('');
+      for (const set of MARKER_SET_KEYS) {
+        map.activeMarkers[set].forEach(marker => marker.setLabel(''));
       }
       const { activeMarkers } = map;
       const visibleMarkers = results.results
