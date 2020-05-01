@@ -27,7 +27,9 @@ const MapLayout = (props: Props) => {
       <div className="overlay">
         <div className="panel">
           <div className="controls">
-            <Search className="search" searchInputId="main" />
+            <div className="row">
+              <Search className="search" searchInputId="main" />
+            </div>
             <div className="row">
               <FilterType
                 className="filter-type"
