@@ -27,7 +27,9 @@ const MapLayout = (props: Props) => {
       <div className="overlay">
         <div className="panel">
           <div className="controls">
-            <Search className="search" searchInputId="main" />
+            <div className="row">
+              <Search className="search" searchInputId="main" />
+            </div>
             <div className="row">
               <FilterType
                 className="filter-type"
@@ -108,13 +110,6 @@ export default styled(MapLayout)`
           flex-grow: 1;
           flex-basis: 0;
         }
-      }
-
-      > .results {
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-        overflow: hidden;
       }
     }
   }

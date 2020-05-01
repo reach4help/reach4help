@@ -47,7 +47,7 @@ interface Props {
   className?: string;
   filter: Filter;
   results: MarkerIdAndInfo[] | null;
-  setResults: (results: MarkerIdAndInfo[]) => void;
+  setResults: (results: MarkerIdAndInfo[], openResults?: boolean) => void;
   nextResults?: MarkerIdAndInfo[];
   setNextResults: (nextResults: MarkerIdAndInfo[]) => void;
   selectedResult: MarkerIdAndInfo | null;
@@ -103,6 +103,14 @@ class MapComponent extends React.Component<Props, {}> {
     }
     // Update selected point if changed
     if (selectedResult !== prevProps.selectedResult) {
+      if (map && selectedResult) {
+        // Center selected result
+        // selectedResult.info.loc.
+        map.map.panTo({
+          lat: selectedResult.info.loc.latlng.latitude,
+          lng: selectedResult.info.loc.latlng.longitude,
+        });
+      }
       this.updateInfoWindow();
     }
   }
@@ -341,6 +349,7 @@ class MapComponent extends React.Component<Props, {}> {
           .getMarkers()
           .map(marker => this.getMarkerInfo(marker))
           .filter(isDefined),
+        true,
       );
     });
 
@@ -417,11 +426,14 @@ class MapComponent extends React.Component<Props, {}> {
     const { map } = mapState();
     const { results, nextResults } = this.props;
     if (map && nextResults && results !== nextResults) {
-      this.updateResultsTo(nextResults);
+      this.updateResultsTo(nextResults, false);
     }
   };
 
-  private updateResultsTo = (results: MarkerIdAndInfo[]) => {
+  private updateResultsTo = (
+    results: MarkerIdAndInfo[],
+    openResults: boolean,
+  ) => {
     const { map } = mapState();
     const { setResults } = this.props;
     if (map) {
@@ -441,7 +453,7 @@ class MapComponent extends React.Component<Props, {}> {
         marker.setLabel((index + 1).toString());
       });
       // Update the new results state
-      setResults(results);
+      setResults(results, openResults);
     }
   };
 
@@ -466,6 +478,7 @@ class MapComponent extends React.Component<Props, {}> {
       if (!this.infoWindow) {
         this.infoWindow = new window.google.maps.InfoWindow({
           content: contentString,
+          disableAutoPan: true,
         });
         this.infoWindow.addListener('closeclick', () =>
           setSelectedResult(null),
