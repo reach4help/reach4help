@@ -1,10 +1,11 @@
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
-import { Filter } from 'src/data';
-import { Page } from 'src/state';
+import * as firebase from 'src/data/firebase';
+import { Filter, FilterMutator, Page } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
-import FilterType, { FilterMutator } from './filter-type';
+import FilterType from './filter-type';
+import FilterVisibility from './filter-visibility';
 import MyLocation from './my-location-button';
 import Search from './search';
 
@@ -19,34 +20,68 @@ interface Props {
   };
 }
 
-const MapLayout = (props: Props) => {
-  const { className, components, page, filter, updateFilter } = props;
-  return (
-    <div className={`${className} page-${page.page}`}>
-      <MapLoader className="map" child={components.map} />
-      <div className="overlay">
-        <div className="panel">
-          <div className="controls">
-            <div className="row">
-              <Search className="search" searchInputId="main" />
+interface State {
+  includingHidden: boolean;
+}
+
+class MapLayout extends React.Component<Props, State> {
+  public constructor(props: Props) {
+    super(props);
+    this.state = {
+      includingHidden: firebase.includingHidden(),
+    };
+  }
+
+  public componentDidMount() {
+    firebase.addInformationListener(this.firebaseInformationUpdated);
+  }
+
+  public componentWillUnmount() {
+    firebase.removeInformationListener(this.firebaseInformationUpdated);
+  }
+
+  private firebaseInformationUpdated: firebase.InformationListener = update =>
+    this.setState({ includingHidden: update.includingHidden });
+
+  public render() {
+    const { className, components, page, filter, updateFilter } = this.props;
+    const { includingHidden } = this.state;
+    return (
+      <div className={`${className} page-${page.page}`}>
+        <MapLoader className="map" child={components.map} />
+        <div className="overlay">
+          <div className="panel">
+            <div className="controls">
+              <div className="row">
+                <Search className="search" searchInputId="main" />
+              </div>
+              <div className="row">
+                <FilterType
+                  className="filter"
+                  filter={filter}
+                  updateFilter={updateFilter}
+                />
+                <MyLocation className="my-location" />
+              </div>
+              {includingHidden && (
+                <div className="row">
+                  <FilterVisibility
+                    className="filter"
+                    filter={filter}
+                    updateFilter={updateFilter}
+                  />
+                </div>
+              )}
             </div>
-            <div className="row">
-              <FilterType
-                className="filter-type"
-                filter={filter}
-                updateFilter={updateFilter}
-              />
-              <MyLocation className="my-location" />
-            </div>
+            {components.results({
+              className: 'results',
+            })}
           </div>
-          {components.results({
-            className: 'results',
-          })}
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default styled(MapLayout)`
   position: relative;
@@ -106,7 +141,7 @@ export default styled(MapLayout)`
 
         .search,
         .my-location,
-        .filter-type {
+        .filter {
           margin: 9px 8px;
           flex-grow: 1;
           flex-basis: 40%;

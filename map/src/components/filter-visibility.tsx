@@ -1,20 +1,23 @@
 import React from 'react';
 import Select, { ValueType } from 'react-select';
 import Chevron from 'src/components/assets/chevron';
-import { isMarkerType, MARKER_TYPE_STRINGS, MarkerTypeString } from 'src/data';
 import { Language, t } from 'src/i18n';
 import { Filter, FilterMutator } from 'src/state';
 
 import styled from '../styling';
 import { AppContext } from './context';
 
+const OPTION_VALUES = ['any', 'visible', 'hidden'] as const;
+
+type OptionValue = typeof OPTION_VALUES[number];
+
 type Option = {
-  value: MarkerTypeString | undefined;
+  value: OptionValue;
   label: string;
 };
 
 const isOption = (option: ValueType<Option>): option is Option =>
-  !!(option && isMarkerType((option as Option).value));
+  !!(option && OPTION_VALUES.includes((option as Option).value));
 
 interface Props {
   className?: string;
@@ -23,11 +26,11 @@ interface Props {
 }
 
 class FilterType extends React.Component<Props, {}> {
-  private changeService = (option: ValueType<Option>): void => {
+  private changeOption = (option: ValueType<Option>): void => {
     const { updateFilter } = this.props;
     updateFilter(filter => ({
       ...filter,
-      type: isOption(option) ? option.value : undefined,
+      visibility: isOption(option) ? option.value : undefined,
     }));
   };
 
@@ -35,31 +38,33 @@ class FilterType extends React.Component<Props, {}> {
     const { className, filter } = this.props;
 
     const optionsMap = new Map(
-      MARKER_TYPE_STRINGS.map(value => [
+      OPTION_VALUES.map(value => [
         value,
-        { value, label: t(lang, s => s.markerTypes[value]) },
+        { value, label: t(lang, s => s.hiddenMarkers.filter[value]) },
       ]),
     );
 
-    const any: Option = {
-      value: undefined,
-      label: t(lang, s => s.services.any),
-    };
+    const options: Option[] = [...optionsMap.values()];
 
-    const options: Option[] = [any, ...optionsMap.values()];
-
-    const value = (filter.type && optionsMap.get(filter.type)) || any;
+    const value = optionsMap.get(filter.visibility || 'any');
 
     return (
       <Select
         className={className}
         classNamePrefix="select"
         value={value}
-        onChange={this.changeService}
+        onChange={this.changeOption}
         options={options}
         isSearchable={false}
         components={{
           DropdownIndicator: () => <Chevron className="chevron" />,
+          SingleValue: props => (
+            <div className="single-value">
+              {t(lang, s => s.hiddenMarkers.visiblility, {
+                visibility: () => <span>{props.children}</span>,
+              })}
+            </div>
+          ),
           IndicatorSeparator: () => null,
         }}
       />
