@@ -13,7 +13,9 @@ const StyledIntro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // padding: 50px 50px;
+  @media (min-width: 576px) {
+    padding: 50px 50px;
+  }
 `;
 
 const Container = styled.div`
