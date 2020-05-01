@@ -160,57 +160,59 @@ class Results extends React.PureComponent<Props, State> {
                 </button>
               </div>
             )}
-            <div className="list">
-              {(results || []).map((result, index) => (
-                <div
-                  key={index}
-                  className="result"
-                  onClick={() => setSelectedResult(result)}
-                >
-                  <div className="number">{index + 1}</div>
-                  <div className="info">
-                    {result.info.loc.description && (
-                      <div className="location">
-                        {result.info.loc.description}
-                      </div>
-                    )}
-                    <div className="name">{result.info.contentTitle}</div>
-                    <MarkerType type={result.info.type} />
+            <div className="grow">
+              <div className="list">
+                {(results || []).map((result, index) => (
+                  <div
+                    key={index}
+                    className="result"
+                    onClick={() => setSelectedResult(result)}
+                  >
+                    <div className="number">{index + 1}</div>
+                    <div className="info">
+                      {result.info.loc.description && (
+                        <div className="location">
+                          {result.info.loc.description}
+                        </div>
+                      )}
+                      <div className="name">{result.info.contentTitle}</div>
+                      <MarkerType type={result.info.type} />
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            {selectedResult && (
-              <div className="details">
-                <div className="name">{selectedResult.info.contentTitle}</div>
-                {selectedResult.info.loc.description && (
-                  <div className="location">
-                    {selectedResult.info.loc.description}
-                  </div>
-                )}
-                <MarkerType type={selectedResult.info.type} />
-                {selectedResult.info.contentBody && (
-                  <div className="content">
-                    {selectedResult.info.contentBody}
-                  </div>
-                )}
-                {contactInfo(
-                  lang,
-                  t(lang, s => s.results.contact.general),
-                  selectedResult.info.contact.general,
-                )}
-                {contactInfo(
-                  lang,
-                  t(lang, s => s.results.contact.getHelp),
-                  selectedResult.info.contact.getHelp,
-                )}
-                {contactInfo(
-                  lang,
-                  t(lang, s => s.results.contact.volunteer),
-                  selectedResult.info.contact.volunteers,
-                )}
+                ))}
               </div>
-            )}
+              {selectedResult && (
+                <div className="details">
+                  <div className="name">{selectedResult.info.contentTitle}</div>
+                  {selectedResult.info.loc.description && (
+                    <div className="location">
+                      {selectedResult.info.loc.description}
+                    </div>
+                  )}
+                  <MarkerType type={selectedResult.info.type} />
+                  {selectedResult.info.contentBody && (
+                    <div className="content">
+                      {selectedResult.info.contentBody}
+                    </div>
+                  )}
+                  {contactInfo(
+                    lang,
+                    t(lang, s => s.results.contact.general),
+                    selectedResult.info.contact.general,
+                  )}
+                  {contactInfo(
+                    lang,
+                    t(lang, s => s.results.contact.getHelp),
+                    selectedResult.info.contact.getHelp,
+                  )}
+                  {contactInfo(
+                    lang,
+                    t(lang, s => s.results.contact.volunteer),
+                    selectedResult.info.contact.volunteers,
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </AppContext.Consumer>
@@ -219,14 +221,14 @@ class Results extends React.PureComponent<Props, State> {
 }
 
 export default styled(Results)`
-  max-height: 80%;
-  background: #fff;
+  height: 0;
+  flex-grow: 1;
   position: relative;
   display: flex;
   flex-direction: column;
 
   > .header {
-    background: rgba(129, 30, 120, 0.3);
+    background: #d9bbd6;
     display: flex;
     color: ${p => p.theme.colors.brand.primaryDark};
     padding: 0 8px;
@@ -289,6 +291,7 @@ export default styled(Results)`
   > .update {
     display: none;
     padding: 20px 16px;
+    background: #fff;
 
     button {
       flex-grow: 1;
@@ -321,85 +324,99 @@ export default styled(Results)`
     }
   }
 
-  > .list {
+  > .grow {
+    height: 0;
     display: none;
-    overflow-y: auto;
     flex-grow: 1;
 
-    > .result {
-      color: ${p => p.theme.textColor};
-      border-bottom: ${p => p.theme.borderLight};
-      padding: ${p => p.theme.spacingPx}px;
-      display: flex;
-      align-items: start;
-      font-size: 1rem;
-      cursor: pointer;
+    > .list {
+      overflow-y: auto;
+      max-height: 100%;
+      background: #fff;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
 
-      &:hover {
-        background: ${p => p.theme.colors.grayLight5};
+      > .result {
+        color: ${p => p.theme.textColor};
+        border-bottom: ${p => p.theme.borderLight};
+        padding: ${p => p.theme.spacingPx}px;
+        display: flex;
+        align-items: start;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:hover {
+          background: ${p => p.theme.colors.grayLight5};
+
+          .location {
+            color: ${p => p.theme.textColorLight};
+          }
+        }
+
+        .number {
+          color: ${p => p.theme.textColor};
+          font-size: 20px;
+          font-weight: 600;
+          margin-right: ${p => p.theme.spacingPx}px;
+
+          [dir='rtl'] & {
+            margin: 0 0 0 ${p => p.theme.spacingPx}px;
+          }
+        }
 
         .location {
           color: ${p => p.theme.textColorLight};
+          font-size: 0.9rem;
+          margin-bottom: ${p => p.theme.spacingPx / 2}px;
         }
       }
+    }
 
-      .number {
-        color: ${p => p.theme.textColor};
-        font-size: 20px;
-        font-weight: 600;
-        margin-right: ${p => p.theme.spacingPx}px;
+    > .details {
+      overflow-y: auto;
+      max-height: 100%;
+      background: #fff;
+      padding: ${p => p.theme.spacingPx}px;
+      overflow-y: auto;
+      background: #fff;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
 
-        [dir='rtl'] & {
-          margin: 0 0 0 ${p => p.theme.spacingPx}px;
-        }
+      > .name {
+        font-size: 1.5rem;
+        padding-bottom: ${p => p.theme.spacingPx / 2}px;
       }
 
-      .location {
+      > .location {
         color: ${p => p.theme.textColorLight};
         font-size: 0.9rem;
+      }
+
+      > .services {
         margin-bottom: ${p => p.theme.spacingPx / 2}px;
       }
-    }
-  }
 
-  > .details {
-    background: #fff;
-    padding: ${p => p.theme.spacingPx}px;
-    overflow-y: auto;
-    flex-grow: 1;
+      > .contact-group {
+        margin-top: ${p => p.theme.spacingPx}px;
+        color: ${p => p.theme.textColorLight};
 
-    > .name {
-      font-size: 1.5rem;
-      padding-bottom: ${p => p.theme.spacingPx / 2}px;
-    }
+        ul {
+          padding-left: ${p => p.theme.spacingPx}px;
+          margin-left: ${p => p.theme.spacingPx}px;
+          a {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
 
-    > .location {
-      color: ${p => p.theme.textColorLight};
-      font-size: 0.9rem;
-    }
+            &:hover {
+              text-decoration: underline;
+            }
 
-    > .services {
-      margin-bottom: ${p => p.theme.spacingPx / 2}px;
-    }
-
-    > .contact-group {
-      margin-top: ${p => p.theme.spacingPx}px;
-      color: ${p => p.theme.textColorLight};
-
-      ul {
-        padding-left: ${p => p.theme.spacingPx}px;
-        margin-left: ${p => p.theme.spacingPx}px;
-        a {
-          display: inline-flex;
-          align-items: center;
-          text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
-
-          svg {
-            margin-right: ${p => p.theme.spacingPx / 2}px;
+            svg {
+              margin-right: ${p => p.theme.spacingPx / 2}px;
+            }
           }
         }
       }
@@ -415,7 +432,7 @@ export default styled(Results)`
       display: flex;
     }
 
-    > .list {
+    > .grow {
       display: block;
     }
   }
@@ -434,11 +451,14 @@ export default styled(Results)`
       display: none;
     }
 
-    // Keep visible (rather than display:none) to maintain scroll position
-    > .list {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
+    > .grow {
+      display: block;
+
+      > .list {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
     }
   }
 `;

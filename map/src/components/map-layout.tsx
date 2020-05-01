@@ -109,13 +109,6 @@ export default styled(MapLayout)`
           flex-basis: 0;
         }
       }
-
-      > .results {
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-        overflow: hidden;
-      }
     }
   }
 
