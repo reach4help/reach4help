@@ -29,6 +29,7 @@ interface MarkerData {
 type DataSet = keyof MarkerData;
 
 const MARKER_DATA_ID = 'id';
+const MARKER_DATA_CIRCLE = 'circle';
 
 export interface MarkerId {
   set: DataSet;
@@ -241,6 +242,10 @@ class MapComponent extends React.Component<Props, {}> {
         if (!update.markers.has(id)) {
           removedMarkers.push(marker);
           map.activeMarkers.firebase.delete(id);
+          const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
+          if (circle) {
+            circle.setMap(null);
+          }
         }
       }
       map.markerClusterer.removeMarkers(removedMarkers, true);
@@ -299,10 +304,6 @@ class MapComponent extends React.Component<Props, {}> {
     });
 
     const drawMarkerServiceArea = (marker: google.maps.Marker) => {
-      if (m.clustering?.state !== 'idle') {
-        return;
-      }
-
       const info = this.getMarkerInfo(marker);
       if (!info) {
         return;
@@ -327,9 +328,11 @@ class MapComponent extends React.Component<Props, {}> {
             bottomLeft,
           );
 
+          let circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
+
           if (distanceToBottomLeft > radius || distanceToTopRight > radius) {
-            m.clustering.serviceCircles.push(
-              new window.google.maps.Circle({
+            if (!circle) {
+              circle = new window.google.maps.Circle({
                 strokeColor: color,
                 strokeOpacity: 0.3,
                 strokeWeight: 1,
@@ -342,24 +345,16 @@ class MapComponent extends React.Component<Props, {}> {
                 // changes to the marker placement when adding new data so that
                 // the circle can be clicked to place a marker at the cursor
                 clickable: false,
-              }),
-            );
-          } else {
-            // TODO: Add to border of map instead of adding a circle
+              });
+              marker.set(MARKER_DATA_CIRCLE, circle);
+            }
+            circle.setVisible(true);
+          } else if (circle) {
+            circle.setVisible(false);
           }
         }
       }
     };
-
-    // Set up event listeners to tell us when the map has started refreshing.
-    markerClusterer.addListener('clusteringbegin', () => {
-      if (m.clustering?.state === 'idle') {
-        m.clustering.serviceCircles.forEach(circle => {
-          circle.setMap(null);
-        });
-      }
-      // $("#visible-markers").html('<h2>Loading List View ... </h2>');
-    });
 
     markerClusterer.addListener('click', (cluster: MarkerClusterer) => {
       // Immidiately change the result list to the cluster instead
@@ -384,8 +379,6 @@ class MapComponent extends React.Component<Props, {}> {
       'clusteringend',
       (newClusterParent: MarkerClusterer) => {
         m.clustering = {
-          state: 'idle',
-          serviceCircles: [],
           clusterMarkers: new Map(),
         };
         const visibleMarkers: google.maps.Marker[] = [];
@@ -421,6 +414,15 @@ class MapComponent extends React.Component<Props, {}> {
           // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
           if (maxMarker) {
             drawMarkerServiceArea(maxMarker.marker);
+          }
+          // And hide the existing circles for all other markers
+          for (const marker of clusterMarkers) {
+            if (marker !== maxMarker?.marker) {
+              const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
+              if (circle) {
+                circle.setVisible(false);
+              }
+            }
           }
         }
 
@@ -515,9 +517,7 @@ class MapComponent extends React.Component<Props, {}> {
       selectedResult &&
       map.activeMarkers[selectedResult.id.set].get(selectedResult.id.id);
     if (selectedResult && marker) {
-      const clusterCenter =
-        map.clustering?.state === 'idle' &&
-        map.clustering.clusterMarkers.get(marker);
+      const clusterCenter = map.clustering?.clusterMarkers.get(marker);
       const contentString = infoWindowContent(selectedResult.info);
       if (!this.infoWindow) {
         this.infoWindow = new window.google.maps.InfoWindow({

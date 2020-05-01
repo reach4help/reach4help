@@ -19,18 +19,10 @@ export interface MapInfo {
    * The filter that is currently being used to display the markers on the map
    */
   currentFilter: Filter;
-  clustering?:
-    | {
-        state: 'idle';
-        /** The circles we rendered for the current visible markers */
-        serviceCircles: google.maps.Circle[];
-        /** Map from original marker to position of cluster if in a cluster */
-        clusterMarkers: Map<google.maps.Marker, google.maps.LatLng>;
-      }
-    | {
-        /** A clustering is in progress */
-        state: 'active';
-      };
+  clustering?: {
+    /** Map from original marker to position of cluster if in a cluster */
+    clusterMarkers: Map<google.maps.Marker, google.maps.LatLng>;
+  };
 }
 
 export type SearchBoxId = 'main' | 'add-information';
