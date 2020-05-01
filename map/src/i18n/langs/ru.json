@@ -160,5 +160,13 @@
     "codeOfConduct": "Кодекс поведения",
     "showHidden": "Show Hidden Information",
     "hideHidden": "Hide Hidden Information"
+  },
+  "hiddenMarkers": {
+    "visiblility": "Visibility: {visibility}",
+    "filter": {
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
+    }
   }
 }
