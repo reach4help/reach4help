@@ -1,4 +1,3 @@
-import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import About from 'src/components/about';
@@ -9,7 +8,7 @@ import { Page } from 'src/state';
 import { AppContext } from './components/context';
 import { FilterMutator } from './components/filter-type';
 import Header from './components/header';
-import Map, { MarkerIdAndInfo } from './components/map';
+import Map, { MarkerIdAndInfo, ResultsSet } from './components/map';
 import Results from './components/results';
 import { Filter } from './data';
 import styled, {
@@ -24,8 +23,8 @@ interface Props {
 
 interface State {
   filter: Filter;
-  results: MarkerIdAndInfo[] | null;
-  nextResults?: MarkerIdAndInfo[];
+  results: ResultsSet | null;
+  nextResults: ResultsSet | null;
   resultsOpen: boolean;
   selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
@@ -39,6 +38,7 @@ class App extends React.Component<Props, State> {
     this.state = {
       filter: {},
       results: null,
+      nextResults: null,
       resultsOpen: false,
       selectedResult: null,
       updateResultsCallback: null,
@@ -53,10 +53,9 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private setResults = (results: MarkerIdAndInfo[], openResults?: boolean) => {
+  private setResults = (results: ResultsSet, openResults?: boolean) => {
     this.setState(state => ({
       results,
-      selectedResult: null,
       resultsOpen: openResults ? true : state.resultsOpen,
     }));
   };
@@ -65,13 +64,14 @@ class App extends React.Component<Props, State> {
     this.setState({ updateResultsCallback: callback });
   };
 
-  private setSelectedResult = (selectedResult: MarkerIdAndInfo | null) =>
+  private setSelectedResult = (selectedResult: MarkerIdAndInfo | null) => {
     this.setState({ selectedResult });
+  };
 
-  private setNextResults = (nextResults: MarkerIdAndInfo[]) => {
-    this.setState(state =>
-      isEqual(state.nextResults, nextResults) ? {} : { nextResults },
-    );
+  private setNextResults = (nextResults: ResultsSet | null) => {
+    this.setState({
+      nextResults,
+    });
   };
 
   private setPage = (page: Page) => {
@@ -146,6 +146,7 @@ class App extends React.Component<Props, State> {
                     setUpdateResultsCallback={this.setUpdateResultsCallback}
                     page={page}
                     setPage={this.setPage}
+                    resultsOpen={resultsOpen}
                   />
                 ),
                 results: props => (

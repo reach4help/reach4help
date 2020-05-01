@@ -70,9 +70,8 @@ export default styled(MapLayout)`
     right: 0;
     display: flex;
     padding: ${p => p.theme.overlayPaddingPx}px;
-    pointer-events: none;
     opacity: 0;
-    transition: ${p => p.theme.opacityTransition};
+    transition: opacity ${p => p.theme.transitionSpeedNormal};
     pointer-events: none;
 
     ${LARGE_DEVICES} {
@@ -98,9 +97,11 @@ export default styled(MapLayout)`
         padding: 9px 8px;
         display: flex;
         flex-direction: column;
+        pointer-events: initial;
 
         .row {
           display: flex;
+          flex-wrap: wrap;
         }
 
         .search,
@@ -108,7 +109,7 @@ export default styled(MapLayout)`
         .filter-type {
           margin: 9px 8px;
           flex-grow: 1;
-          flex-basis: 0;
+          flex-basis: 40%;
         }
       }
     }
@@ -117,9 +118,6 @@ export default styled(MapLayout)`
   &.page-map {
     > .overlay {
       opacity: 1;
-      > .panel > * {
-        pointer-events: initial;
-      }
     }
   }
 `;

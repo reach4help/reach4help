@@ -1,19 +1,20 @@
+import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { MdEmail, MdLanguage, MdPhone } from 'react-icons/md';
 import Chevron from 'src/components/assets/chevron';
 import Refresh from 'src/components/assets/refresh';
-import { MarkerIdAndInfo } from 'src/components/map';
+import { MarkerIdAndInfo, ResultsSet } from 'src/components/map';
 import { ContactDetails } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
 
-import styled, { Z_INDICES } from '../styling';
+import styled from '../styling';
 import { AppContext } from './context';
 import MarkerType from './marker-type';
 
 interface Props {
   className?: string;
-  results: MarkerIdAndInfo[] | null;
-  nextResults?: MarkerIdAndInfo[];
+  results: ResultsSet | null;
+  nextResults: ResultsSet | null;
   updateResults: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -95,20 +96,14 @@ const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
 };
 
 class Results extends React.PureComponent<Props, {}> {
-  private toggle = () => {
+  private headerClicked = () => {
     const { open, setOpen, selectedResult, setSelectedResult } = this.props;
     if (selectedResult) {
       setSelectedResult(null);
-      setOpen(false);
+      setOpen(true);
     } else {
       setOpen(!open);
     }
-  };
-
-  private back = () => {
-    const { setOpen, setSelectedResult } = this.props;
-    setSelectedResult(null);
-    setOpen(true);
   };
 
   public render() {
@@ -121,6 +116,7 @@ class Results extends React.PureComponent<Props, {}> {
       selectedResult,
       setSelectedResult,
     } = this.props;
+    const canUpdateResults = !isEqual(results, nextResults);
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -129,21 +125,30 @@ class Results extends React.PureComponent<Props, {}> {
               selectedResult ? 'selected-result' : ''
             }`}
           >
-            <div className="header">
-              <button type="button" className="back" onClick={this.back}>
-                <Chevron className="chevron" />
-              </button>
-              <button type="button" className="toggle" onClick={this.toggle}>
-                <span className="count">
-                  {format(lang, s => s.results.count, {
-                    results: (results || []).length,
-                  })}
-                </span>
-                <span className="grow" />
-                <Chevron className="chevron" />
-              </button>
-            </div>
-            {nextResults !== results && (
+            <button
+              type="button"
+              className="header"
+              onClick={this.headerClicked}
+            >
+              <Chevron className="back chevron" />
+              <span className="count">
+                {format(
+                  lang,
+                  s =>
+                    selectedResult
+                      ? s.results.backToResults
+                      : open
+                      ? s.results.closeResults
+                      : s.results.openResults,
+                  {
+                    results: (results?.results || []).length,
+                  },
+                )}
+              </span>
+              <span className="grow" />
+              <Chevron className="toggle chevron" />
+            </button>
+            {canUpdateResults && (
               <div className="update">
                 <button onClick={updateResults} type="button">
                   <Refresh />
@@ -153,7 +158,7 @@ class Results extends React.PureComponent<Props, {}> {
             )}
             <div className="grow">
               <div className="list">
-                {(results || []).map((result, index) => (
+                {(results?.results || []).map((result, index) => (
                   <div
                     key={index}
                     className="result"
@@ -218,64 +223,52 @@ export default styled(Results)`
   display: flex;
   flex-direction: column;
 
-  > .header {
+  > button.header {
     background: #d9bbd6;
+    cursor: pointer;
+    outline: none;
+    border: none;
     display: flex;
     color: ${p => p.theme.colors.brand.primaryDark};
-    padding: 0 8px;
+    padding: 5px 8px;
+    align-items: center;
+    pointer-events: initial;
 
-    > button.back {
-      display: none;
-      color: ${p => p.theme.colors.brand.primaryDark};
-      cursor: pointer;
-      outline: none;
-      border: none;
-      background: none;
-      padding: 0 16px;
-      margin: 0 -8px;
-      z-index: ${Z_INDICES.MAP_OVERLAYS_RESULTS_BACK_BUTTON};
+    > .chevron,
+    .count {
+      margin: 0 8px;
+    }
 
-      svg {
-        transform: rotate(90deg);
+    > .chevron.back {
+      opacity: 0;
+      margin: 0 -6px;
+      transform: rotate(90deg);
+      transition: opacity ${p => p.theme.transitionSpeedQuick},
+        margin ${p => p.theme.transitionSpeedQuick};
 
-        [dir='rtl'] & {
-          transform: rotate(270deg);
-        }
-      }
-
-      &:hover,
-      &:focus {
-        opacity: 0.7;
+      [dir='rtl'] & {
+        transform: rotate(270deg);
       }
     }
 
-    > button.toggle {
-      flex-grow: 1;
-      color: ${p => p.theme.colors.brand.primaryDark};
+    > .count {
       font-weight: bold;
       font-size: 14px;
       line-height: 22px;
-      cursor: pointer;
-      outline: none;
-      border: none;
-      background: none;
-      display: flex;
-      padding: 5px 16px;
-      align-items: center;
-      margin: 0 -8px;
+      white-space: nowrap;
+    }
 
-      > .count {
-        white-space: nowrap;
-      }
+    > .grow {
+      flex-grow: 1;
+    }
 
-      > .grow {
-        flex-grow: 1;
-      }
+    > .chevron.toggle {
+      transition: opacity ${p => p.theme.transitionSpeedQuick};
+    }
 
-      &:hover,
-      &:focus {
-        opacity: 0.7;
-      }
+    &:hover,
+    &:focus {
+      color: rgb(129, 30, 120, 0.7);
     }
   }
 
@@ -283,6 +276,7 @@ export default styled(Results)`
     display: none;
     padding: 20px 16px;
     background: #fff;
+    pointer-events: initial;
 
     button {
       flex-grow: 1;
@@ -327,6 +321,7 @@ export default styled(Results)`
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
+      pointer-events: initial;
 
       > .result {
         color: ${p => p.theme.textColor};
@@ -374,6 +369,7 @@ export default styled(Results)`
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
+      pointer-events: initial;
 
       > .name {
         font-size: 1.5rem;
@@ -415,7 +411,7 @@ export default styled(Results)`
   }
 
   &.open {
-    > .header > button.toggle > .chevron {
+    > .header > .chevron.toggle {
       transform: rotate(180deg);
     }
 
@@ -430,11 +426,12 @@ export default styled(Results)`
 
   &.selected-result {
     > .header {
-      > button.back {
-        display: block;
+      > .chevron.back {
+        opacity: 1;
+        margin: 0 8px;
       }
-      > button.toggle > .chevron {
-        transform: rotate(180deg);
+      > .chevron.toggle {
+        opacity: 0;
       }
     }
 
