@@ -29,7 +29,10 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 310px;
+  @media (min-width: 480px) {
+    width: 310px;
+  }
+  min-width: 270px;
   height: 290px;
 `;
 
@@ -46,10 +49,10 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
   const { t } = useTranslation();
   // i18n.changeLanguage('pt-PT');
   return (
-    <StyledIntro>
+    <StyledIntro className="withContentPaddingDesktop">
       <TitleWithAddon level={2}>{t('roleinfo.sub_title')}</TitleWithAddon>
       <Container>
-        <Row>
+        <Row gutter={12}>
           <Col
             style={{ display: 'flex', justifyContent: 'center' }}
             span={12}

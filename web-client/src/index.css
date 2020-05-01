@@ -1,5 +1,10 @@
 @import '~antd/dist/antd.css';
 
+h2.ant-typography,
+.ant-typography h2 {
+  font-size: 28px !important;
+}
+
 @media (max-width: 667px) and (orientation: portrait) {
   .ant-card {
     min-width: 100%;
