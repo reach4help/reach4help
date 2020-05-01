@@ -67,6 +67,9 @@
           "submit": "Send my need"
         }
       },
+      "newRequestSuccess": {
+        "title": "Your request has been created"
+      },
       "roleinfo": {
         "title": "Reach4Help",
         "sub_title": "How can we assist you ?",
