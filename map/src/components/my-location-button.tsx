@@ -82,6 +82,7 @@ export default styled(MyLocation)`
   justify-content: center;
   cursor: pointer;
   outline: none;
+  white-space: nowrap;
 
   &:hover,
   &:focus {

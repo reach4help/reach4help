@@ -101,6 +101,7 @@ export default styled(MapLayout)`
 
         .row {
           display: flex;
+          flex-wrap: wrap;
         }
 
         .search,
@@ -108,7 +109,7 @@ export default styled(MapLayout)`
         .filter-type {
           margin: 9px 8px;
           flex-grow: 1;
-          flex-basis: 0;
+          flex-basis: 40%;
         }
       }
     }
