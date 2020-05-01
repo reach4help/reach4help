@@ -15,12 +15,10 @@ interface Props {
   results: MarkerIdAndInfo[] | null;
   nextResults?: MarkerIdAndInfo[];
   updateResults: () => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
   selectedResult: MarkerIdAndInfo | null;
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
-}
-
-interface State {
-  open: boolean;
 }
 
 const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
@@ -96,28 +94,21 @@ const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
   );
 };
 
-class Results extends React.PureComponent<Props, State> {
-  public constructor(props: Props) {
-    super(props);
-    this.state = {
-      open: false,
-    };
-  }
-
+class Results extends React.PureComponent<Props, {}> {
   private toggle = () => {
-    const { selectedResult, setSelectedResult } = this.props;
+    const { open, setOpen, selectedResult, setSelectedResult } = this.props;
     if (selectedResult) {
       setSelectedResult(null);
-      this.setState({ open: false });
+      setOpen(false);
     } else {
-      this.setState(state => ({ open: !state.open }));
+      setOpen(!open);
     }
   };
 
   private back = () => {
-    const { setSelectedResult } = this.props;
+    const { setOpen, setSelectedResult } = this.props;
     setSelectedResult(null);
-    this.setState({ open: true });
+    setOpen(true);
   };
 
   public render() {
@@ -126,10 +117,10 @@ class Results extends React.PureComponent<Props, State> {
       results,
       nextResults,
       updateResults,
+      open,
       selectedResult,
       setSelectedResult,
     } = this.props;
-    const { open } = this.state;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
