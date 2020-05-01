@@ -53,8 +53,12 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private setResults = (results: MarkerIdAndInfo[]) => {
-    this.setState({ results, selectedResult: null });
+  private setResults = (results: MarkerIdAndInfo[], openResults?: boolean) => {
+    this.setState(state => ({
+      results,
+      selectedResult: null,
+      resultsOpen: openResults ? true : state.resultsOpen,
+    }));
   };
 
   private setUpdateResultsCallback = (callback: (() => void) | null) => {
