@@ -99,7 +99,3 @@ export const isMarkerType = (
 export const MARKER_TYPE_STRINGS = Object.keys(
   MARKER_TYPES,
 ) as MarkerTypeString[];
-
-export interface Filter {
-  type?: MarkerTypeString;
-}

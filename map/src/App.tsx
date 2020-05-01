@@ -3,14 +3,12 @@ import { Helmet } from 'react-helmet';
 import About from 'src/components/about';
 import MapLayout from 'src/components/map-layout';
 import * as i18n from 'src/i18n';
-import { Page } from 'src/state';
+import { Filter, FilterMutator, Page } from 'src/state';
 
 import { AppContext } from './components/context';
-import { FilterMutator } from './components/filter-type';
 import Header from './components/header';
 import Map, { MarkerIdAndInfo, ResultsSet } from './components/map';
 import Results from './components/results';
-import { Filter } from './data';
 import styled, {
   CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,

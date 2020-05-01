@@ -5,9 +5,9 @@ import mapState, {
   MapInfo,
   MARKER_SET_KEYS,
 } from 'src/components/map-utils/map-state';
-import { Filter, MARKER_TYPES } from 'src/data';
+import { MARKER_TYPES } from 'src/data';
 import * as firebase from 'src/data/firebase';
-import { Page } from 'src/state';
+import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
@@ -147,7 +147,15 @@ class MapComponent extends React.Component<Props, {}> {
       for (const set of MARKER_SET_KEYS) {
         map.activeMarkers[set].forEach(marker => {
           const info = this.getMarkerInfo(marker);
-          const visible = !filter.type || info?.info.type.type === filter.type;
+          const validType =
+            !filter.type || info?.info.type.type === filter.type;
+          const validVisibility = !!(
+            !filter.visibility ||
+            filter.visibility === 'any' ||
+            (filter.visibility === 'hidden' && !info?.info.visible) ||
+            (filter.visibility === 'visible' && info?.info.visible)
+          );
+          const visible = validType && validVisibility;
           marker.setVisible(visible);
         });
       }

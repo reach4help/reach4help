@@ -2,7 +2,7 @@
  * This module allows sharing certain elements of the Map state across
  * multiple components (outside of react).
  */
-import { Filter } from 'src/data';
+import { Filter } from 'src/state';
 
 export interface ActiveMarkers {
   /** map from marker index to marker */

@@ -1,3 +1,5 @@
+import { MarkerTypeString } from 'src/data';
+
 export type Page =
   | {
       page: 'about';
@@ -15,3 +17,10 @@ export type AddInfoStep =
   | 'place-marker'
   | 'contact-details'
   | 'submitted';
+
+export interface Filter {
+  type?: MarkerTypeString;
+  visibility?: 'visible' | 'hidden' | 'any';
+}
+
+export type FilterMutator = (filter: Filter) => Filter;
