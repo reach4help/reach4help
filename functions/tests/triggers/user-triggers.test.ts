@@ -36,8 +36,7 @@ describe('user triggers', () => {
         return userRef.get();
       })
       .then(snap => {
-        const wrapped = test.wrap(triggerEventsWhenUserIsCreated);
-        return wrapped(snap, {
+        return test.wrap(triggerEventsWhenUserIsCreated)(snap, {
           params: {
             userId: 'user1',
           },

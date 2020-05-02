@@ -63,6 +63,9 @@ export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
       return db
         .collection('questionnaires')
         .doc(context.params.questionnaireId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
 };

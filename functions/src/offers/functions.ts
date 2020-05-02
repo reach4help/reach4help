@@ -120,7 +120,10 @@ export const offerCreate = (snapshot: DocumentSnapshot, context: EventContext) =
       return db
         .collection('offers')
         .doc(context.params.offerId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
 };
 
@@ -134,6 +137,9 @@ export const offerUpdate = (change: Change<DocumentSnapshot>, context: EventCont
       return db
         .collection('offers')
         .doc(context.params.offerId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
 };
