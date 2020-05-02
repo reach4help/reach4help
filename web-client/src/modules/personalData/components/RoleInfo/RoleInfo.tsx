@@ -13,7 +13,9 @@ const StyledIntro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 50px;
+  @media (min-width: 576px) {
+    padding: 50px 50px;
+  }
 `;
 
 const Container = styled.div`
@@ -29,7 +31,10 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 310px;
+  @media (min-width: 480px) {
+    width: 310px;
+  }
+  min-width: 270px;
   height: 290px;
 `;
 
@@ -46,11 +51,17 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
   const { t } = useTranslation();
   // i18n.changeLanguage('pt-PT');
   return (
-    <StyledIntro>
+    <StyledIntro className="withContentPaddingDesktop">
       <TitleWithAddon level={2}>{t('roleinfo.sub_title')}</TitleWithAddon>
       <Container>
-        <Row>
-          <Col span={12}>
+        <Row gutter={12}>
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
+            span={12}
+            xs={24}
+            sm={24}
+            md={12}
+          >
             <Box>
               <Pin src={pin} />
 
@@ -68,7 +79,13 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
               </Button>
             </Box>
           </Col>
-          <Col span={12}>
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
+            span={12}
+            xs={24}
+            sm={24}
+            md={12}
+          >
             <Box>
               <Cav src={cav} />
               <p>{t('roleinfo.info_cav')}</p>
