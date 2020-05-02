@@ -32,11 +32,12 @@ Right now, we’re developing our **MVP** and rapidly expanding our _reach_! We�
 
 ## How _You_ Can Contribute
 
-We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the [instructions for getting involved](docs/GETTING_INVOLVED.md). We'd be honored to have you join our humble abode!
+We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the [instructions for getting involved](docs/GETTING_INVOLVED.md). You can find more details on how to prepare the environment and the guidelines on how to contribute to the repo by looking at the [instructions for contributing](CONTRIBUTING.md). We'd be honored to have you join our humble abode!
 
 # Development
 
 This is the main/mono-repo for [Reach4Help](https://reach4help.org/).
+If you haven't already gone through the Instructions for setting up the environment and the standards that we follow, please go through the [instructions for contributing](CONTRIBUTING.md) before proceeding.
 
 ## Preparing the repository
 
@@ -85,7 +86,7 @@ More info [here](functions/README.md)!
 
 ## Code of Conduct
 
-We expect everyone to abide by our [Code of Conduct](docs/CODE_OF_CONDUCT.md). Please read it.
+We expect everyone to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it.
 
 ## Contributors ✨
 
