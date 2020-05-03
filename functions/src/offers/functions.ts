@@ -1,14 +1,11 @@
 import { validateOrReject } from 'class-validator';
-import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
 import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import { RequestFirestoreConverter, RequestStatus } from '../models/requests';
-
-const db = admin.firestore();
-const auth = admin.auth();
+import { auth, db } from '../app';
 
 const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Promise<void[]> => {
   const offerBefore = change.before.exists ? (change.before.data() as Offer) : null;
@@ -30,7 +27,11 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
 
     operations.push(
       (async (): Promise<void> => {
-        const user = await auth.getUser(offerAfter.cavUserRef.id);
+        if (!auth) {
+          return Promise.resolve(); // We need the user object to continue
+        }
+
+        const user = await auth?.getUser(offerAfter.cavUserRef.id);
         return dispatch.notifyService({
           entity: 'user',
           action: 'accepted',
@@ -75,7 +76,11 @@ const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[
 
     operations.push(
       (async (): Promise<void> => {
-        const user = await auth.getUser(offer.cavUserRef.id);
+        if (!auth) {
+          return Promise.resolve(); // We need the user object to continue
+        }
+
+        const user = await auth?.getUser(offer.cavUserRef.id);
         return dispatch.notifyService({
           entity: 'user',
           action: 'created',
