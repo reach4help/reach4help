@@ -1,3 +1,4 @@
+import * as firebaseTest from '@firebase/testing';
 import { validateOrReject } from 'class-validator';
 import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
@@ -8,8 +9,23 @@ import { IRequest, Request, RequestStatus } from '../models/requests';
 import { UserFirestoreConverter } from '../models/users';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
-admin.initializeApp();
-const db = admin.firestore();
+const projectId = 'reach-4-help-test';
+
+let db: any = undefined;
+let test = true;
+
+if(process.env.FIREBASE_CONFIG){
+  let config = JSON.parse(process.env.FIREBASE_CONFIG);
+  if(config.databaseURL && config.databaseURL !== 'undefined'){
+    admin.initializeApp();
+    db = admin.firestore();
+    test = false;
+  }
+}
+
+if(test){
+  db = firebaseTest.initializeAdminApp({ projectId }).firestore();
+}
 
 const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefore: Request | null, requestAfter: Request | null) => {
   // We have a new CAV rating -  Update CAV rating average but only this time.

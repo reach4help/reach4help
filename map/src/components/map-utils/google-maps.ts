@@ -20,8 +20,9 @@ export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
     mapTypeControl: false,
     fullscreenControl: false,
     zoomControlOptions: {
-      position: google.maps.ControlPosition.LEFT_BOTTOM,
+      position: google.maps.ControlPosition.RIGHT_BOTTOM,
     },
+    gestureHandling: 'greedy',
   });
 };
 

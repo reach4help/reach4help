@@ -2,41 +2,18 @@ import React from 'react';
 import * as firebase from 'src/data/firebase';
 import { t } from 'src/i18n';
 
-import styled from '../styling';
+import styled, { NON_LARGE_DEVICES } from '../styling';
 import { AppContext } from './context';
 
-const FooterWrapper = styled.footer`
-  display: flex;
-  padding: ${p => p.theme.spacingPx * 0.75}px;
-  background: ${p => p.theme.bg};
-  border-top: ${p => p.theme.borderLight};
-  font-size: 0.8rem;
-
-  .grow {
-    flex-grow: 1;
-  }
-
-  > a,
-  > button {
-    margin-left: ${p => p.theme.spacingPx}px;
-    color: ${p => p.theme.textLinkColor};
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-
-    &: hover {
-      color: ${p => p.theme.textLinkHoverColor};
-      text-decoration: underline;
-    }
-  }
-`;
+interface Props {
+  className?: string;
+}
 
 interface State {
   includingHidden: boolean;
 }
 
-class Footer extends React.PureComponent<{}, State> {
+class Footer extends React.PureComponent<Props, State> {
   public constructor(props: {}) {
     super(props);
     this.state = {
@@ -56,15 +33,20 @@ class Footer extends React.PureComponent<{}, State> {
     this.setState({ includingHidden: update.includingHidden });
 
   public render = () => {
+    const { className } = this.props;
     const { includingHidden } = this.state;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <FooterWrapper>
-            <div className="grow">
+          <footer className={className}>
+            <div className="netlify">
               {t(lang, s => s.footer.netlifyNote, {
                 link: key => (
-                  <a key={key} href="https://www.netlify.com/">
+                  <a
+                    className="footer-link"
+                    key={key}
+                    href="https://www.netlify.com/"
+                  >
                     {t(lang, s => s.footer.netlifyLinkText)}
                   </a>
                 ),
@@ -73,26 +55,81 @@ class Footer extends React.PureComponent<{}, State> {
                 &nbsp;❤️
               </span>
             </div>
-            <button
-              type="button"
-              onClick={() => firebase.includeHiddenMarkers(!includingHidden)}
-            >
-              {t(
-                lang,
-                s => s.footer[includingHidden ? 'hideHidden' : 'showHidden'],
-              )}
-            </button>
-            <a href="https://github.com/reach4help/reach4help/">
-              {t(lang, s => s.footer.githubRepo)}
-            </a>
-            <a href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md">
-              {t(lang, s => s.footer.codeOfConduct)}
-            </a>
-          </FooterWrapper>
+            <div className="links">
+              <button
+                type="button"
+                onClick={() => firebase.includeHiddenMarkers(!includingHidden)}
+              >
+                {t(
+                  lang,
+                  s => s.footer[includingHidden ? 'hideHidden' : 'showHidden'],
+                )}
+              </button>
+              <a
+                className="footer-link"
+                href="https://github.com/reach4help/reach4help/"
+              >
+                {t(lang, s => s.footer.githubRepo)}
+              </a>
+              <a
+                className="footer-link"
+                href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+              >
+                {t(lang, s => s.footer.codeOfConduct)}
+              </a>
+            </div>
+          </footer>
         )}
       </AppContext.Consumer>
     );
   };
 }
 
-export default Footer;
+export default styled(Footer)`
+  max-width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0 30px;
+  font-size: 16px;
+  line-height: 200%;
+  justify-content: center;
+
+  ${NON_LARGE_DEVICES} {
+    font-size: 14px;
+  }
+
+  .netlify {
+    margin-bottom: 10px;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    > * {
+      margin: 5px 10px;
+    }
+  }
+
+  a.footer-link,
+  button {
+    font-size: 16px;
+    line-height: 200%;
+    color: #fff;
+    font-weight: bold;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    ${NON_LARGE_DEVICES} {
+      font-size: 14px;
+    }
+
+    &:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  }
+`;

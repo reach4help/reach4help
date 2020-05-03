@@ -1,22 +1,18 @@
-import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import About from 'src/components/about';
+import MapLayout from 'src/components/map-layout';
 import * as i18n from 'src/i18n';
+import { Filter, FilterMutator, Page } from 'src/state';
 
-import { AddInfoStep } from './components/add-information';
 import { AppContext } from './components/context';
-import { FilterMutator } from './components/filters';
-import Footer from './components/footer';
 import Header from './components/header';
-import Map, { MarkerIdAndInfo } from './components/map';
-import MapLoader from './components/map-loader';
+import Map, { MarkerIdAndInfo, ResultsSet } from './components/map';
 import Results from './components/results';
-import { Filter } from './data';
 import styled, {
   CLS_SCREEN_LG_HIDE,
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
-  SMALL_DEVICES,
 } from './styling';
 
 interface Props {
@@ -25,20 +21,13 @@ interface Props {
 
 interface State {
   filter: Filter;
-  results: MarkerIdAndInfo[] | null;
-  nextResults?: MarkerIdAndInfo[];
+  results: ResultsSet | null;
+  nextResults: ResultsSet | null;
+  resultsOpen: boolean;
   selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
-  fullScreen: boolean;
-  updateResultsOnNextClustering: boolean;
   lang: i18n.Language;
-  /**
-   * * open: (default) the results are open
-   * * closed: the results are closed
-   * * open-auto: the results are open because a point is selected
-   */
-  resultsMode: 'open' | 'closed' | 'open-auto';
-  addInfoStep: AddInfoStep | null;
+  page: Page;
 }
 
 class App extends React.Component<Props, State> {
@@ -47,13 +36,14 @@ class App extends React.Component<Props, State> {
     this.state = {
       filter: {},
       results: null,
+      nextResults: null,
+      resultsOpen: false,
       selectedResult: null,
       updateResultsCallback: null,
-      fullScreen: false,
-      resultsMode: 'open',
-      updateResultsOnNextClustering: false,
-      addInfoStep: null,
       lang: i18n.getLanguage(),
+      page: {
+        page: 'about',
+      },
     };
   }
 
@@ -61,8 +51,11 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({ filter: mutator(state.filter) }));
   };
 
-  private setResults = (results: MarkerIdAndInfo[]) => {
-    this.setState({ results, selectedResult: null });
+  private setResults = (results: ResultsSet, openResults?: boolean) => {
+    this.setState(state => ({
+      results,
+      resultsOpen: openResults ? true : state.resultsOpen,
+    }));
   };
 
   private setUpdateResultsCallback = (callback: (() => void) | null) => {
@@ -70,32 +63,17 @@ class App extends React.Component<Props, State> {
   };
 
   private setSelectedResult = (selectedResult: MarkerIdAndInfo | null) => {
-    this.setState(state => {
-      let { resultsMode } = state;
-      if (selectedResult && state.resultsMode === 'closed') {
-        resultsMode = 'open-auto';
-      }
-      if (!selectedResult && state.resultsMode === 'open-auto') {
-        resultsMode = 'closed';
-      }
-      return { selectedResult, resultsMode };
+    this.setState({ selectedResult });
+  };
+
+  private setNextResults = (nextResults: ResultsSet | null) => {
+    this.setState({
+      nextResults,
     });
   };
 
-  private setNextResults = (nextResults: MarkerIdAndInfo[]) => {
-    this.setState(state =>
-      isEqual(state.nextResults, nextResults) ? {} : { nextResults },
-    );
-  };
-
-  private setUpdateResultsOnNextClustering = (
-    updateResultsOnNextClustering: boolean,
-  ) => {
-    this.setState({ updateResultsOnNextClustering });
-  };
-
-  private setAddInfoStep = (addInfoStep: AddInfoStep | null) => {
-    this.setState({ addInfoStep });
+  private setPage = (page: Page) => {
+    this.setState({ page });
   };
 
   private updateResults = () => {
@@ -105,21 +83,12 @@ class App extends React.Component<Props, State> {
     }
   };
 
-  private toggleFullscreen = () => {
-    this.setState(state => ({
-      fullScreen: !state.fullScreen,
-      resultsMode: state.fullScreen ? 'open' : 'closed',
-    }));
-  };
-
-  private toggleResults = () => {
-    this.setState(state => ({
-      resultsMode: state.resultsMode === 'closed' ? 'open' : 'closed',
-    }));
-  };
-
   private languageUpdated = (lang: i18n.Language) => {
     this.setState({ lang });
+  };
+
+  private setResultsOpen = (resultsOpen: boolean) => {
+    this.setState({ resultsOpen });
   };
 
   public componentDidMount = () => {
@@ -136,21 +105,14 @@ class App extends React.Component<Props, State> {
       filter,
       results,
       nextResults,
+      resultsOpen,
       selectedResult,
-      fullScreen,
-      resultsMode,
-      updateResultsOnNextClustering,
-      addInfoStep,
+      page,
       lang,
     } = this.state;
-    const effectiveResultsMode =
-      resultsMode === 'open-auto' ? 'open' : resultsMode;
     return (
       <AppContext.Provider value={{ lang }}>
-        <div
-          dir={i18n.getMeta(lang).direction}
-          className={className + (fullScreen ? ' fullscreen' : '')}
-        >
+        <div dir={i18n.getMeta(lang).direction} className={className}>
           <Helmet>
             {i18n.LANGUAGE_KEYS.map((langKey, i) => (
               <link
@@ -162,23 +124,15 @@ class App extends React.Component<Props, State> {
             ))}
             <link rel="canonical" href={i18n.canonicalUrl(lang)} />
           </Helmet>
-          <Header
-            filter={filter}
-            updateFilter={this.setFilter}
-            addInfoStep={addInfoStep}
-            setAddInfoStep={this.setAddInfoStep}
-            fullScreen={fullScreen}
-            toggleFullscreen={this.toggleFullscreen}
-          />
-          <main
-            className={`results-${effectiveResultsMode} ${
-              addInfoStep ? 'add-info' : ''
-            }`}
-          >
-            <div className="map-area">
-              <MapLoader
-                className="map"
-                child={() => (
+          <Header page={page} setPage={this.setPage} />
+          <main className={`page-${page.page}`}>
+            <MapLayout
+              className="map-area"
+              page={page}
+              filter={filter}
+              updateFilter={this.setFilter}
+              components={{
+                map: () => (
                   <Map
                     filter={filter}
                     results={results}
@@ -188,68 +142,41 @@ class App extends React.Component<Props, State> {
                     selectedResult={selectedResult}
                     setSelectedResult={this.setSelectedResult}
                     setUpdateResultsCallback={this.setUpdateResultsCallback}
-                    resultsMode={effectiveResultsMode}
-                    toggleResults={this.toggleResults}
-                    updateResultsOnNextClustering={
-                      updateResultsOnNextClustering
-                    }
-                    setUpdateResultsOnNextClustering={
-                      this.setUpdateResultsOnNextClustering
-                    }
-                    addInfoStep={addInfoStep}
-                    setAddInfoStep={this.setAddInfoStep}
+                    page={page}
+                    setPage={this.setPage}
+                    resultsOpen={resultsOpen}
                   />
-                )}
-              />
-            </div>
-            <Results
-              className="results"
-              results={results}
-              nextResults={nextResults}
-              selectedResult={selectedResult}
-              setSelectedResult={this.setSelectedResult}
-              updateResults={this.updateResults}
+                ),
+                results: props => (
+                  <Results
+                    className={props.className}
+                    results={results}
+                    nextResults={nextResults}
+                    open={resultsOpen}
+                    setOpen={this.setResultsOpen}
+                    selectedResult={selectedResult}
+                    setSelectedResult={this.setSelectedResult}
+                    updateResults={this.updateResults}
+                  />
+                ),
+              }}
             />
+            <About page={page} setPage={this.setPage} />
           </main>
-          <div className="mobile-message">
-            <p>
-              Unfortunately, this map has not been updated to work on devices
-              with small screens.
-            </p>
-            <p>
-              We are currently working on it, and should have an update out in
-              the coming days. Until then, please open page on a different
-              device.
-            </p>
-          </div>
-          {!fullScreen && <Footer />}
         </div>
       </AppContext.Provider>
     );
   }
 }
 
-const RESULTS_TRANSITION_IN = '300ms';
-const RESULTS_TRANSITION_OUT = '250ms';
-const RESULTS_WIDTH = '400px';
-
 export default styled(App)`
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   color: ${p => p.theme.textColor};
 
-  &.fullscreen {
-    /**
-     * These styles prevent scrolling on mobile / tablets when in full-screen
-     * mode (where the address-bar can collapse)
-     */
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: initial;
+  * {
+    font-family: 'Roboto', sans-serif;
   }
 
   > main {
@@ -262,49 +189,6 @@ export default styled(App)`
 
     > .map-area {
       flex-grow: 1;
-      position: relative;
-      margin-right: ${RESULTS_WIDTH};
-      transition: margin-right ${RESULTS_TRANSITION_OUT};
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
-      > .map {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    > .results {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      right: 0;
-      width: ${RESULTS_WIDTH};
-      transition: right ${RESULTS_TRANSITION_OUT};
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    &.results-closed {
-      > .map-area {
-        margin-right: 0;
-        transition: margin-right ${RESULTS_TRANSITION_IN};
-      }
-      > .results {
-        right: -${RESULTS_WIDTH};
-        transition: right ${RESULTS_TRANSITION_IN};
-      }
-    }
-
-    &.add-info {
-      > .map-area {
-        margin-right: 0;
-        transition: none;
-      }
-      > .results {
-        display: none;
-      }
     }
   }
 
@@ -331,17 +215,6 @@ export default styled(App)`
     p {
       margin: 0;
       padding: ${p => p.theme.spacingPx / 2}px;
-    }
-  }
-
-  ${SMALL_DEVICES} {
-    position: relative;
-
-    > main {
-      display: none;
-    }
-    .mobile-message {
-      display: block;
     }
   }
 
