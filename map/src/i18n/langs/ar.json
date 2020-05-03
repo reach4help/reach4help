@@ -1,11 +1,25 @@
 {
   "title": "خريطة المساعدة المجتمعة ضد كوفيد-19",
-  "info": "لمساعدة الناس على إيجاد مجهودات المساعدة المتبادلة والانضمام إليها في مكان معيشتهم وتقديم الإلهام للبدء في بذل جهودهم، و رفع في معنوياتهم، هذه الخريطة تضم مشاريع المعونة المتبادلة للرعاية الوبائية في حالات الكوارث. ملاحظة: كل مشروع مستقل و ذاتي التنظيم؛ يستخدم العديد من جداول البيانات العامة لمشاركة المعلومات، لذا كن حذراً عند إدخال المعلومات الخاصة التي لا تريد أن تصبح في الفضاء العام.",
-  "about": "هذه الخريطة جزء من مبادرة {reach4Help}، مشروع يديره متطوعون. إنه مفتوح المصدر ويمكن وجوده ب: {githubSource}. لأي استفسارات ، يمكنك التواصل بنا عبر {email}.",
-  "githubSourceLabel": "found on GitHub",
+  "aboutScreen": {
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "found on GitHub",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasLocations": {
+      "france": "France",
+      "nyc": "New York",
+      "uk": "United Kingdom"
+    }
+  },
+  "menu": {
+    "about": "About",
+    "map": "View Map"
+  },
   "addInformation": {
-    "small": "إضافة معلومات",
-    "large": "إضافة معلومات لهذه الخريطة",
+    "button": "Add information",
     "backToMap": "الرجوع إلى الخريطة",
     "prev": "رجوع",
     "continue": "الاستمرار",
@@ -22,7 +36,7 @@
           "typePleaseSelect": "الرجاء تحديد نوع",
           "services": "الخدمات أو الدعم الذي تقدمه هذه المنظمة/الشركة",
           "name": "اسم المشروع / المجموعة / المنظمة",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
+          "namePlaceholder": "مثل: المعونة المتبادلة في أنكارا",
           "description": "(اختياري) وصف مفصل للمشروع/المجموعة/المنظمة، وما يهدف إلى القيام به لتيسير المعونة المتبادلة",
           "locationName": "وصف المنطقة الجغرافية التي يتم خدمتها. مثلا : الدولة الولاية, المدينة...",
           "locationNamePlaceholder": "على سبيل المثال: منطقة خليج سان فرانسيسكو، CA، الولايات المتحدة الأمريكية",
@@ -76,16 +90,16 @@
       "noContactDetails": "الرجاء إدخال تفاصيل الاتصال لفئة واحدة على الأقل",
       "emptyContactSection": "الرجاء إدخال بعض معلومات الاتصال لـ {section} أو حذفها",
       "urlMissingLabel": "اسم URL لـ {section} غير موجود ",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later"
+      "urlMissingURL": "اسم URL لـ {section} غير موجود ",
+      "dataError": "حدثت مشكلة في المعلومات االمقدمة، المرجو المحاولة مرة أخرى ",
+      "submitError": "حدثت مشكلة في تقديم معلوماتك: {error}. الرجاء المحاولة مرة أخرى لاحقاً"
     }
   },
   "buttons": {
     "fullScreen": "ملء الشاشة",
-    "exitFullScreen": "Exit Fullscreen"
+    "exitFullScreen": "الخروج من ملء الشاشة"
   },
-  "loading": "Loading...",
+  "loading": "نحميل...",
   "filterBy": "تصنيف بحسب:",
   "services": {
     "any": "أي",
@@ -96,23 +110,23 @@
     "shelter": "مأوي",
     "support": "المساندة",
     "information": "معلومات",
-    "network": "Network",
+    "network": "الشبكة",
     "manufacturing": "تصنيع",
-    "financial": "Financial",
-    "other": "Other"
+    "financial": "الأمور المالية",
+    "other": "أخرى"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "لوازم أخرى غير الأغذية أو الأدوية",
+    "mobility": "نقل الأشخاص من مكان إلى آخر",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "دعم مخصص لمجموعات ضعيفة محددة، مثل المشردين، والأشخاص المعرضين لخطر الإيذاء المنزلي، إلخ...",
+    "information": "مساعدة الناس في الحصول على معلومات أصيلة",
+    "network": "توفير الموارد لإقامة شبكات لتقديم المعونة، على سبيل المثال بين منظمات المعونة المتبادلة",
+    "manufacturing": "يوفر اللوازم أو القدرة التصنيعية اللازمة للتعامل مع الأزمة",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "شئ آخر غير موجود في هذه القائمة"
   },
   "markerTypes": {
     "mutual-aid-group": "مجموعة المساعدة المشتركة",
@@ -127,16 +141,14 @@
     "myLocation": "موقعي"
   },
   "results": {
-    "updateResults": {
-      "small": "تحديث النتائج",
-      "large": "تحديث نتائج منطقة الخريطة"
-    },
-    "count": "{results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "backToResults": "Back to results",
+    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "contact": {
       "general": "معلومات عامة:",
       "getHelp": "الحصول على مساعدة:",
       "volunteer": "تطوع:",
-      "facebookGroup": "Facebook group"
+      "facebookGroup": "مجموعة Facebook"
     }
   },
   "lang": "اللغة:",
@@ -145,6 +157,16 @@
     "netlifyNote": "هذه الخريطة {link}",
     "netlifyLinkText": "is hosted by Netlify",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct"
+    "codeOfConduct": "Code of Conduct",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
+  },
+  "hiddenMarkers": {
+    "visiblility": "Visibility: {visibility}",
+    "filter": {
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
+    }
   }
 }

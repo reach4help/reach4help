@@ -1,11 +1,25 @@
 {
   "title": "कोविड -19 आपसी सहायता का नक्शा",
-  "info": "लोगों को जहां वे रहते हैं, वहां पारस्परिक सहायता के प्रयासों को खोजने और शामिल करने में मदद करने के लिए, अपने स्वयं के शुरू करने के लिए प्रेरणा प्रदान करें, और / या आत्मविश्वास बढ़ाने के लिए, \nनिम्न लिखित पारस्परिक सहायता, महामारी, आपदा देखभाल परियोजनाओं की सूची है। नोट: प्रत्येक परियोजना स्वायत्त और स्व-संगठित है। कई सार्वजनिक स्प्रेडशीट का उपयोग सूचना साझा करने के लिए करते हैं, इसलिए निजी जानकारी दर्ज करते समय सावधान रहें जिसे आप सार्वजनिक नहीं करना चाहते हैं।",
-  "about": "यह नक्शा एक {reach4Help}, स्वयंसेवक द्वारा संचालित परियोजना का हिस्सा है। यह ओपन सोर्स है और {githubSource}। किसी भी पूछताछ के लिए, आप हमें {email} पर लिख सकते हैं।",
-  "githubSourceLabel": "गिट हब पर पाया जाता है",
+  "aboutScreen": {
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "found on GitHub",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasLocations": {
+      "france": "France",
+      "nyc": "New York",
+      "uk": "United Kingdom"
+    }
+  },
+  "menu": {
+    "about": "About",
+    "map": "View Map"
+  },
   "addInformation": {
-    "small": "जानकारी जोड़ें",
-    "large": "इस नक्शे की जानकारी भरें",
+    "button": "Add information",
     "backToMap": "Back to map",
     "prev": "Back",
     "continue": "Continue",
@@ -127,11 +141,9 @@
     "myLocation": "मेरा स्थान"
   },
   "results": {
-    "updateResults": {
-      "small": "नतीजे अपडेट करें",
-      "large": "नक़्शे के क्षेत्र के लिए नतीजे अपडेट करें"
-    },
-    "count": "{results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "backToResults": "Back to results",
+    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "contact": {
       "general": "सामान्य सूचना:",
       "getHelp": "मदद लें:",
@@ -145,6 +157,16 @@
     "netlifyNote": "यह नक्शा {link}",
     "netlifyLinkText": "नेटलीफाय द्वारा मेजबानी",
     "githubRepo": "गिटहब कोष",
-    "codeOfConduct": "आचार संहिता"
+    "codeOfConduct": "आचार संहिता",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
+  },
+  "hiddenMarkers": {
+    "visiblility": "Visibility: {visibility}",
+    "filter": {
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
+    }
   }
 }

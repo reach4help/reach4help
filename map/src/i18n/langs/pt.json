@@ -1,77 +1,91 @@
 {
   "title": "COVID-19 Mapa de Organizações de Solidariedade",
-  "info": "Seja para ajudar pessoas a encontrar ou ajudar esforços de ajuda mútua perto de onde vivem, dar inspiração para começar a sua própria, e/ou apenas elevar a alma, abaixo está uma lista de projetos de ajuda mútua face à pandemia. Nota: Cada projeto é autónomo, muitos usam documentos públicos para partilhar informação, tem cuidado ao introduzires informação privada que não queiras que seja pública.",
-  "about": "Este mapa é parte da {reach4Help}, um projeto gerido por voluntários. É de código aberto e pode ser {githubSource}. Para qualquer dúvida, podes contactar-nos através de {email}.",
-  "githubSourceLabel": "encontrado no Github",
+  "aboutScreen": {
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "found on GitHub",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasLocations": {
+      "france": "France",
+      "nyc": "New York",
+      "uk": "United Kingdom"
+    }
+  },
+  "menu": {
+    "about": "About",
+    "map": "View Map"
+  },
   "addInformation": {
-    "small": "Adicionar Informação",
-    "large": "Adicionar informações a este mapa",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "button": "Add information",
+    "backToMap": "Voltar ao mapa",
+    "prev": "Voltar",
+    "continue": "Continuar",
+    "submit": "Enviar",
+    "addMore": "Adicionar mais informações",
+    "tryAgain": "Tentar novamente",
     "screen": {
-      "title": "Add information to this map",
+      "title": "Adicionar informações a este mapa",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
-        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "acceptedInformation": "Neste momento, estamos apenas a prestar informações sobre organizações ou empresas que prestam auxílio e assistência, iniciativas de assistência financeira especializadas em regiões e grupos de auxílio mútuo. Não estamos a aceitar informações sobre os indivíduos que prestam ajuda neste momento.",
+        "intro": "Por favor, preencha o formulário abaixo para começar a adicionar informações, pediremos a localização e detalhes de contacto depois disso.",
         "form": {
-          "type": "Type of project / group / organization / initiative",
-          "typePleaseSelect": "Please select type",
-          "services": "Services or support that this organization / company provides",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "type": "Tipo de projeto / grupo / organização / iniciativa",
+          "typePleaseSelect": "Por favor, selecione um tipo",
+          "services": "Serviços ou suporte que esta organização / empresa presta",
+          "name": "Nome do projeto/grupo / organização",
+          "namePlaceholder": "ex: Vizinhos da Antártida",
+          "description": "(opcional) Descrição detalhada do projeto/grupo / organização e o que pretende fazer para facilitar a ajuda mútua",
+          "locationName": "Descreva a área geográfica servida. Ex: País, estados, municípios, vilas, etc...",
+          "locationNamePlaceholder": "Ex: São Francisco, CA, EUA",
+          "continue": "Clique em continuar para inserir informações de localização"
         }
       },
       "placeMarker": {
-        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
-        "distance": "{kilometers, number}km ({miles, number}miles)"
+        "instructions": "Localize a área servida por este projeto / grupo / organização / iniciativa clicando no mapa para colocar um marcador, depois ajuste o tamanho do círculo para abranger a área conforme necessário.",
+        "continue": "Quando estiver satisfeito com a localização, clique em continuar para adicionar informações de contato.",
+        "distance": "{kilometers, number} km ({miles, number} milhas)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
-        "deleteInfo": "Delete",
+        "header": "Informações de contato para {name}",
+        "info": "Estamos quase lá! Por favor, insira informações sobre como as pessoas podem entrar em contacto com {name}. Se houverem métodos de contacto específicos que devam ser usados para se voluntariar para ajudar ou para pedir ajuda, por favor, insira-os!",
+        "deleteInfo": "Apagar",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "Adicionar informações gerais de contacto",
+          "volunteers": "Adicionar informações de contacto para voluntários",
+          "getHelp": "Adicione informações de contacto para pessoas que precisam de ajuda"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "Contacto Geral",
+          "volunteers": "Informação de contacto para voluntários",
+          "getHelp": "Informações de contacto para pessoas que precisam de ajuda"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "Números de telefone",
+          "email": "Endereços de Email",
+          "web": "Links da Web / URLs"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
+          "phone": "Adicionar um número de telefone",
+          "email": "Adicione um endereço de email",
           "webURL": "URL",
-          "webLabel": "Name"
+          "webLabel": "Nome"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "Enviando informações para o mapa...",
+        "error": "Erro ao guardar informações",
+        "success": "Informações enviadas com sucesso.",
+        "successExtra": "Antes de tornarmos as suas informações visíveis no mapa, elas precisam de ser revistas por um voluntário na nossa equipa. Esperamos que isso aconteça dentro de alguns dias."
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served",
+      "missingType": "Por favor, selecione o tipo de projeto / grupo / organização",
+      "missingServices": "Por favor, verifique todos os serviços fornecidos por esta organização (pelo menos 1 é obrigatório)",
+      "missingTitle": "Por favor, digite o nome do projeto/grupo / organização",
+      "missingLocationName": "Por favor, insira uma descrição da área servida",
       "markerRequired": "Please click on the map to enter the service area before continuing.",
       "noContactDetails": "Please enter contact details for at least one category",
       "emptyContactSection": "Please enter some contact information for {section} or delete it",
@@ -127,11 +141,9 @@
     "myLocation": "A Minha Localização"
   },
   "results": {
-    "updateResults": {
-      "small": "Actualizar resultados",
-      "large": "Atualizar resultados para esta área"
-    },
-    "count": "{results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "backToResults": "Back to results",
+    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "contact": {
       "general": "Informações gerais:",
       "getHelp": "Obter ajuda:",
@@ -145,6 +157,16 @@
     "netlifyNote": "Este mapa {link}",
     "netlifyLinkText": "está hospedado por Netlify",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Código de Conduta"
+    "codeOfConduct": "Código de Conduta",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
+  },
+  "hiddenMarkers": {
+    "visiblility": "Visibility: {visibility}",
+    "filter": {
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
+    }
   }
 }
