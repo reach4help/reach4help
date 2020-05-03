@@ -1,7 +1,7 @@
 import * as flatten from 'flat';
 
 import { sendToTopic } from './fcm';
-import { sendSMS } from '../twilio';
+import { sendSMS } from './twilio';
 
 export const notifyService = (config: Record<string, any>): Promise<void> => {
   const operations: Promise<void>[] = [];

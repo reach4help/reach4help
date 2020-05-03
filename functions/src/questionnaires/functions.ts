@@ -1,11 +1,9 @@
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import { EventContext } from 'firebase-functions/lib/cloud-functions';
-import * as admin from 'firebase-admin';
+import { db } from '../app';
 import { IQuestionnaire, Questionnaire, QuestionnaireType } from '../models/questionnaires';
 import { validateOrReject } from 'class-validator';
 import { setIsUserCav, setIsUserPin } from '../users/functions';
-
-const db = admin.firestore();
 
 export const validateQuestionnaire = (value: IQuestionnaire): Promise<void> => {
   return validateOrReject(Questionnaire.factory(value)).then(() => {
