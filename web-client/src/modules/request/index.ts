@@ -7,7 +7,6 @@ import {
   FileSyncOutlined,
 } from '@ant-design/icons';
 import { uniqueId } from 'lodash';
-import React from 'react';
 import Location from 'react-app-location';
 import { MenuItem } from 'src/components/SideDrawerMenu/SideDrawerMenu';
 import { Module } from 'src/types/module';
@@ -19,7 +18,7 @@ import { NewRequestLocation } from './pages/routes/NewRequestRoute/constants';
 export const menuItems: Array<MenuItem> = [
   {
     id: uniqueId(),
-    icon: React.createElement(FileAddOutlined),
+    icon: FileAddOutlined,
     title: 'Create a new Request',
     location: NewRequestLocation,
   },
@@ -29,31 +28,31 @@ export const menuItems: Array<MenuItem> = [
     children: [
       {
         id: uniqueId(),
-        icon: React.createElement(FileSearchOutlined),
+        icon: FileSearchOutlined,
         title: 'Open',
         location: new Location('/requests/open'),
       },
       {
         id: uniqueId(),
-        icon: React.createElement(FileDoneOutlined),
+        icon: FileDoneOutlined,
         title: 'Accepted',
         location: new Location('/requests/accepted'),
       },
       {
         id: uniqueId(),
-        icon: React.createElement(FileSyncOutlined),
+        icon: FileSyncOutlined,
         title: 'Ongoing',
         location: new Location('/requests/ongoing'),
       },
       {
         id: uniqueId(),
-        icon: React.createElement(FileProtectOutlined),
+        icon: FileProtectOutlined,
         title: 'Finished',
         location: new Location('/requests/finished'),
       },
       {
         id: uniqueId(),
-        icon: React.createElement(ContainerOutlined),
+        icon: ContainerOutlined,
         title: 'Archived',
         children: [
           {

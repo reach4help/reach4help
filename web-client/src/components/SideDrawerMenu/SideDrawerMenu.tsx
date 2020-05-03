@@ -1,6 +1,5 @@
 import { Menu } from 'antd';
 import React from 'react';
-import Location from 'react-app-location';
 import { Link, RouteProps } from 'react-router-dom';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
@@ -17,7 +16,7 @@ const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
         key={item.id}
         title={
           <>
-            {item.icon}
+            {item.icon ? <item.icon /> : null}
             {item.title}
           </>
         }
@@ -36,7 +35,7 @@ const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
   } else {
     menuItem = (
       <Menu.Item key={item.id} {...other}>
-        {item.icon || null}
+        {item.icon ? <item.icon /> : null}
         {item.title}
       </Menu.Item>
     );
@@ -44,10 +43,6 @@ const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
   return (
     <>
       {item.location ? (
-        // TODO I couldn't find a proper way here to solve type errors
-        // TODO Location is a JS library
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
         <Link to={{ pathname: item.location.path }} onClick={closeSider}>
           {menuItem}
         </Link>
@@ -121,10 +116,10 @@ const Wrapper = styled.div`
 
 export interface MenuItem {
   id: string;
-  icon?: React.ReactNode;
+  icon?: React.FunctionComponent<{}> | React.ComponentClass<{}, any>;
   title: string;
   children?: Array<MenuItem>;
-  location?: Location;
+  location?: { path: string };
 }
 
 interface SideDrawerMenuItemProps extends RouteProps {
