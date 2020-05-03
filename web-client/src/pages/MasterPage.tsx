@@ -16,22 +16,24 @@ const MasterPage = (): ReactElement => {
   const renderModules = () =>
     Object.keys(modules).map(moduleName => {
       const routeModule = modules[moduleName];
-      if (routeModule.layout === 'dashboard') {
-        return (
-          <DashboardRoute
-            key={moduleName}
-            path={routeModule.path}
-            component={routeModule.component}
-            menuItems={routeModule.menuItems || []}
-          />
-        );
-      }
 
       return routeModule.protected ? (
         <ProtectedRoute
           key={moduleName}
           path={routeModule.path}
-          component={routeModule.component}
+          component={() => {
+            if (routeModule.layout === 'dashboard') {
+              return (
+                <DashboardRoute
+                  key={moduleName}
+                  path={routeModule.path}
+                  component={routeModule.component}
+                  menuItems={routeModule.menuItems || []}
+                />
+              );
+            }
+            return <routeModule.component />;
+          }}
         />
       ) : (
         <Route
