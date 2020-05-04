@@ -1,10 +1,10 @@
 import { Layout } from 'antd';
 import React, { useState } from 'react';
+import { User } from 'src/models/users';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import SideDrawer from '../SideDrawer/SideDrawer';
 import { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
-import { ProfileData } from '../SideDrawerProfile/SideDrawerProfile';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
@@ -36,8 +36,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 };
 
 interface DashboardLayoutProps {
-  menuItems: Array<MenuItem>;
-  profileData: ProfileData;
+  menuItems?: Array<MenuItem>;
+  profileData: User;
   siteLocations: any;
   children?: React.ReactNode;
 }

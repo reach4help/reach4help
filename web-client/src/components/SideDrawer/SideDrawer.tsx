@@ -2,12 +2,11 @@ import { CloseOutlined, LogoutOutlined, MailOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { User } from 'src/models/users';
 import styled from 'styled-components';
 
 import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
-import SideDrawerProfile, {
-  ProfileData,
-} from '../SideDrawerProfile/SideDrawerProfile';
+import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 
 const SideDrawer: React.FC<SideDrawerProps> = ({
   collapsed,
@@ -67,8 +66,8 @@ const BottomLinks = styled.div`
 interface SideDrawerProps {
   collapsed: boolean;
   closeSider: () => void;
-  menuItems: Array<MenuItem>;
-  profileData: ProfileData;
+  menuItems?: Array<MenuItem>;
+  profileData: User;
   siteLocations: any;
 }
 

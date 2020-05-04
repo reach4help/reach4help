@@ -1,6 +1,7 @@
 import { StarOutlined, TeamOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React from 'react';
+import { User } from 'src/models/users';
 import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
@@ -14,7 +15,7 @@ const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
   profileData,
 }) => (
   <Wrapper>
-    <DisplayPhoto src={profileData.displayPicture} />
+    <DisplayPhoto src={profileData.displayPicture || undefined} />
     <Content>
       <DisplayName>{profileData.displayName}</DisplayName>
       <Details>
@@ -66,16 +67,8 @@ const Detail = styled.span`
     color: ${COLORS.primary};
   }
 `;
-
-export interface ProfileData {
-  displayName: string;
-  displayPicture: string;
-  casesCompleted: number;
-  averageRating: number;
-}
-
 interface SideDrawerProfileProps {
-  profileData: ProfileData;
+  profileData: User;
 }
 
 export default SideDrawerProfile;
