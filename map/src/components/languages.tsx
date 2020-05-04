@@ -8,6 +8,7 @@ import {
   LANGUAGES,
   setLanguage,
 } from 'src/i18n';
+import { trackEvent } from 'src/util/tracking';
 
 import styled from '../styling';
 import { AppContext } from './context';
@@ -38,6 +39,7 @@ class Languages extends React.Component<Props, {}> {
   private changeLanguage = (option: ValueType<Option>): void => {
     if (isOption(option)) {
       setLanguage(option.value);
+      trackEvent('config', 'change-language', option.value);
     }
   };
 

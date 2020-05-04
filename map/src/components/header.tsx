@@ -12,6 +12,7 @@ import styled, {
   SMALL_DEVICES,
   Z_INDICES,
 } from 'src/styling';
+import { trackEvent } from 'src/util/tracking';
 
 const MENU = ['about', 'map'] as const;
 
@@ -53,6 +54,10 @@ class Header extends React.Component<Props, State> {
                     page: 'add-information',
                     step: 'information',
                   },
+            );
+            trackEvent(
+              'nav',
+              page.page === 'add-information' ? 'back-to-map' : 'add-info',
             );
             this.setState({ open: false });
           }}
@@ -96,6 +101,7 @@ class Header extends React.Component<Props, State> {
                     className={page.page === p ? 'selected' : ''}
                     type="button"
                     onClick={() => {
+                      trackEvent('nav', 'main', p);
                       setPage({ page: p });
                       this.setState({ open: false });
                     }}

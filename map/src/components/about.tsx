@@ -6,6 +6,7 @@ import styled, {
   NON_LARGE_DEVICES,
   Z_INDICES,
 } from 'src/styling';
+import { trackEvent } from 'src/util/tracking';
 
 import Marker from './assets/marker';
 import { AppContext } from './context';
@@ -57,7 +58,10 @@ const About = ({ className, page, setPage }: Props) => (
           <button
             type="button"
             className="view-map"
-            onClick={() => setPage({ page: 'map' })}
+            onClick={() => {
+              trackEvent('cta', 'home-map');
+              setPage({ page: 'map' });
+            }}
           >
             {t(lang, s => s.menu.map)}
           </button>

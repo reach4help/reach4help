@@ -21,6 +21,7 @@ import {
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
+import { trackEvent } from 'src/util/tracking';
 
 import {
   isMarkerType,
@@ -402,9 +403,11 @@ class AddInstructions extends React.Component<Props, State> {
     }
     if (validation.errors.length > 0) {
       this.setState({ validation });
+      trackEvent('data-entry', 'complete-info-error');
     } else {
       this.setAddInfoStep('place-marker');
       this.setState({ validation: undefined });
+      trackEvent('data-entry', 'complete-info');
     }
   };
 
@@ -425,9 +428,11 @@ class AddInstructions extends React.Component<Props, State> {
     }
     if (validation.errors.length > 0) {
       this.setState({ validation });
+      trackEvent('data-entry', 'complete-placement-error');
     } else {
       this.setAddInfoStep('contact-details');
       this.setState({ validation: undefined });
+      trackEvent('data-entry', 'complete-placement');
     }
   };
 
@@ -543,6 +548,7 @@ class AddInstructions extends React.Component<Props, State> {
       }
       if (validation.errors.length > 0) {
         this.setState({ validation });
+        trackEvent('data-entry', 'complete-contact-info-error');
       } else {
         this.setAddInfoStep('submitted');
         this.setState({ validation: undefined, submissionResult: undefined });
@@ -569,6 +575,7 @@ class AddInstructions extends React.Component<Props, State> {
               }),
           );
         }
+        trackEvent('data-entry', 'complete-contact-info');
       }
     });
   };
@@ -577,6 +584,7 @@ class AddInstructions extends React.Component<Props, State> {
     this.setState(INITIAL_STATE);
     this.setAddInfoStep('information');
     this.removeMarkers();
+    trackEvent('data-entry', 'add-more');
   };
 
   private validatedInput = (
