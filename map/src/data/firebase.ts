@@ -22,6 +22,25 @@ const isValidMarkerInfo = (
   !!data;
 
 const MARKER_COLLECTION_ID = 'markers';
+const LOCAL_STORAGE_KEY = 'dataConfig';
+
+interface DataConfig {
+  includingHidden: boolean;
+}
+
+const getDataConfig = (): DataConfig => {
+  const dataConfig = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (dataConfig) {
+    return JSON.parse(dataConfig);
+  }
+  return {
+    includingHidden: false,
+  };
+};
+
+const setDataConfig = (dataConfig: DataConfig) => {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataConfig));
+};
 
 firebase.initializeApp(config);
 const db = firebase.firestore();
@@ -68,8 +87,7 @@ const state: {
       markers: new Map(),
     },
   },
-  // TODO: get from local storage
-  includeHidden: false,
+  includeHidden: getDataConfig().includingHidden,
   loadingOperations: new Set(),
   errors: new Set(),
 };
@@ -151,8 +169,19 @@ export const loadInitialData = () => {
 export const includingHidden = () => state.includeHidden;
 
 export const includeHiddenMarkers = (include: boolean) => {
-  // TODO: save preference in local storage
+  setDataConfig({
+    includingHidden: include,
+  });
   state.includeHidden = include;
   loadInitialData();
   updateListeners();
 };
+
+window.addEventListener('storage', e => {
+  if (e.key === LOCAL_STORAGE_KEY) {
+    const dataConfig = getDataConfig();
+    state.includeHidden = dataConfig.includingHidden;
+    loadInitialData();
+    updateListeners();
+  }
+});
