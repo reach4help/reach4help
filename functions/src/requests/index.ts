@@ -7,12 +7,8 @@ export const triggerEventsWhenRequestIsCreated = functions.firestore
   // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   .onCreate(createRequest);
 
-export const triggerEventsWhenRequestIsUpdated = functions.firestore
-  .document('requests/{requestId}')
-  .onUpdate(updateRequest);
+export const triggerEventsWhenRequestIsUpdated = functions.firestore.document('requests/{requestId}').onUpdate(updateRequest);
 
-export const triggerEventsWhenRequestIsDeleted = functions.firestore
-  .document('requests/{requestId}')
-  .onDelete(deleteRequest);
+export const triggerEventsWhenRequestIsDeleted = functions.firestore.document('requests/{requestId}').onDelete(deleteRequest);
 
 export * from './privilegedInformation';

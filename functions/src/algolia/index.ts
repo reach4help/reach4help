@@ -36,10 +36,9 @@ export const indexRequest = (snap: DocumentSnapshot) => {
     };
 
     // Throw away the result since these are all void promises.
-    return index.saveObject(indexData)
-      .then(() => {
-        return Promise.resolve();
-      });
+    return index.saveObject(indexData).then(() => {
+      return Promise.resolve();
+    });
   }
 
   return Promise.resolve();

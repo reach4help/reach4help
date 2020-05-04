@@ -14,7 +14,7 @@
     "serve": "yarn run build && firebase emulators:start",
     "shell": "yarn run build && firebase functions:shell",
     "start": "yarn run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "yarn run lint:fix && firebase deploy --only functions",
     "logs": "firebase functions:log",
     "pre-commit": "lint-staged"
   },
@@ -34,13 +34,18 @@
   "dependencies": {
     "@google-cloud/firestore": "^3.7.3",
     "@googlemaps/google-maps-services-js": "^2.4.2",
+    "@types/convict": "^4.2.1",
+    "@types/flat": "^5.0.0",
     "@types/googlemaps": "^3.39.3",
     "algoliasearch": "^4.1.0",
     "class-validator": "^0.11.1",
+    "convict": "^5.2.0",
     "firebase": "^7.14.0",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0",
+    "flat": "^5.0.0",
     "moment": "^2.24.0",
+    "twilio": "^3.42.2",
     "uuid": "^7.0.3"
   },
   "devDependencies": {

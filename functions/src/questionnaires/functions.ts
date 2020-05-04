@@ -1,11 +1,9 @@
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import { EventContext } from 'firebase-functions/lib/cloud-functions';
-import * as admin from 'firebase-admin';
+import { db } from '../app';
 import { IQuestionnaire, Questionnaire, QuestionnaireType } from '../models/questionnaires';
 import { validateOrReject } from 'class-validator';
 import { setIsUserCav, setIsUserPin } from '../users/functions';
-
-const db = admin.firestore();
 
 export const validateQuestionnaire = (value: IQuestionnaire): Promise<void> => {
   return validateOrReject(Questionnaire.factory(value)).then(() => {
@@ -54,16 +52,18 @@ export const updateUserQuestionnaireRef = (snapshot: DocumentSnapshot, userId: s
 export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateQuestionnaire(snapshot.data() as IQuestionnaire)
     .then(() => {
-      const operations: Promise<void>[] = [
+      return Promise.all([
         updateUserQuestionnaireRef(snapshot, context.auth?.uid, context.auth?.token),
-      ];
-      return Promise.all(operations);
+      ]);
     })
     .catch(errors => {
       console.error('Invalid Questionnaire Found: ', errors);
       return db
         .collection('questionnaires')
         .doc(context.params.questionnaireId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
 };
