@@ -4,6 +4,7 @@ import Hamburger from 'src/components/assets/hamburger';
 import LogoType from 'src/components/assets/logo-type';
 import { AppContext } from 'src/components/context';
 import Languages from 'src/components/languages';
+import SocialIcons from 'src/components/social-icons';
 import { Language, t } from 'src/i18n';
 import { Page } from 'src/state';
 import styled, {
@@ -110,6 +111,7 @@ class Header extends React.Component<Props, State> {
                   </button>
                 ))}
               </div>
+              <SocialIcons className="social-icons" />
             </div>
           </header>
         )}
@@ -119,6 +121,7 @@ class Header extends React.Component<Props, State> {
 }
 
 const TOP_HEIGHT = '70px';
+const PADDING_HORIZONTAL = '50px';
 
 export default styled(Header)`
   .actions {
@@ -159,7 +162,7 @@ export default styled(Header)`
     height: ${TOP_HEIGHT};
     width: 100%;
     box-sizing: border-box;
-    padding: 0 50px;
+    padding: 0 ${PADDING_HORIZONTAL};
     display: flex;
     align-items: center;
     position: relative;
@@ -313,6 +316,22 @@ export default styled(Header)`
       }
     }
 
+    > .social-icons {
+      color: #fff;
+      position: absolute;
+      right: ${PADDING_HORIZONTAL};
+      top: 0;
+      bottom: 0;
+      color: #fff;
+      display: flex;
+      align-items: center;
+
+      [dir='rtl'] & {
+        right: initial;
+        left: ${PADDING_HORIZONTAL};
+      }
+    }
+
     ${NON_LARGE_DEVICES} {
       display: none;
 
@@ -339,6 +358,14 @@ export default styled(Header)`
             color: ${p => p.theme.colors.brand.primaryDark};
           }
         }
+      }
+
+      .social-icons {
+        color: ${p => p.theme.colors.brand.primaryDark1};
+        position: initial;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
       }
     }
   }
