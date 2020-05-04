@@ -18,6 +18,12 @@
     "about": "Hakkında",
     "map": "Haritayı Göster"
   },
+  "social": {
+    "email": "Email Us",
+    "twitter": "Follow us on Twitter",
+    "facebook": "Like us on Facebook",
+    "github": "Find us on GitHub"
+  },
   "addInformation": {
     "button": "Bilgi ekle",
     "backToMap": "Haritaya geri dön",
