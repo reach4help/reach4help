@@ -18,6 +18,12 @@
     "about": "Sobre",
     "map": "Ver Mapa"
   },
+  "social": {
+    "email": "Email Us",
+    "twitter": "Follow us on Twitter",
+    "facebook": "Like us on Facebook",
+    "github": "Find us on GitHub"
+  },
   "addInformation": {
     "button": "Adicionar informação",
     "backToMap": "Voltar ao mapa",
