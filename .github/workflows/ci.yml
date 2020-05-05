@@ -37,3 +37,20 @@ jobs:
 
       - name: Lint
         run: cd functions && yarn run lint
+  test-functions:
+    name: Run functions unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
+      - name: Install Deps
+        run: cd functions && yarn install
+
+      - name: Lint
+        run: cd functions && yarn run test
