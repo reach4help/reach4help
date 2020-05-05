@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+import { FieldPath } from '@google-cloud/firestore';
 
 import { db } from '../../../app';
 
@@ -31,7 +32,10 @@ export const data = functions.https.onRequest(async (_req, res) => {
     licenses: LICENSES,
     data: [],
   };
-  const markers = await db.collection(MARKER_COLLECTION_ID).get();
+  const markers = await db
+    .collection(MARKER_COLLECTION_ID)
+    .where(new FieldPath('visible'), '==', true)
+    .get();
   markers.forEach(doc => {
     const docData = doc.data() as IMarker;
     // TODO: add other sources (with appropriate licenses)
