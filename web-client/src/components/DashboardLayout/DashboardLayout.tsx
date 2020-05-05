@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { User } from 'src/models/users';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
+import NewRequestModal from '../NewRequestModal/NewRequestModal';
 import SideDrawer from '../SideDrawer/SideDrawer';
 import { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import TopNavbar from '../TopNavbar/TopNavbar';
@@ -10,10 +11,10 @@ import TopNavbar from '../TopNavbar/TopNavbar';
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   menuItems,
   profileData,
-  siteLocations,
   children,
 }) => {
   const [siderCollapsed, setSiderCollapsed] = useState(true);
+  const [openNewRequestModal, setOpenNewRequestModal] = useState(false);
   return (
     <Layout>
       <TopNavbar />
@@ -22,8 +23,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         closeSider={() => setSiderCollapsed(true)}
         menuItems={menuItems}
         profileData={profileData}
-        siteLocations={siteLocations}
       />
+      {openNewRequestModal && (
+        <NewRequestModal closeModal={() => setOpenNewRequestModal(false)} />
+      )}
       <Layout.Content style={{ marginTop: '64px', marginBottom: '64px' }}>
         {children}
       </Layout.Content>
@@ -38,7 +41,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 interface DashboardLayoutProps {
   menuItems?: Array<MenuItem>;
   profileData: User;
-  siteLocations: any;
   children?: React.ReactNode;
 }
 
