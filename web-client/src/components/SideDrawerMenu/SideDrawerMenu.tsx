@@ -73,6 +73,7 @@ const Wrapper = styled.div`
 
   .ant-menu {
     background: ${COLORS.backgroundLightGray};
+    font-weight: bold;
 
     .ant-menu-item {
       margin: 0;
@@ -83,10 +84,6 @@ const Wrapper = styled.div`
     }
 
     .ant-menu-submenu {
-      &.ant-menu-submenu-active {
-        color: inherit;
-      }
-
       .ant-menu-submenu-title {
         margin: 0;
       }
@@ -96,25 +93,14 @@ const Wrapper = styled.div`
     }
 
     a,
-    .ant-menu-item-only-child,
-    .ant-menu-submenu-title {
+    .ant-menu-item-only-child {
       color: inherit;
-      // font-size: 0.8rem;
-      font-weight: bold;
     }
 
     a .ant-menu-item-selected {
       color: white;
       background: ${COLORS.link} !important;
     }
-  }
-
-  .ant-menu-item:hover,
-  .ant-menu-item-active,
-  .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
-  .ant-menu-submenu-active,
-  .ant-menu-submenu-title:hover {
-    color: inherit;
   }
 `;
 

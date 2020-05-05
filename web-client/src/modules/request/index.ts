@@ -1,6 +1,5 @@
 import {
   ContainerOutlined,
-  FileAddOutlined,
   FileDoneOutlined,
   FileProtectOutlined,
   FileSearchOutlined,
@@ -12,16 +11,9 @@ import { MenuItem } from 'src/components/SideDrawerMenu/SideDrawerMenu';
 import { Module } from 'src/types/module';
 
 import ContentPage from './pages/ContentPage';
-import { NewRequestLocation } from './pages/routes/NewRequestRoute/constants';
 
 // TODO (remove link id): ask help to find a better way to keep track of ids
 export const menuItems: Array<MenuItem> = [
-  {
-    id: uniqueId(),
-    icon: FileAddOutlined,
-    title: 'Create a new Request',
-    location: NewRequestLocation,
-  },
   {
     id: uniqueId(),
     title: 'Find Requests',

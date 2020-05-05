@@ -13,7 +13,6 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
   closeSider,
   menuItems,
   profileData,
-  siteLocations,
 }) => (
   <Sider collapsed={collapsed} theme="light">
     <CloseButton onClick={closeSider}>
@@ -22,11 +21,11 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
     <SideDrawerProfile profileData={profileData} />
     <SideDrawerMenu items={menuItems || []} closeSider={closeSider} />
     <BottomLinks>
-      <Link to={{ pathname: siteLocations.contact.path }} onClick={closeSider}>
+      <Link to={{ pathname: '/' }} onClick={closeSider}>
         <MailOutlined />
         Contact us
       </Link>
-      <Link to={{ pathname: siteLocations.logout.path }} onClick={closeSider}>
+      <Link to={{ pathname: '/' }} onClick={closeSider}>
         <LogoutOutlined />
         Sign out
       </Link>
@@ -74,7 +73,6 @@ interface SideDrawerProps {
   closeSider: () => void;
   menuItems?: Array<MenuItem>;
   profileData: User;
-  siteLocations: any;
 }
 
 export default SideDrawer;

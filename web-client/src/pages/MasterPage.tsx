@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import Location from 'react-app-location';
 import { useSelector } from 'react-redux';
 import {
   Redirect,
@@ -15,14 +14,6 @@ import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
 
-// TODO change locations
-const mockSiteLocations = {
-  logout: new Location('/requests/logout'),
-  contact: new Location('/requests/contact'),
-  map: new Location('/requests/map'),
-  notifications: new Location('/requests/notifications'),
-};
-
 const MasterPage = (): ReactElement => {
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -35,7 +26,6 @@ const MasterPage = (): ReactElement => {
         <DashboardLayout
           menuItems={routeModule.menuItems}
           profileData={userProfile}
-          siteLocations={mockSiteLocations}
         >
           <Route path={routeModule.path} component={routeModule.component} />
         </DashboardLayout>

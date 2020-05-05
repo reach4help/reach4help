@@ -31,8 +31,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         {children}
       </Layout.Content>
       <BottomNavbar
-        openSider={() => setSiderCollapsed(false)}
-        siteLocations={siteLocations}
+        openMenu={() => setSiderCollapsed(false)}
+        openNewRequestModal={() => setOpenNewRequestModal(true)}
+        openNotifications={() => alert('notifications opened')}
       />
     </Layout>
   );
