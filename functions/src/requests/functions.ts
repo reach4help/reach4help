@@ -178,11 +178,7 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
   return validateRequest(change.after.data() as IRequest)
     .then(() => {
-      return Promise.all([
-        queueStatusUpdateTriggers(change),
-        queueRatingUpdatedTriggers(change),
-        indexRequest(change.after),
-      ]);
+      return Promise.all([queueStatusUpdateTriggers(change), queueRatingUpdatedTriggers(change), indexRequest(change.after)]);
     })
     .catch(() => {
       return db

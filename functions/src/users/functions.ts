@@ -6,10 +6,9 @@ import { auth, db } from '../app';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
 export const validateUser = (value: IUser): Promise<void> => {
-  return validateOrReject(User.factory(value))
-    .then(() => {
-      return Promise.resolve();
-    });
+  return validateOrReject(User.factory(value)).then(() => {
+    return Promise.resolve();
+  });
 };
 
 export const setIsUserPin = (userId: string, status: boolean): Promise<void> => {
