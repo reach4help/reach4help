@@ -48,5 +48,6 @@ export const data = functions.https.onRequest(async (_req, res) => {
     }
   });
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600');
   res.status(200).send(JSON.stringify(result));
 });
