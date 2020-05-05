@@ -33,7 +33,7 @@ jobs:
           node-version: 10.x
 
       - name: Install Deps
-        run: cd functions && yarn install
+        run: yarn install && cd functions && yarn install
 
       - name: Lint
         run: cd functions && yarn run lint
