@@ -67,6 +67,10 @@ const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
 );
 
 const Wrapper = styled.div`
+  flex: auto;
+  max-height: 100%;
+  overflow: scroll;
+
   .ant-menu {
     background: ${COLORS.backgroundLightGray};
 

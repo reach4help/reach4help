@@ -15,7 +15,7 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
   profileData,
   siteLocations,
 }) => (
-  <Layout.Sider collapsed={collapsed} theme="light">
+  <Sider collapsed={collapsed} theme="light">
     <CloseButton onClick={closeSider}>
       <CloseOutlined />
     </CloseButton>
@@ -31,8 +31,16 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
         Sign out
       </Link>
     </BottomLinks>
-  </Layout.Sider>
+  </Sider>
 );
+
+const Sider = styled(Layout.Sider)`
+  .ant-layout-sider-children {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+`;
 
 const CloseButton = styled.button`
   position: absolute;
@@ -47,8 +55,6 @@ const CloseButton = styled.button`
 const BottomLinks = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  bottom: 0;
   margin: 15px;
   color: inherit;
 
