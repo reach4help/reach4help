@@ -31,10 +31,13 @@ describe('user triggers', () => {
 
     const userRef = db.collection('users').doc('user1');
 
-    return userRef.set({ displayName: 'fsdfs' })
-      .then((): Promise<firebase.firestore.DocumentSnapshot> => {
-        return userRef.get();
-      })
+    return userRef
+      .set({ displayName: 'fsdfs' })
+      .then(
+        (): Promise<firebase.firestore.DocumentSnapshot> => {
+          return userRef.get();
+        },
+      )
       .then(snap => {
         return test.wrap(triggerEventsWhenUserIsCreated)(snap, {
           params: {
@@ -48,6 +51,5 @@ describe('user triggers', () => {
       .then(snapAfter => {
         expect(snapAfter.exists).toBeFalsy();
       });
-
   });
 });

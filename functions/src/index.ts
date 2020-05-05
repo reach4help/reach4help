@@ -1,5 +1,5 @@
 // Init admin app for everyone else
-export * from './app';
+import './app';
 
 // Load everyone else
 export * from './users';
