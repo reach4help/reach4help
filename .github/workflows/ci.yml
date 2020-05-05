@@ -52,5 +52,5 @@ jobs:
       - name: Install Deps
         run: cd functions && yarn install
 
-      - name: Lint
+      - name: Run Unit Tests
         run: cd functions && yarn run test
