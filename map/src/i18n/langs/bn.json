@@ -18,6 +18,12 @@
     "about": "সম্পর্কে",
     "map": "View Map"
   },
+  "social": {
+    "email": "Email Us",
+    "twitter": "Follow us on Twitter",
+    "facebook": "Like us on Facebook",
+    "github": "Find us on GitHub"
+  },
   "addInformation": {
     "button": "তথ্য সম্পাদনা করুন",
     "backToMap": "মানচিত্রে ফিরুন",
