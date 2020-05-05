@@ -1,10 +1,10 @@
+import { HomeOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Descriptions, Form, Input } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
-import Logo from '../../../../assets/logo.svg';
 import { DEVICE_MAX } from '../../../../constants/mediaQueries';
 import { COLORS } from '../../../../theme/colors';
 
@@ -14,19 +14,6 @@ const MainDiv = styled.div`
     flex-direction: column;
     align-items: center;
   }
-`;
-
-const IconDiv = styled.div`
-  width: 25%;
-  padding-right: 24px;
-  @media ${DEVICE_MAX.tablet} {
-    width: 50%;
-    padding: 0;
-  }
-`;
-
-const IconImage = styled.img`
-  width: 100%;
 `;
 
 const FormDiv = styled.div`
@@ -81,15 +68,19 @@ const NewRequest: React.FC<NewRequestProps> = ({
 
   return (
     <MainDiv>
-      <IconDiv>
-        <IconImage src={Logo} />
-      </IconDiv>
       <FormDiv>
         <TitleWithAddon alignAddon="left" level={2}>
           {t('newRequest.title')}
         </TitleWithAddon>
         <Descriptions>
-          <Descriptions.Item label="AntdIconHere">
+          <Descriptions.Item>
+            <HomeOutlined
+              style={{
+                paddingRight: '10px',
+                paddingTop: '10px',
+                fontSize: '1rem',
+              }}
+            />
             No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
           </Descriptions.Item>
         </Descriptions>

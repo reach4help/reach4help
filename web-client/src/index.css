@@ -37,6 +37,12 @@
   -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
+
+.ant-modal-wrap {
+  /* margin-top-bottom: 8px */
+  max-height: calc(100vh - 16px);
+}
+
 .ant-modal-header,
 .ant-modal-footer {
   display: flex !important;
