@@ -4,7 +4,8 @@ import { User } from 'src/models/users';
 import NewRequestModal from 'src/modules/request/containers/NewRequestModal/NewRequestModal';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
-import SideDrawer from '../SideDrawer/SideDrawer';
+import MenuDrawer from '../MenuDrawer/MenuDrawer';
+import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
 import { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
@@ -13,32 +14,37 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   profileData,
   children,
 }) => {
-  const [siderCollapsed, setSiderCollapsed] = useState(true);
-  const [showNewRequestModal, setShowNewRequestModal] = useState(true);
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [newRequestModalVisible, setNewRequestModalVisible] = useState(false);
+  const [notificationVisible, setNotificationVisible] = useState(false);
+
   return (
     <Layout>
       <TopNavbar />
-      <SideDrawer
-        collapsed={siderCollapsed}
-        closeSider={() => setSiderCollapsed(true)}
+      <MenuDrawer
+        visible={menuVisible}
+        closeDrawer={() => setMenuVisible(false)}
         menuItems={menuItems}
         profileData={profileData}
       />
-      {showNewRequestModal && (
-        <NewRequestModal
-          showModal={showNewRequestModal}
-          closeModal={() => setShowNewRequestModal(false)}
-        />
-      )}
+      <NotificationsDrawer
+        visible={notificationVisible}
+        closeDrawer={() => setNotificationVisible(false)}
+      />
       <Layout.Content style={{ marginTop: '64px', marginBottom: '64px' }}>
         {children}
       </Layout.Content>
-      {/* eslint-disable-next-line no-alert */}
       <BottomNavbar
-        openMenu={() => setSiderCollapsed(false)}
-        openNewRequestModal={() => setShowNewRequestModal(true)}
-        openNotifications={() => alert('notifications opened')}
+        openMenu={() => setMenuVisible(true)}
+        openNewRequestModal={() => setNewRequestModalVisible(true)}
+        openNotifications={() => setNotificationVisible(true)}
       />
+      {newRequestModalVisible && (
+        <NewRequestModal
+          showModal={newRequestModalVisible}
+          closeModal={() => setNewRequestModalVisible(false)}
+        />
+      )}
     </Layout>
   );
 };

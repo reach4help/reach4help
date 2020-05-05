@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
   item,
-  closeSider,
+  closeDrawer,
   ...other
 }) => {
   let menuItem: React.ReactNode;
@@ -26,7 +26,7 @@ const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
           <SideDrawerMenuItem
             key={subItem.id}
             item={subItem}
-            closeSider={closeSider}
+            closeDrawer={closeDrawer}
             {...other}
           />
         ))}
@@ -43,7 +43,7 @@ const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
   return (
     <>
       {item.location ? (
-        <Link to={{ pathname: item.location.path }} onClick={closeSider}>
+        <Link to={{ pathname: item.location.path }} onClick={closeDrawer}>
           {menuItem}
         </Link>
       ) : (
@@ -55,12 +55,12 @@ const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
 
 const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
   items,
-  closeSider,
+  closeDrawer,
 }) => (
   <Wrapper>
     <Menu mode="inline">
       {items.map((item: MenuItem, index) => (
-        <SideDrawerMenuItem key={index} item={item} closeSider={closeSider} />
+        <SideDrawerMenuItem key={index} item={item} closeDrawer={closeDrawer} />
       ))}
     </Menu>
   </Wrapper>
@@ -68,8 +68,6 @@ const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
 
 const Wrapper = styled.div`
   flex: auto;
-  max-height: 100%;
-  overflow: scroll;
 
   .ant-menu {
     background: ${COLORS.backgroundLightGray};
@@ -114,12 +112,12 @@ export interface MenuItem {
 
 interface SideDrawerMenuItemProps extends RouteProps {
   item: MenuItem;
-  closeSider: () => void;
+  closeDrawer: () => void;
 }
 
 interface SideDrawerMenuProps extends RouteProps {
   items: Array<MenuItem>;
-  closeSider: () => void;
+  closeDrawer: () => void;
 }
 
 export default SideDrawerMenu;

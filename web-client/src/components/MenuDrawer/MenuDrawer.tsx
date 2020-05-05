@@ -1,5 +1,5 @@
-import { CloseOutlined, LogoutOutlined, MailOutlined } from '@ant-design/icons';
-import { Layout } from 'antd';
+import { LogoutOutlined, MailOutlined } from '@ant-design/icons';
+import { Drawer } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { User } from 'src/models/users';
@@ -8,47 +8,41 @@ import styled from 'styled-components';
 import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 
-const SideDrawer: React.FC<SideDrawerProps> = ({
-  collapsed,
-  closeSider,
+const MenuDrawer: React.FC<MenuDrawerProps> = ({
+  visible,
+  closeDrawer,
   menuItems,
   profileData,
 }) => (
-  <Sider collapsed={collapsed} theme="light">
-    <CloseButton onClick={closeSider}>
-      <CloseOutlined />
-    </CloseButton>
+  <SideDrawer
+    placement="left"
+    closable
+    onClose={closeDrawer}
+    visible={visible}
+    width="100%"
+  >
     <SideDrawerProfile profileData={profileData} />
-    <SideDrawerMenu items={menuItems || []} closeSider={closeSider} />
+    <SideDrawerMenu items={menuItems || []} closeDrawer={closeDrawer} />
     <BottomLinks>
-      <Link to={{ pathname: '/' }} onClick={closeSider}>
+      <Link to={{ pathname: '/' }} onClick={closeDrawer}>
         <MailOutlined />
         Contact us
       </Link>
-      <Link to={{ pathname: '/' }} onClick={closeSider}>
+      <Link to={{ pathname: '/' }} onClick={closeDrawer}>
         <LogoutOutlined />
         Sign out
       </Link>
     </BottomLinks>
-  </Sider>
+  </SideDrawer>
 );
 
-const Sider = styled(Layout.Sider)`
-  .ant-layout-sider-children {
+const SideDrawer = styled(Drawer)`
+  .ant-drawer-body {
+    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 15px;
-  background: inherit;
-  border: none;
-  outline: none;
 `;
 
 const BottomLinks = styled.div`
@@ -68,11 +62,11 @@ const BottomLinks = styled.div`
   }
 `;
 
-interface SideDrawerProps {
-  collapsed: boolean;
-  closeSider: () => void;
+interface MenuDrawerProps {
+  visible: boolean;
+  closeDrawer: () => void;
   menuItems?: Array<MenuItem>;
   profileData: User;
 }
 
-export default SideDrawer;
+export default MenuDrawer;
