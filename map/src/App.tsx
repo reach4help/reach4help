@@ -14,6 +14,7 @@ import styled, {
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
 } from './styling';
+import { isReferrerFromBaseSite } from './util';
 
 interface Props {
   className?: string;
@@ -42,7 +43,7 @@ class App extends React.Component<Props, State> {
       updateResultsCallback: null,
       lang: i18n.getLanguage(),
       page: {
-        page: 'about',
+        page: isReferrerFromBaseSite() ? 'map' : 'about',
       },
     };
   }
