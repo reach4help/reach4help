@@ -32,7 +32,9 @@
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "clean": "rm -rf build",
+    "build-deps": "yarn --cwd ../model run build",
     "build": "react-scripts build",
+    "build-netlify": "yarn run build-deps && yarn run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts,.tsx && prettier --check \"./**/*.{ts,tsx}\"",
