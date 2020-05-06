@@ -2,8 +2,8 @@ import * as admin from 'firebase-admin';
 
 import { config } from './config/config';
 
-let internalApp: any;
-let internalDB: any;
+let internalApp: admin.app.App;
+let internalDB: FirebaseFirestore.Firestore;
 let internalAuth: admin.auth.Auth | null;
 
 if (config.get('env') !== 'test') {

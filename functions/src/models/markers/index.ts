@@ -7,6 +7,8 @@ import { MarkerType } from 'map/src/data';
 import DocumentData = firestore.DocumentData;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
+export const MARKER_COLLECTION_ID = 'markers';
+
 /**
  * Contact details capture various methods to contact an organization.
  */
