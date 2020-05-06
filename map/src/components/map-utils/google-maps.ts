@@ -1,8 +1,4 @@
-import { MARKERS } from '../../data/markers';
 import { parseQueryString } from './query-string';
-
-const average = (arr: Array<number>) =>
-  arr.reduce((acc, curr) => acc + curr) / arr.length;
 
 export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
   const query = parseQueryString();
@@ -11,8 +7,9 @@ export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
     center: query.map
       ? query.map.pos
       : {
-          lat: average(MARKERS.map(m => m.loc.latlng.latitude)),
-          lng: average(MARKERS.map(m => m.loc.latlng.longitude)),
+          // TODO: calculate based off average of firebase data
+          lat: 40.5055,
+          lng: -89.8734,
         },
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     streetViewControl: false,

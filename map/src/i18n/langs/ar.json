@@ -25,7 +25,7 @@
     "github": "Find us on GitHub"
   },
   "addInformation": {
-    "button": "Add information",
+    "button": "إضافة معلومات",
     "backToMap": "الرجوع إلى الخريطة",
     "prev": "رجوع",
     "continue": "الاستمرار",
@@ -147,7 +147,7 @@
     "myLocation": "موقعي"
   },
   "results": {
-    "backToResults": "Back to results",
+    "backToResults": "العودة إلى النتائج",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "contact": {
@@ -164,15 +164,15 @@
     "netlifyLinkText": "is hosted by Netlify",
     "githubRepo": "GitHub Repo",
     "codeOfConduct": "Code of Conduct",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "showHidden": "إظهار المعلومات المخفية",
+    "hideHidden": "إخفاء المعلومات المخفية"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "الظاهرة: {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "الكل",
+      "visible": "ظاهر فقط",
+      "hidden": "مخفي فقط"
     }
   }
 }
