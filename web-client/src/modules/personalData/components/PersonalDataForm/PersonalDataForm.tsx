@@ -254,7 +254,15 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
         setCoords(addressToSet.coords);
       }
     }
-  }, [user, profile, privilegedInfo]);
+  }, [
+    user,
+    profile,
+    privilegedInfo,
+    acceptToUsePhoto,
+    privilegedInfoSet,
+    profileDataSet,
+    userDataSet,
+  ]);
 
   useEffect(() => {
     if (acceptToUsePhoto) {
@@ -264,7 +272,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
     } else {
       setDisplayPic(undefined);
     }
-  }, [acceptToUsePhoto]);
+  }, [acceptToUsePhoto, tempDisplayPic]);
 
   const onSubmitForm = () => {
     const newAddress: IUserAddress = {
