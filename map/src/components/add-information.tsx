@@ -1,3 +1,12 @@
+import { ContactDetails, ContactGroup } from '@reach4help/model/lib/markers';
+import {
+  isMarkerType,
+  isService,
+  MARKER_TYPE_STRINGS,
+  MarkerType,
+  Service,
+  SERVICE_STRINGS,
+} from '@reach4help/model/lib/markers/type';
 import firebase from 'firebase/app';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
@@ -12,25 +21,12 @@ import {
 } from 'react-icons/md';
 import Search from 'src/components/search';
 import { submitInformation } from 'src/data/firebase';
-import {
-  ContactDetails,
-  ContactGroup,
-  Location,
-  MarkerInfo,
-} from 'src/data/markers';
+import { Location, MarkerInfo } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
 import { trackEvent } from 'src/util/tracking';
 
-import {
-  isMarkerType,
-  isService,
-  MARKER_TYPE_STRINGS,
-  MarkerType,
-  Service,
-  SERVICE_STRINGS,
-} from '../data';
 import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
   button,

@@ -3,7 +3,7 @@ import { FieldPath } from '@google-cloud/firestore';
 
 import { db } from '../../../app';
 
-import { IMarker, MARKER_COLLECTION_ID } from '../../../models/markers';
+import { MARKER_COLLECTION_ID, MarkerInfo } from '../../../models/markers';
 
 /* eslint-disable max-len */
 const LICENSES = {
@@ -16,7 +16,7 @@ const LICENSES = {
 
 type LicenseKey = keyof typeof LICENSES;
 
-interface Marker extends IMarker {
+interface Marker extends MarkerInfo {
   id: string;
   license: LicenseKey;
 }
@@ -37,9 +37,9 @@ export const data = functions.https.onRequest(async (_req, res) => {
     .where(new FieldPath('visible'), '==', true)
     .get();
   markers.forEach(doc => {
-    const docData = doc.data() as IMarker;
+    const docData = doc.data() as MarkerInfo;
     // TODO: add other sources (with appropriate licenses)
-    if (!docData.source) {
+    if (!(docData as any).source) {
       result.data.push({
         ...docData,
         id: doc.id,
