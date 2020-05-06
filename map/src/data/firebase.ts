@@ -1,3 +1,4 @@
+import { MARKER_COLLECTION_ID } from '@reach4help/model/lib/markers';
 import * as firebase from 'firebase/app';
 
 import 'firebase/firestore';
@@ -21,7 +22,6 @@ const isValidMarkerInfo = (
   // TODO
   !!data;
 
-const MARKER_COLLECTION_ID = 'markers';
 const LOCAL_STORAGE_KEY = 'dataConfig';
 
 interface DataConfig {

@@ -2,6 +2,8 @@ import { MarkerType } from './type';
 
 export { MarkerType };
 
+export const MARKER_COLLECTION_ID = 'markers';
+
 /**
  * Contact details capture various methods to contact an organization.
  */
