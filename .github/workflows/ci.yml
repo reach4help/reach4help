@@ -21,11 +21,11 @@ jobs:
       - name: Build
         run: yarn run build
 
-      - name: Clean
-        run: yarn run clean
-
       - name: Lint
         run: yarn run lint
+
+      - name: Clean
+        run: yarn run clean
   functions-build-and-lint:
     name: "functions: build & lint"
     runs-on: ubuntu-latest
@@ -44,11 +44,11 @@ jobs:
       - name: Build
         run: cd functions && yarn run build
 
-      - name: Clean
-        run: cd functions && yarn run clean
-
       - name: Lint
         run: cd functions && yarn run lint
+
+      - name: Clean
+        run: cd functions && yarn run clean
   functions-test:
     name: "functions: run unit tests"
     runs-on: ubuntu-latest
