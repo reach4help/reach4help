@@ -4,6 +4,7 @@
   "scripts": {
     "lint": "eslint src tests --ext .ts && prettier --check \"{src,tests}/**/*.ts\"",
     "lint:fix": "eslint src tests --fix --ext .ts && prettier --write \"{src,tests}/**/*.ts\"",
+    "clean": "rm -rf lib",
     "build": "rm -rf lib && tsc --build src/tsconfig.json",
     "test": "yarn run jest",
     "pre-commit": "lint-staged"
