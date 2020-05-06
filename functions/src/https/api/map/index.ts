@@ -39,7 +39,7 @@ export const data = functions.https.onRequest(async (_req, res) => {
   markers.forEach(doc => {
     const docData = doc.data() as MarkerInfo;
     // TODO: add other sources (with appropriate licenses)
-    if (!(docData as any).source) {
+    if (!docData.source || docData.source.name === 'hardcoded') {
       result.data.push({
         ...docData,
         id: doc.id,
