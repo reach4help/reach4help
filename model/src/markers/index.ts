@@ -76,6 +76,10 @@ export interface MarkerInfo<GeoPoint>
    * (i.e. has it been reviewed for accuraccy).
    */
   visible: boolean;
+  source?: {
+    name: 'hardcoded';
+    id: string;
+  };
 }
 
 export type OldMarkerInfo = EitherMarkerInfo<{
