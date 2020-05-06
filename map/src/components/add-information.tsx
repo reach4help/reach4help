@@ -20,8 +20,7 @@ import {
   MdRefresh,
 } from 'react-icons/md';
 import Search from 'src/components/search';
-import { submitInformation } from 'src/data/firebase';
-import { Location, MarkerInfo } from 'src/data/markers';
+import { Location, MarkerInfo, submitInformation } from 'src/data/firebase';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
