@@ -1,4 +1,4 @@
-import { MarkerTypeString } from 'src/data';
+import { MarkerTypeString } from '@reach4help/model/lib/markers/type';
 
 export type Page =
   | {

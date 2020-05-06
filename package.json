@@ -2,8 +2,8 @@
   "name": "reach4help",
   "private": true,
   "workspaces": [
-    "map",
     "model",
+    "map",
     "site",
     "web-client"
   ],
@@ -20,7 +20,8 @@
     "deploy:prod": "yarn workspaces run build && firebase deploy -P reach4help",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
-    "heroku-postbuild": "yarn workspace api run heroku-postbuild"
+    "heroku-postbuild": "yarn workspace api run heroku-postbuild",
+    "build": "yarn workspaces run build"
   },
   "husky": {
     "hooks": {

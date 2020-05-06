@@ -8,6 +8,8 @@
     "test": "yarn run jest",
     "pre-commit": "lint-staged"
   },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "eslint src tests --fix --ext .ts",
@@ -18,7 +20,7 @@
     ]
   },
   "devDependencies": {
-    "jest": "^25.2.6",
+    "jest": "^24.9.0",
     "prettier": "^2.0.2",
     "ts-jest": "^25.3.0",
     "typescript": "^3.8.3"

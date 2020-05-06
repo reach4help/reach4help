@@ -1,2 +1,3 @@
-console.log('model!');
-console.log('model2!');
+import * as markers from './markers';
+
+export { markers };

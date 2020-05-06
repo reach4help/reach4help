@@ -1,7 +1,11 @@
+import {
+  isMarkerType,
+  MARKER_TYPE_STRINGS,
+  MarkerTypeString,
+} from '@reach4help/model/lib/markers/type';
 import React from 'react';
 import Select, { ValueType } from 'react-select';
 import Chevron from 'src/components/assets/chevron';
-import { isMarkerType, MARKER_TYPE_STRINGS, MarkerTypeString } from 'src/data';
 import { Language, t } from 'src/i18n';
 import { Filter, FilterMutator } from 'src/state';
 

@@ -1,10 +1,10 @@
+import { ContactDetails } from '@reach4help/model/lib/markers';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { MdEmail, MdLanguage, MdPhone } from 'react-icons/md';
 import Chevron from 'src/components/assets/chevron';
 import Refresh from 'src/components/assets/refresh';
 import { MarkerIdAndInfo, ResultsSet } from 'src/components/map';
-import { ContactDetails } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
 
 import styled from '../styling';
