@@ -10,7 +10,6 @@ import * as firebase from 'src/data/firebase';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
 
-import { MarkerInfo, MARKERS } from '../data/markers';
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
 import { AppContext } from './context';
@@ -22,8 +21,9 @@ import {
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
+type MarkerInfo = firebase.MarkerInfo;
+
 interface MarkerData {
-  hardcoded: Map<string, MarkerInfo>;
   firebase: Map<string, MarkerInfo>;
 }
 
@@ -82,7 +82,6 @@ interface Props {
 
 class MapComponent extends React.Component<Props, {}> {
   private readonly data: MarkerData = {
-    hardcoded: new Map(),
     firebase: new Map(),
   };
 
@@ -91,15 +90,6 @@ class MapComponent extends React.Component<Props, {}> {
     | null = null;
 
   private infoWindow: google.maps.InfoWindow | null = null;
-
-  public constructor(props: Props) {
-    super(props);
-
-    // Initialize hardocded data
-    MARKERS.forEach((marker, index) =>
-      this.data.hardcoded.set(index.toString(), marker),
-    );
-  }
 
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
@@ -269,7 +259,6 @@ class MapComponent extends React.Component<Props, {}> {
     const map = createGoogleMap(ref);
     const activeMarkers: ActiveMarkers = {
       firebase: new Map(),
-      hardcoded: new Map(),
     };
 
     // Create initial markers
