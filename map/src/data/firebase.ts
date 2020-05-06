@@ -1,8 +1,14 @@
+import {
+  Location as BaseLocation,
+  MarkerInfo as BaseMarkerInfo,
+  MARKER_COLLECTION_ID,
+} from '@reach4help/model/lib/markers';
 import * as firebase from 'firebase/app';
 
 import 'firebase/firestore';
 
-import { MarkerInfo } from './markers';
+export type Location = BaseLocation<firebase.firestore.GeoPoint>;
+export type MarkerInfo = BaseMarkerInfo<firebase.firestore.GeoPoint>;
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -21,7 +27,6 @@ const isValidMarkerInfo = (
   // TODO
   !!data;
 
-const MARKER_COLLECTION_ID = 'markers';
 const LOCAL_STORAGE_KEY = 'dataConfig';
 
 interface DataConfig {
