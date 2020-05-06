@@ -1,5 +1,7 @@
 import { MarkerType } from './type';
 
+export { MarkerType };
+
 /**
  * Contact details capture various methods to contact an organization.
  */
