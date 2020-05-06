@@ -3,7 +3,7 @@ import { FieldPath } from '@google-cloud/firestore';
 
 import { db } from '../../../app';
 
-import { MarkerInfo, MARKER_COLLECTION_ID } from '../../../models/markers';
+import { MARKER_COLLECTION_ID, MarkerInfo } from '../../../models/markers';
 
 /* eslint-disable max-len */
 const LICENSES = {
