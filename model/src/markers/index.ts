@@ -31,7 +31,7 @@ export interface Location<GeoPoint> {
   /**
    *  Measured in Meters (per Google Maps standard)
    */
-  serviceRadius: number;
+  serviceRadius?: number;
 }
 
 export interface ContactGroup {
@@ -77,8 +77,12 @@ export interface MarkerInfo<GeoPoint>
    */
   visible: boolean;
   source?: {
-    name: 'hardcoded';
+    name: 'hardcoded' | 'mutualaid.wiki';
     id: string;
+    /**
+     * The original data from the other source that we derive our info from
+     */
+    data?: any;
   };
 }
 
