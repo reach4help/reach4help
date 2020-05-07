@@ -280,7 +280,7 @@ class MapComponent extends React.Component<Props, {}> {
       ignoreHidden: true,
       zoomOnClick: false,
       averageCenter: true,
-      gridSize: 70,
+      gridSize: 50,
     });
 
     const m: MapInfo = {
