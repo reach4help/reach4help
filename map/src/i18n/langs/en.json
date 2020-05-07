@@ -12,7 +12,15 @@
       "france": "France",
       "nyc": "New York",
       "uk": "United Kingdom"
-    }
+    },
+    "sourceHeading": "Where does this information come from?",
+    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki}.",
+    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
+    "sourceSubmitButton": "add information",
+    "usageHeading": "Can I use this data for my own project?",
+    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
+    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
+    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
     "about": "About",
