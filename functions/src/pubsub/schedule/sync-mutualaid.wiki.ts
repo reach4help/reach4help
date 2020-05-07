@@ -163,27 +163,31 @@ const handleGroup = async (documents: ExistingDocuments, group: MutualAidWikiGro
 
 // TODO: change to pubsub scheduled function after initial import
 // https://firebase.google.com/docs/functions/schedule-functions
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-export const syncMutualAidWiki = functions.https.onRequest(async (_req, res) => {
-  const stats = beginningStats();
-  console.log('Syncing with mutualaid.wiki');
-  const existingMarkers = await MARKER_COLLECTION.where(SOURCE_NAME_FIELD_PATH, '==', SOURCE_NAME_FIELD_VALUE).get();
-  const existing: ExistingDocuments = new Map();
-  for (const doc of existingMarkers.docs) {
-    const id = doc.data().source?.id;
-    if (id) {
-      existing.set(id, doc);
+export const syncMutualAidWiki = functions
+  .runWith({
+    timeoutSeconds: 540,
+  })
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  .https.onRequest(async (_req, res) => {
+    const stats = beginningStats();
+    console.log('Syncing with mutualaid.wiki');
+    const existingMarkers = await MARKER_COLLECTION.where(SOURCE_NAME_FIELD_PATH, '==', SOURCE_NAME_FIELD_VALUE).get();
+    const existing: ExistingDocuments = new Map();
+    for (const doc of existingMarkers.docs) {
+      const id = doc.data().source?.id;
+      if (id) {
+        existing.set(id, doc);
+      }
     }
-  }
-  const groups: MutualAidWikiGroup[] = await (await fetch(API_URL)).json();
-  for (const group of groups) {
-    // eslint-disable-next-line no-await-in-loop
-    const result = await handleGroup(existing, group);
-    stats[result]++;
-  }
-  console.log('counts', existing.size, groups.length);
-  console.log(`Sync with mutualaid.wiki complete, stats: ${JSON.stringify(stats)}`);
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600');
-  res.status(200).send(JSON.stringify(stats));
-});
+    const groups: MutualAidWikiGroup[] = await (await fetch(API_URL)).json();
+    for (const group of groups) {
+      // eslint-disable-next-line no-await-in-loop
+      const result = await handleGroup(existing, group);
+      stats[result]++;
+    }
+    console.log('counts', existing.size, groups.length);
+    console.log(`Sync with mutualaid.wiki complete, stats: ${JSON.stringify(stats)}`);
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600');
+    res.status(200).send(JSON.stringify(stats));
+  });
