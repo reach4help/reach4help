@@ -22,6 +22,14 @@ interface Props {
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
 }
 
+const SOURCES = {
+  'mutualaid.wiki': {
+    label: 'mutualaid',
+    href: 'https://mutualaid.wiki/',
+  },
+  hardcoded: null,
+};
+
 const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
   if (!info) {
     return null;
@@ -117,6 +125,13 @@ class Results extends React.PureComponent<Props, {}> {
       setSelectedResult,
     } = this.props;
     const canUpdateResults = !isEqual(results, nextResults);
+    const selectedResultSource =
+      selectedResult?.info.source && SOURCES[selectedResult.info.source.name];
+    const selectedResultSentenceType =
+      selectedResult?.info.type.type === 'mutual-aid-group' ||
+      selectedResult?.info.type.type === 'org'
+        ? selectedResult.info.type.type
+        : 'project';
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -179,13 +194,50 @@ class Results extends React.PureComponent<Props, {}> {
               </div>
               {selectedResult && (
                 <div className="details">
+                  <div className="disclaimer">
+                    <strong>
+                      {t(lang, s => s.results.details.disclaimer.header)}
+                    </strong>
+                    <br />
+                    {t(lang, s => s.results.details.disclaimer.content)}
+                  </div>
                   <div className="name">{selectedResult.info.contentTitle}</div>
                   {selectedResult.info.loc.description && (
                     <div className="location">
                       {selectedResult.info.loc.description}
                     </div>
                   )}
-                  <MarkerType type={selectedResult.info.type} />
+                  <MarkerType
+                    className="marker-type"
+                    type={selectedResult.info.type}
+                  />
+                  {selectedResultSource && (
+                    <div className="source">
+                      {t(lang, s => s.results.details.source, {
+                        type: key => (
+                          <span key={key}>
+                            {t(
+                              lang,
+                              s =>
+                                s.markerTypeSentence[
+                                  selectedResultSentenceType
+                                ],
+                            )}
+                          </span>
+                        ),
+                        source: key => (
+                          <a
+                            key={key}
+                            href={selectedResultSource.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {selectedResultSource.label}
+                          </a>
+                        ),
+                      })}
+                    </div>
+                  )}
                   {selectedResult.info.contentBody && (
                     <div className="content">
                       {selectedResult.info.contentBody}
@@ -371,6 +423,29 @@ export default styled(Results)`
       border-bottom-right-radius: 4px;
       pointer-events: initial;
 
+      > .disclaimer,
+      > .source {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+        padding: 10px 8px;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+
+        strong {
+          text-transform: uppercase;
+        }
+      }
+
+      > .disclaimer {
+        font-size: 10px;
+        line-height: 16px;
+      }
+
+      > .source {
+        font-size: 12px;
+        line-height: 150%;
+      }
+
       > .name {
         font-size: 1.5rem;
         padding-bottom: ${p => p.theme.spacingPx / 2}px;
@@ -381,7 +456,7 @@ export default styled(Results)`
         font-size: 0.9rem;
       }
 
-      > .services {
+      > .marker-type {
         margin-bottom: ${p => p.theme.spacingPx / 2}px;
       }
 
