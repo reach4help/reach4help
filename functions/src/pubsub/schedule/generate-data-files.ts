@@ -3,12 +3,7 @@ import { CollectionReference } from '@google-cloud/firestore';
 
 import { db, storage } from '../../app';
 
-import {
-  MARKER_COLLECTION_ID,
-  MarkerInfo,
-  MarkerInfoWithId,
-  MARKERS_STORAGE_PATH,
-} from '../../models/markers';
+import { MARKER_COLLECTION_ID, MarkerInfo, MARKERS_STORAGE_PATH, SerializableMarkerInfo } from '../../models/markers';
 
 const MARKER_COLLECTION = db.collection(MARKER_COLLECTION_ID) as CollectionReference<MarkerInfo>;
 
@@ -22,8 +17,8 @@ export const generateDataFiles = functions
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   .https.onRequest(async (_req, res) => {
     const results: {
-      visible: MarkerInfoWithId[];
-      hidden: MarkerInfoWithId[];
+      visible: SerializableMarkerInfo[];
+      hidden: SerializableMarkerInfo[];
     } = {
       visible: [],
       hidden: [],
@@ -35,6 +30,13 @@ export const generateDataFiles = functions
       const data = doc.data();
       results[data.visible ? 'visible' : 'hidden'].push({
         ...data,
+        loc: {
+          ...data.loc,
+          latlng: {
+            latitude: data.loc.latlng.latitude,
+            longitude: data.loc.latlng.longitude,
+          },
+        },
         id: doc.id,
       });
     }
