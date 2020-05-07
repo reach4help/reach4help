@@ -1,7 +1,7 @@
 import { ContactDetails } from '@reach4help/model/lib/markers';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdEmail, MdLanguage, MdPhone } from 'react-icons/md';
+import { MdEmail, MdExpandMore, MdLanguage, MdPhone } from 'react-icons/md';
 import Chevron from 'src/components/assets/chevron';
 import Refresh from 'src/components/assets/refresh';
 import { MarkerIdAndInfo, ResultsSet } from 'src/components/map';
@@ -20,6 +20,7 @@ interface Props {
   setOpen: (open: boolean) => void;
   selectedResult: MarkerIdAndInfo | null;
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
+  showMoreResults: (count: number) => void;
 }
 
 const SOURCES = {
@@ -123,8 +124,11 @@ class Results extends React.PureComponent<Props, {}> {
       open,
       selectedResult,
       setSelectedResult,
+      showMoreResults,
     } = this.props;
-    const canUpdateResults = !isEqual(results, nextResults);
+    const canUpdateResults =
+      !isEqual(results?.context, nextResults?.context) ||
+      !isEqual(results?.results, nextResults?.results);
     const selectedResultSource =
       selectedResult?.info.source && SOURCES[selectedResult.info.source.name];
     const selectedResultSentenceType =
@@ -173,24 +177,35 @@ class Results extends React.PureComponent<Props, {}> {
             )}
             <div className="grow">
               <div className="list">
-                {(results?.results || []).map((result, index) => (
-                  <div
-                    key={index}
-                    className="result"
-                    onClick={() => setSelectedResult(result)}
-                  >
-                    <div className="number">{index + 1}</div>
-                    <div className="info">
-                      {result.info.loc.description && (
-                        <div className="location">
-                          {result.info.loc.description}
-                        </div>
-                      )}
-                      <div className="name">{result.info.contentTitle}</div>
-                      <MarkerType type={result.info.type} />
+                {(results?.results || [])
+                  .slice(0, results?.showRows)
+                  .map((result, index) => (
+                    <div
+                      key={index}
+                      className="result"
+                      onClick={() => setSelectedResult(result)}
+                    >
+                      <div className="number">{index + 1}</div>
+                      <div className="info">
+                        {result.info.loc.description && (
+                          <div className="location">
+                            {result.info.loc.description}
+                          </div>
+                        )}
+                        <div className="name">{result.info.contentTitle}</div>
+                        <MarkerType type={result.info.type} />
+                      </div>
                     </div>
+                  ))}
+                {results && results.showRows < results.results.length && (
+                  <div className="show-more">
+                    <button onClick={() => showMoreResults(10)} type="button">
+                      <MdExpandMore />
+                      <span>{t(lang, s => s.results.showMore)}</span>
+                      <MdExpandMore />
+                    </button>
                   </div>
-                ))}
+                )}
               </div>
               {selectedResult && (
                 <div className="details">
@@ -324,8 +339,9 @@ export default styled(Results)`
     }
   }
 
-  > .update {
-    display: none;
+  > .update,
+  .show-more {
+    display: flex;
     padding: 20px 16px;
     background: #fff;
     pointer-events: initial;
@@ -359,6 +375,10 @@ export default styled(Results)`
         opacity: 0.7;
       }
     }
+  }
+
+  > .update {
+    display: none;
   }
 
   > .grow {

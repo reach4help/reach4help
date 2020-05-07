@@ -165,6 +165,7 @@
     "backToResults": "Back to results",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "showMore": "Show more results",
     "contact": {
       "general": "General Information:",
       "getHelp": "Get Help:",

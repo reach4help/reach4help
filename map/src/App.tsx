@@ -92,6 +92,21 @@ class App extends React.Component<Props, State> {
     this.setState({ resultsOpen });
   };
 
+  private showMoreResults = (count: number) => {
+    this.setState(state => {
+      if (state.results) {
+        return {
+          ...state,
+          results: {
+            ...state.results,
+            showRows: state.results.showRows + count,
+          },
+        };
+      }
+      return {};
+    });
+  };
+
   public componentDidMount = () => {
     i18n.addListener(this.languageUpdated);
   };
@@ -158,6 +173,7 @@ class App extends React.Component<Props, State> {
                     selectedResult={selectedResult}
                     setSelectedResult={this.setSelectedResult}
                     updateResults={this.updateResults}
+                    showMoreResults={this.showMoreResults}
                   />
                 ),
               }}

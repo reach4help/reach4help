@@ -32,6 +32,8 @@ type DataSet = keyof MarkerData;
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
 
+const INITIAL_NUMBER_OF_RESULTS = 20;
+
 export interface MarkerId {
   set: DataSet;
   id: string;
@@ -57,6 +59,11 @@ export interface ResultsSet {
     bounds: google.maps.LatLngBounds | null;
   };
   results: MarkerIdAndInfo[];
+  /**
+   * How many rows from the results should be shown in the pane?
+   * (used to limit how many dom elements we have)
+   */
+  showRows: number;
 }
 
 const getMarkerId = (marker: google.maps.Marker): MarkerId =>
@@ -368,6 +375,7 @@ class MapComponent extends React.Component<Props, {}> {
             .getMarkers()
             .map(marker => this.getMarkerInfo(marker))
             .filter(isDefined),
+          showRows: INITIAL_NUMBER_OF_RESULTS,
         },
         true,
       );
@@ -446,6 +454,7 @@ class MapComponent extends React.Component<Props, {}> {
           results: visibleMarkers
             .map(marker => this.getMarkerInfo(marker))
             .filter(isDefined),
+          showRows: INITIAL_NUMBER_OF_RESULTS,
         };
 
         map.getBounds();
