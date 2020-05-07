@@ -21,6 +21,7 @@ interface Props {
   className?: string;
   page: Page;
   setPage: (page: Page) => void;
+  inFrame: boolean;
 }
 
 interface State {
@@ -77,7 +78,37 @@ class Header extends React.Component<Props, State> {
 
   render = () => {
     const { open } = this.state;
-    const { className, page, setPage } = this.props;
+    const { className, page, setPage, inFrame } = this.props;
+
+    if (inFrame) {
+      return (
+        <AppContext.Consumer>
+          {({ lang }) => (
+            <header className={className}>
+              <div
+                className="top"
+                style={{ height: '36px', justifyContent: 'center' }}
+              >
+                <p>
+                  {t(lang, s => s.inFrameTitle, {
+                    map: key => (
+                      <a
+                        key={key}
+                        href="https://map.reach4help.org"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Reach4Help.org
+                      </a>
+                    ),
+                  })}
+                </p>
+              </div>
+            </header>
+          )}
+        </AppContext.Consumer>
+      );
+    }
     return (
       <AppContext.Consumer>
         {({ lang }) => (

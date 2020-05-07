@@ -15,3 +15,11 @@ export const isReferrerFromBaseSite = (): boolean => {
   }
   return referrerUrl.origin === 'https://reach4help.org';
 };
+
+export const isInFrame = (): boolean => {
+  try {
+    return window.self !== window.top;
+  } catch (_) {
+    return false;
+  }
+};
