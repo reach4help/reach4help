@@ -47,7 +47,7 @@ export const generateDataFiles = functions
       results[visibility] = [];
       // eslint-disable-next-line no-await-in-loop
       await storage
-        .bucket('reach4help-dev.appspot.com')
+        .bucket()
         .file(MARKERS_STORAGE_PATH[visibility])
         .save(buffer);
     }
