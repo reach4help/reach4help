@@ -4,6 +4,11 @@ export { MarkerType };
 
 export const MARKER_COLLECTION_ID = 'markers';
 
+export const MARKERS_STORAGE_PATH = {
+  hidden: 'map-markers-public/data-hidden.json',
+  visible: 'map-markers-public/data-visible.json',
+};
+
 /**
  * Contact details capture various methods to contact an organization.
  */
@@ -84,6 +89,10 @@ export interface MarkerInfo<GeoPoint>
      */
     data?: any;
   };
+}
+
+export interface MarkerInfoWithId<GeoPoint> extends MarkerInfo<GeoPoint> {
+  id: string;
 }
 
 export type OldMarkerInfo = EitherMarkerInfo<{

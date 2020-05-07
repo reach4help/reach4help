@@ -10,6 +10,12 @@ function isUser(id) {
 
 service firebase.storage {
   match /b/{bucket}/o {
+
+    match /map-markers-public/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
     // No one can do anything with the storage layer
     match /{allPaths=**} {
       allow read, write: if false;
