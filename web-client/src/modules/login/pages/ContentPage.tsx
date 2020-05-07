@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
@@ -22,7 +23,7 @@ const ContentPage = (): ReactElement => {
   const redirectBack = get(location, 'state.redirectBack') || '/';
 
   if (!observerReceivedFirstUpdate) {
-    return <>Loading</>;
+    return <LoadingWrapper />;
   }
 
   if (user) {
