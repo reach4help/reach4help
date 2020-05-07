@@ -1,31 +1,31 @@
 {
   "title": "Carte d'entraide face au COVID-19",
   "aboutScreen": {
-    "intro": "We believe solidarity brings out the best in individuals.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "intro": "Nous croyons que la solidarité fait ressortir le meilleur chez les individus.",
+    "info": "Afin d'aider les gens à trouver et à joindre leurs efforts d'aide mutuelle là où ils vivent, les inspirer pour commencer leur propre initiatives ou encore remonter le moral, cette carte présente une liste grandissante de projets d'aide mutuelle en cas de pandémie mondiale.",
+    "warning": "Remarque : chaque projet est autonome et indépendant ; certains groupes utilisent des feuilles de calcul publiques pour partager les informations, nous vous conseillons de rester prudents lorsque vous entrez vos informations que vous ne voulez pas diffusées publiquement.",
+    "project": "Cette carte est un projet de {reach4Help}, un collectif de volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter par mail {email}.",
     "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasHeading": "Vous êtes intéressé par l'une de ces zones géographiques?",
+    "otherAreasInfo": "Découvrez ces cartes alternatives :",
     "otherAreasLocations": {
       "france": "France",
       "nyc": "New York",
-      "uk": "United Kingdom"
+      "uk": "Royaume-Uni"
     }
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "À propos",
+    "map": "Afficher la carte"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "Nous contacter par e-mail",
+    "twitter": "Suivez-nous sur Twitter",
+    "facebook": "Nous liker sur Facebook",
+    "github": "Retrouvez-nous sur GitHub"
   },
   "addInformation": {
-    "button": "Add information",
+    "button": "Ajouter des informations",
     "backToMap": "Retour à la carte",
     "prev": "Retour",
     "continue": "Continuer",
@@ -129,10 +129,10 @@
     "shelter": null,
     "support": "Un soutien adapté aux groupes vulnérables comme les sans-abri, les personnes exposées aux risques d'abus domestiques, etc.",
     "information": "Aidez les gens à trouver des informations pertinentes",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "network": "Faciliter la communication et l'échange d'information pour fournir de l'aide et du soutien, par exemple entre les organisations d'entraide",
+    "manufacturing": "Fournit des fournitures ou des capacités de fabrication nécessaires pour faire face à la crise",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Ne figure pas dans cette liste"
   },
   "markerTypes": {
     "mutual-aid-group": "Groupe d’entraide",
@@ -147,9 +147,9 @@
     "myLocation": "Ma position"
   },
   "results": {
-    "backToResults": "Back to results",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "backToResults": "Retour aux résultats",
+    "openResults": "Voir {results, plural, =0 {no results} =1 {# résultat} other {# résultats}}",
+    "closeResults": "Masquer {results, plural, one {} =0 {aucun résultat} =1 {1 résultat} other {# résultats}}",
     "contact": {
       "general": "Informations Générales:",
       "getHelp": "Obtenir de l'aide:",
@@ -164,15 +164,15 @@
     "netlifyLinkText": "est hébergé par Netlify",
     "githubRepo": "Dépôt GitHub",
     "codeOfConduct": "Code de conduite",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "showHidden": "Afficher les informations masquées",
+    "hideHidden": "Masquer les informations masquées"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "Visibilité : {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "Tous",
+      "visible": "Visible uniquement",
+      "hidden": "Masqué uniquement"
     }
   }
 }
