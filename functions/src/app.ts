@@ -4,7 +4,6 @@ import { config } from './config/config';
 
 let internalApp: admin.app.App;
 let internalDB: FirebaseFirestore.Firestore;
-let internalStorage: admin.storage.Storage;
 let internalAuth: admin.auth.Auth | null;
 
 if (config.get('env') !== 'test') {
@@ -14,7 +13,6 @@ if (config.get('env') !== 'test') {
   require('firebase-functions');
   internalApp = admin.initializeApp();
   internalDB = admin.firestore();
-  internalStorage = admin.storage();
   internalAuth = admin.auth();
 } else {
   // Only import when we're in a test environment
@@ -23,11 +21,9 @@ if (config.get('env') !== 'test') {
   const firebaseTest = require('@firebase/testing');
   internalApp = firebaseTest.initializeAdminApp({ projectId: 'reach-4-help-test' });
   internalDB = internalApp.firestore();
-  internalStorage = internalApp.storage();
   internalAuth = null;
 }
 
 export const app = internalApp;
 export const db = internalDB;
-export const storage = internalStorage;
 export const auth = internalAuth;

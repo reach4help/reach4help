@@ -1,7 +1,8 @@
 import * as functions from 'firebase-functions';
+import { storage } from 'firebase-admin';
 import { CollectionReference } from '@google-cloud/firestore';
 
-import { db, storage } from '../../app';
+import { db } from '../../app';
 
 import { MARKER_COLLECTION_ID, MarkerInfo, MARKERS_STORAGE_PATH, SerializableMarkerInfo } from '../../models/markers';
 
@@ -46,7 +47,7 @@ export const generateDataFiles = functions
       // Clear up some memory before we write to storage
       results[visibility] = [];
       // eslint-disable-next-line no-await-in-loop
-      await storage
+      await storage()
         .bucket()
         .file(MARKERS_STORAGE_PATH[visibility])
         .save(buffer);
