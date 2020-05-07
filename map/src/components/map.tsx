@@ -32,6 +32,8 @@ type DataSet = keyof MarkerData;
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
 
+const INITIAL_NUMBER_OF_RESULTS = 20;
+
 export interface MarkerId {
   set: DataSet;
   id: string;
@@ -57,6 +59,11 @@ export interface ResultsSet {
     bounds: google.maps.LatLngBounds | null;
   };
   results: MarkerIdAndInfo[];
+  /**
+   * How many rows from the results should be shown in the pane?
+   * (used to limit how many dom elements we have)
+   */
+  showRows: number;
 }
 
 const getMarkerId = (marker: google.maps.Marker): MarkerId =>
@@ -280,7 +287,7 @@ class MapComponent extends React.Component<Props, {}> {
       ignoreHidden: true,
       zoomOnClick: false,
       averageCenter: true,
-      gridSize: 30,
+      gridSize: 50,
     });
 
     const m: MapInfo = {
@@ -312,6 +319,9 @@ class MapComponent extends React.Component<Props, {}> {
         const bottomLeft = mapBoundingBox.getSouthWest();
         const markerPosition = marker.getPosition();
         const radius = info.info.loc.serviceRadius;
+        if (!radius) {
+          return;
+        }
 
         // Now compare the distance from the marker to corners of the box;
         if (markerPosition) {
@@ -365,6 +375,7 @@ class MapComponent extends React.Component<Props, {}> {
             .getMarkers()
             .map(marker => this.getMarkerInfo(marker))
             .filter(isDefined),
+          showRows: INITIAL_NUMBER_OF_RESULTS,
         },
         true,
       );
@@ -393,8 +404,9 @@ class MapComponent extends React.Component<Props, {}> {
             const info = this.getMarkerInfo(marker);
             if (info) {
               if (
-                !maxMarker ||
-                maxMarker.serviceRadius < info.info.loc.serviceRadius
+                info.info.loc.serviceRadius &&
+                (!maxMarker ||
+                  maxMarker.serviceRadius < info.info.loc.serviceRadius)
               ) {
                 maxMarker = {
                   marker,
@@ -442,6 +454,7 @@ class MapComponent extends React.Component<Props, {}> {
           results: visibleMarkers
             .map(marker => this.getMarkerInfo(marker))
             .filter(isDefined),
+          showRows: INITIAL_NUMBER_OF_RESULTS,
         };
 
         map.getBounds();
