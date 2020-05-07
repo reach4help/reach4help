@@ -1,5 +1,5 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
+  "title": "COVID-19相互援助地图",
   "aboutScreen": {
     "intro": "We believe solidarity brings out the best in individuals.",
     "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
@@ -112,23 +112,23 @@
     }
   },
   "buttons": {
-    "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+    "fullScreen": "全屏显示",
+    "exitFullScreen": "退出全屏"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "载入中",
+  "filterBy": "过滤条件：",
   "services": {
-    "any": "Any",
-    "food": "Food",
-    "medicine": "Medicine",
-    "supplies": "Other Supplies",
-    "mobility": "Mobility",
-    "shelter": "Shelter",
-    "support": "Support",
-    "information": "Information",
-    "network": "Network",
-    "manufacturing": "Manufactoring",
-    "financial": "Financial",
+    "any": "任何",
+    "food": "食品",
+    "medicine": "药物",
+    "supplies": "其他物品",
+    "mobility": "移动能力",
+    "shelter": "庇护所",
+    "support": "支援",
+    "information": "信息",
+    "network": "社交",
+    "manufacturing": "手工的",
+    "financial": "财务上的",
     "other": "Other"
   },
   "serviceDescriptions": {
@@ -145,11 +145,11 @@
     "other": "Something else not on this list"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "相互援助小组",
+    "org": "组织 / 公司",
+    "financial": "金融",
+    "information": "信息",
+    "other": "其它"
   },
   "markerTypeSentence": {
     "mutual-aid-group": "mutual aid group",
@@ -157,9 +157,9 @@
     "project": "project"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "跳转到地图上的位置...",
+    "updateResultsForThisArea": "更新此区域的结果",
+    "myLocation": "我的位置"
   },
   "results": {
     "backToResults": "Back to results",
@@ -167,10 +167,10 @@
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "showMore": "Show more results",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "基本信息",
+      "getHelp": "获取帮助",
+      "volunteer": "志愿者",
+      "facebookGroup": "Facebook 群组"
     },
     "details": {
       "disclaimer": {
@@ -180,13 +180,13 @@
       "source": "Information about this {type} is provided by {source}."
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "语言:",
+  "langSelect": "选择语言",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
-    "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct",
+    "netlifyNote": "这张地图 {link}",
+    "netlifyLinkText": "由Netlify承办",
+    "githubRepo": "GitHub 项目源",
+    "codeOfConduct": "行为守则",
     "showHidden": "Show Hidden Information",
     "hideHidden": "Hide Hidden Information"
   },
