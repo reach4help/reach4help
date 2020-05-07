@@ -280,7 +280,7 @@ class MapComponent extends React.Component<Props, {}> {
       ignoreHidden: true,
       zoomOnClick: false,
       averageCenter: true,
-      gridSize: 30,
+      gridSize: 70,
     });
 
     const m: MapInfo = {
@@ -312,6 +312,9 @@ class MapComponent extends React.Component<Props, {}> {
         const bottomLeft = mapBoundingBox.getSouthWest();
         const markerPosition = marker.getPosition();
         const radius = info.info.loc.serviceRadius;
+        if (!radius) {
+          return;
+        }
 
         // Now compare the distance from the marker to corners of the box;
         if (markerPosition) {
@@ -391,7 +394,7 @@ class MapComponent extends React.Component<Props, {}> {
           for (const marker of clusterMarkers) {
             // Update maxMarker to higher value if found.
             const info = this.getMarkerInfo(marker);
-            if (info) {
+            if (info?.info.loc.serviceRadius) {
               if (
                 !maxMarker ||
                 maxMarker.serviceRadius < info.info.loc.serviceRadius
