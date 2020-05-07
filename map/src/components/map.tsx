@@ -394,10 +394,11 @@ class MapComponent extends React.Component<Props, {}> {
           for (const marker of clusterMarkers) {
             // Update maxMarker to higher value if found.
             const info = this.getMarkerInfo(marker);
-            if (info?.info.loc.serviceRadius) {
+            if (info) {
               if (
-                !maxMarker ||
-                maxMarker.serviceRadius < info.info.loc.serviceRadius
+                info.info.loc.serviceRadius &&
+                (!maxMarker ||
+                  maxMarker.serviceRadius < info.info.loc.serviceRadius)
               ) {
                 maxMarker = {
                   marker,
