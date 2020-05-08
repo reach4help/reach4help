@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import React, { useState } from 'react';
+import NewRequestModal from 'src/components/NewRequestModal/NewRequestModal';
 import { User } from 'src/models/users';
-import NewRequestModal from 'src/modules/request/containers/NewRequestModal/NewRequestModal';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
@@ -13,6 +13,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   menuItems,
   profileData,
   children,
+  isCav,
+  logoutHandler,
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [newRequestModalVisible, setNewRequestModalVisible] = useState(false);
@@ -26,6 +28,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         closeDrawer={() => setMenuVisible(false)}
         menuItems={menuItems}
         profileData={profileData}
+        logoutHandler={logoutHandler}
       />
       <NotificationsDrawer
         visible={notificationVisible}
@@ -38,6 +41,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         openMenu={() => setMenuVisible(true)}
         openNewRequestModal={() => setNewRequestModalVisible(true)}
         openNotifications={() => setNotificationVisible(true)}
+        isCav={isCav}
       />
       {newRequestModalVisible && (
         <NewRequestModal
@@ -51,8 +55,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
 interface DashboardLayoutProps {
   menuItems?: Array<MenuItem>;
-  profileData: User;
+  profileData?: User;
   children?: React.ReactNode;
+  isCav?: boolean;
+  logoutHandler: Function;
 }
 
 export default DashboardLayout;

@@ -2,6 +2,7 @@ import {
   BellOutlined,
   EnvironmentOutlined,
   MenuOutlined,
+  PlusCircleOutlined,
 } from '@ant-design/icons';
 import React from 'react';
 import styled from 'styled-components';
@@ -10,21 +11,33 @@ const BottomNavbar: React.FC<BottomNavProps> = ({
   openMenu,
   openNewRequestModal,
   openNotifications,
+  isCav,
 }) => (
   <Wrapper>
     <NavButton onClick={openMenu}>
       <SideMenuIcon />
     </NavButton>
-    <NavButton onClick={openNewRequestModal}>
-      <NewRequestIcon />
-    </NavButton>
+    {isCav === false && (
+      <NavButton onClick={openNewRequestModal}>
+        <NewRequestIcon />
+      </NavButton>
+    )}
+    {isCav === true && (
+      <NavButton onClick={() => alert('the map module is still being made!')}>
+        <MapsIcon />
+      </NavButton>
+    )}
     <NavButton onClick={openNotifications}>
       <NotificationsIcon />
     </NavButton>
   </Wrapper>
 );
 
-const NewRequestIcon = styled(EnvironmentOutlined)`
+const NewRequestIcon = styled(PlusCircleOutlined)`
+  font-size: 2rem;
+`;
+
+const MapsIcon = styled(EnvironmentOutlined)`
   font-size: 2rem;
 `;
 
@@ -57,6 +70,7 @@ interface BottomNavProps {
   openMenu: () => void;
   openNewRequestModal: () => void;
   openNotifications: () => void;
+  isCav?: boolean;
 }
 
 export default BottomNavbar;

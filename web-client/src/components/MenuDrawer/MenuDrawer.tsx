@@ -13,6 +13,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
   closeDrawer,
   menuItems,
   profileData,
+  logoutHandler,
 }) => (
   <SideDrawer
     placement="left"
@@ -28,10 +29,15 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
         <MailOutlined />
         Contact us
       </Link>
-      <Link to={{ pathname: '/' }} onClick={closeDrawer}>
+      <div
+        onClick={() => {
+          closeDrawer();
+          logoutHandler();
+        }}
+      >
         <LogoutOutlined />
         Sign out
-      </Link>
+      </div>
     </BottomLinks>
   </SideDrawer>
 );
@@ -51,7 +57,8 @@ const BottomLinks = styled.div`
   margin: 15px;
   color: inherit;
 
-  a {
+  a,
+  div {
     color: inherit;
     margin-bottom: 10px;
     padding: 0 10px;
@@ -66,7 +73,8 @@ interface MenuDrawerProps {
   visible: boolean;
   closeDrawer: () => void;
   menuItems?: Array<MenuItem>;
-  profileData: User;
+  profileData?: User;
+  logoutHandler: Function;
 }
 
 export default MenuDrawer;

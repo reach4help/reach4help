@@ -15,17 +15,17 @@ const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
   profileData,
 }) => (
   <Wrapper>
-    <DisplayPhoto src={profileData.displayPicture || undefined} />
+    <DisplayPhoto src={profileData?.displayPicture || undefined} />
     <Content>
-      <DisplayName>{profileData.displayName}</DisplayName>
+      <DisplayName>{profileData?.displayName}</DisplayName>
       <Details>
         <Detail>
           {CasesCompletedIcon}
-          {profileData.casesCompleted}
+          {profileData?.casesCompleted}
         </Detail>
         <Detail>
           {AverageRatingIcon}
-          {profileData.averageRating}
+          {profileData?.averageRating}
         </Detail>
       </Details>
     </Content>
@@ -68,7 +68,7 @@ const Detail = styled.span`
   }
 `;
 interface SideDrawerProfileProps {
-  profileData: User;
+  profileData?: User;
 }
 
 export default SideDrawerProfile;
