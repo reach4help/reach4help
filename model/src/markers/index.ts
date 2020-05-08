@@ -4,6 +4,11 @@ export { MarkerType };
 
 export const MARKER_COLLECTION_ID = 'markers';
 
+export const MARKERS_STORAGE_PATH = {
+  hidden: 'map-markers-public/data-hidden.json',
+  visible: 'map-markers-public/data-visible.json',
+};
+
 /**
  * Contact details capture various methods to contact an organization.
  */
@@ -31,7 +36,7 @@ export interface Location<GeoPoint> {
   /**
    *  Measured in Meters (per Google Maps standard)
    */
-  serviceRadius: number;
+  serviceRadius?: number;
 }
 
 export interface ContactGroup {
@@ -77,9 +82,17 @@ export interface MarkerInfo<GeoPoint>
    */
   visible: boolean;
   source?: {
-    name: 'hardcoded';
+    name: 'hardcoded' | 'mutualaid.wiki';
     id: string;
+    /**
+     * The original data from the other source that we derive our info from
+     */
+    data?: any;
   };
+}
+
+export interface MarkerInfoWithId<GeoPoint> extends MarkerInfo<GeoPoint> {
+  id: string;
 }
 
 export type OldMarkerInfo = EitherMarkerInfo<{

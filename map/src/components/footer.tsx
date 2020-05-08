@@ -89,7 +89,7 @@ export default styled(Footer)`
   max-width: 500px;
   display: flex;
   flex-wrap: wrap;
-  padding: 20px 0 30px;
+  padding: 50px 0 30px;
   font-size: 16px;
   line-height: 200%;
   justify-content: center;

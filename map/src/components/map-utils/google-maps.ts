@@ -42,31 +42,3 @@ export const haversineDistance = (
   dist *= 1609.344; // for meters
   return dist;
 };
-
-export const generateSortBasedOnMapCenter = (mapCenter: google.maps.LatLng) => (
-  a: google.maps.Marker,
-  b: google.maps.Marker,
-): number => {
-  const aPosition = a.getPosition();
-  const bPosition = b.getPosition();
-
-  if (aPosition && bPosition) {
-    const aFromCenter = haversineDistance(aPosition, mapCenter);
-    const bFromCenter = haversineDistance(bPosition, mapCenter);
-
-    if (aFromCenter > bFromCenter) {
-      return 1;
-    }
-    if (aFromCenter < bFromCenter) {
-      return -1;
-    }
-    return 0;
-  }
-  if (!aPosition) {
-    return -1;
-  }
-  if (!bPosition) {
-    return 1;
-  }
-  return 0;
-};
