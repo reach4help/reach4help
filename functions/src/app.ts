@@ -7,6 +7,10 @@ let internalDB: FirebaseFirestore.Firestore;
 let internalAuth: admin.auth.Auth | null;
 
 if (config.get('env') !== 'test') {
+  // firebase-functions import needs to happen before admin.initializeApp() as
+  // it populates the FIREBASE_CONFIG variable
+  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
+  require('firebase-functions');
   internalApp = admin.initializeApp();
   internalDB = admin.firestore();
   internalAuth = admin.auth();
