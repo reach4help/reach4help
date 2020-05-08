@@ -168,7 +168,7 @@ export const syncMutualAidWiki = functions
     timeoutSeconds: 540,
   })
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  .https.onRequest(async (_req, res) => {
+  .pubsub.schedule('every hour').onRun(async () => {
     const stats = beginningStats();
     console.log('Syncing with mutualaid.wiki');
     const existingMarkers = await MARKER_COLLECTION.where(SOURCE_NAME_FIELD_PATH, '==', SOURCE_NAME_FIELD_VALUE).get();
@@ -187,7 +187,4 @@ export const syncMutualAidWiki = functions
     }
     console.log('counts', existing.size, groups.length);
     console.log(`Sync with mutualaid.wiki complete, stats: ${JSON.stringify(stats)}`);
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600');
-    res.status(200).send(JSON.stringify(stats));
   });
