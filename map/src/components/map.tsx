@@ -446,7 +446,8 @@ class MapComponent extends React.Component<Props, State> {
       // Immidiately change the result list to the cluster instead
       // Don't update nextResults as we want that to still be for the current
       // viewport
-      const { setResults } = this.props;
+      const { setResults, setSelectedResult } = this.props;
+      setSelectedResult(null);
       setResults(
         {
           context: {
