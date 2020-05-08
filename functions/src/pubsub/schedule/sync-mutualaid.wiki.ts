@@ -151,7 +151,7 @@ const handleGroup = async (documents: ExistingDocuments, group: MutualAidWikiGro
   const doc = documents.get(group.id);
   if (doc) {
     const existingMarker = doc.data();
-    if (isEqual(existingMarker.source?.data, group)) {
+    if (isEqual(existingMarker.source?.data, group) && existingMarker.visible === marker.visible) {
       return 'existing';
     }
     await MARKER_COLLECTION.doc(doc.id).set(marker);
