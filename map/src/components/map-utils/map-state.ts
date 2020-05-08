@@ -133,11 +133,11 @@ class MapState {
     }
   };
 
-  public set updateResultsOnNextClustering(update: boolean) {
+  public set updateResultsOnNextBoundsChange(update: boolean) {
     this._updateResultsOnNextClustering = update;
   }
 
-  public get updateResultsOnNextClustering() {
+  public get updateResultsOnNextBoundsChange() {
     return this._updateResultsOnNextClustering;
   }
 }
