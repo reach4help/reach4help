@@ -13,11 +13,7 @@ import { isDefined } from 'src/util';
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
 import { AppContext } from './context';
-import {
-  createGoogleMap,
-  generateSortBasedOnMapCenter,
-  haversineDistance,
-} from './map-utils/google-maps';
+import { createGoogleMap, haversineDistance } from './map-utils/google-maps';
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
@@ -366,7 +362,8 @@ class MapComponent extends React.Component<Props, {}> {
       // Immidiately change the result list to the cluster instead
       // Don't update nextResults as we want that to still be for the current
       // viewport
-      this.updateResultsTo(
+      const { setResults } = this.props;
+      setResults(
         {
           context: {
             bounds: map.getBounds() || null,
@@ -442,10 +439,6 @@ class MapComponent extends React.Component<Props, {}> {
           }),
         );
 
-        // Sort markers based on distance from center of screen
-        const mapCenter = map.getCenter();
-        visibleMarkers.sort(generateSortBasedOnMapCenter(mapCenter));
-
         // Store the next results in the state
         const nextResults: ResultsSet = {
           context: {
@@ -464,6 +457,7 @@ class MapComponent extends React.Component<Props, {}> {
           setNextResults: updateNextResults,
           resultsOpen,
           selectedResult,
+          setResults,
         } = this.props;
 
         updateNextResults(nextResults);
@@ -479,7 +473,7 @@ class MapComponent extends React.Component<Props, {}> {
           (!resultsOpen && !selectedResult)
         ) {
           mapState().updateResultsOnNextClustering = false;
-          this.updateResultsTo(nextResults, false);
+          setResults(nextResults, false);
         }
         // Update tooltip position if neccesary
         // (marker may be newly in or out of cluster)
@@ -490,30 +484,9 @@ class MapComponent extends React.Component<Props, {}> {
 
   private updateResults = () => {
     const { map } = mapState();
-    const { results, nextResults } = this.props;
+    const { results, nextResults, setResults } = this.props;
     if (map && nextResults && results !== nextResults) {
-      this.updateResultsTo(nextResults, false);
-    }
-  };
-
-  private updateResultsTo = (results: ResultsSet, openResults: boolean) => {
-    const { map } = mapState();
-    const { setResults } = this.props;
-    if (map) {
-      // Clear all existing marker labels
-      for (const set of MARKER_SET_KEYS) {
-        map.activeMarkers[set].forEach(marker => marker.setLabel(''));
-      }
-      const { activeMarkers } = map;
-      const visibleMarkers = results.results
-        .map(({ id }) => activeMarkers[id.set].get(id.id))
-        .filter(isDefined);
-      // Relabel marker labels based on theri index
-      visibleMarkers.forEach((marker, index) => {
-        marker.setLabel((index + 1).toString());
-      });
-      // Update the new results state
-      setResults(results, openResults);
+      setResults(nextResults, false);
     }
   };
 
