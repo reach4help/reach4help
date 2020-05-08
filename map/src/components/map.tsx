@@ -123,7 +123,6 @@ class MapComponent extends React.Component<Props, State> {
     // Update filter if changed
     if (map && !isEqual(filter, map.currentFilter)) {
       this.updateMarkersVisibilityUsingFilter(filter);
-      map.markerClusterer.repaint();
       map.currentFilter = filter;
     }
     if (nextResults && !results) {
