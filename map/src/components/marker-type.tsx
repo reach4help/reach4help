@@ -1,7 +1,8 @@
+import { MarkerType } from '@reach4help/model/lib/markers/type';
 import React from 'react';
 import { t } from 'src/i18n';
 
-import { MARKER_TYPES, MarkerType, SERVICES } from '../data';
+import { MARKER_TYPES, SERVICES } from '../data';
 import styled from '../styling';
 import { AppContext } from './context';
 

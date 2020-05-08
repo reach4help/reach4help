@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@reach4help/model": "^0.0.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -15,6 +16,8 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-helmet": "^5.0.15",
     "@types/react-icons": "^3.0.0",
+    "@types/react-select": "^3.0.12",
+    "firebase": "^7.14.2",
     "intl-messageformat": "^8.3.7",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
@@ -22,12 +25,16 @@
     "react-helmet": "^6.0.0",
     "react-icons": "^3.9.0",
     "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
     "styled-components": "^5.0.1",
     "typescript": "~3.7.2"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "clean": "rm -rf build",
+    "build-deps": "yarn --cwd ../model run build",
     "build": "react-scripts build",
+    "build-netlify": "yarn run build-deps && yarn run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts,.tsx && prettier --check \"./**/*.{ts,tsx}\"",

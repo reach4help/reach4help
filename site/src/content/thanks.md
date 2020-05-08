@@ -13,7 +13,12 @@ Below are just a few of them that make what we do possible:
 - [Google Maps](https://cloud.google.com/maps-platform/)
 - [Datadog](https://www.datadoghq.com)
 - [Slack](https://slack.com/intl/en-gb/resources/using-slack/covid-help)
-- [Algolia](https://www.algolia.com/covid-19/)
+- [Algolia](https://www.algolia.com)
+- [Canva](https://www.canva.com)
+- [Figma](https://www.figma.com)
+- [AirTable](https://www.airtable.com)
+- [Typeform](https://www.typeform.com)
+- [Twilio](https://www.twilio.com)
 
 More partnerships are in the works and we could gladly use additional support
 

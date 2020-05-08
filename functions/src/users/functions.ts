@@ -1,25 +1,45 @@
 import { validateOrReject } from 'class-validator';
 import { EventContext } from 'firebase-functions/lib/cloud-functions';
-import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import { IUser, User } from '../models/users';
 import * as admin from 'firebase-admin';
+import { auth, db } from '../app';
+import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
-admin.initializeApp();
-const db = admin.firestore();
-
-const validateUser = (value: IUser): Promise<void> => {
+export const validateUser = (value: IUser): Promise<void> => {
   return validateOrReject(User.factory(value)).then(() => {
     return Promise.resolve();
   });
 };
 
+export const setIsUserPin = (userId: string, status: boolean): Promise<void> => {
+  if (!auth) {
+    return Promise.resolve();
+  }
+
+  return auth?.setCustomUserClaims(userId, { pin: status });
+};
+
+export const setIsUserCav = (userId: string, status: boolean): Promise<void> => {
+  if (!auth) {
+    return Promise.resolve();
+  }
+
+  return auth?.setCustomUserClaims(userId, { cav: status });
+};
+
 export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateUser(snapshot.data() as IUser)
-    .catch(errors => {
-      console.error('Invalid User Found: ', errors);
+    .then(() => {
+      const operations: Promise<void>[] = [];
+      return Promise.all(operations);
+    })
+    .catch(() => {
       return db
         .collection('users')
         .doc(context.params.userId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
 };

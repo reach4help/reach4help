@@ -1,0 +1,31 @@
+{
+  "name": "@reach4help/model",
+  "version": "0.0.1",
+  "scripts": {
+    "lint": "eslint src tests --ext .ts && prettier --check \"{src,tests}/**/*.ts\"",
+    "lint:fix": "eslint src tests --fix --ext .ts && prettier --write \"{src,tests}/**/*.ts\"",
+    "clean": "rm -rf lib",
+    "build": "rm -rf lib && tsc --build src/tsconfig.json",
+    "test": "yarn run jest",
+    "pre-commit": "lint-staged"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint src tests --fix --ext .ts",
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "prettier": "^2.0.2",
+    "ts-jest": "^25.3.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+  }
+}

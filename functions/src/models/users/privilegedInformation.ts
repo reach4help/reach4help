@@ -18,7 +18,7 @@ interface IUserAddress {
 
 export interface IPrivilegedUserInformation extends DocumentData {
   addressFromGoogle: google.maps.GeocoderResult;
-  address: IUserAddress
+  address: IUserAddress;
   termsAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
   privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
@@ -26,10 +26,9 @@ export interface IPrivilegedUserInformation extends DocumentData {
 }
 
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
-
   constructor(
     addressFromGoogle: google.maps.GeocoderResult,
-    address: IUserAddress, 
+    address: IUserAddress,
     privacyAccepted: Timestamp,
     privacyVersion: string,
     termsAccepted: Timestamp,
@@ -44,7 +43,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _addressFromGoogle : google.maps.GeocoderResult;
+  private _addressFromGoogle: google.maps.GeocoderResult;
 
   get addressFromGoogle(): google.maps.GeocoderResult {
     return this._addressFromGoogle;
@@ -55,7 +54,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _address : IUserAddress;
+  private _address: IUserAddress;
 
   get address(): IUserAddress {
     return this._address;

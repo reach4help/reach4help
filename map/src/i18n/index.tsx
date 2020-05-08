@@ -5,8 +5,12 @@ import React from 'react';
 import { Strings } from './iface';
 import ar from './langs/ar';
 import en from './langs/en';
+import es from './langs/es';
 import fr from './langs/fr';
+import hi from './langs/hi';
 import pt from './langs/pt';
+import tr from './langs/tr';
+import zh from './langs/zh';
 
 const LOCAL_STORAGE_KEY = 'selectedLanguage';
 const QUERY_PARAM = 'lang';
@@ -15,8 +19,12 @@ export const LANGUAGES = {
   en,
   // Fill in missing strings with english
   ar: merge({}, en, ar),
+  es: merge({}, en, es),
   fr: merge({}, en, fr),
+  hi: merge({}, en, hi),
   pt: merge({}, en, pt),
+  tr: merge({}, en, tr),
+  zh: merge({}, en, zh),
 };
 
 export type Language = keyof typeof LANGUAGES;
@@ -106,7 +114,7 @@ export const { addListener } = manager;
 export const { removeListener } = manager;
 
 interface Placeholders {
-  [key: string]: JSX.Element;
+  [key: string]: (key: number) => JSX.Element;
 }
 
 interface FormatValues {
@@ -115,7 +123,7 @@ interface FormatValues {
 
 const placeholderExtraction = /^([^{]*)\{(\w+)\}(.*)/;
 
-export function t(lang: Language, extract: (s: Strings) => string): string;
+export function t<T>(lang: Language, extract: (s: Strings) => T): T;
 export function t(
   lang: Language,
   extract: (s: Strings) => string,
@@ -135,18 +143,20 @@ export function t(
   while (next) {
     const e = placeholderExtraction.exec(next);
     if (!e) {
-      components.push(<span>{next}</span>);
+      components.push(<span key={components.length}>{next}</span>);
       next = null;
     } else {
       const [, prev, placeholderTag, remaining] = e;
-      components.push(<span>{prev}</span>);
+      components.push(<span key={components.length}>{prev}</span>);
       const component = placeholders[placeholderTag];
       if (!component) {
         // eslint-disable-next-line no-console
         console.log('Unknown i18n placeholder:', placeholderTag);
       }
       components.push(
-        component || <span style={{ color: '#f00' }}>ERROR</span>,
+        component(components.length) || (
+          <span style={{ color: '#f00' }}>ERROR</span>
+        ),
       );
       next = remaining;
     }
@@ -170,7 +180,7 @@ export const format = (
   if (!cache) {
     langCache.set(str, (cache = new IntlMessageFormat(str, lang)));
   }
-  return cache.format(values);
+  return cache.format(values) as string;
 };
 
 export const canonicalUrl = (lang: Language) => {

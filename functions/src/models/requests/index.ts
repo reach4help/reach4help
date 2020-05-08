@@ -1,19 +1,8 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import {
-  Allow,
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsNotEmptyObject,
-  IsObject,
-  IsString,
-  Max,
-  Min,
-  ValidateNested,
-} from 'class-validator';
+import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, Max, Min, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
-import { IUser, User, UserFirestoreConverter } from '../users';
+import { IUser, User } from '../users';
 import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
@@ -249,19 +238,19 @@ export class Request implements IRequest {
 
   toObject(): object {
     return {
-      cavUserRef: this.cavUserRef?.path,
-      pinUserRef: this.pinUserRef.path,
+      cavUserRef: this.cavUserRef,
+      pinUserRef: this.pinUserRef,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
       description: this.description,
       latLng: this.latLng,
       status: this.status,
-      createdAt: this.createdAt.toDate(),
-      updatedAt: this.updatedAt.toDate(),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
       pinRating: this.pinRating,
       cavRating: this.cavRating,
-      pinRatedAt: this.pinRatedAt?.toDate(),
-      cavRatedAt: this.cavRatedAt?.toDate(),
+      pinRatedAt: this.pinRatedAt,
+      cavRatedAt: this.cavRatedAt,
     };
   }
 }
@@ -271,22 +260,6 @@ export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
     return Request.factory(data.data());
   },
   toFirestore: (modelObject: Request): DocumentData => {
-    return {
-      cavUserRef: modelObject.cavUserRef,
-      pinUserRef: modelObject.pinUserRef,
-      pinUserSnapshot: UserFirestoreConverter.toFirestore(
-        modelObject.pinUserSnapshot,
-      ),
-      title: modelObject.title,
-      description: modelObject.description,
-      latLng: modelObject.latLng,
-      status: modelObject.status,
-      createdAt: modelObject.createdAt,
-      updatedAt: modelObject.updatedAt,
-      pinRating: modelObject.pinRating,
-      cavRating: modelObject.cavRating,
-      pinRatedAt: modelObject.pinRatedAt,
-      cavRatedAt: modelObject.cavRatedAt,
-    };
+    return modelObject.toObject();
   },
 };

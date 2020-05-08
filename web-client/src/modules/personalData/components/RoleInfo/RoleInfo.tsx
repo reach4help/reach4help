@@ -3,6 +3,7 @@ import { Button, Col, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import { ApplicationPreference } from 'src/models/users';
 import styled from 'styled-components';
 
 import cav from '../../assets/role_cav.png';
@@ -12,7 +13,9 @@ const StyledIntro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 50px;
+  @media (min-width: 576px) {
+    padding: 50px 50px;
+  }
 `;
 
 const Container = styled.div`
@@ -28,22 +31,37 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 310px;
+  @media (min-width: 480px) {
+    width: 310px;
+  }
+  min-width: 270px;
   height: 290px;
 `;
 
 const Pin = styled.img``;
 const Cav = styled.img``;
 
-const RoleInfo: React.FC = (): React.ReactElement => {
+interface RoleInfoProps {
+  chooseApplicationPreference: Function;
+}
+
+const RoleInfo: React.FC<RoleInfoProps> = ({
+  chooseApplicationPreference,
+}): React.ReactElement => {
   const { t } = useTranslation();
   // i18n.changeLanguage('pt-PT');
   return (
-    <StyledIntro>
+    <StyledIntro className="withContentPaddingDesktop">
       <TitleWithAddon level={2}>{t('roleinfo.sub_title')}</TitleWithAddon>
       <Container>
-        <Row>
-          <Col span={12}>
+        <Row gutter={12}>
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
+            span={12}
+            xs={24}
+            sm={24}
+            md={12}
+          >
             <Box>
               <Pin src={pin} />
 
@@ -53,12 +71,21 @@ const RoleInfo: React.FC = (): React.ReactElement => {
                 type="default"
                 shape="round"
                 icon={<AlertTwoTone twoToneColor="#FF7B02" />}
+                onClick={() =>
+                  chooseApplicationPreference(ApplicationPreference.pin)
+                }
               >
                 {t('roleinfo.c2a_pin')}
               </Button>
             </Box>
           </Col>
-          <Col span={12}>
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
+            span={12}
+            xs={24}
+            sm={24}
+            md={12}
+          >
             <Box>
               <Cav src={cav} />
               <p>{t('roleinfo.info_cav')}</p>
@@ -67,6 +94,9 @@ const RoleInfo: React.FC = (): React.ReactElement => {
                 type="default"
                 shape="round"
                 icon={<HeartTwoTone twoToneColor="#C0458A" />}
+                onClick={() =>
+                  chooseApplicationPreference(ApplicationPreference.cav)
+                }
               >
                 {t('roleinfo.c2a_cav')}
               </Button>
