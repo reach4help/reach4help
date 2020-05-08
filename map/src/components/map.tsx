@@ -366,8 +366,7 @@ class MapComponent extends React.Component<Props, State> {
         'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
       ignoreHidden: true,
       zoomOnClick: false,
-      averageCenter: true,
-      gridSize: 50,
+      minimumClusterSize: 6,
     });
 
     const m: MapInfo = {
