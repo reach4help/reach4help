@@ -25,6 +25,36 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "map",
+      "public": "map/build",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "public": "api/public",
+      "target": "api",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/edge/map/data",
+          "function": "https-api-map-data"
+        }
+      ]
     }
   ],
   "storage": {

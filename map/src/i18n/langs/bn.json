@@ -1,31 +1,51 @@
 {
   "title": "কভিড-১৯ পারস্পরিক সাহায্যের মানচিত্র",
-  "info": "লোকেরা যেখানে বাস করেন তাদের পারস্পরিক সহায়তা প্রচেষ্টার সন্ধানে ও যোগ দিতে সহায়তা করার জন্য, তাদের নিজস্ব শুরু করার অনুপ্রেরণা সরবরাহ করুন, এবং / অথবা কেবল প্রফুল্লতা তুলুন, নীচে পারস্পরিক সহায়তা মহামারী দুর্যোগ যত্ন প্রকল্পের ক্রমবর্ধমান তালিকা রয়েছে। দ্রষ্টব্য: প্রতিটি প্রকল্প স্বায়ত্তশাসিত এবং স্ব-সংগঠিত; অনেকে তথ্য ভাগ করে নেওয়ার জন্য পাবলিক স্প্রেডশিট ব্যবহার করেন, তাই ব্যক্তিগত তথ্য প্রবেশের সময় সতর্ক থাকুন যা আপনি সর্বজনীন হতে চান না।",
-  "about": "এই মানচিত্রটি একটি স্বেচ্ছাসেবক-পরিচালিত প্রকল্প {reach4help}। এটি ওপেন সোর্স এবং এটি {githubSource} হতে পারে} কোনও অনুসন্ধানের জন্য, আপনি আমাদের কাছে ই-মেইল দ্বারা পৌঁছাতে পারেন।",
-  "githubSourceLabel": "গিটহাবে পাওয়া",
+  "aboutScreen": {
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "গিটহাবে পাওয়া",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasLocations": {
+      "france": "ফ্রান্স",
+      "nyc": "নিউ ইয়র্ক",
+      "uk": "ইউনাইটেড কিংডম"
+    }
+  },
+  "menu": {
+    "about": "সম্পর্কে",
+    "map": "View Map"
+  },
+  "social": {
+    "email": "Email Us",
+    "twitter": "Follow us on Twitter",
+    "facebook": "Like us on Facebook",
+    "github": "Find us on GitHub"
+  },
   "addInformation": {
-    "small": "Add information",
-    "large": "Add information to this map",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "button": "তথ্য সম্পাদনা করুন",
+    "backToMap": "মানচিত্রে ফিরুন",
+    "prev": "পূর্বে",
+    "continue": "চালিয়ে",
+    "submit": "জমা করুন",
+    "addMore": "আরও তথ্য যুক্ত করুন",
+    "tryAgain": "আবার চেষ্টা করুন",
     "screen": {
-      "title": "Add information to this map",
+      "title": "এই মানচিত্রে তথ্য যুক্ত করুন",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
-        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "acceptedInformation": "এই মুহুর্তে, আমরা কেবল সহায়তা বা সহায়তা প্রদানকারী সংস্থা বা সংস্থাগুলি, অঞ্চল-নির্দিষ্ট আর্থিক সহায়তার উদ্যোগ এবং পারস্পরিক সহায়তা গোষ্ঠীগুলির তথ্য রাখছি। এই মুহুর্তে ব্যক্তিদের সহায়তা দেওয়ার বিষয়ে আমরা কোনও তথ্য গ্রহণ করছি না।",
+        "intro": "তথ্য যুক্ত করতে নীচের ফর্মটি পূরণ করুন, আমরা আপনাকে তার পরে অবস্থান এবং যোগাযোগের বিশদ জানতে চাইব।",
         "form": {
-          "type": "Type of project / group / organization / initiative",
-          "typePleaseSelect": "Please select type",
-          "services": "Services or support that this organization / company provides",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
+          "type": "প্রকল্প / গোষ্ঠী / সংস্থা / উদ্যোগের ধরণ",
+          "typePleaseSelect": "টাইপ নির্বাচন করুন",
+          "services": "এই সংস্থা / সংস্থা সরবরাহ করে এমন পরিষেবা বা সহায়তা",
+          "name": "প্রকল্প / গোষ্ঠী / সংস্থার নাম",
+          "namePlaceholder": "উদাহরণস্বরূপ মিউচুয়াল এইড এন্টার্কটিকা",
+          "description": "(ঐচ্ছিক) প্রকল্প / গোষ্ঠী / সংস্থার বিশদ বিবরণ এবং পারস্পরিক সহায়তার সুবিধার্থে এটি কী লক্ষ্য করে",
+          "locationName": "পরিবেশিত ভৌগলিক অঞ্চলটির বর্ণনা দিন উদাহরণস্বরূপ দেশ, রাজ্য, কাউন্টি, শহর ইত্যাদি ...",
+          "locationNamePlaceholder": "যেমন: সান ফ্রান্সিসকো বে এরিয়া, সিএ, মার্কিন যুক্তরাষ্ট্র",
           "continue": "Click continue to enter location information"
         }
       },
@@ -127,11 +147,9 @@
     "myLocation": "আমার অবস্থান"
   },
   "results": {
-    "updateResults": {
-      "small": "Update results",
-      "large": "Update results for map area"
-    },
-    "count": "{results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "backToResults": "Back to results",
+    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "contact": {
       "general": "সাধারণ তথ্য:",
       "getHelp": "সাহায্য নিন:",
@@ -145,6 +163,16 @@
     "netlifyNote": "এই মানচিত্রটি {link}",
     "netlifyLinkText": "নেটলিফায় দ্বারা হোস্ট করা হয়েছে",
     "githubRepo": "গিটহাব (GitHub) রিপো",
-    "codeOfConduct": "Code of Conduct"
+    "codeOfConduct": "Code of Conduct",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
+  },
+  "hiddenMarkers": {
+    "visiblility": "Visibility: {visibility}",
+    "filter": {
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
+    }
   }
 }

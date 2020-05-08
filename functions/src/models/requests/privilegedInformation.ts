@@ -9,10 +9,7 @@ export interface IPrivilegedRequestInformation extends DocumentData {
 }
 
 export class PrivilegedRequestInformation implements IPrivilegedRequestInformation {
-
-  constructor(
-    address: google.maps.GeocoderResult,
-  ) {
+  constructor(address: google.maps.GeocoderResult) {
     this._address = address;
   }
 
@@ -27,10 +24,7 @@ export class PrivilegedRequestInformation implements IPrivilegedRequestInformati
     this._address = value;
   }
 
-  static factory = (data: IPrivilegedRequestInformation): PrivilegedRequestInformation =>
-    new PrivilegedRequestInformation(
-      data.address,
-    );
+  static factory = (data: IPrivilegedRequestInformation): PrivilegedRequestInformation => new PrivilegedRequestInformation(data.address);
 
   toObject(): object {
     return {

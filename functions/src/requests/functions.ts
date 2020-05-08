@@ -1,4 +1,3 @@
-import * as firebaseTest from '@firebase/testing';
 import { validateOrReject } from 'class-validator';
 import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
@@ -7,25 +6,8 @@ import * as moment from 'moment';
 import { indexRequest, removeRequestFromIndex } from '../algolia';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { UserFirestoreConverter } from '../models/users';
+import { db } from '../app';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
-
-const projectId = 'reach-4-help-test';
-
-let db: any = undefined;
-let test = true;
-
-if(process.env.FIREBASE_CONFIG){
-  let config = JSON.parse(process.env.FIREBASE_CONFIG);
-  if(config.databaseURL && config.databaseURL !== 'undefined'){
-    admin.initializeApp();
-    db = admin.firestore();
-    test = false;
-  }
-}
-
-if(test){
-  db = firebaseTest.initializeAdminApp({ projectId }).firestore();
-}
 
 const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefore: Request | null, requestAfter: Request | null) => {
   // We have a new CAV rating -  Update CAV rating average but only this time.
@@ -67,7 +49,7 @@ const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefo
         operations.push(
           requestAfter.cavUserRef.update({
             averageRating: newAverage,
-            cavRatingsReceived: cavRatingsReceived,
+            cavRatingsReceived,
           }),
         );
       }
@@ -186,9 +168,11 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
       return db
         .collection('requests')
         .doc(context.params.requestId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
-
 };
 
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
@@ -196,14 +180,15 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
     .then(() => {
       return Promise.all([queueStatusUpdateTriggers(change), queueRatingUpdatedTriggers(change), indexRequest(change.after)]);
     })
-    .catch(errors => {
-      console.error('Invalid Request Found: ', errors);
+    .catch(() => {
       return db
         .collection('requests')
         .doc(context.params.requestId)
-        .delete();
+        .delete()
+        .catch(() => {
+          return Promise.resolve();
+        });
     });
-
 };
 
 export const deleteRequest = (snapshot: DocumentSnapshot) => removeRequestFromIndex(snapshot);

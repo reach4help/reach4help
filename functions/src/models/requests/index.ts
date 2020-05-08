@@ -1,16 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import {
-  Allow,
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsNotEmptyObject,
-  IsObject,
-  IsString,
-  Max,
-  Min,
-  ValidateNested,
-} from 'class-validator';
+import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, Max, Min, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
 import { IUser, User } from '../users';

@@ -23,7 +23,6 @@ export interface ITimelineItem extends DocumentData {
  * are created automatically by the system based on status changes.
  */
 export class TimelineItem implements ITimelineItem {
-
   constructor(
     offerRef: DocumentReference<DocumentData>,
     requestRef: DocumentReference<DocumentData>,

@@ -1,3 +1,12 @@
+import { ContactDetails, ContactGroup } from '@reach4help/model/lib/markers';
+import {
+  isMarkerType,
+  isService,
+  MARKER_TYPE_STRINGS,
+  MarkerType,
+  Service,
+  SERVICE_STRINGS,
+} from '@reach4help/model/lib/markers/type';
 import firebase from 'firebase/app';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
@@ -11,25 +20,12 @@ import {
   MdRefresh,
 } from 'react-icons/md';
 import Search from 'src/components/search';
-import { submitInformation } from 'src/data/firebase';
-import {
-  ContactDetails,
-  ContactGroup,
-  Location,
-  MarkerInfo,
-} from 'src/data/markers';
+import { Location, MarkerInfo, submitInformation } from 'src/data/firebase';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
+import { trackEvent } from 'src/util/tracking';
 
-import {
-  isMarkerType,
-  isService,
-  MARKER_TYPE_STRINGS,
-  MarkerType,
-  Service,
-  SERVICE_STRINGS,
-} from '../data';
 import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
   button,
@@ -379,32 +375,48 @@ class AddInstructions extends React.Component<Props, State> {
         t(lang, s => s.addInformation.errors.missingType),
       );
       validation.invalidInputs.push(FORM_INPUT_NAMES.type);
-    } else if (
-      info.type.type === 'org' &&
-      (info.type.services || []).length === 0
-    ) {
+    } else if (info.type.type === 'mutual-aid-group') {
       validation.errors.push(lang =>
-        t(lang, s => s.addInformation.errors.missingServices),
+        t(lang, s => s.addInformation.errors.mutualAidGroupsNotAccepted, {
+          link: key => (
+            <a
+              key={key}
+              href="https://mutualaid.wiki/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Mutual Aid Wiki
+            </a>
+          ),
+        }),
       );
-      validation.invalidInputs.push(FORM_INPUT_NAMES.services);
-    }
-    if (!info.contentTitle) {
-      validation.errors.push(lang =>
-        t(lang, s => s.addInformation.errors.missingTitle),
-      );
-      validation.invalidInputs.push(FORM_INPUT_NAMES.name);
-    }
-    if (!info.loc?.description) {
-      validation.errors.push(lang =>
-        t(lang, s => s.addInformation.errors.missingLocationName),
-      );
-      validation.invalidInputs.push(FORM_INPUT_NAMES.locationName);
+    } else {
+      if (info.type.type === 'org' && (info.type.services || []).length === 0) {
+        validation.errors.push(lang =>
+          t(lang, s => s.addInformation.errors.missingServices),
+        );
+        validation.invalidInputs.push(FORM_INPUT_NAMES.services);
+      }
+      if (!info.contentTitle) {
+        validation.errors.push(lang =>
+          t(lang, s => s.addInformation.errors.missingTitle),
+        );
+        validation.invalidInputs.push(FORM_INPUT_NAMES.name);
+      }
+      if (!info.loc?.description) {
+        validation.errors.push(lang =>
+          t(lang, s => s.addInformation.errors.missingLocationName),
+        );
+        validation.invalidInputs.push(FORM_INPUT_NAMES.locationName);
+      }
     }
     if (validation.errors.length > 0) {
       this.setState({ validation });
+      trackEvent('data-entry', 'complete-info-error');
     } else {
       this.setAddInfoStep('place-marker');
       this.setState({ validation: undefined });
+      trackEvent('data-entry', 'complete-info');
     }
   };
 
@@ -425,9 +437,11 @@ class AddInstructions extends React.Component<Props, State> {
     }
     if (validation.errors.length > 0) {
       this.setState({ validation });
+      trackEvent('data-entry', 'complete-placement-error');
     } else {
       this.setAddInfoStep('contact-details');
       this.setState({ validation: undefined });
+      trackEvent('data-entry', 'complete-placement');
     }
   };
 
@@ -543,6 +557,7 @@ class AddInstructions extends React.Component<Props, State> {
       }
       if (validation.errors.length > 0) {
         this.setState({ validation });
+        trackEvent('data-entry', 'complete-contact-info-error');
       } else {
         this.setAddInfoStep('submitted');
         this.setState({ validation: undefined, submissionResult: undefined });
@@ -569,6 +584,7 @@ class AddInstructions extends React.Component<Props, State> {
               }),
           );
         }
+        trackEvent('data-entry', 'complete-contact-info');
       }
     });
   };
@@ -577,6 +593,7 @@ class AddInstructions extends React.Component<Props, State> {
     this.setState(INITIAL_STATE);
     this.setAddInfoStep('information');
     this.removeMarkers();
+    trackEvent('data-entry', 'add-more');
   };
 
   private validatedInput = (
@@ -964,55 +981,89 @@ class AddInstructions extends React.Component<Props, State> {
                     );
                   })}
 
-                  {this.formTextInput(
-                    FORM_INPUT_NAMES.name,
-                    t(lang, s => s.addInformation.screen.information.form.name),
-                    info.contentTitle || '',
-                    t(
-                      lang,
-                      s =>
-                        s.addInformation.screen.information.form
-                          .namePlaceholder,
-                    ),
+                  {info.type?.type === 'mutual-aid-group' && (
+                    <p className="info-box">
+                      {t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.mutualAidInstead,
+                        {
+                          link: key => (
+                            <a
+                              key={key}
+                              href="https://mutualaid.wiki/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Mutual Aid Wiki
+                            </a>
+                          ),
+                        },
+                      )}
+                    </p>
                   )}
 
-                  {this.formTextInput(
-                    FORM_INPUT_NAMES.description,
-                    t(
-                      lang,
-                      s => s.addInformation.screen.information.form.description,
-                    ),
-                    info.contentBody || '',
-                    t(
-                      lang,
-                      s =>
-                        s.addInformation.screen.information.form
-                          .namePlaceholder,
-                    ),
-                  )}
-
-                  {this.formTextInput(
-                    FORM_INPUT_NAMES.locationName,
-                    t(
-                      lang,
-                      s =>
-                        s.addInformation.screen.information.form.locationName,
-                    ),
-                    info.loc?.description || '',
-                    t(
-                      lang,
-                      s =>
-                        s.addInformation.screen.information.form
-                          .locationNamePlaceholder,
-                    ),
-                  )}
-
-                  <p>
-                    {t(
-                      lang,
-                      s => s.addInformation.screen.information.form.continue,
+                  {info.type &&
+                    info.type.type !== 'mutual-aid-group' &&
+                    this.formTextInput(
+                      FORM_INPUT_NAMES.name,
+                      t(
+                        lang,
+                        s => s.addInformation.screen.information.form.name,
+                      ),
+                      info.contentTitle || '',
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form
+                            .namePlaceholder,
+                      ),
                     )}
-                  </p>
+
+                  {info.type &&
+                    info.type.type !== 'mutual-aid-group' &&
+                    this.formTextInput(
+                      FORM_INPUT_NAMES.description,
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form.description,
+                      ),
+                      info.contentBody || '',
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form
+                            .namePlaceholder,
+                      ),
+                    )}
+
+                  {info.type &&
+                    info.type.type !== 'mutual-aid-group' &&
+                    this.formTextInput(
+                      FORM_INPUT_NAMES.locationName,
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form.locationName,
+                      ),
+                      info.loc?.description || '',
+                      t(
+                        lang,
+                        s =>
+                          s.addInformation.screen.information.form
+                            .locationNamePlaceholder,
+                      ),
+                    )}
+
+                  {info.type && info.type.type !== 'mutual-aid-group' && (
+                    <p>
+                      {t(
+                        lang,
+                        s => s.addInformation.screen.information.form.continue,
+                      )}
+                    </p>
+                  )}
 
                   {validation && (
                     <ul className="errors">
@@ -1196,6 +1247,12 @@ export default styled(AddInstructions)`
 
     > h2 {
       margin-top: 0;
+    }
+
+    p.info-box {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 5px;
+      padding: 20px 16px;
     }
 
     label,

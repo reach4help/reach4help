@@ -1,10 +1,10 @@
+import { ContactDetails } from '@reach4help/model/lib/markers';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdEmail, MdLanguage, MdPhone } from 'react-icons/md';
+import { MdEmail, MdExpandMore, MdLanguage, MdPhone } from 'react-icons/md';
 import Chevron from 'src/components/assets/chevron';
 import Refresh from 'src/components/assets/refresh';
 import { MarkerIdAndInfo, ResultsSet } from 'src/components/map';
-import { ContactDetails } from 'src/data/markers';
 import { format, Language, t } from 'src/i18n';
 
 import styled from '../styling';
@@ -20,7 +20,16 @@ interface Props {
   setOpen: (open: boolean) => void;
   selectedResult: MarkerIdAndInfo | null;
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
+  showMoreResults: (count: number) => void;
 }
+
+const SOURCES = {
+  'mutualaid.wiki': {
+    label: 'mutualaid.wiki',
+    href: 'https://mutualaid.wiki/',
+  },
+  hardcoded: null,
+};
 
 const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
   if (!info) {
@@ -115,8 +124,18 @@ class Results extends React.PureComponent<Props, {}> {
       open,
       selectedResult,
       setSelectedResult,
+      showMoreResults,
     } = this.props;
-    const canUpdateResults = !isEqual(results, nextResults);
+    const canUpdateResults =
+      !isEqual(results?.context, nextResults?.context) ||
+      !isEqual(results?.results, nextResults?.results);
+    const selectedResultSource =
+      selectedResult?.info.source && SOURCES[selectedResult.info.source.name];
+    const selectedResultSentenceType =
+      selectedResult?.info.type.type === 'mutual-aid-group' ||
+      selectedResult?.info.type.type === 'org'
+        ? selectedResult.info.type.type
+        : 'project';
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -158,34 +177,82 @@ class Results extends React.PureComponent<Props, {}> {
             )}
             <div className="grow">
               <div className="list">
-                {(results?.results || []).map((result, index) => (
-                  <div
-                    key={index}
-                    className="result"
-                    onClick={() => setSelectedResult(result)}
-                  >
-                    <div className="number">{index + 1}</div>
-                    <div className="info">
-                      {result.info.loc.description && (
-                        <div className="location">
-                          {result.info.loc.description}
-                        </div>
-                      )}
-                      <div className="name">{result.info.contentTitle}</div>
-                      <MarkerType type={result.info.type} />
+                {(results?.results || [])
+                  .slice(0, results?.showRows)
+                  .map((result, index) => (
+                    <div
+                      key={index}
+                      className="result"
+                      onClick={() => setSelectedResult(result)}
+                    >
+                      <div className="number">{index + 1}</div>
+                      <div className="info">
+                        {result.info.loc.description && (
+                          <div className="location">
+                            {result.info.loc.description}
+                          </div>
+                        )}
+                        <div className="name">{result.info.contentTitle}</div>
+                        <MarkerType type={result.info.type} />
+                      </div>
                     </div>
+                  ))}
+                {results && results.showRows < results.results.length && (
+                  <div className="show-more">
+                    <button onClick={() => showMoreResults(10)} type="button">
+                      <MdExpandMore />
+                      <span>{t(lang, s => s.results.showMore)}</span>
+                      <MdExpandMore />
+                    </button>
                   </div>
-                ))}
+                )}
               </div>
               {selectedResult && (
                 <div className="details">
+                  <div className="disclaimer">
+                    <strong>
+                      {t(lang, s => s.results.details.disclaimer.header)}
+                    </strong>
+                    <br />
+                    {t(lang, s => s.results.details.disclaimer.content)}
+                  </div>
                   <div className="name">{selectedResult.info.contentTitle}</div>
                   {selectedResult.info.loc.description && (
                     <div className="location">
                       {selectedResult.info.loc.description}
                     </div>
                   )}
-                  <MarkerType type={selectedResult.info.type} />
+                  <MarkerType
+                    className="marker-type"
+                    type={selectedResult.info.type}
+                  />
+                  {selectedResultSource && (
+                    <div className="source">
+                      {t(lang, s => s.results.details.source, {
+                        type: key => (
+                          <span key={key}>
+                            {t(
+                              lang,
+                              s =>
+                                s.markerTypeSentence[
+                                  selectedResultSentenceType
+                                ],
+                            )}
+                          </span>
+                        ),
+                        source: key => (
+                          <a
+                            key={key}
+                            href={selectedResultSource.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {selectedResultSource.label}
+                          </a>
+                        ),
+                      })}
+                    </div>
+                  )}
                   {selectedResult.info.contentBody && (
                     <div className="content">
                       {selectedResult.info.contentBody}
@@ -272,8 +339,9 @@ export default styled(Results)`
     }
   }
 
-  > .update {
-    display: none;
+  > .update,
+  .show-more {
+    display: flex;
     padding: 20px 16px;
     background: #fff;
     pointer-events: initial;
@@ -307,6 +375,10 @@ export default styled(Results)`
         opacity: 0.7;
       }
     }
+  }
+
+  > .update {
+    display: none;
   }
 
   > .grow {
@@ -371,6 +443,29 @@ export default styled(Results)`
       border-bottom-right-radius: 4px;
       pointer-events: initial;
 
+      > .disclaimer,
+      > .source {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+        padding: 10px 8px;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+
+        strong {
+          text-transform: uppercase;
+        }
+      }
+
+      > .disclaimer {
+        font-size: 10px;
+        line-height: 16px;
+      }
+
+      > .source {
+        font-size: 12px;
+        line-height: 150%;
+      }
+
       > .name {
         font-size: 1.5rem;
         padding-bottom: ${p => p.theme.spacingPx / 2}px;
@@ -381,7 +476,7 @@ export default styled(Results)`
         font-size: 0.9rem;
       }
 
-      > .services {
+      > .marker-type {
         margin-bottom: ${p => p.theme.spacingPx / 2}px;
       }
 

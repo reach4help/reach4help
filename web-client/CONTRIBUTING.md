@@ -37,6 +37,22 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 
 #### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
 
+### Setting up the environment variables
+This Project uses Services that require API keys and environment variables such as Firebase and Google Maps API.
+You can find an example env file that lists the variables that are being used in [.env.EXAMPLE](.env.EXAMPLE)
+The environment variables should be set up in a file named `.env` outside the `src` directory.
+
+We cannot provide the values for any of these keys and you must be able to create your own firebase project and Google Maps API key.
+
+The Firebase Project must have the following Sign-In Methods Enabled:
+- Facebook Sign In (with your own Faceboook App)
+- Phone Auth
+The Firebase Project must also have Firestore and Cloud Messaging enabled.
+
+You must also obtain a Google Maps API key with the following APIs enabled:
+- Maps Javascript API
+- Geocoding API
+
 ## Run the project
 
 1 - Install dependencies

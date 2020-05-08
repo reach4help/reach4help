@@ -6,6 +6,7 @@ import styled, {
   NON_LARGE_DEVICES,
   Z_INDICES,
 } from 'src/styling';
+import { trackEvent } from 'src/util/tracking';
 
 import Marker from './assets/marker';
 import { AppContext } from './context';
@@ -14,7 +15,7 @@ import Footer from './footer';
 const OTHER_MAPS = {
   france: 'https://covid-entraide.fr/trouve-ton-groupe-local/',
   nyc: 'https://mutualaid.nyc/groups/',
-  uk: 'https://mutualaid.wiki/',
+  usa: 'https://www.mutualaidhub.org/',
 };
 
 interface Props {
@@ -57,11 +58,14 @@ const About = ({ className, page, setPage }: Props) => (
           <button
             type="button"
             className="view-map"
-            onClick={() => setPage({ page: 'map' })}
+            onClick={() => {
+              trackEvent('cta', 'home-map');
+              setPage({ page: 'map' });
+            }}
           >
             {t(lang, s => s.menu.map)}
           </button>
-          <div className="other-maps">
+          <div className="info-section">
             <p className="heading">
               {t(lang, s => s.aboutScreen.otherAreasHeading)}
             </p>
@@ -82,6 +86,79 @@ const About = ({ className, page, setPage }: Props) => (
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="info-section">
+            <p className="heading">
+              {t(lang, s => s.aboutScreen.sourceHeading)}
+            </p>
+            <p className="info">
+              {t(lang, s => s.aboutScreen.sourceInfo, {
+                mutualaidwiki: key => (
+                  <a
+                    key={key}
+                    href="https://mutualaid.wiki/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    mutualaid.wiki
+                  </a>
+                ),
+              })}
+            </p>
+            <p className="info">
+              {t(lang, s => s.aboutScreen.sourceSubmit, {
+                addinfo: key => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => {
+                      trackEvent('cta', 'home-map');
+                      setPage({
+                        page: 'add-information',
+                        step: 'information',
+                      });
+                    }}
+                  >
+                    {t(lang, s => s.aboutScreen.sourceSubmitButton)}
+                  </button>
+                ),
+              })}
+            </p>
+          </div>
+          <div className="info-section">
+            <p className="heading">
+              {t(lang, s => s.aboutScreen.usageHeading)}
+            </p>
+            <p className="info">{t(lang, s => s.aboutScreen.usageInfo)}</p>
+            <p className="info">
+              {t(lang, s => s.aboutScreen.usageLicenses, {
+                license: key => (
+                  <a
+                    key={key}
+                    href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+                    International License
+                  </a>
+                ),
+              })}
+            </p>
+            <p className="info">
+              {t(lang, s => s.aboutScreen.usageApi, {
+                api: key => (
+                  <a
+                    key={key}
+                    href="https://api.reach4help.org/edge/map/data"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    api.reach4help.org/edge/map/data
+                  </a>
+                ),
+              })}
+            </p>
           </div>
           <Footer />
         </div>
@@ -191,7 +268,7 @@ export default styled(About)`
       }
     }
 
-    > .other-maps {
+    > .info-section {
       margin-top: 100px;
       font-size: 20px;
       line-height: 150%;
@@ -209,11 +286,26 @@ export default styled(About)`
       }
 
       > .info {
-        margin: 0;
+        margin: 0 0 20px;
+
+        a,
+        button {
+          font-weight: bold;
+          color: ${p => p.theme.colors.brand.secondaryLight};
+        }
+
+        button {
+          border: none;
+          background: none;
+          outline: none;
+          cursor: pointer;
+          font-size: inherit;
+          padding: 0;
+        }
       }
 
       ul {
-        margin: 20px 0;
+        margin: 0;
         padding: 0;
         list-style: none;
         display: flex;

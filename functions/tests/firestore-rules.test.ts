@@ -10,10 +10,7 @@ import GeoPoint = firebaseApp.firestore.GeoPoint;
 
 const projectId = 'reach-4-help-test';
 
-const rules = fs.readFileSync(
-  `${__dirname}/../../firebase/firestore.rules`,
-  'utf8',
-);
+const rules = fs.readFileSync(`${__dirname}/../../firebase/firestore.rules`, 'utf8');
 
 /**
  * Creates a new app with authentication data matching the input.
@@ -77,12 +74,11 @@ describe('users', () => {
     const db = authedApp();
     const profile = db.collection('users').doc('1234');
     await firebase.assertFails(
-      profile
-        .withConverter(UserFirestoreConverter)
-        .set(User.factory({
-            username: 'test_user',
-          }),
-        ),
+      profile.withConverter(UserFirestoreConverter).set(
+        User.factory({
+          username: 'test_user',
+        }),
+      ),
     );
   });
 
@@ -90,12 +86,11 @@ describe('users', () => {
     const db = authedApp({ uid: '1234' });
     const profile = db.collection('users').doc('5678');
     await firebase.assertFails(
-      profile
-        .withConverter(UserFirestoreConverter)
-        .set(User.factory({
-            username: 'test_user',
-          }),
-        ),
+      profile.withConverter(UserFirestoreConverter).set(
+        User.factory({
+          username: 'test_user',
+        }),
+      ),
     );
   });
 
@@ -120,12 +115,11 @@ describe('users', () => {
     const profile = db.collection('users').doc('1234');
     await firebase.assertFails(profile.set({ username: 'test_user' }));
     await firebase.assertSucceeds(
-      profile
-        .withConverter(UserFirestoreConverter)
-        .set(User.factory({
-            username: 'test_user',
-          }),
-        ),
+      profile.withConverter(UserFirestoreConverter).set(
+        User.factory({
+          username: 'test_user',
+        }),
+      ),
     );
   });
 
@@ -155,7 +149,8 @@ describe('offers', () => {
         .collection('users')
         .doc('pin-1')
         .withConverter(UserFirestoreConverter)
-        .set(User.factory({
+        .set(
+          User.factory({
             username: 'pin-1',
           }),
         ),
@@ -165,7 +160,8 @@ describe('offers', () => {
         .collection('users')
         .doc('cav-1')
         .withConverter(UserFirestoreConverter)
-        .set(User.factory({
+        .set(
+          User.factory({
             username: 'cav-1',
           }),
         ),
@@ -175,7 +171,8 @@ describe('offers', () => {
         .collection('users')
         .doc('cav-2')
         .withConverter(UserFirestoreConverter)
-        .set(User.factory({
+        .set(
+          User.factory({
             username: 'cav-2',
           }),
         ),
@@ -185,7 +182,8 @@ describe('offers', () => {
         .collection('offers')
         .doc('offer-1')
         .withConverter(OfferFirestoreConverter)
-        .set(Offer.factory({
+        .set(
+          Offer.factory({
             cavUserRef: db.collection('users').doc('cav-1'),
             pinUserRef: db.collection('users').doc('pin-1'),
             requestRef: db.collection('requests').doc('request-1'),
@@ -206,7 +204,8 @@ describe('offers', () => {
         .collection('offers')
         .doc('offer-2')
         .withConverter(OfferFirestoreConverter)
-        .set(Offer.factory({
+        .set(
+          Offer.factory({
             cavUserRef: db.collection('users').doc('cav-2'),
             pinUserRef: db.collection('users').doc('pin-1'),
             requestRef: db.collection('requests').doc('request-1'),
@@ -334,17 +333,14 @@ describe('requests', () => {
 
     const user = User.factory({ username: 'pin-1' });
     const userRef = db.collection('users').doc('pin-1');
-    await firebase.assertSucceeds(
-      userRef
-        .withConverter(UserFirestoreConverter)
-        .set(user),
-    );
+    await firebase.assertSucceeds(userRef.withConverter(UserFirestoreConverter).set(user));
     await firebase.assertSucceeds(
       db
         .collection('questionnaires')
         .doc('questionnaire-1')
         .withConverter(RequestFirestoreConverter)
-        .set(Request.factory({
+        .set(
+          Request.factory({
             pinUserRef: userRef,
             pinUserSnapshot: user,
             title: 'Sample Request',
@@ -367,9 +363,24 @@ describe('requests', () => {
     const dbPin2 = authedApp({ uid: 'pin-2', pin: true });
     const dbUser = authedApp({ uid: 'user-1' });
 
-    await firebase.assertSucceeds(dbCav1.collection('requests').withConverter(RequestFirestoreConverter).get());
-    await firebase.assertSucceeds(dbPin2.collection('requests').withConverter(RequestFirestoreConverter).get());
-    await firebase.assertFails(dbUser.collection('requests').withConverter(RequestFirestoreConverter).get());
+    await firebase.assertSucceeds(
+      dbCav1
+        .collection('requests')
+        .withConverter(RequestFirestoreConverter)
+        .get(),
+    );
+    await firebase.assertSucceeds(
+      dbPin2
+        .collection('requests')
+        .withConverter(RequestFirestoreConverter)
+        .get(),
+    );
+    await firebase.assertFails(
+      dbUser
+        .collection('requests')
+        .withConverter(RequestFirestoreConverter)
+        .get(),
+    );
   });
 });
 
@@ -381,7 +392,8 @@ describe('questionnaires', () => {
         .collection('questionnaires')
         .doc('questionnaire-1')
         .withConverter(QuestionnaireFirestoreConverter)
-        .set(Questionnaire.factory({
+        .set(
+          Questionnaire.factory({
             parentRef: db.collection('users').doc('user-1'),
             data: { a: 1 },
             type: QuestionnaireType.pin,
@@ -401,9 +413,7 @@ describe('questionnaires', () => {
     await createData();
 
     const userDb1 = authedApp({ uid: 'user-1' });
-    const user1Questionnaire = userDb1
-      .collection('questionnaires')
-      .doc('questionnaire-1');
+    const user1Questionnaire = userDb1.collection('questionnaires').doc('questionnaire-1');
     await firebase.assertSucceeds(
       user1Questionnaire
         .withConverter(QuestionnaireFirestoreConverter)
@@ -414,9 +424,7 @@ describe('questionnaires', () => {
     );
 
     const userDb2 = authedApp({ uid: 'user-2' });
-    const user1QuestionnaireAsUser2 = userDb2
-      .collection('questionnaires')
-      .doc('questionnaire-1');
+    const user1QuestionnaireAsUser2 = userDb2.collection('questionnaires').doc('questionnaire-1');
     await firebase.assertFails(user1QuestionnaireAsUser2.get());
   });
 });

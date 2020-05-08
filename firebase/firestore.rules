@@ -8,7 +8,7 @@ function verifyMarkerDataComplete(data) {
           ('contact' in data) &&
           ('loc' in data) &&
           ('description' in data.loc) &&
-          verifyLatLngObject(data.loc.latLng) &&
+          verifyLatLngObject(data.loc.latlng) &&
           ('serviceRadius' in data.loc)
 }
 

@@ -14,6 +14,7 @@ import styled, {
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
 } from './styling';
+import { isReferrerFromBaseSite } from './util';
 
 interface Props {
   className?: string;
@@ -42,7 +43,7 @@ class App extends React.Component<Props, State> {
       updateResultsCallback: null,
       lang: i18n.getLanguage(),
       page: {
-        page: 'about',
+        page: isReferrerFromBaseSite() ? 'map' : 'about',
       },
     };
   }
@@ -89,6 +90,21 @@ class App extends React.Component<Props, State> {
 
   private setResultsOpen = (resultsOpen: boolean) => {
     this.setState({ resultsOpen });
+  };
+
+  private showMoreResults = (count: number) => {
+    this.setState(state => {
+      if (state.results) {
+        return {
+          ...state,
+          results: {
+            ...state.results,
+            showRows: state.results.showRows + count,
+          },
+        };
+      }
+      return {};
+    });
   };
 
   public componentDidMount = () => {
@@ -157,6 +173,7 @@ class App extends React.Component<Props, State> {
                     selectedResult={selectedResult}
                     setSelectedResult={this.setSelectedResult}
                     updateResults={this.updateResults}
+                    showMoreResults={this.showMoreResults}
                   />
                 ),
               }}

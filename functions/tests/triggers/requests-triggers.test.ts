@@ -18,17 +18,15 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-    await Promise.all(firebase.apps().map(app => app.delete()));
+  await Promise.all(firebase.apps().map(app => app.delete()));
 });
 
 describe('request creation triggers', () => {
-    const db = adminApp();
-    it('should delete invalid data', async () => {
-        const ref = db.collection('requests').doc('request-1');
-        await
-        ref
-        .set({
-            displayName: 'sdd'
-        });
-    })
+  const db = adminApp();
+  it('should delete invalid data', async () => {
+    const ref = db.collection('requests').doc('request-1');
+    await ref.set({
+      displayName: 'sdd',
+    });
+  });
 });

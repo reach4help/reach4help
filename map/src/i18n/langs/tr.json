@@ -1,19 +1,39 @@
 {
   "title": "COVID-19 Karşılıklı Yardımlaşma Haritası",
-  "info": "Çevrendeki insanların bölgelerindeki karşılıklı yardım gruplarını bulmalarına yardımcı olabilir ya da onlara bir yardımlaşma ağı yaratmaları için ilham verebilirsin. Aşağıda çeşitli pandemi yardımlaşma gruplarının bir listesi bulunmaktadır. Not: Listelenen herbir proje bağımsızdır ve birçoğu verilerini herkes tarafından erişilebilen dökümanlarda tutmaktadır. Bu nedenle paylaşılmasını istemediğiniz kişisel verilerinizi verirken dikkat edin.",
-  "about": "Bu harita {reach4Help} projesinin bir parçasıdır. Proje açık kaynak olarak gönüllülerce yürütülmektedir. Kaynak kodlar {githubSource}. Herhangi bir talebiniz için {email} üzerinden iletişime geçebilirsiniz.",
-  "githubSourceLabel": "GitHub'da bulunmaktadır",
+  "aboutScreen": {
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "GitHub'da bulunmaktadır",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasLocations": {
+      "france": "Fransa",
+      "nyc": "New York",
+      "uk": "Birleşik Krallık"
+    }
+  },
+  "menu": {
+    "about": "Hakkında",
+    "map": "Haritayı Göster"
+  },
+  "social": {
+    "email": "Email Us",
+    "twitter": "Follow us on Twitter",
+    "facebook": "Like us on Facebook",
+    "github": "Find us on GitHub"
+  },
   "addInformation": {
-    "small": "Bilgi ekle",
-    "large": "Haritaya bilgi ekle",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
+    "button": "Bilgi ekle",
+    "backToMap": "Haritaya geri dön",
+    "prev": "Geri",
+    "continue": "Devam Et",
+    "submit": "Gönder",
     "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "tryAgain": "Tekrar deneyin",
     "screen": {
-      "title": "Add information to this map",
+      "title": "Haritaya bilgi ekle",
       "information": {
         "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
         "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
@@ -24,40 +44,40 @@
           "name": "Name of the project / group / organization",
           "namePlaceholder": "e.g. Mutual Aid Antarctica",
           "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "locationName": "Hizmet verdiğiniz coğrafi bölgeyi tanımlayın.",
+          "locationNamePlaceholder": "Örneğin: Kadıköy, Istanbul, Türkiye",
+          "continue": "Konum bilgilerini girmek için devam edin"
         }
       },
       "placeMarker": {
         "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
-        "distance": "{kilometers, number}km ({miles, number}miles)"
+        "continue": "Belirlediğiniz konumu onayladığınızda iletişim bilgilerini girmek için devam edin.",
+        "distance": "{kilometers, number}km ({miles, number}mil)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
+        "header": "{name} için iletişim bilgileri",
         "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
         "deleteInfo": "Delete",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "Genel iletişim bilgisi ekle",
+          "volunteers": "Gönüllüler için iletişim bilgisi ekle",
+          "getHelp": "Yardım talebinde bulunmak isteyenler için iletişim ekle"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "Genel İletişim",
+          "volunteers": "Gönüllüler için iletişim",
+          "getHelp": "Yardım talebinde bulunmak isteyenler için iletişim"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "Telefon Numaraları",
+          "email": "E-posta adresleri",
+          "web": "Web bağlantıları"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
+          "phone": "Telefon numarası ekle",
+          "email": "E-posta adresi ekle",
           "webURL": "URL",
-          "webLabel": "Name"
+          "webLabel": "İsim"
         }
       },
       "submitted": {
@@ -127,11 +147,9 @@
     "myLocation": "Konumum"
   },
   "results": {
-    "updateResults": {
-      "small": "Sonuçları güncelle",
-      "large": "Harita üzerindeki bölge için sonuçları güncelle"
-    },
-    "count": "{results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "backToResults": "Back to results",
+    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "contact": {
       "general": "Genel Bilgiler:",
       "getHelp": "Yardım Al:",
@@ -145,6 +163,16 @@
     "netlifyNote": "Bu harita {link}",
     "netlifyLinkText": "Netlify sunucularında barındırılmaktadır",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Topluluk Kuralları"
+    "codeOfConduct": "Topluluk Kuralları",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
+  },
+  "hiddenMarkers": {
+    "visiblility": "Visibility: {visibility}",
+    "filter": {
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
+    }
   }
 }
