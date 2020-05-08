@@ -11,8 +11,16 @@
     "otherAreasLocations": {
       "france": "France",
       "nyc": "New York",
-      "uk": "United Kingdom"
-    }
+      "usa": "United States"
+    },
+    "sourceHeading": "Where does this information come from?",
+    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki}.",
+    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
+    "sourceSubmitButton": "add information",
+    "usageHeading": "Can I use this data for my own project?",
+    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
+    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
+    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
     "about": "About",
@@ -47,7 +55,8 @@
           "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
           "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
           "continue": "Click continue to enter location information"
-        }
+        },
+        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
       },
       "placeMarker": {
         "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
@@ -98,7 +107,8 @@
       "urlMissingLabel": "A URL for {section} is missing a Name",
       "urlMissingURL": "A URL entry for {section} is missing the URL",
       "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later"
+      "submitError": "There was a problem submitting your information: {error}. Please try again later",
+      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
     }
   },
   "buttons": {
@@ -141,6 +151,11 @@
     "information": "Información",
     "other": "Otros"
   },
+  "markerTypeSentence": {
+    "mutual-aid-group": "mutual aid group",
+    "org": "organization / company",
+    "project": "project"
+  },
   "map": {
     "jumpToLocation": "Ir a una ubicación en el mapa...",
     "updateResultsForThisArea": "Actualizar resultados para esta área",
@@ -150,11 +165,19 @@
     "backToResults": "Back to results",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "showMore": "Show more results",
     "contact": {
       "general": "Información general:",
       "getHelp": "Conseguir ayuda:",
       "volunteer": "Voluntariado:",
       "facebookGroup": "Grupo Facebook"
+    },
+    "details": {
+      "disclaimer": {
+        "header": "Note",
+        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+      },
+      "source": "Information about this {type} is provided by {source}."
     }
   },
   "lang": "Idioma:",
