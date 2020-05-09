@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
@@ -24,6 +25,7 @@ const ContentPage = (): ReactElement => {
   const location = useLocation();
 
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
+  const redirectBack = get(location, 'state.redirectBack');
 
   useEffect((): any => {
     if (user && user.uid) {
@@ -51,7 +53,7 @@ const ContentPage = (): ReactElement => {
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: redirectBack || location.pathname },
         }}
       />
     );
@@ -69,7 +71,7 @@ const ContentPage = (): ReactElement => {
       return (
         <Redirect
           to={{
-            pathname: '/',
+            pathname: redirectBack || '/',
           }}
         />
       );
@@ -81,7 +83,7 @@ const ContentPage = (): ReactElement => {
       return (
         <Redirect
           to={{
-            pathname: '/',
+            pathname: redirectBack || '/',
           }}
         />
       );
@@ -91,6 +93,7 @@ const ContentPage = (): ReactElement => {
         <Redirect
           to={{
             pathname: RoleInfoLocation.path,
+            state: { redirectBack: redirectBack || location.pathname },
           }}
         />
       );
