@@ -38,20 +38,31 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 #### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
 
 ### Setting up the environment variables
+
 This Project uses Services that require API keys and environment variables such as Firebase and Google Maps API.
 You can find an example env file that lists the variables that are being used in [.env.EXAMPLE](.env.EXAMPLE)
 The environment variables should be set up in a file named `.env` outside the `src` directory.
 
-We cannot provide the values for any of these keys and you must be able to create your own firebase project and Google Maps API key.
+We cannot provide the values for any of the keys that we use internally.
+We have however, included the keys for a starter project in [.env.EXAMPLE](.env.EXAMPLE). But in the situtation that we exceed the usage quotas of the starter project, you should create your own firebase project.
+
+For Development Purposes, we have also stubbed the response from Google Maps Geocoding API so that you wouldn't have to obtain a Google Maps API Key with Billing account assosciated with it.
+However, this produces a fixed response and if you would like dynamic and accurate response (which is most likely not required), you would have to generate your own Google Maps API Key with a Billing account assosciated with it.
+
+We use the following Services and if you have to generate Credentials of your own, you have to enable these services and configure them with the following settings:
 
 The Firebase Project must have the following Sign-In Methods Enabled:
+
 - Facebook Sign In (with your own Faceboook App)
 - Phone Auth
-The Firebase Project must also have Firestore and Cloud Messaging enabled.
+  The Firebase Project must also have Firestore and Cloud Messaging enabled.
 
 You must also obtain a Google Maps API key with the following APIs enabled:
+
 - Maps Javascript API
 - Geocoding API
+
+### If you are using the test credentials we provided, we had to enable https on localhost development server to let facebook app authenticate when redirecting as the facebook app had to be made live for everyone to be able to develop with it. This however, brings the problem of certificate. we haven't included the certificate in this repo and so you would be getting a warning from the browser warning you about the authenticity of the certificate. You should by pass the warning and proceed to start development.
 
 ## Run the project
 

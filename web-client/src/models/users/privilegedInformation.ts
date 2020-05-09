@@ -139,7 +139,7 @@ export const PrivilegedUserInformationFirestoreConverter: firebase.firestore.Fir
     addressFromGoogle: JSON.parse(
       JSON.stringify(modelObject.addressFromGoogle),
     ),
-    address: modelObject.address,
+    address: JSON.parse(JSON.stringify(modelObject.address)),
     privacyAccepted: modelObject.privacyAccepted,
     privacyVersion: modelObject.privacyVersion,
     termsAccepted: modelObject.termsAccepted,
