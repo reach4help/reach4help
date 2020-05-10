@@ -83,7 +83,7 @@ const TopPanel: React.FC = () => {
             <Address>
               <AddressTextAndArrow>
                 <Text>Delivery Address </Text>
-                {togglePanel ? <UpOutlined /> : null}
+                <UpOutlined />
               </AddressTextAndArrow>
               <AddressInfo>
                 <HomeOutlined />
