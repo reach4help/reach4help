@@ -55,6 +55,7 @@
       },
       "newRequest": {
         "title": "New Request",
+        "icon_text": "I need help",
         "form": {
           "title": "Title",
           "body": "Enter details of what is needed",
@@ -135,6 +136,7 @@
       },
       "newRequest": {
         "title": "Novo Pedido",
+        "icon_text": "eu preciso de ajuda",
         "form": {
           "title": "Título",
           "body": "Introduza os detalhes do que necessita",
