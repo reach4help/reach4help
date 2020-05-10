@@ -15,32 +15,57 @@ import styled, { css } from 'styled-components';
 
 const { Text } = Typography;
 
+const mockProps = {
+  requestStatus: {
+    accepted: 'Accepted',
+    ongoing: 'Ongoing',
+    finished: 'Finished',
+    completed: 'Completed',
+    cancel: 'Cancel',
+    closed: 'Closed',
+  },
+  user: {
+    name: 'Daniel Wade',
+    rating: 4.5,
+    distance: '3 km',
+  },
+};
+
 const TopPanel: React.FC = () => {
   const [togglePanel, setTogglePanel] = useState(true);
+  const { requestStatus, user } = mockProps;
+  const userRequestStatus = requestStatus.closed;
 
   return (
     <TopPanelWrapper>
       <NavRow>
         <img src={NavBackIcon} alt="back navigation icon" />
-        <StatusButton type="button">Finished</StatusButton>
+        <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
+          {userRequestStatus}
+        </StatusButton>
       </NavRow>
       <UserRow>
         <DisplayPhoto src={DummyMan} alt="display photo" />
         <UserDetails>
           <Detail>
-            <DisplayName>Daniel Wade</DisplayName>
+            <DisplayName>{user.name}</DisplayName>
             <Info>
               <InfoDetail>
                 <AverageRatingIcon />
-                <span>4.5</span>
+                <span>{user.rating}</span>
               </InfoDetail>
               <InfoDetail>
                 <img src={LocationIcon} alt="location icon" />
-                <span>2 km</span>
+                <span>{user.distance}</span>
               </InfoDetail>
             </Info>
           </Detail>
-          <img src={PhoneIcon} alt="phone icon" />
+          {userRequestStatus ===
+          (requestStatus.ongoing ||
+            requestStatus.finished ||
+            requestStatus.completed) ? (
+            <img src={PhoneIcon} alt="phone icon" />
+          ) : null}
         </UserDetails>
       </UserRow>
       <RequestWrapper onClick={() => setTogglePanel(!togglePanel)}>
@@ -110,8 +135,27 @@ const NavRow = styled.div`
 `;
 
 const StatusButton = styled.button`
-  background: rgba(${COLORS.successRGB}, 0.25);
-  border: 1px solid ${COLORS.success};
+  &.accepted,
+  &.finished,
+  &.completed {
+    background: rgba(${COLORS.rbg.success}, 0.25);
+    border: 1px solid ${COLORS.success};
+  }
+  &.ongoing {
+    background: rgba(${COLORS.rbg.primary}, 0.25);
+    border: 1px solid ${COLORS.primary};
+  }
+
+  &.closed {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.45);
+  }
+
+  &.cancel {
+    background: rgba(${COLORS.rbg.warning}, 0.25);
+    border: 1px solid ${COLORS.backgroundAlternative};
+  }
+
   box-sizing: border-box;
   border-radius: 2px;
   padding: 0 1rem;
