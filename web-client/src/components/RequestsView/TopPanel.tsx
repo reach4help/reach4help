@@ -1,61 +1,112 @@
-import { StarOutlined, DownOutlined } from '@ant-design/icons';
+import {
+  DownOutlined,
+  HomeOutlined,
+  StarOutlined,
+  UpOutlined,
+} from '@ant-design/icons';
 import { Typography } from 'antd';
+import React, { useState } from 'react';
 import DummyMan from 'src/assets/dummy-man.jpg';
+import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
-import LocationIcon from 'src/assets/location-icon.svg';
-import React from 'react';
-import styled from 'styled-components';
 import { COLORS } from 'src/theme/colors';
+import styled, { css } from 'styled-components';
 
 const { Text } = Typography;
 
-const TopPanel: React.FC = () => (
-  <TopPanelWrapper>
-    <NavRow>
-      <img src={NavBackIcon} alt="back navigation icon" />
-      <StatusButton type="button">Finished</StatusButton>
-    </NavRow>
-    <UserRow>
-      <DisplayPhoto src={DummyMan} alt="display photo" />
-      <UserDetails>
-        <Detail>
-          <DisplayName>Daniel Wade</DisplayName>
-          <Info>
-            <InfoDetail>
-              <AverageRatingIcon />
-              <span>5</span>
-            </InfoDetail>
-            <InfoDetail>
-              <img src={LocationIcon} alt="location icon" />
-              <span>2 km</span>
-            </InfoDetail>
-          </Info>
-        </Detail>
-        <img src={PhoneIcon} alt="phone icon" />
-      </UserDetails>
-    </UserRow>
-    <RequestWrapper>
-      <span>Pet walking</span>
-      <DownOutlined />
-    </RequestWrapper>
-  </TopPanelWrapper>
-);
+const TopPanel: React.FC = () => {
+  const [togglePanel, setTogglePanel] = useState(true);
+
+  return (
+    <TopPanelWrapper>
+      <NavRow>
+        <img src={NavBackIcon} alt="back navigation icon" />
+        <StatusButton type="button">Finished</StatusButton>
+      </NavRow>
+      <UserRow>
+        <DisplayPhoto src={DummyMan} alt="display photo" />
+        <UserDetails>
+          <Detail>
+            <DisplayName>Daniel Wade</DisplayName>
+            <Info>
+              <InfoDetail>
+                <AverageRatingIcon />
+                <span>4.5</span>
+              </InfoDetail>
+              <InfoDetail>
+                <img src={LocationIcon} alt="location icon" />
+                <span>2 km</span>
+              </InfoDetail>
+            </Info>
+          </Detail>
+          <img src={PhoneIcon} alt="phone icon" />
+        </UserDetails>
+      </UserRow>
+      <RequestWrapper onClick={() => setTogglePanel(!togglePanel)}>
+        <InitialRequestInfo>
+          <span>Medicine</span>
+          {!togglePanel ? <DownOutlined /> : null}
+        </InitialRequestInfo>
+
+        {togglePanel ? (
+          <RequestDetails>
+            <RequestDetail>
+              <Text> - 1x Ciprofloxacin 1000mg </Text>
+              <Text> - 2x Vitamin C 1000mg </Text>
+            </RequestDetail>
+            <Address>
+              <AddressTextAndArrow>
+                <Text>Delivery Address </Text>
+                {togglePanel ? <UpOutlined /> : null}
+              </AddressTextAndArrow>
+              <AddressInfo>
+                <HomeOutlined />
+                <Text> 509 Gorby Lane, Jackson, FL 32065 </Text>
+              </AddressInfo>
+            </Address>
+          </RequestDetails>
+        ) : null}
+      </RequestWrapper>
+    </TopPanelWrapper>
+  );
+};
 
 const TopPanelWrapper = styled.div`
   width: 100%;
   height: 100%;
-  background: linear-gradient(142.67deg, #f27979 2.64%, #7d00a3 97.36%);
+  background: linear-gradient(
+    142.67deg,
+    ${COLORS.backgroundAlternative} 2.64%,
+    ${COLORS.link} 97.36%
+  );
   border-radius: 0px 0px 4px 4px;
   padding: 1rem;
   color: white;
+
+  .ant-typography {
+    color: #f0f0f0;
+  }
+
+  span,
+  img {
+    user-select: none;
+  }
 `;
 
-const NavRow = styled.div`
+const flexSpaceBetween = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+`;
+
+const flexAlignColumn = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+const NavRow = styled.div`
+  ${flexSpaceBetween}
 `;
 
 const StatusButton = styled.button`
@@ -73,7 +124,7 @@ const UserRow = styled.div`
   width: 100%;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
 `;
 
 const DisplayPhoto = styled.img`
@@ -85,20 +136,17 @@ const DisplayPhoto = styled.img`
 `;
 
 const UserDetails = styled.div`
-  display: flex;
+  ${flexSpaceBetween}
   width: 100%;
-  justify-content: space-between;
 `;
 
 const Detail = styled.div`
-  width: 35%;
-  max-width: 8rem;
+  width: 50%;
+  max-width: 10rem;
 `;
 
 const Info = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${flexSpaceBetween}
 `;
 
 const InfoDetail = styled.div`
@@ -123,13 +171,53 @@ const AverageRatingIcon = styled(StarOutlined)`
 `;
 
 const RequestWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${flexAlignColumn}
+  cursor: pointer;
+`;
+
+const InitialRequestInfo = styled.div`
+  ${flexSpaceBetween}
+  width: 100%;
 
   span:first-child {
     font-weight: bold;
     font-size: 1.5rem;
+  }
+`;
+
+const RequestDetails = styled.div`
+  ${flexAlignColumn}
+`;
+
+const RequestDetail = styled.div`
+  ${flexAlignColumn}
+  margin-bottom: 0.5rem;
+`;
+
+const Address = styled.div`
+  margin-top: 1rem;
+  ${flexAlignColumn}
+  font-size: 0.8rem;
+
+  span:first-child {
+    opacity: 0.6;
+  }
+`;
+const AddressTextAndArrow = styled.div`
+  ${flexSpaceBetween}
+  align-items: flex-end;
+`;
+
+const AddressInfo = styled.div`
+  margin-top: 0.25rem;
+
+  span:first-child {
+    color: ${COLORS.brandOrange};
+    opacity: 1;
+  }
+
+  span {
+    margin-right: 0.5rem;
   }
 `;
 

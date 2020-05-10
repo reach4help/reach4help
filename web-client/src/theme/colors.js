@@ -10,5 +10,6 @@ module.exports = {
     backgroundLightGray: '#0000000d',
     success: '#52C41A',
     successRGB: '82,196,26',
+    brandOrange: '#ff7b02',
   },
 };
