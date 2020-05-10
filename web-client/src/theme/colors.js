@@ -7,5 +7,6 @@ module.exports = {
     highlight: '#FFA32A',
     // TODO: We should rethink this name
     backgroundAlternative: '#F27979',
+    backgroundLightGray: '#0000000d',
   },
 };

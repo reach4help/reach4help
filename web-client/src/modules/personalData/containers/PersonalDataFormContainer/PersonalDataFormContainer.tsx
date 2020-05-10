@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Spin } from 'antd';
 import { firestore } from 'firebase';
 import GoogleMapReact from 'google-map-react';
@@ -61,7 +62,87 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
 
   const initGeocoder = ({ maps }) => {
     if (typeof Geocoder === 'undefined') {
-      setGeocoder(new maps.Geocoder());
+      if (process.env.NODE_ENV === 'production') {
+        setGeocoder(new maps.Geocoder());
+      } else {
+        setGeocoder({
+          geocode: (
+            { location }: { address?: string; location?: firestore.GeoPoint },
+            callback: Function,
+          ) => {
+            callback(
+              [
+                {
+                  address_components: [
+                    {
+                      long_name: '1600',
+                      short_name: '1600',
+                      types: ['street_number'],
+                    },
+                    {
+                      long_name: 'Amphitheatre Parkway',
+                      short_name: 'Amphitheatre Pkwy',
+                      types: ['route'],
+                    },
+                    {
+                      long_name: 'Mountain View',
+                      short_name: 'Mountain View',
+                      types: ['locality', 'political'],
+                    },
+                    {
+                      long_name: 'Santa Clara County',
+                      short_name: 'Santa Clara County',
+                      types: ['administrative_area_level_2', 'political'],
+                    },
+                    {
+                      long_name: 'California',
+                      short_name: 'CA',
+                      types: ['administrative_area_level_1', 'political'],
+                    },
+                    {
+                      long_name: 'United States',
+                      short_name: 'US',
+                      types: ['country', 'political'],
+                    },
+                    {
+                      long_name: '94043',
+                      short_name: '94043',
+                      types: ['postal_code'],
+                    },
+                  ],
+                  formatted_address:
+                    '1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA',
+                  geometry: {
+                    location: {
+                      lat: () => (location ? location.latitude : 37.4267861),
+                      lng: () => (location ? location.longitude : -122.0806032),
+                    },
+                    location_type: 'ROOFTOP',
+                    viewport: {
+                      northeast: {
+                        lat: location ? location.latitude : 37.4281350802915,
+                        lng: location ? location.longitude : -122.0792542197085,
+                      },
+                      southwest: {
+                        lat: location ? location.latitude : 37.4281350802915,
+                        lng: location ? location.longitude : -122.0792542197085,
+                      },
+                    },
+                  },
+                  place_id: 'ChIJtYuu0V25j4ARwu5e4wwRYgE',
+                  plus_code: {
+                    compound_code:
+                      'CWC8+R3 Mountain View, California, United States',
+                    global_code: '849VCWC8+R3',
+                  },
+                  types: ['street_address'],
+                },
+              ],
+              'OK',
+            );
+          },
+        });
+      }
     }
   };
 
@@ -107,21 +188,30 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   useEffect(() => {}, [Geocoder]);
 
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      initGeocoder({ maps: undefined });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Map>
-        <GoogleMapReact
-          yesIWantToUseGoogleMapApiInternals
-          bootstrapURLKeys={{
-            key: `${process.env.REACT_APP_GMAPS_API_KEY}`,
-          }}
-          defaultCenter={{
-            lat: 51.235498,
-            lng: 6.800983,
-          }}
-          defaultZoom={11}
-          onGoogleApiLoaded={initGeocoder}
-        />
+        {process.env.NODE_ENV === 'production' && (
+          <GoogleMapReact
+            yesIWantToUseGoogleMapApiInternals
+            bootstrapURLKeys={{
+              key: `${process.env.REACT_APP_GMAPS_API_KEY}`,
+            }}
+            defaultCenter={{
+              lat: 51.235498,
+              lng: 6.800983,
+            }}
+            defaultZoom={11}
+            onGoogleApiLoaded={initGeocoder}
+          />
+        )}
       </Map>
       {typeof Geocoder !== 'undefined' && (
         <PersonalDataForm
