@@ -32,9 +32,9 @@ const mockProps = {
 };
 
 const TopPanel: React.FC = () => {
-  const [togglePanel, setTogglePanel] = useState(true);
+  const [togglePanel, setTogglePanel] = useState(false);
   const { requestStatus, user } = mockProps;
-  const userRequestStatus = requestStatus.closed;
+  const userRequestStatus = requestStatus.ongoing;
 
   return (
     <TopPanelWrapper>
