@@ -2,10 +2,11 @@
 import './app';
 
 import * as https from './https';
+import * as pubsub from './pubsub';
 
 // Load everyone else
 export * from './users';
 export * from './requests';
 export * from './offers';
 
-export { https };
+export { https, pubsub };
