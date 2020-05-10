@@ -8,5 +8,7 @@ module.exports = {
     // TODO: We should rethink this name
     backgroundAlternative: '#F27979',
     backgroundLightGray: '#0000000d',
+    success: '#52C41A',
+    successRGB: '82,196,26',
   },
 };
