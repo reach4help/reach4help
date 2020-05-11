@@ -8,7 +8,7 @@ import {
   Modal,
   Typography,
 } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import stayAtHomeLottieJson from 'src/assets/lotties/stay-at-home.json';
 import NewRequestIcon from 'src/assets/new-request-icon.svg';
@@ -84,21 +84,22 @@ const RememberInfoP = styled.p`
 const NewRequestModal: React.FC<NewRequestModalProps> = ({
   showModal,
   closeModal,
+  createRequest,
+  loading,
+  success,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const handleSubmit = value => {
-    // TODO if success, then show success modal
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-    }, 1500);
-  };
+  // // eslint-disable-next-line no-unused-vars
+  // const handleSubmit = value => {
+  //   setLoading(true);
+
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //     setSuccess(true);
+  //   }, 1500);
+  // };
 
   const FormContent = (
     <MainDiv>
@@ -124,7 +125,7 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({
           layout="vertical"
           form={form}
           onFinish={values => {
-            handleSubmit(values);
+            createRequest(values.title, values.body, values.consent);
           }}
         >
           <Form.Item name="title" label={t('newRequest.form.title')}>
@@ -205,6 +206,10 @@ const NewRequestIconImage = styled.img`
 interface NewRequestModalProps {
   showModal: boolean;
   closeModal: () => void;
+  createRequest: Function;
+  loading: boolean;
+  success: boolean;
+  error?: Error;
 }
 
 export default NewRequestModal;
