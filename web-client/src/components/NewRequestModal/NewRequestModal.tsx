@@ -8,9 +8,11 @@ import {
   Modal,
   Typography,
 } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import stayAtHomeLottieJson from 'src/assets/lotties/stay-at-home.json';
 import NewRequestIcon from 'src/assets/new-request-icon.svg';
+import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
@@ -58,24 +60,46 @@ const SubmitButton = styled(Button)`
   }
 `;
 
+const Footer = styled.div`
+  background-color: ${COLORS.grey};
+  padding: 1em 1em;
+  text-align: center;
+  margin: 0 -24px -24px;
+`;
+
+const OrangeP = styled(Text)`
+  color: ${COLORS.highlight};
+`;
+
+const SubtitleP = styled(Text)`
+  font-size: 1.1em;
+  font-weight: 600;
+  text-align: center;
+`;
+
+const RememberInfoP = styled.p`
+  margin-top: 0.5em;
+`;
+
 const NewRequestModal: React.FC<NewRequestModalProps> = ({
   showModal,
   closeModal,
+  createRequest,
+  loading,
+  success,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const handleSubmit = value => {
-    // TODO if success, then show success modal
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-    }, 1500);
-  };
+  // // eslint-disable-next-line no-unused-vars
+  // const handleSubmit = value => {
+  //   setLoading(true);
+
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //     setSuccess(true);
+  //   }, 1500);
+  // };
 
   const FormContent = (
     <MainDiv>
@@ -101,7 +125,7 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({
           layout="vertical"
           form={form}
           onFinish={values => {
-            handleSubmit(values);
+            createRequest(values.title, values.body, values.consent);
           }}
         >
           <Form.Item name="title" label={t('newRequest.form.title')}>
@@ -124,14 +148,19 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({
       </FormDiv>
     </MainDiv>
   );
-  // TODO use translation
+
+  // TODO replace loading with the loading animation
   const LoadingContent = <h3>Submitting wait a second!</h3>;
+
   const SuccessContent = (
     <>
-      <h3>Request Submitted</h3>
-      <button type="button" onClick={closeModal}>
-        Continue
-      </button>
+      <TitleWithAddon level={1}>{t('newRequestSuccess.title')}</TitleWithAddon>
+      <SubtitleP>{t('newRequestSuccess.info')}</SubtitleP>
+      <LoadingIndicator lottieJson={stayAtHomeLottieJson} />
+      <Footer>
+        <OrangeP>{t('newRequestSuccess.remember')}</OrangeP>
+        <RememberInfoP>{t('newRequestSuccess.remember_info')}</RememberInfoP>
+      </Footer>
     </>
   );
 
@@ -144,8 +173,7 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({
     >
       <NewRequestIconImage src={NewRequestIcon} />
       <TextOutlined>
-        {/* TODO use translation */}
-        <Text>I need help</Text>
+        <Text>{t('newRequest.icon_text')}</Text>
       </TextOutlined>
       {loading && LoadingContent}
       {!loading && success && SuccessContent}
@@ -178,6 +206,10 @@ const NewRequestIconImage = styled.img`
 interface NewRequestModalProps {
   showModal: boolean;
   closeModal: () => void;
+  createRequest: Function;
+  loading: boolean;
+  success: boolean;
+  error?: Error;
 }
 
 export default NewRequestModal;

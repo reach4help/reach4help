@@ -15,9 +15,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
   isCav,
   logoutHandler,
+  modalSubmitHandler,
+  modalStateHandler,
+  modalError,
+  modalState,
+  modalSuccess = false,
+  modalLoading = false,
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
-  const [newRequestModalVisible, setNewRequestModalVisible] = useState(false);
   const [notificationVisible, setNotificationVisible] = useState(false);
 
   return (
@@ -39,14 +44,18 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       </Layout.Content>
       <BottomNavbar
         openMenu={() => setMenuVisible(true)}
-        openNewRequestModal={() => setNewRequestModalVisible(true)}
+        openNewRequestModal={() => modalStateHandler(true)}
         openNotifications={() => setNotificationVisible(true)}
         isCav={isCav}
       />
-      {newRequestModalVisible && (
+      {modalState && (
         <NewRequestModal
-          showModal={newRequestModalVisible}
-          closeModal={() => setNewRequestModalVisible(false)}
+          showModal={modalState}
+          closeModal={() => modalStateHandler(false)}
+          createRequest={modalSubmitHandler}
+          success={modalSuccess}
+          loading={modalLoading}
+          error={modalError}
         />
       )}
     </Layout>
@@ -59,6 +68,12 @@ interface DashboardLayoutProps {
   children?: React.ReactNode;
   isCav?: boolean;
   logoutHandler: Function;
+  modalSubmitHandler: Function;
+  modalStateHandler: Function;
+  modalState: boolean;
+  modalSuccess: boolean;
+  modalLoading: boolean;
+  modalError?: Error;
 }
 
 export default DashboardLayout;
