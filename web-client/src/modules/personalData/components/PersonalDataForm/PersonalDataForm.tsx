@@ -391,7 +391,8 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             {geolocationAuthorized === false && (
               <Button
                 icon={<GPSTarget src={gpstarget} />}
-                type="danger"
+                type="primary"
+                danger
                 onClick={handleGetCoords}
               >
                 {t('user_data_form.gps_button')}

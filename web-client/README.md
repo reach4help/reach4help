@@ -2,15 +2,24 @@
 
 ## Using Docker
 
+## Prerequisites
+
+You have to set up the environment variables for the external services.
+Instructions on setting up environment variables can be found in [section for setting up environment variabled](CONTRIBUTING.md#setting-up-the-environment-variables) in the [CONTRIBUTING.md](CONTRIBUTING.md)
+
 Just run:
 
-### `docker-compose up -d`
+### `docker-compose up -d --build`
 
-Open [http://localhost:3002](http://localhost:3002) to view it in the browser.
+Open [https://localhost:3002](https://localhost:3002) to view it in the browser.
 
 The virtualisation is configured to map the `src` directory from the container to your local `src` directory, which will enable a seemless local development with support for everything it should, like HMR.
 
 ## Using local node
+
+### Prerequisites
+
+Go through the [Getting Started guide](CONTRIBUTING.md#getting-started) in [CONTRIBUTING.md](CONTRIBUTING.md) to set up the project.
 
 In the project directory, you can run:
 
