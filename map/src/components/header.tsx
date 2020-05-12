@@ -21,6 +21,7 @@ interface Props {
   className?: string;
   page: Page;
   setPage: (page: Page) => void;
+  inFrame: boolean;
 }
 
 interface State {
@@ -77,7 +78,29 @@ class Header extends React.Component<Props, State> {
 
   render = () => {
     const { open } = this.state;
-    const { className, page, setPage } = this.props;
+    const { className, page, setPage, inFrame } = this.props;
+
+    if (inFrame) {
+      return (
+        <AppContext.Consumer>
+          {({ lang }) => (
+            <header className={className}>
+              <div className="top in-frame">
+                <a
+                  href="https://map.reach4help.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t(lang, s => s.inFrameLink)}
+                </a>
+                <span className="grow" />
+                <Languages className="languages" button={false} />
+              </div>
+            </header>
+          )}
+        </AppContext.Consumer>
+      );
+    }
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -172,6 +195,20 @@ export default styled(Header)`
 
     ${NON_LARGE_DEVICES} {
       padding: 0 15px;
+    }
+
+    &.in-frame {
+      height: 32px;
+      padding: 0;
+
+      a {
+        padding: 0 10px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .grow {
+        flex-grow: 1;
+      }
     }
 
     > .logo {

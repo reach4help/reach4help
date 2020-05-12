@@ -21,6 +21,17 @@ export const isReferrerFromBaseSite = (): boolean => {
 };
 
 /**
+ * Return true if the webpage is currently within an iframe
+ */
+export const isInFrame = (): boolean => {
+  try {
+    return window.self !== window.top;
+  } catch (_) {
+    return true;
+  }
+};
+
+/**
  * Deep diff between two object, using lodash
  * @param  {Object} object Object compared
  * @param  {Object} base   Object to compare with
