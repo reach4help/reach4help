@@ -82,7 +82,7 @@ export interface MarkerInfo<GeoPoint>
    */
   visible: boolean;
   source?: {
-    name: 'hardcoded' | 'mutualaid.wiki';
+    name: 'hardcoded' | 'mutualaid.wiki' | 'mutualaidhub.org';
     id: string;
     /**
      * The original data from the other source that we derive our info from
