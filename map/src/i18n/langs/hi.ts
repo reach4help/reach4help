@@ -1,6 +1,6 @@
 /* eslint max-len: 0 */
 import { PartialLanguage } from '../iface';
-import strings from './hi.json';
+import strings from './hi-IN.json';
 
 const LANG: PartialLanguage = {
   meta: {
