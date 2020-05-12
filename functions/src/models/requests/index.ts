@@ -1,5 +1,16 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, Max, Min, ValidateNested } from 'class-validator';
+import {
+  Allow,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNotEmptyObject,
+  IsObject,
+  IsString,
+  Max,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 import { firestore } from 'firebase';
 
 import { IUser, User } from '../users';
@@ -19,6 +30,7 @@ export enum RequestStatus {
 
 export interface IRequest extends DocumentData {
   cavUserRef?: DocumentReference<DocumentData> | null;
+  cavUserSnapshot: IUser | null;
   pinUserRef: DocumentReference<DocumentData>;
   pinUserSnapshot: IUser;
   title: string;
@@ -41,6 +53,7 @@ export class Request implements IRequest {
     description: string,
     latLng: GeoPoint,
     cavUserRef: DocumentReference<DocumentData> | null = null,
+    cavUserSnapshot: User | null = null,
     status = RequestStatus.pending,
     createdAt = Timestamp.now(),
     updatedAt = Timestamp.now(),
@@ -52,6 +65,7 @@ export class Request implements IRequest {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
     this._pinUserSnapshot = pinUserSnapshot;
+    this._cavUserSnapshot = cavUserSnapshot;
     this._title = title;
     this._description = description;
     this._latLng = latLng;
@@ -95,6 +109,17 @@ export class Request implements IRequest {
 
   set pinUserSnapshot(value: User) {
     this._pinUserSnapshot = value;
+  }
+
+  @ValidateNested()
+  private _cavUserSnapshot: User | null;
+
+  get cavUserSnapshot(): User | null {
+    return this._cavUserSnapshot;
+  }
+
+  set cavUserSnapshot(value: User | null) {
+    this._cavUserSnapshot = value;
   }
 
   @IsString()
@@ -227,6 +252,8 @@ export class Request implements IRequest {
       data.description,
       data.latLng,
       data.cavUserRef,
+      // This field may be null
+      data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
       data.status,
       data.createdAt,
       data.updatedAt,
@@ -239,6 +266,7 @@ export class Request implements IRequest {
   toObject(): object {
     return {
       cavUserRef: this.cavUserRef,
+      cavUserSnapshot: this.cavUserSnapshot?.toObject(),
       pinUserRef: this.pinUserRef,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
