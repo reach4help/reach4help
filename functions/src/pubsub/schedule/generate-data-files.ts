@@ -16,7 +16,13 @@ export const generateDataFiles = functions
     timeoutSeconds: 540,
   })
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  .https.onRequest(async (_req, res) => {
+  // TODO: to reduce the time it takes for a marker to appear after it has been
+  // added (or had its visibility changed), create a more regular job that will
+  // modify the existing cached json file with the most recent changes and push
+  // it back. And have a "refresh" job run e.g. once a day to completely
+  // regenerate the json from a fresh query.
+  .pubsub.schedule('every 2 hours')
+  .onRun(async () => {
     const results: {
       visible: SerializableMarkerInfo[];
       hidden: SerializableMarkerInfo[];
@@ -52,6 +58,4 @@ export const generateDataFiles = functions
         .file(MARKERS_STORAGE_PATH[visibility])
         .save(buffer);
     }
-
-    res.status(200).send('Done!');
   });
