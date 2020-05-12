@@ -1,4 +1,4 @@
-import { Request } from 'src/models/requests';
+import { Request, RequestStatus } from 'src/models/requests';
 import { ApplicationPreference, User } from 'src/models/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
@@ -9,6 +9,10 @@ export const { asyncType, observerType, syncType } = createActionTypeFactory(
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
 export const OBSERVE_OPEN_REQUESTS = observerType('OBSERVE_OPEN_REQUESTS');
+
+export const OBSERVE_NON_OPEN_REQUESTS = observerType(
+  'OBSERVE_NON_OPEN_REQUESTS',
+);
 
 export const SET = asyncType('SET');
 
@@ -50,4 +54,10 @@ export interface RequestState {
 export interface IgetOpenRequests {
   userRef?: firebase.firestore.DocumentReference<User>;
   userType: ApplicationPreference;
+}
+
+export interface IgetNonOpenRequests {
+  userRef: firebase.firestore.DocumentReference<User>;
+  userType: ApplicationPreference;
+  requestStatus: RequestStatus;
 }

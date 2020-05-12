@@ -6,7 +6,14 @@ import {
 } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 
-import { IgetOpenRequests } from './types';
+import { IgetNonOpenRequests, IgetOpenRequests } from './types';
+
+const whereConditionHelper = {
+  applicationPreference: {
+    [ApplicationPreference.pin]: 'pinUserRef',
+    [ApplicationPreference.cav]: 'cavUserRef',
+  },
+};
 
 export const observeOpenRequests = (
   nextValue: Function,
@@ -24,6 +31,26 @@ export const observeOpenRequests = (
     .withConverter(RequestFirestoreConverter)
     .onSnapshot(snap => nextValue(snap));
 };
+
+export const observeNonOpenRequests = (
+  nextValue: Function,
+  payload: IgetNonOpenRequests,
+): firebase.Unsubscribe =>
+  firestore
+    .collection('requests')
+    .where('status', '==', payload.requestStatus)
+    .where(
+      whereConditionHelper.applicationPreference[payload.userType],
+      '==',
+      payload.userRef,
+    )
+    .withConverter(RequestFirestoreConverter)
+    .onSnapshot(snap =>
+      nextValue({
+        requestStatus: payload.requestStatus,
+        snap,
+      }),
+    );
 
 export const setUserRequest = async ({
   requestPayload,

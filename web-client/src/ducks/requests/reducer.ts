@@ -1,8 +1,9 @@
-import { Request } from 'src/models/requests';
+import { Request, RequestStatus } from 'src/models/requests';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
+  OBSERVE_NON_OPEN_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
   RequestState,
   SET,
@@ -28,6 +29,13 @@ const initialState: RequestState = {
   completedRequests: initialRequestsState,
   closedRequests: initialRequestsState,
   setAction: initialSetActionState,
+};
+
+const requestStatusMapper = {
+  [RequestStatus.pending]: 'openRequests',
+  [RequestStatus.ongoing]: 'ongoingRequests',
+  [RequestStatus.completed]: 'completedRequests',
+  [RequestStatus.cancelled]: 'closedRequests',
 };
 
 export default createReducer<RequestState>(
@@ -69,6 +77,35 @@ export default createReducer<RequestState>(
       state.openRequests.data = payload.docs.map(doc => doc.data());
       state.openRequests.loading = false;
       state.openRequests.observerReceivedFirstUpdate = true;
+    },
+    [OBSERVE_OPEN_REQUESTS.ERROR]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
+      state.openRequests.error = payload;
+      state.openRequests.loading = false;
+    },
+    [OBSERVE_NON_OPEN_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
+      state.openRequests.loading = true;
+    },
+    [OBSERVE_NON_OPEN_REQUESTS.UPDATED]: (
+      state: RequestState,
+      {
+        payload,
+      }: {
+        payload: {
+          status: RequestStatus;
+          snap: firebase.firestore.QuerySnapshot<Request>;
+        };
+      },
+    ) => {
+      state[
+        requestStatusMapper[payload.status]
+      ].data = payload.snap.docs.map(doc => doc.data());
+      state[requestStatusMapper[payload.status]].loading = false;
+      state[
+        requestStatusMapper[payload.status]
+      ].observerReceivedFirstUpdate = true;
     },
   },
   initialState,
