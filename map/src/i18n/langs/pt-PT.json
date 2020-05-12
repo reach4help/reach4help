@@ -1,7 +1,7 @@
 {
   "title": "COVID-19 Mapa de Organizações de Solidariedade",
   "aboutScreen": {
-    "intro": "We believe solidarity brings out the best in individuals.",
+    "intro": "Acreditamos que a solidariedade revela o melhor de nós.",
     "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
     "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
     "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",

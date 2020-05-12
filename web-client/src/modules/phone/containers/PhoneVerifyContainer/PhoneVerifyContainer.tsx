@@ -1,8 +1,9 @@
 import { Alert } from 'antd';
+import get from 'lodash/get';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 import IntroWrapper from 'src/components/IntroWrapper/IntroWrapper';
@@ -20,7 +21,9 @@ const PhoneVerifyContainer: React.FC = () => {
   const confirmationResult = useSelector(
     (state: AppState) => state.auth.confirmationResult,
   );
+  const location = useLocation();
   const error = useSelector((state: AppState) => state.auth.error);
+  const redirectBack = get(location, 'state.redirectBack');
   const { t } = useTranslation();
 
   const handleVerifySubmit = ({ otp }: { otp: string }) => {
@@ -45,6 +48,7 @@ const PhoneVerifyContainer: React.FC = () => {
       <Redirect
         to={{
           pathname: PhoneEntryLocation.path,
+          state: { redirectBack: redirectBack || location.pathname },
         }}
       />
     );

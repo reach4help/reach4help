@@ -3,7 +3,7 @@ import createReducer from 'src/store/utils/createReducer';
 
 import facebookReducer from './facebook/reducer';
 import phoneReducer from './phone/reducer';
-import { AuthState, OBSERVE_USER } from './types';
+import { AuthState, LOGOUT, OBSERVE_USER } from './types';
 
 const initialState: AuthState = {
   loading: false,
@@ -27,6 +27,18 @@ export default createReducer<AuthState>(
       state.user = payload;
       state.loading = false;
       state.observerReceivedFirstUpdate = true;
+    },
+    [LOGOUT.PENDING]: (state: AuthState) => {
+      state.loading = true;
+    },
+    [LOGOUT.REJECTED]: (state: AuthState, { payload }: { payload: Error }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [LOGOUT.COMPLETED]: (state: AuthState) => {
+      state.loading = false;
+      state.user = undefined;
+      state.confirmationResult = undefined;
     },
   },
   initialState,
