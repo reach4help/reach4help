@@ -1,5 +1,5 @@
-import { Spin } from 'antd';
 import React from 'react';
+import LoadingLogo from 'src/assets/loadinglogo.svg';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -13,7 +13,8 @@ const LoadingWrapper: React.FC<WrapperProps> = ({
   children,
 }): React.ReactElement => (
   <Container>
-    <Spin size="large">{children}</Spin>
+    <img src={LoadingLogo} alt="loading..." />
+    {children}
   </Container>
 );
 
