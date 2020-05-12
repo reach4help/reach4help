@@ -21,7 +21,8 @@ export const generateDataFiles = functions
   // modify the existing cached json file with the most recent changes and push
   // it back. And have a "refresh" job run e.g. once a day to completely
   // regenerate the json from a fresh query.
-  .pubsub.schedule('every 2 hours').onRun(async () => {
+  .pubsub.schedule('every 2 hours')
+  .onRun(async () => {
     const results: {
       visible: SerializableMarkerInfo[];
       hidden: SerializableMarkerInfo[];

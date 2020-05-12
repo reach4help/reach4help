@@ -168,7 +168,8 @@ export const syncMutualAidWiki = functions
     timeoutSeconds: 540,
   })
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  .pubsub.schedule('every hour').onRun(async () => {
+  .pubsub.schedule('every hour')
+  .onRun(async () => {
     const stats = beginningStats();
     console.log('Syncing with mutualaid.wiki');
     const existingMarkers = await MARKER_COLLECTION.where(SOURCE_NAME_FIELD_PATH, '==', SOURCE_NAME_FIELD_VALUE).get();
