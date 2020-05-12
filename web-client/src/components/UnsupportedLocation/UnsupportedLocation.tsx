@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
 import { Typography } from 'antd';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 import mapPinLocation from '../../assets/mappinlocation.gif';
 
