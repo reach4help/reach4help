@@ -85,24 +85,16 @@ class Header extends React.Component<Props, State> {
         <AppContext.Consumer>
           {({ lang }) => (
             <header className={className}>
-              <div
-                className="top"
-                style={{ height: '36px', justifyContent: 'center' }}
-              >
-                <p>
-                  {t(lang, s => s.inFrameTitle, {
-                    map: key => (
-                      <a
-                        key={key}
-                        href="https://map.reach4help.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Reach4Help.org
-                      </a>
-                    ),
-                  })}
-                </p>
+              <div className="top in-frame">
+                <a
+                  href="https://map.reach4help.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t(lang, s => s.inFrameLink)}
+                </a>
+                <span className="grow" />
+                <Languages className="languages" button={false} />
               </div>
             </header>
           )}
@@ -203,6 +195,20 @@ export default styled(Header)`
 
     ${NON_LARGE_DEVICES} {
       padding: 0 15px;
+    }
+
+    &.in-frame {
+      height: 32px;
+      padding: 0;
+
+      a {
+        padding: 0 10px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .grow {
+        flex-grow: 1;
+      }
     }
 
     > .logo {
