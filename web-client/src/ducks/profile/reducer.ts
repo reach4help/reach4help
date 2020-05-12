@@ -1,5 +1,6 @@
 import { firestore } from 'firebase';
-import { User } from 'src/models/users';
+import { firestore as db } from 'src/firebase';
+import { User, UserFirestoreConverter } from 'src/models/users';
 import { PrivilegedUserInformation } from 'src/models/users/privilegedInformation';
 import createReducer from 'src/store/utils/createReducer';
 
@@ -15,6 +16,7 @@ import {
 const initialState: ProfileState = {
   profile: undefined,
   privilegedInformation: undefined,
+  userRef: undefined,
   uid: undefined,
   loading: false,
   setAction: undefined,
@@ -42,6 +44,10 @@ export default createReducer<ProfileState>(
     ) => {
       state.profile = payload[0].data();
       state.privilegedInformation = payload[1]?.data();
+      state.userRef = db
+        .collection('users')
+        .doc(payload[0].id)
+        .withConverter(UserFirestoreConverter);
       state.uid = payload[0].id;
       state.loading = false;
       state.error = undefined;
@@ -115,6 +121,11 @@ export default createReducer<ProfileState>(
     ) => {
       // eslint-disable-next-line prefer-destructuring
       state.profile = payload.data();
+      state.userRef = db
+        .collection('users')
+        .doc(payload.id)
+        .withConverter(UserFirestoreConverter);
+      state.uid = payload.id;
       state.loading = false;
       state.observerReceivedFirstUpdate = true;
     },

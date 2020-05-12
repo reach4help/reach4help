@@ -12,13 +12,15 @@ export const OBSERVE_PRIVILEGED = observerType('OBSERVE_PRIVILEGED');
 export const SET = asyncType('SET');
 
 export const UPDATE = asyncType('UPDATE');
+export const UPDATE_PRIVILEGED = asyncType('UPDATE_PRIVILEGED');
 
 export interface ProfileState {
-  profile: User | undefined;
-  privilegedInformation: PrivilegedUserInformation | undefined;
-  uid: string | undefined;
-  setAction: Record<string, any> | undefined;
-  updateAction: Record<string, any> | undefined;
+  profile?: User;
+  privilegedInformation?: PrivilegedUserInformation;
+  userRef?: firebase.firestore.DocumentReference<User>;
+  uid?: string;
+  setAction?: Record<string, any>;
+  updateAction?: Record<string, any>;
   observerReceivedFirstUpdate: boolean;
   loading: boolean;
   error?: Error;
