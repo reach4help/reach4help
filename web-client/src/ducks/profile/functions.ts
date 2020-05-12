@@ -83,3 +83,18 @@ export const updateUserProfileData = async ({
     .doc(uid)
     .withConverter(UserFirestoreConverter)
     .set(userPayload);
+
+export const updateUserPrivilegedInformationData = async ({
+  uid,
+  dataPayload,
+}: {
+  uid: string;
+  dataPayload: PrivilegedUserInformation;
+}) =>
+  firestore
+    .collection('users')
+    .doc(uid)
+    .collection('privilegedInformation')
+    .doc(uid)
+    .withConverter(PrivilegedUserInformationFirestoreConverter)
+    .set(dataPayload);
