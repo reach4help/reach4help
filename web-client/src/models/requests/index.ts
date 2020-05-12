@@ -27,11 +27,11 @@ export interface IRequest extends firebase.firestore.DocumentData {
   cavUserRef?: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
+  cavUserSnapshot?: IUser | null;
   pinUserRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   >;
   pinUserSnapshot: IUser;
-  cavUserSnapshot: IUser | null;
   title: string;
   description: string;
   latLng: firebase.firestore.GeoPoint;
@@ -285,7 +285,9 @@ export class Request implements IRequest {
   toObject(): object {
     return {
       cavUserRef: this.cavUserRef?.path,
-      cavUserSnapshot: this.cavUserSnapshot?.toObject(),
+      cavUserSnapshot: this.cavUserSnapshot
+        ? this.cavUserSnapshot.toObject()
+        : null,
       pinUserRef: this.pinUserRef.path,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,

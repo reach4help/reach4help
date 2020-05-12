@@ -30,7 +30,7 @@ export enum RequestStatus {
 
 export interface IRequest extends DocumentData {
   cavUserRef?: DocumentReference<DocumentData> | null;
-  cavUserSnapshot: IUser | null;
+  cavUserSnapshot?: IUser | null;
   pinUserRef: DocumentReference<DocumentData>;
   pinUserSnapshot: IUser;
   title: string;
@@ -266,7 +266,7 @@ export class Request implements IRequest {
   toObject(): object {
     return {
       cavUserRef: this.cavUserRef,
-      cavUserSnapshot: this.cavUserSnapshot?.toObject(),
+      cavUserSnapshot: this.cavUserSnapshot ? this.cavUserSnapshot.toObject() : null,
       pinUserRef: this.pinUserRef,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
