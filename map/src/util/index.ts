@@ -20,6 +20,6 @@ export const isInFrame = (): boolean => {
   try {
     return window.self !== window.top;
   } catch (_) {
-    return false;
+    return true;
   }
 };
