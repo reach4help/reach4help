@@ -94,17 +94,17 @@ export default createReducer<RequestState>(
         payload,
       }: {
         payload: {
-          status: RequestStatus;
+          requestStatus: RequestStatus;
           snap: firebase.firestore.QuerySnapshot<Request>;
         };
       },
     ) => {
       state[
-        requestStatusMapper[payload.status]
+        requestStatusMapper[payload.requestStatus]
       ].data = payload.snap.docs.map(doc => doc.data());
-      state[requestStatusMapper[payload.status]].loading = false;
+      state[requestStatusMapper[payload.requestStatus]].loading = false;
       state[
-        requestStatusMapper[payload.status]
+        requestStatusMapper[payload.requestStatus]
       ].observerReceivedFirstUpdate = true;
     },
   },
