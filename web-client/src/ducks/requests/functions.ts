@@ -1,29 +1,29 @@
 import { firestore } from 'src/firebase';
-import { Request, RequestFirestoreConverter } from 'src/models/requests';
+import {
+  Request,
+  RequestFirestoreConverter,
+  RequestStatus,
+} from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 
-import { IgetUserRequests } from './types';
+import { IgetOpenRequests } from './types';
 
-const whereConditionConverter = {
-  applicationPreference: {
-    [ApplicationPreference.pin]: 'pinUserRef',
-    [ApplicationPreference.cav]: 'cavUserRef',
-  },
-};
-
-export const observeRequests = (
+export const observeOpenRequests = (
   nextValue: Function,
-  payload: IgetUserRequests,
-): firebase.Unsubscribe =>
-  firestore
+  payload: IgetOpenRequests,
+): firebase.Unsubscribe => {
+  let initialQuery = firestore
     .collection('requests')
-    .where(
-      whereConditionConverter.applicationPreference[payload.userType],
-      '==',
-      payload.uid,
-    )
+    .where('status', '==', RequestStatus.pending);
+
+  if (payload.userType === ApplicationPreference.pin) {
+    initialQuery = initialQuery.where('pinUserRef', '==', payload.userRef);
+  }
+
+  return initialQuery
     .withConverter(RequestFirestoreConverter)
     .onSnapshot(snap => nextValue(snap));
+};
 
 export const setUserRequest = async ({
   requestPayload,

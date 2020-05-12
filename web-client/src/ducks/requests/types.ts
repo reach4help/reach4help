@@ -1,33 +1,53 @@
 import { Request } from 'src/models/requests';
-import { ApplicationPreference } from 'src/models/users';
+import { ApplicationPreference, User } from 'src/models/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 export const { asyncType, observerType, syncType } = createActionTypeFactory(
-  'PROFILE',
+  'REQUESTS',
 );
 
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
-export const OBSERVE_REQUESTS = observerType('OBSERVE_REQUESTS');
+export const OBSERVE_OPEN_REQUESTS = observerType('OBSERVE_OPEN_REQUESTS');
 
 export const SET = asyncType('SET');
 
 export const UPDATE = asyncType('UPDATE');
 
-export interface UserRequestState {
-  requests: Request[] | undefined;
+export interface RequestState {
+  openRequests: {
+    observerReceivedFirstUpdate: boolean;
+    loading: boolean;
+    data?: Request[];
+    error?: Error;
+  };
+  ongoingRequests: {
+    observerReceivedFirstUpdate: boolean;
+    loading: boolean;
+    data?: Request[];
+    error?: Error;
+  };
+  closedRequests: {
+    observerReceivedFirstUpdate: boolean;
+    loading: boolean;
+    data?: Request[];
+    error?: Error;
+  };
+  completedRequests: {
+    observerReceivedFirstUpdate: boolean;
+    loading: boolean;
+    data?: Request[];
+    error?: Error;
+  };
   setAction: {
     success: boolean;
     loading: boolean;
-    error?: Error;
     modalState: boolean;
+    error?: Error;
   };
-  observerReceivedFirstUpdate: boolean;
-  loading: boolean;
-  error?: Error;
 }
 
-export interface IgetUserRequests {
-  uid: string;
+export interface IgetOpenRequests {
+  userRef?: firebase.firestore.DocumentReference<User>;
   userType: ApplicationPreference;
 }

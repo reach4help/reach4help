@@ -6,7 +6,7 @@ import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { updateUserPrivilegedInformation } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { changeModal, setRequest } from 'src/ducks/requests/actions';
-import { UserRequestState } from 'src/ducks/requests/types';
+import { RequestState } from 'src/ducks/requests/types';
 import { IUser } from 'src/models/users';
 
 import modules from '../modules';
@@ -20,7 +20,7 @@ const MasterPage = (): ReactElement => {
   const userProfile = profileState.profile;
 
   const newRequestState = useSelector(
-    ({ requests }: { requests: UserRequestState }) => requests.setAction,
+    ({ requests }: { requests: RequestState }) => requests.setAction,
   );
 
   const dispatch = useDispatch();

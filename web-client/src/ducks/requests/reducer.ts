@@ -1,7 +1,12 @@
 import { Request } from 'src/models/requests';
 import createReducer from 'src/store/utils/createReducer';
 
-import { CHANGE_MODAL, OBSERVE_REQUESTS, SET, UserRequestState } from './types';
+import {
+  CHANGE_MODAL,
+  OBSERVE_OPEN_REQUESTS,
+  RequestState,
+  SET,
+} from './types';
 
 const initialSetActionState = {
   loading: false,
@@ -10,35 +15,39 @@ const initialSetActionState = {
   modalState: false,
 };
 
-const initialState: UserRequestState = {
-  requests: undefined,
+const initialRequestsState = {
   loading: false,
-  setAction: initialSetActionState,
   observerReceivedFirstUpdate: false,
+  data: undefined,
   error: undefined,
 };
 
-export default createReducer<UserRequestState>(
+const initialState: RequestState = {
+  openRequests: initialRequestsState,
+  ongoingRequests: initialRequestsState,
+  completedRequests: initialRequestsState,
+  closedRequests: initialRequestsState,
+  setAction: initialSetActionState,
+};
+
+export default createReducer<RequestState>(
   {
-    [SET.PENDING]: (state: UserRequestState) => {
+    [SET.PENDING]: (state: RequestState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [SET.COMPLETED]: (state: UserRequestState) => {
+    [SET.COMPLETED]: (state: RequestState) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
     },
-    [SET.REJECTED]: (
-      state: UserRequestState,
-      { payload }: { payload: Error },
-    ) => {
+    [SET.REJECTED]: (state: RequestState, { payload }: { payload: Error }) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
     },
     [CHANGE_MODAL]: (
-      state: UserRequestState,
+      state: RequestState,
       { payload }: { payload: boolean },
     ) => {
       state.setAction.modalState = payload;
@@ -46,21 +55,20 @@ export default createReducer<UserRequestState>(
         state.setAction.success = false;
       }
     },
-    [OBSERVE_REQUESTS.SUBSCRIBE]: (state: UserRequestState) => {
-      state.loading = true;
+    [OBSERVE_OPEN_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
+      state.openRequests.loading = true;
     },
-    [OBSERVE_REQUESTS.UPDATED]: (
-      state: UserRequestState,
+    [OBSERVE_OPEN_REQUESTS.UPDATED]: (
+      state: RequestState,
       {
         payload,
       }: {
         payload: firebase.firestore.QuerySnapshot<Request>;
       },
     ) => {
-      // eslint-disable-next-line prefer-destructuring,
-      state.requests = payload.docs.map(doc => doc.data());
-      state.loading = false;
-      state.observerReceivedFirstUpdate = true;
+      state.openRequests.data = payload.docs.map(doc => doc.data());
+      state.openRequests.loading = false;
+      state.openRequests.observerReceivedFirstUpdate = true;
     },
   },
   initialState,

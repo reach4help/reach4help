@@ -1,22 +1,30 @@
 import { IRequest, Request } from 'src/models/requests';
 
-import { observeRequests, setUserRequest } from './functions';
-import { CHANGE_MODAL, IgetUserRequests, OBSERVE_REQUESTS, SET } from './types';
+import {
+  observeOpenRequests as observeOpenRequestsFunc,
+  setUserRequest,
+} from './functions';
+import {
+  CHANGE_MODAL,
+  IgetOpenRequests,
+  OBSERVE_OPEN_REQUESTS,
+  SET,
+} from './types';
 
-export const observeUserRequests = (
+export const observeOpenRequests = (
   dispatch: Function,
-  payload: IgetUserRequests,
-): Function => {
+  payload: IgetOpenRequests,
+): (() => void) => {
   dispatch({
-    type: OBSERVE_REQUESTS,
-    observer: observeRequests,
+    type: OBSERVE_OPEN_REQUESTS,
+    observer: observeOpenRequestsFunc,
     payload,
   });
 
   return () =>
     dispatch({
-      type: OBSERVE_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_REQUESTS,
+      type: OBSERVE_OPEN_REQUESTS.UNSUBSCRIBE,
+      observerName: OBSERVE_OPEN_REQUESTS,
     });
 };
 
