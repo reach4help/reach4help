@@ -1,7 +1,5 @@
 module.exports = {
-  extends: [
-    '../.eslintrc-ts.js',
-  ],
+  extends: ['../.eslintrc-ts.js'],
   parserOptions: {
     project: ['src/tsconfig.json', 'tests/tsconfig.json'],
     ecmaFeatures: {
@@ -25,5 +23,6 @@ module.exports = {
   rules: {
     // see ../.eslintrc-ts.js
     'no-console': 'off',
+    'no-underscore-dangle': 'off', // We need to shadow variables
   },
 };
