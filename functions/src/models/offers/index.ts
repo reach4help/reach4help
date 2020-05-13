@@ -144,7 +144,7 @@ export class Offer implements IOffer {
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
       message: this.message,
       status: this.status,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }

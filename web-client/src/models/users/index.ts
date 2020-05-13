@@ -263,7 +263,7 @@ export class User implements IUser {
       displayName: this.displayName,
       displayPicture: this.displayPicture,
       applicationPreference: this.applicationPreference,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }

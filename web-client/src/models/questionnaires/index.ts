@@ -131,7 +131,7 @@ export class Questionnaire implements IQuestionnaire {
       data: this.data,
       type: this.type,
       version: this.version,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }

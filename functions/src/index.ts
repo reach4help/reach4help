@@ -9,5 +9,6 @@ import * as pubsub from './pubsub';
 export * from './users';
 export * from './requests';
 export * from './offers';
+export * from './roles';
 
 export { https, markers, pubsub };

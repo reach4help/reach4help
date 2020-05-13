@@ -70,7 +70,7 @@ export class Organization implements IOrganization {
     return {
       name: this.name,
       types: this.types,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }

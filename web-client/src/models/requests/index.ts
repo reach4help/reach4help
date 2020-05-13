@@ -275,12 +275,12 @@ export class Request implements IRequest {
       description: this.description,
       latLng: this.latLng,
       status: this.status,
-      createdAt: this.createdAt.toDate(),
-      updatedAt: this.updatedAt.toDate(),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
       pinRating: this.pinRating,
       cavRating: this.cavRating,
-      pinRatedAt: this.pinRatedAt?.toDate(),
-      cavRatedAt: this.cavRatedAt?.toDate(),
+      pinRatedAt: this.pinRatedAt,
+      cavRatedAt: this.cavRatedAt,
     };
   }
 }
