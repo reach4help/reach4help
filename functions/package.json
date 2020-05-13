@@ -38,6 +38,7 @@
     "@types/convict": "^4.2.1",
     "@types/flat": "^5.0.0",
     "@types/googlemaps": "^3.39.3",
+    "@types/node-fetch": "^2.5.7",
     "algoliasearch": "^4.1.0",
     "class-validator": "^0.11.1",
     "convict": "^5.2.0",
@@ -46,6 +47,7 @@
     "firebase-functions": "^3.3.0",
     "flat": "^5.0.0",
     "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
     "twilio": "^3.42.2",
     "uuid": "^7.0.3"
   },

@@ -1,9 +1,22 @@
-import { MARKER_COLLECTION_ID } from '@reach4help/model/lib/markers';
+import {
+  Location as BaseLocation,
+  MarkerInfo as BaseMarkerInfo,
+  MarkerInfoWithId as BaseMarkerInfoWithId,
+  MARKER_COLLECTION_ID,
+  MARKERS_STORAGE_PATH,
+} from '@reach4help/model/lib/markers';
 import * as firebase from 'firebase/app';
 
+// eslint-disable-next-line import/no-duplicates
 import 'firebase/firestore';
+// eslint-disable-next-line import/no-duplicates
+import 'firebase/storage';
 
-import { MarkerInfo } from './markers';
+export type Location = BaseLocation<firebase.firestore.GeoPoint>;
+export type MarkerInfo = BaseMarkerInfo<firebase.firestore.GeoPoint>;
+export type MarkerInfoWithId = BaseMarkerInfoWithId<
+  firebase.firestore.GeoPoint
+>;
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -15,12 +28,6 @@ const config = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
-
-const isValidMarkerInfo = (
-  data: firebase.firestore.DocumentData,
-): data is MarkerInfo =>
-  // TODO
-  !!data;
 
 const LOCAL_STORAGE_KEY = 'dataConfig';
 
@@ -119,6 +126,8 @@ const processPromise = (promise: Promise<unknown>) => {
       updateListeners();
     },
     err => {
+      // eslint-disable-next-line no-console
+      console.error(err);
       state.loadingOperations.delete(promise);
       state.errors.add(err);
       updateListeners();
@@ -140,20 +149,16 @@ const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
     return;
   }
   state.data[mode].initialLoadDone = true;
-  const promise = markers
-    .where(
-      new firebase.firestore.FieldPath('visible'),
-      '==',
-      mode === 'visible',
-    )
-    .get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        if (isValidMarkerInfo(data)) {
-          state.data[mode].markers.set(doc.id, data);
-        }
-      });
+  const promise = firebase
+    .storage()
+    .ref(MARKERS_STORAGE_PATH[mode])
+    .getDownloadURL()
+    .then(async (url: string) => {
+      const result = await fetch(url);
+      const data: MarkerInfoWithId[] = await result.json();
+      for (const marker of data) {
+        state.data[mode].markers.set(marker.id, marker);
+      }
     });
   processPromise(promise);
   return promise;

@@ -31,12 +31,6 @@
         "resend": "resend",
         "error_message": "Insert the received number here!"
       },
-      "loading": {
-        "title": "Your request has been created.\n You will be contacted by one of our volunteers shortly.",
-        "pleaseWaitLabel": "Please wait...",
-        "tip_title": "Remember",
-        "tip_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
-      },
       "user_data_form": {
         "sub_title": "Please fill out the personal details below.",
         "gps_button": "Use GPS to get my address",
@@ -61,12 +55,19 @@
       },
       "newRequest": {
         "title": "New Request",
+        "icon_text": "I need help",
         "form": {
           "title": "Title",
           "body": "Enter details of what is needed",
           "consent": "Allow Push Notifications. You can always change this in your Settings later.",
           "submit": "Send my need"
         }
+      },
+      "newRequestSuccess": {
+        "title": "Your request has been created",
+        "info": "Please be patient until you get an offer from a volunteer.",
+        "remember": "Remember",
+        "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
       },
       "roleinfo": {
         "title": "Reach4Help",
@@ -111,12 +112,6 @@
         "resend": "reenviar",
         "error_message": "Insira o código recebido aqui!"
       },
-      "loading": {
-        "title": "O seu pedido foi criado. \n Brevemente será contactado por um dos nossos voluntários.",
-        "pleaseWaitLabel": "Aguarde por favor...",
-        "tip_title": "Lembrete",
-        "tip_info": "Assim que um voluntário oferecer ajuda, deve aceitar a sua ajuda para que ele consiga ver os seus contactos"
-      },
       "user_data_form": {
         "sub_title": "Por favor preencha os seus dados pessois em baixo.",
         "gps_button": "Usar GPS para descobrir o meu endereço",
@@ -141,12 +136,19 @@
       },
       "newRequest": {
         "title": "Novo Pedido",
+        "icon_text": "eu preciso de ajuda",
         "form": {
           "title": "Título",
           "body": "Introduza os detalhes do que necessita",
           "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
           "submit": "Enviar o meu pedido"
         }
+      },
+      "newRequestSuccess": {
+        "title": "O seu pedido foi criado",
+        "info": "Por favor aguarde até receber uma oferta de um voluntário.",
+        "remember": "Lembre-se",
+        "remember_info": "Quando um voluntário oferece ajuda, tem de a aceitar para que este veja as suas informações de contacto."
       },
       "roleinfo": {
         "title": "Reach4Help",

@@ -14,6 +14,7 @@ import styled, {
   CLS_SCREEN_LG_ONLY,
   LARGE_DEVICES,
 } from './styling';
+import { isInFrame, isReferrerFromBaseSite } from './util';
 
 interface Props {
   className?: string;
@@ -27,6 +28,7 @@ interface State {
   selectedResult: MarkerIdAndInfo | null;
   updateResultsCallback: (() => void) | null;
   lang: i18n.Language;
+  inFrame: boolean;
   page: Page;
 }
 
@@ -41,8 +43,9 @@ class App extends React.Component<Props, State> {
       selectedResult: null,
       updateResultsCallback: null,
       lang: i18n.getLanguage(),
+      inFrame: isInFrame(),
       page: {
-        page: 'about',
+        page: isReferrerFromBaseSite() || isInFrame() ? 'map' : 'about',
       },
     };
   }
@@ -91,6 +94,21 @@ class App extends React.Component<Props, State> {
     this.setState({ resultsOpen });
   };
 
+  private showMoreResults = (count: number) => {
+    this.setState(state => {
+      if (state.results) {
+        return {
+          ...state,
+          results: {
+            ...state.results,
+            showRows: state.results.showRows + count,
+          },
+        };
+      }
+      return {};
+    });
+  };
+
   public componentDidMount = () => {
     i18n.addListener(this.languageUpdated);
   };
@@ -109,6 +127,7 @@ class App extends React.Component<Props, State> {
       selectedResult,
       page,
       lang,
+      inFrame,
     } = this.state;
     return (
       <AppContext.Provider value={{ lang }}>
@@ -124,7 +143,7 @@ class App extends React.Component<Props, State> {
             ))}
             <link rel="canonical" href={i18n.canonicalUrl(lang)} />
           </Helmet>
-          <Header page={page} setPage={this.setPage} />
+          <Header page={page} setPage={this.setPage} inFrame={inFrame} />
           <main className={`page-${page.page}`}>
             <MapLayout
               className="map-area"
@@ -157,6 +176,7 @@ class App extends React.Component<Props, State> {
                     selectedResult={selectedResult}
                     setSelectedResult={this.setSelectedResult}
                     updateResults={this.updateResults}
+                    showMoreResults={this.showMoreResults}
                   />
                 ),
               }}

@@ -5,16 +5,11 @@
 import { Filter } from 'src/state';
 
 export interface ActiveMarkers {
-  /** map from marker index to marker */
-  hardcoded: Map<string, google.maps.Marker>;
   /** map from firebase id to marker */
   firebase: Map<string, google.maps.Marker>;
 }
 
-export const MARKER_SET_KEYS: Array<keyof ActiveMarkers> = [
-  'firebase',
-  'hardcoded',
-];
+export const MARKER_SET_KEYS: Array<keyof ActiveMarkers> = ['firebase'];
 
 export interface MapInfo {
   map: google.maps.Map;
@@ -138,11 +133,11 @@ class MapState {
     }
   };
 
-  public set updateResultsOnNextClustering(update: boolean) {
+  public set updateResultsOnNextBoundsChange(update: boolean) {
     this._updateResultsOnNextClustering = update;
   }
 
-  public get updateResultsOnNextClustering() {
+  public get updateResultsOnNextBoundsChange() {
     return this._updateResultsOnNextClustering;
   }
 }

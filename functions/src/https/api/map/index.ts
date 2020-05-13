@@ -3,7 +3,7 @@ import { FieldPath } from '@google-cloud/firestore';
 
 import { db } from '../../../app';
 
-import { MARKER_COLLECTION_ID, MarkerInfo } from '../../../models/markers';
+import { MARKER_COLLECTION_ID, MarkerInfo, SerializableMarkerInfo } from '../../../models/markers';
 
 /* eslint-disable max-len */
 const LICENSES = {
@@ -16,8 +16,7 @@ const LICENSES = {
 
 type LicenseKey = keyof typeof LICENSES;
 
-interface Marker extends MarkerInfo {
-  id: string;
+interface Marker extends SerializableMarkerInfo {
   license: LicenseKey;
 }
 
@@ -39,9 +38,16 @@ export const data = functions.https.onRequest(async (_req, res) => {
   markers.forEach(doc => {
     const docData = doc.data() as MarkerInfo;
     // TODO: add other sources (with appropriate licenses)
-    if (!(docData as any).source) {
+    if (!docData.source || docData.source.name === 'hardcoded') {
       result.data.push({
         ...docData,
+        loc: {
+          ...docData.loc,
+          latlng: {
+            latitude: docData.loc.latlng.latitude,
+            longitude: docData.loc.latlng.longitude,
+          },
+        },
         id: doc.id,
         license: 'reach4help',
       });
