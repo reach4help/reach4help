@@ -17,7 +17,7 @@ export type SerializableMarkerInfo = BaseMarkerInfoWithId<{
   longitude: number;
 }>;
 
-export { MARKER_COLLECTION_ID, MARKERS_STORAGE_PATH  };
+export { MARKER_COLLECTION_ID, MARKERS_STORAGE_PATH };
 
 export interface MarkerSnapshot {
   data: MarkerInfo;
