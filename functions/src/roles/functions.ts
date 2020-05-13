@@ -36,14 +36,17 @@ export const onWrite = (change: Change<DocumentSnapshot>, context: EventContext)
 
   // default to no claims
   const newUserClaims: { [id: string]: boolean } = {};
-  // go over all claims and set them
-  const afterObject = after.toObject() as { [id: string]: string[] };
-  Object.keys(afterObject).forEach(permissionGroup => {
-    (afterObject[permissionGroup]).forEach(permission => {
-      // set the data to true or null (the only two options)
-      newUserClaims[`admin.${permission}`] = true;
+
+  if (after) {
+    // go over all claims and set them
+    const afterObject = after.toObject() as { [id: string]: string[] };
+    Object.keys(afterObject).forEach(permissionGroup => {
+      (afterObject[permissionGroup]).forEach(permission => {
+        newUserClaims[`${permissionGroup}.${permission}`] = true;
+      });
     });
-  });
+  }
+
 
   const updateUserClaims = auth?.setCustomUserClaims(userId, null) // Clear old claims
     .then(() => {
