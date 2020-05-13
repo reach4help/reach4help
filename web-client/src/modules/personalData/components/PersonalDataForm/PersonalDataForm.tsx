@@ -275,7 +275,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   }, [acceptToUsePhoto, tempDisplayPic]);
 
   const onSubmitForm = () => {
-    const newAddress: IUserAddress = {
+    const newAddress = {
       address1,
       address2,
       postalCode,
@@ -284,7 +284,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       country,
       coords,
     };
-    const newPersonalInfo: IPersonalData = {
+    const newPersonalInfo = {
       fullName,
       displayName,
       displayPic,

@@ -1,5 +1,5 @@
 /* eslint no-underscore-dangle: 0 */
-import { IsObject, IsString } from 'class-validator';
+import { IsBoolean, IsObject, IsString } from 'class-validator';
 
 export interface IUserAddress {
   address1?: string;
@@ -8,13 +8,14 @@ export interface IUserAddress {
   city?: string;
   state?: string;
   country?: string;
-  coords?: firebase.firestore.GeoPoint;
+  coords: firebase.firestore.GeoPoint;
 }
 
 export interface IPrivilegedUserInformation
   extends firebase.firestore.DocumentData {
   addressFromGoogle: google.maps.GeocoderResult;
   address: IUserAddress;
+  sendNotifications?: boolean;
   termsAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
   privacyAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
@@ -29,9 +30,11 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     privacyVersion: string,
     termsAccepted: firebase.firestore.Timestamp,
     termsVersion: string,
+    sendNotificatoins = false,
   ) {
     this._addressFromGoogle = addressFromGoogle;
     this._address = address;
+    this._sendNotifications = sendNotificatoins;
     this._privacyAccepted = privacyAccepted;
     this._privacyVersion = privacyVersion;
     this._termsAccepted = termsAccepted;
@@ -58,6 +61,17 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   set address(value: IUserAddress) {
     this._address = value;
+  }
+
+  @IsBoolean()
+  private _sendNotifications: boolean;
+
+  get sendNotifications(): boolean {
+    return this._sendNotifications;
+  }
+
+  set sendNotifications(value: boolean) {
+    this._sendNotifications = value;
   }
 
   @IsObject()
@@ -114,12 +128,14 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
       data.privacyVersion,
       data.termsAccepted,
       data.termsVersion,
+      data.sendNotifications,
     );
 
   toObject(): object {
     return {
       addressFromGoogle: this.addressFromGoogle,
       address: this.address,
+      sendNotifications: this.sendNotifications,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,
@@ -140,6 +156,7 @@ export const PrivilegedUserInformationFirestoreConverter: firebase.firestore.Fir
       JSON.stringify(modelObject.addressFromGoogle),
     ),
     address: JSON.parse(JSON.stringify(modelObject.address)),
+    sendNotifications: modelObject.sendNotifications,
     privacyAccepted: modelObject.privacyAccepted,
     privacyVersion: modelObject.privacyVersion,
     termsAccepted: modelObject.termsAccepted,

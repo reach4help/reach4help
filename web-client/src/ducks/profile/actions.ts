@@ -10,6 +10,7 @@ import {
   observePrivileged as observePrivilegedFunc,
   observeProfile as observeProfileFunc,
   setUserProfile as setUserProfileFunc,
+  updateUserPrivilegedInformationData,
   updateUserProfileData,
 } from './functions';
 import {
@@ -19,6 +20,7 @@ import {
   OBSERVE_PROFILE,
   SET,
   UPDATE,
+  UPDATE_PRIVILEGED,
 } from './types';
 
 export const getUserProfile = (payload: IgetUserProfile) => (
@@ -105,7 +107,7 @@ export const setUserProfile = (
 
 export const updateUserProfile = (uid: string, user: User) => (
   dispatch: Function,
-) => {
+) =>
   dispatch({
     type: UPDATE,
     payload: {
@@ -114,4 +116,16 @@ export const updateUserProfile = (uid: string, user: User) => (
     },
     firebase: updateUserProfileData,
   });
-};
+
+export const updateUserPrivilegedInformation = (
+  uid: string,
+  data: PrivilegedUserInformation,
+) => (dispatch: Function) =>
+  dispatch({
+    type: UPDATE_PRIVILEGED,
+    payload: {
+      uid,
+      dataPayload: data,
+    },
+    firebase: updateUserPrivilegedInformationData,
+  });
