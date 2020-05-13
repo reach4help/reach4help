@@ -1,30 +1,46 @@
+import { Typography } from 'antd';
+import moment from 'moment';
 import React from 'react';
-import styled, { css } from 'styled-components';
+import CavBulletIcon from 'src/assets/cav-bullet.svg';
+import PinBulletIcon from 'src/assets/pin-bullet.svg';
+import styled from 'styled-components';
 
 import { ApplicationPreference } from '../../models/users';
+
+const { Text } = Typography;
+
+// prettier-ignore
+const MESSAGE_TEXTS = {
+  'CREATE_REQUEST': 'Pin created this request.',
+  'CANCEL_REQUEST': 'Pin closed this request.',
+  'COMPLETE_REQUEST': 'Cav finished this request.',
+  'REMOVE_REQUEST': 'Cav removed this request',
+  'CREATE_OFFER': 'Cav accepted this request.',
+  'ACCEPT_OFFER': 'Pin accepted Cav help',
+  'REJECT_OFFER': 'Pin rejected Cav help',
+  'RATE_PIN': 'Cav rated pin.',
+  'RATE_CAV': 'Pin rated cav.',
+};
 
 const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
   item,
   align,
 }) => {
-  const isCav = item.user.applicationPreference === ApplicationPreference.cav;
-
-  const date = new Date(item.createdAt).toLocaleDateString('en-US', {
+  const isCavItem =
+    item.user.applicationPreference === ApplicationPreference.cav;
+  const date = new Date(item.createdAt);
+  const dateString = date.toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'short',
   });
-
   return (
     <>
-      <Header>{date}</Header>
+      <HeadingDate>{dateString}</HeadingDate>
       <StyledListItem className={align}>
-        {isCav ? (
-          <CavBullet className="bullet" />
-        ) : (
-          <PinBullet className="bullet" />
-        )}
-        <MessageBox className={`message-box ${isCav ? 'cav' : 'pin'}`}>
-          Cav request itemCav request item
+        <ListItemBullet src={isCavItem ? CavBulletIcon : PinBulletIcon} />
+        <MessageBox className={`message-box ${isCavItem ? 'cav' : 'pin'}`}>
+          <Text>{MESSAGE_TEXTS[item.type]}</Text>
+          <TimeAgo>{moment(date).fromNow()}</TimeAgo>
         </MessageBox>
       </StyledListItem>
     </>
@@ -41,26 +57,27 @@ const RequestTimelineList: React.FC<RequestTimelineListProps> = ({
       <RequestTimelineListItem
         key={index}
         item={item}
-        align={item.user === currentUser ? 'left' : 'right'}
+        align={item.user === currentUser ? 'right' : 'left'}
       />
     ))}
   </StyledList>
 );
 
 const StyledListItem = styled.li`
-  position: relative;
-  width: 50%;
-  margin-left: 0;
   display: inline-block;
+  width: 50%;
+  position: relative;
+  margin-bottom: 10px;
 
   &.left {
     margin-left: 0;
 
-    .bullet {
-      right: -7px;
+    img {
+      right: -6px;
     }
 
     .message-box {
+      float: right;
       text-align: right;
     }
   }
@@ -68,13 +85,24 @@ const StyledListItem = styled.li`
   &.right {
     margin-left: auto;
 
-    .bullet {
-      left: -7px;
+    img {
+      left: -6px;
+    }
+
+    .message-box {
+      float: left;
+      text-align: left;
     }
   }
 `;
 
-const Header = styled.div`
+const ListItemBullet = styled.img`
+  position: absolute;
+  top: 20px;
+`;
+
+const HeadingDate = styled.div`
+  padding: 10px;
   background: #f0f2f5;
   z-index: 1;
   text-align: center;
@@ -83,30 +111,18 @@ const Header = styled.div`
   color: rgba(0, 0, 0, 0.45);
 `;
 
-const Bullet = css`
+const TimeAgo = styled.span`
   position: absolute;
-  top: 20px;
-`;
-
-const PinBullet = styled.span`
-  ${Bullet}
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  border-radius: 14px;
-  background: red;
-`;
-
-const CavBullet = styled.span`
-  ${Bullet}
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  border-radius: 14px;
-  background: blue;
+  right: 5px;
+  bottom: -18px;
+  font-size: 12px;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.25);
 `;
 
 const MessageBox = styled.div`
+  display: inline-block;
+  position: relative;
   padding: 5px 7px;
   margin: 10px;
   border-radius: 4px;
