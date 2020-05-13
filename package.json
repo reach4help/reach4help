@@ -20,7 +20,6 @@
     "deploy:prod": "yarn workspaces run build && firebase deploy -P reach4help",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
-    "heroku-postbuild": "yarn workspace api run heroku-postbuild",
     "build": "yarn workspaces run build",
     "clean": "yarn workspaces run clean"
   },

@@ -1,8 +1,8 @@
-name: Deploy to Staging
+name: Deploy to Production
 
 on:
   release:
-    types: [prereleased]
+    types: [released]
 
 jobs:
   deploy-staging:
@@ -25,4 +25,4 @@ jobs:
 
       - name: Deploy
         run: |
-          yarn run firebase --token "${{secrets.FIREBASE_TOKEN}}" deploy -P reach4help-staging
+          yarn run firebase --token "${{secrets.FIREBASE_TOKEN}}" deploy -P reach4help
