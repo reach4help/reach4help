@@ -15,26 +15,14 @@ import styled, { css } from 'styled-components';
 
 const { Text } = Typography;
 
-const mockProps = {
-  requestStatus: {
-    accepted: 'Accepted',
-    ongoing: 'Ongoing',
-    finished: 'Finished',
-    completed: 'Completed',
-    cancel: 'Cancel',
-    closed: 'Closed',
-  },
-  user: {
-    name: 'Daniel Wade',
-    rating: 4.5,
-    distance: '3 km',
-  },
-};
+interface TopPanelProps {
+  request: any;
+  user: any;
+}
 
-const TopPanel: React.FC = () => {
+const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
   const [togglePanel, setTogglePanel] = useState(false);
-  const { requestStatus, user } = mockProps;
-  const userRequestStatus = requestStatus.ongoing;
+  const userRequestStatus = request.ongoing;
 
   return (
     <TopPanelWrapper>
@@ -61,9 +49,7 @@ const TopPanel: React.FC = () => {
             </Info>
           </Detail>
           {userRequestStatus ===
-          (requestStatus.ongoing ||
-            requestStatus.finished ||
-            requestStatus.completed) ? (
+          (request.ongoing || request.finished || request.completed) ? (
             <img src={PhoneIcon} alt="phone icon" />
           ) : null}
         </UserDetails>
