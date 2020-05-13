@@ -124,11 +124,11 @@ const StatusButton = styled.button`
   &.accepted,
   &.finished,
   &.completed {
-    background: rgba(${COLORS.rbg.success}, 0.25);
+    background: rgba(${COLORS.rgb.success}, 0.25);
     border: 1px solid ${COLORS.success};
   }
   &.ongoing {
-    background: rgba(${COLORS.rbg.primary}, 0.25);
+    background: rgba(${COLORS.rgb.primary}, 0.25);
     border: 1px solid ${COLORS.primary};
   }
 
@@ -138,7 +138,7 @@ const StatusButton = styled.button`
   }
 
   &.cancel {
-    background: rgba(${COLORS.rbg.warning}, 0.25);
+    background: rgba(${COLORS.rgb.warning}, 0.25);
     border: 1px solid ${COLORS.backgroundAlternative};
   }
 
