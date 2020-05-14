@@ -3,11 +3,26 @@ import { IsObject } from 'class-validator';
 import { firestore } from 'firebase';
 
 import { IOffer } from '../offers';
+import { IUser } from '../users';
 import { IRequest } from './index';
 
+export enum TimelineItemAction {
+  CREATE_REQUEST = 'CREATE_REQUEST',
+  CANCEL_REQUEST = 'CANCEL_REQUEST',
+  REMOVE_REQUEST = 'REMOVE_REQUEST',
+  COMPLETE_REQUEST = 'COMPLETE_REQUEST',
+  CREATE_OFFER = 'CREATE_OFFER',
+  ACCEPT_OFFER = 'ACCEPT_OFFER',
+  REJECT_OFFER = 'REJECT_OFFER',
+  RATE_PIN = 'RATE_PIN',
+  RATE_CAV = 'RATE_CAV',
+}
+
 export interface ITimelineItem extends firebase.firestore.DocumentData {
-  offerSnapshot: IOffer;
+  actorSnapshot: IUser;
+  offerSnapshot?: IOffer | null;
   requestSnapshot: IRequest;
+  action: TimelineItemAction;
   createdAt?: firebase.firestore.Timestamp;
 }
 
@@ -21,37 +36,57 @@ export class TimelineItem
     ITimelineItem,
     firebase.firestore.FirestoreDataConverter<TimelineItem> {
   @IsObject()
-  private _offerSnapshot: IOffer;
+  private _actorSnapshot: IUser;
+
+  @IsObject()
+  private _offerSnapshot: IOffer | null;
 
   @IsObject()
   private _requestSnapshot: IRequest;
 
   @IsObject()
+  private _action: TimelineItemAction;
+
+  @IsObject()
   private _createdAt: firebase.firestore.Timestamp;
 
   constructor(
-    offerSnapshot: IOffer,
+    actorSnapshot: IUser,
+    offerSnapshot: IOffer | null = null,
     requestSnapshot: IRequest,
+    action: TimelineItemAction,
     createdAt = firestore.Timestamp.now(),
   ) {
+    this._actorSnapshot = actorSnapshot;
     this._offerSnapshot = offerSnapshot;
     this._requestSnapshot = requestSnapshot;
+    this._action = action;
     this._createdAt = createdAt;
   }
 
   static factory(data: ITimelineItem): TimelineItem {
     return new TimelineItem(
+      data.actorSnapshot,
       data.offerSnapshot,
       data.requestSnapshot,
+      data.action,
       data.createdAt || firestore.Timestamp.now(),
     );
   }
 
-  get offerSnapshot(): IOffer {
+  get actorSnapshot(): IUser {
+    return this._actorSnapshot;
+  }
+
+  set actorSnapshot(value: IUser) {
+    this._actorSnapshot = value;
+  }
+
+  get offerSnapshot(): IOffer | null {
     return this._offerSnapshot;
   }
 
-  set offerSnapshot(value: IOffer) {
+  set offerSnapshot(value: IOffer | null) {
     this._offerSnapshot = value;
   }
 
@@ -61,6 +96,14 @@ export class TimelineItem
 
   set requestSnapshot(value: IRequest) {
     this._requestSnapshot = value;
+  }
+
+  get action(): TimelineItemAction {
+    return this._action;
+  }
+
+  set action(value: TimelineItemAction) {
+    this._action = value;
   }
 
   get createdAt(): firebase.firestore.Timestamp {
@@ -81,8 +124,10 @@ export class TimelineItem
   // eslint-disable-next-line class-methods-use-this
   toFirestore(modelObject: TimelineItem): ITimelineItem {
     return {
+      actorSnapshot: modelObject.actorSnapshot,
       offerSnapshot: modelObject.offerSnapshot,
       requestSnapshot: modelObject.requestSnapshot,
+      action: modelObject.action,
       createdAt: modelObject._createdAt,
     };
   }
