@@ -15,7 +15,7 @@
       "usa": "United States"
     },
     "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki}.",
+    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
     "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
     "sourceSubmitButton": "add information",
     "usageHeading": "Can I use this data for my own project?",
