@@ -1,13 +1,19 @@
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  BrowserRouter as Router,
+  Switch,
+} from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { updateUserPrivilegedInformation } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { changeModal, setRequest } from 'src/ducks/requests/actions';
-import { UserRequestState } from 'src/ducks/requests/types';
+import { RequestState } from 'src/ducks/requests/types';
 import { IUser } from 'src/models/users';
+import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
@@ -20,7 +26,7 @@ const MasterPage = (): ReactElement => {
   const userProfile = profileState.profile;
 
   const newRequestState = useSelector(
-    ({ requests }: { requests: UserRequestState }) => requests.setAction,
+    ({ requests }: { requests: RequestState }) => requests.setAction,
   );
 
   const dispatch = useDispatch();
@@ -104,17 +110,7 @@ const MasterPage = (): ReactElement => {
         {renderModules()}
         {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
         <Route path="/" exact>
-          <ProtectedRoute
-            key="temporaryroute"
-            path="/"
-            component={() =>
-              renderLayout({
-                path: '/',
-                menuItems: [],
-                layout: 'dashboard',
-              })
-            }
-          />
+          <Redirect to={OpenRequestsLocation.path} />
         </Route>
         <Route path="*" component={NotFoundRoute} />
       </Switch>
