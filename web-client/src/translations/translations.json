@@ -124,6 +124,8 @@
         "go_back": "Voltar atrás",
         "geolocation_modal_title": "Geolocalização não autorizada",
         "geolocation_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Por favor escolha uma das opções abaixo :",
+        "geolocation_unavailable_title": "Infelizmente, ainda não estamos disponíveis em sua localização",
+        "geolocation_unavailable_text": "Desculpe, sua localização ainda não é suportada em nossa plataforma. Você será notificado por SMS ou e-mail, assim que o nosso aplicativo estiver disponível no seu local.",
         "instructions_modal_title": "Instruções:",
         "instructions_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Se desejar reactivar, por favor siga o link abaixo :",
         "policy_text": "Nós precisamos destes dados para assegurar que a ajuda chega ao destino correto. Para quaisquer preocupações, leia os nossos termos de ",
