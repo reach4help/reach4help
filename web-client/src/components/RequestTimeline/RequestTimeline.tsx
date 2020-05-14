@@ -1,6 +1,7 @@
 import React from 'react';
 import { OfferStatus } from 'src/models/offers';
 import { RequestStatus } from 'src/models/requests';
+import { TimelineItemAction } from 'src/models/requests/timeline';
 import { ApplicationPreference } from 'src/models/users';
 import styled from 'styled-components';
 
@@ -32,64 +33,64 @@ const mockOffer = {
 
 const mockTimelineItems = [
   {
-    type: 'CREATE_REQUEST',
-    user: mockPin,
+    action: TimelineItemAction.CREATE_REQUEST,
+    actor: mockPin,
     offer: null,
     request: mockRequest,
     createdAt: new Date(today).setDate(today.getDate() - 9),
   },
   {
-    type: 'CANCEL_REQUEST',
-    user: mockPin,
+    action: TimelineItemAction.CANCEL_REQUEST,
+    actor: mockPin,
     offer: null,
     request: mockRequest,
     createdAt: new Date(today).setDate(today.getDate() - 8),
   },
   {
-    type: 'COMPLETE_REQUEST',
-    user: mockCav,
+    action: TimelineItemAction.COMPLETE_REQUEST,
+    actor: mockCav,
     offer: null,
     request: mockRequest,
     createdAt: new Date(today).setDate(today.getDate() - 7),
   },
   {
-    type: 'REMOVE_REQUEST',
-    user: mockCav,
+    action: TimelineItemAction.REMOVE_REQUEST,
+    actor: mockCav,
     offer: null,
     request: mockRequest,
     createdAt: new Date(today).setDate(today.getDate() - 6),
   },
   {
-    type: 'CREATE_OFFER',
-    user: mockCav,
+    action: TimelineItemAction.CREATE_OFFER,
+    actor: mockCav,
     request: mockRequest,
     offer: mockOffer,
     createdAt: new Date(today).setDate(today.getDate() - 5),
   },
   {
-    type: 'ACCEPT_OFFER',
-    user: mockPin,
+    action: TimelineItemAction.ACCEPT_OFFER,
+    actor: mockPin,
     request: { ...mockRequest, status: RequestStatus.ongoing },
     offer: { ...mockOffer, status: OfferStatus.accepted },
     createdAt: new Date(today).setDate(today.getDate() - 4),
   },
   {
-    type: 'REJECT_OFFER',
-    user: mockPin,
+    action: TimelineItemAction.REJECT_OFFER,
+    actor: mockPin,
     request: { ...mockRequest, status: RequestStatus.ongoing },
     offer: { ...mockOffer, status: OfferStatus.accepted },
     createdAt: new Date(today).setDate(today.getDate() - 3),
   },
   {
-    type: 'RATE_PIN',
-    user: mockCav,
+    action: TimelineItemAction.RATE_PIN,
+    actor: mockCav,
     request: { ...mockRequest, status: RequestStatus.ongoing },
     offer: { ...mockOffer, status: OfferStatus.accepted },
     createdAt: new Date(today).setDate(today.getDate() - 2),
   },
   {
-    type: 'RATE_CAV',
-    user: mockPin,
+    action: TimelineItemAction.RATE_CAV,
+    actor: mockPin,
     request: { ...mockRequest, status: RequestStatus.ongoing },
     offer: { ...mockOffer, status: OfferStatus.accepted },
     createdAt: new Date(today).setDate(today.getDate() - 1),
@@ -99,8 +100,8 @@ const mockTimelineItems = [
 const RequestTimeline: React.FC<RequestTimelineProps> = () => (
   <Wrapper>
     <Title>Request Timeline</Title>
-    {/* <RequestTimelineList items={mockTimelineItems} currentUser={mockPin} /> */}
-    <RequestTimelineList items={mockTimelineItems} currentUser={mockCav} />
+    <RequestTimelineList items={mockTimelineItems} currentUser={mockPin} />
+    {/* <RequestTimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
   </Wrapper>
 );
 

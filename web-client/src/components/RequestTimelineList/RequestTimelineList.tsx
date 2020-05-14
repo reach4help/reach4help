@@ -3,23 +3,50 @@ import moment from 'moment';
 import React from 'react';
 import CavBulletIcon from 'src/assets/cav-bullet.svg';
 import PinBulletIcon from 'src/assets/pin-bullet.svg';
+import { TimelineItemAction } from 'src/models/requests/timeline';
 import styled from 'styled-components';
 
 import { ApplicationPreference } from '../../models/users';
 
 const { Text } = Typography;
 
-// prettier-ignore
-const MESSAGE_TEXTS = {
-  'CREATE_REQUEST': 'Pin created this request.',
-  'CANCEL_REQUEST': 'Pin closed this request.',
-  'COMPLETE_REQUEST': 'Cav finished this request.',
-  'REMOVE_REQUEST': 'Cav removed this request',
-  'CREATE_OFFER': 'Cav accepted this request.',
-  'ACCEPT_OFFER': 'Pin accepted Cav help',
-  'REJECT_OFFER': 'Pin rejected Cav help',
-  'RATE_PIN': 'Cav rated pin.',
-  'RATE_CAV': 'Pin rated cav.',
+// TODO use i18n
+const renderMessageTextFor = action => {
+  let text = '';
+  switch (action) {
+    case TimelineItemAction.CREATE_REQUEST:
+      text = 'Pin created this request.';
+      break;
+    case TimelineItemAction.CANCEL_REQUEST:
+      text = 'Pin closed this request.';
+      break;
+    case TimelineItemAction.REMOVE_REQUEST:
+      text = 'Cav removed this request';
+      break;
+    case TimelineItemAction.COMPLETE_REQUEST:
+      text = 'Cav finished this request.';
+      break;
+    case TimelineItemAction.CREATE_OFFER:
+      text = 'Cav accepted this request.';
+      break;
+    case TimelineItemAction.ACCEPT_OFFER:
+      text = 'Pin accepted Cav help';
+      break;
+    case TimelineItemAction.REJECT_OFFER:
+      text = 'Pin rejected Cav help';
+      break;
+    case TimelineItemAction.RATE_PIN:
+      text = 'Cav rated pin.';
+      break;
+    case TimelineItemAction.RATE_CAV:
+      text = 'Pin rated cav.';
+      break;
+    default:
+      text = 'Something went wrong!';
+      break;
+  }
+
+  return <Text>{text}</Text>;
 };
 
 const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
@@ -27,7 +54,7 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
   align,
 }) => {
   const isCavItem =
-    item.user.applicationPreference === ApplicationPreference.cav;
+    item.actor.applicationPreference === ApplicationPreference.cav;
   const date = new Date(item.createdAt);
   const dateString = date.toLocaleDateString('en-US', {
     day: 'numeric',
@@ -39,7 +66,7 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
       <StyledListItem className={align}>
         <ListItemBullet src={isCavItem ? CavBulletIcon : PinBulletIcon} />
         <MessageBox className={`message-box ${isCavItem ? 'cav' : 'pin'}`}>
-          <Text>{MESSAGE_TEXTS[item.type]}</Text>
+          {renderMessageTextFor(item.action)}
           <TimeAgo>{moment(date).fromNow()}</TimeAgo>
         </MessageBox>
       </StyledListItem>
@@ -52,12 +79,12 @@ const RequestTimelineList: React.FC<RequestTimelineListProps> = ({
   currentUser,
 }) => (
   <StyledList>
-    <Line />
+    <VerticalSeperator />
     {items.map((item, index) => (
       <RequestTimelineListItem
         key={index}
         item={item}
-        align={item.user === currentUser ? 'right' : 'left'}
+        align={item.actor === currentUser ? 'right' : 'left'}
       />
     ))}
   </StyledList>
@@ -148,7 +175,7 @@ const StyledList = styled.ul`
 `;
 
 // TODO use global colors
-const Line = styled.div`
+const VerticalSeperator = styled.div`
   position: absolute;
   align-self: center;
   width: 3px;
