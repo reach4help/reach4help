@@ -10,19 +10,20 @@ import DummyMan from 'src/assets/dummy-man.jpg';
 import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
+import { Request, RequestStatus } from 'src/models/requests';
 import { COLORS } from 'src/theme/colors';
 import styled, { css } from 'styled-components';
 
 const { Text } = Typography;
 
 interface TopPanelProps {
-  request: any;
+  request: Request;
   user: any;
 }
 
 const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
   const [togglePanel, setTogglePanel] = useState(false);
-  const userRequestStatus = request.ongoing;
+  const userRequestStatus = request.status;
 
   return (
     <TopPanelWrapper>
@@ -44,29 +45,30 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
               </InfoDetail>
               <InfoDetail>
                 <img src={LocationIcon} alt="location icon" />
-                <span>{user.distance}</span>
+                {/* TODO: Requires Fix from backend */}
+                <span>5km</span>
               </InfoDetail>
             </Info>
           </Detail>
           {userRequestStatus ===
-          (request.ongoing || request.finished || request.completed) ? (
+          (RequestStatus.ongoing || RequestStatus.completed) ? (
             <img src={PhoneIcon} alt="phone icon" />
           ) : null}
         </UserDetails>
       </UserRow>
       <RequestWrapper onClick={() => setTogglePanel(!togglePanel)}>
         <InitialRequestInfo>
-          <span>Medicine</span>
+          <span>{request.title}</span>
           {!togglePanel ? <DownOutlined /> : null}
         </InitialRequestInfo>
 
         {togglePanel ? (
           <RequestDetails>
             <RequestDetail>
-              <Text> - 1x Ciprofloxacin 1000mg </Text>
-              <Text> - 2x Vitamin C 1000mg </Text>
+              <Text> - {request.description} </Text>
             </RequestDetail>
             <Address>
+              {/* TODO: needs fix from backend */}
               <AddressTextAndArrow>
                 <Text>Delivery Address </Text>
                 <UpOutlined />
