@@ -26,7 +26,7 @@ const OpenRequestsContainer: React.FC = () => {
 
   return (
     <RequestList
-      requests={openRequests.data}
+      requests={Object.values(openRequests.data || {})}
       loading={openRequests && openRequests.loading}
     />
   );
