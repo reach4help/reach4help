@@ -74,7 +74,13 @@ export default createReducer<RequestState>(
         payload: firebase.firestore.QuerySnapshot<Request>;
       },
     ) => {
-      state.openRequests.data = payload.docs.map(doc => doc.data());
+      state.openRequests.data = payload.docs.reduce(
+        (acc, doc) => ({
+          ...acc,
+          [doc.id]: doc.data(),
+        }),
+        {},
+      );
       state.openRequests.loading = false;
       state.openRequests.observerReceivedFirstUpdate = true;
     },
@@ -101,7 +107,13 @@ export default createReducer<RequestState>(
     ) => {
       state[
         requestStatusMapper[payload.requestStatus]
-      ].data = payload.snap.docs.map(doc => doc.data());
+      ].data = payload.snap.docs.reduce(
+        (acc, doc) => ({
+          ...acc,
+          [doc.id]: doc.data(),
+        }),
+        {},
+      );
       state[requestStatusMapper[payload.requestStatus]].loading = false;
       state[
         requestStatusMapper[payload.requestStatus]
