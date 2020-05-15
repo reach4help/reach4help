@@ -47,7 +47,6 @@ export const onWrite = (change: Change<DocumentSnapshot>, context: EventContext)
     });
   }
 
-
   const updateUserClaims = auth?.setCustomUserClaims(userId, null) // Clear old claims
     .then(() => {
       return auth?.setCustomUserClaims(userId, newUserClaims); // Set new claims
