@@ -14,7 +14,7 @@ export enum OfferStatus {
   pending = 'pending',
   accepted = 'accepted',
   rejected = 'rejected',
-  cavRejected = 'cav_declined',
+  cavDeclined = 'cav_declined',
 }
 
 export interface IOffer extends firebase.firestore.DocumentData {
