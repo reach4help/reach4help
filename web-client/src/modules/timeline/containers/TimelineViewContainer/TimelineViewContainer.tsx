@@ -80,12 +80,24 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     return <>Loading...</>;
   }
 
+  const mockRequestUser = {
+    name: 'Jon Snow',
+    rating: 4.5,
+    likes: 52,
+    applicationPreference: 'pin',
+  };
+  const mockRequest = {
+    status: 'accepted',
+    title: 'Food',
+    description: 'Pasta, Rice',
+  };
+
   /*
     TODO: 
-      Once backend changes for profile snapshot is done, instead of user={profileState.profile},
+      Once backend changes for profile snapshot is done, instead of user={mockRequestUser},
       The Top Panel must take the user details from the request itself
   */
-  return <TopPanel request={request} user={profileState.profile} />;
+  return <TopPanel request={mockRequest} user={mockRequestUser} />;
 };
 
 export default TimelineViewContainer;

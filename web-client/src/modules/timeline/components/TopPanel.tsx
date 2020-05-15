@@ -1,5 +1,6 @@
 import {
   DownOutlined,
+  HeartOutlined,
   HomeOutlined,
   StarOutlined,
   UpOutlined,
@@ -17,7 +18,7 @@ import styled, { css } from 'styled-components';
 const { Text } = Typography;
 
 interface TopPanelProps {
-  request: Request;
+  request: any;
   user: any;
 }
 
@@ -30,25 +31,45 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
       <NavRow>
         <img src={NavBackIcon} alt="back navigation icon" />
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
-          {userRequestStatus}
+          {userRequestStatus === 'pending' ? 'Open' : userRequestStatus}
         </StatusButton>
       </NavRow>
       <UserRow>
-        <DisplayPhoto src={DummyMan} alt="display photo" />
+        {userRequestStatus === 'pending' ? (
+          <EmptyPhoto />
+        ) : (
+          <DisplayPhoto src={DummyMan} alt="display photo" />
+        )}
         <UserDetails>
           <Detail>
-            <DisplayName>{user.name}</DisplayName>
-            <Info>
-              <InfoDetail>
-                <AverageRatingIcon />
-                <span>{user.rating}</span>
-              </InfoDetail>
-              <InfoDetail>
-                <img src={LocationIcon} alt="location icon" />
-                {/* TODO: Requires Fix from backend */}
-                <span>5km</span>
-              </InfoDetail>
-            </Info>
+            <DisplayName className={userRequestStatus}>
+              {userRequestStatus === 'pending'
+                ? 'WAITING FOR VOLUNTEER'
+                : user.name}
+            </DisplayName>
+            {user.applicationPreference === 'cav' &&
+            userRequestStatus !== 'pending' ? (
+              <Volunteer>VOLUNTEER</Volunteer>
+            ) : null}
+            {userRequestStatus === 'pending' ? null : (
+              <Info>
+                {user.applicationPreference === 'cav' ? (
+                  <InfoDetail>
+                    <LikesIcon />
+                    <span>{user.likes}</span>
+                  </InfoDetail>
+                ) : null}
+                <InfoDetail>
+                  <AverageRatingIcon />
+                  <span>{user.rating}</span>
+                </InfoDetail>
+                <InfoDetail className={user.applicationPreference}>
+                  <img src={LocationIcon} alt="location icon" />
+                  {/* TODO: Requires Fix from backend */}
+                  <span>5km</span>
+                </InfoDetail>
+              </Info>
+            )}
           </Detail>
           {userRequestStatus ===
           (RequestStatus.ongoing || RequestStatus.completed) ? (
@@ -65,7 +86,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
         {togglePanel ? (
           <RequestDetails>
             <RequestDetail>
-              <Text> - {request.description} </Text>
+              <Text>{request.description}</Text>
             </RequestDetail>
             <Address>
               {/* TODO: needs fix from backend */}
@@ -123,6 +144,12 @@ const NavRow = styled.div`
 `;
 
 const StatusButton = styled.button`
+  text-transform: capitalize;
+  &.pending {
+    background: rgba(${COLORS.rgb.brandOrange}, 0.25);
+    border: 1px solid ${COLORS.brandOrange};
+  }
+
   &.accepted,
   &.finished,
   &.completed {
@@ -134,12 +161,12 @@ const StatusButton = styled.button`
     border: 1px solid ${COLORS.primary};
   }
 
-  &.closed {
+  &.removed {
     background: rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.45);
   }
 
-  &.cancel {
+  &.cancelled {
     background: rgba(${COLORS.rgb.warning}, 0.25);
     border: 1px solid ${COLORS.backgroundAlternative};
   }
@@ -163,7 +190,15 @@ const DisplayPhoto = styled.img`
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background-color: darkgray;
+  margin-right: 20px;
+`;
+
+const EmptyPhoto = styled.div`
+  background: linear-gradient(180deg, #ffffff 0%, #dddddd 100%);
+  transform: matrix(0, -1, -1, 0, 0, 0);
+  width: 48px;
+  height: 45px;
+  border-radius: 50%;
   margin-right: 20px;
 `;
 
@@ -173,12 +208,18 @@ const UserDetails = styled.div`
 `;
 
 const Detail = styled.div`
-  width: 50%;
-  max-width: 10rem;
+  width: 55%;
+  max-width: 12rem;
+  ${flexAlignColumn}
 `;
 
 const Info = styled.div`
   ${flexSpaceBetween}
+  width: 100%;
+
+  .cav {
+    margin-left: 1rem;
+  }
 `;
 
 const InfoDetail = styled.div`
@@ -196,8 +237,26 @@ const InfoDetail = styled.div`
 const DisplayName = styled(Text)`
   font-size: 1rem;
   color: #f0f0f0;
+
+  &.pending,
+  .ant-typography {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 900;
+  }
 `;
 
+const Volunteer = styled(Text)`
+  &.ant-typography {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 900;
+  }
+`;
+
+const LikesIcon = styled(HeartOutlined)`
+  color: #811e78;
+`;
 const AverageRatingIcon = styled(StarOutlined)`
   color: #811e78;
 `;

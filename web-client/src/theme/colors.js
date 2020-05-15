@@ -14,6 +14,7 @@ module.exports = {
       success: '82,196,26',
       primary: '24, 144, 255',
       warning: '242, 121, 121',
+      brandOrange: '255,123,2',
     },
   },
 };
