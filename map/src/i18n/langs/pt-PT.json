@@ -11,8 +11,7 @@
     "otherAreasInfo": "Veja estes mapas alternativos:",
     "otherAreasLocations": {
       "france": "França",
-      "nyc": "Nova Iorque",
-      "usa": "Estados Unidos da América"
+      "nyc": "Nova Iorque"
     },
     "sourceHeading": "De onde vem esta informação?",
     "sourceInfo": "As informações contidas neste mapa são uma combinação de dados recolhidos pelos nossos voluntários, que foram submetidos pelos nossos usuários e fornecidos por outros projetos de execução voluntária, incluindo {mutualaidwiki} e {mutualaidhub}.",
