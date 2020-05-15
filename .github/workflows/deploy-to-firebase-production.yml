@@ -1,8 +1,8 @@
 name: Deploy to Production
 
 on:
-  release:
-    types: [released]
+  push:
+    branches: [production]
 
 jobs:
   deploy-staging:

@@ -28,7 +28,7 @@ const CompletedRequestsContainer: React.FC = () => {
 
   return (
     <RequestList
-      requests={completedRequests.data}
+      requests={Object.values(completedRequests.data || {})}
       loading={completedRequests && completedRequests.loading}
     />
   );
