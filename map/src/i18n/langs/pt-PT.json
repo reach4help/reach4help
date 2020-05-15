@@ -4,9 +4,9 @@
   "aboutScreen": {
     "intro": "Acreditamos que a solidariedade revela o melhor de nós.",
     "info": "Para que as pessoas consigam encontrar ou oferecer ajuda na sua zona de residência, servindo de inspiração para iniciarem os seus próprios projectos ou simplesmente para elevar o estado de espírito. Este mapa apresenta uma uma crescente lista de projectos de ajuda à pandemia a nível mundial.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
+    "warning": "Nota: Cada projeto é autónomo e auto-organizado; muitas organizações utilizam formulários publicos para partilhar informação, não insira informações que não pretende que estejam disponíveis publicamente.",
+    "project": "Este mapa é parte da {reach4Help}, um projeto gerido por voluntários. É de código aberto e pode ser {githubSource}. Para qualquer dúvida, podes contactar-nos através de {email}.",
+    "githubSourceLabel": "verfonte no Github",
     "otherAreasHeading": "Interested in one of these areas?",
     "otherAreasInfo": "Check out these alternative maps instead:",
     "otherAreasLocations": {
