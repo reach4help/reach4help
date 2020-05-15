@@ -138,6 +138,11 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    match /config/chatbot {
+      // Only the chatbot can read / write this config
+      allow read, write: if request.auth.uid == 'bot-chatbot';
+    }
+
     match /markers/{markerID} {
       // Anyone can read any marker
       allow read: if true;
