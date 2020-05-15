@@ -30,11 +30,11 @@
   "social": {
     "email": "Envie-nos um e-mail",
     "twitter": "Siga-nos no Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "facebook": "Faça 'Like' no Facebook",
+    "github": "Encontre-nos no GitHub"
   },
   "addInformation": {
-    "button": "Add information",
+    "button": "Adicionar Informação",
     "backToMap": "Voltar ao mapa",
     "prev": "Voltar",
     "continue": "Continuar",
@@ -129,8 +129,8 @@
     "information": "Informação",
     "network": "Rede",
     "manufacturing": "Manufactura",
-    "financial": "Financial",
-    "other": "Other"
+    "financial": "Financeira",
+    "other": "Outros"
   },
   "serviceDescriptions": {
     "food": null,
@@ -153,7 +153,7 @@
     "other": "Outros"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
+    "mutual-aid-group": "grupos de solidariedade",
     "org": "organização / empresa",
     "project": "projeto"
   },
@@ -188,11 +188,11 @@
     "netlifyLinkText": "está hospedado por Netlify",
     "githubRepo": "GitHub Repo",
     "codeOfConduct": "Código de Conduta",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "showHidden": "Mostrar informações ocultas",
+    "hideHidden": "Esconder Informações Ocultas"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "Visibilidade: {visibility}",
     "filter": {
       "any": "Qualquer uma",
       "visible": "Apenas visíveis",
