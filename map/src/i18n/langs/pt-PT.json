@@ -139,11 +139,11 @@
     "mobility": "Transporting people from one location to another",
     "shelter": null,
     "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
+    "information": "Ajude as pessoas a encontrar informações relevantes",
     "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
     "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Algo mais não está nesta lista"
   },
   "markerTypes": {
     "mutual-aid-group": "Organização de Solidariedade",
@@ -154,8 +154,8 @@
   },
   "markerTypeSentence": {
     "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "org": "organização / empresa",
+    "project": "projeto"
   },
   "map": {
     "jumpToLocation": "Ir para uma localização no mapa...",
@@ -163,10 +163,10 @@
     "myLocation": "A Minha Localização"
   },
   "results": {
-    "backToResults": "Back to results",
+    "backToResults": "Voltar para os resultados",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "showMore": "Mostrar mais resultados",
     "contact": {
       "general": "Informações gerais:",
       "getHelp": "Obter ajuda:",
@@ -175,7 +175,7 @@
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
+        "header": "Nota",
         "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
       },
       "source": "Information about this {type} is provided by {source}."
@@ -194,9 +194,9 @@
   "hiddenMarkers": {
     "visiblility": "Visibility: {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "Qualquer uma",
+      "visible": "Apenas visíveis",
+      "hidden": "Apenas ocultas"
     }
   }
 }
