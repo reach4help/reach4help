@@ -7,14 +7,14 @@
     "warning": "Nota: Cada projeto é autónomo e auto-organizado; muitas organizações utilizam formulários publicos para partilhar informação, não insira informações que não pretende que estejam disponíveis publicamente.",
     "project": "Este mapa é parte da {reach4Help}, um projeto gerido por voluntários. É de código aberto e pode ser {githubSource}. Para qualquer dúvida, podes contactar-nos através de {email}.",
     "githubSourceLabel": "verfonte no Github",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "otherAreasHeading": "Interessados em uma destas áreas?",
+    "otherAreasInfo": "Veja estes mapas alternativos:",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York",
-      "usa": "United States"
+      "france": "França",
+      "nyc": "Nova Iorque",
+      "usa": "Estados Unidos da América"
     },
-    "sourceHeading": "Where does this information come from?",
+    "sourceHeading": "De onde vem esta informação?",
     "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
     "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
     "sourceSubmitButton": "add information",
