@@ -11,8 +11,7 @@
     "otherAreasInfo": "Check out these alternative maps instead:",
     "otherAreasLocations": {
       "france": "France",
-      "nyc": "New York",
-      "usa": "United States"
+      "nyc": "New York"
     },
     "sourceHeading": "Where does this information come from?",
     "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
