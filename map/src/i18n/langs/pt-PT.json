@@ -15,21 +15,21 @@
       "usa": "Estados Unidos da América"
     },
     "sourceHeading": "De onde vem esta informação?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
+    "sourceInfo": "As informações contidas neste mapa são uma combinação de dados recolhidos pelos nossos voluntários, que foram submetidos pelos nossos usuários e fornecidos por outros projetos de execução voluntária, incluindo {mutualaidwiki} e {mutualaidhub}.",
     "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
+    "sourceSubmitButton": "adicionar Informação",
+    "usageHeading": "Posso usar esses dados para meu próprio projeto?",
     "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
     "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
     "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "Sobre",
+    "map": "Ver Mapa"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
+    "email": "Envie-nos um e-mail",
+    "twitter": "Siga-nos no Twitter",
     "facebook": "Like us on Facebook",
     "github": "Find us on GitHub"
   },
