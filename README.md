@@ -32,7 +32,7 @@ Right now, we’re developing our **MVP** and rapidly expanding our _reach_! We�
 
 ## How _You_ Can Contribute
 
-We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the [instructions for getting involved](docs/GETTING_INVOLVED.md). You can find more details on how to prepare the environment and the guidelines on how to contribute to the repo by looking at the [instructions for contributing](CONTRIBUTING.md). We'd be honored to have you join our humble abode!
+We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps). You can find more details on how to prepare the environment and the guidelines on how to contribute to the repo by looking at the [instructions for contributing](CONTRIBUTING.md). We'd be honored to have you join our humble abode!
 
 # Development
 

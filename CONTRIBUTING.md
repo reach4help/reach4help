@@ -7,7 +7,7 @@ we're happy to have you on board!
 
 This document describes how to contribute the software aspects of our project,
 if you want to contribute by other means,
-please see our [Getting Involved / Onboarding](docs/GETTING_INVOLVED.md) document.
+please see our [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps).
 
 ## Please read our guidelines before you start.
 
@@ -31,7 +31,7 @@ to reduce the likelihood of duplicated or wasted effort.
 
 Before we can assign any tasks to you,
 we ask that you read and complete the process detailed in our
-[Getting Involved / Onboarding](docs/GETTING_INVOLVED.md) document,
+[Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps),
 and in particular **Join a Team** if possible.
 
 Once you have done this,

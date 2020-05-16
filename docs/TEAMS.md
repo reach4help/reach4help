@@ -2,7 +2,7 @@
 
 If you would like to be a part of this project,
 or join a team,
-please read our [Getting Involved / Onboarding](GETTING_INVOLVED.md) document.
+please read our [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps).
 
 ### Project Management
 
