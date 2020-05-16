@@ -4,7 +4,9 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { observeNonOpenRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { RequestStatus } from 'src/models/requests';
+import { ApplicationPreference } from 'src/models/users';
 
+import Header from '../../components/Header/Header';
 import RequestList from '../../components/RequestList/RequestList';
 
 const CompletedRequestsContainer: React.FC = () => {
@@ -26,11 +28,25 @@ const CompletedRequestsContainer: React.FC = () => {
     }
   }, [profileState, dispatch]);
 
+  const handleRequest: Function = () => 'Fill logic here';
+
   return (
-    <RequestList
-      requests={completedRequests.data}
-      loading={completedRequests && completedRequests.loading}
-    />
+    <>
+      <Header
+        requestsType="Completed"
+        numRequests={completedRequests.data?.length}
+        isCav={
+          profileState.profile?.applicationPreference ===
+          ApplicationPreference.cav
+        }
+      />
+      <RequestList
+        requests={completedRequests.data}
+        loading={completedRequests && completedRequests.loading}
+        handleRequest={handleRequest}
+        isCavAndOpenRequest={false}
+      />
+    </>
   );
 };
 

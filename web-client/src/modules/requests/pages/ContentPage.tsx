@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import ClosedRequestsRoute from './routes/ClosedRequestsRoute/ClosedRequestsRoute';
+import { ClosedRequestsLocation } from './routes/ClosedRequestsRoute/constants';
 import CompletedRequestsRoute from './routes/CompletedRequestsRoute/CompletedRequestsRoute';
 import { CompletedRequestsLocation } from './routes/CompletedRequestsRoute/constants';
 import { OngoingRequestsLocation } from './routes/OngoingRequestsRoute/constants';
@@ -23,6 +25,11 @@ const ContentPage = (): ReactElement => (
     <Route
       path={CompletedRequestsLocation.path}
       component={CompletedRequestsRoute}
+      exact
+    />
+    <Route
+      path={ClosedRequestsLocation.path}
+      component={ClosedRequestsRoute}
       exact
     />
   </Switch>

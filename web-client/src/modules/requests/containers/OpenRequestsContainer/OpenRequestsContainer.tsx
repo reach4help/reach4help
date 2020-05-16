@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProfileState } from 'src/ducks/profile/types';
 import { observeOpenRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
+import { ApplicationPreference } from 'src/models/users';
 
+import Header from '../../components/Header/Header';
 import RequestList from '../../components/RequestList/RequestList';
 
 const OpenRequestsContainer: React.FC = () => {
@@ -24,11 +26,28 @@ const OpenRequestsContainer: React.FC = () => {
     }
   }, [profileState, dispatch]);
 
+  const handleRequest: Function = () => 'Fill logic here';
+
   return (
-    <RequestList
-      requests={openRequests.data}
-      loading={openRequests && openRequests.loading}
-    />
+    <>
+      <Header
+        requestsType="Open"
+        numRequests={openRequests.data?.length}
+        isCav={
+          profileState.profile?.applicationPreference ===
+          ApplicationPreference.cav
+        }
+      />
+      <RequestList
+        requests={openRequests.data}
+        loading={openRequests && openRequests.loading}
+        handleRequest={handleRequest}
+        isCavAndOpenRequest={
+          profileState.profile?.applicationPreference ===
+          ApplicationPreference.cav
+        }
+      />
+    </>
   );
 };
 
