@@ -41,7 +41,7 @@ const OngoingRequestsContainer: React.FC = () => {
         }
       />
       <RequestList
-        requests={ongoingRequests.data}
+        requests={Object.values(ongoingRequests.data || {})}
         loading={ongoingRequests && ongoingRequests.loading}
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}

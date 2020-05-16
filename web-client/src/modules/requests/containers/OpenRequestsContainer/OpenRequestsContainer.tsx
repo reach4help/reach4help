@@ -39,7 +39,7 @@ const OpenRequestsContainer: React.FC = () => {
         }
       />
       <RequestList
-        requests={openRequests.data}
+        requests={Object.values(openRequests.data || {})}
         loading={openRequests && openRequests.loading}
         handleRequest={handleRequest}
         isCavAndOpenRequest={

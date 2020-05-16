@@ -73,7 +73,7 @@ module.exports = {
         id: 'instagram',
         fontAwesomeIcon: 'instagram',
         name: 'Follow us on instagram',
-        url: 'https://www.instagram.com/reach4helporg/',
+        url: 'https://www.instagram.com/reach4help/',
       },
       {
         id: 'twitter',

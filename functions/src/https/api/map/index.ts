@@ -11,6 +11,8 @@ const LICENSES = {
     'This data by Reach4Help (https://reach4help.org/) is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (http://creativecommons.org/licenses/by-nc-sa/4.0/)',
   // TODO: uncomment when license is confirmed with mutualaid.wiki
   // 'mutualaid.wiki': `This data by Mutual Aid Wiki (https://mutualaid.wiki/) is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (http://creativecommons.org/licenses/by-nc-sa/4.0/)`
+  'mutualaidhub.org':
+    'This data from mutualaidhub.org is licensed under Public Domain Dedication and License v1.0 (https://www.opendatacommons.org/licenses/pddl/1.0/)',
 };
 /* eslint-enable max-len */
 
@@ -38,7 +40,13 @@ export const data = functions.https.onRequest(async (_req, res) => {
   markers.forEach(doc => {
     const docData = doc.data() as MarkerInfo;
     // TODO: add other sources (with appropriate licenses)
+    let license: LicenseKey | null = null;
     if (!docData.source || docData.source.name === 'hardcoded') {
+      license = 'reach4help';
+    } else if (docData.source.name === 'mutualaidhub.org') {
+      license = 'mutualaidhub.org';
+    }
+    if (license) {
       result.data.push({
         ...docData,
         loc: {
@@ -49,7 +57,7 @@ export const data = functions.https.onRequest(async (_req, res) => {
           },
         },
         id: doc.id,
-        license: 'reach4help',
+        license,
       });
     }
   });
