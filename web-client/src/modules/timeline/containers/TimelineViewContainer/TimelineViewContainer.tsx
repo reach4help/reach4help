@@ -9,6 +9,7 @@ import { RequestState } from 'src/ducks/requests/types';
 import { Request, RequestStatus } from 'src/models/requests';
 
 import TopPanel from '../../components/TopPanel';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 
 interface TimelineViewContainerProps {
   requestId: string;
@@ -87,7 +88,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   }, [dispatch, profileState]);
 
   if (!(profileState.profile && request)) {
-    return <>Loading...</>;
+    return <LoadingWrapper />;
   }
 
   const mockRequestUser = {
