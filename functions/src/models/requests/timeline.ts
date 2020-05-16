@@ -1,5 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsObject, IsOptional, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmptyObject, IsObject, IsOptional, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
 import { IOffer, Offer } from '../offers';
@@ -59,7 +59,7 @@ export class TimelineItem implements ITimelineItem {
     this._createdAt = createdAt;
   }
 
-  @IsObject()
+  @IsNotEmptyObject()
   private _actorRef: DocumentReference<DocumentData>;
 
   get actorRef(): DocumentReference<DocumentData> {
@@ -71,6 +71,7 @@ export class TimelineItem implements ITimelineItem {
   }
 
   @IsObject()
+  @ValidateNested()
   private _actorSnapshot: User;
 
   get actorSnapshot(): User {
@@ -81,7 +82,7 @@ export class TimelineItem implements ITimelineItem {
     this._actorSnapshot = value;
   }
 
-  @IsObject()
+  @IsNotEmptyObject()
   @IsOptional()
   private _offerRef: DocumentReference<DocumentData> | null;
 
@@ -106,7 +107,7 @@ export class TimelineItem implements ITimelineItem {
     this._offerSnapshot = value;
   }
 
-  @IsObject()
+  @IsNotEmptyObject()
   private _requestRef: DocumentReference<DocumentData>;
 
   get requestRef(): DocumentReference<DocumentData> {
@@ -118,6 +119,7 @@ export class TimelineItem implements ITimelineItem {
   }
 
   @IsObject()
+  @ValidateNested()
   private _requestSnapshot: Request;
 
   get requestSnapshot(): Request {
@@ -128,7 +130,7 @@ export class TimelineItem implements ITimelineItem {
     this._requestSnapshot = value;
   }
 
-  @IsObject()
+  @IsEnum(TimelineItemAction)
   private _action: TimelineItemAction;
 
   get action(): TimelineItemAction {
@@ -168,7 +170,7 @@ export class TimelineItem implements ITimelineItem {
       actorRef: this.actorRef,
       offerRef: this.offerRef,
       requestRef: this.requestRef,
-      actorSnapshot: this.actorSnapshot,
+      actorSnapshot: this.actorSnapshot.toObject(),
       offerSnapshot: this.offerSnapshot ? this.offerSnapshot.toObject() : null,
       requestSnapshot: this.requestSnapshot.toObject(),
       action: this.action,

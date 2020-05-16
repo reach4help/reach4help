@@ -1,10 +1,16 @@
 /* eslint no-underscore-dangle: 0 */
-import { IsObject } from 'class-validator';
-import { firestore } from 'firebase';
+import {
+  IsEnum,
+  IsNotEmptyObject,
+  IsObject,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
+import firebase, { firestore } from 'firebase';
 
-import { IOffer } from '../offers';
-import { IUser } from '../users';
-import { IRequest } from './index';
+import { IOffer, Offer } from '../offers';
+import { IUser, User } from '../users';
+import { IRequest, Request } from './index';
 
 export enum TimelineItemAction {
   CREATE_REQUEST = 'CREATE_REQUEST',
@@ -19,6 +25,15 @@ export enum TimelineItemAction {
 }
 
 export interface ITimelineItem extends firebase.firestore.DocumentData {
+  actorRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  >;
+  offerRef?: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  > | null;
+  requestRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  >;
   actorSnapshot: IUser;
   offerSnapshot?: IOffer | null;
   requestSnapshot: IRequest;
@@ -31,32 +46,26 @@ export interface ITimelineItem extends firebase.firestore.DocumentData {
  * It is used to render a timeline of the request on the front end, but all records
  * are created automatically by the system based on status changes.
  */
-export class TimelineItem
-  implements
-    ITimelineItem,
-    firebase.firestore.FirestoreDataConverter<TimelineItem> {
-  @IsObject()
-  private _actorSnapshot: IUser;
-
-  @IsObject()
-  private _offerSnapshot: IOffer | null;
-
-  @IsObject()
-  private _requestSnapshot: IRequest;
-
-  @IsObject()
-  private _action: TimelineItemAction;
-
-  @IsObject()
-  private _createdAt: firebase.firestore.Timestamp;
-
+export class TimelineItem implements ITimelineItem {
   constructor(
-    actorSnapshot: IUser,
-    offerSnapshot: IOffer | null = null,
-    requestSnapshot: IRequest,
+    actorRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
+    offerRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    > | null = null,
+    requestRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
+    actorSnapshot: User,
+    offerSnapshot: Offer | null = null,
+    requestSnapshot: Request,
     action: TimelineItemAction,
-    createdAt = firestore.Timestamp.now(),
+    createdAt = firebase.firestore.Timestamp.now(),
   ) {
+    this._actorRef = actorRef;
+    this._offerRef = offerRef;
+    this._requestRef = requestRef;
     this._actorSnapshot = actorSnapshot;
     this._offerSnapshot = offerSnapshot;
     this._requestSnapshot = requestSnapshot;
@@ -64,39 +73,81 @@ export class TimelineItem
     this._createdAt = createdAt;
   }
 
-  static factory(data: ITimelineItem): TimelineItem {
-    return new TimelineItem(
-      data.actorSnapshot,
-      data.offerSnapshot,
-      data.requestSnapshot,
-      data.action,
-      data.createdAt || firestore.Timestamp.now(),
-    );
+  @IsNotEmptyObject()
+  private _actorRef: firestore.DocumentReference<firestore.DocumentData>;
+
+  get actorRef(): firestore.DocumentReference<firestore.DocumentData> {
+    return this._actorRef;
   }
 
-  get actorSnapshot(): IUser {
+  set actorRef(value: firestore.DocumentReference<firestore.DocumentData>) {
+    this._actorRef = value;
+  }
+
+  @IsObject()
+  @ValidateNested()
+  private _actorSnapshot: User;
+
+  get actorSnapshot(): User {
     return this._actorSnapshot;
   }
 
-  set actorSnapshot(value: IUser) {
+  set actorSnapshot(value: User) {
     this._actorSnapshot = value;
   }
 
-  get offerSnapshot(): IOffer | null {
+  @IsNotEmptyObject()
+  @IsOptional()
+  private _offerRef: firestore.DocumentReference<firestore.DocumentData> | null;
+
+  get offerRef(): firestore.DocumentReference<firestore.DocumentData> | null {
+    return this._offerRef;
+  }
+
+  set offerRef(
+    value: firestore.DocumentReference<firestore.DocumentData> | null,
+  ) {
+    this._offerRef = value;
+  }
+
+  @IsObject()
+  @IsOptional()
+  @ValidateNested()
+  private _offerSnapshot: Offer | null;
+
+  get offerSnapshot(): Offer | null {
     return this._offerSnapshot;
   }
 
-  set offerSnapshot(value: IOffer | null) {
+  set offerSnapshot(value: Offer | null) {
     this._offerSnapshot = value;
   }
 
-  get requestSnapshot(): IRequest {
+  @IsNotEmptyObject()
+  private _requestRef: firestore.DocumentReference<firestore.DocumentData>;
+
+  get requestRef(): firestore.DocumentReference<firestore.DocumentData> {
+    return this._requestRef;
+  }
+
+  set requestRef(value: firestore.DocumentReference<firestore.DocumentData>) {
+    this._requestRef = value;
+  }
+
+  @IsObject()
+  @ValidateNested()
+  private _requestSnapshot: Request;
+
+  get requestSnapshot(): Request {
     return this._requestSnapshot;
   }
 
-  set requestSnapshot(value: IRequest) {
+  set requestSnapshot(value: Request) {
     this._requestSnapshot = value;
   }
+
+  @IsEnum(TimelineItemAction)
+  private _action: TimelineItemAction;
 
   get action(): TimelineItemAction {
     return this._action;
@@ -106,7 +157,10 @@ export class TimelineItem
     this._action = value;
   }
 
-  get createdAt(): firebase.firestore.Timestamp {
+  @IsObject()
+  private _createdAt: firebase.firestore.Timestamp;
+
+  get createdAt(): firestore.Timestamp {
     return this._createdAt;
   }
 
@@ -114,21 +168,39 @@ export class TimelineItem
     this._createdAt = value;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  static factory(data: ITimelineItem): TimelineItem {
+    return new TimelineItem(
+      data.actorRef,
+      data.offerRef,
+      data.requestRef,
+      User.factory(data.actorSnapshot),
+      data.offerSnapshot ? Offer.factory(data.offerSnapshot) : null,
+      Request.factory(data.requestSnapshot),
+      data.action,
+      data.createdAt,
+    );
+  }
+
+  toObject(): object {
+    return {
+      actorRef: this.actorRef.path,
+      offerRef: this.offerRef ? this.offerRef.path : null,
+      requestRef: this.requestRef.path,
+      actorSnapshot: this.actorSnapshot.toObject(),
+      offerSnapshot: this.offerSnapshot ? this.offerSnapshot.toObject() : null,
+      requestSnapshot: this.requestSnapshot.toObject(),
+      action: this.action,
+      createdAt: this.createdAt.toDate(),
+    };
+  }
+}
+
+export const TimelineItemFirestoreConverter: firebase.firestore.FirestoreDataConverter<TimelineItem> = {
   fromFirestore(
     data: firebase.firestore.QueryDocumentSnapshot<ITimelineItem>,
   ): TimelineItem {
     return TimelineItem.factory(data.data());
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  toFirestore(modelObject: TimelineItem): ITimelineItem {
-    return {
-      actorSnapshot: modelObject.actorSnapshot,
-      offerSnapshot: modelObject.offerSnapshot,
-      requestSnapshot: modelObject.requestSnapshot,
-      action: modelObject.action,
-      createdAt: modelObject._createdAt,
-    };
-  }
-}
+  },
+  toFirestore: (modelObject: TimelineItem): firebase.firestore.DocumentData =>
+    modelObject.toObject(),
+};
