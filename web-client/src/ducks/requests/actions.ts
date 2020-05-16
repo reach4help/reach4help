@@ -9,10 +9,18 @@ import {
   CHANGE_MODAL,
   IgetNonOpenRequests,
   IgetOpenRequests,
-  OBSERVE_NON_OPEN_REQUESTS,
+  OBSERVE_CANCELLED_REQUESTS,
+  OBSERVE_COMPLETED_REQUESTS,
+  OBSERVE_ONGOING_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
   SET,
 } from './types';
+
+const requestStatusMapper = {
+  ongoing: OBSERVE_ONGOING_REQUESTS,
+  completed: OBSERVE_COMPLETED_REQUESTS,
+  cancelled: OBSERVE_CANCELLED_REQUESTS,
+};
 
 export const observeOpenRequests = (
   dispatch: Function,
@@ -36,15 +44,15 @@ export const observeNonOpenRequests = (
   payload: IgetNonOpenRequests,
 ): (() => void) => {
   dispatch({
-    type: OBSERVE_NON_OPEN_REQUESTS,
+    type: requestStatusMapper[payload.requestStatus],
     observer: observeNonOpenRequestsFunc,
     payload,
   });
 
   return () =>
     dispatch({
-      type: OBSERVE_NON_OPEN_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_NON_OPEN_REQUESTS,
+      type: requestStatusMapper[payload.requestStatus].UNSUBSCRIBE,
+      observerName: requestStatusMapper[payload.requestStatus],
     });
 };
 

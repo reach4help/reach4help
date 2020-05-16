@@ -10,8 +10,16 @@ export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
 export const OBSERVE_OPEN_REQUESTS = observerType('OBSERVE_OPEN_REQUESTS');
 
-export const OBSERVE_NON_OPEN_REQUESTS = observerType(
-  'OBSERVE_NON_OPEN_REQUESTS',
+export const OBSERVE_ONGOING_REQUESTS = observerType(
+  'OBSERVE_ONGOING_REQUESTS',
+);
+
+export const OBSERVE_COMPLETED_REQUESTS = observerType(
+  'OBSERVE_COMPLETED_REQUESTS',
+);
+
+export const OBSERVE_CANCELLED_REQUESTS = observerType(
+  'OBSERVE_CANCELLED_REQUESTS',
 );
 
 export const SET = asyncType('SET');

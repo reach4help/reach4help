@@ -58,20 +58,30 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
       });
+
       const unsubscribeFromCompleted = observeNonOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
         requestStatus: RequestStatus.completed,
       });
+
       const unsubscribeFromOngoing = observeNonOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
         requestStatus: RequestStatus.ongoing,
       });
+
+      const unsubscribeFromCancelled = observeNonOpenRequests(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+        requestStatus: RequestStatus.cancelled,
+      });
+
       return () => {
         unsubscribeFromOpen();
         unsubscribeFromCompleted();
         unsubscribeFromOngoing();
+        unsubscribeFromCancelled();
       };
     }
   }, [dispatch, profileState]);
@@ -86,18 +96,13 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     likes: 52,
     applicationPreference: 'pin',
   };
-  const mockRequest = {
-    status: 'accepted',
-    title: 'Food',
-    description: 'Pasta, Rice',
-  };
 
   /*
     TODO: 
       Once backend changes for profile snapshot is done, instead of user={mockRequestUser},
       The Top Panel must take the user details from the request itself
   */
-  return <TopPanel request={mockRequest} user={mockRequestUser} />;
+  return <TopPanel request={request} user={mockRequestUser} />;
 };
 
 export default TimelineViewContainer;
