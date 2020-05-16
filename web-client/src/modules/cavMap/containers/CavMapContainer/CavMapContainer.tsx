@@ -4,14 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { observeOpenRequests } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
-import DummyMapComponent, { LocationProps, MapRequestProps } from './DummyMapComponent';
-
+import DummyMapComponent, {
+  LocationProps,
+  MapRequestProps,
+} from './DummyMapComponent';
+import Map from '../../../../components/WebClientMap/WebClientMap';
 const CavMapContainer: React.FC = () => {
   const dispatch = useDispatch();
 
   const [openRequests, setOpenRequests] = useState<MapRequestProps[]>([]);
   const [currentLocation, setCurrentLocation] = useState<LocationProps>({
-    lat: 0, lng: 0,
+    lat: 0,
+    lng: 0,
   });
 
   navigator.geolocation.getCurrentPosition(
@@ -35,19 +39,21 @@ const CavMapContainer: React.FC = () => {
   useEffect(() => {
     if (requestsState.openRequests && requestsState.openRequests.data) {
       const transformedRequests: MapRequestProps[] = [];
-      Object.keys(requestsState.openRequests.data || {}).forEach((requestId: string) => {
-        if (requestsState.openRequests.data) {
-          const request = requestsState.openRequests.data[requestId];
-          const mapRequestDetails = {
-            center: {
-              lat: request.latLng.latitude,
-              lng: request.latLng.longitude,
-            },
-            id: requestId,
-          };
-          transformedRequests.push(mapRequestDetails);
-        }
-      });
+      Object.keys(requestsState.openRequests.data || {}).forEach(
+        (requestId: string) => {
+          if (requestsState.openRequests.data) {
+            const request = requestsState.openRequests.data[requestId];
+            const mapRequestDetails = {
+              center: {
+                lat: request.latLng.latitude,
+                lng: request.latLng.longitude,
+              },
+              id: requestId,
+            };
+            transformedRequests.push(mapRequestDetails);
+          }
+        },
+      );
 
       setOpenRequests(transformedRequests);
     }
@@ -65,10 +71,27 @@ const CavMapContainer: React.FC = () => {
       });
     }
   }, [profileState, dispatch]);
-
+  let myRequests = [
+    {
+      center: {
+        lat: 40.6446255,
+        lng: -74.0325336,
+      },
+      id: '5',
+    },
+  ];
+  let myLocation = {
+    lat: 40.6046255,
+    lng: -74.0825336,
+  };
+  console.log('currentLocation', myLocation);
   return (
     <>
-      <DummyMapComponent requests={openRequests} currentLocation={currentLocation} onRequestHandler={() => 'test'} />
+      <Map
+        requests={myRequests}
+        volunteerLocation={myLocation}
+        onRequestHandler={() => 'test'}
+      />
     </>
   );
 };
