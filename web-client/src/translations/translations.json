@@ -79,6 +79,12 @@
         "c2a_pin": "Get help now!",
         "info_cav": "I'm here because I want to help people",
         "c2a_cav": "Start helping now!"
+      },
+      "timeline": {
+        "open_status": "Open",
+        "cav": "Volunteer",
+        "cav_wait": "WAITING FOR VOLUNTEER",
+        "address": "Delivery Address"
       }
     }
   },

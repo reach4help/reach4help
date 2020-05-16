@@ -18,8 +18,11 @@ import { IUser, User, UserFirestoreConverter } from '../users';
 export enum RequestStatus {
   pending = 'pending',
   ongoing = 'ongoing',
+  accepted = 'accepted',
   completed = 'completed',
+  finished = 'finished',
   cancelled = 'cancelled',
+  closed = 'closed',
   removed = 'removed',
 }
 

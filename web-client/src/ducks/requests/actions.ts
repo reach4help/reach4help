@@ -1,4 +1,4 @@
-import { IRequest, Request } from 'src/models/requests';
+import { IRequest, Request, RequestStatus } from 'src/models/requests';
 
 import {
   observeNonOpenRequests as observeNonOpenRequestsFunc,
@@ -9,17 +9,23 @@ import {
   CHANGE_MODAL,
   IgetNonOpenRequests,
   IgetOpenRequests,
+  OBSERVE_ACCEPTED_REQUESTS,
   OBSERVE_CANCELLED_REQUESTS,
+  OBSERVE_CLOSED_REQUESTS,
   OBSERVE_COMPLETED_REQUESTS,
+  OBSERVE_FINISHED_REQUESTS,
   OBSERVE_ONGOING_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
   SET,
 } from './types';
 
 const requestStatusMapper = {
-  ongoing: OBSERVE_ONGOING_REQUESTS,
-  completed: OBSERVE_COMPLETED_REQUESTS,
-  cancelled: OBSERVE_CANCELLED_REQUESTS,
+  [RequestStatus.ongoing]: OBSERVE_ONGOING_REQUESTS,
+  [RequestStatus.accepted]: OBSERVE_ACCEPTED_REQUESTS,
+  [RequestStatus.completed]: OBSERVE_COMPLETED_REQUESTS,
+  [RequestStatus.finished]: OBSERVE_FINISHED_REQUESTS,
+  [RequestStatus.cancelled]: OBSERVE_CANCELLED_REQUESTS,
+  [RequestStatus.closed]: OBSERVE_CLOSED_REQUESTS,
 };
 
 export const observeOpenRequests = (

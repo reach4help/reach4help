@@ -36,8 +36,8 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.closedRequests.data
-        ? requestsState.closedRequests.data[requestId]
+      (requestsState.acceptedRequests.data
+        ? requestsState.acceptedRequests.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
@@ -49,7 +49,21 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (requestsState.completedRequests.data
         ? requestsState.completedRequests.data[requestId]
         : undefined);
-
+    requestTemp =
+      requestTemp ||
+      (requestsState.finishedRequests.data
+        ? requestsState.finishedRequests.data[requestId]
+        : undefined);
+    requestTemp =
+      requestTemp ||
+      (requestsState.cancelledRequests.data
+        ? requestsState.cancelledRequests.data[requestId]
+        : undefined);
+    requestTemp =
+      requestTemp ||
+      (requestsState.closedRequests.data
+        ? requestsState.closedRequests.data[requestId]
+        : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
 
@@ -60,10 +74,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         userType: profileState.profile.applicationPreference,
       });
 
-      const unsubscribeFromCompleted = observeNonOpenRequests(dispatch, {
+      const unsubscribeFromAccepted = observeNonOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.completed,
+        requestStatus: RequestStatus.accepted,
       });
 
       const unsubscribeFromOngoing = observeNonOpenRequests(dispatch, {
@@ -72,17 +86,38 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         requestStatus: RequestStatus.ongoing,
       });
 
+      const unsubscribeFromFinished = observeNonOpenRequests(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+        requestStatus: RequestStatus.finished,
+      });
+
+      const unsubscribeFromCompleted = observeNonOpenRequests(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+        requestStatus: RequestStatus.completed,
+      });
+
       const unsubscribeFromCancelled = observeNonOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
         requestStatus: RequestStatus.cancelled,
       });
 
+      const unsubscribeFromClosed = observeNonOpenRequests(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+        requestStatus: RequestStatus.closed,
+      });
+
       return () => {
         unsubscribeFromOpen();
-        unsubscribeFromCompleted();
+        unsubscribeFromAccepted();
         unsubscribeFromOngoing();
+        unsubscribeFromFinished();
+        unsubscribeFromCompleted();
         unsubscribeFromCancelled();
+        unsubscribeFromClosed();
       };
     }
   }, [dispatch, profileState]);
@@ -95,6 +130,8 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     name: 'Jon Snow',
     rating: 4.5,
     likes: 52,
+    distance: '5km',
+    address: '509 Gorby Lane, Jackson, FL 32065',
     applicationPreference: 'pin',
   };
 

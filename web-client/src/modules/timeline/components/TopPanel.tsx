@@ -7,11 +7,14 @@ import {
 } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import DummyMan from 'src/assets/dummy-man.jpg';
 import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
 import { Request, RequestStatus } from 'src/models/requests';
+import { ApplicationPreference } from 'src/models/users/index';
 import { COLORS } from 'src/theme/colors';
 import styled, { css } from 'styled-components';
 
@@ -25,17 +28,22 @@ interface TopPanelProps {
 const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
   const [togglePanel, setTogglePanel] = useState(false);
   const userRequestStatus = request.status;
+  const { t } = useTranslation();
 
   return (
     <TopPanelWrapper>
       <NavRow>
-        <img src={NavBackIcon} alt="back navigation icon" />
+        <Link to="/">
+          <img src={NavBackIcon} alt="back navigation icon" />
+        </Link>
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
-          {userRequestStatus === 'pending' ? 'Open' : userRequestStatus}
+          {userRequestStatus === RequestStatus.pending
+            ? t('timeline.open_status')
+            : userRequestStatus}
         </StatusButton>
       </NavRow>
       <UserRow>
-        {userRequestStatus === 'pending' ? (
+        {userRequestStatus === RequestStatus.pending ? (
           <EmptyPhoto />
         ) : (
           <DisplayPhoto src={DummyMan} alt="display photo" />
@@ -43,17 +51,17 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
         <UserDetails>
           <Detail>
             <DisplayName className={userRequestStatus}>
-              {userRequestStatus === 'pending'
-                ? 'WAITING FOR VOLUNTEER'
+              {userRequestStatus === RequestStatus.pending
+                ? t('timeline.cav_wait')
                 : user.name}
             </DisplayName>
-            {user.applicationPreference === 'cav' &&
-            userRequestStatus !== 'pending' ? (
-              <Volunteer>VOLUNTEER</Volunteer>
+            {user.applicationPreference === ApplicationPreference.cav &&
+            userRequestStatus !== RequestStatus.pending ? (
+              <Volunteer>{t('timeline.cav')}</Volunteer>
             ) : null}
-            {userRequestStatus === 'pending' ? null : (
+            {userRequestStatus === RequestStatus.pending ? null : (
               <Info>
-                {user.applicationPreference === 'cav' ? (
+                {user.applicationPreference === ApplicationPreference.cav ? (
                   <InfoDetail>
                     <LikesIcon />
                     <span>{user.likes}</span>
@@ -66,13 +74,14 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
                 <InfoDetail className={user.applicationPreference}>
                   <img src={LocationIcon} alt="location icon" />
                   {/* TODO: Requires Fix from backend */}
-                  <span>5km</span>
+                  <span>{user.distance}</span>
                 </InfoDetail>
               </Info>
             )}
           </Detail>
-          {userRequestStatus ===
-          (RequestStatus.ongoing || RequestStatus.completed) ? (
+          {userRequestStatus === RequestStatus.ongoing ||
+          userRequestStatus === RequestStatus.completed ||
+          userRequestStatus === RequestStatus.finished ? (
             <img src={PhoneIcon} alt="phone icon" />
           ) : null}
         </UserDetails>
@@ -91,12 +100,12 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
             <Address>
               {/* TODO: needs fix from backend */}
               <AddressTextAndArrow>
-                <Text>Delivery Address </Text>
+                <Text>{t('timeline.address')} </Text>
                 <UpOutlined />
               </AddressTextAndArrow>
               <AddressInfo>
                 <HomeOutlined />
-                <Text> 509 Gorby Lane, Jackson, FL 32065 </Text>
+                <Text> {user.address} </Text>
               </AddressInfo>
             </Address>
           </RequestDetails>
@@ -144,6 +153,7 @@ const NavRow = styled.div`
 `;
 
 const StatusButton = styled.button`
+  width: 7rem;
   text-transform: capitalize;
   &.pending {
     background: rgba(${COLORS.rgb.brandOrange}, 0.25);
@@ -158,10 +168,10 @@ const StatusButton = styled.button`
   }
   &.ongoing {
     background: rgba(${COLORS.rgb.primary}, 0.25);
-    border: 1px solid ${COLORS.primary};
+    border: 1px solid ${COLORS.lightBlue};
   }
 
-  &.removed {
+  &.closed {
     background: rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.45);
   }
@@ -251,6 +261,7 @@ const Volunteer = styled(Text)`
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.4);
     font-weight: 900;
+    text-transform: uppercase;
   }
 `;
 
