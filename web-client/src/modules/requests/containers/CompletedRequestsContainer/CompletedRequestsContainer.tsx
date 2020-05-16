@@ -34,7 +34,7 @@ const CompletedRequestsContainer: React.FC = () => {
     <>
       <Header
         requestsType="Completed"
-        numRequests={completedRequests.data?.length}
+        numRequests={Object.keys(completedRequests.data || {}).length}
         isCav={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav

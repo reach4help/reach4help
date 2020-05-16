@@ -34,7 +34,7 @@ const OngoingRequestsContainer: React.FC = () => {
     <>
       <Header
         requestsType="Ongoing"
-        numRequests={ongoingRequests.data?.length}
+        numRequests={Object.keys(ongoingRequests.data || {}).length}
         isCav={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav

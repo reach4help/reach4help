@@ -34,14 +34,14 @@ const ClosedRequestsContainer: React.FC = () => {
     <>
       <Header
         requestsType="Closed"
-        numRequests={closedRequests.data?.length}
+        numRequests={Object.keys(closedRequests.data || {}).length}
         isCav={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav
         }
       />
       <RequestList
-        requests={closedRequests.data}
+        requests={Object.values(closedRequests.data || {})}
         loading={closedRequests && closedRequests.loading}
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}

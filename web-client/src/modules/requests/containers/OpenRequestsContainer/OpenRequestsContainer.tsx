@@ -32,7 +32,7 @@ const OpenRequestsContainer: React.FC = () => {
     <>
       <Header
         requestsType="Open"
-        numRequests={openRequests.data?.length}
+        numRequests={Object.keys(openRequests.data || {}).length}
         isCav={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav
