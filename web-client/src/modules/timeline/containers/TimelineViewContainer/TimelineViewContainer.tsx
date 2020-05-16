@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   observeNonOpenRequests,
@@ -9,7 +10,6 @@ import { RequestState } from 'src/ducks/requests/types';
 import { Request, RequestStatus } from 'src/models/requests';
 
 import TopPanel from '../../components/TopPanel';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 
 interface TimelineViewContainerProps {
   requestId: string;

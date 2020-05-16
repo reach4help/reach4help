@@ -18,7 +18,7 @@ import styled, { css } from 'styled-components';
 const { Text } = Typography;
 
 interface TopPanelProps {
-  request: any;
+  request: Request;
   user: any;
 }
 
