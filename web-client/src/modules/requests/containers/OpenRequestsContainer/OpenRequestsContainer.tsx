@@ -6,6 +6,7 @@ import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 
 import Header from '../../components/Header/Header';
+import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const OpenRequestsContainer: React.FC = () => {
@@ -26,7 +27,8 @@ const OpenRequestsContainer: React.FC = () => {
     }
   }, [profileState, dispatch]);
 
-  const handleRequest: Function = () => 'Fill logic here';
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-empty-function
+  const handleRequest: Function = (id, action) => {};
 
   return (
     <>
@@ -39,13 +41,14 @@ const OpenRequestsContainer: React.FC = () => {
         }
       />
       <RequestList
-        requests={Object.values(openRequests.data || {})}
+        requests={openRequests.data}
         loading={openRequests && openRequests.loading}
         handleRequest={handleRequest}
         isCavAndOpenRequest={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav
         }
+        RequestItem={RequestItem}
       />
     </>
   );

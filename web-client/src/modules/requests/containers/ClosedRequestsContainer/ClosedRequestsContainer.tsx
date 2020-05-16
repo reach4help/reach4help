@@ -7,6 +7,7 @@ import { RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 
 import Header from '../../components/Header/Header';
+import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const ClosedRequestsContainer: React.FC = () => {
@@ -28,8 +29,6 @@ const ClosedRequestsContainer: React.FC = () => {
     }
   }, [dispatch, profileState]);
 
-  const handleRequest: Function = () => 'Fill logic here';
-
   return (
     <>
       <Header
@@ -41,10 +40,10 @@ const ClosedRequestsContainer: React.FC = () => {
         }
       />
       <RequestList
-        requests={Object.values(closedRequests.data || {})}
+        requests={closedRequests.data}
         loading={closedRequests && closedRequests.loading}
-        handleRequest={handleRequest}
         isCavAndOpenRequest={false}
+        RequestItem={RequestItem}
       />
     </>
   );
