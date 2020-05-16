@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import { observeNonOpenRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
+import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
 
 import Header from '../../components/Header/Header';
+import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const CompletedRequestsContainer: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const completedRequests = useSelector(
     ({ requests }: { requests: RequestState }) => requests.completedRequests,
   );
@@ -28,7 +32,8 @@ const CompletedRequestsContainer: React.FC = () => {
     }
   }, [profileState, dispatch]);
 
-  const handleRequest: Function = () => 'Fill logic here';
+  const handleRequest: Function = id =>
+    history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
   return (
     <>
@@ -41,10 +46,11 @@ const CompletedRequestsContainer: React.FC = () => {
         }
       />
       <RequestList
-        requests={Object.values(completedRequests.data || {})}
+        requests={completedRequests.data}
         loading={completedRequests && completedRequests.loading}
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}
+        RequestItem={RequestItem}
       />
     </>
   );

@@ -20,6 +20,8 @@ const Text = styled.div`
   font-family: Segoe UI;
   color: rgba(0, 0, 0, 0.65);
   padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledTitle = styled.h4`
@@ -65,9 +67,9 @@ const StyledIcon = styled.img`
   height: 20px;
 `;
 
-interface RequestItemProps {
+export interface RequestItemProps {
   request: Request;
-  handleRequest: Function;
+  handleRequest: (action?: boolean) => void;
   isCavAndOpenRequest: boolean;
 }
 
@@ -78,34 +80,19 @@ const RequestItem: React.FC<RequestItemProps> = ({
 }): React.ReactElement => {
   const [displayDetails, toggleDetails] = useState(false);
 
-  if (!isCavAndOpenRequest) {
-    return (
-      <Item onClick={() => handleRequest()}>
-        <Text
-          style={{
-            width: '70%',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          <StyledTitle>{request.title}</StyledTitle>
-          <StyledText>{request.description}</StyledText>
-        </Text>
-        <UserPic
-          style={{ float: 'right' }}
-          src={request.pinUserSnapshot.displayPicture || defaultUserPic}
-          alt="Profile pic"
-        />
-      </Item>
-    );
-  }
+  const handleRequestClick = () => {
+    if (isCavAndOpenRequest) {
+      toggleDetails(true);
+    } else {
+      handleRequest();
+    }
+  };
 
   if (displayDetails) {
     return (
       <Item>
         <div
-          onClick={() => toggleDetails(!displayDetails)}
+          onClick={() => toggleDetails(false)}
           style={{ marginBottom: '15px' }}
         >
           <UserPic
@@ -126,12 +113,15 @@ const RequestItem: React.FC<RequestItemProps> = ({
         <Text>
           <StyledTitle>{request.title}</StyledTitle>
           <StyledText>{request.description}</StyledText>
-          <StyledButton>Cannot Help</StyledButton>
+          <StyledButton onClick={() => handleRequest(false)}>
+            Cannot Help
+          </StyledButton>
           <StyledButton
             style={{
               background: '#52C41A',
               color: '#FFFFFF',
             }}
+            onClick={() => handleRequest(true)}
           >
             Help {request.pinUserSnapshot.displayName}
           </StyledButton>
@@ -141,7 +131,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
   }
 
   return (
-    <Item onClick={() => toggleDetails(!displayDetails)}>
+    <Item onClick={handleRequestClick}>
       <Text
         style={{
           width: '70%',
