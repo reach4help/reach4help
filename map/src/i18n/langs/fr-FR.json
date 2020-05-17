@@ -2,7 +2,7 @@
   "title": "Carte d'entraide face au COVID-19",
   "inFrameLink": "À propos de cette carte / ajouter des informations",
   "aboutScreen": {
-    "intro": "Nous croyons que la solidarité fait ressortir le meilleur chez les individus.",
+    "intro": "Nous croyons que la solidarité fait ressortir le meilleur des individus.",
     "info": "Afin d'aider les gens à trouver et à joindre leurs efforts d'aide mutuelle là où ils vivent, les inspirer pour commencer leur propre initiatives ou encore remonter le moral, cette carte présente une liste grandissante de projets d'aide mutuelle en cas de pandémie mondiale.",
     "warning": "Remarque : chaque projet est autonome et indépendant ; certains groupes utilisent des feuilles de calcul publiques pour partager les informations, nous vous conseillons de rester prudents lorsque vous entrez vos informations que vous ne voulez pas diffusées publiquement.",
     "project": "Cette carte est un projet de {reach4Help}, un collectif de volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter par mail {email}.",
@@ -175,9 +175,9 @@
     "details": {
       "disclaimer": {
         "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "content": "Chaque projet est autonome et auto-organisé; beaucoup utilisent des feuilles de calcul publiques ou des forums pour partager des informations, soyez prudent lorsque vous entrez des informations privées que vous ne souhaitez pas rendre publiques."
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "Les informations relatives à ce {type} sont fournies par {source}."
     }
   },
   "lang": "Langue:",
