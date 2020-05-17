@@ -41,27 +41,30 @@ export const onWrite = (change: Change<DocumentSnapshot>, context: EventContext)
     // go over all claims and set them
     const afterObject = after.toObject() as { [id: string]: string[] };
     Object.keys(afterObject).forEach(permissionGroup => {
-      (afterObject[permissionGroup]).forEach(permission => {
+      afterObject[permissionGroup].forEach(permission => {
         newUserClaims[`${permissionGroup}.${permission}`] = true;
       });
     });
   }
 
-
-  const updateUserClaims = auth?.setCustomUserClaims(userId, null) // Clear old claims
+  const updateUserClaims = auth
+    ?.setCustomUserClaims(userId, null) // Clear old claims
     .then(() => {
       return auth?.setCustomUserClaims(userId, newUserClaims); // Set new claims
     })
     .catch(error => console.error('User Claims Failed: ', error));
 
   const operations = [
-    db.collection(ROLE_AUDITS_COLLECTION_ID).add({
-      affectedUser: db.collection('users').doc(userId),
-      actingUser: actingUserRef,
-      previousRole: before,
-      currentRole: after,
-      updatedAt: Timestamp.now(),
-    }).catch(error => console.error('Audit Log Failed: ', error)), // Fail silently
+    db
+      .collection(ROLE_AUDITS_COLLECTION_ID)
+      .add({
+        affectedUser: db.collection('users').doc(userId),
+        actingUser: actingUserRef,
+        previousRole: before,
+        currentRole: after,
+        updatedAt: Timestamp.now(),
+      })
+      .catch(error => console.error('Audit Log Failed: ', error)), // Fail silently
     updateUserClaims,
   ];
 
