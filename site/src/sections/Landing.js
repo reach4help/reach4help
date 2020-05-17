@@ -135,7 +135,7 @@ const LandingPage = () => (
                 className="button"
                 fontSize={[2, 3]}
                 padding={2}
-                href="https://github.com/reach4help/reach4help/blob/master/docs/GETTING_INVOLVED.md"
+                href="https://github.com/reach4help/reach4help/wiki#onboading-steps"
               >
                 Get Involved
               </ButtonLink>

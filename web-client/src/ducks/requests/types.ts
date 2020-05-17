@@ -22,25 +22,25 @@ export interface RequestState {
   openRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;
-    data?: Request[];
+    data?: Record<string, Request>;
     error?: Error;
   };
   ongoingRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;
-    data?: Request[];
+    data?: Record<string, Request>;
     error?: Error;
   };
   closedRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;
-    data?: Request[];
+    data?: Record<string, Request>;
     error?: Error;
   };
   completedRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;
-    data?: Request[];
+    data?: Record<string, Request>;
     error?: Error;
   };
   setAction: {
