@@ -15,12 +15,12 @@
     },
     "sourceHeading": "D'où viennent ces informations ?",
     "sourceInfo": "Les informations sur cette carte sont une combinaison de données collectées par nos volontaires, soumises par nos utilisateurs, et fournies par d'autres projets menés par des volontaires, y compris {mutualaidwiki} et {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "sourceSubmit": "Nous vous encourageons à {addinfo} sur tous les projets que vous connaissez qui ne sont pas déjà sur la carte.",
+    "sourceSubmitButton": "ajouter des informations",
+    "usageHeading": "Puis-je utiliser ces données pour mon propre projet?",
+    "usageInfo": "Nous vous invitons à utiliser les données fournies par notre carte pour vos propres projets, à condition que vous suiviez les licences respectives.",
+    "usageLicenses": "Les données fournies par nos bénévoles et nos utilisateurs sont sous licence {license}, et les données provenant d'autres sources sont distribuées sous leurs licences respectives.",
+    "usageApi": "Vous pouvez accéder aux données brutes, ainsi qu'aux détails de licence de chaque point de données, à l'URL suivante : {api}"
   },
   "menu": {
     "about": "À propos",
