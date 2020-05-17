@@ -1,6 +1,6 @@
 {
   "title": "Carte d'entraide face au COVID-19",
-  "inFrameLink": "About this map / add information",
+  "inFrameLink": "À propos de cette carte / ajouter des informations",
   "aboutScreen": {
     "intro": "Nous croyons que la solidarité fait ressortir le meilleur chez les individus.",
     "info": "Afin d'aider les gens à trouver et à joindre leurs efforts d'aide mutuelle là où ils vivent, les inspirer pour commencer leur propre initiatives ou encore remonter le moral, cette carte présente une liste grandissante de projets d'aide mutuelle en cas de pandémie mondiale.",
@@ -13,8 +13,8 @@
       "france": "France",
       "nyc": "New York"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
+    "sourceHeading": "D'où viennent ces informations ?",
+    "sourceInfo": "Les informations sur cette carte sont une combinaison de données collectées par nos volontaires, soumises par nos utilisateurs, et fournies par d'autres projets menés par des volontaires, y compris {mutualaidwiki} et {mutualaidhub}.",
     "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
     "sourceSubmitButton": "add information",
     "usageHeading": "Can I use this data for my own project?",
