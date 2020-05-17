@@ -16,7 +16,7 @@ const OpenRequestsContainer: React.FC = () => {
   );
 
   useEffect(() => {
-    if (profileState.profile) {
+    if (profileState.profile && profileState.profile.applicationPreference) {
       return observeOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
