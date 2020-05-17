@@ -71,6 +71,7 @@ const CavMapContainer: React.FC = () => {
       });
     }
   }, [profileState, dispatch]);
+
   let myRequests = [
     {
       center: {
@@ -80,16 +81,13 @@ const CavMapContainer: React.FC = () => {
       id: '5',
     },
   ];
-  let myLocation = {
-    lat: 40.6046255,
-    lng: -74.0825336,
-  };
-  console.log('currentLocation', myLocation);
+  console.log('open requests', openRequests, 'my requests', myRequests);
+
   return (
     <>
       <Map
         requests={myRequests}
-        volunteerLocation={myLocation}
+        volunteerLocation={currentLocation}
         onRequestHandler={() => 'test'}
       />
     </>

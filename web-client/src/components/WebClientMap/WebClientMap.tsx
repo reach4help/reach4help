@@ -17,8 +17,6 @@ const apiKey =
     ? window['GOOGLE_MAPS_API_KEY']
     : PUBLIC_API_KEY;
 
-console.log('apikey', apiKey);
-debugger;
 const WebClientMap: React.FC<MapProps> = ({
   requests,
   volunteerLocation,
