@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Col, Row } from 'antd';
 import React, { useState } from 'react';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
@@ -17,11 +17,9 @@ const Item = styled.div`
 
 const Text = styled.div`
   float: left;
-  font-family: Segoe UI;
+  font-family: Roboto, sans-serif;
   color: rgba(0, 0, 0, 0.65);
   padding: 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 const StyledTitle = styled.h4`
@@ -32,6 +30,7 @@ const StyledTitle = styled.h4`
 
 const StyledText = styled.p`
   margin-bottom: 3px;
+  font-family: Roboto, sans-serif;
 `;
 
 const fadeIn = keyframes`
@@ -50,11 +49,15 @@ const UserPic = styled.img`
   margin: 5px;
   border-radius: 105px;
   animation: ${fadeIn} 0.75s;
+  object-fit: cover;
 `;
 
 const StyledButton = styled(Button)`
-  margin: 15px;
   border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const UserDetails = styled.div`
@@ -65,6 +68,7 @@ const UserDetails = styled.div`
 const StyledIcon = styled.img`
   width: 20px;
   height: 20px;
+  margin-right: 5px;
 `;
 
 export interface RequestItemProps {
@@ -99,7 +103,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
             src={request.pinUserSnapshot.displayPicture || defaultUserPic}
             alt="Profile pic"
           />
-          <UserDetails>
+          <UserDetails style={{ color: 'rgba(0, 0, 0, 0.85)' }}>
             <StyledText style={{ fontSize: '18px' }}>
               {request.pinUserSnapshot.displayName}
             </StyledText>
@@ -111,20 +115,35 @@ const RequestItem: React.FC<RequestItemProps> = ({
         </div>
         <hr style={{ margin: '5px' }} />
         <Text>
-          <StyledTitle>{request.title}</StyledTitle>
-          <StyledText>{request.description}</StyledText>
-          <StyledButton onClick={() => handleRequest(false)}>
-            Cannot Help
-          </StyledButton>
-          <StyledButton
+          <StyledTitle style={{ color: 'rgba(0, 0, 0, 1)' }}>
+            {request.title}
+          </StyledTitle>
+          <StyledText
             style={{
-              background: '#52C41A',
-              color: '#FFFFFF',
+              color: 'rgba(0, 0, 0, 0.85)',
+              marginBottom: '20px',
             }}
-            onClick={() => handleRequest(true)}
           >
-            Help {request.pinUserSnapshot.displayName}
-          </StyledButton>
+            {request.description}
+          </StyledText>
+          <Row>
+            <Col span={11}>
+              <StyledButton onClick={() => handleRequest(false)}>
+                Cannot Help
+              </StyledButton>
+            </Col>
+            <Col span={11} offset={2}>
+              <StyledButton
+                style={{
+                  background: '#52C41A',
+                  color: '#FFFFFF',
+                }}
+                onClick={() => handleRequest(true)}
+              >
+                Help {request.pinUserSnapshot.displayName}
+              </StyledButton>
+            </Col>
+          </Row>
         </Text>
       </Item>
     );
@@ -134,17 +153,32 @@ const RequestItem: React.FC<RequestItemProps> = ({
     <Item onClick={handleRequestClick}>
       <Text
         style={{
-          width: '70%',
+          width: '75%',
           whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
         }}
       >
-        <StyledTitle>{request.title}</StyledTitle>
-        <StyledText>{request.description}</StyledText>
+        <StyledTitle
+          style={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            color: 'rgba(0, 0, 0, 0.65)',
+          }}
+        >
+          {request.title}
+        </StyledTitle>
+        <StyledText
+          style={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {request.description}
+        </StyledText>
       </Text>
       <UserPic
-        style={{ float: 'right' }}
+        style={{
+          float: 'right',
+        }}
         src={request.pinUserSnapshot.displayPicture || defaultUserPic}
         alt="Profile pic"
       />

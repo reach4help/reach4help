@@ -17,17 +17,25 @@ const Header: React.FC<HeaderProps> = ({
       marginBottom: '15px',
       display: 'flex',
       justifyContent: 'space-between',
+      fontFamily: 'Roboto, sans-serif',
     }}
   >
-    <h2>
+    <h1
+      style={{
+        color: 'rgba(0, 0, 0, 0.85)',
+        fontSize: '30px',
+      }}
+    >
       <b>{`${requestsType} Requests`}</b>
-    </h2>
+    </h1>
     <h2
       style={{
         backgroundColor: isCav ? '#811E78' : '#FF7B02',
         color: '#FFFFFF',
         paddingLeft: '10px',
         paddingRight: '10px',
+        marginTop: '10px',
+        marginBottom: '17px',
         borderRadius: '5px',
       }}
     >
