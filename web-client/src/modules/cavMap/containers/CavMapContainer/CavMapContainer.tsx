@@ -17,7 +17,9 @@ interface MapRequestProps {
 const CavMapContainer: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [currentExpandedRequest, setCurrentExpandedRequest] = useState<string | undefined>(undefined);
+  const [currentExpandedRequest, setCurrentExpandedRequest] = useState<
+    string | undefined
+  >(undefined);
 
   /* Using real place as default location. {lat:0,lng:0} is just water */
   const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>({
@@ -48,22 +50,23 @@ const CavMapContainer: React.FC = () => {
 
   useEffect(() => {
     if (requestsState.openRequests && requestsState.openRequests.data) {
-      const transformedRequests: MapRequestProps[] = [];
-      Object.keys(requestsState.openRequests.data || {}).forEach(
-        (requestId: string) => {
-          if (requestsState.openRequests.data) {
-            const request = requestsState.openRequests.data[requestId];
-            const mapRequestDetails = {
-              center: {
-                lat: request.latLng.latitude,
-                lng: request.latLng.longitude,
+      const requestsData = requestsState.openRequests.data;
+      const transformedRequests: MapRequestProps[] = Object.keys(
+        requestsState.openRequests.data,
+      ).reduce((acc: MapRequestProps[], curr: string) => {
+        return !requestsData[curr]
+          ? acc
+          : [
+              ...acc,
+              {
+                id: curr,
+                center: {
+                  lat: requestsData[curr].latLng.latitude,
+                  lng: requestsData[curr].latLng.longitude,
+                },
               },
-              id: requestId,
-            };
-            transformedRequests.push(mapRequestDetails);
-          }
-        },
-      );
+            ];
+      }, []);
 
       setOpenRequests(transformedRequests);
     }
@@ -117,11 +120,24 @@ const CavMapContainer: React.FC = () => {
   `;
 
   const maybeRequestDetails = () => {
-    if (currentExpandedRequest && requestsState.openRequests && requestsState.openRequests.data) {
+    if (
+      currentExpandedRequest &&
+      requestsState.openRequests &&
+      requestsState.openRequests.data
+    ) {
       const request = requestsState.openRequests.data[currentExpandedRequest];
-      return request ?
-          (<RequestDetails><DummyRequestItemComponent request={request} /></RequestDetails>) :
-          (<RequestDetails><div>Request Id {currentExpandedRequest} was clicked <br/>Test Description</div></RequestDetails>);
+      return request ? (
+        <RequestDetails>
+          <DummyRequestItemComponent request={request} />
+        </RequestDetails>
+      ) : (
+        <RequestDetails>
+          <div>
+            Request Id {currentExpandedRequest} was clicked <br />
+            Test Description
+          </div>
+        </RequestDetails>
+      );
     }
     return null;
   };
