@@ -1,6 +1,6 @@
 import React from 'react';
-import RequestMarkerIcon from './assets/RequestMarker.svg';
-import VolunteerMarkerIcon from './assets/VolunteerMarker.svg';
+import RequestMarkerIcon from '../../assets/request-marker.png';
+import VolunteerMarkerIcon from '../../assets/volunteer-marker.png';
 
 export const VolunteerMarker: React.FC<VolunteerMarkerProps> = ({
   lat,
