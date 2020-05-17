@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
+import Map from '../../../../components/WebClientMap/WebClientMap';
+import { VolunteerMarkerProps } from '../../../../components/WebClientMap/WebClientMarker';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { observeOpenRequests } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
-import DummyMapComponent, {
-  LocationProps,
-  MapRequestProps,
-} from './DummyMapComponent';
-import Map from '../../../../components/WebClientMap/WebClientMap';
+import DummyRequestItemComponent from './DummyRequestItemComponent';
+
+interface MapRequestProps {
+  center: VolunteerMarkerProps;
+  id: string;
+}
 
 const CavMapContainer: React.FC = () => {
   const dispatch = useDispatch();
 
+  const [currentExpandedRequest, setCurrentExpandedRequest] = useState<string | undefined>(undefined);
+
   /* Using real place as default location. {lat:0,lng:0} is just water */
-  let [currentLocation, setCurrentLocation] = useState<LocationProps>({
+  const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>({
     lat: 13.4124693,
     lng: 103.8667,
   });
@@ -81,14 +87,14 @@ const CavMapContainer: React.FC = () => {
       profileState.privilegedInformation.address &&
       profileState.privilegedInformation.address.coords
     ) {
-      currentLocation = {
+      setCurrentLocation({
         lat: profileState.privilegedInformation.address.coords.latitude,
         lng: profileState.privilegedInformation.address.coords.longitude,
-      };
+      });
     }
   }, [profileState, dispatch]);
 
-  let myRequests = [
+  const myRequests = [
     {
       center: {
         lat: 40.6446255,
@@ -99,13 +105,35 @@ const CavMapContainer: React.FC = () => {
   ];
   console.log('open requests', openRequests, 'my requests', myRequests);
 
+  const onRequestHandler = (id: string) => {
+    setCurrentExpandedRequest(id);
+  };
+
+  const RequestDetails = styled.div`
+    position: fixed;
+    bottom: 64px;
+    width: 100%;
+    background: white;
+  `;
+
+  const maybeRequestDetails = () => {
+    if (currentExpandedRequest && requestsState.openRequests && requestsState.openRequests.data) {
+      const request = requestsState.openRequests.data[currentExpandedRequest];
+      return request ?
+          (<RequestDetails><DummyRequestItemComponent request={request} /></RequestDetails>) :
+          (<RequestDetails><div>Request Id {currentExpandedRequest} was clicked <br/>Test Description</div></RequestDetails>);
+    }
+    return null;
+  };
+
   return (
     <>
       <Map
         requests={myRequests}
         volunteerLocation={currentLocation}
-        onRequestHandler={() => 'test'}
+        onRequestHandler={id => onRequestHandler(id)}
       />
+      {maybeRequestDetails()}
     </>
   );
 };
