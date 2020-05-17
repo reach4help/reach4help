@@ -9,14 +9,16 @@ import DummyMapComponent, {
   MapRequestProps,
 } from './DummyMapComponent';
 import Map from '../../../../components/WebClientMap/WebClientMap';
+
 const CavMapContainer: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [openRequests, setOpenRequests] = useState<MapRequestProps[]>([]);
+  /* Using real place as default location. {lat:0,lng:0} is just water */
   const [currentLocation, setCurrentLocation] = useState<LocationProps>({
-    lat: 0,
-    lng: 0,
+    lat: 13.4124693,
+    lng: 103.8667,
   });
+  const [openRequests, setOpenRequests] = useState<MapRequestProps[]>([]);
 
   navigator.geolocation.getCurrentPosition(
     position => {
