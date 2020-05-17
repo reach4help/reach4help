@@ -134,14 +134,5 @@ export const PrivilegedUserInformationFirestoreConverter: FirestoreDataConverter
   fromFirestore: (data: QueryDocumentSnapshot<IPrivilegedUserInformation>): PrivilegedUserInformation => {
     return PrivilegedUserInformation.factory(data.data());
   },
-  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => {
-    return {
-      addressFromGoogle: modelObject.addressFromGoogle,
-      address: modelObject.address,
-      privacyAccepted: modelObject.privacyAccepted,
-      privacyVersion: modelObject.privacyVersion,
-      termsAccepted: modelObject.termsAccepted,
-      termsVersion: modelObject.termsVersion,
-    };
-  },
+  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => modelObject.toObject(),
 };
