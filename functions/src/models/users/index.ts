@@ -29,7 +29,7 @@ export interface IUser extends DocumentData {
 export class User implements IUser {
   constructor(
     username: string,
-    applicationPreference?: ApplicationPreference | null,
+    applicationPreference: ApplicationPreference | null = null,
     pinQuestionnaireRef: DocumentReference<DocumentData> | null = null,
     cavQuestionnaireRef: DocumentReference<DocumentData> | null = null,
     casesCompleted = 0,
@@ -178,6 +178,7 @@ export class User implements IUser {
   }
 
   @IsEnum(ApplicationPreference)
+  @IsOptional()
   private _applicationPreference: ApplicationPreference | undefined | null;
 
   get applicationPreference(): ApplicationPreference | undefined | null {
