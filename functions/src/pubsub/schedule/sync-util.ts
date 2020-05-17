@@ -26,4 +26,9 @@ export const beginningStats = () => ({
    * encountered invalid data that we were unable to handle
    */
   invalid: 0,
+  /**
+   * Encountered multiple markers with the same source id,
+   * and deleted them.
+   */
+  duplicatesRemoved: 0,
 });

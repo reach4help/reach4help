@@ -15,9 +15,9 @@
   },
   "scripts": {
     "firebase": "firebase",
-    "deploy:dev": "yarn workspaces run build && firebase deploy -P reach4help-dev",
-    "deploy:staging": "yarn workspaces run build && firebase deploy -P reach4help-staging",
-    "deploy:prod": "yarn workspaces run build && firebase deploy -P reach4help",
+    "deploy:dev": "node .require-node-10.js && yarn workspaces run build && firebase deploy -P reach4help-dev",
+    "deploy:staging": "node .require-node-10.js && yarn workspaces run build && firebase deploy -P reach4help-staging",
+    "deploy:prod": "node .require-node-10.js && yarn workspaces run build && firebase deploy -P reach4help",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
     "heroku-postbuild": "yarn workspace api run heroku-postbuild",
