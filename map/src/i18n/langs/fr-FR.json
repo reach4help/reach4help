@@ -108,7 +108,7 @@
       "urlMissingURL": "Une entrée d'URL pour {section} ne contient pas l'URL",
       "dataError": "Il y a eu un problème avec les informations que vous avez soumises, veuillez revenir en arrière et réessayer",
       "submitError": "Un problème est survenu lors de l'envoi de vos informations : {error}. Veuillez réessayer plus tard",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "mutualAidGroupsNotAccepted": "Veuillez plutôt soumettre des informations sur de nouveaux groupes d'entraide sur {link}."
     }
   },
   "buttons": {
@@ -152,9 +152,9 @@
     "other": "Autres "
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "groupe d’entraide",
+    "org": "organisation / société",
+    "project": "projet"
   },
   "map": {
     "jumpToLocation": "Aller à un emplacement sur la carte...",
@@ -165,7 +165,7 @@
     "backToResults": "Retour aux résultats",
     "openResults": "Voir {results, plural, =0 {no results} =1 {# résultat} other {# résultats}}",
     "closeResults": "Masquer {results, plural, one {} =0 {aucun résultat} =1 {1 résultat} other {# résultats}}",
-    "showMore": "Show more results",
+    "showMore": "Afficher plus de résultats",
     "contact": {
       "general": "Informations Générales:",
       "getHelp": "Obtenir de l'aide:",
