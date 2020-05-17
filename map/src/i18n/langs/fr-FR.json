@@ -2,11 +2,11 @@
   "title": "Carte d'entraide face au COVID-19",
   "inFrameLink": "À propos de cette carte / ajouter des informations",
   "aboutScreen": {
-    "intro": "Nous croyons que la solidarité fait ressortir le meilleur des individus.",
+    "intro": "Nous croyons que la solidarité fait ressortir le meilleur chez les individus.",
     "info": "Afin d'aider les gens à trouver et à joindre leurs efforts d'aide mutuelle là où ils vivent, les inspirer pour commencer leurs propres initiatives ou encore remonter le moral, cette carte présente une liste grandissante de projets d'aide mutuelle en cas de pandémie mondiale.",
     "warning": "Remarque : chaque projet est autonome et indépendant ; certains groupes utilisent des feuilles de calcul publiques pour partager les informations, nous vous conseillons de rester prudents lorsque vous entrez des informations que vous ne voulez pas diffuser publiquement.",
     "project": "Cette carte fait partie de {reach4Help}, un projet porté par des volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter à l'adresse {email}.",
-    "githubSourceLabel": "found on GitHub",
+    "githubSourceLabel": "trouvé sur GitHub",
     "otherAreasHeading": "Vous êtes intéressé par l'une de ces zones géographiques?",
     "otherAreasInfo": "Découvrez ces cartes alternatives :",
     "otherAreasLocations": {
