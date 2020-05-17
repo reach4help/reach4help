@@ -14,11 +14,12 @@ const CavMapContainer: React.FC = () => {
   const dispatch = useDispatch();
 
   /* Using real place as default location. {lat:0,lng:0} is just water */
-  const [currentLocation, setCurrentLocation] = useState<LocationProps>({
+  let [currentLocation, setCurrentLocation] = useState<LocationProps>({
     lat: 13.4124693,
     lng: 103.8667,
   });
   const [openRequests, setOpenRequests] = useState<MapRequestProps[]>([]);
+  let geolocated = false;
 
   navigator.geolocation.getCurrentPosition(
     position => {
@@ -27,6 +28,7 @@ const CavMapContainer: React.FC = () => {
         lng: position.coords.longitude,
       };
       setCurrentLocation(pos);
+      geolocated = true;
     },
     error => {
       // eslint-disable-next-line no-console
@@ -71,6 +73,18 @@ const CavMapContainer: React.FC = () => {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
       });
+    }
+    if (
+      !geolocated &&
+      profileState &&
+      profileState.privilegedInformation &&
+      profileState.privilegedInformation.address &&
+      profileState.privilegedInformation.address.coords
+    ) {
+      currentLocation = {
+        lat: profileState.privilegedInformation.address.coords.latitude,
+        lng: profileState.privilegedInformation.address.coords.longitude,
+      };
     }
   }, [profileState, dispatch]);
 
