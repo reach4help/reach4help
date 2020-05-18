@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
 import {
   FileProtectOutlined,
-  StarOutlined,
   StarFilled,
+  StarOutlined,
 } from '@ant-design/icons';
+import { Button, Modal } from 'antd';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { RequestStatus } from 'src/models/requests';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import StarRadioGroup from '../../../components/StarRadioGroup/StarRadioGroup';
-import { RequestStatus } from 'src/models/requests';
-import { COLORS } from 'src/theme/colors';
 
 export interface FinishRequestButtonsProps {
   title: string;
@@ -40,6 +41,8 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
 
   const finalRatings = Array.from({ length: value }, (_, i) => i);
 
+  const { t } = useTranslation();
+
   const onFinishRequest = (): void => {
     handleFinishRequest();
     setRequestModalVisible(false);
@@ -54,13 +57,13 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
     <>
       {status === RequestStatus.ongoing && (
         <ButtonContainer>
-          <Button>Cancel Request</Button>
+          <Button>{t('timeline.cancelRequest')}</Button>
 
           <PrimaryButton
             onClick={(): void => setRequestModalVisible(true)}
             icon={<FileProtectOutlined />}
           >
-            Finish Request
+            {t('timeline.finishRequest')}
           </PrimaryButton>
         </ButtonContainer>
       )}
@@ -68,7 +71,7 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
       {status === RequestStatus.completed && (
         <MiddleAlignedColumn>
           <p>
-            How would you rate your experience with <b>{name}</b>?
+            {t('timeline.ratingQuestion')} <b>{name}</b>?
           </p>
 
           <StarContainer>
@@ -82,7 +85,7 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
               icon={<StarOutlined />}
               loading={loading}
             >
-              Submit Rating
+              {t('timeline.submitRatingButton')}
             </PrimaryButton>
           </div>
         </MiddleAlignedColumn>
@@ -97,10 +100,11 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
           <ModalLogo />
 
           <div>
-            <h2>Finish Request</h2>
+            <h2>{t('timeline.finishRequest')}</h2>
 
             <p>
-              Are you sure you want to finish <b>{title}</b> from {name}?
+              {t('timeline.finishRequestModalParta')} <b>{title}</b>{' '}
+              {t('timeline.finishRequestModalPartb')} {name}?
             </p>
           </div>
         </FlexDiv>
@@ -111,7 +115,7 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
             icon={<FileProtectOutlined />}
             loading={loading}
           >
-            Finish Request
+            {t('timeline.finishRequest')}
           </ButtonRight>
         </div>
       </Modal>
@@ -128,13 +132,16 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
         </HorizontallyAlignedDiv>
 
         <MiddleAlignedColumn>
-          <p>Thank you!</p>
+          <p>{t('timeline.thankYouModalTitle')}</p>
 
-          <p>You rated {name} with:</p>
+          <p>
+            {t('timeline.thankYouModalBodyParta')} {name}{' '}
+            {t('timeline.thankYouModalBodyPartb')}:
+          </p>
 
           <div aria-label={`${finalRatings.length} out of 5 stars`}>
-            {finalRatings.map(rating => (
-              <Star key={rating} />
+            {finalRatings.map(ratingInternal => (
+              <Star key={ratingInternal} />
             ))}
           </div>
         </MiddleAlignedColumn>

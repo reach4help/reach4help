@@ -1,10 +1,9 @@
-import React from 'react';
+import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
-import { StarFilled, StarOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
-
+import React from 'react';
 import { COLORS } from 'src/theme/colors';
+import styled from 'styled-components';
 
 const RadioGroup = styled(Radio.Group)`
   .ant-radio {
