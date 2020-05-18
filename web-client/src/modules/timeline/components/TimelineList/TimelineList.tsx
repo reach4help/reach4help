@@ -49,16 +49,19 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
   items,
   currentUser,
 }) => (
-  <StyledList>
-    <VerticalSeparator />
-    {items.map((item, index) => (
-      <RequestTimelineListItem
-        key={index}
-        item={item}
-        align={item.actor === currentUser ? 'right' : 'left'}
-      />
-    ))}
-  </StyledList>
+  <>
+    <Title>Request Timeline</Title>
+    <StyledList>
+      <VerticalSeparator />
+      {items.map((item, index) => (
+        <RequestTimelineListItem
+          key={index}
+          item={item}
+          align={item.actor === currentUser ? 'right' : 'left'}
+        />
+      ))}
+    </StyledList>
+  </>
 );
 
 const StyledListItem = styled.li`
@@ -152,6 +155,12 @@ const VerticalSeparator = styled.div`
   width: 3px;
   background: rgba(0, 0, 0, 0.05);
   height: 100%;
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  margin-top: 20px;
+  font-size: 1.2rem;
 `;
 
 interface RequestTimelineListProps {

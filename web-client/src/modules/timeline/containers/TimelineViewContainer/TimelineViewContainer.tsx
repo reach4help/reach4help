@@ -9,10 +9,9 @@ import { RequestState } from 'src/ducks/requests/types';
 import { OfferStatus } from 'src/models/offers';
 import { Request, RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
-import styled from 'styled-components';
 
 import TimelineList from '../../components/TimelineList/TimelineList';
-import TopPanel from '../../components/TopPanel';
+import TopPanel from '../../components/TopPanel/TopPanel';
 
 // TODO remove mock
 const today = new Date();
@@ -176,28 +175,13 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       The Top Panel must take the user details from the request itself
   */
   return (
-    <Wrapper>
+    <>
       <TopPanel request={request} user={profileState.profile} />
-      <Title>Request Timeline</Title>
       <TimelineList items={mockTimelineItems} currentUser={mockPin} />
       {/* <TimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
-    </Wrapper>
+    </>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-  padding-top: 20px;
-  height: 100%;
-`;
-
-const Title = styled.h1`
-  margin: 0;
-  font-size: 1.2rem;
-`;
 
 interface TimelineViewContainerProps {
   requestId: string;
