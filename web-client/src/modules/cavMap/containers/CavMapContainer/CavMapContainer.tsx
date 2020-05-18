@@ -97,17 +97,6 @@ const CavMapContainer: React.FC = () => {
     }
   }, [profileState, dispatch]);
 
-  const myRequests = [
-    {
-      center: {
-        lat: 40.6446255,
-        lng: -74.0325336,
-      },
-      id: '5',
-    },
-  ];
-  console.log('open requests', openRequests, 'my requests', myRequests);
-
   const onRequestHandler = (id: string) => {
     setCurrentExpandedRequest(id);
   };
@@ -145,7 +134,7 @@ const CavMapContainer: React.FC = () => {
   return (
     <>
       <Map
-        requests={myRequests}
+        requests={openRequests}
         volunteerLocation={currentLocation}
         onRequestHandler={id => onRequestHandler(id)}
       />
