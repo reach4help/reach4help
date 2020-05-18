@@ -147,7 +147,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   }, [requestsState, requestId]);
 
   useEffect(() => {
-    if (profileState.profile && profileState.userRef) {
+    if (
+      profileState.profile &&
+      profileState.profile.applicationPreference &&
+      profileState.userRef
+    ) {
       const unsubscribeFromOpen = observeOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,

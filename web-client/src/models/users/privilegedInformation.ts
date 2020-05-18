@@ -134,7 +134,15 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   toObject(): object {
     return {
       addressFromGoogle: JSON.parse(JSON.stringify(this.addressFromGoogle)),
-      address: JSON.parse(JSON.stringify(this.address)),
+      address: Object.keys(this.address).reduce((acc, key) => {
+        if (this.address[key]) {
+          return {
+            ...acc,
+            [key]: this.address[key],
+          };
+        }
+        return acc;
+      }, {}),
       sendNotifications: this.sendNotifications,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
