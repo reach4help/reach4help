@@ -39,7 +39,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         visible={notificationVisible}
         closeDrawer={() => setNotificationVisible(false)}
       />
-      <Layout.Content style={{ marginTop: '64px', marginBottom: '64px' }}>
+      <Layout.Content style={{ marginTop: '64px', height: '90vh' }}>
         {children}
       </Layout.Content>
       <BottomNavbar

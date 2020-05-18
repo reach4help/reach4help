@@ -101,6 +101,7 @@
     "miragejs": "^0.1.35",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6"
   }
 }
