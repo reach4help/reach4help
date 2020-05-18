@@ -80,8 +80,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
             )}
           </Detail>
           {userRequestStatus === RequestStatus.ongoing ||
-          userRequestStatus === RequestStatus.completed ||
-          userRequestStatus === RequestStatus.finished ? (
+          userRequestStatus === RequestStatus.completed ? (
             <img src={PhoneIcon} alt="phone icon" />
           ) : null}
         </UserDetails>

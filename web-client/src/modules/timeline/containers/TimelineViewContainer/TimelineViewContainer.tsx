@@ -36,11 +36,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.acceptedRequests.data
-        ? requestsState.acceptedRequests.data[requestId]
-        : undefined);
-    requestTemp =
-      requestTemp ||
       (requestsState.ongoingRequests.data
         ? requestsState.ongoingRequests.data[requestId]
         : undefined);
@@ -51,18 +46,13 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.finishedRequests.data
-        ? requestsState.finishedRequests.data[requestId]
-        : undefined);
-    requestTemp =
-      requestTemp ||
       (requestsState.cancelledRequests.data
         ? requestsState.cancelledRequests.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.closedRequests.data
-        ? requestsState.closedRequests.data[requestId]
+      (requestsState.removedRequests.data
+        ? requestsState.removedRequests.data[requestId]
         : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
@@ -74,22 +64,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         userType: profileState.profile.applicationPreference,
       });
 
-      const unsubscribeFromAccepted = observeNonOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.accepted,
-      });
-
       const unsubscribeFromOngoing = observeNonOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
         requestStatus: RequestStatus.ongoing,
-      });
-
-      const unsubscribeFromFinished = observeNonOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.finished,
       });
 
       const unsubscribeFromCompleted = observeNonOpenRequests(dispatch, {
@@ -104,20 +82,18 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         requestStatus: RequestStatus.cancelled,
       });
 
-      const unsubscribeFromClosed = observeNonOpenRequests(dispatch, {
+      const unsubscribeFromRemoved = observeNonOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.closed,
+        requestStatus: RequestStatus.removed,
       });
 
       return () => {
         unsubscribeFromOpen();
-        unsubscribeFromAccepted();
         unsubscribeFromOngoing();
-        unsubscribeFromFinished();
         unsubscribeFromCompleted();
         unsubscribeFromCancelled();
-        unsubscribeFromClosed();
+        unsubscribeFromRemoved();
       };
     }
   }, [dispatch, profileState]);

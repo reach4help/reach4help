@@ -1,6 +1,7 @@
 import { IRequest, Request, RequestStatus } from 'src/models/requests';
 
 import {
+  createUserRequest,
   observeNonOpenRequests as observeNonOpenRequestsFunc,
   observeOpenRequests as observeOpenRequestsFunc,
   setUserRequest,
@@ -9,23 +10,19 @@ import {
   CHANGE_MODAL,
   IgetNonOpenRequests,
   IgetOpenRequests,
-  OBSERVE_ACCEPTED_REQUESTS,
   OBSERVE_CANCELLED_REQUESTS,
-  OBSERVE_CLOSED_REQUESTS,
   OBSERVE_COMPLETED_REQUESTS,
-  OBSERVE_FINISHED_REQUESTS,
   OBSERVE_ONGOING_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
+  OBSERVE_REMOVED_REQUESTS,
   SET,
 } from './types';
 
 const requestStatusMapper = {
   [RequestStatus.ongoing]: OBSERVE_ONGOING_REQUESTS,
-  [RequestStatus.accepted]: OBSERVE_ACCEPTED_REQUESTS,
   [RequestStatus.completed]: OBSERVE_COMPLETED_REQUESTS,
-  [RequestStatus.finished]: OBSERVE_FINISHED_REQUESTS,
   [RequestStatus.cancelled]: OBSERVE_CANCELLED_REQUESTS,
-  [RequestStatus.closed]: OBSERVE_CLOSED_REQUESTS,
+  [RequestStatus.removed]: OBSERVE_REMOVED_REQUESTS,
 };
 
 export const observeOpenRequests = (
@@ -62,7 +59,9 @@ export const observeNonOpenRequests = (
     });
 };
 
-export const setRequest = (payload: IRequest) => (dispatch: Function) => {
+export const setRequest = (payload: IRequest, requestId?: string) => (
+  dispatch: Function,
+) => {
   const requestPayload = Request.factory({
     ...payload,
   });
@@ -70,8 +69,9 @@ export const setRequest = (payload: IRequest) => (dispatch: Function) => {
     type: SET,
     payload: {
       requestPayload,
+      requestId,
     },
-    firebase: setUserRequest,
+    firebase: requestId ? setUserRequest : createUserRequest,
   });
 };
 

@@ -3,13 +3,11 @@ import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  OBSERVE_ACCEPTED_REQUESTS,
   OBSERVE_CANCELLED_REQUESTS,
-  OBSERVE_CLOSED_REQUESTS,
   OBSERVE_COMPLETED_REQUESTS,
-  OBSERVE_FINISHED_REQUESTS,
   OBSERVE_ONGOING_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
+  OBSERVE_REMOVED_REQUESTS,
   RequestState,
   SET,
 } from './types';
@@ -31,22 +29,18 @@ const initialRequestsState = {
 const initialState: RequestState = {
   openRequests: initialRequestsState,
   ongoingRequests: initialRequestsState,
-  acceptedRequests: initialRequestsState,
   completedRequests: initialRequestsState,
-  finishedRequests: initialRequestsState,
   cancelledRequests: initialRequestsState,
-  closedRequests: initialRequestsState,
+  removedRequests: initialRequestsState,
   setAction: initialSetActionState,
 };
 
 const requestStatusMapper = {
   [RequestStatus.pending]: 'openRequests',
   [RequestStatus.ongoing]: 'ongoingRequests',
-  [RequestStatus.accepted]: 'acceptedRequests',
   [RequestStatus.completed]: 'completedRequests',
-  [RequestStatus.finished]: 'finishedRequests',
   [RequestStatus.cancelled]: 'cancelledRequests',
-  [RequestStatus.closed]: 'closedRequests',
+  [RequestStatus.removed]: 'removedRequests',
 };
 const updateRequestState = (state: RequestState, payload) => {
   state[
@@ -131,38 +125,10 @@ export default createReducer<RequestState>(
         };
       },
     ) => updateRequestState(state, payload),
-    [OBSERVE_ACCEPTED_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.acceptedRequests.loading = true;
-    },
-    [OBSERVE_ACCEPTED_REQUESTS.UPDATED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
     [OBSERVE_COMPLETED_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
       state.completedRequests.loading = true;
     },
     [OBSERVE_COMPLETED_REQUESTS.UPDATED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
-    [OBSERVE_FINISHED_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.finishedRequests.loading = true;
-    },
-    [OBSERVE_FINISHED_REQUESTS.UPDATED]: (
       state: RequestState,
       {
         payload,
@@ -187,10 +153,10 @@ export default createReducer<RequestState>(
         };
       },
     ) => updateRequestState(state, payload),
-    [OBSERVE_CLOSED_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.closedRequests.loading = true;
+    [OBSERVE_REMOVED_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
+      state.cancelledRequests.loading = true;
     },
-    [OBSERVE_CLOSED_REQUESTS.UPDATED]: (
+    [OBSERVE_REMOVED_REQUESTS.UPDATED]: (
       state: RequestState,
       {
         payload,

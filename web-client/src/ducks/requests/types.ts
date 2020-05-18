@@ -14,23 +14,17 @@ export const OBSERVE_ONGOING_REQUESTS = observerType(
   'OBSERVE_ONGOING_REQUESTS',
 );
 
-export const OBSERVE_ACCEPTED_REQUESTS = observerType(
-  'OBSERVE_ACCEPTED_REQUESTS',
-);
-
 export const OBSERVE_COMPLETED_REQUESTS = observerType(
   'OBSERVE_COMPLETED_REQUESTS',
-);
-
-export const OBSERVE_FINISHED_REQUESTS = observerType(
-  'OBSERVE_FINISHED_REQUESTS',
 );
 
 export const OBSERVE_CANCELLED_REQUESTS = observerType(
   'OBSERVE_CANCELLED_REQUESTS',
 );
 
-export const OBSERVE_CLOSED_REQUESTS = observerType('OBSERVE_CLOSED_REQUESTS');
+export const OBSERVE_REMOVED_REQUESTS = observerType(
+  'OBSERVE_REMOVED_REQUESTS',
+);
 
 export const SET = asyncType('SET');
 
@@ -49,25 +43,13 @@ export interface RequestState {
     data?: Record<string, Request>;
     error?: Error;
   };
-  acceptedRequests: {
-    observerReceivedFirstUpdate: boolean;
-    loading: boolean;
-    data?: Record<string, Request>;
-    error?: Error;
-  };
-  closedRequests: {
+  removedRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;
     data?: Record<string, Request>;
     error?: Error;
   };
   completedRequests: {
-    observerReceivedFirstUpdate: boolean;
-    loading: boolean;
-    data?: Record<string, Request>;
-    error?: Error;
-  };
-  finishedRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;
     data?: Record<string, Request>;
