@@ -7,7 +7,7 @@ export const ROLE_PERMISSION_GROUPS = ['map', 'web', 'admin'] as const;
 type RolePermissionGroup = typeof ROLE_PERMISSION_GROUPS[number];
 
 export type Role = {
-  [key in RolePermissionGroup]: string[];
+  [key in RolePermissionGroup]: string[] | undefined;
 };
 
 const StringArray = t.array(t.string);
