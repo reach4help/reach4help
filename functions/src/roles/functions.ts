@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 
 import { auth, db } from '../app';
 import { ROLE_AUDITS_COLLECTION_ID } from '../shared/model/role-audits';
-import { Role } from '../shared/model/roles';
+import { Role, ROLE_PERMISSION_GROUPS } from '../shared/model/roles';
 import DocumentReference = admin.firestore.DocumentReference;
 import DocumentData = admin.firestore.DocumentData;
 import Timestamp = admin.firestore.Timestamp;
@@ -39,8 +39,8 @@ export const onWrite = (change: Change<DocumentSnapshot>, context: EventContext)
 
   if (after) {
     // go over all claims and set them
-    const afterObject = after.toObject() as { [id: string]: string[] };
-    Object.keys(afterObject).forEach(permissionGroup => {
+    const afterObject = after.toObject();
+    ROLE_PERMISSION_GROUPS.forEach(permissionGroup => {
       (afterObject[permissionGroup]).forEach(permission => {
         newUserClaims[`${permissionGroup}.${permission}`] = true;
       });

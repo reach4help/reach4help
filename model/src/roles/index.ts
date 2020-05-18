@@ -7,11 +7,13 @@ import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export const ROLES_COLLECTION_ID = 'roles';
 
-export interface IRole {
-  map: string[];
-  web: string[];
-  admin: string[];
-}
+export const ROLE_PERMISSION_GROUPS = ['map', 'web', 'admin'] as const;
+
+type RolePermissionGroup = typeof ROLE_PERMISSION_GROUPS[number];
+
+export type IRole = {
+  [key in RolePermissionGroup]: string[];
+};
 
 export class Role implements IRole {
   constructor(map: string[], web: string[], admin: string[]) {
@@ -56,7 +58,7 @@ export class Role implements IRole {
   static factory = (data: IRole): Role =>
     new Role(data.map, data.web, data.admin);
 
-  toObject(): object {
+  toObject() {
     return {
       map: this.map,
       web: this.web,
