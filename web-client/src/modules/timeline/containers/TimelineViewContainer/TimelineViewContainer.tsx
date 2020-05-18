@@ -7,13 +7,102 @@ import {
   observeOpenRequests,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
+import { OfferStatus } from 'src/models/offers';
 import { Request, RequestStatus } from 'src/models/requests';
+import { ApplicationPreference } from 'src/models/users';
 
-import TopPanel from '../../components/TopPanel';
+import TimelineList from '../../components/TimelineList/TimelineList';
+import TopPanel from '../../components/TopPanel/TopPanel';
 
-interface TimelineViewContainerProps {
-  requestId: string;
-}
+// TODO remove mock
+const today = new Date();
+const mockPin = {
+  username: 'PinUser',
+  applicationPreference: ApplicationPreference.pin,
+};
+
+const mockCav = {
+  username: 'CavUser',
+  applicationPreference: ApplicationPreference.cav,
+};
+
+const mockRequest = {
+  pin: mockPin,
+  cav: null,
+  status: RequestStatus.pending,
+};
+
+const mockOffer = {
+  pin: mockPin,
+  request: mockRequest,
+  status: OfferStatus.pending,
+};
+
+const mockTimelineItems = [
+  {
+    action: 'CREATE_REQUEST',
+    actor: mockPin,
+    offer: null,
+    request: mockRequest,
+    createdAt: new Date(today).setDate(today.getDate() - 9),
+  },
+  {
+    action: 'CANCEL_REQUEST',
+    actor: mockPin,
+    offer: null,
+    request: mockRequest,
+    createdAt: new Date(today).setDate(today.getDate() - 8),
+  },
+  {
+    action: 'COMPLETE_REQUEST',
+    actor: mockCav,
+    offer: null,
+    request: mockRequest,
+    createdAt: new Date(today).setDate(today.getDate() - 7),
+  },
+  {
+    action: 'REMOVE_REQUEST',
+    actor: mockCav,
+    offer: null,
+    request: mockRequest,
+    createdAt: new Date(today).setDate(today.getDate() - 6),
+  },
+  {
+    action: 'CREATE_OFFER',
+    actor: mockCav,
+    request: mockRequest,
+    offer: mockOffer,
+    createdAt: new Date(today).setDate(today.getDate() - 5),
+  },
+  {
+    action: 'ACCEPT_OFFER',
+    actor: mockPin,
+    request: { ...mockRequest, status: RequestStatus.ongoing },
+    offer: { ...mockOffer, status: OfferStatus.accepted },
+    createdAt: new Date(today).setDate(today.getDate() - 4),
+  },
+  {
+    action: 'REJECT_OFFER',
+    actor: mockPin,
+    request: { ...mockRequest, status: RequestStatus.ongoing },
+    offer: { ...mockOffer, status: OfferStatus.accepted },
+    createdAt: new Date(today).setDate(today.getDate() - 3),
+  },
+  {
+    action: 'RATE_PIN',
+    actor: mockCav,
+    request: { ...mockRequest, status: RequestStatus.ongoing },
+    offer: { ...mockOffer, status: OfferStatus.accepted },
+    createdAt: new Date(today).setDate(today.getDate() - 2),
+  },
+  {
+    action: 'RATE_CAV',
+    actor: mockPin,
+    request: { ...mockRequest, status: RequestStatus.ongoing },
+    offer: { ...mockOffer, status: OfferStatus.accepted },
+    createdAt: new Date(today).setDate(today.getDate() - 1),
+  },
+];
 
 const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   requestId,
@@ -116,7 +205,17 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       Once backend changes for profile snapshot is done, instead of user={mockRequestUser},
       The Top Panel must take the user details from the request itself
   */
-  return <TopPanel request={request} user={mockRequestUser} />;
+  return (
+    <>
+      <TopPanel request={request} user={mockRequestUser} />;
+      <TimelineList items={mockTimelineItems} currentUser={mockPin} />
+      {/* <TimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
+    </>
+  );
 };
+
+interface TimelineViewContainerProps {
+  requestId: string;
+}
 
 export default TimelineViewContainer;
