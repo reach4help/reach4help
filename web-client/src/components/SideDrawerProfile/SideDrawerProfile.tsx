@@ -15,7 +15,10 @@ const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
   profileData,
 }) => (
   <Wrapper>
-    <DisplayPhoto src={profileData?.displayPicture || undefined} />
+    <DisplayPhoto
+      src={profileData?.displayPicture || undefined}
+      style={{ objectFit: 'cover' }}
+    />
     <Content>
       <DisplayName>{profileData?.displayName}</DisplayName>
       <Details>
