@@ -16,10 +16,6 @@ import { ROLE_PERMISSION_GROUPS, RoleCodec } from '../shared/model/roles';
 export const onWrite = (change: Change<DocumentSnapshot>, context: EventContext) => {
   const before = change.before.data();
   const after = change.after.data();
-  if ((before && !RoleCodec.is(before)) || (after && !RoleCodec.is(after))) {
-    console.error('Invalid role detected: ', change.after.ref);
-    return;
-  }
   const { userId } = context.params;
   let actingUserRef: DocumentReference<unknown> | null = null;
 
@@ -39,7 +35,7 @@ export const onWrite = (change: Change<DocumentSnapshot>, context: EventContext)
   // default to no claims
   const newUserClaims: { [id: string]: boolean } = {};
 
-  if (after) {
+  if (RoleCodec.is(after)) {
     // go over all claims and set them
     ROLE_PERMISSION_GROUPS.forEach(permissionGroup => {
       after[permissionGroup].forEach(permission => {
