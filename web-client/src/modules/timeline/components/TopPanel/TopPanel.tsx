@@ -1,16 +1,20 @@
 import {
   DownOutlined,
+  HeartOutlined,
   HomeOutlined,
   StarOutlined,
   UpOutlined,
 } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import DummyMan from 'src/assets/dummy-man.jpg';
 import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
 import { Request, RequestStatus } from 'src/models/requests';
+import { ApplicationPreference } from 'src/models/users/index';
 import { COLORS } from 'src/theme/colors';
 import styled, { css } from 'styled-components';
 
@@ -24,34 +28,59 @@ interface TopPanelProps {
 const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
   const [togglePanel, setTogglePanel] = useState(false);
   const userRequestStatus = request.status;
+  const { t } = useTranslation();
 
   return (
     <TopPanelWrapper>
       <NavRow>
-        <img src={NavBackIcon} alt="back navigation icon" />
+        <Link to="/">
+          <img src={NavBackIcon} alt="back navigation icon" />
+        </Link>
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
-          {userRequestStatus}
+          {userRequestStatus === RequestStatus.pending
+            ? t('timeline.open_status')
+            : userRequestStatus}
         </StatusButton>
       </NavRow>
       <UserRow>
-        <DisplayPhoto src={DummyMan} alt="display photo" />
+        {userRequestStatus === RequestStatus.pending ? (
+          <EmptyPhoto />
+        ) : (
+          <DisplayPhoto src={DummyMan} alt="display photo" />
+        )}
         <UserDetails>
           <Detail>
-            <DisplayName>{user.name}</DisplayName>
-            <Info>
-              <InfoDetail>
-                <AverageRatingIcon />
-                <span>{user.rating}</span>
-              </InfoDetail>
-              <InfoDetail>
-                <img src={LocationIcon} alt="location icon" />
-                {/* TODO: Requires Fix from backend */}
-                <span>5km</span>
-              </InfoDetail>
-            </Info>
+            <DisplayName className={userRequestStatus}>
+              {userRequestStatus === RequestStatus.pending
+                ? t('timeline.cav_wait')
+                : user.name}
+            </DisplayName>
+            {user.applicationPreference === ApplicationPreference.cav &&
+            userRequestStatus !== RequestStatus.pending ? (
+              <Volunteer>{t('timeline.cav')}</Volunteer>
+            ) : null}
+            {userRequestStatus === RequestStatus.pending ? null : (
+              <Info>
+                {user.applicationPreference === ApplicationPreference.cav ? (
+                  <InfoDetail>
+                    <LikesIcon />
+                    <span>{user.likes}</span>
+                  </InfoDetail>
+                ) : null}
+                <InfoDetail>
+                  <AverageRatingIcon />
+                  <span>{user.rating}</span>
+                </InfoDetail>
+                <InfoDetail className={user.applicationPreference}>
+                  <img src={LocationIcon} alt="location icon" />
+                  {/* TODO: Requires Fix from backend */}
+                  <span>{user.distance}</span>
+                </InfoDetail>
+              </Info>
+            )}
           </Detail>
-          {userRequestStatus ===
-          (RequestStatus.ongoing || RequestStatus.completed) ? (
+          {userRequestStatus === RequestStatus.ongoing ||
+          userRequestStatus === RequestStatus.completed ? (
             <img src={PhoneIcon} alt="phone icon" />
           ) : null}
         </UserDetails>
@@ -65,17 +94,17 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
         {togglePanel ? (
           <RequestDetails>
             <RequestDetail>
-              <Text> - {request.description} </Text>
+              <Text>{request.description}</Text>
             </RequestDetail>
             <Address>
               {/* TODO: needs fix from backend */}
               <AddressTextAndArrow>
-                <Text>Delivery Address </Text>
+                <Text>{t('timeline.address')} </Text>
                 <UpOutlined />
               </AddressTextAndArrow>
               <AddressInfo>
                 <HomeOutlined />
-                <Text> 509 Gorby Lane, Jackson, FL 32065 </Text>
+                <Text> {user.address} </Text>
               </AddressInfo>
             </Address>
           </RequestDetails>
@@ -123,6 +152,13 @@ const NavRow = styled.div`
 `;
 
 const StatusButton = styled.button`
+  width: 7rem;
+  text-transform: capitalize;
+  &.pending {
+    background: rgba(${COLORS.rgb.brandOrange}, 0.25);
+    border: 1px solid ${COLORS.brandOrange};
+  }
+
   &.accepted,
   &.finished,
   &.completed {
@@ -131,7 +167,7 @@ const StatusButton = styled.button`
   }
   &.ongoing {
     background: rgba(${COLORS.rgb.primary}, 0.25);
-    border: 1px solid ${COLORS.primary};
+    border: 1px solid ${COLORS.lightBlue};
   }
 
   &.closed {
@@ -139,7 +175,7 @@ const StatusButton = styled.button`
     border: 1px solid rgba(0, 0, 0, 0.45);
   }
 
-  &.cancel {
+  &.cancelled {
     background: rgba(${COLORS.rgb.warning}, 0.25);
     border: 1px solid ${COLORS.backgroundAlternative};
   }
@@ -163,7 +199,15 @@ const DisplayPhoto = styled.img`
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background-color: darkgray;
+  margin-right: 20px;
+`;
+
+const EmptyPhoto = styled.div`
+  background: linear-gradient(180deg, #ffffff 0%, #dddddd 100%);
+  transform: matrix(0, -1, -1, 0, 0, 0);
+  width: 48px;
+  height: 45px;
+  border-radius: 50%;
   margin-right: 20px;
 `;
 
@@ -173,12 +217,18 @@ const UserDetails = styled.div`
 `;
 
 const Detail = styled.div`
-  width: 50%;
-  max-width: 10rem;
+  width: 55%;
+  max-width: 12rem;
+  ${flexAlignColumn}
 `;
 
 const Info = styled.div`
   ${flexSpaceBetween}
+  width: 100%;
+
+  .cav {
+    margin-left: 1rem;
+  }
 `;
 
 const InfoDetail = styled.div`
@@ -196,8 +246,27 @@ const InfoDetail = styled.div`
 const DisplayName = styled(Text)`
   font-size: 1rem;
   color: #f0f0f0;
+
+  &.pending,
+  .ant-typography {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 900;
+  }
 `;
 
+const Volunteer = styled(Text)`
+  &.ant-typography {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+`;
+
+const LikesIcon = styled(HeartOutlined)`
+  color: #811e78;
+`;
 const AverageRatingIcon = styled(StarOutlined)`
   color: #811e78;
 `;

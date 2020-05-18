@@ -11,10 +11,12 @@ module.exports = {
     backgroundLightGray: '#0000000d',
     success: '#52C41A',
     brandOrange: '#ff7b02',
+    lightBlue: '#1890ff',
     rgb: {
       success: '82,196,26',
       primary: '24, 144, 255',
       warning: '242, 121, 121',
+      brandOrange: '255,123,2',
     },
   },
 };
