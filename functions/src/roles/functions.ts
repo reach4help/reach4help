@@ -3,9 +3,9 @@ import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import * as admin from 'firebase-admin';
 
 import { auth, db } from '../app';
-import { ROLE_AUDITS_COLLECTION_ID } from '../shared/model/role-audits';
+import { DocumentReference } from '../shared/model/util'
+import { ROLE_AUDITS_COLLECTION_ID, IRoleAudit } from '../shared/model/role-audits';
 import { Role, ROLE_PERMISSION_GROUPS } from '../shared/model/roles';
-import DocumentReference = admin.firestore.DocumentReference;
 import DocumentData = admin.firestore.DocumentData;
 import Timestamp = admin.firestore.Timestamp;
 
@@ -53,14 +53,20 @@ export const onWrite = (change: Change<DocumentSnapshot>, context: EventContext)
     })
     .catch(error => console.error('User Claims Failed: ', error));
 
+  const auditLog: IRoleAudit = {
+    affectedUserRef: db.collection('users').doc(userId),
+    actingUserRef,
+    previousRole: before,
+    currentRole: after,
+    updatedAt: Timestamp.fromDate(new Date(context.timestamp)),
+  };
+
+  const addAuditLog = db.collection(ROLE_AUDITS_COLLECTION_ID)
+    .add(auditLog)
+    .catch(error => console.error('Audit Log Failed: ', error)); // Fail silently
+
   const operations = [
-    db.collection(ROLE_AUDITS_COLLECTION_ID).add({
-      affectedUser: db.collection('users').doc(userId),
-      actingUser: actingUserRef,
-      previousRole: before,
-      currentRole: after,
-      updatedAt: Timestamp.now(),
-    }).catch(error => console.error('Audit Log Failed: ', error)), // Fail silently
+    addAuditLog,
     updateUserClaims,
   ];
 

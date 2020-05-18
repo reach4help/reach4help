@@ -2,11 +2,11 @@ import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { firestore } from 'firebase';
 
 import { IRole, Role } from '../roles';
+import { DocumentReference } from '../util';
 
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
-import DocumentReference = firestore.DocumentReference;
 
 export const ROLE_AUDITS_COLLECTION_ID = 'role-audits';
 
