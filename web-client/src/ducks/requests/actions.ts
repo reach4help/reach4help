@@ -1,6 +1,7 @@
 import { IRequest, Request } from 'src/models/requests';
 
 import {
+  createUserRequest,
   observeNonOpenRequests as observeNonOpenRequestsFunc,
   observeOpenRequests as observeOpenRequestsFunc,
   setUserRequest,
@@ -48,7 +49,9 @@ export const observeNonOpenRequests = (
     });
 };
 
-export const setRequest = (payload: IRequest) => (dispatch: Function) => {
+export const setRequest = (payload: IRequest, requestId?: string) => (
+  dispatch: Function,
+) => {
   const requestPayload = Request.factory({
     ...payload,
   });
@@ -56,8 +59,9 @@ export const setRequest = (payload: IRequest) => (dispatch: Function) => {
     type: SET,
     payload: {
       requestPayload,
+      requestId,
     },
-    firebase: setUserRequest,
+    firebase: requestId ? setUserRequest : createUserRequest,
   });
 };
 

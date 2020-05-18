@@ -27,7 +27,8 @@ const initialState: RequestState = {
   openRequests: initialRequestsState,
   ongoingRequests: initialRequestsState,
   completedRequests: initialRequestsState,
-  closedRequests: initialRequestsState,
+  cancelledRequests: initialRequestsState,
+  removedRequests: initialRequestsState,
   setAction: initialSetActionState,
 };
 
@@ -35,7 +36,8 @@ const requestStatusMapper = {
   [RequestStatus.pending]: 'openRequests',
   [RequestStatus.ongoing]: 'ongoingRequests',
   [RequestStatus.completed]: 'completedRequests',
-  [RequestStatus.cancelled]: 'closedRequests',
+  [RequestStatus.cancelled]: 'cancelledRequests',
+  [RequestStatus.removed]: 'removedRequests',
 };
 
 export default createReducer<RequestState>(

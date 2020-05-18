@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ClosedRequestsContainer from '../../../containers/ClosedRequestsContainer/ClosedRequestsContainer';
+import ClosedRequestsContainer from '../../../containers/ArchivedRequestsContainer/ArchivedRequestsContainer';
 
 const ClosedRequestsRoute: React.FC = () => <ClosedRequestsContainer />;
 

@@ -1,8 +1,8 @@
 import { MenuItem, Module } from 'src/types/module';
 
 import ContentPage from './pages/ContentPage';
-import { ClosedRequestsLocation } from './pages/routes/ClosedRequestsRoute/constants';
-import { CompletedRequestsLocation } from './pages/routes/CompletedRequestsRoute/constants';
+import { ArchivedRequestsLocation } from './pages/routes/ArchivedRequestsRoute/constants';
+import { FinishedRequestsLocation } from './pages/routes/FinishedRequestsRoute/constants';
 import { OngoingRequestsLocation } from './pages/routes/OngoingRequestsRoute/constants';
 import { OpenRequestsLocation } from './pages/routes/OpenRequestsRoute/constants';
 
@@ -24,12 +24,12 @@ export const menuLinks: Array<MenuItem> = [
       {
         id: '4',
         title: 'Completed',
-        location: CompletedRequestsLocation,
+        location: FinishedRequestsLocation,
       },
       {
         id: '5',
         title: 'Closed',
-        location: ClosedRequestsLocation,
+        location: ArchivedRequestsLocation,
       },
     ],
   },
