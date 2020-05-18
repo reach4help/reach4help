@@ -5,6 +5,7 @@ import fetch from 'node-fetch';
 import { db } from '../../app';
 
 import { MARKER_COLLECTION_ID, MarkerInfo } from '../../models/markers';
+import { beginningStats } from './sync-util';
 import isEqual = require('lodash/isEqual');
 
 // Define the fields we're filtering on as constants here to ensure that they
@@ -49,36 +50,6 @@ export type MutualAidWikiGroup = {
   created_at?: string;
   updated_at?: string;
 };
-
-/**
- * Return an object to collect statistics for the handling of external data
- */
-const beginningStats = () => ({
-  /**
-   * existing entry that is unchanged
-   */
-  existing: 0,
-  /**
-   * newly created entry
-   */
-  created: 0,
-  /**
-   * existing entry that has been updated
-   */
-  updated: 0,
-  /**
-   * existing entry that has now been hidden
-   */
-  hidden: 0,
-  /**
-   * existing entry that has (already) been hidden
-   */
-  alreadyHidden: 0,
-  /**
-   * encountered invalid data that we were unable to handle
-   */
-  invalid: 0,
-});
 
 type GroupHandleResponse = keyof ReturnType<typeof beginningStats>;
 
@@ -151,7 +122,7 @@ const handleGroup = async (documents: ExistingDocuments, group: MutualAidWikiGro
   const doc = documents.get(group.id);
   if (doc) {
     const existingMarker = doc.data();
-    if (isEqual(existingMarker.source?.data, group)) {
+    if (isEqual(existingMarker.source?.data, group) && existingMarker.visible === marker.visible) {
       return 'existing';
     }
     await MARKER_COLLECTION.doc(doc.id).set(marker);
@@ -168,7 +139,8 @@ export const syncMutualAidWiki = functions
     timeoutSeconds: 540,
   })
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  .https.onRequest(async (_req, res) => {
+  .pubsub.schedule('every hour')
+  .onRun(async () => {
     const stats = beginningStats();
     console.log('Syncing with mutualaid.wiki');
     const existingMarkers = await MARKER_COLLECTION.where(SOURCE_NAME_FIELD_PATH, '==', SOURCE_NAME_FIELD_VALUE).get();
@@ -176,7 +148,14 @@ export const syncMutualAidWiki = functions
     for (const doc of existingMarkers.docs) {
       const id = doc.data().source?.id;
       if (id) {
-        existing.set(id, doc);
+        const duplicate = existing.get(id);
+        if (duplicate) {
+          // eslint-disable-next-line no-await-in-loop
+          await MARKER_COLLECTION.doc(doc.id).delete();
+          stats.duplicatesRemoved++;
+        } else {
+          existing.set(id, doc);
+        }
       }
     }
     const groups: MutualAidWikiGroup[] = await (await fetch(API_URL)).json();
@@ -187,7 +166,4 @@ export const syncMutualAidWiki = functions
     }
     console.log('counts', existing.size, groups.length);
     console.log(`Sync with mutualaid.wiki complete, stats: ${JSON.stringify(stats)}`);
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600');
-    res.status(200).send(JSON.stringify(stats));
   });
