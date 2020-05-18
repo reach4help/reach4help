@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   observeNonOpenRequests,
@@ -35,11 +36,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.cancelledRequests.data
-        ? requestsState.cancelledRequests.data[requestId]
-        : undefined);
-    requestTemp =
-      requestTemp ||
       (requestsState.ongoingRequests.data
         ? requestsState.ongoingRequests.data[requestId]
         : undefined);
@@ -48,7 +44,16 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (requestsState.completedRequests.data
         ? requestsState.completedRequests.data[requestId]
         : undefined);
-
+    requestTemp =
+      requestTemp ||
+      (requestsState.cancelledRequests.data
+        ? requestsState.cancelledRequests.data[requestId]
+        : undefined);
+    requestTemp =
+      requestTemp ||
+      (requestsState.removedRequests.data
+        ? requestsState.removedRequests.data[requestId]
+        : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
 
@@ -58,34 +63,60 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
       });
-      const unsubscribeFromCompleted = observeNonOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.completed,
-      });
+
       const unsubscribeFromOngoing = observeNonOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
         requestStatus: RequestStatus.ongoing,
       });
+
+      const unsubscribeFromCompleted = observeNonOpenRequests(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+        requestStatus: RequestStatus.completed,
+      });
+
+      const unsubscribeFromCancelled = observeNonOpenRequests(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+        requestStatus: RequestStatus.cancelled,
+      });
+
+      const unsubscribeFromRemoved = observeNonOpenRequests(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+        requestStatus: RequestStatus.removed,
+      });
+
       return () => {
         unsubscribeFromOpen();
-        unsubscribeFromCompleted();
         unsubscribeFromOngoing();
+        unsubscribeFromCompleted();
+        unsubscribeFromCancelled();
+        unsubscribeFromRemoved();
       };
     }
   }, [dispatch, profileState]);
 
   if (!(profileState.profile && request)) {
-    return <>Loading...</>;
+    return <LoadingWrapper />;
   }
+
+  const mockRequestUser = {
+    name: 'Jon Snow',
+    rating: 4.5,
+    likes: 52,
+    distance: '5km',
+    address: '509 Gorby Lane, Jackson, FL 32065',
+    applicationPreference: 'pin',
+  };
 
   /*
     TODO: 
-      Once backend changes for profile snapshot is done, instead of user={profileState.profile},
+      Once backend changes for profile snapshot is done, instead of user={mockRequestUser},
       The Top Panel must take the user details from the request itself
   */
-  return <TopPanel request={request} user={profileState.profile} />;
+  return <TopPanel request={request} user={mockRequestUser} />;
 };
 
 export default TimelineViewContainer;
