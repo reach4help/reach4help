@@ -150,7 +150,5 @@ export const PrivilegedUserInformationFirestoreConverter: FirestoreDataConverter
   fromFirestore: (data: QueryDocumentSnapshot<IPrivilegedUserInformation>): PrivilegedUserInformation => {
     return PrivilegedUserInformation.factory(data.data());
   },
-  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => {
-    return modelObject.toObject();
-  },
+  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => modelObject.toObject(),
 };

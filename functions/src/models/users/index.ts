@@ -13,7 +13,7 @@ export enum ApplicationPreference {
 
 export interface IUser extends DocumentData {
   username: string;
-
+  applicationPreference?: ApplicationPreference | null;
   cavQuestionnaireRef?: DocumentReference<DocumentData> | null;
   pinQuestionnaireRef?: DocumentReference<DocumentData> | null;
   averageRating?: number | null;
@@ -23,13 +23,13 @@ export interface IUser extends DocumentData {
   cavRatingsReceived?: number;
   displayName?: string | null;
   displayPicture?: string | null;
-  applicationPreference?: ApplicationPreference;
   createdAt?: Timestamp;
 }
 
 export class User implements IUser {
   constructor(
     username: string,
+    applicationPreference: ApplicationPreference | null = null,
     pinQuestionnaireRef: DocumentReference<DocumentData> | null = null,
     cavQuestionnaireRef: DocumentReference<DocumentData> | null = null,
     casesCompleted = 0,
@@ -39,7 +39,6 @@ export class User implements IUser {
     averageRating: number | null = null,
     displayName: string | null = null,
     displayPicture: string | null = null,
-    applicationPreference = ApplicationPreference.pin,
     createdAt = Timestamp.now(),
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
@@ -179,13 +178,14 @@ export class User implements IUser {
   }
 
   @IsEnum(ApplicationPreference)
-  private _applicationPreference: ApplicationPreference;
+  @IsOptional()
+  private _applicationPreference: ApplicationPreference | undefined | null;
 
-  get applicationPreference(): ApplicationPreference {
+  get applicationPreference(): ApplicationPreference | undefined | null {
     return this._applicationPreference;
   }
 
-  set applicationPreference(value: ApplicationPreference) {
+  set applicationPreference(value: ApplicationPreference | undefined | null) {
     this._applicationPreference = value;
   }
 
@@ -206,6 +206,7 @@ export class User implements IUser {
   static factory = (data: IUser): User =>
     new User(
       data.username,
+      data.applicationPreference,
       data.pinQuestionnaireRef,
       data.cavQuestionnaireRef,
       data.casesCompleted,
@@ -215,7 +216,6 @@ export class User implements IUser {
       data.averageRating,
       data.displayName,
       data.displayPicture,
-      data.applicationPreference,
       data.createdAt,
     );
 
