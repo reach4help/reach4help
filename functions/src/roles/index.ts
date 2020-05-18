@@ -2,10 +2,15 @@ import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
 import { auth, db } from '../app';
-import { DocumentReference } from '../shared/model/util';
-import { ROLE_AUDITS_COLLECTION_ID, RoleAudit } from '../shared/model/role-audits';
+import { DocumentReference, DocumentReferenceCodec, TimestampCodec } from '../shared/model/util/admin';
+import { ROLE_AUDITS_COLLECTION_ID, RoleAuditCodec } from '../shared/model/role-audits';
 import { ROLE_PERMISSION_GROUPS, RoleCodec, ROLES_COLLECTION_ID } from '../shared/model/roles';
 import { USERS_COLLECTION_ID } from '../shared/model/users';
+import * as t from 'io-ts';
+
+const AdminRoleAuditCodec = RoleAuditCodec(DocumentReferenceCodec, TimestampCodec);
+
+type RoleAudit = t.TypeOf<typeof AdminRoleAuditCodec>;
 
 /**
  * When a role is created/updated/deleted log it and update the target user's claims
