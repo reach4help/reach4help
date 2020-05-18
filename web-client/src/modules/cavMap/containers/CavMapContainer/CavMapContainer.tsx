@@ -4,29 +4,61 @@ import styled from 'styled-components';
 
 import Map from '../../../../components/WebClientMap/WebClientMap';
 import { VolunteerMarkerProps } from '../../../../components/WebClientMap/WebClientMarker';
+import { setOffer } from '../../../../ducks/offers/actions';
+import { OffersState } from '../../../../ducks/offers/types';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { observeOpenRequests } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
-import DummyRequestItemComponent from './DummyRequestItemComponent';
+import { firestore } from '../../../../firebase';
+import { OfferStatus } from '../../../../models/offers';
+import { Request } from '../../../../models/requests';
+import { ApplicationPreference } from '../../../../models/users';
+import RequestItem from '../../../requests/components/RequestItem/RequestItem';
 
 interface MapRequestProps {
   center: VolunteerMarkerProps;
   id: string;
 }
 
+const RequestDetails = styled.div`
+  position: fixed;
+  bottom: 64px;
+  width: 100%;
+  background: white;
+`;
+
 const CavMapContainer: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [currentExpandedRequest, setCurrentExpandedRequest] = useState<
+  const [expandedRequestId, setExpandedRequestId] = useState<
     string | undefined
   >(undefined);
 
-  /* Using real place as default location. {lat:0,lng:0} is just water */
   const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>({
     lat: 13.4124693,
     lng: 103.8667,
   });
-  const [openRequests, setOpenRequests] = useState<MapRequestProps[]>([]);
+
+  const [requestsWithoutOffer, setRequestsWithoutOffer] = useState<
+    MapRequestProps[]
+  >([]);
+
+  const [pendingRequests, setPendingRequests] = useState<
+    Record<string, Request>
+  >({});
+
+  const openRequests = useSelector(
+    ({ requests }: { requests: RequestState }) => requests.openRequests,
+  );
+
+  const offersState = useSelector(
+    ({ offers }: { offers: OffersState }) => offers,
+  );
+
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
+  );
+
   let geolocated = false;
 
   navigator.geolocation.getCurrentPosition(
@@ -44,37 +76,48 @@ const CavMapContainer: React.FC = () => {
     },
   );
 
-  const requestsState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests,
-  );
+  useEffect(() => {
+    if (openRequests && openRequests.data) {
+      const internalPendingRequests: Record<string, Request> = {
+        ...openRequests.data,
+      };
+
+      for (const key in offersState.data) {
+        if (offersState.data[key]) {
+          if (internalPendingRequests[offersState.data[key].requestRef.id]) {
+            delete internalPendingRequests[offersState.data[key].requestRef.id];
+          }
+        }
+      }
+      setPendingRequests(internalPendingRequests);
+    }
+  }, [offersState, openRequests]);
 
   useEffect(() => {
-    if (requestsState.openRequests && requestsState.openRequests.data) {
-      const requestsData = requestsState.openRequests.data;
+    if (pendingRequests) {
+      const requestsData = pendingRequests;
       const transformedRequests: MapRequestProps[] = Object.keys(
-        requestsState.openRequests.data,
-      ).reduce((acc: MapRequestProps[], curr: string) => {
-        return !requestsData[curr]
-          ? acc
-          : [
-              ...acc,
-              {
-                id: curr,
-                center: {
-                  lat: requestsData[curr].latLng.latitude,
-                  lng: requestsData[curr].latLng.longitude,
+        requestsData,
+      ).reduce(
+        (acc: MapRequestProps[], curr: string) =>
+          !requestsData[curr]
+            ? acc
+            : [
+                ...acc,
+                {
+                  id: curr,
+                  center: {
+                    lat: requestsData[curr].latLng.latitude,
+                    lng: requestsData[curr].latLng.longitude,
+                  },
                 },
-              },
-            ];
-      }, []);
+              ],
+        [],
+      );
 
-      setOpenRequests(transformedRequests);
+      setRequestsWithoutOffer(transformedRequests);
     }
-  }, [requestsState]);
-
-  const profileState = useSelector(
-    ({ profile }: { profile: ProfileState }) => profile,
-  );
+  }, [pendingRequests]);
 
   useEffect(() => {
     if (profileState.profile) {
@@ -95,38 +138,47 @@ const CavMapContainer: React.FC = () => {
         lng: profileState.privilegedInformation.address.coords.longitude,
       });
     }
-  }, [profileState, dispatch]);
+  }, [profileState, geolocated, dispatch]);
 
   const onRequestHandler = (id: string) => {
-    setCurrentExpandedRequest(id);
+    setExpandedRequestId(id);
   };
 
-  const RequestDetails = styled.div`
-    position: fixed;
-    bottom: 64px;
-    width: 100%;
-    background: white;
-  `;
+  const handleRequestForAcceptReject = (action?: boolean) => {
+    if (
+      expandedRequestId &&
+      openRequests &&
+      openRequests.data &&
+      profileState.userRef &&
+      profileState.profile &&
+      profileState.profile.applicationPreference === ApplicationPreference.cav
+    ) {
+      dispatch(
+        setOffer({
+          cavUserRef: profileState.userRef,
+          pinUserRef: openRequests.data[expandedRequestId].pinUserRef,
+          requestRef: firestore.collection('requests').doc(expandedRequestId),
+          cavUserSnapshot: profileState.profile,
+          message: 'I want to help!',
+          status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
+        }),
+      );
+      setExpandedRequestId(undefined);
+    }
+  };
 
   const maybeRequestDetails = () => {
-    if (
-      currentExpandedRequest &&
-      requestsState.openRequests &&
-      requestsState.openRequests.data
-    ) {
-      const request = requestsState.openRequests.data[currentExpandedRequest];
+    if (expandedRequestId && openRequests && openRequests.data) {
+      const request = openRequests.data[expandedRequestId];
       return request ? (
         <RequestDetails>
-          <DummyRequestItemComponent request={request} />
+          <RequestItem
+            request={request}
+            handleRequest={handleRequestForAcceptReject}
+            isCavAndOpenRequest
+          />
         </RequestDetails>
-      ) : (
-        <RequestDetails>
-          <div>
-            Request Id {currentExpandedRequest} was clicked <br />
-            Test Description
-          </div>
-        </RequestDetails>
-      );
+      ) : null;
     }
     return null;
   };
@@ -134,7 +186,7 @@ const CavMapContainer: React.FC = () => {
   return (
     <>
       <Map
-        requests={openRequests}
+        requests={requestsWithoutOffer}
         volunteerLocation={currentLocation}
         onRequestHandler={id => onRequestHandler(id)}
       />
