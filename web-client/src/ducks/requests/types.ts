@@ -31,7 +31,13 @@ export interface RequestState {
     data?: Record<string, Request>;
     error?: Error;
   };
-  closedRequests: {
+  cancelledRequests: {
+    observerReceivedFirstUpdate: boolean;
+    loading: boolean;
+    data?: Record<string, Request>;
+    error?: Error;
+  };
+  removedRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;
     data?: Record<string, Request>;

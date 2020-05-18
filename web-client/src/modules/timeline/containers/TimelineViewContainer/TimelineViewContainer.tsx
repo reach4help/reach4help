@@ -35,8 +35,8 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.closedRequests.data
-        ? requestsState.closedRequests.data[requestId]
+      (requestsState.cancelledRequests.data
+        ? requestsState.cancelledRequests.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
