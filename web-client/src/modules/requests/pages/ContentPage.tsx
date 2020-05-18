@@ -1,8 +1,10 @@
 import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import CompletedRequestsRoute from './routes/CompletedRequestsRoute/CompletedRequestsRoute';
-import { CompletedRequestsLocation } from './routes/CompletedRequestsRoute/constants';
+import ArchivedRequestsRoute from './routes/ArchivedRequestsRoute/ArchivedRequestsRoute';
+import { ArchivedRequestsLocation } from './routes/ArchivedRequestsRoute/constants';
+import { FinishedRequestsLocation } from './routes/FinishedRequestsRoute/constants';
+import FinishedRequestsRoute from './routes/FinishedRequestsRoute/FinishedRequestsRoute';
 import { OngoingRequestsLocation } from './routes/OngoingRequestsRoute/constants';
 import OngoingRequestsRoute from './routes/OngoingRequestsRoute/OngoingRequestsRoute';
 import { OpenRequestsLocation } from './routes/OpenRequestsRoute/constants';
@@ -21,8 +23,13 @@ const ContentPage = (): ReactElement => (
       exact
     />
     <Route
-      path={CompletedRequestsLocation.path}
-      component={CompletedRequestsRoute}
+      path={FinishedRequestsLocation.path}
+      component={FinishedRequestsRoute}
+      exact
+    />
+    <Route
+      path={ArchivedRequestsLocation.path}
+      component={ArchivedRequestsRoute}
       exact
     />
   </Switch>

@@ -15,7 +15,6 @@ import Footer from './footer';
 const OTHER_MAPS = {
   france: 'https://covid-entraide.fr/trouve-ton-groupe-local/',
   nyc: 'https://mutualaid.nyc/groups/',
-  usa: 'https://www.mutualaidhub.org/',
 };
 
 interface Props {

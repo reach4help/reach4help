@@ -40,29 +40,25 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 ### Setting up the environment variables
 
 This Project uses Services that require API keys and environment variables such as Firebase and Google Maps API.
-You can find an example env file that lists the variables that are being used in [.env.EXAMPLE](.env.EXAMPLE)
 The environment variables should be set up in a file named `.env` outside the `src` directory.
 
-We cannot provide the values for any of the keys that we use internally.
-We have however, included the keys for a starter project in [.env.EXAMPLE](.env.EXAMPLE). But in the situtation that we exceed the usage quotas of the starter project, you should create your own firebase project.
+Unfortunately, we cannot provide the values for any of the keys that we use internally as it's linked to our billing account.
+We have however, included the keys for a starter project in [`.env.EXAMPLE`](.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away.
 
-For Development Purposes, we have also stubbed the response from Google Maps Geocoding API so that you wouldn't have to obtain a Google Maps API Key with Billing account assosciated with it.
-However, this produces a fixed response and if you would like dynamic and accurate response (which is most likely not required), you would have to generate your own Google Maps API Key with a Billing account assosciated with it.
+For development purposes, we have also stubbed the response from the Google Maps Geocoding API so you don't need to obtain a Google Maps API Key with a billing account associated with it. Note that this produces a fixed location response (which shouldn't hinder your development).
 
-We use the following Services and if you have to generate Credentials of your own, you have to enable these services and configure them with the following settings:
+We use the following data services in our stack and in the situation that we exceed the usage quotas of the starter project, please reach out to the core team or feel free to generate the credentials on your own:
 
-The Firebase Project must have the following Sign-In Methods Enabled:
+- [Firebase](https://firebase.google.com/)
+  - Enable sign-in through Facebook (with your own Facebook app that you can make [here](https://developers.facebook.com/))
+  - Enable sign-in through phone
+  - Enable Cloud Firestore
+  - Enable Cloud Messaging
+- [Google Maps API](https://developers.google.com/maps/documentation) (_optional: for dynamic geolocation_)
+  - [Get a Maps JavaScript API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
+  - [Get a Geocoding API Key](https://developers.google.com/maps/documentation/geocoding/get-api-key)
 
-- Facebook Sign In (with your own Faceboook App)
-- Phone Auth
-  The Firebase Project must also have Firestore and Cloud Messaging enabled.
-
-You must also obtain a Google Maps API key with the following APIs enabled:
-
-- Maps Javascript API
-- Geocoding API
-
-### If you are using the test credentials we provided, we had to enable https on localhost development server to let facebook app authenticate when redirecting as the facebook app had to be made live for everyone to be able to develop with it. This however, brings the problem of certificate. we haven't included the certificate in this repo and so you would be getting a warning from the browser warning you about the authenticity of the certificate. You should by pass the warning and proceed to start development.
+**NOTE:** If you are using the test credentials we provided, we had to enable `https` on localhost development server to let the live Facebook app authenticate. You'll likely see a warning from your browser about the authenticity our self-signed SSL certificate but this shouldn't cause any problems until production. For now, you can bypass the warning and proceed to start development.
 
 ## Run the project
 

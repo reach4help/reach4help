@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 
-import CompletedRequestsContainer from '../../../containers/CompletedRequestsContainer/CompletedRequestsContainer';
+import FinishedRequestsContainer from '../../../containers/FinishedRequestsContainer/FinishedRequestsContainer';
 
 const CompletedRequestsRoute: React.FC = (): ReactElement => (
-  <CompletedRequestsContainer />
+  <FinishedRequestsContainer />
 );
 export default CompletedRequestsRoute;

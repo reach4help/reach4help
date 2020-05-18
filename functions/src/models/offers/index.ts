@@ -12,6 +12,7 @@ export enum OfferStatus {
   pending = 'pending',
   accepted = 'accepted',
   rejected = 'rejected',
+  cavDeclined = 'cav_declined',
 }
 
 export interface IOffer extends DocumentData {
