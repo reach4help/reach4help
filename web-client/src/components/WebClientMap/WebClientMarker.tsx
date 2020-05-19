@@ -4,14 +4,16 @@ import RequestMarkerIcon from '../../assets/request-marker.png';
 import VolunteerMarkerIcon from '../../assets/volunteer-marker.png';
 
 export const VolunteerMarker: React.FC<VolunteerMarkerProps> = () => (
-  <img src={VolunteerMarkerIcon} alt="Volunteer location" />
+  <div>
+    <img src={VolunteerMarkerIcon} alt="My location" />
+  </div>
 );
 export const RequestMarker: React.FC<RequestMarkerProps> = ({
   key,
   onClick,
 }) => (
   <div onClick={() => onClick(key)}>
-    <img src={RequestMarkerIcon} alt="requests" />
+    <img src={RequestMarkerIcon} alt="Request location" />
   </div>
 );
 
