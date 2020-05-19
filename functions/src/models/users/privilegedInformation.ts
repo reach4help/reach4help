@@ -23,6 +23,7 @@ export interface IPrivilegedUserInformation extends DocumentData {
   termsVersion: string;
   privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   privacyVersion: string;
+  sendNotifications: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
 }
 
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
@@ -33,6 +34,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     privacyVersion: string,
     termsAccepted: Timestamp,
     termsVersion: string,
+    sendNotifications: Timestamp,
   ) {
     this._addressFromGoogle = addressFromGoogle;
     this._address = address;
@@ -40,6 +42,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     this._privacyVersion = privacyVersion;
     this._termsAccepted = termsAccepted;
     this._termsVersion = termsVersion;
+    this._sendNotifications = sendNotifications;
   }
 
   @IsObject()
@@ -108,6 +111,17 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     this._termsVersion = value;
   }
 
+  @IsObject()
+  private _sendNotifications: Timestamp;
+
+  get sendNotifications(): Timestamp {
+    return this._sendNotifications;
+  }
+
+  set sendNotifications(value: Timestamp) {
+    this._sendNotifications = value;
+  }
+
   static factory = (data: IPrivilegedUserInformation): PrivilegedUserInformation =>
     new PrivilegedUserInformation(
       data.addressFromGoogle,
@@ -116,6 +130,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
       data.privacyVersion,
       data.termsAccepted,
       data.termsVersion,
+      data.sendNotifications,
     );
 
   toObject(): object {
@@ -126,6 +141,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,
       termsVersion: this.termsVersion,
+      sendNotifications: this.sendNotifications,
     };
   }
 }
@@ -134,14 +150,5 @@ export const PrivilegedUserInformationFirestoreConverter: FirestoreDataConverter
   fromFirestore: (data: QueryDocumentSnapshot<IPrivilegedUserInformation>): PrivilegedUserInformation => {
     return PrivilegedUserInformation.factory(data.data());
   },
-  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => {
-    return {
-      addressFromGoogle: modelObject.addressFromGoogle,
-      address: modelObject.address,
-      privacyAccepted: modelObject.privacyAccepted,
-      privacyVersion: modelObject.privacyVersion,
-      termsAccepted: modelObject.termsAccepted,
-      termsVersion: modelObject.termsVersion,
-    };
-  },
+  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => modelObject.toObject(),
 };

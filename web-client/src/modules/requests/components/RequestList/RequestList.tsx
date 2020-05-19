@@ -1,31 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Request } from 'src/models/requests';
 
 interface RequestListProps {
-  requests?: Request[];
+  requests?: Record<string, Request>;
   loading: boolean;
+  handleRequest?: Function;
+  isCavAndOpenRequest: boolean;
+  RequestItem: React.FC<any>;
 }
 
 const RequestList: React.FC<RequestListProps> = ({
   requests,
   loading,
+  handleRequest,
+  isCavAndOpenRequest,
+  RequestItem,
 }): React.ReactElement => {
-  if (loading || !requests) {
+  const [requestList, setRequestList] = useState<React.ReactElement<any>[]>([]);
+
+  useEffect(() => {
+    if (requests) {
+      const internalRequestList: React.ReactElement<any>[] = [];
+
+      for (const id in requests) {
+        if (id && requests[id]) {
+          internalRequestList.push(
+            <RequestItem
+              key={id}
+              request={requests[id]}
+              handleRequest={(action?: boolean) =>
+                handleRequest && handleRequest(id, action)
+              }
+              isCavAndOpenRequest={isCavAndOpenRequest}
+            />,
+          );
+        }
+      }
+
+      setRequestList(internalRequestList);
+    }
+  }, [requests, handleRequest, isCavAndOpenRequest]);
+
+  // issue with indefinite loading, needs fix
+  if (!requests || loading) {
     return <>Loading...</>;
   }
 
-  return (
-    <>
-      {requests.map((request, index) => (
-        <div key={index}>
-          {request.title}
-          <br />
-          {request.description}
-          <hr />
-        </div>
-      ))}
-    </>
-  );
+  return <>{requestList}</>;
 };
 
 export default RequestList;

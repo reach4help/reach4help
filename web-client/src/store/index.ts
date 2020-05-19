@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import ducks from '../ducks';
@@ -18,6 +19,10 @@ export type AppState = ReturnType<typeof rootReducer>;
 
 const configureStore = () => {
   const middlewares = [thunk, injectRequestMiddleware, observerMiddleware];
+
+  if (process.env.NODE_ENV === 'development') {
+    middlewares.push(logger);
+  }
 
   const store = createStore(
     rootReducer,

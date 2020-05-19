@@ -42,19 +42,19 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 This Project uses Services that require API keys and environment variables such as Firebase and Google Maps API.
 The environment variables should be set up in a file named `.env` outside the `src` directory.
 
-Unfortunately, we cannot provide the values for any of the keys that we use internally as it's linked to our billing account. 
-We have however, included the keys for a starter project in [`.env.EXAMPLE`](.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away. 
+Unfortunately, we cannot provide the values for any of the keys that we use internally as it's linked to our billing account.
+We have however, included the keys for a starter project in [`.env.EXAMPLE`](.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away.
 
-For development purposes, we have also stubbed the response from the Google Maps Geocoding API so you don't need to obtain a Google Maps API Key with a billing account associated with it. Note that this produces a fixed location response (which shouldn't hinder your development). 
+For development purposes, we have also stubbed the response from the Google Maps Geocoding API so you don't need to obtain a Google Maps API Key with a billing account associated with it. Note that this produces a fixed location response (which shouldn't hinder your development).
 
-We use the following data services in our stack and in the situation that we exceed the usage quotas of the starter project, please reach out to the core team or feel free to generate the credentials on your own: 
+We use the following data services in our stack and in the situation that we exceed the usage quotas of the starter project, please reach out to the core team or feel free to generate the credentials on your own:
 
 - [Firebase](https://firebase.google.com/)
   - Enable sign-in through Facebook (with your own Facebook app that you can make [here](https://developers.facebook.com/))
   - Enable sign-in through phone
   - Enable Cloud Firestore
   - Enable Cloud Messaging
-- [Google Maps API](https://developers.google.com/maps/documentation) (*optional: for dynamic geolocation*)
+- [Google Maps API](https://developers.google.com/maps/documentation) (_optional: for dynamic geolocation_)
   - [Get a Maps JavaScript API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
   - [Get a Geocoding API Key](https://developers.google.com/maps/documentation/geocoding/get-api-key)
 

@@ -133,8 +133,16 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   toObject(): object {
     return {
-      addressFromGoogle: this.addressFromGoogle,
-      address: this.address,
+      addressFromGoogle: JSON.parse(JSON.stringify(this.addressFromGoogle)),
+      address: Object.keys(this.address).reduce((acc, key) => {
+        if (this.address[key]) {
+          return {
+            ...acc,
+            [key]: this.address[key],
+          };
+        }
+        return acc;
+      }, {}),
       sendNotifications: this.sendNotifications,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
@@ -151,15 +159,5 @@ export const PrivilegedUserInformationFirestoreConverter: firebase.firestore.Fir
     PrivilegedUserInformation.factory(data.data()),
   toFirestore: (
     modelObject: PrivilegedUserInformation,
-  ): firebase.firestore.DocumentData => ({
-    addressFromGoogle: JSON.parse(
-      JSON.stringify(modelObject.addressFromGoogle),
-    ),
-    address: JSON.parse(JSON.stringify(modelObject.address)),
-    sendNotifications: modelObject.sendNotifications,
-    privacyAccepted: modelObject.privacyAccepted,
-    privacyVersion: modelObject.privacyVersion,
-    termsAccepted: modelObject.termsAccepted,
-    termsVersion: modelObject.termsVersion,
-  }),
+  ): firebase.firestore.DocumentData => modelObject.toObject(),
 };
