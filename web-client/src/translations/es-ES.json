@@ -5,7 +5,7 @@
     "spinner": "Cargando ...",
     "name": "Nombre",
     "full_name": "Nombre completo",
-    "display_name": "Display name",
+    "display_name": "Nombre mostrado",
     "display_name_placeholder": "Name used in greetings, defaults to 1st name",
     "address": "Address",
     "address1": "Address line 1",
