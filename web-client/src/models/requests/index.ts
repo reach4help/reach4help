@@ -13,7 +13,7 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-import { IUser, User, UserFirestoreConverter } from '../users';
+import { IUser, User } from '../users';
 
 export enum RequestStatus {
   pending = 'pending',
@@ -27,6 +27,7 @@ export interface IRequest extends firebase.firestore.DocumentData {
   cavUserRef?: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
+  cavUserSnapshot?: IUser | null;
   pinUserRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   >;
@@ -55,6 +56,7 @@ export class Request implements IRequest {
     cavUserRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     > | null = null,
+    cavUserSnapshot: User | null = null,
     status = RequestStatus.pending,
     createdAt = firestore.Timestamp.now(),
     updatedAt = firestore.Timestamp.now(),
@@ -66,6 +68,7 @@ export class Request implements IRequest {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
     this._pinUserSnapshot = pinUserSnapshot;
+    this._cavUserSnapshot = cavUserSnapshot;
     this._title = title;
     this._description = description;
     this._latLng = latLng;
@@ -125,6 +128,17 @@ export class Request implements IRequest {
 
   set pinUserSnapshot(value: User) {
     this._pinUserSnapshot = value;
+  }
+
+  @ValidateNested()
+  private _cavUserSnapshot: User | null;
+
+  get cavUserSnapshot(): User | null {
+    return this._cavUserSnapshot;
+  }
+
+  set cavUserSnapshot(value: User | null) {
+    this._cavUserSnapshot = value;
   }
 
   @IsString()
@@ -257,6 +271,8 @@ export class Request implements IRequest {
       data.description,
       data.latLng,
       data.cavUserRef,
+      // This field may be null
+      data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
       data.status,
       data.createdAt,
       data.updatedAt,
@@ -269,6 +285,9 @@ export class Request implements IRequest {
   toObject(): object {
     return {
       cavUserRef: this.cavUserRef?.path,
+      cavUserSnapshot: this.cavUserSnapshot
+        ? this.cavUserSnapshot.toObject()
+        : null,
       pinUserRef: this.pinUserRef.path,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
@@ -289,21 +308,6 @@ export const RequestFirestoreConverter: firebase.firestore.FirestoreDataConverte
   fromFirestore: (
     data: firebase.firestore.QueryDocumentSnapshot<IRequest>,
   ): Request => Request.factory(data.data()),
-  toFirestore: (modelObject: Request): firebase.firestore.DocumentData => ({
-    cavUserRef: modelObject.cavUserRef,
-    pinUserRef: modelObject.pinUserRef,
-    pinUserSnapshot: UserFirestoreConverter.toFirestore(
-      modelObject.pinUserSnapshot,
-    ),
-    title: modelObject.title,
-    description: modelObject.description,
-    latLng: modelObject.latLng,
-    status: modelObject.status,
-    createdAt: modelObject.createdAt,
-    updatedAt: modelObject.updatedAt,
-    pinRating: modelObject.pinRating,
-    cavRating: modelObject.cavRating,
-    pinRatedAt: modelObject.pinRatedAt,
-    cavRatedAt: modelObject.cavRatedAt,
-  }),
+  toFirestore: (modelObject: Request): firebase.firestore.DocumentData =>
+    modelObject.toObject(),
 };

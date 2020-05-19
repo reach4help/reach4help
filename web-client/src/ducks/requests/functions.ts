@@ -52,7 +52,7 @@ export const observeNonOpenRequests = (
       }),
     );
 
-export const setUserRequest = async ({
+export const createUserRequest = async ({
   requestPayload,
 }: {
   requestPayload: Request;
@@ -60,5 +60,18 @@ export const setUserRequest = async ({
   firestore
     .collection('requests')
     .doc()
+    .withConverter(RequestFirestoreConverter)
+    .set(requestPayload);
+
+export const setUserRequest = async ({
+  requestPayload,
+  requestId,
+}: {
+  requestPayload: Request;
+  requestId: string;
+}) =>
+  firestore
+    .collection('requests')
+    .doc(requestId)
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);

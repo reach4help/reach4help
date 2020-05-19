@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -45,7 +46,7 @@ const ContentPage = (): ReactElement => {
     (authLoading && !user) ||
     (profileState.loading && !profileState.profile)
   ) {
-    return <>Loading</>;
+    return <LoadingWrapper />;
   }
 
   if (!user) {
