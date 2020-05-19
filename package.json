@@ -2,6 +2,7 @@
   "name": "reach4help",
   "private": true,
   "workspaces": [
+    "model",
     "map",
     "site",
     "web-client"
@@ -14,12 +15,14 @@
   },
   "scripts": {
     "firebase": "firebase",
-    "deploy:dev": "yarn workspaces run build && firebase deploy -P reach4help-dev",
-    "deploy:staging": "yarn workspaces run build && firebase deploy -P reach4help-staging",
-    "deploy:prod": "yarn workspaces run build && firebase deploy -P reach4help-34372",
+    "deploy:dev": "node .require-node-10.js && yarn workspaces run build && firebase deploy -P reach4help-dev",
+    "deploy:staging": "node .require-node-10.js && yarn workspaces run build && firebase deploy -P reach4help-staging",
+    "deploy:prod": "node .require-node-10.js && yarn workspaces run build && firebase deploy -P reach4help",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
-    "heroku-postbuild": "yarn workspace api run heroku-postbuild"
+    "heroku-postbuild": "yarn workspace api run heroku-postbuild",
+    "build": "yarn workspaces run build",
+    "clean": "yarn workspaces run clean"
   },
   "husky": {
     "hooks": {

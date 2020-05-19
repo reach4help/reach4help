@@ -1,60 +1,35 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 
-import { IRequest } from '../requests';
 import { IUser, User } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
+import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 import DocumentReference = firestore.DocumentReference;
 
 export enum OfferStatus {
   pending = 'pending',
   accepted = 'accepted',
   rejected = 'rejected',
+  cavDeclined = 'cav_declined',
 }
 
 export interface IOffer extends DocumentData {
-  cavUserRef: DocumentReference<IUser>;
-  pinUserRef: DocumentReference<IUser>;
-  requestRef: DocumentReference<IRequest>;
+  cavUserRef: DocumentReference<DocumentData>;
+  pinUserRef: DocumentReference<DocumentData>;
+  requestRef: DocumentReference<DocumentData>;
   cavUserSnapshot: IUser;
   message: string;
   status: OfferStatus;
   createdAt?: Timestamp;
 }
 
-export class Offer implements IOffer, FirestoreDataConverter<Offer> {
-
-  @IsObject()
-  private _cavUserRef: DocumentReference<IUser>;
-
-  @IsObject()
-  private _pinUserRef: DocumentReference<IUser>;
-
-  @IsObject()
-  private _requestRef: DocumentReference<IRequest>;
-
-  @ValidateNested()
-  private _cavUserSnapshot: User;
-
-  @IsString()
-  @IsNotEmpty()
-  private _message: string;
-
-  @IsEnum(OfferStatus)
-  private _status: OfferStatus;
-
-  /* TODO: When we reach greater than 500 offers per request created per second:
-     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
-   */
-  @IsObject()
-  private _createdAt: Timestamp;
-
+export class Offer implements IOffer {
   constructor(
-    cavUserRef: DocumentReference<IUser>,
-    pinUserRef: DocumentReference<IUser>,
-    requestRef: DocumentReference<IRequest>,
+    cavUserRef: DocumentReference<DocumentData>,
+    pinUserRef: DocumentReference<DocumentData>,
+    requestRef: DocumentReference<DocumentData>,
     cavUserSnapshot: User,
     message: string,
     status: OfferStatus,
@@ -69,39 +44,41 @@ export class Offer implements IOffer, FirestoreDataConverter<Offer> {
     this._createdAt = createdAt;
   }
 
-  static factory = (data: IOffer): Offer => new Offer(
-    data.cavUserRef,
-    data.pinUserRef,
-    data.requestRef,
-    User.factory(data.cavUserSnapshot),
-    data.message,
-    data.status,
-    data.createdAt,
-  );
+  @IsObject()
+  private _cavUserRef: DocumentReference<DocumentData>;
 
-  get cavUserRef(): DocumentReference<IUser> {
+  get cavUserRef(): DocumentReference<DocumentData> {
     return this._cavUserRef;
   }
 
-  set cavUserRef(value: DocumentReference<IUser>) {
+  set cavUserRef(value: DocumentReference<DocumentData>) {
     this._cavUserRef = value;
   }
 
-  get pinUserRef(): DocumentReference<IUser> {
+  @IsObject()
+  private _pinUserRef: DocumentReference<DocumentData>;
+
+  get pinUserRef(): DocumentReference<DocumentData> {
     return this._pinUserRef;
   }
 
-  set pinUserRef(value: DocumentReference<IUser>) {
+  set pinUserRef(value: DocumentReference<DocumentData>) {
     this._pinUserRef = value;
   }
 
-  get requestRef(): FirebaseFirestore.DocumentReference<IRequest> {
+  @IsObject()
+  private _requestRef: DocumentReference<DocumentData>;
+
+  get requestRef(): DocumentReference<DocumentData> {
     return this._requestRef;
   }
 
-  set requestRef(value: FirebaseFirestore.DocumentReference<IRequest>) {
+  set requestRef(value: DocumentReference<DocumentData>) {
     this._requestRef = value;
   }
+
+  @ValidateNested()
+  private _cavUserSnapshot: User;
 
   get cavUserSnapshot(): User {
     return this._cavUserSnapshot;
@@ -111,6 +88,10 @@ export class Offer implements IOffer, FirestoreDataConverter<Offer> {
     this._cavUserSnapshot = value;
   }
 
+  @IsString()
+  @IsNotEmpty()
+  private _message: string;
+
   get message(): string {
     return this._message;
   }
@@ -118,6 +99,9 @@ export class Offer implements IOffer, FirestoreDataConverter<Offer> {
   set message(value: string) {
     this._message = value;
   }
+
+  @IsEnum(OfferStatus)
+  private _status: OfferStatus;
 
   get status(): OfferStatus {
     return this._status;
@@ -127,6 +111,12 @@ export class Offer implements IOffer, FirestoreDataConverter<Offer> {
     this._status = value;
   }
 
+  /* TODO: When we reach greater than 500 offers per request created per second:
+     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
+   */
+  @IsObject()
+  private _createdAt: Timestamp;
+
   get createdAt(): Timestamp {
     return this._createdAt;
   }
@@ -135,19 +125,36 @@ export class Offer implements IOffer, FirestoreDataConverter<Offer> {
     this._createdAt = value;
   }
 
-  fromFirestore(data: IOffer): Offer {
-    return Offer.factory(data);
-  }
+  static factory = (data: IOffer): Offer => {
+    return new Offer(
+      data.cavUserRef,
+      data.pinUserRef,
+      data.requestRef,
+      User.factory(data.cavUserSnapshot),
+      data.message,
+      data.status,
+      data.createdAt,
+    );
+  };
 
-  toFirestore(modelObject: Offer): IOffer {
+  toObject(): object {
     return {
-      cavUserRef: modelObject.cavUserRef,
-      pinUserRef: modelObject.pinUserRef,
-      requestRef: modelObject.requestRef,
-      cavUserSnapshot: modelObject.cavUserSnapshot,
-      message: modelObject.message,
-      status: modelObject.status,
-      createdAt: modelObject.createdAt,
+      cavUserRef: this.cavUserRef,
+      pinUserRef: this.pinUserRef,
+      requestRef: this.requestRef,
+      cavUserSnapshot: this.cavUserSnapshot.toObject(),
+      message: this.message,
+      status: this.status,
+      createdAt: this.createdAt.toDate(),
     };
   }
 }
+
+export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
+    return Offer.factory(data.data());
+  },
+  toFirestore: (modelObject: Offer): DocumentData => {
+    return modelObject.toObject();
+  },
+};

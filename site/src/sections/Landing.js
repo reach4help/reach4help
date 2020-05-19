@@ -128,6 +128,17 @@ const LandingPage = () => (
               >
                 View Mutual Aid Map
               </ButtonLink>
+              <ButtonLink
+                mx={3}
+                backgroundColor="primary"
+                color="white"
+                className="button"
+                fontSize={[2, 3]}
+                padding={2}
+                href="https://github.com/reach4help/reach4help/wiki#onboading-steps"
+              >
+                Get Involved
+              </ButtonLink>
             </Flex>
             <SectionLink section="about">
               {({ onClick }) => <MouseIcon onClick={onClick} />}

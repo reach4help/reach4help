@@ -2,7 +2,7 @@
 
 If you would like to be a part of this project,
 or join a team,
-please read our [Getting Involved / Onboarding](GETTING_INVOLVED.md) document.
+please read our [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps).
 
 ### Project Management
 
@@ -68,13 +68,13 @@ please read our [Getting Involved / Onboarding](GETTING_INVOLVED.md) document.
 | **@Miranda**             |                                                        | **Lead**        | UTC+0 (+1)     |
 | You?                 |                                                        |             |                |
 
-### Application Security (`#team-security`)
+### Security (`#team-security`)
 
 | Slack                | GitHub Handle                                          | Role     | Timezone (DST) |
 |----------------------|--------------------------------------------------------|----------|----------------|
 | **@Mathieu Deous**       | **[@mdeous](https://github.com/mdeous)**                   | **Lead**     | UTC+1 (+2)     |
 | @Miguel Fernandes    | [@mdmfernandes](https://github.com/mdmfernandes)       |          | UTC+0 (+1)     |
-| You?                 |                                                        |          |                |
+| @AlexV               | [@TheRealAlexV](https://github.com/TheRealAlexV)       |          | UTC-5 (-4)     |
 
 ### Map Project (`#team-map`)
 

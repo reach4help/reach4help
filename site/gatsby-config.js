@@ -73,7 +73,7 @@ module.exports = {
         id: 'instagram',
         fontAwesomeIcon: 'instagram',
         name: 'Follow us on instagram',
-        url: 'https://www.instagram.com/reach4helporg/',
+        url: 'https://www.instagram.com/reach4help/',
       },
       {
         id: 'twitter',
@@ -86,6 +86,12 @@ module.exports = {
         fontAwesomeIcon: 'facebook',
         name: 'Like our facebook page',
         url: 'https://www.facebook.com/Reach4HelpOrg/',
+      },
+      {
+        id: 'linkedin',
+        fontAwesomeIcon: 'linkedin',
+        name: 'Follow us on LinkedIn',
+        url: 'https://www.linkedin.com/company/reach4help-org/',
       },
     ],
   },

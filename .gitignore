@@ -1,6 +1,8 @@
+**/.DS_Store
 .firebase
 /node_modules/
 yarn-error.log
+**-debug.log
 # Local Netlify folder
 .netlify
 

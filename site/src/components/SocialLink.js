@@ -9,6 +9,7 @@ import {
   FaInstagram,
   FaTwitter,
   FaFacebookF,
+  FaLinkedinIn,
 } from 'react-icons/fa';
 import 'tippy.js/dist/tippy.css'; // eslint-disable-line
 
@@ -18,6 +19,7 @@ const ICONS_MAPPER = {
   instagram: <FaInstagram />,
   twitter: <FaTwitter />,
   facebook: <FaFacebookF />,
+  linkedin: <FaLinkedinIn />,
 };
 
 const IconLink = styled(Link)`

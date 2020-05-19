@@ -21,5 +21,11 @@ module.exports = {
   ],
   rules: {
     // see ../.eslintrc-ts.js
-  }
+    /**
+     * Conflicts with prettier indentation for jsx attributes on own line
+     */
+    'react/jsx-indent': 'off',
+    'react/display-name': 'off',
+    'no-underscore-dangle': 'off',
+  },
 };
