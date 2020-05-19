@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Map from '../../../../components/WebClientMap/WebClientMap';
 import { VolunteerMarkerProps } from '../../../../components/WebClientMap/WebClientMarker';
-import { setOffer } from '../../../../ducks/offers/actions';
+import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { observeOpenRequests } from '../../../../ducks/requests/actions';
@@ -13,7 +13,7 @@ import { firestore } from '../../../../firebase';
 import { OfferStatus } from '../../../../models/offers';
 import { Request } from '../../../../models/requests';
 import { ApplicationPreference } from '../../../../models/users';
-import RequestItem from '../../../requests/components/RequestItem/RequestItem';
+import RequestItem from '../../components/RequestItem/RequestItem';
 
 interface MapRequestProps {
   center: VolunteerMarkerProps;
@@ -27,7 +27,7 @@ const RequestDetails = styled.div`
   background: white;
 `;
 
-const CavMapContainer: React.FC = () => {
+const FindRequestsContainer: React.FC = () => {
   const dispatch = useDispatch();
 
   const [expandedRequestId, setExpandedRequestId] = useState<
@@ -121,10 +121,18 @@ const CavMapContainer: React.FC = () => {
 
   useEffect(() => {
     if (profileState.profile) {
-      return observeOpenRequests(dispatch, {
+      const openRequestsSubscription = observeOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,
       });
+      const offersStateSubscription = observeOffers(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+      });
+      return () => {
+        openRequestsSubscription();
+        offersStateSubscription();
+      };
     }
     if (
       !geolocated &&
@@ -195,6 +203,6 @@ const CavMapContainer: React.FC = () => {
   );
 };
 
-CavMapContainer.propTypes = {};
+FindRequestsContainer.propTypes = {};
 
-export default CavMapContainer;
+export default FindRequestsContainer;
