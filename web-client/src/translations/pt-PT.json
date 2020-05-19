@@ -80,19 +80,19 @@
       "c2a_cav": "Comece a ajudar agora!"
     },
     "timeline": {
-      "open_status": "Open",
-      "cav": "Volunteer",
-      "cav_wait": "WAITING FOR VOLUNTEER",
-      "address": "Delivery Address",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
-      "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "open_status": "Aberto",
+      "cav": "Voluntário/a",
+      "cav_wait": "AGUARDANDO VOLUNTÁRIO/A",
+      "address": "Morada de Entrega",
+      "cancelRequest": "Cancelar Pedido",
+      "finishRequest": "Terminar Pedido",
+      "ratingQuestion": "Como classificaria a sua expeiência com",
+      "submitRatingButton": "Submeter Pontuação",
+      "finishRequestModalParta": "Tem a certeza que quer terminar",
+      "finishRequestModalPartb": "de",
+      "thankYouModalTitle": "Obrigado!",
+      "thankYouModalBodyParta": "Classificou",
+      "thankYouModalBodyPartb": "com"
     }
   }
 }
