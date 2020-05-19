@@ -1,6 +1,7 @@
 import firebase from 'src/firebase';
-import { User } from 'src/models/users';
+import { initUser, User } from 'src/models/users';
 import {
+  initPrivilegedUserInformation,
   IUserAddress,
   PrivilegedUserInformation,
 } from 'src/models/users/privilegedInformation';
@@ -75,24 +76,26 @@ export const setUserProfile = (
   uid: string,
   displayPic?: string | null,
 ) => (dispatch: Function) => {
-  const privilegedPayload = PrivilegedUserInformation.factory({
-    addressFromGoogle,
-    address,
-    // eslint-disable-next-line import/no-named-as-default-member
-    termsAccepted: firebase.firestore.Timestamp.fromDate(
-      termsAndPrivacyAccepted,
-    ),
-    termsVersion: '1.0',
-    // eslint-disable-next-line import/no-named-as-default-member
-    privacyAccepted: firebase.firestore.Timestamp.fromDate(
-      termsAndPrivacyAccepted,
-    ),
-    privacyVersion: '1.0',
-  });
-  const userPayload = User.factory({
+  const privilegedPayload: PrivilegedUserInformation = initPrivilegedUserInformation(
+    {
+      addressFromGoogle,
+      address,
+      // eslint-disable-next-line import/no-named-as-default-member
+      termsAccepted: firebase.firestore.Timestamp.fromDate(
+        termsAndPrivacyAccepted,
+      ),
+      termsVersion: '1.0',
+      // eslint-disable-next-line import/no-named-as-default-member
+      privacyAccepted: firebase.firestore.Timestamp.fromDate(
+        termsAndPrivacyAccepted,
+      ),
+      privacyVersion: '1.0',
+    },
+  );
+  const userPayload: User = initUser({
     username: displayName,
     displayName,
-    displayPicture: displayPic,
+    displayPicture: displayPic || null,
   });
   dispatch({
     type: SET,

@@ -7,7 +7,7 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { observeOpenRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
-import { OfferStatus } from 'src/models/offers';
+import { initOffer, OfferStatus } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
@@ -94,14 +94,16 @@ const OpenRequestsContainer: React.FC = () => {
       profileState.profile.applicationPreference === ApplicationPreference.cav
     ) {
       dispatch(
-        setOffer({
-          cavUserRef: profileState.userRef,
-          pinUserRef: openRequests.data[id].pinUserRef,
-          requestRef: firestore.collection('requests').doc(id),
-          cavUserSnapshot: profileState.profile,
-          message: 'I want to help!',
-          status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
-        }),
+        setOffer(
+          initOffer({
+            cavUserRef: profileState.userRef,
+            pinUserRef: openRequests.data[id].pinUserRef,
+            requestRef: firestore.collection('requests').doc(id),
+            cavUserSnapshot: profileState.profile,
+            message: 'I want to help!',
+            status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
+          }),
+        ),
       );
     }
   };

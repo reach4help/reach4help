@@ -1,4 +1,4 @@
-import { IOffer, Offer } from 'src/models/offers';
+import { Offer } from 'src/models/offers';
 
 import {
   getRequestOffers as getRequestOffersFunc,
@@ -39,10 +39,7 @@ export const getRequestOffers = (payload: IgetRequestOffers) => (
     firebase: getRequestOffersFunc,
   });
 
-export const setOffer = (payload: IOffer) => (dispatch: Function) => {
-  const offerPayload = Offer.factory({
-    ...payload,
-  });
+export const setOffer = (offerPayload: Offer) => (dispatch: Function) => {
   dispatch({
     type: SET,
     payload: {

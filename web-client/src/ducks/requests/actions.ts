@@ -1,4 +1,4 @@
-import { IRequest, Request, RequestStatus } from 'src/models/requests';
+import { Request, RequestStatus } from 'src/models/requests';
 
 import {
   createUserRequest,
@@ -59,12 +59,9 @@ export const observeNonOpenRequests = (
     });
 };
 
-export const setRequest = (payload: IRequest, requestId?: string) => (
+export const setRequest = (requestPayload: Request, requestId?: string) => (
   dispatch: Function,
 ) => {
-  const requestPayload = Request.factory({
-    ...payload,
-  });
   dispatch({
     type: SET,
     payload: {

@@ -12,7 +12,7 @@ import { updateUserPrivilegedInformation } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { changeModal, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
-import { IUser } from 'src/models/users';
+import { initRequest, RequestStatus } from 'src/models/requests';
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 
 import modules from '../modules';
@@ -42,13 +42,16 @@ const MasterPage = (): ReactElement => {
       profileState.privilegedInformation
     ) {
       dispatch(
-        setRequest({
-          title,
-          description: body,
-          pinUserRef: profileState.userRef,
-          pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: profileState.privilegedInformation.address.coords,
-        }),
+        setRequest(
+          initRequest({
+            title,
+            description: body,
+            pinUserRef: profileState.userRef,
+            pinUserSnapshot: profileState.profile,
+            latLng: profileState.privilegedInformation.address.coords,
+            status: RequestStatus.pending,
+          }),
+        ),
       );
     }
 
