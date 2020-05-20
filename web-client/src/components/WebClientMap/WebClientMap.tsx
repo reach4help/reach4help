@@ -42,19 +42,50 @@ const WebClientMap: React.FC<MapProps> = ({
   zoom = 11,
 }) => {
   const [selectedRequest, setSelectedRequest] = useState<string>('none');
+  const [DirectionsService, setDirectionsService] = useState<any | undefined>(
+    undefined,
+  );
 
+  const initGoogleMapServices = ({ maps }) => {
+    if (typeof DirectionsService === 'undefined') {
+      setDirectionsService(new maps.DirectionsService());
+    }
+  };
+  /*
+  const findDistanceToRequest = id => {
+    const req = requests.find(r => r.id === id);
+    if (req && req.center) {
+      DirectionsService.getDistanceMatrix(
+        {
+          origins: [volunteerLocation],
+          destinations: [req.center],
+          travelMode: 'TRANSIT',
+        },
+        callback,
+      );
+    }
+    function callback(response, status) {
+      // response is an array of travel methods
+      console.log('distance', response, status);
+      debugger;
+    }
+  };
+*/
   const requestClickedHandler = id => {
     setSelectedRequest(id);
     onRequestHandler(id);
+    //  findDistanceToRequest(id);
   };
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
+        yesIWantToUseGoogleMapApiInternals
         bootstrapURLKeys={{ key: apiKey }}
         options={createMapOptions}
-        defaultCenter={volunteerLocation}
+        center={volunteerLocation}
         defaultZoom={zoom}
+        onGoogleApiLoaded={initGoogleMapServices}
       >
         <VolunteerMarker {...volunteerLocation} />
         {requests.map(r => (
