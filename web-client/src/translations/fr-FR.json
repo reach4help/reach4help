@@ -52,7 +52,8 @@
       "terms_conditions_error": "You need to accept the Terms & Conditions.",
       "full_name_error_message": "You need to fill your name.",
       "display_name_error_message": "You need to fill your display name.",
-      "address_error_message": "You need to fill your address."
+      "address_error_message": "You need to fill your address.",
+      "allow_send_notifications": "Would you like us to send you notifications and emails?"
     },
     "newRequest": {
       "title": "New Request",
