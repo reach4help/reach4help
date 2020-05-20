@@ -142,6 +142,7 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
       termsAndPrivacyAccepted,
       displayName,
       displayPic,
+      sendNotificatoins,
     } = personalInfo;
     // eslint-disable-next-line max-len
     const address = `${newAddress.address1},${newAddress.address2},${newAddress.city},${newAddress.state},${newAddress.postalCode},${newAddress.country}`;
@@ -159,6 +160,7 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
                 termsAndPrivacyAccepted,
                 displayName,
                 user.uid,
+                sendNotificatoins,
                 displayPic,
               ),
             );
