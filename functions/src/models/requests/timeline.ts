@@ -1,19 +1,35 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsObject } from 'class-validator';
+import { IsEnum, IsNotEmptyObject, IsObject, IsOptional, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
 import { IOffer, Offer } from '../offers';
 import { IRequest, Request } from './index';
+import { IUser, User } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
+export enum TimelineItemAction {
+  CREATE_REQUEST = 'CREATE_REQUEST',
+  CANCEL_REQUEST = 'CANCEL_REQUEST',
+  REMOVE_REQUEST = 'REMOVE_REQUEST',
+  COMPLETE_REQUEST = 'COMPLETE_REQUEST',
+  CREATE_OFFER = 'CREATE_OFFER',
+  ACCEPT_OFFER = 'ACCEPT_OFFER',
+  REJECT_OFFER = 'REJECT_OFFER',
+  RATE_PIN = 'RATE_PIN',
+  RATE_CAV = 'RATE_CAV',
+}
+
 export interface ITimelineItem extends DocumentData {
-  offerRef: DocumentReference<DocumentData>;
+  actorRef: DocumentReference<DocumentData>;
+  offerRef?: DocumentReference<DocumentData> | null;
   requestRef: DocumentReference<DocumentData>;
-  offerSnapshot: IOffer;
+  actorSnapshot: IUser;
+  offerSnapshot?: IOffer | null;
   requestSnapshot: IRequest;
+  action: TimelineItemAction;
   createdAt?: Timestamp;
 }
 
@@ -24,42 +40,74 @@ export interface ITimelineItem extends DocumentData {
  */
 export class TimelineItem implements ITimelineItem {
   constructor(
-    offerRef: DocumentReference<DocumentData>,
+    actorRef: DocumentReference<DocumentData>,
+    offerRef: DocumentReference<DocumentData> | null = null,
     requestRef: DocumentReference<DocumentData>,
-    offerSnapshot: Offer,
+    actorSnapshot: User,
+    offerSnapshot: Offer | null = null,
     requestSnapshot: Request,
+    action: TimelineItemAction,
     createdAt = Timestamp.now(),
   ) {
+    this._actorRef = actorRef;
     this._offerRef = offerRef;
     this._requestRef = requestRef;
+    this._actorSnapshot = actorSnapshot;
     this._offerSnapshot = offerSnapshot;
     this._requestSnapshot = requestSnapshot;
+    this._action = action;
     this._createdAt = createdAt;
   }
 
-  @IsObject()
-  private _offerRef: DocumentReference<DocumentData>;
+  @IsNotEmptyObject()
+  private _actorRef: DocumentReference<DocumentData>;
 
-  get offerRef(): DocumentReference<DocumentData> {
+  get actorRef(): DocumentReference<DocumentData> {
+    return this._actorRef;
+  }
+
+  set actorRef(value: DocumentReference<DocumentData>) {
+    this._actorRef = value;
+  }
+
+  @IsObject()
+  @ValidateNested()
+  private _actorSnapshot: User;
+
+  get actorSnapshot(): User {
+    return this._actorSnapshot;
+  }
+
+  set actorSnapshot(value: User) {
+    this._actorSnapshot = value;
+  }
+
+  @IsNotEmptyObject()
+  @IsOptional()
+  private _offerRef: DocumentReference<DocumentData> | null;
+
+  get offerRef(): DocumentReference<DocumentData> | null {
     return this._offerRef;
   }
 
-  set offerRef(value: DocumentReference<DocumentData>) {
+  set offerRef(value: DocumentReference<DocumentData> | null) {
     this._offerRef = value;
   }
 
   @IsObject()
-  private _offerSnapshot: Offer;
+  @IsOptional()
+  @ValidateNested()
+  private _offerSnapshot: Offer | null;
 
-  get offerSnapshot(): Offer {
+  get offerSnapshot(): Offer | null {
     return this._offerSnapshot;
   }
 
-  set offerSnapshot(value: Offer) {
+  set offerSnapshot(value: Offer | null) {
     this._offerSnapshot = value;
   }
 
-  @IsObject()
+  @IsNotEmptyObject()
   private _requestRef: DocumentReference<DocumentData>;
 
   get requestRef(): DocumentReference<DocumentData> {
@@ -71,6 +119,7 @@ export class TimelineItem implements ITimelineItem {
   }
 
   @IsObject()
+  @ValidateNested()
   private _requestSnapshot: Request;
 
   get requestSnapshot(): Request {
@@ -79,6 +128,17 @@ export class TimelineItem implements ITimelineItem {
 
   set requestSnapshot(value: Request) {
     this._requestSnapshot = value;
+  }
+
+  @IsEnum(TimelineItemAction)
+  private _action: TimelineItemAction;
+
+  get action(): TimelineItemAction {
+    return this._action;
+  }
+
+  set action(value: TimelineItemAction) {
+    this._action = value;
   }
 
   @IsObject()
@@ -94,20 +154,26 @@ export class TimelineItem implements ITimelineItem {
 
   static factory(data: ITimelineItem): TimelineItem {
     return new TimelineItem(
-      data.offerRef,
+      data.actorRef,
+      data.offerRef || null,
       data.requestRef,
-      Offer.factory(data.offerSnapshot),
+      User.factory(data.actorSnapshot),
+      data.offerSnapshot ? Offer.factory(data.offerSnapshot) : null,
       Request.factory(data.requestSnapshot),
+      data.action,
       data.createdAt || Timestamp.now(),
     );
   }
 
   toObject(): object {
     return {
+      actorRef: this.actorRef,
       offerRef: this.offerRef,
       requestRef: this.requestRef,
-      offerSnapshot: this.offerSnapshot.toObject(),
+      actorSnapshot: this.actorSnapshot.toObject(),
+      offerSnapshot: this.offerSnapshot ? this.offerSnapshot.toObject() : null,
       requestSnapshot: this.requestSnapshot.toObject(),
+      action: this.action,
       createdAt: this.createdAt,
     };
   }
