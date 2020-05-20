@@ -34,10 +34,25 @@ const FindRequestsContainer: React.FC = () => {
     string | undefined
   >(undefined);
 
-  const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>({
-    lat: 13.4124693,
-    lng: 103.8667,
-  });
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
+  );
+
+  const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>(
+    () =>
+      profileState &&
+      profileState.privilegedInformation &&
+      profileState.privilegedInformation.address &&
+      profileState.privilegedInformation.address.coords
+        ? {
+            lat: profileState.privilegedInformation.address.coords.latitude,
+            lng: profileState.privilegedInformation.address.coords.longitude,
+          }
+        : {
+            lat: 13.4124693,
+            lng: 103.8667,
+          },
+  );
 
   const [requestsWithoutOffer, setRequestsWithoutOffer] = useState<
     MapRequestProps[]
@@ -55,12 +70,6 @@ const FindRequestsContainer: React.FC = () => {
     ({ offers }: { offers: OffersState }) => offers,
   );
 
-  const profileState = useSelector(
-    ({ profile }: { profile: ProfileState }) => profile,
-  );
-
-  let geolocated = false;
-
   navigator.geolocation.getCurrentPosition(
     position => {
       const pos = {
@@ -68,7 +77,6 @@ const FindRequestsContainer: React.FC = () => {
         lng: position.coords.longitude,
       };
       setCurrentLocation(pos);
-      geolocated = true;
     },
     error => {
       // eslint-disable-next-line no-console
@@ -134,19 +142,7 @@ const FindRequestsContainer: React.FC = () => {
         offersStateSubscription();
       };
     }
-    if (
-      !geolocated &&
-      profileState &&
-      profileState.privilegedInformation &&
-      profileState.privilegedInformation.address &&
-      profileState.privilegedInformation.address.coords
-    ) {
-      setCurrentLocation({
-        lat: profileState.privilegedInformation.address.coords.latitude,
-        lng: profileState.privilegedInformation.address.coords.longitude,
-      });
-    }
-  }, [profileState, geolocated, dispatch]);
+  }, [profileState, dispatch]);
 
   const onRequestHandler = (id: string) => {
     setExpandedRequestId(id);

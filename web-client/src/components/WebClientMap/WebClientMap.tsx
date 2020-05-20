@@ -1,5 +1,5 @@
 import GoogleMapReact from 'google-map-react';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { RequestMarker, VolunteerMarker } from './WebClientMarker';
 
@@ -24,30 +24,52 @@ const apiKey =
     ? window.GOOGLE_MAPS_API_KEY
     : PUBLIC_API_KEY;
 
+const createMapOptions = maps => ({
+  zoomControlOptions: {
+    position: maps.ControlPosition.RIGHT_CENTER,
+    style: maps.ZoomControlStyle.SMALL,
+  },
+  mapTypeControlOptions: {
+    position: maps.ControlPosition.TOP_RIGHT,
+  },
+  mapTypeControl: true,
+});
+
 const WebClientMap: React.FC<MapProps> = ({
   requests,
   volunteerLocation,
   onRequestHandler,
   zoom = 11,
-}) => (
-  <div style={{ height: '100vh', width: '100%' }}>
-    <GoogleMapReact
-      bootstrapURLKeys={{ key: apiKey }}
-      defaultCenter={volunteerLocation}
-      defaultZoom={zoom}
-    >
-      <VolunteerMarker {...volunteerLocation} />
-      {requests.map(r => (
-        <RequestMarker
-          key={r.id}
-          lat={r.center.lat}
-          lng={r.center.lng}
-          onClick={() => onRequestHandler(r.id)}
-        />
-      ))}
-    </GoogleMapReact>
-  </div>
-);
+}) => {
+  const [selectedRequest, setSelectedRequest] = useState<string>('none');
+
+  const requestClickedHandler = id => {
+    setSelectedRequest(id);
+    onRequestHandler(id);
+  };
+
+  return (
+    <div style={{ height: '100vh', width: '100%' }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: apiKey }}
+        options={createMapOptions}
+        defaultCenter={volunteerLocation}
+        defaultZoom={zoom}
+      >
+        <VolunteerMarker {...volunteerLocation} />
+        {requests.map(r => (
+          <RequestMarker
+            key={r.id}
+            selected={r.id === selectedRequest}
+            lat={r.center.lat}
+            lng={r.center.lng}
+            onClick={() => requestClickedHandler(r.id)}
+          />
+        ))}
+      </GoogleMapReact>
+    </div>
+  );
+};
 
 interface MapProps {
   requests: {
