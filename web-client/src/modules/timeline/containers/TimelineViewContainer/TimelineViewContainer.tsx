@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
@@ -113,6 +114,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 }) => {
   const dispatch = useDispatch();
 
+  const [test, setTest] = useState({});
   const [request, setRequest] = useState<Request | undefined>(undefined);
   const [offersForRequest, setOffersForRequest] = useState<
     Record<string, Offer>
@@ -210,6 +212,8 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
   useEffect(() => {
     if (accepted && requestId && offersState.data) {
+      // test state
+      setTest(offersState);
       const internalOffers: Record<string, Offer> = {};
       for (const key in offersState.data) {
         if (offersState.data[key].requestRef.id === requestId) {
@@ -218,7 +222,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       }
       setOffersForRequest(internalOffers);
     }
-  }, [offersState, accepted, requestId]);
+  }, [offersState, accepted, requestId, test]);
 
   if (!(profileState.profile && request)) {
     return <LoadingWrapper />;
@@ -233,6 +237,23 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     applicationPreference: 'pin',
   };
 
+  const MockOfferList = [
+    {
+      displayName: 'John Watkins',
+      averageRating: 4.5,
+      distance: '5 km',
+      likes: 15,
+      displayPicture: 'https://via.placeholder.com/100',
+    },
+    {
+      displayName: 'Trey Song',
+      averageRating: 5,
+      distance: '10 km',
+      likes: 30,
+      displayPicture: 'https://via.placeholder.com/100',
+    },
+  ];
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars, @typescript-eslint/no-empty-function
   const handleOffer = action => {};
   /*
@@ -246,7 +267,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       {accepted && (
         <OffersList
           loading={offersState.loading}
-          offers={offersForRequest}
+          offers={MockOfferList}
           handleOffer={handleOffer}
         />
       )}
