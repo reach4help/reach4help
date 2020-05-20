@@ -19,6 +19,7 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
     operations.push(
       offerAfter.requestRef.update({
         cavUserRef: offerAfter.cavUserRef,
+        cavUserSnapshot: offerAfter.cavUserSnapshot,
         status: RequestStatus.ongoing,
       }),
     );
