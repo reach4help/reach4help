@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
+import { observeOffers } from 'src/ducks/offers/actions';
+import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   observeNonOpenRequests,
   observeOpenRequests,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
-import { OfferStatus } from 'src/models/offers';
+import { Offer, OfferStatus } from 'src/models/offers';
 import { Request, RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 
+import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 
@@ -106,10 +109,14 @@ const mockTimelineItems = [
 
 const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   requestId,
+  accepted,
 }) => {
   const dispatch = useDispatch();
 
   const [request, setRequest] = useState<Request | undefined>(undefined);
+  const [offersForRequest, setOffersForRequest] = useState<
+    Record<string, Offer>
+  >({});
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -117,6 +124,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
   const requestsState = useSelector(
     ({ requests }: { requests: RequestState }) => requests,
+  );
+
+  const offersState = useSelector(
+    ({ offers }: { offers: OffersState }) => offers,
   );
 
   useEffect(() => {
@@ -181,15 +192,33 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         requestStatus: RequestStatus.removed,
       });
 
+      const unsubscribeFromOffers = observeOffers(dispatch, {
+        userRef: profileState.userRef,
+        userType: profileState.profile.applicationPreference,
+      });
+
       return () => {
         unsubscribeFromOpen();
         unsubscribeFromOngoing();
         unsubscribeFromCompleted();
         unsubscribeFromCancelled();
         unsubscribeFromRemoved();
+        unsubscribeFromOffers();
       };
     }
   }, [dispatch, profileState]);
+
+  useEffect(() => {
+    if (accepted && requestId && offersState.data) {
+      const internalOffers: Record<string, Offer> = {};
+      for (const key in offersState.data) {
+        if (offersState.data[key].requestRef.id === requestId) {
+          internalOffers[key] = offersState.data[key];
+        }
+      }
+      setOffersForRequest(internalOffers);
+    }
+  }, [offersState, accepted, requestId]);
 
   if (!(profileState.profile && request)) {
     return <LoadingWrapper />;
@@ -204,6 +233,8 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     applicationPreference: 'pin',
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars, @typescript-eslint/no-empty-function
+  const handleOffer = action => {};
   /*
     TODO: 
       Once backend changes for profile snapshot is done, instead of user={mockRequestUser},
@@ -212,7 +243,16 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   return (
     <>
       <TopPanel request={request} user={mockRequestUser} />;
-      <TimelineList items={mockTimelineItems} currentUser={mockPin} />
+      {accepted && (
+        <OffersList
+          loading={offersState.loading}
+          offers={offersForRequest}
+          handleOffer={handleOffer}
+        />
+      )}
+      {!accepted && (
+        <TimelineList items={mockTimelineItems} currentUser={mockPin} />
+      )}
       {/* <TimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
     </>
   );
@@ -220,6 +260,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
 interface TimelineViewContainerProps {
   requestId: string;
+  accepted?: boolean;
 }
 
 export default TimelineViewContainer;
