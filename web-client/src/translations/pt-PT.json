@@ -52,7 +52,8 @@
       "terms_conditions_error": "Precisa de aceitar os Termos & Condições.",
       "full_name_error_message": "Preenchimento do nome é obrigatório.",
       "display_name_error_message": "Preenchimento de nome de apresentação é obrigatório.",
-      "address_error_message": "Preenchimento da morada é obrigatória."
+      "address_error_message": "Preenchimento da morada é obrigatória.",
+      "allow_send_notifications": "Would you like us to send you notifications and emails?"
     },
     "newRequest": {
       "title": "Novo Pedido",
