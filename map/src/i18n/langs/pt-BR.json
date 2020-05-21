@@ -17,20 +17,20 @@
     "sourceInfo": "As informações neste mapa são uma combinação de dados coletados por nossos voluntários, que foram submetidos por nossos usuários e fornecidos por outros projetos de execução voluntária, incluindo {mutualaidwiki} e {mutualaidhub}.",
     "sourceSubmit": "Nós encorajamos você a {addinfo} sobre quaisquer projetos que você conheça e que ainda não estejam no mapa.",
     "sourceSubmitButton": "adicionar informação",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "usageHeading": "Posso usar esses dados para meu próprio projeto?",
+    "usageInfo": "Você é bem-vindo a usar os dados fornecidos pelo nosso mapa para seus próprios projetos, contato que você siga as respectivas licenças.",
+    "usageLicenses": "Dados fornecidos por nossos voluntários e usuários são licenciados sob uma {license}, e dados de outras fontes são disponibilizados sob suas respectivas licenças.",
+    "usageApi": "Você pode acessar os dados brutos, juntamente com os detalhes de como cada ponto é licenciado na seguinte URL: {api}"
   },
   "menu": {
     "about": "Sobre",
     "map": "Ver Mapa"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "Envie-nos um e-mail",
+    "twitter": "Siga-nos no Twitter",
+    "facebook": "Deixe um like no Facebook",
+    "github": "Encontre-nos no GitHub"
   },
   "addInformation": {
     "button": "Adicionar informação",
