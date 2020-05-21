@@ -1,0 +1,98 @@
+{
+  "common": {
+    "welcome": "Bem-vindo",
+    "continue": "Continuar",
+    "spinner": "A carregar ...",
+    "name": "Nome",
+    "full_name": "Nome Completo",
+    "display_name": "Nome de utilizador",
+    "display_name_placeholder": "Nome usado em saudações, por defeito é o 1º nome",
+    "adress": "Morada",
+    "address1": "Morada linha 1",
+    "address2": "Morada linha 2 (opcional)",
+    "city": "Cidade",
+    "code": "Código Postal",
+    "country": "País",
+    "login": {
+      "title": "Reach4Help",
+      "sub_title": "Atenção",
+      "info": "Por segurança só autorizamos utilizadores Facebook com conta verificada há pelo menos 6 meses. \nEstamos a trabalhar arduamente para trazer novas maneiras de se conectar no futuro. \nGratos pela sua paciência.",
+      "facebookButtonLabel": "Continuar com o Facebook"
+    },
+    "phoneNumber": {
+      "sub_title": "Introduza o seu número de telefone para começar",
+      "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas.",
+      "error_message": "Por favor insira o seu número de telefone!"
+    },
+    "verificationCode": {
+      "sub_title": "Enviámos um código de confirmação. Por favor insira o código em baixo.",
+      "info": "Se não recebeu o código clique ",
+      "resend": "reenviar",
+      "error_message": "Insira o código recebido aqui!"
+    },
+    "user_data_form": {
+      "sub_title": "Por favor preencha os seus dados pessois em baixo.",
+      "gps_button": "Usar GPS para descobrir o meu endereço",
+      "gps_unavailable_retry_button": "Geolocalização indisponível. Voltar a tentar.",
+      "learn_reactivate": "Veja como reactivar a geolocalização",
+      "retry_geolocation": "Voltar a tentar Geolocalização",
+      "continue_without_geolocation": "Continuar sem Geolocalização",
+      "go_back": "Voltar atrás",
+      "geolocation_modal_title": "Geolocalização não autorizada",
+      "geolocation_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Por favor escolha uma das opções abaixo :",
+      "geolocation_unavailable_title": "Infelizmente, ainda não estamos disponíveis na sua localização",
+      "geolocation_unavailable_text": "Desculpe, a sua localização ainda não é suportada na nossa plataforma. Será notificado por SMS ou e-mail, assim que o nosso aplicativo estiver disponível no seu local.",
+      "instructions_modal_title": "Instruções:",
+      "instructions_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Se desejar reactivar, por favor siga o link abaixo :",
+      "policy_text": "Nós precisamos destes dados para assegurar que a ajuda chega ao destino correto. Para quaisquer preocupações, leia os nossos termos de ",
+      "policy_link": "Privacidade & Segurança.",
+      "accept_to_use_profile_pic": "Concordo em deixar o Reach4Help usar minha foto do perfil",
+      "terms_conditions_text": "Eu percebo e reconheço os ",
+      "terms_conditions_link": "Termos & Condições.",
+      "terms_conditions_error": "Precisa de aceitar os Termos & Condições.",
+      "full_name_error_message": "Preenchimento do nome é obrigatório.",
+      "display_name_error_message": "Preenchimento de nome de apresentação é obrigatório.",
+      "address_error_message": "Preenchimento da morada é obrigatória."
+    },
+    "newRequest": {
+      "title": "Novo Pedido",
+      "icon_text": "eu preciso de ajuda",
+      "form": {
+        "title": "Título",
+        "body": "Introduza os detalhes do que necessita",
+        "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
+        "submit": "Enviar o meu pedido"
+      }
+    },
+    "newRequestSuccess": {
+      "title": "O seu pedido foi criado",
+      "info": "Por favor aguarde até receber uma oferta de um voluntário.",
+      "remember": "Lembre-se",
+      "remember_info": "Quando um voluntário oferece ajuda, tem de a aceitar para que este veja as suas informações de contacto."
+    },
+    "roleinfo": {
+      "title": "Reach4Help",
+      "sub_title": "Como podemos ajudá-lo(a) ?",
+      "info": "Por favor diga-nos como pretende usar o Reach4Help",
+      "info_pin": "Estou aqui porque preciso de ajuda",
+      "c2a_pin": "Obter ajuda agora!",
+      "info_cav": "Estou aqui porque quero ajudar",
+      "c2a_cav": "Comece a ajudar agora!"
+    },
+    "timeline": {
+      "open_status": "Open",
+      "cav": "Volunteer",
+      "cav_wait": "WAITING FOR VOLUNTEER",
+      "address": "Delivery Address",
+      "cancelRequest": "Cancel Request",
+      "finishRequest": "Finish Request",
+      "ratingQuestion": "How would you rate your experience with",
+      "submitRatingButton": "Submit Rating",
+      "finishRequestModalParta": "Are you sure you want to finish",
+      "finishRequestModalPartb": "from",
+      "thankYouModalTitle": "Thank you!",
+      "thankYouModalBodyParta": "You rated",
+      "thankYouModalBodyPartb": "with"
+    }
+  }
+}
