@@ -263,7 +263,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   */
   return (
     <>
-      <TopPanel request={request} user={mockRequestUser} />;
+      <TopPanel request={request} user={mockRequestUser} />
       {accepted && (
         <OffersList
           loading={offersState.loading}

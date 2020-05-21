@@ -1,4 +1,5 @@
 import {
+  EnvironmentOutlined,
   HeartOutlined,
   StarOutlined,
   UserSwitchOutlined,
@@ -6,7 +7,7 @@ import {
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Offer } from 'src/models/offers';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 interface OffersListProps {
   // offers: Record<string, Offer>;
@@ -23,11 +24,17 @@ interface OfferItemProps {
 
 const Item = styled.div`
   overflow: auto;
-  margin: 15px;
-  padding: 20px 16px;
+  margin: 15px 15px 0px 15px;
+  padding: 20px 16px 18px 16px;
   background: #ffffff;
   border: 1px solid #f0f0f0;
   border-radius: 2px;
+  width: -webkit-fill-available;
+`;
+
+const InnerContainer = styled.div`
+  max-width: 320px;
+  margin: auto;
 `;
 
 const Title = styled.h1`
@@ -37,22 +44,12 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
 const UserPic = styled.img`
   float: left;
   width: 56px;
   height: 56px;
   margin-right: 10px;
   border-radius: 105px;
-  animation: ${fadeIn} 0.75s;
   object-fit: cover;
 `;
 
@@ -99,9 +96,10 @@ const StyledButton = styled(Button)`
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
+
 const AcceptButton = styled(StyledButton)`
-  background-color: #52c41a;
-  color: #fff;
+  background-color: #52c41a !important;
+  color: #fff !important;
   margin-left: 14px;
 `;
 
@@ -113,12 +111,11 @@ const OfferItem: React.FC<OfferItemProps> = ({
   offer,
   handleOffer,
 }): React.ReactElement => (
-  <>
-    {/* {offer.cavUserSnapshot.displayName} */}
-    <Item>
+  <Item>
+    <InnerContainer>
+      {/* {offer.cavUserSnapshot.displayName} */}
       <UserPic src={offer.displayPicture} alt="Display Picture" />
       <UserName>{offer.displayName}</UserName>
-
       <TextVolunteer>Volunteer</TextVolunteer>
       <IconsBlock>
         <IconContainerFirst>
@@ -130,7 +127,7 @@ const OfferItem: React.FC<OfferItemProps> = ({
         </IconContainer>
         <TextIcon>{offer.averageRating}</TextIcon>
         <IconContainer>
-          <HeartOutlined />
+          <EnvironmentOutlined />
         </IconContainer>
         <TextIcon>{offer.distance}</TextIcon>
       </IconsBlock>
@@ -144,8 +141,8 @@ const OfferItem: React.FC<OfferItemProps> = ({
           Accept
         </AcceptButton>
       </ButtonsContainer>
-    </Item>
-  </>
+    </InnerContainer>
+  </Item>
 );
 
 const OffersList: React.FC<OffersListProps> = ({
