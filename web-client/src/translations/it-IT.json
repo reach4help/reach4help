@@ -1,11 +1,11 @@
 {
   "common": {
-    "welcome": "Welcome",
-    "continue": "Continue",
-    "spinner": "Loading ...",
-    "name": "Name",
-    "full_name": "Full name",
-    "display_name": "Display name",
+    "welcome": "Benvenuto",
+    "continue": "Prosegui",
+    "spinner": "Caricamento ...",
+    "name": "Nome",
+    "full_name": "Nome e cognome",
+    "display_name": "Nome utente",
     "display_name_placeholder": "Name used in greetings, defaults to 1st name",
     "address": "Address",
     "address1": "Address line 1",
