@@ -35,6 +35,7 @@ export interface IRequest extends firebase.firestore.DocumentData {
   title: string;
   description: string;
   latLng: firebase.firestore.GeoPoint;
+  address: string;
   status?: RequestStatus;
   pinRating?: number | null;
   cavRating?: number | null;
@@ -53,6 +54,7 @@ export class Request implements IRequest {
     title: string,
     description: string,
     latLng: firebase.firestore.GeoPoint,
+    address: string,
     cavUserRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     > | null = null,
@@ -72,6 +74,7 @@ export class Request implements IRequest {
     this._title = title;
     this._description = description;
     this._latLng = latLng;
+    this._address = address;
     this._status = status;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
@@ -176,6 +179,17 @@ export class Request implements IRequest {
     this._latLng = value;
   }
 
+  @IsString()
+  private _address: string;
+
+  get address(): string {
+    return this._address;
+  }
+
+  set address(value: string) {
+    this._address = value;
+  }
+
   @IsEnum(RequestStatus)
   private _status: RequestStatus;
 
@@ -270,6 +284,7 @@ export class Request implements IRequest {
       data.title,
       data.description,
       data.latLng,
+      data.address,
       data.cavUserRef,
       // This field may be null
       data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
@@ -293,6 +308,7 @@ export class Request implements IRequest {
       title: this.title,
       description: this.description,
       latLng: this.latLng,
+      address: this.address,
       status: this.status,
       createdAt: this.createdAt.toDate(),
       updatedAt: this.updatedAt.toDate(),

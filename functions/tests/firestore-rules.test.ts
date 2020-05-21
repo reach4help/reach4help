@@ -346,6 +346,7 @@ describe('requests', () => {
             title: 'Sample Request',
             description: 'I Need Stuff',
             latLng: new GeoPoint(0, 0),
+            address: '',
           }),
         ),
     );

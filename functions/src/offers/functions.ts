@@ -1,13 +1,14 @@
 import { validateOrReject } from 'class-validator';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
-import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
+import { firestore } from 'firebase-admin';
 
 import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import { RequestFirestoreConverter, RequestStatus } from '../models/requests';
 import { auth, db } from '../app';
+import { queueTimelineItemTriggers } from '../shared/triggerFunctions';
 
-const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Promise<void[]> => {
+const queueStatusUpdateTriggers = async (change: Change<firestore.DocumentSnapshot>): Promise<void[]> => {
   const offerBefore = change.before.exists ? (change.before.data() as Offer) : null;
   const offerAfter = change.after.data() as Offer;
 
@@ -68,7 +69,7 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
   return Promise.all(operations);
 };
 
-const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[]> => {
+const queueOfferCreationTriggers = async (snap: firestore.DocumentSnapshot): Promise<void[]> => {
   const offer = snap.data() as Offer;
   const operations: Promise<void>[] = [];
 
@@ -116,10 +117,10 @@ const validateOffer = (value: IOffer): Promise<void> => {
   });
 };
 
-export const offerCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
-  return validateOffer(snapshot.data() as IOffer)
+export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: EventContext) => {
+  return validateOffer(snapshot.data()?.toObject() as IOffer)
     .then(() => {
-      return Promise.all([queueOfferCreationTriggers(snapshot)]);
+      return Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, context.auth?.uid)]);
     })
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
@@ -133,10 +134,10 @@ export const offerCreate = (snapshot: DocumentSnapshot, context: EventContext) =
     });
 };
 
-export const offerUpdate = (change: Change<DocumentSnapshot>, context: EventContext) => {
-  return validateOffer(change.after.data() as IOffer)
+export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context: EventContext) => {
+  return validateOffer(change.after.data()?.toObject() as IOffer)
     .then(() => {
-      return Promise.all([queueStatusUpdateTriggers(change)]);
+      return Promise.all([queueStatusUpdateTriggers(change), queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, context.auth?.uid, change.after as firestore.DocumentSnapshot<Offer>)]);
     })
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
