@@ -10,19 +10,19 @@ declare global {
 }
 
 /**
- * This API key is what's used on the live site,
+ * The default API Key is obtained from the env variable REACT_APP_GMAPS_API_KEY
+ * The one provided in the repo is what's used on the live site,
  * and is restricted to map.reach4help.org
  *
  * To use your own key,
- * set the environment variable `REACT_APP_GOOGLE_MAPS_API_KEY` to the key.
+ * set the environment variable `REACT_APP_GMAPS_API_KEY` to your key.
+ * or set the global window variable `GOOGLE_MAPS_API_KEY`
  */
-const PUBLIC_API_KEY = 'AIzaSyC9MNxwBw6ZAOqrSVDPZFiaYhFmuRwtobc';
+const PUBLIC_API_KEY = process.env.REACT_APP_GMAPS_API_KEY;
 
-const apiKey =
-  window.GOOGLE_MAPS_API_KEY &&
-  window.GOOGLE_MAPS_API_KEY !== '%REACT_APP_GOOGLE_MAPS_API_KEY%'
-    ? window.GOOGLE_MAPS_API_KEY
-    : PUBLIC_API_KEY;
+const apiKey = window.GOOGLE_MAPS_API_KEY
+  ? window.GOOGLE_MAPS_API_KEY
+  : PUBLIC_API_KEY;
 
 const createMapOptions = maps => ({
   zoomControlOptions: {
@@ -76,6 +76,10 @@ const WebClientMap: React.FC<MapProps> = ({
     onRequestHandler(id);
     //  findDistanceToRequest(id);
   };
+
+  if (!apiKey) {
+    return <>Couldnt obtain API KEY</>;
+  }
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
