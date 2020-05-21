@@ -1,6 +1,6 @@
 {
   "title": "Mapa de Organizações de Solidariedade contra COVID-19",
-  "inFrameLink": "About this map / add information",
+  "inFrameLink": "Sobre este mapa / Adicionar informações",
   "aboutScreen": {
     "intro": "Acreditamos que a solidariedade revela o melhor das pessoas.",
     "info": "Para ajudar pessoas encontrarem e participarem de organizações de ajuda perto de onde vivem, além de oferecer inspiração para começarem suas ações e/ou simplesmente ajudar ter paz de espírito, este mapa apresenta uma lista de organizações de projetos em crescimento para ajudar a diminuir os efeitos da pandemia por todo o mundo.",
@@ -13,10 +13,10 @@
       "france": "França",
       "nyc": "Nova York"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
+    "sourceHeading": "De onde vem esta informação?",
+    "sourceInfo": "As informações neste mapa são uma combinação de dados coletados por nossos voluntários, que foram submetidos por nossos usuários e fornecidos por outros projetos de execução voluntária, incluindo {mutualaidwiki} e {mutualaidhub}.",
+    "sourceSubmit": "Nós encorajamos você a {addinfo} sobre quaisquer projetos que você conheça e que ainda não estejam no mapa.",
+    "sourceSubmitButton": "adicionar informação",
     "usageHeading": "Can I use this data for my own project?",
     "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
     "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
