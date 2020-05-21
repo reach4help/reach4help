@@ -16,8 +16,8 @@
     "login": {
       "title": "Reach4Help",
       "sub_title": "Fai attenzione",
-      "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
-      "facebookButtonLabel": "Continue with Facebook"
+      "info": "Consentiamo solo agli utenti di Facebook con un account verificato 6 mesi o più vecchi per la sicurezza. \nStiamo lavorando duramente per offrire altri modi per accedere in futuro. \nGrazie per la pazienza.",
+      "facebookButtonLabel": "Accedi con Facebook"
     },
     "phoneNumber": {
       "sub_title": "Enter your telephone number to begin",
