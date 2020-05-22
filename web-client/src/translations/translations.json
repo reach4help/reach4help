@@ -62,7 +62,8 @@
           "title": "Title",
           "body": "Enter details of what is needed",
           "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-          "submit": "Send my need"
+          "submit": "Next",
+          "cancel": "Cancel"
         }
       },
       "newRequestSuccess": {
@@ -151,7 +152,8 @@
           "title": "Título",
           "body": "Introduza os detalhes do que necessita",
           "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
-          "submit": "Enviar o meu pedido"
+          "submit": "Próxima",
+          "cancel":  "Cancelar"
         }
       },
       "newRequestSuccess": {
