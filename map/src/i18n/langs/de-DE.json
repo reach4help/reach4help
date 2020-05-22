@@ -20,17 +20,17 @@
     "usageHeading": "Kann ich die Daten für mein eigenes Projekt nutzen?",
     "usageInfo": "Sie können die hier auf der Karte enthaltenen Daten für Ihre eigenen Projekte nutzen, wenn Sie die jeweiligen Lizenzbedingungen beachten.",
     "usageLicenses": "Daten die von unseren Freiwilligen und den Nutzern bereitgestellt werden stehen unter einer {license} und die Daten von anderen Quellen sind unter ihren jeweiligen Lizenzen zugänglich gemacht.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "usageApi": "Die Rohdaten sind zusammen mit den Details über die Lizenzen jedes Datenpunktes unter der folgenden URL abrufbar: {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "Über uns",
+    "map": "Karte anzeigen"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "Unser E-Mail-Kontakt",
+    "twitter": "Folgen Sie uns auf Twitter!",
+    "facebook": "Gefällt mir auf Facebook",
+    "github": "Finden Sie uns auf GitHub!"
   },
   "addInformation": {
     "button": "Add information",
