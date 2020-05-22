@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import AcceptedRequestsRoute from './routes/AcceptedRequestsRoute/AcceptedRequestsRoute';
+import { AcceptedRequestsLocation } from './routes/AcceptedRequestsRoute/constants';
 import ArchivedRequestsRoute from './routes/ArchivedRequestsRoute/ArchivedRequestsRoute';
 import { ArchivedRequestsLocation } from './routes/ArchivedRequestsRoute/constants';
 import { FinishedRequestsLocation } from './routes/FinishedRequestsRoute/constants';
@@ -15,6 +17,11 @@ const ContentPage = (): ReactElement => (
     <Route
       path={OpenRequestsLocation.path}
       component={OpenRequestsRoute}
+      exact
+    />
+    <Route
+      path={AcceptedRequestsLocation.path}
+      component={AcceptedRequestsRoute}
       exact
     />
     <Route
