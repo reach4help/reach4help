@@ -59,13 +59,13 @@
         "mutualAidInstead": "Wenn Sie Informationen über eine neue Hilfsinitiative übermitteln wollen, folgen Sie bitte stattdessen diesem Link: {link}. Dort hinzugefügte Gruppen werden automatisch in die Karte eingefügt."
       },
       "placeMarker": {
-        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
-        "distance": "{kilometers, number}km ({miles, number}miles)"
+        "instructions": "Wählen Sie das Gebiet, das Sie mit diesem Projekt / der Gruppe / der Organisation / der Initiative bedienen, durch einen Klick auf die Karte aus, setzen Sie die Markierung und passen Sie anschließend den umgebenden Kreis entsprechend ihrer Erfordernisse an.",
+        "continue": "Sobald Sie mit der Standorteinstellung zufrieden sind, klicken Sie auf Weiter und ergänzen die Kontaktinformationen.",
+        "distance": "{kilometers, number} km ({miles, number} Meilen)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
+        "header": "Kontaktangaben für {name}",
+        "info": "Fast geschafft! Bitte geben Sie an, wie Interessenten {name} kontaktieren können. Gibt es besondere Formen, die Freiwillige verwenden sollten, um Kontakt aufzunehmen oder um Hilfe zu bitten, geben Sie sie bitte hier an.",
         "deleteInfo": "Delete",
         "addInfo": {
           "general": "Add general contact information",
