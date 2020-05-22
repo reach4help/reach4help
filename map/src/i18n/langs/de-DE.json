@@ -139,30 +139,30 @@
     "shelter": null,
     "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
     "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "network": "Bereitstellung von Ressourcen zur Vernetzung von Hilfeleistungen, z.B. zwischen Organisationen der gegenseitigen Hilfe",
+    "manufacturing": "Bereitstellen von Liefer- oder Produktionskapazitäten für die Bewältigung der Krise",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Etwas, was nicht auf der Liste ist"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "Gruppen der gegenseitigen Hilfe",
+    "org": "Organisation / Unternehmen",
+    "financial": "Finanzierung",
+    "information": "Informationen",
+    "other": "Andere"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "Gruppen der gegenseitigen Hilfe",
+    "org": "Organisation / Unternehmen",
+    "project": "Projekt"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "Springe an einen Ort auf der Karte.",
+    "updateResultsForThisArea": "Ergebnisse für dieses Gebiet aktualisieren",
+    "myLocation": "Mein Standort"
   },
   "results": {
-    "backToResults": "Back to results",
+    "backToResults": "Zurück zu den Ergebnissen",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "showMore": "Show more results",
