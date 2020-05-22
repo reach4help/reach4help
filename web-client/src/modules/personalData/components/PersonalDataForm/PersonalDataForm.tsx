@@ -72,6 +72,7 @@ export interface IPersonalData {
   displayPic?: string | null;
   termsAndPrivacyAccepted?: Date;
   address: IUserAddress;
+  sendNotificatoins: firebase.firestore.Timestamp | null;
 }
 
 const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
@@ -99,6 +100,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
     string | undefined | null
   >(undefined);
   const [acceptToUsePhoto, setAcceptToUsePhoto] = useState<boolean>(true);
+  const [allowSendNotifications, setAllowSendNotifications] = useState<boolean>(
+    false,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [instructionsVisible, setInstructionsVisible] = useState(false);
@@ -253,6 +257,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       if (addressToSet.coords) {
         setCoords(addressToSet.coords);
       }
+      if (privilegedInfo.sendNotifications) {
+        setAllowSendNotifications(true);
+      }
     }
   }, [
     user,
@@ -290,6 +297,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       displayPic,
       termsAndPrivacyAccepted,
       address: newAddress,
+      sendNotificatoins: allowSendNotifications ? new Date() : null,
     };
     handleFormSubmit(newPersonalInfo);
   };
@@ -513,6 +521,14 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             onChange={({ target }) => setAcceptToUsePhoto(target.checked)}
           >
             {t('user_data_form.accept_to_use_profile_pic')}
+          </Checkbox>
+        </Form.Item>
+        <Form.Item style={{ textAlign: 'center' }} name="useSendNotifications">
+          <Checkbox
+            checked={allowSendNotifications}
+            onChange={({ target }) => setAllowSendNotifications(target.checked)}
+          >
+            {t('user_data_form.allow_send_notifications')}
           </Checkbox>
         </Form.Item>
         <Form.Item
