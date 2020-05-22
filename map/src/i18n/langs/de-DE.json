@@ -50,13 +50,13 @@
           "typePleaseSelect": "Bitte auswählen",
           "services": "Dienstleistung oder Unterstützung, die die Organisation / das Unternehmen anbietet",
           "name": "Name des Projekts / der Gruppe / der Organisation",
-          "namePlaceholder": "z.B.: Hilfsprojekt Antarktis",
+          "namePlaceholder": "Z.B.: Hilfsprojekt Antarktis",
           "description": "(freiwillig) Detaillierte Beschreibung des Projekts / der Gruppe / der Organisation und der Aktivitäten zur Verbesserung der gegenseitigen Hilfe",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "locationName": "Beschreibung des bedienten geografischen Gebiets. Z.B.: Staaten, Regionen, Länder, Kantone, Städte usw.",
+          "locationNamePlaceholder": "Z.B.: Nordseeregion, Schleswig-Holstein, BRD",
+          "continue": "Weiter klicken, um die Standortinformationen einzugeben"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "Wenn Sie Informationen über eine neue Hilfsinitiative übermitteln wollen, folgen Sie bitte stattdessen diesem Link: {link}. Dort hinzugefügte Gruppen werden automatisch in die Karte eingefügt."
       },
       "placeMarker": {
         "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
