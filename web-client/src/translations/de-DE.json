@@ -8,32 +8,32 @@
     "display_name": "Anzeigename",
     "display_name_placeholder": "Name in der Anrede, Standardeinstellung ist Vorname",
     "address": "Anschrift",
-    "address1": "Address line 1",
-    "address2": "Address line 2 (optional)",
-    "city": "City",
-    "code": "Postal Code",
-    "country": "Country",
+    "address1": "Straße und Hausnummer",
+    "address2": "Zusätzliche Adressangabe (freiwillig)",
+    "city": "Stadt",
+    "code": "Postleitzahl",
+    "country": "Staat",
     "login": {
       "title": "Reach4Help",
-      "sub_title": "Please Note",
-      "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
-      "facebookButtonLabel": "Continue with Facebook"
+      "sub_title": "Bitte beachten Sie:",
+      "info": "Wir akzeptieren aus Sicherheitsgründen nur Facebook-Nutzer mit einem überprüften mindestens 6 Monate alten Nutzerkonto. \nWir arbeiten unermüdlich daran, weiter Möglichkeiten des  Zugangs zu schaffen. \nVielen Dank für ihre Geduld.",
+      "facebookButtonLabel": "Über Facebook anmelden"
     },
     "phoneNumber": {
-      "sub_title": "Enter your telephone number to begin",
-      "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!"
+      "sub_title": "Geben Sie zunächst Ihre Telefonnummer ein:",
+      "info": "Diese Information ist notwendig, um Ihr Nutzerkonto zu bestätigen. Es können Kosten für die Verbindung anfallen.",
+      "error_message": "Bitte geben Sie Ihre Telefonnummer ein!"
     },
     "verificationCode": {
-      "sub_title": "We just texted you a confirmation code. Please enter it below.",
-      "info": "If you did not receive a code please click ",
-      "resend": "resend",
-      "error_message": "Insert the received number here!"
+      "sub_title": "Wir haben Ihnen einen Bestätigungscode gesendet. Bitte geben Sie diesen unten ein.",
+      "info": "Falls Sie den Bestätigungscode nicht erhalten haben, klicken Sie bitte ",
+      "resend": "erneut senden",
+      "error_message": "Geben Sie den Code bitte hier ein!"
     },
     "user_data_form": {
-      "sub_title": "Please fill out the personal details below.",
-      "gps_button": "Use GPS to get my address",
-      "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+      "sub_title": "Bitte geben Sie unten Ihre persönlichen Daten ein.",
+      "gps_button": "GPS verwenden, um meine Adresse zu erhalten.",
+      "gps_unavailable_retry_button": "Geolokalisierung nicht verfügbar. Versuchen Sie es erneut.",
       "learn_reactivate": "Learn how to reactivate geolocation",
       "retry_geolocation": "Retry Geolocation",
       "continue_without_geolocation": "Continue without Geolocation",
