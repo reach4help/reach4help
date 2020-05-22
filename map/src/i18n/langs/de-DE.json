@@ -4,7 +4,7 @@
   "aboutScreen": {
     "intro": "Wir glauben, dass Solidarität das Beste im Menschen zum Vorschein bringt.",
     "info": "Wir wollen dabei helfen Initiativen der gemeinschaftlichen Hilfe vor Ort zu finden, um eine Beteiligung zu ermöglichen sowie Anregungen zu liefern, um eigene Projekte zu starten und auch zu motivieren. Diese Karte zeigt eine weltweit wachsende Menge von Initiativen gegenseitiger Hilfe im Kontext der Pandemie.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "warning": "Hinweis: Jedes der Projekte ist selbstständig und selbstorganisiert. Viele davon verwenden öffentlich zugängliche Tabellen, um ihre Informationen zu teilen. Beachten Sie dies, wenn sie persönliche Daten eingeben, die nicht öffentlich zugänglich sein sollen.",
     "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
     "githubSourceLabel": "found on GitHub",
     "otherAreasHeading": "Interested in one of these areas?",
