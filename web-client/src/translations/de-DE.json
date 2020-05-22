@@ -56,44 +56,44 @@
       "allow_send_notifications": "Möchten Sie, dass wir Ihnen Benachrichtigungen und E-Mails zusenden?"
     },
     "newRequest": {
-      "title": "Neue Anfragen",
-      "icon_text": "I need help",
+      "title": "Neue Anfrage",
+      "icon_text": "Ich benötige Hilfe.",
       "form": {
-        "title": "Title",
-        "body": "Enter details of what is needed",
-        "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Send my need"
+        "title": "Position",
+        "body": "Geben Sie die erforderlichen Daten an.",
+        "consent": "Ich erlaube Push-Nachrichten. Sie können dies jederzeit in den Einstellungen ändern.",
+        "submit": "Meinen Bedarf senden"
       }
     },
     "newRequestSuccess": {
-      "title": "Your request has been created",
-      "info": "Please be patient until you get an offer from a volunteer.",
-      "remember": "Remember",
-      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      "title": "Ihre Anfrage wurde erstellt.",
+      "info": "Bitte haben Sie Geduld, bis Sie ein Angebot eines Freiwilligen erhalten.",
+      "remember": "Denken Sie daran:",
+      "remember_info": "Sobald ein(e) Freiwillige(r) Hilfe anbietet, müssen Sie zunächst die Hilfe annehmen, damit diese(r) Ihre Kontaktinformationen sehen kann."
     },
     "roleinfo": {
       "title": "Reach4Help",
-      "sub_title": "How can we assist you ?",
-      "info": "Please tell us what is your purpose to use Reach4Help",
-      "info_pin": "I'm here because I need help",
-      "c2a_pin": "Get help now!",
-      "info_cav": "I'm here because I want to help people",
-      "c2a_cav": "Start helping now!"
+      "sub_title": "Wie können wir Ihnen helfen?",
+      "info": "Bitte teilen Sie uns mit, warum Sie Reach4Help verwenden.",
+      "info_pin": "Ich bin hier, weil ich Hilfe benötige.",
+      "c2a_pin": "Jetzt Hilfe erhalten!",
+      "info_cav": "Ich bin hier, weil ich Menschen helfen möchte.",
+      "c2a_cav": "Helfen Sie jetzt!"
     },
     "timeline": {
-      "open_status": "Open",
-      "cav": "Volunteer",
-      "cav_wait": "WAITING FOR VOLUNTEER",
-      "address": "Delivery Address",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
-      "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "open_status": "Offen",
+      "cav": "Freiwillige(r)",
+      "cav_wait": "Auf eine(n) Freiwillige(n) warten",
+      "address": "Lieferanschrift",
+      "cancelRequest": "Anfrage stornieren",
+      "finishRequest": "Anfrage abschließen",
+      "ratingQuestion": "Wie bewerten Sie Ihre Erfahrung mit",
+      "submitRatingButton": "Bewertung absenden",
+      "finishRequestModalParta": "Sind Sie sicher, dass Sie beenden wollen?",
+      "finishRequestModalPartb": "von",
+      "thankYouModalTitle": "Vielen Dank!",
+      "thankYouModalBodyParta": "Sie bewerteten",
+      "thankYouModalBodyPartb": "mit"
     }
   }
 }
