@@ -14,12 +14,12 @@
       "nyc": "New York"
     },
     "sourceHeading": "Woher kommt kommen die Informationen?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
+    "sourceInfo": "Die Informationen auf dieser Karte sind eine Kombination der von unseren Freiwilligen gesammelten, von Nutzern übermittelten und von anderen ehrenamtlichen Projekten wie {mutualaidwiki} und {mutualaidhub} bereitgestellten Daten.",
+    "sourceSubmit": "Wir möchten Sie ermutigen, Informationen über alle Projekte, die Sie kennen und noch nicht auf der Karte verzeichnet sind, zu {addinfo}.",
+    "sourceSubmitButton": "ergänzen",
+    "usageHeading": "Kann ich die Daten für mein eigenes Projekt nutzen?",
+    "usageInfo": "Sie können die hier auf der Karte enthaltenen Daten für Ihre eigenen Projekte nutzen, wenn Sie die jeweiligen Lizenzbedingungen beachten.",
+    "usageLicenses": "Daten die von unseren Freiwilligen und den Nutzern bereitgestellt werden stehen unter einer {license} und die Daten von anderen Quellen sind unter ihren jeweiligen Lizenzen zugänglich gemacht.",
     "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
