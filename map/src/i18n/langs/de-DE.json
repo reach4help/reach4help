@@ -33,18 +33,18 @@
     "github": "Finden Sie uns auf GitHub!"
   },
   "addInformation": {
-    "button": "Add information",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "button": "Informationen ergänzen",
+    "backToMap": "Zurück zur Karte",
+    "prev": "Zurück",
+    "continue": "Weiter",
+    "submit": "Absenden",
+    "addMore": "Weitere Informationen hinzufügen",
+    "tryAgain": "Erneut versuchen",
     "screen": {
-      "title": "Add information to this map",
+      "title": "Informationen auf der Karte ergänzen",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
-        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "acceptedInformation": "Derzeit stellen wir ausschließlich Informationen über Organisationen und Unternehmen, die Hilfe oder Unterstützung anbieten, auf die jeweilige Region bezogene Initiativen zur finanziellen Unterstützung und Gruppen der gegenseitigen Hilfe bereit. Im Moment nehmen wir keine Informationen von Einzelpersonen auf, die Hilfe anbieten.",
+        "intro": "Bitte füllen Sie das untenstehende Formular aus, um Informationen zu ergänzen. Wir werden Sie danach nach den geografischen und Kontaktdaten fragen.",
         "form": {
           "type": "Type of project / group / organization / initiative",
           "typePleaseSelect": "Please select type",
