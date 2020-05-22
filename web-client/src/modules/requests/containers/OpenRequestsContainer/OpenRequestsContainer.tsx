@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { observeOffers, setOffer } from 'src/ducks/offers/actions';
+import { observeOffers } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { observeOpenRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
-import { firestore } from 'src/firebase';
 import { Offer, OfferStatus } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
@@ -138,29 +137,7 @@ const OpenRequestsContainer: React.FC = () => {
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
-  const toCloseRequest: Function = id => `Remove request ${id}`;
-
-  // TODO: THIS NEEDS TO BE PUT IN THE FIND REQUESTS MODULE, WHICH IS THE NEW MAP MODULE.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  const handleRequestForAcceptReject: Function = (id, action) => {
-    if (
-      openRequests.data &&
-      profileState.userRef &&
-      profileState.profile &&
-      profileState.profile.applicationPreference === ApplicationPreference.cav
-    ) {
-      dispatch(
-        setOffer({
-          cavUserRef: profileState.userRef,
-          pinUserRef: openRequests.data[id].pinUserRef,
-          requestRef: firestore.collection('requests').doc(id),
-          cavUserSnapshot: profileState.profile,
-          message: 'I want to help!',
-          status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
-        }),
-      );
-    }
-  };
+  const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
 
   return (
     <>
