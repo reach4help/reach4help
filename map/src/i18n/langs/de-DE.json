@@ -46,12 +46,12 @@
         "acceptedInformation": "Derzeit stellen wir ausschließlich Informationen über Organisationen und Unternehmen, die Hilfe oder Unterstützung anbieten, auf die jeweilige Region bezogene Initiativen zur finanziellen Unterstützung und Gruppen der gegenseitigen Hilfe bereit. Im Moment nehmen wir keine Informationen von Einzelpersonen auf, die Hilfe anbieten.",
         "intro": "Bitte füllen Sie das untenstehende Formular aus, um Informationen zu ergänzen. Wir werden Sie danach nach den geografischen und Kontaktdaten fragen.",
         "form": {
-          "type": "Type of project / group / organization / initiative",
-          "typePleaseSelect": "Please select type",
-          "services": "Services or support that this organization / company provides",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
+          "type": "Art des Projekts / der Gruppe / der Organisation / der Initiative",
+          "typePleaseSelect": "Bitte auswählen",
+          "services": "Dienstleistung oder Unterstützung, die die Organisation / das Unternehmen anbietet",
+          "name": "Name des Projekts / der Gruppe / der Organisation",
+          "namePlaceholder": "z.B.: Hilfsprojekt Antarktis",
+          "description": "(freiwillig) Detaillierte Beschreibung des Projekts / der Gruppe / der Organisation und der Aktivitäten zur Verbesserung der gegenseitigen Hilfe",
           "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
           "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
           "continue": "Click continue to enter location information"
