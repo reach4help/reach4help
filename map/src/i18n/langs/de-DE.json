@@ -66,25 +66,25 @@
       "contactInfo": {
         "header": "Kontaktangaben für {name}",
         "info": "Fast geschafft! Bitte geben Sie an, wie Interessenten {name} kontaktieren können. Gibt es besondere Formen, die Freiwillige verwenden sollten, um Kontakt aufzunehmen oder um Hilfe zu bitten, geben Sie sie bitte hier an.",
-        "deleteInfo": "Delete",
+        "deleteInfo": "Löschen",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "Allgemeine Kontaktinformationen hinzufügen",
+          "volunteers": "Kontaktinformationen für Freiwillige hinzufügen",
+          "getHelp": "Kontaktinformationen für Hilfesuchende hinzufügen"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "Allgemeine Kontaktinformationen",
+          "volunteers": "Kontaktinformationen für Freiwillige",
+          "getHelp": "Kontaktinformationen für Hilfesuchende"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "Telefonnummern",
+          "email": "E-Mail-Adressen",
+          "web": "Webseiten / URLs"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
+          "phone": "Telefonnummer hinzufügen",
+          "email": "Neue E-Mail-Adresse hinzufügen",
           "webURL": "URL",
           "webLabel": "Name"
         }
@@ -183,19 +183,19 @@
   "lang": "Sprache:",
   "langSelect": "Sprache auswählen",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
-    "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "netlifyNote": "Diese Karte {link}",
+    "netlifyLinkText": "wird von Netlify gehostet.",
+    "githubRepo": "GitHub Repository",
+    "codeOfConduct": "Verhaltenskodex",
+    "showHidden": "Verborgene Informationen anzeigen",
+    "hideHidden": "Verborgene Informationen ausblenden"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "Sichtbarkeit: {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "Alles",
+      "visible": "Nur Sichtbares",
+      "hidden": "Nur Verstecktes"
     }
   }
 }
