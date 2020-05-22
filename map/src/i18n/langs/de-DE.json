@@ -163,25 +163,25 @@
   },
   "results": {
     "backToResults": "Zurück zu den Ergebnissen",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "openResults": "Zeige: {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "closeResults": "Verstecke: {results, plural, one {} =0 {no results} =1 {1 result} other {# results}}",
+    "showMore": "Weitere Ergebnisse anzeigen",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "Allgemeine Informationen:",
+      "getHelp": "Hilfe erhalten:",
+      "volunteer": "Freiwillige:",
+      "facebookGroup": "Facebook-Gruppe"
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "Hinweis",
+        "content": "Jedes der Projekte ist selbstständig und selbstorganisiert. Viele davon verwenden öffentlich zugängliche Tabellen oder Pinnwände, um ihre Informationen zu teilen. Beachten Sie dies, wenn sie persönliche Daten eingeben, die nicht öffentlich zugänglich sein sollen."
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "Informationen über diese(s) {type} werden von {source} bereitgestellt."
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "Sprache:",
+  "langSelect": "Sprache auswählen",
   "footer": {
     "netlifyNote": "This map {link}",
     "netlifyLinkText": "is hosted by Netlify",
