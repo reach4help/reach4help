@@ -90,19 +90,19 @@
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "Informationen werden zur Karte übertragen.",
+        "error": "Fehler beim Hinzufügen der Informationen",
+        "success": "Ihre Informationen wurden erfolgreich übermittelt.",
+        "successExtra": "Bevor Ihre Informationen auf der Karte sichtbar sind, werden sie von einer/einem Freiwilligen aus unserem Team überprüft. Das sollte (hoffentlich) in ein paar Tagen erledigt sein."
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
+      "missingType": "Art des Projekts / der Gruppe / der Organisation auswählen",
+      "missingServices": "Bitte alle Dienstleistungen, die die Organisation anbietet, auswählen (min. 1)",
+      "missingTitle": "Name des Projekts / der Gruppe / der Organisation eingeben",
+      "missingLocationName": "Bitte geben Sie eine Beschreibung des bedienten Gebietes an",
+      "markerRequired": "Bitte klicken Sie auf die Karte, um das bediente Gebiet anzugeben, bevor Sie fortfahren.",
+      "noContactDetails": "Bitte geben Sie Kontaktdaten für mindestens eine Kategorie ein",
       "emptyContactSection": "Please enter some contact information for {section} or delete it",
       "urlMissingLabel": "A URL for {section} is missing a Name",
       "urlMissingURL": "A URL entry for {section} is missing the URL",
