@@ -1,5 +1,5 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Descriptions, Form, Input } from 'antd';
+import { Button, Col, Descriptions, Form, Input, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
@@ -31,23 +31,6 @@ const ConsentAndSubmitDiv = styled.div`
   text-align: left;
 `;
 
-const CancelButton = styled(Button)`
-  background-color: ${COLORS.secondary};
-  border-color: ${COLORS.secondary};
-  :hover {
-    background-color: ${COLORS.secondaryHover};
-    border-color: ${COLORS.secondaryHover};
-  }
-  :focus {
-    background-color: ${COLORS.secondaryHover};
-    border-color: ${COLORS.secondaryHover};
-  }
-  @media ${DEVICE_MAX.tablet} {
-    height: 3.2em;
-    background-color: ${COLORS.secondary} !important;
-  }
-`;
-
 const SubmitButton = styled(Button)`
   background-color: ${COLORS.secondary};
   border-color: ${COLORS.secondary};
@@ -65,6 +48,14 @@ const SubmitButton = styled(Button)`
   }
 `;
 
+const StyledButton = styled(Button)`
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
 const NewRequest: React.FC<NewRequestProps> = ({ createRequest, onCancel }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -79,8 +70,8 @@ const NewRequest: React.FC<NewRequestProps> = ({ createRequest, onCancel }) => {
           <Descriptions.Item>
             <HomeOutlined
               style={{
-                paddingRight: '10px',
-                paddingTop: '10px',
+                paddingRight: '5px',
+                paddingTop: '5px',
                 fontSize: '1rem',
               }}
             />
@@ -103,16 +94,18 @@ const NewRequest: React.FC<NewRequestProps> = ({ createRequest, onCancel }) => {
             <Input.TextArea placeholder={t('newRequest.form.body')} />
           </Form.Item>
           <ConsentAndSubmitDiv>
-            <Form.Item>
-              <CancelButton type="primary" onClick={() => onCancel()}>
-                {t('newRequest.form.cancel')}
-              </CancelButton>
-            </Form.Item>
-            <Form.Item>
-              <SubmitButton htmlType="submit" type="primary">
-                {t('newRequest.form.submit')}
-              </SubmitButton>
-            </Form.Item>
+            <Row>
+              <Col span={11}>
+                <StyledButton onClick={() => onCancel()}>
+                  {t('newRequest.form.cancel')}
+                </StyledButton>
+              </Col>
+              <Col span={11} offset={2}>
+                <SubmitButton htmlType="submit" type="primary">
+                  {t('newRequest.form.submit')}
+                </SubmitButton>
+              </Col>
+            </Row>
           </ConsentAndSubmitDiv>
         </StyledForm>
       </FormDiv>

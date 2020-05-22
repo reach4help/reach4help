@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { updateUserPrivilegedInformation } from '../../../../ducks/profile/actions';
+import Map from '../../../../components/WebClientMap/WebClientMap';
+import { VolunteerMarkerProps } from '../../../../components/WebClientMap/WebClientMarker';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { setRequest } from '../../../../ducks/requests/actions';
 import { IUser } from '../../../../models/users';
@@ -20,12 +21,41 @@ const NewRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
+  const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>(
+    () =>
+      profileState &&
+      profileState.privilegedInformation &&
+      profileState.privilegedInformation.address &&
+      profileState.privilegedInformation.address.coords
+        ? {
+          lat: profileState.privilegedInformation.address.coords.latitude,
+          lng: profileState.privilegedInformation.address.coords.longitude,
+        }
+        : {
+          lat: 13.4124693,
+          lng: 103.8667,
+        },
+  );
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      setCurrentLocation(pos);
+    },
+    error => {
+      // eslint-disable-next-line no-console
+      console.error(error.message);
+    },
+  );
+
   const dispatch = useDispatch();
 
   const newRequestSubmitHandler = (
     title: string,
     body: string,
-    sendNotifications: boolean,
   ) => {
     if (
       profileState.profile &&
@@ -42,17 +72,6 @@ const NewRequestsContainer: React.FC = () => {
         }),
       );
     }
-
-    if (profileState.uid && profileState.privilegedInformation) {
-      profileState.privilegedInformation.sendNotifications =
-        sendNotifications === true;
-      dispatch(
-        updateUserPrivilegedInformation(
-          profileState.uid,
-          profileState.privilegedInformation,
-        ),
-      );
-    }
   };
 
   const onCancel = () => (
@@ -60,14 +79,23 @@ const NewRequestsContainer: React.FC = () => {
       <div>Request review component</div>
     </RequestDetails>
   );
+
+  const newRequest = () => (
+    <RequestDetails>
+      <NewRequest
+        createRequest={newRequestSubmitHandler}
+        onCancel={onCancel}
+      />
+    </RequestDetails>
+  );
   return (
     <>
-      <RequestDetails>
-        <NewRequest
-          createRequest={newRequestSubmitHandler}
-          onCancel={onCancel}
-        />
-      </RequestDetails>
+      <Map
+        requests={[]}
+        volunteerLocation={currentLocation}
+        onRequestHandler={() => 'test'}
+      />
+      {newRequest()}
     </>
   );
 };
