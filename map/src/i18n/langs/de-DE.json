@@ -103,24 +103,24 @@
       "missingLocationName": "Bitte geben Sie eine Beschreibung des bedienten Gebietes an",
       "markerRequired": "Bitte klicken Sie auf die Karte, um das bediente Gebiet anzugeben, bevor Sie fortfahren.",
       "noContactDetails": "Bitte geben Sie Kontaktdaten für mindestens eine Kategorie ein",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "emptyContactSection": "Bitte geben Sie einige Kontaktinformationen für {section} ein oder löschen Sie diese",
+      "urlMissingLabel": "Es fehlt ein Name für eine URL von {section}.",
+      "urlMissingURL": "Es fehlt die URL für {section} beim URL-Eintrag.",
+      "dataError": "Es gab ein Problem mit den von Ihnen übermittelten Informationen, bitte gehen Sie zurück und versuchen Sie es erneut.",
+      "submitError": "Es gab ein Problem bei der Übermittlung der Informationen: {error}. Bitte versuchen Sie es später erneut.",
+      "mutualAidGroupsNotAccepted": "Bitte geben Sie Informationen über neue Gruppen der gegenseitigen Hilfe stattdessen unter {link} ein."
     }
   },
   "buttons": {
-    "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+    "fullScreen": "Vollbildmodus",
+    "exitFullScreen": "Vollbildmodus verlassen"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "Lade...",
+  "filterBy": "Filtern nach:",
   "services": {
-    "any": "Any",
-    "food": "Food",
-    "medicine": "Medicine",
+    "any": "Alles",
+    "food": "Lebensmittel",
+    "medicine": "Medikamente",
     "supplies": "Other Supplies",
     "mobility": "Mobility",
     "shelter": "Shelter",
