@@ -260,6 +260,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     TODO: 
       Once backend changes for profile snapshot is done, instead of user={mockRequestUser},
       The Top Panel must take the user details from the request itself
+
+    TODO: 
+      Once backend changes for profile snapshot is done, instead of offers={MockOfferList},
+      The OffersList must take the offers from the request itself
   */
   return (
     <>

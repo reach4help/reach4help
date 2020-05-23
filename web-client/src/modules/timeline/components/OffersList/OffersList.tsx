@@ -112,36 +112,34 @@ const OfferItem: React.FC<OfferItemProps> = ({
   handleOffer,
 }): React.ReactElement => (
   <Item>
-    <InnerContainer>
-      {/* {offer.cavUserSnapshot.displayName} */}
-      <UserPic src={offer.displayPicture} alt="Display Picture" />
-      <UserName>{offer.displayName}</UserName>
-      <TextVolunteer>Volunteer</TextVolunteer>
-      <IconsBlock>
-        <IconContainerFirst>
-          <HeartOutlined />
-        </IconContainerFirst>
-        <TextIcon>{offer.likes}</TextIcon>
-        <IconContainer>
-          <StarOutlined />
-        </IconContainer>
-        <TextIcon>{offer.averageRating}</TextIcon>
-        <IconContainer>
-          <EnvironmentOutlined />
-        </IconContainer>
-        <TextIcon>{offer.distance}</TextIcon>
-      </IconsBlock>
-      <ButtonsContainer>
-        <StyledButton onClick={() => handleOffer(true)}>
-          <UserSwitchOutlined />
-          Reject
-        </StyledButton>
-        <AcceptButton onClick={() => handleOffer(false)}>
-          <HeartOutlined />
-          Accept
-        </AcceptButton>
-      </ButtonsContainer>
-    </InnerContainer>
+    {/* {offer.cavUserSnapshot.displayName} */}
+    <UserPic src={offer.displayPicture} alt="Display Picture" />
+    <UserName>{offer.displayName}</UserName>
+    <TextVolunteer>Volunteer</TextVolunteer>
+    <IconsBlock>
+      <IconContainerFirst>
+        <HeartOutlined />
+      </IconContainerFirst>
+      <TextIcon>{offer.likes}</TextIcon>
+      <IconContainer>
+        <StarOutlined />
+      </IconContainer>
+      <TextIcon>{offer.averageRating}</TextIcon>
+      <IconContainer>
+        <EnvironmentOutlined />
+      </IconContainer>
+      <TextIcon>{offer.distance}</TextIcon>
+    </IconsBlock>
+    <ButtonsContainer>
+      <StyledButton onClick={() => handleOffer(true)}>
+        <UserSwitchOutlined />
+        Reject
+      </StyledButton>
+      <AcceptButton onClick={() => handleOffer(false)}>
+        <HeartOutlined />
+        Accept
+      </AcceptButton>
+    </ButtonsContainer>
   </Item>
 );
 
