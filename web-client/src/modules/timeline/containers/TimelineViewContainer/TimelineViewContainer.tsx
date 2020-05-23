@@ -9,13 +9,14 @@ import { ProfileState } from 'src/ducks/profile/types';
 import {
   observeNonOpenRequests,
   observeOpenRequests,
+  updateRequest,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IOffer, Offer, OfferStatus } from 'src/models/offers';
 import { Request, RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 
-import OffersList from '../../components/OffersList/OffersList';
+import TimelineActions from '../../components/TimelineActions/TimelineActions';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 import { TimelineViewLocation } from '../../pages/routes/TimelineViewRoute/constants';
@@ -43,6 +44,38 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
   );
+
+  const requestUpdateHandler = ({
+    status,
+    pinRating,
+    cavRating,
+  }: {
+    status?: RequestStatus;
+    pinRating?: number;
+    cavRating?: number;
+  }) => {
+    if (request && (status || pinRating || cavRating)) {
+      dispatch(
+        updateRequest({
+          requestId,
+          fieldsToUpdate: { status, pinRating, cavRating },
+        }),
+      );
+    }
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const offerUpdateHandler = ({
+    offerId,
+    status,
+  }: {
+    offerId: string;
+    status: OfferStatus;
+  }) => {
+    // dispatch(updateOffer(offerId, { status }));
+    // eslint-disable-next-line no-console
+    console.log(status, offerId);
+  };
 
   useEffect(() => {
     let requestTemp: Request | undefined = requestsState.openRequests.data
@@ -160,6 +193,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       Once backend changes for profile snapshot is done, instead of offers={MockOfferList},
       The OffersList must take the offers from the request itself
   */
+  const isCav =
+    profileState.profile.applicationPreference === ApplicationPreference.cav;
+
   return (
     <>
       <TopPanel
@@ -184,6 +220,14 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         <TimelineList items={[]} currentUser={profileState.profile} />
       )}
       {/* <TimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
+      <TopPanel request={request} user={mockRequestUser} />;
+      <TimelineList items={mockTimelineItems} currentUser={mockPin} />
+      <TimelineActions
+        request={request}
+        currentUser={profileState.profile}
+        requestUpdateHandler={requestUpdateHandler}
+        isCav={isCav}
+      />
     </>
   );
 };
