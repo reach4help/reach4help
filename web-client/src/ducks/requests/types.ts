@@ -67,6 +67,11 @@ export interface RequestState {
     modalState: boolean;
     error?: Error;
   };
+  updateAction: {
+    success: boolean;
+    loading: boolean;
+    error?: Error;
+  };
 }
 
 export interface IgetOpenRequests {
@@ -78,4 +83,13 @@ export interface IgetNonOpenRequests {
   userRef: firebase.firestore.DocumentReference<User>;
   userType: ApplicationPreference;
   requestStatus: RequestStatus;
+}
+
+export interface IupdateRequest {
+  requestId: string;
+  fieldsToUpdate: {
+    status?: RequestStatus;
+    pinRating?: number;
+    cavRating?: number;
+  };
 }
