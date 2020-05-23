@@ -5,12 +5,14 @@ import { ProfileState } from 'src/ducks/profile/types';
 import {
   observeNonOpenRequests,
   observeOpenRequests,
+  updateRequest,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { OfferStatus } from 'src/models/offers';
 import { Request, RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 
+import TimelineActions from '../../components/TimelineActions/TimelineActions';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 
@@ -119,6 +121,38 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     ({ requests }: { requests: RequestState }) => requests,
   );
 
+  const requestUpdateHandler = ({
+    status,
+    pinRating,
+    cavRating,
+  }: {
+    status?: RequestStatus;
+    pinRating?: number;
+    cavRating?: number;
+  }) => {
+    if (request && (status || pinRating || cavRating)) {
+      dispatch(
+        updateRequest({
+          requestId,
+          fieldsToUpdate: { status, pinRating, cavRating },
+        }),
+      );
+    }
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const offerUpdateHandler = ({
+    offerId,
+    status,
+  }: {
+    offerId: string;
+    status: OfferStatus;
+  }) => {
+    // dispatch(updateOffer(offerId, { status }));
+    // eslint-disable-next-line no-console
+    console.log(status, offerId);
+  };
+
   useEffect(() => {
     let requestTemp: Request | undefined = requestsState.openRequests.data
       ? requestsState.openRequests.data[requestId]
@@ -195,25 +229,24 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     return <LoadingWrapper />;
   }
 
-  const mockRequestUser = {
-    name: 'Jon Snow',
-    rating: 4.5,
-    likes: 52,
-    distance: '5km',
-    address: '509 Gorby Lane, Jackson, FL 32065',
-    applicationPreference: 'pin',
-  };
-
   /*
     TODO: 
       Once backend changes for profile snapshot is done, instead of user={mockRequestUser},
       The Top Panel must take the user details from the request itself
   */
+  const isCav =
+    profileState.profile.applicationPreference === ApplicationPreference.cav;
+
   return (
     <>
       <TopPanel request={request} user={mockRequestUser} />;
       <TimelineList items={mockTimelineItems} currentUser={mockPin} />
-      {/* <TimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
+      <TimelineActions
+        request={request}
+        currentUser={profileState.profile}
+        requestUpdateHandler={requestUpdateHandler}
+        isCav={isCav}
+      />
     </>
   );
 };
