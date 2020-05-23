@@ -49,7 +49,7 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
   items,
   currentUser,
 }) => (
-  <>
+  <Wrapper>
     <Title>Request Timeline</Title>
     <StyledList>
       <VerticalSeparator />
@@ -61,8 +61,14 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
         />
       ))}
     </StyledList>
-  </>
+  </Wrapper>
 );
+
+const Wrapper = styled.div`
+  width: 100%;
+  flex: auto;
+  overflow: scroll;
+`;
 
 const StyledListItem = styled.li`
   display: inline-block;
@@ -104,7 +110,7 @@ const ListItemBullet = styled.img`
 
 const HeadingDate = styled.div`
   padding: 10px;
-  background: #f0f2f5;
+  background: white;
   z-index: 1;
   text-align: center;
   margin: 0;
@@ -161,6 +167,7 @@ const Title = styled.h1`
   margin: 0;
   margin-top: 20px;
   font-size: 1.2rem;
+  text-align: center;
 `;
 
 interface RequestTimelineListProps {
