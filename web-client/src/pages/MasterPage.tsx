@@ -43,7 +43,7 @@ const MasterPage = (): ReactElement => {
           pinUserRef: profileState.userRef,
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: profileState.privilegedInformation.address.coords,
-          streetAddress: '',
+          streetAddress: 'This is a street address',
         }),
       );
     }

@@ -4,7 +4,7 @@ import { firestore } from 'firebase-admin';
 
 import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
-import { IRequest, Request, RequestFirestoreConverter, RequestStatus } from '../models/requests';
+import { IRequest, Request, RequestStatus } from '../models/requests';
 import { auth, db } from '../app';
 import { queueTimelineItemTriggers } from '../shared/triggerFunctions';
 
@@ -25,7 +25,7 @@ const queueStatusUpdateTriggers = async (change: Change<firestore.DocumentSnapsh
       }),
     );
 
-    const request = (await offerAfter.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+    const request = Request.factory((await offerAfter.requestRef.get()).data() as IRequest);
 
     operations.push(
       (async (): Promise<void> => {
@@ -119,8 +119,7 @@ const validateOffer = (value: IOffer): Promise<void> => {
 
 export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: EventContext) => {
   return validateOffer(snapshot.data()?.toObject() as IOffer)
-    .then(() => 
-      Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, context.auth?.uid)]))
+    .then(() => Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>)]))
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
       return db
@@ -136,7 +135,10 @@ export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: Event
 export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context: EventContext) => {
   return validateOffer(change.after.data()?.toObject() as IOffer)
     .then(() => {
-      return Promise.all([queueStatusUpdateTriggers(change), queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, context.auth?.uid, change.after as firestore.DocumentSnapshot<Offer>)]);
+      return Promise.all([
+        queueStatusUpdateTriggers(change),
+        queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, change.after as firestore.DocumentSnapshot<Offer>),
+      ]);
     })
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
