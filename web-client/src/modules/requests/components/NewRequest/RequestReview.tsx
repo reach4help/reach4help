@@ -34,7 +34,7 @@ const StyledButton = styled(Button)`
 export interface RequestInput {
   title: string;
   description: string;
-  address: string;
+  streetAddress: string;
 }
 
 export interface RequestReviewProps {
@@ -63,7 +63,7 @@ const RequestReview: React.FC<RequestReviewProps> = ({
           marginBottom: '20px',
         }}
       >
-        {request.address}
+        {request.streetAddress}
       </StyledText>
       <StyledTitle style={{ color: 'rgba(0, 0, 0, 1)' }}>
         {request.title}

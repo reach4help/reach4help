@@ -9,12 +9,8 @@ import { ProfileState } from '../../../../ducks/profile/types';
 import { setRequest } from '../../../../ducks/requests/actions';
 import { IUser } from '../../../../models/users';
 import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
-import NewRequest, {
-  REQUEST_TYPES,
-} from '../../components/NewRequest/NewRequest';
-import RequestReview, {
-  RequestInput,
-} from '../../components/NewRequest/RequestReview';
+import NewRequest, { REQUEST_TYPES } from '../../components/NewRequest/NewRequest';
+import RequestReview, { RequestInput } from '../../components/NewRequest/RequestReview';
 
 const RequestDetails = styled.div`
   position: fixed;
@@ -28,6 +24,10 @@ const NewRequestsContainer: React.FC = () => {
 
   const [requestInfo, setRequestInfo] = useState<RequestInput | undefined>(
     undefined,
+  );
+
+  const [showReviewPage, setShowReviewPage] = useState<boolean>(
+    false,
   );
 
   const profileState = useSelector(
@@ -102,9 +102,10 @@ const NewRequestsContainer: React.FC = () => {
   ) => {
     setRequestInfo({
       title,
-      address,
+      streetAddress: address,
       description: body,
     });
+    setShowReviewPage(true);
   };
 
   const setGeocodedLocation = ({ address, latLng }) => {
@@ -112,16 +113,22 @@ const NewRequestsContainer: React.FC = () => {
     setCurrentLocation(latLng);
   };
 
-  const onGoBack = () => setRequestInfo(undefined);
+  const onGoBack = () => setShowReviewPage(false);
 
   const maybeNewRequest = () => {
-    if (!requestInfo) {
+    if (!showReviewPage) {
+      const request = {
+        streetAddress,
+        title: requestInfo ? requestInfo.title : 'medicine',
+        description: requestInfo ? requestInfo.description : '',
+      };
+
       return (
         <RequestDetails>
           <NewRequest
             onSubmit={newRequestSubmitHandler}
             onCancel={() => history.push(RoleInfoLocation.path)}
-            streetAddress={streetAddress}
+            request={request}
             setStreetAddress={setStreetAddress}
             setMapAddress={setMapAddress}
           />
@@ -131,7 +138,7 @@ const NewRequestsContainer: React.FC = () => {
   };
 
   const maybeRequestReview = () => {
-    if (requestInfo) {
+    if (showReviewPage && requestInfo) {
       const details: RequestInput = { ...requestInfo };
       details.title = REQUEST_TYPES[requestInfo.title];
       return (

@@ -1,11 +1,11 @@
-import { HomeOutlined } from '@ant-design/icons';
-import { Button, Col, Descriptions, Form, Input, Row, Select } from 'antd';
+import { Button, Col, Form, Input, Row, Select } from 'antd';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
-import gpstarget from '../../../../assets/gpstarget.svg';
+import gpslocation from '../../assets/gpslocation.svg';
+import { RequestInput } from './RequestReview';
 
 const { Option } = Select;
 
@@ -13,7 +13,7 @@ const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
-  padding: 10px;
+  padding: 16px;
 `;
 
 const FormDiv = styled.div`
@@ -23,14 +23,30 @@ const FormDiv = styled.div`
   align-items: left;
 `;
 
+const CharacterLimitDiv = styled.div`
+  font-size:12px;
+  margin-bottom:24px;
+`;
+
 const StyledForm = styled(Form)`
   width: 100%;
+  margin-top:16px;
+  .ant-form-item-label {
+    line-height:14px;
+  }
+  label {
+    height:14px;
+    font-size:12px;
+  }
+`;
+
+const StyledFormItem = styled(Form.Item)`
+  margin-bottom:0;
 `;
 
 const GPSTarget = styled.img`
   width: 16px;
   height: 16px;
-  margin-right: 8px;
 `;
 
 const StyledButton = styled(Button)`
@@ -39,6 +55,10 @@ const StyledButton = styled(Button)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+`;
+
+const GPSButton = styled(Button)`
+  width: 42px;
 `;
 
 export const REQUEST_TYPES = {
@@ -50,7 +70,7 @@ export const REQUEST_TYPES = {
 const NewRequest: React.FC<NewRequestProps> = ({
   onSubmit,
   onCancel,
-  streetAddress,
+  request,
   setStreetAddress,
   setMapAddress,
 }) => {
@@ -59,10 +79,11 @@ const NewRequest: React.FC<NewRequestProps> = ({
 
   useEffect(() => {
     form.setFieldsValue({
-      address: 'No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China',
-      title: 'medicine',
+      streetAddress: request.streetAddress,
+      title: request.title || 'medicine',
+      body: request.description || '',
     });
-  }, [form]);
+  }, [form, request]);
 
   const FormContent = (
     <MainDiv>
@@ -71,38 +92,19 @@ const NewRequest: React.FC<NewRequestProps> = ({
           {t('newRequest.title')}
         </TitleWithAddon>
 
-        <Descriptions>
-          <Descriptions.Item>
-            <HomeOutlined
-              style={{
-                paddingRight: '5px',
-                paddingTop: '5px',
-                fontSize: '1rem',
-              }}
-            />
-            <input
-              value={streetAddress}
-              onChange={e => setStreetAddress(e.target.value)}
-            />
-            <button onClick={() => setMapAddress(streetAddress)}>
-              find new address
-            </button>
-          </Descriptions.Item>
-        </Descriptions>
-
         {/* There is a bug with types regarding onFinish - apparently an issue with @types and antd types
         https://github.com/ant-design/ant-design/pull/21067 - If it's not please fix *.* */}
         <StyledForm
           layout="vertical"
           form={form}
           onFinish={values => {
-            onSubmit(values.title, values.body, values.address);
+            onSubmit(values.title, values.body, values.streetAddress);
           }}
         >
-          <Row justify="space-between" align="bottom" gutter={16}>
+          <Row justify="space-between" align="bottom" gutter={12}>
             <Col span={22}>
               <Form.Item
-                name="address"
+                name="streetAddress"
                 label={t('newRequest.form.address')}
                 rules={[
                   {
@@ -111,15 +113,14 @@ const NewRequest: React.FC<NewRequestProps> = ({
                   },
                 ]}
               >
-                <Input />
+                <Input onChange={e => setStreetAddress(e.target.value)} />
               </Form.Item>
             </Col>
             <Col span={2}>
               <Form.Item>
-                <Button
-                  icon={<GPSTarget src={gpstarget} />}
-                  danger
-                  onClick={() => 'test'}
+                <GPSButton
+                  icon={<GPSTarget src={gpslocation} />}
+                  onClick={() => setMapAddress(request.streetAddress)}
                 />
               </Form.Item>
             </Col>
@@ -143,7 +144,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
               ))}
             </Select>
           </Form.Item>
-          <Form.Item
+          <StyledFormItem
             name="body"
             label={t('newRequest.form.body')}
             rules={[
@@ -153,8 +154,9 @@ const NewRequest: React.FC<NewRequestProps> = ({
               },
             ]}
           >
-            <Input.TextArea placeholder={t('newRequest.form.body')} />
-          </Form.Item>
+            <Input.TextArea placeholder={t('newRequest.form.body')} maxLength={150} />
+          </StyledFormItem>
+          <CharacterLimitDiv>150 Character Limit</CharacterLimitDiv>
           <Row>
             <Col span={11}>
               <StyledButton onClick={() => onCancel()}>
@@ -178,7 +180,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
 interface NewRequestProps {
   onSubmit: Function;
   onCancel: Function;
-  streetAddress: string;
+  request: RequestInput;
   setStreetAddress: (string) => void;
   setMapAddress: (string) => void;
 }
