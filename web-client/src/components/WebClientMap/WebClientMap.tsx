@@ -118,7 +118,7 @@ const WebClientMap: React.FC<MapProps> = ({
     return <>Could not obtain Google Maps API key</>;
   }
   let centerMarkerProps = { ...origin, isCav };
-  console.log(centerMarkerProps);
+
   return (
     <>
       <div style={{ height: height, width: '100%' }}>

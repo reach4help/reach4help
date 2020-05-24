@@ -58,19 +58,21 @@ const NewRequestsContainer: React.FC = () => {
         },
   );
 
-  navigator.geolocation.getCurrentPosition(
-    position => {
-      const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      setCurrentLocation(pos);
-    },
-    error => {
-      // eslint-disable-next-line no-console
-      console.error(error.message);
-    },
-  );
+  if (!currentLocation || !currentLocation.lat) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        setCurrentLocation(pos);
+      },
+      error => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+      },
+    );
+  }
 
   const dispatch = useDispatch();
 
@@ -151,7 +153,7 @@ const NewRequestsContainer: React.FC = () => {
         origin={currentLocation}
         onGeocode={setGeocodedLocation}
         geocodingAddress={mapAddress}
-        height="40vh"
+        height="25vh"
       />
 
       {maybeNewRequest()}
