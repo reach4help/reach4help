@@ -73,6 +73,7 @@ export const setUserProfile = (
   termsAndPrivacyAccepted: Date,
   displayName: string,
   uid: string,
+  sendNotifications: firebase.firestore.Timestamp | null,
   displayPic?: string | null,
 ) => (dispatch: Function) => {
   const privilegedPayload = PrivilegedUserInformation.factory({
@@ -88,6 +89,7 @@ export const setUserProfile = (
       termsAndPrivacyAccepted,
     ),
     privacyVersion: '1.0',
+    sendNotifications,
   });
   const userPayload = User.factory({
     username: displayName,

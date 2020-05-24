@@ -7,7 +7,7 @@
     "full_name": "Nome Completo",
     "display_name": "Nome de utilizador",
     "display_name_placeholder": "Nome usado em saudações, por defeito é o 1º nome",
-    "adress": "Morada",
+    "address": "Address",
     "address1": "Morada linha 1",
     "address2": "Morada linha 2 (opcional)",
     "city": "Cidade",
@@ -52,7 +52,8 @@
       "terms_conditions_error": "Precisa de aceitar os Termos & Condições.",
       "full_name_error_message": "Preenchimento do nome é obrigatório.",
       "display_name_error_message": "Preenchimento de nome de apresentação é obrigatório.",
-      "address_error_message": "Preenchimento da morada é obrigatória."
+      "address_error_message": "Preenchimento da morada é obrigatória.",
+      "allow_send_notifications": "Would you like us to send you notifications and emails?"
     },
     "newRequest": {
       "title": "Novo Pedido",
@@ -80,19 +81,19 @@
       "c2a_cav": "Comece a ajudar agora!"
     },
     "timeline": {
-      "open_status": "Open",
-      "cav": "Volunteer",
-      "cav_wait": "WAITING FOR VOLUNTEER",
-      "address": "Delivery Address",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
-      "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "open_status": "Aberto",
+      "cav": "Voluntário/a",
+      "cav_wait": "AGUARDANDO VOLUNTÁRIO/A",
+      "address": "Morada de Entrega",
+      "cancelRequest": "Cancelar Pedido",
+      "finishRequest": "Terminar Pedido",
+      "ratingQuestion": "Como classificaria a sua expeiência com",
+      "submitRatingButton": "Submeter Pontuação",
+      "finishRequestModalParta": "Tem a certeza que quer terminar",
+      "finishRequestModalPartb": "de",
+      "thankYouModalTitle": "Obrigado!",
+      "thankYouModalBodyParta": "Classificou",
+      "thankYouModalBodyPartb": "com"
     }
   }
 }
