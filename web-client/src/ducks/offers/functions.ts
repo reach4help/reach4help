@@ -40,9 +40,26 @@ export const getRequestOffers = (
   return initialQuery.withConverter(OfferFirestoreConverter).get();
 };
 
-export const setUserOffer = async ({ offerPayload }: { offerPayload: Offer }) =>
+export const createUserOffer = async ({
+  offerPayload,
+}: {
+  offerPayload: Offer;
+}) =>
   firestore
     .collection('offers')
     .doc()
+    .withConverter(OfferFirestoreConverter)
+    .set(offerPayload);
+
+export const setUserOffer = async ({
+  offerPayload,
+  offerId,
+}: {
+  offerPayload: Offer;
+  offerId: string;
+}) =>
+  firestore
+    .collection('offers')
+    .doc(offerId)
     .withConverter(OfferFirestoreConverter)
     .set(offerPayload);

@@ -70,7 +70,7 @@ const RequestList: React.FC<RequestListProps> = ({
   ]);
 
   // issue with indefinite loading, needs fix
-  if (!requests || loading) {
+  if (loading) {
     return <>Loading...</>;
   }
 

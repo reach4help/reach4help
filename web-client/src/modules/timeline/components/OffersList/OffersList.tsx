@@ -10,15 +10,13 @@ import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
 interface OffersListProps {
-  // offers: Record<string, Offer>;
-  offers: any;
+  offers: Record<string, Offer>;
   loading: boolean;
-  handleOffer: (action: boolean) => void;
+  handleOffer: (action: boolean, id: string) => void;
 }
 
 interface OfferItemProps {
-  // offer: Offer;
-  offer: any;
+  offer: Offer;
   handleOffer: (action: boolean) => void;
 }
 
@@ -30,11 +28,6 @@ const Item = styled.div`
   border: 1px solid #f0f0f0;
   border-radius: 2px;
   width: -webkit-fill-available;
-`;
-
-const InnerContainer = styled.div`
-  max-width: 320px;
-  margin: auto;
 `;
 
 const Title = styled.h1`
@@ -113,29 +106,36 @@ const OfferItem: React.FC<OfferItemProps> = ({
 }): React.ReactElement => (
   <Item>
     {/* {offer.cavUserSnapshot.displayName} */}
-    <UserPic src={offer.displayPicture} alt="Display Picture" />
-    <UserName>{offer.displayName}</UserName>
+    <UserPic
+      src={
+        offer.cavUserSnapshot.displayPicture
+          ? offer.cavUserSnapshot.displayPicture
+          : ''
+      }
+      alt="Display Picture"
+    />
+    <UserName>{offer.cavUserSnapshot.displayName}</UserName>
     <TextVolunteer>Volunteer</TextVolunteer>
     <IconsBlock>
       <IconContainerFirst>
         <HeartOutlined />
       </IconContainerFirst>
-      <TextIcon>{offer.likes}</TextIcon>
+      <TextIcon>{offer.cavUserSnapshot.casesCompleted}</TextIcon>
       <IconContainer>
         <StarOutlined />
       </IconContainer>
-      <TextIcon>{offer.averageRating}</TextIcon>
+      <TextIcon>{offer.cavUserSnapshot.cavRatingsReceived}</TextIcon>
       <IconContainer>
         <EnvironmentOutlined />
       </IconContainer>
-      <TextIcon>{offer.distance}</TextIcon>
+      <TextIcon>5 KM</TextIcon>
     </IconsBlock>
     <ButtonsContainer>
-      <StyledButton onClick={() => handleOffer(true)}>
+      <StyledButton onClick={() => handleOffer(false)}>
         <UserSwitchOutlined />
         Reject
       </StyledButton>
-      <AcceptButton onClick={() => handleOffer(false)}>
+      <AcceptButton onClick={() => handleOffer(true)}>
         <HeartOutlined />
         Accept
       </AcceptButton>
@@ -154,7 +154,10 @@ const OffersList: React.FC<OffersListProps> = ({
     for (const key in offers) {
       if (offers[key]) {
         internalOffersList.push(
-          <OfferItem handleOffer={handleOffer} offer={offers[key]} />,
+          <OfferItem
+            handleOffer={(action: boolean) => handleOffer(action, key)}
+            offer={offers[key]}
+          />,
         );
       }
     }

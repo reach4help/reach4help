@@ -176,9 +176,9 @@ export class Offer implements IOffer {
 
   toObject(): object {
     return {
-      cavUserRef: this.cavUserRef.path,
-      pinUserRef: this.pinUserRef.path,
-      requestRef: this.requestRef.path,
+      cavUserRef: this.cavUserRef,
+      pinUserRef: this.pinUserRef,
+      requestRef: this.requestRef,
       cavUserSnapshot: User.factory(this.cavUserSnapshot),
       message: this.message,
       status: this.status,

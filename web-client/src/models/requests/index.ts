@@ -284,22 +284,22 @@ export class Request implements IRequest {
 
   toObject(): object {
     return {
-      cavUserRef: this.cavUserRef?.path,
+      cavUserRef: this.cavUserRef,
       cavUserSnapshot: this.cavUserSnapshot
         ? this.cavUserSnapshot.toObject()
         : null,
-      pinUserRef: this.pinUserRef.path,
+      pinUserRef: this.pinUserRef,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
       description: this.description,
       latLng: this.latLng,
       status: this.status,
-      createdAt: this.createdAt.toDate(),
-      updatedAt: this.updatedAt.toDate(),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
       pinRating: this.pinRating,
       cavRating: this.cavRating,
-      pinRatedAt: this.pinRatedAt?.toDate(),
-      cavRatedAt: this.cavRatedAt?.toDate(),
+      pinRatedAt: this.pinRatedAt,
+      cavRatedAt: this.cavRatedAt,
     };
   }
 }
