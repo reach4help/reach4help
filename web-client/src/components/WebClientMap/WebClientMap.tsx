@@ -92,7 +92,7 @@ const WebClientMap: React.FC<MapProps> = ({
             const lat = result[0].geometry.location.lat();
             const lng = result[0].geometry.location.lng();
             onGeocode({
-              streetAddress: result[0].formatted_address,
+              strAddress: result[0].formatted_address,
               latLng: { lat, lng },
             });
           }
@@ -163,7 +163,7 @@ interface MapProps {
     lng: number;
   };
   geocodingAddress?: string;
-  onGeocode?: ({ streetAddress: string, latLng: OriginMarkerProps }) => void;
+  onGeocode?: ({ strAddress: string, latLng: OriginMarkerProps }) => void;
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
 }

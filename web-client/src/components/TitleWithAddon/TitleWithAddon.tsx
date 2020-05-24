@@ -10,10 +10,10 @@ const TitleWrapper = styled.div`
   position: relative;
 `;
 
-const doAddonAlignment = (align: string | undefined) => {
-  switch (align) {
+const doAddonAlignment = (alignAddon: string | undefined, align: string | undefined) => {
+  switch (alignAddon) {
     case 'left':
-      return '12%';
+      return align ? '3%' : '12%';
     case 'right':
       return '88%';
     default:
@@ -23,13 +23,13 @@ const doAddonAlignment = (align: string | undefined) => {
 
 const StyledTitle = styled(Title)`
   white-space: pre-line;
-  text-align: center;
+  text-align: ${(props: TitleWithAddonProps) => props.align || 'center'};
   :after {
     content: ' ';
     position: absolute;
     width: 40px;
     height: 6px;
-    left: ${(props: TitleWithAddonProps) => doAddonAlignment(props.alignAddon)};
+    left: ${(props: TitleWithAddonProps) => doAddonAlignment(props.alignAddon, props.align)};
     bottom: 0;
     transform: translate(-50%, 0);
     background-color: ${COLORS.highlight};
@@ -40,13 +40,14 @@ const TitleWithAddon: React.FC<TitleWithAddonProps> = ({
   children,
   level,
   alignAddon,
+  align,
 }): React.ReactElement => (
   <TitleWrapper>
     {/* 
     There is a bug with styled-components regarding camelCase props. I will not try to workaround,
     and wait until it's fixed 
     https://github.com/styled-components/styled-components/issues/2131 */}
-    <StyledTitle alignAddon={alignAddon} level={level}>
+    <StyledTitle alignAddon={alignAddon} level={level} align={align}>
       {children}
     </StyledTitle>
   </TitleWrapper>
@@ -57,6 +58,7 @@ interface TitleWithAddonProps {
   level: 1 | 2 | 3 | 4;
   // REVIEW: I need help defining this type
   alignAddon?: string;
+  align?: string;
 }
 
 export default TitleWithAddon;
