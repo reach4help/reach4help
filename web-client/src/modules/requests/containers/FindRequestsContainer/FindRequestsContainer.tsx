@@ -1,7 +1,8 @@
+import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Coords } from 'google-map-react';
+
 import Map from '../../../../components/WebClientMap/WebClientMap';
 import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';

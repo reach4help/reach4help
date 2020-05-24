@@ -1,19 +1,18 @@
 import GoogleMapReact, { Coords } from 'google-map-react';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import LargeOrangeMarkerIcon from '../../assets/map-marker-orange-lg.png';
 import SmallOrangeMarkerIcon from '../../assets/map-marker-orange-sm.png';
 import LargePurpleMarkerIcon from '../../assets/map-marker-purple-lg.png';
 
-export const OriginMarker: React.FC<OriginMarkerProps> = props => {
-  return (
-    <div>
-      <img
-        src={props.isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
-        alt="My location"
-      />
-    </div>
-  );
-};
+export const OriginMarker: React.FC<OriginMarkerProps> = props => (
+  <div>
+    <img
+      src={props.isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
+      alt="My location"
+    />
+  </div>
+);
 
 export const DestinationMarker: React.FC<DestinationMarkerProps> = ({
   key,
@@ -89,9 +88,7 @@ const WebClientMap: React.FC<MapProps> = ({
   };
 
   useEffect(() => {
-    if (!Geocoder) {
-      console.log('no geocoder', origin, Geocoder);
-    } else if (geocodingAddress) {
+    if (Geocoder && geocodingAddress) {
       Geocoder.geocode({ address: geocodingAddress }, result => {
         if (result && result.length) {
           if (onGeocode) {
@@ -117,7 +114,7 @@ const WebClientMap: React.FC<MapProps> = ({
   if (!apiKey) {
     return <>Could not obtain Google Maps API key</>;
   }
-  let centerMarkerProps = { ...origin, isCav };
+  const centerMarkerProps = { ...origin, isCav };
 
   return (
     <>

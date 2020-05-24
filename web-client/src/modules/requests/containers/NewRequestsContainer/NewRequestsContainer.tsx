@@ -1,8 +1,9 @@
+import { Coords } from 'google-map-react';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { Coords } from 'google-map-react';
+
 import Map from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { setRequest } from '../../../../ducks/requests/actions';
