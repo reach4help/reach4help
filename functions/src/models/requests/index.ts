@@ -25,6 +25,7 @@ export interface IRequest extends DocumentData {
   title: string;
   description: string;
   latLng: GeoPoint;
+  streetAddress: string;
   status?: RequestStatus;
   pinRating?: number | null;
   cavRating?: number | null;
@@ -41,6 +42,7 @@ export class Request implements IRequest {
     title: string,
     description: string,
     latLng: GeoPoint,
+    streetAddress: string,
     cavUserRef: DocumentReference<DocumentData> | null = null,
     cavUserSnapshot: User | null = null,
     status = RequestStatus.pending,
@@ -58,6 +60,7 @@ export class Request implements IRequest {
     this._title = title;
     this._description = description;
     this._latLng = latLng;
+    this._streetAddress = streetAddress;
     this._status = status;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
@@ -146,6 +149,17 @@ export class Request implements IRequest {
 
   set latLng(value: GeoPoint) {
     this._latLng = value;
+  }
+
+  @IsString()
+  private _streetAddress: string;
+
+  get streetAddress(): string {
+    return this._streetAddress;
+  }
+
+  set streetAddress(value: string) {
+    this._streetAddress = value;
   }
 
   @IsEnum(RequestStatus)
@@ -246,6 +260,7 @@ export class Request implements IRequest {
       data.title,
       data.description,
       data.latLng,
+      data.streetAddress,
       data.cavUserRef,
       // This field may be null
       data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
@@ -267,6 +282,7 @@ export class Request implements IRequest {
       title: this.title,
       description: this.description,
       latLng: this.latLng,
+      streetAddress: this.streetAddress,
       status: this.status,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
