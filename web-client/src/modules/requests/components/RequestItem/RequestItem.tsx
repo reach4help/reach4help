@@ -1,17 +1,20 @@
 import { Button, Col, Row } from 'antd';
 import React, { useState } from 'react';
+import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
 
+import { COLORS } from '../../../../theme/colors';
 import avgRating from '../../assets/pinAverageRating.svg';
 import defaultUserPic from '../../assets/role_pin.png';
+import warningSign from '../../assets/warningExclamation.svg';
 
 const Item = styled.div`
   overflow: auto;
   margin: 15px;
   padding: 12px;
   background: #ffffff;
-  border: 1px solid #f0f0f0;
+  border: 1px solid ${COLORS.strokeCards};
   border-radius: 2px;
 `;
 
@@ -71,16 +74,37 @@ const StyledIcon = styled.img`
   margin-right: 5px;
 `;
 
+const WarningMessage = styled.div`
+  border: 1px solid ${COLORS.secondaryLight};
+  color: rgba(0, 0, 0, 0.65);
+  font-family: Roboto;
+  font-size: 12px;
+  line-height: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 2px;
+`;
+
 export interface RequestItemProps {
   request: Request;
   handleRequest: (action?: boolean) => void;
   isCavAndOpenRequest: boolean;
+  hideUserPic?: boolean;
+  offers?: Record<string, Offer>;
+  toCloseRequest?: (action?: boolean) => void;
+  isPinAndOpenRequest?: boolean;
 }
 
 const RequestItem: React.FC<RequestItemProps> = ({
   request,
   handleRequest,
   isCavAndOpenRequest,
+  isPinAndOpenRequest = false,
+  offers = {},
+  hideUserPic,
+  toCloseRequest,
 }): React.ReactElement => {
   const [displayDetails, toggleDetails] = useState(false);
 
@@ -91,6 +115,65 @@ const RequestItem: React.FC<RequestItemProps> = ({
       handleRequest();
     }
   };
+
+  let bottomWarningMessage;
+  if (
+    isPinAndOpenRequest &&
+    !Object.keys(offers).length &&
+    Date.now() - request.createdAt.toDate().getTime() > 1000 * 60 * 60 * 24 * 7
+  ) {
+    bottomWarningMessage = (
+      <WarningMessage
+        style={{
+          background: '#FAFAFA',
+        }}
+      >
+        No one has replied to your request.
+      </WarningMessage>
+    );
+  } else if (
+    isPinAndOpenRequest &&
+    toCloseRequest &&
+    (Object.keys(offers).length >= 5 ||
+      (Object.keys(offers).length < 5 &&
+        Date.now() - request.createdAt.toDate().getTime() >
+          1000 * 60 * 60 * 24 * 7))
+  ) {
+    bottomWarningMessage = (
+      <WarningMessage
+        style={{
+          background: 'rgba(255, 203, 82, 0.1)',
+        }}
+      >
+        <Row>
+          <Col span={2}>
+            <img
+              src={warningSign}
+              alt="Attention"
+              style={{ animation: 'fadeIn 0.75s' }}
+            />
+          </Col>
+          <Col span={22}>
+            <p>
+              Your request was viewed by several volunteers, but was not
+              accepted. We suggest you &ldquo;Close Request&rdquo; and create a
+              new one with a simpler description.
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} offset={12}>
+            <StyledButton
+              onClick={() => toCloseRequest()}
+              style={{ fontSize: '16px' }}
+            >
+              Close Request
+            </StyledButton>
+          </Col>
+        </Row>
+      </WarningMessage>
+    );
+  }
 
   if (displayDetails) {
     return (
@@ -150,39 +233,49 @@ const RequestItem: React.FC<RequestItemProps> = ({
   }
 
   return (
-    <Item onClick={handleRequestClick}>
-      <Text
-        style={{
-          width: '75%',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        <StyledTitle
-          style={{
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            color: 'rgba(0, 0, 0, 0.65)',
-          }}
+    <>
+      <Item style={{ marginBottom: '0px' }}>
+        <div
+          onClick={handleRequestClick}
+          style={{ display: 'flex', justifyContent: 'space-between' }}
         >
-          {request.title}
-        </StyledTitle>
-        <StyledText
-          style={{
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {request.description}
-        </StyledText>
-      </Text>
-      <UserPic
-        style={{
-          float: 'right',
-        }}
-        src={request.pinUserSnapshot.displayPicture || defaultUserPic}
-        alt="Profile pic"
-      />
-    </Item>
+          <Text
+            style={{
+              width: '75%',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <StyledTitle
+              style={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                color: 'rgba(0, 0, 0, 0.65)',
+              }}
+            >
+              {request.title}
+            </StyledTitle>
+            <StyledText
+              style={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {request.description}
+            </StyledText>
+          </Text>
+          {!hideUserPic && (
+            <UserPic
+              style={{
+                float: 'right',
+              }}
+              src={request.pinUserSnapshot.displayPicture || defaultUserPic}
+              alt="Profile pic"
+            />
+          )}
+        </div>
+      </Item>
+      {bottomWarningMessage}
+    </>
   );
 };
 

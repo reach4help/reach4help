@@ -1,6 +1,7 @@
 module.exports = {
   COLORS: {
     primary: '#a12596',
+    primaryDark: '#811e78',
     secondary: '#52c41a',
     secondaryHover: '#409913',
     secondaryLight: '#FFCB52',
@@ -12,6 +13,7 @@ module.exports = {
     success: '#52C41A',
     brandOrange: '#ff7b02',
     lightBlue: '#1890ff',
+    strokeCards: '#F0F0F0',
     rgb: {
       success: '82,196,26',
       primary: '24, 144, 255',
