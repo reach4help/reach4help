@@ -91,22 +91,20 @@ export interface RequestItemProps {
   request: Request;
   handleRequest: (action?: boolean) => void;
   isCavAndOpenRequest: boolean;
-  pendingOffersGiven?: Offer[];
-  cavDeclinedOffersGiven?: Offer[];
   hideUserPic?: boolean;
-  toCloseRequest: (action?: boolean) => void;
-  isPin?: boolean;
+  offers?: Record<string, Offer>;
+  toCloseRequest?: (action?: boolean) => void;
+  isPinAndOpenRequest?: boolean;
 }
 
 const RequestItem: React.FC<RequestItemProps> = ({
   request,
   handleRequest,
   isCavAndOpenRequest,
-  pendingOffersGiven,
-  cavDeclinedOffersGiven,
+  isPinAndOpenRequest = false,
+  offers = {},
   hideUserPic,
   toCloseRequest,
-  isPin,
 }): React.ReactElement => {
   const [displayDetails, toggleDetails] = useState(false);
 
@@ -118,62 +116,10 @@ const RequestItem: React.FC<RequestItemProps> = ({
     }
   };
 
-  if (pendingOffersGiven) {
-    return (
-      <Item onClick={handleRequestClick}>
-        <Text>
-          <StyledTitle style={{ color: 'rgba(0, 0, 0, 0.65)' }}>
-            {request.title}
-          </StyledTitle>
-          <StyledText style={{ marginBottom: '20px' }}>
-            {request.description}
-          </StyledText>
-          <StyledText
-            style={{
-              color: 'rgba(0, 0, 0, 0.45)',
-              fontSize: '12px',
-              marginBottom: '10px',
-            }}
-          >
-            Choose from the following volunteers to fulfill your request.
-          </StyledText>
-          <div style={{ display: 'flex' }}>
-            {pendingOffersGiven.slice(0, 4).map((offer, id) => (
-              <UserPic
-                key={id}
-                src={offer.cavUserSnapshot.displayPicture || defaultUserPic}
-                alt={offer.cavUserSnapshot.displayName || 'User offer'}
-              />
-            ))}
-            {pendingOffersGiven.length > 4 && (
-              <div
-                style={{
-                  width: '56px',
-                  height: '56px',
-                  margin: '5px',
-                  borderRadius: '105px',
-                  animation: 'fadeIn 0.75s',
-                  backgroundColor: '#C4C4C4',
-                  color: '#000000',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontFamily: 'Roboto, sans-serif',
-                  fontWeight: 'bold',
-                  fontSize: '18px',
-                }}
-              >{`+${pendingOffersGiven.length - 4}`}</div>
-            )}
-          </div>
-        </Text>
-      </Item>
-    );
-  }
-
   let bottomWarningMessage;
   if (
-    isPin &&
-    !cavDeclinedOffersGiven &&
+    isPinAndOpenRequest &&
+    !Object.keys(offers).length &&
     Date.now() - request.createdAt.toDate().getTime() > 1000 * 60 * 60 * 24 * 7
   ) {
     bottomWarningMessage = (
@@ -186,10 +132,10 @@ const RequestItem: React.FC<RequestItemProps> = ({
       </WarningMessage>
     );
   } else if (
-    isPin &&
-    ((cavDeclinedOffersGiven && cavDeclinedOffersGiven.length >= 5) ||
-      (cavDeclinedOffersGiven &&
-        cavDeclinedOffersGiven.length < 5 &&
+    isPinAndOpenRequest &&
+    toCloseRequest &&
+    (Object.keys(offers).length >= 5 ||
+      (Object.keys(offers).length < 5 &&
         Date.now() - request.createdAt.toDate().getTime() >
           1000 * 60 * 60 * 24 * 7))
   ) {

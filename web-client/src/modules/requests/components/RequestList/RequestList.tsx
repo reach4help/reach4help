@@ -4,28 +4,30 @@ import { Request } from 'src/models/requests';
 
 interface RequestListProps {
   requests?: Record<string, Request>;
+  offers?: Record<string, Record<string, Offer>>;
   loading: boolean;
   handleRequest?: Function;
-  isCavAndOpenRequest: boolean;
+  isCavAndOpenRequest?: boolean;
+  isPinAndOpenRequest?: boolean;
   RequestItem: React.FC<any>;
   pendingOffersGiven?: Record<string, Offer[]>;
   cavDeclinedOffersGiven?: Record<string, Offer[]>;
   hideUserPics?: boolean;
   toCloseRequest?: Function;
-  isPin?: boolean;
 }
 
 const RequestList: React.FC<RequestListProps> = ({
   requests,
+  offers = {},
   loading,
   handleRequest,
   isCavAndOpenRequest,
+  isPinAndOpenRequest,
   RequestItem,
   pendingOffersGiven,
   cavDeclinedOffersGiven,
   hideUserPics,
   toCloseRequest,
-  isPin,
 }): React.ReactElement => {
   const [requestList, setRequestList] = useState<React.ReactElement<any>[]>([]);
 
@@ -43,15 +45,11 @@ const RequestList: React.FC<RequestListProps> = ({
                 handleRequest && handleRequest(id, action)
               }
               isCavAndOpenRequest={isCavAndOpenRequest}
-              pendingOffersGiven={pendingOffersGiven && pendingOffersGiven[id]}
-              cavDeclinedOffersGiven={
-                cavDeclinedOffersGiven && cavDeclinedOffersGiven[id]
-              }
-              hideUserPic={hideUserPics}
+              isPinAndOpenRequest={isPinAndOpenRequest}
+              offers={offers[id]}
               toCloseRequest={(action?: boolean) =>
                 toCloseRequest && toCloseRequest(id, action)
               }
-              isPin={isPin}
             />,
           );
         }
@@ -61,13 +59,14 @@ const RequestList: React.FC<RequestListProps> = ({
     }
   }, [
     requests,
+    offers,
     handleRequest,
     isCavAndOpenRequest,
+    isPinAndOpenRequest,
     pendingOffersGiven,
     cavDeclinedOffersGiven,
     hideUserPics,
     toCloseRequest,
-    isPin,
   ]);
 
   // issue with indefinite loading, needs fix

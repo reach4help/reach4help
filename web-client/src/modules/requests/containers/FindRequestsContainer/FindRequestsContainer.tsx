@@ -128,7 +128,7 @@ const FindRequestsContainer: React.FC = () => {
   }, [pendingRequests]);
 
   useEffect(() => {
-    if (profileState.profile) {
+    if (profileState.profile && profileState.profile.applicationPreference) {
       const openRequestsSubscription = observeOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,

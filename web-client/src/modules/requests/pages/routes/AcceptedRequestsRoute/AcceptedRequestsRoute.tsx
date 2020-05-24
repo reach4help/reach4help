@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 
-import OpenRequestsContainer from '../../../containers/OpenRequestsContainer/OpenRequestsContainer';
+import AcceptedRequestsContainer from '../../../containers/AcceptedRequestsContainer/AcceptedRequestsContainer';
 
 const AcceptedRequestsRoute: React.FC = (): React.ReactElement => (
-  <OpenRequestsContainer />
+  <AcceptedRequestsContainer />
 );
 export default AcceptedRequestsRoute;
