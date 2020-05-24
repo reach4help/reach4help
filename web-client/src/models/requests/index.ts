@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsNotEmptyObject,
   IsObject,
+  IsOptional,
   IsString,
   Max,
   Min,
@@ -82,6 +83,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavUserRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
@@ -131,6 +133,7 @@ export class Request implements IRequest {
   }
 
   @ValidateNested()
+  @IsOptional()
   private _cavUserSnapshot: User | null;
 
   get cavUserSnapshot(): User | null {
@@ -215,6 +218,7 @@ export class Request implements IRequest {
     this._updatedAt = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -228,6 +232,7 @@ export class Request implements IRequest {
     this._pinRating = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -242,6 +247,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _pinRatedAt: firebase.firestore.Timestamp | null;
 
   get pinRatedAt(): firebase.firestore.Timestamp | null {
@@ -253,6 +259,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavRatedAt: firebase.firestore.Timestamp | null;
 
   get cavRatedAt(): firebase.firestore.Timestamp | null {
