@@ -4,7 +4,7 @@ import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 
 import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
-import { RequestFirestoreConverter, RequestStatus } from '../models/requests';
+import { IRequest, Request, RequestFirestoreConverter, RequestStatus } from '../models/requests';
 import { auth, db } from '../app';
 
 const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Promise<void[]> => {
@@ -69,11 +69,11 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
 };
 
 const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[]> => {
-  const offer = snap.data() as Offer;
+  const offer = Offer.factory(snap.data() as IOffer);
   const operations: Promise<void>[] = [];
 
   if (offer) {
-    const request = (await offer.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+    const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
 
     operations.push(
       (async (): Promise<void> => {
@@ -118,9 +118,7 @@ const validateOffer = (value: IOffer): Promise<void> => {
 
 export const offerCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateOffer(snapshot.data() as IOffer)
-    .then(() => {
-      return Promise.all([queueOfferCreationTriggers(snapshot)]);
-    })
+    .then(() => Promise.all([queueOfferCreationTriggers(snapshot)]))
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
       return db
