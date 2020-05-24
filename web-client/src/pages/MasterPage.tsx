@@ -43,6 +43,7 @@ const MasterPage = (): ReactElement => {
           pinUserRef: profileState.userRef,
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: profileState.privilegedInformation.address.coords,
+          streetAddress: 'This is a street address',
         }),
       );
     }
@@ -93,9 +94,10 @@ const MasterPage = (): ReactElement => {
       <Switch>
         {renderModules()}
         {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
-        <Route path="/" exact>
-          <Redirect to={RoleInfoLocation.path} />
-        </Route>
+        <ProtectedRoute
+          path="/"
+          component={() => <Redirect to={RoleInfoLocation.path} />}
+        />
         <Route path="*" component={NotFoundRoute} />
       </Switch>
     </Router>

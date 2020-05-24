@@ -17,6 +17,7 @@ export enum TimelineItemAction {
   CANCEL_REQUEST = 'CANCEL_REQUEST',
   REMOVE_REQUEST = 'REMOVE_REQUEST',
   COMPLETE_REQUEST = 'COMPLETE_REQUEST',
+  CAV_DECLINED = 'CAV_DECLINED',
   CREATE_OFFER = 'CREATE_OFFER',
   ACCEPT_OFFER = 'ACCEPT_OFFER',
   REJECT_OFFER = 'REJECT_OFFER',
@@ -183,9 +184,9 @@ export class TimelineItem implements ITimelineItem {
 
   toObject(): object {
     return {
-      actorRef: this.actorRef.path,
-      offerRef: this.offerRef ? this.offerRef.path : null,
-      requestRef: this.requestRef.path,
+      actorRef: this.actorRef,
+      offerRef: this.offerRef ? this.offerRef : null,
+      requestRef: this.requestRef,
       actorSnapshot: this.actorSnapshot.toObject(),
       offerSnapshot: this.offerSnapshot ? this.offerSnapshot.toObject() : null,
       requestSnapshot: this.requestSnapshot.toObject(),

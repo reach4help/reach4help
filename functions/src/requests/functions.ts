@@ -4,9 +4,10 @@ import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import * as moment from 'moment';
 
 import { indexRequest, removeRequestFromIndex } from '../algolia';
+import { db } from '../app';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { UserFirestoreConverter } from '../models/users';
-import { db } from '../app';
+import { queueTimelineItemTriggers } from '../shared/triggerFunctions';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
 const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefore: Request | null, requestAfter: Request | null) => {
@@ -161,7 +162,7 @@ const validateRequest = (value: IRequest): Promise<void> => {
 export const createRequest = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateRequest(snapshot.data() as IRequest)
     .then(() => {
-      return Promise.all([indexRequest(snapshot), queueCreateTriggers(snapshot)]);
+      return Promise.all([indexRequest(snapshot), queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>)]);
     })
     .catch(errors => {
       console.error('Invalid Request Found: ', errors);
@@ -178,7 +179,12 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
   return validateRequest(change.after.data() as IRequest)
     .then(() => {
-      return Promise.all([queueStatusUpdateTriggers(change), queueRatingUpdatedTriggers(change), indexRequest(change.after)]);
+      return Promise.all([
+        queueStatusUpdateTriggers(change),
+        queueRatingUpdatedTriggers(change),
+        indexRequest(change.after),
+        queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, change.after as DocumentSnapshot<Request>),
+      ]);
     })
     .catch(() => {
       return db

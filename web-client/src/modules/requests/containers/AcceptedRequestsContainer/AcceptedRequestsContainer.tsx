@@ -9,7 +9,7 @@ import { RequestState } from 'src/ducks/requests/types';
 import { Offer, OfferStatus } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
-import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
+import { TimelineAcceptedViewLocation } from 'src/modules/timeline/pages/routes/TimelineAcceptedViewRoute/constants';
 
 import AcceptedRequestItem from '../../components/AcceptedRequestItem/AcceptedRequestItem';
 import Header from '../../components/Header/Header';
@@ -86,7 +86,7 @@ const OpenRequestsContainer: React.FC = () => {
   }, [offersState, openRequests, profileState.profile, location, history]);
 
   const handleRequest: Function = id =>
-    history.push(TimelineViewLocation.toUrl({ requestId: id }));
+    history.push(TimelineAcceptedViewLocation.toUrl({ requestId: id }));
 
   return (
     <>
