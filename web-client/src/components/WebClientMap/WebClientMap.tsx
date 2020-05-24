@@ -4,11 +4,16 @@ import LargeOrangeMarkerIcon from '../../assets/map-marker-orange-lg.png';
 import SmallOrangeMarkerIcon from '../../assets/map-marker-orange-sm.png';
 import LargePurpleMarkerIcon from '../../assets/map-marker-purple-lg.png';
 
-export const OriginMarker: React.FC<Coords> = () => (
-  <div>
-    <img src={LargePurpleMarkerIcon} alt="My location" />
-  </div>
-);
+export const OriginMarker: React.FC<OriginMarkerProps> = props => {
+  return (
+    <div>
+      <img
+        src={props.isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
+        alt="My location"
+      />
+    </div>
+  );
+};
 
 export const DestinationMarker: React.FC<DestinationMarkerProps> = ({
   key,
@@ -63,6 +68,7 @@ const WebClientMap: React.FC<MapProps> = ({
   onGeocode,
   zoom = 11,
   height = '100%',
+  isCav = true,
 }) => {
   const [selectedDestination, setSelectedDestination] = useState<string>(
     'none',
@@ -111,6 +117,8 @@ const WebClientMap: React.FC<MapProps> = ({
   if (!apiKey) {
     return <>Could not obtain Google Maps API key</>;
   }
+  let centerMarkerProps = { ...origin, isCav };
+  console.log(centerMarkerProps);
   return (
     <>
       <div style={{ height: height, width: '100%' }}>
@@ -122,7 +130,7 @@ const WebClientMap: React.FC<MapProps> = ({
           defaultZoom={zoom}
           onGoogleApiLoaded={initGoogleMapServices}
         >
-          <OriginMarker {...origin} />
+          <OriginMarker {...centerMarkerProps} />
           {destinations.map(r => (
             <DestinationMarker
               key={r.id}
@@ -137,6 +145,10 @@ const WebClientMap: React.FC<MapProps> = ({
     </>
   );
 };
+
+interface OriginMarkerProps extends Coords {
+  isCav: boolean;
+}
 
 interface DestinationMarkerProps extends Coords {
   onClick: (id: string) => void;
@@ -161,6 +173,7 @@ interface MapProps {
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
   height?: string;
+  isCav?: boolean;
 }
 
 export default WebClientMap;

@@ -188,6 +188,7 @@ const FindRequestsContainer: React.FC = () => {
   return (
     <>
       <Map
+        isCav={true}
         destinations={requestsWithoutOffer}
         origin={currentLocation}
         onDestinationClickedHandler={id => onRequestHandler(id)}
