@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Map from '../../../../components/WebClientMap/WebClientMap';
@@ -7,7 +8,9 @@ import { VolunteerMarkerProps } from '../../../../components/WebClientMap/WebCli
 import { ProfileState } from '../../../../ducks/profile/types';
 import { setRequest } from '../../../../ducks/requests/actions';
 import { IUser } from '../../../../models/users';
-import NewRequest from '../../components/NewRequest/NewRequest';
+import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
+import NewRequest, { REQUEST_TYPES } from '../../components/NewRequest/NewRequest';
+import RequestReview, { RequestInput } from '../../components/NewRequest/RequestReview';
 
 const RequestDetails = styled.div`
   position: fixed;
@@ -17,6 +20,10 @@ const RequestDetails = styled.div`
 `;
 
 const NewRequestsContainer: React.FC = () => {
+  const history = useHistory();
+
+  const [requestInfo, setRequestInfo] = useState<RequestInput | undefined>(undefined);
+
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
@@ -53,10 +60,7 @@ const NewRequestsContainer: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const newRequestSubmitHandler = (
-    title: string,
-    body: string,
-  ) => {
+  const reviewRequestSubmitHandler = request => {
     if (
       profileState.profile &&
       profileState.userRef &&
@@ -64,8 +68,8 @@ const NewRequestsContainer: React.FC = () => {
     ) {
       dispatch(
         setRequest({
-          title,
-          description: body,
+          title: request.title,
+          description: request.description,
           pinUserRef: profileState.userRef,
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: profileState.privilegedInformation.address.coords,
@@ -74,20 +78,48 @@ const NewRequestsContainer: React.FC = () => {
     }
   };
 
-  const onCancel = () => (
-    <RequestDetails>
-      <div>Request review component</div>
-    </RequestDetails>
-  );
+  const newRequestSubmitHandler = (
+    title: string,
+    body: string,
+    address: string,
+  ) => {
+    setRequestInfo({
+      title,
+      address,
+      description: body,
+    });
+  };
 
-  const newRequest = () => (
-    <RequestDetails>
-      <NewRequest
-        createRequest={newRequestSubmitHandler}
-        onCancel={onCancel}
-      />
-    </RequestDetails>
-  );
+  const onGoBack = () => setRequestInfo(undefined);
+
+  const maybeNewRequest = () => {
+    if (!requestInfo) {
+      return (
+        <RequestDetails>
+          <NewRequest
+            onSubmit={newRequestSubmitHandler}
+            onCancel={() => history.push(RoleInfoLocation.path)}
+          />
+        </RequestDetails>
+      );
+    }
+  };
+
+  const maybeRequestReview = () => {
+    if (requestInfo) {
+      const details: RequestInput = { ...requestInfo };
+      details.title = REQUEST_TYPES[requestInfo.title];
+      return (
+        <RequestDetails>
+          <RequestReview
+            request={details}
+            saveRequest={() => reviewRequestSubmitHandler(requestInfo)}
+            goBack={onGoBack}
+          />
+        </RequestDetails>
+      );
+    }
+  };
   return (
     <>
       <Map
@@ -95,7 +127,8 @@ const NewRequestsContainer: React.FC = () => {
         volunteerLocation={currentLocation}
         onRequestHandler={() => 'test'}
       />
-      {newRequest()}
+      {maybeNewRequest()}
+      {maybeRequestReview()}
     </>
   );
 };
