@@ -1,11 +1,10 @@
-import { firestore } from 'firebase';
-import GoogleMapReact from 'google-map-react';
+import GoogleMapReact, { Coords } from 'google-map-react';
 import React, { useState, useEffect } from 'react';
 import LargeOrangeMarkerIcon from '../../assets/map-marker-orange-lg.png';
 import SmallOrangeMarkerIcon from '../../assets/map-marker-orange-sm.png';
 import LargePurpleMarkerIcon from '../../assets/map-marker-purple-lg.png';
 
-export const OriginMarker: React.FC<OriginMarkerProps> = () => (
+export const OriginMarker: React.FC<Coords> = () => (
   <div>
     <img src={LargePurpleMarkerIcon} alt="My location" />
   </div>
@@ -92,7 +91,7 @@ const WebClientMap: React.FC<MapProps> = ({
             const lat = result[0].geometry.location.lat();
             const lng = result[0].geometry.location.lng();
             onGeocode({
-              strAddress: result[0].formatted_address,
+              address: result[0].formatted_address,
               latLng: { lat, lng },
             });
           }
@@ -138,13 +137,7 @@ const WebClientMap: React.FC<MapProps> = ({
   );
 };
 
-/* replace with Firebase.GeoPoint {latitude, longitude} */
-export interface OriginMarkerProps {
-  lat: number;
-  lng: number;
-}
-
-interface DestinationMarkerProps extends OriginMarkerProps {
+interface DestinationMarkerProps extends Coords {
   onClick: (id: string) => void;
   key: string;
   selected?: boolean;
@@ -163,7 +156,7 @@ interface MapProps {
     lng: number;
   };
   geocodingAddress?: string;
-  onGeocode?: ({ strAddress: string, latLng: OriginMarkerProps }) => void;
+  onGeocode?: ({ address: string, latLng: Coords }) => void;
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
 }

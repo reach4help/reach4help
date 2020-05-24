@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-
-import Map, {
-  OriginMarkerProps,
-} from '../../../../components/WebClientMap/WebClientMap';
+import { Coords } from 'google-map-react';
+import Map from '../../../../components/WebClientMap/WebClientMap';
 import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
 import { ProfileState } from '../../../../ducks/profile/types';
@@ -17,7 +15,7 @@ import { ApplicationPreference } from '../../../../models/users';
 import RequestItem from '../../components/RequestItem/RequestItem';
 
 interface MapRequestProps {
-  center: OriginMarkerProps;
+  center: Coords;
   id: string;
 }
 
@@ -39,20 +37,19 @@ const FindRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const [currentLocation, setCurrentLocation] = useState<OriginMarkerProps>(
-    () =>
-      profileState &&
-      profileState.privilegedInformation &&
-      profileState.privilegedInformation.address &&
-      profileState.privilegedInformation.address.coords
-        ? {
-            lat: profileState.privilegedInformation.address.coords.latitude,
-            lng: profileState.privilegedInformation.address.coords.longitude,
-          }
-        : {
-            lat: 13.4124693,
-            lng: 103.8667,
-          },
+  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
+    profileState &&
+    profileState.privilegedInformation &&
+    profileState.privilegedInformation.address &&
+    profileState.privilegedInformation.address.coords
+      ? {
+          lat: profileState.privilegedInformation.address.coords.latitude,
+          lng: profileState.privilegedInformation.address.coords.longitude,
+        }
+      : {
+          lat: 13.4124693,
+          lng: 103.8667,
+        },
   );
 
   const [requestsWithoutOffer, setRequestsWithoutOffer] = useState<

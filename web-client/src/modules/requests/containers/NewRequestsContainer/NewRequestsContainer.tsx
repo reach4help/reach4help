@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-
-import Map, {
-  OriginMarkerProps,
-} from '../../../../components/WebClientMap/WebClientMap';
+import { Coords } from 'google-map-react';
+import Map from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { setRequest } from '../../../../ducks/requests/actions';
 import { IUser } from '../../../../models/users';
@@ -45,20 +43,19 @@ const NewRequestsContainer: React.FC = () => {
       ? profileState.privilegedInformation.addressFromGoogle.formatted_address
       : 'Address could not be found',
   );
-  const [currentLocation, setCurrentLocation] = useState<OriginMarkerProps>(
-    () =>
-      profileState &&
-      profileState.privilegedInformation &&
-      profileState.privilegedInformation.address &&
-      profileState.privilegedInformation.address.coords
-        ? {
-            lat: profileState.privilegedInformation.address.coords.latitude,
-            lng: profileState.privilegedInformation.address.coords.longitude,
-          }
-        : {
-            lat: 13.4124693,
-            lng: 103.8667,
-          },
+  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
+    profileState &&
+    profileState.privilegedInformation &&
+    profileState.privilegedInformation.address &&
+    profileState.privilegedInformation.address.coords
+      ? {
+          lat: profileState.privilegedInformation.address.coords.latitude,
+          lng: profileState.privilegedInformation.address.coords.longitude,
+        }
+      : {
+          lat: 13.4124693,
+          lng: 103.8667,
+        },
   );
 
   navigator.geolocation.getCurrentPosition(
@@ -107,8 +104,8 @@ const NewRequestsContainer: React.FC = () => {
     });
   };
 
-  const setGeocodedLocation = ({ strAddress, latLng }) => {
-    setStreetAddress(strAddress);
+  const setGeocodedLocation = ({ address, latLng }) => {
+    setStreetAddress(address);
     setCurrentLocation(latLng);
   };
 
