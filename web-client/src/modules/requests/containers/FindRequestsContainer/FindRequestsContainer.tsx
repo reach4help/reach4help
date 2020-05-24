@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { VolunteerMarkerProps } from '../../../../components/WebClientMap/WebClientMarker';
+import Map, {
+  OriginMarkerProps,
+} from '../../../../components/WebClientMap/WebClientMap';
 import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
 import { ProfileState } from '../../../../ducks/profile/types';
@@ -16,7 +17,7 @@ import { ApplicationPreference } from '../../../../models/users';
 import RequestItem from '../../components/RequestItem/RequestItem';
 
 interface MapRequestProps {
-  center: VolunteerMarkerProps;
+  center: OriginMarkerProps;
   id: string;
 }
 
@@ -38,7 +39,7 @@ const FindRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>(
+  const [currentLocation, setCurrentLocation] = useState<OriginMarkerProps>(
     () =>
       profileState &&
       profileState.privilegedInformation &&
@@ -190,9 +191,9 @@ const FindRequestsContainer: React.FC = () => {
   return (
     <>
       <Map
-        requests={requestsWithoutOffer}
-        volunteerLocation={currentLocation}
-        onRequestHandler={id => onRequestHandler(id)}
+        destinations={requestsWithoutOffer}
+        origin={currentLocation}
+        onDestinationClickedHandler={id => onRequestHandler(id)}
       />
       {maybeRequestDetails()}
     </>

@@ -56,7 +56,13 @@ const StyledButton = styled(Button)`
   text-overflow: ellipsis;
 `;
 
-const NewRequest: React.FC<NewRequestProps> = ({ createRequest, onCancel }) => {
+const NewRequest: React.FC<NewRequestProps> = ({
+  createRequest,
+  onCancel,
+  streetAddress,
+  setStreetAddress,
+  setMapAddress,
+}) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
@@ -75,7 +81,13 @@ const NewRequest: React.FC<NewRequestProps> = ({ createRequest, onCancel }) => {
                 fontSize: '1rem',
               }}
             />
-            No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+            <input
+              value={streetAddress}
+              onChange={e => setStreetAddress(e.target.value)}
+            />
+            <button onClick={() => setMapAddress(streetAddress)}>
+              find new address
+            </button>
           </Descriptions.Item>
         </Descriptions>
         {/* There is a bug with types regarding onFinish - apparently an issue with @types and antd types
@@ -118,6 +130,9 @@ const NewRequest: React.FC<NewRequestProps> = ({ createRequest, onCancel }) => {
 interface NewRequestProps {
   createRequest: Function;
   onCancel: Function;
+  streetAddress: string;
+  setStreetAddress: (string) => void;
+  setMapAddress: (string) => void;
 }
 
 export default NewRequest;

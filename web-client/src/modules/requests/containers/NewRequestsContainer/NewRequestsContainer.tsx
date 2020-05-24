@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { VolunteerMarkerProps } from '../../../../components/WebClientMap/WebClientMarker';
+import Map, {
+  OriginMarkerProps,
+} from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { setRequest } from '../../../../ducks/requests/actions';
 import { IUser } from '../../../../models/users';
@@ -21,20 +22,30 @@ const NewRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>(
+  const [mapAddress, setMapAddress] = useState<string>();
+
+  const [streetAddress, setStreetAddress] = useState<string>(() =>
+    profileState &&
+    profileState.privilegedInformation &&
+    profileState.privilegedInformation.address &&
+    profileState.privilegedInformation.addressFromGoogle.formatted_address
+      ? profileState.privilegedInformation.addressFromGoogle.formatted_address
+      : 'Address could not be found',
+  );
+  const [currentLocation, setCurrentLocation] = useState<OriginMarkerProps>(
     () =>
       profileState &&
       profileState.privilegedInformation &&
       profileState.privilegedInformation.address &&
       profileState.privilegedInformation.address.coords
         ? {
-          lat: profileState.privilegedInformation.address.coords.latitude,
-          lng: profileState.privilegedInformation.address.coords.longitude,
-        }
+            lat: profileState.privilegedInformation.address.coords.latitude,
+            lng: profileState.privilegedInformation.address.coords.longitude,
+          }
         : {
-          lat: 13.4124693,
-          lng: 103.8667,
-        },
+            lat: 13.4124693,
+            lng: 103.8667,
+          },
   );
 
   navigator.geolocation.getCurrentPosition(
@@ -53,10 +64,7 @@ const NewRequestsContainer: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const newRequestSubmitHandler = (
-    title: string,
-    body: string,
-  ) => {
+  const newRequestSubmitHandler = (title: string, body: string) => {
     if (
       profileState.profile &&
       profileState.userRef &&
@@ -80,22 +88,28 @@ const NewRequestsContainer: React.FC = () => {
     </RequestDetails>
   );
 
-  const newRequest = () => (
-    <RequestDetails>
-      <NewRequest
-        createRequest={newRequestSubmitHandler}
-        onCancel={onCancel}
-      />
-    </RequestDetails>
-  );
+  const setGeocodedLocation = ({ streetAddress, latLng }) => {
+    setStreetAddress(streetAddress);
+    setCurrentLocation(latLng);
+  };
+
   return (
     <>
       <Map
-        requests={[]}
-        volunteerLocation={currentLocation}
-        onRequestHandler={() => 'test'}
+        destinations={[]}
+        origin={currentLocation}
+        onGeocode={setGeocodedLocation}
+        geocodingAddress={mapAddress}
       />
-      {newRequest()}
+      <RequestDetails>
+        <NewRequest
+          createRequest={newRequestSubmitHandler}
+          onCancel={onCancel}
+          streetAddress={streetAddress}
+          setStreetAddress={setStreetAddress}
+          setMapAddress={setMapAddress}
+        />
+      </RequestDetails>
     </>
   );
 };
