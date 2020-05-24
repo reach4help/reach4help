@@ -62,6 +62,7 @@ const WebClientMap: React.FC<MapProps> = ({
   geocodingAddress,
   onGeocode,
   zoom = 11,
+  height = '100%',
 }) => {
   const [selectedDestination, setSelectedDestination] = useState<string>(
     'none',
@@ -112,7 +113,7 @@ const WebClientMap: React.FC<MapProps> = ({
   }
   return (
     <>
-      <div style={{ height: '30vh', width: '100%' }}>
+      <div style={{ height: height, width: '100%' }}>
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
@@ -159,6 +160,7 @@ interface MapProps {
   onGeocode?: ({ address: string, latLng: Coords }) => void;
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
+  height?: string;
 }
 
 export default WebClientMap;

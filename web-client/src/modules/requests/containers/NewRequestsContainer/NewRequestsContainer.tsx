@@ -150,6 +150,7 @@ const NewRequestsContainer: React.FC = () => {
         origin={currentLocation}
         onGeocode={setGeocodedLocation}
         geocodingAddress={mapAddress}
+        height="40vh"
       />
 
       {maybeNewRequest()}
