@@ -1,14 +1,28 @@
 import { firestore } from 'firebase';
 import GoogleMapReact from 'google-map-react';
 import React, { useState, useEffect } from 'react';
+import LargeOrangeMarkerIcon from '../../assets/map-marker-orange-lg.png';
+import SmallOrangeMarkerIcon from '../../assets/map-marker-orange-sm.png';
+import LargePurpleMarkerIcon from '../../assets/map-marker-purple-lg.png';
 
-import {
-  RequestMarker,
-  VolunteerMarker,
-  VolunteerMarkerProps,
-} from './WebClientMarker';
+export const OriginMarker: React.FC<OriginMarkerProps> = () => (
+  <div>
+    <img src={LargePurpleMarkerIcon} alt="My location" />
+  </div>
+);
 
-const NO_STREET_ADDRESS = 'No Street Address';
+export const DestinationMarker: React.FC<DestinationMarkerProps> = ({
+  key,
+  selected,
+  onClick,
+}) => (
+  <div onClick={() => onClick(key)}>
+    <img
+      src={selected ? LargeOrangeMarkerIcon : SmallOrangeMarkerIcon}
+      alt="Destination"
+    />
+  </div>
+);
 
 declare global {
   interface Window {
@@ -43,47 +57,22 @@ const createMapOptions = maps => ({
 });
 
 const WebClientMap: React.FC<MapProps> = ({
-  requests,
-  volunteerLocation,
-  onRequestHandler,
+  destinations,
+  origin = { lat: 0, lng: 0 },
+  onDestinationClickedHandler,
+  geocodingAddress,
+  onGeocode,
   zoom = 11,
 }) => {
-  const [selectedRequest, setSelectedRequest] = useState<string>('none');
+  const [selectedDestination, setSelectedDestination] = useState<string>(
+    'none',
+  );
+
+  // google services
   const [DirectionsService, setDirectionsService] = useState<any | undefined>(
     undefined,
   );
-  const [center, setCenter] = useState<VolunteerMarkerProps>();
   const [Geocoder, setGeocoder] = useState<any | undefined>(undefined);
-  const [streetAddress, setStreetAddress] = useState<string>(NO_STREET_ADDRESS);
-  const [doLocationSearch, setDoLocationSearch] = useState<boolean>(false);
-
-  useEffect(() => {
-    function geocodeCallback(result) {
-      if (result && result.length) {
-        console.log(
-          'street address',
-          result[0].geometry.location,
-          result[0].geometry.location.lat(),
-          result[0].geometry.location.lng(),
-          result[0].formatted_address,
-        );
-        //        debugger;
-        //        setCenter(result[0].geometry.location);
-        setStreetAddress(result[0].formatted_address);
-        setDoLocationSearch(false);
-      }
-    }
-    if (!Geocoder) {
-      console.log('no geocoder', volunteerLocation, Geocoder);
-    } else {
-      if (streetAddress === NO_STREET_ADDRESS) {
-        Geocoder.geocode({ location: volunteerLocation }, geocodeCallback);
-      } else {
-        Geocoder.geocode({ address: streetAddress }, geocodeCallback);
-      }
-    }
-  }, [Geocoder, doLocationSearch]);
-
   const initGoogleMapServices = ({ maps }) => {
     if (typeof DirectionsService === 'undefined') {
       setDirectionsService(new maps.DirectionsService());
@@ -92,77 +81,55 @@ const WebClientMap: React.FC<MapProps> = ({
       setGeocoder(new maps.Geocoder());
     }
   };
-  const requestClickedHandler = id => {
-    setSelectedRequest(id);
-    onRequestHandler(id);
-    //  findDistanceToRequest(id);
+
+  useEffect(() => {
+    if (!Geocoder) {
+      console.log('no geocoder', origin, Geocoder);
+    } else if (geocodingAddress) {
+      Geocoder.geocode({ address: geocodingAddress }, result => {
+        if (result && result.length) {
+          if (onGeocode) {
+            const lat = result[0].geometry.location.lat();
+            const lng = result[0].geometry.location.lng();
+            onGeocode({
+              streetAddress: result[0].formatted_address,
+              latLng: { lat, lng },
+            });
+          }
+        }
+      });
+    }
+  }, [Geocoder, geocodingAddress]);
+
+  const destinationClickedHandler = id => {
+    setSelectedDestination(id);
+    if (onDestinationClickedHandler) {
+      onDestinationClickedHandler(id);
+    }
   };
 
   if (!apiKey) {
-    return <>Couldnt obtain API KEY</>;
+    return <>Could not obtain Google Maps API key</>;
   }
-
-  if (volunteerLocation && !isNaN(volunteerLocation.lat)) {
-    console.log('oooooo center', center);
-    //setCenter(volunteerLocation);
-  }
-  console.log(
-    'center',
-    center,
-    volunteerLocation,
-    !isNaN(volunteerLocation.lat),
-  );
   return (
     <>
-      <div
-        style={{
-          opacity: 1,
-          border: '1px solid black',
-          backgroundColor: 'white',
-        }}
-      >
-        <div>
-          {' '}
-          Current Address
-          <input
-            onChange={e => {
-              setStreetAddress(e.target.value);
-            }}
-            value={streetAddress}
-          />
-          <div
-            style={{ backgroundColor: 'blue', color: 'white' }}
-            onClick={() => {
-              setDoLocationSearch(true);
-            }}
-          >
-            Search Again
-          </div>
-          <div
-            style={{ backgroundColor: 'green', color: 'white' }}
-            onClick={() => alert(`submitted ${streetAddress}`)}
-          >
-            Submit Address
-          </div>
-        </div>
-      </div>
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div style={{ height: '30vh', width: '100%' }}>
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
           options={createMapOptions}
-          center={volunteerLocation}
+          center={origin}
           defaultZoom={zoom}
           onGoogleApiLoaded={initGoogleMapServices}
         >
-          <VolunteerMarker {...volunteerLocation} />
-          {requests.map(r => (
-            <RequestMarker
+          <OriginMarker {...origin} />
+          {destinations.map(r => (
+            <DestinationMarker
               key={r.id}
-              selected={r.id === selectedRequest}
+              selected={r.id === selectedDestination}
               lat={r.center.lat}
               lng={r.center.lng}
-              onClick={() => requestClickedHandler(r.id)}
+              onClick={() => destinationClickedHandler(r.id)}
             />
           ))}
         </GoogleMapReact>
@@ -171,19 +138,33 @@ const WebClientMap: React.FC<MapProps> = ({
   );
 };
 
+/* replace with Firebase.GeoPoint {latitude, longitude} */
+export interface OriginMarkerProps {
+  lat: number;
+  lng: number;
+}
+
+interface DestinationMarkerProps extends OriginMarkerProps {
+  onClick: (id: string) => void;
+  key: string;
+  selected?: boolean;
+}
+
 interface MapProps {
-  requests: {
+  destinations: {
     center: {
       lat: number;
       lng: number;
     };
     id: string;
   }[];
-  volunteerLocation: {
+  origin?: {
     lat: number;
     lng: number;
   };
-  onRequestHandler: (id: string) => void;
+  geocodingAddress?: string;
+  onGeocode?: ({ streetAddress: string, latLng: OriginMarkerProps }) => void;
+  onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
 }
 
