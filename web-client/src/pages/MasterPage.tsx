@@ -12,7 +12,7 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { changeModal, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IUser } from 'src/models/users';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
 
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
@@ -94,7 +94,7 @@ const MasterPage = (): ReactElement => {
         {renderModules()}
         {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
         <Route path="/" exact>
-          <Redirect to={OpenRequestsLocation.path} />
+          <Redirect to={RoleInfoLocation.path} />
         </Route>
         <Route path="*" component={NotFoundRoute} />
       </Switch>

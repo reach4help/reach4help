@@ -14,13 +14,14 @@ const HeaderContainer = styled(Headroom)`
   width: 100%;
 
   .logo {
-    opacity: 0;
+    opacity: 1;
   }
 
   .headroom--pinned {
     background: ${props => props.theme.colors.primaryDark};
 
     .logo {
+      width: 25px;
       opacity: 1;
     }
   }
@@ -56,7 +57,7 @@ const Header = () => (
           {({ allLinks }) => {
             const { home, links } = formatLinks(allLinks);
 
-            const homeLink = home && (
+            const homeLogo = home && (
               <Image
                 className="logo"
                 src={logo}
@@ -66,6 +67,14 @@ const Header = () => (
                 style={{
                   cursor: 'pointer',
                 }}
+              />
+            );
+            const homeLink = home && (
+              <RouteLink
+                onClick={() => {
+                  window.location.href = '/';
+                }}
+                name="Home"
               />
             );
             const navLinks = links.map(({ name, value }) => (
@@ -79,8 +88,9 @@ const Header = () => (
 
             return (
               <Fragment>
-                {homeLink}
+                {homeLogo}
                 <Flex mr={[0, 3, 5]}>
+                  {homeLink}
                   <RouteLink
                     onClick={() => {
                       window.location.href = 'https://map.reach4help.org';

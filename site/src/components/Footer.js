@@ -64,6 +64,10 @@ const Footer = () => (
                 >
                   Code of Conduct
                 </Link>
+                <span> | </span>
+                <Link py={16} fontSize={[1, 2]} href="/privacy">
+                  Privacy Policy
+                </Link>
               </TextFooter>
             </Fade>
             <Flex>
