@@ -118,8 +118,10 @@ const validateOffer = (value: IOffer): Promise<void> => {
 };
 
 export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: EventContext) => {
-  return validateOffer(snapshot.data()?.toObject() as IOffer)
-    .then(() => Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>)]))
+  return validateOffer(snapshot.data() as IOffer)
+    .then(() =>
+      Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer')]),
+    )
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
       return db
@@ -133,11 +135,11 @@ export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: Event
 };
 
 export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context: EventContext) => {
-  return validateOffer(change.after.data()?.toObject() as IOffer)
+  return validateOffer(change.after.data() as IOffer)
     .then(() => {
       return Promise.all([
         queueStatusUpdateTriggers(change),
-        queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, change.after as firestore.DocumentSnapshot<Offer>),
+        queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, 'offer', change.after as firestore.DocumentSnapshot<Offer>),
       ]);
     })
     .catch(errors => {

@@ -28,15 +28,18 @@ const StyledButton = styled(Button)`
 interface PhoneNumberEntryFormProps {
   handleFormSubmit: Function;
   loading: boolean;
+  reset: boolean;
 }
 
 const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   handleFormSubmit,
   loading,
+  reset,
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [recaptchaVerifier, setRecaptchaVerifier] = useState({});
+  const [resetState, setResetState] = useState(false);
 
   useEffect(() => {
     const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
@@ -44,6 +47,31 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     });
     setRecaptchaVerifier(appVerifier);
   }, []);
+
+  // TODO: FIND A BETTER SOLUTION TO RESET RECAPTCHA
+  useEffect(() => {
+    if (reset) {
+      setRecaptchaVerifier({});
+      setResetState(true);
+    }
+  }, [reset]);
+
+  useEffect(() => {
+    if (resetState) {
+      setResetState(false);
+      form.resetFields();
+    } else if (reset) {
+      const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
+        size: 'invisible',
+      });
+      setRecaptchaVerifier(appVerifier);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetState]);
+
+  if (resetState) {
+    return <></>;
+  }
 
   return (
     <Form
@@ -55,7 +83,10 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       layout="vertical"
       form={form}
       onFinish={({ phoneNumber }) => {
-        handleFormSubmit({ phoneNumber }, recaptchaVerifier);
+        handleFormSubmit(
+          { phoneNumber: phoneNumber.replace(/\s/g, '') },
+          recaptchaVerifier,
+        );
       }}
     >
       <Description>{t('phoneNumber.sub_title')}</Description>
@@ -67,9 +98,22 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
             required: true,
             message: t('phoneNumber.error_message'),
           },
+          {
+            validator: (_, value) =>
+              value.length < 11
+                ? Promise.resolve()
+                : // eslint-disable-next-line no-useless-escape
+                /[~`!#$%\^&*=\-\[\]\\';\s,/(){}|\\":<>\?]/g.test(value)
+                ? Promise.reject(t('phoneNumber.phone_valid'))
+                : Promise.resolve(),
+          },
+          {
+            min: 11,
+            message: t('phoneNumber.phone_valid'),
+          },
         ]}
       >
-        <StyledInput placeholder="+0 000 000 000 000" maxLength={14} />
+        <StyledInput placeholder="+0000000000000" maxLength={14} />
       </Form.Item>
       <Info>{t('phoneNumber.info')}</Info>
       <Form.Item>
