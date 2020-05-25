@@ -23,28 +23,6 @@ const MasterPage = (): ReactElement => {
 
   const dispatch = useDispatch();
 
-<<<<<<< HEAD
-=======
-  const newRequestSubmitHandler = (title: string, body: string) => {
-    if (
-      profileState.profile &&
-      profileState.userRef &&
-      profileState.privilegedInformation
-    ) {
-      dispatch(
-        setRequest({
-          title,
-          description: body,
-          pinUserRef: profileState.userRef,
-          pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: profileState.privilegedInformation.address.coords,
-          streetAddress: 'This is a street address',
-        }),
-      );
-    }
-  };
-
->>>>>>> development
   const renderLayout = routeModule => {
     if (routeModule.layout === 'dashboard' && userProfile) {
       return (
