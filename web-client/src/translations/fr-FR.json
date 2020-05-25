@@ -22,7 +22,8 @@
     "phoneNumber": {
       "sub_title": "Entrez votre numéro de téléphone pour commencer",
       "info": "Ces informations sont essentielles pour valider votre compte. Des frais de données peuvent être appliqués par votre opérateur.",
-      "error_message": "Veuillez saisir votre numéro de téléphone !"
+      "error_message": "Veuillez saisir votre numéro de téléphone !",
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
     },
     "verificationCode": {
       "sub_title": "Nous venons de vous envoyer un code de confirmation par SMS. Veuillez le saisir ci-dessous.",
