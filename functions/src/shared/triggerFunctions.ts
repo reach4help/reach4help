@@ -23,10 +23,11 @@ const statusToActionMapperOffer = {
 
 export const queueTimelineItemTriggers = async (
   before: firestore.DocumentSnapshot<Offer | Request>,
+  type: 'offer' | 'request',
   after?: firestore.DocumentSnapshot<Offer | Request>,
 ): Promise<void> => {
-  let entity: Offer | Request | undefined;
-  let snap: firestore.DocumentSnapshot<Offer | Request> | undefined;
+  let entity: any;
+  let snap: any;
 
   if (after) {
     entity = after.data();
@@ -40,17 +41,23 @@ export const queueTimelineItemTriggers = async (
     let user: User | undefined;
     let userRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | undefined;
 
-    if (entity instanceof Offer) {
+    if (entity instanceof Offer || type === 'offer') {
+      console.log('an offer alright');
+      console.log('entity.status: ', entity.status);
       if (entity.status === OfferStatus.pending || entity.status === OfferStatus.cavDeclined) {
+        console.log('entity.cavUserSnapshot: ', entity.cavUserSnapshot);
         user = entity.cavUserSnapshot;
         userRef = entity.cavUserRef;
       } else if (entity.status === OfferStatus.accepted || entity.status === OfferStatus.rejected) {
         const tempRequest = (await entity.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+        console.log('tempRequest: ', tempRequest);
         if (tempRequest) {
+          console.log('tempRequest.pinUserSnampshot: ', tempRequest.pinUserSnapshot);
           user = tempRequest.pinUserSnapshot;
           userRef = tempRequest.pinUserRef;
         }
       } else {
+        console.log('the most unthinkable');
         user = undefined;
         userRef = undefined;
       }
@@ -64,20 +71,28 @@ export const queueTimelineItemTriggers = async (
       }
     }
 
+    console.log('user: ', user);
+    console.log('userRef: ', userRef);
+    console.log('entity: ', entity);
+
     if (snap) {
+      // await Promise.resolve();
       await db
         .collection('requests')
-        .doc(snap.id)
+        .doc(type === 'offer' ? entity.requestRef.id : snap.id)
         .collection('timeline')
         .doc()
         .set({
           actorRef: userRef,
-          offerRef: entity instanceof Offer ? snap.id : null,
-          requestRef: entity instanceof Offer ? entity.requestRef : snap.id,
+          offerRef: entity instanceof Offer || type === 'offer' ? db.collection('offers').doc(snap.id) : null,
+          requestRef: entity instanceof Offer || type === 'offer' ? entity.requestRef : db.collection('requests').doc(snap.id),
           actorSnapshot: user,
-          offerSnapshot: entity instanceof Offer ? entity : null,
-          requestSnapshot: entity instanceof Offer ? await entity.requestRef.withConverter(RequestFirestoreConverter).get() : entity,
-          action: entity instanceof Offer ? statusToActionMapperOffer[entity.status] : statusToActionMapperRequest[entity.status],
+          offerSnapshot: entity instanceof Offer || type === 'offer' ? entity : null,
+          requestSnapshot: entity instanceof Offer || type === 'offer' ? (await entity.requestRef.get()).data() : entity,
+          action:
+            entity instanceof Offer || type === 'offer'
+              ? statusToActionMapperOffer[entity.status as OfferStatus]
+              : statusToActionMapperRequest[entity.status as RequestStatus],
           createdAt: new Date(),
         });
     }
