@@ -1,5 +1,5 @@
 import { firestore } from 'firebase';
-import { IsObject, IsString } from 'class-validator';
+import { IsObject, IsOptional, IsString } from 'class-validator';
 
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import Timestamp = firestore.Timestamp;
@@ -23,7 +23,7 @@ export interface IPrivilegedUserInformation extends DocumentData {
   termsVersion: string;
   privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   privacyVersion: string;
-  sendNotifications: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
+  sendNotifications: Timestamp | null; // acts as a timestamp of when and as a boolean: if accepted it exists.
 }
 
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
@@ -34,7 +34,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     privacyVersion: string,
     termsAccepted: Timestamp,
     termsVersion: string,
-    sendNotifications: Timestamp,
+    sendNotifications: Timestamp | null,
   ) {
     this._addressFromGoogle = addressFromGoogle;
     this._address = address;
@@ -112,13 +112,14 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _sendNotifications: Timestamp;
+  @IsOptional()
+  private _sendNotifications: Timestamp | null;
 
-  get sendNotifications(): Timestamp {
+  get sendNotifications(): Timestamp | null {
     return this._sendNotifications;
   }
 
-  set sendNotifications(value: Timestamp) {
+  set sendNotifications(value: Timestamp | null) {
     this._sendNotifications = value;
   }
 
@@ -150,7 +151,5 @@ export const PrivilegedUserInformationFirestoreConverter: FirestoreDataConverter
   fromFirestore: (data: QueryDocumentSnapshot<IPrivilegedUserInformation>): PrivilegedUserInformation => {
     return PrivilegedUserInformation.factory(data.data());
   },
-  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => {
-    return modelObject.toObject();
-  },
+  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => modelObject.toObject(),
 };

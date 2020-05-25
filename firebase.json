@@ -42,6 +42,21 @@
       ]
     },
     {
+      "target": "site",
+      "public": "site/public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
       "public": "api/public",
       "target": "api",
       "ignore": [

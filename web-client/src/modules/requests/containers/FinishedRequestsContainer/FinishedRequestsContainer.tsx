@@ -26,7 +26,11 @@ const CompletedRequestsContainer: React.FC = () => {
   );
 
   useEffect(() => {
-    if (profileState.profile && profileState.userRef) {
+    if (
+      profileState.profile &&
+      profileState.userRef &&
+      profileState.profile.applicationPreference
+    ) {
       return observeNonOpenRequests(dispatch, {
         userRef: profileState.userRef,
         userType: profileState.profile.applicationPreference,

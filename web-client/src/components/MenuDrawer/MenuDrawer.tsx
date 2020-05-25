@@ -14,6 +14,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
   menuItems,
   profileData,
   logoutHandler,
+  isCav,
 }) => (
   <SideDrawer
     placement="left"
@@ -22,8 +23,12 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
     visible={visible}
     width="100%"
   >
-    <SideDrawerProfile profileData={profileData} />
-    <SideDrawerMenu items={menuItems || []} closeDrawer={closeDrawer} />
+    <SideDrawerProfile profileData={profileData} isCav={isCav} />
+    <SideDrawerMenu
+      items={menuItems || []}
+      closeDrawer={closeDrawer}
+      isCav={isCav}
+    />
     <BottomLinks>
       <Link to={{ pathname: '/' }} onClick={closeDrawer}>
         <MailOutlined />
@@ -75,6 +80,7 @@ interface MenuDrawerProps {
   menuItems?: Array<MenuItem>;
   profileData?: User;
   logoutHandler: Function;
+  isCav?: boolean;
 }
 
 export default MenuDrawer;
