@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-import { IUser, User, UserFirestoreConverter } from '../users';
+import { IUser, User } from '../users';
 
 export enum OfferStatus {
   pending = 'pending',
@@ -176,13 +176,13 @@ export class Offer implements IOffer {
 
   toObject(): object {
     return {
-      cavUserRef: this.cavUserRef.path,
-      pinUserRef: this.pinUserRef.path,
-      requestRef: this.requestRef.path,
-      cavUserSnapshot: User.factory(this.cavUserSnapshot),
+      cavUserRef: this.cavUserRef,
+      pinUserRef: this.pinUserRef,
+      requestRef: this.requestRef,
+      cavUserSnapshot: this.cavUserSnapshot.toObject(),
       message: this.message,
       status: this.status,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }
@@ -191,15 +191,6 @@ export const OfferFirestoreConverter: firebase.firestore.FirestoreDataConverter<
   fromFirestore: (
     data: firebase.firestore.QueryDocumentSnapshot<IOffer>,
   ): Offer => Offer.factory(data.data()),
-  toFirestore: (modelObject: Offer): firebase.firestore.DocumentData => ({
-    cavUserRef: modelObject.cavUserRef,
-    pinUserRef: modelObject.pinUserRef,
-    requestRef: modelObject.requestRef,
-    cavUserSnapshot: UserFirestoreConverter.toFirestore(
-      modelObject.cavUserSnapshot,
-    ),
-    message: modelObject.message,
-    status: modelObject.status,
-    createdAt: modelObject.createdAt,
-  }),
+  toFirestore: (modelObject: Offer): firebase.firestore.DocumentData =>
+    modelObject.toObject(),
 };

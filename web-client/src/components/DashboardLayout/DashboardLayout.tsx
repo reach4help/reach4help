@@ -27,12 +27,15 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         menuItems={menuItems}
         profileData={profileData}
         logoutHandler={logoutHandler}
+        isCav={isCav}
       />
       <NotificationsDrawer
         visible={notificationVisible}
         closeDrawer={() => setNotificationVisible(false)}
       />
-      <Layout.Content style={{ marginTop: '64px', height: '90vh' }}>
+      <Layout.Content
+        style={{ marginTop: '64px', height: '90vh', overflow: 'auto' }}
+      >
         {children}
       </Layout.Content>
       <BottomNavbar

@@ -1,5 +1,6 @@
 {
   "title": "Mapa de Organizações de Solidariedade contra COVID-19",
+  "inFrameLink": "About this map / add information",
   "aboutScreen": {
     "intro": "Acreditamos que a solidariedade revela o melhor das pessoas.",
     "info": "Para ajudar pessoas encontrarem e participarem de organizações de ajuda perto de onde vivem, além de oferecer inspiração para começarem suas ações e/ou simplesmente ajudar ter paz de espírito, este mapa apresenta uma lista de organizações de projetos em crescimento para ajudar a diminuir os efeitos da pandemia por todo o mundo.",
@@ -10,11 +11,10 @@
     "otherAreasInfo": "Confira estes mapas alternativos:",
     "otherAreasLocations": {
       "france": "França",
-      "nyc": "Nova York",
-      "usa": "United States"
+      "nyc": "Nova York"
     },
     "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki}.",
+    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
     "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
     "sourceSubmitButton": "add information",
     "usageHeading": "Can I use this data for my own project?",

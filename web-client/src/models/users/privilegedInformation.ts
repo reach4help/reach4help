@@ -1,5 +1,5 @@
 /* eslint no-underscore-dangle: 0 */
-import { IsBoolean, IsObject, IsString } from 'class-validator';
+import { IsObject, IsString } from 'class-validator';
 
 export interface IUserAddress {
   address1?: string;
@@ -15,7 +15,7 @@ export interface IPrivilegedUserInformation
   extends firebase.firestore.DocumentData {
   addressFromGoogle: google.maps.GeocoderResult;
   address: IUserAddress;
-  sendNotifications?: boolean;
+  sendNotifications?: firebase.firestore.Timestamp | null;
   termsAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
   privacyAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
@@ -30,7 +30,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     privacyVersion: string,
     termsAccepted: firebase.firestore.Timestamp,
     termsVersion: string,
-    sendNotificatoins = false,
+    sendNotificatoins: firebase.firestore.Timestamp | null = null,
   ) {
     this._addressFromGoogle = addressFromGoogle;
     this._address = address;
@@ -63,14 +63,14 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     this._address = value;
   }
 
-  @IsBoolean()
-  private _sendNotifications: boolean;
+  @IsObject()
+  private _sendNotifications: firebase.firestore.Timestamp | null;
 
-  get sendNotifications(): boolean {
+  get sendNotifications(): firebase.firestore.Timestamp | null {
     return this._sendNotifications;
   }
 
-  set sendNotifications(value: boolean) {
+  set sendNotifications(value: firebase.firestore.Timestamp | null) {
     this._sendNotifications = value;
   }
 
@@ -134,7 +134,15 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   toObject(): object {
     return {
       addressFromGoogle: JSON.parse(JSON.stringify(this.addressFromGoogle)),
-      address: JSON.parse(JSON.stringify(this.address)),
+      address: Object.keys(this.address).reduce((acc, key) => {
+        if (this.address[key]) {
+          return {
+            ...acc,
+            [key]: this.address[key],
+          };
+        }
+        return acc;
+      }, {}),
       sendNotifications: this.sendNotifications,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,

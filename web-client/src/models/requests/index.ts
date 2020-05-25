@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsNotEmptyObject,
   IsObject,
+  IsOptional,
   IsString,
   Max,
   Min,
@@ -36,6 +37,7 @@ export interface IRequest extends firebase.firestore.DocumentData {
   description: string;
   streetAddress: string;
   latLng: firebase.firestore.GeoPoint;
+  streetAddress: string;
   status?: RequestStatus;
   pinRating?: number | null;
   cavRating?: number | null;
@@ -55,6 +57,7 @@ export class Request implements IRequest {
     description: string,
     streetAddress: string = '',
     latLng: firebase.firestore.GeoPoint,
+    streetAddress: string,
     cavUserRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     > | null = null,
@@ -75,6 +78,7 @@ export class Request implements IRequest {
     this._description = description;
     this._streetAddress = streetAddress;
     this._latLng = latLng;
+    this._streetAddress = streetAddress;
     this._status = status;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
@@ -85,6 +89,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavUserRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
@@ -134,6 +139,7 @@ export class Request implements IRequest {
   }
 
   @ValidateNested()
+  @IsOptional()
   private _cavUserSnapshot: User | null;
 
   get cavUserSnapshot(): User | null {
@@ -190,6 +196,17 @@ export class Request implements IRequest {
     this._latLng = value;
   }
 
+  @IsString()
+  private _streetAddress: string;
+
+  get streetAddress(): string {
+    return this._streetAddress;
+  }
+
+  set streetAddress(value: string) {
+    this._streetAddress = value;
+  }
+
   @IsEnum(RequestStatus)
   private _status: RequestStatus;
 
@@ -229,6 +246,7 @@ export class Request implements IRequest {
     this._updatedAt = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -242,6 +260,7 @@ export class Request implements IRequest {
     this._pinRating = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -256,6 +275,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _pinRatedAt: firebase.firestore.Timestamp | null;
 
   get pinRatedAt(): firebase.firestore.Timestamp | null {
@@ -267,6 +287,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavRatedAt: firebase.firestore.Timestamp | null;
 
   get cavRatedAt(): firebase.firestore.Timestamp | null {
@@ -285,6 +306,7 @@ export class Request implements IRequest {
       data.description,
       data.streetAddress,
       data.latLng,
+      data.streetAddress,
       data.cavUserRef,
       // This field may be null
       data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
@@ -299,22 +321,23 @@ export class Request implements IRequest {
 
   toObject(): object {
     return {
-      cavUserRef: this.cavUserRef?.path,
+      cavUserRef: this.cavUserRef,
       cavUserSnapshot: this.cavUserSnapshot
         ? this.cavUserSnapshot.toObject()
         : null,
-      pinUserRef: this.pinUserRef.path,
+      pinUserRef: this.pinUserRef,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
       description: this.description,
       latLng: this.latLng,
+      streetAddress: this.streetAddress,
       status: this.status,
-      createdAt: this.createdAt.toDate(),
-      updatedAt: this.updatedAt.toDate(),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
       pinRating: this.pinRating,
       cavRating: this.cavRating,
-      pinRatedAt: this.pinRatedAt?.toDate(),
-      cavRatedAt: this.cavRatedAt?.toDate(),
+      pinRatedAt: this.pinRatedAt,
+      cavRatedAt: this.cavRatedAt,
     };
   }
 }
