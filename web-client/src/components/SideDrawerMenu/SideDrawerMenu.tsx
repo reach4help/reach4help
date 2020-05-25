@@ -56,8 +56,9 @@ const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
 const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
   items,
   closeDrawer,
+  isCav,
 }) => (
-  <Wrapper>
+  <Wrapper isCav={isCav}>
     <Menu mode="inline">
       {items.map((item: MenuItem, index) => (
         <SideDrawerMenuItem key={index} item={item} closeDrawer={closeDrawer} />
@@ -66,7 +67,7 @@ const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
   </Wrapper>
 );
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')<{ isCav?: boolean }>`
   flex: auto;
 
   .ant-menu {
@@ -84,6 +85,7 @@ const Wrapper = styled.div`
     .ant-menu-submenu {
       .ant-menu-submenu-title {
         margin: 0;
+        color: ${props => (props.isCav ? COLORS.link : COLORS.brandOrange)};
       }
       .ant-menu-sub {
         background-color: inherit;
@@ -97,7 +99,8 @@ const Wrapper = styled.div`
 
     a .ant-menu-item-selected {
       color: white;
-      background: ${COLORS.link} !important;
+      background: ${props =>
+        props.isCav ? COLORS.link : COLORS.brandOrange} !important;
     }
   }
 `;
@@ -118,6 +121,7 @@ interface SideDrawerMenuItemProps extends RouteProps {
 interface SideDrawerMenuProps extends RouteProps {
   items: Array<MenuItem>;
   closeDrawer: () => void;
+  isCav?: boolean;
 }
 
 export default SideDrawerMenu;
