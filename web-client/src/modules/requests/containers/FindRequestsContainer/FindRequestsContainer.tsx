@@ -33,6 +33,7 @@ const FindRequestsContainer: React.FC = () => {
   const [expandedRequestId, setExpandedRequestId] = useState<
     string | undefined
   >(undefined);
+  const [bannerMessage, setBannerMessage] = useState<string>('');
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -186,6 +187,11 @@ const FindRequestsContainer: React.FC = () => {
     return null;
   };
 
+  const setGeocodedLocation = ({ address }) => {
+    console.log(address);
+    setBannerMessage(address);
+  };
+
   return (
     <>
       <Map
@@ -193,6 +199,8 @@ const FindRequestsContainer: React.FC = () => {
         destinations={requestsWithoutOffer}
         origin={currentLocation}
         onDestinationClickedHandler={id => onRequestHandler(id)}
+        onGeocode={setGeocodedLocation}
+        bannerMessage={bannerMessage}
       />
       {maybeRequestDetails()}
     </>

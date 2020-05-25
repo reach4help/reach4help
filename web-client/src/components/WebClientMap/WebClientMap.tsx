@@ -46,9 +46,14 @@ const WebClientMap: React.FC<MapProps> = ({
   zoom = 11,
   height = '100%',
   isCav = true,
+  bannerMessage = '',
 }) => {
   const [mapMessage, setMapMessage] = useState<string>('');
   const [selectedDestination, setSelectedDestination] = useState<string>('');
+
+  useEffect(() => {
+    setMapMessage(bannerMessage);
+  }, [bannerMessage]);
 
   // google services
   const [DirectionsRenderer, setDirectionsRenderer] = useState<any | undefined>(
@@ -145,7 +150,7 @@ const WebClientMap: React.FC<MapProps> = ({
   }
   const centerMarkerProps = { ...origin, isCav };
   /*
-  const fakeDestination = [
+    const fakeDestination = [
     {
       id: '4',
       center: {
@@ -201,6 +206,7 @@ interface MapProps {
   zoom?: number;
   height?: string;
   isCav?: boolean;
+  bannerMessage?: string;
 }
 
 export default WebClientMap;
