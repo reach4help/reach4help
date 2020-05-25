@@ -1,20 +1,19 @@
 import { Coords } from 'google-map-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Map from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
-import { setRequest } from '../../../../ducks/requests/actions';
+import { changeModal, setRequest } from '../../../../ducks/requests/actions';
+import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from '../../../../models/users';
 import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
-import NewRequest, {
-  REQUEST_TYPES,
-} from '../../components/NewRequest/NewRequest';
-import RequestReview, {
-  RequestInput,
-} from '../../components/NewRequest/RequestReview';
+import NewRequest, { REQUEST_TYPES } from '../../components/NewRequest/NewRequest';
+import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
+import RequestReview, { RequestInput } from '../../components/NewRequest/RequestReview';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 const RequestDetails = styled.div`
   position: fixed;
@@ -30,11 +29,25 @@ const NewRequestsContainer: React.FC = () => {
     undefined,
   );
 
-  const [showReviewPage, setShowReviewPage] = useState<boolean>(false);
+  const [showReviewPage, setShowReviewPage] = useState<boolean>(
+    false,
+  );
+
+  const [showConfirmationPage, setShowConfirmationPage] = useState<boolean>(
+    false,
+  );
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
+
+  const newRequestState = useSelector(
+    ({ requests }: { requests: RequestState }) => requests.setAction,
+  );
+
+  useEffect(() => {
+    setShowConfirmationPage(newRequestState.success);
+  }, [newRequestState]);
 
   const [mapAddress, setMapAddress] = useState<string>();
 
@@ -90,7 +103,7 @@ const NewRequestsContainer: React.FC = () => {
           title: request.title,
           description: request.description,
           pinUserRef: profileState.userRef,
-          streetAddress: streetAddress,
+          streetAddress,
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: profileState.privilegedInformation.address.coords,
         }),
@@ -122,7 +135,7 @@ const NewRequestsContainer: React.FC = () => {
     if (!showReviewPage) {
       const request = {
         streetAddress,
-        title: requestInfo ? requestInfo.title : 'medicine',
+        title: requestInfo ? requestInfo.title : 'deliveries',
         description: requestInfo ? requestInfo.description : '',
       };
 
@@ -148,10 +161,26 @@ const NewRequestsContainer: React.FC = () => {
         <RequestDetails>
           <RequestReview
             request={details}
-            saveRequest={() => reviewRequestSubmitHandler(requestInfo)}
+            saveRequest={() => {
+              reviewRequestSubmitHandler(requestInfo);
+            }}
             goBack={onGoBack}
           />
         </RequestDetails>
+      );
+    }
+  };
+
+  const maybeRequestConfirmation = () => {
+    if (showConfirmationPage) {
+      return (
+        <RequestConfirmation
+          showModal={showConfirmationPage}
+          closeModal={() => {
+            dispatch(changeModal(false));
+            history.push(OpenRequestsLocation.path);
+          }}
+        />
       );
     }
   };
@@ -169,6 +198,7 @@ const NewRequestsContainer: React.FC = () => {
 
       {maybeNewRequest()}
       {maybeRequestReview()}
+      {maybeRequestConfirmation()}
     </>
   );
 };

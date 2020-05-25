@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
-import gpslocation from '../../assets/gpslocation.svg';
+import { COLORS } from '../../../../theme/colors';
 import { RequestInput } from './RequestReview';
 
 const { Option } = Select;
@@ -44,11 +44,6 @@ const StyledFormItem = styled(Form.Item)`
   margin-bottom:0;
 `;
 
-const GPSTarget = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
 const StyledButton = styled(Button)`
   border-radius: 4px;
   width: 100%;
@@ -57,14 +52,28 @@ const StyledButton = styled(Button)`
   text-overflow: ellipsis;
 `;
 
-const GPSButton = styled(Button)`
-  width: 42px;
+const SubmitButton = styled(Button)`
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: ${COLORS.secondary};
+  color: ${COLORS.white};
+`;
+
+const SearchButton = styled(StyledButton)`
+  padding: 4px;
+`;
+
+const UseMyLocationButton = styled(StyledButton)`
+  padding: 0;
+  width: auto;
 `;
 
 export const REQUEST_TYPES = {
-  medicine: 'Medicine',
-  groceries: 'Groceries',
-  petwalking: 'Pet walking',
+  deliveries: 'Deliveries',
+  other: 'Other',
 };
 
 const NewRequest: React.FC<NewRequestProps> = ({
@@ -80,7 +89,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
   useEffect(() => {
     form.setFieldsValue({
       streetAddress: request.streetAddress,
-      title: request.title || 'medicine',
+      title: request.title || 'deliveries',
       body: request.description || '',
     });
   }, [form, request]);
@@ -101,9 +110,9 @@ const NewRequest: React.FC<NewRequestProps> = ({
             onSubmit(values.title, values.body, values.streetAddress);
           }}
         >
-          <Row justify="space-between" align="bottom" gutter={12}>
-            <Col span={22}>
-              <Form.Item
+          <Row justify="space-between" align="bottom">
+            <Col span={18}>
+              <StyledFormItem
                 name="streetAddress"
                 label={t('newRequest.form.address')}
                 rules={[
@@ -114,17 +123,19 @@ const NewRequest: React.FC<NewRequestProps> = ({
                 ]}
               >
                 <Input onChange={e => setStreetAddress(e.target.value)} />
-              </Form.Item>
+              </StyledFormItem>
             </Col>
-            <Col span={2}>
-              <Form.Item>
-                <GPSButton
-                  icon={<GPSTarget src={gpslocation} />}
-                  onClick={() => setMapAddress(request.streetAddress)}
-                />
-              </Form.Item>
+            <Col span={5} offset={1}>
+              <StyledFormItem>
+                <SearchButton onClick={() => setMapAddress(request.streetAddress)}>
+                  {t('newRequest.form.search')}
+                </SearchButton>
+              </StyledFormItem>
             </Col>
           </Row>
+          <UseMyLocationButton type="link" onClick={() => setMapAddress(request.streetAddress)}>
+            {t('newRequest.form.useMyLocation')}
+          </UseMyLocationButton>
           <Form.Item
             name="title"
             label={t('newRequest.form.type')}
@@ -164,9 +175,9 @@ const NewRequest: React.FC<NewRequestProps> = ({
               </StyledButton>
             </Col>
             <Col span={11} offset={2}>
-              <StyledButton htmlType="submit" type="primary">
+              <SubmitButton htmlType="submit">
                 {t('newRequest.form.submit')}
-              </StyledButton>
+              </SubmitButton>
             </Col>
           </Row>
         </StyledForm>

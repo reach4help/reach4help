@@ -61,9 +61,17 @@
       "icon_text": "I need help",
       "form": {
         "title": "Title",
+        "type": "Type",
+        "address": "Confirm Address",
         "body": "Enter details of what is needed",
         "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Send my need"
+        "submit": "Next",
+        "cancel": "Cancel",
+        "search": "Search",
+        "useMyLocation": "Use my location",
+        "address_error_message": "You need to fill your address.",
+        "type_error_message": "You need to select a type.",
+        "body_error_message": "You need to fill description."
       }
     },
     "newRequestSuccess": {
@@ -71,6 +79,11 @@
       "info": "Please be patient until you get an offer from a volunteer.",
       "remember": "Remember",
       "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+    },
+    "requestReview": {
+      "submit": "Submit Request",
+      "back": "Back",
+      "deliveryAddress": "Delivery address"
     },
     "roleinfo": {
       "title": "Reach4Help",
