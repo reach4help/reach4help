@@ -7,7 +7,7 @@ import {
 } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 
-import { IgetNonOpenRequests, IgetOpenRequests, IupdateRequest } from './types';
+import { IgetNonOpenRequests, IgetOpenRequests } from './types';
 
 const whereConditionHelper = {
   applicationPreference: {
@@ -76,23 +76,3 @@ export const setUserRequest = async ({
     .doc(requestId)
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
-
-export const updateUserRequest = async ({
-  requestId,
-  fieldsToUpdate,
-}: IupdateRequest) => {
-  const data: any = { ...fieldsToUpdate };
-  // remove undefined values
-  Object.keys(data).forEach(key => data[key] === undefined && delete data[key]);
-
-  const timeNow = firebase.firestore.Timestamp.now();
-
-  data.updatedAt = firebase.firestore.Timestamp.now();
-  data.pinRating && (data.pinRatedAt = timeNow);
-  data.cavRating && (data.cavRatedAt = timeNow);
-
-  return firestore
-    .collection('requests')
-    .doc(requestId)
-    .update({ ...data });
-};

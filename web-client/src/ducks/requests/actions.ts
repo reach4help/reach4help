@@ -5,20 +5,17 @@ import {
   observeNonOpenRequests as observeNonOpenRequestsFunc,
   observeOpenRequests as observeOpenRequestsFunc,
   setUserRequest,
-  updateUserRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
   IgetNonOpenRequests,
   IgetOpenRequests,
-  IupdateRequest,
   OBSERVE_CANCELLED_REQUESTS,
   OBSERVE_COMPLETED_REQUESTS,
   OBSERVE_ONGOING_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
   OBSERVE_REMOVED_REQUESTS,
   SET,
-  UPDATE,
 } from './types';
 
 const requestStatusMapper = {
@@ -76,20 +73,6 @@ export const setRequest = (payload: IRequest, requestId?: string) => (
       requestId,
     },
     firebase: requestId ? setUserRequest : createUserRequest,
-  });
-};
-
-export const updateRequest = ({
-  requestId,
-  fieldsToUpdate,
-}: IupdateRequest) => (dispatch: Function) => {
-  dispatch({
-    type: UPDATE,
-    payload: {
-      requestId,
-      fieldsToUpdate,
-    },
-    firebase: updateUserRequest,
   });
 };
 

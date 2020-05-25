@@ -10,7 +10,6 @@ import {
   OBSERVE_REMOVED_REQUESTS,
   RequestState,
   SET,
-  UPDATE,
 } from './types';
 
 const initialSetActionState = {
@@ -18,12 +17,6 @@ const initialSetActionState = {
   success: false,
   error: undefined,
   modalState: false,
-};
-
-const initialUpdateActionState = {
-  loading: false,
-  success: false,
-  error: undefined,
 };
 
 const initialRequestsState = {
@@ -40,7 +33,6 @@ const initialState: RequestState = {
   cancelledRequests: initialRequestsState,
   removedRequests: initialRequestsState,
   setAction: initialSetActionState,
-  updateAction: initialUpdateActionState,
 };
 
 const requestStatusMapper = {
@@ -81,23 +73,6 @@ export default createReducer<RequestState>(
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
-    },
-    [UPDATE.PENDING]: (state: RequestState) => {
-      state.updateAction.loading = true;
-      state.updateAction.error = undefined;
-    },
-    [UPDATE.COMPLETED]: (state: RequestState) => {
-      state.updateAction.loading = false;
-      state.updateAction.success = true;
-      state.updateAction.error = undefined;
-    },
-    [UPDATE.REJECTED]: (
-      state: RequestState,
-      { payload }: { payload: Error },
-    ) => {
-      state.updateAction.loading = false;
-      state.updateAction.success = false;
-      state.updateAction.error = payload;
     },
     [CHANGE_MODAL]: (
       state: RequestState,

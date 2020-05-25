@@ -9,14 +9,15 @@ import { ProfileState } from 'src/ducks/profile/types';
 import {
   observeNonOpenRequests,
   observeOpenRequests,
-  updateRequest,
+  setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IOffer, Offer, OfferStatus } from 'src/models/offers';
-import { Request, RequestStatus } from 'src/models/requests';
+import { IRequest, Request, RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 
-import TimelineActions from '../../components/TimelineActions/TimelineActions';
+import BottomPanel from '../../components/BottomPanel/BottomPanel';
+import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 import { TimelineViewLocation } from '../../pages/routes/TimelineViewRoute/constants';
@@ -44,38 +45,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
   );
-
-  const requestUpdateHandler = ({
-    status,
-    pinRating,
-    cavRating,
-  }: {
-    status?: RequestStatus;
-    pinRating?: number;
-    cavRating?: number;
-  }) => {
-    if (request && (status || pinRating || cavRating)) {
-      dispatch(
-        updateRequest({
-          requestId,
-          fieldsToUpdate: { status, pinRating, cavRating },
-        }),
-      );
-    }
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const offerUpdateHandler = ({
-    offerId,
-    status,
-  }: {
-    offerId: string;
-    status: OfferStatus;
-  }) => {
-    // dispatch(updateOffer(offerId, { status }));
-    // eslint-disable-next-line no-console
-    console.log(status, offerId);
-  };
 
   useEffect(() => {
     let requestTemp: Request | undefined = requestsState.openRequests.data
@@ -178,6 +147,24 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     return <LoadingWrapper />;
   }
 
+  const handleRequest = ({
+    status,
+    pinRating,
+    cavRating,
+  }: {
+    status?: RequestStatus;
+    pinRating?: number;
+    cavRating?: number;
+  }) => {
+    if (request && (status || pinRating || cavRating)) {
+      const updated = request;
+      status && (updated.status = status);
+      pinRating && (updated.pinRating = pinRating);
+      cavRating && (updated.cavRating = cavRating);
+      dispatch(updateRequest(updated.toObject() as IRequest, requestId));
+    }
+  };
+
   const handleOffer = (action: boolean, id: string) => {
     const offer = offersForRequest[id];
     if (action === true) {
@@ -188,6 +175,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     }
     dispatch(setOffer(offer.toObject() as IOffer, id));
   };
+
   /*
     TODO: 
       Once backend changes for profile snapshot is done, instead of offers={MockOfferList},
@@ -217,17 +205,16 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         />
       )}
       {!accepted && (
-        <TimelineList items={[]} currentUser={profileState.profile} />
+        <>
+          <TimelineList items={[]} currentUser={profileState.profile} />
+          <BottomPanel
+            request={request}
+            currentUser={profileState.profile}
+            handleRequest={handleRequest}
+            isCav={isCav}
+          />
+        </>
       )}
-      {/* <TimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
-      <TopPanel request={request} user={mockRequestUser} />;
-      <TimelineList items={mockTimelineItems} currentUser={mockPin} />
-      <TimelineActions
-        request={request}
-        currentUser={profileState.profile}
-        requestUpdateHandler={requestUpdateHandler}
-        isCav={isCav}
-      />
     </>
   );
 };

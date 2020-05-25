@@ -15,7 +15,7 @@ import styled from 'styled-components';
 export interface TimelineActionsProps {
   request: Request;
   currentUser: User;
-  requestUpdateHandler: ({
+  handleRequest: ({
     status,
     pinRating,
     cavRating,
@@ -27,10 +27,10 @@ export interface TimelineActionsProps {
   isCav: boolean;
 }
 
-const TimelineActions: React.FC<TimelineActionsProps> = ({
+const BottomPanel: React.FC<TimelineActionsProps> = ({
   request,
   currentUser,
-  requestUpdateHandler,
+  handleRequest,
   isCav,
 }): React.ReactElement => {
   const [rating, setRating] = useState<number>(0);
@@ -44,15 +44,15 @@ const TimelineActions: React.FC<TimelineActionsProps> = ({
   const { t } = useTranslation();
 
   const onFinishRequest = (): void => {
-    requestUpdateHandler({ status: RequestStatus.completed });
+    handleRequest({ status: RequestStatus.completed });
     setRequestModalVisible(false);
   };
 
   const onSubmitRating = (): void => {
     if (isCav) {
-      requestUpdateHandler({ pinRating: rating });
+      handleRequest({ pinRating: rating });
     } else {
-      requestUpdateHandler({ cavRating: rating });
+      handleRequest({ cavRating: rating });
     }
     setRatingModalVisible(true);
   };
@@ -64,9 +64,7 @@ const TimelineActions: React.FC<TimelineActionsProps> = ({
       {request.status === RequestStatus.ongoing && (
         <ButtonContainer>
           <Button
-            onClick={() =>
-              requestUpdateHandler({ status: RequestStatus.cancelled })
-            }
+            onClick={() => handleRequest({ status: RequestStatus.cancelled })}
           >
             {t('timeline.cancelRequest')}
           </Button>
@@ -245,4 +243,4 @@ const RatingModal = styled(Modal)`
   }
 `;
 
-export default TimelineActions;
+export default BottomPanel;
