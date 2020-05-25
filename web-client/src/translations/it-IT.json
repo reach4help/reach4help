@@ -22,7 +22,8 @@
     "phoneNumber": {
       "sub_title": "Imposta numero di telefono per iniziare",
       "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!"
+      "error_message": "Please input your phone number!",
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
     },
     "verificationCode": {
       "sub_title": "We just texted you a confirmation code. Please enter it below.",
