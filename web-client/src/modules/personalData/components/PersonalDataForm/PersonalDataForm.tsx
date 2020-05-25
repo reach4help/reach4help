@@ -298,6 +298,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       address: newAddress,
       sendNotificatoins: allowSendNotifications ? new Date() : null,
     };
+    console.log(termsAndPrivacyAccepted);
     handleFormSubmit(newPersonalInfo);
   };
 
@@ -330,7 +331,6 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
     country,
     form,
   ]);
-
   return (
     <StyledIntro className="withContentPaddingDesktop">
       {displayPic && <ProfilePhoto src={displayPic} />}
@@ -541,8 +541,13 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
           name="terms"
           rules={[
             {
-              required: true,
-              message: t('user_data_form.terms_conditions_error'),
+              validator: (_, value) =>
+                value
+                  ? Promise.resolve()
+                  : // eslint-disable-next-line prefer-promise-reject-errors
+                    Promise.reject(
+                      `${t('user_data_form.terms_conditions_error')}`,
+                    ),
             },
           ]}
           valuePropName="checked"
