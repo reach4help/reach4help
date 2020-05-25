@@ -11,6 +11,8 @@ import {
   observeOpenRequests,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
+import { observeTimeline } from 'src/ducks/timeline/actions';
+import { TimelineState } from 'src/ducks/timeline/types';
 import { IOffer, Offer, OfferStatus } from 'src/models/offers';
 import { Request, RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
@@ -42,6 +44,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
+  );
+
+  const timelineState = useSelector(
+    ({ timeline }: { timeline: TimelineState }) => timeline,
   );
 
   useEffect(() => {
@@ -117,6 +123,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           userType: profileState.profile.applicationPreference,
         });
 
+        const unsubscribeFromTimeline = observeTimeline(dispatch, {
+          requestId,
+        });
+
         return () => {
           unsubscribeFromOpen();
           unsubscribeFromOngoing();
@@ -124,10 +134,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           unsubscribeFromCancelled();
           unsubscribeFromRemoved();
           unsubscribeFromOffers();
+          unsubscribeFromTimeline();
         };
       }
     }
-  }, [dispatch, profileState]);
+  }, [dispatch, profileState, history, requestId, accepted]);
 
   useEffect(() => {
     if (accepted && requestId && offersState.data) {
@@ -141,7 +152,22 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     }
   }, [offersState, accepted, requestId, setOffersForRequest]);
 
-  if (!(profileState.profile && request)) {
+  useEffect(() => {
+    if (request?.status !== RequestStatus.ongoing && accepted) {
+      history.push(TimelineViewLocation.toUrl({ requestId }));
+    }
+  }, [accepted, request, requestId, history]);
+
+  if (
+    !(
+      profileState.profile &&
+      request &&
+      !(
+        (!accepted && timelineState.loading) ||
+        (accepted && offersState.loading)
+      )
+    )
+  ) {
     return <LoadingWrapper />;
   }
 
@@ -155,11 +181,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     }
     dispatch(setOffer(offer.toObject() as IOffer, id));
   };
-  /*
-    TODO: 
-      Once backend changes for profile snapshot is done, instead of offers={MockOfferList},
-      The OffersList must take the offers from the request itself
-  */
+
   return (
     <>
       <TopPanel
@@ -180,10 +202,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           handleOffer={handleOffer}
         />
       )}
-      {!accepted && (
-        <TimelineList items={[]} currentUser={profileState.profile} />
+      {!accepted && timelineState.data && profileState.userRef && (
+        <TimelineList
+          items={timelineState.data}
+          currentUser={profileState.userRef}
+        />
       )}
-      {/* <TimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
     </>
   );
 };

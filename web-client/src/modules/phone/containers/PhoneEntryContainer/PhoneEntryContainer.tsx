@@ -48,7 +48,11 @@ const PhoneEntryContainer: React.FC = () => {
   };
 
   const errorMessage = useMemo(
-    () => (error && error.message ? error.message : null),
+    () =>
+      error && error.message
+        ? `Your number is ${error.message},
+        Please Make sure you entered a valid Mobile Number capable of receiving SMS with the country code prefixing it`
+        : null,
     [error],
   );
   const profilePhoto = useMemo(
@@ -64,6 +68,7 @@ const PhoneEntryContainer: React.FC = () => {
       </TitleWithAddon>
       <PhoneNumberEntryForm
         loading={loading}
+        reset={error instanceof Error}
         handleFormSubmit={handleEntrySubmit}
       />
     </IntroWrapper>

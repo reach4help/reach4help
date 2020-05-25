@@ -2,9 +2,10 @@ import moment from 'moment';
 import React from 'react';
 import CavBulletIcon from 'src/assets/cav-bullet.svg';
 import PinBulletIcon from 'src/assets/pin-bullet.svg';
+import { TimelineItem } from 'src/models/requests/timeline';
 import styled from 'styled-components';
 
-import { ApplicationPreference } from '../../../../models/users';
+import { ApplicationPreference, User } from '../../../../models/users';
 
 // TODO use i18n
 const MESSAGE_TEXTS = {
@@ -24,8 +25,8 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
   align,
 }) => {
   const isCavItem =
-    item.actor.applicationPreference === ApplicationPreference.cav;
-  const date = new Date(item.createdAt);
+    item.actorSnapshot.applicationPreference === ApplicationPreference.cav;
+  const date = new Date(item.createdAt.toDate());
   const dateString = date.toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'short',
@@ -57,7 +58,7 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
         <RequestTimelineListItem
           key={index}
           item={item}
-          align={item.actor === currentUser ? 'right' : 'left'}
+          align={item.actorRef.id === currentUser.id ? 'right' : 'left'}
         />
       ))}
     </StyledList>
@@ -164,12 +165,12 @@ const Title = styled.h1`
 `;
 
 interface RequestTimelineListProps {
-  items: any;
-  currentUser: any;
+  items: TimelineItem[];
+  currentUser: firebase.firestore.DocumentReference<User>;
 }
 
 interface RequestTimelineListItemProps {
-  item: any;
+  item: TimelineItem;
   align: 'left' | 'right';
 }
 

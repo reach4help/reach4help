@@ -162,7 +162,11 @@ const validateRequest = (value: IRequest): Promise<void> => {
 export const createRequest = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateRequest(snapshot.data() as IRequest)
     .then(() => {
-      return Promise.all([indexRequest(snapshot), queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>)]);
+      return Promise.all([
+        indexRequest(snapshot),
+        queueCreateTriggers(snapshot),
+        queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request'),
+      ]);
     })
     .catch(errors => {
       console.error('Invalid Request Found: ', errors);
@@ -183,7 +187,7 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
         queueStatusUpdateTriggers(change),
         queueRatingUpdatedTriggers(change),
         indexRequest(change.after),
-        queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, change.after as DocumentSnapshot<Request>),
+        queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
       ]);
     })
     .catch(() => {
