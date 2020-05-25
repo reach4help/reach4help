@@ -291,7 +291,6 @@ export class Request implements IRequest {
       User.factory(data.pinUserSnapshot),
       data.title,
       data.description,
-      data.streetAddress,
       data.latLng,
       data.streetAddress,
       data.cavUserRef,
