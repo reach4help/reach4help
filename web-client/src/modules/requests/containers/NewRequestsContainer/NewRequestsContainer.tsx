@@ -9,8 +9,12 @@ import { ProfileState } from '../../../../ducks/profile/types';
 import { setRequest } from '../../../../ducks/requests/actions';
 import { IUser } from '../../../../models/users';
 import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
-import NewRequest, { REQUEST_TYPES } from '../../components/NewRequest/NewRequest';
-import RequestReview, { RequestInput } from '../../components/NewRequest/RequestReview';
+import NewRequest, {
+  REQUEST_TYPES,
+} from '../../components/NewRequest/NewRequest';
+import RequestReview, {
+  RequestInput,
+} from '../../components/NewRequest/RequestReview';
 
 const RequestDetails = styled.div`
   position: fixed;
@@ -26,9 +30,7 @@ const NewRequestsContainer: React.FC = () => {
     undefined,
   );
 
-  const [showReviewPage, setShowReviewPage] = useState<boolean>(
-    false,
-  );
+  const [showReviewPage, setShowReviewPage] = useState<boolean>(false);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -88,6 +90,7 @@ const NewRequestsContainer: React.FC = () => {
           title: request.title,
           description: request.description,
           pinUserRef: profileState.userRef,
+          streetAddress: streetAddress,
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: profileState.privilegedInformation.address.coords,
         }),
