@@ -298,7 +298,6 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       address: newAddress,
       sendNotificatoins: allowSendNotifications ? new Date() : null,
     };
-    console.log(termsAndPrivacyAccepted);
     handleFormSubmit(newPersonalInfo);
   };
 
