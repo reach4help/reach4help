@@ -34,7 +34,7 @@ export interface IRequest extends firebase.firestore.DocumentData {
   pinUserSnapshot: IUser;
   title: string;
   description: string;
-  //  streetAddress: string;
+  streetAddress: string;
   latLng: firebase.firestore.GeoPoint;
   status?: RequestStatus;
   pinRating?: number | null;
@@ -53,7 +53,7 @@ export class Request implements IRequest {
     pinUserSnapshot: User,
     title: string,
     description: string,
-    //    streetAddress: string = 'No Address Given',
+    streetAddress: string = '',
     latLng: firebase.firestore.GeoPoint,
     cavUserRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
@@ -73,7 +73,7 @@ export class Request implements IRequest {
     this._cavUserSnapshot = cavUserSnapshot;
     this._title = title;
     this._description = description;
-    //    this._streetAddress = streetAddress;
+    this._streetAddress = streetAddress;
     this._latLng = latLng;
     this._status = status;
     this._createdAt = createdAt;
@@ -167,7 +167,7 @@ export class Request implements IRequest {
   set description(value: string) {
     this._description = value;
   }
-  /*
+
   @IsObject()
   private _streetAddress: string;
 
@@ -178,7 +178,7 @@ export class Request implements IRequest {
   set streetAddress(value: string) {
     this._streetAddress = value;
   }
-*/
+
   @IsObject()
   private _latLng: firebase.firestore.GeoPoint;
 
@@ -283,7 +283,7 @@ export class Request implements IRequest {
       User.factory(data.pinUserSnapshot),
       data.title,
       data.description,
-      //      data.streetAddress,
+      data.streetAddress,
       data.latLng,
       data.cavUserRef,
       // This field may be null
