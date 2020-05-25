@@ -74,23 +74,29 @@ const WebClientMap: React.FC<MapProps> = ({
   };
 
   useEffect(() => {
-    if (Geocoder && geocodingAddress) {
-      Geocoder.geocode({ address: geocodingAddress }, (result, status) => {
-        if (status === 'OK' && result && result.length) {
-          if (onGeocode) {
-            const lat = result[0].geometry.location.lat();
-            const lng = result[0].geometry.location.lng();
-            onGeocode({
-              address: result[0].formatted_address,
-              latLng: { lat, lng },
-            });
-          }
-        } else {
-          console.error('Unable to geocode');
+    const geocodeCallback = (result, status) => {
+      if (status === 'OK' && result && result.length) {
+        if (onGeocode) {
+          const lat = result[0].geometry.location.lat();
+          const lng = result[0].geometry.location.lng();
+          onGeocode({
+            address: result[0].formatted_address,
+            latLng: { lat, lng },
+          });
         }
-      });
+      } else {
+        console.error('Unable to geocode');
+      }
+    };
+
+    if (Geocoder) {
+      if (geocodingAddress) {
+        Geocoder.geocode({ address: geocodingAddress }, geocodeCallback);
+      } else {
+        Geocoder.geocode({ location: origin }, geocodeCallback);
+      }
     }
-  }, [Geocoder, geocodingAddress, onGeocode]);
+  }, [Geocoder, geocodingAddress]);
 
   const secondsToTimestring = (seconds: number) =>
     moment.duration(seconds, 'seconds').humanize();
