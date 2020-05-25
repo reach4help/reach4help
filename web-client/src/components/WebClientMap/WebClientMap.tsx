@@ -1,31 +1,9 @@
-import GoogleMapReact, { Coords } from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
-import LargeOrangeMarkerIcon from '../../assets/map-marker-orange-lg.png';
-import SmallOrangeMarkerIcon from '../../assets/map-marker-orange-sm.png';
-import LargePurpleMarkerIcon from '../../assets/map-marker-purple-lg.png';
-
-export const OriginMarker: React.FC<OriginMarkerProps> = props => (
-  <div>
-    <img
-      src={props.isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
-      alt="My location"
-    />
-  </div>
-);
-
-export const DestinationMarker: React.FC<DestinationMarkerProps> = ({
-  key,
-  selected,
-  onClick,
-}) => (
-  <div onClick={() => onClick(key)}>
-    <img
-      src={selected ? LargeOrangeMarkerIcon : SmallOrangeMarkerIcon}
-      alt="Destination"
-    />
-  </div>
-);
+import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
+import WebClientMapMessage from './WebClientMapMessage';
 
 declare global {
   interface Window {
@@ -69,16 +47,24 @@ const WebClientMap: React.FC<MapProps> = ({
   height = '100%',
   isCav = true,
 }) => {
-  const [selectedDestination, setSelectedDestination] = useState<string>(
-    'none',
-  );
+  const [mapMessage, setMapMessage] = useState<string>('');
+  const [selectedDestination, setSelectedDestination] = useState<string>('');
 
   // google services
+  const [DirectionsRenderer, setDirectionsRenderer] = useState<any | undefined>(
+    undefined,
+  );
   const [DirectionsService, setDirectionsService] = useState<any | undefined>(
     undefined,
   );
   const [Geocoder, setGeocoder] = useState<any | undefined>(undefined);
-  const initGoogleMapServices = ({ maps }) => {
+
+  const initGoogleMapServices = ({ map, maps }) => {
+    if (typeof DirectionsRenderer === 'undefined') {
+      const directionsRenderer = new maps.DirectionsRenderer();
+      directionsRenderer.setMap(map);
+      setDirectionsRenderer(directionsRenderer);
+    }
     if (typeof DirectionsService === 'undefined') {
       setDirectionsService(new maps.DirectionsService());
     }
@@ -89,8 +75,8 @@ const WebClientMap: React.FC<MapProps> = ({
 
   useEffect(() => {
     if (Geocoder && geocodingAddress) {
-      Geocoder.geocode({ address: geocodingAddress }, result => {
-        if (result && result.length) {
+      Geocoder.geocode({ address: geocodingAddress }, (result, status) => {
+        if (status === 'OK' && result && result.length) {
           if (onGeocode) {
             const lat = result[0].geometry.location.lat();
             const lng = result[0].geometry.location.lng();
@@ -99,15 +85,52 @@ const WebClientMap: React.FC<MapProps> = ({
               latLng: { lat, lng },
             });
           }
+        } else {
+          console.error('Unable to geocode');
         }
       });
     }
-  }, [Geocoder, geocodingAddress]);
+  }, [Geocoder, geocodingAddress, onGeocode]);
 
-  const destinationClickedHandler = id => {
-    setSelectedDestination(id);
+  const secondsToTimestring = (seconds: number) =>
+    moment.duration(seconds, 'seconds').humanize();
+
+  const metersToKm = (meters: number) => `${(meters / 1000).toFixed(1)}km`;
+
+  const metersToImperial = (meters: number) =>
+    `${(meters * 0.000621371).toFixed(1)}mi`;
+
+  const getDirections = destination => {
+    DirectionsService.route(
+      { origin, destination: destination.center, travelMode: 'DRIVING' },
+      (result, status) => {
+        if (status === 'OK') {
+          DirectionsRenderer.setDirections(result);
+          let distance = 0;
+          let duration = 0;
+          result.routes[0].legs.forEach(leg => {
+            distance += leg.distance.value;
+            duration += leg.duration.value;
+          });
+          setMapMessage(
+            `${secondsToTimestring(duration)} (${metersToKm(
+              distance,
+            )}/${metersToImperial(distance)})`,
+          );
+        } else {
+          console.error('DISTANCE SERVICE ERROR:', status, result);
+        }
+      },
+    );
+  };
+
+  const destinationClickedHandler = destination => {
+    setSelectedDestination(destination.id);
+    if (DirectionsService) {
+      getDirections(destination);
+    }
     if (onDestinationClickedHandler) {
-      onDestinationClickedHandler(id);
+      onDestinationClickedHandler(destination.id);
     }
   };
 
@@ -115,10 +138,21 @@ const WebClientMap: React.FC<MapProps> = ({
     return <>Could not obtain Google Maps API key</>;
   }
   const centerMarkerProps = { ...origin, isCav };
-
+  /*
+  const fakeDestination = [
+    {
+      id: '4',
+      center: {
+        lat: origin.lat ? origin.lat * 1.001 : 0,
+        lng: origin.lng ? origin.lng / 1.001 : 0,
+      },
+    },
+  ];
+  */
   return (
     <>
       <div style={{ height: height, width: '100%' }}>
+        <WebClientMapMessage message={mapMessage} />
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
@@ -134,7 +168,7 @@ const WebClientMap: React.FC<MapProps> = ({
               selected={r.id === selectedDestination}
               lat={r.center.lat}
               lng={r.center.lng}
-              onClick={() => destinationClickedHandler(r.id)}
+              onClick={() => destinationClickedHandler(r)}
             />
           ))}
         </GoogleMapReact>
@@ -142,16 +176,6 @@ const WebClientMap: React.FC<MapProps> = ({
     </>
   );
 };
-
-interface OriginMarkerProps extends Coords {
-  isCav: boolean;
-}
-
-interface DestinationMarkerProps extends Coords {
-  onClick: (id: string) => void;
-  key: string;
-  selected?: boolean;
-}
 
 interface MapProps {
   destinations: {
@@ -174,24 +198,3 @@ interface MapProps {
 }
 
 export default WebClientMap;
-
-/*
-  const findDistanceToRequest = id => {
-    const req = requests.find(r => r.id === id);
-    if (req && req.center) {
-      DirectionsService.getDistanceMatrix(
-        {
-          origins: [volunteerLocation],
-          destinations: [req.center],
-          travelMode: 'TRANSIT',
-        },
-        callback,
-      );
-    }
-    function callback(response, status) {
-      // response is an array of travel methods
-      console.log('distance', response, status);
-      debugger;
-    }
-  };
-*/
