@@ -148,11 +148,11 @@ const WebClientMap: React.FC<MapProps> = ({
       },
     },
   ];
-  */
+*/
   return (
     <>
       <div style={{ height: height, width: '100%' }}>
-        <WebClientMapMessage message={mapMessage} />
+        {mapMessage && <WebClientMapMessage message={mapMessage} />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
