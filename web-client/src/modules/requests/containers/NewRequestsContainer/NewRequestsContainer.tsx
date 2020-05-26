@@ -13,13 +13,9 @@ import { changeModal, setRequest } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from '../../../../models/users';
 import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
-import NewRequest, {
-  REQUEST_TYPES,
-} from '../../components/NewRequest/NewRequest';
+import NewRequest from '../../components/NewRequest/NewRequest';
 import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
-import RequestReview, {
-  RequestInput,
-} from '../../components/NewRequest/RequestReview';
+import RequestReview, { RequestInput } from '../../components/NewRequest/RequestReview';
 import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 const RequestDetails = styled.div`
@@ -70,9 +66,11 @@ const NewRequestsContainer: React.FC = () => {
       profileState.userRef &&
       profileState.privilegedInformation
     ) {
+      const title = request.type === 'Deliveries' ? request.type : request.other;
+
       dispatch(
         setRequest({
-          title: request.title,
+          title,
           description: request.description,
           pinUserRef: profileState.userRef,
           streetAddress: mapAddress || 'Unable to find address',
@@ -84,14 +82,16 @@ const NewRequestsContainer: React.FC = () => {
   };
 
   const newRequestSubmitHandler = (
-    title: string,
+    type: string,
     body: string,
     address: string,
+    other: string,
   ) => {
     setRequestInfo({
-      title,
+      type,
       streetAddress: address,
       description: body,
+      other,
     });
     setShowReviewPage(true);
   };
@@ -112,7 +112,8 @@ const NewRequestsContainer: React.FC = () => {
     if (!showReviewPage) {
       const request = {
         streetAddress: mapAddress,
-        title: requestInfo ? requestInfo.title : 'deliveries',
+        type: requestInfo ? requestInfo.type : 'Deliveries',
+        other: requestInfo ? requestInfo.other : '',
         description: requestInfo ? requestInfo.description : '',
       };
 
@@ -133,12 +134,10 @@ const NewRequestsContainer: React.FC = () => {
 
   const maybeRequestReview = () => {
     if (showReviewPage && requestInfo) {
-      const details: RequestInput = { ...requestInfo };
-      details.title = REQUEST_TYPES[requestInfo.title];
       return (
         <RequestDetails>
           <RequestReview
-            request={details}
+            request={requestInfo}
             saveRequest={() => {
               reviewRequestSubmitHandler(requestInfo);
             }}

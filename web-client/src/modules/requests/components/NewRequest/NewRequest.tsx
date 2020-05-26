@@ -1,5 +1,5 @@
 import { Button, Col, Form, Input, Row, Select } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
@@ -72,8 +72,8 @@ const UseMyLocationButton = styled(StyledButton)`
 `;
 
 export const REQUEST_TYPES = {
-  deliveries: 'Deliveries',
-  other: 'Other',
+  Deliveries: 'Deliveries',
+  Other: 'Other',
 };
 
 const NewRequest: React.FC<NewRequestProps> = ({
@@ -87,18 +87,45 @@ const NewRequest: React.FC<NewRequestProps> = ({
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
+  const [showOtherField, setShowOtherField] = useState<boolean>(false);
+
   useEffect(() => {
     form.setFieldsValue({
       streetAddress: request.streetAddress,
-      title: request.title || 'deliveries',
+      type: request.type || 'Deliveries',
       body: request.description || '',
+      other: request.other || '',
     });
+    setShowOtherField(form.getFieldValue('type') === 'Other');
   }, [form, request]);
+
+  const toggleOtherField = (value: string) => {
+    setShowOtherField(value === 'Other');
+  };
+
+  const mayBeOtherField = () => {
+    if (!showOtherField) {
+      return null;
+    }
+    return (
+      <Form.Item
+        name="other"
+        rules={[
+          {
+            required: form.getFieldValue('type') === 'Other',
+            message: t('newRequest.form.other_error_message'),
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+    );
+  };
 
   const FormContent = (
     <MainDiv>
       <FormDiv>
-        <TitleWithAddon alignAddon="left" level={3} align="left">
+        <TitleWithAddon alignAddon="left" level={3} left="0%" transform="none">
           {t('newRequest.title')}
         </TitleWithAddon>
 
@@ -108,7 +135,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
           layout="vertical"
           form={form}
           onFinish={values => {
-            onSubmit(values.title, values.body, values.streetAddress);
+            onSubmit(values.type, values.body, values.streetAddress, values.other);
           }}
         >
           <Row justify="space-between" align="bottom">
@@ -140,7 +167,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
             {t('newRequest.form.useMyLocation')}
           </UseMyLocationButton>
           <Form.Item
-            name="title"
+            name="type"
             label={t('newRequest.form.type')}
             rules={[
               {
@@ -149,7 +176,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
               },
             ]}
           >
-            <Select>
+            <Select onChange={toggleOtherField}>
               {Object.keys(REQUEST_TYPES).map(key => (
                 <Option value={key} key={key}>
                   {' '}
@@ -158,6 +185,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
               ))}
             </Select>
           </Form.Item>
+          {mayBeOtherField()}
           <StyledFormItem
             name="body"
             label={t('newRequest.form.body')}

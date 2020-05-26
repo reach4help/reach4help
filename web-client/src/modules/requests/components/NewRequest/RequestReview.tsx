@@ -32,7 +32,8 @@ const StyledButton = styled(Button)`
 `;
 
 export interface RequestInput {
-  title: string;
+  type: string;
+  other: string;
   description: string;
   streetAddress: string;
 }
@@ -51,7 +52,7 @@ const RequestReview: React.FC<RequestReviewProps> = ({
   const { t } = useTranslation();
   return (
     <MainDiv>
-      <TitleWithAddon alignAddon="left" level={3} align="left">
+      <TitleWithAddon alignAddon="left" level={3} left="0%" transform="none">
         {t('newRequest.title')}
       </TitleWithAddon>
       <StyledTitle style={{ color: 'rgba(0, 0, 0, 1)', marginTop: '20px' }}>
@@ -66,7 +67,7 @@ const RequestReview: React.FC<RequestReviewProps> = ({
         {request.streetAddress}
       </StyledText>
       <StyledTitle style={{ color: 'rgba(0, 0, 0, 1)' }}>
-        {request.title}
+        {request.type === 'Deliveries' ? request.type : request.other}
       </StyledTitle>
       <StyledText
         style={{

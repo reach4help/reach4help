@@ -46,7 +46,7 @@ const RequestConfirmation: React.FC<RequestConfirmationProps> = ({
       footer={null}
     >
       <>
-        <TitleWithAddon level={1} addonBottom="-16px">{t('newRequestSuccess.title')}</TitleWithAddon>
+        <TitleWithAddon level={1} bottom="-16px">{t('newRequestSuccess.title')}</TitleWithAddon>
         <SubtitleP>{t('newRequestSuccess.info')}</SubtitleP>
         <LoadingIndicator lottieJson={stayAtHomeLottieJson} />
         <Footer>
