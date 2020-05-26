@@ -162,9 +162,7 @@ const WebClientMap: React.FC<MapProps> = ({
       doGeocode({ streetAddress: address, center: null });
     }
   }, [startGeocode, Geocoder, address, origin]);
-  if (startLocateMe) {
-    //        getCurrentLocation();
-  }
+
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -180,6 +178,12 @@ const WebClientMap: React.FC<MapProps> = ({
       },
     );
   };
+
+  useEffect(() => {
+    if (startLocateMe) {
+      getCurrentLocation();
+    }
+  }, [startLocateMe, Geocoder]);
 
   const getDirections = destination => {
     DirectionsService.route(

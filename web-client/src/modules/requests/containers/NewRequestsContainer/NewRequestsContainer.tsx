@@ -124,6 +124,7 @@ const NewRequestsContainer: React.FC = () => {
             request={request}
             setStreetAddress={setMapAddress}
             setMapAddress={() => setStartGeocode(true)}
+            setMyLocation={() => setStartLocateMe(true)}
           />
         </RequestDetails>
       );
@@ -164,14 +165,6 @@ const NewRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <div
-        onClick={() => {
-          setStartLocateMe(true);
-        }}
-      >
-        center me here
-      </div>
-
       <Map
         isCav={false}
         destinations={[]}

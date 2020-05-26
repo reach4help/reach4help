@@ -24,24 +24,24 @@ const FormDiv = styled.div`
 `;
 
 const CharacterLimitDiv = styled.div`
-  font-size:12px;
-  margin-bottom:24px;
+  font-size: 12px;
+  margin-bottom: 24px;
 `;
 
 const StyledForm = styled(Form)`
   width: 100%;
-  margin-top:16px;
+  margin-top: 16px;
   .ant-form-item-label {
-    line-height:14px;
+    line-height: 14px;
   }
   label {
-    height:14px;
-    font-size:12px;
+    height: 14px;
+    font-size: 12px;
   }
 `;
 
 const StyledFormItem = styled(Form.Item)`
-  margin-bottom:0;
+  margin-bottom: 0;
 `;
 
 const StyledButton = styled(Button)`
@@ -82,6 +82,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
   request,
   setStreetAddress,
   setMapAddress,
+  setMyLocation,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -127,13 +128,15 @@ const NewRequest: React.FC<NewRequestProps> = ({
             </Col>
             <Col span={5} offset={1}>
               <StyledFormItem>
-                <SearchButton onClick={() => setMapAddress(request.streetAddress)}>
+                <SearchButton
+                  onClick={() => setMapAddress(request.streetAddress)}
+                >
                   {t('newRequest.form.search')}
                 </SearchButton>
               </StyledFormItem>
             </Col>
           </Row>
-          <UseMyLocationButton type="link" onClick={() => setMapAddress(request.streetAddress)}>
+          <UseMyLocationButton type="link" onClick={() => setMyLocation()}>
             {t('newRequest.form.useMyLocation')}
           </UseMyLocationButton>
           <Form.Item
@@ -165,7 +168,10 @@ const NewRequest: React.FC<NewRequestProps> = ({
               },
             ]}
           >
-            <Input.TextArea placeholder={t('newRequest.form.body')} maxLength={150} />
+            <Input.TextArea
+              placeholder={t('newRequest.form.body')}
+              maxLength={150}
+            />
           </StyledFormItem>
           <CharacterLimitDiv>150 Character Limit</CharacterLimitDiv>
           <Row>
@@ -194,6 +200,7 @@ interface NewRequestProps {
   request: RequestInput;
   setStreetAddress: (string) => void;
   setMapAddress: (string) => void;
+  setMyLocation: () => void;
 }
 
 export default NewRequest;
