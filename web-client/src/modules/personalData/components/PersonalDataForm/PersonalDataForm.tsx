@@ -12,7 +12,6 @@ import { firestore } from 'firebase';
 import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { User } from 'src/models/users';
 import {
   IUserAddress,
@@ -513,7 +512,13 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
         </Row>
         <Info>
           {t('user_data_form.policy_text')}{' '}
-          <Link to="/">{t('user_data_form.policy_link')}</Link>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+          >
+            {t('user_data_form.policy_link')}
+          </a>
         </Info>
         <Form.Item style={{ textAlign: 'center' }} name="useProfilePic">
           <Checkbox
@@ -550,7 +555,13 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             }
           >
             {t('user_data_form.terms_conditions_text')}
-            <Link to="/">{t('user_data_form.terms_conditions_link')}</Link>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+            >
+              {t('user_data_form.terms_conditions_link')}
+            </a>
           </Checkbox>
         </Form.Item>
         <Form.Item style={{ textAlign: 'center' }}>

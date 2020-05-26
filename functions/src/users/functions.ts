@@ -1,8 +1,10 @@
 import { validateOrReject } from 'class-validator';
 import { EventContext } from 'firebase-functions/lib/cloud-functions';
-import { IUser, User } from '../models/users';
 import * as admin from 'firebase-admin';
+
 import { auth, db } from '../app';
+import { ApplicationPreference, IUser, User } from '../models/users';
+
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
 export const validateUser = (value: IUser): Promise<void> => {
@@ -30,7 +32,10 @@ export const setIsUserCav = (userId: string, status: boolean): Promise<void> => 
 export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateUser(snapshot.data() as IUser)
     .then(() => {
-      const operations: Promise<void>[] = [];
+      const operations: Promise<void>[] = [
+        setIsUserCav(snapshot.id, (snapshot.data() as IUser).applicationPreference === ApplicationPreference.cav),
+        setIsUserPin(snapshot.id, (snapshot.data() as IUser).applicationPreference === ApplicationPreference.pin),
+      ];
       return Promise.all(operations);
     })
     .catch(() => {

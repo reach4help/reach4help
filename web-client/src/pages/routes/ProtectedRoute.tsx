@@ -44,7 +44,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />
     );
@@ -55,7 +55,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: PhoneEntryLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />
     );
@@ -73,7 +73,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: PersonalDataLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />
     );
@@ -84,7 +84,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: RoleInfoLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />
     );
