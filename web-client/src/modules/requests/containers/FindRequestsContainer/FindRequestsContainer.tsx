@@ -3,7 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import Map from '../../../../components/WebClientMap/WebClientMap';
+import Map, {
+  getCoordsFromProfile,
+  getStreetAddressFromProfile,
+} from '../../../../components/WebClientMap/WebClientMap';
 import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
 import { ProfileState } from '../../../../ducks/profile/types';
@@ -39,19 +42,10 @@ const FindRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
+  //  const [streetAddress, setStreetAddress] = useState<string>(() => getStreetAddressFromProfile(profileState));
+
   const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
-    profileState.privilegedInformation.address.coords
-      ? {
-          lat: profileState.privilegedInformation.address.coords.latitude,
-          lng: profileState.privilegedInformation.address.coords.longitude,
-        }
-      : {
-          lat: 13.4124693,
-          lng: 103.8667,
-        },
+    getCoordsFromProfile(profileState),
   );
 
   const [requestsWithoutOffer, setRequestsWithoutOffer] = useState<
@@ -69,7 +63,7 @@ const FindRequestsContainer: React.FC = () => {
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
   );
-
+  /*
   navigator.geolocation.getCurrentPosition(
     position => {
       const pos = {
@@ -83,7 +77,7 @@ const FindRequestsContainer: React.FC = () => {
       console.error(error.message);
     },
   );
-
+*/
   useEffect(() => {
     if (openRequests && openRequests.data) {
       const internalPendingRequests: Record<string, Request> = {
@@ -188,7 +182,6 @@ const FindRequestsContainer: React.FC = () => {
   };
 
   const setGeocodedLocation = ({ address }) => {
-    console.log(address);
     setBannerMessage(address);
   };
 

@@ -4,15 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Map from '../../../../components/WebClientMap/WebClientMap';
+import Map, {
+  getCoordsFromProfile,
+  getStreetAddressFromProfile,
+} from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { changeModal, setRequest } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from '../../../../models/users';
 import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
-import NewRequest, { REQUEST_TYPES } from '../../components/NewRequest/NewRequest';
+import NewRequest, {
+  REQUEST_TYPES,
+} from '../../components/NewRequest/NewRequest';
 import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
-import RequestReview, { RequestInput } from '../../components/NewRequest/RequestReview';
+import RequestReview, {
+  RequestInput,
+} from '../../components/NewRequest/RequestReview';
 import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 const RequestDetails = styled.div`
@@ -29,9 +36,7 @@ const NewRequestsContainer: React.FC = () => {
     undefined,
   );
 
-  const [showReviewPage, setShowReviewPage] = useState<boolean>(
-    false,
-  );
+  const [showReviewPage, setShowReviewPage] = useState<boolean>(false);
 
   const [showConfirmationPage, setShowConfirmationPage] = useState<boolean>(
     false,
@@ -49,46 +54,13 @@ const NewRequestsContainer: React.FC = () => {
     setShowConfirmationPage(newRequestState.success);
   }, [newRequestState]);
 
-  const [mapAddress, setMapAddress] = useState<string>();
-
-  const [streetAddress, setStreetAddress] = useState<string>(() =>
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
-    profileState.privilegedInformation.addressFromGoogle.formatted_address
-      ? profileState.privilegedInformation.addressFromGoogle.formatted_address
-      : 'Address could not be found',
+  const [mapAddress, setMapAddress] = useState<string>(
+    () =>
+      getStreetAddressFromProfile(profileState) || 'Address could not be found',
   );
   const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
-    profileState.privilegedInformation.address.coords
-      ? {
-          lat: profileState.privilegedInformation.address.coords.latitude,
-          lng: profileState.privilegedInformation.address.coords.longitude,
-        }
-      : {
-          lat: 13.4124693,
-          lng: 103.8667,
-        },
+    getCoordsFromProfile(profileState),
   );
-
-  if (!currentLocation || !currentLocation.lat) {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        setCurrentLocation(pos);
-      },
-      error => {
-        // eslint-disable-next-line no-console
-        console.error(error.message);
-      },
-    );
-  }
 
   const dispatch = useDispatch();
 
@@ -103,7 +75,7 @@ const NewRequestsContainer: React.FC = () => {
           title: request.title,
           description: request.description,
           pinUserRef: profileState.userRef,
-          streetAddress,
+          streetAddress: mapAddress || 'Unable to find address',
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: profileState.privilegedInformation.address.coords,
         }),
@@ -124,8 +96,13 @@ const NewRequestsContainer: React.FC = () => {
     setShowReviewPage(true);
   };
 
+  const [startLocateMe, setStartLocateMe] = useState<boolean>(false);
+
+  const [startGeocode, setStartGeocode] = useState<boolean>(false);
   const setGeocodedLocation = ({ address, latLng }) => {
-    setStreetAddress(address);
+    setStartGeocode(false);
+    setStartLocateMe(false);
+    setMapAddress(address);
     setCurrentLocation(latLng);
   };
 
@@ -134,7 +111,7 @@ const NewRequestsContainer: React.FC = () => {
   const maybeNewRequest = () => {
     if (!showReviewPage) {
       const request = {
-        streetAddress,
+        streetAddress: mapAddress,
         title: requestInfo ? requestInfo.title : 'deliveries',
         description: requestInfo ? requestInfo.description : '',
       };
@@ -145,8 +122,8 @@ const NewRequestsContainer: React.FC = () => {
             onSubmit={newRequestSubmitHandler}
             onCancel={() => history.push(RoleInfoLocation.path)}
             request={request}
-            setStreetAddress={setStreetAddress}
-            setMapAddress={setMapAddress}
+            setStreetAddress={setMapAddress}
+            setMapAddress={() => setStartGeocode(true)}
           />
         </RequestDetails>
       );
@@ -187,13 +164,23 @@ const NewRequestsContainer: React.FC = () => {
 
   return (
     <>
+      <div
+        onClick={() => {
+          setStartLocateMe(true);
+        }}
+      >
+        center me here
+      </div>
+
       <Map
         isCav={false}
         destinations={[]}
         origin={currentLocation}
         onGeocode={setGeocodedLocation}
-        geocodingAddress={mapAddress}
+        address={mapAddress}
         height="25vh"
+        startGeocode={startGeocode}
+        startLocateMe={startLocateMe}
       />
 
       {maybeNewRequest()}
