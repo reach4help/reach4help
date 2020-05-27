@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import Map, {
   getCoordsFromProfile,
-  getStreetAddressFromProfile,
 } from '../../../../components/WebClientMap/WebClientMap';
 import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
@@ -46,7 +45,7 @@ const FindRequestsContainer: React.FC = () => {
   );
   //  const [streetAddress, setStreetAddress] = useState<string>(() => getStreetAddressFromProfile(profileState));
 
-  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
+  const [currentLocation] = useState<Coords>(() =>
     getCoordsFromProfile(profileState),
   );
 

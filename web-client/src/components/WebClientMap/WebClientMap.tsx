@@ -161,6 +161,7 @@ const WebClientMap: React.FC<MapProps> = ({
     if (startGeocode) {
       doGeocode({ streetAddress: address, center: null });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startGeocode, Geocoder, address, origin]);
 
   const getCurrentLocation = () => {
@@ -183,6 +184,7 @@ const WebClientMap: React.FC<MapProps> = ({
     if (startLocateMe) {
       getCurrentLocation();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startLocateMe, Geocoder]);
 
   const getDirections = destination => {
