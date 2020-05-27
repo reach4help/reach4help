@@ -226,8 +226,8 @@ interface NewRequestProps {
   onSubmit: Function;
   onCancel: Function;
   request: RequestInput;
-  setStreetAddress: (string) => void;
-  setMapAddress: (string) => void;
+  setStreetAddress: (string: string) => void;
+  setMapAddress: (string: string) => void;
   setMyLocation: () => void;
 }
 
