@@ -64,8 +64,8 @@ export const getCoordsFromProfile = profileState => {
     };
   }
   return {
-    lat: ANGOR_WAT.lat,
-    lng: ANGOR_WAT.lng,
+    lat: ANGKOR_WAT.lat,
+    lng: ANGKOR_WAT.lng,
   };
 };
 
@@ -239,7 +239,6 @@ const WebClientMap: React.FC<MapProps> = ({
     },
   ];
 */
-
   const LocateMeContainer = () => (
     <div
       onClick={() => getCurrentLocation()}
