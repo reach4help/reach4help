@@ -235,10 +235,24 @@ const WebClientMap: React.FC<MapProps> = ({
     },
   ];
 */
+
+  const LocateMeContainer = () => (
+    <div
+      onClick={() => getCurrentLocation()}
+      style={{
+        backgroundColor: 'rgb(275, 155, 54)',
+      }}
+    >
+      Move to my current location
+    </div>
+  );
+
   return (
     <>
       <div style={{ height, width: '100%' }}>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
+        <LocateMeContainer />
+
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
