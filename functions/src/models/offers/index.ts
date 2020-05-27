@@ -1,6 +1,7 @@
-import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
+import { IRequest, Request } from '../requests';
 import { IUser, User } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
@@ -19,9 +20,11 @@ export interface IOffer extends DocumentData {
   pinUserRef: DocumentReference<DocumentData>;
   requestRef: DocumentReference<DocumentData>;
   cavUserSnapshot: IUser;
+  requestSnapshot: IRequest;
   message: string;
   status: OfferStatus;
   createdAt?: Timestamp;
+  seenAt?: Timestamp | null;
 }
 
 export class Offer implements IOffer {
@@ -30,17 +33,21 @@ export class Offer implements IOffer {
     pinUserRef: DocumentReference<DocumentData>,
     requestRef: DocumentReference<DocumentData>,
     cavUserSnapshot: User,
+    requestSnapshot: Request,
     message: string,
     status: OfferStatus,
     createdAt = Timestamp.now(),
+    seenAt: Timestamp | null = null,
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
     this._requestRef = requestRef;
     this._cavUserSnapshot = cavUserSnapshot;
+    this._requestSnapshot = requestSnapshot;
     this._message = message;
     this._status = status;
     this._createdAt = createdAt;
+    this._seenAt = seenAt;
   }
 
   @IsObject()
@@ -87,6 +94,17 @@ export class Offer implements IOffer {
     this._cavUserSnapshot = value;
   }
 
+  @ValidateNested()
+  private _requestSnapshot: Request;
+
+  get requestSnapshot(): Request {
+    return this._requestSnapshot;
+  }
+
+  set requestSnapshot(value: Request) {
+    this._requestSnapshot = value;
+  }
+
   @IsString()
   @IsNotEmpty()
   private _message: string;
@@ -124,15 +142,29 @@ export class Offer implements IOffer {
     this._createdAt = value;
   }
 
+  @IsObject()
+  @IsOptional()
+  private _seenAt: Timestamp | null;
+
+  get seenAt(): Timestamp | null {
+    return this._seenAt;
+  }
+
+  set seenAt(value: Timestamp | null) {
+    this.seenAt = value;
+  }
+
   static factory = (data: IOffer): Offer => {
     return new Offer(
       data.cavUserRef,
       data.pinUserRef,
       data.requestRef,
       User.factory(data.cavUserSnapshot),
+      Request.factory(data.requestSnapshot),
       data.message,
       data.status,
       data.createdAt,
+      data.seenAt,
     );
   };
 
@@ -142,9 +174,11 @@ export class Offer implements IOffer {
       pinUserRef: this.pinUserRef,
       requestRef: this.requestRef,
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
+      requestSnapshot: this.requestSnapshot.toObject(),
       message: this.message,
       status: this.status,
       createdAt: this.createdAt,
+      seenAt: this.seenAt,
     };
   }
 }
