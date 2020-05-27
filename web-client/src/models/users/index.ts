@@ -248,23 +248,21 @@ export class User implements IUser {
       data.displayPicture,
       data.createdAt,
     );
-
-  toObject(): object {
-    return {
-      cavQuestionnaireRef: this.cavQuestionnaireRef?.path || null,
-      pinQuestionnaireRef: this.pinQuestionnaireRef?.path || null,
-      username: this.username,
-      casesCompleted: this.casesCompleted,
-      requestsMade: this.requestsMade,
-      pinRatingsReceived: this.pinRatingsReceived,
-      cavRatingsReceived: this.cavRatingsReceived,
-      averageRating: this.averageRating,
-      displayName: this.displayName,
-      displayPicture: this.displayPicture,
-      applicationPreference: this.applicationPreference,
-      createdAt: this.createdAt,
-    };
-  }
+  
+  toObject = (): object => ({
+    cavQuestionnaireRef: this.cavQuestionnaireRef || null,
+    pinQuestionnaireRef: this.pinQuestionnaireRef || null,
+    username: this.username,
+    casesCompleted: this.casesCompleted,
+    requestsMade: this.requestsMade,
+    pinRatingsReceived: this.pinRatingsReceived,
+    cavRatingsReceived: this.cavRatingsReceived,
+    averageRating: this.averageRating,
+    displayName: this.displayName,
+    displayPicture: this.displayPicture,
+    applicationPreference: this.applicationPreference,
+    createdAt: this.createdAt,
+  });
 }
 
 export const UserFirestoreConverter: firebase.firestore.FirestoreDataConverter<User> = {

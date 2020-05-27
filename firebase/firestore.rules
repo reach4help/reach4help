@@ -104,6 +104,7 @@ function verifyHelpRequestDataComplete(data) {
           ('updatedAt' in data) &&
           verifyHelpRequestAttributesForStatus(data.status, data) &&
           verifyLatLngObject(data.latLng) &&
+          ('streetAddress' in data ) &&
           ('createdAt' in data) &&
           data.createdAt is timestamp
 }
@@ -136,6 +137,11 @@ service cloud.firestore {
     // Catch all -- Dont read/write to collections without rules
     match /{document=**} {
       allow read, write: if false;
+    }
+
+    match /config/chatbot {
+      // Only the chatbot can read / write this config
+      allow read, write: if request.auth.uid == 'bot-chatbot';
     }
 
     match /markers/{markerID} {

@@ -127,7 +127,7 @@ export class Questionnaire implements IQuestionnaire {
 
   toObject(): object {
     return {
-      parentRef: this.parentRef.path,
+      parentRef: this.parentRef,
       data: this.data,
       type: this.type,
       version: this.version,

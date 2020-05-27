@@ -1,4 +1,3 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
@@ -150,11 +149,9 @@ export class Offer implements IOffer {
   }
 }
 
-export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
+export const OfferFirestoreConverter: firebase.firestore.FirestoreDataConverter<Offer> = {
   fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
     return Offer.factory(data.data());
   },
-  toFirestore: (modelObject: Offer): DocumentData => {
-    return modelObject.toObject();
-  },
+  toFirestore: (modelObject: Offer): DocumentData => modelObject.toObject(),
 };
