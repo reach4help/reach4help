@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Map, {
+import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from '../../../../components/WebClientMap/WebClientMap';
+} from '../../../../components/WebClientMap/utils';
+import Map from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
 import { changeModal, setRequest } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
