@@ -1,9 +1,23 @@
-import GoogleMapReact from 'google-map-react';
+import GoogleMapReact, { Coords } from 'google-map-react';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
+import MyLocationIcon from './assets/MyLocationIcon.png';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
 import WebClientMapMessage from './WebClientMapMessage';
+
+const ANGKOR_WAT = {
+  lat: 13.4124693,
+  lng: 103.8667,
+};
+
+const secondsToTimestring = (seconds: number) =>
+  moment.duration(seconds, 'seconds').humanize();
+
+const metersToKm = (meters: number) => `${(meters / 1000).toFixed(1)}km`;
+
+const metersToImperial = (meters: number) =>
+  `${(meters * 0.000621371).toFixed(1)}mi`;
 
 declare global {
   interface Window {
@@ -37,17 +51,71 @@ const createMapOptions = maps => ({
   mapTypeControl: true,
 });
 
+export const getCoordsFromProfile = profileState => {
+  if (
+    profileState &&
+    profileState.privilegedInformation &&
+    profileState.privilegedInformation.address &&
+    profileState.privilegedInformation.address.coords
+  ) {
+    return {
+      lat: profileState.privilegedInformation.address.coords.latitude,
+      lng: profileState.privilegedInformation.address.coords.longitude,
+    };
+  }
+  return {
+    lat: ANGKOR_WAT.lat,
+    lng: ANGKOR_WAT.lng,
+  };
+};
+
+export const getStreetAddressFromProfile = profileState => {
+  if (
+    profileState &&
+    profileState.privilegedInformation &&
+    profileState.privilegedInformation.address
+  ) {
+    const { address } = profileState.privilegedInformation;
+    const { address1, address2, postalCode, city, state, country } = address;
+    const undefinedSafe = value => value || '';
+    const formattedAddress = `${undefinedSafe(address1)} ${undefinedSafe(
+      address2,
+    )} ${undefinedSafe(city)} ${undefinedSafe(state)} ${undefinedSafe(
+      postalCode,
+    )} ${undefinedSafe(country)}`;
+
+    return formattedAddress;
+  }
+};
 const WebClientMap: React.FC<MapProps> = ({
   destinations,
   origin = { lat: 0, lng: 0 },
   onDestinationClickedHandler,
-  geocodingAddress,
+  address,
   onGeocode,
   zoom = 11,
   height = '100%',
   isCav = true,
   bannerMessage = '',
+  startGeocode,
+  startLocateMe,
 }) => {
+  const geocodeCallback = (result, status) => {
+    if (status === 'OK' && result && result.length) {
+      if (onGeocode) {
+        const lat = result[0].geometry.location.lat();
+        const lng = result[0].geometry.location.lng();
+        onGeocode({
+          address: result[0].formatted_address,
+          latLng: { lat, lng },
+        });
+      }
+    } else {
+      // eslint-disable-next-line no-console
+      console.error('Unable to geocode');
+    }
+  };
+
   const [mapMessage, setMapMessage] = useState<string>('');
   const [selectedDestination, setSelectedDestination] = useState<string>('');
 
@@ -65,51 +133,60 @@ const WebClientMap: React.FC<MapProps> = ({
   const [Geocoder, setGeocoder] = useState<any | undefined>(undefined);
 
   const initGoogleMapServices = ({ map, maps }) => {
-    if (typeof DirectionsRenderer === 'undefined') {
-      const directionsRenderer = new maps.DirectionsRenderer();
-      directionsRenderer.setMap(map);
-      setDirectionsRenderer(directionsRenderer);
+    if (map && maps) {
+      if (typeof DirectionsRenderer === 'undefined') {
+        const directionsRenderer = new maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        setDirectionsRenderer(directionsRenderer);
+      }
+      if (typeof DirectionsService === 'undefined') {
+        setDirectionsService(new maps.DirectionsService());
+      }
+      if (typeof Geocoder === 'undefined') {
+        setGeocoder(new maps.Geocoder());
+      }
     }
-    if (typeof DirectionsService === 'undefined') {
-      setDirectionsService(new maps.DirectionsService());
-    }
-    if (typeof Geocoder === 'undefined') {
-      setGeocoder(new maps.Geocoder());
+  };
+  const doGeocode = ({ center, streetAddress }) => {
+    if (Geocoder) {
+      /* do street address first */
+      if (streetAddress) {
+        Geocoder.geocode({ address: streetAddress }, geocodeCallback);
+      } else if (center) {
+        Geocoder.geocode({ location: center }, geocodeCallback);
+      }
     }
   };
 
   useEffect(() => {
-    const geocodeCallback = (result, status) => {
-      if (status === 'OK' && result && result.length) {
-        if (onGeocode) {
-          const lat = result[0].geometry.location.lat();
-          const lng = result[0].geometry.location.lng();
-          onGeocode({
-            address: result[0].formatted_address,
-            latLng: { lat, lng },
-          });
-        }
-      } else {
-        console.error('Unable to geocode');
-      }
-    };
-
-    if (Geocoder) {
-      if (geocodingAddress) {
-        Geocoder.geocode({ address: geocodingAddress }, geocodeCallback);
-      } else {
-        Geocoder.geocode({ location: origin }, geocodeCallback);
-      }
+    if (startGeocode) {
+      doGeocode({ streetAddress: address, center: null });
     }
-  }, [Geocoder, geocodingAddress]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startGeocode, Geocoder, address, origin]);
 
-  const secondsToTimestring = (seconds: number) =>
-    moment.duration(seconds, 'seconds').humanize();
+  const getCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos: Coords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        doGeocode({ center: pos, streetAddress: '' });
+      },
+      error => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+      },
+    );
+  };
 
-  const metersToKm = (meters: number) => `${(meters / 1000).toFixed(1)}km`;
-
-  const metersToImperial = (meters: number) =>
-    `${(meters * 0.000621371).toFixed(1)}mi`;
+  useEffect(() => {
+    if (startLocateMe) {
+      getCurrentLocation();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startLocateMe, Geocoder]);
 
   const getDirections = destination => {
     DirectionsService.route(
@@ -129,6 +206,7 @@ const WebClientMap: React.FC<MapProps> = ({
             )}/${metersToImperial(distance)})`,
           );
         } else {
+          // eslint-disable-next-line no-console
           console.error('DISTANCE SERVICE ERROR:', status, result);
         }
       },
@@ -150,7 +228,7 @@ const WebClientMap: React.FC<MapProps> = ({
   }
   const centerMarkerProps = { ...origin, isCav };
   /*
-    const fakeDestination = [
+  const fakeDestinations = [
     {
       id: '4',
       center: {
@@ -160,10 +238,27 @@ const WebClientMap: React.FC<MapProps> = ({
     },
   ];
 */
+  const LocateMeContainer = () => (
+    <div
+      onClick={() => getCurrentLocation()}
+      style={{
+        backgroundColor: 'rgb(275, 155, 54)',
+        display: 'flex',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+      }}
+    >
+      <img alt="My location" src={MyLocationIcon} />
+      <img alt="My location" src={MyLocationIcon} />
+      <img alt="My location" src={MyLocationIcon} />
+    </div>
+  );
+
   return (
     <>
-      <div style={{ height: height, width: '100%' }}>
+      <div style={{ height, width: '100%' }}>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
+        {isCav && <LocateMeContainer />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
@@ -200,13 +295,15 @@ interface MapProps {
     lat: number;
     lng: number;
   };
-  geocodingAddress?: string;
+  address?: string;
   onGeocode?: ({ address: string, latLng: Coords }) => void;
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
   height?: string;
   isCav?: boolean;
   bannerMessage?: string;
+  startGeocode?: boolean;
+  startLocateMe?: boolean;
 }
 
 export default WebClientMap;

@@ -1,10 +1,10 @@
 import { Button, Col, Form, Input, Row, Select } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
-import gpslocation from '../../assets/gpslocation.svg';
+import { COLORS } from '../../../../theme/colors';
 import { RequestInput } from './RequestReview';
 
 const { Option } = Select;
@@ -24,29 +24,24 @@ const FormDiv = styled.div`
 `;
 
 const CharacterLimitDiv = styled.div`
-  font-size:12px;
-  margin-bottom:24px;
+  font-size: 12px;
+  margin-bottom: 24px;
 `;
 
 const StyledForm = styled(Form)`
   width: 100%;
-  margin-top:16px;
+  margin-top: 16px;
   .ant-form-item-label {
-    line-height:14px;
+    line-height: 14px;
   }
   label {
-    height:14px;
-    font-size:12px;
+    height: 14px;
+    font-size: 12px;
   }
 `;
 
 const StyledFormItem = styled(Form.Item)`
-  margin-bottom:0;
-`;
-
-const GPSTarget = styled.img`
-  width: 16px;
-  height: 16px;
+  margin-bottom: 0;
 `;
 
 const StyledButton = styled(Button)`
@@ -57,14 +52,28 @@ const StyledButton = styled(Button)`
   text-overflow: ellipsis;
 `;
 
-const GPSButton = styled(Button)`
-  width: 42px;
+const SubmitButton = styled(Button)`
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: ${COLORS.secondary};
+  color: ${COLORS.white};
+`;
+
+const SearchButton = styled(StyledButton)`
+  padding: 4px;
+`;
+
+const UseMyLocationButton = styled(StyledButton)`
+  padding: 0;
+  width: auto;
 `;
 
 export const REQUEST_TYPES = {
-  medicine: 'Medicine',
-  groceries: 'Groceries',
-  petwalking: 'Pet walking',
+  Deliveries: 'Deliveries',
+  Other: 'Other',
 };
 
 const NewRequest: React.FC<NewRequestProps> = ({
@@ -73,22 +82,50 @@ const NewRequest: React.FC<NewRequestProps> = ({
   request,
   setStreetAddress,
   setMapAddress,
+  setMyLocation,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
+  const [showOtherField, setShowOtherField] = useState<boolean>(false);
+
   useEffect(() => {
     form.setFieldsValue({
       streetAddress: request.streetAddress,
-      title: request.title || 'medicine',
+      type: request.type || 'Deliveries',
       body: request.description || '',
+      other: request.other || '',
     });
+    setShowOtherField(form.getFieldValue('type') === 'Other');
   }, [form, request]);
+
+  const toggleOtherField = (value: string) => {
+    setShowOtherField(value === 'Other');
+  };
+
+  const mayBeOtherField = () => {
+    if (!showOtherField) {
+      return null;
+    }
+    return (
+      <Form.Item
+        name="other"
+        rules={[
+          {
+            required: form.getFieldValue('type') === 'Other',
+            message: t('newRequest.form.other_error_message'),
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+    );
+  };
 
   const FormContent = (
     <MainDiv>
       <FormDiv>
-        <TitleWithAddon alignAddon="left" level={3} align="left">
+        <TitleWithAddon alignAddon="left" level={3} left="0%" transform="none">
           {t('newRequest.title')}
         </TitleWithAddon>
 
@@ -98,12 +135,12 @@ const NewRequest: React.FC<NewRequestProps> = ({
           layout="vertical"
           form={form}
           onFinish={values => {
-            onSubmit(values.title, values.body, values.streetAddress);
+            onSubmit(values.type, values.body, values.streetAddress, values.other);
           }}
         >
-          <Row justify="space-between" align="bottom" gutter={12}>
-            <Col span={22}>
-              <Form.Item
+          <Row justify="space-between" align="bottom">
+            <Col span={18}>
+              <StyledFormItem
                 name="streetAddress"
                 label={t('newRequest.form.address')}
                 rules={[
@@ -114,19 +151,23 @@ const NewRequest: React.FC<NewRequestProps> = ({
                 ]}
               >
                 <Input onChange={e => setStreetAddress(e.target.value)} />
-              </Form.Item>
+              </StyledFormItem>
             </Col>
-            <Col span={2}>
-              <Form.Item>
-                <GPSButton
-                  icon={<GPSTarget src={gpslocation} />}
+            <Col span={5} offset={1}>
+              <StyledFormItem>
+                <SearchButton
                   onClick={() => setMapAddress(request.streetAddress)}
-                />
-              </Form.Item>
+                >
+                  {t('newRequest.form.search')}
+                </SearchButton>
+              </StyledFormItem>
             </Col>
           </Row>
+          <UseMyLocationButton type="link" onClick={() => setMyLocation()}>
+            {t('newRequest.form.useMyLocation')}
+          </UseMyLocationButton>
           <Form.Item
-            name="title"
+            name="type"
             label={t('newRequest.form.type')}
             rules={[
               {
@@ -135,7 +176,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
               },
             ]}
           >
-            <Select>
+            <Select onChange={toggleOtherField}>
               {Object.keys(REQUEST_TYPES).map(key => (
                 <Option value={key} key={key}>
                   {' '}
@@ -144,6 +185,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
               ))}
             </Select>
           </Form.Item>
+          {mayBeOtherField()}
           <StyledFormItem
             name="body"
             label={t('newRequest.form.body')}
@@ -154,7 +196,10 @@ const NewRequest: React.FC<NewRequestProps> = ({
               },
             ]}
           >
-            <Input.TextArea placeholder={t('newRequest.form.body')} maxLength={150} />
+            <Input.TextArea
+              placeholder={t('newRequest.form.body')}
+              maxLength={150}
+            />
           </StyledFormItem>
           <CharacterLimitDiv>150 Character Limit</CharacterLimitDiv>
           <Row>
@@ -164,9 +209,9 @@ const NewRequest: React.FC<NewRequestProps> = ({
               </StyledButton>
             </Col>
             <Col span={11} offset={2}>
-              <StyledButton htmlType="submit" type="primary">
+              <SubmitButton htmlType="submit">
                 {t('newRequest.form.submit')}
-              </StyledButton>
+              </SubmitButton>
             </Col>
           </Row>
         </StyledForm>
@@ -181,8 +226,9 @@ interface NewRequestProps {
   onSubmit: Function;
   onCancel: Function;
   request: RequestInput;
-  setStreetAddress: (string) => void;
-  setMapAddress: (string) => void;
+  setStreetAddress: (string: string) => void;
+  setMapAddress: (string: string) => void;
+  setMyLocation: () => void;
 }
 
 export default NewRequest;

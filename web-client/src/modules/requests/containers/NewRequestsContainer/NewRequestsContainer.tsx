@@ -1,20 +1,25 @@
+import { firestore } from 'firebase';
 import { Coords } from 'google-map-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Map from '../../../../components/WebClientMap/WebClientMap';
+import Map, {
+  getCoordsFromProfile,
+  getStreetAddressFromProfile,
+} from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
-import { setRequest } from '../../../../ducks/requests/actions';
+import { changeModal, setRequest } from '../../../../ducks/requests/actions';
+import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from '../../../../models/users';
 import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
-import NewRequest, {
-  REQUEST_TYPES,
-} from '../../components/NewRequest/NewRequest';
+import NewRequest from '../../components/NewRequest/NewRequest';
+import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
 import RequestReview, {
   RequestInput,
 } from '../../components/NewRequest/RequestReview';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 const RequestDetails = styled.div`
   position: fixed;
@@ -32,50 +37,29 @@ const NewRequestsContainer: React.FC = () => {
 
   const [showReviewPage, setShowReviewPage] = useState<boolean>(false);
 
+  const [showConfirmationPage, setShowConfirmationPage] = useState<boolean>(
+    false,
+  );
+
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const [mapAddress, setMapAddress] = useState<string>();
+  const newRequestState = useSelector(
+    ({ requests }: { requests: RequestState }) => requests.setAction,
+  );
 
-  const [streetAddress, setStreetAddress] = useState<string>(() =>
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
-    profileState.privilegedInformation.addressFromGoogle.formatted_address
-      ? profileState.privilegedInformation.addressFromGoogle.formatted_address
-      : 'Address could not be found',
+  useEffect(() => {
+    setShowConfirmationPage(newRequestState.success);
+  }, [newRequestState]);
+
+  const [mapAddress, setMapAddress] = useState<string>(
+    () =>
+      getStreetAddressFromProfile(profileState) || 'Address could not be found',
   );
   const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
-    profileState.privilegedInformation.address.coords
-      ? {
-          lat: profileState.privilegedInformation.address.coords.latitude,
-          lng: profileState.privilegedInformation.address.coords.longitude,
-        }
-      : {
-          lat: 13.4124693,
-          lng: 103.8667,
-        },
+    getCoordsFromProfile(profileState),
   );
-
-  if (!currentLocation || !currentLocation.lat) {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        setCurrentLocation(pos);
-      },
-      error => {
-        // eslint-disable-next-line no-console
-        console.error(error.message);
-      },
-    );
-  }
 
   const dispatch = useDispatch();
 
@@ -85,34 +69,47 @@ const NewRequestsContainer: React.FC = () => {
       profileState.userRef &&
       profileState.privilegedInformation
     ) {
+      const title =
+        request.type === 'Deliveries' ? request.type : request.other;
+
       dispatch(
         setRequest({
-          title: request.title,
+          title,
           description: request.description,
           pinUserRef: profileState.userRef,
-          streetAddress: streetAddress,
+          streetAddress: mapAddress || 'Unable to find address',
           pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: profileState.privilegedInformation.address.coords,
+          latLng: new firestore.GeoPoint(
+            currentLocation.lat,
+            currentLocation.lng,
+          ),
         }),
       );
     }
   };
 
   const newRequestSubmitHandler = (
-    title: string,
+    type: string,
     body: string,
     address: string,
+    other: string,
   ) => {
     setRequestInfo({
-      title,
+      type,
       streetAddress: address,
       description: body,
+      other,
     });
     setShowReviewPage(true);
   };
 
+  const [startLocateMe, setStartLocateMe] = useState<boolean>(false);
+
+  const [startGeocode, setStartGeocode] = useState<boolean>(false);
   const setGeocodedLocation = ({ address, latLng }) => {
-    setStreetAddress(address);
+    setStartGeocode(false);
+    setStartLocateMe(false);
+    setMapAddress(address);
     setCurrentLocation(latLng);
   };
 
@@ -121,8 +118,9 @@ const NewRequestsContainer: React.FC = () => {
   const maybeNewRequest = () => {
     if (!showReviewPage) {
       const request = {
-        streetAddress,
-        title: requestInfo ? requestInfo.title : 'medicine',
+        streetAddress: mapAddress,
+        type: requestInfo ? requestInfo.type : 'Deliveries',
+        other: requestInfo ? requestInfo.other : '',
         description: requestInfo ? requestInfo.description : '',
       };
 
@@ -132,8 +130,9 @@ const NewRequestsContainer: React.FC = () => {
             onSubmit={newRequestSubmitHandler}
             onCancel={() => history.push(RoleInfoLocation.path)}
             request={request}
-            setStreetAddress={setStreetAddress}
-            setMapAddress={setMapAddress}
+            setStreetAddress={setMapAddress}
+            setMapAddress={() => setStartGeocode(true)}
+            setMyLocation={() => setStartLocateMe(true)}
           />
         </RequestDetails>
       );
@@ -142,16 +141,30 @@ const NewRequestsContainer: React.FC = () => {
 
   const maybeRequestReview = () => {
     if (showReviewPage && requestInfo) {
-      const details: RequestInput = { ...requestInfo };
-      details.title = REQUEST_TYPES[requestInfo.title];
       return (
         <RequestDetails>
           <RequestReview
-            request={details}
-            saveRequest={() => reviewRequestSubmitHandler(requestInfo)}
+            request={requestInfo}
+            saveRequest={() => {
+              reviewRequestSubmitHandler(requestInfo);
+            }}
             goBack={onGoBack}
           />
         </RequestDetails>
+      );
+    }
+  };
+
+  const maybeRequestConfirmation = () => {
+    if (showConfirmationPage) {
+      return (
+        <RequestConfirmation
+          showModal={showConfirmationPage}
+          closeModal={() => {
+            dispatch(changeModal(false));
+            history.push(OpenRequestsLocation.path);
+          }}
+        />
       );
     }
   };
@@ -163,12 +176,15 @@ const NewRequestsContainer: React.FC = () => {
         destinations={[]}
         origin={currentLocation}
         onGeocode={setGeocodedLocation}
-        geocodingAddress={mapAddress}
+        address={mapAddress}
         height="25vh"
+        startGeocode={startGeocode}
+        startLocateMe={startLocateMe}
       />
 
       {maybeNewRequest()}
       {maybeRequestReview()}
+      {maybeRequestConfirmation()}
     </>
   );
 };

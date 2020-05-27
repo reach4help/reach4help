@@ -1,14 +1,14 @@
 import { Coords } from 'google-map-react';
 import React from 'react';
 
-import LargeOrangeMarkerIcon from '../../assets/map-marker-orange-lg.png';
-import SmallOrangeMarkerIcon from '../../assets/map-marker-orange-sm.png';
-import LargePurpleMarkerIcon from '../../assets/map-marker-purple-lg.png';
+import LargeOrangeMarkerIcon from './assets/map-marker-orange-lg.png';
+import SmallOrangeMarkerIcon from './assets/map-marker-orange-sm.png';
+import LargePurpleMarkerIcon from './assets/map-marker-purple-lg.png';
 
-export const OriginMarker: React.FC<OriginMarkerProps> = props => (
+export const OriginMarker: React.FC<OriginMarkerProps> = ({ isCav }) => (
   <div>
     <img
-      src={props.isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
+      src={isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
       alt="My location"
     />
   </div>
