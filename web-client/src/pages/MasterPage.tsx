@@ -9,9 +9,6 @@ import {
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { changeModal, setRequest } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
-import { IUser } from 'src/models/users';
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
 
 import modules from '../modules';
@@ -24,30 +21,7 @@ const MasterPage = (): ReactElement => {
   );
   const userProfile = profileState.profile;
 
-  const newRequestState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.setAction,
-  );
-
   const dispatch = useDispatch();
-
-  const newRequestSubmitHandler = (title: string, body: string) => {
-    if (
-      profileState.profile &&
-      profileState.userRef &&
-      profileState.privilegedInformation
-    ) {
-      dispatch(
-        setRequest({
-          title,
-          description: body,
-          pinUserRef: profileState.userRef,
-          pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: profileState.privilegedInformation.address.coords,
-          streetAddress: 'This is a street address',
-        }),
-      );
-    }
-  };
 
   const renderLayout = routeModule => {
     if (routeModule.layout === 'dashboard' && userProfile) {
@@ -57,12 +31,6 @@ const MasterPage = (): ReactElement => {
           profileData={userProfile}
           isCav={userProfile?.applicationPreference === 'cav'}
           logoutHandler={() => dispatch(signOutCurrentUserAction())}
-          modalSubmitHandler={newRequestSubmitHandler}
-          modalStateHandler={state => dispatch(changeModal(state))}
-          modalState={newRequestState.modalState}
-          modalSuccess={newRequestState.success}
-          modalLoading={newRequestState.loading}
-          modalError={newRequestState.error}
         >
           <Route path={routeModule.path} component={routeModule.component} />
         </DashboardLayout>

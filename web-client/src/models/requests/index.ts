@@ -35,8 +35,8 @@ export interface IRequest extends firebase.firestore.DocumentData {
   pinUserSnapshot: IUser;
   title: string;
   description: string;
-  latLng: firebase.firestore.GeoPoint;
   streetAddress: string;
+  latLng: firebase.firestore.GeoPoint;
   status?: RequestStatus;
   pinRating?: number | null;
   cavRating?: number | null;
@@ -74,6 +74,7 @@ export class Request implements IRequest {
     this._cavUserSnapshot = cavUserSnapshot;
     this._title = title;
     this._description = description;
+    this._streetAddress = streetAddress;
     this._latLng = latLng;
     this._streetAddress = streetAddress;
     this._status = status;
@@ -172,17 +173,6 @@ export class Request implements IRequest {
   }
 
   @IsObject()
-  private _latLng: firebase.firestore.GeoPoint;
-
-  get latLng(): firebase.firestore.GeoPoint {
-    return this._latLng;
-  }
-
-  set latLng(value: firebase.firestore.GeoPoint) {
-    this._latLng = value;
-  }
-
-  @IsString()
   private _streetAddress: string;
 
   get streetAddress(): string {
@@ -191,6 +181,17 @@ export class Request implements IRequest {
 
   set streetAddress(value: string) {
     this._streetAddress = value;
+  }
+
+  @IsObject()
+  private _latLng: firebase.firestore.GeoPoint;
+
+  get latLng(): firebase.firestore.GeoPoint {
+    return this._latLng;
+  }
+
+  set latLng(value: firebase.firestore.GeoPoint) {
+    this._latLng = value;
   }
 
   @IsEnum(RequestStatus)
