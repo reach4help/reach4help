@@ -1,44 +1,11 @@
 import GoogleMapReact, { Coords } from 'google-map-react';
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
+import apiKey from './apiKey';
 import MyLocationIcon from './assets/MyLocationIcon.png';
+import { metersToImperial, metersToKm, secondsToTimestring } from './utils';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
 import WebClientMapMessage from './WebClientMapMessage';
-
-const ANGKOR_WAT = {
-  lat: 13.4124693,
-  lng: 103.8667,
-};
-
-const secondsToTimestring = (seconds: number) =>
-  moment.duration(seconds, 'seconds').humanize();
-
-const metersToKm = (meters: number) => `${(meters / 1000).toFixed(1)}km`;
-
-const metersToImperial = (meters: number) =>
-  `${(meters * 0.000621371).toFixed(1)}mi`;
-
-declare global {
-  interface Window {
-    GOOGLE_MAPS_API_KEY?: string;
-  }
-}
-
-/**
- * The default API Key is obtained from the env variable REACT_APP_GMAPS_API_KEY
- * The one provided in the repo is what's used on the live site,
- * and is restricted to map.reach4help.org
- *
- * To use your own key,
- * set the environment variable `REACT_APP_GMAPS_API_KEY` to your key.
- * or set the global window variable `GOOGLE_MAPS_API_KEY`
- */
-const PUBLIC_API_KEY = process.env.REACT_APP_GMAPS_API_KEY;
-
-const apiKey = window.GOOGLE_MAPS_API_KEY
-  ? window.GOOGLE_MAPS_API_KEY
-  : PUBLIC_API_KEY;
 
 const createMapOptions = maps => ({
   zoomControlOptions: {
@@ -51,42 +18,6 @@ const createMapOptions = maps => ({
   mapTypeControl: true,
 });
 
-export const getCoordsFromProfile = profileState => {
-  if (
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
-    profileState.privilegedInformation.address.coords
-  ) {
-    return {
-      lat: profileState.privilegedInformation.address.coords.latitude,
-      lng: profileState.privilegedInformation.address.coords.longitude,
-    };
-  }
-  return {
-    lat: ANGKOR_WAT.lat,
-    lng: ANGKOR_WAT.lng,
-  };
-};
-
-export const getStreetAddressFromProfile = profileState => {
-  if (
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address
-  ) {
-    const { address } = profileState.privilegedInformation;
-    const { address1, address2, postalCode, city, state, country } = address;
-    const undefinedSafe = value => value || '';
-    const formattedAddress = `${undefinedSafe(address1)} ${undefinedSafe(
-      address2,
-    )} ${undefinedSafe(city)} ${undefinedSafe(state)} ${undefinedSafe(
-      postalCode,
-    )} ${undefinedSafe(country)}`;
-
-    return formattedAddress;
-  }
-};
 const WebClientMap: React.FC<MapProps> = ({
   destinations,
   origin = { lat: 0, lng: 0 },
@@ -94,12 +25,48 @@ const WebClientMap: React.FC<MapProps> = ({
   address,
   onGeocode,
   zoom = 11,
-  height = '100%',
   isCav = true,
   bannerMessage = '',
   startGeocode,
   startLocateMe,
 }) => {
+  /* banner message */
+  const [googleMap, setGoogleMap] = useState<any>(null);
+  const [mapMessage, setMapMessage] = useState<string>('');
+  const [selectedDestination, setSelectedDestination] = useState<string>('');
+
+  useEffect(() => {
+    setMapMessage(bannerMessage);
+  }, [bannerMessage]);
+
+  /* google services */
+
+  const [DirectionsRenderer, setDirectionsRenderer] = useState<any | undefined>(
+    undefined,
+  );
+  const [DirectionsService, setDirectionsService] = useState<any | undefined>(
+    undefined,
+  );
+  const [Geocoder, setGeocoder] = useState<any | undefined>(undefined);
+
+  const initGoogleMapServices = ({ map, maps }) => {
+    if (map && maps) {
+      googleMap || setGoogleMap(map);
+      if (typeof DirectionsRenderer === 'undefined') {
+        const directionsRenderer = new maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        setDirectionsRenderer(directionsRenderer);
+      }
+      if (typeof DirectionsService === 'undefined') {
+        setDirectionsService(new maps.DirectionsService());
+      }
+      if (typeof Geocoder === 'undefined') {
+        setGeocoder(new maps.Geocoder());
+      }
+    }
+  };
+
+  /* geocode */
   const geocodeCallback = (result, status) => {
     if (status === 'OK' && result && result.length) {
       if (onGeocode) {
@@ -116,37 +83,6 @@ const WebClientMap: React.FC<MapProps> = ({
     }
   };
 
-  const [mapMessage, setMapMessage] = useState<string>('');
-  const [selectedDestination, setSelectedDestination] = useState<string>('');
-
-  useEffect(() => {
-    setMapMessage(bannerMessage);
-  }, [bannerMessage]);
-
-  // google services
-  const [DirectionsRenderer, setDirectionsRenderer] = useState<any | undefined>(
-    undefined,
-  );
-  const [DirectionsService, setDirectionsService] = useState<any | undefined>(
-    undefined,
-  );
-  const [Geocoder, setGeocoder] = useState<any | undefined>(undefined);
-
-  const initGoogleMapServices = ({ map, maps }) => {
-    if (map && maps) {
-      if (typeof DirectionsRenderer === 'undefined') {
-        const directionsRenderer = new maps.DirectionsRenderer();
-        directionsRenderer.setMap(map);
-        setDirectionsRenderer(directionsRenderer);
-      }
-      if (typeof DirectionsService === 'undefined') {
-        setDirectionsService(new maps.DirectionsService());
-      }
-      if (typeof Geocoder === 'undefined') {
-        setGeocoder(new maps.Geocoder());
-      }
-    }
-  };
   const doGeocode = ({ center, streetAddress }) => {
     if (Geocoder) {
       /* do street address first */
@@ -165,6 +101,7 @@ const WebClientMap: React.FC<MapProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startGeocode, Geocoder, address, origin]);
 
+  /* get current location */
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -188,6 +125,7 @@ const WebClientMap: React.FC<MapProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startLocateMe, Geocoder]);
 
+  /* Directions service */
   const getDirections = destination => {
     DirectionsService.route(
       { origin, destination: destination.center, travelMode: 'DRIVING' },
@@ -227,17 +165,7 @@ const WebClientMap: React.FC<MapProps> = ({
     return <>Could not obtain Google Maps API key</>;
   }
   const centerMarkerProps = { ...origin, isCav };
-  /*
-  const fakeDestinations = [
-    {
-      id: '4',
-      center: {
-        lat: origin.lat ? origin.lat * 1.001 : 0,
-        lng: origin.lng ? origin.lng / 1.001 : 0,
-      },
-    },
-  ];
-*/
+
   const LocateMeContainer = () => (
     <div
       onClick={() => getCurrentLocation()}
@@ -256,7 +184,7 @@ const WebClientMap: React.FC<MapProps> = ({
 
   return (
     <>
-      <div style={{ height, width: '100%' }}>
+      <div style={{ height: '100%', width: '100%' }}>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
         {isCav && <LocateMeContainer />}
         <GoogleMapReact
@@ -299,7 +227,6 @@ interface MapProps {
   onGeocode?: ({ address: string, latLng: Coords }) => void;
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
-  height?: string;
   isCav?: boolean;
   bannerMessage?: string;
   startGeocode?: boolean;
