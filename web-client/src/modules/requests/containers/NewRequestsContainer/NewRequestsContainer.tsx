@@ -22,8 +22,6 @@ import RequestReview, {
 import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 const RequestDetails = styled.div`
-  position: fixed;
-  bottom: 64px;
   width: 100%;
   background: white;
 `;
@@ -171,20 +169,32 @@ const NewRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <Map
-        isCav={false}
-        destinations={[]}
-        origin={currentLocation}
-        onGeocode={setGeocodedLocation}
-        address={mapAddress}
-        height="25vh"
-        startGeocode={startGeocode}
-        startLocateMe={startLocateMe}
-      />
-
-      {maybeNewRequest()}
-      {maybeRequestReview()}
-      {maybeRequestConfirmation()}
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'stretch',
+          flexDirection: 'column',
+        }}
+      >
+        <div style={{ height: '100%' }}>
+          <Map
+            isCav={false}
+            destinations={[]}
+            origin={currentLocation}
+            onGeocode={setGeocodedLocation}
+            address={mapAddress}
+            startGeocode={startGeocode}
+            startLocateMe={startLocateMe}
+          />
+        </div>
+        <div style={{ marginBottom: '50px' }}>
+          {maybeNewRequest()}
+          {maybeRequestReview()}
+          {maybeRequestConfirmation()}
+        </div>
+      </div>
     </>
   );
 };
