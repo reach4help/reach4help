@@ -2,7 +2,7 @@ import GoogleMapReact, { Coords } from 'google-map-react';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
-import MyLocationIcon from '../../assets/MyLocationIcon.png';
+import MyLocationIcon from './assets/MyLocationIcon.png';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
 import WebClientMapMessage from './WebClientMapMessage';
 

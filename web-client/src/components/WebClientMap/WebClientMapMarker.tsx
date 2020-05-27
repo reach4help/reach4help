@@ -1,9 +1,9 @@
 import { Coords } from 'google-map-react';
 import React from 'react';
 
-import LargeOrangeMarkerIcon from '../../assets/map-marker-orange-lg.png';
-import SmallOrangeMarkerIcon from '../../assets/map-marker-orange-sm.png';
-import LargePurpleMarkerIcon from '../../assets/map-marker-purple-lg.png';
+import LargeOrangeMarkerIcon from './assets/map-marker-orange-lg.png';
+import SmallOrangeMarkerIcon from './assets/map-marker-orange-sm.png';
+import LargePurpleMarkerIcon from './assets/map-marker-purple-lg.png';
 
 export const OriginMarker: React.FC<OriginMarkerProps> = ({ isCav }) => (
   <div>
