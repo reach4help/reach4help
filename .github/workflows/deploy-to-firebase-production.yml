@@ -33,7 +33,7 @@ jobs:
             REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.PROD_FIREBASE_STORAGE_BUCKET }}
             REACT_APP_GMAPS_API_KEY: ${{ secrets.PROD_MAPS_API_KEY }} # For the Web Client Project - they have different keys
             REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.PROD_MUTUAL_AID_MAP_API_KEY }} # For the Map Project - they have different keys
-          run: yarn workspaces run build
+          run: yarn build
 
       - name: Deploy
         run: |
