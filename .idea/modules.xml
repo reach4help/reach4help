@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/covidaid.iml" filepath="$PROJECT_DIR$/.idea/covidaid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/reach4help.iml" filepath="$PROJECT_DIR$/.idea/reach4help.iml" />
     </modules>
   </component>
 </project>

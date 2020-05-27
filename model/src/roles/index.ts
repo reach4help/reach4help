@@ -1,72 +1,38 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsString } from 'class-validator';
-import { firestore } from 'firebase';
-
-import DocumentData = firestore.DocumentData;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
+import * as t from 'io-ts';
 
 export const ROLES_COLLECTION_ID = 'roles';
 
-export interface IRole {
-  map: string[];
-  web: string[];
-  admin: string[];
-}
+export const ROLE_PERMISSION_GROUPS = ['map', 'web', 'admin'] as const;
 
-export class Role implements IRole {
-  constructor(map: string[], web: string[], admin: string[]) {
-    this._map = map;
-    this._web = web;
-    this._admin = admin;
-  }
+type RolePermissionGroup = typeof ROLE_PERMISSION_GROUPS[number];
 
-  @IsString({ each: true })
-  private _map: string[];
-
-  get map(): string[] {
-    return this._map;
-  }
-
-  set map(value: string[]) {
-    this._map = value;
-  }
-
-  @IsString({ each: true })
-  private _web: string[];
-
-  get web(): string[] {
-    return this._web;
-  }
-
-  set web(value: string[]) {
-    this._web = value;
-  }
-
-  @IsString({ each: true })
-  private _admin: string[];
-
-  get admin(): string[] {
-    return this._admin;
-  }
-
-  set admin(value: string[]) {
-    this._admin = value;
-  }
-
-  static factory = (data: IRole): Role =>
-    new Role(data.map, data.web, data.admin);
-
-  toObject(): object {
-    return {
-      map: this.map,
-      web: this.web,
-      admin: this.admin,
-    };
-  }
-}
-
-export const RoleFirestoreConverter: FirestoreDataConverter<Role> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IRole>): Role =>
-    Role.factory(data.data()),
-  toFirestore: (modelObject: Role): DocumentData => modelObject.toObject(),
+export type Role = {
+  [key in RolePermissionGroup]: string[] | undefined;
 };
+
+const StringArray = t.array(t.string);
+
+export function isRole(role: unknown): role is Role {
+  if (typeof role !== 'object' || !role) {
+    return false;
+  }
+  for (const k of Object.keys(role)) {
+    if (!ROLE_PERMISSION_GROUPS.includes(k as any)) {
+      // Unrecognized property
+      return false;
+    }
+    // Check if array of strings
+    if (!StringArray.is((role as any)[k])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export const RoleCodec = new t.Type<Role, Role, unknown>(
+  'Role',
+  isRole,
+  (input, context) =>
+    isRole(input) ? t.success(input) : t.failure(input, context),
+  t.identity,
+);

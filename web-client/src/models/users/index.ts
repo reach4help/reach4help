@@ -20,7 +20,7 @@ export enum ApplicationPreference {
 
 export interface IUser extends firebase.firestore.DocumentData {
   username: string;
-
+  applicationPreference?: ApplicationPreference | null;
   cavQuestionnaireRef?: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
@@ -34,13 +34,13 @@ export interface IUser extends firebase.firestore.DocumentData {
   cavRatingsReceived?: number;
   displayName?: string | null;
   displayPicture?: string | null;
-  applicationPreference?: ApplicationPreference;
   createdAt?: firebase.firestore.Timestamp;
 }
 
 export class User implements IUser {
   constructor(
     username: string,
+    applicationPreference: ApplicationPreference | null = null,
     pinQuestionnaireRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     > | null = null,
@@ -54,7 +54,6 @@ export class User implements IUser {
     averageRating: number | null = 1,
     displayName: string | null = null,
     displayPicture: string | null = null,
-    applicationPreference = ApplicationPreference.pin,
     createdAt = firestore.Timestamp.now(),
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
@@ -210,13 +209,13 @@ export class User implements IUser {
   }
 
   @IsEnum(ApplicationPreference)
-  private _applicationPreference: ApplicationPreference;
+  private _applicationPreference: ApplicationPreference | undefined | null;
 
-  get applicationPreference(): ApplicationPreference {
+  get applicationPreference(): ApplicationPreference | undefined | null {
     return this._applicationPreference;
   }
 
-  set applicationPreference(value: ApplicationPreference) {
+  set applicationPreference(value: ApplicationPreference | undefined | null) {
     this._applicationPreference = value;
   }
 
@@ -237,6 +236,7 @@ export class User implements IUser {
   static factory = (data: IUser): User =>
     new User(
       data.username,
+      data.applicationPreference,
       data.pinQuestionnaireRef,
       data.cavQuestionnaireRef,
       data.casesCompleted,
@@ -246,44 +246,29 @@ export class User implements IUser {
       data.averageRating,
       data.displayName,
       data.displayPicture,
-      data.applicationPreference,
       data.createdAt,
     );
 
-  toObject(): object {
-    return {
-      cavQuestionnaireRef: this.cavQuestionnaireRef?.path,
-      pinQuestionnaireRef: this.pinQuestionnaireRef?.path,
-      username: this.username,
-      casesCompleted: this.casesCompleted,
-      requestsMade: this.requestsMade,
-      pinRatingsReceived: this.pinRatingsReceived,
-      cavRatingsReceived: this.cavRatingsReceived,
-      averageRating: this.averageRating,
-      displayName: this.displayName,
-      displayPicture: this.displayPicture,
-      applicationPreference: this.applicationPreference,
-      createdAt: this.createdAt,
-    };
-  }
+  toObject = (): object => ({
+    cavQuestionnaireRef: this.cavQuestionnaireRef || null,
+    pinQuestionnaireRef: this.pinQuestionnaireRef || null,
+    username: this.username,
+    casesCompleted: this.casesCompleted,
+    requestsMade: this.requestsMade,
+    pinRatingsReceived: this.pinRatingsReceived,
+    cavRatingsReceived: this.cavRatingsReceived,
+    averageRating: this.averageRating,
+    displayName: this.displayName,
+    displayPicture: this.displayPicture,
+    applicationPreference: this.applicationPreference,
+    createdAt: this.createdAt,
+  });
 }
 
 export const UserFirestoreConverter: firebase.firestore.FirestoreDataConverter<User> = {
   fromFirestore: (
     data: firebase.firestore.QueryDocumentSnapshot<IUser>,
   ): User => User.factory(data.data()),
-  toFirestore: (modelObject: User): firebase.firestore.DocumentData => ({
-    cavQuestionnaireRef: modelObject.cavQuestionnaireRef,
-    pinQuestionnaireRef: modelObject.pinQuestionnaireRef,
-    averageRating: modelObject.averageRating,
-    casesCompleted: modelObject.casesCompleted,
-    requestsMade: modelObject.requestsMade,
-    pinRatingsReceived: modelObject.pinRatingsReceived,
-    cavRatingsReceived: modelObject.cavRatingsReceived,
-    username: modelObject.username,
-    displayName: modelObject.displayName,
-    displayPicture: modelObject.displayPicture,
-    applicationPreference: modelObject.applicationPreference,
-    createdAt: modelObject.createdAt,
-  }),
+  toFirestore: (modelObject: User): firebase.firestore.DocumentData =>
+    modelObject.toObject(),
 };

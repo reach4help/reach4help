@@ -1,7 +1,9 @@
 import { MenuItem, Module } from 'src/types/module';
 
 import ContentPage from './pages/ContentPage';
-import { CompletedRequestsLocation } from './pages/routes/CompletedRequestsRoute/constants';
+import { AcceptedRequestsLocation } from './pages/routes/AcceptedRequestsRoute/constants';
+import { ArchivedRequestsLocation } from './pages/routes/ArchivedRequestsRoute/constants';
+import { FinishedRequestsLocation } from './pages/routes/FinishedRequestsRoute/constants';
 import { OngoingRequestsLocation } from './pages/routes/OngoingRequestsRoute/constants';
 import { OpenRequestsLocation } from './pages/routes/OpenRequestsRoute/constants';
 
@@ -18,12 +20,22 @@ export const menuLinks: Array<MenuItem> = [
       {
         id: '3',
         title: 'Accepted',
-        location: OngoingRequestsLocation,
+        location: AcceptedRequestsLocation,
       },
       {
         id: '4',
-        title: 'Completed',
-        location: CompletedRequestsLocation,
+        title: 'Ongoing',
+        location: OngoingRequestsLocation,
+      },
+      {
+        id: '5',
+        title: 'Finished',
+        location: FinishedRequestsLocation,
+      },
+      {
+        id: '6',
+        title: 'Archived',
+        location: ArchivedRequestsLocation,
       },
     ],
   },
@@ -36,5 +48,4 @@ const requestsModule: Module = {
   protected: true,
   component: ContentPage,
 };
-
 export default requestsModule;

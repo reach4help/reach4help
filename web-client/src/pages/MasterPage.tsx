@@ -8,12 +8,11 @@ import {
 } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import { updateUserPrivilegedInformation } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { changeModal, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IUser } from 'src/models/users';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
 
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
@@ -31,11 +30,7 @@ const MasterPage = (): ReactElement => {
 
   const dispatch = useDispatch();
 
-  const newRequestSubmitHandler = (
-    title: string,
-    body: string,
-    sendNotifications: boolean,
-  ) => {
+  const newRequestSubmitHandler = (title: string, body: string) => {
     if (
       profileState.profile &&
       profileState.userRef &&
@@ -48,18 +43,8 @@ const MasterPage = (): ReactElement => {
           pinUserRef: profileState.userRef,
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: profileState.privilegedInformation.address.coords,
+          streetAddress: 'This is a street address',
         }),
-      );
-    }
-
-    if (profileState.uid && profileState.privilegedInformation) {
-      profileState.privilegedInformation.sendNotifications =
-        sendNotifications === true;
-      dispatch(
-        updateUserPrivilegedInformation(
-          profileState.uid,
-          profileState.privilegedInformation,
-        ),
       );
     }
   };
@@ -109,9 +94,10 @@ const MasterPage = (): ReactElement => {
       <Switch>
         {renderModules()}
         {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
-        <Route path="/" exact>
-          <Redirect to={OpenRequestsLocation.path} />
-        </Route>
+        <ProtectedRoute
+          path="/"
+          component={() => <Redirect to={RoleInfoLocation.path} />}
+        />
         <Route path="*" component={NotFoundRoute} />
       </Switch>
     </Router>

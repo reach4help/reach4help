@@ -6,7 +6,7 @@ import { sendSMS } from './twilio';
 export const notifyService = (config: Record<string, any>): Promise<void> => {
   const operations: Promise<void>[] = [];
   for (const toNotify of config.notify) {
-    const fcmTopic = `${config[toNotify].id}_${config[toNotify].entity}_notifications in topics`;
+    const fcmTopic = `${config[toNotify].id}_${config[toNotify].entity}_notifications`;
     const notification: Record<string, string> = {};
     if (config[toNotify].entity === 'user') {
       notification.title = `${config.performedOnEntity.entity} ${config.action}`;

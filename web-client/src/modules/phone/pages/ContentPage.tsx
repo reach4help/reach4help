@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
 import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/PersonalDataRoute/constants';
@@ -23,7 +24,7 @@ const ContentPage = (): ReactElement => {
   const redirectBack = get(location, 'state.redirectBack');
 
   if (loading && !user) {
-    return <>Loading</>;
+    return <LoadingWrapper />;
   }
 
   if (!user) {
@@ -31,7 +32,7 @@ const ContentPage = (): ReactElement => {
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: redirectBack || location.pathname },
+          state: { redirectBack: redirectBack || '/' },
         }}
       />
     );
@@ -41,7 +42,7 @@ const ContentPage = (): ReactElement => {
       <Redirect
         to={{
           pathname: PersonalDataLocation.path,
-          state: { redirectBack: redirectBack || location.pathname },
+          state: { redirectBack: redirectBack || '/' },
         }}
       />
     );
