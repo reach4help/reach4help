@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import Map, {
   getCoordsFromProfile,
+  getStreetAddressFromProfile,
 } from '../../../../components/WebClientMap/WebClientMap';
 import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
@@ -45,7 +46,7 @@ const FindRequestsContainer: React.FC = () => {
   );
   //  const [streetAddress, setStreetAddress] = useState<string>(() => getStreetAddressFromProfile(profileState));
 
-  const [currentLocation] = useState<Coords>(() =>
+  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
     getCoordsFromProfile(profileState),
   );
 
@@ -196,6 +197,7 @@ const FindRequestsContainer: React.FC = () => {
         onDestinationClickedHandler={id => onRequestHandler(id)}
         onGeocode={setGeocodedLocation}
         bannerMessage={bannerMessage}
+        showMyLocationBar={true}
       />
       {maybeRequestDetails()}
     </>

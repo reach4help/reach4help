@@ -2,10 +2,11 @@ import GoogleMapReact, { Coords } from 'google-map-react';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
+import MyLocationIcon from '../../assets/MyLocationIcon.png';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
 import WebClientMapMessage from './WebClientMapMessage';
 
-const ANGOR_WAT = {
+const ANGKOR_WAT = {
   lat: 13.4124693,
   lng: 103.8667,
 };
@@ -98,6 +99,7 @@ const WebClientMap: React.FC<MapProps> = ({
   bannerMessage = '',
   startGeocode,
   startLocateMe,
+  showMyLocationBar = false,
 }) => {
   const geocodeCallback = (result, status) => {
     if (status === 'OK' && result && result.length) {
@@ -243,9 +245,14 @@ const WebClientMap: React.FC<MapProps> = ({
       onClick={() => getCurrentLocation()}
       style={{
         backgroundColor: 'rgb(275, 155, 54)',
+        display: 'flex',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
       }}
     >
-      Move to my current location
+      <img alt="My location" src={MyLocationIcon} />
+      <img alt="My location" src={MyLocationIcon} />
+      <img alt="My location" src={MyLocationIcon} />
     </div>
   );
 
@@ -253,8 +260,7 @@ const WebClientMap: React.FC<MapProps> = ({
     <>
       <div style={{ height, width: '100%' }}>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
-        <LocateMeContainer />
-
+        {showMyLocationBar && <LocateMeContainer />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
@@ -300,6 +306,7 @@ interface MapProps {
   bannerMessage?: string;
   startGeocode?: boolean;
   startLocateMe?: boolean;
+  showMyLocationBar?: boolean;
 }
 
 export default WebClientMap;
