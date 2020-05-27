@@ -19,7 +19,7 @@ const LoadingIndicator: React.FC<LoadingIndicator> = ({
     },
   };
 
-  return <Lottie options={defaultOptions} />;
+  return <Lottie options={defaultOptions} height={240} width={240} />;
 };
 
 export default LoadingIndicator;

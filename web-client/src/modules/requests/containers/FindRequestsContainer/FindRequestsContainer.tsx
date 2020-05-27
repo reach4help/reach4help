@@ -1,9 +1,13 @@
+import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import {
+  getCoordsFromProfile,
+  getStreetAddressFromProfile,
+} from '../../../../components/WebClientMap/utils';
 import Map from '../../../../components/WebClientMap/WebClientMap';
-import { VolunteerMarkerProps } from '../../../../components/WebClientMap/WebClientMarker';
 import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
 import { ProfileState } from '../../../../ducks/profile/types';
@@ -16,7 +20,7 @@ import { ApplicationPreference } from '../../../../models/users';
 import RequestItem from '../../components/RequestItem/RequestItem';
 
 interface MapRequestProps {
-  center: VolunteerMarkerProps;
+  center: Coords;
   id: string;
 }
 
@@ -38,20 +42,13 @@ const FindRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const [currentLocation, setCurrentLocation] = useState<VolunteerMarkerProps>(
-    () =>
-      profileState &&
-      profileState.privilegedInformation &&
-      profileState.privilegedInformation.address &&
-      profileState.privilegedInformation.address.coords
-        ? {
-            lat: profileState.privilegedInformation.address.coords.latitude,
-            lng: profileState.privilegedInformation.address.coords.longitude,
-          }
-        : {
-            lat: 13.4124693,
-            lng: 103.8667,
-          },
+  const [bannerMessage, setBannerMessage] = useState<string | undefined>(
+    getStreetAddressFromProfile(profileState),
+  );
+  //  const [streetAddress, setStreetAddress] = useState<string>(() => getStreetAddressFromProfile(profileState));
+
+  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
+    getCoordsFromProfile(profileState),
   );
 
   const [requestsWithoutOffer, setRequestsWithoutOffer] = useState<
@@ -69,7 +66,7 @@ const FindRequestsContainer: React.FC = () => {
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
   );
-
+  /*
   navigator.geolocation.getCurrentPosition(
     position => {
       const pos = {
@@ -83,7 +80,7 @@ const FindRequestsContainer: React.FC = () => {
       console.error(error.message);
     },
   );
-
+*/
   useEffect(() => {
     if (openRequests && openRequests.data) {
       const internalPendingRequests: Record<string, Request> = {
@@ -187,12 +184,20 @@ const FindRequestsContainer: React.FC = () => {
     return null;
   };
 
+  const setGeocodedLocation = ({ address, latLng }) => {
+    setBannerMessage(address);
+    setCurrentLocation(latLng);
+  };
+
   return (
     <>
       <Map
-        requests={requestsWithoutOffer}
-        volunteerLocation={currentLocation}
-        onRequestHandler={id => onRequestHandler(id)}
+        isCav
+        destinations={requestsWithoutOffer}
+        origin={currentLocation}
+        onDestinationClickedHandler={id => onRequestHandler(id)}
+        onGeocode={setGeocodedLocation}
+        bannerMessage={bannerMessage}
       />
       {maybeRequestDetails()}
     </>

@@ -12,6 +12,8 @@ import {
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
+import { observeTimeline } from 'src/ducks/timeline/actions';
+import { TimelineState } from 'src/ducks/timeline/types';
 import { IOffer, Offer, OfferStatus } from 'src/models/offers';
 import { IRequest, Request, RequestStatus } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
@@ -44,6 +46,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
+  );
+
+  const timelineState = useSelector(
+    ({ timeline }: { timeline: TimelineState }) => timeline,
   );
 
   useEffect(() => {
@@ -119,6 +125,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           userType: profileState.profile.applicationPreference,
         });
 
+        const unsubscribeFromTimeline = observeTimeline(dispatch, {
+          requestId,
+        });
+
         return () => {
           unsubscribeFromOpen();
           unsubscribeFromOngoing();
@@ -126,10 +136,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           unsubscribeFromCancelled();
           unsubscribeFromRemoved();
           unsubscribeFromOffers();
+          unsubscribeFromTimeline();
         };
       }
     }
-  }, [dispatch, profileState]);
+  }, [dispatch, profileState, history, requestId, accepted]);
 
   useEffect(() => {
     if (accepted && requestId && offersState.data) {
@@ -143,7 +154,22 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     }
   }, [offersState, accepted, requestId, setOffersForRequest]);
 
-  if (!(profileState.profile && request)) {
+  useEffect(() => {
+    if (request && request.status === RequestStatus.ongoing && accepted) {
+      history.push(TimelineViewLocation.toUrl({ requestId }));
+    }
+  }, [accepted, request, requestId, history]);
+
+  if (
+    !(
+      profileState.profile &&
+      request &&
+      !(
+        (!accepted && timelineState.loading) ||
+        (accepted && offersState.loading)
+      )
+    )
+  ) {
     return <LoadingWrapper />;
   }
 
@@ -204,17 +230,20 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           handleOffer={handleOffer}
         />
       )}
-      {!accepted && (
+      {!accepted && timelineState.data && profileState.userRef && (
         <>
-          <TimelineList items={[]} currentUser={profileState.profile} />
-          <BottomPanel
-            request={request}
-            currentUser={profileState.profile}
-            handleRequest={handleRequest}
-            isCav={isCav}
+          <TimelineList
+            items={timelineState.data}
+            currentUser={profileState.userRef}
           />
         </>
       )}
+      <BottomPanel
+        request={request}
+        currentUser={profileState.profile}
+        handleRequest={handleRequest}
+        isCav={isCav}
+      />
     </>
   );
 };

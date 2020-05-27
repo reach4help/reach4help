@@ -22,7 +22,8 @@
     "phoneNumber": {
       "sub_title": "Enter your telephone number to begin",
       "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!"
+      "error_message": "Please input your phone number!",
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
     },
     "verificationCode": {
       "sub_title": "We just texted you a confirmation code. Please enter it below.",
@@ -60,9 +61,18 @@
       "icon_text": "I need help",
       "form": {
         "title": "Title",
+        "type": "Type",
+        "address": "Confirm Address",
         "body": "Enter details of what is needed",
         "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Send my need"
+        "submit": "Next",
+        "cancel": "Cancel",
+        "search": "Search",
+        "useMyLocation": "Use my location",
+        "address_error_message": "You need to fill your address.",
+        "type_error_message": "You need to select a type.",
+        "other_error_message": "You need to enter details.",
+        "body_error_message": "You need to fill description."
       }
     },
     "newRequestSuccess": {
@@ -70,6 +80,11 @@
       "info": "Please be patient until you get an offer from a volunteer.",
       "remember": "Remember",
       "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+    },
+    "requestReview": {
+      "submit": "Submit Request",
+      "back": "Back",
+      "deliveryAddress": "Delivery address"
     },
     "roleinfo": {
       "title": "Reach4Help",

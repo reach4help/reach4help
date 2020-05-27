@@ -9,9 +9,10 @@ import { useHistory } from 'react-router-dom';
 import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
 import styled from 'styled-components';
 
+import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
+
 const BottomNavbar: React.FC<BottomNavProps> = ({
   openMenu,
-  openNewRequestModal,
   openNotifications,
   isCav,
 }) => {
@@ -22,7 +23,7 @@ const BottomNavbar: React.FC<BottomNavProps> = ({
         <SideMenuIcon />
       </NavButton>
       {isCav === false && (
-        <NavButton onClick={openNewRequestModal}>
+        <NavButton onClick={() => history.push(NewRequestsLocation.path)}>
           <NewRequestIcon />
         </NavButton>
       )}
@@ -73,7 +74,6 @@ const Wrapper = styled.div`
 
 interface BottomNavProps {
   openMenu: () => void;
-  openNewRequestModal: () => void;
   openNotifications: () => void;
   isCav?: boolean;
 }
