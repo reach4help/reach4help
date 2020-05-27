@@ -99,7 +99,6 @@ const WebClientMap: React.FC<MapProps> = ({
   bannerMessage = '',
   startGeocode,
   startLocateMe,
-  showMyLocationBar = false,
 }) => {
   const geocodeCallback = (result, status) => {
     if (status === 'OK' && result && result.length) {
@@ -259,7 +258,7 @@ const WebClientMap: React.FC<MapProps> = ({
     <>
       <div style={{ height, width: '100%' }}>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
-        {showMyLocationBar && <LocateMeContainer />}
+        {isCav && <LocateMeContainer />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
@@ -305,7 +304,6 @@ interface MapProps {
   bannerMessage?: string;
   startGeocode?: boolean;
   startLocateMe?: boolean;
-  showMyLocationBar?: boolean;
 }
 
 export default WebClientMap;

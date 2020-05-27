@@ -197,7 +197,6 @@ const FindRequestsContainer: React.FC = () => {
         onDestinationClickedHandler={id => onRequestHandler(id)}
         onGeocode={setGeocodedLocation}
         bannerMessage={bannerMessage}
-        showMyLocationBar
       />
       {maybeRequestDetails()}
     </>
