@@ -14,6 +14,7 @@ module.exports = {
     brandOrange: '#ff7b02',
     lightBlue: '#1890ff',
     strokeCards: '#F0F0F0',
+    greyBackground: '#E5E5E5',
     rgb: {
       success: '82,196,26',
       primary: '24, 144, 255',

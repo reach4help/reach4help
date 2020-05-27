@@ -39,6 +39,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       <NotificationsDrawer
         visible={notificationVisible}
         closeDrawer={() => setNotificationVisible(false)}
+        isCav={isCav}
       />
       <Layout.Content
         style={{ marginTop: '64px', height: '90vh', overflow: 'auto' }}
