@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import {firestore} from 'firebase';
 
 import Map, {
   getCoordsFromProfile,
@@ -75,7 +76,7 @@ const NewRequestsContainer: React.FC = () => {
           pinUserRef: profileState.userRef,
           streetAddress: mapAddress || 'Unable to find address',
           pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: profileState.privilegedInformation.address.coords,
+          latLng: new firestore.GeoPoint(currentLocation.lat, currentLocation.lng),
         }),
       );
     }
