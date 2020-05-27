@@ -1,9 +1,9 @@
+import { firestore } from 'firebase';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import {firestore} from 'firebase';
 
 import Map, {
   getCoordsFromProfile,
@@ -16,7 +16,9 @@ import { IUser } from '../../../../models/users';
 import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
 import NewRequest from '../../components/NewRequest/NewRequest';
 import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
-import RequestReview, { RequestInput } from '../../components/NewRequest/RequestReview';
+import RequestReview, {
+  RequestInput,
+} from '../../components/NewRequest/RequestReview';
 import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 const RequestDetails = styled.div`
@@ -67,7 +69,8 @@ const NewRequestsContainer: React.FC = () => {
       profileState.userRef &&
       profileState.privilegedInformation
     ) {
-      const title = request.type === 'Deliveries' ? request.type : request.other;
+      const title =
+        request.type === 'Deliveries' ? request.type : request.other;
 
       dispatch(
         setRequest({
@@ -76,7 +79,10 @@ const NewRequestsContainer: React.FC = () => {
           pinUserRef: profileState.userRef,
           streetAddress: mapAddress || 'Unable to find address',
           pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: new firestore.GeoPoint(currentLocation.lat, currentLocation.lng),
+          latLng: new firestore.GeoPoint(
+            currentLocation.lat,
+            currentLocation.lng,
+          ),
         }),
       );
     }
