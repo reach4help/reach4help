@@ -41,7 +41,7 @@ export const queueTimelineItemTriggers = async (
 
   if (entity) {
     let user: User | undefined;
-    let userRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | undefined;
+    let userRef: firestore.DocumentReference<firestore.DocumentData> | undefined;
 
     if (entity instanceof Offer || type === 'offer') {
       console.log('an offer alright');

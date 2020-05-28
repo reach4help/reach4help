@@ -1,4 +1,5 @@
 import { IRequest, Request, RequestStatus } from 'src/models/requests';
+import { firestore, functions } from 'src/firebase';
 
 import {
   createUserRequest,
@@ -45,18 +46,27 @@ export const observeOpenRequests = (
 export const observeNonOpenRequests = (
   dispatch: Function,
   payload: IgetNonOpenRequests,
-): (() => void) => {
-  dispatch({
-    type: requestStatusMapper[payload.requestStatus],
-    observer: observeNonOpenRequestsFunc,
-    payload,
-  });
-
-  return () =>
-    dispatch({
-      type: requestStatusMapper[payload.requestStatus].UNSUBSCRIBE,
-      observerName: requestStatusMapper[payload.requestStatus],
+): any => {
+  (async () => {
+    console.log("before calling cloud function");
+    let response = await functions.httpsCallable('https-api-requests-getRequests')({
+      lat: 37.42,
+      lng: 122.08,
+      status: RequestStatus.pending
     });
+    console.log("response from cloud function: ", response);
+  })();
+  // dispatch({
+  //   type: requestStatusMapper[payload.requestStatus],
+  //   observer: observeNonOpenRequestsFunc,
+  //   payload,
+  // });
+
+  // return () =>
+  //   dispatch({
+  //     type: requestStatusMapper[payload.requestStatus].UNSUBSCRIBE,
+  //     observerName: requestStatusMapper[payload.requestStatus],
+  //   });
 };
 
 export const setRequest = (payload: IRequest, requestId?: string) => (

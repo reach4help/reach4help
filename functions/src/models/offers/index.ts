@@ -1,5 +1,6 @@
+import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase-admin';
 
 import { IUser, User } from '../users';
 import Timestamp = firestore.Timestamp;
@@ -124,7 +125,7 @@ export class Offer implements IOffer {
     this._createdAt = value;
   }
 
-  static factory = (data: IOffer): Offer => {
+  public static factory(data: IOffer): Offer {
     return new Offer(
       data.cavUserRef,
       data.pinUserRef,
@@ -134,7 +135,7 @@ export class Offer implements IOffer {
       data.status,
       data.createdAt,
     );
-  };
+  }
 
   toObject(): object {
     return {
@@ -149,7 +150,7 @@ export class Offer implements IOffer {
   }
 }
 
-export const OfferFirestoreConverter: firebase.firestore.FirestoreDataConverter<Offer> = {
+export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
   fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
     return Offer.factory(data.data());
   },

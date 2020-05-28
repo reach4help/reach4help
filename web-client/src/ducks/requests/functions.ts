@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { firestore } from 'src/firebase';
+import { firestore, functions } from 'src/firebase';
 import {
   Request,
   RequestFirestoreConverter,

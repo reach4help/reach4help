@@ -1,6 +1,6 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase-admin';
 
 import { IUser, User } from '../users';
 import GeoPoint = firestore.GeoPoint;
@@ -253,8 +253,8 @@ export class Request implements IRequest {
     this._cavRatedAt = value;
   }
 
-  static factory = (data: IRequest): Request =>
-    new Request(
+  public static factory(data: IRequest): Request {
+    return new Request(
       data.pinUserRef,
       User.factory(data.pinUserSnapshot),
       data.title,
@@ -272,6 +272,7 @@ export class Request implements IRequest {
       data.pinRatedAt,
       data.cavRatedAt,
     );
+  }
 
   toObject(): object {
     return {
