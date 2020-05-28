@@ -24,19 +24,23 @@ const RequestList: React.FC<RequestListProps> = ({
   isCavAndOpenRequest,
   isPinAndOpenRequest,
   RequestItem,
-  pendingOffersGiven,
   cavDeclinedOffersGiven,
   hideUserPics,
   toCloseRequest,
 }): React.ReactElement => {
   const [requestList, setRequestList] = useState<React.ReactElement<any>[]>([]);
+  const [requestsRendered, setRequestsRendered] = useState<
+    Record<string, boolean>
+  >({});
 
   useEffect(() => {
     if (requests) {
       const internalRequestList: React.ReactElement<any>[] = [];
+      const internalRequestsRendered: Record<string, boolean> = {};
 
       for (const id in requests) {
-        if (id && requests[id]) {
+        if (id && requests[id] && !requestsRendered[id]) {
+          internalRequestsRendered[id] = true;
           internalRequestList.push(
             <RequestItem
               key={id}
@@ -55,7 +59,10 @@ const RequestList: React.FC<RequestListProps> = ({
         }
       }
 
-      setRequestList(internalRequestList);
+      if (internalRequestList.length) {
+        setRequestsRendered(internalRequestsRendered);
+        setRequestList(internalRequestList);
+      }
     }
   }, [
     requests,
@@ -63,10 +70,11 @@ const RequestList: React.FC<RequestListProps> = ({
     handleRequest,
     isCavAndOpenRequest,
     isPinAndOpenRequest,
-    pendingOffersGiven,
     cavDeclinedOffersGiven,
     hideUserPics,
+    requestsRendered,
     toCloseRequest,
+    setRequestList,
   ]);
 
   // issue with indefinite loading, needs fix

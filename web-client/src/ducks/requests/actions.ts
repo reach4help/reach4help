@@ -65,6 +65,7 @@ export const setRequest = (payload: IRequest, requestId?: string) => (
   const requestPayload = Request.factory({
     ...payload,
   });
+
   dispatch({
     type: SET,
     payload: {
