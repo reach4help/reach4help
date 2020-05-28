@@ -19,6 +19,12 @@
       "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
       "facebookButtonLabel": "Continue with Facebook"
     },
+    "menuDrawer": {
+      "contactUs": "Contact us",
+      "logout": "Sign out",
+      "switchToCAV": "Switch to Volunteer",
+      "switchToPIN": "Switch to Person In Need"
+    },
     "phoneNumber": {
       "sub_title": "Enter your telephone number to begin",
       "info": "This information is fundamental to validate your account. Data and rates may apply.",
