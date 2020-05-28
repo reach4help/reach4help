@@ -11,6 +11,9 @@ import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
 
+import { AuthState } from '../ducks/auth/types';
+import { updateUserProfile } from '../ducks/profile/actions';
+import { ApplicationPreference } from '../models/users';
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -23,6 +26,20 @@ const MasterPage = (): ReactElement => {
 
   const dispatch = useDispatch();
 
+  const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
+
+  const toggleApplicationPreference = () => {
+    const user = profileState.profile;
+    if (user && authState.user) {
+      const currentPreference = user.applicationPreference;
+      user.applicationPreference =
+        currentPreference === ApplicationPreference.cav
+          ? ApplicationPreference.pin
+          : ApplicationPreference.cav;
+      dispatch(updateUserProfile(authState.user.uid, user));
+    }
+  };
+
   const renderLayout = routeModule => {
     if (routeModule.layout === 'dashboard' && userProfile) {
       return (
@@ -31,6 +48,7 @@ const MasterPage = (): ReactElement => {
           profileData={userProfile}
           isCav={userProfile?.applicationPreference === 'cav'}
           logoutHandler={() => dispatch(signOutCurrentUserAction())}
+          toggleApplicationPreference={toggleApplicationPreference}
         >
           <Route path={routeModule.path} component={routeModule.component} />
         </DashboardLayout>
