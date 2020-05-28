@@ -20,11 +20,11 @@ export interface IOffer extends DocumentData {
   pinUserRef: DocumentReference<DocumentData>;
   requestRef: DocumentReference<DocumentData>;
   cavUserSnapshot: IUser;
-  requestSnapshot: IRequest;
+  requestSnapshot: IRequest | null;
   message: string;
   status: OfferStatus;
   createdAt?: Timestamp;
-  seenAt?: Timestamp | null;
+  seenAt?: Timestamp;
 }
 
 export class Offer implements IOffer {
@@ -33,11 +33,11 @@ export class Offer implements IOffer {
     pinUserRef: DocumentReference<DocumentData>,
     requestRef: DocumentReference<DocumentData>,
     cavUserSnapshot: User,
-    requestSnapshot: Request,
+    requestSnapshot: Request | null,
     message: string,
     status: OfferStatus,
     createdAt = Timestamp.now(),
-    seenAt: Timestamp | null = null,
+    seenAt = Timestamp.now(),
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
@@ -95,13 +95,13 @@ export class Offer implements IOffer {
   }
 
   @ValidateNested()
-  private _requestSnapshot: Request;
+  private _requestSnapshot: Request | null;
 
-  get requestSnapshot(): Request {
+  get requestSnapshot(): Request | null {
     return this._requestSnapshot;
   }
 
-  set requestSnapshot(value: Request) {
+  set requestSnapshot(value: Request | null) {
     this._requestSnapshot = value;
   }
 
@@ -144,13 +144,13 @@ export class Offer implements IOffer {
 
   @IsObject()
   @IsOptional()
-  private _seenAt: Timestamp | null;
+  private _seenAt: Timestamp;
 
-  get seenAt(): Timestamp | null {
+  get seenAt(): Timestamp {
     return this._seenAt;
   }
 
-  set seenAt(value: Timestamp | null) {
+  set seenAt(value: Timestamp) {
     this.seenAt = value;
   }
 
@@ -160,7 +160,7 @@ export class Offer implements IOffer {
       data.pinUserRef,
       data.requestRef,
       User.factory(data.cavUserSnapshot),
-      Request.factory(data.requestSnapshot),
+      data.requestSnapshot ? Request.factory(data.requestSnapshot) : null,
       data.message,
       data.status,
       data.createdAt,
@@ -174,7 +174,9 @@ export class Offer implements IOffer {
       pinUserRef: this.pinUserRef,
       requestRef: this.requestRef,
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
-      requestSnapshot: this.requestSnapshot.toObject(),
+      requestSnapshot: this.requestSnapshot
+        ? this.requestSnapshot.toObject()
+        : null,
       message: this.message,
       status: this.status,
       createdAt: this.createdAt,

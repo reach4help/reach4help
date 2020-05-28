@@ -30,11 +30,11 @@ export interface IOffer extends firebase.firestore.DocumentData {
     firebase.firestore.DocumentData
   >;
   cavUserSnapshot: IUser;
-  requestSnapshot?: IRequest | null;
+  requestSnapshot: IRequest | null;
   message: string;
   status: OfferStatus;
   createdAt?: firebase.firestore.Timestamp;
-  seenAt?: firebase.firestore.Timestamp | null;
+  seenAt?: firebase.firestore.Timestamp;
 }
 
 export class Offer implements IOffer {
@@ -49,11 +49,11 @@ export class Offer implements IOffer {
       firebase.firestore.DocumentData
     >,
     cavUserSnapshot: User,
-    requestSnapshot: Request | null = null,
+    requestSnapshot: Request | null,
     message: string,
     status: OfferStatus,
     createdAt = firestore.Timestamp.now(),
-    seenAt: firebase.firestore.Timestamp | null = null,
+    seenAt = firestore.Timestamp.now(),
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
@@ -185,13 +185,13 @@ export class Offer implements IOffer {
 
   @IsObject()
   @IsOptional()
-  private _seenAt: firebase.firestore.Timestamp | null;
+  private _seenAt: firebase.firestore.Timestamp;
 
-  get seenAt(): firebase.firestore.Timestamp | null {
+  get seenAt(): firebase.firestore.Timestamp {
     return this._seenAt;
   }
 
-  set seenAt(value: firebase.firestore.Timestamp | null) {
+  set seenAt(value: firebase.firestore.Timestamp) {
     this._seenAt = value;
   }
 
