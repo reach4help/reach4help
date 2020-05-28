@@ -18,8 +18,8 @@ const CompletedRequestsContainer: React.FC = () => {
   const [finishedRequests, setFinishedRequests] = useState<
     Record<string, Request>
   >({});
-  const completedRequests = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.completedRequests,
+  const ongoingRequests = useSelector(
+    ({ requests }: { requests: RequestState }) => requests.ongoingRequests,
   );
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -40,19 +40,19 @@ const CompletedRequestsContainer: React.FC = () => {
   }, [profileState, dispatch]);
 
   useEffect(() => {
-    if (completedRequests.data) {
+    if (ongoingRequests.data) {
       const internalFinishedRequests: Record<string, Request> = {};
-      for (const key in completedRequests.data) {
+      for (const key in ongoingRequests.data) {
         if (
-          completedRequests.data[key].cavRatedAt instanceof Date &&
-          !(completedRequests.data[key].pinRatedAt instanceof Date)
+          ongoingRequests.data[key].pinRating &&
+          !ongoingRequests.data[key].cavRating
         ) {
-          internalFinishedRequests[key] = completedRequests.data[key];
+          internalFinishedRequests[key] = ongoingRequests.data[key];
         }
       }
       setFinishedRequests(internalFinishedRequests);
     }
-  }, [completedRequests, setFinishedRequests]);
+  }, [ongoingRequests, setFinishedRequests]);
 
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
@@ -69,7 +69,7 @@ const CompletedRequestsContainer: React.FC = () => {
       />
       <RequestList
         requests={finishedRequests}
-        loading={completedRequests && completedRequests.loading}
+        loading={ongoingRequests && ongoingRequests.loading}
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}
         RequestItem={RequestItem}

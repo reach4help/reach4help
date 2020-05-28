@@ -38,13 +38,14 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
     false,
   );
   const [ratingModalVisible, setRatingModalVisible] = useState<boolean>(false);
+  const [showRating, setShowRating] = useState<boolean>(false);
 
   const finalRatings = Array.from({ length: rating }, (_, i) => i);
 
   const { t } = useTranslation();
 
   const onFinishRequest = (): void => {
-    handleRequest({ status: RequestStatus.completed });
+    setShowRating(true);
     setRequestModalVisible(false);
   };
 
@@ -52,16 +53,19 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
     if (isCav) {
       handleRequest({ pinRating: rating });
     } else {
-      handleRequest({ cavRating: rating });
+      handleRequest({ cavRating: rating, status: RequestStatus.completed });
     }
     setRatingModalVisible(true);
   };
 
-  const isRated = isCav ? request.pinRating : request.cavRating;
+  const finishedRequest =
+    !request.cavRating &&
+    request.pinRating &&
+    request.status === RequestStatus.ongoing;
 
   return (
     <>
-      {request.status === RequestStatus.ongoing && (
+      {!showRating && !finishedRequest && isCav && (
         <ButtonContainer>
           <Button
             onClick={() => handleRequest({ status: RequestStatus.cancelled })}
@@ -79,7 +83,17 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
         </ButtonContainer>
       )}
 
-      {request.status === RequestStatus.completed && !isRated && (
+      {request.status === RequestStatus.pending && (
+        <ButtonContainer>
+          <Button
+            onClick={() => handleRequest({ status: RequestStatus.cancelled })}
+          >
+            {t('timeline.cancelRequest')}
+          </Button>
+        </ButtonContainer>
+      )}
+
+      {(showRating || (finishedRequest && !isCav)) && (
         <MiddleAlignedColumn>
           <p>
             {t('timeline.ratingQuestion')} <b>{currentUser.displayName}</b>?
@@ -100,6 +114,7 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
           </div>
         </MiddleAlignedColumn>
       )}
+
       <Modal
         visible={requestModalVisible}
         onCancel={(): void => setRequestModalVisible(false)}

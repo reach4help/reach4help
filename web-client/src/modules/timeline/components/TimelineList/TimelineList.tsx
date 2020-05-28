@@ -12,7 +12,7 @@ const MESSAGE_TEXTS = {
   CREATE_REQUEST: 'Pin created this request.',
   CANCEL_REQUEST: 'Pin closed this request.',
   REMOVE_REQUEST: 'Cav removed this request',
-  COMPLETE_REQUEST: 'Cav finished this request.',
+  COMPLETE_REQUEST: 'Request has been completed.',
   CREATE_OFFER: 'Cav accepted this request.',
   ACCEPT_OFFER: 'Pin accepted Cav help.',
   REJECT_OFFER: 'Pin rejected Cav help.',

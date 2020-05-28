@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +17,7 @@ import { observeTimeline } from 'src/ducks/timeline/actions';
 import { TimelineState } from 'src/ducks/timeline/types';
 import { IOffer, Offer, OfferStatus } from 'src/models/offers';
 import { IRequest, Request, RequestStatus } from 'src/models/requests';
+import { TimelineItem } from 'src/models/requests/timeline';
 import { ApplicationPreference } from 'src/models/users';
 
 import BottomPanel from '../../components/BottomPanel/BottomPanel';
@@ -35,6 +37,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   const [offersForRequest, setOffersForRequest] = useState<
     Record<string, Offer>
   >({});
+  const [timelineObjects, setTimelineObjects] = useState<TimelineItem[]>([]);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -160,6 +163,18 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     }
   }, [accepted, request, requestId, history]);
 
+  useEffect(() => {
+    if (timelineState.data) {
+      const innerTimelineObjects = timelineState.data
+        .slice()
+        .sort(
+          (a, b) =>
+            a.createdAt.toDate().getTime() - b.createdAt.toDate().getTime(),
+        );
+      setTimelineObjects(innerTimelineObjects);
+    }
+  }, [timelineState.data]);
+
   if (
     !(
       profileState.profile &&
@@ -185,8 +200,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     if (request && (status || pinRating || cavRating)) {
       const updated = request;
       status && (updated.status = status);
-      pinRating && (updated.pinRating = pinRating);
-      cavRating && (updated.cavRating = cavRating);
+      pinRating &&
+        (updated.pinRating = pinRating) &&
+        (updated.pinRatedAt = firestore.Timestamp.now());
+      cavRating &&
+        (updated.cavRating = cavRating) &&
+        (updated.cavRatedAt = firestore.Timestamp.now());
       dispatch(updateRequest(updated.toObject() as IRequest, requestId));
     }
   };
@@ -233,17 +252,19 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       {!accepted && timelineState.data && profileState.userRef && (
         <>
           <TimelineList
-            items={timelineState.data}
+            items={timelineObjects}
             currentUser={profileState.userRef}
           />
         </>
       )}
-      <BottomPanel
-        request={request}
-        currentUser={profileState.profile}
-        handleRequest={handleRequest}
-        isCav={isCav}
-      />
+      <div style={{ position: 'fixed', bottom: '0', width: '100%' }}>
+        <BottomPanel
+          request={request}
+          currentUser={profileState.profile}
+          handleRequest={handleRequest}
+          isCav={isCav}
+        />
+      </div>
     </>
   );
 };
