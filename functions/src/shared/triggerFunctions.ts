@@ -2,7 +2,7 @@ import { firestore } from 'firebase-admin';
 
 import { db } from '../app';
 import { Offer, OfferStatus } from '../models/offers';
-import { Request, RequestFirestoreConverter, RequestStatus } from '../models/requests';
+import { IRequest, Request, RequestStatus } from '../models/requests';
 import { TimelineItemAction } from '../models/requests/timeline';
 import { User } from '../models/users';
 
@@ -12,6 +12,8 @@ const statusToActionMapperRequest = {
   [RequestStatus.completed]: TimelineItemAction.COMPLETE_REQUEST,
   [RequestStatus.cancelled]: TimelineItemAction.CANCEL_REQUEST,
   [RequestStatus.removed]: TimelineItemAction.REMOVE_REQUEST,
+  [`${RequestStatus.ongoing}_rated`]: TimelineItemAction.RATE_PIN,
+  [`${RequestStatus.completed}_rated`]: TimelineItemAction.RATE_CAV,
 };
 
 const statusToActionMapperOffer = {
@@ -49,7 +51,7 @@ export const queueTimelineItemTriggers = async (
         user = entity.cavUserSnapshot;
         userRef = entity.cavUserRef;
       } else if (entity.status === OfferStatus.accepted || entity.status === OfferStatus.rejected) {
-        const tempRequest = (await entity.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+        const tempRequest = Request.factory((await entity.requestRef.get()).data() as IRequest);
         console.log('tempRequest: ', tempRequest);
         if (tempRequest) {
           console.log('tempRequest.pinUserSnampshot: ', tempRequest.pinUserSnapshot);
@@ -75,8 +77,60 @@ export const queueTimelineItemTriggers = async (
     console.log('userRef: ', userRef);
     console.log('entity: ', entity);
 
+    if (entity.status === RequestStatus.pending && entity.pinRating) {
+      await db
+        .collection('requests')
+        .doc(type === 'offer' ? entity.requestRef.id : snap.id)
+        .collection('timeline')
+        .doc()
+        .set({
+          actorRef: userRef,
+          offerRef: null,
+          requestRef: db.collection('requests').doc(snap.id),
+          actorSnapshot: user,
+          offerSnapshot: null,
+          requestSnapshot: entity,
+          action: statusToActionMapperRequest[`${RequestStatus.pending}_rated`],
+          createdAt: new Date(),
+        });
+      return Promise.resolve();
+    }
+
+    if (entity.status === RequestStatus.completed && entity.cavRating) {
+      await db
+        .collection('requests')
+        .doc(type === 'offer' ? entity.requestRef.id : snap.id)
+        .collection('timeline')
+        .doc()
+        .set({
+          actorRef: userRef,
+          offerRef: null,
+          requestRef: db.collection('requests').doc(snap.id),
+          actorSnapshot: user,
+          offerSnapshot: null,
+          requestSnapshot: entity,
+          action: statusToActionMapperRequest[RequestStatus.completed],
+          createdAt: new Date(),
+        });
+      await db
+        .collection('requests')
+        .doc(type === 'offer' ? entity.requestRef.id : snap.id)
+        .collection('timeline')
+        .doc()
+        .set({
+          actorRef: userRef,
+          offerRef: null,
+          requestRef: db.collection('requests').doc(snap.id),
+          actorSnapshot: user,
+          offerSnapshot: null,
+          requestSnapshot: entity,
+          action: statusToActionMapperRequest[`${RequestStatus.completed}_rated`],
+          createdAt: new Date(),
+        });
+      return Promise.resolve();
+    }
+
     if (snap) {
-      // await Promise.resolve();
       await db
         .collection('requests')
         .doc(type === 'offer' ? entity.requestRef.id : snap.id)

@@ -135,7 +135,12 @@ const NewRequest: React.FC<NewRequestProps> = ({
           layout="vertical"
           form={form}
           onFinish={values => {
-            onSubmit(values.type, values.body, values.streetAddress, values.other);
+            onSubmit(
+              values.type,
+              values.body,
+              values.streetAddress,
+              values.other,
+            );
           }}
         >
           <Row justify="space-between" align="bottom">

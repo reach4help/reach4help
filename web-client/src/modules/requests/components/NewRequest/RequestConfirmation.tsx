@@ -33,9 +33,9 @@ const RememberInfoP = styled.p`
 `;
 
 const RequestConfirmation: React.FC<RequestConfirmationProps> = ({
-                                                           showModal,
-                                                           closeModal,
-                                                         }) => {
+  showModal,
+  closeModal,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -46,7 +46,9 @@ const RequestConfirmation: React.FC<RequestConfirmationProps> = ({
       footer={null}
     >
       <>
-        <TitleWithAddon level={1} bottom="-16px">{t('newRequestSuccess.title')}</TitleWithAddon>
+        <TitleWithAddon level={1} bottom="-16px">
+          {t('newRequestSuccess.title')}
+        </TitleWithAddon>
         <SubtitleP>{t('newRequestSuccess.info')}</SubtitleP>
         <LoadingIndicator lottieJson={stayAtHomeLottieJson} />
         <Footer>

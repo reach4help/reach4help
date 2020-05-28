@@ -10,7 +10,10 @@ const TitleWrapper = styled.div`
   position: relative;
 `;
 
-const doAddonAlignment = (alignAddon: string | undefined, left: string | undefined) => {
+const doAddonAlignment = (
+  alignAddon: string | undefined,
+  left: string | undefined,
+) => {
   switch (alignAddon) {
     case 'left':
       return left || '12%';
@@ -29,11 +32,12 @@ const StyledTitle = styled(Title)`
     position: absolute;
     width: 40px;
     height: 6px;
-    left: ${(props: TitleWithAddonProps) => doAddonAlignment(props.alignAddon, props.left)};
+    left: ${(props: TitleWithAddonProps) =>
+      doAddonAlignment(props.alignAddon, props.left)};
     bottom: ${(props: TitleWithAddonProps) => props.bottom || 0};
-    transform: ${(props: TitleWithAddonProps) => props.transform || 'translate(-50%, 0)'};
+    transform: ${(props: TitleWithAddonProps) =>
+      props.transform || 'translate(-50%, 0)'};
     background-color: ${COLORS.highlight};
-    
   }
 `;
 
@@ -50,7 +54,13 @@ const TitleWithAddon: React.FC<TitleWithAddonProps> = ({
     There is a bug with styled-components regarding camelCase props. I will not try to workaround,
     and wait until it's fixed 
     https://github.com/styled-components/styled-components/issues/2131 */}
-    <StyledTitle alignAddon={alignAddon} level={level} left={left} bottom={bottom} transform={transform}>
+    <StyledTitle
+      alignAddon={alignAddon}
+      level={level}
+      left={left}
+      bottom={bottom}
+      transform={transform}
+    >
       {children}
     </StyledTitle>
   </TitleWrapper>

@@ -74,7 +74,6 @@ export class Request implements IRequest {
     this._cavUserSnapshot = cavUserSnapshot;
     this._title = title;
     this._description = description;
-    this._streetAddress = streetAddress;
     this._latLng = latLng;
     this._streetAddress = streetAddress;
     this._status = status;
@@ -172,7 +171,7 @@ export class Request implements IRequest {
     this._description = value;
   }
 
-  @IsObject()
+  @IsString()
   private _streetAddress: string;
 
   get streetAddress(): string {

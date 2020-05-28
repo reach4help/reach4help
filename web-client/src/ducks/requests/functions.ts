@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import { firestore } from 'src/firebase';
 import {
   Request,

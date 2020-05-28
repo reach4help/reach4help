@@ -6,84 +6,108 @@ import {
 import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RequestStatus } from 'src/models/requests';
+import StarRadioGroup from 'src/components/StarRadioGroup/StarRadioGroup';
+import { Request, RequestStatus } from 'src/models/requests';
+import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import StarRadioGroup from '../../../components/StarRadioGroup/StarRadioGroup';
-
-export interface FinishRequestButtonsProps {
-  title: string;
-  name: string;
-  profilePicture: string;
-  status: RequestStatus;
-  rating: number | null;
-  handleFinishRequest: Function;
-  handleSubmitRating: (value: number) => void;
-  loading: boolean;
+export interface TimelineActionsProps {
+  request: Request;
+  currentUser: User;
+  handleRequest: ({
+    status,
+    pinRating,
+    cavRating,
+  }: {
+    status?: RequestStatus;
+    pinRating?: number;
+    cavRating?: number;
+  }) => void;
+  isCav: boolean;
 }
 
-const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
-  title,
-  name,
-  profilePicture,
-  status,
-  rating,
-  handleFinishRequest,
-  handleSubmitRating,
-  loading,
+const BottomPanel: React.FC<TimelineActionsProps> = ({
+  request,
+  currentUser,
+  handleRequest,
+  isCav,
 }): React.ReactElement => {
-  const [value, setValue] = useState<number>(rating || 0);
+  const [rating, setRating] = useState<number>(0);
   const [requestModalVisible, setRequestModalVisible] = useState<boolean>(
     false,
   );
   const [ratingModalVisible, setRatingModalVisible] = useState<boolean>(false);
+  const [showRating, setShowRating] = useState<boolean>(false);
 
-  const finalRatings = Array.from({ length: value }, (_, i) => i);
+  const finalRatings = Array.from({ length: rating }, (_, i) => i);
 
   const { t } = useTranslation();
 
   const onFinishRequest = (): void => {
-    handleFinishRequest();
+    setShowRating(true);
     setRequestModalVisible(false);
   };
 
   const onSubmitRating = (): void => {
-    handleSubmitRating(value);
+    if (isCav) {
+      handleRequest({ pinRating: rating });
+    } else {
+      handleRequest({ cavRating: rating, status: RequestStatus.completed });
+    }
     setRatingModalVisible(true);
   };
 
+  const finishedRequest =
+    !request.cavRating &&
+    request.pinRating &&
+    request.status === RequestStatus.ongoing;
+
   return (
     <>
-      {status === RequestStatus.ongoing && (
+      {!showRating && !finishedRequest && isCav && (
         <ButtonContainer>
-          <Button>{t('timeline.cancelRequest')}</Button>
-
-          <PrimaryButton
-            onClick={(): void => setRequestModalVisible(true)}
-            icon={<FileProtectOutlined />}
+          <Button
+            onClick={() => handleRequest({ status: RequestStatus.cancelled })}
           >
-            {t('timeline.finishRequest')}
-          </PrimaryButton>
+            {t('timeline.cancelRequest')}
+          </Button>
+          {isCav && (
+            <PrimaryButton
+              onClick={(): void => setRequestModalVisible(true)}
+              icon={<FileProtectOutlined />}
+            >
+              {t('timeline.finishRequest')}
+            </PrimaryButton>
+          )}
         </ButtonContainer>
       )}
 
-      {status === RequestStatus.completed && (
+      {request.status === RequestStatus.pending && (
+        <ButtonContainer>
+          <Button
+            onClick={() => handleRequest({ status: RequestStatus.cancelled })}
+          >
+            {t('timeline.cancelRequest')}
+          </Button>
+        </ButtonContainer>
+      )}
+
+      {(showRating || (finishedRequest && !isCav)) && (
         <MiddleAlignedColumn>
           <p>
-            {t('timeline.ratingQuestion')} <b>{name}</b>?
+            {t('timeline.ratingQuestion')} <b>{currentUser.displayName}</b>?
           </p>
 
           <StarContainer>
-            <StarRadioGroup rating={value} handleChange={setValue} />
+            <StarRadioGroup rating={rating} handleChange={setRating} />
           </StarContainer>
 
           <div>
             <PrimaryButton
-              disabled={!value}
+              disabled={!rating}
               onClick={onSubmitRating}
               icon={<StarOutlined />}
-              loading={loading}
             >
               {t('timeline.submitRatingButton')}
             </PrimaryButton>
@@ -103,18 +127,14 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
             <h2>{t('timeline.finishRequest')}</h2>
 
             <p>
-              {t('timeline.finishRequestModalParta')} <b>{title}</b>{' '}
-              {t('timeline.finishRequestModalPartb')} {name}?
+              {t('timeline.finishRequestModalParta')} <b>{request.title}</b>{' '}
+              {t('timeline.finishRequestModalPartb')} {currentUser.displayName}?
             </p>
           </div>
         </FlexDiv>
 
         <div>
-          <ButtonRight
-            onClick={onFinishRequest}
-            icon={<FileProtectOutlined />}
-            loading={loading}
-          >
+          <ButtonRight onClick={onFinishRequest} icon={<FileProtectOutlined />}>
             {t('timeline.finishRequest')}
           </ButtonRight>
         </div>
@@ -126,16 +146,16 @@ const FinishRequestButtons: React.FC<FinishRequestButtonsProps> = ({
         footer={null}
       >
         <HorizontallyAlignedDiv>
-          <DisplayPhoto src={profilePicture} alt="" />
+          <DisplayPhoto src={currentUser.displayPicture || undefined} alt="" />
 
-          <DisplayName>{name}</DisplayName>
+          <DisplayName>{currentUser.displayName}</DisplayName>
         </HorizontallyAlignedDiv>
 
         <MiddleAlignedColumn>
           <p>{t('timeline.thankYouModalTitle')}</p>
 
           <p>
-            {t('timeline.thankYouModalBodyParta')} {name}{' '}
+            {t('timeline.thankYouModalBodyParta')} {currentUser.displayName}{' '}
             {t('timeline.thankYouModalBodyPartb')}:
           </p>
 
@@ -165,6 +185,12 @@ const MiddleAlignedColumn = styled(HorizontallyAlignedDiv)`
 
 const ButtonContainer = styled(FlexDiv)`
   justify-content: center;
+  width: 100%;
+  padding: 15px;
+
+  button {
+    width: 100%;
+  }
 `;
 
 const PrimaryButton = styled(Button)`
@@ -232,4 +258,4 @@ const RatingModal = styled(Modal)`
   }
 `;
 
-export default FinishRequestButtons;
+export default BottomPanel;
