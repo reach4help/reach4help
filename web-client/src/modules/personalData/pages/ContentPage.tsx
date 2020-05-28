@@ -9,7 +9,7 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
 import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
 import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import { NewRequestsLocation } from 'src/modules/requests/pages/routes/NewRequestsRoute/constants';
 import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
@@ -74,7 +74,7 @@ const ContentPage = (): ReactElement => {
       return (
         <Redirect
           to={{
-            pathname: redirectBack || OpenRequestsLocation.path,
+            pathname: redirectBack || NewRequestsLocation.path,
           }}
         />
       );

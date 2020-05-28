@@ -153,7 +153,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   }, [offersState, accepted, requestId, setOffersForRequest]);
 
   useEffect(() => {
-    if (request?.status !== RequestStatus.ongoing && accepted) {
+    if (request && request.status === RequestStatus.ongoing && accepted) {
       history.push(TimelineViewLocation.toUrl({ requestId }));
     }
   }, [accepted, request, requestId, history]);

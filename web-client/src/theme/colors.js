@@ -10,6 +10,7 @@ module.exports = {
     // TODO: We should rethink this name
     backgroundAlternative: '#F27979',
     backgroundLightGray: '#0000000d',
+    backgroundLightOrange: '#FDF1E6',
     success: '#52C41A',
     brandOrange: '#ff7b02',
     lightBlue: '#1890ff',

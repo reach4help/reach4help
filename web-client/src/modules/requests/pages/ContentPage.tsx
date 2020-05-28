@@ -9,6 +9,8 @@ import { FindRequestsLocation } from './routes/FindRequestsRoute/constants';
 import FindRequestsRoute from './routes/FindRequestsRoute/FindRequestsRoute';
 import { FinishedRequestsLocation } from './routes/FinishedRequestsRoute/constants';
 import FinishedRequestsRoute from './routes/FinishedRequestsRoute/FinishedRequestsRoute';
+import { NewRequestsLocation } from './routes/NewRequestsRoute/constants';
+import NewRequestsRoute from './routes/NewRequestsRoute/NewRequestsRoute';
 import { OngoingRequestsLocation } from './routes/OngoingRequestsRoute/constants';
 import OngoingRequestsRoute from './routes/OngoingRequestsRoute/OngoingRequestsRoute';
 import { OpenRequestsLocation } from './routes/OpenRequestsRoute/constants';
@@ -46,6 +48,7 @@ const ContentPage = (): ReactElement => (
       component={FindRequestsRoute}
       exact
     />
+    <Route path={NewRequestsLocation.path} component={NewRequestsRoute} exact />
   </Switch>
 );
 
