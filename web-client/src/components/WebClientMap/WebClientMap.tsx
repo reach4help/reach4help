@@ -52,6 +52,11 @@ const WebClientMap: React.FC<MapProps> = ({
   const initGoogleMapServices = ({ map, maps }) => {
     if (map && maps) {
       googleMap || setGoogleMap(map);
+      /*
+      map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(
+        <div style={{ zIndex: 1000 }}>hello world</div>,
+      );
+      */
       if (typeof DirectionsRenderer === 'undefined') {
         const directionsRenderer = new maps.DirectionsRenderer();
         directionsRenderer.setMap(map);
@@ -110,6 +115,9 @@ const WebClientMap: React.FC<MapProps> = ({
           lng: position.coords.longitude,
         };
         doGeocode({ center: pos, streetAddress: '' });
+        if (googleMap.getCenter() !== pos) {
+          googleMap.panTo(pos);
+        }
       },
       error => {
         // eslint-disable-next-line no-console
