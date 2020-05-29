@@ -1,4 +1,5 @@
-/* eslint max-len: 0 */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/display-name */
 import React from "react"
 
 export default props => (

@@ -10,6 +10,8 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "yarn build && gatsby serve",
+    "lint": "eslint ./src && prettier --check \"./src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint ./src --fix && prettier --write \"./src/**/*.{js,jsx}\"",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "pre-commit": "lint-staged"

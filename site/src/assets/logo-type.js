@@ -1,5 +1,6 @@
-/* eslint max-len: 0 */
-import * as React from "react"
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/display-name */
+import React from "react"
 
 export default props => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 18" {...props}>

@@ -2,9 +2,8 @@ import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 
-import { Wrapper, ContentWrapper } from "./style"
-
 import Button from "src/components/button"
+import { Wrapper, ContentWrapper } from "./style"
 
 function Team() {
   const data = useStaticQuery(
@@ -34,8 +33,8 @@ function Team() {
         <ContentWrapper
           dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
         />
-        <Button textColor={"white"} backgroundColor={"accent"}>
-          You're the help next door. Join us!
+        <Button textColor="white" backgroundColor="accent">
+          You&apos;re the help next door. Join us!
         </Button>
       </div>
       <div className="imageWrapper">

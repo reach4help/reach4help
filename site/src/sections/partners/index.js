@@ -20,8 +20,8 @@ function Partners() {
         dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
       />
       <LogosWrapper>
-        {PartnerInfo.map((partner, index) => (
-          <a href={partner.link} key={index}>
+        {PartnerInfo.map(partner => (
+          <a href={partner.link} key={partner.id}>
             <img src={partner.logo} alt={partner.name} />
           </a>
         ))}

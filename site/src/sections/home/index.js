@@ -1,17 +1,17 @@
 import React from "react"
 // import { graphql, useStaticQuery } from "gatsby"
-import {
-  Wrapper,
-  LogoWrapper,
-  // ContentWrapper,
-  ButtonsWrapper,
-} from "./style"
 
 import Logo from "src/assets/logo.svg"
 import Button from "src/components/button"
 import Socials from "src/components/socials"
 import Countdown from "src/components/countdown"
 import LogoType from "src/assets/logo-type"
+import {
+  Wrapper,
+  LogoWrapper,
+  // ContentWrapper,
+  ButtonsWrapper,
+} from "./style"
 
 function Home() {
   return (
