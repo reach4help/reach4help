@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
 import { IRequest, Request } from '../requests';
@@ -24,7 +24,7 @@ export interface IOffer extends DocumentData {
   message: string;
   status: OfferStatus;
   createdAt?: Timestamp;
-  seenAt?: Timestamp;
+  seenAt?: Timestamp | null;
 }
 
 export class Offer implements IOffer {
@@ -37,7 +37,7 @@ export class Offer implements IOffer {
     message: string,
     status: OfferStatus,
     createdAt = Timestamp.now(),
-    seenAt = Timestamp.now(),
+    seenAt: Timestamp | null = null,
   ) {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
@@ -143,14 +143,13 @@ export class Offer implements IOffer {
   }
 
   @IsObject()
-  @IsOptional()
-  private _seenAt: Timestamp;
+  private _seenAt: Timestamp | null;
 
-  get seenAt(): Timestamp {
+  get seenAt(): Timestamp | null {
     return this._seenAt;
   }
 
-  set seenAt(value: Timestamp) {
+  set seenAt(value: Timestamp | null) {
     this.seenAt = value;
   }
 

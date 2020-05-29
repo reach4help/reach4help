@@ -58,14 +58,12 @@ export const setOffer = (payload: Offer | IOffer, offerId?: string) => (
       firebase: offerId ? setUserOffer : createUserOffer,
     });
   } else {
-    const offerPayload = {
-      ...payload,
-      seenAt: firestore.Timestamp.now(),
-    };
+    // eslint-disable-next-line no-param-reassign
+    payload.seenAt = firestore.Timestamp.now();
     dispatch({
       type: SET,
       payload: {
-        offerPayload,
+        payload,
         offerId,
       },
       firebase: offerId ? setUserOffer : createUserOffer,
