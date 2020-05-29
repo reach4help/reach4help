@@ -183,6 +183,15 @@
         "code",
         "review"
       ]
+    },
+    {
+      "login": "djohal",
+      "name": "Dilpreet Johal",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/9207593?s=400",
+      "profile": "https://github.com/djohal",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
