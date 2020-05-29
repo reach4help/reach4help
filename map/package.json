@@ -30,10 +30,10 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "start": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "clean": "rm -rf build",
     "build-deps": "yarn --cwd ../model run build",
-    "build-map": "react-scripts build",
+    "build-map": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "build": "yarn run build-deps && yarn run build-map",
     "build-netlify": "yarn run build-deps && yarn run build-map",
     "test": "react-scripts test",
