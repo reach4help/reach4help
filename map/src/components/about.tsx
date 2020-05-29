@@ -15,7 +15,6 @@ import Footer from './footer';
 const OTHER_MAPS = {
   france: 'https://covid-entraide.fr/trouve-ton-groupe-local/',
   nyc: 'https://mutualaid.nyc/groups/',
-  usa: 'https://www.mutualaidhub.org/',
 };
 
 interface Props {
@@ -100,7 +99,17 @@ const About = ({ className, page, setPage }: Props) => (
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    mutualaid.wiki
+                    Mutual Aid Wiki
+                  </a>
+                ),
+                mutualaidhub: key => (
+                  <a
+                    key={key}
+                    href="https://www.mutualaidhub.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Mutual Aid Hub
                   </a>
                 ),
               })}

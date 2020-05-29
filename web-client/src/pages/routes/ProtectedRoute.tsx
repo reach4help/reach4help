@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -35,7 +36,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   }, [dispatch, auth]);
 
   if (!auth.observerReceivedFirstUpdate || !auth.observerReceivedFirstUpdate) {
-    return <>Loading</>;
+    return <LoadingWrapper />;
   }
 
   if (!auth.user) {
@@ -43,7 +44,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />
     );
@@ -54,7 +55,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: PhoneEntryLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />
     );
@@ -72,7 +73,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: PersonalDataLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />
     );
@@ -83,7 +84,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: RoleInfoLocation.path,
-          state: { redirectBack: location.pathname },
+          state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />
     );

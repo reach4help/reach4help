@@ -1,4 +1,3 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
@@ -12,6 +11,7 @@ export enum OfferStatus {
   pending = 'pending',
   accepted = 'accepted',
   rejected = 'rejected',
+  cavDeclined = 'cav_declined',
 }
 
 export interface IOffer extends DocumentData {
@@ -144,16 +144,14 @@ export class Offer implements IOffer {
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
       message: this.message,
       status: this.status,
-      createdAt: this.createdAt.toDate(),
+      createdAt: this.createdAt,
     };
   }
 }
 
-export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
+export const OfferFirestoreConverter: firebase.firestore.FirestoreDataConverter<Offer> = {
   fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
     return Offer.factory(data.data());
   },
-  toFirestore: (modelObject: Offer): DocumentData => {
-    return modelObject.toObject();
-  },
+  toFirestore: (modelObject: Offer): DocumentData => modelObject.toObject(),
 };

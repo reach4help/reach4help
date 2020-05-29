@@ -1,5 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, Max, Min, ValidateNested } from 'class-validator';
+import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase';
 
 import { IUser, User } from '../users';
@@ -19,11 +19,13 @@ export enum RequestStatus {
 
 export interface IRequest extends DocumentData {
   cavUserRef?: DocumentReference<DocumentData> | null;
+  cavUserSnapshot?: IUser | null;
   pinUserRef: DocumentReference<DocumentData>;
   pinUserSnapshot: IUser;
   title: string;
   description: string;
   latLng: GeoPoint;
+  streetAddress: string;
   status?: RequestStatus;
   pinRating?: number | null;
   cavRating?: number | null;
@@ -40,7 +42,9 @@ export class Request implements IRequest {
     title: string,
     description: string,
     latLng: GeoPoint,
+    streetAddress: string,
     cavUserRef: DocumentReference<DocumentData> | null = null,
+    cavUserSnapshot: User | null = null,
     status = RequestStatus.pending,
     createdAt = Timestamp.now(),
     updatedAt = Timestamp.now(),
@@ -52,9 +56,11 @@ export class Request implements IRequest {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
     this._pinUserSnapshot = pinUserSnapshot;
+    this._cavUserSnapshot = cavUserSnapshot;
     this._title = title;
     this._description = description;
     this._latLng = latLng;
+    this._streetAddress = streetAddress;
     this._status = status;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
@@ -65,6 +71,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavUserRef: DocumentReference<DocumentData> | null;
 
   get cavUserRef(): DocumentReference<DocumentData> | null {
@@ -95,6 +102,18 @@ export class Request implements IRequest {
 
   set pinUserSnapshot(value: User) {
     this._pinUserSnapshot = value;
+  }
+
+  @ValidateNested()
+  @IsOptional()
+  private _cavUserSnapshot: User | null;
+
+  get cavUserSnapshot(): User | null {
+    return this._cavUserSnapshot;
+  }
+
+  set cavUserSnapshot(value: User | null) {
+    this._cavUserSnapshot = value;
   }
 
   @IsString()
@@ -130,6 +149,17 @@ export class Request implements IRequest {
 
   set latLng(value: GeoPoint) {
     this._latLng = value;
+  }
+
+  @IsString()
+  private _streetAddress: string;
+
+  get streetAddress(): string {
+    return this._streetAddress;
+  }
+
+  set streetAddress(value: string) {
+    this._streetAddress = value;
   }
 
   @IsEnum(RequestStatus)
@@ -171,6 +201,7 @@ export class Request implements IRequest {
     this._updatedAt = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -184,6 +215,7 @@ export class Request implements IRequest {
     this._pinRating = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -198,6 +230,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _pinRatedAt: Timestamp | null;
 
   get pinRatedAt(): Timestamp | null {
@@ -209,6 +242,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavRatedAt: Timestamp | null;
 
   get cavRatedAt(): Timestamp | null {
@@ -226,7 +260,10 @@ export class Request implements IRequest {
       data.title,
       data.description,
       data.latLng,
+      data.streetAddress,
       data.cavUserRef,
+      // This field may be null
+      data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
       data.status,
       data.createdAt,
       data.updatedAt,
@@ -239,11 +276,13 @@ export class Request implements IRequest {
   toObject(): object {
     return {
       cavUserRef: this.cavUserRef,
+      cavUserSnapshot: this.cavUserSnapshot ? this.cavUserSnapshot.toObject() : null,
       pinUserRef: this.pinUserRef,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
       description: this.description,
       latLng: this.latLng,
+      streetAddress: this.streetAddress,
       status: this.status,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,

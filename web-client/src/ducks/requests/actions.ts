@@ -1,6 +1,7 @@
-import { IRequest, Request } from 'src/models/requests';
+import { IRequest, Request, RequestStatus } from 'src/models/requests';
 
 import {
+  createUserRequest,
   observeNonOpenRequests as observeNonOpenRequestsFunc,
   observeOpenRequests as observeOpenRequestsFunc,
   setUserRequest,
@@ -9,10 +10,20 @@ import {
   CHANGE_MODAL,
   IgetNonOpenRequests,
   IgetOpenRequests,
-  OBSERVE_NON_OPEN_REQUESTS,
+  OBSERVE_CANCELLED_REQUESTS,
+  OBSERVE_COMPLETED_REQUESTS,
+  OBSERVE_ONGOING_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
+  OBSERVE_REMOVED_REQUESTS,
   SET,
 } from './types';
+
+const requestStatusMapper = {
+  [RequestStatus.ongoing]: OBSERVE_ONGOING_REQUESTS,
+  [RequestStatus.completed]: OBSERVE_COMPLETED_REQUESTS,
+  [RequestStatus.cancelled]: OBSERVE_CANCELLED_REQUESTS,
+  [RequestStatus.removed]: OBSERVE_REMOVED_REQUESTS,
+};
 
 export const observeOpenRequests = (
   dispatch: Function,
@@ -36,28 +47,32 @@ export const observeNonOpenRequests = (
   payload: IgetNonOpenRequests,
 ): (() => void) => {
   dispatch({
-    type: OBSERVE_NON_OPEN_REQUESTS,
+    type: requestStatusMapper[payload.requestStatus],
     observer: observeNonOpenRequestsFunc,
     payload,
   });
 
   return () =>
     dispatch({
-      type: OBSERVE_NON_OPEN_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_NON_OPEN_REQUESTS,
+      type: requestStatusMapper[payload.requestStatus].UNSUBSCRIBE,
+      observerName: requestStatusMapper[payload.requestStatus],
     });
 };
 
-export const setRequest = (payload: IRequest) => (dispatch: Function) => {
+export const setRequest = (payload: IRequest, requestId?: string) => (
+  dispatch: Function,
+) => {
   const requestPayload = Request.factory({
     ...payload,
   });
+
   dispatch({
     type: SET,
     payload: {
       requestPayload,
+      requestId,
     },
-    firebase: setUserRequest,
+    firebase: requestId ? setUserRequest : createUserRequest,
   });
 };
 

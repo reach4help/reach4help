@@ -25,8 +25,12 @@ interface Props {
 
 const SOURCES = {
   'mutualaid.wiki': {
-    label: 'mutualaid.wiki',
+    label: 'Mutual Aid Wiki',
     href: 'https://mutualaid.wiki/',
+  },
+  'mutualaidhub.org': {
+    label: 'Mutual Aid Hub',
+    href: 'https://www.mutualaidhub.org/',
   },
   hardcoded: null,
 };

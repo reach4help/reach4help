@@ -2,6 +2,8 @@ import {
   Location as BaseLocation,
   MarkerInfo as BaseMarkerInfo,
   MarkerInfoWithId as BaseMarkerInfoWithId,
+  ContactDetails,
+  ContactGroup,
   MARKER_COLLECTION_ID,
   MARKERS_STORAGE_PATH,
 } from '../../shared/model/markers';
@@ -17,7 +19,7 @@ export type SerializableMarkerInfo = BaseMarkerInfoWithId<{
   longitude: number;
 }>;
 
-export { MARKER_COLLECTION_ID, MARKERS_STORAGE_PATH };
+export { MARKER_COLLECTION_ID, MARKERS_STORAGE_PATH, ContactDetails, ContactGroup };
 
 export interface MarkerSnapshot {
   data: MarkerInfo;

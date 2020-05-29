@@ -12,7 +12,6 @@ import { firestore } from 'firebase';
 import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { User } from 'src/models/users';
 import {
   IUserAddress,
@@ -72,6 +71,7 @@ export interface IPersonalData {
   displayPic?: string | null;
   termsAndPrivacyAccepted?: Date;
   address: IUserAddress;
+  sendNotificatoins: firebase.firestore.Timestamp | null;
 }
 
 const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
@@ -99,6 +99,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
     string | undefined | null
   >(undefined);
   const [acceptToUsePhoto, setAcceptToUsePhoto] = useState<boolean>(true);
+  const [allowSendNotifications, setAllowSendNotifications] = useState<boolean>(
+    false,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [instructionsVisible, setInstructionsVisible] = useState(false);
@@ -253,6 +256,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       if (addressToSet.coords) {
         setCoords(addressToSet.coords);
       }
+      if (privilegedInfo.sendNotifications) {
+        setAllowSendNotifications(true);
+      }
     }
   }, [
     user,
@@ -290,6 +296,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       displayPic,
       termsAndPrivacyAccepted,
       address: newAddress,
+      sendNotificatoins: allowSendNotifications ? new Date() : null,
     };
     handleFormSubmit(newPersonalInfo);
   };
@@ -323,7 +330,6 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
     country,
     form,
   ]);
-
   return (
     <StyledIntro className="withContentPaddingDesktop">
       {displayPic && <ProfilePhoto src={displayPic} />}
@@ -505,7 +511,13 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
         </Row>
         <Info>
           {t('user_data_form.policy_text')}{' '}
-          <Link to="/">{t('user_data_form.policy_link')}</Link>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+          >
+            {t('user_data_form.policy_link')}
+          </a>
         </Info>
         <Form.Item style={{ textAlign: 'center' }} name="useProfilePic">
           <Checkbox
@@ -515,13 +527,26 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             {t('user_data_form.accept_to_use_profile_pic')}
           </Checkbox>
         </Form.Item>
+        <Form.Item style={{ textAlign: 'center' }} name="useSendNotifications">
+          <Checkbox
+            checked={allowSendNotifications}
+            onChange={({ target }) => setAllowSendNotifications(target.checked)}
+          >
+            {t('user_data_form.allow_send_notifications')}
+          </Checkbox>
+        </Form.Item>
         <Form.Item
           style={{ textAlign: 'center' }}
           name="terms"
           rules={[
             {
-              required: true,
-              message: t('user_data_form.terms_conditions_error'),
+              validator: (_, value) =>
+                value
+                  ? Promise.resolve()
+                  : // eslint-disable-next-line prefer-promise-reject-errors
+                    Promise.reject(
+                      `${t('user_data_form.terms_conditions_error')}`,
+                    ),
             },
           ]}
           valuePropName="checked"
@@ -534,7 +559,13 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             }
           >
             {t('user_data_form.terms_conditions_text')}
-            <Link to="/">{t('user_data_form.terms_conditions_link')}</Link>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+            >
+              {t('user_data_form.terms_conditions_link')}
+            </a>
           </Checkbox>
         </Form.Item>
         <Form.Item style={{ textAlign: 'center' }}>
