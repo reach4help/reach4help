@@ -3,12 +3,12 @@ import React from 'react';
 import { COLORS } from '../../theme/colors';
 
 interface NotificationsHeaderProps {
-  numSeenOffers?: number;
+  numNotifications?: number;
   isCav?: boolean;
 }
 
 const NotificationsHeader: React.FC<NotificationsHeaderProps> = ({
-  numSeenOffers = 0,
+  numNotifications = 0,
   isCav,
 }): React.ReactElement => (
   <div
@@ -39,7 +39,7 @@ const NotificationsHeader: React.FC<NotificationsHeaderProps> = ({
         borderRadius: '5px',
       }}
     >
-      {numSeenOffers}
+      {numNotifications}
     </h2>
   </div>
 );

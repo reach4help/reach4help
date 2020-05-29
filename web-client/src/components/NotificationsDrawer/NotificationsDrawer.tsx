@@ -1,7 +1,9 @@
 import { Drawer } from 'antd';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
+import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
 import NotificationsHeader from './NotificationsHeader';
@@ -12,19 +14,40 @@ const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
   closeDrawer,
   isCav,
 }) => {
+  const dispatch = useDispatch();
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
   );
 
-  const seenOffersActivity: any = [];
+  const unseenOffers: Offer[] = [];
+  const unseenOffersKeys: string[] = [];
   if (offersState.data) {
     for (const offersKey in offersState.data) {
-      if (offersState.data[offersKey] && offersState.data[offersKey].seenAt) {
-        seenOffersActivity.push(offersState.data[offersKey]);
+      if (offersState.data[offersKey] && !offersState.data[offersKey].seenAt) {
+        unseenOffers.push(offersState.data[offersKey]);
+        unseenOffersKeys.push(offersKey);
       }
     }
   }
-  seenOffersActivity.sort((a, b) => b.seenAt - a.seenAt);
+  unseenOffers.sort((a, b) => b.updatedAt.toMillis() - a.updatedAt.toMillis());
+
+  useEffect(() => {
+    if (visible) {
+      const cleanupSeenOffers: Function[] = [];
+      for (const key of unseenOffersKeys) {
+        cleanupSeenOffers.push(() => {
+          if (offersState.data) {
+            dispatch(setOffer(offersState.data[key], key));
+          }
+        });
+      }
+      return () => {
+        for (const cleanupOffer of cleanupSeenOffers) {
+          cleanupOffer();
+        }
+      };
+    }
+  }, [visible, dispatch, offersState, unseenOffersKeys]);
 
   return (
     <SideDrawer
@@ -36,9 +59,9 @@ const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
     >
       <NotificationsHeader
         isCav={isCav}
-        numSeenOffers={seenOffersActivity.length}
+        numNotifications={unseenOffers.length}
       />
-      <NotificationsList isCav={isCav} seenOffers={seenOffersActivity} />
+      <NotificationsList isCav={isCav} unseenOffers={unseenOffers} />
     </SideDrawer>
   );
 };

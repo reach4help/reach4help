@@ -34,6 +34,7 @@ export interface IOffer extends firebase.firestore.DocumentData {
   message: string;
   status: OfferStatus;
   createdAt?: firebase.firestore.Timestamp;
+  updatedAt?: firebase.firestore.Timestamp;
   seenAt?: firebase.firestore.Timestamp | null;
 }
 
@@ -53,6 +54,7 @@ export class Offer implements IOffer {
     message: string,
     status: OfferStatus,
     createdAt = firestore.Timestamp.now(),
+    updatedAt = firestore.Timestamp.now(),
     seenAt: firebase.firestore.Timestamp | null = null,
   ) {
     this._cavUserRef = cavUserRef;
@@ -63,6 +65,7 @@ export class Offer implements IOffer {
     this._message = message;
     this._status = status;
     this._createdAt = createdAt;
+    this._updatedAt = updatedAt;
     this._seenAt = seenAt;
   }
 
@@ -184,6 +187,17 @@ export class Offer implements IOffer {
   }
 
   @IsObject()
+  private _updatedAt: firebase.firestore.Timestamp;
+
+  get updatedAt(): firebase.firestore.Timestamp {
+    return this._updatedAt;
+  }
+
+  set updatedAt(value: firebase.firestore.Timestamp) {
+    this._updatedAt = value;
+  }
+
+  @IsObject()
   private _seenAt: firebase.firestore.Timestamp | null;
 
   get seenAt(): firebase.firestore.Timestamp | null {
@@ -204,6 +218,7 @@ export class Offer implements IOffer {
       data.message,
       data.status,
       data.createdAt,
+      data.updatedAt,
       data.seenAt,
     );
 
@@ -219,6 +234,7 @@ export class Offer implements IOffer {
       message: this.message,
       status: this.status,
       createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
       seenAt: this.seenAt,
     };
   }

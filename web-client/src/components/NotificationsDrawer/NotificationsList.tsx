@@ -1,16 +1,16 @@
 import React from 'react';
+import { Offer } from 'src/models/offers';
 
-import { Offer } from '../../models/offers';
 import Notification from './Notification';
 
 interface NotificationsList {
   isCav?: boolean;
-  seenOffers: Offer[];
+  unseenOffers: Offer[];
 }
 
 const NotificationsList: React.FC<NotificationsList> = ({
   isCav,
-  seenOffers,
+  unseenOffers,
 }): React.ReactElement => (
   <div
     style={{
@@ -20,18 +20,18 @@ const NotificationsList: React.FC<NotificationsList> = ({
       fontFamily: 'Roboto, sans-serif',
     }}
   >
-    {seenOffers.length > 0 &&
-      seenOffers.map((item, index) => (
+    {unseenOffers.length > 0 &&
+      unseenOffers.map((item, index) => (
         <Notification
           key={index}
           cavUser={item.cavUserSnapshot}
           offerStatus={item.status}
           offerRequest={item.requestSnapshot}
-          seenAt={item.seenAt?.toDate()}
+          updatedAt={item.updatedAt.toDate()}
           isCav={isCav}
         />
       ))}
-    {seenOffers.length === 0 && (
+    {unseenOffers.length === 0 && (
       <div style={{ textAlign: 'center' }}>
         <p>No new notifications.</p>
       </div>

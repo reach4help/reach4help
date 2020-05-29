@@ -16,7 +16,7 @@ interface NotificationProps {
   cavUser: User;
   offerStatus: OfferStatus;
   offerRequest: Request | null;
-  seenAt?: Date;
+  updatedAt: Date;
   isCav?: boolean;
 }
 
@@ -24,7 +24,7 @@ const Notification: React.FC<NotificationProps> = ({
   cavUser,
   offerStatus,
   offerRequest,
-  seenAt,
+  updatedAt,
   isCav,
 }): React.ReactElement => {
   const visualizeNotification = () => {
@@ -161,10 +161,10 @@ const Notification: React.FC<NotificationProps> = ({
           fontSize: '12px',
         }}
       >
-        {`${seenAt?.toLocaleDateString(
+        {`${updatedAt.toLocaleDateString(
           undefined,
           dateOptions,
-        )}, ${seenAt?.toLocaleTimeString()}`}
+        )}, ${updatedAt.toLocaleTimeString()}`}
       </p>
       <div
         style={{
