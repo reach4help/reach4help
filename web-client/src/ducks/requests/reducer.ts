@@ -1,8 +1,13 @@
 import { Request, RequestStatus } from 'src/models/requests';
+import {
+  IRequestWithOffersAndTimeline,
+  RequestWithOffersAndTimeline,
+} from 'src/models/requests/RequestWithOffersAndTimeline';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
+  GET_OPEN,
   OBSERVE_CANCELLED_REQUESTS,
   OBSERVE_COMPLETED_REQUESTS,
   OBSERVE_ONGOING_REQUESTS,
@@ -26,7 +31,18 @@ const initialRequestsState = {
   error: undefined,
 };
 
+const initialSyncRequestsState = {
+  loading: false,
+  data: undefined,
+  error: undefined,
+};
+
 const initialState: RequestState = {
+  syncOpenRequestsState: initialSyncRequestsState,
+  syncAcceptedRequestsState: initialSyncRequestsState,
+  syncOngoingRequestsState: initialSyncRequestsState,
+  syncArchivedRequestsState: initialSyncRequestsState,
+  syncFinishedRequestsState: initialSyncRequestsState,
   openRequests: initialRequestsState,
   ongoingRequests: initialRequestsState,
   completedRequests: initialRequestsState,
@@ -60,6 +76,39 @@ const updateRequestState = (state: RequestState, payload) => {
 
 export default createReducer<RequestState>(
   {
+    [GET_OPEN.PENDING]: (state: RequestState) => {
+      state.syncOpenRequestsState.loading = true;
+      state.syncOpenRequestsState.data = undefined;
+    },
+    [GET_OPEN.COMPLETED]: (
+      state: RequestState,
+      {
+        payload,
+      }: {
+        payload: {
+          status: boolean;
+          data: Record<string, IRequestWithOffersAndTimeline>;
+        };
+      },
+    ) => {
+      state.syncOpenRequestsState.loading = false;
+      state.syncOpenRequestsState.error = undefined;
+      state.syncOpenRequestsState.data = Object.keys(payload.data).reduce(
+        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+          ...acc,
+          [key]: RequestWithOffersAndTimeline.factory(payload.data[key]),
+        }),
+        {},
+      );
+    },
+    [GET_OPEN.REJECTED]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncOpenRequestsState.data = undefined;
+      state.syncOpenRequestsState.loading = false;
+      state.syncOpenRequestsState.error = payload;
+    },
     [SET.PENDING]: (state: RequestState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;

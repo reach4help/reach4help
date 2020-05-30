@@ -1,12 +1,14 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
+/* eslint no-underscore-dangle: 0 */
 import { IsArray } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 
+import {
+  IOfferWithLocation,
+  OfferWithLocation,
+} from '../offers/offersWithLocation';
+import { User } from '../users';
 import { IRequest, Request, RequestStatus } from './index';
 import { ITimelineItem, TimelineItem } from './timeline';
-
-import { IOfferWithLocation, OfferWithLocation } from '../offers/offersWithLocation';
-import { User } from '../users';
 
 import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
@@ -27,7 +29,8 @@ export interface IRequestWithOffersAndTimeline extends IRequest {
   timeline: ITimelineItem[];
 }
 
-export class RequestWithOffersAndTimeline extends Request implements IRequestWithOffersAndTimeline {
+export class RequestWithOffersAndTimeline extends Request
+  implements IRequestWithOffersAndTimeline {
   constructor(
     pinUserRef: DocumentReference<DocumentData>,
     pinUserSnapshot: User,
@@ -102,7 +105,9 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
     return Request.factory(this.toObject() as IRequest);
   }
 
-  public static factory(data: IRequestWithOffersAndTimeline): RequestWithOffersAndTimeline {
+  public static factory(
+    data: IRequestWithOffersAndTimeline,
+  ): RequestWithOffersAndTimeline {
     return new RequestWithOffersAndTimeline(
       data.pinUserRef,
       User.factory(data.pinUserSnapshot),
@@ -134,7 +139,9 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
   public toObject(): object {
     return {
       cavUserRef: this.cavUserRef,
-      cavUserSnapshot: this.cavUserSnapshot ? this.cavUserSnapshot.toObject() : null,
+      cavUserSnapshot: this.cavUserSnapshot
+        ? this.cavUserSnapshot.toObject()
+        : null,
       pinUserRef: this.pinUserRef,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
@@ -160,11 +167,11 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
   }
 }
 
-export const RequestWithOffersFirestoreConverter: FirestoreDataConverter<RequestWithOffersAndTimeline> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IRequestWithOffersAndTimeline>): RequestWithOffersAndTimeline => {
-    return RequestWithOffersAndTimeline.factory(data.data());
-  },
-  toFirestore: (modelObject: RequestWithOffersAndTimeline): DocumentData => {
-    return modelObject.toObject();
-  },
+export const RequestWithOffersFirestoreConverter: firebase.firestore.FirestoreDataConverter<RequestWithOffersAndTimeline> = {
+  fromFirestore: (
+    data: QueryDocumentSnapshot<IRequestWithOffersAndTimeline>,
+  ): RequestWithOffersAndTimeline =>
+    RequestWithOffersAndTimeline.factory(data.data()),
+  toFirestore: (modelObject: RequestWithOffersAndTimeline): DocumentData =>
+    modelObject.toObject(),
 };

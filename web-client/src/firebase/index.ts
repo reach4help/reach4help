@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 // eslint-disable-next-line import/no-duplicates
 import 'firebase/firestore';
+// eslint-disable-next-line import/no-duplicates
 import 'firebase/functions';
 
 const config = {

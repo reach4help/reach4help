@@ -76,3 +76,11 @@ export const setUserRequest = async ({
     .doc(requestId)
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
+
+export const getOpenRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: RequestStatus.pending,
+  });

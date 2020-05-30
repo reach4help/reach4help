@@ -2,13 +2,17 @@ import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
 import { db } from '../../../app';
-import { IOffer, Offer } from '../../../models/offers';
-import { IOfferWithLocation, OfferWithLocation } from '../../../models/offers/offersWithLocation';
+import { IOffer, Offer, OfferStatus } from '../../../models/offers';
+import { IOfferWithLocation } from '../../../models/offers/offersWithLocation';
 import { IRequest, Request, RequestStatus } from '../../../models/requests';
-import { ApplicationPreference, IUser, User } from '../../../models/users';
-import { IPrivilegedUserInformation, PrivilegedUserInformation } from '../../../models/users/privilegedInformation';
 import { ITimelineItem, TimelineItem, TimelineItemAction } from '../../../models/requests/timeline';
-import { IRequestWithOffersAndTimeline, RequestWithOffersAndTimeline } from '../../../models/requests/RequestWithOffersAndTimeline';
+import { ApplicationPreference, IUser, User } from '../../../models/users';
+import {
+  AbstractRequestStatus,
+  IRequestWithOffersAndTimeline,
+  RequestWithOffersAndTimeline,
+} from '../../../models/requests/RequestWithOffersAndTimeline';
+import { IPrivilegedUserInformation, PrivilegedUserInformation } from '../../../models/users/privilegedInformation';
 
 const RADIUS = 5; // In Miles
 
@@ -18,7 +22,7 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
     .where('requestRef', '==', requestRef)
     .get();
 
-  const offersWithLocation: OfferWithLocation[] = [];
+  const offersWithLocation: Record<string, IOfferWithLocation> = {};
 
   for (const doc of result.docs) {
     const offer = Offer.factory(doc.data() as IOffer);
@@ -31,18 +35,18 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
           .get()
       ).data() as IPrivilegedUserInformation,
     );
-    const offerWithLocation = OfferWithLocation.factory({
+
+    offersWithLocation[doc.id] = {
       ...offer.toObject(),
       address: cavPrivilegedInfo.address,
-    } as IOfferWithLocation);
-    offersWithLocation.push(offerWithLocation);
+    } as IOfferWithLocation;
   }
   return offersWithLocation;
 };
 
-const getTimelineForRequest = async (requestRef: firestore.DocumentReference, userRef: firestore.DocumentReference): Promise<TimelineItem[]> => {
+const getTimelineForRequest = async (requestRef: firestore.DocumentReference, userRef: firestore.DocumentReference): Promise<ITimelineItem[]> => {
   const request = Request.factory((await requestRef.get()).data() as IRequest);
-  if (request.cavUserRef !== userRef && request.pinUserRef !== userRef) {
+  if (!((request.cavUserRef && request.cavUserRef.id === userRef.id) || request.pinUserRef.id === userRef.id)) {
     const timelinesResult = await requestRef
       .collection('timeline')
       .where('action', 'in', [
@@ -52,17 +56,17 @@ const getTimelineForRequest = async (requestRef: firestore.DocumentReference, us
         TimelineItemAction.REMOVE_REQUEST,
       ])
       .get();
-    const timeline: TimelineItem[] = [];
+    const timeline: ITimelineItem[] = [];
     for (const doc of timelinesResult.docs) {
-      timeline.push(TimelineItem.factory(doc.data() as ITimelineItem));
+      timeline.push(doc.data() as ITimelineItem);
     }
     return timeline;
     // eslint-disable-next-line no-else-return
   } else {
     const timelinesResult = await requestRef.collection('timeline').get();
-    const timeline: TimelineItem[] = [];
+    const timeline: ITimelineItem[] = [];
     for (const doc of timelinesResult.docs) {
-      timeline.push(TimelineItem.factory(doc.data() as ITimelineItem));
+      timeline.push(doc.data() as ITimelineItem);
     }
     return timeline;
   }
@@ -90,52 +94,174 @@ const getRequestsWithinDistance = async (lat: number, lng: number, radius: numbe
     .get();
 };
 
-const getPendingRequestsWithOffers = async (lat: number, lng: number, userRef: firestore.DocumentReference, userType: ApplicationPreference) => {
-  const requests = await getRequestsWithinDistance(lat, lng, RADIUS, RequestStatus.pending);
-  const requestWithOffers: RequestWithOffersAndTimeline[] = [];
-  for (const doc of requests.docs) {
-    const request = Request.factory(doc.data() as IRequest);
-    if (userType === ApplicationPreference.pin) {
+const getPendingRequestsWithOffers = async (
+  userRef: firestore.DocumentReference,
+  userType: ApplicationPreference,
+  lat: number,
+  lng: number,
+  radius: number = RADIUS,
+) => {
+  const requestWithOffers: Record<string, RequestWithOffersAndTimeline> = {};
+  if (userType === ApplicationPreference.cav) {
+    const requests = await getRequestsWithinDistance(lat, lng, radius, RequestStatus.pending);
+    for (const doc of requests.docs) {
+      const request = Request.factory(doc.data() as IRequest);
       // eslint-disable-next-line no-await-in-loop
       const results = await Promise.all([getOffersForRequestWithLocation(doc.ref), getTimelineForRequest(doc.ref, userRef)]);
-      requestWithOffers.push(
-        RequestWithOffersAndTimeline.factory({
+      let shouldPush = true;
+      for (const timelineDoc of results[1]) {
+        const timelineInstance = TimelineItem.factory(timelineDoc);
+        if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.offerSnapshot?.status === OfferStatus.pending) {
+          shouldPush = false;
+          break;
+        }
+      }
+      if (shouldPush) {
+        requestWithOffers[doc.id] = RequestWithOffersAndTimeline.factory({
           ...(request.toObject() as IRequest),
           offers: results[0],
           timeline: results[1],
-        } as IRequestWithOffersAndTimeline),
-      );
-    } else {
+        } as IRequestWithOffersAndTimeline);
+      }
+    }
+  } else {
+    const requests = await db
+      .collection('requests')
+      .where('status', '==', RequestStatus.pending)
+      .where('pinUserRef', '==', userRef)
+      .get();
+    for (const doc of requests.docs) {
+      const request = Request.factory(doc.data() as IRequest);
       // eslint-disable-next-line no-await-in-loop
       const timeline = await getTimelineForRequest(doc.ref, userRef);
-      requestWithOffers.push(
-        RequestWithOffersAndTimeline.factory({
+      let shouldPush = true;
+      for (const timelineDoc of timeline) {
+        const timelineInstance = TimelineItem.factory(timelineDoc);
+        if (
+          timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
+          (timelineInstance.offerSnapshot?.status === OfferStatus.pending || timelineInstance.offerSnapshot?.status === OfferStatus.cavDeclined) &&
+          timelineInstance.offerSnapshot.cavUserRef.id === userRef.id
+        ) {
+          shouldPush = false;
+          break;
+        }
+      }
+      if (shouldPush) {
+        requestWithOffers[doc.id] = RequestWithOffersAndTimeline.factory({
           ...(request.toObject() as IRequest),
-          offers: [],
+          offers: {},
           timeline,
-        } as IRequestWithOffersAndTimeline),
-      );
+        } as IRequestWithOffersAndTimeline);
+      }
     }
   }
   return requestWithOffers;
 };
 
-// const getOngoingRequestsWithOffers = async (lat, lng, userId, userType) => {};
+const getOngoingRequests = async (userRef: firestore.DocumentReference, userType: ApplicationPreference, finished = false) => {
+  const userCondition = userType === ApplicationPreference.cav ? 'cavUserRef' : 'pinUserRef';
+  const requests = await db
+    .collection('requests')
+    .where(userCondition, '==', userRef)
+    .where('status', '==', RequestStatus.ongoing)
+    .get();
+  const requestWithOffers: Record<string, RequestWithOffersAndTimeline> = {};
+  for (const doc of requests.docs) {
+    const request = Request.factory(doc.data() as IRequest);
+    if (!finished && request.pinRating && request.pinRatedAt) {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+    if (finished && !(request.pinRating && request.pinRatedAt)) {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+    // eslint-disable-next-line no-await-in-loop
+    const timeline = await getTimelineForRequest(doc.ref, userRef);
+    requestWithOffers[doc.id] = RequestWithOffersAndTimeline.factory({
+      ...(request.toObject() as IRequest),
+      offers: {},
+      timeline,
+    } as IRequestWithOffersAndTimeline);
+  }
+  return requestWithOffers;
+};
 
-// const getCompletedRequestsWithOffers = async (lat, lng, userId, userType) => {};
+const getAcceptedRequests = async (userRef: firestore.DocumentReference, userType: ApplicationPreference) => {
+  if (userType === ApplicationPreference.cav) {
+    const offersMadeResult = await db
+      .collection('offers')
+      .where('cavUserRef', '==', userRef)
+      .where('status', '==', OfferStatus.pending)
+      .get();
+    const requestsWithTimeline: Record<string, RequestWithOffersAndTimeline> = {};
+    for (const doc of offersMadeResult.docs) {
+      const offer = Offer.factory(doc.data() as IOffer);
+      const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
+      if (request.status === RequestStatus.pending) {
+        const timeline = await getTimelineForRequest(offer.requestRef, userRef);
+        requestsWithTimeline[doc.id] = RequestWithOffersAndTimeline.factory({
+          ...(request.toObject() as IRequest),
+          offers: {},
+          timeline,
+        });
+      }
+    }
+    return requestsWithTimeline;
+  }
+  const requestsMadeResult = await db
+    .collection('requests')
+    .where('pinUserRef', '==', userRef)
+    .where('status', '==', RequestStatus.pending)
+    .get();
+  const requestsWithTimelineAndOffers: Record<string, RequestWithOffersAndTimeline> = {};
+  for (const doc of requestsMadeResult.docs) {
+    const request = Request.factory(doc.data() as IRequest);
+    const timeline = await getTimelineForRequest(doc.ref, userRef);
+    let shouldPush = false;
+    for (const timelineDoc of timeline) {
+      const timelineInstance = TimelineItem.factory(timelineDoc);
+      if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.offerSnapshot?.status === OfferStatus.pending) {
+        shouldPush = true;
+        break;
+      }
+    }
+    if (shouldPush) {
+      requestsWithTimelineAndOffers[doc.id] = RequestWithOffersAndTimeline.factory({
+        ...(request.toObject() as IRequest),
+        offers: {},
+        timeline,
+      });
+    }
+  }
+  return requestsWithTimelineAndOffers;
+};
 
-// const getCanceledRequestsWithOffers = async (lat, lng, userId, userType) => {};
-
-// const getRemovedRequestsWithOffers = async (lat, lng, userId, userType) => {};
+const getArchivedRequestsWithTimeline = async (userRef: firestore.DocumentReference, userType: ApplicationPreference) => {
+  const userCondition = userType === ApplicationPreference.cav ? 'cavUserRef' : 'pinUserRef';
+  const requests = await db
+    .collection('requests')
+    .where(userCondition, '==', userRef)
+    .where('status', 'in', [RequestStatus.completed, RequestStatus.cancelled, RequestStatus.removed])
+    .get();
+  const requestsWithTimelines: Record<string, RequestWithOffersAndTimeline> = {};
+  for (const doc of requests.docs) {
+    const request = Request.factory(doc.data() as IRequest);
+    // eslint-disable-next-line no-await-in-loop
+    const timeline = await getTimelineForRequest(doc.ref, userRef);
+    requestsWithTimelines[doc.id] = RequestWithOffersAndTimeline.factory({
+      ...(request.toObject() as IRequest),
+      offers: {},
+      timeline,
+    } as IRequestWithOffersAndTimeline);
+  }
+  return requestsWithTimelines;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 export const getRequests = functions.https.onCall(async (data, context) => {
-  const { lat, lng, status } = data;
+  const { lat, lng, status, radius } = data;
   const userId = context.auth?.uid;
-
-  console.log('getRequests cloud function is running!');
-  console.log('userId obtained: ', userId);
-  console.log('lat, lng, status: ', lat, lng, status);
 
   if (userId) {
     const userRef = db.collection('users').doc(userId);
@@ -143,24 +269,78 @@ export const getRequests = functions.https.onCall(async (data, context) => {
 
     if (user && user.applicationPreference) {
       switch (status) {
-        case RequestStatus.pending:
-        default: {
-          const response = getPendingRequestsWithOffers(lat, lng, userRef, user.applicationPreference);
-          const dataToSend = (await response).map(obj => obj.toObject());
-          console.log('dataToSend: ', JSON.stringify(dataToSend));
+        case AbstractRequestStatus.pending: {
+          const response = await getPendingRequestsWithOffers(userRef, user.applicationPreference, lat, lng, radius);
+          const dataToSend = Object.keys(response).reduce(
+            (acc: Record<string, IRequestWithOffersAndTimeline>, key: string) => ({
+              ...acc,
+              [key]: response[key].toObject() as IRequestWithOffersAndTimeline,
+            }),
+            {},
+          );
           return {
             success: true,
             data: dataToSend,
           };
         }
-        // case RequestStatus.ongoing:
-        //   return getOngoingRequestsWithOffers(lat, lng, userId, user.applicationPreference);
-        // case RequestStatus.completed:
-        //   return getCompletedRequestsWithOffers(lat, lng, userId, user.applicationPreference);
-        // case RequestStatus.cancelled:
-        //   return getCanceledRequestsWithOffers(lat, lng, userId, user.applicationPreference);
-        // case RequestStatus.removed:
-        //   return getRemovedRequestsWithOffers(lat, lng, userId, user.applicationPreference);
+        case AbstractRequestStatus.accepted: {
+          const response = await getAcceptedRequests(userRef, user.applicationPreference);
+          const dataToSend = Object.keys(response).reduce(
+            (acc: Record<string, IRequestWithOffersAndTimeline>, key: string) => ({
+              ...acc,
+              [key]: response[key].toObject() as IRequestWithOffersAndTimeline,
+            }),
+            {},
+          );
+          return {
+            success: true,
+            data: dataToSend,
+          };
+        }
+        case AbstractRequestStatus.ongoing: {
+          const response = await getOngoingRequests(userRef, user.applicationPreference);
+          const dataToSend = Object.keys(response).reduce(
+            (acc: Record<string, IRequestWithOffersAndTimeline>, key: string) => ({
+              ...acc,
+              [key]: response[key].toObject() as IRequestWithOffersAndTimeline,
+            }),
+            {},
+          );
+          return {
+            success: true,
+            data: dataToSend,
+          };
+        }
+        case AbstractRequestStatus.finished: {
+          const response = await getOngoingRequests(userRef, user.applicationPreference, true);
+          const dataToSend = Object.keys(response).reduce(
+            (acc: Record<string, IRequestWithOffersAndTimeline>, key: string) => ({
+              ...acc,
+              [key]: response[key].toObject() as IRequestWithOffersAndTimeline,
+            }),
+            {},
+          );
+          return {
+            success: true,
+            data: dataToSend,
+          };
+        }
+        case AbstractRequestStatus.archived: {
+          const response = await getArchivedRequestsWithTimeline(userRef, user.applicationPreference);
+          const dataToSend = Object.keys(response).reduce(
+            (acc: Record<string, IRequestWithOffersAndTimeline>, key: string) => ({
+              ...acc,
+              [key]: response[key].toObject() as IRequestWithOffersAndTimeline,
+            }),
+            {},
+          );
+          return {
+            success: true,
+            data: dataToSend,
+          };
+        }
+        default:
+          throw new functions.https.HttpsError('out-of-range', "Request Status isn't valid");
       }
     } else {
       throw new functions.https.HttpsError('unauthenticated', "Can't determine the logged in user");

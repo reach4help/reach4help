@@ -1,14 +1,15 @@
 import { IRequest, Request, RequestStatus } from 'src/models/requests';
-import { firestore, functions } from 'src/firebase';
 
 import {
   createUserRequest,
+  getOpenRequest as getOpenRequestFunc,
   observeNonOpenRequests as observeNonOpenRequestsFunc,
   observeOpenRequests as observeOpenRequestsFunc,
   setUserRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
+  GET_OPEN,
   IgetNonOpenRequests,
   IgetOpenRequests,
   OBSERVE_CANCELLED_REQUESTS,
@@ -24,6 +25,17 @@ const requestStatusMapper = {
   [RequestStatus.completed]: OBSERVE_COMPLETED_REQUESTS,
   [RequestStatus.cancelled]: OBSERVE_CANCELLED_REQUESTS,
   [RequestStatus.removed]: OBSERVE_REMOVED_REQUESTS,
+};
+
+export const getOpenRequests = (
+  dispatch: Function,
+  payload: IgetOpenRequests,
+): void => {
+  dispatch({
+    type: GET_OPEN,
+    firebase: getOpenRequestFunc,
+    payload,
+  });
 };
 
 export const observeOpenRequests = (
@@ -47,26 +59,17 @@ export const observeNonOpenRequests = (
   dispatch: Function,
   payload: IgetNonOpenRequests,
 ): any => {
-  (async () => {
-    console.log("before calling cloud function");
-    let response = await functions.httpsCallable('https-api-requests-getRequests')({
-      lat: 37.42,
-      lng: 122.08,
-      status: RequestStatus.pending
-    });
-    console.log("response from cloud function: ", response);
-  })();
-  // dispatch({
-  //   type: requestStatusMapper[payload.requestStatus],
-  //   observer: observeNonOpenRequestsFunc,
-  //   payload,
-  // });
+  dispatch({
+    type: requestStatusMapper[payload.requestStatus],
+    observer: observeNonOpenRequestsFunc,
+    payload,
+  });
 
-  // return () =>
-  //   dispatch({
-  //     type: requestStatusMapper[payload.requestStatus].UNSUBSCRIBE,
-  //     observerName: requestStatusMapper[payload.requestStatus],
-  //   });
+  return () =>
+    dispatch({
+      type: requestStatusMapper[payload.requestStatus].UNSUBSCRIBE,
+      observerName: requestStatusMapper[payload.requestStatus],
+    });
 };
 
 export const setRequest = (payload: IRequest, requestId?: string) => (

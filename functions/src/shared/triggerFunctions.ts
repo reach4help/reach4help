@@ -4,7 +4,7 @@ import { db } from '../app';
 import { Offer, OfferStatus } from '../models/offers';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { TimelineItemAction } from '../models/requests/timeline';
-import { User } from '../models/users';
+import { IUser } from '../models/users';
 
 const statusToActionMapperRequest = {
   [RequestStatus.pending]: TimelineItemAction.CREATE_REQUEST,
@@ -40,7 +40,7 @@ export const queueTimelineItemTriggers = async (
   }
 
   if (entity) {
-    let user: User | undefined;
+    let user: IUser | undefined;
     let userRef: firestore.DocumentReference<firestore.DocumentData> | undefined;
 
     if (entity instanceof Offer || type === 'offer') {
@@ -55,7 +55,7 @@ export const queueTimelineItemTriggers = async (
         console.log('tempRequest: ', tempRequest);
         if (tempRequest) {
           console.log('tempRequest.pinUserSnampshot: ', tempRequest.pinUserSnapshot);
-          user = tempRequest.pinUserSnapshot;
+          user = tempRequest.pinUserSnapshot.toObject() as IUser;
           userRef = tempRequest.pinUserRef;
         }
       } else {
@@ -77,7 +77,7 @@ export const queueTimelineItemTriggers = async (
     console.log('userRef: ', userRef);
     console.log('entity: ', entity);
 
-    if (entity.status === RequestStatus.pending && entity.pinRating) {
+    if (entity.status === RequestStatus.ongoing && entity.pinRating) {
       await db
         .collection('requests')
         .doc(type === 'offer' ? entity.requestRef.id : snap.id)
@@ -90,7 +90,7 @@ export const queueTimelineItemTriggers = async (
           actorSnapshot: user,
           offerSnapshot: null,
           requestSnapshot: entity,
-          action: statusToActionMapperRequest[`${RequestStatus.pending}_rated`],
+          action: statusToActionMapperRequest[`${RequestStatus.ongoing}_rated`],
           createdAt: new Date(),
         });
       return Promise.resolve();
@@ -130,7 +130,24 @@ export const queueTimelineItemTriggers = async (
       return Promise.resolve();
     }
 
-    if (snap) {
+    if (snap && !(type === 'offer' && entity.status === RequestStatus.ongoing)) {
+      console.log(
+        'data to be set: ',
+        JSON.stringify({
+          actorRef: userRef,
+          offerRef: entity instanceof Offer || type === 'offer' ? db.collection('offers').doc(snap.id) : null,
+          requestRef:
+            entity instanceof Offer || type === 'offer' ? (entity.requestRef as firestore.DocumentReference) : db.collection('requests').doc(snap.id),
+          actorSnapshot: user,
+          offerSnapshot: entity instanceof Offer || type === 'offer' ? entity : null,
+          requestSnapshot: entity instanceof Offer || type === 'offer' ? (await entity.requestRef.get()).data() : entity,
+          action:
+            entity instanceof Offer || type === 'offer'
+              ? statusToActionMapperOffer[entity.status as OfferStatus]
+              : statusToActionMapperRequest[entity.status as RequestStatus],
+          createdAt: new Date(),
+        }),
+      );
       await db
         .collection('requests')
         .doc(type === 'offer' ? entity.requestRef.id : snap.id)
@@ -139,7 +156,8 @@ export const queueTimelineItemTriggers = async (
         .set({
           actorRef: userRef,
           offerRef: entity instanceof Offer || type === 'offer' ? db.collection('offers').doc(snap.id) : null,
-          requestRef: entity instanceof Offer || type === 'offer' ? entity.requestRef : db.collection('requests').doc(snap.id),
+          requestRef:
+            entity instanceof Offer || type === 'offer' ? (entity.requestRef as firestore.DocumentReference) : db.collection('requests').doc(snap.id),
           actorSnapshot: user,
           offerSnapshot: entity instanceof Offer || type === 'offer' ? entity : null,
           requestSnapshot: entity instanceof Offer || type === 'offer' ? (await entity.requestRef.get()).data() : entity,
