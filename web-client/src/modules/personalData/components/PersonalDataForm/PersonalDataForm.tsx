@@ -115,9 +115,10 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [instructionsVisible, setInstructionsVisible] = useState(false);
-  const [termsAndPrivacyAccepted, setTermsAndPrivacyAccepted] = useState<
-    Date | undefined
-  >(undefined);
+  const [
+    termsAndPrivacyAccepted,
+    setTermsAndPrivacyAccepted,
+  ] = useState<Date | null>(null);
 
   // geolocation
   const [address1, setAddress1] = useState<string | undefined>(undefined);
@@ -567,7 +568,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
               onChange={({ target }) =>
                 target.checked
                   ? setTermsAndPrivacyAccepted(new Date())
-                  : setTermsAndPrivacyAccepted(undefined)
+                  : setTermsAndPrivacyAccepted(null)
               }
             >
               {t('user_data_form.terms_conditions_text')}

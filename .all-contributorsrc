@@ -34,6 +34,21 @@
         "projectManagement"
       ]
     },
+     {
+      "login": "puzzledbytheweb",
+      "name": "Pedro Filipe",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
+      "profile": "https://github.com/puzzledbytheweb",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "maintenance",
+        "review",
+        "content",
+        "projectManagement"
+      ]
+    },
     {
       "login": "luisFilipePT",
       "name": "Luis Filipe",
@@ -191,6 +206,15 @@
       "profile": "https://github.com/djohal",
       "contributions": [
         "code"
+      ]
+    },
+     {
+      "login": "mcverter",
+      "name": "Mitchell Verter",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1453956?v=4",
+      "profile": "https://github.com/mcverter",
+      "contributions": [
+        "code",
       ]
     }
   ],
