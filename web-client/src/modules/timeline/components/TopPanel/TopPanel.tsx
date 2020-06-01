@@ -121,7 +121,6 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
 
 const TopPanelWrapper = styled.div`
   width: 100%;
-  height: 100%;
   background: linear-gradient(
     142.67deg,
     ${COLORS.backgroundAlternative} 2.64%,

@@ -6,14 +6,14 @@ import * as moment from 'moment';
 import { indexRequest, removeRequestFromIndex } from '../algolia';
 import { db } from '../app';
 import { IRequest, Request, RequestStatus } from '../models/requests';
-import { UserFirestoreConverter } from '../models/users';
+import { IUser, User } from '../models/users';
 import { queueTimelineItemTriggers } from '../shared/triggerFunctions';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
 const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefore: Request | null, requestAfter: Request | null) => {
   // We have a new CAV rating -  Update CAV rating average but only this time.
   if (requestBefore?.cavRating === null && requestAfter?.cavRating !== null && requestAfter?.cavUserRef) {
-    const user = (await requestAfter.cavUserRef.withConverter(UserFirestoreConverter).get()).data();
+    const user = User.factory((await requestAfter.cavUserRef.get()).data() as IUser);
     if (user) {
       const currentAverage = user.averageRating ? user.averageRating : 0;
       const cavRatingsReceived = user.cavRatingsReceived ? user.cavRatingsReceived + 1 : 1;
@@ -39,7 +39,7 @@ const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefo
     const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
     const currentRatedAt = moment(requestAfter.cavRatedAt.toDate());
     if (currentRatedAt.isSameOrBefore(fiveMinutesPastPreviousRatedAt)) {
-      const user = (await requestAfter.cavUserRef.withConverter(UserFirestoreConverter).get()).data();
+      const user = User.factory((await requestAfter.cavUserRef.get()).data() as IUser);
       if (user) {
         let average = user.averageRating ? user.averageRating : 0;
         const cavRatingsReceived = user.cavRatingsReceived ? user.cavRatingsReceived + 1 : 2;
@@ -73,7 +73,7 @@ const attemptToUpdateCavCompletedOffersCounts = (operations: Promise<void>[], re
 const attemptToUpdatePinRating = async (operations: Promise<void>[], requestBefore: Request | null, requestAfter: Request | null) => {
   // We have a new PIN rating -  Update PIN rating average but only this time.
   if (requestBefore?.pinRating === null && requestAfter?.pinRating !== null && requestAfter?.pinUserRef) {
-    const user = (await requestAfter.pinUserRef.withConverter(UserFirestoreConverter).get()).data();
+    const user = User.factory((await requestAfter.pinUserRef.get()).data() as IUser);
     if (user) {
       const currentAverage = user.averageRating ? user.averageRating : 0;
       const pinRatingsReceived = user.pinRatingsReceived ? user.pinRatingsReceived + 1 : 1;
@@ -99,7 +99,7 @@ const attemptToUpdatePinRating = async (operations: Promise<void>[], requestBefo
     const fiveMinutesPastPreviousRatedAt = previousRatedAt.add(5, 'minutes');
     const currentRatedAt = moment(requestAfter.pinRatedAt.toDate());
     if (currentRatedAt.isSameOrBefore(fiveMinutesPastPreviousRatedAt)) {
-      const user = (await requestAfter.pinUserRef.withConverter(UserFirestoreConverter).get()).data();
+      const user = User.factory((await requestAfter.pinUserRef.get()).data() as IUser);
       if (user) {
         let average = user.averageRating ? user.averageRating : 0;
         const pinRatingsReceived = user.pinRatingsReceived ? user.pinRatingsReceived : 2;
@@ -190,7 +190,8 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
         queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
       ]);
     })
-    .catch(() => {
+    .catch(e => {
+      console.error('Invalid Request Found: ', e);
       return db
         .collection('requests')
         .doc(context.params.requestId)
