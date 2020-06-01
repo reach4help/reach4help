@@ -1,3 +1,4 @@
+import { firestore } from 'firebase';
 import { IOffer, Offer } from 'src/models/offers';
 
 import {
@@ -56,10 +57,15 @@ export const setOffer = (payload: Offer | IOffer, offerId?: string) => (
       firebase: offerId ? setUserOffer : createUserOffer,
     });
   } else {
+    const offerPayload = payload;
+    // eslint-disable-next-line no-param-reassign
+    payload.updatedAt = firestore.Timestamp.now();
+    // eslint-disable-next-line no-param-reassign
+    payload.seenAt = firestore.Timestamp.now();
     dispatch({
       type: SET,
       payload: {
-        payload,
+        offerPayload,
         offerId,
       },
       firebase: offerId ? setUserOffer : createUserOffer,
