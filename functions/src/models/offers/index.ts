@@ -154,5 +154,13 @@ export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
   fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
     return Offer.factory(data.data());
   },
-  toFirestore: (modelObject: Offer): DocumentData => modelObject.toObject(),
+  toFirestore: (modelObject: Offer): DocumentData => ({
+    cavUserRef: modelObject.cavUserRef,
+    pinUserRef: modelObject.pinUserRef,
+    requestRef: modelObject.requestRef,
+    cavUserSnapshot: modelObject.cavUserSnapshot.toObject(),
+    message: modelObject.message,
+    status: modelObject.status,
+    createdAt: modelObject.createdAt.toDate(),
+  })
 };

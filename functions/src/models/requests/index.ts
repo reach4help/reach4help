@@ -300,6 +300,22 @@ export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
     return Request.factory(data.data());
   },
   toFirestore: (modelObject: Request): DocumentData => {
-    return modelObject.toObject();
+    return {
+      cavUserRef: modelObject.cavUserRef,
+      cavUserSnapshot: modelObject.cavUserSnapshot ? modelObject.cavUserSnapshot.toObject() : null,
+      pinUserRef: modelObject.pinUserRef,
+      pinUserSnapshot: modelObject.pinUserSnapshot.toObject(),
+      title: modelObject.title,
+      description: modelObject.description,
+      latLng: JSON.stringify(modelObject.latLng),
+      streetAddress: modelObject.streetAddress,
+      status: modelObject.status,
+      createdAt: modelObject.createdAt.toDate(),
+      updatedAt: modelObject.updatedAt.toDate(),
+      pinRating: modelObject.pinRating,
+      cavRating: modelObject.cavRating,
+      pinRatedAt: modelObject.pinRatedAt?.toDate() || null,
+      cavRatedAt: modelObject.cavRatedAt?.toDate() || null,
+    }
   },
 };

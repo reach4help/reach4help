@@ -5,7 +5,7 @@ import { Offer, OfferFirestoreConverter, OfferStatus } from '../src/models/offer
 import { Questionnaire, QuestionnaireFirestoreConverter, QuestionnaireType } from '../src/models/questionnaires';
 import { User, UserFirestoreConverter } from '../src/models/users';
 import { Request, RequestFirestoreConverter } from '../src/models/requests';
-import * as firebaseApp from 'firebase';
+import * as firebaseApp from 'firebase-admin';
 import GeoPoint = firebaseApp.firestore.GeoPoint;
 
 const projectId = 'reach-4-help-test';
@@ -184,9 +184,9 @@ describe('offers', () => {
         .withConverter(OfferFirestoreConverter)
         .set(
           Offer.factory({
-            cavUserRef: db.collection('users').doc('cav-1'),
-            pinUserRef: db.collection('users').doc('pin-1'),
-            requestRef: db.collection('requests').doc('request-1'),
+            cavUserRef: (db.collection('users').doc('cav-1') as any),
+            pinUserRef: (db.collection('users').doc('pin-1') as any),
+            requestRef: (db.collection('requests').doc('request-1') as any),
             cavUserSnapshot: {
               averageRating: 1,
               casesCompleted: 0,
@@ -206,9 +206,9 @@ describe('offers', () => {
         .withConverter(OfferFirestoreConverter)
         .set(
           Offer.factory({
-            cavUserRef: db.collection('users').doc('cav-2'),
-            pinUserRef: db.collection('users').doc('pin-1'),
-            requestRef: db.collection('requests').doc('request-1'),
+            cavUserRef: (db.collection('users').doc('cav-2') as any),
+            pinUserRef: (db.collection('users').doc('pin-1') as any),
+            requestRef: (db.collection('requests').doc('request-1') as any),
             cavUserSnapshot: {
               averageRating: 1,
               casesCompleted: 0,
@@ -341,11 +341,11 @@ describe('requests', () => {
         .withConverter(RequestFirestoreConverter)
         .set(
           Request.factory({
-            pinUserRef: userRef,
+            pinUserRef: (userRef as any),
             pinUserSnapshot: user,
             title: 'Sample Request',
             description: 'I Need Stuff',
-            latLng: new GeoPoint(0, 0),
+            latLng: new GeoPoint(10, -122),
             streetAddress: '',
           }),
         ),
