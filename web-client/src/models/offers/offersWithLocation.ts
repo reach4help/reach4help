@@ -1,15 +1,11 @@
 /* eslint no-underscore-dangle: 0 */
 import { IsArray } from 'class-validator';
 import { firestore } from 'firebase';
+import { firestore as db } from 'src/firebase';
 
 import { User } from '../users';
 import { IUserAddress } from '../users/privilegedInformation';
 import { IOffer, Offer, OfferStatus } from './index';
-
-import Timestamp = firestore.Timestamp;
-import DocumentData = firestore.DocumentData;
-import DocumentReference = firestore.DocumentReference;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export interface IOfferWithLocation extends IOffer {
   address: IUserAddress;
@@ -17,14 +13,20 @@ export interface IOfferWithLocation extends IOffer {
 
 export class OfferWithLocation extends Offer implements IOfferWithLocation {
   constructor(
-    cavUserRef: DocumentReference<DocumentData>,
-    pinUserRef: DocumentReference<DocumentData>,
-    requestRef: DocumentReference<DocumentData>,
+    cavUserRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
+    pinUserRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
+    requestRef: firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >,
     cavUserSnapshot: User,
     message: string,
     status: OfferStatus,
     address: IUserAddress,
-    createdAt = Timestamp.now(),
+    createdAt = firestore.Timestamp.now(),
   ) {
     super(
       cavUserRef,
@@ -55,14 +57,35 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
 
   public static factory(data: IOfferWithLocation): OfferWithLocation {
     return new OfferWithLocation(
-      data.cavUserRef,
-      data.pinUserRef,
-      data.requestRef,
-      User.factory(data.cavUserSnapshot),
+      db.doc(data.cavUserRef as any),
+      db.doc(data.pinUserRef as any),
+      db.doc(data.requestRef as any),
+      User.factory({
+        ...data.cavUserSnapshot,
+        createdAt: data.cavUserSnapshot.createdAt
+          ? new firestore.Timestamp(
+              (data.cavUserSnapshot.createdAt as any)._seconds,
+              (data.cavUserSnapshot.createdAt as any)._nanoseconds,
+            )
+          : data.cavUserSnapshot.createdAt,
+      }),
       data.message,
       data.status,
-      data.address,
-      data.createdAt,
+      {
+        ...data.address,
+        coords: data.address.coords
+          ? new firestore.GeoPoint(
+              (data.address.coords as any)._latitude,
+              (data.address.coords as any)._longitude,
+            )
+          : data.address.coords,
+      },
+      data.createdAt
+        ? new firestore.Timestamp(
+            (data.createdAt as any)._seconds,
+            (data.createdAt as any)._nanoseconds,
+          )
+        : data.createdAt,
     );
   }
 
@@ -82,8 +105,9 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
 
 export const OfferWithLocationFirestoreConverter: firebase.firestore.FirestoreDataConverter<Offer> = {
   fromFirestore: (
-    data: QueryDocumentSnapshot<IOfferWithLocation>,
+    data: firebase.firestore.QueryDocumentSnapshot<IOfferWithLocation>,
   ): OfferWithLocation => OfferWithLocation.factory(data.data()),
-  toFirestore: (modelObject: OfferWithLocation): DocumentData =>
-    modelObject.toObject(),
+  toFirestore: (
+    modelObject: OfferWithLocation,
+  ): firebase.firestore.DocumentData => modelObject.toObject(),
 };

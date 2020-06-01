@@ -5,6 +5,7 @@ import {
   RequestFirestoreConverter,
   RequestStatus,
 } from 'src/models/requests';
+import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 
 import { IgetNonOpenRequests, IgetOpenRequests } from './types';
@@ -82,5 +83,37 @@ export const getOpenRequest = async ({ lat, lng }: IgetOpenRequests) =>
     lat,
     lng,
     radius: 5,
-    status: RequestStatus.pending,
+    status: AbstractRequestStatus.pending,
+  });
+
+export const getAcceptedRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.accepted,
+  });
+
+export const getOngoingRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.ongoing,
+  });
+
+export const getFinishedRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.finished,
+  });
+
+export const getArchivedRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.archived,
   });

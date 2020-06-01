@@ -133,9 +133,9 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
 
   public toObject(): object {
     return {
-      cavUserRef: this.cavUserRef,
+      cavUserRef: this.cavUserRef?.path,
       cavUserSnapshot: this.cavUserSnapshot ? this.cavUserSnapshot.toObject() : null,
-      pinUserRef: this.pinUserRef,
+      pinUserRef: this.pinUserRef.path,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
       description: this.description,
@@ -155,7 +155,15 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
         }),
         {},
       ),
-      timeline: this.timeline.map(obj => obj.toObject()),
+      timeline: this.timeline.map(obj => ({
+        ...obj.toObject(),
+        actorRef: obj.actorRef.path,
+        requestRef: obj.requestRef.path,
+        requestSnapshot: {
+          ...obj.requestSnapshot.toObject(),
+          pinUserRef: obj.requestSnapshot.pinUserRef.path,
+        },
+      })),
     };
   }
 }

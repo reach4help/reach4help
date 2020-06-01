@@ -164,17 +164,15 @@ service cloud.firestore {
     match /offers/{offerID} {
       // Only the PIN or CAV of the request can read the offers
       allow read: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
-      // Only CAVs can submit offers (as themselves)
-      allow write: if isVerifiedCAV() &&
-       currentUserIsCurrentCAVRef(request.auth.uid, database, request.resource.data) &&
-       verifyOfferDataComplete(request.resource.data);
+      // Only CAVs can submit offers (as themselves) | issue - pin needs to accespt TODO: need more complicated logic for ensuring correct CAV and PIN
+      allow write: if verifyOfferDataComplete(request.resource.data);
     }
 
     match /requests/{reqID} {
       // Only CAVs can see requests
       allow read: if isVerifiedCAV() || isVerifiedPIN();
-      allow write: if isVerifiedPIN() &&
-       isNotSameCAVPIN(request.resource.data) &&
+      // TODO: need more complicated logic for ensuring correct CAV and PIN
+      allow write: if isNotSameCAVPIN(request.resource.data) &&
        verifyHelpRequestDataComplete(request.resource.data);
     }
 

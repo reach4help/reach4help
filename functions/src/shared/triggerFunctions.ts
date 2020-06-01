@@ -130,7 +130,7 @@ export const queueTimelineItemTriggers = async (
       return Promise.resolve();
     }
 
-    if (snap && !(type === 'offer' && entity.status === RequestStatus.ongoing)) {
+    if (snap && !(type !== 'offer' && entity.status === RequestStatus.ongoing)) {
       console.log(
         'data to be set: ',
         JSON.stringify({

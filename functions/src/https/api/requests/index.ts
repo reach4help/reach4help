@@ -22,9 +22,12 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
     .where('requestRef', '==', requestRef)
     .get();
 
+  console.log('getting offers for request: ', requestRef.path);
+
   const offersWithLocation: Record<string, IOfferWithLocation> = {};
 
   for (const doc of result.docs) {
+    console.log('doc.id, doc.data: ', doc.id, JSON.stringify(doc.data()));
     const offer = Offer.factory(doc.data() as IOffer);
     const cavPrivilegedInfo = PrivilegedUserInformation.factory(
       /* eslint-disable no-await-in-loop */
@@ -111,7 +114,11 @@ const getPendingRequestsWithOffers = async (
       let shouldPush = true;
       for (const timelineDoc of results[1]) {
         const timelineInstance = TimelineItem.factory(timelineDoc);
-        if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.offerSnapshot?.status === OfferStatus.pending) {
+        if (
+          timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
+          (timelineInstance.offerSnapshot?.status === OfferStatus.pending || timelineInstance.offerSnapshot?.status === OfferStatus.cavDeclined) &&
+          timelineInstance.offerSnapshot.cavUserRef.id === userRef.id
+        ) {
           shouldPush = false;
           break;
         }
@@ -125,23 +132,23 @@ const getPendingRequestsWithOffers = async (
       }
     }
   } else {
+    console.log('a pin is looking for requests with the status as: ', RequestStatus.pending);
+    console.log("the pin's ref path is: ", userRef.path);
     const requests = await db
       .collection('requests')
       .where('status', '==', RequestStatus.pending)
       .where('pinUserRef', '==', userRef)
       .get();
     for (const doc of requests.docs) {
+      console.log('doc.id: ', doc.id);
+      console.log('doc.data: ', JSON.stringify(doc.data()));
       const request = Request.factory(doc.data() as IRequest);
       // eslint-disable-next-line no-await-in-loop
       const timeline = await getTimelineForRequest(doc.ref, userRef);
       let shouldPush = true;
       for (const timelineDoc of timeline) {
         const timelineInstance = TimelineItem.factory(timelineDoc);
-        if (
-          timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
-          (timelineInstance.offerSnapshot?.status === OfferStatus.pending || timelineInstance.offerSnapshot?.status === OfferStatus.cavDeclined) &&
-          timelineInstance.offerSnapshot.cavUserRef.id === userRef.id
-        ) {
+        if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.offerSnapshot?.status === OfferStatus.pending) {
           shouldPush = false;
           break;
         }
@@ -214,12 +221,14 @@ const getAcceptedRequests = async (userRef: firestore.DocumentReference, userTyp
     .where('pinUserRef', '==', userRef)
     .where('status', '==', RequestStatus.pending)
     .get();
+  console.log('getting accepted requests along with offers as a PIN');
   const requestsWithTimelineAndOffers: Record<string, RequestWithOffersAndTimeline> = {};
   for (const doc of requestsMadeResult.docs) {
     const request = Request.factory(doc.data() as IRequest);
-    const timeline = await getTimelineForRequest(doc.ref, userRef);
+    const results = await Promise.all([getOffersForRequestWithLocation(doc.ref), getTimelineForRequest(doc.ref, userRef)]);
+    console.log('doc.id, results obtained: ', doc.id, JSON.stringify(results));
     let shouldPush = false;
-    for (const timelineDoc of timeline) {
+    for (const timelineDoc of results[1]) {
       const timelineInstance = TimelineItem.factory(timelineDoc);
       if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.offerSnapshot?.status === OfferStatus.pending) {
         shouldPush = true;
@@ -229,8 +238,8 @@ const getAcceptedRequests = async (userRef: firestore.DocumentReference, userTyp
     if (shouldPush) {
       requestsWithTimelineAndOffers[doc.id] = RequestWithOffersAndTimeline.factory({
         ...(request.toObject() as IRequest),
-        offers: {},
-        timeline,
+        offers: results[0],
+        timeline: results[1],
       });
     }
   }
@@ -278,6 +287,8 @@ export const getRequests = functions.https.onCall(async (data, context) => {
             }),
             {},
           );
+          console.log('dataToSend: ', dataToSend);
+          console.log('serialized data to send: ', JSON.stringify(dataToSend));
           return {
             success: true,
             data: dataToSend,

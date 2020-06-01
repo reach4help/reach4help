@@ -28,8 +28,13 @@ export const OBSERVE_REMOVED_REQUESTS = observerType(
 );
 
 export const SET = asyncType('SET');
+export const RESET_SET = syncType('RESET_SET');
 
 export const GET_OPEN = asyncType('GET_OPEN');
+export const GET_ACCEPTED = asyncType('GET_ACCEPTED');
+export const GET_ONGOING = asyncType('GET_ONGOING');
+export const GET_FINISHED = asyncType('GET_FINISHED');
+export const GET_ARCHIVED = asyncType('GET_ARCHIVED');
 
 export const UPDATE = asyncType('UPDATE');
 
