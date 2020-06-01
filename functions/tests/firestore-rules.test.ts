@@ -184,9 +184,9 @@ describe('offers', () => {
         .withConverter(OfferFirestoreConverter)
         .set(
           Offer.factory({
-            cavUserRef: (db.collection('users').doc('cav-1') as any),
-            pinUserRef: (db.collection('users').doc('pin-1') as any),
-            requestRef: (db.collection('requests').doc('request-1') as any),
+            cavUserRef: db.collection('users').doc('cav-1') as any,
+            pinUserRef: db.collection('users').doc('pin-1') as any,
+            requestRef: db.collection('requests').doc('request-1') as any,
             cavUserSnapshot: {
               averageRating: 1,
               casesCompleted: 0,
@@ -206,9 +206,9 @@ describe('offers', () => {
         .withConverter(OfferFirestoreConverter)
         .set(
           Offer.factory({
-            cavUserRef: (db.collection('users').doc('cav-2') as any),
-            pinUserRef: (db.collection('users').doc('pin-1') as any),
-            requestRef: (db.collection('requests').doc('request-1') as any),
+            cavUserRef: db.collection('users').doc('cav-2') as any,
+            pinUserRef: db.collection('users').doc('pin-1') as any,
+            requestRef: db.collection('requests').doc('request-1') as any,
             cavUserSnapshot: {
               averageRating: 1,
               casesCompleted: 0,
@@ -341,7 +341,7 @@ describe('requests', () => {
         .withConverter(RequestFirestoreConverter)
         .set(
           Request.factory({
-            pinUserRef: (userRef as any),
+            pinUserRef: userRef as any,
             pinUserSnapshot: user,
             title: 'Sample Request',
             description: 'I Need Stuff',

@@ -162,5 +162,5 @@ export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
     message: modelObject.message,
     status: modelObject.status,
     createdAt: modelObject.createdAt.toDate(),
-  })
+  }),
 };

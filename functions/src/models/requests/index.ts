@@ -316,6 +316,6 @@ export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
       cavRating: modelObject.cavRating,
       pinRatedAt: modelObject.pinRatedAt?.toDate() || null,
       cavRatedAt: modelObject.cavRatedAt?.toDate() || null,
-    }
+    };
   },
 };
