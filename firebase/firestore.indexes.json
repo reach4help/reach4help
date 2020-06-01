@@ -6,6 +6,14 @@
         { "fieldPath": "status", "mode": "ASCENDING" },
         { "fieldPath": "latLng", "mode": "ASCENDING" }
       ]
+    },
+    {
+      "collectionId": "requests",
+      "fields": [
+        { "fieldPath": "pinUserRef", "mode": "ASCENDING" },
+        { "fieldPath": "status", "mode": "ASCENDING" },
+        { "fieldPath": "latLng", "mode": "ASCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []
