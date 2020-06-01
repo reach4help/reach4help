@@ -29,7 +29,7 @@ function IndexPage() {
       </div>
       <div className="partners">
         <Partners />
-        <Footer css="background: transparent;" />
+        <Footer background="transparent" />
       </div>
     </Layout>
   )

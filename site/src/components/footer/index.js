@@ -1,10 +1,12 @@
 import React from "react"
+import PropTypes from "prop-types"
+
 import { Link, graphql, useStaticQuery } from "gatsby"
 
 import Socials from "src/components/socials"
 import { FooterWrapper } from "./style"
 
-function Footer() {
+function Footer({ background }) {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -16,7 +18,7 @@ function Footer() {
   `)
 
   return (
-    <FooterWrapper>
+    <FooterWrapper background={background}>
       <p>
         {data.site.siteMetadata.title} © {new Date().getFullYear()} {` | `}
         <Link to="/privacy">Privacy Policy</Link> {` | `}
@@ -30,6 +32,10 @@ function Footer() {
       <Socials />
     </FooterWrapper>
   )
+}
+
+Footer.propTypes = {
+  background: PropTypes.string,
 }
 
 export default Footer

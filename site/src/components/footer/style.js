@@ -9,11 +9,10 @@ export const FooterWrapper = styled.footer`
   justify-content: space-between;
   align-items: center;
 
-  background: linear-gradient(
-    138.25deg,
-    ${p => p.theme.colors.primary} 0.9%,
-    ${p => p.theme.colors.secondary} 100.19%
-  );
+  background: ${p =>
+    p.background
+      ? p.background
+      : `linear-gradient(138.25deg, ${p.theme.colors.primary} 0.9%, ${p.theme.colors.secondary} 100.19%)`};
 
   a {
     color: white;
