@@ -19,6 +19,12 @@
       "info": "Wir akzeptieren aus Sicherheitsgründen nur Facebook-Nutzer mit einem überprüften mindestens 6 Monate alten Nutzerkonto. \nWir arbeiten unermüdlich daran, weiter Möglichkeiten des  Zugangs zu schaffen. \nVielen Dank für ihre Geduld.",
       "facebookButtonLabel": "Über Facebook anmelden"
     },
+    "menuDrawer": {
+      "contactUs": "Contact us",
+      "logout": "Sign out",
+      "switchToCAV": "Switch to Volunteer",
+      "switchToPIN": "Switch to Person In Need"
+    },
     "phoneNumber": {
       "sub_title": "Geben Sie zunächst Ihre Telefonnummer ein:",
       "info": "Diese Information ist notwendig, um Ihr Nutzerkonto zu bestätigen. Es können Kosten für die Verbindung anfallen.",
@@ -61,9 +67,18 @@
       "icon_text": "Ich benötige Hilfe.",
       "form": {
         "title": "Position",
+        "type": "Type",
+        "address": "Confirm Address",
         "body": "Geben Sie die erforderlichen Daten an.",
         "consent": "Ich erlaube Push-Nachrichten. Sie können dies jederzeit in den Einstellungen ändern.",
-        "submit": "Meinen Bedarf senden"
+        "submit": "Next",
+        "cancel": "Cancel",
+        "search": "Search",
+        "useMyLocation": "Use my location",
+        "address_error_message": "You need to fill your address.",
+        "type_error_message": "You need to select a type.",
+        "other_error_message": "You need to enter details.",
+        "body_error_message": "You need to fill description."
       }
     },
     "newRequestSuccess": {
@@ -71,6 +86,11 @@
       "info": "Bitte haben Sie Geduld, bis Sie ein Angebot eines Freiwilligen erhalten.",
       "remember": "Denken Sie daran:",
       "remember_info": "Sobald ein(e) Freiwillige(r) Hilfe anbietet, müssen Sie zunächst die Hilfe annehmen, damit diese(r) Ihre Kontaktinformationen sehen kann."
+    },
+    "requestReview": {
+      "submit": "Submit Request",
+      "back": "Back",
+      "deliveryAddress": "Delivery address"
     },
     "roleinfo": {
       "title": "Reach4Help",
