@@ -110,6 +110,9 @@ const WebClientMap: React.FC<MapProps> = ({
           lng: position.coords.longitude,
         };
         doGeocode({ center: pos, streetAddress: '' });
+        if (googleMap.getCenter() !== pos) {
+          googleMap.panTo(pos);
+        }
       },
       error => {
         // eslint-disable-next-line no-console

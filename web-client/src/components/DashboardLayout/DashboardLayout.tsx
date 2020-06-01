@@ -14,6 +14,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
   isCav,
   logoutHandler,
+  toggleApplicationPreference,
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [notificationVisible, setNotificationVisible] = useState(false);
@@ -28,10 +29,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         profileData={profileData}
         logoutHandler={logoutHandler}
         isCav={isCav}
+        toggleApplicationPreference={toggleApplicationPreference}
       />
       <NotificationsDrawer
         visible={notificationVisible}
         closeDrawer={() => setNotificationVisible(false)}
+        isCav={isCav}
       />
       <Layout.Content
         style={{ marginTop: '64px', height: '90vh', overflow: 'auto' }}
@@ -53,6 +56,7 @@ interface DashboardLayoutProps {
   children?: React.ReactNode;
   isCav?: boolean;
   logoutHandler: Function;
+  toggleApplicationPreference: Function;
 }
 
 export default DashboardLayout;
