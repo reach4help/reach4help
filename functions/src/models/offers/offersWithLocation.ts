@@ -1,12 +1,11 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsArray } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 
 import { IOffer, Offer, OfferStatus } from './index';
 
 import { User } from '../users';
 import { IUserAddress } from '../users/privilegedInformation';
-
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
@@ -27,7 +26,7 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
     address: IUserAddress,
     createdAt = Timestamp.now(),
   ) {
-    super(cavUserRef, pinUserRef, requestRef, cavUserSnapshot, message, status, createdAt);
+    super(cavUserRef, pinUserRef, requestRef, cavUserSnapshot, null, message, status, createdAt);
     this._address = address;
   }
 
@@ -61,9 +60,9 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
 
   public toObject(): object {
     return {
-      cavUserRef: this.cavUserRef.path,
-      pinUserRef: this.pinUserRef.path,
-      requestRef: this.requestRef.path,
+      cavUserRef: this.cavUserRef,
+      pinUserRef: this.pinUserRef,
+      requestRef: this.requestRef,
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
       message: this.message,
       status: this.status,

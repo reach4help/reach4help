@@ -1,8 +1,8 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 
-import { IRequest, Request } from '../requests';
+import { IRequest, Request, RequestFirestoreConverter } from '../requests';
 import { IUser, User } from '../users';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
@@ -205,13 +205,12 @@ export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
   fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
     return Offer.factory(data.data());
   },
-  toFirestore: (modelObject: Offer): DocumentData => ({
-    cavUserRef: modelObject.cavUserRef,
-    pinUserRef: modelObject.pinUserRef,
-    requestRef: modelObject.requestRef,
-    cavUserSnapshot: modelObject.cavUserSnapshot.toObject(),
-    message: modelObject.message,
-    status: modelObject.status,
-    createdAt: modelObject.createdAt.toDate(),
-  }),
+  toFirestore: (modelObject: Offer): DocumentData => {
+    const requestSnapshot = modelObject.requestSnapshot ? RequestFirestoreConverter.toFirestore(modelObject.requestSnapshot) : null;
+    const result = modelObject.toObject();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    result.requestSnapshot = requestSnapshot;
+    return result;
+  },
 };

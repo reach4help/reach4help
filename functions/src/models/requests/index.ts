@@ -1,6 +1,18 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import {
+  Allow,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNotEmptyObject,
+  IsObject,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+  ValidateNested,
+} from 'class-validator';
+import { firestore } from 'firebase';
 
 import { IUser, User } from '../users';
 import GeoPoint = firestore.GeoPoint;
@@ -300,22 +312,14 @@ export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
     return Request.factory(data.data());
   },
   toFirestore: (modelObject: Request): DocumentData => {
-    return {
-      cavUserRef: modelObject.cavUserRef,
-      cavUserSnapshot: modelObject.cavUserSnapshot ? modelObject.cavUserSnapshot.toObject() : null,
-      pinUserRef: modelObject.pinUserRef,
-      pinUserSnapshot: modelObject.pinUserSnapshot.toObject(),
-      title: modelObject.title,
-      description: modelObject.description,
-      latLng: JSON.stringify(modelObject.latLng),
-      streetAddress: modelObject.streetAddress,
-      status: modelObject.status,
-      createdAt: modelObject.createdAt.toDate(),
-      updatedAt: modelObject.updatedAt.toDate(),
-      pinRating: modelObject.pinRating,
-      cavRating: modelObject.cavRating,
-      pinRatedAt: modelObject.pinRatedAt?.toDate() || null,
-      cavRatedAt: modelObject.cavRatedAt?.toDate() || null,
-    };
+    const object = modelObject.toObject();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    if (object.latLng) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      object.latLng = { ...object.latLng };
+    }
+    return object;
   },
 };

@@ -177,6 +177,16 @@ describe('offers', () => {
           }),
         ),
     );
+
+    const requestSnapshot = Request.factory({
+      pinUserRef: db.collection('users').doc('pin-1'),
+      pinUserSnapshot: { username: 'pin-1' },
+      title: 'I need help!',
+      description: 'Please help with groceries',
+      latLng: new GeoPoint(10, -122),
+      streetAddress: '123 Main St.',
+    });
+
     await firebase.assertSucceeds(
       db
         .collection('offers')
@@ -184,15 +194,16 @@ describe('offers', () => {
         .withConverter(OfferFirestoreConverter)
         .set(
           Offer.factory({
-            cavUserRef: db.collection('users').doc('cav-1') as any,
-            pinUserRef: db.collection('users').doc('pin-1') as any,
-            requestRef: db.collection('requests').doc('request-1') as any,
+            cavUserRef: db.collection('users').doc('cav-1'),
+            pinUserRef: db.collection('users').doc('pin-1'),
+            requestRef: db.collection('requests').doc('request-1'),
             cavUserSnapshot: {
               averageRating: 1,
               casesCompleted: 0,
               requestsMade: 0,
               username: 'cav-1',
             },
+            requestSnapshot,
             message: 'I can help!',
             status: OfferStatus.pending,
           }),
@@ -206,15 +217,16 @@ describe('offers', () => {
         .withConverter(OfferFirestoreConverter)
         .set(
           Offer.factory({
-            cavUserRef: db.collection('users').doc('cav-2') as any,
-            pinUserRef: db.collection('users').doc('pin-1') as any,
-            requestRef: db.collection('requests').doc('request-1') as any,
+            cavUserRef: db.collection('users').doc('cav-2'),
+            pinUserRef: db.collection('users').doc('pin-1'),
+            requestRef: db.collection('requests').doc('request-1'),
             cavUserSnapshot: {
               averageRating: 1,
               casesCompleted: 0,
               requestsMade: 0,
               username: 'cav-2',
             },
+            requestSnapshot,
             message: 'I can help!!',
             status: OfferStatus.pending,
           }),
@@ -333,6 +345,8 @@ describe('requests', () => {
 
     const user = User.factory({ username: 'pin-1' });
     const userRef = db.collection('users').doc('pin-1');
+    const latLng = new GeoPoint(10, -122);
+
     await firebase.assertSucceeds(userRef.withConverter(UserFirestoreConverter).set(user));
     await firebase.assertSucceeds(
       db
@@ -341,11 +355,11 @@ describe('requests', () => {
         .withConverter(RequestFirestoreConverter)
         .set(
           Request.factory({
-            pinUserRef: userRef as any,
+            pinUserRef: userRef,
             pinUserSnapshot: user,
             title: 'Sample Request',
             description: 'I Need Stuff',
-            latLng: new GeoPoint(10, -122),
+            latLng,
             streetAddress: '',
           }),
         ),

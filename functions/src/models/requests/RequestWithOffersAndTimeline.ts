@@ -1,6 +1,6 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsArray } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase';
 
 import { IRequest, Request, RequestStatus } from './index';
 import { ITimelineItem, TimelineItem } from './timeline';
