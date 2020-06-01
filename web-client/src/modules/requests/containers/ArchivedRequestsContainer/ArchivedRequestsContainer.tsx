@@ -57,17 +57,8 @@ const ClosedRequestsContainer: React.FC = () => {
       const internalArchivedRequests: Record<string, Request> = {
         ...requestsState.cancelledRequests.data,
         ...requestsState.removedRequests.data,
+        ...requestsState.completedRequests.data,
       };
-      for (const key in requestsState.completedRequests.data) {
-        if (
-          requestsState.completedRequests.data[key].cavRatedAt instanceof
-            Date &&
-          requestsState.completedRequests.data[key].pinRatedAt instanceof Date
-        ) {
-          internalArchivedRequests[key] =
-            requestsState.completedRequests.data[key];
-        }
-      }
       setArchivedRequests(internalArchivedRequests);
     }
   }, [requestsState, setArchivedRequests]);

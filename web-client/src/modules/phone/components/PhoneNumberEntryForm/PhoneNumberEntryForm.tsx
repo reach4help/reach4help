@@ -95,21 +95,12 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
         name="phoneNumber"
         rules={[
           {
-            required: true,
-            message: t('phoneNumber.error_message'),
-          },
-          {
             validator: (_, value) =>
-              value.length < 11
+              !value
+                ? Promise.reject(t('phoneNumber.error_message'))
+                : /^[+][0-9]{11,14}$/g.test(value)
                 ? Promise.resolve()
-                : // eslint-disable-next-line no-useless-escape
-                /[~`!#$%\^&*=\-\[\]\\';\s,/(){}|\\":<>\?]/g.test(value)
-                ? Promise.reject(t('phoneNumber.phone_valid'))
-                : Promise.resolve(),
-          },
-          {
-            min: 11,
-            message: t('phoneNumber.phone_valid'),
+                : Promise.reject(t('phoneNumber.phone_valid')),
           },
         ]}
       >

@@ -12,7 +12,7 @@ const MESSAGE_TEXTS = {
   CREATE_REQUEST: 'Pin created this request.',
   CANCEL_REQUEST: 'Pin closed this request.',
   REMOVE_REQUEST: 'Cav removed this request',
-  COMPLETE_REQUEST: 'Cav finished this request.',
+  COMPLETE_REQUEST: 'Request has been completed.',
   CREATE_OFFER: 'Cav accepted this request.',
   ACCEPT_OFFER: 'Pin accepted Cav help.',
   REJECT_OFFER: 'Pin rejected Cav help.',
@@ -50,7 +50,7 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
   items,
   currentUser,
 }) => (
-  <>
+  <Wrapper>
     <Title>Request Timeline</Title>
     <StyledList>
       <VerticalSeparator />
@@ -62,8 +62,14 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
         />
       ))}
     </StyledList>
-  </>
+  </Wrapper>
 );
+
+const Wrapper = styled.div`
+  width: 100%;
+  flex: auto;
+  overflow: scroll;
+`;
 
 const StyledListItem = styled.li`
   display: inline-block;
@@ -105,7 +111,7 @@ const ListItemBullet = styled.img`
 
 const HeadingDate = styled.div`
   padding: 10px;
-  background: #f0f2f5;
+  background: white;
   z-index: 1;
   text-align: center;
   margin: 0;
@@ -162,6 +168,7 @@ const Title = styled.h1`
   margin: 0;
   margin-top: 20px;
   font-size: 1.2rem;
+  text-align: center;
 `;
 
 interface RequestTimelineListProps {
