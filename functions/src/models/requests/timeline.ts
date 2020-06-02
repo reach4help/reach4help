@@ -168,9 +168,9 @@ export class TimelineItem implements ITimelineItem {
 
   toObject(): object {
     return {
-      actorRef: this.actorRef,
-      offerRef: this.offerRef,
-      requestRef: this.requestRef,
+      actorRef: this.actorRef.path,
+      offerRef: this.offerRef?.path,
+      requestRef: this.requestRef.path,
       actorSnapshot: this.actorSnapshot.toObject(),
       offerSnapshot: this.offerSnapshot ? this.offerSnapshot.toObject() : null,
       requestSnapshot: this.requestSnapshot.toObject(),

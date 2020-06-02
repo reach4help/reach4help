@@ -20,10 +20,12 @@ const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefo
       // Calculate new average by summing all past averages and re-averaging with new value
       const newAverage = (currentAverage * (cavRatingsReceived - 1) + requestAfter.cavRating) / cavRatingsReceived;
       operations.push(
-        requestAfter.cavUserRef.update({
-          averageRating: newAverage,
-          cavRatingsReceived,
-        }),
+        requestAfter.cavUserRef
+          .update({
+            averageRating: newAverage,
+            cavRatingsReceived,
+          })
+          .then(() => Promise.resolve()),
       );
     }
   } else if (
@@ -48,10 +50,12 @@ const attemptToUpdateCavRating = async (operations: Promise<void>[], requestBefo
         // Add the new rating to the average and calculate the new average
         const newAverage = (average * (cavRatingsReceived - 1) + requestAfter.cavRating) / cavRatingsReceived;
         operations.push(
-          requestAfter.cavUserRef.update({
-            averageRating: newAverage,
-            cavRatingsReceived,
-          }),
+          requestAfter.cavUserRef
+            .update({
+              averageRating: newAverage,
+              cavRatingsReceived,
+            })
+            .then(() => Promise.resolve()),
         );
       }
     }
@@ -63,9 +67,11 @@ const attemptToUpdateCavCompletedOffersCounts = (operations: Promise<void>[], re
   if (requestBefore?.status !== RequestStatus.completed && requestAfter?.status === RequestStatus.completed && requestAfter.cavUserRef) {
     // Using increment without read
     operations.push(
-      requestAfter.cavUserRef.update({
-        casesCompleted: admin.firestore.FieldValue.increment(1),
-      }),
+      requestAfter.cavUserRef
+        .update({
+          casesCompleted: admin.firestore.FieldValue.increment(1),
+        })
+        .then(() => Promise.resolve()),
     );
   }
 };
@@ -80,10 +86,12 @@ const attemptToUpdatePinRating = async (operations: Promise<void>[], requestBefo
       // Calculate new average by summing all past averages and re-averaging with new value
       const newAverage = (currentAverage * (pinRatingsReceived - 1) + requestAfter.pinRating) / pinRatingsReceived;
       operations.push(
-        requestAfter.pinUserRef.update({
-          averageRating: newAverage,
-          pinRatingsReceived,
-        }),
+        requestAfter.pinUserRef
+          .update({
+            averageRating: newAverage,
+            pinRatingsReceived,
+          })
+          .then(() => Promise.resolve()),
       );
     }
   } else if (
@@ -108,9 +116,11 @@ const attemptToUpdatePinRating = async (operations: Promise<void>[], requestBefo
         // Add the new rating to the average and calculate the new average
         const newAverage = (average * (pinRatingsReceived - 1) + requestAfter.pinRating) / pinRatingsReceived;
         operations.push(
-          requestAfter.pinUserRef.update({
-            averageRating: newAverage,
-          }),
+          requestAfter.pinUserRef
+            .update({
+              averageRating: newAverage,
+            })
+            .then(() => Promise.resolve()),
         );
       }
     }

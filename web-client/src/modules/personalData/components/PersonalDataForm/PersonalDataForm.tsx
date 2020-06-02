@@ -12,11 +12,13 @@ import { firestore } from 'firebase';
 import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import { User } from 'src/models/users';
 import {
   IUserAddress,
   PrivilegedUserInformation,
 } from 'src/models/users/privilegedInformation';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import geolocationinactive from '../../../../assets/geolocationinactive.svg';
@@ -43,12 +45,20 @@ const StyledIntro = styled.div`
 `;
 
 const Info = styled(Text)`
-  color: #ddd;
+  color: ${COLORS.faded};
   text-align: center;
 `;
 
+const CheckboxContainer = styled.div`
+  margin-top: 1rem;
+
+  @media ${DEVICE_MIN.tablet} {
+    text-align: center;
+  }
+`;
+
 const StyledButton = styled(Button)`
-  margin-top: 40px;
+  margin-top: 20px;
 `;
 
 const GPSTarget = styled.img`
@@ -105,9 +115,10 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [instructionsVisible, setInstructionsVisible] = useState(false);
-  const [termsAndPrivacyAccepted, setTermsAndPrivacyAccepted] = useState<
-    Date | undefined
-  >(undefined);
+  const [
+    termsAndPrivacyAccepted,
+    setTermsAndPrivacyAccepted,
+  ] = useState<Date | null>(null);
 
   // geolocation
   const [address1, setAddress1] = useState<string | undefined>(undefined);
@@ -519,55 +530,59 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             {t('user_data_form.policy_link')}
           </a>
         </Info>
-        <Form.Item style={{ textAlign: 'center' }} name="useProfilePic">
-          <Checkbox
-            checked={acceptToUsePhoto}
-            onChange={({ target }) => setAcceptToUsePhoto(target.checked)}
-          >
-            {t('user_data_form.accept_to_use_profile_pic')}
-          </Checkbox>
-        </Form.Item>
-        <Form.Item style={{ textAlign: 'center' }} name="useSendNotifications">
-          <Checkbox
-            checked={allowSendNotifications}
-            onChange={({ target }) => setAllowSendNotifications(target.checked)}
-          >
-            {t('user_data_form.allow_send_notifications')}
-          </Checkbox>
-        </Form.Item>
-        <Form.Item
-          style={{ textAlign: 'center' }}
-          name="terms"
-          rules={[
-            {
-              validator: (_, value) =>
-                value
-                  ? Promise.resolve()
-                  : // eslint-disable-next-line prefer-promise-reject-errors
-                    Promise.reject(
-                      `${t('user_data_form.terms_conditions_error')}`,
-                    ),
-            },
-          ]}
-          valuePropName="checked"
-        >
-          <Checkbox
-            onChange={({ target }) =>
-              target.checked
-                ? setTermsAndPrivacyAccepted(new Date())
-                : setTermsAndPrivacyAccepted(undefined)
-            }
-          >
-            {t('user_data_form.terms_conditions_text')}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+        <CheckboxContainer>
+          <Form.Item name="useProfilePic">
+            <Checkbox
+              checked={acceptToUsePhoto}
+              onChange={({ target }) => setAcceptToUsePhoto(target.checked)}
             >
-              {t('user_data_form.terms_conditions_link')}
-            </a>
-          </Checkbox>
-        </Form.Item>
+              {t('user_data_form.accept_to_use_profile_pic')}
+            </Checkbox>
+          </Form.Item>
+          <Form.Item name="useSendNotifications">
+            <Checkbox
+              checked={allowSendNotifications}
+              onChange={({ target }) =>
+                setAllowSendNotifications(target.checked)
+              }
+            >
+              {t('user_data_form.allow_send_notifications')}
+            </Checkbox>
+          </Form.Item>
+          <Form.Item
+            name="terms"
+            rules={[
+              {
+                validator: (_, value) =>
+                  value
+                    ? Promise.resolve()
+                    : // eslint-disable-next-line prefer-promise-reject-errors
+                      Promise.reject(
+                        `${t('user_data_form.terms_conditions_error')}`,
+                      ),
+              },
+            ]}
+            valuePropName="checked"
+          >
+            <Checkbox
+              onChange={({ target }) =>
+                target.checked
+                  ? setTermsAndPrivacyAccepted(new Date())
+                  : setTermsAndPrivacyAccepted(null)
+              }
+            >
+              {t('user_data_form.terms_conditions_text')}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+              >
+                {t('user_data_form.terms_conditions_link')}
+              </a>
+            </Checkbox>
+          </Form.Item>
+        </CheckboxContainer>
+
         <Form.Item style={{ textAlign: 'center' }}>
           <StyledButton type="primary" htmlType="submit">
             {t('continue')}
