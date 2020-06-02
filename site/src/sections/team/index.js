@@ -33,7 +33,11 @@ function Team() {
         <ContentWrapper
           dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
         />
-        <Button textColor="white" backgroundColor="accent">
+        <Button
+          textColor="white"
+          backgroundColor="accent"
+          outlineColor="secondary"
+        >
           You&apos;re the help next door. Join us!
         </Button>
       </div>

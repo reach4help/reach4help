@@ -37,6 +37,7 @@ Check out our [**Contributing Guide**](./CONTRIBUTING.md) for information on con
 - When opening the drawer on mobile, change hamburger to cross (maybe a [cool animation](https://jonsuh.com/hamburgers/)?)
 - Add localization (ask Sam)
   - Figure out whether to use `.json` or `.md` for Crowdin translations
+- Integrate TypeScript, thank you [Sam](https://youtu.be/b8AHUXxGas8)!
 - Add blog functionality w/ Contentful
 - Plan out eventual integration with web-client?
 - (_optional?_) Fix `.babelrc` issue causing _`Generating SSR bundle failed`_ (needed for `babel-plugin-styled-components`)

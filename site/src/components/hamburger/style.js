@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export const HamburgerWrapper = styled.div`
   display: none;
+  cursor: pointer;
 
   ${p => p.theme.breakpoints.small} {
     display: block;

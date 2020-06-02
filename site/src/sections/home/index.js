@@ -29,10 +29,18 @@ function Home() {
         dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
       /> */}
       <ButtonsWrapper>
-        <a href="http://map.reach4help.org/" target="__blank">
+        <a
+          href="http://map.reach4help.org/"
+          target="__blank"
+          rel="noopener noreferrer"
+        >
           <Button>Mutual Aid Map</Button>
         </a>
-        <a href="https://reach4help-webclient.web.app/" target="__blank">
+        <a
+          href="https://reach4help-webclient.web.app/"
+          target="__blank"
+          rel="noopener noreferrer"
+        >
           <Button>BETA Sign Up</Button>
         </a>
       </ButtonsWrapper>

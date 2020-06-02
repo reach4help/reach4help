@@ -15,9 +15,6 @@ export const Wrapper = styled(SectionWrapper)`
     margin-top: 2em;
     width: 100%;
     padding: 10px;
-    :focus {
-      box-shadow: 0 0 0 3px ${p => p.theme.colors.secondary};
-    }
   }
 
   .imageWrapper {

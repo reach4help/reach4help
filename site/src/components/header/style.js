@@ -7,6 +7,10 @@ export const HeaderWrapper = styled.header`
   width: 100%;
   z-index: ${p => p.theme.zIndices.headerPrimary};
 
+  a:hover {
+    text-decoration: none;
+  }
+
   .actions {
     margin: 0 -6px;
     display: flex;
@@ -106,7 +110,7 @@ export const DrawerWrapper = styled.div`
   position: relative;
   height: ${p => p.theme.measurements.drawerHeight}px;
   background: ${p => p.theme.colors.accent};
-  box-shadow: 0px 4px 10px rgba(31, 0, 41, 0.1);
+  box-shadow: 0px 4px 10px rgba(31, 0, 41, 0.15);
   z-index: ${p => p.theme.zIndices.headerSecondary};
 
   /* .actions {
@@ -136,27 +140,33 @@ export const DrawerWrapper = styled.div`
     }
 
     li {
-      top: 25%;
+      padding-top: 2.5%;
       height: ${p => p.theme.measurements.drawerHeight}px;
       position: relative;
       font-weight: bold;
       margin: 0px 35px;
       
       ${p => p.theme.breakpoints.small} {
-        top: 0%;
+        padding-top: 0%;
       }
 
       a {
-        color: rgba(255, 255, 255, 0.6);
+        color: white;
+        text-decoration: none;
         font-size: 15px;
         text-decoration: none;
         font-weight: bold;
 
-        transition: color 0.25s ease;
+        p {
+          opacity: 0.6;
+          transition: opacity 0.25s ease;
 
-        :hover {
-        color: white;
+          :hover {
+        opacity: 1;
       }
+        }
+
+        
 
         ${p => p.theme.breakpoints.small} {
           color: ${props => props.theme.colors.accent};

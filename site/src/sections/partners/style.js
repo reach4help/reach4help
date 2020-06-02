@@ -34,5 +34,11 @@ export const LogosWrapper = styled.div`
 
   img {
     padding-right: 2em;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+
+    :hover {
+      opacity: 1;
+    }
   }
 `

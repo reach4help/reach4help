@@ -10,6 +10,15 @@ export const LayoutWrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
 
+  a {
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+
+    :hover {
+      text-decoration: underline;
+    }
+  }
+
   .sections {
     flex-grow: 1;
     margin-top: ${p =>
@@ -20,7 +29,8 @@ export const LayoutWrapper = styled.div`
     }
   }
 
-  .partners {
+  /* NAMING 100 */
+  .extendedFooter {
     background: linear-gradient(
       138.25deg,
       ${p => p.theme.colors.primary} 0.9%,

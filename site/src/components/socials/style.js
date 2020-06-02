@@ -36,6 +36,7 @@ export const SocialsWrapper = styled.div`
 
     :hover {
       opacity: 1;
+      text-shadow: 0px 4px 10px rgba(31, 0, 41, 0.15);
     }
   }
 `

@@ -27,9 +27,9 @@ function IndexPage() {
         <Mission />
         <Team />
       </div>
-      <div className="partners">
+      <div className="extendedFooter">
         <Partners />
-        <Footer background="transparent" />
+        <Footer transparent />
       </div>
     </Layout>
   )

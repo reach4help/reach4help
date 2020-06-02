@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { Wrapper, ContentWrapper, LogosWrapper } from "./style"
-import PartnerInfo from "./images"
+import Logos from "./assets"
 
 function Partners() {
   const data = useStaticQuery(
@@ -20,9 +20,19 @@ function Partners() {
         dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
       />
       <LogosWrapper>
-        {PartnerInfo.map(partner => (
-          <a href={partner.link} key={partner.id}>
-            <img src={partner.logo} alt={partner.name} />
+        {Logos.map(logo => (
+          <a
+            title={logo.name}
+            href={logo.link}
+            key={logo.id}
+            target="__blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={logo.logo}
+              alt={`${logo.name} Logo`}
+              maxWidth={logo.maxWidth}
+            />
           </a>
         ))}
       </LogosWrapper>

@@ -5,8 +5,6 @@ export default createGlobalStyle`
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-
-      transition: box-shadow 0.3s ease;
   }
 
   body, html {
