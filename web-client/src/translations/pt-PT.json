@@ -2,6 +2,7 @@
   "common": {
     "welcome": "Bem-vindo",
     "continue": "Continuar",
+    "verify": "Verify",
     "spinner": "A carregar ...",
     "name": "Nome",
     "full_name": "Nome Completo",
@@ -53,7 +54,7 @@
       "instructions_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Se desejar reactivar, por favor siga o link abaixo :",
       "policy_text": "Nós precisamos destes dados para assegurar que a ajuda chega ao destino correto. Para quaisquer preocupações, leia os nossos termos de ",
       "policy_link": "Privacidade & Segurança.",
-      "accept_to_use_profile_pic": "Concordo em deixar o Reach4Help usar minha foto do perfil",
+      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
       "terms_conditions_text": "Eu percebo e reconheço os ",
       "terms_conditions_link": "Termos & Condições.",
       "terms_conditions_error": "Precisa de aceitar os Termos & Condições.",
