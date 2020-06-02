@@ -47,11 +47,11 @@ export default [
     logo: require("./datadog.svg"),
     link: "https://www.datadoghq.com/",
   },
-  // {
-  //   name: "Algolia",
-  //   logo: require('./algolia.svg'),
-  //   link: "https://www.algolia.com/",
-  // },
+  {
+    name: "Algolia",
+    logo: require("./algolia.svg"),
+    link: "https://www.algolia.com/",
+  },
   {
     name: "HermitQA",
     logo: require("./hermit.svg"),
