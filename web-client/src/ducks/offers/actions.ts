@@ -1,6 +1,8 @@
+import { firestore } from 'firebase';
 import { IOffer, Offer } from 'src/models/offers';
 
 import {
+  createUserOffer,
   getRequestOffers as getRequestOffersFunc,
   observeOffers as observeOffersFunc,
   setUserOffer,
@@ -10,6 +12,7 @@ import {
   IgetOffers,
   IgetRequestOffers,
   OBSERVE_OFFERS,
+  RESET_SET,
   SET,
 } from './types';
 
@@ -39,15 +42,40 @@ export const getRequestOffers = (payload: IgetRequestOffers) => (
     firebase: getRequestOffersFunc,
   });
 
-export const setOffer = (payload: IOffer) => (dispatch: Function) => {
-  const offerPayload = Offer.factory({
-    ...payload,
-  });
-  dispatch({
-    type: SET,
-    payload: {
-      offerPayload,
-    },
-    firebase: setUserOffer,
-  });
+export const setOffer = (payload: Offer | IOffer, offerId?: string) => (
+  dispatch: Function,
+) => {
+  if (!(payload instanceof Offer)) {
+    const offerPayload = Offer.factory({
+      ...payload,
+    });
+    dispatch({
+      type: SET,
+      payload: {
+        offerPayload,
+        offerId,
+      },
+      firebase: offerId ? setUserOffer : createUserOffer,
+    });
+  } else {
+    const offerPayload = payload;
+    // eslint-disable-next-line no-param-reassign
+    payload.updatedAt = firestore.Timestamp.now();
+    // eslint-disable-next-line no-param-reassign
+    payload.seenAt = firestore.Timestamp.now();
+    dispatch({
+      type: SET,
+      payload: {
+        offerPayload,
+        offerId,
+      },
+      firebase: offerId ? setUserOffer : createUserOffer,
+    });
+  }
 };
+
+export const resetSetOfferState = () => (dispatch: Function) =>
+  dispatch({
+    type: RESET_SET,
+    payload: true,
+  });

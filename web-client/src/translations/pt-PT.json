@@ -8,7 +8,7 @@
     "full_name": "Nome Completo",
     "display_name": "Nome de utilizador",
     "display_name_placeholder": "Nome usado em saudações, por defeito é o 1º nome",
-    "address": "Address",
+    "adress": "Morada",
     "address1": "Morada linha 1",
     "address2": "Morada linha 2 (opcional)",
     "city": "Cidade",

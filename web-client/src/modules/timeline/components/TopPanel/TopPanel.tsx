@@ -9,26 +9,28 @@ import { Typography } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import DummyMan from 'src/assets/dummy-man.jpg';
 import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
-import { Request, RequestStatus } from 'src/models/requests';
-import { ApplicationPreference } from 'src/models/users/index';
+import { RequestStatus } from 'src/models/requests';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
+import { ApplicationPreference, User } from 'src/models/users/index';
 import { COLORS } from 'src/theme/colors';
 import styled, { css } from 'styled-components';
 
 const { Text } = Typography;
 
 interface TopPanelProps {
-  request: Request;
-  user: any;
+  request: RequestWithOffersAndTimeline;
+  user?: User;
 }
 
 const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
   const [togglePanel, setTogglePanel] = useState(false);
   const userRequestStatus = request.status;
   const { t } = useTranslation();
+
+  const isCav = user?.applicationPreference === ApplicationPreference.cav;
 
   return (
     <TopPanelWrapper>
@@ -43,38 +45,42 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
         </StatusButton>
       </NavRow>
       <UserRow>
-        {userRequestStatus === RequestStatus.pending ? (
-          <EmptyPhoto />
+        {user && user.displayPicture ? (
+          <DisplayPhoto src={user.displayPicture} alt="display photo" />
         ) : (
-          <DisplayPhoto src={DummyMan} alt="display photo" />
+          <EmptyPhoto />
         )}
         <UserDetails>
           <Detail>
             <DisplayName className={userRequestStatus}>
               {userRequestStatus === RequestStatus.pending
                 ? t('timeline.cav_wait')
-                : user.name}
+                : user?.displayName}
             </DisplayName>
-            {user.applicationPreference === ApplicationPreference.cav &&
+            {user?.applicationPreference === ApplicationPreference.cav &&
             userRequestStatus !== RequestStatus.pending ? (
               <Volunteer>{t('timeline.cav')}</Volunteer>
             ) : null}
             {userRequestStatus === RequestStatus.pending ? null : (
               <Info>
-                {user.applicationPreference === ApplicationPreference.cav ? (
-                  <InfoDetail>
-                    <LikesIcon />
-                    <span>{user.likes}</span>
-                  </InfoDetail>
-                ) : null}
+                <InfoDetail>
+                  <LikesIcon />
+                  <span>
+                    {isCav ? user?.casesCompleted : user?.requestsMade}
+                  </span>
+                </InfoDetail>
                 <InfoDetail>
                   <AverageRatingIcon />
-                  <span>{user.rating}</span>
+                  <span>
+                    {isCav
+                      ? user?.cavRatingsReceived
+                      : user?.pinRatingsReceived}
+                  </span>
                 </InfoDetail>
-                <InfoDetail className={user.applicationPreference}>
+                <InfoDetail className={isCav ? 'cav' : 'pin'}>
                   <img src={LocationIcon} alt="location icon" />
-                  {/* TODO: Requires Fix from backend */}
-                  <span>{user.distance}</span>
+                  {/* TODO : Logic for calculating distance from request.latLng */}
+                  <span>5 Miles</span>
                 </InfoDetail>
               </Info>
             )}
@@ -104,7 +110,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
               </AddressTextAndArrow>
               <AddressInfo>
                 <HomeOutlined />
-                <Text> {user.address} </Text>
+                <Text> {request.streetAddress} </Text>
               </AddressInfo>
             </Address>
           </RequestDetails>
@@ -116,7 +122,6 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
 
 const TopPanelWrapper = styled.div`
   width: 100%;
-  height: 100%;
   background: linear-gradient(
     142.67deg,
     ${COLORS.backgroundAlternative} 2.64%,

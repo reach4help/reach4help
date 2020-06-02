@@ -1,6 +1,6 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, Max, Min, ValidateNested } from 'class-validator';
-import { firestore } from 'firebase';
+import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
+import { firestore } from 'firebase-admin';
 
 import { IUser, User } from '../users';
 import GeoPoint = firestore.GeoPoint;
@@ -25,6 +25,7 @@ export interface IRequest extends DocumentData {
   title: string;
   description: string;
   latLng: GeoPoint;
+  streetAddress: string;
   status?: RequestStatus;
   pinRating?: number | null;
   cavRating?: number | null;
@@ -41,6 +42,7 @@ export class Request implements IRequest {
     title: string,
     description: string,
     latLng: GeoPoint,
+    streetAddress: string,
     cavUserRef: DocumentReference<DocumentData> | null = null,
     cavUserSnapshot: User | null = null,
     status = RequestStatus.pending,
@@ -58,6 +60,7 @@ export class Request implements IRequest {
     this._title = title;
     this._description = description;
     this._latLng = latLng;
+    this._streetAddress = streetAddress;
     this._status = status;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
@@ -68,6 +71,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavUserRef: DocumentReference<DocumentData> | null;
 
   get cavUserRef(): DocumentReference<DocumentData> | null {
@@ -101,6 +105,7 @@ export class Request implements IRequest {
   }
 
   @ValidateNested()
+  @IsOptional()
   private _cavUserSnapshot: User | null;
 
   get cavUserSnapshot(): User | null {
@@ -146,6 +151,17 @@ export class Request implements IRequest {
     this._latLng = value;
   }
 
+  @IsString()
+  private _streetAddress: string;
+
+  get streetAddress(): string {
+    return this._streetAddress;
+  }
+
+  set streetAddress(value: string) {
+    this._streetAddress = value;
+  }
+
   @IsEnum(RequestStatus)
   private _status: RequestStatus;
 
@@ -185,6 +201,7 @@ export class Request implements IRequest {
     this._updatedAt = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -198,6 +215,7 @@ export class Request implements IRequest {
     this._pinRating = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -212,6 +230,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _pinRatedAt: Timestamp | null;
 
   get pinRatedAt(): Timestamp | null {
@@ -223,6 +242,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavRatedAt: Timestamp | null;
 
   get cavRatedAt(): Timestamp | null {
@@ -233,13 +253,14 @@ export class Request implements IRequest {
     this._cavRatedAt = value;
   }
 
-  static factory = (data: IRequest): Request =>
-    new Request(
+  public static factory(data: IRequest): Request {
+    return new Request(
       data.pinUserRef,
       User.factory(data.pinUserSnapshot),
       data.title,
       data.description,
       data.latLng,
+      data.streetAddress,
       data.cavUserRef,
       // This field may be null
       data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
@@ -251,6 +272,7 @@ export class Request implements IRequest {
       data.pinRatedAt,
       data.cavRatedAt,
     );
+  }
 
   toObject(): object {
     return {
@@ -261,6 +283,7 @@ export class Request implements IRequest {
       title: this.title,
       description: this.description,
       latLng: this.latLng,
+      streetAddress: this.streetAddress,
       status: this.status,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
@@ -277,6 +300,22 @@ export const RequestFirestoreConverter: FirestoreDataConverter<Request> = {
     return Request.factory(data.data());
   },
   toFirestore: (modelObject: Request): DocumentData => {
-    return modelObject.toObject();
+    return {
+      cavUserRef: modelObject.cavUserRef,
+      cavUserSnapshot: modelObject.cavUserSnapshot ? modelObject.cavUserSnapshot.toObject() : null,
+      pinUserRef: modelObject.pinUserRef,
+      pinUserSnapshot: modelObject.pinUserSnapshot.toObject(),
+      title: modelObject.title,
+      description: modelObject.description,
+      latLng: JSON.stringify(modelObject.latLng),
+      streetAddress: modelObject.streetAddress,
+      status: modelObject.status,
+      createdAt: modelObject.createdAt.toDate(),
+      updatedAt: modelObject.updatedAt.toDate(),
+      pinRating: modelObject.pinRating,
+      cavRating: modelObject.cavRating,
+      pinRatedAt: modelObject.pinRatedAt?.toDate() || null,
+      cavRatedAt: modelObject.cavRatedAt?.toDate() || null,
+    };
   },
 };

@@ -1,6 +1,11 @@
-import { LogoutOutlined, MailOutlined } from '@ant-design/icons';
+import {
+  LogoutOutlined,
+  MailOutlined,
+  UserSwitchOutlined,
+} from '@ant-design/icons';
 import { Drawer } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { User } from 'src/models/users';
 import styled from 'styled-components';
@@ -14,33 +19,49 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
   menuItems,
   profileData,
   logoutHandler,
-}) => (
-  <SideDrawer
-    placement="left"
-    closable
-    onClose={closeDrawer}
-    visible={visible}
-    width="100%"
-  >
-    <SideDrawerProfile profileData={profileData} />
-    <SideDrawerMenu items={menuItems || []} closeDrawer={closeDrawer} />
-    <BottomLinks>
-      <Link to={{ pathname: '/' }} onClick={closeDrawer}>
-        <MailOutlined />
-        Contact us
-      </Link>
-      <div
-        onClick={() => {
-          closeDrawer();
-          logoutHandler();
-        }}
-      >
-        <LogoutOutlined />
-        Sign out
-      </div>
-    </BottomLinks>
-  </SideDrawer>
-);
+  isCav,
+  toggleApplicationPreference,
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <SideDrawer
+      placement="left"
+      closable
+      onClose={closeDrawer}
+      visible={visible}
+      width="100%"
+    >
+      <SideDrawerProfile profileData={profileData} isCav={isCav} />
+      <SideDrawerMenu
+        items={menuItems || []}
+        closeDrawer={closeDrawer}
+        isCav={isCav}
+      />
+      <BottomLinks>
+        <Link to={{ pathname: '/' }} onClick={closeDrawer}>
+          <MailOutlined />
+          {t('menuDrawer.contactUs')}
+        </Link>
+        <div onClick={() => toggleApplicationPreference()}>
+          <UserSwitchOutlined />
+          {`${
+            isCav ? t('menuDrawer.switchToPIN') : t('menuDrawer.switchToCAV')
+          }`}
+        </div>
+        <div
+          onClick={() => {
+            closeDrawer();
+            logoutHandler();
+          }}
+        >
+          <LogoutOutlined />
+          {t('menuDrawer.logout')}
+        </div>
+      </BottomLinks>
+    </SideDrawer>
+  );
+};
 
 const SideDrawer = styled(Drawer)`
   .ant-drawer-body {
@@ -75,6 +96,8 @@ interface MenuDrawerProps {
   menuItems?: Array<MenuItem>;
   profileData?: User;
   logoutHandler: Function;
+  isCav?: boolean;
+  toggleApplicationPreference: Function;
 }
 
 export default MenuDrawer;

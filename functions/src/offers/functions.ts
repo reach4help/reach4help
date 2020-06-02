@@ -1,13 +1,14 @@
 import { validateOrReject } from 'class-validator';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
-import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
+import { firestore } from 'firebase-admin';
 
 import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
-import { RequestFirestoreConverter, RequestStatus } from '../models/requests';
+import { IRequest, Request, RequestStatus } from '../models/requests';
 import { auth, db } from '../app';
+import { queueTimelineItemTriggers } from '../shared/triggerFunctions';
 
-const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Promise<void[]> => {
+const queueStatusUpdateTriggers = async (change: Change<firestore.DocumentSnapshot>): Promise<void[]> => {
   const offerBefore = change.before.exists ? (change.before.data() as Offer) : null;
   const offerAfter = change.after.data() as Offer;
 
@@ -17,14 +18,16 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
   if (offerBefore?.status !== OfferStatus.accepted && offerAfter?.status === OfferStatus.accepted) {
     // Update Request with new status and CAV.
     operations.push(
-      offerAfter.requestRef.update({
-        cavUserRef: offerAfter.cavUserRef,
-        cavUserSnapshot: offerAfter.cavUserSnapshot,
-        status: RequestStatus.ongoing,
-      }),
+      offerAfter.requestRef
+        .update({
+          cavUserRef: offerAfter.cavUserRef,
+          cavUserSnapshot: offerAfter.cavUserSnapshot,
+          status: RequestStatus.ongoing,
+        })
+        .then(() => Promise.resolve()),
     );
 
-    const request = (await offerAfter.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+    const request = Request.factory((await offerAfter.requestRef.get()).data() as IRequest);
 
     operations.push(
       (async (): Promise<void> => {
@@ -68,12 +71,12 @@ const queueStatusUpdateTriggers = async (change: Change<DocumentSnapshot>): Prom
   return Promise.all(operations);
 };
 
-const queueOfferCreationTriggers = async (snap: DocumentSnapshot): Promise<void[]> => {
+const queueOfferCreationTriggers = async (snap: firestore.DocumentSnapshot): Promise<void[]> => {
   const offer = snap.data() as Offer;
   const operations: Promise<void>[] = [];
 
   if (offer) {
-    const request = (await offer.requestRef.withConverter(RequestFirestoreConverter).get()).data();
+    const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
 
     operations.push(
       (async (): Promise<void> => {
@@ -116,11 +119,11 @@ const validateOffer = (value: IOffer): Promise<void> => {
   });
 };
 
-export const offerCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
+export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: EventContext) => {
   return validateOffer(snapshot.data() as IOffer)
-    .then(() => {
-      return Promise.all([queueOfferCreationTriggers(snapshot)]);
-    })
+    .then(() =>
+      Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer')]),
+    )
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
       return db
@@ -133,10 +136,13 @@ export const offerCreate = (snapshot: DocumentSnapshot, context: EventContext) =
     });
 };
 
-export const offerUpdate = (change: Change<DocumentSnapshot>, context: EventContext) => {
+export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context: EventContext) => {
   return validateOffer(change.after.data() as IOffer)
     .then(() => {
-      return Promise.all([queueStatusUpdateTriggers(change)]);
+      return Promise.all([
+        queueStatusUpdateTriggers(change),
+        queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, 'offer', change.after as firestore.DocumentSnapshot<Offer>),
+      ]);
     })
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);

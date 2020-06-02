@@ -1,115 +1,43 @@
+/* eslint-disable no-console */
+import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
+import { setOffer } from 'src/ducks/offers/actions';
+import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  observeNonOpenRequests,
-  observeOpenRequests,
+  getAcceptedRequests,
+  getArchivedRequests,
+  getFinishedRequests,
+  getOngoingRequests,
+  getOpenRequests,
+  resetSetRequestState,
+  setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
-import { OfferStatus } from 'src/models/offers';
-import { Request, RequestStatus } from 'src/models/requests';
+import { IOffer, OfferStatus } from 'src/models/offers';
+import { IRequest, RequestStatus } from 'src/models/requests';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 
+import BottomPanel from '../../components/BottomPanel/BottomPanel';
+import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
-
-// TODO remove mock
-const today = new Date();
-const mockPin = {
-  username: 'PinUser',
-  applicationPreference: ApplicationPreference.pin,
-};
-
-const mockCav = {
-  username: 'CavUser',
-  applicationPreference: ApplicationPreference.cav,
-};
-
-const mockRequest = {
-  pin: mockPin,
-  cav: null,
-  status: RequestStatus.pending,
-};
-
-const mockOffer = {
-  pin: mockPin,
-  request: mockRequest,
-  status: OfferStatus.pending,
-};
-
-const mockTimelineItems = [
-  {
-    action: 'CREATE_REQUEST',
-    actor: mockPin,
-    offer: null,
-    request: mockRequest,
-    createdAt: new Date(today).setDate(today.getDate() - 9),
-  },
-  {
-    action: 'CANCEL_REQUEST',
-    actor: mockPin,
-    offer: null,
-    request: mockRequest,
-    createdAt: new Date(today).setDate(today.getDate() - 8),
-  },
-  {
-    action: 'COMPLETE_REQUEST',
-    actor: mockCav,
-    offer: null,
-    request: mockRequest,
-    createdAt: new Date(today).setDate(today.getDate() - 7),
-  },
-  {
-    action: 'REMOVE_REQUEST',
-    actor: mockCav,
-    offer: null,
-    request: mockRequest,
-    createdAt: new Date(today).setDate(today.getDate() - 6),
-  },
-  {
-    action: 'CREATE_OFFER',
-    actor: mockCav,
-    request: mockRequest,
-    offer: mockOffer,
-    createdAt: new Date(today).setDate(today.getDate() - 5),
-  },
-  {
-    action: 'ACCEPT_OFFER',
-    actor: mockPin,
-    request: { ...mockRequest, status: RequestStatus.ongoing },
-    offer: { ...mockOffer, status: OfferStatus.accepted },
-    createdAt: new Date(today).setDate(today.getDate() - 4),
-  },
-  {
-    action: 'REJECT_OFFER',
-    actor: mockPin,
-    request: { ...mockRequest, status: RequestStatus.ongoing },
-    offer: { ...mockOffer, status: OfferStatus.accepted },
-    createdAt: new Date(today).setDate(today.getDate() - 3),
-  },
-  {
-    action: 'RATE_PIN',
-    actor: mockCav,
-    request: { ...mockRequest, status: RequestStatus.ongoing },
-    offer: { ...mockOffer, status: OfferStatus.accepted },
-    createdAt: new Date(today).setDate(today.getDate() - 2),
-  },
-  {
-    action: 'RATE_CAV',
-    actor: mockPin,
-    request: { ...mockRequest, status: RequestStatus.ongoing },
-    offer: { ...mockOffer, status: OfferStatus.accepted },
-    createdAt: new Date(today).setDate(today.getDate() - 1),
-  },
-];
+import { TimelineViewLocation } from '../../pages/routes/TimelineViewRoute/constants';
 
 const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   requestId,
+  accepted,
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const [request, setRequest] = useState<Request | undefined>(undefined);
+  const [request, setRequest] = useState<
+    RequestWithOffersAndTimeline | undefined
+  >(undefined);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -119,32 +47,46 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     ({ requests }: { requests: RequestState }) => requests,
   );
 
+  const offersState = useSelector(
+    ({ offers }: { offers: OffersState }) => offers,
+  );
+
   useEffect(() => {
-    let requestTemp: Request | undefined = requestsState.openRequests.data
-      ? requestsState.openRequests.data[requestId]
+    let requestTemp: RequestWithOffersAndTimeline | undefined = requestsState
+      .syncOpenRequestsState.data
+      ? requestsState.syncOpenRequestsState.data[requestId]
       : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.ongoingRequests.data
-        ? requestsState.ongoingRequests.data[requestId]
+      (requestsState.syncAcceptedRequestsState.data
+        ? requestsState.syncAcceptedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.completedRequests.data
-        ? requestsState.completedRequests.data[requestId]
+      (requestsState.syncOngoingRequestsState.data
+        ? requestsState.syncOngoingRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.cancelledRequests.data
-        ? requestsState.cancelledRequests.data[requestId]
+      (requestsState.syncArchivedRequestsState.data
+        ? requestsState.syncArchivedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.removedRequests.data
-        ? requestsState.removedRequests.data[requestId]
+      (requestsState.syncFinishedRequestsState.data
+        ? requestsState.syncFinishedRequestsState.data[requestId]
         : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
+
+  useEffect(() => {
+    if (
+      (!requestsState.setAction.loading && requestsState.setAction.success) ||
+      (!offersState.setAction.loading && offersState.setAction.success)
+    ) {
+      dispatch(resetSetRequestState());
+    }
+  }, [requestsState.setAction, offersState.setAction, dispatch]);
 
   useEffect(() => {
     if (
@@ -152,74 +94,157 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       profileState.profile.applicationPreference &&
       profileState.userRef
     ) {
-      const unsubscribeFromOpen = observeOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-      });
-
-      const unsubscribeFromOngoing = observeNonOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.ongoing,
-      });
-
-      const unsubscribeFromCompleted = observeNonOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.completed,
-      });
-
-      const unsubscribeFromCancelled = observeNonOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.cancelled,
-      });
-
-      const unsubscribeFromRemoved = observeNonOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-        requestStatus: RequestStatus.removed,
-      });
-
-      return () => {
-        unsubscribeFromOpen();
-        unsubscribeFromOngoing();
-        unsubscribeFromCompleted();
-        unsubscribeFromCancelled();
-        unsubscribeFromRemoved();
-      };
+      if (
+        accepted &&
+        profileState.profile.applicationPreference === ApplicationPreference.cav
+      ) {
+        history.push(TimelineViewLocation.toUrl({ requestId }));
+      } else {
+        if (!requestsState.syncOpenRequestsState.data) {
+          dispatch(
+            getOpenRequests({
+              userType: profileState.profile.applicationPreference,
+              userRef: profileState.userRef,
+              lat: profileState.privilegedInformation?.address.coords.latitude,
+              lng: profileState.privilegedInformation?.address.coords.longitude,
+            }),
+          );
+        }
+        if (!requestsState.syncAcceptedRequestsState.data) {
+          dispatch(
+            getAcceptedRequests({
+              userType: profileState.profile.applicationPreference,
+              userRef: profileState.userRef,
+            }),
+          );
+        }
+        if (!requestsState.syncOngoingRequestsState.data) {
+          dispatch(
+            getOngoingRequests({
+              userType: profileState.profile.applicationPreference,
+              userRef: profileState.userRef,
+            }),
+          );
+        }
+        if (!requestsState.syncFinishedRequestsState.data) {
+          dispatch(
+            getFinishedRequests({
+              userType: profileState.profile.applicationPreference,
+              userRef: profileState.userRef,
+            }),
+          );
+        }
+        if (!requestsState.syncArchivedRequestsState.data) {
+          dispatch(
+            getArchivedRequests({
+              userRef: profileState.userRef,
+              userType: profileState.profile.applicationPreference,
+            }),
+          );
+        }
+      }
     }
-  }, [dispatch, profileState]);
+  }, [dispatch, profileState, history, requestId, accepted, requestsState]);
+
+  useEffect(() => {
+    if (request && request.status === RequestStatus.ongoing && accepted) {
+      history.push(TimelineViewLocation.toUrl({ requestId }));
+    }
+  }, [accepted, request, requestId, history]);
 
   if (!(profileState.profile && request)) {
     return <LoadingWrapper />;
   }
 
-  const mockRequestUser = {
-    name: 'Jon Snow',
-    rating: 4.5,
-    likes: 52,
-    distance: '5km',
-    address: '509 Gorby Lane, Jackson, FL 32065',
-    applicationPreference: 'pin',
+  const handleRequest = ({
+    status,
+    pinRating,
+    cavRating,
+  }: {
+    status?: RequestStatus;
+    pinRating?: number;
+    cavRating?: number;
+  }) => {
+    if (request && (status || pinRating || cavRating)) {
+      const updated = request;
+      status && (updated.status = status);
+      pinRating &&
+        (updated.pinRating = pinRating) &&
+        (updated.pinRatedAt = firestore.Timestamp.now());
+      cavRating &&
+        (updated.cavRating = cavRating) &&
+        (updated.cavRatedAt = firestore.Timestamp.now());
+      dispatch(updateRequest(updated.toObject() as IRequest, requestId));
+    }
+  };
+
+  const handleOffer = (action: boolean, id: string) => {
+    console.log('offers: ', request.offers);
+    console.log('received id: ', id);
+    console.log('requestWithOffer: ', request);
+    console.log('request: ', request.getRequest());
+    const offer = request.offers[id].getOffer();
+    console.log('chosen offer: ', offer);
+    if (action === true) {
+      offer.status = OfferStatus.accepted;
+    }
+    if (action === false) {
+      offer.status = OfferStatus.rejected;
+    }
+    dispatch(setOffer(offer.toObject() as IOffer, id));
   };
 
   /*
     TODO: 
-      Once backend changes for profile snapshot is done, instead of user={mockRequestUser},
-      The Top Panel must take the user details from the request itself
+      Once backend changes for profile snapshot is done, instead of offers={MockOfferList},
+      The OffersList must take the offers from the request itself
   */
+  const isCav =
+    profileState.profile.applicationPreference === ApplicationPreference.cav;
+
   return (
     <>
-      <TopPanel request={request} user={mockRequestUser} />;
-      <TimelineList items={mockTimelineItems} currentUser={mockPin} />
-      {/* <TimelineList items={mockTimelineItems} currentUser={mockCav} /> */}
+      <TopPanel
+        request={request}
+        user={
+          profileState.profile.applicationPreference ===
+          ApplicationPreference.cav
+            ? request.pinUserSnapshot
+            : request.cavUserSnapshot
+            ? request.cavUserSnapshot
+            : undefined
+        }
+      />
+      {accepted && (
+        <OffersList
+          loading={false}
+          offers={request.offers}
+          handleOffer={handleOffer}
+        />
+      )}
+      {!accepted && request.timeline && profileState.userRef && (
+        <>
+          <TimelineList
+            items={request.timeline}
+            currentUser={profileState.userRef}
+          />
+        </>
+      )}
+      <div style={{ position: 'fixed', bottom: '0', width: '100%' }}>
+        <BottomPanel
+          request={request}
+          currentUser={profileState.profile}
+          handleRequest={handleRequest}
+          isCav={isCav}
+        />
+      </div>
     </>
   );
 };
 
 interface TimelineViewContainerProps {
   requestId: string;
+  accepted?: boolean;
 }
 
 export default TimelineViewContainer;

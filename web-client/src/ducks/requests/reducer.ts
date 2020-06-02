@@ -1,14 +1,24 @@
 import { Request, RequestStatus } from 'src/models/requests';
+import {
+  IRequestWithOffersAndTimeline,
+  RequestWithOffersAndTimeline,
+} from 'src/models/requests/RequestWithOffersAndTimeline';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
+  GET_ACCEPTED,
+  GET_ARCHIVED,
+  GET_FINISHED,
+  GET_ONGOING,
+  GET_OPEN,
   OBSERVE_CANCELLED_REQUESTS,
   OBSERVE_COMPLETED_REQUESTS,
   OBSERVE_ONGOING_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
   OBSERVE_REMOVED_REQUESTS,
   RequestState,
+  RESET_SET,
   SET,
 } from './types';
 
@@ -26,7 +36,18 @@ const initialRequestsState = {
   error: undefined,
 };
 
+const initialSyncRequestsState = {
+  loading: false,
+  data: undefined,
+  error: undefined,
+};
+
 const initialState: RequestState = {
+  syncOpenRequestsState: initialSyncRequestsState,
+  syncAcceptedRequestsState: initialSyncRequestsState,
+  syncOngoingRequestsState: initialSyncRequestsState,
+  syncArchivedRequestsState: initialSyncRequestsState,
+  syncFinishedRequestsState: initialSyncRequestsState,
   openRequests: initialRequestsState,
   ongoingRequests: initialRequestsState,
   completedRequests: initialRequestsState,
@@ -60,6 +81,190 @@ const updateRequestState = (state: RequestState, payload) => {
 
 export default createReducer<RequestState>(
   {
+    [GET_OPEN.PENDING]: (state: RequestState) => {
+      state.syncOpenRequestsState.loading = true;
+      state.syncOpenRequestsState.data = undefined;
+    },
+    [GET_OPEN.COMPLETED]: (
+      state: RequestState,
+      {
+        payload,
+      }: {
+        payload: {
+          data: {
+            status: boolean;
+            data: Record<string, IRequestWithOffersAndTimeline>;
+          };
+        };
+      },
+    ) => {
+      state.syncOpenRequestsState.loading = false;
+      state.syncOpenRequestsState.error = undefined;
+      const mappedData = Object.keys(payload.data.data).reduce(
+        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+          ...acc,
+          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
+        }),
+        {},
+      );
+      state.syncOpenRequestsState.data = mappedData;
+    },
+    [GET_OPEN.REJECTED]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncOpenRequestsState.data = undefined;
+      state.syncOpenRequestsState.loading = false;
+      state.syncOpenRequestsState.error = payload;
+    },
+    [GET_ACCEPTED.PENDING]: (state: RequestState) => {
+      state.syncAcceptedRequestsState.loading = true;
+      state.syncAcceptedRequestsState.data = undefined;
+    },
+    [GET_ACCEPTED.COMPLETED]: (
+      state: RequestState,
+      {
+        payload,
+      }: {
+        payload: {
+          data: {
+            status: boolean;
+            data: Record<string, IRequestWithOffersAndTimeline>;
+          };
+        };
+      },
+    ) => {
+      state.syncAcceptedRequestsState.loading = false;
+      state.syncAcceptedRequestsState.error = undefined;
+      state.syncAcceptedRequestsState.data = Object.keys(
+        payload.data.data,
+      ).reduce(
+        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+          ...acc,
+          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
+        }),
+        {},
+      );
+    },
+    [GET_ACCEPTED.REJECTED]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncAcceptedRequestsState.data = undefined;
+      state.syncAcceptedRequestsState.loading = false;
+      state.syncAcceptedRequestsState.error = payload;
+    },
+    [GET_ARCHIVED.PENDING]: (state: RequestState) => {
+      state.syncArchivedRequestsState.loading = true;
+      state.syncArchivedRequestsState.data = undefined;
+    },
+    [GET_ARCHIVED.COMPLETED]: (
+      state: RequestState,
+      {
+        payload,
+      }: {
+        payload: {
+          data: {
+            status: boolean;
+            data: Record<string, IRequestWithOffersAndTimeline>;
+          };
+        };
+      },
+    ) => {
+      state.syncArchivedRequestsState.loading = false;
+      state.syncArchivedRequestsState.error = undefined;
+      state.syncArchivedRequestsState.data = Object.keys(
+        payload.data.data,
+      ).reduce(
+        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+          ...acc,
+          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
+        }),
+        {},
+      );
+    },
+    [GET_ARCHIVED.REJECTED]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncArchivedRequestsState.data = undefined;
+      state.syncArchivedRequestsState.loading = false;
+      state.syncArchivedRequestsState.error = payload;
+    },
+    [GET_FINISHED.PENDING]: (state: RequestState) => {
+      state.syncFinishedRequestsState.loading = true;
+      state.syncFinishedRequestsState.data = undefined;
+    },
+    [GET_FINISHED.COMPLETED]: (
+      state: RequestState,
+      {
+        payload,
+      }: {
+        payload: {
+          data: {
+            status: boolean;
+            data: Record<string, IRequestWithOffersAndTimeline>;
+          };
+        };
+      },
+    ) => {
+      state.syncFinishedRequestsState.loading = false;
+      state.syncFinishedRequestsState.error = undefined;
+      state.syncFinishedRequestsState.data = Object.keys(
+        payload.data.data,
+      ).reduce(
+        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+          ...acc,
+          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
+        }),
+        {},
+      );
+    },
+    [GET_FINISHED.REJECTED]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncFinishedRequestsState.data = undefined;
+      state.syncFinishedRequestsState.loading = false;
+      state.syncFinishedRequestsState.error = payload;
+    },
+    [GET_ONGOING.PENDING]: (state: RequestState) => {
+      state.syncOngoingRequestsState.loading = true;
+      state.syncOngoingRequestsState.data = undefined;
+    },
+    [GET_ONGOING.COMPLETED]: (
+      state: RequestState,
+      {
+        payload,
+      }: {
+        payload: {
+          data: {
+            status: boolean;
+            data: Record<string, IRequestWithOffersAndTimeline>;
+          };
+        };
+      },
+    ) => {
+      state.syncOngoingRequestsState.loading = false;
+      state.syncOngoingRequestsState.error = undefined;
+      state.syncOngoingRequestsState.data = Object.keys(
+        payload.data.data,
+      ).reduce(
+        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+          ...acc,
+          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
+        }),
+        {},
+      );
+    },
+    [GET_ONGOING.REJECTED]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncOngoingRequestsState.data = undefined;
+      state.syncOngoingRequestsState.loading = false;
+      state.syncOngoingRequestsState.error = payload;
+    },
     [SET.PENDING]: (state: RequestState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
@@ -73,6 +278,15 @@ export default createReducer<RequestState>(
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
+    },
+    [RESET_SET]: (state: RequestState) => {
+      state.setAction.loading = false;
+      state.setAction.success = false;
+      state.syncOpenRequestsState.data = undefined;
+      state.syncOngoingRequestsState.data = undefined;
+      state.syncAcceptedRequestsState.data = undefined;
+      state.syncFinishedRequestsState.data = undefined;
+      state.syncArchivedRequestsState.data = undefined;
     },
     [CHANGE_MODAL]: (
       state: RequestState,
