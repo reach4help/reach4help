@@ -4,20 +4,22 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
-import { observeOffers, setOffer } from 'src/ducks/offers/actions';
+import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  observeNonOpenRequests,
-  observeOpenRequests,
+  getAcceptedRequests,
+  getArchivedRequests,
+  getFinishedRequests,
+  getOngoingRequests,
+  getOpenRequests,
+  resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
-import { observeTimeline } from 'src/ducks/timeline/actions';
-import { TimelineState } from 'src/ducks/timeline/types';
-import { IOffer, Offer, OfferStatus } from 'src/models/offers';
-import { IRequest, Request, RequestStatus } from 'src/models/requests';
-import { TimelineItem } from 'src/models/requests/timeline';
+import { IOffer, OfferStatus } from 'src/models/offers';
+import { IRequest, RequestStatus } from 'src/models/requests';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 
 import BottomPanel from '../../components/BottomPanel/BottomPanel';
@@ -33,11 +35,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [request, setRequest] = useState<Request | undefined>(undefined);
-  const [offersForRequest, setOffersForRequest] = useState<
-    Record<string, Offer>
-  >({});
-  const [timelineObjects, setTimelineObjects] = useState<TimelineItem[]>([]);
+  const [request, setRequest] = useState<
+    RequestWithOffersAndTimeline | undefined
+  >(undefined);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -51,36 +51,42 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     ({ offers }: { offers: OffersState }) => offers,
   );
 
-  const timelineState = useSelector(
-    ({ timeline }: { timeline: TimelineState }) => timeline,
-  );
-
   useEffect(() => {
-    let requestTemp: Request | undefined = requestsState.openRequests.data
-      ? requestsState.openRequests.data[requestId]
+    let requestTemp: RequestWithOffersAndTimeline | undefined = requestsState
+      .syncOpenRequestsState.data
+      ? requestsState.syncOpenRequestsState.data[requestId]
       : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.ongoingRequests.data
-        ? requestsState.ongoingRequests.data[requestId]
+      (requestsState.syncAcceptedRequestsState.data
+        ? requestsState.syncAcceptedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.completedRequests.data
-        ? requestsState.completedRequests.data[requestId]
+      (requestsState.syncOngoingRequestsState.data
+        ? requestsState.syncOngoingRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.cancelledRequests.data
-        ? requestsState.cancelledRequests.data[requestId]
+      (requestsState.syncArchivedRequestsState.data
+        ? requestsState.syncArchivedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.removedRequests.data
-        ? requestsState.removedRequests.data[requestId]
+      (requestsState.syncFinishedRequestsState.data
+        ? requestsState.syncFinishedRequestsState.data[requestId]
         : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
+
+  useEffect(() => {
+    if (
+      (!requestsState.setAction.loading && requestsState.setAction.success) ||
+      (!offersState.setAction.loading && offersState.setAction.success)
+    ) {
+      dispatch(resetSetRequestState());
+    }
+  }, [requestsState.setAction, offersState.setAction, dispatch]);
 
   useEffect(() => {
     if (
@@ -94,68 +100,51 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       ) {
         history.push(TimelineViewLocation.toUrl({ requestId }));
       } else {
-        const unsubscribeFromOpen = observeOpenRequests(dispatch, {
-          userRef: profileState.userRef,
-          userType: profileState.profile.applicationPreference,
-        });
-
-        const unsubscribeFromOngoing = observeNonOpenRequests(dispatch, {
-          userRef: profileState.userRef,
-          userType: profileState.profile.applicationPreference,
-          requestStatus: RequestStatus.ongoing,
-        });
-
-        const unsubscribeFromCompleted = observeNonOpenRequests(dispatch, {
-          userRef: profileState.userRef,
-          userType: profileState.profile.applicationPreference,
-          requestStatus: RequestStatus.completed,
-        });
-
-        const unsubscribeFromCancelled = observeNonOpenRequests(dispatch, {
-          userRef: profileState.userRef,
-          userType: profileState.profile.applicationPreference,
-          requestStatus: RequestStatus.cancelled,
-        });
-
-        const unsubscribeFromRemoved = observeNonOpenRequests(dispatch, {
-          userRef: profileState.userRef,
-          userType: profileState.profile.applicationPreference,
-          requestStatus: RequestStatus.removed,
-        });
-
-        const unsubscribeFromOffers = observeOffers(dispatch, {
-          userRef: profileState.userRef,
-          userType: profileState.profile.applicationPreference,
-        });
-
-        const unsubscribeFromTimeline = observeTimeline(dispatch, {
-          requestId,
-        });
-
-        return () => {
-          unsubscribeFromOpen();
-          unsubscribeFromOngoing();
-          unsubscribeFromCompleted();
-          unsubscribeFromCancelled();
-          unsubscribeFromRemoved();
-          unsubscribeFromOffers();
-          unsubscribeFromTimeline();
-        };
-      }
-    }
-  }, [dispatch, profileState, history, requestId, accepted]);
-
-  useEffect(() => {
-    if (accepted && requestId && offersState.data) {
-      const internalOffers: Record<string, Offer> = {};
-      for (const key in offersState.data) {
-        if (offersState.data[key].requestRef.id === requestId) {
-          internalOffers[key] = offersState.data[key];
+        if (!requestsState.syncOpenRequestsState.data) {
+          dispatch(
+            getOpenRequests({
+              userType: profileState.profile.applicationPreference,
+              userRef: profileState.userRef,
+              lat: profileState.privilegedInformation?.address.coords.latitude,
+              lng: profileState.privilegedInformation?.address.coords.longitude,
+            }),
+          );
+        }
+        if (!requestsState.syncAcceptedRequestsState.data) {
+          dispatch(
+            getAcceptedRequests({
+              userType: profileState.profile.applicationPreference,
+              userRef: profileState.userRef,
+            }),
+          );
+        }
+        if (!requestsState.syncOngoingRequestsState.data) {
+          dispatch(
+            getOngoingRequests({
+              userType: profileState.profile.applicationPreference,
+              userRef: profileState.userRef,
+            }),
+          );
+        }
+        if (!requestsState.syncFinishedRequestsState.data) {
+          dispatch(
+            getFinishedRequests({
+              userType: profileState.profile.applicationPreference,
+              userRef: profileState.userRef,
+            }),
+          );
+        }
+        if (!requestsState.syncArchivedRequestsState.data) {
+          dispatch(
+            getArchivedRequests({
+              userRef: profileState.userRef,
+              userType: profileState.profile.applicationPreference,
+            }),
+          );
         }
       }
-      setOffersForRequest(internalOffers);
     }
-  }, [offersState, accepted, requestId, setOffersForRequest]);
+  }, [dispatch, profileState, history, requestId, accepted, requestsState]);
 
   useEffect(() => {
     if (request && request.status === RequestStatus.ongoing && accepted) {
@@ -163,28 +152,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     }
   }, [accepted, request, requestId, history]);
 
-  useEffect(() => {
-    if (timelineState.data) {
-      const innerTimelineObjects = timelineState.data
-        .slice()
-        .sort(
-          (a, b) =>
-            a.createdAt.toDate().getTime() - b.createdAt.toDate().getTime(),
-        );
-      setTimelineObjects(innerTimelineObjects);
-    }
-  }, [timelineState.data]);
-
-  if (
-    !(
-      profileState.profile &&
-      request &&
-      !(
-        (!accepted && timelineState.loading) ||
-        (accepted && offersState.loading)
-      )
-    )
-  ) {
+  if (!(profileState.profile && request)) {
     return <LoadingWrapper />;
   }
 
@@ -211,7 +179,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   };
 
   const handleOffer = (action: boolean, id: string) => {
-    const offer = offersForRequest[id];
+    console.log('offers: ', request.offers);
+    console.log('received id: ', id);
+    console.log('requestWithOffer: ', request);
+    console.log('request: ', request.getRequest());
+    const offer = request.offers[id].getOffer();
+    console.log('chosen offer: ', offer);
     if (action === true) {
       offer.status = OfferStatus.accepted;
     }
@@ -244,15 +217,15 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       />
       {accepted && (
         <OffersList
-          loading={offersState.loading}
-          offers={offersForRequest}
+          loading={false}
+          offers={request.offers}
           handleOffer={handleOffer}
         />
       )}
-      {!accepted && timelineState.data && profileState.userRef && (
+      {!accepted && request.timeline && profileState.userRef && (
         <>
           <TimelineList
-            items={timelineObjects}
+            items={request.timeline}
             currentUser={profileState.userRef}
           />
         </>

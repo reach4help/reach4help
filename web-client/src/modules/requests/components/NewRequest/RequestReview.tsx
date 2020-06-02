@@ -39,12 +39,14 @@ export interface RequestInput {
 }
 
 export interface RequestReviewProps {
+  isSubmitting: boolean;
   request: RequestInput;
   saveRequest: Function;
   goBack: Function;
 }
 
 const RequestReview: React.FC<RequestReviewProps> = ({
+  isSubmitting,
   request,
   saveRequest,
   goBack,
@@ -89,6 +91,7 @@ const RequestReview: React.FC<RequestReviewProps> = ({
               background: '#52C41A',
               color: '#FFFFFF',
             }}
+            loading={isSubmitting}
             onClick={() => saveRequest(request)}
           >
             {t('requestReview.submit')}

@@ -1,10 +1,11 @@
 import firebase from 'firebase';
-import { firestore } from 'src/firebase';
+import { firestore, functions } from 'src/firebase';
 import {
   Request,
   RequestFirestoreConverter,
   RequestStatus,
 } from 'src/models/requests';
+import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 
 import { IgetNonOpenRequests, IgetOpenRequests } from './types';
@@ -76,3 +77,43 @@ export const setUserRequest = async ({
     .doc(requestId)
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
+
+export const getOpenRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.pending,
+  });
+
+export const getAcceptedRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.accepted,
+  });
+
+export const getOngoingRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.ongoing,
+  });
+
+export const getFinishedRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.finished,
+  });
+
+export const getArchivedRequest = async ({ lat, lng }: IgetOpenRequests) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.archived,
+  });
