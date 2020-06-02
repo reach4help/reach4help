@@ -147,7 +147,9 @@ const FindRequestsContainer: React.FC = () => {
               .pinUserRef,
           requestRef: firestore.collection('requests').doc(expandedRequestId),
           cavUserSnapshot: profileState.profile,
-          requestSnapshot: openRequests.data[expandedRequestId],
+          requestSnapshot: pendingRequestsWithOffersAndTimeline.data[
+            expandedRequestId
+          ].getRequest(),
           message: 'I want to help!',
           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
         }),

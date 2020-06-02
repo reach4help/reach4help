@@ -3,6 +3,7 @@ import { IsArray } from 'class-validator';
 import { firestore } from 'firebase';
 import { firestore as db } from 'src/firebase';
 
+import { IRequest, Request } from '../requests';
 import { User } from '../users';
 import { IUserAddress } from '../users/privilegedInformation';
 import { IOffer, Offer, OfferStatus } from './index';
@@ -23,6 +24,7 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       firebase.firestore.DocumentData
     >,
     cavUserSnapshot: User,
+    requestSnapshot: Request | null,
     message: string,
     status: OfferStatus,
     address: IUserAddress,
@@ -33,6 +35,7 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       pinUserRef,
       requestRef,
       cavUserSnapshot,
+      requestSnapshot,
       message,
       status,
       createdAt,
@@ -68,6 +71,21 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
               (data.cavUserSnapshot.createdAt as any)._nanoseconds,
             )
           : data.cavUserSnapshot.createdAt,
+      }),
+      Request.factory({
+        ...(data.requestSnapshot as IRequest),
+        createdAt: data.requestSnapshot?.createdAt
+          ? new firestore.Timestamp(
+              (data.requestSnapshot.createdAt as any)._seconds,
+              (data.requestSnapshot.createdAt as any)._nanoseconds,
+            )
+          : data.requestSnapshot?.createdAt,
+        latLng: data.requestSnapshot?.latLng
+          ? new firestore.GeoPoint(
+              (data.requestSnapshot.latLng as any)._latitude,
+              (data.requestSnapshot.latLng as any)._longitude,
+            )
+          : new firestore.GeoPoint(0, 0),
       }),
       data.message,
       data.status,
