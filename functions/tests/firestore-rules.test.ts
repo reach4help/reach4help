@@ -177,6 +177,14 @@ describe('offers', () => {
           }),
         ),
     );
+    const requestSnapshot = Request.factory({
+      pinUserRef: db.collection('users').doc('pin-1') as any,
+      pinUserSnapshot: { username: 'pin-1' },
+      title: 'I need help!',
+      description: 'Please help with groceries',
+      latLng: new GeoPoint(10, -122),
+      streetAddress: '123 Main St.',
+    });
     await firebase.assertSucceeds(
       db
         .collection('offers')
@@ -187,6 +195,7 @@ describe('offers', () => {
             cavUserRef: db.collection('users').doc('cav-1') as any,
             pinUserRef: db.collection('users').doc('pin-1') as any,
             requestRef: db.collection('requests').doc('request-1') as any,
+            requestSnapshot,
             cavUserSnapshot: {
               averageRating: 1,
               casesCompleted: 0,
@@ -209,6 +218,7 @@ describe('offers', () => {
             cavUserRef: db.collection('users').doc('cav-2') as any,
             pinUserRef: db.collection('users').doc('pin-1') as any,
             requestRef: db.collection('requests').doc('request-1') as any,
+            requestSnapshot,
             cavUserSnapshot: {
               averageRating: 1,
               casesCompleted: 0,
