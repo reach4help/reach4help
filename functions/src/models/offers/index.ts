@@ -189,9 +189,7 @@ export class Offer implements IOffer {
       pinUserRef: this.pinUserRef,
       requestRef: this.requestRef,
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
-      requestSnapshot: this.requestSnapshot
-        ? this.requestSnapshot.toObject()
-        : null,
+      requestSnapshot: this.requestSnapshot ? this.requestSnapshot.toObject() : null,
       message: this.message,
       status: this.status,
       createdAt: this.createdAt,

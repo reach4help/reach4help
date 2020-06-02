@@ -2,6 +2,7 @@ import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsArray } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
+import { IRequest, Request } from '../requests';
 import { IOffer, Offer, OfferStatus } from './index';
 
 import { User } from '../users';
@@ -22,12 +23,13 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
     pinUserRef: DocumentReference<DocumentData>,
     requestRef: DocumentReference<DocumentData>,
     cavUserSnapshot: User,
+    requestSnapshot: Request | null,
     message: string,
     status: OfferStatus,
     address: IUserAddress,
     createdAt = Timestamp.now(),
   ) {
-    super(cavUserRef, pinUserRef, requestRef, cavUserSnapshot, message, status, createdAt);
+    super(cavUserRef, pinUserRef, requestRef, cavUserSnapshot, requestSnapshot, message, status, createdAt);
     this._address = address;
   }
 
@@ -52,6 +54,7 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       data.pinUserRef,
       data.requestRef,
       User.factory(data.cavUserSnapshot),
+      Request.factory(data.requestSnapshot as IRequest),
       data.message,
       data.status,
       data.address,
