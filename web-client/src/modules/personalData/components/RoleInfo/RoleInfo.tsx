@@ -19,8 +19,8 @@ const StyledIntro = styled.div`
 `;
 
 const Manifesto = styled.div`
-  margin-top: 30px;
-  margin-bottom: 60px;
+  width: 66%;
+  margin: 25px auto 0 auto;
 
   /* font-size-base */
   font-family: Roboto;
