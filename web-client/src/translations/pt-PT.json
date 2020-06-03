@@ -2,6 +2,7 @@
   "common": {
     "welcome": "Bem-vindo",
     "continue": "Continuar",
+    "verify": "Verify",
     "spinner": "A carregar ...",
     "name": "Nome",
     "full_name": "Nome Completo",
@@ -19,10 +20,17 @@
       "info": "Por segurança só autorizamos utilizadores Facebook com conta verificada há pelo menos 6 meses. \nEstamos a trabalhar arduamente para trazer novas maneiras de se conectar no futuro. \nGratos pela sua paciência.",
       "facebookButtonLabel": "Continuar com o Facebook"
     },
+    "menuDrawer": {
+      "contactUs": "Contact us",
+      "logout": "Sign out",
+      "switchToCAV": "Switch to Volunteer",
+      "switchToPIN": "Switch to Person In Need"
+    },
     "phoneNumber": {
       "sub_title": "Introduza o seu número de telefone para começar",
       "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas.",
-      "error_message": "Por favor insira o seu número de telefone!"
+      "error_message": "Por favor insira o seu número de telefone!",
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
     },
     "verificationCode": {
       "sub_title": "Enviámos um código de confirmação. Por favor insira o código em baixo.",
@@ -46,7 +54,7 @@
       "instructions_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Se desejar reactivar, por favor siga o link abaixo :",
       "policy_text": "Nós precisamos destes dados para assegurar que a ajuda chega ao destino correto. Para quaisquer preocupações, leia os nossos termos de ",
       "policy_link": "Privacidade & Segurança.",
-      "accept_to_use_profile_pic": "Concordo em deixar o Reach4Help usar minha foto do perfil",
+      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
       "terms_conditions_text": "Eu percebo e reconheço os ",
       "terms_conditions_link": "Termos & Condições.",
       "terms_conditions_error": "Precisa de aceitar os Termos & Condições.",
@@ -60,9 +68,18 @@
       "icon_text": "eu preciso de ajuda",
       "form": {
         "title": "Título",
+        "type": "Type",
+        "address": "Confirm Address",
         "body": "Introduza os detalhes do que necessita",
         "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
-        "submit": "Enviar o meu pedido"
+        "submit": "Next",
+        "cancel": "Cancel",
+        "search": "Search",
+        "useMyLocation": "Use my location",
+        "address_error_message": "You need to fill your address.",
+        "type_error_message": "You need to select a type.",
+        "other_error_message": "You need to enter details.",
+        "body_error_message": "You need to fill description."
       }
     },
     "newRequestSuccess": {
@@ -70,6 +87,11 @@
       "info": "Por favor aguarde até receber uma oferta de um voluntário.",
       "remember": "Lembre-se",
       "remember_info": "Quando um voluntário oferece ajuda, tem de a aceitar para que este veja as suas informações de contacto."
+    },
+    "requestReview": {
+      "submit": "Submit Request",
+      "back": "Back",
+      "deliveryAddress": "Delivery address"
     },
     "roleinfo": {
       "title": "Reach4Help",
