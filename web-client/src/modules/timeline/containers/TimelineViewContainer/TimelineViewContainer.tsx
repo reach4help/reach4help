@@ -43,6 +43,15 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
+  const requestCoords = useSelector(({ profile }: { profile: ProfileState }) =>
+    profile &&
+    profile.privilegedInformation &&
+    profile.privilegedInformation.address &&
+    profile.privilegedInformation.address.coords
+      ? profile.privilegedInformation?.address.coords
+      : { latitude: 0, longitude: 0 },
+  );
+
   const requestsState = useSelector(
     ({ requests }: { requests: RequestState }) => requests,
   );
@@ -218,6 +227,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       {accepted && (
         <OffersList
           loading={false}
+          requestCoords={requestCoords}
           offers={request.offers}
           handleOffer={handleOffer}
         />

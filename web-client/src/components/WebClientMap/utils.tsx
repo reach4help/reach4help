@@ -1,4 +1,4 @@
-import { Coords } from 'google-map-react';
+import { firestore } from 'firebase';
 import moment from 'moment';
 
 // default center
@@ -52,11 +52,14 @@ export const getStreetAddressFromProfile = profileState => {
   }
 };
 
-export const haversineDistance = (latLng1: Coords, latLng2: Coords): number => {
-  const lon1 = latLng1.lng;
-  const lon2 = latLng2.lng;
-  const radlat1 = (Math.PI * latLng1.lat) / 180;
-  const radlat2 = (Math.PI * latLng2.lat) / 180;
+export const haversineDistance = (
+  latLng1: firestore.GeoPoint,
+  latLng2: firestore.GeoPoint,
+): number => {
+  const lon1 = latLng1.longitude;
+  const lon2 = latLng2.longitude;
+  const radlat1 = (Math.PI * latLng1.latitude) / 180;
+  const radlat2 = (Math.PI * latLng2.latitude) / 180;
   const theta = lon1 - lon2;
   const radtheta = (Math.PI * theta) / 180;
   let dist =
@@ -66,5 +69,5 @@ export const haversineDistance = (latLng1: Coords, latLng2: Coords): number => {
   dist = (dist * 180) / Math.PI;
   dist = dist * 60 * 1.1515;
   dist *= 1609.344; // for meters
-  return dist;
+  return dist.toFixed(1);
 };
