@@ -60,10 +60,21 @@
         "icon_text": "I need help",
         "form": {
           "title": "Title",
+          "type": "Type",
+          "address": "Confirm Address",
           "body": "Enter details of what is needed",
           "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-          "submit": "Send my need"
+          "submit": "Next",
+          "cancel": "Cancel",
+          "address_error_message": "You need to fill your address.",
+          "type_error_message": "You need to select a type.",
+          "body_error_message": "You need to fill description."
         }
+      },
+      "requestReview": {
+        "submit": "Submit Request",
+        "back": "Back",
+        "deliveryAddress": "Delivery address"
       },
       "newRequestSuccess": {
         "title": "Your request has been created",
@@ -79,6 +90,12 @@
         "c2a_pin": "Get help now!",
         "info_cav": "I'm here because I want to help people",
         "c2a_cav": "Start helping now!"
+      },
+      "timeline": {
+        "open_status": "Open",
+        "cav": "Volunteer",
+        "cav_wait": "WAITING FOR VOLUNTEER",
+        "address": "Delivery Address"
       }
     }
   },
@@ -143,10 +160,21 @@
         "icon_text": "eu preciso de ajuda",
         "form": {
           "title": "Título",
+          "type": "Type",
+          "address": "Morada",
           "body": "Introduza os detalhes do que necessita",
           "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
-          "submit": "Enviar o meu pedido"
+          "submit": "Próxima",
+          "cancel":  "Cancelar",
+          "address_error_message": "You need to fill your address.",
+          "type_error_message": "You need to select a type.",
+          "body_error_message": "You need to fill description."
         }
+      },
+      "requestReview": {
+        "submit": "Próxima Pedido",
+        "back": "Voltar atrás",
+        "deliveryAddress": "Delivery address"
       },
       "newRequestSuccess": {
         "title": "O seu pedido foi criado",

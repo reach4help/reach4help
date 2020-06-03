@@ -1,4 +1,12 @@
 {
-  "indexes": [],
+  "indexes": [
+    {
+      "collectionId": "requests",
+      "fields": [
+        { "fieldPath": "status", "mode": "ASCENDING" },
+        { "fieldPath": "latLng", "mode": "ASCENDING" }
+      ]
+    }
+  ],
   "fieldOverrides": []
 }

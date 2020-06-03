@@ -1,19 +1,27 @@
 import get from 'lodash/get';
-import React, { ReactElement, useEffect } from 'react';
+import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
 import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
+import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
+import { NewRequestsLocation } from 'src/modules/requests/pages/routes/NewRequestsRoute/constants';
 import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
 import { PersonalDataLocation } from './routes/PersonalDataRoute/constants';
-import PersonalDataRoute from './routes/PersonalDataRoute/PersonalDataRoute';
 import { RoleInfoLocation } from './routes/RoleInfoRoute/constants';
-import RoleInfoRoute from './routes/RoleInfoRoute/RoleInfoRoute';
+
+const PersonalDataRoute = lazy(() =>
+  import('./routes/PersonalDataRoute/PersonalDataRoute'),
+);
+const RoleInfoRoute = lazy(() =>
+  import('./routes/RoleInfoRoute/RoleInfoRoute'),
+);
 
 const ContentPage = (): ReactElement => {
   const user = useSelector((state: AppState) => state.auth.user);
@@ -45,7 +53,7 @@ const ContentPage = (): ReactElement => {
     (authLoading && !user) ||
     (profileState.loading && !profileState.profile)
   ) {
-    return <>Loading</>;
+    return <LoadingWrapper />;
   }
 
   if (!user) {
@@ -53,7 +61,7 @@ const ContentPage = (): ReactElement => {
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: redirectBack || location.pathname },
+          state: { redirectBack: redirectBack || '/' },
         }}
       />
     );
@@ -71,7 +79,7 @@ const ContentPage = (): ReactElement => {
       return (
         <Redirect
           to={{
-            pathname: redirectBack || '/',
+            pathname: redirectBack || NewRequestsLocation.path,
           }}
         />
       );
@@ -79,11 +87,10 @@ const ContentPage = (): ReactElement => {
     if (
       profileState.profile.applicationPreference === ApplicationPreference.cav
     ) {
-      // TODO: Change to Route for CAV
       return (
         <Redirect
           to={{
-            pathname: redirectBack || '/',
+            pathname: redirectBack || FindRequestsLocation.path,
           }}
         />
       );
@@ -93,7 +100,7 @@ const ContentPage = (): ReactElement => {
         <Redirect
           to={{
             pathname: RoleInfoLocation.path,
-            state: { redirectBack: redirectBack || location.pathname },
+            state: { redirectBack: redirectBack || '/' },
           }}
         />
       );
@@ -101,15 +108,17 @@ const ContentPage = (): ReactElement => {
   }
 
   return (
-    <Switch>
-      <Route
-        path={PersonalDataLocation.path}
-        component={PersonalDataRoute}
-        exact
-      />
-      <Route path={RoleInfoLocation.path} component={RoleInfoRoute} exact />
-      <Route path="*" component={NotFoundRoute} />
-    </Switch>
+    <Suspense fallback={<LoadingWrapper />}>
+      <Switch>
+        <Route
+          path={PersonalDataLocation.path}
+          component={PersonalDataRoute}
+          exact
+        />
+        <Route path={RoleInfoLocation.path} component={RoleInfoRoute} exact />
+        <Route path="*" component={NotFoundRoute} />
+      </Switch>
+    </Suspense>
   );
 };
 export default ContentPage;

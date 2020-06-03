@@ -1,0 +1,121 @@
+{
+  "common": {
+    "welcome": "Willkommen",
+    "continue": "Weiter",
+    "verify": "Verify",
+    "spinner": "Wird geladen ...",
+    "name": "Name",
+    "full_name": "Vollständiger Name",
+    "display_name": "Anzeigename",
+    "display_name_placeholder": "Name in der Anrede, Standardeinstellung ist Vorname",
+    "address": "Anschrift",
+    "address1": "Straße und Hausnummer",
+    "address2": "Zusätzliche Adressangabe (freiwillig)",
+    "city": "Stadt",
+    "code": "Postleitzahl",
+    "country": "Staat",
+    "login": {
+      "title": "Reach4Help",
+      "sub_title": "Bitte beachten Sie:",
+      "info": "Wir akzeptieren aus Sicherheitsgründen nur Facebook-Nutzer mit einem überprüften mindestens 6 Monate alten Nutzerkonto. \nWir arbeiten unermüdlich daran, weiter Möglichkeiten des  Zugangs zu schaffen. \nVielen Dank für ihre Geduld.",
+      "facebookButtonLabel": "Über Facebook anmelden"
+    },
+    "menuDrawer": {
+      "contactUs": "Contact us",
+      "logout": "Sign out",
+      "switchToCAV": "Switch to Volunteer",
+      "switchToPIN": "Switch to Person In Need"
+    },
+    "phoneNumber": {
+      "sub_title": "Geben Sie zunächst Ihre Telefonnummer ein:",
+      "info": "Diese Information ist notwendig, um Ihr Nutzerkonto zu bestätigen. Es können Kosten für die Verbindung anfallen.",
+      "error_message": "Bitte geben Sie Ihre Telefonnummer ein!",
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
+    },
+    "verificationCode": {
+      "sub_title": "Wir haben Ihnen einen Bestätigungscode gesendet. Bitte geben Sie diesen unten ein.",
+      "info": "Falls Sie den Bestätigungscode nicht erhalten haben, klicken Sie bitte ",
+      "resend": "erneut senden",
+      "error_message": "Geben Sie den Code bitte hier ein!"
+    },
+    "user_data_form": {
+      "sub_title": "Bitte geben Sie unten Ihre persönlichen Daten ein.",
+      "gps_button": "GPS verwenden, um meine Adresse zu erhalten.",
+      "gps_unavailable_retry_button": "Geolokalisierung nicht verfügbar. Versuchen Sie es erneut.",
+      "learn_reactivate": "Erfahren Sie hier, wie Sie die Geolokalisierung wieder aktivieren.",
+      "retry_geolocation": "Geolokalisierung wiederholen",
+      "continue_without_geolocation": "Weiter ohne Geolokalisierung",
+      "go_back": "Zurück",
+      "geolocation_modal_title": "Geolokalisierung ist nicht zugelassen.",
+      "geolocation_modal_text": "Sie können Ihren Standort manuell hinzufügen. Es würde uns jedoch helfen die Position genauer zu bestimmen, wenn Sie die Geolokalisierung verwenden. Bitte wählen Sie eine der untenstehenden Optionen:",
+      "geolocation_unavailable_title": "Leider sind wir an Ihrem Standort noch nicht verfügbar.",
+      "geolocation_unavailable_text": "Leider wird Ihr Standort noch nicht von unserer Plattform unterstützt. Sei bekommen eine SMS oder eine E-Mail von uns, wenn unsere Anwendung an Ihrem Standort verfügbar ist.",
+      "instructions_modal_title": "Anweisungen:",
+      "instructions_modal_text": "Sie können Ihren Standort manuell hinzufügen. Es würde uns jedoch helfen die Position genauer zu bestimmen, wenn Sie die Geolokalisierung verwenden. Wenn Sie diese also wieder aktivieren möchten, folgen Sie dem Link:",
+      "policy_text": "Wir benötigen diese Informationen, um sicherzustellen, dass die Hilfe das richtige Ziel erreicht. Wenn Sie weitere Zweifel haben, lesen Sie bitte unsere ",
+      "policy_link": "Datenschutz- und Sicherheitsrichtlinien.",
+      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
+      "terms_conditions_text": "Ich verstehe und akzeptiere die ",
+      "terms_conditions_link": "Vertrags- und Geschäftsbedingungen.",
+      "terms_conditions_error": "Sie müssen den Vertrags- und Geschäftsbedingungen zustimmen.",
+      "full_name_error_message": "Sie müssen Ihren Namen eingeben.",
+      "display_name_error_message": "Sie müssen Ihren Anzeigenamen eingeben.",
+      "address_error_message": "Sie müssen Ihre Adresse eingeben.",
+      "allow_send_notifications": "Möchten Sie, dass wir Ihnen Benachrichtigungen und E-Mails zusenden?"
+    },
+    "newRequest": {
+      "title": "Neue Anfrage",
+      "icon_text": "Ich benötige Hilfe.",
+      "form": {
+        "title": "Position",
+        "type": "Type",
+        "address": "Confirm Address",
+        "body": "Geben Sie die erforderlichen Daten an.",
+        "consent": "Ich erlaube Push-Nachrichten. Sie können dies jederzeit in den Einstellungen ändern.",
+        "submit": "Next",
+        "cancel": "Cancel",
+        "search": "Search",
+        "useMyLocation": "Use my location",
+        "address_error_message": "You need to fill your address.",
+        "type_error_message": "You need to select a type.",
+        "other_error_message": "You need to enter details.",
+        "body_error_message": "You need to fill description."
+      }
+    },
+    "newRequestSuccess": {
+      "title": "Ihre Anfrage wurde erstellt.",
+      "info": "Bitte haben Sie Geduld, bis Sie ein Angebot eines Freiwilligen erhalten.",
+      "remember": "Denken Sie daran:",
+      "remember_info": "Sobald ein(e) Freiwillige(r) Hilfe anbietet, müssen Sie zunächst die Hilfe annehmen, damit diese(r) Ihre Kontaktinformationen sehen kann."
+    },
+    "requestReview": {
+      "submit": "Submit Request",
+      "back": "Back",
+      "deliveryAddress": "Delivery address"
+    },
+    "roleinfo": {
+      "title": "Reach4Help",
+      "sub_title": "Wie können wir Ihnen helfen?",
+      "info": "Bitte teilen Sie uns mit, warum Sie Reach4Help verwenden.",
+      "info_pin": "Ich bin hier, weil ich Hilfe benötige.",
+      "c2a_pin": "Jetzt Hilfe erhalten!",
+      "info_cav": "Ich bin hier, weil ich Menschen helfen möchte.",
+      "c2a_cav": "Helfen Sie jetzt!"
+    },
+    "timeline": {
+      "open_status": "Offen",
+      "cav": "Freiwillige(r)",
+      "cav_wait": "Auf eine(n) Freiwillige(n) warten",
+      "address": "Lieferanschrift",
+      "cancelRequest": "Anfrage stornieren",
+      "finishRequest": "Anfrage abschließen",
+      "ratingQuestion": "Wie bewerten Sie Ihre Erfahrung mit",
+      "submitRatingButton": "Bewertung absenden",
+      "finishRequestModalParta": "Sind Sie sicher, dass Sie beenden wollen?",
+      "finishRequestModalPartb": "von",
+      "thankYouModalTitle": "Vielen Dank!",
+      "thankYouModalBodyParta": "Sie bewerteten",
+      "thankYouModalBodyPartb": "mit"
+    }
+  }
+}

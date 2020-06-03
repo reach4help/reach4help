@@ -1,7 +1,7 @@
 import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const { Text } = Typography;
@@ -17,7 +17,7 @@ const StyledInput = styled(Input)`
 `;
 
 const Info = styled(Text)`
-  color: #ddd;
+  color: ${COLORS.faded};
   text-align: center;
 `;
 
@@ -65,7 +65,8 @@ const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
       </Form.Item>
       <Info>
         {t('verificationCode.info')}
-        <Link to="/phone">{t('verificationCode.resend')}</Link>
+        {/* TODO: FIND A BETTER SOLUTION TO RESENDING CODE */}
+        <a href="/phone/entry">{t('verificationCode.resend')}</a>
       </Info>
       <Form.Item>
         <StyledButton loading={loading} htmlType="submit" type="primary">

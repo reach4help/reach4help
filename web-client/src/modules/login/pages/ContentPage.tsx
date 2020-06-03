@@ -1,13 +1,15 @@
 import get from 'lodash/get';
-import React, { ReactElement, useEffect } from 'react';
+import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
 import { LoginLocation } from './routes/LoginRoute/constants';
-import LoginRoute from './routes/LoginRoute/LoginRoute';
+
+const LoginRoute = lazy(() => import('./routes/LoginRoute/LoginRoute'));
 
 const ContentPage = (): ReactElement => {
   const user = useSelector((state: AppState) => state.auth.user);
@@ -22,7 +24,7 @@ const ContentPage = (): ReactElement => {
   const redirectBack = get(location, 'state.redirectBack') || '/';
 
   if (!observerReceivedFirstUpdate) {
-    return <>Loading</>;
+    return <LoadingWrapper />;
   }
 
   if (user) {
@@ -35,10 +37,12 @@ const ContentPage = (): ReactElement => {
     );
   }
   return (
-    <Switch>
-      <Route path={LoginLocation.path} component={LoginRoute} exact />
-      <Route path="*" component={NotFoundRoute} />
-    </Switch>
+    <Suspense fallback={<LoadingWrapper />}>
+      <Switch>
+        <Route path={LoginLocation.path} component={LoginRoute} exact />
+        <Route path="*" component={NotFoundRoute} />
+      </Switch>
+    </Suspense>
   );
 };
 
