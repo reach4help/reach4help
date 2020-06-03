@@ -74,6 +74,7 @@
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "How can we assist you ?",
+      "manifesto": "Πιστεύουμε ότι όλα όσα κάνουμε είναι ουσιαστική. Πιστεύουμε ότι είμαστε σε θέση να επιτρέπει στα άτομα με το αίσθημα της συντροφικότητας και της κοινότητας. Πιστεύουμε ότι η αλληλεγγύη φέρνει έξω το καλύτερο σε άτομα.",
       "info": "Please tell us what is your purpose to use Reach4Help",
       "info_pin": "I'm here because I need help",
       "c2a_pin": "Get help now!",
