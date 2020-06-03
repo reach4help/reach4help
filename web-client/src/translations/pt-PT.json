@@ -8,7 +8,7 @@
     "full_name": "Nome Completo",
     "display_name": "Nome de utilizador",
     "display_name_placeholder": "Nome usado em saudações, por defeito é o 1º nome",
-    "adress": "Morada",
+    "address": "Address",
     "address1": "Morada linha 1",
     "address2": "Morada linha 2 (opcional)",
     "city": "Cidade",
@@ -58,9 +58,9 @@
       "terms_conditions_text": "Eu percebo e reconheço os ",
       "terms_conditions_link": "Termos & Condições.",
       "terms_conditions_error": "Precisa de aceitar os Termos & Condições.",
-      "full_name_error_message": "Preenchimento do nome é obrigatório.",
-      "display_name_error_message": "Preenchimento de nome de apresentação é obrigatório.",
-      "address_error_message": "Preenchimento da morada é obrigatória.",
+      "full_name_error_message": "Please enter your name.",
+      "display_name_error_message": "Please enter your display name.",
+      "address_error_message": "Please enter your address.",
       "allow_send_notifications": "Would you like us to send you notifications and emails?"
     },
     "newRequest": {
@@ -76,10 +76,10 @@
         "cancel": "Cancel",
         "search": "Search",
         "useMyLocation": "Use my location",
-        "address_error_message": "You need to fill your address.",
+        "address_error_message": "Please enter your address.",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
-        "body_error_message": "You need to fill description."
+        "body_error_message": "Please enter your description."
       }
     },
     "newRequestSuccess": {
@@ -96,6 +96,7 @@
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "Como podemos ajudá-lo(a) ?",
+      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
       "info": "Por favor diga-nos como pretende usar o Reach4Help",
       "info_pin": "Estou aqui porque preciso de ajuda",
       "c2a_pin": "Obter ajuda agora!",
