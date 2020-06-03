@@ -51,9 +51,9 @@
         "terms_conditions_text": "I understand and acknowledge the ",
         "terms_conditions_link": "Terms & Conditions.",
         "terms_conditions_error": "You need to accept the Terms & Conditions.",
-        "full_name_error_message": "You need to fill your name.",
-        "display_name_error_message": "You need to fill your display name.",
-        "address_error_message": "You need to fill your address."
+        "full_name_error_message": "Please enter your name.",
+        "display_name_error_message": "Please enter your display name.",
+        "address_error_message": "Please enter your address."
       },
       "newRequest": {
         "title": "New Request",
@@ -66,9 +66,9 @@
           "consent": "Allow Push Notifications. You can always change this in your Settings later.",
           "submit": "Next",
           "cancel": "Cancel",
-          "address_error_message": "You need to fill your address.",
+          "address_error_message": "Please enter your address.",
           "type_error_message": "You need to select a type.",
-          "body_error_message": "You need to fill description."
+          "body_error_message": "Please enter your description."
         }
       },
       "requestReview": {
@@ -167,9 +167,9 @@
           "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
           "submit": "Próxima",
           "cancel":  "Cancelar",
-          "address_error_message": "You need to fill your address.",
+          "address_error_message": "Please enter your address.",
           "type_error_message": "You need to select a type.",
-          "body_error_message": "You need to fill description."
+          "body_error_message": "Please enter your description."
         }
       },
       "requestReview": {

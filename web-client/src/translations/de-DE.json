@@ -76,10 +76,10 @@
         "cancel": "Cancel",
         "search": "Search",
         "useMyLocation": "Use my location",
-        "address_error_message": "You need to fill your address.",
+        "address_error_message": "Please enter your address.",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
-        "body_error_message": "You need to fill description."
+        "body_error_message": "Please enter your description."
       }
     },
     "newRequestSuccess": {
