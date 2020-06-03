@@ -1,0 +1,122 @@
+{
+  "common": {
+    "welcome": "Bienvenue",
+    "continue": "Continuer",
+    "verify": "Verify",
+    "spinner": "Chargement...",
+    "name": "Nom",
+    "full_name": "Nom et prénom",
+    "display_name": "Nom affiché",
+    "display_name_placeholder": "Nom utilisé dans les salutations, par défaut le prénom",
+    "address": "Adresse",
+    "address1": "Adresse - ligne 1",
+    "address2": "Adresse - ligne 2 (facultatif)",
+    "city": "Ville",
+    "code": "Code postal",
+    "country": "Pays",
+    "login": {
+      "title": "Reach4Help",
+      "sub_title": "Veuillez noter",
+      "info": "Nous autorisons uniquement les utilisateurs de Facebook ayant un compte vérifié de plus de 6 mois pour des raisons de sécurité. \nNous travaillons dur pour vous fournir plus de façons de vous connecter dans le futur. \nMerci de votre patience.",
+      "facebookButtonLabel": "Poursuivre avec Facebook"
+    },
+    "menuDrawer": {
+      "contactUs": "Contact us",
+      "logout": "Sign out",
+      "switchToCAV": "Switch to Volunteer",
+      "switchToPIN": "Switch to Person In Need"
+    },
+    "phoneNumber": {
+      "sub_title": "Entrez votre numéro de téléphone pour commencer",
+      "info": "Ces informations sont essentielles pour valider votre compte. Des frais de données peuvent être appliqués par votre opérateur.",
+      "error_message": "Veuillez saisir votre numéro de téléphone !",
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
+    },
+    "verificationCode": {
+      "sub_title": "Nous venons de vous envoyer un code de confirmation par SMS. Veuillez le saisir ci-dessous.",
+      "info": "Si vous n'avez pas reçu de code, veuillez cliquer ",
+      "resend": "renvoyer",
+      "error_message": "Entrez le numéro reçu ici !"
+    },
+    "user_data_form": {
+      "sub_title": "Veuillez remplir les informations personnelles ci-dessous.",
+      "gps_button": "Utiliser le GPS pour obtenir mon adresse",
+      "gps_unavailable_retry_button": "Géolocalisation indisponible. Essayez à nouveau.",
+      "learn_reactivate": "Apprenez comment réactiver la géolocalisation",
+      "retry_geolocation": "Réessayer la géolocalisation",
+      "continue_without_geolocation": "Poursuivre sans géolocalisation",
+      "go_back": "Retour",
+      "geolocation_modal_title": "La géolocalisation n'est pas autorisée",
+      "geolocation_modal_text": "Vous pouvez ajouter votre localisation manuellement, mais cela nous aiderait à obtenir votre position plus précisément si vous utilisiez la géolocalisation. Veuillez choisir une des options ci-dessous :",
+      "geolocation_unavailable_title": "Malheureusement, nous ne sommes pas encore disponibles dans votre secteur",
+      "geolocation_unavailable_text": "Désolé, votre secteur n'est pas encore pris en charge sur notre plateforme. Vous serez averti par SMS ou E-Mail une fois que notre application sera disponibledans votre zone.",
+      "instructions_modal_title": "Instructions : ",
+      "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+      "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+      "policy_link": "Privacy & Security Policy.",
+      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
+      "terms_conditions_text": "I understand and acknowledge the ",
+      "terms_conditions_link": "Terms & Conditions.",
+      "terms_conditions_error": "You need to accept the Terms & Conditions.",
+      "full_name_error_message": "Please enter your name.",
+      "display_name_error_message": "Please enter your display name.",
+      "address_error_message": "Please enter your address.",
+      "allow_send_notifications": "Would you like us to send you notifications and emails?"
+    },
+    "newRequest": {
+      "title": "New Request",
+      "icon_text": "I need help",
+      "form": {
+        "title": "Title",
+        "type": "Type",
+        "address": "Confirm Address",
+        "body": "Enter details of what is needed",
+        "consent": "Allow Push Notifications. You can always change this in your Settings later.",
+        "submit": "Next",
+        "cancel": "Cancel",
+        "search": "Search",
+        "useMyLocation": "Use my location",
+        "address_error_message": "Please enter your address.",
+        "type_error_message": "You need to select a type.",
+        "other_error_message": "You need to enter details.",
+        "body_error_message": "Please enter your description."
+      }
+    },
+    "newRequestSuccess": {
+      "title": "Your request has been created",
+      "info": "Please be patient until you get an offer from a volunteer.",
+      "remember": "Remember",
+      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+    },
+    "requestReview": {
+      "submit": "Submit Request",
+      "back": "Back",
+      "deliveryAddress": "Delivery address"
+    },
+    "roleinfo": {
+      "title": "Reach4Help",
+      "sub_title": "How can we assist you ?",
+      "manifesto": "Nous croyons que tout ce que nous faisons est significatif. Nous croyons que nous sommes capables de permettre aux gens dans leur sens de la solidarité et de la communauté. Nous croyons que la solidarité fait ressortir le meilleur chez les individus.",
+      "info": "Please tell us what is your purpose to use Reach4Help",
+      "info_pin": "I'm here because I need help",
+      "c2a_pin": "Get help now!",
+      "info_cav": "I'm here because I want to help people",
+      "c2a_cav": "Start helping now!"
+    },
+    "timeline": {
+      "open_status": "Open",
+      "cav": "Volunteer",
+      "cav_wait": "WAITING FOR VOLUNTEER",
+      "address": "Delivery Address",
+      "cancelRequest": "Cancel Request",
+      "finishRequest": "Finish Request",
+      "ratingQuestion": "How would you rate your experience with",
+      "submitRatingButton": "Submit Rating",
+      "finishRequestModalParta": "Are you sure you want to finish",
+      "finishRequestModalPartb": "from",
+      "thankYouModalTitle": "Thank you!",
+      "thankYouModalBodyParta": "You rated",
+      "thankYouModalBodyPartb": "with"
+    }
+  }
+}

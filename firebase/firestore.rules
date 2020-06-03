@@ -104,6 +104,7 @@ function verifyHelpRequestDataComplete(data) {
           ('updatedAt' in data) &&
           verifyHelpRequestAttributesForStatus(data.status, data) &&
           verifyLatLngObject(data.latLng) &&
+          ('streetAddress' in data ) &&
           ('createdAt' in data) &&
           data.createdAt is timestamp
 }
@@ -138,6 +139,11 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    match /config/chatbot {
+      // Only the chatbot can read / write this config
+      allow read, write: if request.auth.uid == 'bot-chatbot';
+    }
+
     match /markers/{markerID} {
       // Anyone can read any marker
       allow read: if true;
@@ -163,17 +169,15 @@ service cloud.firestore {
     match /offers/{offerID} {
       // Only the PIN or CAV of the request can read the offers
       allow read: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
-      // Only CAVs can submit offers (as themselves)
-      allow write: if isVerifiedCAV() &&
-       currentUserIsCurrentCAVRef(request.auth.uid, database, request.resource.data) &&
-       verifyOfferDataComplete(request.resource.data);
+      // Only CAVs can submit offers (as themselves) | issue - pin needs to accespt TODO: need more complicated logic for ensuring correct CAV and PIN
+      allow write: if verifyOfferDataComplete(request.resource.data);
     }
 
     match /requests/{reqID} {
       // Only CAVs can see requests
       allow read: if isVerifiedCAV() || isVerifiedPIN();
-      allow write: if isVerifiedPIN() &&
-       isNotSameCAVPIN(request.resource.data) &&
+      // TODO: need more complicated logic for ensuring correct CAV and PIN
+      allow write: if isNotSameCAVPIN(request.resource.data) &&
        verifyHelpRequestDataComplete(request.resource.data);
     }
 

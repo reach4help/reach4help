@@ -8,13 +8,12 @@ import {
 } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import { updateUserPrivilegedInformation } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { changeModal, setRequest } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
-import { IUser } from 'src/models/users';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
 
+import { AuthState } from '../ducks/auth/types';
+import { updateUserProfile } from '../ducks/profile/actions';
+import { ApplicationPreference } from '../models/users';
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -25,42 +24,19 @@ const MasterPage = (): ReactElement => {
   );
   const userProfile = profileState.profile;
 
-  const newRequestState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.setAction,
-  );
-
   const dispatch = useDispatch();
 
-  const newRequestSubmitHandler = (
-    title: string,
-    body: string,
-    sendNotifications: boolean,
-  ) => {
-    if (
-      profileState.profile &&
-      profileState.userRef &&
-      profileState.privilegedInformation
-    ) {
-      dispatch(
-        setRequest({
-          title,
-          description: body,
-          pinUserRef: profileState.userRef,
-          pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: profileState.privilegedInformation.address.coords,
-        }),
-      );
-    }
+  const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
 
-    if (profileState.uid && profileState.privilegedInformation) {
-      profileState.privilegedInformation.sendNotifications =
-        sendNotifications === true;
-      dispatch(
-        updateUserPrivilegedInformation(
-          profileState.uid,
-          profileState.privilegedInformation,
-        ),
-      );
+  const toggleApplicationPreference = () => {
+    const user = profileState.profile;
+    if (user && authState.user) {
+      const currentPreference = user.applicationPreference;
+      user.applicationPreference =
+        currentPreference === ApplicationPreference.cav
+          ? ApplicationPreference.pin
+          : ApplicationPreference.cav;
+      dispatch(updateUserProfile(authState.user.uid, user));
     }
   };
 
@@ -72,12 +48,7 @@ const MasterPage = (): ReactElement => {
           profileData={userProfile}
           isCav={userProfile?.applicationPreference === 'cav'}
           logoutHandler={() => dispatch(signOutCurrentUserAction())}
-          modalSubmitHandler={newRequestSubmitHandler}
-          modalStateHandler={state => dispatch(changeModal(state))}
-          modalState={newRequestState.modalState}
-          modalSuccess={newRequestState.success}
-          modalLoading={newRequestState.loading}
-          modalError={newRequestState.error}
+          toggleApplicationPreference={toggleApplicationPreference}
         >
           <Route path={routeModule.path} component={routeModule.component} />
         </DashboardLayout>
@@ -109,9 +80,10 @@ const MasterPage = (): ReactElement => {
       <Switch>
         {renderModules()}
         {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
-        <Route path="/" exact>
-          <Redirect to={OpenRequestsLocation.path} />
-        </Route>
+        <ProtectedRoute
+          path="/"
+          component={() => <Redirect to={RoleInfoLocation.path} />}
+        />
         <Route path="*" component={NotFoundRoute} />
       </Switch>
     </Router>

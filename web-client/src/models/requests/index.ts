@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsNotEmptyObject,
   IsObject,
+  IsOptional,
   IsString,
   Max,
   Min,
@@ -13,7 +14,7 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-import { IUser, User, UserFirestoreConverter } from '../users';
+import { IUser, User } from '../users';
 
 export enum RequestStatus {
   pending = 'pending',
@@ -27,12 +28,14 @@ export interface IRequest extends firebase.firestore.DocumentData {
   cavUserRef?: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
+  cavUserSnapshot?: IUser | null;
   pinUserRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   >;
   pinUserSnapshot: IUser;
   title: string;
   description: string;
+  streetAddress: string;
   latLng: firebase.firestore.GeoPoint;
   status?: RequestStatus;
   pinRating?: number | null;
@@ -52,9 +55,11 @@ export class Request implements IRequest {
     title: string,
     description: string,
     latLng: firebase.firestore.GeoPoint,
+    streetAddress: string,
     cavUserRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     > | null = null,
+    cavUserSnapshot: User | null = null,
     status = RequestStatus.pending,
     createdAt = firestore.Timestamp.now(),
     updatedAt = firestore.Timestamp.now(),
@@ -66,9 +71,11 @@ export class Request implements IRequest {
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
     this._pinUserSnapshot = pinUserSnapshot;
+    this._cavUserSnapshot = cavUserSnapshot;
     this._title = title;
     this._description = description;
     this._latLng = latLng;
+    this._streetAddress = streetAddress;
     this._status = status;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
@@ -79,6 +86,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavUserRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
@@ -127,6 +135,18 @@ export class Request implements IRequest {
     this._pinUserSnapshot = value;
   }
 
+  @ValidateNested()
+  @IsOptional()
+  private _cavUserSnapshot: User | null;
+
+  get cavUserSnapshot(): User | null {
+    return this._cavUserSnapshot;
+  }
+
+  set cavUserSnapshot(value: User | null) {
+    this._cavUserSnapshot = value;
+  }
+
   @IsString()
   @IsNotEmpty()
   private _title: string;
@@ -149,6 +169,17 @@ export class Request implements IRequest {
 
   set description(value: string) {
     this._description = value;
+  }
+
+  @IsString()
+  private _streetAddress: string;
+
+  get streetAddress(): string {
+    return this._streetAddress;
+  }
+
+  set streetAddress(value: string) {
+    this._streetAddress = value;
   }
 
   @IsObject()
@@ -201,6 +232,7 @@ export class Request implements IRequest {
     this._updatedAt = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -214,6 +246,7 @@ export class Request implements IRequest {
     this._pinRating = value;
   }
 
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
@@ -228,6 +261,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _pinRatedAt: firebase.firestore.Timestamp | null;
 
   get pinRatedAt(): firebase.firestore.Timestamp | null {
@@ -239,6 +273,7 @@ export class Request implements IRequest {
   }
 
   @Allow()
+  @IsOptional()
   private _cavRatedAt: firebase.firestore.Timestamp | null;
 
   get cavRatedAt(): firebase.firestore.Timestamp | null {
@@ -249,14 +284,17 @@ export class Request implements IRequest {
     this._cavRatedAt = value;
   }
 
-  static factory = (data: IRequest): Request =>
-    new Request(
+  public static factory(data: IRequest): Request {
+    return new Request(
       data.pinUserRef,
       User.factory(data.pinUserSnapshot),
       data.title,
       data.description,
       data.latLng,
+      data.streetAddress,
       data.cavUserRef,
+      // This field may be null
+      data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
       data.status,
       data.createdAt,
       data.updatedAt,
@@ -265,22 +303,27 @@ export class Request implements IRequest {
       data.pinRatedAt,
       data.cavRatedAt,
     );
+  }
 
   toObject(): object {
     return {
-      cavUserRef: this.cavUserRef?.path,
-      pinUserRef: this.pinUserRef.path,
+      cavUserRef: this.cavUserRef,
+      cavUserSnapshot: this.cavUserSnapshot
+        ? this.cavUserSnapshot.toObject()
+        : null,
+      pinUserRef: this.pinUserRef,
       pinUserSnapshot: this.pinUserSnapshot.toObject(),
       title: this.title,
       description: this.description,
       latLng: this.latLng,
+      streetAddress: this.streetAddress,
       status: this.status,
-      createdAt: this.createdAt.toDate(),
-      updatedAt: this.updatedAt.toDate(),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
       pinRating: this.pinRating,
       cavRating: this.cavRating,
-      pinRatedAt: this.pinRatedAt?.toDate(),
-      cavRatedAt: this.cavRatedAt?.toDate(),
+      pinRatedAt: this.pinRatedAt,
+      cavRatedAt: this.cavRatedAt,
     };
   }
 }
@@ -289,21 +332,6 @@ export const RequestFirestoreConverter: firebase.firestore.FirestoreDataConverte
   fromFirestore: (
     data: firebase.firestore.QueryDocumentSnapshot<IRequest>,
   ): Request => Request.factory(data.data()),
-  toFirestore: (modelObject: Request): firebase.firestore.DocumentData => ({
-    cavUserRef: modelObject.cavUserRef,
-    pinUserRef: modelObject.pinUserRef,
-    pinUserSnapshot: UserFirestoreConverter.toFirestore(
-      modelObject.pinUserSnapshot,
-    ),
-    title: modelObject.title,
-    description: modelObject.description,
-    latLng: modelObject.latLng,
-    status: modelObject.status,
-    createdAt: modelObject.createdAt,
-    updatedAt: modelObject.updatedAt,
-    pinRating: modelObject.pinRating,
-    cavRating: modelObject.cavRating,
-    pinRatedAt: modelObject.pinRatedAt,
-    cavRatedAt: modelObject.cavRatedAt,
-  }),
+  toFirestore: (modelObject: Request): firebase.firestore.DocumentData =>
+    modelObject.toObject(),
 };

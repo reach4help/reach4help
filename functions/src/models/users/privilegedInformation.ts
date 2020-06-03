@@ -1,12 +1,12 @@
 import { firestore } from 'firebase';
-import { IsObject, IsString } from 'class-validator';
+import { IsObject, IsOptional, IsString } from 'class-validator';
 
 import { FirestoreDataConverter } from '@google-cloud/firestore';
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
-interface IUserAddress {
+export interface IUserAddress {
   address1?: string;
   address2?: string;
   postalCode?: string;
@@ -23,6 +23,7 @@ export interface IPrivilegedUserInformation extends DocumentData {
   termsVersion: string;
   privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   privacyVersion: string;
+  sendNotifications: Timestamp | null; // acts as a timestamp of when and as a boolean: if accepted it exists.
 }
 
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
@@ -33,6 +34,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     privacyVersion: string,
     termsAccepted: Timestamp,
     termsVersion: string,
+    sendNotifications: Timestamp | null,
   ) {
     this._addressFromGoogle = addressFromGoogle;
     this._address = address;
@@ -40,6 +42,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     this._privacyVersion = privacyVersion;
     this._termsAccepted = termsAccepted;
     this._termsVersion = termsVersion;
+    this._sendNotifications = sendNotifications;
   }
 
   @IsObject()
@@ -108,6 +111,18 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     this._termsVersion = value;
   }
 
+  @IsObject()
+  @IsOptional()
+  private _sendNotifications: Timestamp | null;
+
+  get sendNotifications(): Timestamp | null {
+    return this._sendNotifications;
+  }
+
+  set sendNotifications(value: Timestamp | null) {
+    this._sendNotifications = value;
+  }
+
   static factory = (data: IPrivilegedUserInformation): PrivilegedUserInformation =>
     new PrivilegedUserInformation(
       data.addressFromGoogle,
@@ -116,6 +131,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
       data.privacyVersion,
       data.termsAccepted,
       data.termsVersion,
+      data.sendNotifications,
     );
 
   toObject(): object {
@@ -126,6 +142,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,
       termsVersion: this.termsVersion,
+      sendNotifications: this.sendNotifications,
     };
   }
 }
@@ -134,14 +151,5 @@ export const PrivilegedUserInformationFirestoreConverter: FirestoreDataConverter
   fromFirestore: (data: QueryDocumentSnapshot<IPrivilegedUserInformation>): PrivilegedUserInformation => {
     return PrivilegedUserInformation.factory(data.data());
   },
-  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => {
-    return {
-      addressFromGoogle: modelObject.addressFromGoogle,
-      address: modelObject.address,
-      privacyAccepted: modelObject.privacyAccepted,
-      privacyVersion: modelObject.privacyVersion,
-      termsAccepted: modelObject.termsAccepted,
-      termsVersion: modelObject.termsVersion,
-    };
-  },
+  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => modelObject.toObject(),
 };

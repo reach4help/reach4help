@@ -5,33 +5,39 @@ import {
   PlusCircleOutlined,
 } from '@ant-design/icons';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
 import styled from 'styled-components';
+
+import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
 
 const BottomNavbar: React.FC<BottomNavProps> = ({
   openMenu,
-  openNewRequestModal,
   openNotifications,
   isCav,
-}) => (
-  <Wrapper>
-    <NavButton onClick={openMenu}>
-      <SideMenuIcon />
-    </NavButton>
-    {isCav === false && (
-      <NavButton onClick={openNewRequestModal}>
-        <NewRequestIcon />
+}) => {
+  const history = useHistory();
+  return (
+    <Wrapper>
+      <NavButton onClick={openMenu}>
+        <SideMenuIcon />
       </NavButton>
-    )}
-    {isCav === true && (
-      <NavButton onClick={() => alert('the map module is still being made!')}>
-        <MapsIcon />
+      {isCav === false && (
+        <NavButton onClick={() => history.push(NewRequestsLocation.path)}>
+          <NewRequestIcon />
+        </NavButton>
+      )}
+      {isCav === true && (
+        <NavButton onClick={() => history.push(FindRequestsLocation.path)}>
+          <MapsIcon />
+        </NavButton>
+      )}
+      <NavButton onClick={openNotifications}>
+        <NotificationsIcon />
       </NavButton>
-    )}
-    <NavButton onClick={openNotifications}>
-      <NotificationsIcon />
-    </NavButton>
-  </Wrapper>
-);
+    </Wrapper>
+  );
+};
 
 const NewRequestIcon = styled(PlusCircleOutlined)`
   font-size: 2rem;
@@ -68,7 +74,6 @@ const Wrapper = styled.div`
 
 interface BottomNavProps {
   openMenu: () => void;
-  openNewRequestModal: () => void;
   openNotifications: () => void;
   isCav?: boolean;
 }

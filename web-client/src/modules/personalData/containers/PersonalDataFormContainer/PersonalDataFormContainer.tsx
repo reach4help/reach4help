@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Spin } from 'antd';
 import { firestore } from 'firebase';
 import GoogleMapReact from 'google-map-react';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { AuthState } from 'src/ducks/auth/types';
 import {
@@ -28,15 +27,6 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
   );
   const user = useSelector(({ auth }: { auth: AuthState }) => auth.user);
   const dispatch = useDispatch();
-  const { t } = useTranslation();
-  const LoadingScreen = styled.div`
-    width: 100%;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  `;
 
   const Map = styled.div`
     height: 0;
@@ -152,6 +142,7 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
       termsAndPrivacyAccepted,
       displayName,
       displayPic,
+      sendNotificatoins,
     } = personalInfo;
     // eslint-disable-next-line max-len
     const address = `${newAddress.address1},${newAddress.address2},${newAddress.city},${newAddress.state},${newAddress.postalCode},${newAddress.country}`;
@@ -169,6 +160,7 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
                 termsAndPrivacyAccepted,
                 displayName,
                 user.uid,
+                sendNotificatoins,
                 displayPic,
               ),
             );
@@ -222,12 +214,7 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
           privilegedInfo={profileState.privilegedInformation}
         />
       )}
-      {typeof Geocoder === 'undefined' && (
-        <LoadingScreen>
-          <p>{t('spinner')}</p>
-          <Spin />
-        </LoadingScreen>
-      )}
+      {typeof Geocoder === 'undefined' && <LoadingWrapper />}
     </>
   );
 };

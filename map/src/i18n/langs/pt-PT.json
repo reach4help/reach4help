@@ -1,39 +1,39 @@
 {
   "title": "COVID-19 Mapa de Organizações de Solidariedade",
+  "inFrameLink": "Sobre este mapa / adicionar informações",
   "aboutScreen": {
     "intro": "Acreditamos que a solidariedade revela o melhor de nós.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "info": "Para que as pessoas consigam encontrar ou oferecer ajuda na sua zona de residência, servindo de inspiração para iniciarem os seus próprios projectos ou simplesmente para elevar o estado de espírito. Este mapa apresenta uma uma crescente lista de projectos de ajuda à pandemia a nível mundial.",
+    "warning": "Nota: Cada projeto é autónomo e auto-organizado; muitas organizações utilizam formulários publicos para partilhar informação, não insira informações que não pretende que estejam disponíveis publicamente.",
+    "project": "Este mapa é parte da {reach4Help}, um projeto gerido por voluntários. É de código aberto e pode ser {githubSource}. Para qualquer dúvida, podes contactar-nos através de {email}.",
+    "githubSourceLabel": "verfonte no Github",
+    "otherAreasHeading": "Interessados em uma destas áreas?",
+    "otherAreasInfo": "Veja estes mapas alternativos:",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York",
-      "usa": "United States"
+      "france": "França",
+      "nyc": "Nova Iorque"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki}.",
+    "sourceHeading": "De onde vem esta informação?",
+    "sourceInfo": "As informações contidas neste mapa são uma combinação de dados recolhidos pelos nossos voluntários, que foram submetidos pelos nossos usuários e fornecidos por outros projetos de execução voluntária, incluindo {mutualaidwiki} e {mutualaidhub}.",
     "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
+    "sourceSubmitButton": "adicionar Informação",
+    "usageHeading": "Posso usar esses dados para meu próprio projeto?",
     "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
     "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
     "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "Sobre",
+    "map": "Ver Mapa"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "Envie-nos um e-mail",
+    "twitter": "Siga-nos no Twitter",
+    "facebook": "Faça 'Like' no Facebook",
+    "github": "Encontre-nos no GitHub"
   },
   "addInformation": {
-    "button": "Add information",
+    "button": "Adicionar Informação",
     "backToMap": "Voltar ao mapa",
     "prev": "Voltar",
     "continue": "Continuar",
@@ -128,8 +128,8 @@
     "information": "Informação",
     "network": "Rede",
     "manufacturing": "Manufactura",
-    "financial": "Financial",
-    "other": "Other"
+    "financial": "Financeira",
+    "other": "Outros"
   },
   "serviceDescriptions": {
     "food": null,
@@ -138,11 +138,11 @@
     "mobility": "Transporting people from one location to another",
     "shelter": null,
     "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
+    "information": "Ajude as pessoas a encontrar informações relevantes",
     "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
     "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Algo mais não está nesta lista"
   },
   "markerTypes": {
     "mutual-aid-group": "Organização de Solidariedade",
@@ -152,9 +152,9 @@
     "other": "Outros"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "grupos de solidariedade",
+    "org": "organização / empresa",
+    "project": "projeto"
   },
   "map": {
     "jumpToLocation": "Ir para uma localização no mapa...",
@@ -162,10 +162,10 @@
     "myLocation": "A Minha Localização"
   },
   "results": {
-    "backToResults": "Back to results",
+    "backToResults": "Voltar para os resultados",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "showMore": "Mostrar mais resultados",
     "contact": {
       "general": "Informações gerais:",
       "getHelp": "Obter ajuda:",
@@ -174,7 +174,7 @@
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
+        "header": "Nota",
         "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
       },
       "source": "Information about this {type} is provided by {source}."
@@ -187,15 +187,15 @@
     "netlifyLinkText": "está hospedado por Netlify",
     "githubRepo": "GitHub Repo",
     "codeOfConduct": "Código de Conduta",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "showHidden": "Mostrar informações ocultas",
+    "hideHidden": "Esconder Informações Ocultas"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "Visibilidade: {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "Qualquer uma",
+      "visible": "Apenas visíveis",
+      "hidden": "Apenas ocultas"
     }
   }
 }

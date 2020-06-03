@@ -41,6 +41,8 @@
         "go_back": "Go Back",
         "geolocation_modal_title": "Geolocation is not authorized",
         "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+        "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+        "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
         "instructions_modal_title": "Instructions:",
         "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
         "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
@@ -49,19 +51,30 @@
         "terms_conditions_text": "I understand and acknowledge the ",
         "terms_conditions_link": "Terms & Conditions.",
         "terms_conditions_error": "You need to accept the Terms & Conditions.",
-        "full_name_error_message": "You need to fill your name.",
-        "display_name_error_message": "You need to fill your display name.",
-        "address_error_message": "You need to fill your address."
+        "full_name_error_message": "Please enter your name.",
+        "display_name_error_message": "Please enter your display name.",
+        "address_error_message": "Please enter your address."
       },
       "newRequest": {
         "title": "New Request",
         "icon_text": "I need help",
         "form": {
           "title": "Title",
+          "type": "Type",
+          "address": "Confirm Address",
           "body": "Enter details of what is needed",
           "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-          "submit": "Send my need"
+          "submit": "Next",
+          "cancel": "Cancel",
+          "address_error_message": "Please enter your address.",
+          "type_error_message": "You need to select a type.",
+          "body_error_message": "Please enter your description."
         }
+      },
+      "requestReview": {
+        "submit": "Submit Request",
+        "back": "Back",
+        "deliveryAddress": "Delivery address"
       },
       "newRequestSuccess": {
         "title": "Your request has been created",
@@ -72,11 +85,18 @@
       "roleinfo": {
         "title": "Reach4Help",
         "sub_title": "How can we assist you ?",
+        "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
         "info": "Please tell us what is your purpose to use Reach4Help",
         "info_pin": "I'm here because I need help",
         "c2a_pin": "Get help now!",
         "info_cav": "I'm here because I want to help people",
         "c2a_cav": "Start helping now!"
+      },
+      "timeline": {
+        "open_status": "Open",
+        "cav": "Volunteer",
+        "cav_wait": "WAITING FOR VOLUNTEER",
+        "address": "Delivery Address"
       }
     }
   },
@@ -122,11 +142,13 @@
         "go_back": "Voltar atrás",
         "geolocation_modal_title": "Geolocalização não autorizada",
         "geolocation_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Por favor escolha uma das opções abaixo :",
+        "geolocation_unavailable_title": "Infelizmente, ainda não estamos disponíveis na sua localização",
+        "geolocation_unavailable_text": "Desculpe, a sua localização ainda não é suportada na nossa plataforma. Será notificado por SMS ou e-mail, assim que o nosso aplicativo estiver disponível no seu local.",
         "instructions_modal_title": "Instruções:",
         "instructions_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Se desejar reactivar, por favor siga o link abaixo :",
         "policy_text": "Nós precisamos destes dados para assegurar que a ajuda chega ao destino correto. Para quaisquer preocupações, leia os nossos termos de ",
         "policy_link": "Privacidade & Segurança.",
-        "accept_to_use_profile_pic": "Estou bem em deixar o Reach4Help usar minha foto do perfil",
+        "accept_to_use_profile_pic": "Concordo em deixar o Reach4Help usar minha foto do perfil",
         "terms_conditions_text": "Eu percebo e reconheço os ",
         "terms_conditions_link": "Termos & Condições.",
         "terms_conditions_error": "Precisa de aceitar os Termos & Condições.",
@@ -139,10 +161,21 @@
         "icon_text": "eu preciso de ajuda",
         "form": {
           "title": "Título",
+          "type": "Type",
+          "address": "Morada",
           "body": "Introduza os detalhes do que necessita",
           "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
-          "submit": "Enviar o meu pedido"
+          "submit": "Próxima",
+          "cancel":  "Cancelar",
+          "address_error_message": "Please enter your address.",
+          "type_error_message": "You need to select a type.",
+          "body_error_message": "Please enter your description."
         }
+      },
+      "requestReview": {
+        "submit": "Próxima Pedido",
+        "back": "Voltar atrás",
+        "deliveryAddress": "Delivery address"
       },
       "newRequestSuccess": {
         "title": "O seu pedido foi criado",
@@ -153,6 +186,7 @@
       "roleinfo": {
         "title": "Reach4Help",
         "sub_title": "Como podemos ajudá-lo(a) ?",
+        "manifesto": "Acreditamos que tudo o que fazemos é significativo. Acreditamos que somos capazes de permitir que as pessoas em seu sentimento de união e da comunidade. Acreditamos solidariedade traz o melhor em indivíduos.",
         "info": "Por favor diga-nos como pretende usar o Reach4Help",
         "info_pin": "Estou aqui porque preciso de ajuda",
         "c2a_pin": "Obter ajuda agora!",

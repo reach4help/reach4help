@@ -1,0 +1,122 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "continue": "Continue",
+    "verify": "Verify",
+    "spinner": "Loading ...",
+    "name": "Name",
+    "full_name": "Full name",
+    "display_name": "Display name",
+    "display_name_placeholder": "Name used in greetings, defaults to 1st name",
+    "address": "Address",
+    "address1": "Address line 1",
+    "address2": "Address line 2 (optional)",
+    "city": "City",
+    "code": "Postal Code",
+    "country": "Country",
+    "login": {
+      "title": "Reach4Help",
+      "sub_title": "Please Note",
+      "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
+      "facebookButtonLabel": "Continue with Facebook"
+    },
+    "menuDrawer": {
+      "contactUs": "Contact us",
+      "logout": "Sign out",
+      "switchToCAV": "Switch to Volunteer",
+      "switchToPIN": "Switch to Person In Need"
+    },
+    "phoneNumber": {
+      "sub_title": "Enter your telephone number to begin",
+      "info": "This information is fundamental to validate your account. Data and rates may apply.",
+      "error_message": "Please input your phone number!",
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
+    },
+    "verificationCode": {
+      "sub_title": "We just texted you a confirmation code. Please enter it below.",
+      "info": "If you did not receive a code please click ",
+      "resend": "resend",
+      "error_message": "Insert the received number here!"
+    },
+    "user_data_form": {
+      "sub_title": "Please fill out the personal details below.",
+      "gps_button": "Use GPS to get my address",
+      "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+      "learn_reactivate": "Learn how to reactivate geolocation",
+      "retry_geolocation": "Retry Geolocation",
+      "continue_without_geolocation": "Continue without Geolocation",
+      "go_back": "Go Back",
+      "geolocation_modal_title": "Geolocation is not authorized",
+      "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+      "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+      "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+      "instructions_modal_title": "Instructions:",
+      "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+      "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+      "policy_link": "Privacy & Security Policy.",
+      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
+      "terms_conditions_text": "I understand and acknowledge the ",
+      "terms_conditions_link": "Terms & Conditions.",
+      "terms_conditions_error": "You need to accept the Terms & Conditions.",
+      "full_name_error_message": "Please enter your name.",
+      "display_name_error_message": "Please enter your display name.",
+      "address_error_message": "Please enter your address.",
+      "allow_send_notifications": "Would you like us to send you notifications and emails?"
+    },
+    "newRequest": {
+      "title": "New Request",
+      "icon_text": "I need help",
+      "form": {
+        "title": "Title",
+        "type": "Type",
+        "address": "Confirm Address",
+        "body": "Enter details of what is needed",
+        "consent": "Allow Push Notifications. You can always change this in your Settings later.",
+        "submit": "Next",
+        "cancel": "Cancel",
+        "search": "Search",
+        "useMyLocation": "Use my location",
+        "address_error_message": "Please enter your address.",
+        "type_error_message": "You need to select a type.",
+        "other_error_message": "You need to enter details.",
+        "body_error_message": "Please enter your description."
+      }
+    },
+    "newRequestSuccess": {
+      "title": "Your request has been created",
+      "info": "Please be patient until you get an offer from a volunteer.",
+      "remember": "Remember",
+      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+    },
+    "requestReview": {
+      "submit": "Submit Request",
+      "back": "Back",
+      "deliveryAddress": "Delivery address"
+    },
+    "roleinfo": {
+      "title": "Reach4Help",
+      "sub_title": "How can we assist you ?",
+      "manifesto": "Верујемо да све што радимо има смисла. Ми верујемо да смо способни да омогући људима у њиховом смислу заједништва и заједнице. Верујемо солидарност доноси оно најбоље код појединаца.",
+      "info": "Please tell us what is your purpose to use Reach4Help",
+      "info_pin": "I'm here because I need help",
+      "c2a_pin": "Get help now!",
+      "info_cav": "I'm here because I want to help people",
+      "c2a_cav": "Start helping now!"
+    },
+    "timeline": {
+      "open_status": "Open",
+      "cav": "Volunteer",
+      "cav_wait": "WAITING FOR VOLUNTEER",
+      "address": "Delivery Address",
+      "cancelRequest": "Cancel Request",
+      "finishRequest": "Finish Request",
+      "ratingQuestion": "How would you rate your experience with",
+      "submitRatingButton": "Submit Rating",
+      "finishRequestModalParta": "Are you sure you want to finish",
+      "finishRequestModalPartb": "from",
+      "thankYouModalTitle": "Thank you!",
+      "thankYouModalBodyParta": "You rated",
+      "thankYouModalBodyPartb": "with"
+    }
+  }
+}
