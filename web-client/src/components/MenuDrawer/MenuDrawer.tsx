@@ -39,13 +39,11 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
       />
       <BottomLinks>
         <div
-            role="link"
-            onClick={
-              () => {
-                closeDrawer();
-                window.location.href = 'mailto:info@reach4help.org';
-              }
-            }
+          role="link"
+          onClick={() => {
+            closeDrawer();
+            window.location.href = 'mailto:info@reach4help.org';
+          }}
         >
           <MailOutlined />
           {t('menuDrawer.contactUs')}
