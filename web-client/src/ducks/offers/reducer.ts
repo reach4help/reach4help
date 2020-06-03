@@ -6,6 +6,7 @@ import {
   IgetRequestOffers,
   OBSERVE_OFFERS,
   OffersState,
+  RESET_SET,
   SET,
 } from './types';
 
@@ -39,6 +40,10 @@ export default createReducer<OffersState>(
     [SET.REJECTED]: (state: OffersState, { payload }: { payload: Error }) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
+      state.setAction.success = false;
+    },
+    [RESET_SET]: (state: OffersState) => {
+      state.setAction.loading = false;
       state.setAction.success = false;
     },
     [OBSERVE_OFFERS.SUBSCRIBE]: (state: OffersState) => {

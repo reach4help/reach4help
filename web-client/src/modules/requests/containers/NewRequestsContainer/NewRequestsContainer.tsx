@@ -11,7 +11,10 @@ import {
 } from '../../../../components/WebClientMap/utils';
 import Map from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
-import { changeModal, setRequest } from '../../../../ducks/requests/actions';
+import {
+  resetSetRequestState,
+  setRequest,
+} from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from '../../../../models/users';
 import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
@@ -34,6 +37,8 @@ const NewRequestsContainer: React.FC = () => {
     undefined,
   );
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const [showReviewPage, setShowReviewPage] = useState<boolean>(false);
 
   const [showConfirmationPage, setShowConfirmationPage] = useState<boolean>(
@@ -48,10 +53,6 @@ const NewRequestsContainer: React.FC = () => {
     ({ requests }: { requests: RequestState }) => requests.setAction,
   );
 
-  useEffect(() => {
-    setShowConfirmationPage(newRequestState.success);
-  }, [newRequestState]);
-
   const [mapAddress, setMapAddress] = useState<string>(
     () =>
       getStreetAddressFromProfile(profileState) || 'Address could not be found',
@@ -61,6 +62,14 @@ const NewRequestsContainer: React.FC = () => {
   );
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (newRequestState.success) {
+      setIsSubmitting(false);
+      setShowConfirmationPage(true);
+      dispatch(resetSetRequestState());
+    }
+  }, [newRequestState, dispatch]);
 
   const reviewRequestSubmitHandler = request => {
     if (
@@ -84,6 +93,7 @@ const NewRequestsContainer: React.FC = () => {
           ),
         }),
       );
+      setIsSubmitting(true);
     }
   };
 
@@ -147,6 +157,7 @@ const NewRequestsContainer: React.FC = () => {
             saveRequest={() => {
               reviewRequestSubmitHandler(requestInfo);
             }}
+            isSubmitting={isSubmitting}
             goBack={onGoBack}
           />
         </RequestDetails>
@@ -160,7 +171,7 @@ const NewRequestsContainer: React.FC = () => {
         <RequestConfirmation
           showModal={showConfirmationPage}
           closeModal={() => {
-            dispatch(changeModal(false));
+            setShowConfirmationPage(false);
             history.push(OpenRequestsLocation.path);
           }}
         />

@@ -19,27 +19,26 @@ const createMapOptions = maps => ({
 });
 
 const WebClientMap: React.FC<MapProps> = ({
-  destinations,
   origin = { lat: 0, lng: 0 },
+  destinations,
   onDestinationClickedHandler,
   address,
   onGeocode,
-  zoom = 11,
-  isCav = true,
-  bannerMessage = '',
   startGeocode,
   startLocateMe,
+  bannerMessage = '',
+  zoom = 11,
+  isCav = true,
 }) => {
   /* banner message */
-  const [googleMap, setGoogleMap] = useState<any>(null);
   const [mapMessage, setMapMessage] = useState<string>('');
-  const [selectedDestination, setSelectedDestination] = useState<string>('');
 
   useEffect(() => {
     setMapMessage(bannerMessage);
   }, [bannerMessage]);
 
   /* google services */
+  const [googleMap, setGoogleMap] = useState<any>(null);
 
   const [DirectionsRenderer, setDirectionsRenderer] = useState<any | undefined>(
     undefined,
@@ -101,8 +100,8 @@ const WebClientMap: React.FC<MapProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startGeocode, Geocoder, address, origin]);
 
-  /* get current location */
-  const getCurrentLocation = () => {
+  /* locate me */
+  const locateMe = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
         const pos: Coords = {
@@ -123,12 +122,35 @@ const WebClientMap: React.FC<MapProps> = ({
 
   useEffect(() => {
     if (startLocateMe) {
-      getCurrentLocation();
+      locateMe();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startLocateMe, Geocoder]);
 
-  /* Directions service */
+  /* TODO:  Make custom control ( googleMap.controls[position].push(locateMeContainer);)
+https://developers.google.com/maps/documentation/javascript/examples/control-custom 
+https://github.com/google-map-react/google-map-react/issues/687
+*/
+  const LocateMeComponent = () => (
+    <div
+      onClick={() => locateMe()}
+      style={{
+        backgroundColor: 'rgb(275, 155, 54)',
+        display: 'flex',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+      }}
+    >
+      <img alt="My location" src={MyLocationIcon} />
+      <img alt="My location" src={MyLocationIcon} />
+      <img alt="My location" src={MyLocationIcon} />
+    </div>
+  );
+
+  /* Directions, Origin, Destination, Paths */
+
+  const [selectedDestination, setSelectedDestination] = useState<string>('');
+
   const getDirections = destination => {
     DirectionsService.route(
       { origin, destination: destination.center, travelMode: 'DRIVING' },
@@ -164,32 +186,13 @@ const WebClientMap: React.FC<MapProps> = ({
     }
   };
 
-  if (!apiKey) {
-    return <>Could not obtain Google Maps API key</>;
-  }
-  const centerMarkerProps = { ...origin, isCav };
-
-  const LocateMeContainer = () => (
-    <div
-      onClick={() => getCurrentLocation()}
-      style={{
-        backgroundColor: 'rgb(275, 155, 54)',
-        display: 'flex',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-      }}
-    >
-      <img alt="My location" src={MyLocationIcon} />
-      <img alt="My location" src={MyLocationIcon} />
-      <img alt="My location" src={MyLocationIcon} />
-    </div>
-  );
-
-  return (
+  return !apiKey ? (
+    <>Could not obtain Google Maps API key</>
+  ) : (
     <>
       <div style={{ height: '100%', width: '100%' }}>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
-        {isCav && <LocateMeContainer />}
+        {isCav && <LocateMeComponent />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
@@ -198,7 +201,7 @@ const WebClientMap: React.FC<MapProps> = ({
           defaultZoom={zoom}
           onGoogleApiLoaded={initGoogleMapServices}
         >
-          <OriginMarker {...centerMarkerProps} />
+          <OriginMarker lat={origin.lat} lng={origin.lng} isCav />
           {destinations.map(r => (
             <DestinationMarker
               key={r.id}

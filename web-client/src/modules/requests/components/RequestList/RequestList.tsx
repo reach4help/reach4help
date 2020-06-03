@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Offer } from 'src/models/offers';
-import { Request } from 'src/models/requests';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 
 interface RequestListProps {
-  requests?: Record<string, Request>;
-  offers?: Record<string, Record<string, Offer>>;
+  requests?: Record<string, RequestWithOffersAndTimeline>;
   loading: boolean;
   handleRequest?: Function;
   isCavAndOpenRequest?: boolean;
@@ -18,7 +17,6 @@ interface RequestListProps {
 
 const RequestList: React.FC<RequestListProps> = ({
   requests,
-  offers = {},
   loading,
   handleRequest,
   isCavAndOpenRequest,
@@ -44,13 +42,13 @@ const RequestList: React.FC<RequestListProps> = ({
           internalRequestList.push(
             <RequestItem
               key={id}
-              request={requests[id]}
+              request={requests[id].getRequest()}
               handleRequest={(action?: boolean) =>
                 handleRequest && handleRequest(id, action)
               }
               isCavAndOpenRequest={isCavAndOpenRequest}
               isPinAndOpenRequest={isPinAndOpenRequest}
-              offers={offers[id]}
+              offers={requests[id].offers}
               toCloseRequest={(action?: boolean) =>
                 toCloseRequest && toCloseRequest(id, action)
               }
@@ -66,7 +64,6 @@ const RequestList: React.FC<RequestListProps> = ({
     }
   }, [
     requests,
-    offers,
     handleRequest,
     isCavAndOpenRequest,
     isPinAndOpenRequest,

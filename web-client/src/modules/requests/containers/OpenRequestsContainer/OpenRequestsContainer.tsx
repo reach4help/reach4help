@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { observeOffers } from 'src/ducks/offers/actions';
-import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { observeOpenRequests } from 'src/ducks/requests/actions';
+import {
+  getAcceptedRequests,
+  getOpenRequests,
+} from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
-import { Offer, OfferStatus } from 'src/models/offers';
-import { Request } from 'src/models/requests';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
 
@@ -18,87 +17,43 @@ import RequestList from '../../components/RequestList/RequestList';
 const OpenRequestsContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [pendingRequests, setPendingRequests] = useState<
-    Record<string, Request>
-  >({});
-  const [requestOffers, setRequestOffers] = useState<
-    Record<string, Record<string, Offer>>
-  >({});
-  const openRequests = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.openRequests,
-  );
-  const offersState = useSelector(
-    ({ offers }: { offers: OffersState }) => offers,
-  );
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  useEffect(() => {
-    if (profileState.profile && profileState.profile.applicationPreference) {
-      const openRequestsSubscription = observeOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-      });
-      const offersStateSubscription = observeOffers(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-      });
-      return () => {
-        openRequestsSubscription();
-        offersStateSubscription();
-      };
-    }
-  }, [profileState, dispatch]);
-
-  useEffect(() => {
-    if (openRequests.data && offersState.data) {
+  const requestWithOffersAndTimeline = useSelector(
+    ({ requests }: { requests: RequestState }) => {
       if (
         profileState.profile?.applicationPreference ===
         ApplicationPreference.cav
       ) {
-        const internalPendingRequests: Record<string, Request> = {};
-        for (const key in offersState.data) {
-          if (
-            offersState.data[key] &&
-            openRequests.data[offersState.data[key].requestRef.id]
-          ) {
-            internalPendingRequests[offersState.data[key].requestRef.id] =
-              openRequests.data[offersState.data[key].requestRef.id];
-          }
-        }
-        setPendingRequests(internalPendingRequests);
+        return requests.syncAcceptedRequestsState;
+      }
+      return requests.syncOpenRequestsState;
+    },
+  );
+
+  useEffect(() => {
+    if (profileState.profile && profileState.profile.applicationPreference) {
+      if (
+        profileState.profile.applicationPreference === ApplicationPreference.cav
+      ) {
+        dispatch(
+          getAcceptedRequests({
+            userType: profileState.profile.applicationPreference,
+            userRef: profileState.userRef,
+          }),
+        );
       } else {
-        const internalPendingRequests: Record<string, Request> = {
-          ...openRequests.data,
-        };
-        const internalRequestOffers: Record<string, Record<string, Offer>> = {};
-        for (const key in offersState.data) {
-          if (offersState.data[key]) {
-            if (internalPendingRequests[offersState.data[key].requestRef.id]) {
-              if (offersState.data[key].status !== OfferStatus.cavDeclined) {
-                delete internalPendingRequests[
-                  offersState.data[key].requestRef.id
-                ];
-              } else if (
-                internalRequestOffers[offersState.data[key].requestRef.id]
-              ) {
-                internalRequestOffers[offersState.data[key].requestRef.id][
-                  key
-                ] = offersState.data[key];
-              } else {
-                internalRequestOffers[offersState.data[key].requestRef.id] = {
-                  [key]: offersState.data[key],
-                };
-              }
-            }
-          }
-        }
-        setPendingRequests(internalPendingRequests);
-        setRequestOffers(internalRequestOffers);
+        dispatch(
+          getOpenRequests({
+            userType: profileState.profile.applicationPreference,
+            userRef: profileState.userRef,
+          }),
+        );
       }
     }
-  }, [offersState, openRequests, profileState.profile]);
+  }, [profileState, dispatch]);
 
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
@@ -109,7 +64,9 @@ const OpenRequestsContainer: React.FC = () => {
     <>
       <Header
         requestsType="Open"
-        numRequests={Object.keys(pendingRequests || {}).length}
+        numRequests={
+          Object.keys(requestWithOffersAndTimeline.data || {}).length
+        }
         isCav={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav
@@ -117,13 +74,9 @@ const OpenRequestsContainer: React.FC = () => {
         isAcceptedRequests={false}
       />
       <RequestList
-        requests={pendingRequests}
-        offers={requestOffers}
+        requests={requestWithOffersAndTimeline.data}
         loading={
-          openRequests &&
-          openRequests.loading &&
-          offersState &&
-          offersState.loading
+          requestWithOffersAndTimeline && requestWithOffersAndTimeline.loading
         }
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}

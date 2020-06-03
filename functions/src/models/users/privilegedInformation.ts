@@ -6,7 +6,7 @@ import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
-interface IUserAddress {
+export interface IUserAddress {
   address1?: string;
   address2?: string;
   postalCode?: string;
