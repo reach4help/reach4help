@@ -1,3 +1,6 @@
-trailingComma: "all"
-singleQuote: true
-printWidth: 80  
+{
+  "arrowParens": "avoid",
+  "semi": false,
+  "trailingComma": "all",
+  "printWidth": 80
+}

@@ -1,22 +1,28 @@
-import React from 'react';
-import Layout from '../components/Layout';
-import Privacy from '../sections/Privacy';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import React from "react"
 
-import Landing from '../sections/Landing';
-import About from '../sections/About';
-import Resources from '../sections/Resources';
-import Team from '../sections/Team';
-import Thanks from '../sections/Thanks';
+import SEO from "src/components/seo"
+import Layout from "src/components/layout"
+import Header from "src/components/header"
+import Footer from "src/components/footer"
 
-const PrivacyPage = () => (
-  <Layout>
-    <Header />
-    {/* <Landing /> */}
-    <Privacy />
-    <Footer />
-  </Layout>
-);
+import Privacy from "src/sections/privacy"
 
-export default PrivacyPage;
+const navSections = [
+  { title: "Home", link: "/" },
+  { title: "Map", link: "/#mission" },
+]
+
+function PrivacyPage() {
+  return (
+    <Layout>
+      <SEO title="Privacy Policy" />
+      <Header navSections={navSections} />
+      <div className="sections">
+        <Privacy />
+      </div>
+      <Footer />
+    </Layout>
+  )
+}
+
+export default PrivacyPage
