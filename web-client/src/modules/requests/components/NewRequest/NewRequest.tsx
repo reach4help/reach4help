@@ -117,7 +117,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
           },
         ]}
       >
-        <Input />
+        <Input placeholder={t('newRequest.form.other')} />
       </Form.Item>
     );
   };
