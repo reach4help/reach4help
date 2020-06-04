@@ -9,11 +9,11 @@ import WebClientMapMessage from './WebClientMapMessage';
 
 const createMapOptions = maps => ({
   zoomControlOptions: {
-    position: maps.ControlPosition.RIGHT_CENTER,
+    position: maps.ControlPosition.TOP_RIGHT,
     style: maps.ZoomControlStyle.SMALL,
   },
   mapTypeControlOptions: {
-    position: maps.ControlPosition.TOP_RIGHT,
+    position: maps.ControlPosition.TOP_LEFT,
   },
   mapTypeControl: true,
 });
