@@ -71,6 +71,7 @@
         "type": "Type",
         "address": "Confirm Address",
         "body": "Enter details of what is needed",
+        "other": "Please enter your type",
         "consent": "Allow Push Notifications. You can always change this in your Settings later.",
         "submit": "Next",
         "cancel": "Cancel",
