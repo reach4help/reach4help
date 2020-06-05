@@ -2,8 +2,7 @@ import GoogleMapReact, { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 
 import apiKey from './apiKey';
-import MyLocationIcon from './assets/MyLocationIcon.png';
-import MapControl from './MyLocationControl';
+import MyLocationControl from './MyLocationControl';
 import { metersToImperial, metersToKm, secondsToTimestring } from './utils';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
 import WebClientMapMessage from './WebClientMapMessage';
@@ -129,25 +128,6 @@ const WebClientMap: React.FC<MapProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startLocateMe, Geocoder]);
 
-  /* TODO:  Make custom control ( googleMap.controls[position].push(locateMeContainer);)
-https://developers.google.com/maps/documentation/javascript/examples/control-custom 
-https://github.com/google-map-react/google-map-react/issues/687
-*/
-  const LocateMeComponent = () => (
-    <div
-      onClick={() => locateMe()}
-      style={{
-        borderRadius: '17%',
-        border: '1px black dotted',
-        marginLeft: '15px',
-        padding: '7px',
-        backgroundColor: 'white',
-      }}
-    >
-      <img alt="My location" src={MyLocationIcon} />
-    </div>
-  );
-
   /* Directions, Origin, Destination, Paths */
 
   const [selectedDestination, setSelectedDestination] = useState<string>('');
@@ -201,9 +181,7 @@ https://github.com/google-map-react/google-map-react/issues/687
           defaultZoom={zoom}
           onGoogleApiLoaded={initGoogleMapServices}
         >
-          <MapControl map={googleMap || null}>
-            <LocateMeComponent />
-          </MapControl>
+          <MyLocationControl map={googleMap || null} onClick={locateMe} />
           <OriginMarker lat={origin.lat} lng={origin.lng} isCav />
           {destinations.map(r => (
             <DestinationMarker

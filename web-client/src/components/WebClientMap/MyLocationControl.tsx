@@ -4,10 +4,26 @@ https://github.com/google-map-react/google-map-react/issues/687
 
 import React, { useState } from 'react';
 
-const MapControl: React.FC<MapControlProps> = ({
-  children,
+import MyLocationIcon from './assets/MyLocationIcon.png';
+
+const LocateMeComponent = () => (
+  <div
+    style={{
+      borderRadius: '17%',
+      border: '1px black dotted',
+      marginLeft: '15px',
+      padding: '7px',
+      backgroundColor: 'white',
+    }}
+  >
+    <img alt="My location" src={MyLocationIcon} />
+  </div>
+);
+
+const MyLocationControl: React.FC<MyLocationControlProps> = ({
   controlPosition = 4,
   map,
+  onClick,
 }) => {
   const [renderedOnce, setRenderedOnce] = useState<boolean>(false);
   const [element, setElement] = useState<any>(null);
@@ -17,6 +33,7 @@ const MapControl: React.FC<MapControlProps> = ({
   }
   return (
     <div
+      onClick={onClick}
       ref={el => {
         if (!renderedOnce) {
           setElement(el);
@@ -30,15 +47,15 @@ const MapControl: React.FC<MapControlProps> = ({
         setRenderedOnce(true);
       }}
     >
-      {children}
+      <LocateMeComponent />
     </div>
   );
 };
 
-interface MapControlProps {
-  children: any | null;
+interface MyLocationControlProps {
   map: any | null;
   controlPosition?: number;
+  onClick?: () => void;
 }
 
-export default MapControl;
+export default MyLocationControl;
