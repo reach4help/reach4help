@@ -194,7 +194,6 @@ https://github.com/google-map-react/google-map-react/issues/687
     <>
       <div style={{ height: '100%', width: '100%' }}>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
-        {isCav && <LocateMeComponent />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
