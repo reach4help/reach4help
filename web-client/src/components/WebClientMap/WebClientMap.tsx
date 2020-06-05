@@ -29,7 +29,6 @@ const WebClientMap: React.FC<MapProps> = ({
   startLocateMe,
   bannerMessage = '',
   zoom = 11,
-  isCav = true,
 }) => {
   /* banner message */
   const [mapMessage, setMapMessage] = useState<string>('');
@@ -202,13 +201,7 @@ https://github.com/google-map-react/google-map-react/issues/687
           defaultZoom={zoom}
           onGoogleApiLoaded={initGoogleMapServices}
         >
-          <MapControl
-            map={googleMap || null}
-            controlPosition={
-              4
-              // googleMapS ? googleMapS.ControlPosition.LEFT_CENTER : null
-            }
-          >
+          <MapControl map={googleMap || null}>
             <LocateMeComponent />
           </MapControl>
           <OriginMarker lat={origin.lat} lng={origin.lng} isCav />
@@ -243,7 +236,6 @@ interface MapProps {
   onGeocode?: ({ address: string, latLng: Coords }) => void;
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
-  isCav?: boolean;
   bannerMessage?: string;
   startGeocode?: boolean;
   startLocateMe?: boolean;
