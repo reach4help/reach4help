@@ -8,14 +8,16 @@ import {
   getStreetAddressFromProfile,
 } from '../../../../components/WebClientMap/utils';
 import Map from '../../../../components/WebClientMap/WebClientMap';
-import { observeOffers, setOffer } from '../../../../ducks/offers/actions';
+import { setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
 import { ProfileState } from '../../../../ducks/profile/types';
-import { observeOpenRequests } from '../../../../ducks/requests/actions';
+import {
+  getOpenRequests,
+  resetSetRequestState,
+} from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
 import { firestore } from '../../../../firebase';
 import { OfferStatus } from '../../../../models/offers';
-import { Request } from '../../../../models/requests';
 import { ApplicationPreference } from '../../../../models/users';
 import RequestItem from '../../components/RequestItem/RequestItem';
 
@@ -45,7 +47,6 @@ const FindRequestsContainer: React.FC = () => {
   const [bannerMessage, setBannerMessage] = useState<string | undefined>(
     getStreetAddressFromProfile(profileState),
   );
-  //  const [streetAddress, setStreetAddress] = useState<string>(() => getStreetAddressFromProfile(profileState));
 
   const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
     getCoordsFromProfile(profileState),
@@ -55,91 +56,75 @@ const FindRequestsContainer: React.FC = () => {
     MapRequestProps[]
   >([]);
 
-  const [pendingRequests, setPendingRequests] = useState<
-    Record<string, Request>
-  >({});
-
-  const openRequests = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.openRequests,
+  const pendingRequestsWithOffersAndTimeline = useSelector(
+    ({ requests }: { requests: RequestState }) =>
+      requests.syncOpenRequestsState,
   );
 
-  const offersState = useSelector(
-    ({ offers }: { offers: OffersState }) => offers,
+  const setRequestState = useSelector(
+    ({ requests }: { requests: RequestState }) => requests.setAction,
   );
-  /*
-  navigator.geolocation.getCurrentPosition(
-    position => {
-      const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      setCurrentLocation(pos);
-    },
-    error => {
-      // eslint-disable-next-line no-console
-      console.error(error.message);
-    },
+  const setOfferState = useSelector(
+    ({ offers }: { offers: OffersState }) => offers.setAction,
   );
-*/
+
   useEffect(() => {
-    if (openRequests && openRequests.data) {
-      const internalPendingRequests: Record<string, Request> = {
-        ...openRequests.data,
-      };
-
-      for (const key in offersState.data) {
-        if (offersState.data[key]) {
-          if (internalPendingRequests[offersState.data[key].requestRef.id]) {
-            delete internalPendingRequests[offersState.data[key].requestRef.id];
-          }
-        }
-      }
-      setPendingRequests(internalPendingRequests);
+    if (
+      (!setRequestState.loading && setRequestState.success) ||
+      (!setOfferState.loading && setOfferState.success)
+    ) {
+      dispatch(resetSetRequestState());
     }
-  }, [offersState, openRequests]);
+  }, [setRequestState, setOfferState, dispatch]);
 
   useEffect(() => {
-    if (pendingRequests) {
-      const requestsData = pendingRequests;
-      const transformedRequests: MapRequestProps[] = Object.keys(
-        requestsData,
-      ).reduce(
-        (acc: MapRequestProps[], curr: string) =>
-          !requestsData[curr]
-            ? acc
-            : [
-                ...acc,
-                {
-                  id: curr,
-                  center: {
-                    lat: requestsData[curr].latLng.latitude,
-                    lng: requestsData[curr].latLng.longitude,
-                  },
-                },
-              ],
-        [],
+    if (
+      profileState.profile &&
+      profileState.profile.applicationPreference &&
+      !pendingRequestsWithOffersAndTimeline.data &&
+      !pendingRequestsWithOffersAndTimeline.loading
+    ) {
+      dispatch(
+        getOpenRequests({
+          userType: profileState.profile.applicationPreference,
+          userRef: profileState.userRef,
+          lat: profileState.privilegedInformation?.address.coords.latitude,
+          lng: profileState.privilegedInformation?.address.coords.longitude,
+        }),
       );
-
-      setRequestsWithoutOffer(transformedRequests);
     }
-  }, [pendingRequests]);
+  }, [profileState, dispatch, pendingRequestsWithOffersAndTimeline]);
 
   useEffect(() => {
-    if (profileState.profile && profileState.profile.applicationPreference) {
-      const openRequestsSubscription = observeOpenRequests(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-      });
-      const offersStateSubscription = observeOffers(dispatch, {
-        userRef: profileState.userRef,
-        userType: profileState.profile.applicationPreference,
-      });
-      return () => {
-        openRequestsSubscription();
-        offersStateSubscription();
-      };
+    if (
+      pendingRequestsWithOffersAndTimeline &&
+      pendingRequestsWithOffersAndTimeline.data
+    ) {
+      const requestsData = pendingRequestsWithOffersAndTimeline.data;
+      if (requestsData) {
+        const transformedRequests: MapRequestProps[] = Object.keys(
+          requestsData,
+        ).reduce(
+          (acc: MapRequestProps[], curr: string) =>
+            !requestsData[curr]
+              ? acc
+              : [
+                  ...acc,
+                  {
+                    id: curr,
+                    center: {
+                      lat: requestsData[curr].latLng.latitude,
+                      lng: requestsData[curr].latLng.longitude,
+                    },
+                  },
+                ],
+          [],
+        );
+
+        setRequestsWithoutOffer(transformedRequests);
+      }
     }
-  }, [profileState, dispatch]);
+  }, [pendingRequestsWithOffersAndTimeline]);
 
   const onRequestHandler = (id: string) => {
     setExpandedRequestId(id);
@@ -148,8 +133,8 @@ const FindRequestsContainer: React.FC = () => {
   const handleRequestForAcceptReject = (action?: boolean) => {
     if (
       expandedRequestId &&
-      openRequests &&
-      openRequests.data &&
+      pendingRequestsWithOffersAndTimeline &&
+      pendingRequestsWithOffersAndTimeline.data &&
       profileState.userRef &&
       profileState.profile &&
       profileState.profile.applicationPreference === ApplicationPreference.cav
@@ -157,9 +142,14 @@ const FindRequestsContainer: React.FC = () => {
       dispatch(
         setOffer({
           cavUserRef: profileState.userRef,
-          pinUserRef: openRequests.data[expandedRequestId].pinUserRef,
+          pinUserRef:
+            pendingRequestsWithOffersAndTimeline.data[expandedRequestId]
+              .pinUserRef,
           requestRef: firestore.collection('requests').doc(expandedRequestId),
           cavUserSnapshot: profileState.profile,
+          requestSnapshot: pendingRequestsWithOffersAndTimeline.data[
+            expandedRequestId
+          ].getRequest(),
           message: 'I want to help!',
           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
         }),
@@ -169,8 +159,13 @@ const FindRequestsContainer: React.FC = () => {
   };
 
   const maybeRequestDetails = () => {
-    if (expandedRequestId && openRequests && openRequests.data) {
-      const request = openRequests.data[expandedRequestId];
+    if (
+      expandedRequestId &&
+      pendingRequestsWithOffersAndTimeline &&
+      pendingRequestsWithOffersAndTimeline.data
+    ) {
+      const request =
+        pendingRequestsWithOffersAndTimeline.data[expandedRequestId];
       return request ? (
         <RequestDetails>
           <RequestItem

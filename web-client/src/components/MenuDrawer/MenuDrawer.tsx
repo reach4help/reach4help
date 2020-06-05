@@ -6,7 +6,6 @@ import {
 import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { User } from 'src/models/users';
 import styled from 'styled-components';
 
@@ -39,17 +38,24 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
         isCav={isCav}
       />
       <BottomLinks>
-        <Link to={{ pathname: '/' }} onClick={closeDrawer}>
+        <div
+          role="link"
+          onClick={() => {
+            closeDrawer();
+            window.location.href = 'mailto:info@reach4help.org';
+          }}
+        >
           <MailOutlined />
           {t('menuDrawer.contactUs')}
-        </Link>
-        <div onClick={() => toggleApplicationPreference()}>
+        </div>
+        <div role="link" onClick={() => toggleApplicationPreference()}>
           <UserSwitchOutlined />
           {`${
             isCav ? t('menuDrawer.switchToPIN') : t('menuDrawer.switchToCAV')
           }`}
         </div>
         <div
+          role="link"
           onClick={() => {
             closeDrawer();
             logoutHandler();
@@ -83,7 +89,7 @@ const BottomLinks = styled.div`
     color: inherit;
     margin-bottom: 10px;
     padding: 0 10px;
-
+    cursor: pointer;
     svg {
       margin-right: 10px;
     }

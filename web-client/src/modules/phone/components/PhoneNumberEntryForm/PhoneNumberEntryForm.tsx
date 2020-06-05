@@ -2,6 +2,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import firebase from 'src/firebase';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const { Text } = Typography;
@@ -17,7 +18,7 @@ const StyledInput = styled(Input)`
 `;
 
 const Info = styled(Text)`
-  color: #ddd;
+  color: ${COLORS.faded};
   text-align: center;
 `;
 

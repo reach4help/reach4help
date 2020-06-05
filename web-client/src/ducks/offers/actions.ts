@@ -1,3 +1,4 @@
+import { firestore } from 'firebase';
 import { IOffer, Offer } from 'src/models/offers';
 
 import {
@@ -11,6 +12,7 @@ import {
   IgetOffers,
   IgetRequestOffers,
   OBSERVE_OFFERS,
+  RESET_SET,
   SET,
 } from './types';
 
@@ -56,13 +58,24 @@ export const setOffer = (payload: Offer | IOffer, offerId?: string) => (
       firebase: offerId ? setUserOffer : createUserOffer,
     });
   } else {
+    const offerPayload = payload;
+    // eslint-disable-next-line no-param-reassign
+    payload.updatedAt = firestore.Timestamp.now();
+    // eslint-disable-next-line no-param-reassign
+    payload.seenAt = firestore.Timestamp.now();
     dispatch({
       type: SET,
       payload: {
-        payload,
+        offerPayload,
         offerId,
       },
       firebase: offerId ? setUserOffer : createUserOffer,
     });
   }
 };
+
+export const resetSetOfferState = () => (dispatch: Function) =>
+  dispatch({
+    type: RESET_SET,
+    payload: true,
+  });

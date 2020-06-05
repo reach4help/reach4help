@@ -12,7 +12,8 @@ import { Link } from 'react-router-dom';
 import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
-import { Request, RequestStatus } from 'src/models/requests';
+import { RequestStatus } from 'src/models/requests';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference, User } from 'src/models/users/index';
 import { COLORS } from 'src/theme/colors';
 import styled, { css } from 'styled-components';
@@ -20,7 +21,7 @@ import styled, { css } from 'styled-components';
 const { Text } = Typography;
 
 interface TopPanelProps {
-  request: Request;
+  request: RequestWithOffersAndTimeline;
   user?: User;
 }
 
@@ -78,8 +79,8 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
                 </InfoDetail>
                 <InfoDetail className={isCav ? 'cav' : 'pin'}>
                   <img src={LocationIcon} alt="location icon" />
-                  {/* TODO: Requires Fix from backend */}
-                  <span>5 KM</span>
+                  {/* TODO : Logic for calculating distance from request.latLng */}
+                  <span>5 Miles</span>
                 </InfoDetail>
               </Info>
             )}
@@ -109,7 +110,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
               </AddressTextAndArrow>
               <AddressInfo>
                 <HomeOutlined />
-                <Text> Some Address </Text>
+                <Text> {request.streetAddress} </Text>
               </AddressInfo>
             </Address>
           </RequestDetails>

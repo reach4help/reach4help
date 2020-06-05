@@ -1,4 +1,4 @@
-import { Alert } from 'antd';
+import { Alert, Typography } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,9 +10,12 @@ import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import { triggerLoginWithPhone } from 'src/ducks/auth/phone/actions';
 import firebase from 'src/firebase';
 import { AppState } from 'src/store';
+import styled from 'styled-components';
 
 import PhoneNumberEntryForm from '../../components/PhoneNumberEntryForm/PhoneNumberEntryForm';
 import { PhoneVerifyLocation } from '../../pages/routes/PhoneVerifyRoute/constants';
+
+const { Text } = Typography;
 
 const PhoneEntryContainer: React.FC = () => {
   const dispatch = useDispatch();
@@ -47,21 +50,24 @@ const PhoneEntryContainer: React.FC = () => {
     }
   };
 
-  const errorMessage = useMemo(
-    () =>
-      error && error.message
-        ? `Your number is ${error.message},
-        Please Make sure you entered a valid Mobile Number capable of receiving SMS with the country code prefixing it`
-        : null,
-    [error],
-  );
+  const errorMessage = useMemo(() => {
+    if (error?.message === 'TOO_LONG' || error?.message === 'TOO_SHORT') {
+      return 'Please enter a valid phone number capable of receiving SMS with the country code prefixing it.';
+    }
+    if (error?.message) {
+      return error.message;
+    }
+    return null;
+  }, [error]);
   const profilePhoto = useMemo(
     () => (user?.photoURL ? `${user.photoURL}?height=300` : logo),
     [user],
   );
   return (
     <IntroWrapper>
-      {errorMessage && <Alert message={errorMessage} type="error" />}
+      <ErrorMessage>
+        {errorMessage && <Alert message={errorMessage} type="error" />}
+      </ErrorMessage>
       <IntroLogo src={profilePhoto} alt="User logo" />
       <TitleWithAddon level={4}>
         {`${t('welcome')}, ${user?.displayName}`}
@@ -74,6 +80,10 @@ const PhoneEntryContainer: React.FC = () => {
     </IntroWrapper>
   );
 };
+
+const ErrorMessage = styled(Text)`
+  margin-bottom: 1rem;
+`;
 
 PhoneEntryContainer.propTypes = {};
 
