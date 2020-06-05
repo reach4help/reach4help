@@ -1,4 +1,5 @@
-/* 
+/* TODO
+useRef instead of useState 
 https://github.com/google-map-react/google-map-react/issues/687
 */
 

@@ -11,6 +11,7 @@ export const OriginMarker: React.FC<OriginMarkerProps> = ({ isCav }) => (
       src={isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
       alt="My location"
     />
+    {isCav}
   </div>
 );
 

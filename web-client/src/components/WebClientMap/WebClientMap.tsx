@@ -28,6 +28,7 @@ const WebClientMap: React.FC<MapProps> = ({
   startLocateMe,
   bannerMessage = '',
   zoom = 11,
+  isCav = true,
 }) => {
   /* banner message */
   const [mapMessage, setMapMessage] = useState<string>('');
@@ -182,7 +183,7 @@ const WebClientMap: React.FC<MapProps> = ({
           onGoogleApiLoaded={initGoogleMapServices}
         >
           <MyLocationControl map={googleMap || null} onClick={locateMe} />
-          <OriginMarker lat={origin.lat} lng={origin.lng} isCav />
+          <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
           {destinations.map(r => (
             <DestinationMarker
               key={r.id}
@@ -214,6 +215,7 @@ interface MapProps {
   onGeocode?: ({ address: string, latLng: Coords }) => void;
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
+  isCav?: boolean;
   bannerMessage?: string;
   startGeocode?: boolean;
   startLocateMe?: boolean;

@@ -181,6 +181,7 @@ const NewRequestsContainer: React.FC = () => {
       >
         <div style={{ height: '100%' }}>
           <Map
+            isCav={false}
             destinations={[]}
             origin={currentLocation}
             onGeocode={setGeocodedLocation}
