@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import apiKey from './apiKey';
 import MyLocationIcon from './assets/MyLocationIcon.png';
+import MapControl from './MyLocationControl';
 import { metersToImperial, metersToKm, secondsToTimestring } from './utils';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
 import WebClientMapMessage from './WebClientMapMessage';
@@ -39,6 +40,7 @@ const WebClientMap: React.FC<MapProps> = ({
 
   /* google services */
   const [googleMap, setGoogleMap] = useState<any>(null);
+  const [googleMapS, setGoogleMapS] = useState<any>(null);
 
   const [DirectionsRenderer, setDirectionsRenderer] = useState<any | undefined>(
     undefined,
@@ -51,6 +53,7 @@ const WebClientMap: React.FC<MapProps> = ({
   const initGoogleMapServices = ({ map, maps }) => {
     if (map && maps) {
       googleMap || setGoogleMap(map);
+      googleMapS || setGoogleMapS(maps);
       if (typeof DirectionsRenderer === 'undefined') {
         const directionsRenderer = new maps.DirectionsRenderer();
         directionsRenderer.setMap(map);
@@ -135,14 +138,13 @@ https://github.com/google-map-react/google-map-react/issues/687
     <div
       onClick={() => locateMe()}
       style={{
-        backgroundColor: 'rgb(275, 155, 54)',
-        display: 'flex',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
+        borderRadius: '17%',
+        border: '1px black dotted',
+        marginLeft: '15px',
+        padding: '7px',
+        backgroundColor: 'white',
       }}
     >
-      <img alt="My location" src={MyLocationIcon} />
-      <img alt="My location" src={MyLocationIcon} />
       <img alt="My location" src={MyLocationIcon} />
     </div>
   );
@@ -201,6 +203,15 @@ https://github.com/google-map-react/google-map-react/issues/687
           defaultZoom={zoom}
           onGoogleApiLoaded={initGoogleMapServices}
         >
+          <MapControl
+            map={googleMap || null}
+            controlPosition={
+              4
+              // googleMapS ? googleMapS.ControlPosition.LEFT_CENTER : null
+            }
+          >
+            <LocateMeComponent />
+          </MapControl>
           <OriginMarker lat={origin.lat} lng={origin.lng} isCav />
           {destinations.map(r => (
             <DestinationMarker
