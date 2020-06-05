@@ -5,6 +5,7 @@ import {
   UserSwitchOutlined,
 } from '@ant-design/icons';
 import { Button } from 'antd';
+
 import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { haversineDistance } from 'src/components/WebClientMap/utils';
@@ -20,7 +21,7 @@ interface OffersListProps {
 interface OfferItemProps {
   offer: Offer;
   handleOffer: (action: boolean) => void;
-  requestCoords: firestore.GeoPoint;
+  //  requestCoords: firestore.GeoPoint;
 }
 
 const Item = styled.div`
@@ -106,7 +107,7 @@ const ButtonsContainer = styled.div`
 const OfferItem: React.FC<OfferItemProps> = ({
   offer,
   handleOffer,
-  requestCoords,
+  //  requestCoords,
 }): React.ReactElement => (
   <Item>
     {/* {offer.cavUserSnapshot.displayName} */}
@@ -133,7 +134,8 @@ const OfferItem: React.FC<OfferItemProps> = ({
         <EnvironmentOutlined />
       </IconContainer>
       <TextIcon>
-        {haversineDistance(data.address.coords, requestCoords)}
+        5 miles
+        {/*haversineDistance(data.address.coords, requestCoords)*/}
       </TextIcon>
     </IconsBlock>
     <ButtonsContainer>

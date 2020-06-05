@@ -49,7 +49,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     profile.privilegedInformation.address &&
     profile.privilegedInformation.address.coords
       ? profile.privilegedInformation?.address.coords
-      : { latitude: 0, longitude: 0 },
+      : new firestore.GeoPoint(0, 0),
   );
 
   const requestsState = useSelector(
@@ -227,7 +227,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       {accepted && (
         <OffersList
           loading={false}
-          requestCoords={requestCoords}
           offers={request.offers}
           handleOffer={handleOffer}
         />

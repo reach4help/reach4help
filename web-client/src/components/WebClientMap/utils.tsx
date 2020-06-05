@@ -69,5 +69,5 @@ export const haversineDistance = (
   dist = (dist * 180) / Math.PI;
   dist = dist * 60 * 1.1515;
   dist *= 1609.344; // for meters
-  return dist.toFixed(1);
+  return parseFloat(dist.toFixed(1));
 };
