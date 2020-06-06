@@ -27,9 +27,11 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
     message: string,
     status: OfferStatus,
     address: IUserAddress,
-    createdAt = Timestamp.now(),
+    createdAt?: Timestamp,
+    updatedAt?: Timestamp,
+    seenAt?: Timestamp | null,
   ) {
-    super(cavUserRef, pinUserRef, requestRef, cavUserSnapshot, requestSnapshot, message, status, createdAt);
+    super(cavUserRef, pinUserRef, requestRef, cavUserSnapshot, requestSnapshot, message, status, createdAt, updatedAt, seenAt);
     this._address = address;
   }
 
@@ -59,6 +61,8 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       data.status,
       data.address,
       data.createdAt,
+      data.updatedAt,
+      data.seenAt,
     );
   }
 
@@ -68,10 +72,13 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       pinUserRef: this.pinUserRef.path,
       requestRef: this.requestRef.path,
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
+      requestSnapshot: this.requestSnapshot?.toObject(),
       message: this.message,
       status: this.status,
       address: this.address,
       createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      seenAt: this.seenAt,
     };
   }
 }
