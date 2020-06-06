@@ -5,6 +5,8 @@ import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
 import { COLORS } from '../../../../theme/colors';
+import MyLocationIcon from '../../assets/gpslocation.svg';
+import SearchIcon from '../../assets/search.svg';
 import { RequestInput } from './RequestReview';
 
 const { Option } = Select;
@@ -60,15 +62,6 @@ const SubmitButton = styled(Button)`
   text-overflow: ellipsis;
   background-color: ${COLORS.secondary};
   color: ${COLORS.white};
-`;
-
-const SearchButton = styled(StyledButton)`
-  padding: 4px;
-`;
-
-const UseMyLocationButton = styled(StyledButton)`
-  padding: 0;
-  width: auto;
 `;
 
 export const REQUEST_TYPES = {
@@ -158,19 +151,44 @@ const NewRequest: React.FC<NewRequestProps> = ({
                 <Input onChange={e => setStreetAddress(e.target.value)} />
               </StyledFormItem>
             </Col>
-            <Col span={5} offset={1}>
+            <Col span={5}>
               <StyledFormItem>
-                <SearchButton
+                <div
+                  style={{
+                    display: 'inline',
+                    padding: '5px',
+                    border: '1px dotted black',
+                    borderRadius: '17%',
+                  }}
                   onClick={() => setMapAddress(request.streetAddress)}
                 >
-                  {t('newRequest.form.search')}
-                </SearchButton>
+                  <img
+                    src={SearchIcon}
+                    height="24px"
+                    width="24px"
+                    alt="Search for location"
+                  />
+                </div>
+                <div
+                  onClick={() => setMyLocation()}
+                  style={{
+                    display: 'inline',
+                    padding: '5px',
+                    border: '1px dotted black',
+                    borderRadius: '17%',
+                    marginLeft: '50px',
+                  }}
+                >
+                  <img
+                    src={MyLocationIcon}
+                    height="24px"
+                    width="24px"
+                    alt="Use my location"
+                  />
+                </div>
               </StyledFormItem>
             </Col>
           </Row>
-          <UseMyLocationButton type="link" onClick={() => setMyLocation()}>
-            {t('newRequest.form.useMyLocation')}
-          </UseMyLocationButton>
           <Form.Item
             name="type"
             label={t('newRequest.form.type')}
