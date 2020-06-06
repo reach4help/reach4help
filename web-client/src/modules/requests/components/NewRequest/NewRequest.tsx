@@ -46,14 +46,6 @@ const StyledFormItem = styled(Form.Item)`
   margin-bottom: 0;
 `;
 
-const StyledButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
 const SubmitButton = styled(Button)`
   border-radius: 4px;
   width: 100%;
@@ -71,7 +63,6 @@ export const REQUEST_TYPES = {
 
 const NewRequest: React.FC<NewRequestProps> = ({
   onSubmit,
-  onCancel,
   request,
   setStreetAddress,
   setMapAddress,
@@ -136,7 +127,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
             );
           }}
         >
-          <Row justify="space-between" align="bottom">
+          <Row justify="space-between" align="middle">
             <Col span={18}>
               <StyledFormItem
                 name="streetAddress"
@@ -152,41 +143,42 @@ const NewRequest: React.FC<NewRequestProps> = ({
               </StyledFormItem>
             </Col>
             <Col span={5}>
-              <StyledFormItem>
-                <div
-                  style={{
-                    display: 'inline',
-                    padding: '5px',
-                    border: '1px dotted black',
-                    borderRadius: '17%',
-                  }}
-                  onClick={() => setMapAddress(request.streetAddress)}
-                >
-                  <img
-                    src={SearchIcon}
-                    height="24px"
-                    width="24px"
-                    alt="Search for location"
-                  />
+              <Row justify="space-between" align="stretch">
+                <div style={{ display: 'inline-flex' }}>
+                  <div
+                    style={{
+                      padding: '5px',
+                      flex: 'left',
+                      border: '1px dotted black',
+                      borderRadius: '17%',
+                    }}
+                    onClick={() => setMapAddress(request.streetAddress)}
+                  >
+                    <img
+                      src={SearchIcon}
+                      height="24px"
+                      width="24px"
+                      alt="Search for location"
+                    />
+                  </div>
+                  <div
+                    onClick={() => setMyLocation()}
+                    style={{
+                      flex: 'right',
+                      padding: '5px',
+                      border: '1px dotted black',
+                      borderRadius: '17%',
+                    }}
+                  >
+                    <img
+                      src={MyLocationIcon}
+                      height="24px"
+                      width="24px"
+                      alt="Use my location"
+                    />
+                  </div>
                 </div>
-                <div
-                  onClick={() => setMyLocation()}
-                  style={{
-                    display: 'inline',
-                    padding: '5px',
-                    border: '1px dotted black',
-                    borderRadius: '17%',
-                    marginLeft: '50px',
-                  }}
-                >
-                  <img
-                    src={MyLocationIcon}
-                    height="24px"
-                    width="24px"
-                    alt="Use my location"
-                  />
-                </div>
-              </StyledFormItem>
+              </Row>
             </Col>
           </Row>
           <Form.Item
@@ -221,17 +213,12 @@ const NewRequest: React.FC<NewRequestProps> = ({
           >
             <Input.TextArea
               placeholder={t('newRequest.form.body')}
-              maxLength={150}
+              maxLength={500}
             />
           </StyledFormItem>
-          <CharacterLimitDiv>150 Character Limit</CharacterLimitDiv>
+          <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
           <Row>
-            <Col span={11}>
-              <StyledButton onClick={() => onCancel()}>
-                {t('newRequest.form.cancel')}
-              </StyledButton>
-            </Col>
-            <Col span={11} offset={2}>
+            <Col span={24}>
               <SubmitButton htmlType="submit">
                 {t('newRequest.form.submit')}
               </SubmitButton>
@@ -247,7 +234,6 @@ const NewRequest: React.FC<NewRequestProps> = ({
 
 interface NewRequestProps {
   onSubmit: Function;
-  onCancel: Function;
   request: RequestInput;
   setStreetAddress: (string: string) => void;
   setMapAddress: (string: string) => void;
