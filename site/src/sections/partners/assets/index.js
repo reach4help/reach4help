@@ -37,11 +37,11 @@ export default [
     logo: require("./twilio.svg"),
     link: "https://www.twilio.com/",
   },
-  // {
-  //   name: "Canva",
-  //   logo: require('./canva.svg'),
-  //   link: "https://www.canva.com/",
-  // },
+  {
+    name: "Canva",
+    logo: require("./canva.svg"),
+    link: "https://www.canva.com/",
+  },
   {
     name: "Datadog",
     logo: require("./datadog.svg"),

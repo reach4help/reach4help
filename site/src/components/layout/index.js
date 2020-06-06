@@ -6,6 +6,7 @@ import { LayoutWrapper } from "./style"
 import Theme from "../../styles/theme"
 import GlobalStyles from "../../styles/global"
 
+// adding smooth-scroll functionality
 if (typeof window !== "undefined") {
   // eslint-disable-next-line global-require
   require("smooth-scroll")('a[href*="#"]', {
@@ -14,6 +15,7 @@ if (typeof window !== "undefined") {
   })
 }
 
+// applies necessary styling and theming to pages
 function Layout({ children }) {
   return (
     <ThemeProvider theme={Theme}>

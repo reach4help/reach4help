@@ -8,6 +8,8 @@ import { HeaderWrapper, TopWrapper, DrawerWrapper } from "./style"
 import Hamburger from "../hamburger"
 import Backdrop from "../backdrop"
 
+// site-wide header component
+// consists of Top (site-wide nav) and Drawer (local page-wide nav)
 class Header extends React.Component {
   constructor(props) {
     super(props)
@@ -47,7 +49,7 @@ class Header extends React.Component {
           <nav>
             <ul>
               {navSections.map(section => (
-                <li key={section.id}>
+                <li key={section.title}>
                   <Link
                     to={section.link}
                     onClick={this.drawerToggler}

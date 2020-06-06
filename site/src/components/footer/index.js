@@ -6,8 +6,9 @@ import { Link, graphql, useStaticQuery } from "gatsby"
 import Socials from "src/components/socials"
 import { FooterWrapper } from "./style"
 
+// site-wide footer component
 function Footer({ transparent }) {
-  const data = useStaticQuery(graphql`
+  const { site } = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
@@ -20,7 +21,7 @@ function Footer({ transparent }) {
   return (
     <FooterWrapper transparent={transparent}>
       <p>
-        {data.site.siteMetadata.title} © {new Date().getFullYear()} {` | `}
+        {site.siteMetadata.title} © {new Date().getFullYear()} {` | `}
         <Link to="/privacy">Privacy Policy</Link> {` | `}
         <a
           href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
@@ -36,7 +37,7 @@ function Footer({ transparent }) {
 }
 
 Footer.propTypes = {
-  transparent: PropTypes.bool,
+  transparent: PropTypes.bool, // makes background transparent (used in index)
 }
 
 export default Footer

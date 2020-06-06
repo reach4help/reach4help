@@ -24,15 +24,11 @@ function Partners() {
           <a
             title={logo.name}
             href={logo.link}
-            key={logo.id}
+            key={logo.name}
             target="__blank"
             rel="noopener noreferrer"
           >
-            <img
-              src={logo.logo}
-              alt={`${logo.name} Logo`}
-              maxWidth={logo.maxWidth}
-            />
+            <img src={logo.logo} alt={`${logo.name} Logo`} />
           </a>
         ))}
       </LogosWrapper>
