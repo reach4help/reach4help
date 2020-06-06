@@ -76,10 +76,10 @@
         "cancel": "Cancel",
         "search": "Search",
         "useMyLocation": "Use my location",
-        "address_error_message": "You need to fill your address.",
+        "address_error_message": "Please enter your address.",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
-        "body_error_message": "You need to fill description."
+        "body_error_message": "Please enter your description."
       }
     },
     "newRequestSuccess": {
@@ -95,6 +95,7 @@
     },
     "roleinfo": {
       "title": "Reach4Help",
+      "manifesto": "Wir glauben, dass alles, was wir tun, ist sinnvoll. Wir glauben, wir sind in der Lage Menschen in ihrem Gefühl der Zusammengehörigkeit und Gemeinschaft zu ermöglichen. Wir glauben, dass die Solidarität aus den besten Individuen bringt.",
       "sub_title": "Wie können wir Ihnen helfen?",
       "info": "Bitte teilen Sie uns mit, warum Sie Reach4Help verwenden.",
       "info_pin": "Ich bin hier, weil ich Hilfe benötige.",

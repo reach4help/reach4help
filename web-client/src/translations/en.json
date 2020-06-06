@@ -54,14 +54,14 @@
       "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
       "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
       "policy_link": "Privacy & Security Policy.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
+      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
       "terms_conditions_text": "I understand and acknowledge the ",
       "terms_conditions_link": "Terms & Conditions.",
       "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "You need to fill your name.",
-      "display_name_error_message": "You need to fill your display name.",
-      "address_error_message": "You need to fill your address.",
-      "allow_send_notifications": "Would you like us to send you notifications and emails?"
+      "full_name_error_message": "Please enter your name.",
+      "display_name_error_message": "Please enter your display name.",
+      "address_error_message": "Please enter your address.",
+      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
     },
     "newRequest": {
       "title": "New Request",
@@ -71,15 +71,16 @@
         "type": "Type",
         "address": "Confirm Address",
         "body": "Enter details of what is needed",
+        "other": "Please enter your type",
         "consent": "Allow Push Notifications. You can always change this in your Settings later.",
         "submit": "Next",
         "cancel": "Cancel",
         "search": "Search",
         "useMyLocation": "Use my location",
-        "address_error_message": "You need to fill your address.",
+        "address_error_message": "Please enter your address.",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
-        "body_error_message": "You need to fill description."
+        "body_error_message": "Please enter your description."
       }
     },
     "newRequestSuccess": {
@@ -96,6 +97,7 @@
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "How can we assist you ?",
+      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
       "info": "Please tell us what is your purpose to use Reach4Help",
       "info_pin": "I'm here because I need help",
       "c2a_pin": "Get help now!",

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import LoadingWrapper from '../../../../components/LoadingWrapper/LoadingWrapper';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -183,6 +184,13 @@ const FindRequestsContainer: React.FC = () => {
     setBannerMessage(address);
     setCurrentLocation(latLng);
   };
+
+  if (
+    !pendingRequestsWithOffersAndTimeline.data ||
+    pendingRequestsWithOffersAndTimeline.loading
+  ) {
+    return <LoadingWrapper />;
+  }
 
   return (
     <>

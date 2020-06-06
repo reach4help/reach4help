@@ -58,9 +58,9 @@
       "terms_conditions_text": "I understand and acknowledge the ",
       "terms_conditions_link": "Terms & Conditions.",
       "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "You need to fill your name.",
-      "display_name_error_message": "You need to fill your display name.",
-      "address_error_message": "You need to fill your address.",
+      "full_name_error_message": "Please enter your name.",
+      "display_name_error_message": "Please enter your display name.",
+      "address_error_message": "Please enter your address.",
       "allow_send_notifications": "Would you like us to send you notifications and emails?"
     },
     "newRequest": {
@@ -76,10 +76,10 @@
         "cancel": "Cancel",
         "search": "Search",
         "useMyLocation": "Use my location",
-        "address_error_message": "You need to fill your address.",
+        "address_error_message": "Please enter your address.",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
-        "body_error_message": "You need to fill description."
+        "body_error_message": "Please enter your description."
       }
     },
     "newRequestSuccess": {
@@ -96,6 +96,7 @@
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "How can we assist you ?",
+      "manifesto": "Uskomme, että kaikki mitä teemme on mielekästä. Uskomme pystymme mahdollistavat ihmisiä heidän yhteenkuuluvuuden tunnetta ja yhteisöä. Uskomme solidaarisuus tuo esiin parhaat yksilöt.",
       "info": "Please tell us what is your purpose to use Reach4Help",
       "info_pin": "I'm here because I need help",
       "c2a_pin": "Get help now!",

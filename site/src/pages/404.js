@@ -1,51 +1,28 @@
-import React from 'react';
-import { Heading, Box } from 'rebass';
-import Layout from '../components/Layout';
-import Section from '../components/Section';
-import Triangle from '../components/Triangle';
+import React from "react"
 
-const Background = () => (
-  <div>
-    <Triangle
-      color="backgroundDark"
-      height={['35vh', '80vh']}
-      width={['95vw', '60vw']}
-    />
+import SEO from "src/components/seo"
+import Layout from "src/components/layout"
+import Header from "src/components/header"
+import Footer from "src/components/footer"
 
-    <Triangle
-      color="primary"
-      height={['25vh', '35vh']}
-      width={['75vw', '60vw']}
-      invertX
-    />
+import Error from "src/sections/error"
 
-    <Triangle
-      color="secondaryLight"
-      height={['10vh', '20vh']}
-      width={['50vw', '50vw']}
-      invertX
-      invertY
-    />
-  </div>
-);
+const navSections = [
+  { title: "Home", link: "/#home" },
+  { title: "Map", link: "/#mission" },
+]
 
-const NotFoundPage = () => (
-  <Layout>
-    <Section.Container id="404" Background={Background}>
-      <Box width={[320, 400, 600]} m="auto">
-        <Heading
-          color="primaryDark"
-          fontSize={['9rem', '13rem', '16rem']}
-          as="h1"
-        >
-          404
-        </Heading>
-        <Heading color="secondary" fontSize={['4rem', '5rem', '6rem']} as="h2">
-          There isn&apos;t anything here
-        </Heading>
-      </Box>
-    </Section.Container>
-  </Layout>
-);
+function ErrorPage() {
+  return (
+    <Layout>
+      <SEO title="404 Not Found" />
+      <Header navSections={navSections} />
+      <div className="sections">
+        <Error />
+      </div>
+      <Footer />
+    </Layout>
+  )
+}
 
-export default NotFoundPage;
+export default ErrorPage
