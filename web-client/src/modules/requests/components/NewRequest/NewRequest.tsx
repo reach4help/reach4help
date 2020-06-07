@@ -65,7 +65,7 @@ const MapActionButton = styled(Button)`
   border-radius: 17%;
   margin-right: 40px;
   &:hover {
-    background-color: ${COLORS.secondaryLight};
+    background-color: #7cf9f5;
   }
 `;
 
