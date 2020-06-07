@@ -33,13 +33,20 @@ function Team() {
         <ContentWrapper
           dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
         />
-        <Button
-          textColor="white"
-          backgroundColor="accent"
-          outlineColor="secondary"
+
+        <a
+          href="https://join.slack.com/t/reach4help/shared_invite/zt-dfw74tza-3kB82faJgZMZObQ_x~gadg"
+          target="__blank"
+          rel="noopener noreferrer"
         >
-          You&apos;re the help next door. Join us!
-        </Button>
+          <Button
+            textColor="white"
+            backgroundColor="accent"
+            outlineColor="secondary"
+          >
+            We&apos;re always looking for new help, join us!
+          </Button>
+        </a>
       </div>
       <div className="imageWrapper">
         <Img fluid={data.file.childImageSharp.fluid} alt="" />
