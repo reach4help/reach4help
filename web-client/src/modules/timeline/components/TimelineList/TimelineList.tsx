@@ -4,26 +4,16 @@ import CavBulletIcon from 'src/assets/cav-bullet.svg';
 import PinBulletIcon from 'src/assets/pin-bullet.svg';
 import { TimelineItem } from 'src/models/requests/timeline';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import { ApplicationPreference, User } from '../../../../models/users';
-
-// TODO use i18n
-const MESSAGE_TEXTS = {
-  CREATE_REQUEST: 'Pin created this request.',
-  CANCEL_REQUEST: 'Pin closed this request.',
-  REMOVE_REQUEST: 'Cav removed this request',
-  COMPLETE_REQUEST: 'Request has been completed.',
-  CREATE_OFFER: 'Cav accepted this request.',
-  ACCEPT_OFFER: 'Pin accepted Cav help.',
-  REJECT_OFFER: 'Pin rejected Cav help.',
-  RATE_PIN: 'Cav rated pin.',
-  RATE_CAV: 'Pin rated cav.',
-};
 
 const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
   item,
   align,
 }) => {
+  const { t } = useTranslation();
+
   const isCavItem =
     item.actorSnapshot.applicationPreference === ApplicationPreference.cav;
   const date = new Date(item.createdAt.toDate());
@@ -38,7 +28,7 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
       <StyledListItem className={align}>
         <ListItemBullet src={isCavItem ? CavBulletIcon : PinBulletIcon} />
         <MessageBox className={`message-box ${isCavItem ? 'cav' : 'pin'}`}>
-          {MESSAGE_TEXTS[item.action]}
+          {t(`timeline.${item.action}`)}
           <TimeAgo>{moment(date).fromNow()}</TimeAgo>
         </MessageBox>
       </StyledListItem>
