@@ -74,7 +74,11 @@ const FindRequestsContainer: React.FC = () => {
       (!setRequestState.loading && setRequestState.success) ||
       (!setOfferState.loading && setOfferState.success)
     ) {
-      dispatch(resetSetRequestState());
+      // because I could observe race conditions in cloud function
+      setTimeout(() => {
+        dispatch(resetSetRequestState());
+        setExpandedRequestId(undefined);
+      }, 1000);
     }
   }, [setRequestState, setOfferState, dispatch]);
 
@@ -155,7 +159,6 @@ const FindRequestsContainer: React.FC = () => {
           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
         }),
       );
-      setExpandedRequestId(undefined);
     }
   };
 
@@ -172,6 +175,7 @@ const FindRequestsContainer: React.FC = () => {
           <RequestItem
             request={request}
             handleRequest={handleRequestForAcceptReject}
+            loading={setOfferState.loading}
             isCavAndOpenRequest
           />
         </RequestDetails>
