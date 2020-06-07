@@ -1,10 +1,10 @@
 import moment from 'moment';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CavBulletIcon from 'src/assets/cav-bullet.svg';
 import PinBulletIcon from 'src/assets/pin-bullet.svg';
 import { TimelineItem } from 'src/models/requests/timeline';
 import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
 
 import { ApplicationPreference, User } from '../../../../models/users';
 
