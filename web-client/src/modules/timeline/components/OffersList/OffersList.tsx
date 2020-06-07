@@ -5,7 +5,6 @@ import {
   UserSwitchOutlined,
 } from '@ant-design/icons';
 import { Button } from 'antd';
-
 import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { haversineDistance } from 'src/components/WebClientMap/utils';
@@ -15,13 +14,14 @@ import styled from 'styled-components';
 interface OffersListProps {
   offers: Record<string, Offer>;
   loading: boolean;
+  destinationCoords: firebase.firestore.GeoPoint;
   handleOffer: (action: boolean, id: string) => void;
 }
 
 interface OfferItemProps {
   offer: Offer;
   handleOffer: (action: boolean) => void;
-  //  requestCoords: firestore.GeoPoint;
+  destinationCoords: firestore.GeoPoint;
 }
 
 const Item = styled.div`
@@ -107,7 +107,7 @@ const ButtonsContainer = styled.div`
 const OfferItem: React.FC<OfferItemProps> = ({
   offer,
   handleOffer,
-  //  requestCoords,
+  destinationCoords,
 }): React.ReactElement => (
   <Item>
     {/* {offer.cavUserSnapshot.displayName} */}
@@ -134,8 +134,7 @@ const OfferItem: React.FC<OfferItemProps> = ({
         <EnvironmentOutlined />
       </IconContainer>
       <TextIcon>
-        5 miles
-        {/*haversineDistance(data.address.coords, requestCoords)*/}
+        {haversineDistance(offer.address.coords, destinationCoords)} miles
       </TextIcon>
     </IconsBlock>
     <ButtonsContainer>
@@ -154,6 +153,7 @@ const OfferItem: React.FC<OfferItemProps> = ({
 const OffersList: React.FC<OffersListProps> = ({
   offers,
   handleOffer,
+  destinationCoords,
 }): React.ReactElement => {
   const [offersList, setOffersList] = useState<React.ReactElement<any>[]>([]);
 
@@ -165,13 +165,14 @@ const OffersList: React.FC<OffersListProps> = ({
           <OfferItem
             handleOffer={(action: boolean) => handleOffer(action, key)}
             offer={offers[key]}
+            destinationCoords={destinationCoords}
           />,
         );
       }
     }
 
     setOffersList(internalOffersList);
-  }, [offers, handleOffer, setOffersList]);
+  }, [offers, handleOffer, setOffersList, destinationCoords]);
 
   return (
     <>

@@ -43,15 +43,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const requestCoords = useSelector(({ profile }: { profile: ProfileState }) =>
-    profile &&
-    profile.privilegedInformation &&
-    profile.privilegedInformation.address &&
-    profile.privilegedInformation.address.coords
-      ? profile.privilegedInformation?.address.coords
-      : new firestore.GeoPoint(0, 0),
-  );
-
   const requestsState = useSelector(
     ({ requests }: { requests: RequestState }) => requests,
   );
@@ -203,11 +194,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     dispatch(setOffer(offer.toObject() as IOffer, id));
   };
 
-  /*
-    TODO: 
-      Once backend changes for profile snapshot is done, instead of offers={MockOfferList},
-      The OffersList must take the offers from the request itself
-  */
   const isCav =
     profileState.profile.applicationPreference === ApplicationPreference.cav;
 
@@ -227,6 +213,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       {accepted && (
         <OffersList
           loading={false}
+          destinationCoords={request.latLng}
           offers={request.offers}
           handleOffer={handleOffer}
         />

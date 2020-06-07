@@ -68,6 +68,6 @@ export const haversineDistance = (
   dist = Math.acos(dist);
   dist = (dist * 180) / Math.PI;
   dist = dist * 60 * 1.1515;
-  dist *= 1609.344; // for meters
-  return parseFloat(dist.toFixed(1));
+  dist *= 1609.344 * 0.000621371; // for miles
+  return parseFloat(dist.toFixed(3));
 };
