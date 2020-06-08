@@ -51,9 +51,9 @@
         "terms_conditions_text": "I understand and acknowledge the ",
         "terms_conditions_link": "Terms & Conditions.",
         "terms_conditions_error": "You need to accept the Terms & Conditions.",
-        "full_name_error_message": "You need to fill your name.",
-        "display_name_error_message": "You need to fill your display name.",
-        "address_error_message": "You need to fill your address."
+        "full_name_error_message": "Please enter your name.",
+        "display_name_error_message": "Please enter your display name.",
+        "address_error_message": "Please enter your address."
       },
       "newRequest": {
         "title": "New Request",
@@ -66,9 +66,9 @@
           "consent": "Allow Push Notifications. You can always change this in your Settings later.",
           "submit": "Next",
           "cancel": "Cancel",
-          "address_error_message": "You need to fill your address.",
+          "address_error_message": "Please enter your address.",
           "type_error_message": "You need to select a type.",
-          "body_error_message": "You need to fill description."
+          "body_error_message": "Please enter your description."
         }
       },
       "requestReview": {
@@ -85,6 +85,7 @@
       "roleinfo": {
         "title": "Reach4Help",
         "sub_title": "How can we assist you ?",
+        "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
         "info": "Please tell us what is your purpose to use Reach4Help",
         "info_pin": "I'm here because I need help",
         "c2a_pin": "Get help now!",
@@ -166,9 +167,9 @@
           "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
           "submit": "Próxima",
           "cancel":  "Cancelar",
-          "address_error_message": "You need to fill your address.",
+          "address_error_message": "Please enter your address.",
           "type_error_message": "You need to select a type.",
-          "body_error_message": "You need to fill description."
+          "body_error_message": "Please enter your description."
         }
       },
       "requestReview": {
@@ -185,6 +186,7 @@
       "roleinfo": {
         "title": "Reach4Help",
         "sub_title": "Como podemos ajudá-lo(a) ?",
+        "manifesto": "Acreditamos que tudo o que fazemos é significativo. Acreditamos que somos capazes de permitir que as pessoas em seu sentimento de união e da comunidade. Acreditamos solidariedade traz o melhor em indivíduos.",
         "info": "Por favor diga-nos como pretende usar o Reach4Help",
         "info_pin": "Estou aqui porque preciso de ajuda",
         "c2a_pin": "Obter ajuda agora!",

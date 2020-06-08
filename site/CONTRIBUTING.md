@@ -1,4 +1,4 @@
-# Contributing to covidaid/site
+# Contributing to Reach4Help's Site
 
 🎉🚀🙌🏻 First off, thanks for taking the time to contribute! 🙌🏻🚀🎉
 
@@ -16,7 +16,7 @@ We keep an open mind! Improving documentation, bug triage, or writing tutorials 
 
 ### Follow our Code of Conduct.
 
-We expect everyone to abide by our [**Code of Conduct**](/CODE_OF_CONDUCT.md). Please read it. 🤝
+We expect everyone to abide by our [**Code of Conduct**](../CODE_OF_CONDUCT.md). Please read it. 🤝
 
 # Your First Contribution
 
@@ -32,8 +32,8 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 
 ### You will need at least `node` and `yarn` installed.
 
-- [Download Node Here](https://nodejs.org/en/download/ 'Download Node Here')
-- [Download Yarn Here](https://yarnpkg.com/lang/en/docs/install/ 'Download Yarn Here')
+- [Download Node Here](https://nodejs.org/en/download/ "Download Node Here")
+- [Download Yarn Here](https://yarnpkg.com/lang/en/docs/install/ "Download Yarn Here")
 
 #### In this repo we favour `yarn` over `npm` as the "official" package manager.
 
@@ -49,7 +49,7 @@ yarn
 
 ```
 cd ./site
-gatsby develop
+yarn develop
 ```
 
 # How to report a bug
@@ -80,4 +80,4 @@ We follow the conventional commits guidelines. Check [here](https://www.conventi
 
 Prettier guarantees the code style adopted and runs on commit, stick to this code style.
 
-<img height="42" width="42" src="https://prettier.io/icon.png" alt="Prettier">[ Prettier site for more information](https://prettier.io/ 'Prettier site for more information')
+<img height="42" width="42" src="https://prettier.io/icon.png" alt="Prettier">[ Prettier site for more information](https://prettier.io/ "Prettier site for more information")

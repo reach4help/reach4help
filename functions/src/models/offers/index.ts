@@ -1,5 +1,6 @@
+import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase-admin';
 
 import { IRequest, Request } from '../requests';
 import { IUser, User } from '../users';
@@ -167,7 +168,7 @@ export class Offer implements IOffer {
     this.seenAt = value;
   }
 
-  static factory = (data: IOffer): Offer => {
+  public static factory(data: IOffer): Offer {
     return new Offer(
       data.cavUserRef,
       data.pinUserRef,
@@ -180,7 +181,7 @@ export class Offer implements IOffer {
       data.updatedAt,
       data.seenAt,
     );
-  };
+  }
 
   toObject(): object {
     return {
@@ -188,9 +189,7 @@ export class Offer implements IOffer {
       pinUserRef: this.pinUserRef,
       requestRef: this.requestRef,
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
-      requestSnapshot: this.requestSnapshot
-        ? this.requestSnapshot.toObject()
-        : null,
+      requestSnapshot: this.requestSnapshot ? this.requestSnapshot.toObject() : null,
       message: this.message,
       status: this.status,
       createdAt: this.createdAt,
@@ -200,9 +199,17 @@ export class Offer implements IOffer {
   }
 }
 
-export const OfferFirestoreConverter: firebase.firestore.FirestoreDataConverter<Offer> = {
+export const OfferFirestoreConverter: FirestoreDataConverter<Offer> = {
   fromFirestore: (data: QueryDocumentSnapshot<IOffer>): Offer => {
     return Offer.factory(data.data());
   },
-  toFirestore: (modelObject: Offer): DocumentData => modelObject.toObject(),
+  toFirestore: (modelObject: Offer): DocumentData => ({
+    cavUserRef: modelObject.cavUserRef,
+    pinUserRef: modelObject.pinUserRef,
+    requestRef: modelObject.requestRef,
+    cavUserSnapshot: modelObject.cavUserSnapshot.toObject(),
+    message: modelObject.message,
+    status: modelObject.status,
+    createdAt: modelObject.createdAt.toDate(),
+  }),
 };

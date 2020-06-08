@@ -50,9 +50,9 @@
     "yup": "^0.28.3"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "cross-env SKIP_PREFLIGHT_CHECK=true HTTPS=true react-app-rewired start",
     "clean": "rm -rf build",
-    "build": "react-app-rewired build",
+    "build": "cross-env HTTPS=true react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "lint": "eslint . --ext .js,.ts,.tsx && prettier --check \"./src/**/*.{ts,tsx}\"",
@@ -62,10 +62,10 @@
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "eslint . --ext .js,.ts,.tsx",
-      "prettier --write"
+      "prettier --check"
     ],
     "*.md": [
-      "prettier --write"
+      "prettier --check"
     ]
   },
   "eslintConfig": {

@@ -284,8 +284,8 @@ export class Request implements IRequest {
     this._cavRatedAt = value;
   }
 
-  static factory = (data: IRequest): Request =>
-    new Request(
+  public static factory(data: IRequest): Request {
+    return new Request(
       data.pinUserRef,
       User.factory(data.pinUserSnapshot),
       data.title,
@@ -303,6 +303,7 @@ export class Request implements IRequest {
       data.pinRatedAt,
       data.cavRatedAt,
     );
+  }
 
   toObject(): object {
     return {

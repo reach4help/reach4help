@@ -18,11 +18,13 @@ const queueStatusUpdateTriggers = async (change: Change<firestore.DocumentSnapsh
   if (offerBefore?.status !== OfferStatus.accepted && offerAfter?.status === OfferStatus.accepted) {
     // Update Request with new status and CAV.
     operations.push(
-      offerAfter.requestRef.update({
-        cavUserRef: offerAfter.cavUserRef,
-        cavUserSnapshot: offerAfter.cavUserSnapshot,
-        status: RequestStatus.ongoing,
-      }),
+      offerAfter.requestRef
+        .update({
+          cavUserRef: offerAfter.cavUserRef,
+          cavUserSnapshot: offerAfter.cavUserSnapshot,
+          status: RequestStatus.ongoing,
+        })
+        .then(() => Promise.resolve()),
     );
 
     const request = Request.factory((await offerAfter.requestRef.get()).data() as IRequest);

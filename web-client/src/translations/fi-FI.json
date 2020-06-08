@@ -2,6 +2,7 @@
   "common": {
     "welcome": "Welcome",
     "continue": "Continue",
+    "verify": "Verify",
     "spinner": "Loading ...",
     "name": "Name",
     "full_name": "Full name",
@@ -19,10 +20,17 @@
       "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
       "facebookButtonLabel": "Continue with Facebook"
     },
+    "menuDrawer": {
+      "contactUs": "Contact us",
+      "logout": "Sign out",
+      "switchToCAV": "Switch to Volunteer",
+      "switchToPIN": "Switch to Person In Need"
+    },
     "phoneNumber": {
       "sub_title": "Enter your telephone number to begin",
       "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!"
+      "error_message": "Please input your phone number!",
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
     },
     "verificationCode": {
       "sub_title": "We just texted you a confirmation code. Please enter it below.",
@@ -46,13 +54,13 @@
       "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
       "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
       "policy_link": "Privacy & Security Policy.",
-      "accept_to_use_profile_pic": "I am Okay with letting Reach4Help use my Profile Pic",
+      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
       "terms_conditions_text": "I understand and acknowledge the ",
       "terms_conditions_link": "Terms & Conditions.",
       "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "You need to fill your name.",
-      "display_name_error_message": "You need to fill your display name.",
-      "address_error_message": "You need to fill your address.",
+      "full_name_error_message": "Please enter your name.",
+      "display_name_error_message": "Please enter your display name.",
+      "address_error_message": "Please enter your address.",
       "allow_send_notifications": "Would you like us to send you notifications and emails?"
     },
     "newRequest": {
@@ -60,9 +68,18 @@
       "icon_text": "I need help",
       "form": {
         "title": "Title",
+        "type": "Type",
+        "address": "Confirm Address",
         "body": "Enter details of what is needed",
         "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Send my need"
+        "submit": "Next",
+        "cancel": "Cancel",
+        "search": "Search",
+        "useMyLocation": "Use my location",
+        "address_error_message": "Please enter your address.",
+        "type_error_message": "You need to select a type.",
+        "other_error_message": "You need to enter details.",
+        "body_error_message": "Please enter your description."
       }
     },
     "newRequestSuccess": {
@@ -71,9 +88,15 @@
       "remember": "Remember",
       "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
     },
+    "requestReview": {
+      "submit": "Submit Request",
+      "back": "Back",
+      "deliveryAddress": "Delivery address"
+    },
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "How can we assist you ?",
+      "manifesto": "Uskomme, että kaikki mitä teemme on mielekästä. Uskomme pystymme mahdollistavat ihmisiä heidän yhteenkuuluvuuden tunnetta ja yhteisöä. Uskomme solidaarisuus tuo esiin parhaat yksilöt.",
       "info": "Please tell us what is your purpose to use Reach4Help",
       "info_pin": "I'm here because I need help",
       "c2a_pin": "Get help now!",

@@ -128,6 +128,7 @@ const OfferItem: React.FC<OfferItemProps> = ({
       <IconContainer>
         <EnvironmentOutlined />
       </IconContainer>
+      {/* TODO : Logic for using offer.address.coords for calculating the distance */}
       <TextIcon>5 KM</TextIcon>
     </IconsBlock>
     <ButtonsContainer>

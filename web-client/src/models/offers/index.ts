@@ -208,8 +208,8 @@ export class Offer implements IOffer {
     this._seenAt = value;
   }
 
-  static factory = (data: IOffer): Offer =>
-    new Offer(
+  public static factory(data: IOffer): Offer {
+    return new Offer(
       data.cavUserRef,
       data.pinUserRef,
       data.requestRef,
@@ -221,6 +221,7 @@ export class Offer implements IOffer {
       data.updatedAt,
       data.seenAt,
     );
+  }
 
   toObject(): object {
     return {

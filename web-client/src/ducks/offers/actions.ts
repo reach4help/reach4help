@@ -12,6 +12,7 @@ import {
   IgetOffers,
   IgetRequestOffers,
   OBSERVE_OFFERS,
+  RESET_SET,
   SET,
 } from './types';
 
@@ -72,3 +73,9 @@ export const setOffer = (payload: Offer | IOffer, offerId?: string) => (
     });
   }
 };
+
+export const resetSetOfferState = () => (dispatch: Function) =>
+  dispatch({
+    type: RESET_SET,
+    payload: true,
+  });
