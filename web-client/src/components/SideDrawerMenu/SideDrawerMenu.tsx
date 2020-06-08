@@ -101,6 +101,12 @@ const Wrapper = styled('div')<{ isCav?: boolean }>`
       &:after {
         display: none;
       }
+      &:hover {
+        color: white;
+        font-weight: 700;
+        background-color: ${props =>
+          props.isCav ? COLORS.link : COLORS.brandOrange};
+      }
     }
 
     .ant-menu-submenu {

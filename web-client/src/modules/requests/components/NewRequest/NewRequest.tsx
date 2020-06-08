@@ -46,6 +46,15 @@ const StyledFormItem = styled(Form.Item)`
   margin-bottom: 0;
 `;
 
+const MapActionButton = styled(Button)`
+  padding: 10px 10px 30px 10px;
+  border: 1px solid black;
+  border-radius: 17%;
+  &:hover {
+    background-color: #7cf9f5;
+  }
+`;
+
 const SubmitButton = styled(Button)`
   border-radius: 4px;
   width: 100%;
@@ -53,7 +62,12 @@ const SubmitButton = styled(Button)`
   white-space: nowrap;
   text-overflow: ellipsis;
   background-color: ${COLORS.secondary};
-  color: ${COLORS.white};
+  color: white;
+  &:hover {
+    color: ${COLORS.secondaryHover};
+    background-color: ${COLORS.white};
+    font-weight: 700;
+  }
 `;
 
 export const REQUEST_TYPES = {
@@ -145,38 +159,28 @@ const NewRequest: React.FC<NewRequestProps> = ({
             <Col span={5}>
               <Row justify="space-between" align="stretch">
                 <div style={{ display: 'inline-flex' }}>
-                  <div
-                    style={{
-                      padding: '5px',
-                      flex: 'left',
-                      border: '1px dotted black',
-                      borderRadius: '17%',
-                    }}
+                  <MapActionButton
                     onClick={() => setMapAddress(request.streetAddress)}
                   >
                     <img
                       src={SearchIcon}
-                      height="24px"
-                      width="24px"
+                      style={{
+                        maxHeight: '20px',
+                        maxWidth: '15px',
+                      }}
                       alt="Search for location"
                     />
-                  </div>
-                  <div
-                    onClick={() => setMyLocation()}
-                    style={{
-                      flex: 'right',
-                      padding: '5px',
-                      border: '1px dotted black',
-                      borderRadius: '17%',
-                    }}
-                  >
+                  </MapActionButton>
+                  <MapActionButton onClick={() => setMyLocation()}>
                     <img
                       src={MyLocationIcon}
-                      height="24px"
-                      width="24px"
+                      style={{
+                        maxHeight: '20px',
+                        maxWidth: '15px',
+                      }}
                       alt="Use my location"
                     />
-                  </div>
+                  </MapActionButton>
                 </div>
               </Row>
             </Col>
