@@ -7,6 +7,9 @@ import React, { useState } from 'react';
 
 import MyLocationIcon from './assets/MyLocationIcon.png';
 
+/* TODO: Get ControlPosition directly from GoogleMaps */
+const TOP_LEFT = 5;
+
 const LocateMeComponent = () => (
   <div
     style={{
@@ -22,7 +25,7 @@ const LocateMeComponent = () => (
 );
 
 const MyLocationControl: React.FC<MyLocationControlProps> = ({
-  controlPosition = 4,
+  controlPosition = TOP_LEFT,
   map,
   onClick,
 }) => {
