@@ -1,5 +1,6 @@
 import { Button, Col, Row } from 'antd';
 import React, { useState } from 'react';
+import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
@@ -214,7 +215,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
           </StyledText>
           <Row>
             <Col span={11}>
-              <StyledButton
+              <StepBackButton
                 loading={loading && actionPerformed === 2}
                 disabled={loading && actionPerformed !== 2}
                 onClick={() => {
@@ -223,10 +224,10 @@ const RequestItem: React.FC<RequestItemProps> = ({
                 }}
               >
                 Cannot Help
-              </StyledButton>
+              </StepBackButton>
             </Col>
             <Col span={11} offset={2}>
-              <StyledButton
+              <StepForwardButton
                 style={{
                   background: '#52C41A',
                   color: '#FFFFFF',
@@ -239,7 +240,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
                 }}
               >
                 Help {request.pinUserSnapshot.displayName}
-              </StyledButton>
+              </StepForwardButton>
             </Col>
           </Row>
         </Text>

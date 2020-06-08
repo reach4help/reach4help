@@ -1,10 +1,10 @@
 import { Button, Col, Form, Input, Row, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { StepForwardButton } from 'src/components/Buttons';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
-import { COLORS } from '../../../../theme/colors';
 import MyLocationIcon from '../../assets/gpslocation.svg';
 import SearchIcon from '../../assets/search.svg';
 import { RequestInput } from './RequestReview';
@@ -52,21 +52,6 @@ const MapActionButton = styled(Button)`
   border-radius: 17%;
   &:hover {
     background-color: #7cf9f5;
-  }
-`;
-
-const SubmitButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  background-color: ${COLORS.secondary};
-  color: white;
-  &:hover {
-    color: ${COLORS.secondaryHover};
-    background-color: ${COLORS.white};
-    font-weight: 700;
   }
 `;
 
@@ -223,9 +208,9 @@ const NewRequest: React.FC<NewRequestProps> = ({
           <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
           <Row>
             <Col span={24}>
-              <SubmitButton htmlType="submit">
+              <StepForwardButton htmlType="submit">
                 {t('newRequest.form.submit')}
-              </SubmitButton>
+              </StepForwardButton>
             </Col>
           </Row>
         </StyledForm>
