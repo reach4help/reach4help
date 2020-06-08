@@ -104,6 +104,23 @@
       "info_cav": "I'm here because I want to help people",
       "c2a_cav": "Start helping now!"
     },
+    "routeSubtitles": {
+      "_login": "Login",
+      "_phone": "Phone",
+      "_requests": "Requests",
+      "_personal-data": "Personal Data",
+      "_timeline": "Timeline",
+      "_personal-data_role-info": "Role Info",
+      "_phone_entry": "Enter Phone Number",
+      "_phone_verify": "Verifying Phone Number",
+      "_requests_accepted": "Accepted Requests",
+      "_requests_archived": "Closed Requests",
+      "_requests_find": "Find Requests",
+      "_requests_finished": "Completed Requests",
+      "_requests_new": "New Request",
+      "_requests_ongoing": "Ongoing Requests",
+      "_requests_open": "Open Requests"
+    },
     "timeline": {
       "open_status": "Open",
       "cav": "Volunteer",
