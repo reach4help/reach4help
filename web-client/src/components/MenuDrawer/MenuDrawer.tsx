@@ -76,6 +76,11 @@ const SideDrawer = styled(Drawer)`
     flex-direction: column;
     justify-content: space-between;
   }
+  .ant-drawer-close svg {
+    color: red;
+    width: 22px;
+    height: 22px;
+  }
 `;
 
 const BottomLinks = styled.div`
