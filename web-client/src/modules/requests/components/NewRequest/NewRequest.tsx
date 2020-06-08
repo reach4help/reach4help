@@ -1,10 +1,10 @@
 import { Button, Col, Form, Input, Row, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
-import { COLORS } from '../../../../theme/colors';
 import MyLocationIcon from '../../assets/gpslocation.svg';
 import SearchIcon from '../../assets/search.svg';
 import { RequestInput } from './RequestReview';
@@ -46,19 +46,6 @@ const StyledFormItem = styled(Form.Item)`
   margin-bottom: 0;
 `;
 
-const CancelButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  &:hover {
-    background-color: ${COLORS.backgroundAlternative};
-    color: white;
-    font-weight: 700;
-  }
-`;
-
 const MapActionButton = styled(Button)`
   padding: 10px 16px 30px 16px;
   border: 1px solid black;
@@ -66,21 +53,6 @@ const MapActionButton = styled(Button)`
   margin-right: 40px;
   &:hover {
     background-color: #7cf9f5;
-  }
-`;
-
-const SubmitButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  background-color: ${COLORS.secondary};
-  color: white;
-  &:hover {
-    color: ${COLORS.secondaryHover};
-    background-color: ${COLORS.white};
-    font-weight: 700;
   }
 `;
 
@@ -232,14 +204,14 @@ const NewRequest: React.FC<NewRequestProps> = ({
           <CharacterLimitDiv>150 Character Limit</CharacterLimitDiv>
           <Row>
             <Col span={11}>
-              <CancelButton onClick={() => onCancel()}>
+              <StepBackButton onClick={() => onCancel()}>
                 {t('newRequest.form.cancel')}
-              </CancelButton>
+              </StepBackButton>
             </Col>
             <Col span={11} offset={2}>
-              <SubmitButton htmlType="submit">
+              <StepForwardButton htmlType="submit">
                 {t('newRequest.form.submit')}
-              </SubmitButton>
+              </StepForwardButton>
             </Col>
           </Row>
         </StyledForm>
