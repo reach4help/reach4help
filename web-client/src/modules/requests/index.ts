@@ -60,8 +60,8 @@ const requestsModule: Module = {
         },
         {
           id: '2',
-          title: 'Accepted',
-          location: AcceptedRequestsLocation,
+          title: 'Open',
+          location: OpenRequestsLocation,
         },
         {
           id: '3',
