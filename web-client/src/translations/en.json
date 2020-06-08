@@ -12,7 +12,8 @@
     "address1": "Address line 1",
     "address2": "Address line 2 (optional)",
     "city": "City",
-    "code": "Postal Code",
+    "code": "Postal / Zip Code",
+    "State": "State / Province",
     "country": "Country",
     "login": {
       "title": "Reach4Help",
