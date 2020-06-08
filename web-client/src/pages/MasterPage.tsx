@@ -43,7 +43,9 @@ const MasterPage = (): ReactElement => {
       case '/requests/new':
       case '/requests/ongoing':
       case '/requests/open':
-        return title.concat(t(`routeSubtitles.${path.replace(/\//g, '_')}`));
+        return `${title}: `.concat(
+          t(`routeSubtitles.${path.replace(/\//g, '_')}`),
+        );
 
       /* TODO  Not currently working for timeline routes
             "/timeline/accepted/:requestId",
