@@ -22,7 +22,6 @@ import RequestConfirmation from '../../components/NewRequest/RequestConfirmation
 import RequestReview, {
   RequestInput,
 } from '../../components/NewRequest/RequestReview';
-import { FindRequestsLocation } from '../../pages/routes/FindRequestsRoute/constants';
 import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 const RequestDetails = styled.div`
@@ -137,7 +136,6 @@ const NewRequestsContainer: React.FC = () => {
         <RequestDetails>
           <NewRequest
             onSubmit={newRequestSubmitHandler}
-            onCancel={() => history.push(FindRequestsLocation.path)}
             request={request}
             setStreetAddress={setMapAddress}
             setMapAddress={() => setStartGeocode(true)}

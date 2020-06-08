@@ -93,6 +93,7 @@ export interface RequestItemProps {
   isCavAndOpenRequest: boolean;
   hideUserPic?: boolean;
   offers?: Record<string, Offer>;
+  loading?: boolean;
   toCloseRequest?: (action?: boolean) => void;
   isPinAndOpenRequest?: boolean;
 }
@@ -105,8 +106,10 @@ const RequestItem: React.FC<RequestItemProps> = ({
   offers = {},
   hideUserPic,
   toCloseRequest,
+  loading = false,
 }): React.ReactElement => {
   const [displayDetails, toggleDetails] = useState(false);
+  const [actionPerformed, setActionPerformed] = useState(0); // 0 - Nothing, 1 - Accept, 2 - Reject
 
   const handleRequestClick = () => {
     if (isCavAndOpenRequest) {
@@ -211,7 +214,14 @@ const RequestItem: React.FC<RequestItemProps> = ({
           </StyledText>
           <Row>
             <Col span={11}>
-              <StyledButton onClick={() => handleRequest(false)}>
+              <StyledButton
+                loading={loading && actionPerformed === 2}
+                disabled={loading && actionPerformed !== 2}
+                onClick={() => {
+                  setActionPerformed(2);
+                  handleRequest(false);
+                }}
+              >
                 Cannot Help
               </StyledButton>
             </Col>
@@ -221,7 +231,12 @@ const RequestItem: React.FC<RequestItemProps> = ({
                   background: '#52C41A',
                   color: '#FFFFFF',
                 }}
-                onClick={() => handleRequest(true)}
+                loading={loading && actionPerformed === 1}
+                disabled={loading && actionPerformed !== 1}
+                onClick={() => {
+                  setActionPerformed(1);
+                  handleRequest(true);
+                }}
               >
                 Help {request.pinUserSnapshot.displayName}
               </StyledButton>

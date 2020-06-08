@@ -46,24 +46,10 @@ const StyledFormItem = styled(Form.Item)`
   margin-bottom: 0;
 `;
 
-const CancelButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  &:hover {
-    background-color: ${COLORS.backgroundAlternative};
-    color: white;
-    font-weight: 700;
-  }
-`;
-
 const MapActionButton = styled(Button)`
-  padding: 10px 16px 30px 16px;
+  padding: 10px 10px 30px 10px;
   border: 1px solid black;
   border-radius: 17%;
-  margin-right: 40px;
   &:hover {
     background-color: #7cf9f5;
   }
@@ -91,7 +77,6 @@ export const REQUEST_TYPES = {
 
 const NewRequest: React.FC<NewRequestProps> = ({
   onSubmit,
-  onCancel,
   request,
   setStreetAddress,
   setMapAddress,
@@ -156,7 +141,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
             );
           }}
         >
-          <Row justify="space-between" align="bottom">
+          <Row justify="space-between" align="middle">
             <Col span={18}>
               <StyledFormItem
                 name="streetAddress"
@@ -172,26 +157,32 @@ const NewRequest: React.FC<NewRequestProps> = ({
               </StyledFormItem>
             </Col>
             <Col span={5}>
-              <StyledFormItem>
-                <MapActionButton
-                  onClick={() => setMapAddress(request.streetAddress)}
-                >
-                  <img
-                    src={SearchIcon}
-                    height="24px"
-                    width="24px"
-                    alt="Search for location"
-                  />
-                </MapActionButton>
-                <MapActionButton onClick={() => setMyLocation()}>
-                  <img
-                    src={MyLocationIcon}
-                    height="24px"
-                    width="24px"
-                    alt="Use my location"
-                  />
-                </MapActionButton>
-              </StyledFormItem>
+              <Row justify="space-between" align="stretch">
+                <div style={{ display: 'inline-flex' }}>
+                  <MapActionButton
+                    onClick={() => setMapAddress(request.streetAddress)}
+                  >
+                    <img
+                      src={SearchIcon}
+                      style={{
+                        maxHeight: '20px',
+                        maxWidth: '15px',
+                      }}
+                      alt="Search for location"
+                    />
+                  </MapActionButton>
+                  <MapActionButton onClick={() => setMyLocation()}>
+                    <img
+                      src={MyLocationIcon}
+                      style={{
+                        maxHeight: '20px',
+                        maxWidth: '15px',
+                      }}
+                      alt="Use my location"
+                    />
+                  </MapActionButton>
+                </div>
+              </Row>
             </Col>
           </Row>
           <Form.Item
@@ -226,17 +217,12 @@ const NewRequest: React.FC<NewRequestProps> = ({
           >
             <Input.TextArea
               placeholder={t('newRequest.form.body')}
-              maxLength={150}
+              maxLength={500}
             />
           </StyledFormItem>
-          <CharacterLimitDiv>150 Character Limit</CharacterLimitDiv>
+          <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
           <Row>
-            <Col span={11}>
-              <CancelButton onClick={() => onCancel()}>
-                {t('newRequest.form.cancel')}
-              </CancelButton>
-            </Col>
-            <Col span={11} offset={2}>
+            <Col span={24}>
               <SubmitButton htmlType="submit">
                 {t('newRequest.form.submit')}
               </SubmitButton>
@@ -252,7 +238,6 @@ const NewRequest: React.FC<NewRequestProps> = ({
 
 interface NewRequestProps {
   onSubmit: Function;
-  onCancel: Function;
   request: RequestInput;
   setStreetAddress: (string: string) => void;
   setMapAddress: (string: string) => void;

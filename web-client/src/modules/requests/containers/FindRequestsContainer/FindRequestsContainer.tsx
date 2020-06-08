@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import LoadingWrapper from '../../../../components/LoadingWrapper/LoadingWrapper';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -73,7 +74,11 @@ const FindRequestsContainer: React.FC = () => {
       (!setRequestState.loading && setRequestState.success) ||
       (!setOfferState.loading && setOfferState.success)
     ) {
-      dispatch(resetSetRequestState());
+      // because I could observe race conditions in cloud function
+      setTimeout(() => {
+        dispatch(resetSetRequestState());
+        setExpandedRequestId(undefined);
+      }, 1000);
     }
   }, [setRequestState, setOfferState, dispatch]);
 
@@ -154,7 +159,6 @@ const FindRequestsContainer: React.FC = () => {
           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
         }),
       );
-      setExpandedRequestId(undefined);
     }
   };
 
@@ -171,6 +175,7 @@ const FindRequestsContainer: React.FC = () => {
           <RequestItem
             request={request}
             handleRequest={handleRequestForAcceptReject}
+            loading={setOfferState.loading}
             isCavAndOpenRequest
           />
         </RequestDetails>
@@ -183,6 +188,13 @@ const FindRequestsContainer: React.FC = () => {
     setBannerMessage(address);
     setCurrentLocation(latLng);
   };
+
+  if (
+    !pendingRequestsWithOffersAndTimeline.data ||
+    pendingRequestsWithOffersAndTimeline.loading
+  ) {
+    return <LoadingWrapper />;
+  }
 
   return (
     <>

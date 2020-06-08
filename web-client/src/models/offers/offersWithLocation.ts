@@ -28,7 +28,9 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
     message: string,
     status: OfferStatus,
     address: IUserAddress,
-    createdAt = firestore.Timestamp.now(),
+    createdAt?: firebase.firestore.Timestamp,
+    updatedAt?: firebase.firestore.Timestamp,
+    seenAt?: firebase.firestore.Timestamp | null,
   ) {
     super(
       cavUserRef,
@@ -39,6 +41,8 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       message,
       status,
       createdAt,
+      updatedAt,
+      seenAt,
     );
     this._address = address;
   }
@@ -104,6 +108,18 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
             (data.createdAt as any)._nanoseconds,
           )
         : data.createdAt,
+      data.updatedAt
+        ? new firestore.Timestamp(
+            (data.updatedAt as any)._seconds,
+            (data.createdAt as any)._nanoseconds,
+          )
+        : data.updatedAt,
+      data.seenAt
+        ? new firestore.Timestamp(
+            (data.seenAt as any)._seconds,
+            (data.seenAt as any)._nanoseconds,
+          )
+        : data.seenAt,
     );
   }
 
@@ -117,6 +133,8 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       status: this.status,
       address: this.address,
       createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      seenAt: this.seenAt,
     };
   }
 }

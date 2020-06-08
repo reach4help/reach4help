@@ -85,6 +85,13 @@ const SideDrawer = styled(Drawer)`
   }
 `;
 
+const BottomLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  color: inherit;
+`;
+
 const BottomLinkItem = styled('div')<{ isCav?: boolean }>`
   color: inherit;
   margin-bottom: 10px;
@@ -93,18 +100,12 @@ const BottomLinkItem = styled('div')<{ isCav?: boolean }>`
   svg {
     margin-right: 10px;
   }
-  &:hover {
+  &::hover {
     color: white;
     font-weight: 700;
     background-color: ${props =>
       props.isCav ? COLORS.link : COLORS.brandOrange};
   }
-`;
-const BottomLinks = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 15px;
-  color: inherit;
 `;
 
 interface MenuDrawerProps {

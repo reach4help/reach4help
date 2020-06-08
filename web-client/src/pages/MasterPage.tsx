@@ -10,6 +10,7 @@ import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
+import { Module } from 'src/types/module';
 
 import { AuthState } from '../ducks/auth/types';
 import { updateUserProfile } from '../ducks/profile/actions';
@@ -40,11 +41,15 @@ const MasterPage = (): ReactElement => {
     }
   };
 
-  const renderLayout = routeModule => {
+  const renderLayout = (routeModule: Module) => {
     if (routeModule.layout === 'dashboard' && userProfile) {
       return (
         <DashboardLayout
-          menuItems={routeModule.menuItems}
+          menuItems={
+            routeModule.dynamicMenuLinks
+              ? routeModule.dynamicMenuLinks(profileState)
+              : routeModule.menuItems
+          }
           profileData={userProfile}
           isCav={userProfile?.applicationPreference === 'cav'}
           logoutHandler={() => dispatch(signOutCurrentUserAction())}
