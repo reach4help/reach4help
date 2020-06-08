@@ -7,7 +7,7 @@ module.exports = {
     secondaryLight: '#FFCB52',
     link: '#7D00A3',
     highlight: '#FFA32A',
-    faded: '#8e8e8e',
+    faded: '#767676',
     // TODO: We should rethink this name
     backgroundAlternative: '#F27979',
     backgroundLightGray: '#0000000d',
