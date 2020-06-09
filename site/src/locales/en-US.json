@@ -37,7 +37,7 @@
       ],
       "buttons": ["You’re the help next door. Join us!"]
     },
-
+    "Privacy": "This is a privacy policy",
     "Footer": {
       "sections": ["Privacy Policy"]
     }

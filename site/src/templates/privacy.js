@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from "react"
+import { graphql } from "gatsby"
 
 import SEO from "src/components/seo"
 import Layout from "src/components/layout"
@@ -12,13 +14,17 @@ const navSections = [
   { title: "Map", link: "/#mission" },
 ]
 
-function PrivacyPage() {
+function PrivacyPage({
+  data: {
+    markdownRemark: { html },
+  },
+}) {
   return (
     <Layout>
       <SEO title="Privacy Policy" />
       <Header navSections={navSections} />
       <div className="sections">
-        <Privacy />
+        <Privacy html={html} />
       </div>
       <Footer />
     </Layout>
@@ -26,3 +32,11 @@ function PrivacyPage() {
 }
 
 export default PrivacyPage
+
+export const query = graphql`
+  query PrivacyContent($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      html
+    }
+  }
+`
