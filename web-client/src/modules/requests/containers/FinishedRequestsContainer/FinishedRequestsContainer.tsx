@@ -45,7 +45,7 @@ const CompletedRequestsContainer: React.FC = () => {
   return (
     <>
       <Header
-        requestsType="Completed"
+        requestsType="Finished"
         numRequests={
           Object.keys(finishedRequestsWithOffersAndTimeline.data || {}).length
         }
