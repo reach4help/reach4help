@@ -33,7 +33,7 @@ const ClosedRequestsContainer: React.FC = () => {
   return (
     <>
       <Header
-        requestsType="Closed"
+        requestsType="Archived"
         numRequests={
           Object.keys(archivedRequestsWithOffersAndTimeline.data || {}).length
         }

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Redirect,
@@ -23,16 +23,37 @@ const MasterPage = (): ReactElement => {
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
+  const [changeRolePast, setChangeRolePast] = useState<
+    ApplicationPreference | undefined
+  >(undefined);
   const userProfile = profileState.profile;
 
   const dispatch = useDispatch();
+  // const history = useHistory();
 
   const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
+
+  useEffect(() => {
+    if (
+      !(profileState.error && profileState.loading) &&
+      profileState.updateAction &&
+      changeRolePast &&
+      userProfile &&
+      userProfile.applicationPreference
+    ) {
+      if (changeRolePast !== userProfile.applicationPreference) {
+        window.location.href = '/';
+      }
+    }
+  }, [userProfile, changeRolePast, profileState]);
 
   const toggleApplicationPreference = () => {
     const user = profileState.profile;
     if (user && authState.user) {
       const currentPreference = user.applicationPreference;
+      if (currentPreference) {
+        setChangeRolePast(currentPreference);
+      }
       user.applicationPreference =
         currentPreference === ApplicationPreference.cav
           ? ApplicationPreference.pin
