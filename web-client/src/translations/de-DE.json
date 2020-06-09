@@ -2,7 +2,7 @@
   "common": {
     "welcome": "Willkommen",
     "continue": "Weiter",
-    "verify": "Verify",
+    "verify": "Überprüfen",
     "spinner": "Wird geladen ...",
     "name": "Name",
     "full_name": "Vollständiger Name",
@@ -21,16 +21,16 @@
       "facebookButtonLabel": "Über Facebook anmelden"
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
-      "switchToCAV": "Switch to Volunteer",
-      "switchToPIN": "Switch to Person In Need"
+      "contactUs": "Kontaktieren Sie uns",
+      "logout": "Abmelden",
+      "switchToCAV": "Zu Freiwilligen wechseln",
+      "switchToPIN": "Zu Person in Not wechseln"
     },
     "phoneNumber": {
       "sub_title": "Geben Sie zunächst Ihre Telefonnummer ein:",
       "info": "Diese Information ist notwendig, um Ihr Nutzerkonto zu bestätigen. Es können Kosten für die Verbindung anfallen.",
       "error_message": "Bitte geben Sie Ihre Telefonnummer ein!",
-      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
+      "phone_valid": "Eine gültige Telefonnummer beginnt mit + und der Landesvorwahl ohne Leerzeichen oder andere Sonderzeichen im Feld!"
     },
     "verificationCode": {
       "sub_title": "Wir haben Ihnen einen Bestätigungscode gesendet. Bitte geben Sie diesen unten ein.",
@@ -54,13 +54,13 @@
       "instructions_modal_text": "Sie können Ihren Standort manuell hinzufügen. Es würde uns jedoch helfen die Position genauer zu bestimmen, wenn Sie die Geolokalisierung verwenden. Wenn Sie diese also wieder aktivieren möchten, folgen Sie dem Link:",
       "policy_text": "Wir benötigen diese Informationen, um sicherzustellen, dass die Hilfe das richtige Ziel erreicht. Wenn Sie weitere Zweifel haben, lesen Sie bitte unsere ",
       "policy_link": "Datenschutz- und Sicherheitsrichtlinien.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
+      "accept_to_use_profile_pic": "Ich akzeptiere, dass Reach4Help mein Profilbild verwendet.",
       "terms_conditions_text": "Ich verstehe und akzeptiere die ",
       "terms_conditions_link": "Vertrags- und Geschäftsbedingungen.",
       "terms_conditions_error": "Sie müssen den Vertrags- und Geschäftsbedingungen zustimmen.",
-      "full_name_error_message": "Please enter your name.",
-      "display_name_error_message": "Please enter your display name.",
-      "address_error_message": "Please enter your address.",
+      "full_name_error_message": "Bitte geben Sie Ihren Namen ein.",
+      "display_name_error_message": "Bitte geben Sie Ihren Benutzernamen ein.",
+      "address_error_message": "Bitte geben Sie Ihre Adresse ein.",
       "allow_send_notifications": "Möchten Sie, dass wir Ihnen Benachrichtigungen und E-Mails zusenden?"
     },
     "newRequest": {
