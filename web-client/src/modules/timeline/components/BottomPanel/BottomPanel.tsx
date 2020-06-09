@@ -3,9 +3,10 @@ import {
   StarFilled,
   StarOutlined,
 } from '@ant-design/icons';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import StarRadioGroup from 'src/components/StarRadioGroup/StarRadioGroup';
 import { Request, RequestStatus } from 'src/models/requests';
 import { User } from 'src/models/users';
@@ -67,29 +68,29 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
     <>
       {!showRating && !finishedRequest && isCav && (
         <ButtonContainer>
-          <Button
+          <StepBackButton
             onClick={() => handleRequest({ status: RequestStatus.cancelled })}
           >
             {t('timeline.cancelRequest')}
-          </Button>
+          </StepBackButton>
           {isCav && (
-            <PrimaryButton
+            <StepForwardButton
               onClick={(): void => setRequestModalVisible(true)}
               icon={<FileProtectOutlined />}
             >
               {t('timeline.finishRequest')}
-            </PrimaryButton>
+            </StepForwardButton>
           )}
         </ButtonContainer>
       )}
 
       {request.status === RequestStatus.pending && (
         <ButtonContainer>
-          <Button
+          <StepBackButton
             onClick={() => handleRequest({ status: RequestStatus.cancelled })}
           >
             {t('timeline.cancelRequest')}
-          </Button>
+          </StepBackButton>
         </ButtonContainer>
       )}
 
@@ -104,13 +105,13 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
           </StarContainer>
 
           <div>
-            <PrimaryButton
+            <StepForwardButton
               disabled={!rating}
               onClick={onSubmitRating}
               icon={<StarOutlined />}
             >
               {t('timeline.submitRatingButton')}
-            </PrimaryButton>
+            </StepForwardButton>
           </div>
         </MiddleAlignedColumn>
       )}
@@ -134,9 +135,12 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
         </FlexDiv>
 
         <div>
-          <ButtonRight onClick={onFinishRequest} icon={<FileProtectOutlined />}>
+          <StepForwardButton
+            onClick={onFinishRequest}
+            icon={<FileProtectOutlined />}
+          >
             {t('timeline.finishRequest')}
-          </ButtonRight>
+          </StepForwardButton>
         </div>
       </Modal>
 
@@ -192,34 +196,32 @@ const ButtonContainer = styled(FlexDiv)`
     width: 100%;
   }
 `;
+/* TODO:  Check if there is any useful code here
+This was the original code but wasn't working well.
+PrimaryButton has been replaced with ButtonForward
 
 const PrimaryButton = styled(Button)`
   background-color: ${COLORS.success};
   border-color: ${COLORS.success};
   color: white;
 
-  :nth-of-type(2) {
+  &:nth-of-type(2) {
     margin-left: 12px;
   }
 
-  :hover {
+  &:hover {
     background-color: ${COLORS.success};
     border-color: ${COLORS.success};
     color: white;
   }
 
-  :focus {
+  &:focus {
     background-color: ${COLORS.success};
     border-color: ${COLORS.success};
     color: white;
   }
 `;
-
-const ButtonRight = styled(PrimaryButton)`
-  margin-left: auto;
-  display: block;
-`;
-
+*/
 const StarContainer = styled('div')`
   padding-bottom: 1em;
 `;
