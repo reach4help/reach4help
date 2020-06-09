@@ -1,5 +1,6 @@
 import React from "react"
 // import { graphql, useStaticQuery } from "gatsby"
+import { useTranslation } from "react-i18next"
 
 import Logo from "src/assets/logo.svg"
 import Button from "src/components/button"
@@ -14,16 +15,18 @@ import {
 } from "./style"
 
 function Home() {
+  const { t } = useTranslation()
+
+  console.log(t("Home.heading"))
+
   return (
     <Wrapper id="home">
       <LogoWrapper>
         <img src={Logo} alt="Reach4Help Logo" />
         <LogoType className="logo-type" />
       </LogoWrapper>
-      <h2>We connect people in need to people who can help.</h2>
-      <h3>
-        We are launching on <b>Saturday, June 13!</b>
-      </h3>
+      <h2>{t("Home.heading")}</h2>
+      <h3>{t("Home.subheading")}</h3>
       <Countdown date="2020-06-13" />
       {/* <ContentWrapper
         dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
