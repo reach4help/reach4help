@@ -33,7 +33,10 @@
       ],
       "buttons": ["Tu és a ajuda de proximidade. Junta-te a nós!"]
     },
-
+    "Partners": {
+      "heading": "Parceiros",
+      "subheading": "Queremos agradecer a todos as marcas, empresas e comunidades que nos ajudaram na nossa missão"
+    },
     "Footer": {
       "sections": ["Política de Privacidade"]
     }

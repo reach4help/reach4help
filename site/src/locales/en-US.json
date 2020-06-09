@@ -25,7 +25,10 @@
         "<strong>OUR GOAL</strong> is to enable those in need to receive help, and enable partner groups and organizations to help more efficiently, by mobilizing their volunteers with the help of our own system."
       ]
     },
-
+    "Partners": {
+      "heading": "Partners",
+      "subheading": "We want to thank all the brands, companies, and community supporters that have helped us on our mission."
+    },
     "Team": {
       "heading": "Team",
       "subheading": "We’re looking for more people to join our teams, if you’d like to join.",
