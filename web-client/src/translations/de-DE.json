@@ -68,18 +68,18 @@
       "icon_text": "Ich benötige Hilfe.",
       "form": {
         "title": "Position",
-        "type": "Type",
-        "address": "Confirm Address",
+        "type": "Typ",
+        "address": "Adresse bestätigen",
         "body": "Geben Sie die erforderlichen Daten an.",
         "consent": "Ich erlaube Push-Nachrichten. Sie können dies jederzeit in den Einstellungen ändern.",
-        "submit": "Next",
-        "cancel": "Cancel",
-        "search": "Search",
-        "useMyLocation": "Use my location",
-        "address_error_message": "Please enter your address.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "submit": "Weiter",
+        "cancel": "Abbrechen",
+        "search": "Suchen",
+        "useMyLocation": "Meinen Standort verwenden",
+        "address_error_message": "Bitte geben Sie Ihre Adresse ein.",
+        "type_error_message": "Sie müssen einen Typ auswählen.",
+        "other_error_message": "Sie müssen etwas eingeben.",
+        "body_error_message": "Bitte geben Sie Ihre Beschreibung ein."
       }
     },
     "newRequestSuccess": {
@@ -89,14 +89,14 @@
       "remember_info": "Sobald ein(e) Freiwillige(r) Hilfe anbietet, müssen Sie zunächst die Hilfe annehmen, damit diese(r) Ihre Kontaktinformationen sehen kann."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
-      "deliveryAddress": "Delivery address"
+      "submit": "Anfrage absenden",
+      "back": "Zurück",
+      "deliveryAddress": "Lieferanschrift"
     },
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "Wie können wir Ihnen helfen?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
+      "manifesto": "Wir glauben unser Handeln immer einen Sinn hat und wir in der Lage sind, im Menschen das Gefühl für Zusammengehörigkeit und Gemeinschaft zu fördern. Außerdem glauben wir, dass Solidarität das Beste im Einzelnen hervorbringt.",
       "info": "Bitte teilen Sie uns mit, warum Sie Reach4Help verwenden.",
       "info_pin": "Ich bin hier, weil ich Hilfe benötige.",
       "c2a_pin": "Jetzt Hilfe erhalten!",
