@@ -71,6 +71,11 @@ const SideDrawer = styled(Drawer)`
     padding: 10px;
     background: #f8f8f8;
   }
+  .ant-drawer-close svg {
+    color: red;
+    width: 22px;
+    height: 22px;
+  }
 `;
 
 interface NotificationsDrawerProps {
