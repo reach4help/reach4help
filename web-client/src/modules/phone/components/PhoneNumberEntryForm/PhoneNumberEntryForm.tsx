@@ -46,13 +46,14 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   const [numberINValidMessage, setNumberINValidMessage] = useState<string>('');
 
   const fullTelephoneValidator = (value, isDigits = false) => {
+    /* TODO:  Check if this conditional is needed */
     if (!value) {
       if (isDigits) {
         return Promise.reject(t('phoneNumber.error_message'));
       }
-      /* TODO:  Different error for no country code -- not sure if condition will occur */
       return Promise.reject(t('phoneNumber.error_message'));
     }
+
     let countryCode;
     let number;
     if (isDigits) {
@@ -62,18 +63,31 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       countryCode = value;
       number = digits;
     }
+
+    if (!countryCode) {
+      setNumberINValidMessage(t('phoneNumber.no_country_error'));
+      setNumberValidMessage('');
+      return Promise.reject();
+    }
+
+    if (!number) {
+      setNumberINValidMessage(t('phoneNumber.no_digits_error'));
+      setNumberValidMessage('');
+      return Promise.reject();
+    }
+
     const fullTelephone = `+${countryCode}${number}`;
 
     const pnv = new PhoneNumberValidator(fullTelephone);
     if (pnv.isValid() && pnv.canBeInternationallyDialled()) {
       setNumberValidMessage(
-        `The telephone number ${fullTelephone} is a valid number`,
+        `${fullTelephone} ${t('phoneNumber.is_valid_number')}`,
       );
       setNumberINValidMessage('');
       return Promise.resolve();
     }
     setNumberINValidMessage(
-      `The telephone number ${fullTelephone} is not valid.`,
+      `${fullTelephone} ${t('phoneNumber.is_not_valid_number')}`,
     );
     setNumberValidMessage('');
     return Promise.reject();
@@ -118,6 +132,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     margin: auto;
     border: 2px solid ${COLORS.error};
     padding: 10px;
+    text-align: center;
   `;
   const SuccessDisplay = styled.div`
     color: ${COLORS.green};
@@ -126,16 +141,15 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     margin: auto;
     border: 2px solid ${COLORS.green};
     padding: 10px;
+    text-align: center;
   `;
 
   const FormLabel = styled.div`
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 15px;
-    line-height: 167%;
-    display: flex;
-    align-items: center;
+    font-size: 12px;
+    line-height: 20px;
     color: rgba(0, 0, 0, 0.65);
     margin-top: 5px;
   `;
@@ -144,8 +158,8 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
-    line-height: 140%;
+    font-size: 20px;
+    line-height: 28px;
     text-align: center;
     color: rgba(0, 0, 0, 0.85);
     margin-top: 30px;
@@ -169,7 +183,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     >
       <Instructions>{t('phoneNumber.sub_title')}</Instructions>
 
-      <FormLabel>Your Country</FormLabel>
+      <FormLabel>{t('phoneNumber.country_label')}</FormLabel>
       <Form.Item
         name="dialCode"
         rules={[
@@ -181,7 +195,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
         <Select
           showSearch
           style={{ width: 200 }}
-          placeholder="Pick a country"
+          placeholder={t('phoneNumber.country_placeholder')}
           optionFilterProp="children"
           filterOption={(input, option) =>
             option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -189,20 +203,20 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           onChange={v => setDialCode(v.toString())}
         >
           {allCountries.map(c => (
-            <Option key={c.name} value={c.dialCode}>
+            <Option key={c.iso2} value={c.dialCode}>
               {c.name}
             </Option>
           ))}
         </Select>
       </Form.Item>
 
-      <FormLabel>Enter your phone number</FormLabel>
+      <FormLabel>{t('phoneNumber.phone_label')}</FormLabel>
       <Form.Item
         style={{ textAlign: 'center' }}
         name="digits"
         rules={[
           {
-            validator: (_, value) => fullTelephoneValidator(value, false),
+            validator: (_, value) => fullTelephoneValidator(value, true),
           },
         ]}
       >
