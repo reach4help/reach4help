@@ -36,7 +36,10 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
     <TopPanelWrapper>
       <NavRow>
         <Link to="/">
-          <img src={NavBackIcon} alt="back navigation icon" />
+          <img
+            src={NavBackIcon}
+            alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}
+          />
         </Link>
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
           {userRequestStatus === RequestStatus.pending
@@ -46,7 +49,10 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
       </NavRow>
       <UserRow>
         {user && user.displayPicture ? (
-          <DisplayPhoto src={user.displayPicture} alt="display photo" />
+          <DisplayPhoto
+            src={user.displayPicture}
+            alt={t('modules.navigation.components.TopPanel.a11y_display_photo')}
+          />
         ) : (
           <EmptyPhoto />
         )}
@@ -78,7 +84,12 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
                   </span>
                 </InfoDetail>
                 <InfoDetail className={isCav ? 'cav' : 'pin'}>
-                  <img src={LocationIcon} alt="location icon" />
+                  <img
+                    src={LocationIcon}
+                    alt={t(
+                      'modules.navigation.components.TopPanel.a11y_location_icon',
+                    )}
+                  />
                   {/* TODO : Logic for calculating distance from request.latLng */}
                   <span>5 Miles</span>
                 </InfoDetail>
@@ -87,7 +98,10 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
           </Detail>
           {userRequestStatus === RequestStatus.ongoing ||
           userRequestStatus === RequestStatus.completed ? (
-            <img src={PhoneIcon} alt="phone icon" />
+            <img
+              src={PhoneIcon}
+              alt={t('modules.navigation.components.TopPanel.a11y_phone_icon')}
+            />
           ) : null}
         </UserDetails>
       </UserRow>

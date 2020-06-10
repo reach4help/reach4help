@@ -100,7 +100,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
             marginBottom: '10px',
           }}
         >
-          Choose from the following volunteers to fulfill your request.
+          {t('modules.requests.AcceptedRequestItem.choose_volunteer')}
         </StyledText>
         <div style={{ display: 'flex' }}>
           {displayOfferPics()}

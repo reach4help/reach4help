@@ -1,5 +1,6 @@
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -35,6 +36,7 @@ const RequestDetails = styled.div`
 `;
 
 const FindRequestsContainer: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const [expandedRequestId, setExpandedRequestId] = useState<
@@ -155,7 +157,9 @@ const FindRequestsContainer: React.FC = () => {
           requestSnapshot: pendingRequestsWithOffersAndTimeline.data[
             expandedRequestId
           ].getRequest(),
-          message: 'I want to help!',
+          message: t(
+            'modules.requests.containers.FindRequestsContainer.want_to_help',
+          ),
           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
         }),
       );

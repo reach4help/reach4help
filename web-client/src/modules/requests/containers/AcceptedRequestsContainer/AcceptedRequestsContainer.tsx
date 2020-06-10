@@ -40,7 +40,9 @@ const OpenRequestsContainer: React.FC = () => {
   return (
     <>
       <Header
-        requestsType="Accepted"
+        requestsType={t(
+          'modules.requests.containers.AcceptedRequestsContainer.accepted',
+        )}
         numRequests={
           Object.keys(acceptedRequestsWithOffersAndTimeline.data || {}).length
         }

@@ -1,6 +1,7 @@
 import { firestore } from 'firebase';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -30,7 +31,8 @@ const RequestDetails = styled.div`
 `;
 
 const NewRequestsContainer: React.FC = () => {
-  const history = useHistory();
+      const { t } = useTranslation();
+const history = useHistory();
 
   const [requestInfo, setRequestInfo] = useState<RequestInput | undefined>(
     undefined,
@@ -77,14 +79,19 @@ const NewRequestsContainer: React.FC = () => {
       profileState.privilegedInformation
     ) {
       const title =
-        request.type === 'Deliveries' ? request.type : request.other;
+        request.type ===
+        t('modules.requests.containers.NewRequestsContainer.deliveries')
+          ? request.type
+          : request.other;
 
       dispatch(
         setRequest({
           title,
           description: request.description,
           pinUserRef: profileState.userRef,
-          streetAddress: mapAddress || 'Unable to find address',
+          streetAddress:
+            mapAddress ||
+            t('modules.requests.containers.NewRequestsContainer.address_error'),
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: new firestore.GeoPoint(
             currentLocation.lat,
@@ -102,6 +109,8 @@ const NewRequestsContainer: React.FC = () => {
     address: string,
     other: string,
   ) => {
+/*    const { t } = useTranslation(); */
+
     setRequestInfo({
       type,
       streetAddress: address,
@@ -127,7 +136,9 @@ const NewRequestsContainer: React.FC = () => {
     if (!showReviewPage) {
       const request = {
         streetAddress: mapAddress,
-        type: requestInfo ? requestInfo.type : 'Deliveries',
+        type: requestInfo
+          ? requestInfo.type
+          : 'Deliveries',
         other: requestInfo ? requestInfo.other : '',
         description: requestInfo ? requestInfo.description : '',
       };
