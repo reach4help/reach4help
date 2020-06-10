@@ -4295,6 +4295,11 @@ autoprefixer@^9.6.1, autoprefixer@^9.7.6:
     postcss "^7.0.30"
     postcss-value-parser "^4.1.0"
 
+awesome-phonenumber@^2.34.0:
+  version "2.34.0"
+  resolved "https://registry.yarnpkg.com/awesome-phonenumber/-/awesome-phonenumber-2.34.0.tgz#c5170e40173b6c506d28a3ca79d3439ca71671c6"
+  integrity sha512-P2ckagK5jen79wOqT+vEngJ1Zx5PCRaaBtu2CiCOBjaVjIDm27hewDiAMqxEwZ3fhtzq6l0WDtIiK56lTvC5dA==
+
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -6288,6 +6293,11 @@ cosmiconfig@^6.0.0:
     parse-json "^5.0.0"
     path-type "^4.0.0"
     yaml "^1.7.2"
+
+country-telephone-data@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/country-telephone-data/-/country-telephone-data-0.6.2.tgz#591a82a4ec605a2ab72537425c59a537c10b1990"
+  integrity sha512-DWlv73QKnPLSyGX3lmWVnn7ZIeM/z+Mv1v1pR0fsUMka0/ICDxwAzC2MRsUaNWQKS5a/J5MOm5GcLomDhWJ3Yg==
 
 crc32-stream@^3.0.1:
   version "3.0.1"
