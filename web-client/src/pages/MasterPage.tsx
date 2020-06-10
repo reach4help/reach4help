@@ -109,7 +109,7 @@ const MasterPage = (): ReactElement => {
             <title>{titleFromPath()}</title>
           </Helmet>
           <DashboardLayout
-          menuItems={
+            menuItems={
               routeModule.dynamicMenuLinks
                 ? routeModule.dynamicMenuLinks(profileState)
                 : routeModule.menuItems
