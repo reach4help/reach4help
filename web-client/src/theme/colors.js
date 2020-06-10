@@ -1,5 +1,9 @@
 module.exports = {
   COLORS: {
+    stepForwardNormal: '#52c41a',
+    stepForwardEnhanced: '#398912',
+    stepBackwardNormal: '#ff7b02',
+    stepBackwardEnhanced: '#b35601',
     primary: '#a12596',
     primaryDark: '#811e78',
     secondary: '#52c41a',
