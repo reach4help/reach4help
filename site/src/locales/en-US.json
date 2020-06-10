@@ -6,6 +6,10 @@
         { "title": "Our Mission", "link": "/#mission" },
         { "title": "Team", "link": "/#team" },
         { "title": "Partners", "link": "/#partners" }
+      ],
+      "PrivacyPage": [
+        { "title": "Home", "link": "/" },
+        { "title": "Map", "link": "https://map.reach4help.org" }
       ]
     },
     "Home": {

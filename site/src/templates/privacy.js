@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react"
 import { graphql } from "gatsby"
+import { useTranslation } from "react-i18next"
 
 import SEO from "src/components/seo"
 import Layout from "src/components/layout"
@@ -9,20 +10,18 @@ import Footer from "src/components/footer"
 
 import Privacy from "src/sections/privacy"
 
-const navSections = [
-  { title: "Home", link: "/" },
-  { title: "Map", link: "/#mission" },
-]
-
 function PrivacyPage({
   data: {
     markdownRemark: { html },
   },
 }) {
+  const { t } = useTranslation()
   return (
     <Layout>
       <SEO title="Privacy Policy" />
-      <Header navSections={navSections} />
+      <Header
+        navSections={t("Navigation.PrivacyPage", { returnObjects: true })}
+      />
       <div className="sections">
         <Privacy html={html} />
       </div>
