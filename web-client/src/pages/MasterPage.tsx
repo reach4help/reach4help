@@ -8,6 +8,8 @@ import {
 } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
+import { observeOffers } from 'src/ducks/offers/actions';
+import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
 import { Module } from 'src/types/module';
@@ -22,6 +24,9 @@ import ProtectedRoute from './routes/ProtectedRoute';
 const MasterPage = (): ReactElement => {
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
+  );
+  const offersState = useSelector(
+    ({ offers }: { offers: OffersState }) => offers,
   );
   const [changeRolePast, setChangeRolePast] = useState<
     ApplicationPreference | undefined
@@ -45,7 +50,18 @@ const MasterPage = (): ReactElement => {
         window.location.href = '/';
       }
     }
-  }, [userProfile, changeRolePast, profileState]);
+    if (
+      profileState.profile &&
+      profileState.profile.applicationPreference &&
+      !offersState.data &&
+      !offersState.loading
+    ) {
+      observeOffers(dispatch, {
+        userType: profileState.profile.applicationPreference,
+        userRef: profileState.userRef,
+      });
+    }
+  }, [userProfile, changeRolePast, profileState, offersState, dispatch]);
 
   const toggleApplicationPreference = () => {
     const user = profileState.profile;
@@ -71,6 +87,7 @@ const MasterPage = (): ReactElement => {
               ? routeModule.dynamicMenuLinks(profileState)
               : routeModule.menuItems
           }
+          offersState={offersState}
           profileData={userProfile}
           isCav={userProfile?.applicationPreference === 'cav'}
           logoutHandler={() => dispatch(signOutCurrentUserAction())}

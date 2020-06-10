@@ -1,7 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { OfferStatus } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import { User } from 'src/models/users';
+import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -16,6 +18,9 @@ interface NotificationProps {
   cavUser: User;
   offerStatus: OfferStatus;
   offerRequest: Request | null;
+  requestRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  >;
   updatedAt: Date;
   isCav?: boolean;
 }
@@ -24,9 +29,11 @@ const Notification: React.FC<NotificationProps> = ({
   cavUser,
   offerStatus,
   offerRequest,
+  requestRef,
   updatedAt,
   isCav,
 }): React.ReactElement => {
+  const history = useHistory();
   const visualizeNotification = () => {
     if (offerStatus === OfferStatus.accepted) {
       if (isCav) {
@@ -176,7 +183,15 @@ const Notification: React.FC<NotificationProps> = ({
           padding: '10px',
         }}
       >
-        {visualizeNotification()}
+        <div
+          onClick={() => {
+            history.push(
+              TimelineViewLocation.toUrl({ requestId: requestRef.id }),
+            );
+          }}
+        >
+          {visualizeNotification()}
+        </div>
       </div>
     </>
   );

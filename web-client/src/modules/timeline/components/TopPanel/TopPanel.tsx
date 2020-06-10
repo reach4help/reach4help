@@ -8,7 +8,7 @@ import {
 import { Typography } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
@@ -29,15 +29,16 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
   const [togglePanel, setTogglePanel] = useState(false);
   const userRequestStatus = request.status;
   const { t } = useTranslation();
+  const history = useHistory();
 
   const isCav = user?.applicationPreference === ApplicationPreference.cav;
 
   return (
     <TopPanelWrapper>
       <NavRow>
-        <Link to="/">
+        <div onClick={() => history.goBack()}>
           <img src={NavBackIcon} alt="back navigation icon" />
-        </Link>
+        </div>
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
           {userRequestStatus === RequestStatus.pending
             ? t('timeline.open_status')

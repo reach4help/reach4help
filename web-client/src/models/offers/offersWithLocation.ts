@@ -129,6 +129,7 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       pinUserRef: this.pinUserRef,
       requestRef: this.requestRef,
       cavUserSnapshot: this.cavUserSnapshot.toObject(),
+      requestSnapshot: this.requestSnapshot?.toObject(),
       message: this.message,
       status: this.status,
       address: this.address,
