@@ -5,7 +5,7 @@ import en from "./en-US.json"
 import pt from "./pt-PT.json"
 
 i18n.use(initReactI18next).init({
-  lng: "en",
+  lng: "pt",
   resources: {
     en,
     pt,

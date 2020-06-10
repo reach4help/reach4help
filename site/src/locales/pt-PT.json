@@ -3,7 +3,7 @@
     "Navigation": {
       "IndexPage": [
         { "title": "Início", "link": "/#home" },
-        { "title": "A Nossa Missão", "link": "/#mission" },
+        { "title": "Missão", "link": "/#mission" },
         { "title": "Equipa", "link": "/#team" },
         { "title": "Parceiros", "link": "/#partners" }
       ]

@@ -1,4 +1,5 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 
 import SEO from "src/components/seo"
 import Layout from "src/components/layout"
@@ -10,18 +11,15 @@ import Mission from "src/sections/mission"
 import Team from "src/sections/team"
 import Partners from "src/sections/partners"
 
-const navSections = [
-  { title: "Home", link: "/#home" },
-  { title: "Our Mission", link: "/#mission" },
-  { title: "Team", link: "/#team" },
-  { title: "Partners", link: "/#partners" },
-]
-
 function IndexPage() {
+  const { t } = useTranslation()
+
   return (
     <Layout>
       <SEO />
-      <Header navSections={navSections} />
+      <Header
+        navSections={t("Navigation.IndexPage", { returnObjects: true })}
+      />
       <div className="sections">
         <Home />
         <Mission />
