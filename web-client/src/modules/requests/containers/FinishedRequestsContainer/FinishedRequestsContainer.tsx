@@ -13,8 +13,8 @@ import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const CompletedRequestsContainer: React.FC = () => {
-const { t } = useTranslation();
-const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const profileState = useSelector(

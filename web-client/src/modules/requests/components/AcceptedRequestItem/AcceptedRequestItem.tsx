@@ -64,9 +64,8 @@ const RequestItem: React.FC<RequestItemProps> = ({
   handleRequest,
   offers,
 }): React.ReactElement => {
-
-const {t} = useTranslation();
-const handleRequestClick = () => {
+  const { t } = useTranslation();
+  const handleRequestClick = () => {
     handleRequest();
   };
 

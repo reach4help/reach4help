@@ -13,8 +13,8 @@ import Header from '../../components/Header/Header';
 import RequestList from '../../components/RequestList/RequestList';
 
 const OpenRequestsContainer: React.FC = () => {
-const {t} = useTranslation();
-const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
   const history = useHistory();
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
