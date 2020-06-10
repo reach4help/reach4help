@@ -27,6 +27,7 @@ const NotificationsList: React.FC<NotificationsList> = ({
           cavUser={item.cavUserSnapshot}
           offerStatus={item.status}
           offerRequest={item.requestSnapshot}
+          requestRef={item.requestRef}
           updatedAt={item.updatedAt.toDate()}
           isCav={isCav}
         />
