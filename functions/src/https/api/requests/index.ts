@@ -109,16 +109,16 @@ const getPendingRequestsWithOffers = async (
     const requests = await getRequestsWithinDistance(lat, lng, radius, RequestStatus.pending);
     for (const doc of requests.docs) {
       const request = Request.factory(doc.data() as IRequest);
+      if (request.pinUserRef.id === userRef.id) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
       // eslint-disable-next-line no-await-in-loop
       const results = await Promise.all([getOffersForRequestWithLocation(doc.ref), getTimelineForRequest(doc.ref, userRef)]);
       let shouldPush = true;
       for (const timelineDoc of results[1]) {
         const timelineInstance = TimelineItem.factory(timelineDoc);
-        if (
-          timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
-          (timelineInstance.offerSnapshot?.status === OfferStatus.pending || timelineInstance.offerSnapshot?.status === OfferStatus.cavDeclined) &&
-          timelineInstance.offerSnapshot.cavUserRef.id === userRef.id
-        ) {
+        if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.actorRef.id === userRef.id) {
           shouldPush = false;
           break;
         }
@@ -145,15 +145,30 @@ const getPendingRequestsWithOffers = async (
       const request = Request.factory(doc.data() as IRequest);
       // eslint-disable-next-line no-await-in-loop
       const timeline = await getTimelineForRequest(doc.ref, userRef);
-      let shouldPush = true;
+      const mapping: Record<string, boolean> = {};
       for (const timelineDoc of timeline) {
         const timelineInstance = TimelineItem.factory(timelineDoc);
-        if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.offerSnapshot?.status === OfferStatus.pending) {
-          shouldPush = false;
-          break;
+        if (
+          timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
+          timelineInstance.offerRef &&
+          timelineInstance.offerSnapshot?.status === OfferStatus.pending
+        ) {
+          if (mapping[timelineInstance.offerRef.id] !== false) {
+            mapping[timelineInstance.offerRef.id] = true;
+          }
+          // break;
+        }
+        if (timelineInstance.action === TimelineItemAction.REJECT_OFFER && timelineInstance.offerRef) {
+          mapping[timelineInstance.offerRef.id] = false;
         }
       }
-      if (shouldPush) {
+      let num = 0;
+      for (const k in mapping) {
+        if (mapping[k]) {
+          num += 1;
+        }
+      }
+      if (num === 0) {
         requestWithOffers[doc.id] = RequestWithOffersAndTimeline.factory({
           ...(request.toObject() as IRequest),
           offers: {},
@@ -227,15 +242,29 @@ const getAcceptedRequests = async (userRef: firestore.DocumentReference, userTyp
     const request = Request.factory(doc.data() as IRequest);
     const results = await Promise.all([getOffersForRequestWithLocation(doc.ref), getTimelineForRequest(doc.ref, userRef)]);
     console.log('doc.id, results obtained: ', doc.id, JSON.stringify(results));
-    let shouldPush = false;
+    const mapping: Record<string, boolean> = {};
     for (const timelineDoc of results[1]) {
       const timelineInstance = TimelineItem.factory(timelineDoc);
-      if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.offerSnapshot?.status === OfferStatus.pending) {
-        shouldPush = true;
-        break;
+      if (
+        timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
+        timelineInstance.offerRef &&
+        timelineInstance.offerSnapshot?.status === OfferStatus.pending
+      ) {
+        if (mapping[timelineInstance.offerRef.id] !== false) {
+          mapping[timelineInstance.offerRef.id] = true;
+        }
+      }
+      if (timelineInstance.action === TimelineItemAction.REJECT_OFFER && timelineInstance.offerRef) {
+        mapping[timelineInstance.offerRef.id] = false;
       }
     }
-    if (shouldPush) {
+    let num = 0;
+    for (const k in mapping) {
+      if (mapping[k]) {
+        num += 1;
+      }
+    }
+    if (num > 0) {
       requestsWithTimelineAndOffers[doc.id] = RequestWithOffersAndTimeline.factory({
         ...(request.toObject() as IRequest),
         offers: results[0],

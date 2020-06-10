@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepForwardButton } from 'src/components/Buttons';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import MyLocationIcon from '../../assets/gpslocation.svg';
@@ -51,7 +52,7 @@ const MapActionButton = styled(Button)`
   border: 1px solid black;
   border-radius: 17%;
   &:hover {
-    background-color: #7cf9f5;
+    background-color: ${COLORS.lightBlue};
   }
 `;
 
