@@ -17,7 +17,6 @@ import {
 } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from '../../../../models/users';
-import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
 import NewRequest from '../../components/NewRequest/NewRequest';
 import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
 import RequestReview, {
@@ -137,7 +136,6 @@ const NewRequestsContainer: React.FC = () => {
         <RequestDetails>
           <NewRequest
             onSubmit={newRequestSubmitHandler}
-            onCancel={() => history.push(RoleInfoLocation.path)}
             request={request}
             setStreetAddress={setMapAddress}
             setMapAddress={() => setStartGeocode(true)}
@@ -190,7 +188,7 @@ const NewRequestsContainer: React.FC = () => {
           flexDirection: 'column',
         }}
       >
-        <div style={{ height: '100%' }}>
+        <div style={{ height: '100%', display: 'flex' }}>
           <Map
             isCav={false}
             destinations={[]}
@@ -201,7 +199,7 @@ const NewRequestsContainer: React.FC = () => {
             startLocateMe={startLocateMe}
           />
         </div>
-        <div style={{ marginBottom: '50px' }}>
+        <div style={{ marginBottom: '50px', display: 'flex' }}>
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}

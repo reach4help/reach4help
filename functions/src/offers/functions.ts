@@ -145,7 +145,10 @@ export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context:
       ]);
     })
     .catch(errors => {
-      console.error('Invalid Offer Found: ', errors);
+      console.error('Invalid Offer Found: ');
+      for (const e of errors) {
+        console.error('e: ', e.target, e.value, e.property, e.constraints);
+      }
       return db
         .collection('offers')
         .doc(context.params.offerId)

@@ -1,5 +1,6 @@
 import { Button, Col, Row } from 'antd';
 import React, { useState } from 'react';
+import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
@@ -93,6 +94,7 @@ export interface RequestItemProps {
   isCavAndOpenRequest: boolean;
   hideUserPic?: boolean;
   offers?: Record<string, Offer>;
+  loading?: boolean;
   toCloseRequest?: (action?: boolean) => void;
   isPinAndOpenRequest?: boolean;
 }
@@ -105,8 +107,10 @@ const RequestItem: React.FC<RequestItemProps> = ({
   offers = {},
   hideUserPic,
   toCloseRequest,
+  loading = false,
 }): React.ReactElement => {
   const [displayDetails, toggleDetails] = useState(false);
+  const [actionPerformed, setActionPerformed] = useState(0); // 0 - Nothing, 1 - Accept, 2 - Reject
 
   const handleRequestClick = () => {
     if (isCavAndOpenRequest) {
@@ -211,20 +215,28 @@ const RequestItem: React.FC<RequestItemProps> = ({
           </StyledText>
           <Row>
             <Col span={11}>
-              <StyledButton onClick={() => handleRequest(false)}>
+              <StepBackButton
+                loading={loading && actionPerformed === 2}
+                disabled={loading && actionPerformed !== 2}
+                onClick={() => {
+                  setActionPerformed(2);
+                  handleRequest(false);
+                }}
+              >
                 Cannot Help
-              </StyledButton>
+              </StepBackButton>
             </Col>
             <Col span={11} offset={2}>
-              <StyledButton
-                style={{
-                  background: '#52C41A',
-                  color: '#FFFFFF',
+              <StepForwardButton
+                loading={loading && actionPerformed === 1}
+                disabled={loading && actionPerformed !== 1}
+                onClick={() => {
+                  setActionPerformed(1);
+                  handleRequest(true);
                 }}
-                onClick={() => handleRequest(true)}
               >
                 Help {request.pinUserSnapshot.displayName}
-              </StyledButton>
+              </StepForwardButton>
             </Col>
           </Row>
         </Text>

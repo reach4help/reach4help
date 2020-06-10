@@ -7,6 +7,7 @@ import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { User } from 'src/models/users';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
@@ -38,7 +39,8 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
         isCav={isCav}
       />
       <BottomLinks>
-        <div
+        <BottomLinkItem
+          isCav={isCav}
           role="link"
           onClick={() => {
             closeDrawer();
@@ -47,14 +49,19 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
         >
           <MailOutlined />
           {t('menuDrawer.contactUs')}
-        </div>
-        <div role="link" onClick={() => toggleApplicationPreference()}>
+        </BottomLinkItem>
+        <BottomLinkItem
+          isCav={isCav}
+          role="link"
+          onClick={() => toggleApplicationPreference()}
+        >
           <UserSwitchOutlined />
           {`${
             isCav ? t('menuDrawer.switchToPIN') : t('menuDrawer.switchToCAV')
           }`}
-        </div>
-        <div
+        </BottomLinkItem>
+        <BottomLinkItem
+          isCav={isCav}
           role="link"
           onClick={() => {
             closeDrawer();
@@ -63,7 +70,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
         >
           <LogoutOutlined />
           {t('menuDrawer.logout')}
-        </div>
+        </BottomLinkItem>
       </BottomLinks>
     </SideDrawer>
   );
@@ -76,24 +83,33 @@ const SideDrawer = styled(Drawer)`
     flex-direction: column;
     justify-content: space-between;
   }
+  .ant-drawer-close svg {
+    color: red;
+    width: 22px;
+    height: 22px;
+  }
 `;
 
+const BottomLinkItem = styled('div')<{ isCav?: boolean }>`
+  color: inherit;
+  margin-bottom: 10px;
+  padding: 10px;
+  cursor: pointer;
+  svg {
+    margin-right: 10px;
+  }
+  &:hover {
+    color: white;
+    font-weight: 700;
+    background-color: ${props =>
+      props.isCav ? COLORS.link : COLORS.brandOrange};
+  }
+`;
 const BottomLinks = styled.div`
   display: flex;
   flex-direction: column;
   margin: 15px;
   color: inherit;
-
-  a,
-  div {
-    color: inherit;
-    margin-bottom: 10px;
-    padding: 0 10px;
-    cursor: pointer;
-    svg {
-      margin-right: 10px;
-    }
-  }
 `;
 
 interface MenuDrawerProps {

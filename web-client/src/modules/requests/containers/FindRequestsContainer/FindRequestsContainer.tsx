@@ -1,8 +1,10 @@
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import LoadingWrapper from '../../../../components/LoadingWrapper/LoadingWrapper';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -20,6 +22,7 @@ import { firestore } from '../../../../firebase';
 import { OfferStatus } from '../../../../models/offers';
 import { ApplicationPreference } from '../../../../models/users';
 import RequestItem from '../../components/RequestItem/RequestItem';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 interface MapRequestProps {
   center: Coords;
@@ -35,6 +38,7 @@ const RequestDetails = styled.div`
 
 const FindRequestsContainer: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [expandedRequestId, setExpandedRequestId] = useState<
     string | undefined
@@ -73,9 +77,14 @@ const FindRequestsContainer: React.FC = () => {
       (!setRequestState.loading && setRequestState.success) ||
       (!setOfferState.loading && setOfferState.success)
     ) {
-      dispatch(resetSetRequestState());
+      // because I could observe race conditions in cloud function
+      setTimeout(() => {
+        dispatch(resetSetRequestState());
+        setExpandedRequestId(undefined);
+        history.push(OpenRequestsLocation.path);
+      }, 1000);
     }
-  }, [setRequestState, setOfferState, dispatch]);
+  }, [setRequestState, setOfferState, dispatch, history]);
 
   useEffect(() => {
     if (
@@ -154,7 +163,6 @@ const FindRequestsContainer: React.FC = () => {
           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
         }),
       );
-      setExpandedRequestId(undefined);
     }
   };
 
@@ -171,6 +179,7 @@ const FindRequestsContainer: React.FC = () => {
           <RequestItem
             request={request}
             handleRequest={handleRequestForAcceptReject}
+            loading={setOfferState.loading}
             isCavAndOpenRequest
           />
         </RequestDetails>
@@ -183,6 +192,13 @@ const FindRequestsContainer: React.FC = () => {
     setBannerMessage(address);
     setCurrentLocation(latLng);
   };
+
+  if (
+    !pendingRequestsWithOffersAndTimeline.data ||
+    pendingRequestsWithOffersAndTimeline.loading
+  ) {
+    return <LoadingWrapper />;
+  }
 
   return (
     <>

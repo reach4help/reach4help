@@ -1,5 +1,6 @@
 import { Layout } from 'antd';
 import React, { useState } from 'react';
+import { OffersState } from 'src/ducks/offers/types';
 import { User } from 'src/models/users';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
@@ -13,6 +14,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   profileData,
   children,
   isCav,
+  offersState,
   logoutHandler,
   toggleApplicationPreference,
 }) => {
@@ -33,6 +35,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       />
       <NotificationsDrawer
         visible={notificationVisible}
+        offersState={offersState}
         closeDrawer={() => setNotificationVisible(false)}
         isCav={isCav}
       />
@@ -56,6 +59,7 @@ interface DashboardLayoutProps {
   children?: React.ReactNode;
   isCav?: boolean;
   logoutHandler: Function;
+  offersState: OffersState;
   toggleApplicationPreference: Function;
 }
 
