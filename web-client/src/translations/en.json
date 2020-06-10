@@ -12,7 +12,8 @@
     "address1": "Address line 1",
     "address2": "Address line 2 (optional)",
     "city": "City",
-    "code": "Postal Code",
+    "code": "Postal / Zip Code",
+    "State": "State / Province",
     "country": "Country",
     "login": {
       "title": "Reach4Help",
@@ -122,6 +123,15 @@
       "_requests_open": "Open Requests"
     },
     "timeline": {
+      "CREATE_REQUEST": "Person In Need created this request.",
+      "CANCEL_REQUEST": "Person In Need closed this request.",
+      "REMOVE_REQUEST": "Volunteer removed this request",
+      "COMPLETE_REQUEST": "Request has been completed.",
+      "CREATE_OFFER": "Volunteer accepted this request.",
+      "ACCEPT_OFFER": "Person In Need accepted Volunteer help.",
+      "REJECT_OFFER": "Person In Need rejected Volunteer help.",
+      "RATE_PIN": "Volunteer rated Person In Need.",
+      "RATE_CAV": "Person In Need rated Volunteer.",
       "open_status": "Open",
       "cav": "Volunteer",
       "cav_wait": "WAITING FOR VOLUNTEER",

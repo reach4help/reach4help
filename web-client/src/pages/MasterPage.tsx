@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
+import { Module } from 'src/types/module';
 
 import { AuthState } from '../ducks/auth/types';
 import { updateUserProfile } from '../ducks/profile/actions';
@@ -61,16 +62,37 @@ const MasterPage = (): ReactElement => {
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
+  const [changeRolePast, setChangeRolePast] = useState<
+    ApplicationPreference | undefined
+  >(undefined);
   const userProfile = profileState.profile;
 
   const dispatch = useDispatch();
+  // const history = useHistory();
 
   const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
+
+  useEffect(() => {
+    if (
+      !(profileState.error && profileState.loading) &&
+      profileState.updateAction &&
+      changeRolePast &&
+      userProfile &&
+      userProfile.applicationPreference
+    ) {
+      if (changeRolePast !== userProfile.applicationPreference) {
+        window.location.href = '/';
+      }
+    }
+  }, [userProfile, changeRolePast, profileState]);
 
   const toggleApplicationPreference = () => {
     const user = profileState.profile;
     if (user && authState.user) {
       const currentPreference = user.applicationPreference;
+      if (currentPreference) {
+        setChangeRolePast(currentPreference);
+      }
       user.applicationPreference =
         currentPreference === ApplicationPreference.cav
           ? ApplicationPreference.pin
@@ -79,7 +101,7 @@ const MasterPage = (): ReactElement => {
     }
   };
 
-  const renderLayout = routeModule => {
+  const renderLayout = (routeModule: Module) => {
     if (routeModule.layout === 'dashboard' && userProfile) {
       return (
         <>
@@ -87,7 +109,11 @@ const MasterPage = (): ReactElement => {
             <title>{titleFromPath()}</title>
           </Helmet>
           <DashboardLayout
-            menuItems={routeModule.menuItems}
+          menuItems={
+              routeModule.dynamicMenuLinks
+                ? routeModule.dynamicMenuLinks(profileState)
+                : routeModule.menuItems
+            }  
             profileData={userProfile}
             isCav={userProfile?.applicationPreference === 'cav'}
             logoutHandler={() => dispatch(signOutCurrentUserAction())}
