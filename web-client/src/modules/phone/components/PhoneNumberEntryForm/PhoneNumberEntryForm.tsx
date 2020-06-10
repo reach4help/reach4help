@@ -174,9 +174,9 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       }}
       layout="vertical"
       form={form}
-      onFinish={({ phoneNumber }) => {
+      onFinish={({ prefix, suffix }) => {
         handleFormSubmit(
-          { phoneNumber: phoneNumber.replace(/\s/g, '') },
+          { phoneNumber: `+${prefix}${suffix.replace(/\D/g, '')}` },
           recaptchaVerifier,
         );
       }}
@@ -185,7 +185,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
 
       <FormLabel>{t('phoneNumber.country_label')}</FormLabel>
       <Form.Item
-        name="dialCode"
+        name="prefix"
         rules={[
           {
             validator: (_, value) => fullTelephoneValidator(value, false),
@@ -202,9 +202,10 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           }
           onChange={v => setDialCode(v.toString())}
         >
-          {allCountries.map(c => (
+          {/* wierd bug "United States" resolves as "United States Minor Islands */
+          allCountries.map(c => (
             <Option key={c.iso2} value={c.dialCode}>
-              {c.name}
+              {c.name.startsWith('United States') ? 'United States' : c.name}
             </Option>
           ))}
         </Select>
@@ -213,7 +214,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       <FormLabel>{t('phoneNumber.phone_label')}</FormLabel>
       <Form.Item
         style={{ textAlign: 'center' }}
-        name="digits"
+        name="suffix"
         rules={[
           {
             validator: (_, value) => fullTelephoneValidator(value, true),
