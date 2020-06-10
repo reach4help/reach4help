@@ -8,6 +8,7 @@ import { Button } from 'antd';
 import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { haversineDistance } from 'src/components/WebClientMap/utils';
+import { OfferStatus } from 'src/models/offers';
 import { OfferWithLocation as Offer } from 'src/models/offers/offersWithLocation';
 import styled from 'styled-components';
 
@@ -160,7 +161,7 @@ const OffersList: React.FC<OffersListProps> = ({
   useEffect(() => {
     const internalOffersList: React.ReactElement<any>[] = [];
     for (const key in offers) {
-      if (offers[key]) {
+      if (offers[key] && offers[key].status !== OfferStatus.rejected) {
         internalOffersList.push(
           <OfferItem
             handleOffer={(action: boolean) => handleOffer(action, key)}

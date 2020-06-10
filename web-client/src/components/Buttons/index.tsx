@@ -4,28 +4,29 @@ import styled from 'styled-components';
 
 export const StepBackButton = styled(Button)`
   border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  width: 100%;
+  color: ${COLORS.backgroundAlternative};
+  background-color: white;
+  border: 3px solid ${COLORS.backgroundAlternative};
+  font-weight: 700;
   &:hover {
-    background-color: ${COLORS.backgroundAlternative};
     color: white;
-    font-weight: 700;
+    background-color: ${COLORS.backgroundAlternative};
   }
 `;
 
 export const StepForwardButton = styled(Button)`
   border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  background-color: ${COLORS.secondary};
   color: white;
+  width: 100%;
+  background-color: ${COLORS.secondary};
+  font-weight: 700;
+  border: none;
   &:hover {
-    color: ${COLORS.secondaryHover};
-    background-color: ${COLORS.white};
-    font-weight: 700;
+    color: ${COLORS.secondary};
+    background-color: white;
+    border: 3px solid ${COLORS.secondary};
   }
 `;

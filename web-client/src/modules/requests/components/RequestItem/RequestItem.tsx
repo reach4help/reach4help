@@ -228,10 +228,6 @@ const RequestItem: React.FC<RequestItemProps> = ({
             </Col>
             <Col span={11} offset={2}>
               <StepForwardButton
-                style={{
-                  background: '#52C41A',
-                  color: '#FFFFFF',
-                }}
                 loading={loading && actionPerformed === 1}
                 disabled={loading && actionPerformed !== 1}
                 onClick={() => {
