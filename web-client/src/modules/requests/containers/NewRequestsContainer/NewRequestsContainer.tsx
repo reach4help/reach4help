@@ -29,6 +29,12 @@ const RequestDetails = styled.div`
   background: white;
 `;
 
+const MapContainer = styled.div`
+  // aspect ratio = 16:9
+  width: 100vw;
+  height: 56.25vw;
+`;
+
 const NewRequestsContainer: React.FC = () => {
   const history = useHistory();
 
@@ -178,34 +184,30 @@ const NewRequestsContainer: React.FC = () => {
   };
 
   return (
-    <>
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'stretch',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ height: '100%', display: 'flex' }}>
-          <Map
-            isCav={false}
-            destinations={[]}
-            origin={currentLocation}
-            onGeocode={setGeocodedLocation}
-            address={mapAddress}
-            startGeocode={startGeocode}
-            startLocateMe={startLocateMe}
-          />
-        </div>
-        <div style={{ marginBottom: '50px', display: 'flex' }}>
-          {maybeNewRequest()}
-          {maybeRequestReview()}
-          {maybeRequestConfirmation()}
-        </div>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'stretch',
+        flexDirection: 'column',
+      }}
+    >
+      <MapContainer>
+        <Map
+          isCav={false}
+          destinations={[]}
+          origin={currentLocation}
+          onGeocode={setGeocodedLocation}
+          address={mapAddress}
+          startGeocode={startGeocode}
+          startLocateMe={startLocateMe}
+        />
+      </MapContainer>
+      <div style={{ display: 'flex' }}>
+        {maybeNewRequest()}
+        {maybeRequestReview()}
+        {maybeRequestConfirmation()}
       </div>
-    </>
+    </div>
   );
 };
 
