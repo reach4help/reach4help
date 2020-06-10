@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
@@ -33,6 +34,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   requestId,
   accepted,
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -55,6 +57,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
   );
+
+  useEffect(() => {
+    document.title = 'Reach4Help: '.concat(t('routeSubtitles._timeline'));
+  });
 
   useEffect(() => {
     let requestTemp: RequestWithOffersAndTimeline | undefined = requestsState
