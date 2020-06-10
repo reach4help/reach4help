@@ -1,5 +1,6 @@
 import { Button, Col, Row } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
@@ -109,7 +110,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
   toCloseRequest,
   loading = false,
 }): React.ReactElement => {
-  const { t } = useTranslations();
+  const { t } = useTranslation();
 
   const [displayDetails, toggleDetails] = useState(false);
   const [actionPerformed, setActionPerformed] = useState(0); // 0 - Nothing, 1 - Accept, 2 - Reject

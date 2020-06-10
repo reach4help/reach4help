@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
@@ -63,7 +64,9 @@ const RequestItem: React.FC<RequestItemProps> = ({
   handleRequest,
   offers,
 }): React.ReactElement => {
-  const handleRequestClick = () => {
+
+const {t} = useTranslation();
+const handleRequestClick = () => {
     handleRequest();
   };
 

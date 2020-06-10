@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -12,7 +13,8 @@ import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const CompletedRequestsContainer: React.FC = () => {
-  const dispatch = useDispatch();
+const { t } = useTranslation();
+const dispatch = useDispatch();
   const history = useHistory();
 
   const profileState = useSelector(

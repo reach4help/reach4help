@@ -24,13 +24,13 @@ export const DestinationMarker: React.FC<DestinationMarkerProps> = ({
   onClick,
 }) => {
   const { t } = useTranslation();
-  oreturn(
+  return (
     <div onClick={() => onClick(key)}>
       <img
         src={selected ? LargeOrangeMarkerIcon : SmallOrangeMarkerIcon}
         alt={t('components.web_client_map.a11y_my_location')}
       />
-    </div>,
+    </div>
   );
 };
 

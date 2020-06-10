@@ -31,8 +31,8 @@ const RequestDetails = styled.div`
 `;
 
 const NewRequestsContainer: React.FC = () => {
-      const { t } = useTranslation();
-const history = useHistory();
+  const { t } = useTranslation();
+  const history = useHistory();
 
   const [requestInfo, setRequestInfo] = useState<RequestInput | undefined>(
     undefined,
@@ -109,7 +109,7 @@ const history = useHistory();
     address: string,
     other: string,
   ) => {
-/*    const { t } = useTranslation(); */
+    /*    const { t } = useTranslation(); */
 
     setRequestInfo({
       type,
@@ -136,9 +136,7 @@ const history = useHistory();
     if (!showReviewPage) {
       const request = {
         streetAddress: mapAddress,
-        type: requestInfo
-          ? requestInfo.type
-          : 'Deliveries',
+        type: requestInfo ? requestInfo.type : 'Deliveries',
         other: requestInfo ? requestInfo.other : '',
         description: requestInfo ? requestInfo.description : '',
       };
