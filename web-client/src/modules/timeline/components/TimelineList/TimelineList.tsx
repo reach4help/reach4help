@@ -10,10 +10,11 @@ import { ApplicationPreference, User } from '../../../../models/users';
 
 const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
   item,
-  align,
+  isCurrentUserItem,
 }) => {
   const { t } = useTranslation();
 
+  const align = isCurrentUserItem ? 'right' : 'left';
   const isCavItem =
     item.actorSnapshot.applicationPreference === ApplicationPreference.cav;
   const date = new Date(item.createdAt.toDate());
@@ -21,6 +22,22 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
     day: 'numeric',
     month: 'short',
   });
+
+  const pinUserName = item.requestSnapshot.pinUserSnapshot.displayName;
+  const cavUserName = item.requestSnapshot.cavUserSnapshot?.displayName;
+  const { pinRating, cavRating } = item.requestSnapshot;
+  const messagePlaceholders = {
+    actorName: isCurrentUserItem
+      ? 'You'
+      : isCavItem
+      ? cavUserName
+      : pinUserName,
+    pinUserName: isCavItem ? pinUserName : 'your',
+    cavUserName: isCavItem ? 'your' : cavUserName,
+    pinRating,
+    cavRating,
+  };
+
   return (
     <>
       {/* TODO group items by date, then only render once heading date */}
@@ -28,7 +45,7 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
       <StyledListItem className={align}>
         <ListItemBullet src={isCavItem ? CavBulletIcon : PinBulletIcon} />
         <MessageBox className={`message-box ${isCavItem ? 'cav' : 'pin'}`}>
-          {t(`timeline.${item.action}`)}
+          {t(`timeline.${item.action}`, messagePlaceholders)}
           <TimeAgo>{moment(date).fromNow()}</TimeAgo>
         </MessageBox>
       </StyledListItem>
@@ -48,7 +65,7 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
         <RequestTimelineListItem
           key={index}
           item={item}
-          align={item.actorRef.id === currentUser.id ? 'right' : 'left'}
+          isCurrentUserItem={item.actorRef.id === currentUser.id}
         />
       ))}
     </StyledList>
@@ -168,7 +185,7 @@ interface RequestTimelineListProps {
 
 interface RequestTimelineListItemProps {
   item: TimelineItem;
-  align: 'left' | 'right';
+  isCurrentUserItem: boolean;
 }
 
 export default TimelineList;
