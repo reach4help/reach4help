@@ -1,11 +1,5 @@
 module.exports = {
   COLORS: {
-    green: '#52C41A',
-    blue: '#1890FF',
-    strokeCancel: '#D9D9D9',
-    yellow: '#FFCB52',
-    error: '#F27979',
-
     primary: '#a12596',
     primaryDark: '#811e78',
     secondary: '#52c41a',

@@ -5,6 +5,7 @@ import { StepForwardButton } from 'src/components/Buttons';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
+import { COLORS } from 'src/theme/colors';
 import MyLocationIcon from '../../assets/gpslocation.svg';
 import SearchIcon from '../../assets/search.svg';
 import { RequestInput } from './RequestReview';
@@ -51,7 +52,7 @@ const MapActionButton = styled(Button)`
   border: 1px solid black;
   border-radius: 17%;
   &:hover {
-    background-color: #7cf9f5;
+    background-color: ${COLORS.lightBlue};
   }
 `;
 
