@@ -1,4 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Redirect,
@@ -20,6 +22,43 @@ import NotFoundRoute from './routes/NotFoundRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 const MasterPage = (): ReactElement => {
+  const { t } = useTranslation();
+
+  const titleFromPath = () => {
+    const path = window.location.pathname;
+    const title = 'Reach4Help';
+
+    switch (path) {
+      case '/login':
+      case '/phone':
+      case '/requests':
+      case '/personal-data':
+      case '/timeline':
+      case '/personal-data/role-info':
+      case '/phone/entry':
+      case '/phone/verify':
+      case '/requests/accepted':
+      case '/requests/archived':
+      case '/requests/find':
+      case '/requests/finished':
+      case '/requests/new':
+      case '/requests/ongoing':
+      case '/requests/open':
+        return `${title}: `.concat(
+          t(`routeSubtitles.${path.replace(/\//g, '_')}`),
+        );
+
+      /* TODO  Not currently working for timeline routes
+            "/timeline/accepted/:requestId",
+            "/timeline/:requestId"
+        */
+      default:
+        return path.startsWith('/timeline')
+          ? `${title}: Request Timeline`
+          : title;
+    }
+  };
+
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
@@ -65,19 +104,24 @@ const MasterPage = (): ReactElement => {
   const renderLayout = (routeModule: Module) => {
     if (routeModule.layout === 'dashboard' && userProfile) {
       return (
-        <DashboardLayout
+        <>
+          <Helmet>
+            <title>{titleFromPath()}</title>
+          </Helmet>
+          <DashboardLayout
           menuItems={
-            routeModule.dynamicMenuLinks
-              ? routeModule.dynamicMenuLinks(profileState)
-              : routeModule.menuItems
-          }
-          profileData={userProfile}
-          isCav={userProfile?.applicationPreference === 'cav'}
-          logoutHandler={() => dispatch(signOutCurrentUserAction())}
-          toggleApplicationPreference={toggleApplicationPreference}
-        >
-          <Route path={routeModule.path} component={routeModule.component} />
-        </DashboardLayout>
+              routeModule.dynamicMenuLinks
+                ? routeModule.dynamicMenuLinks(profileState)
+                : routeModule.menuItems
+            }  
+            profileData={userProfile}
+            isCav={userProfile?.applicationPreference === 'cav'}
+            logoutHandler={() => dispatch(signOutCurrentUserAction())}
+            toggleApplicationPreference={toggleApplicationPreference}
+          >
+            <Route path={routeModule.path} component={routeModule.component} />
+          </DashboardLayout>
+        </>
       );
     }
     return <routeModule.component />;
