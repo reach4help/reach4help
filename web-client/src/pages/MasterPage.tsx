@@ -113,7 +113,7 @@ const MasterPage = (): ReactElement => {
               routeModule.dynamicMenuLinks
                 ? routeModule.dynamicMenuLinks(profileState)
                 : routeModule.menuItems
-            }  
+            }
             profileData={userProfile}
             isCav={userProfile?.applicationPreference === 'cav'}
             logoutHandler={() => dispatch(signOutCurrentUserAction())}
