@@ -186,6 +186,7 @@ const NewRequestsContainer: React.FC = () => {
   return (
     <div
       style={{
+        height: '100%',
         display: 'flex',
         alignItems: 'stretch',
         flexDirection: 'column',
@@ -202,7 +203,7 @@ const NewRequestsContainer: React.FC = () => {
           startLocateMe={startLocateMe}
         />
       </MapContainer>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', height: '100%' }}>
         {maybeNewRequest()}
         {maybeRequestReview()}
         {maybeRequestConfirmation()}

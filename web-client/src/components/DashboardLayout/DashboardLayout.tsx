@@ -51,7 +51,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 };
 
 const StyledLayout = styled(Layout)`
-  background-color: inherit;
+  height: 100vh;
 `;
 
 const StyledLayoutContent = styled(Layout.Content)`
