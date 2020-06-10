@@ -22,59 +22,6 @@
       "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
       "facebookButtonLabel": "Continue with Facebook"
     },
-    "modules": {
-      "personal-data": {
-        "containers": {
-          "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
-            "missing_data": "Missing Data!"
-          }
-        }
-      },
-      "requests": {
-        "no_reply": "No one has replied to your request.",
-        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
-        "cannot_help": "Cannot Help",
-        "a11y_profile_pic": "Profile Pic",
-        "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
-        },
-        "containers": {
-          "OpenRequestContainer": {
-            "open": "Open"
-          },
-          "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
-          },
-          "AcceptedRequestContainer": {
-            "accepted": "Accepted"
-          },
-          "FinishedRequestsContainer": {
-            "finished": "Finished"
-          },
-          "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
-          },
-          "NewRequestsContainer": {
-            "deliveries": "Deliveries",
-            "address_error": "Unable to find address"
-          }
-        }
-      },
-      "navigation": {
-        "components": {
-          "TopPanel": {
-            "a11y_back_nav": "Back navigation icon",
-            "a11y_display_photo": "Display photo",
-            "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon"
-          },
-          "Header": {
-            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority."
-          }
-        }
-      }
-    },
     "menuDrawer": {
       "contactUs": "Contact us",
       "logout": "Sign out",
@@ -200,14 +147,66 @@
       "thankYouModalBodyParta": "You rated",
       "thankYouModalBodyPartb": "with"
     },
+    "modules": {
+      "personal-data": {
+        "containers": {
+          "PersonalDataFormContainer": {
+            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
+            "missing_data": "Missing Data!"
+          }
+        }
+      },
+      "requests": {
+        "no_reply": "No one has replied to your request.",
+        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
+        "cannot_help": "Cannot Help",
+        "a11y_profile_pic": "Profile Pic",
+        "AcceptedRequestItem": {
+          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+        },
+        "containers": {
+          "OpenRequestContainer": {
+            "open": "Open"
+          },
+          "OngoingRequestContainer": {
+            "ongoing": "Ongoing"
+          },
+          "AcceptedRequestContainer": {
+            "accepted": "Accepted"
+          },
+          "FinishedRequestsContainer": {
+            "finished": "Finished"
+          },
+          "FindRequestsContainer": {
+            "want_to_help": "I want to help!"
+          },
+          "NewRequestsContainer": {
+            "deliveries": "Deliveries",
+            "address_error": "Unable to find address"
+          }
+        }
+      },
+      "navigation": {
+        "components": {
+          "TopPanel": {
+            "a11y_back_nav": "Back navigation icon",
+            "a11y_display_photo": "Display photo",
+            "a11y_location_icon": "Location icon",
+            "a11y_phone_icon": "Phone icon"
+          },
+          "Header": {
+            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority."
+          }
+        }
+      }
+    },
     "components": {
       "web_client_map": {
         "api_error": "Could not obtain",
         "geocode_error": "Unable to geocode",
         "distance_error": "Distance Service error:",
         "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "a11y_my_location": "My location"
+        "a11y_destination": "Destination"
       },
       "notification": {
         "notifications": "notifications",

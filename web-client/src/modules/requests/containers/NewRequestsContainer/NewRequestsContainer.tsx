@@ -29,7 +29,8 @@ const RequestDetails = styled.div`
   width: 100%;
   background: white;
 `;
-
+/* TODO:  integrate with translation if safe */
+const DELIVERIES = 'Deliveries';
 const NewRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
@@ -78,11 +79,7 @@ const NewRequestsContainer: React.FC = () => {
       profileState.userRef &&
       profileState.privilegedInformation
     ) {
-      const title =
-        request.type ===
-        t('modules.requests.containers.NewRequestsContainer.deliveries')
-          ? request.type
-          : request.other;
+      const title = request.type === DELIVERIES ? request.type : request.other;
 
       dispatch(
         setRequest({
@@ -136,7 +133,7 @@ const NewRequestsContainer: React.FC = () => {
     if (!showReviewPage) {
       const request = {
         streetAddress: mapAddress,
-        type: requestInfo ? requestInfo.type : 'Deliveries',
+        type: requestInfo ? requestInfo.type : DELIVERIES,
         other: requestInfo ? requestInfo.other : '',
         description: requestInfo ? requestInfo.description : '',
       };
