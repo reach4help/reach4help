@@ -12,7 +12,7 @@ const { Option } = Select;
 
 const StyledInput = styled(Input)`
   margin-top: 1rem;
-  width: 11rem;
+  width: 14rem;
 `;
 
 const Info = styled(Text)`
@@ -125,21 +125,30 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     return <></>;
   }
 
+  const CountryCodeDisplay = styled(Input)`
+    width: 5rem;
+    &:disabled {
+      color: black;
+      font-weight: 900px;
+      background-color: #d0d0d0;
+    }
+  `;
+
   const ErrorDisplay = styled.div`
-    color: ${COLORS.error};
+    color: ${COLORS.backgroundAlternative};
     font-weight: 700;
     width: 75%;
     margin: auto;
-    border: 2px solid ${COLORS.error};
+    border: 2px solid ${COLORS.backgroundAlternative};
     padding: 10px;
     text-align: center;
   `;
   const SuccessDisplay = styled.div`
-    color: ${COLORS.green};
+    color: #52c41a;
     font-weight: 700;
     width: 75%;
     margin: auto;
-    border: 2px solid ${COLORS.green};
+    border: 2px solid #52c41a;
     padding: 10px;
     text-align: center;
   `;
@@ -172,6 +181,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
         flexDirection: 'column',
         alignItems: 'center',
       }}
+      autoComplete="off"
       layout="vertical"
       form={form}
       onFinish={({ prefix, suffix }) => {
@@ -212,22 +222,29 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       </Form.Item>
 
       <FormLabel>{t('phoneNumber.phone_label')}</FormLabel>
-      <Form.Item
-        style={{ textAlign: 'center' }}
-        name="suffix"
-        rules={[
-          {
-            validator: (_, value) => fullTelephoneValidator(value, true),
-          },
-        ]}
-      >
-        <StyledInput
-          onChange={e => setDigits(e.target.value)}
-          placeholder="1234567"
-          maxLength={14}
+      <div style={{ display: 'flex' }}>
+        <CountryCodeDisplay
+          maxLength={4}
+          read-only
+          disabled
+          value={dialCode ? `+${dialCode}` : '+000'}
         />
-      </Form.Item>
-
+        <Form.Item
+          style={{ textAlign: 'center' }}
+          name="suffix"
+          rules={[
+            {
+              validator: (_, value) => fullTelephoneValidator(value, true),
+            },
+          ]}
+        >
+          <StyledInput
+            onChange={e => setDigits(e.target.value)}
+            placeholder="1234567"
+            maxLength={14}
+          />
+        </Form.Item>
+      </div>
       {numberINValidMessage && (
         <ErrorDisplay> {numberINValidMessage}</ErrorDisplay>
       )}
