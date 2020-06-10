@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
 import { getArchivedRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
@@ -30,10 +31,17 @@ const ClosedRequestsContainer: React.FC = () => {
     }
   }, [dispatch, profileState]);
 
+  if (
+    !archivedRequestsWithOffersAndTimeline.data ||
+    archivedRequestsWithOffersAndTimeline.loading
+  ) {
+    return <LoadingWrapper />;
+  }
+
   return (
     <>
       <Header
-        requestsType="Closed"
+        requestsType="Archived"
         numRequests={
           Object.keys(archivedRequestsWithOffersAndTimeline.data || {}).length
         }
