@@ -210,11 +210,11 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           filterOption={(input, option) =>
             option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
-          onChange={v => setDialCode(v.toString())}
+          onChange={v => setDialCode(v.toString().replace(/\D/g, ''))}
         >
           {/* wierd bug "United States" resolves as "United States Minor Islands */
           allCountries.map(c => (
-            <Option key={c.iso2} value={c.dialCode}>
+            <Option key={c.iso2} value={c.dialCode.concat(c.iso2)}>
               {c.name.startsWith('United States') ? 'United States' : c.name}
             </Option>
           ))}

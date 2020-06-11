@@ -1,0 +1,99 @@
+diff --git a/web-client/src/components/LoadingWrapper/LoadingWrapper.tsx b/web-client/src/components/LoadingWrapper/LoadingWrapper.tsx
+index 9279c5e..7c46485 100644
++++ b/web-client/src/components/LoadingWrapper/LoadingWrapper.tsx
+@@ -1,4 +1,5 @@
++      <img src={LoadingLogo} alt={t('components.loading_a11y_message')} />
+diff --git a/web-client/src/components/NotificationsDrawer/Notification.tsx b/web-client/src/components/NotificationsDrawer/Notification.tsx
++              t('components.notification.request_author')}
++            {t('components.notification.volunteer_accepted')}
++          {t('components.notification.pin_accepted')}
++          {t('common.for')}
++            t('components.notification.your_task')
++              `${t('components.notification.request_author')} ${t(
++                'components.notification.already_helped',
++              )}`}
++              t('components.notification.a_request')
++          {t('components.notification.pin_rejected')}
++          {t('common.for')}
++            t('components.notification.your_task')
++            {t('components.notification.cav_offer')}
++              t('components.notification.a_request')
++          {t('components.notification.offered_help')}
++            t('components.notification.your_task')
++            {t('components.notification.pin_declined_help')}
++              t('components.notification.a_request')
++          {t('components.notification.cav_declined_help')}
++            t('components.notification.your_task')
++++ b/web-client/src/components/NotificationsDrawer/NotificationsHeader.tsx
++        <b> {t('components.notification.notifications')} </b>
++++ b/web-client/src/components/NotificationsDrawer/NotificationsList.tsx
++          <p> {t('components.notification.no_notifications')} </p>
++        alt={t('components.web_client_map.a11y_my_location')}
+diff --git a/web-client/src/components/WebClientMap/WebClientMap.tsx b/web-client/src/components/WebClientMap/WebClientMap.tsx
+index 9293205..af059ec 100644
++      console.error(t('components.web_client_map.geocode_error'));
++            t('components.web_client_map.distance_error'),
++    <>{t('components_web_client_map.api_error')} Google Maps API key</>
++++ b/web-client/src/components/WebClientMap/WebClientMapMarker.tsx
++        src={isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
++        alt={t('components.web_client_map.a11y_my_location')}
++        alt={t('components.web_client_map.a11y_my_location')}
++++ b/web-client/src/modules/personalData/containers/PersonalDataFormContainer/PersonalDataFormContainer.tsx
++            alert(
++              t(
++                'modules.personal-data.containers.PersonalDataFormContainer.missing_data',
++              ),
++            );
++            t(
++              'modules.personal-data.containers.PersonalDataFormContainer.address_error',
++            ),
+diff --git a/web-client/src/modules/requests/components/AcceptedRequestItem/AcceptedRequestItem.tsx b/web-client/src/modules/requests/components/AcceptedRequestItem/AcceptedRequestItem.tsx
+index 87b15a5..ea41380 100644
++          {t('modules.requests.AcceptedRequestItem.choose_volunteer')}
+diff --git a/web-client/src/modules/requests/components/Header/Header.tsx b/web-client/src/modules/requests/components/Header/Header.tsx
++            REMEMBER
++            {t('modules.navigation.components.Header.reject_reminder')}
++          <b>{`${requestsType} Requests`}</b>
+diff --git a/web-client/src/modules/requests/components/RequestItem/RequestItem.tsx b/web-client/src/modules/requests/components/RequestItem/RequestItem.tsx
+@@ -132,7 +135,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
++        {t('modules.requests.no_reply')}
+@@ -158,11 +161,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
++            <p>{t('modules.requests.bottom_warning')}</p>
+@@ -223,7 +222,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
++                {t('modules.requests.cannot_help')}
+@@ -285,7 +284,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
++              alt={t('modules.requests.a11y_profile_pic')}
+diff --git a/web-client/src/modules/requests/containers/AcceptedRequestsContainer/AcceptedRequestsContainer.tsx b/web-client/src/modules/requests/containers/AcceptedRequestsContainer/AcceptedRequestsContainer.tsx
+index abbcf17..2789e6f 100644
++        requestsType={t(
++          'modules.requests.containers.AcceptedRequestsContainer.accepted',
++        )}
+diff --git a/web-client/src/modules/requests/containers/FindRequestsContainer/FindRequestsContainer.tsx b/web-client/src/modules/requests/containers/FindRequestsContainer/FindRequestsContainer.tsx
+index cd90d86..ce42f56 100644
++          message: t(
++            'modules.requests.containers.FindRequestsContainer.want_to_help',
++          ),
++        requestsType={t(
++          'modules.requests.containers.FinishedRequestsContainer.finished',
++        )}
++            t('modules.requests.containers.NewRequestsContainer.address_error'),
+@@ -102,6 +106,8 @@ const NewRequestsContainer: React.FC = () => {
++    /*    const { t } = useTranslation(); */
++
++++ b/web-client/src/modules/requests/containers/OngoingRequestsContainer/OngoingRequestsContainer.tsx
+@@ -1,4 +1,5 @@
++import { useTranslation } from 'react-i18next';
++        requestsType={t(
++          'modules.requests.containers.OngoingRequestsContainer.ongoing',
++        )}
++++ b/web-client/src/modules/requests/containers/OpenRequestsContainer/OpenRequestsContainer.tsx
+@@ -1,4 +1,5 @@
++        requestsType={t(
++          'modules.requests.containers.OpenRequestContainer.open',
++        )}
++
+diff --git a/web-client/src/modules/timeline/components/TopPanel/TopPanel.tsx b/web-client/src/modules/timeline/components/TopPane+            alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}
++            alt={t('modules.navigation.components.TopPanel.a11y_display_photo')}
++                    alt={t(
++                      'modules.navigation.components.TopPanel.a11y_location_icon',
++              alt={t('modules.navigation.components.TopPanel.a11y_phone_icon')}

@@ -1,0 +1,79 @@
++    "modules": {
++      "personal-data": {
++        "containers": {
++          "PersonalDataFormContainer": {
++            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
++            "missing_data": "Missing Data!"
++          }
++        }
++      },
++      "requests": {
++        "no_reply": "No one has replied to your request.",
++        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
++        "cannot_help": "Cannot Help",
++        "a11y_profile_pic": "Profile Pic",
++        "AcceptedRequestItem": {
++          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
++        },
++        "containers": {
++          "OpenRequestContainer": {
++            "open": "Open"
++          },
++          "OngoingRequestContainer": {
++            "ongoing": "Ongoing"
++          },
++          "AcceptedRequestContainer": {
++            "accepted": "Accepted"
++          },
++          "FinishedRequestsContainer": {
++            "finished": "Finished"
++          },
++          "FindRequestsContainer": {
++            "want_to_help": "I want to help!"
++          },
++          "NewRequestsContainer": {
++            "deliveries": "Deliveries",
++            "address_error": "Unable to find address"
++          }
++        }
++      },
++      "navigation": {
++        "components": {
++          "TopPanel": {
++            "a11y_back_nav": "Back navigation icon",
++            "a11y_display_photo": "Display photo",
++            "a11y_location_icon": "Location icon",
++            "a11y_phone_icon": "Phone icon"
++          },
++          "Header": {
++            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority."
++          }
++        }
++      }
++    },
++    "components": {
++      "web_client_map": {
++        "api_error": "Could not obtain",
++        "geocode_error": "Unable to geocode",
++        "distance_error": "Distance Service error:",
++        "a11y_my_location": "My location",
++        "a11y_destination": "Destination"
++      },
++      "notification": {
++        "notifications": "notifications",
++        "no_notifications": "No new notifications.",
++        "request_author": "The request_author",
++        "volunteer_accepted": " accepted your offer for ",
++        "a_request": "a request",
++        "pin_accepted": "You have accepted help from ",
++        "your_task": "your task",
++        "already_helped": " is already getting help in ",
++        "pin_rejected": "You have rejected help from ",
++        "cav_offer": "You have offered help for ",
++        "offered_help": " has offered help in ",
++        "pin_declined_help": "You have declined help for ",
++        "cav_declined_help": " has declined to help in "
++      },
++      "loading": {
++        "a11y_message": "loading ..."
++      }
