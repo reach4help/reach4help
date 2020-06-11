@@ -19,8 +19,10 @@ const ModalLogo = styled(FileProtectOutlined)`
 export const InformationModal: React.FC<InformationModalProps> = ({
   finishRequestHandler,
   visible = false,
+  children,
 }) => {
   const { t } = useTranslation();
+
   const [requestModalVisible, setRequestModalVisible] = useState<boolean>(
     visible,
   );
@@ -39,7 +41,7 @@ export const InformationModal: React.FC<InformationModalProps> = ({
       <FlexDiv>
         <ModalLogo />
       </FlexDiv>
-
+      {children}
       <div>
         <StepForwardButton
           onClick={onFinishRequest}
@@ -54,5 +56,6 @@ export const InformationModal: React.FC<InformationModalProps> = ({
 
 interface InformationModalProps {
   visible?: boolean;
+  children?: any;
   finishRequestHandler?: () => void;
 }
