@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
@@ -13,6 +14,7 @@ import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const CompletedRequestsContainer: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -53,7 +55,9 @@ const CompletedRequestsContainer: React.FC = () => {
   return (
     <>
       <Header
-        requestsType="Finished"
+        requestsType={t(
+          'modules.requests.containers.FinishedRequestsContainer.finished',
+        )}
         numRequests={
           Object.keys(finishedRequestsWithOffersAndTimeline.data || {}).length
         }

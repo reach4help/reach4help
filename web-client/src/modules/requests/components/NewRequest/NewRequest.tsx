@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepForwardButton } from 'src/components/Buttons';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
-import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import SearchIcon from '../../assets/search.svg';
@@ -51,7 +50,7 @@ const MapActionButton = styled(Button)`
   border: 1px solid black;
   border-radius: 17%;
   &:hover {
-    background-color: ${COLORS.lightBlue};
+    background-color: #e0e0e0;
   }
 `;
 
