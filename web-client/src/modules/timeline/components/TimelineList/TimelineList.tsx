@@ -24,7 +24,9 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
   });
 
   const pinUserName = item.requestSnapshot.pinUserSnapshot.displayName;
-  const cavUserName = item.requestSnapshot.cavUserSnapshot?.displayName;
+  const cavUserName =
+    item.offerSnapshot?.cavUserSnapshot.displayName ||
+    item.requestSnapshot.cavUserSnapshot?.displayName;
   const { pinRating, cavRating } = item.requestSnapshot;
   const messagePlaceholders = {
     actorName: isCurrentUserItem
@@ -32,8 +34,8 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
       : isCavItem
       ? cavUserName
       : pinUserName,
-    pinUserName: isCavItem ? pinUserName : 'your',
-    cavUserName: isCavItem ? 'your' : cavUserName,
+    pinUserName: isCurrentUserItem && !isCavItem ? 'your' : pinUserName,
+    cavUserName: isCurrentUserItem && isCavItem ? 'your' : cavUserName,
     pinRating,
     cavRating,
   };
@@ -56,21 +58,27 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
 const TimelineList: React.FC<RequestTimelineListProps> = ({
   items,
   currentUser,
-}) => (
-  <Wrapper>
-    <Title>Request Timeline</Title>
-    <StyledList>
-      <VerticalSeparator />
-      {items.map((item, index) => (
-        <RequestTimelineListItem
-          key={index}
-          item={item}
-          isCurrentUserItem={item.actorRef.id === currentUser.id}
-        />
-      ))}
-    </StyledList>
-  </Wrapper>
-);
+}) => {
+  const sortedItemsByDate = items.sort(
+    (a: TimelineItem, b: TimelineItem) =>
+      a.createdAt.toMillis() - b.createdAt.toMillis(),
+  );
+  return (
+    <Wrapper>
+      <Title>Request Timeline</Title>
+      <StyledList>
+        <VerticalSeparator />
+        {sortedItemsByDate.map((item, index) => (
+          <RequestTimelineListItem
+            key={index}
+            item={item}
+            isCurrentUserItem={item.actorRef.id === currentUser.id}
+          />
+        ))}
+      </StyledList>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   width: 100%;
