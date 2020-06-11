@@ -11,6 +11,7 @@ import {
   getStreetAddressFromProfile,
 } from '../../../../components/WebClientMap/utils';
 import Map from '../../../../components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from '../../../../constants/mediaQueries';
 import { ProfileState } from '../../../../ducks/profile/types';
 import {
   resetSetRequestState,
@@ -34,8 +35,11 @@ const DELIVERIES = 'Deliveries';
 
 const MapContainer = styled.div`
   // aspect ratio = 16:9
-  width: 100vw;
   height: 56.25vw;
+
+  @media ${DEVICE_MIN.laptop} {
+    max-height: 400px;
+  }
 `;
 
 const NewRequestsContainer: React.FC = () => {

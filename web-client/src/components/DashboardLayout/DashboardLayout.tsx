@@ -61,7 +61,8 @@ const StyledLayout = styled(Layout)`
 
 const StyledLayoutContent = styled(Layout.Content)`
   margin: 64px 0;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 `;
 
 interface DashboardLayoutProps {
