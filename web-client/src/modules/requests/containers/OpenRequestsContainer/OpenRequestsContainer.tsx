@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getAcceptedRequests,
@@ -62,6 +63,13 @@ const OpenRequestsContainer: React.FC = () => {
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
   const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
+
+  if (
+    !requestWithOffersAndTimeline.data ||
+    requestWithOffersAndTimeline.loading
+  ) {
+    return <LoadingWrapper />;
+  }
 
   return (
     <>

@@ -4,28 +4,35 @@ import styled from 'styled-components';
 
 export const StepBackButton = styled(Button)`
   border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  &:hover {
-    background-color: ${COLORS.backgroundAlternative};
+  width: 100%;
+  background-color: ${COLORS.stepBackwardNormal};
+  color: white;
+  font-weight: 700;
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
+    /* overrides antd */
     color: white;
-    font-weight: 700;
+    background-color: ${COLORS.stepBackwardEnhanced};
   }
 `;
 
 export const StepForwardButton = styled(Button)`
   border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  background-color: ${COLORS.secondary};
+  width: 100%;
+  background-color: ${COLORS.stepForwardNormal};
   color: white;
-  &:hover {
-    color: ${COLORS.secondaryHover};
-    background-color: ${COLORS.white};
-    font-weight: 700;
+  font-weight: 700;
+  border: none;
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
+    background-color: ${COLORS.stepForwardEnhanced};
+    /* overrides antd */
+    color: white;
   }
 `;

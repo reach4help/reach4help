@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
 import { getAcceptedRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
@@ -38,6 +39,13 @@ const OpenRequestsContainer: React.FC = () => {
 
   const handleRequest: Function = id =>
     history.push(TimelineAcceptedViewLocation.toUrl({ requestId: id }));
+
+  if (
+    !acceptedRequestsWithOffersAndTimeline.data ||
+    acceptedRequestsWithOffersAndTimeline.loading
+  ) {
+    return <LoadingWrapper />;
+  }
 
   return (
     <>

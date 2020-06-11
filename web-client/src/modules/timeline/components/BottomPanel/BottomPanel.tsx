@@ -66,25 +66,28 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
 
   return (
     <>
-      {!showRating && !finishedRequest && isCav && (
-        <ButtonContainer>
-          <StepBackButton
-            onClick={() => handleRequest({ status: RequestStatus.cancelled })}
-          >
-            {t('timeline.cancelRequest')}
-          </StepBackButton>
-          {isCav && (
-            <StepForwardButton
-              onClick={(): void => setRequestModalVisible(true)}
-              icon={<FileProtectOutlined />}
+      {!showRating &&
+        !finishedRequest &&
+        request.status === RequestStatus.ongoing &&
+        isCav && (
+          <ButtonContainer>
+            <StepBackButton
+              onClick={() => handleRequest({ status: RequestStatus.cancelled })}
             >
-              {t('timeline.finishRequest')}
-            </StepForwardButton>
-          )}
-        </ButtonContainer>
-      )}
+              {t('timeline.cancelRequest')}
+            </StepBackButton>
+            {isCav && (
+              <StepForwardButton
+                onClick={(): void => setRequestModalVisible(true)}
+                icon={<FileProtectOutlined />}
+              >
+                {t('timeline.finishRequest')}
+              </StepForwardButton>
+            )}
+          </ButtonContainer>
+        )}
 
-      {request.status === RequestStatus.pending && (
+      {request.status === RequestStatus.pending && !isCav && (
         <ButtonContainer>
           <StepBackButton
             onClick={() => handleRequest({ status: RequestStatus.cancelled })}

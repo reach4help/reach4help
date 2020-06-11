@@ -194,7 +194,7 @@ const NewRequestsContainer: React.FC = () => {
           flexDirection: 'column',
         }}
       >
-        <div style={{ height: '100%' }}>
+        <div style={{ height: '100%', display: 'flex' }}>
           <Map
             isCav={false}
             destinations={[]}
@@ -205,7 +205,7 @@ const NewRequestsContainer: React.FC = () => {
             startLocateMe={startLocateMe}
           />
         </div>
-        <div style={{ marginBottom: '50px' }}>
+        <div style={{ marginBottom: '50px', display: 'flex' }}>
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
