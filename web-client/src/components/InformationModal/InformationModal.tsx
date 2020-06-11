@@ -1,9 +1,9 @@
-import { FileProtectOutlined } from '@ant-design/icons';
+import { FileProtectOutlined, MailOutlined } from '@ant-design/icons';
 import { List, Modal, Typography } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import r4hLOVE from 'src/assets/r4hLOVE.png';
-import { StepForwardButton } from 'src/components/Buttons';
+import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -24,6 +24,7 @@ const R4HloveListItem = styled(List.Item)`
 export const InformationModal: React.FC<InformationModalProps> = ({
   finishRequestHandler,
   visible = false,
+  title = 'Instructions',
   instructions,
 }) => {
   const { t } = useTranslation();
@@ -36,6 +37,25 @@ export const InformationModal: React.FC<InformationModalProps> = ({
     finishRequestHandler && finishRequestHandler();
     setRequestModalVisible(false);
   };
+  const ModalFooter = () => (
+    <div>
+      <a href="mailto:info@reach4help.org">
+        <em
+          style={{
+            color: COLORS.lightBlue,
+          }}
+        >
+          {t('information_modal.footer')}
+        </em>
+        &nbsp;&nbsp;&nbsp;
+        <MailOutlined
+          style={{
+            color: COLORS.lightBlue,
+          }}
+        />
+      </a>
+    </div>
+  );
 
   return (
     <Modal
@@ -48,8 +68,8 @@ export const InformationModal: React.FC<InformationModalProps> = ({
       </FlexDiv>
 
       <List
-        header={<div>{t('information_modal.instructions')}</div>}
-        footer={<div>{t('information_modal.footer')}</div>}
+        header={<div>{title}</div>}
+        footer={ModalFooter()}
         bordered
         dataSource={instructions}
         renderItem={item => (
@@ -65,12 +85,18 @@ export const InformationModal: React.FC<InformationModalProps> = ({
         )}
       />
 
-      <div>
+      <div style={{ display: 'flex' }}>
+        <StepBackButton
+          onClick={() => setRequestModalVisible(false)}
+          icon={<FileProtectOutlined />}
+        >
+          {t('cancel')}
+        </StepBackButton>
         <StepForwardButton
           onClick={onFinishRequest}
           icon={<FileProtectOutlined />}
         >
-          {t('timeline.finishRequest')}
+          {t('okay')}
         </StepForwardButton>
       </div>
     </Modal>
@@ -78,6 +104,7 @@ export const InformationModal: React.FC<InformationModalProps> = ({
 };
 
 interface InformationModalProps {
+  title?: boolean;
   visible?: boolean;
   instructions?: string[];
   finishRequestHandler?: () => void;

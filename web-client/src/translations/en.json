@@ -1,5 +1,7 @@
 {
   "common": {
+    "okay": "Okay",
+    "cancel": "Cancel",
     "welcome": "Welcome",
     "continue": "Continue",
     "verify": "Verify",
@@ -17,7 +19,7 @@
     "country": "Country",
     "information_modal": {
       "instructions": "Instructions",
-      "footer": "Please contact us if you need help: reach4help.org",
+      "footer": "Please contact us if you need help: info@reach4help.org",
       "a11y_logo": "Reach for Help logo"
     },
 

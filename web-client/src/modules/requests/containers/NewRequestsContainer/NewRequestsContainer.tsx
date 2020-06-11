@@ -215,10 +215,7 @@ const NewRequestsContainer: React.FC = () => {
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
-          <InformationModal
-            visible={false /* showInfoModal */}
-            instructions={instructions}
-          />
+          <InformationModal visible instructions={instructions} />
         </div>
       </div>
     </>
