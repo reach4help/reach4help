@@ -51,7 +51,7 @@ const Notification: React.FC<NotificationProps> = ({
         <Text>
           {t('components.notification.pin_accepted')}
           {cavUser.displayName || cavUser.username}
-          {t('common.for')}
+          {t('for')}
           {offerRequest?.title ? (
             <ReqTitle>{offerRequest.title}</ReqTitle>
           ) : (
@@ -83,7 +83,7 @@ const Notification: React.FC<NotificationProps> = ({
         <Text>
           {t('components.notification.pin_rejected')}
           {cavUser.displayName || cavUser.username}
-          {t('common.for')}
+          {t('for')}
           {offerRequest?.title ? (
             <ReqTitle>{offerRequest.title}</ReqTitle>
           ) : (

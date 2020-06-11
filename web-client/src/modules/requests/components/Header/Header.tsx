@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
               marginBottom: '4px',
             }}
           >
-            REMEMBER
+            {t('modules.navigation.components.Header.remember')}
           </p>
           <p style={{ color: 'rgba(0, 0, 0, 0.5' }}>
             {t('modules.navigation.components.Header.reject_reminder')}
@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({
             fontSize: '30px',
           }}
         >
-          <b>{`${requestsType} Requests`}</b>
+          <b>{`${requestsType}  ${t('modules.navigation.components.Header.requests')}`}</b>
         </h1>
         <h2
           style={{
