@@ -51,7 +51,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 };
 
 const StyledLayout = styled(Layout)`
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
 `;
 
 const StyledLayoutContent = styled(Layout.Content)`
