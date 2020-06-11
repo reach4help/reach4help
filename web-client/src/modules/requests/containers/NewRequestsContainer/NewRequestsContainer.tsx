@@ -1,7 +1,7 @@
 import { firestore } from 'firebase';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+/* import { useTranslation } from 'react-i18next'; */
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { InformationModal } from 'src/components/InformationModal/InformationModal';
@@ -216,7 +216,7 @@ const NewRequestsContainer: React.FC = () => {
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
           <InformationModal
-            visible={showInfoModal}
+            visible={false /* showInfoModal */}
             instructions={instructions}
           />
         </div>

@@ -42,6 +42,7 @@
       "no_digits_error": "You must enter the phone digits too.",
       "is_valid_number": "is a valid telephone number",
       "is_not_valid_number": "is not a valid telephone number",
+      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
       "country_label": "Your country",
       "country_placeholder": "Select a country",
       "phone_label": "Enter your phone number",

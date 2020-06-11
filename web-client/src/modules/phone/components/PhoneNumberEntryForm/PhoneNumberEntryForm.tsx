@@ -72,11 +72,12 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetState]);
-
+  /*
   if (resetState) {
+    console.log('returning from reset state');
     return <></>;
   }
-
+*/
   const CountryCodeDisplay = styled(Input)`
     /* might need media query to get positioning right */
     height: 30px;
@@ -136,8 +137,8 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       setNumberINValidMessage('');
       return Promise.resolve();
     }
-    setNumberValidMessage(message);
-    setNumberINValidMessage('');
+    setNumberValidMessage('');
+    setNumberINValidMessage(message);
     return Promise.resolve();
   };
 
@@ -177,10 +178,11 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     const fullTelephone = `+${countryCode}${number}`;
 
     const pnv = new PhoneNumberValidator(fullTelephone);
+
     if (fullTelephone.startsWith('+11')) {
       return showMessage({
         valid: false,
-        message: `${fullTelephone} ${t('phoneNumber.is_valid_number')}`,
+        message: `${fullTelephone} ${t('phoneNumber.is_plus_11')}`,
       });
     }
     if (pnv.isValid() && pnv.canBeInternationallyDialled()) {
@@ -207,7 +209,12 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       form={form}
       onFinish={({ prefix, suffix }) => {
         handleFormSubmit(
-          { phoneNumber: `+${prefix}${suffix.replace(/\D/g, '')}` },
+          {
+            phoneNumber: `+${prefix.replace(/\D/g, '')}${suffix.replace(
+              /\D/g,
+              '',
+            )}`,
+          },
           recaptchaVerifier,
         );
       }}
