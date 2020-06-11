@@ -101,7 +101,10 @@ const Wrapper = styled('div')<{ isCav?: boolean }>`
       &:after {
         display: none;
       }
-      &:hover {
+      &:hover,
+      &:focus,
+      &:active,
+      &:focus-within {
         color: white;
         font-weight: 700;
         background-color: ${props =>
