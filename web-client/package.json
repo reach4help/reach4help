@@ -50,6 +50,7 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.1",
     "typescript": "~3.7.2",
+    "use-force-update": "^1.0.7",
     "yup": "^0.28.3"
   },
   "scripts": {

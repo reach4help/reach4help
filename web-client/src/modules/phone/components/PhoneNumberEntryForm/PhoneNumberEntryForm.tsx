@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import firebase from 'src/firebase';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
+import useForceUpdate from 'use-force-update';
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -38,12 +39,13 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [recaptchaVerifier, setRecaptchaVerifier] = useState({});
-  const [resetState, setResetState] = useState(false);
 
   const [digits, setDigits] = useState<string>('');
   const [dialCode, setDialCode] = useState<string>('');
   const [numberValidMessage, setNumberValidMessage] = useState<string>('');
   const [numberINValidMessage, setNumberINValidMessage] = useState<string>('');
+
+  const forceUpdate = useForceUpdate();
 
   useEffect(() => {
     const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
@@ -52,32 +54,12 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     setRecaptchaVerifier(appVerifier);
   }, []);
 
-  // TODO: FIND A BETTER SOLUTION TO RESET RECAPTCHA
   useEffect(() => {
     if (reset) {
-      setRecaptchaVerifier({});
-      setResetState(true);
+      forceUpdate();
     }
-  }, [reset]);
+  }, [reset, forceUpdate]);
 
-  useEffect(() => {
-    if (resetState) {
-      setResetState(false);
-      form.resetFields();
-    } else if (reset) {
-      const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
-        size: 'invisible',
-      });
-      setRecaptchaVerifier(appVerifier);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resetState]);
-  /*
-  if (resetState) {
-    console.log('returning from reset state');
-    return <></>;
-  }
-*/
   const CountryCodeDisplay = styled(Input)`
     /* might need media query to get positioning right */
     height: 30px;
