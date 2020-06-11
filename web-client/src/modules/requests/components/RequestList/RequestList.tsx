@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Offer } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
-import LoadingIndicator from "../../../../components/LoadingIndicator/LoadingIndicator";
+
+import LoadingIndicator from '../../../../components/LoadingIndicator/LoadingIndicator';
 
 interface RequestListProps {
   requests?: Record<string, RequestWithOffersAndTimeline>;

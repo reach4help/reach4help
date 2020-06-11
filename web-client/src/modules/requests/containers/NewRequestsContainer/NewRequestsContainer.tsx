@@ -12,10 +12,7 @@ import {
 } from '../../../../components/WebClientMap/utils';
 import Map from '../../../../components/WebClientMap/WebClientMap';
 import { ProfileState } from '../../../../ducks/profile/types';
-import {
-  resetSetRequestState,
-  setRequest,
-} from '../../../../ducks/requests/actions';
+import { setRequest } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from '../../../../models/users';
 import NewRequest from '../../components/NewRequest/NewRequest';
@@ -67,9 +64,7 @@ const NewRequestsContainer: React.FC = () => {
 
   useEffect(() => {
     if (newRequestState.success) {
-      setIsSubmitting(false);
       setShowConfirmationPage(true);
-      dispatch(resetSetRequestState());
     }
   }, [newRequestState, dispatch]);
 
