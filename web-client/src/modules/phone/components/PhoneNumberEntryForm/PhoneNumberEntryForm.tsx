@@ -127,6 +127,9 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
 
   const CountryCodeDisplay = styled(Input)`
     width: 5rem;
+    height: 100%;
+    position: relative;
+    top: 18px;
     &:disabled {
       color: black;
       font-weight: 900px;
@@ -212,10 +215,10 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           }
           onChange={v => setDialCode(v.toString().replace(/\D/g, ''))}
         >
-          {/* wierd bug "United States" resolves as "United States Minor Islands */
-          allCountries.map(c => (
+          {
+            allCountries.map(c => (
             <Option key={c.iso2} value={c.dialCode.concat(c.iso2)}>
-              {c.name.startsWith('United States') ? 'United States' : c.name}
+              {c.name}
             </Option>
           ))}
         </Select>
