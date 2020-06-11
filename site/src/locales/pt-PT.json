@@ -43,7 +43,13 @@
     },
     "Privacy": "Política de Privacidade",
     "Footer": {
-      "sections": ["Política de Privacidade"]
+      "sections": [
+        { "title": "Política de Privacidade", "link": "/privacidade" },
+        {
+          "title": "Código de Conduta",
+          "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+        }
+      ]
     }
   }
 }
