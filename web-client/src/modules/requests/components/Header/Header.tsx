@@ -62,7 +62,9 @@ const Header: React.FC<HeaderProps> = ({
             fontSize: '30px',
           }}
         >
-          <b>{`${requestsType}  ${t('modules.navigation.components.Header.requests')}`}</b>
+          <b>{`${requestsType}  ${t(
+            'modules.navigation.components.Header.requests',
+          )}`}</b>
         </h1>
         <h2
           style={{
