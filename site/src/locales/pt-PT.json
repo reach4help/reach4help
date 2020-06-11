@@ -50,6 +50,14 @@
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
         }
       ]
+    },
+    "404": {
+      "heading": "404 Não Encontrado",
+      "description": [
+        "Encontraste uma falha na matriz...",
+        "Ou andas só a explorar!"
+      ],
+      "linkBackToHome": "Volta para o início"
     }
   }
 }

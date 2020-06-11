@@ -11,9 +11,6 @@ function Team() {
   const data = useStaticQuery(
     graphql`
       {
-        markdownRemark(frontmatter: { title: { eq: "Team" } }) {
-          html
-        }
         file(relativePath: { eq: "sections/team/image.png" }) {
           childImageSharp {
             fluid(maxWidth: 500, quality: 75) {
@@ -40,13 +37,15 @@ function Team() {
           <br />
           <h3>{t("Team.subheading")}</h3>
         </ContentWrapper>
-        <Button
-          textColor="white"
-          backgroundColor="accent"
-          outlineColor="secondary"
-        >
-          {t("Team.buttons.0")}
-        </Button>
+        <a href="https://github.com/reach4help/reach4help/wiki#onboading-steps">
+          <Button
+            textColor="white"
+            backgroundColor="accent"
+            outlineColor="secondary"
+          >
+            {t("Team.buttons.0")}
+          </Button>
+        </a>
       </div>
       <div className="imageWrapper">
         <Img fluid={data.file.childImageSharp.fluid} alt="" />
