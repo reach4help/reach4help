@@ -98,7 +98,10 @@ const BottomLinkItem = styled('div')<{ isCav?: boolean }>`
   svg {
     margin-right: 10px;
   }
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
     color: white;
     font-weight: 700;
     background-color: ${props =>
