@@ -15,6 +15,7 @@
     "code": "Postal / Zip Code",
     "State": "State / Province",
     "country": "Paese",
+    "for": " for ",
     "login": {
       "title": "Reach4Help",
       "sub_title": "Fai attenzione",
@@ -130,15 +131,15 @@
       "_requests_open": "Open Requests"
     },
     "timeline": {
-      "CREATE_REQUEST": "Person In Need created this request.",
-      "CANCEL_REQUEST": "Person In Need closed this request.",
-      "REMOVE_REQUEST": "Volunteer removed this request",
+      "CREATE_REQUEST": "{{actorName}} created this request.",
+      "CANCEL_REQUEST": "{{actorName}} closed this request.",
+      "REMOVE_REQUEST": "{{actorName}} removed this request",
       "COMPLETE_REQUEST": "Request has been completed.",
-      "CREATE_OFFER": "Volunteer accepted this request.",
-      "ACCEPT_OFFER": "Person In Need accepted Volunteer help.",
-      "REJECT_OFFER": "Person In Need rejected Volunteer help.",
-      "RATE_PIN": "Volunteer rated Person In Need.",
-      "RATE_CAV": "Person In Need rated Volunteer.",
+      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
+      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
+      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
+      "RATE_PIN": "{{actorName}} rated with {{pinRating}}.",
+      "RATE_CAV": "{{actorName}} rated with {{cavRating}}.",
       "open_status": "Open",
       "cav": "Volunteer",
       "cav_wait": "WAITING FOR VOLUNTEER",
@@ -152,6 +153,88 @@
       "thankYouModalTitle": "Thank you!",
       "thankYouModalBodyParta": "You rated",
       "thankYouModalBodyPartb": "with"
+    },
+    "modules": {
+      "navigation": {
+        "components": {
+          "Header": {
+            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
+            "remember": "REMEMBER",
+            "requests": "Requests"
+          },
+          "TopPanel": {
+            "a11y_back_nav": "Back navigation icon",
+            "a11y_display_photo": "Display photo",
+            "a11y_location_icon": "Location icon",
+            "a11y_phone_icon": "Phone icon"
+          }
+        }
+      },
+      "personal-data": {
+        "containers": {
+          "PersonalDataFormContainer": {
+            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
+            "missing_data": "Missing Data!"
+          }
+        }
+      },
+      "requests": {
+        "a11y_profile_pic": "Profile Pic",
+        "AcceptedRequestItem": {
+          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+        },
+        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
+        "cannot_help": "Cannot Help",
+        "containers": {
+          "AcceptedRequestContainer": {
+            "accepted": "Accepted"
+          },
+          "FindRequestsContainer": {
+            "want_to_help": "I want to help!"
+          },
+          "FinishedRequestsContainer": {
+            "finished": "Finished"
+          },
+          "NewRequestsContainer": {
+            "address_error": "Unable to find address",
+            "deliveries": "Deliveries"
+          },
+          "OngoingRequestContainer": {
+            "ongoing": "Ongoing"
+          },
+          "OpenRequestContainer": {
+            "open": "Open"
+          },
+          "no_reply": "No one has replied to your request."
+        }
+      }
+    },
+    "components": {
+      "loading": {
+        "a11y_message": "loading ..."
+      },
+      "notification": {
+        "a_request": "a request",
+        "already_helped": " is already getting help in ",
+        "cav_declined_help": " has declined to help in ",
+        "cav_offer": "You have offered help for ",
+        "no_notifications": "No new notifications.",
+        "notifications": "notifications",
+        "offered_help": " has offered help in ",
+        "pin_accepted": "You have accepted help from ",
+        "pin_declined_help": "You have declined help for ",
+        "pin_rejected": "You have rejected help from ",
+        "request_author": "The request_author",
+        "volunteer_accepted": " accepted your offer for ",
+        "your_task": "your task"
+      },
+      "web_client_map": {
+        "a11y_my_location": "My location",
+        "a11y_destination": "Destination",
+        "api_error": "Could not obtain",
+        "distance_error": "Distance Service error:",
+        "geocode_error": "Unable to geocode"
+      }
     }
   }
 }
