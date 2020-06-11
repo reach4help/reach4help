@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { OfferStatus } from 'src/models/offers';
 import { Request } from 'src/models/requests';
@@ -33,6 +34,7 @@ const Notification: React.FC<NotificationProps> = ({
   updatedAt,
   isCav,
 }): React.ReactElement => {
+  const { t } = useTranslation();
   const history = useHistory();
   const visualizeNotification = () => {
     if (offerStatus === OfferStatus.accepted) {
@@ -41,8 +43,8 @@ const Notification: React.FC<NotificationProps> = ({
           <Text>
             {offerRequest?.pinUserSnapshot.displayName ||
               offerRequest?.pinUserSnapshot.username ||
-              'The request author'}
-            {' accepted your offer for '}
+              t('components.notification.request_author')}
+            {t('components.notification.volunteer_accepted')}
             {offerRequest?.title ? (
               <ReqTitle>{offerRequest.title}</ReqTitle>
             ) : (
@@ -54,13 +56,13 @@ const Notification: React.FC<NotificationProps> = ({
       }
       return (
         <Text>
-          {'You have accepted '}
+          {t('components.notification.pin_accepted')}
           {cavUser.displayName || cavUser.username}
-          {"'s help for "}
+          {t('for')}
           {offerRequest?.title ? (
             <ReqTitle>{offerRequest.title}</ReqTitle>
           ) : (
-            'your task'
+            t('components.notification.your_task')
           )}
           .
         </Text>
@@ -72,12 +74,13 @@ const Notification: React.FC<NotificationProps> = ({
           <Text>
             {offerRequest?.pinUserSnapshot.displayName ||
               offerRequest?.pinUserSnapshot.username ||
-              'The request author'}
-            {' is already getting help in '}
+              `${t('components.notification.request_author')} ${t(
+                'components.notification.already_helped',
+              )}`}
             {offerRequest?.title ? (
               <ReqTitle>{offerRequest.title}</ReqTitle>
             ) : (
-              'a request'
+              t('components.notification.a_request')
             )}
             .
           </Text>
@@ -85,13 +88,13 @@ const Notification: React.FC<NotificationProps> = ({
       }
       return (
         <Text>
-          {'You have rejected '}
+          {t('components.notification.pin_rejected')}
           {cavUser.displayName || cavUser.username}
-          {"'s help for "}
+          {t('for')}
           {offerRequest?.title ? (
             <ReqTitle>{offerRequest.title}</ReqTitle>
           ) : (
-            'your task'
+            t('components.notification.your_task')
           )}
           .
         </Text>
@@ -101,11 +104,11 @@ const Notification: React.FC<NotificationProps> = ({
       if (isCav) {
         return (
           <Text>
-            {'You have offered help for '}
+            {t('components.notification.cav_offer')}
             {offerRequest?.title ? (
               <ReqTitle>{offerRequest.title}</ReqTitle>
             ) : (
-              'a request'
+              t('components.notification.a_request')
             )}
             .
           </Text>
@@ -114,11 +117,11 @@ const Notification: React.FC<NotificationProps> = ({
       return (
         <Text>
           {cavUser.displayName || cavUser.username}
-          {' has offered to help in '}
+          {t('components.notification.offered_help')}
           {offerRequest?.title ? (
             <ReqTitle>{offerRequest.title}</ReqTitle>
           ) : (
-            'your task'
+            t('components.notification.your_task')
           )}
           .
         </Text>
@@ -128,11 +131,11 @@ const Notification: React.FC<NotificationProps> = ({
       if (isCav) {
         return (
           <Text>
-            {'You have declined help for '}
+            {t('components.notification.pin_declined_help')}
             {offerRequest?.title ? (
               <ReqTitle>{offerRequest.title}</ReqTitle>
             ) : (
-              'a request'
+              t('components.notification.a_request')
             )}
             .
           </Text>
@@ -141,11 +144,11 @@ const Notification: React.FC<NotificationProps> = ({
       return (
         <Text>
           {cavUser.displayName || cavUser.username}
-          {' has declined to help in '}
+          {t('components.notification.cav_declined_help')}
           {offerRequest?.title ? (
             <ReqTitle>{offerRequest.title}</ReqTitle>
           ) : (
-            'your task'
+            t('components.notification.your_task')
           )}
           .
         </Text>

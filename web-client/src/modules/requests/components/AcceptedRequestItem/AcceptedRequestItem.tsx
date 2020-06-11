@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
@@ -63,6 +64,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
   handleRequest,
   offers,
 }): React.ReactElement => {
+  const { t } = useTranslation();
   const handleRequestClick = () => {
     handleRequest();
   };
@@ -100,7 +102,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
             marginBottom: '10px',
           }}
         >
-          Choose from the following volunteers to fulfill your request.
+          {t('modules.requests.AcceptedRequestItem.choose_volunteer')}
         </StyledText>
         <div style={{ display: 'flex' }}>
           {displayOfferPics()}
