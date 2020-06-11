@@ -1,5 +1,6 @@
 import GoogleMapReact, { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import apiKey from './apiKey';
 import MyLocationControl from './MyLocationControl';
@@ -30,6 +31,8 @@ const WebClientMap: React.FC<MapProps> = ({
   zoom = 11,
   isCav = true,
 }) => {
+  const { t } = useTranslation();
+
   /* banner message */
   const [mapMessage, setMapMessage] = useState<string>('');
 
@@ -80,7 +83,7 @@ const WebClientMap: React.FC<MapProps> = ({
       }
     } else {
       // eslint-disable-next-line no-console
-      console.error('Unable to geocode');
+      console.error(t('components.web_client_map.geocode_error'));
     }
   };
 
@@ -152,7 +155,11 @@ const WebClientMap: React.FC<MapProps> = ({
           );
         } else {
           // eslint-disable-next-line no-console
-          console.error('DISTANCE SERVICE ERROR:', status, result);
+          console.error(
+            t('components.web_client_map.distance_error'),
+            status,
+            result,
+          );
         }
       },
     );
@@ -169,7 +176,7 @@ const WebClientMap: React.FC<MapProps> = ({
   };
 
   return !apiKey ? (
-    <>Could not obtain Google Maps API key</>
+    <>{t('components_web_client_map.api_error')} Google Maps API key</>
   ) : (
     <>
       <div style={{ height: '100%', width: '100%' }}>

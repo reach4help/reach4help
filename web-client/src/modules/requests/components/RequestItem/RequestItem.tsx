@@ -1,5 +1,6 @@
 import { Button, Col, Row } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
@@ -109,6 +110,8 @@ const RequestItem: React.FC<RequestItemProps> = ({
   toCloseRequest,
   loading = false,
 }): React.ReactElement => {
+  const { t } = useTranslation();
+
   const [displayDetails, toggleDetails] = useState(false);
   const [actionPerformed, setActionPerformed] = useState(0); // 0 - Nothing, 1 - Accept, 2 - Reject
 
@@ -132,7 +135,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
           background: '#FAFAFA',
         }}
       >
-        No one has replied to your request.
+        {t('modules.requests.no_reply')}
       </WarningMessage>
     );
   } else if (
@@ -158,11 +161,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
             />
           </Col>
           <Col span={22}>
-            <p>
-              Your request was viewed by several volunteers, but was not
-              accepted. We suggest you &ldquo;Close Request&rdquo; and create a
-              new one with a simpler description.
-            </p>
+            <p>{t('modules.requests.bottom_warning')}</p>
           </Col>
         </Row>
         <Row>
@@ -223,7 +222,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
                   handleRequest(false);
                 }}
               >
-                Cannot Help
+                {t('modules.requests.cannot_help')}
               </StepBackButton>
             </Col>
             <Col span={11} offset={2}>
@@ -281,7 +280,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
                 float: 'right',
               }}
               src={request.pinUserSnapshot.displayPicture || defaultUserPic}
-              alt="Profile pic"
+              alt={t('modules.requests.a11y_profile_pic')}
             />
           )}
         </div>
