@@ -126,10 +126,11 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   }
 
   const CountryCodeDisplay = styled(Input)`
-    width: 5rem;
-    height: 100%;
+/* might need media query to get positioning right */
+    height: 30px;
     position: relative;
     top: 18px;
+    width: 5rem;
     &:disabled {
       color: black;
       font-weight: 900px;
