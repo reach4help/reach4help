@@ -21,6 +21,7 @@ function SEO({ description, lang, title }) {
   if (typeof title !== "undefined") {
     title = `${title} | ${site.siteMetadata.title}`
   } else {
+    // eslint-disable-next-line prefer-destructuring
     title = site.siteMetadata.title
   }
 
