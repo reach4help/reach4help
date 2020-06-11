@@ -126,7 +126,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   }
 
   const CountryCodeDisplay = styled(Input)`
-/* might need media query to get positioning right */
+    /* might need media query to get positioning right */
     height: 30px;
     position: relative;
     top: 18px;
@@ -216,8 +216,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           }
           onChange={v => setDialCode(v.toString().replace(/\D/g, ''))}
         >
-          {
-            allCountries.map(c => (
+          {allCountries.map(c => (
             <Option key={c.iso2} value={c.dialCode.concat(c.iso2)}>
               {c.name}
             </Option>

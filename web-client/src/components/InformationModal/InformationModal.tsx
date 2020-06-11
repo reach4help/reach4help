@@ -1,8 +1,8 @@
 import { FileProtectOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
+import { StepForwardButton } from 'src/components/Buttons';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -16,16 +16,20 @@ const ModalLogo = styled(FileProtectOutlined)`
   font-size: 20px;
 `;
 
-const InformationModal = ({ finishRequestHandler, visible }) => {
+export const InformationModal: React.FC<InformationModalProps> = ({
+  finishRequestHandler,
+  visible = false,
+}) => {
   const { t } = useTranslation();
-  const onFinishRequest = (): void => {
-    finishRequestHandler;
-    setRequestModalVisible(false);
-  };
-
   const [requestModalVisible, setRequestModalVisible] = useState<boolean>(
     visible,
   );
+
+  const onFinishRequest = (): void => {
+    finishRequestHandler && finishRequestHandler();
+    setRequestModalVisible(false);
+  };
+
   return (
     <Modal
       visible={requestModalVisible}
@@ -47,3 +51,8 @@ const InformationModal = ({ finishRequestHandler, visible }) => {
     </Modal>
   );
 };
+
+interface InformationModalProps {
+  visible?: boolean;
+  finishRequestHandler?: () => void;
+}
