@@ -38,13 +38,11 @@ const RequestDetails = styled.div`
 `;
 
 const NewRequestsContainer: React.FC = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { t } = useTranslation();
+  /* const { t } = useTranslation(); */
 
   const history = useHistory();
 
-  // eslint-disable-next-line no-unused-vars
-  const [showInfoModal, setShowInfoModal] = useState<boolean>(false);
+  /* const [showInfoModal, setShowInfoModal] = useState<boolean>(false); */
 
   const [requestInfo, setRequestInfo] = useState<RequestInput | undefined>(
     undefined,
