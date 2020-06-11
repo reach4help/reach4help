@@ -15,6 +15,12 @@
     "code": "Postal / Zip Code",
     "State": "State / Province",
     "country": "Country",
+    "information_modal": {
+      "instructions": "Instructions",
+      "footer": "Please contact us if you need help: reach4help.org",
+      "a11y_logo": "Reach for Help logo"
+    },
+
     "login": {
       "title": "Reach4Help",
       "sub_title": "Please Note",
@@ -38,7 +44,8 @@
       "is_not_valid_number": "is not a valid telephone number",
       "country_label": "Your country",
       "country_placeholder": "Select a country",
-      "phone_label": "Enter your phone number"
+      "phone_label": "Enter your phone number",
+      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
     },
     "verificationCode": {
       "sub_title": "We just texted you a confirmation code. Please enter it below.",
@@ -72,6 +79,11 @@
       "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
     },
     "newRequest": {
+      "instructions": [
+        "Wait for a volunteer to contact you",
+        "Arrange help by telephone with the volunteer.  They will have your phone number",
+        "Check your right side request panel to see the status of your requests"
+      ],
       "title": "New Request",
       "icon_text": "I need help",
       "form": {

@@ -1,6 +1,7 @@
 import { firestore } from 'firebase';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { InformationModal } from 'src/components/InformationModal/InformationModal';
@@ -21,12 +22,25 @@ import RequestReview, {
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 import styled from 'styled-components';
 
+/* TODO:  Use translation file arrays  
+  * https://www.i18next.com/translation-function/objects-and-arrays
+  t('newRequest.instructions')
+*/
+
+const instructions = [
+  'Wait for a volunteer to contact you',
+  'Arrange help by telephone with the volunteer.  They will have your phone number',
+  'Check your right side request panel to see the status of your requests',
+];
 const RequestDetails = styled.div`
   width: 100%;
   background: white;
 `;
 
 const NewRequestsContainer: React.FC = () => {
+  // eslint-disable-next-line no-unused-vars
+  const { t } = useTranslation();
+
   const history = useHistory();
 
   // eslint-disable-next-line no-unused-vars
@@ -203,12 +217,10 @@ const NewRequestsContainer: React.FC = () => {
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
-          <InformationModal visible={showInfoModal}>
-            <h2>Instructions</h2>
-            <ol>
-              <dd>Wait for Volunteer to respond.</dd>
-            </ol>
-          </InformationModal>
+          <InformationModal
+            visible={showInfoModal}
+            instructions={instructions}
+          />
         </div>
       </div>
     </>

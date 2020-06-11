@@ -45,54 +45,6 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   const [numberValidMessage, setNumberValidMessage] = useState<string>('');
   const [numberINValidMessage, setNumberINValidMessage] = useState<string>('');
 
-  const fullTelephoneValidator = (value, isDigits = false) => {
-    /* TODO:  Check if this conditional is needed */
-    if (!value) {
-      if (isDigits) {
-        return Promise.reject(t('phoneNumber.error_message'));
-      }
-      return Promise.reject(t('phoneNumber.error_message'));
-    }
-
-    let countryCode;
-    let number;
-    if (isDigits) {
-      countryCode = dialCode;
-      number = value.replace(/\D/g, '');
-    } else {
-      countryCode = value;
-      number = digits;
-    }
-
-    if (!countryCode) {
-      setNumberINValidMessage(t('phoneNumber.no_country_error'));
-      setNumberValidMessage('');
-      return Promise.reject();
-    }
-
-    if (!number) {
-      setNumberINValidMessage(t('phoneNumber.no_digits_error'));
-      setNumberValidMessage('');
-      return Promise.reject();
-    }
-
-    const fullTelephone = `+${countryCode}${number}`;
-
-    const pnv = new PhoneNumberValidator(fullTelephone);
-    if (pnv.isValid() && pnv.canBeInternationallyDialled()) {
-      setNumberValidMessage(
-        `${fullTelephone} ${t('phoneNumber.is_valid_number')}`,
-      );
-      setNumberINValidMessage('');
-      return Promise.resolve();
-    }
-    setNumberINValidMessage(
-      `${fullTelephone} ${t('phoneNumber.is_not_valid_number')}`,
-    );
-    setNumberValidMessage('');
-    return Promise.reject();
-  };
-
   useEffect(() => {
     const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
       size: 'invisible',
@@ -177,6 +129,71 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     color: rgba(0, 0, 0, 0.85);
     margin-top: 30px;
   `;
+
+  const showMessage = ({ message, valid }) => {
+    if (valid) {
+      setNumberValidMessage(message);
+      setNumberINValidMessage('');
+      return Promise.resolve();
+    }
+    setNumberValidMessage(message);
+    setNumberINValidMessage('');
+    return Promise.resolve();
+  };
+
+  const fullTelephoneValidator = (value, isDigits = false) => {
+    /* TODO:  Check if this conditional is needed */
+    if (!value) {
+      if (isDigits) {
+        return Promise.reject(t('phoneNumber.error_message'));
+      }
+      return Promise.reject(t('phoneNumber.error_message'));
+    }
+
+    let countryCode;
+    let number;
+    if (isDigits) {
+      countryCode = dialCode;
+      number = value.replace(/\D/g, '');
+    } else {
+      countryCode = value;
+      number = digits;
+    }
+
+    if (!countryCode) {
+      return showMessage({
+        message: t('phoneNumber.no_country_error'),
+        valid: false,
+      });
+    }
+
+    if (!number) {
+      return showMessage({
+        message: t('phoneNumber.no_digits_error'),
+        valid: false,
+      });
+    }
+
+    const fullTelephone = `+${countryCode}${number}`;
+
+    const pnv = new PhoneNumberValidator(fullTelephone);
+    if (fullTelephone.startsWith('+11')) {
+      return showMessage({
+        valid: false,
+        message: `${fullTelephone} ${t('phoneNumber.is_valid_number')}`,
+      });
+    }
+    if (pnv.isValid() && pnv.canBeInternationallyDialled()) {
+      return showMessage({
+        valid: true,
+        message: `${fullTelephone} ${t('phoneNumber.is_valid_number')}`,
+      });
+    }
+    return showMessage({
+      valid: false,
+      message: `${fullTelephone} ${t('phoneNumber.is_not_valid_number')}`,
+    });
+  };
 
   return (
     <Form
