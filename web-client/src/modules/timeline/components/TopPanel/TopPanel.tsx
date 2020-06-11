@@ -37,7 +37,10 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
     <TopPanelWrapper>
       <NavRow>
         <div onClick={() => history.goBack()}>
-          <img src={NavBackIcon} alt={t('modules.navigation.components.TopPanel.a11y_back_nav')} />
+          <img
+            src={NavBackIcon}
+            alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}
+          />
         </div>
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
           {userRequestStatus === RequestStatus.pending
