@@ -2,62 +2,61 @@
   "common": {
     "Navigation": {
       "IndexPage": [
-        { "title": "Home", "link": "/#home" },
-        { "title": "Our Mission", "link": "/#mission" },
-        { "title": "Team", "link": "/#team" },
-        { "title": "Partners", "link": "/#partners" }
+        { "title": "Accueil", "link": "/#home" },
+        { "title": "Mission", "link": "/#mission" },
+        { "title": "Équipe", "link": "/#team" },
+        { "title": "Partenaires", "link": "/#partners" }
       ],
       "PrivacyPage": [
-        { "title": "Home", "link": "/" },
-        { "title": "Map", "link": "https://map.reach4help.org" }
+        { "title": "Accueil", "link": "/" },
+        { "title": "Carte", "link": "https://map.reach4help.org" }
       ]
     },
     "Home": {
-      "heading": "We connect people in need to people who can help.",
-      "subheading": "We are launching on Saturday, June 13!",
+      "heading": "Nous connectons les personnes dans le besoin aux personnes qui peuvent aider.",
+      "subheading": "Nous lançons le samedi 13 juin!",
       "description": [
-        "Our map houses a growing list of aid organizations and pandemic care projects.",
-        "Use the map to find and join mutual aid efforts near you or create your own.",
-        "If you are an aid organization, add your information to the map so others can find you."
+        "Notre carte contient une liste croissante d'organisations d'aide et de projets de soins en cas de pandémie.",
+        "Utilisez la carte pour trouver et rejoindre les efforts d'entraide près de chez vous ou créez le vôtre.",
+        "Si vous êtes une organisation d'aide, ajoutez vos informations à la carte pour que d'autres puissent vous trouver."
       ],
-      "buttons": ["Mutual Aid Map", "BETA Sign Up"]
+      "buttons": ["Carte d'entraide", "Inscription BETA"]
     },
     "Mission": {
-      "heading": "Our Mission",
+      "heading": "Notre Mission",
       "description": [
-        "Reach4Help is an open project that is completely run by volunteers that aims to address issues like providing an easier access to groceries, medicine, or a simple help to walk the dogs for those who can’t do it at the moment.",
-        "<strong>OUR GOAL</strong> is to enable those in need to receive help, and enable partner groups and organizations to help more efficiently, by mobilizing their volunteers with the help of our own system."
+        "Reach4Help est un projet ouvert entièrement géré par des bénévoles qui vise à résoudre des problèmes tels que fournir un accès plus facile à l'épicerie, aux médicaments ou une simple aide pour promener les chiens pour ceux qui ne peuvent pas le faire pour le moment.",
+        "<strong>NOTRE OBJECTIF</strong> est de permettre à ceux qui en ont besoin de recevoir de l'aide, et aux groupes et organisations partenaires d'aider plus efficacement, en mobilisant leurs bénévoles avec l'aide de notre propre système."
       ]
     },
     "Partners": {
-      "heading": "Partners",
-      "subheading": "We want to thank all the brands, companies, and community supporters that have helped us on our mission."
+      "heading": "Partenaires",
+      "subheading": "Nous tenons à remercier toutes les marques, entreprises et supporters de la communauté qui nous ont aidés dans notre mission."
     },
     "Team": {
-      "heading": "Team",
-      "subheading": "We’re looking for more people to join our teams, if you’d like to join.",
+      "heading": "Équipe",
+      "subheading": "Nous recherchons plus de personnes pour rejoindre nos équipes, si vous souhaitez vous joindre.",
       "description": [
-        "We are part of Helpful Engineering, a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commecial goals."
+        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial."
       ],
-      "buttons": ["You’re the help next door. Join us!"]
+      "buttons": ["Vous êtes l'aide à côté. Rejoignez-nous!"]
     },
-    "Privacy": "This is a privacy policy",
     "Footer": {
       "sections": [
         { "title": "Politique de Confidentialité", "link": "/confidentialite" },
         {
-          "title": "Code of Conduct",
+          "title": "Code de conduite",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
         }
       ]
     },
     "404": {
-      "heading": "404 Not Found",
+      "heading": "404 Pas trouvé",
       "description": [
-        "You've found a glitch in the matrix...",
-        "Or you're just clowning around. 🤡"
+        "Vous avez trouvé un problème dans la matrice...",
+        "Ou vous explorez simplement autour."
       ],
-      "linkBackToHome": "Go back home"
+      "linkBackToHome": "Retourner"
     }
   }
 }
