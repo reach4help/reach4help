@@ -28,16 +28,14 @@ export const InformationModal: React.FC<InformationModalProps> = ({
   useEffect(() => {
     const key = window.localStorage.getItem(localStorageKey);
 
-    if (!key || key !== SEEN) {
-      setRequestModalVisible(true);
-      window.localStorage.setItem(localStorageKey, SEEN);
-    } else {
-      setRequestModalVisible(false);
-    }
+    !key || key !== SEEN
+      ? setRequestModalVisible(true)
+      : setRequestModalVisible(false);
   }, [localStorageKey]);
 
   const onFinishRequest = (): void => {
     finishRequestHandler && finishRequestHandler();
+    window.localStorage.setItem(localStorageKey, SEEN);
     setRequestModalVisible(false);
   };
 
@@ -88,9 +86,6 @@ export const InformationModal: React.FC<InformationModalProps> = ({
       />
 
       <div style={{ display: 'flex' }}>
-        <StepBackButton onClick={() => setRequestModalVisible(false)}>
-          {t('cancel')}
-        </StepBackButton>
         <StepForwardButton onClick={onFinishRequest}>
           {t('okay')}
         </StepForwardButton>
