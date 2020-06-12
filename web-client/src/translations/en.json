@@ -98,6 +98,8 @@
       "switchToPIN": "Switch to Person In Need"
     },
     "phoneNumber": {
+      "select_instructions": "Pick from the dropdown below",
+      "input_instructions": "Enter your digits",
       "sub_title": "Enter your telephone number to begin",
       "info": "This information is fundamental to validate your account. Data and rates may apply.",
       "error_message": "Please input your phone number!",
