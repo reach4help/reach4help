@@ -1,17 +1,6 @@
 {
-  "0": "PIN Flow",
-  "0": "First time entering",
-  "0": "First time creating a request",
-  "0": "Thank you for creating your first request! 
-  "0": "Open: Your request is out there but nobody's offered to help yet.",
-  "0": "Accepted: A volunteer has offered to take up your request, awaiting your confirmation.",
-  "0": "Ongoing: You accepted a volunteer, who is taking care of your request.",
-  "0": "Finished: You and the volunteer have agreed that the request has been fulfilled.",
-  "0": "Archived: You changed your mind and deleted your request.",
-  "0": "You'll also be receiving notifications as your request passes each stage to remind you of these. If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!",
-  "0": "General creating a request",
-  "0": "Show a pop-up routing them to the request timeline page with the text:",
-  "0": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check "
+  Here's the text we should start with:
+
   Open
   Requests
   "0": " on the sidebar.",

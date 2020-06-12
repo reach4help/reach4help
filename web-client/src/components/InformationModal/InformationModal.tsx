@@ -13,7 +13,6 @@ export const makeLocalStorageKey = ({ prefix, userid }) => {
   const key = userid
     ? `${prefix}.${userid}`
     : 'reach4help.modalSeen.NewRequestsContainer';
-  console.log(key);
   return key;
 };
 const R4HloveListItem = styled(List.Item)`
@@ -34,7 +33,6 @@ export const InformationModal: React.FC<InformationModalProps> = ({
 
   useEffect(() => {
     const value = window.localStorage.getItem(localStorageKey);
-    console.log('checking for localStorage key', value);
     if ((value !== null && !value) || value !== SEEN) {
       setRequestModalVisible(true);
     }
