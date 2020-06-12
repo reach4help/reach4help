@@ -226,19 +226,19 @@
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "Chargement en cours ..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
+        "a_request": "une demande",
+        "already_helped": " obtient déjà de l'aide dans ",
+        "cav_declined_help": " a refusé d'aider dans ",
+        "cav_offer": "Vous avez proposé votre aide pour ",
+        "no_notifications": "Aucune nouvelle notification.",
         "notifications": "notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
-        "pin_rejected": "You have rejected help from ",
+        "offered_help": " a proposé de l'aide en ",
+        "pin_accepted": "Vous avez accepté l’aide de ",
+        "pin_declined_help": "Vous avez refusé l'aide de ",
+        "pin_rejected": "Vous avez refusé l'aide de ",
         "request_author": "The request_author",
         "volunteer_accepted": " accepted your offer for ",
         "your_task": "your task"
