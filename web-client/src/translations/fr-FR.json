@@ -80,18 +80,18 @@
       "policy_link": "Politique de Confidentialité et Sécurité.",
       "accept_to_use_profile_pic": "Utiliser ma photo de profil sur Reach4Help.",
       "terms_conditions_text": "J'ai lu et j'accepte les ",
-      "terms_conditions_link": "Terms & Conditions.",
-      "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "Please enter your name.",
-      "display_name_error_message": "Please enter your display name.",
-      "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+      "terms_conditions_link": "Termes et Conditions.",
+      "terms_conditions_error": "Vous devez accepter les Termes et Conditions.",
+      "full_name_error_message": "Entrez votre nom.",
+      "display_name_error_message": "Veuillez entrer votre nom d'utilisateur.",
+      "address_error_message": "Veuillez entrer votre adresse.",
+      "allow_send_notifications": "J'aimerais que Reach4Help m'envoie des notifications et/ou des emails."
     },
     "newRequest": {
-      "title": "New Request",
-      "icon_text": "I need help",
+      "title": "Nouvelle Demande",
+      "icon_text": "J'ai besoin d'aide",
       "form": {
-        "title": "Title",
+        "title": "Titre",
         "type": "Type",
         "address": "Confirm Address",
         "body": "Enter details of what is needed",
