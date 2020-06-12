@@ -1,5 +1,6 @@
 ---
 title: Privacy
+slug: /privacy
 ---
 
 # Our Commitment to Your Privacy
