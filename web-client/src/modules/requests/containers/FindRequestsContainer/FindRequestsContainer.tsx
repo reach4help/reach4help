@@ -204,7 +204,8 @@ const FindRequestsContainer: React.FC = () => {
   }
 
   return (
-    <>
+    // TODO fix or at least extract to a styled component
+    <div style={{ height: '100vh' }}>
       <Map
         isCav
         destinations={requestsWithoutOffer}
@@ -214,7 +215,7 @@ const FindRequestsContainer: React.FC = () => {
         bannerMessage={bannerMessage}
       />
       {maybeRequestDetails()}
-    </>
+    </div>
   );
 };
 
