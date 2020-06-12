@@ -1,6 +1,6 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "inFrameLink": "About this map / add information",
+  "title": "Harta ajutorului reciproc COVID-19",
+  "inFrameLink": "Despre această hartă / adăugați informații",
   "aboutScreen": {
     "intro": "We believe solidarity brings out the best in individuals.",
     "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
@@ -52,8 +52,8 @@
           "name": "Name of the project / group / organization",
           "namePlaceholder": "e.g. Mutual Aid Antarctica",
           "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
+          "locationName": "Descrieți zona geografică deservită. De ex. Țări, state, județe, orașe etc...",
+          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, SUA",
           "continue": "Click continue to enter location information"
         },
         "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
