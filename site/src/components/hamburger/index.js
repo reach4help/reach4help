@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 
 import { HamburgerWrapper } from "./style"
 
+// hamburger menu for mobile usage
 function Hamburger({ show, onClick }) {
   return (
     <HamburgerWrapper onClick={onClick} show={show}>
@@ -14,8 +15,8 @@ function Hamburger({ show, onClick }) {
 }
 
 Hamburger.propTypes = {
-  show: PropTypes.bool,
-  onClick: PropTypes.func,
+  show: PropTypes.bool, // state of header drawer
+  onClick: PropTypes.func, // function that changes ^
 }
 
 export default Hamburger
