@@ -82,7 +82,7 @@ export const getOpenRequest = async ({ lat, lng }: IgetOpenRequests) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
-    radius: 5,
+    radius: 500,
     status: AbstractRequestStatus.pending,
   });
 
