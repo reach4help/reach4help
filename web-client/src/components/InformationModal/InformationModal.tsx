@@ -15,9 +15,7 @@ export const makeLocalStorageKey = ({ prefix, userid }) => {
     : 'reach4help.modalSeen.NewRequestsContainer';
   return key;
 };
-const R4HloveListItem = styled(List.Item)`
-  display: flex;
-`;
+const R4HloveListItem = styled(List.Item)``;
 
 export const InformationModal: React.FC<InformationModalProps> = ({
   finishRequestHandler,
@@ -95,7 +93,7 @@ export const InformationModal: React.FC<InformationModalProps> = ({
 
       <div style={{ display: 'flex' }}>
         <StepForwardButton onClick={onFinishRequest}>
-          {t('okay')}
+          {t('i_understand')}
         </StepForwardButton>
       </div>
     </Modal>

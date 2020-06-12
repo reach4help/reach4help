@@ -34,6 +34,8 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
     t('information_modal.MenuDrawer.2'),
     t('information_modal.MenuDrawer.3'),
     t('information_modal.MenuDrawer.4'),
+    t('information_modal.MenuDrawer.5'),
+    t('information_modal.MenuDrawer.6'),
   ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.MenuDrawer',

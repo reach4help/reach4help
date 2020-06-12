@@ -1,5 +1,6 @@
 {
   "common": {
+    "i_understand": "I understand.",
     "okay": "Okay",
     "cancel": "Cancel",
     "welcome": "Welcome",
@@ -45,20 +46,35 @@
         "title": "You decided not to do it",
         "0": "You changed your mind and deleted your request."
       },
+      "TimelineViewContainer": {
+        "title": "View each step of your request",
+        "0": "A request is created.",
+        "1": "Someone offers help.",
+        "2": "The offer is accepted or rejected.",
+        "3": "The request is completed.",
+        "4": "The request is closed.",
+        "5": "The request was removed.",
+        "6": "Volunteers and People In Need rate each other."
+      },
       "MenuDrawer": {
-        "title": "Use Right Panel to keep track of each step of your request",
-        "0": "Open: Requests that still need a volunteer",
-        "1": "Accepted: Someone has offered to help you out.",
-        "2": "Ongoing: A volunteer is working on your request now.",
-        "3": "Finished: The volunteer has completed the request.",
-        "4": "Archived: Requests you deleted."
+        "title": "Using the Bottom Buttons",
+        "0": "Press the Left Menu to keep track of each step of your request",
+        "1": "Open: Requests that still need a volunteer",
+        "2": "Accepted: Someone has offered to help you out.",
+        "3": "Ongoing: A volunteer is working on your request now.",
+        "4": "Finished: The volunteer has completed the request.",
+        "5": "Archived: Requests you deleted.",
+        "6": "Press the Left Bell to see your notifications"
       },
       "FindRequestsContainer": {
         "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a volunteer, you will be searching on this map for requests for help",
-        "1": "Click on an orange marker to view the request and decide whether to accept it",
-        "2": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "3": "Check the Notifications panel to see updates about your offers to help."
+        "0": "Thank you for joining Reach4Help!",
+        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
+        "2": "Use this map to search for people in need.",
+        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
+        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
+        "5": "Check the Notifications panel to see updates about your offers to help.",
+        "6": "Thank you for joining us in building this unified platform of help!"
       },
       "NewRequestsContainer": {
         "title": "Welcome to Reach4Help!",
