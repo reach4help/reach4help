@@ -11,7 +11,10 @@ function SEO({ description, lang, title }) {
         site {
           siteMetadata {
             title
+            headerDescription
             description
+            url
+            image
           }
         }
       }

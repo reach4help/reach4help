@@ -4,23 +4,24 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-
+import { InformationModal } from 'src/components/InformationModal/InformationModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from '../../../../components/WebClientMap/utils';
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { ProfileState } from '../../../../ducks/profile/types';
-import { setRequest } from '../../../../ducks/requests/actions';
-import { RequestState } from '../../../../ducks/requests/types';
-import { IUser } from '../../../../models/users';
-import NewRequest from '../../components/NewRequest/NewRequest';
-import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
+} from 'src/components/WebClientMap/utils';
+import Map from 'src/components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from 'src/constants/mediaQueries';
+import { ProfileState } from 'src/ducks/profile/types';
+import { setRequest } from 'src/ducks/requests/actions';
+import { RequestState } from 'src/ducks/requests/types';
+import { IUser } from 'src/models/users';
+import NewRequest from 'src/modules/requests/components/NewRequest/NewRequest';
+import RequestConfirmation from 'src/modules/requests/components/NewRequest/RequestConfirmation';
 import RequestReview, {
   RequestInput,
-} from '../../components/NewRequest/RequestReview';
-import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
+} from 'src/modules/requests/components/NewRequest/RequestReview';
+import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import styled from 'styled-components';
 
 const RequestDetails = styled.div`
   width: 100%;
@@ -28,6 +29,16 @@ const RequestDetails = styled.div`
 `;
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
+
+const MapContainer = styled.div`
+  // aspect ratio = 16:9
+  height: 56.25vw;
+
+  @media ${DEVICE_MIN.laptop} {
+    max-height: 400px;
+  }
+`;
+
 const NewRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
@@ -178,18 +189,26 @@ const NewRequestsContainer: React.FC = () => {
     }
   };
 
+  const instructions = [
+    t('information_modal.NewRequestsContainer.0'),
+    t('information_modal.NewRequestsContainer.1'),
+    t('information_modal.NewRequestsContainer.2'),
+  ];
+  const instructionModalLocalStorageKey = profileState
+    ? `reach4help.modalSeen.NewRequestsContainer.${profileState.uid}`
+    : 'reach4help.modalSeen.NewRequestsContainer';
+
   return (
     <>
       <div
         style={{
-          width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'stretch',
           flexDirection: 'column',
         }}
       >
-        <div style={{ height: '100%', display: 'flex' }}>
+        <MapContainer>
           <Map
             isCav={false}
             destinations={[]}
@@ -199,13 +218,18 @@ const NewRequestsContainer: React.FC = () => {
             startGeocode={startGeocode}
             startLocateMe={startLocateMe}
           />
-        </div>
-        <div style={{ marginBottom: '50px', display: 'flex' }}>
+        </MapContainer>
+        <div style={{ display: 'flex', height: '100%' }}>
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
         </div>
       </div>
+      <InformationModal
+        title={t('information_modal.NewRequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
+      />
     </>
   );
 };
