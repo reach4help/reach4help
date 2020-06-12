@@ -53,7 +53,7 @@ function Header({ navSections }) {
               <li key={section.id}>
                 <Link
                   to={section.link}
-                  onClick={drawerToggler}
+                  onClick={() => setDrawerClose(true)}
                   activeClassName="active"
                 >
                   <p>{section.title}</p>
