@@ -1,5 +1,6 @@
 {
   "common": {
+    "i_understand": "I understand.",
     "okay": "Okay",
     "cancel": "Cancel",
     "welcome": "Benvenuto",
@@ -20,13 +21,68 @@
     "for": " for ",
     "information_modal": {
       "instructions": "Instructions",
-      "footer": "Please contact us if you need help: info@reach4help.org",
+      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
       "a11y_logo": "Reach for Help logo",
+      "OpenRequestsContainer": {
+        "title": "Still lookng for help ...",
+        "0": "Your requests are out there but no one has yet volunteered to help",
+        "1": "You will also be receiving notifications to update you about the status of your requests.",
+        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+      },
+      "AcceptedRequestsContainer": {
+        "title": "Someone has offered to help!",
+        "0": "Someone has offered to help you out.",
+        "1": "Get in touch with them by phone to work out the details."
+      },
+      "OngoingRequestsContainer": {
+        "title": "Matched with a Volunteer!",
+        "0": "You matched with someone who is taking care of your request."
+      },
+      "FinishedRequestsContainer": {
+        "title": "All Done!",
+        "0": "You and the volunteer agree that everything is done."
+      },
+      "ArchivedRequestsContainer": {
+        "title": "You decided not to do it",
+        "0": "You changed your mind and deleted your request."
+      },
+      "TimelineViewContainer": {
+        "title": "View each step of your request",
+        "0": "A request is created.",
+        "1": "Someone offers help.",
+        "2": "The offer is accepted or rejected.",
+        "3": "The request is completed.",
+        "4": "The request is closed.",
+        "5": "The request was removed.",
+        "6": "Volunteers and People In Need rate each other."
+      },
+      "MenuDrawer": {
+        "title": "Using the Bottom Buttons",
+        "0": "Press the Left Menu to keep track of each step of your request",
+        "1": "Open: Requests that still need a volunteer",
+        "2": "Accepted: Someone has offered to help you out.",
+        "3": "Ongoing: A volunteer is working on your request now.",
+        "4": "Finished: The volunteer has completed the request.",
+        "5": "Archived: Requests you deleted.",
+        "6": "Press the Left Bell to see your notifications"
+      },
+      "FindRequestsContainer": {
+        "title": "Welcome to Reach4Help!",
+        "0": "Thank you for joining Reach4Help!",
+        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
+        "2": "Use this map to search for people in need.",
+        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
+        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
+        "5": "Check the Notifications panel to see updates about your offers to help.",
+        "6": "Thank you for joining us in building this unified platform of help!"
+      },
       "NewRequestsContainer": {
         "title": "Welcome to Reach4Help!",
         "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "When a volunteer takes your request, they will contact you with the telephone you used to register this account",
-        "2": "You can check the status of your request as it progresses each stage from the sidebar:"
+        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
+        "2": "Check the Notifications panel to see updates about your incoming offers.",
+        "3": "Once you accept an offer, your information will be shared with the volunteer.",
+        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
       }
     },
     "login": {
@@ -42,6 +98,8 @@
       "switchToPIN": "Switch to Person In Need"
     },
     "phoneNumber": {
+      "select_instructions": "Pick from the dropdown below",
+      "input_instructions": "Enter your digits",
       "sub_title": "Imposta numero di telefono per iniziare",
       "info": "This information is fundamental to validate your account. Data and rates may apply.",
       "error_message": "Please input your phone number!",
@@ -153,8 +211,8 @@
       "CREATE_OFFER": "{{actorName}} offered to help with this request.",
       "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
       "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
-      "RATE_PIN": "{{actorName}} rated with {{pinRating}}.",
-      "RATE_CAV": "{{actorName}} rated with {{cavRating}}.",
+      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
+      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
       "open_status": "Open",
       "cav": "Volunteer",
       "cav_wait": "WAITING FOR VOLUNTEER",
@@ -234,7 +292,7 @@
         "cav_declined_help": " has declined to help in ",
         "cav_offer": "You have offered help for ",
         "no_notifications": "No new notifications.",
-        "notifications": "notifications",
+        "notifications": "Notifications",
         "offered_help": " has offered help in ",
         "pin_accepted": "You have accepted help from ",
         "pin_declined_help": "You have declined help for ",
