@@ -8,29 +8,15 @@ import { InformationModal } from 'src/components/InformationModal/InformationMod
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-<<<<<<< HEAD
 } from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IUser } from 'src/models/users';
 import NewRequest from 'src/modules/requests/components/NewRequest/NewRequest';
 import RequestConfirmation from 'src/modules/requests/components/NewRequest/RequestConfirmation';
-=======
-} from '../../../../components/WebClientMap/utils';
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from '../../../../constants/mediaQueries';
-import { ProfileState } from '../../../../ducks/profile/types';
-import {
-  resetSetRequestState,
-  setRequest,
-} from '../../../../ducks/requests/actions';
-import { RequestState } from '../../../../ducks/requests/types';
-import { IUser } from '../../../../models/users';
-import NewRequest from '../../components/NewRequest/NewRequest';
-import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
->>>>>>> upstream/development
 import RequestReview, {
   RequestInput,
 } from 'src/modules/requests/components/NewRequest/RequestReview';
@@ -205,7 +191,6 @@ const NewRequestsContainer: React.FC = () => {
     }
   };
 
-  const { t } = useTranslation();
   const instructions = [
     t('information_modal.NewRequestsContainer.0'),
     t('information_modal.NewRequestsContainer.1'),
@@ -239,12 +224,12 @@ const NewRequestsContainer: React.FC = () => {
         {maybeNewRequest()}
         {maybeRequestReview()}
         {maybeRequestConfirmation()}
-              </div>
+      </div>
       <InformationModal
-            title={t('information_modal.NewRequestsContainer.title')}
-            localStorageKey={instructionModalLocalStorageKey}
-            instructions={instructions}
-          />
+        title={t('information_modal.NewRequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
+      />
     </div>
   );
 };
