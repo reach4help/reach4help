@@ -11,7 +11,7 @@ import {
   getStreetAddressFromProfile,
 } from '../../../../components/WebClientMap/utils';
 import Map from '../../../../components/WebClientMap/WebClientMap';
-import { setOffer } from '../../../../ducks/offers/actions';
+import { resetSetOfferState, setOffer } from '../../../../ducks/offers/actions';
 import { OffersState } from '../../../../ducks/offers/types';
 import { ProfileState } from '../../../../ducks/profile/types';
 import {
@@ -79,12 +79,11 @@ const FindRequestsContainer: React.FC = () => {
       (!setRequestState.loading && setRequestState.success) ||
       (!setOfferState.loading && setOfferState.success)
     ) {
-      // because I could observe race conditions in cloud function
       setTimeout(() => {
-        dispatch(resetSetRequestState());
-        setExpandedRequestId(undefined);
         history.push(OpenRequestsLocation.path);
-      }, 1000);
+      }, 150);
+      dispatch(resetSetRequestState());
+      dispatch(resetSetOfferState());
     }
   }, [setRequestState, setOfferState, dispatch, history]);
 

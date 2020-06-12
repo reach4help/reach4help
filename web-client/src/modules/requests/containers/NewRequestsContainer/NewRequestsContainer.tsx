@@ -75,9 +75,7 @@ const NewRequestsContainer: React.FC = () => {
 
   useEffect(() => {
     if (newRequestState.success) {
-      setIsSubmitting(false);
       setShowConfirmationPage(true);
-      dispatch(resetSetRequestState());
     }
   }, [newRequestState, dispatch]);
 
@@ -184,7 +182,11 @@ const NewRequestsContainer: React.FC = () => {
           showModal={showConfirmationPage}
           closeModal={() => {
             setShowConfirmationPage(false);
-            history.push(OpenRequestsLocation.path);
+            // because I could observe race conditions in cloud function
+            setTimeout(() => {
+              history.push(OpenRequestsLocation.path);
+            }, 150);
+            dispatch(resetSetRequestState());
           }}
         />
       );
