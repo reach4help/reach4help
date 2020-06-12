@@ -24,8 +24,8 @@
       "a11y_logo": "Atteindre le logo d'aide",
       "NewRequestsContainer": {
         "title": "Bienvenue sur Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "When a volunteer takes your request, they will contact you with the telephone you used to register this account",
+        "0": "Merci d'avoir rejoint Reach4Help ! En tant que personne dans le besoin, vous serez en mesure de trouver de l'aide dans votre région en créant des demandes. Actuellement, nous ne pouvons pas garantir qu'il y a des bénévoles qui peuvent vous aider dans votre région. Nous vous suggérons de partager notre application avec des bénévoles ou des organisations locales. Merci de vous être joint à nous pour la construction de cette plateforme d'entraide!",
+        "1": "Lorsqu'un bénévole accepte de vous aider, il vous contactera avec le téléphone que vous avez utilisé pour créer ce compte",
         "2": "You can check the status of your request as it progresses each stage from the sidebar:"
       }
     },
