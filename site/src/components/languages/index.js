@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import Select from "react-select"
 import { useTranslation } from "react-i18next"
 
@@ -19,6 +20,12 @@ function Languages({ languages, onChange }) {
       isSearchable={false}
     />
   )
+}
+
+Languages.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  languages: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default Languages
