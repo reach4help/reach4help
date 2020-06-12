@@ -239,7 +239,8 @@
             "a11y_back_nav": "Back navigation icon",
             "a11y_display_photo": "Display photo",
             "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon"
+            "a11y_phone_icon": "Phone icon",
+            "a11y_sms_icon": "SMS icon"
           }
         }
       },
