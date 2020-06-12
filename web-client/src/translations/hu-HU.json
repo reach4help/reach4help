@@ -1,5 +1,7 @@
 {
   "common": {
+    "okay": "Okay",
+    "cancel": "Cancel",
     "welcome": "Welcome",
     "continue": "Continue",
     "verify": "Verify",
@@ -16,6 +18,17 @@
     "State": "State / Province",
     "country": "Country",
     "for": " for ",
+    "information_modal": {
+      "instructions": "Instructions",
+      "footer": "Please contact us if you need help: info@reach4help.org",
+      "a11y_logo": "Reach for Help logo",
+      "NewRequestsContainer": {
+        "title": "Welcome to Reach4Help!",
+        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
+        "1": "When a volunteer takes your request, they will contact you with the telephone you used to register this account",
+        "2": "You can check the status of your request as it progresses each stage from the sidebar:"
+      }
+    },
     "login": {
       "title": "Reach4Help",
       "sub_title": "Please Note",
@@ -37,9 +50,11 @@
       "no_digits_error": "You must enter the phone digits too.",
       "is_valid_number": "is a valid telephone number",
       "is_not_valid_number": "is not a valid telephone number",
+      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
       "country_label": "Your country",
       "country_placeholder": "Select a country",
-      "phone_label": "Enter your phone number"
+      "phone_label": "Enter your phone number",
+      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
     },
     "verificationCode": {
       "sub_title": "We just texted you a confirmation code. Please enter it below.",
@@ -106,11 +121,7 @@
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "How can we assist you ?",
-<<<<<<< HEAD
       "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
-=======
-      "manifesto": "Úgy gondoljuk, hogy mindent, amit teszünk értelmes. Hisszük, hogy alkalmas arra, hogy az emberek a saját értelme az összetartozás és a közösség. Meggyőződésünk, szolidaritás a legjobbat hozza ki az egyének.",
->>>>>>> 4fd3d215822a2ffdcec8b5d1d594e9bde5954ecd
       "info": "Please tell us what is your purpose to use Reach4Help",
       "info_pin": "I'm here because I need help",
       "c2a_pin": "Get help now!",
