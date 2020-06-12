@@ -8,19 +8,15 @@ import { InformationModal } from 'src/components/InformationModal/InformationMod
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from '../../../../components/WebClientMap/utils';
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from '../../../../constants/mediaQueries';
-import { ProfileState } from '../../../../ducks/profile/types';
-import {
-  resetSetRequestState,
-  setRequest,
-} from '../../../../ducks/requests/actions';
-import { RequestState } from '../../../../ducks/requests/types';
-import { IUser } from '../../../../models/users';
-import NewRequest from '../../components/NewRequest/NewRequest';
-import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
-
+} from 'src/components/WebClientMap/utils';
+import Map from 'src/components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from 'src/constants/mediaQueries';
+import { ProfileState } from 'src/ducks/profile/types';
+import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
+import { RequestState } from 'src/ducks/requests/types';
+import { IUser } from 'src/models/users';
+import NewRequest from 'src/modules/requests/components/NewRequest/NewRequest';
+import RequestConfirmation from 'src/modules/requests/components/NewRequest/RequestConfirmation';
 import RequestReview, {
   RequestInput,
 } from 'src/modules/requests/components/NewRequest/RequestReview';
@@ -205,36 +201,38 @@ const NewRequestsContainer: React.FC = () => {
     : 'reach4help.modalSeen.NewRequestsContainer';
 
   return (
-    <div
-      style={{
-        height: '100%',
-        display: 'flex',
-        alignItems: 'stretch',
-        flexDirection: 'column',
-      }}
-    >
-      <MapContainer>
-        <Map
-          isCav={false}
-          destinations={[]}
-          origin={currentLocation}
-          onGeocode={setGeocodedLocation}
-          address={mapAddress}
-          startGeocode={startGeocode}
-          startLocateMe={startLocateMe}
-        />
-      </MapContainer>
-      <div style={{ display: 'flex', height: '100%' }}>
-        {maybeNewRequest()}
-        {maybeRequestReview()}
-        {maybeRequestConfirmation()}
+    <>
+      <div
+        style={{
+          height: '100%',
+          display: 'flex',
+          alignItems: 'stretch',
+          flexDirection: 'column',
+        }}
+      >
+        <MapContainer>
+          <Map
+            isCav={false}
+            destinations={[]}
+            origin={currentLocation}
+            onGeocode={setGeocodedLocation}
+            address={mapAddress}
+            startGeocode={startGeocode}
+            startLocateMe={startLocateMe}
+          />
+        </MapContainer>
+        <div style={{ display: 'flex', height: '100%' }}>
+          {maybeNewRequest()}
+          {maybeRequestReview()}
+          {maybeRequestConfirmation()}
+        </div>
       </div>
       <InformationModal
         title={t('information_modal.NewRequestsContainer.title')}
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
-    </div>
+    </>
   );
 };
 
