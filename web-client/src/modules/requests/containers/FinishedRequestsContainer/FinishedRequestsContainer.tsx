@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
 import { getFinishedRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
@@ -12,6 +14,7 @@ import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const CompletedRequestsContainer: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -42,10 +45,19 @@ const CompletedRequestsContainer: React.FC = () => {
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
+  if (
+    !finishedRequestsWithOffersAndTimeline.data ||
+    finishedRequestsWithOffersAndTimeline.loading
+  ) {
+    return <LoadingWrapper />;
+  }
+
   return (
     <>
       <Header
-        requestsType="Completed"
+        requestsType={t(
+          'modules.requests.containers.FinishedRequestsContainer.finished',
+        )}
         numRequests={
           Object.keys(finishedRequestsWithOffersAndTimeline.data || {}).length
         }

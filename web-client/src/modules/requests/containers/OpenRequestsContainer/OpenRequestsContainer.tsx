@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getAcceptedRequests,
@@ -15,6 +17,8 @@ import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const OpenRequestsContainer: React.FC = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const history = useHistory();
   const profileState = useSelector(
@@ -60,10 +64,19 @@ const OpenRequestsContainer: React.FC = () => {
 
   const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
 
+  if (
+    !requestWithOffersAndTimeline.data ||
+    requestWithOffersAndTimeline.loading
+  ) {
+    return <LoadingWrapper />;
+  }
+
   return (
     <>
       <Header
-        requestsType="Open"
+        requestsType={t(
+          'modules.requests.containers.OpenRequestContainer.open',
+        )}
         numRequests={
           Object.keys(requestWithOffersAndTimeline.data || {}).length
         }

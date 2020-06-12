@@ -198,6 +198,7 @@ export class Offer implements IOffer {
   }
 
   @IsObject()
+  @IsOptional()
   private _seenAt: firebase.firestore.Timestamp | null;
 
   get seenAt(): firebase.firestore.Timestamp | null {

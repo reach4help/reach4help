@@ -5,19 +5,24 @@ import {
   UserSwitchOutlined,
 } from '@ant-design/icons';
 import { Button } from 'antd';
+import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
-import { Offer } from 'src/models/offers';
+import { haversineDistance } from 'src/components/WebClientMap/utils';
+import { OfferStatus } from 'src/models/offers';
+import { OfferWithLocation as Offer } from 'src/models/offers/offersWithLocation';
 import styled from 'styled-components';
 
 interface OffersListProps {
   offers: Record<string, Offer>;
   loading: boolean;
+  destinationCoords: firebase.firestore.GeoPoint;
   handleOffer: (action: boolean, id: string) => void;
 }
 
 interface OfferItemProps {
   offer: Offer;
   handleOffer: (action: boolean) => void;
+  destinationCoords: firestore.GeoPoint;
 }
 
 const Item = styled.div`
@@ -103,6 +108,7 @@ const ButtonsContainer = styled.div`
 const OfferItem: React.FC<OfferItemProps> = ({
   offer,
   handleOffer,
+  destinationCoords,
 }): React.ReactElement => (
   <Item>
     {/* {offer.cavUserSnapshot.displayName} */}
@@ -128,8 +134,9 @@ const OfferItem: React.FC<OfferItemProps> = ({
       <IconContainer>
         <EnvironmentOutlined />
       </IconContainer>
-      {/* TODO : Logic for using offer.address.coords for calculating the distance */}
-      <TextIcon>5 KM</TextIcon>
+      <TextIcon>
+        {haversineDistance(offer.address.coords, destinationCoords)} miles
+      </TextIcon>
     </IconsBlock>
     <ButtonsContainer>
       <StyledButton onClick={() => handleOffer(false)}>
@@ -147,24 +154,26 @@ const OfferItem: React.FC<OfferItemProps> = ({
 const OffersList: React.FC<OffersListProps> = ({
   offers,
   handleOffer,
+  destinationCoords,
 }): React.ReactElement => {
   const [offersList, setOffersList] = useState<React.ReactElement<any>[]>([]);
 
   useEffect(() => {
     const internalOffersList: React.ReactElement<any>[] = [];
     for (const key in offers) {
-      if (offers[key]) {
+      if (offers[key] && offers[key].status !== OfferStatus.rejected) {
         internalOffersList.push(
           <OfferItem
             handleOffer={(action: boolean) => handleOffer(action, key)}
             offer={offers[key]}
+            destinationCoords={destinationCoords}
           />,
         );
       }
     }
 
     setOffersList(internalOffersList);
-  }, [offers, handleOffer, setOffersList]);
+  }, [offers, handleOffer, setOffersList, destinationCoords]);
 
   return (
     <>
