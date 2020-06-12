@@ -26,7 +26,6 @@ interface OfferItemProps {
 }
 
 const Item = styled.div`
-  overflow: auto;
   margin: 15px 15px 0px 15px;
   padding: 20px 16px 18px 16px;
   background: #ffffff;
@@ -176,10 +175,12 @@ const OffersList: React.FC<OffersListProps> = ({
   }, [offers, handleOffer, setOffersList, destinationCoords]);
 
   return (
-    <>
+    // TODO fix when we have defined layout for this screen
+    // TODO remove when we fix bottom panel overlaps with others(both timelinelist and offerslist)
+    <div style={{ paddingBottom: '64px' }}>
       <Title>Select A Volunteer</Title>
       {offersList}
-    </>
+    </div>
   );
 };
 

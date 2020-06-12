@@ -16,6 +16,7 @@ const BottomNavbar: React.FC<BottomNavProps> = ({
   openMenu,
   openNotifications,
   isCav,
+  unseenOffersCount,
 }) => {
   const history = useHistory();
   return (
@@ -39,7 +40,11 @@ const BottomNavbar: React.FC<BottomNavProps> = ({
         </NavButton>
       )}
       <NavButton isCav={isCav} onClick={openNotifications}>
-        <NotificationsIcon />
+        {unseenOffersCount > 0 ? (
+          <NotificationsIcon style={{ color: 'red' }} />
+        ) : (
+          <NotificationsIcon />
+        )}
       </NavButton>
     </Wrapper>
   );
@@ -79,6 +84,7 @@ interface BottomNavProps {
   openMenu: () => void;
   openNotifications: () => void;
   isCav?: boolean;
+  unseenOffersCount: number;
 }
 
 export default BottomNavbar;
