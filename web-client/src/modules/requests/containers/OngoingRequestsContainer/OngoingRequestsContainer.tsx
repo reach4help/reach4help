@@ -66,7 +66,7 @@ const OngoingRequestsContainer: React.FC = () => {
     <>
       <Header
         requestsType={t(
-          'modules.requests.containers.OngoingRequestsContainer.ongoing',
+          'modules.requests.containers.OngoingRequestContainer.ongoing',
         )}
         numRequests={
           Object.keys(ongoingRequestWithOffersAndTimeline.data || {}).length
