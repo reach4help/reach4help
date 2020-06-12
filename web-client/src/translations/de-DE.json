@@ -1,5 +1,7 @@
 {
   "common": {
+    "okay": "Okay",
+    "cancel": "Cancel",
     "welcome": "Willkommen",
     "continue": "Weiter",
     "verify": "Überprüfen",
@@ -16,6 +18,17 @@
     "State": "Bundesland / Kanton",
     "country": "Staat",
     "for": " for ",
+    "information_modal": {
+      "instructions": "Instructions",
+      "footer": "Please contact us if you need help: info@reach4help.org",
+      "a11y_logo": "Reach for Help logo",
+      "NewRequestsContainer": {
+        "title": "Welcome to Reach4Help!",
+        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
+        "1": "When a volunteer takes your request, they will contact you with the telephone you used to register this account",
+        "2": "You can check the status of your request as it progresses each stage from the sidebar:"
+      }
+    },
     "login": {
       "title": "Reach4Help",
       "sub_title": "Bitte beachten Sie:",
@@ -37,9 +50,11 @@
       "no_digits_error": "Sie müssen auch die Telefonnummern eingeben.",
       "is_valid_number": "ist eine gültige Telefonnummer.",
       "is_not_valid_number": "ist keine gültige Mobilfunknummer.",
+      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
       "country_label": "Ihr Land",
       "country_placeholder": "Wählen Sie ein Land aus",
-      "phone_label": "Geben Sie Ihre Telefonnummer ein."
+      "phone_label": "Geben Sie Ihre Telefonnummer ein.",
+      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
     },
     "verificationCode": {
       "sub_title": "Wir haben Ihnen einen Bestätigungscode gesendet. Bitte geben Sie diesen unten ein.",
@@ -105,8 +120,8 @@
     },
     "roleinfo": {
       "title": "Reach4Help",
-      "manifesto": "Wir glauben, dass alles, was wir tun, ist sinnvoll. Wir glauben, wir sind in der Lage Menschen in ihrem Gefühl der Zusammengehörigkeit und Gemeinschaft zu ermöglichen. Wir glauben, dass die Solidarität aus den besten Individuen bringt.",
       "sub_title": "Wie können wir Ihnen helfen?",
+      "manifesto": "Wir glauben unser Handeln immer einen Sinn hat und wir in der Lage sind, im Menschen das Gefühl für Zusammengehörigkeit und Gemeinschaft zu fördern. Außerdem glauben wir, dass Solidarität das Beste im Einzelnen hervorbringt.",
       "info": "Bitte teilen Sie uns mit, warum Sie Reach4Help verwenden.",
       "info_pin": "Ich bin hier, weil ich Hilfe benötige.",
       "c2a_pin": "Jetzt Hilfe erhalten!",
