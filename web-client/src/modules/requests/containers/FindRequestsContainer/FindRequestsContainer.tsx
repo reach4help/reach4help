@@ -215,7 +215,6 @@ const FindRequestsContainer: React.FC = () => {
     t('information_modal.FindRequestsContainer.4'),
     t('information_modal.FindRequestsContainer.5'),
     t('information_modal.FindRequestsContainer.6'),
-
   ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.FindRequestsContainer',
