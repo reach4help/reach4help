@@ -15,7 +15,6 @@ function SEO({ description, lang, title }) {
             description
             url
             image
-            socialLinks
           }
         }
       }
