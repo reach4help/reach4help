@@ -1,5 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsArray } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { IRequest, Request, RequestStatus } from './index';
@@ -25,6 +25,7 @@ export enum AbstractRequestStatus {
 export interface IRequestWithOffersAndTimeline extends IRequest {
   offers: Record<string, IOfferWithLocation>;
   timeline: ITimelineItem[];
+  contactNumber?: string | null;
 }
 
 export class RequestWithOffersAndTimeline extends Request implements IRequestWithOffersAndTimeline {
@@ -46,6 +47,7 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
     cavRatedAt: Timestamp | null = null,
     offers: Record<string, OfferWithLocation> = {},
     timeline: TimelineItem[] = [],
+    contactNumber: string | null = null
   ) {
     super(
       pinUserRef,
@@ -66,6 +68,18 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
     );
     this._offers = offers;
     this._timeline = timeline;
+    this._contactNumber = contactNumber;
+  }
+
+  @IsString()
+  private _contactNumber: string | null;
+
+  get contactNumber(): string | null {
+    return this._contactNumber;
+  }
+
+  set contactNumber(contactNumber: string | null) {
+    this._contactNumber = contactNumber;
   }
 
   @IsArray()
@@ -128,6 +142,7 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
         {},
       ),
       data.timeline.map(timeline => TimelineItem.factory(timeline)),
+      data.contactNumber,
     );
   }
 
@@ -164,6 +179,7 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
           pinUserRef: obj.requestSnapshot.pinUserRef.path,
         },
       })),
+      contactNumber: this.contactNumber,
     };
   }
 }

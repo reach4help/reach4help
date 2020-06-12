@@ -45,6 +45,10 @@ const OngoingRequestsContainer: React.FC = () => {
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
+  // useEffect(() => {
+  //   console.log("ongoingRequests received: ", ongoingRequestWithOffersAndTimeline.data);
+  // }, [ongoingRequestWithOffersAndTimeline])
+
   if (
     !ongoingRequestWithOffersAndTimeline.data ||
     ongoingRequestWithOffersAndTimeline.loading

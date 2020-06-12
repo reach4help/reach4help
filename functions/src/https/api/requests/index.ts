@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
-import { db } from '../../../app';
+import { db, auth } from '../../../app';
 import { IOffer, Offer, OfferStatus } from '../../../models/offers';
 import { IOfferWithLocation } from '../../../models/offers/offersWithLocation';
 import { IRequest, Request, RequestStatus } from '../../../models/requests';
@@ -190,6 +190,14 @@ const getOngoingRequests = async (userRef: firestore.DocumentReference, userType
   const requestWithOffers: Record<string, RequestWithOffersAndTimeline> = {};
   for (const doc of requests.docs) {
     const request = Request.factory(doc.data() as IRequest);
+    let contactNumber: string | null | undefined = null;
+    if (userType === ApplicationPreference.cav && auth) {
+      contactNumber = (await auth.getUser(request.pinUserRef.id)).phoneNumber;
+    } else {
+      if (request.cavUserRef && auth) {
+        contactNumber = (await auth.getUser(request.cavUserRef.id)).phoneNumber;
+      }
+    }
     if (!finished && request.pinRating && request.pinRatedAt) {
       // eslint-disable-next-line no-continue
       continue;
@@ -204,6 +212,7 @@ const getOngoingRequests = async (userRef: firestore.DocumentReference, userType
       ...(request.toObject() as IRequest),
       offers: {},
       timeline,
+      contactNumber,
     } as IRequestWithOffersAndTimeline);
   }
   return requestWithOffers;

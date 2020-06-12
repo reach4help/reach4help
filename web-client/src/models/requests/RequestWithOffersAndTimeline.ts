@@ -1,5 +1,5 @@
 /* eslint no-underscore-dangle: 0 */
-import { IsArray } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 import { firestore } from 'firebase';
 import { firestore as db } from 'src/firebase';
 
@@ -22,6 +22,7 @@ export enum AbstractRequestStatus {
 export interface IRequestWithOffersAndTimeline extends IRequest {
   offers: Record<string, IOfferWithLocation>;
   timeline: ITimelineItem[];
+  contactNumber?: string | null;
 }
 
 export class RequestWithOffersAndTimeline extends Request
@@ -48,6 +49,7 @@ export class RequestWithOffersAndTimeline extends Request
     cavRatedAt: firebase.firestore.Timestamp | null = null,
     offers: Record<string, OfferWithLocation> = {},
     timeline: TimelineItem[] = [],
+    contactNumber: string | null = null,
   ) {
     super(
       pinUserRef,
@@ -68,6 +70,18 @@ export class RequestWithOffersAndTimeline extends Request
     );
     this._offers = offers;
     this._timeline = timeline;
+    this._contactNumber = contactNumber;
+  }
+
+  @IsString()
+  private _contactNumber: string | null;
+
+  get contactNumber(): string | null {
+    return this._contactNumber;
+  }
+
+  set contactNumber(contactNumber: string | null) {
+    this._contactNumber = contactNumber;
   }
 
   @IsArray()
@@ -154,59 +168,61 @@ export class RequestWithOffersAndTimeline extends Request
         }),
         {},
       ),
-      data.timeline.map(timeline =>
-        TimelineItem.factory({
-          ...timeline,
-          actorRef: db.doc(timeline.actorRef as any),
-          actorSnapshot: {
-            ...timeline.actorSnapshot,
-            createdAt: timeline.actorSnapshot.createdAt
+      data.timeline.map(
+        timeline =>
+          TimelineItem.factory({
+            ...timeline,
+            actorRef: db.doc(timeline.actorRef as any),
+            actorSnapshot: {
+              ...timeline.actorSnapshot,
+              createdAt: timeline.actorSnapshot.createdAt
+                ? new firestore.Timestamp(
+                    (timeline.actorSnapshot.createdAt as any)._seconds,
+                    (timeline.actorSnapshot.createdAt as any)._nanoseconds,
+                  )
+                : timeline.actorSnapshot.createdAt,
+            },
+            requestRef: db.doc(timeline.requestRef as any),
+            requestSnapshot: {
+              ...timeline.requestSnapshot,
+              latLng: new firestore.GeoPoint(
+                (timeline.requestSnapshot.latLng as any)._latitude,
+                (timeline.requestSnapshot.latLng as any)._longitude,
+              ),
+              pinUserRef: db.doc(timeline.requestSnapshot.pinUserRef as any),
+              createdAt: timeline.requestSnapshot.createdAt
+                ? new firestore.Timestamp(
+                    (timeline.requestSnapshot.createdAt as any)._seconds,
+                    (timeline.requestSnapshot.createdAt as any)._nanoseconds,
+                  )
+                : timeline.requestSnapshot.createdAt,
+              updatedAt: timeline.requestSnapshot.updatedAt
+                ? new firestore.Timestamp(
+                    (timeline.requestSnapshot.updatedAt as any)._seconds,
+                    (timeline.requestSnapshot.updatedAt as any)._nanoseconds,
+                  )
+                : timeline.requestSnapshot.updatedAt,
+              pinRatedAt: timeline.requestSnapshot.pinRatedAt
+                ? new firestore.Timestamp(
+                    (timeline.requestSnapshot.pinRatedAt as any)._seconds,
+                    (timeline.requestSnapshot.pinRatedAt as any)._nanoseconds,
+                  )
+                : timeline.requestSnapshot.pinRatedAt,
+              cavRatedAt: timeline.requestSnapshot.cavRatedAt
+                ? new firestore.Timestamp(
+                    (timeline.requestSnapshot.cavRatedAt as any)._seconds,
+                    (timeline.requestSnapshot.cavRatedAt as any)._nanoseconds,
+                  )
+                : timeline.requestSnapshot.cavRatedAt,
+            },
+            createdAt: timeline.createdAt
               ? new firestore.Timestamp(
-                  (timeline.actorSnapshot.createdAt as any)._seconds,
-                  (timeline.actorSnapshot.createdAt as any)._nanoseconds,
+                  (timeline.createdAt as any)._seconds,
+                  (timeline.createdAt as any)._nanoseconds,
                 )
-              : timeline.actorSnapshot.createdAt,
-          },
-          requestRef: db.doc(timeline.requestRef as any),
-          requestSnapshot: {
-            ...timeline.requestSnapshot,
-            latLng: new firestore.GeoPoint(
-              (timeline.requestSnapshot.latLng as any)._latitude,
-              (timeline.requestSnapshot.latLng as any)._longitude,
-            ),
-            pinUserRef: db.doc(timeline.requestSnapshot.pinUserRef as any),
-            createdAt: timeline.requestSnapshot.createdAt
-              ? new firestore.Timestamp(
-                  (timeline.requestSnapshot.createdAt as any)._seconds,
-                  (timeline.requestSnapshot.createdAt as any)._nanoseconds,
-                )
-              : timeline.requestSnapshot.createdAt,
-            updatedAt: timeline.requestSnapshot.updatedAt
-              ? new firestore.Timestamp(
-                  (timeline.requestSnapshot.updatedAt as any)._seconds,
-                  (timeline.requestSnapshot.updatedAt as any)._nanoseconds,
-                )
-              : timeline.requestSnapshot.updatedAt,
-            pinRatedAt: timeline.requestSnapshot.pinRatedAt
-              ? new firestore.Timestamp(
-                  (timeline.requestSnapshot.pinRatedAt as any)._seconds,
-                  (timeline.requestSnapshot.pinRatedAt as any)._nanoseconds,
-                )
-              : timeline.requestSnapshot.pinRatedAt,
-            cavRatedAt: timeline.requestSnapshot.cavRatedAt
-              ? new firestore.Timestamp(
-                  (timeline.requestSnapshot.cavRatedAt as any)._seconds,
-                  (timeline.requestSnapshot.cavRatedAt as any)._nanoseconds,
-                )
-              : timeline.requestSnapshot.cavRatedAt,
-          },
-          createdAt: timeline.createdAt
-            ? new firestore.Timestamp(
-                (timeline.createdAt as any)._seconds,
-                (timeline.createdAt as any)._nanoseconds,
-              )
-            : timeline.createdAt,
-        }),
+              : timeline.createdAt,
+          }),
+        data.contactNumber,
       ),
     );
   }
@@ -238,6 +254,7 @@ export class RequestWithOffersAndTimeline extends Request
         {},
       ),
       timeline: this.timeline.map(obj => obj.toObject()),
+      contactNumber: this.contactNumber,
     };
   }
 }
