@@ -203,7 +203,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     >
       <Instructions>{t('phoneNumber.sub_title')}</Instructions>
 
-      <FormLabel>{t('phoneNumber.country_label')}</FormLabel>
+      <FormLabel>{t('phoneNumber.select_instructions')}</FormLabel>
       <Form.Item
         name="prefix"
         rules={[
@@ -230,7 +230,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
         </Select>
       </Form.Item>
 
-      <FormLabel>{t('phoneNumber.phone_label')}</FormLabel>
+      <FormLabel>{t('phoneNumber.input_instructions')}</FormLabel>
       <div style={{ display: 'flex' }}>
         <CountryCodeDisplay
           maxLength={4}
