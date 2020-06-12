@@ -142,43 +142,43 @@
       "_requests_find": "Rechercher des demandes",
       "_requests_finished": "Demandes Complétées",
       "_requests_new": "Nouvelle Demande",
-      "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_requests_ongoing": "Demandes En Cours",
+      "_requests_open": "Demandes Ouvertes"
     },
     "timeline": {
-      "CREATE_REQUEST": "{{actorName}} created this request.",
-      "CANCEL_REQUEST": "{{actorName}} closed this request.",
-      "REMOVE_REQUEST": "{{actorName}} removed this request",
-      "COMPLETE_REQUEST": "Request has been completed.",
-      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
-      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
-      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
-      "RATE_PIN": "{{actorName}} rated with {{pinRating}}.",
-      "RATE_CAV": "{{actorName}} rated with {{cavRating}}.",
+      "CREATE_REQUEST": "{{actorName}} a créé cette demande.",
+      "CANCEL_REQUEST": "{{actorName}} a fermé cette demande.",
+      "REMOVE_REQUEST": "{{actorName}} a supprimé cette demande",
+      "COMPLETE_REQUEST": "La demande a été complétée.",
+      "CREATE_OFFER": "{{actorName}} a proposé son l'aide avec cette demande.",
+      "ACCEPT_OFFER": "{{actorName}} a accepté l'aide de {{cavUserName}}.",
+      "REJECT_OFFER": "{{actorName}} a rejeté l'aide de {{cavUserName}}.",
+      "RATE_PIN": "{{actorName}} a reçu {{pinRating}}.",
+      "RATE_CAV": "{{actorName}} a reçu {{cavRating}}.",
       "open_status": "Ouvert",
       "cav": "Bénévole",
       "cav_wait": "En attente de Bénévole(s)",
       "address": "Adresse de livraison",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
-      "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "cancelRequest": "Annuler la demande",
+      "finishRequest": "Terminer la demande",
+      "ratingQuestion": "Comment noteriez-vous votre expérience avec",
+      "submitRatingButton": "Envoyer l'évaluation",
+      "finishRequestModalParta": "Êtes-vous sûr de vouloir terminer ",
+      "finishRequestModalPartb": "de",
+      "thankYouModalTitle": "Merci !",
+      "thankYouModalBodyParta": "Vous avez noté",
+      "thankYouModalBodyPartb": "avec"
     },
     "modules": {
       "navigation": {
         "components": {
           "Header": {
-            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
-            "remember": "REMEMBER",
-            "requests": "Requests"
+            "reject_reminder": " Si vous refusez cette aide, votre requête retournera à la liste des demandes disponibles avec une priorité réduite.",
+            "remember": "Rappelez-vous",
+            "requests": "Demandes"
           },
           "TopPanel": {
-            "a11y_back_nav": "Back navigation icon",
+            "a11y_back_nav": "Icône de retour",
             "a11y_display_photo": "Photo",
             "a11y_location_icon": "Icône d'emplacement",
             "a11y_phone_icon": "Icône de téléphone"
