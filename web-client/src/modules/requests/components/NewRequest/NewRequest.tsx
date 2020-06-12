@@ -148,7 +148,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
               <Col sm={15} xs={13}>
                 <Input onChange={e => setStreetAddress(e.target.value)} />
               </Col>
-              <Col span={1}></Col>
+              <Col span={1} />
               <Col lg={5} md={4} sm={2} xs={2}>
                 <MapActionButton
                   onClick={() => setMapAddress(request.streetAddress)}
@@ -189,7 +189,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
                   ))}
                 </Select>
               </Col>
-              <Col lg={11} md={10} sm={6} xs={2}></Col>
+              <Col lg={11} md={10} sm={6} xs={2} />
             </Row>
           </Form.Item>
           {mayBeOtherField()}
