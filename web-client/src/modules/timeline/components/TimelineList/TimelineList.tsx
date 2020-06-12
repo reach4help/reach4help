@@ -89,6 +89,7 @@ const Wrapper = styled.div`
   width: 100%;
   flex: auto;
   overflow: scroll;
+  padding-bottom: 64px;
 `;
 
 const StyledListItem = styled.li`
