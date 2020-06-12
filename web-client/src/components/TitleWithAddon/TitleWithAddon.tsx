@@ -14,11 +14,16 @@ const doAddonAlignment = (
   alignAddon: string | undefined,
   left: string | undefined,
 ) => {
+  console.log('left', left, 'align', alignAddon);
+  debugger;
+
   switch (alignAddon) {
     case 'left':
       return left || '12%';
     case 'right':
       return '88%';
+    case undefined:
+      return 0;
     default:
       return '50%';
   }
@@ -29,6 +34,7 @@ const StyledTitle = styled(Title)`
   text-align: ${(props: TitleWithAddonProps) => props.left || 'center'};
   :after {
     content: ' ';
+    margin-bottom: 8px;
     position: absolute;
     width: 40px;
     height: 6px;
