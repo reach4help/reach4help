@@ -3,45 +3,45 @@ title: Confidentialité
 slug: /confidentialite
 ---
 
-# Our Commitment to Your Privacy
+# Notre engagement envers votre confidentialité
 
-Here at Reach4Help, the privacy of our users is very important. We want you to understand how and why Reach4Help collects, uses, and shares information about you when you use our websites, mobile apps, widgets, and other online services or when you otherwise interact with us or receive communication from us.
+Chez Reach4Help, la confidentialité de nos utilisateurs est très importante. Nous voulons que vous compreniez comment et pourquoi Reach4Help recueille, utilise et partage des informations vous concernant lorsque vous utilisez nos sites Web, applications mobiles, widgets et autres services en ligne ou lorsque vous interagissez avec nous ou recevez des communications de notre part.
 
-## What data do we collect and how?
+## Quelles données collectons-nous et comment?
 
-We currently collect contact details for each user who uses our systems. We collect data from people when they browse our website, use our platform, contribute to our [GitHub repositories](https://github.com/reach4help/), receive or send e-mail with us, chat with us on [Slack](https://join.slack.com/t/reach4help/shared_invite/zt-dfw74tza-3kB82faJgZMZObQ_x~gadg), and opt in to marketing messages.
+Nous collectons actuellement les coordonnées de chaque utilisateur qui utilise nos systèmes. Nous collectons des données sur les personnes qui naviguent sur notre site Web, utilisent notre plateforme, contribuent à nos [référentiels GitHub](https://github.com/reach4help/), recevoir ou envoyer des e-mails avec nous, discuter avec nous sur [Slack](https://join.slack.com/t/reach4help/shared_invite/zt-dfw74tza-3kB82faJgZMZObQ_x~gadg), et acceptez les messages marketing.
 
-## What do we use your data for?
+## À quelles fins utilisons-nous vos données?
 
-We use this data to keep Reach4Help running, to help us improve Reach4Help, to give personalised support and to send marketing messages (but only if you tell us to).
+Nous utilisons ces données pour maintenir Reach4Help en marche, pour nous aider à améliorer Reach4Help, pour fournir un support personnalisé et pour envoyer des messages marketing (mais uniquement si vous nous le dites).
 
-## How do we protect your data?
+## Comment protégeons-nous vos données?
 
-We have physical, electronic, and managerial procedures to safeguard and secure the information we collect.
+Nous avons des procédures physiques, électroniques et de gestion pour sauvegarder et sécuriser les informations que nous collectons.
 
-## Where do we store your data?
+## Où stockons-nous vos données?
 
-The personal data we collect is processed in any data processing facilities operated by the third parties identified below.
+Les données personnelles que nous collectons sont traitées dans toutes les installations de traitement de données exploitées par les tiers identifiés ci-dessous.
 
-## What third parties process your data?
+## Quels tiers traitent vos données?
 
-The following services help us keep Reach4Help running by storing or processing your data on our behalf:
+Les services suivants nous aident à faire fonctionner Reach4Help en stockant ou en traitant vos données en notre nom:
 
 - Infrastructure: [Netlify](https://netlify.com/), [Firebase](https://firebase.google.com/), [Airtable](https://airtable.com/),
-- Analytics: [Google](https://firebase.google.com/docs/analytics)
-- Comms: [Slack](https://slack.com/), [Google Meet](https://meet.google.com/)
-- Payments: [Stripe](https://stripe.com/)
+- Analytique: [Google](https://firebase.google.com/docs/analytics)
+- Communications: [Slack](https://slack.com/), [Google Meet](https://meet.google.com/)
+- Paiements: [Stripe](https://stripe.com/)
 
-## How long do we store your data?
+## Combien de temps conservons-nous vos données?
 
-We will discard and stop actively using any personal identifiable information about you within 12 months from the last time you used Reach4Help.
+Nous éliminerons et cesserons d'utiliser activement toute information personnelle identifiable vous concernant dans les 12 mois suivant la dernière utilisation de Reach4Help.
 
 ## Cookies
 
-We use only necessary cookies to run and improve the service. Our third party service providers use cookies too, which they control. You can turn off cookies but this will mean for example that we can’t recognise you in in-app messaging or we can’t resolve issues so efficiently.
+Nous utilisons uniquement les cookies nécessaires pour exécuter et améliorer le service. Nos prestataires de services tiers utilisent également des cookies, qu'ils contrôlent. Vous pouvez désactiver les cookies, mais cela signifie par exemple que nous ne pouvons pas vous reconnaître dans la messagerie intégrée à l'application ou que nous ne pouvons pas résoudre les problèmes aussi efficacement.
 
-## Know Your Rights
+## Connais tes droits
 
-You have several rights to your data! You have the right to access information we hold on you, the right to Opt-out of marketing comms, the right to port your data to another service, the right to be forgotten by Reach4Help and the right to complain about us.
+Vous disposez de plusieurs droits sur vos données! Vous avez le droit d'accéder aux informations que nous détenons sur vous, le droit de vous désinscrire des communications marketing, le droit de porter vos données vers un autre service, le droit d'être oublié par Reach4Help et le droit de vous plaindre de nous.
 
-If you have any concerns about your privacy, please email us at [privacy@reach4help.org](mailto:privacy@reach4help.org).
+Si vous avez des questions concernant votre vie privée, veuillez nous envoyer un e-mail à [privacy@reach4help.org](mailto:privacy@reach4help.org).
