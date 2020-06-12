@@ -25,7 +25,7 @@ function Header({ navSections }) {
 
   const onLanguageChange = selectedLang => {
     i18n.changeLanguage(selectedLang.value)
-    drawerToggler()
+    setDrawerClose(true)
   }
 
   return (
@@ -69,7 +69,7 @@ function Header({ navSections }) {
           </ul>
         </nav>
       </DrawerWrapper>
-      <Backdrop show={drawerClose} onClick={drawerToggler} />
+      <Backdrop show={drawerClose} onClick={() => setDrawerClose(false)} />
     </HeaderWrapper>
   )
 }
