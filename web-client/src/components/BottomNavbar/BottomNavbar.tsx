@@ -16,9 +16,12 @@ const BottomNavbar: React.FC<BottomNavProps> = ({
   openMenu,
   openNotifications,
   isCav,
+  visible = true,
 }) => {
   const history = useHistory();
-  return (
+  return !visible ? (
+    <></>
+  ) : (
     <Wrapper>
       <NavButton isCav={isCav} onClick={openMenu}>
         <SideMenuIcon />
@@ -79,6 +82,7 @@ interface BottomNavProps {
   openMenu: () => void;
   openNotifications: () => void;
   isCav?: boolean;
+  visible?: boolean;
 }
 
 export default BottomNavbar;

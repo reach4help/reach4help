@@ -42,6 +42,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       />
       <StyledLayoutContent>{children}</StyledLayoutContent>
       <BottomNavbar
+        visible={!menuVisible && !notificationVisible}
         openMenu={() => setMenuVisible(true)}
         openNotifications={() => setNotificationVisible(true)}
         isCav={isCav}
