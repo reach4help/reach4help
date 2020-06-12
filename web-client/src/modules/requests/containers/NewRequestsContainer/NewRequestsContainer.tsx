@@ -8,15 +8,19 @@ import { InformationModal } from 'src/components/InformationModal/InformationMod
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from 'src/components/WebClientMap/utils';
-import Map from 'src/components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from 'src/constants/mediaQueries';
-import { ProfileState } from 'src/ducks/profile/types';
-import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
-import { IUser } from 'src/models/users';
-import NewRequest from 'src/modules/requests/components/NewRequest/NewRequest';
-import RequestConfirmation from 'src/modules/requests/components/NewRequest/RequestConfirmation';
+} from '../../../../components/WebClientMap/utils';
+import Map from '../../../../components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from '../../../../constants/mediaQueries';
+import { ProfileState } from '../../../../ducks/profile/types';
+import {
+  resetSetRequestState,
+  setRequest,
+} from '../../../../ducks/requests/actions';
+import { RequestState } from '../../../../ducks/requests/types';
+import { IUser } from '../../../../models/users';
+import NewRequest from '../../components/NewRequest/NewRequest';
+import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
+
 import RequestReview, {
   RequestInput,
 } from 'src/modules/requests/components/NewRequest/RequestReview';
