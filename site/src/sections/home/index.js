@@ -1,5 +1,6 @@
 import React from "react"
 // import { graphql, useStaticQuery } from "gatsby"
+import { useTranslation } from "react-i18next"
 
 import Logo from "src/assets/logo.svg"
 import Button from "src/components/button"
@@ -14,49 +15,36 @@ import {
 } from "./style"
 
 function Home() {
+  const { t } = useTranslation()
+
   return (
     <Wrapper id="home">
       <LogoWrapper>
         <img src={Logo} alt="Reach4Help Logo" />
         <LogoType className="logo-type" />
       </LogoWrapper>
-      <h2>We connect people in need to people who can help.</h2>
-      <h3>
-        We are launching on <b>Saturday, June 13!</b>
-      </h3>
+      <h2>{t("Home.heading")}</h2>
+      <h3>{t("Home.subheading")}</h3>
       <Countdown date="2020-06-13" />
-      {/* <ContentWrapper
-        dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
-      /> */}
       <ButtonsWrapper>
         <a
           href="http://map.reach4help.org/"
           target="__blank"
           rel="noopener noreferrer"
         >
-          <Button>Mutual Aid Map</Button>
+          <Button>{t("Home.buttons.0")}</Button>
         </a>
         <a
           href="https://app.reach4help.org/"
           target="__blank"
           rel="noopener noreferrer"
         >
-          <Button>Sign Up</Button>
+          <Button>{t("Home.buttons.1")}</Button>
         </a>
       </ButtonsWrapper>
       <Socials />
     </Wrapper>
   )
 }
-
-// const data = useStaticQuery(
-//   graphql`
-//     {
-//       markdownRemark(frontmatter: { title: { eq: "Home" } }) {
-//         html
-//       }
-//     }
-//   `
-// )
 
 export default Home

@@ -1,0 +1,62 @@
+{
+  "common": {
+    "Navigation": {
+      "IndexPage": [
+        { "title": "Accueil", "link": "/#home" },
+        { "title": "Mission", "link": "/#mission" },
+        { "title": "Équipe", "link": "/#team" },
+        { "title": "Partenaires", "link": "/#partners" }
+      ],
+      "PrivacyPage": [
+        { "title": "Accueil", "link": "/" },
+        { "title": "Carte", "link": "https://map.reach4help.org" }
+      ]
+    },
+    "Home": {
+      "heading": "Nous connectons les personnes dans le besoin aux personnes qui peuvent aider.",
+      "subheading": "Nous lançons le samedi 13 juin!",
+      "description": [
+        "Notre carte contient une liste croissante d'organisations d'aide et de projets de soins en cas de pandémie.",
+        "Utilisez la carte pour trouver et rejoindre les efforts d'entraide près de chez vous ou créez le vôtre.",
+        "Si vous êtes une organisation d'aide, ajoutez vos informations à la carte pour que d'autres puissent vous trouver."
+      ],
+      "buttons": ["Carte d'entraide", "Inscription BETA"]
+    },
+    "Mission": {
+      "heading": "Notre Mission",
+      "description": [
+        "Reach4Help est un projet ouvert entièrement géré par des bénévoles qui vise à résoudre des problèmes tels que fournir un accès plus facile à l'épicerie, aux médicaments ou une simple aide pour promener les chiens pour ceux qui ne peuvent pas le faire pour le moment.",
+        "<strong>NOTRE OBJECTIF</strong> est de permettre à ceux qui en ont besoin de recevoir de l'aide, et aux groupes et organisations partenaires d'aider plus efficacement, en mobilisant leurs bénévoles avec l'aide de notre propre système."
+      ]
+    },
+    "Partners": {
+      "heading": "Partenaires",
+      "subheading": "Nous tenons à remercier toutes les marques, entreprises et supporters de la communauté qui nous ont aidés dans notre mission."
+    },
+    "Team": {
+      "heading": "Équipe",
+      "subheading": "Nous recherchons plus de personnes pour rejoindre nos équipes, si vous souhaitez vous joindre.",
+      "description": [
+        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial."
+      ],
+      "buttons": ["Vous êtes l'aide à côté. Rejoignez-nous!"]
+    },
+    "Footer": {
+      "sections": [
+        { "title": "Politique de Confidentialité", "link": "/confidentialite" },
+        {
+          "title": "Code de conduite",
+          "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+        }
+      ]
+    },
+    "404": {
+      "heading": "404 Pas trouvé",
+      "description": [
+        "Vous avez trouvé un problème dans la matrice...",
+        "Ou vous explorez simplement autour."
+      ],
+      "linkBackToHome": "Retourner"
+    }
+  }
+}

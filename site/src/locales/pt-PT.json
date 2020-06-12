@@ -1,0 +1,62 @@
+{
+  "common": {
+    "Navigation": {
+      "IndexPage": [
+        { "title": "Início", "link": "/#home" },
+        { "title": "Missão", "link": "/#mission" },
+        { "title": "Equipa", "link": "/#team" },
+        { "title": "Parceiros", "link": "/#partners" }
+      ],
+      "PrivacyPage": [
+        { "title": "Início", "link": "/" },
+        { "title": "Mapa", "link": "https://map.reach4help.org" }
+      ]
+    },
+    "Home": {
+      "heading": "Ligamos pessoas que precisam de ajuda a quem pode ajudar.",
+      "subheading": "O lançamento será no Sábado, 13 de Junho!",
+      "description": [
+        "O nosso mapa contém uma lista crescente de organizações e projetos de ajuda.",
+        "Usa o mapa para encontrares e te juntares a esforços de Ajuda Mútua perto de ti, ou criares o teu",
+        "Se representas uma organização de ajuda mútua, adiciona informação ao mapa para que outros vos possam encontrar."
+      ],
+      "buttons": ["Mapa de Ajuda Mútua", "Registo para o BETA"]
+    },
+    "Mission": {
+      "heading": "A Nossa Missão",
+      "description": [
+        "O Reach4Help é um projeto de código aberto totalmente gerido por voluntários que procura encontrar soluções para problemas como o acesso fácil a bens, medicamentos ou simplesmente passear o cão daqueles que não o conseguem fazer em determinado momento",
+        "O <strong>NOSSO OBJETIVO</strong> é permitir que aqueles que necessitam de ajuda que a recebam e que organizações e grupos parceiros ajudem de forma mais eficiente, ao mobilizarem os seus voluntários com a ajuda do nosso sistema."
+      ]
+    },
+    "Team": {
+      "heading": "Equipa",
+      "subheading": "Estamos à procura de mais pessoas para se juntarem às nossas equipas, se te quiseres juntar.",
+      "description": [
+        "Somos parte da Helpful Engineering, um coletivo de voluntários que se juntaram para arranjar soluções durante a Pandemia da COVID-19, sem qualquer fim comercial."
+      ],
+      "buttons": ["Tu és a ajuda de proximidade. Junta-te a nós!"]
+    },
+    "Partners": {
+      "heading": "Parceiros",
+      "subheading": "Queremos agradecer a todos as marcas, empresas e comunidades que nos ajudaram na nossa missão"
+    },
+    "Footer": {
+      "sections": [
+        { "title": "Política de Privacidade", "link": "/privacidade" },
+        {
+          "title": "Código de Conduta",
+          "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+        }
+      ]
+    },
+    "404": {
+      "heading": "404 Não Encontrado",
+      "description": [
+        "Encontraste uma falha na matriz...",
+        "Ou andas só a explorar!"
+      ],
+      "linkBackToHome": "Volta para o início"
+    }
+  }
+}

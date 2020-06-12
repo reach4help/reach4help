@@ -1,12 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
+
 import { ThemeProvider } from "styled-components"
 import { LayoutWrapper } from "./style"
 
 import Theme from "../../styles/theme"
 import GlobalStyles from "../../styles/global"
 
-// adding smooth-scroll functionality
+import "src/locales/i18n"
+
 if (typeof window !== "undefined") {
   // eslint-disable-next-line global-require
   require("smooth-scroll")('a[href*="#"]', {
