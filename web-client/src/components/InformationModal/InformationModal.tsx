@@ -27,10 +27,11 @@ export const InformationModal: React.FC<InformationModalProps> = ({
 
   useEffect(() => {
     const key = window.localStorage.getItem(localStorageKey);
-
-    !key || key !== SEEN
-      ? setRequestModalVisible(true)
-      : setRequestModalVisible(false);
+    if (!key || key !== SEEN) {
+      setRequestModalVisible(true);
+    } else {
+      setRequestModalVisible(false);
+    }
   }, [localStorageKey]);
 
   const onFinishRequest = (): void => {
