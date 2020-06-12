@@ -38,6 +38,11 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
     cavUserName: isCurrentUserItem && isCavItem ? 'your' : cavUserName,
     pinRating,
     cavRating,
+    actedUpon: !isCurrentUserItem
+      ? 'You'
+      : isCavItem
+      ? cavUserName
+      : pinUserName,
   };
 
   return (

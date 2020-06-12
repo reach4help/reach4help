@@ -66,10 +66,19 @@ export const queueTimelineItemTriggers = async (
     } else if (entity.status === RequestStatus.pending || entity.status === RequestStatus.removed || entity.status === RequestStatus.ongoing) {
       user = entity.pinUserSnapshot;
       userRef = entity.pinUserRef;
+      console.log('entity : ', JSON.stringify(entity));
+      if (entity.pinRating && entity.pinRating > 0) {
+        user = entity.cavUserSnapshot;
+        userRef = entity.cavUserRef;
+      }
     } else if (entity.status === RequestStatus.completed || entity.status === RequestStatus.cancelled) {
       if (entity.cavUserSnapshot && entity.cavUserRef) {
         user = entity.cavUserSnapshot;
         userRef = entity.cavUserRef;
+        if (entity.cavRating && entity.cavRating > 0) {
+          user = entity.pinUserSnapshot;
+          userRef = entity.pinUserRef;
+        }
       }
     }
 
