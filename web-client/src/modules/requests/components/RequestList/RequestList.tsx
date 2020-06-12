@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import { Offer } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 
@@ -76,7 +77,7 @@ const RequestList: React.FC<RequestListProps> = ({
 
   // issue with indefinite loading, needs fix
   if (loading) {
-    return <>Loading...</>;
+    return <LoadingIndicator />;
   }
 
   return <div style={{ marginBottom: '64px' }}>{requestList}</div>;

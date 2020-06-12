@@ -1,5 +1,5 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsEnum, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { IRequest, Request } from '../requests';
@@ -158,6 +158,7 @@ export class Offer implements IOffer {
   }
 
   @IsObject()
+  @IsOptional()
   private _seenAt: Timestamp | null;
 
   get seenAt(): Timestamp | null {

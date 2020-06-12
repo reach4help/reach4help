@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
@@ -21,6 +22,7 @@ import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
+import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
 
 import BottomPanel from '../../components/BottomPanel/BottomPanel';
 import OffersList from '../../components/OffersList/OffersList';
@@ -32,12 +34,17 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   requestId,
   accepted,
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [request, setRequest] = useState<
     RequestWithOffersAndTimeline | undefined
   >(undefined);
+
+  const [shouldRedirectToFinished, setShouldRedirectToFinished] = useState<
+    boolean
+  >(false);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -50,6 +57,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
   );
+
+  useEffect(() => {
+    document.title = 'Reach4Help: '.concat(t('routeSubtitles._timeline'));
+  });
 
   useEffect(() => {
     let requestTemp: RequestWithOffersAndTimeline | undefined = requestsState
@@ -85,8 +96,17 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
+      if (shouldRedirectToFinished) {
+        history.push(FinishedRequestsLocation.path);
+      }
     }
-  }, [requestsState.setAction, offersState.setAction, dispatch]);
+  }, [
+    requestsState.setAction,
+    offersState.setAction,
+    dispatch,
+    shouldRedirectToFinished,
+    history,
+  ]);
 
   useEffect(() => {
     if (
@@ -150,6 +170,17 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     if (request && request.status === RequestStatus.ongoing && accepted) {
       history.push(TimelineViewLocation.toUrl({ requestId }));
     }
+    if (request && request.offers && accepted) {
+      let shouldRedirect = true;
+      for (const k in request.offers) {
+        if (request.offers[k].status === OfferStatus.pending) {
+          shouldRedirect = false;
+        }
+      }
+      if (shouldRedirect) {
+        history.push(TimelineViewLocation.toUrl({ requestId }));
+      }
+    }
   }, [accepted, request, requestId, history]);
 
   if (!(profileState.profile && request)) {
@@ -166,7 +197,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     cavRating?: number;
   }) => {
     if (request && (status || pinRating || cavRating)) {
-      const updated = request;
+      const updated = request.getRequest();
       status && (updated.status = status);
       pinRating &&
         (updated.pinRating = pinRating) &&
@@ -174,6 +205,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       cavRating &&
         (updated.cavRating = cavRating) &&
         (updated.cavRatedAt = firestore.Timestamp.now());
+      if (updated.status === RequestStatus.ongoing && updated.pinRatedAt) {
+        setShouldRedirectToFinished(true);
+      }
       dispatch(updateRequest(updated.toObject() as IRequest, requestId));
     }
   };
@@ -191,14 +225,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     if (action === false) {
       offer.status = OfferStatus.rejected;
     }
+    offer.seenAt = null;
     dispatch(setOffer(offer.toObject() as IOffer, id));
   };
 
-  /*
-    TODO: 
-      Once backend changes for profile snapshot is done, instead of offers={MockOfferList},
-      The OffersList must take the offers from the request itself
-  */
   const isCav =
     profileState.profile.applicationPreference === ApplicationPreference.cav;
 
@@ -218,6 +248,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       {accepted && (
         <OffersList
           loading={false}
+          destinationCoords={request.latLng}
           offers={request.offers}
           handleOffer={handleOffer}
         />

@@ -466,15 +466,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             </Form.Item>
           </Col>
           <Col span={12} md={6} sm={12} xs={24}>
-            <Form.Item
-              name="cityState"
-              rules={[
-                {
-                  required: true,
-                  message: t('user_data_form.address_error_message'),
-                },
-              ]}
-            >
+            <Form.Item name="cityState">
               <Input
                 style={{
                   marginRight: '15px',
@@ -485,15 +477,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             </Form.Item>
           </Col>
           <Col span={12} md={6} sm={12} xs={24}>
-            <Form.Item
-              name="postalCode"
-              rules={[
-                {
-                  required: true,
-                  message: t('user_data_form.address_error_message'),
-                },
-              ]}
-            >
+            <Form.Item name="postalCode">
               <Input
                 style={{
                   marginRight: '15px',

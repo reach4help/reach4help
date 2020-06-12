@@ -11,6 +11,7 @@ export default {
   ) => {
     state.confirmationResult = payload;
     state.loading = false;
+    state.error = undefined;
   },
   [FIREBASE_PHONE_TRIGGER.REJECTED]: (
     state: AuthState,

@@ -1,4 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Redirect,
@@ -8,8 +10,11 @@ import {
 } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
+import { observeOffers } from 'src/ducks/offers/actions';
+import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
+import { Module } from 'src/types/module';
 
 import { AuthState } from '../ducks/auth/types';
 import { updateUserProfile } from '../ducks/profile/actions';
@@ -19,19 +24,91 @@ import NotFoundRoute from './routes/NotFoundRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 const MasterPage = (): ReactElement => {
+  const { t } = useTranslation();
+
+  const titleFromPath = () => {
+    const path = window.location.pathname;
+    const title = 'Reach4Help';
+
+    switch (path) {
+      case '/login':
+      case '/phone':
+      case '/requests':
+      case '/personal-data':
+      case '/timeline':
+      case '/personal-data/role-info':
+      case '/phone/entry':
+      case '/phone/verify':
+      case '/requests/accepted':
+      case '/requests/archived':
+      case '/requests/find':
+      case '/requests/finished':
+      case '/requests/new':
+      case '/requests/ongoing':
+      case '/requests/open':
+        return `${title}: `.concat(
+          t(`routeSubtitles.${path.replace(/\//g, '_')}`),
+        );
+
+      /* TODO  Not currently working for timeline routes
+            "/timeline/accepted/:requestId",
+            "/timeline/:requestId"
+        */
+      default:
+        return path.startsWith('/timeline')
+          ? `${title}: Request Timeline`
+          : title;
+    }
+  };
+
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
+  const offersState = useSelector(
+    ({ offers }: { offers: OffersState }) => offers,
+  );
+  const [changeRolePast, setChangeRolePast] = useState<
+    ApplicationPreference | undefined
+  >(undefined);
   const userProfile = profileState.profile;
 
   const dispatch = useDispatch();
+  // const history = useHistory();
 
   const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
+
+  useEffect(() => {
+    if (
+      !(profileState.error && profileState.loading) &&
+      profileState.updateAction &&
+      changeRolePast &&
+      userProfile &&
+      userProfile.applicationPreference
+    ) {
+      if (changeRolePast !== userProfile.applicationPreference) {
+        window.location.href = '/';
+      }
+    }
+    if (
+      profileState.profile &&
+      profileState.profile.applicationPreference &&
+      !offersState.data &&
+      !offersState.loading
+    ) {
+      observeOffers(dispatch, {
+        userType: profileState.profile.applicationPreference,
+        userRef: profileState.userRef,
+      });
+    }
+  }, [userProfile, changeRolePast, profileState, offersState, dispatch]);
 
   const toggleApplicationPreference = () => {
     const user = profileState.profile;
     if (user && authState.user) {
       const currentPreference = user.applicationPreference;
+      if (currentPreference) {
+        setChangeRolePast(currentPreference);
+      }
       user.applicationPreference =
         currentPreference === ApplicationPreference.cav
           ? ApplicationPreference.pin
@@ -40,18 +117,28 @@ const MasterPage = (): ReactElement => {
     }
   };
 
-  const renderLayout = routeModule => {
+  const renderLayout = (routeModule: Module) => {
     if (routeModule.layout === 'dashboard' && userProfile) {
       return (
-        <DashboardLayout
-          menuItems={routeModule.menuItems}
-          profileData={userProfile}
-          isCav={userProfile?.applicationPreference === 'cav'}
-          logoutHandler={() => dispatch(signOutCurrentUserAction())}
-          toggleApplicationPreference={toggleApplicationPreference}
-        >
-          <Route path={routeModule.path} component={routeModule.component} />
-        </DashboardLayout>
+        <>
+          <Helmet>
+            <title>{titleFromPath()}</title>
+          </Helmet>
+          <DashboardLayout
+            menuItems={
+              routeModule.dynamicMenuLinks
+                ? routeModule.dynamicMenuLinks(profileState)
+                : routeModule.menuItems
+            }
+            offersState={offersState}
+            profileData={userProfile}
+            isCav={userProfile?.applicationPreference === 'cav'}
+            logoutHandler={() => dispatch(signOutCurrentUserAction())}
+            toggleApplicationPreference={toggleApplicationPreference}
+          >
+            <Route path={routeModule.path} component={routeModule.component} />
+          </DashboardLayout>
+        </>
       );
     }
     return <routeModule.component />;

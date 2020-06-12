@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import LoadingLogo from 'src/assets/loadinglogo.svg';
 import styled from 'styled-components';
 
@@ -11,12 +12,15 @@ const Container = styled.div`
 
 const LoadingWrapper: React.FC<WrapperProps> = ({
   children,
-}): React.ReactElement => (
-  <Container>
-    <img src={LoadingLogo} alt="loading..." />
-    {children}
-  </Container>
-);
+}): React.ReactElement => {
+  const { t } = useTranslation();
+  return (
+    <Container>
+      <img src={LoadingLogo} alt={t('components.loading_a11y_message')} />
+      {children}
+    </Container>
+  );
+};
 
 interface WrapperProps {
   children?: React.ReactNode;
