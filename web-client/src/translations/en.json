@@ -20,7 +20,13 @@
     "information_modal": {
       "instructions": "Instructions",
       "footer": "Please contact us if you need help: info@reach4help.org",
-      "a11y_logo": "Reach for Help logo"
+      "a11y_logo": "Reach for Help logo",
+      "NewRequestsContainer": {
+        "title": "Welcome to Reach4Help!",
+        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
+        "1": "When a volunteer takes your request, they will contact you with the telephone you used to register this account",
+        "2": "You can check the status of your request as it progresses each stage from the sidebar:"
+      }
     },
 
     "login": {
@@ -82,11 +88,6 @@
       "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
     },
     "newRequest": {
-      "instructions": [
-        "Wait for a volunteer to contact you",
-        "Arrange help by telephone with the volunteer.  They will have your phone number",
-        "Check your right side request panel to see the status of your requests"
-      ],
       "title": "New Request",
       "icon_text": "I need help",
       "form": {

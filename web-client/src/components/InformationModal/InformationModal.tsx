@@ -1,4 +1,4 @@
-import { FileProtectOutlined, MailOutlined } from '@ant-design/icons';
+import { MailOutlined } from '@ant-design/icons';
 import { List, Modal, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,15 +8,6 @@ import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const SEEN = 'seen';
-const FlexDiv = styled.div`
-  display: flex;
-`;
-
-const ModalLogo = styled(FileProtectOutlined)`
-  color: ${COLORS.success};
-  padding-right: 24px;
-  font-size: 20px;
-`;
 
 const R4HloveListItem = styled(List.Item)`
   display: flex;
@@ -49,6 +40,9 @@ export const InformationModal: React.FC<InformationModalProps> = ({
     finishRequestHandler && finishRequestHandler();
     setRequestModalVisible(false);
   };
+
+  const ModalHeader = header => <h2>{header}</h2>;
+
   const ModalFooter = () => (
     <div>
       <a href="mailto:info@reach4help.org">
@@ -75,12 +69,8 @@ export const InformationModal: React.FC<InformationModalProps> = ({
       onCancel={(): void => setRequestModalVisible(false)}
       footer={null}
     >
-      <FlexDiv>
-        <ModalLogo />
-      </FlexDiv>
-
       <List
-        header={<div>{title}</div>}
+        header={ModalHeader(title)}
         footer={ModalFooter()}
         bordered
         dataSource={instructions}
@@ -98,16 +88,10 @@ export const InformationModal: React.FC<InformationModalProps> = ({
       />
 
       <div style={{ display: 'flex' }}>
-        <StepBackButton
-          onClick={() => setRequestModalVisible(false)}
-          icon={<FileProtectOutlined />}
-        >
+        <StepBackButton onClick={() => setRequestModalVisible(false)}>
           {t('cancel')}
         </StepBackButton>
-        <StepForwardButton
-          onClick={onFinishRequest}
-          icon={<FileProtectOutlined />}
-        >
+        <StepForwardButton onClick={onFinishRequest}>
           {t('okay')}
         </StepForwardButton>
       </div>
@@ -116,7 +100,7 @@ export const InformationModal: React.FC<InformationModalProps> = ({
 };
 
 interface InformationModalProps {
-  title?: boolean;
+  title?: string;
   instructions?: string[];
   localStorageKey: string;
   finishRequestHandler?: () => void;

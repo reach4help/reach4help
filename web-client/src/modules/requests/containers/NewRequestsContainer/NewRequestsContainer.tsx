@@ -1,7 +1,7 @@
 import { firestore } from 'firebase';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
-/* import { useTranslation } from 'react-i18next'; */
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { InformationModal } from 'src/components/InformationModal/InformationModal';
@@ -175,11 +175,11 @@ const NewRequestsContainer: React.FC = () => {
     }
   };
 
-  /*  const { t } = useTranslation(); */
+  const { t } = useTranslation();
   const instructions = [
-    'Wait for a volunteer to contact you',
-    'Arrange help by telephone with the volunteer.  They will have your phone number',
-    'Check your right side request panel to see the status of your requests',
+    t('information_modal.NewRequestsContainer.0'),
+    t('information_modal.NewRequestsContainer.1'),
+    t('information_modal.NewRequestsContainer.2'),
   ];
   const instructionModalLocalStorageKey = profileState
     ? `reach4help.modalSeen.NewRequestsContainer.${profileState.uid}`
@@ -212,6 +212,7 @@ const NewRequestsContainer: React.FC = () => {
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
           <InformationModal
+            title={t('information_modal.NewRequestsContainer.title')}
             localStorageKey={instructionModalLocalStorageKey}
             instructions={instructions}
           />
