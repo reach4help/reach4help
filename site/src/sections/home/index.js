@@ -37,11 +37,11 @@ function Home() {
           <Button>Mutual Aid Map</Button>
         </a>
         <a
-          href="https://reach4help-webclient.web.app/"
+          href="https://app.reach4help.org/"
           target="__blank"
           rel="noopener noreferrer"
         >
-          <Button>BETA Sign Up</Button>
+          <Button>Sign Up</Button>
         </a>
       </ButtonsWrapper>
       <Socials />
