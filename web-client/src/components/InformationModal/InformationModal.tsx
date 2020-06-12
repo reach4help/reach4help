@@ -3,7 +3,7 @@ import { List, Modal, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import r4hLOVE from 'src/assets/r4hLOVE.png';
-import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
+import { StepForwardButton } from 'src/components/Buttons';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
