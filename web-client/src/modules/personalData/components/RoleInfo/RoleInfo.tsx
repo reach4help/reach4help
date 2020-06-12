@@ -18,6 +18,23 @@ const StyledIntro = styled.div`
   }
 `;
 
+const Manifesto = styled.div`
+  width: 66%;
+  margin: 25px auto 0 auto;
+
+  /* font-size-base */
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  /* or 157% */
+
+  text-align: center;
+
+  color: #000000;
+`;
+
 const Container = styled.div`
   margin-top: 40px;
 `;
@@ -53,6 +70,7 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
   return (
     <StyledIntro className="withContentPaddingDesktop">
       <TitleWithAddon level={2}>{t('roleinfo.sub_title')}</TitleWithAddon>
+      <Manifesto>{t('roleinfo.manifesto')}</Manifesto>
       <Container>
         <Row gutter={12}>
           <Col

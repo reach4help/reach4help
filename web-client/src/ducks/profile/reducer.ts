@@ -76,13 +76,10 @@ export default createReducer<ProfileState>(
       state.loading = true;
       state.error = undefined;
     },
-    [UPDATE.COMPLETED]: (
-      state: ProfileState,
-      { payload }: { payload: Record<string, any> },
-    ) => {
+    [UPDATE.COMPLETED]: (state: ProfileState) => {
       state.error = undefined;
       state.loading = false;
-      state.updateAction = payload;
+      state.updateAction = true;
     },
     [UPDATE.REJECTED]: (
       state: ProfileState,

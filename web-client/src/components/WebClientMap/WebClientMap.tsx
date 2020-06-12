@@ -1,0 +1,231 @@
+import GoogleMapReact, { Coords } from 'google-map-react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import apiKey from './apiKey';
+import MyLocationControl from './MyLocationControl';
+import { metersToImperial, metersToKm, secondsToTimestring } from './utils';
+import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
+import WebClientMapMessage from './WebClientMapMessage';
+
+const createMapOptions = maps => ({
+  zoomControlOptions: {
+    position: maps.ControlPosition.TOP_RIGHT,
+    style: maps.ZoomControlStyle.SMALL,
+  },
+  mapTypeControlOptions: {
+    position: maps.ControlPosition.TOP_LEFT,
+  },
+  mapTypeControl: true,
+});
+
+const WebClientMap: React.FC<MapProps> = ({
+  origin = { lat: 0, lng: 0 },
+  destinations,
+  onDestinationClickedHandler,
+  address,
+  onGeocode,
+  startGeocode,
+  startLocateMe,
+  bannerMessage = '',
+  zoom = 11,
+  isCav = true,
+}) => {
+  const { t } = useTranslation();
+
+  /* banner message */
+  const [mapMessage, setMapMessage] = useState<string>('');
+
+  useEffect(() => {
+    setMapMessage(bannerMessage);
+  }, [bannerMessage]);
+
+  /* google services */
+  const [googleMap, setGoogleMap] = useState<any>(null);
+  const [googleMapS, setGoogleMapS] = useState<any>(null);
+
+  const [DirectionsRenderer, setDirectionsRenderer] = useState<any | undefined>(
+    undefined,
+  );
+  const [DirectionsService, setDirectionsService] = useState<any | undefined>(
+    undefined,
+  );
+  const [Geocoder, setGeocoder] = useState<any | undefined>(undefined);
+
+  const initGoogleMapServices = ({ map, maps }) => {
+    if (map && maps) {
+      googleMap || setGoogleMap(map);
+      googleMapS || setGoogleMapS(maps);
+      if (typeof DirectionsRenderer === 'undefined') {
+        const directionsRenderer = new maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        setDirectionsRenderer(directionsRenderer);
+      }
+      if (typeof DirectionsService === 'undefined') {
+        setDirectionsService(new maps.DirectionsService());
+      }
+      if (typeof Geocoder === 'undefined') {
+        setGeocoder(new maps.Geocoder());
+      }
+    }
+  };
+
+  /* geocode */
+  const geocodeCallback = (result, status) => {
+    if (status === 'OK' && result && result.length) {
+      if (onGeocode) {
+        const lat = result[0].geometry.location.lat();
+        const lng = result[0].geometry.location.lng();
+        onGeocode({
+          address: result[0].formatted_address,
+          latLng: { lat, lng },
+        });
+      }
+    } else {
+      // eslint-disable-next-line no-console
+      console.error(t('components.web_client_map.geocode_error'));
+    }
+  };
+
+  const doGeocode = ({ center, streetAddress }) => {
+    if (Geocoder) {
+      /* do street address first */
+      if (streetAddress) {
+        Geocoder.geocode({ address: streetAddress }, geocodeCallback);
+      } else if (center) {
+        Geocoder.geocode({ location: center }, geocodeCallback);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (startGeocode) {
+      doGeocode({ streetAddress: address, center: null });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startGeocode, Geocoder, address, origin]);
+
+  /* locate me */
+  const locateMe = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos: Coords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        doGeocode({ center: pos, streetAddress: '' });
+        if (googleMap.getCenter() !== pos) {
+          googleMap.panTo(pos);
+        }
+      },
+      error => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+      },
+    );
+  };
+
+  useEffect(() => {
+    if (startLocateMe) {
+      locateMe();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startLocateMe, Geocoder]);
+
+  /* Directions, Origin, Destination, Paths */
+
+  const [selectedDestination, setSelectedDestination] = useState<string>('');
+
+  const getDirections = destination => {
+    DirectionsService.route(
+      { origin, destination: destination.center, travelMode: 'DRIVING' },
+      (result, status) => {
+        if (status === 'OK') {
+          DirectionsRenderer.setDirections(result);
+          let distance = 0;
+          let duration = 0;
+          result.routes[0].legs.forEach(leg => {
+            distance += leg.distance.value;
+            duration += leg.duration.value;
+          });
+          setMapMessage(
+            `${secondsToTimestring(duration)} (${metersToKm(
+              distance,
+            )}/${metersToImperial(distance)})`,
+          );
+        } else {
+          // eslint-disable-next-line no-console
+          console.error(
+            t('components.web_client_map.distance_error'),
+            status,
+            result,
+          );
+        }
+      },
+    );
+  };
+
+  const destinationClickedHandler = destination => {
+    setSelectedDestination(destination.id);
+    if (DirectionsService) {
+      getDirections(destination);
+    }
+    if (onDestinationClickedHandler) {
+      onDestinationClickedHandler(destination.id);
+    }
+  };
+
+  return !apiKey ? (
+    <>{t('components_web_client_map.api_error')} Google Maps API key</>
+  ) : (
+    <>
+      <div style={{ height: '100%', width: '100%' }}>
+        {mapMessage && <WebClientMapMessage message={mapMessage} />}
+        <GoogleMapReact
+          yesIWantToUseGoogleMapApiInternals
+          bootstrapURLKeys={{ key: apiKey }}
+          options={createMapOptions}
+          center={origin}
+          defaultZoom={zoom}
+          onGoogleApiLoaded={initGoogleMapServices}
+        >
+          <MyLocationControl map={googleMap || null} onClick={locateMe} />
+          <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
+          {destinations.map(r => (
+            <DestinationMarker
+              key={r.id}
+              selected={r.id === selectedDestination}
+              lat={r.center.lat}
+              lng={r.center.lng}
+              onClick={() => destinationClickedHandler(r)}
+            />
+          ))}
+        </GoogleMapReact>
+      </div>
+    </>
+  );
+};
+
+interface MapProps {
+  destinations: {
+    center: {
+      lat: number;
+      lng: number;
+    };
+    id: string;
+  }[];
+  origin?: {
+    lat: number;
+    lng: number;
+  };
+  address?: string;
+  onGeocode?: ({ address: string, latLng: Coords }) => void;
+  onDestinationClickedHandler?: (id: string) => void;
+  zoom?: number;
+  isCav?: boolean;
+  bannerMessage?: string;
+  startGeocode?: boolean;
+  startLocateMe?: boolean;
+}
+
+export default WebClientMap;

@@ -1,57 +1,71 @@
 import {
-  BellOutlined,
-  EnvironmentOutlined,
-  MenuOutlined,
-  PlusCircleOutlined,
+  EnvironmentFilled as MapsIcon,
+  PlusCircleFilled as NewRequestIcon,
+  BellFilled as NotificationsIcon,
+  MenuOutlined as SideMenuIcon,
 } from '@ant-design/icons';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
+
+import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
 
 const BottomNavbar: React.FC<BottomNavProps> = ({
   openMenu,
-  openNewRequestModal,
   openNotifications,
   isCav,
-}) => (
-  <Wrapper>
-    <NavButton onClick={openMenu}>
-      <SideMenuIcon />
-    </NavButton>
-    {isCav === false && (
-      <NavButton onClick={openNewRequestModal}>
-        <NewRequestIcon />
+  unseenOffersCount,
+}) => {
+  const history = useHistory();
+  return (
+    <Wrapper>
+      <NavButton isCav={isCav} onClick={openMenu}>
+        <SideMenuIcon />
       </NavButton>
-    )}
-    {isCav === true && (
-      <NavButton onClick={() => alert('the map module is still being made!')}>
-        <MapsIcon />
+      {isCav ? (
+        <NavButton
+          isCav={isCav}
+          onClick={() => history.push(FindRequestsLocation.path)}
+        >
+          <MapsIcon />
+        </NavButton>
+      ) : (
+        <NavButton
+          isCav={isCav}
+          onClick={() => history.push(NewRequestsLocation.path)}
+        >
+          <NewRequestIcon />
+        </NavButton>
+      )}
+      <NavButton isCav={isCav} onClick={openNotifications}>
+        {unseenOffersCount > 0 ? (
+          <NotificationsIcon style={{ color: 'red' }} />
+        ) : (
+          <NotificationsIcon />
+        )}
       </NavButton>
-    )}
-    <NavButton onClick={openNotifications}>
-      <NotificationsIcon />
-    </NavButton>
-  </Wrapper>
-);
+    </Wrapper>
+  );
+};
 
-const NewRequestIcon = styled(PlusCircleOutlined)`
-  font-size: 2rem;
-`;
-
-const MapsIcon = styled(EnvironmentOutlined)`
-  font-size: 2rem;
-`;
-
-const NotificationsIcon = styled(BellOutlined)``;
-
-const SideMenuIcon = styled(MenuOutlined)``;
-
-const NavButton = styled.button`
-  width: 64px;
+const NavButton = styled('button')<{ isCav?: boolean }>`
+  width: 33%;
   height: 64px;
-  font-size: 1.2rem;
+  font-size: 2rem;
   background: inherit;
   border: none;
   outline: none;
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
+    color: white;
+    font-weight: 700;
+    background-color: ${props =>
+      props.isCav ? COLORS.link : COLORS.brandOrange};
+  }
 `;
 
 const Wrapper = styled.div`
@@ -68,9 +82,9 @@ const Wrapper = styled.div`
 
 interface BottomNavProps {
   openMenu: () => void;
-  openNewRequestModal: () => void;
   openNotifications: () => void;
   isCav?: boolean;
+  unseenOffersCount: number;
 }
 
 export default BottomNavbar;
