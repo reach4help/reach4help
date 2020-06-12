@@ -49,6 +49,7 @@ export const setOffer = (payload: Offer | IOffer, offerId?: string) => (
     const offerPayload = Offer.factory({
       ...payload,
     });
+
     dispatch({
       type: SET,
       payload: {
@@ -61,8 +62,6 @@ export const setOffer = (payload: Offer | IOffer, offerId?: string) => (
     const offerPayload = payload;
     // eslint-disable-next-line no-param-reassign
     payload.updatedAt = firestore.Timestamp.now();
-    // eslint-disable-next-line no-param-reassign
-    payload.seenAt = firestore.Timestamp.now();
     dispatch({
       type: SET,
       payload: {

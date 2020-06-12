@@ -43,6 +43,8 @@ function SEO({ description, lang, title, location }) {
   const url =
     typeof location !== "undefined" ? `${siteURL}${location}` : siteURL
 
+  console.log(siteURL + image)
+
   return (
     <Helmet>
       {/* <!-- Primary Meta Tags --> */}
@@ -56,12 +58,12 @@ function SEO({ description, lang, title, location }) {
       {/* <!-- Schema.org Microdata --> */}
       <meta itemProp="name" content={title} />
       <meta itemProp="description" content={description} />
-      <meta itemProp="image" content={image} />
+      <meta itemProp="image" content={siteURL + image} />
 
       {/* <!-- Open Graph / Facebook --> */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={siteURL + image} />
       <meta property="og:url" content="https://reach4help.org/" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Reach4Help" />
@@ -74,8 +76,8 @@ function SEO({ description, lang, title, location }) {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@Reach4HelpOrg" />
       <meta name="twitter:creator" content="@Reach4HelpOrg" />
-      <meta name="twitter:image" content={image} />
-      <meta name="twitter:image:src" content={image} />
+      <meta name="twitter:image" content={siteURL + image} />
+      <meta name="twitter:image:src" content={siteURL + image} />
       <meta name="twitter:image:alt" content={title} />
 
       {/* <!-- Icons --> */}

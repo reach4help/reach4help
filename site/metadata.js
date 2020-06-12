@@ -3,7 +3,10 @@ module.exports = {
   subtitle: "Unifying Help Worldwide",
   description:
     "Reach4Help is global volunteer-run initiative  connecting global mutual aid movements to people in need in the face of the COVID-19 pandemic and beyond.",
-  siteURL: process.env.GATSBY_SITE_URL || "https://reach4help.org", // No trailing slash allowed!
+  siteURL:
+    process.env.GATSBY_SITE_URL ||
+    process.env.DEPLOY_PRIME_URL ||
+    "https://reach4help.org", // No trailing slash allowed!
   image: "/images/swarm_banner_main.png", // Path to your image you placed in the 'static' folder
   socialLinks: [
     {

@@ -3,6 +3,11 @@
 
 export default [
   {
+    name: "The Programming Foundation",
+    logo: require("./tpf.svg"),
+    link: "https://www.theprogrammingfoundation.org/",
+  },
+  {
     name: "Helpful Engineering",
     logo: require("./helpful.svg"),
     link: "https://www.helpfulengineering.org/",

@@ -20,7 +20,7 @@ export interface ProfileState {
   userRef?: firebase.firestore.DocumentReference<User>;
   uid?: string;
   setAction?: Record<string, any>;
-  updateAction?: Record<string, any>;
+  updateAction?: boolean;
   observerReceivedFirstUpdate: boolean;
   loading: boolean;
   error?: Error;

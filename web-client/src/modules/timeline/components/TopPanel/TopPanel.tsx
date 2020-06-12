@@ -8,7 +8,7 @@ import {
 import { Typography } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
@@ -29,15 +29,19 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
   const [togglePanel, setTogglePanel] = useState(false);
   const userRequestStatus = request.status;
   const { t } = useTranslation();
+  const history = useHistory();
 
   const isCav = user?.applicationPreference === ApplicationPreference.cav;
 
   return (
     <TopPanelWrapper>
       <NavRow>
-        <Link to="/">
-          <img src={NavBackIcon} alt="back navigation icon" />
-        </Link>
+        <div onClick={() => history.goBack()}>
+          <img
+            src={NavBackIcon}
+            alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}
+          />
+        </div>
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
           {userRequestStatus === RequestStatus.pending
             ? t('timeline.open_status')
@@ -46,7 +50,10 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
       </NavRow>
       <UserRow>
         {user && user.displayPicture ? (
-          <DisplayPhoto src={user.displayPicture} alt="display photo" />
+          <DisplayPhoto
+            src={user.displayPicture}
+            alt={t('modules.navigation.components.TopPanel.a11y_display_photo')}
+          />
         ) : (
           <EmptyPhoto />
         )}
@@ -78,7 +85,12 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
                   </span>
                 </InfoDetail>
                 <InfoDetail className={isCav ? 'cav' : 'pin'}>
-                  <img src={LocationIcon} alt="location icon" />
+                  <img
+                    src={LocationIcon}
+                    alt={t(
+                      'modules.navigation.components.TopPanel.a11y_location_icon',
+                    )}
+                  />
                   {/* TODO : Logic for calculating distance from request.latLng */}
                   <span>5 Miles</span>
                 </InfoDetail>
@@ -87,7 +99,10 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
           </Detail>
           {userRequestStatus === RequestStatus.ongoing ||
           userRequestStatus === RequestStatus.completed ? (
-            <img src={PhoneIcon} alt="phone icon" />
+            <img
+              src={PhoneIcon}
+              alt={t('modules.navigation.components.TopPanel.a11y_phone_icon')}
+            />
           ) : null}
         </UserDetails>
       </UserRow>

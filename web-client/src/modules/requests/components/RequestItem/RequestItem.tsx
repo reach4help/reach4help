@@ -1,5 +1,7 @@
 import { Button, Col, Row } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
@@ -93,6 +95,7 @@ export interface RequestItemProps {
   isCavAndOpenRequest: boolean;
   hideUserPic?: boolean;
   offers?: Record<string, Offer>;
+  loading?: boolean;
   toCloseRequest?: (action?: boolean) => void;
   isPinAndOpenRequest?: boolean;
 }
@@ -105,8 +108,12 @@ const RequestItem: React.FC<RequestItemProps> = ({
   offers = {},
   hideUserPic,
   toCloseRequest,
+  loading = false,
 }): React.ReactElement => {
+  const { t } = useTranslation();
+
   const [displayDetails, toggleDetails] = useState(false);
+  const [actionPerformed, setActionPerformed] = useState(0); // 0 - Nothing, 1 - Accept, 2 - Reject
 
   const handleRequestClick = () => {
     if (isCavAndOpenRequest) {
@@ -128,7 +135,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
           background: '#FAFAFA',
         }}
       >
-        No one has replied to your request.
+        {t('modules.requests.no_reply')}
       </WarningMessage>
     );
   } else if (
@@ -154,11 +161,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
             />
           </Col>
           <Col span={22}>
-            <p>
-              Your request was viewed by several volunteers, but was not
-              accepted. We suggest you &ldquo;Close Request&rdquo; and create a
-              new one with a simpler description.
-            </p>
+            <p>{t('modules.requests.bottom_warning')}</p>
           </Col>
         </Row>
         <Row>
@@ -211,20 +214,28 @@ const RequestItem: React.FC<RequestItemProps> = ({
           </StyledText>
           <Row>
             <Col span={11}>
-              <StyledButton onClick={() => handleRequest(false)}>
-                Cannot Help
-              </StyledButton>
+              <StepBackButton
+                loading={loading && actionPerformed === 2}
+                disabled={loading && actionPerformed !== 2}
+                onClick={() => {
+                  setActionPerformed(2);
+                  handleRequest(false);
+                }}
+              >
+                {t('modules.requests.cannot_help')}
+              </StepBackButton>
             </Col>
             <Col span={11} offset={2}>
-              <StyledButton
-                style={{
-                  background: '#52C41A',
-                  color: '#FFFFFF',
+              <StepForwardButton
+                loading={loading && actionPerformed === 1}
+                disabled={loading && actionPerformed !== 1}
+                onClick={() => {
+                  setActionPerformed(1);
+                  handleRequest(true);
                 }}
-                onClick={() => handleRequest(true)}
               >
                 Help {request.pinUserSnapshot.displayName}
-              </StyledButton>
+              </StepForwardButton>
             </Col>
           </Row>
         </Text>
@@ -269,7 +280,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
                 float: 'right',
               }}
               src={request.pinUserSnapshot.displayPicture || defaultUserPic}
-              alt="Profile pic"
+              alt={t('modules.requests.a11y_profile_pic')}
             />
           )}
         </div>

@@ -1,0 +1,35 @@
+{
+  "0": "PIN Flow",
+  "0": "First time entering",
+  "0": "First time creating a request",
+  "0": "Thank you for creating your first request! 
+  "0": "Open: Your request is out there but nobody's offered to help yet.",
+  "0": "Accepted: A volunteer has offered to take up your request, awaiting your confirmation.",
+  "0": "Ongoing: You accepted a volunteer, who is taking care of your request.",
+  "0": "Finished: You and the volunteer have agreed that the request has been fulfilled.",
+  "0": "Archived: You changed your mind and deleted your request.",
+  "0": "You'll also be receiving notifications as your request passes each stage to remind you of these. If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!",
+  "0": "General creating a request",
+  "0": "Show a pop-up routing them to the request timeline page with the text:",
+  "0": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check "
+  Open
+  Requests
+  "0": " on the sidebar.",
+  "0": "Accept volunteer help",
+  "0": "Send a notification that routes them to the accept volunteer page:",
+  "0": "A volunteer has offered to help! Click/tap here to accept them or check under 'Accepted Requests' on the sidebar.",
+  "0": "If accepted:",
+  "0": "You've accepted CAV_display_name's help on request_title! Click/tap here to check its status or check under "
+  Ongoing
+  Requests
+  "0": " on the sidebar.",
+  "0": "If rejected:",
+  "0": "You've rejected CAV_display_name's help on request_title. You'll be notified again when a volunteer offers to accept it. Click/tap here to check its status or check under "
+  Open
+  Requests
+  "0": " on the sidebar.",
+  "0": "CAV Flow",
+  "0": "First time entering",
+  "0": "Thank you for joining Reach4Help! As a volunteer, you'll be able to help people in your area by responding to their help requests. Thank you for joining us in building this unified platform of help!",
+  "0": "There's more stuff to add here, but you can work with this till I finish the others..."
+}

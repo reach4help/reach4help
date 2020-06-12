@@ -21,11 +21,13 @@ function isUser(id) {
 }
 
 function isVerifiedCAV() {
-  return isAuthenticated() && request.auth.token.cav == true;
+  // TODO: prepare frontend to refresh token to use request.auth.token.cav == true
+  return isAuthenticated();
 }
 
 function isVerifiedPIN() {
-  return isAuthenticated() && request.auth.token.pin == true;
+  // TODO: prepare frontend to refresh token to use request.auth.token.pin == true
+  return isAuthenticated();
 }
 
 function currentUserIsCurrentPINRef(userID, database, data) {
