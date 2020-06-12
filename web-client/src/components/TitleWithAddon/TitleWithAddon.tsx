@@ -14,9 +14,6 @@ const doAddonAlignment = (
   alignAddon: string | undefined,
   left: string | undefined,
 ) => {
-  console.log('left', left, 'align', alignAddon);
-  debugger;
-
   switch (alignAddon) {
     case 'left':
       return left || '12%';
