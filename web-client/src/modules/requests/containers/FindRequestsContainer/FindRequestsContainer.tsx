@@ -3,27 +3,31 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import styled from 'styled-components';
 
-import LoadingWrapper from '../../../../components/LoadingWrapper/LoadingWrapper';
+import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from '../../../../components/WebClientMap/utils';
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { setOffer } from '../../../../ducks/offers/actions';
-import { OffersState } from '../../../../ducks/offers/types';
-import { ProfileState } from '../../../../ducks/profile/types';
+} from 'src/components/WebClientMap/utils';
+import Map from 'src/components/WebClientMap/WebClientMap';
+import { setOffer } from 'src/ducks/offers/actions';
+import { OffersState } from 'src/ducks/offers/types';
+import { ProfileState } from 'src/ducks/profile/types';
 import {
   getOpenRequests,
   resetSetRequestState,
-} from '../../../../ducks/requests/actions';
-import { RequestState } from '../../../../ducks/requests/types';
-import { firestore } from '../../../../firebase';
-import { OfferStatus } from '../../../../models/offers';
-import { ApplicationPreference } from '../../../../models/users';
-import RequestItem from '../../components/RequestItem/RequestItem';
-import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
+} from 'src/ducks/requests/actions';
+import { RequestState } from 'src/ducks/requests/types';
+import { firestore } from 'src/firebase';
+import { OfferStatus } from 'src/models/offers';
+import { ApplicationPreference } from 'src/models/users';
+import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem';
+import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 
 interface MapRequestProps {
   center: Coords;
@@ -204,6 +208,17 @@ const FindRequestsContainer: React.FC = () => {
     return <LoadingWrapper />;
   }
 
+  const instructions = [
+    t('information_modal.FindRequestsContainer.0'),
+    t('information_modal.FindRequestsContainer.1'),
+    t('information_modal.FindRequestsContainer.2'),
+    t('information_modal.FindRequestsContainer.3'),
+  ];
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.FindRequestsContainer',
+    userid: profileState.uid,
+  });
+
   return (
     <>
       <Map
@@ -215,6 +230,11 @@ const FindRequestsContainer: React.FC = () => {
         bannerMessage={bannerMessage}
       />
       {maybeRequestDetails()}
+      <InformationModal
+        title={t('information_modal.FindequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
+      />
     </>
   );
 };

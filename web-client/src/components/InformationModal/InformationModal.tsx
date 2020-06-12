@@ -9,6 +9,13 @@ import styled from 'styled-components';
 
 const SEEN = 'seen';
 
+export const makeLocalStorageKey = ({ prefix, userid }) => {
+  const key = userid
+    ? `${prefix}.${userid}`
+    : 'reach4help.modalSeen.NewRequestsContainer';
+  console.log(key);
+  return key;
+};
 const R4HloveListItem = styled(List.Item)`
   display: flex;
 `;
@@ -26,24 +33,27 @@ export const InformationModal: React.FC<InformationModalProps> = ({
   );
 
   useEffect(() => {
-    const key = window.localStorage.getItem(localStorageKey);
-
-    !key || key !== SEEN
-      ? setRequestModalVisible(true)
-      : setRequestModalVisible(false);
+    const value = window.localStorage.getItem(localStorageKey);
+    console.log('checking for localStorage key', value);
+    if ((value !== null && !value) || value !== SEEN) {
+      setRequestModalVisible(true);
+    }
   }, [localStorageKey]);
 
-  const onFinishRequest = (): void => {
-    finishRequestHandler && finishRequestHandler();
+  const permanentlyHideModal = () => {
     window.localStorage.setItem(localStorageKey, SEEN);
     setRequestModalVisible(false);
+  };
+  const onFinishRequest = (): void => {
+    finishRequestHandler && finishRequestHandler();
+    permanentlyHideModal();
   };
 
   const ModalHeader = header => <h2>{header}</h2>;
 
   const ModalFooter = () => (
     <div>
-      <a href="mailto:info@reach4help.org">
+      <a href="mailto:support@reach4help.org">
         <em
           style={{
             color: COLORS.lightBlue,
@@ -64,7 +74,7 @@ export const InformationModal: React.FC<InformationModalProps> = ({
   return (
     <Modal
       visible={requestModalVisible}
-      onCancel={(): void => setRequestModalVisible(false)}
+      onCancel={(): void => permanentlyHideModal()}
       footer={null}
     >
       <List

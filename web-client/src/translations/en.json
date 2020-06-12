@@ -20,13 +20,45 @@
     "for": " for ",
     "information_modal": {
       "instructions": "Instructions",
-      "footer": "Please contact us if you need help: info@reach4help.org",
+      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
       "a11y_logo": "Reach for Help logo",
+      "OpenRequestsContainer": {
+        "title": "Still lookng for help ...",
+        "0": "Your requests are out there but no one has yet volunteered to help",
+        "1": "You will also be receiving notifications to update you about the status of your requests.",
+        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+      },
+      "AcceptedRequestsContainer": {
+        "title": "Someone has offered to help!",
+        "0": "Someone has offered to help you out.",
+        "1": "Get in touch with them by phone to work out the details."
+      },
+      "OngoingRequestsContainer": {
+        "title": "Matched with a Volunteer!",
+        "0": "You matched with someone who is taking care of your request."
+      },
+      "FinishedRequestsContainer": {
+        "title": "All Done!",
+        "0": "You and the volunteer agree that everything is done."
+      },
+      "ArchivedRequestsContainer": {
+        "title": "You decided not to do it",
+        "0": "You changed your mind and deleted your request."
+      },
+      "FindRequestsContainer": {
+        "title": "Welcome to Reach4Help!",
+        "0": "Thank you for joining Reach4Help! As a volunteer, you will be searching on this map for requests for help",
+        "1": "Click on an orange marker to view the request and decide whether to accept it",
+        "2": "Once the person in need accepts your offer for help, you will exchange contact information.",
+        "3": "Check the Notifications panel to see updates about your offers to help."
+      },
       "NewRequestsContainer": {
         "title": "Welcome to Reach4Help!",
         "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "When a volunteer takes your request, they will contact you with the telephone you used to register this account",
-        "2": "You can check the status of your request as it progresses each stage from the sidebar:"
+        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
+        "2": "Check the Notifications panel to see updates about your incoming offers.",
+        "3": "Once you accept an offer, your information will be shared with the volunteer.",
+        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
       }
     },
     "login": {
