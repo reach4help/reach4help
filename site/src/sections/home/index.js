@@ -35,7 +35,7 @@ function Home() {
           <Button>{t("Home.buttons.0")}</Button>
         </a>
         <a
-          href="https://reach4help-webclient.web.app/"
+          href="https://app.reach4help.org/"
           target="__blank"
           rel="noopener noreferrer"
         >
@@ -46,15 +46,5 @@ function Home() {
     </Wrapper>
   )
 }
-
-// const data = useStaticQuery(
-//   graphql`
-//     {
-//       markdownRemark(frontmatter: { title: { eq: "Home" } }) {
-//         html
-//       }
-//     }
-//   `
-// )
 
 export default Home

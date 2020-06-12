@@ -158,6 +158,7 @@ export const DrawerWrapper = styled.div`
         font-weight: bold;
 
         p {
+          word-spacing: 1.5px;
           opacity: 0.6;
           transition: opacity 0.25s ease;
 

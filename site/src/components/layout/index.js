@@ -17,6 +17,7 @@ if (typeof window !== "undefined") {
   })
 }
 
+// applies necessary styling and theming to pages
 function Layout({ children }) {
   return (
     <ThemeProvider theme={Theme}>

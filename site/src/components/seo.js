@@ -4,16 +4,19 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, title }) {
+import theme from "src/styles/theme"
+
+// configures SEO for each page
+function SEO({ description, lang, title, location }) {
   const { site } = useStaticQuery(
     graphql`
       query {
         site {
           siteMetadata {
             title
-            headerDescription
+            subtitle
             description
-            url
+            siteURL
             image
           }
         }
@@ -21,76 +24,80 @@ function SEO({ description, lang, title }) {
     `,
   )
 
+  const { siteURL, image } = site.siteMetadata
+
+  // if title is given, prepend it to site title
+  // else use just site title
   if (typeof title !== "undefined") {
     title = `${title} | ${site.siteMetadata.title}`
   } else {
-    // eslint-disable-next-line prefer-destructuring
-    title = site.siteMetadata.title
+    title = `${site.siteMetadata.title} | ${site.siteMetadata.subtitle}`
   }
 
+  // if description is given, use that
+  // else use site description
   description = description || site.siteMetadata.description
-  const { url } = site.siteMetadata
+
+  // if current page location is given, append it to site URL
+  // else just use the site URL
+  const url =
+    typeof location !== "undefined" ? `${siteURL}${location}` : siteURL
+
+  console.log(siteURL + image)
 
   return (
     <Helmet>
+      {/* <!-- Primary Meta Tags --> */}
       <html lang={lang} />
       <title>{title}</title>
+      <meta name="title" content={title} />
       <meta name="description" content={description} />
-      {/* <meta name="theme-color" content={theme.background} /> */}
       <link rel="canonical" href={url} />
+      <meta name="theme-color" content={theme.colors.primary} />
 
+      {/* <!-- Schema.org Microdata --> */}
       <meta itemProp="name" content={title} />
       <meta itemProp="description" content={description} />
-      <meta itemProp="image" content={`${url}/images/swarm_banner_main.png`} />
+      <meta itemProp="image" content={siteURL + image} />
 
-      {/* OpenGraph tags for social media */}
-      <meta property="og:site_name" content="Reach4Help" />
+      {/* <!-- Open Graph / Facebook --> */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta
-        property="og:image"
-        content={`${url}/images/swarm_banner_main.png`}
-      />
-      <meta property="og:locale" content="en_US" />
+      <meta property="og:image" content={siteURL + image} />
+      <meta property="og:url" content="https://reach4help.org/" />
       <meta property="og:type" content="website" />
-
+      <meta property="og:site_name" content="Reach4Help" />
       <meta property="fb:app_id" content="1626611720838538" />
 
-      {/* Social media tags specific for Twitter */}
+      {/* TO-DO: Make dynamic after adding localization */}
+      <meta property="og:locale" content="en_US" />
+
+      {/* <!-- Twitter --> */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@Reach4HelpOrg" />
       <meta name="twitter:creator" content="@Reach4HelpOrg" />
-      <meta
-        name="twitter:image"
-        content={`${url}/images/swarm_banner_main.png`}
-      />
-      <meta
-        name="twitter:image:src"
-        content={`${url}/images/swarm_banner_main.png`}
-      />
-      <meta
-        name="twitter:image:alt"
-        content="Reach 4 Help / Unifying help around the world."
-      />
+      <meta name="twitter:image" content={siteURL + image} />
+      <meta name="twitter:image:src" content={siteURL + image} />
+      <meta name="twitter:image:alt" content={title} />
 
-      {/* Links */}
-      <link rel="shortcut icon" href={`${url}/images/logo32.png`} />
+      {/* <!-- Icons --> */}
+      <link rel="shortcut icon" href={`${siteURL}/images/logo32.png`} />
       <link
         rel="apple-touch-icon"
         sizes="180x180"
-        href={`${url}/images/logo180.png`}
+        href={`${siteURL}/images/logo180.png`}
       />
       <link
         rel="icon"
         type="image/png"
         sizes="32x32"
-        href={`${url}/images/logo32.png`}
+        href={`${siteURL}/images/logo32.png`}
       />
       <link
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href={`${url}/images/logo16.png`}
+        href={`${siteURL}/images/logo16.png`}
       />
     </Helmet>
   )
@@ -102,9 +109,10 @@ SEO.defaultProps = {
 }
 
 SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string, // page title (Title | Reach4Help)
+  location: PropTypes.string, // page location (reach4help.org/location)
+  lang: PropTypes.string, // page language (en-US)
+  description: PropTypes.string, // page description (this is cool)
 }
 
 export default SEO

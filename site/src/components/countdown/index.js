@@ -7,6 +7,7 @@ import PropTypes from "prop-types"
 
 import { CountdownWrapper } from "./style"
 
+// countdown component until launch
 class Countdown extends React.Component {
   constructor(props) {
     super(props)

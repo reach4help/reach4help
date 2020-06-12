@@ -7,6 +7,7 @@ import { Link, graphql, useStaticQuery } from "gatsby"
 import Socials from "src/components/socials"
 import { FooterWrapper } from "./style"
 
+// site-wide footer component
 function Footer({ transparent }) {
   const { t } = useTranslation()
   const data = useStaticQuery(graphql`
@@ -41,7 +42,7 @@ function Footer({ transparent }) {
 }
 
 Footer.propTypes = {
-  transparent: PropTypes.bool,
+  transparent: PropTypes.bool, // makes background transparent (used in index)
 }
 
 export default Footer
