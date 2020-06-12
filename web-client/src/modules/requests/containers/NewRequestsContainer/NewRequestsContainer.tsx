@@ -22,27 +22,13 @@ import RequestReview, {
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 import styled from 'styled-components';
 
-/* TODO:  Use translation file arrays  
-  * https://www.i18next.com/translation-function/objects-and-arrays
-  t('newRequest.instructions')
-*/
-
-const instructions = [
-  'Wait for a volunteer to contact you',
-  'Arrange help by telephone with the volunteer.  They will have your phone number',
-  'Check your right side request panel to see the status of your requests',
-];
 const RequestDetails = styled.div`
   width: 100%;
   background: white;
 `;
 
 const NewRequestsContainer: React.FC = () => {
-  /* const { t } = useTranslation(); */
-
   const history = useHistory();
-
-  /* const [showInfoModal, setShowInfoModal] = useState<boolean>(false); */
 
   const [requestInfo, setRequestInfo] = useState<RequestInput | undefined>(
     undefined,
@@ -189,6 +175,16 @@ const NewRequestsContainer: React.FC = () => {
     }
   };
 
+  /*  const { t } = useTranslation(); */
+  const instructions = [
+    'Wait for a volunteer to contact you',
+    'Arrange help by telephone with the volunteer.  They will have your phone number',
+    'Check your right side request panel to see the status of your requests',
+  ];
+  const instructionModalLocalStorageKey = profileState
+    ? `reach4help.modalSeen.NewRequestsContainer.${profileState.uid}`
+    : 'reach4help.modalSeen.NewRequestsContainer';
+
   return (
     <>
       <div
@@ -215,7 +211,10 @@ const NewRequestsContainer: React.FC = () => {
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
-          <InformationModal visible instructions={instructions} />
+          <InformationModal
+            localStorageKey={instructionModalLocalStorageKey}
+            instructions={instructions}
+          />
         </div>
       </div>
     </>

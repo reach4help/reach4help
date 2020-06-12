@@ -1,12 +1,13 @@
 import { FileProtectOutlined, MailOutlined } from '@ant-design/icons';
 import { List, Modal, Typography } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import r4hLOVE from 'src/assets/r4hLOVE.png';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
+const SEEN = 'seen';
 const FlexDiv = styled.div`
   display: flex;
 `;
@@ -23,15 +24,26 @@ const R4HloveListItem = styled(List.Item)`
 
 export const InformationModal: React.FC<InformationModalProps> = ({
   finishRequestHandler,
-  visible = false,
   title = 'Instructions',
   instructions,
+  localStorageKey,
 }) => {
   const { t } = useTranslation();
 
   const [requestModalVisible, setRequestModalVisible] = useState<boolean>(
-    visible,
+    false,
   );
+
+  useEffect(() => {
+    const key = window.localStorage.getItem(localStorageKey);
+
+    if (!key || key !== SEEN) {
+      setRequestModalVisible(true);
+      window.localStorage.setItem(localStorageKey, SEEN);
+    } else {
+      setRequestModalVisible(false);
+    }
+  }, [localStorageKey]);
 
   const onFinishRequest = (): void => {
     finishRequestHandler && finishRequestHandler();
@@ -105,7 +117,7 @@ export const InformationModal: React.FC<InformationModalProps> = ({
 
 interface InformationModalProps {
   title?: boolean;
-  visible?: boolean;
   instructions?: string[];
+  localStorageKey: string;
   finishRequestHandler?: () => void;
 }
