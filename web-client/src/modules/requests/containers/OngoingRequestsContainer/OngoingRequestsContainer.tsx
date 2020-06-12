@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
@@ -13,6 +14,8 @@ import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const OngoingRequestsContainer: React.FC = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const history = useHistory();
   const profileState = useSelector(
@@ -52,7 +55,9 @@ const OngoingRequestsContainer: React.FC = () => {
   return (
     <>
       <Header
-        requestsType="Ongoing"
+        requestsType={t(
+          'modules.requests.containers.OngoingRequestsContainer.ongoing',
+        )}
         numRequests={
           Object.keys(ongoingRequestWithOffersAndTimeline.data || {}).length
         }

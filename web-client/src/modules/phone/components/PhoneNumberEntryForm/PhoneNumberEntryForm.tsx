@@ -6,13 +6,14 @@ import { useTranslation } from 'react-i18next';
 import firebase from 'src/firebase';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
+import useForceUpdate from 'use-force-update';
 
 const { Text } = Typography;
 const { Option } = Select;
 
 const StyledInput = styled(Input)`
   margin-top: 1rem;
-  width: 11rem;
+  width: 14rem;
 `;
 
 const Info = styled(Text)`
@@ -38,60 +39,13 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [recaptchaVerifier, setRecaptchaVerifier] = useState({});
-  const [resetState, setResetState] = useState(false);
 
   const [digits, setDigits] = useState<string>('');
   const [dialCode, setDialCode] = useState<string>('');
   const [numberValidMessage, setNumberValidMessage] = useState<string>('');
   const [numberINValidMessage, setNumberINValidMessage] = useState<string>('');
 
-  const fullTelephoneValidator = (value, isDigits = false) => {
-    /* TODO:  Check if this conditional is needed */
-    if (!value) {
-      if (isDigits) {
-        return Promise.reject(t('phoneNumber.error_message'));
-      }
-      return Promise.reject(t('phoneNumber.error_message'));
-    }
-
-    let countryCode;
-    let number;
-    if (isDigits) {
-      countryCode = dialCode;
-      number = value.replace(/\D/g, '');
-    } else {
-      countryCode = value;
-      number = digits;
-    }
-
-    if (!countryCode) {
-      setNumberINValidMessage(t('phoneNumber.no_country_error'));
-      setNumberValidMessage('');
-      return Promise.reject();
-    }
-
-    if (!number) {
-      setNumberINValidMessage(t('phoneNumber.no_digits_error'));
-      setNumberValidMessage('');
-      return Promise.reject();
-    }
-
-    const fullTelephone = `+${countryCode}${number}`;
-
-    const pnv = new PhoneNumberValidator(fullTelephone);
-    if (pnv.isValid() && pnv.canBeInternationallyDialled()) {
-      setNumberValidMessage(
-        `${fullTelephone} ${t('phoneNumber.is_valid_number')}`,
-      );
-      setNumberINValidMessage('');
-      return Promise.resolve();
-    }
-    setNumberINValidMessage(
-      `${fullTelephone} ${t('phoneNumber.is_not_valid_number')}`,
-    );
-    setNumberValidMessage('');
-    return Promise.reject();
-  };
+  const forceUpdate = useForceUpdate();
 
   useEffect(() => {
     const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
@@ -100,46 +54,40 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     setRecaptchaVerifier(appVerifier);
   }, []);
 
-  // TODO: FIND A BETTER SOLUTION TO RESET RECAPTCHA
   useEffect(() => {
     if (reset) {
-      setRecaptchaVerifier({});
-      setResetState(true);
+      forceUpdate();
     }
-  }, [reset]);
+  }, [reset, forceUpdate]);
 
-  useEffect(() => {
-    if (resetState) {
-      setResetState(false);
-      form.resetFields();
-    } else if (reset) {
-      const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
-        size: 'invisible',
-      });
-      setRecaptchaVerifier(appVerifier);
+  const CountryCodeDisplay = styled(Input)`
+    /* might need media query to get positioning right */
+    height: 30px;
+    position: relative;
+    top: 18px;
+    width: 5rem;
+    &:disabled {
+      color: black;
+      font-weight: 900px;
+      background-color: #d0d0d0;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resetState]);
-
-  if (resetState) {
-    return <></>;
-  }
+  `;
 
   const ErrorDisplay = styled.div`
-    color: ${COLORS.error};
+    color: ${COLORS.backgroundAlternative};
     font-weight: 700;
     width: 75%;
     margin: auto;
-    border: 2px solid ${COLORS.error};
+    border: 2px solid ${COLORS.backgroundAlternative};
     padding: 10px;
     text-align: center;
   `;
   const SuccessDisplay = styled.div`
-    color: ${COLORS.green};
+    color: #52c41a;
     font-weight: 700;
     width: 75%;
     margin: auto;
-    border: 2px solid ${COLORS.green};
+    border: 2px solid #52c41a;
     padding: 10px;
     text-align: center;
   `;
@@ -165,6 +113,72 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     margin-top: 30px;
   `;
 
+  const showMessage = ({ message, valid }) => {
+    if (valid) {
+      setNumberValidMessage(message);
+      setNumberINValidMessage('');
+      return Promise.resolve();
+    }
+    setNumberValidMessage('');
+    setNumberINValidMessage(message);
+    return Promise.resolve();
+  };
+
+  const fullTelephoneValidator = (value, isDigits = false) => {
+    /* TODO:  Check if this conditional is needed */
+    if (!value) {
+      if (isDigits) {
+        return Promise.reject(t('phoneNumber.error_message'));
+      }
+      return Promise.reject(t('phoneNumber.error_message'));
+    }
+
+    let countryCode;
+    let number;
+    if (isDigits) {
+      countryCode = dialCode;
+      number = value.replace(/\D/g, '');
+    } else {
+      countryCode = value;
+      number = digits;
+    }
+
+    if (!countryCode) {
+      return showMessage({
+        message: t('phoneNumber.no_country_error'),
+        valid: false,
+      });
+    }
+
+    if (!number) {
+      return showMessage({
+        message: t('phoneNumber.no_digits_error'),
+        valid: false,
+      });
+    }
+
+    const fullTelephone = `+${countryCode}${number}`;
+
+    const pnv = new PhoneNumberValidator(fullTelephone);
+
+    if (fullTelephone.startsWith('+11')) {
+      return showMessage({
+        valid: false,
+        message: `${fullTelephone} ${t('phoneNumber.is_plus_11')}`,
+      });
+    }
+    if (pnv.isValid() && pnv.canBeInternationallyDialled()) {
+      return showMessage({
+        valid: true,
+        message: `${fullTelephone} ${t('phoneNumber.is_valid_number')}`,
+      });
+    }
+    return showMessage({
+      valid: false,
+      message: `${fullTelephone} ${t('phoneNumber.is_not_valid_number')}`,
+    });
+  };
+
   return (
     <Form
       style={{
@@ -172,11 +186,17 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
         flexDirection: 'column',
         alignItems: 'center',
       }}
+      autoComplete="off"
       layout="vertical"
       form={form}
       onFinish={({ prefix, suffix }) => {
         handleFormSubmit(
-          { phoneNumber: `+${prefix}${suffix.replace(/\D/g, '')}` },
+          {
+            phoneNumber: `+${prefix.replace(/\D/g, '')}${suffix.replace(
+              /\D/g,
+              '',
+            )}`,
+          },
           recaptchaVerifier,
         );
       }}
@@ -200,34 +220,40 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           filterOption={(input, option) =>
             option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
-          onChange={v => setDialCode(v.toString())}
+          onChange={v => setDialCode(v.toString().replace(/\D/g, ''))}
         >
-          {/* wierd bug "United States" resolves as "United States Minor Islands */
-          allCountries.map(c => (
-            <Option key={c.iso2} value={c.dialCode}>
-              {c.name.startsWith('United States') ? 'United States' : c.name}
+          {allCountries.map(c => (
+            <Option key={c.iso2} value={c.dialCode.concat(c.iso2)}>
+              {c.name}
             </Option>
           ))}
         </Select>
       </Form.Item>
 
       <FormLabel>{t('phoneNumber.phone_label')}</FormLabel>
-      <Form.Item
-        style={{ textAlign: 'center' }}
-        name="suffix"
-        rules={[
-          {
-            validator: (_, value) => fullTelephoneValidator(value, true),
-          },
-        ]}
-      >
-        <StyledInput
-          onChange={e => setDigits(e.target.value)}
-          placeholder="1234567"
-          maxLength={14}
+      <div style={{ display: 'flex' }}>
+        <CountryCodeDisplay
+          maxLength={4}
+          read-only
+          disabled
+          value={dialCode ? `+${dialCode}` : '+000'}
         />
-      </Form.Item>
-
+        <Form.Item
+          style={{ textAlign: 'center' }}
+          name="suffix"
+          rules={[
+            {
+              validator: (_, value) => fullTelephoneValidator(value, true),
+            },
+          ]}
+        >
+          <StyledInput
+            onChange={e => setDigits(e.target.value)}
+            placeholder="1234567"
+            maxLength={14}
+          />
+        </Form.Item>
+      </div>
       {numberINValidMessage && (
         <ErrorDisplay> {numberINValidMessage}</ErrorDisplay>
       )}

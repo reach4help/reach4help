@@ -2,6 +2,7 @@
 import { firestore } from 'firebase';
 import GoogleMapReact from 'google-map-react';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
@@ -22,6 +23,7 @@ import PersonalDataForm, {
 // for the wrapper and for the UI component ?
 
 const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
+  const { t } = useTranslation();
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
@@ -165,11 +167,17 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
               ),
             );
           } else {
-            alert('Missing Data!');
+            alert(
+              t(
+                'modules.personal-data.containers.PersonalDataFormContainer.missing_data',
+              ),
+            );
           }
         } else {
           alert(
-            "Sorry, We couldn't determine your actual address, please try again!",
+            t(
+              'modules.personal-data.containers.PersonalDataFormContainer.address_error',
+            ),
           );
         }
       });

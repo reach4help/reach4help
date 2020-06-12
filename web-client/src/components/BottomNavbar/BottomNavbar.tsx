@@ -52,7 +52,10 @@ const NavButton = styled('button')<{ isCav?: boolean }>`
   background: inherit;
   border: none;
   outline: none;
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
     color: white;
     font-weight: 700;
     background-color: ${props =>

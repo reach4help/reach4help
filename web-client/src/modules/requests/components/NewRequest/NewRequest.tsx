@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepForwardButton } from 'src/components/Buttons';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
-import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import MyLocationIcon from '../../assets/gpslocation.svg';
 import SearchIcon from '../../assets/search.svg';
 import { RequestInput } from './RequestReview';
 
@@ -52,7 +50,7 @@ const MapActionButton = styled(Button)`
   border: 1px solid black;
   border-radius: 17%;
   &:hover {
-    background-color: ${COLORS.lightBlue};
+    background-color: #e0e0e0;
   }
 `;
 
@@ -66,7 +64,6 @@ const NewRequest: React.FC<NewRequestProps> = ({
   request,
   setStreetAddress,
   setMapAddress,
-  setMyLocation,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -128,7 +125,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
           }}
         >
           <Row justify="space-between" align="middle">
-            <Col span={18}>
+            <Col span={21}>
               <StyledFormItem
                 name="streetAddress"
                 label={t('newRequest.form.address')}
@@ -142,33 +139,19 @@ const NewRequest: React.FC<NewRequestProps> = ({
                 <Input onChange={e => setStreetAddress(e.target.value)} />
               </StyledFormItem>
             </Col>
-            <Col span={5}>
-              <Row justify="space-between" align="stretch">
-                <div style={{ display: 'inline-flex' }}>
-                  <MapActionButton
-                    onClick={() => setMapAddress(request.streetAddress)}
-                  >
-                    <img
-                      src={SearchIcon}
-                      style={{
-                        maxHeight: '20px',
-                        maxWidth: '15px',
-                      }}
-                      alt="Search for location"
-                    />
-                  </MapActionButton>
-                  <MapActionButton onClick={() => setMyLocation()}>
-                    <img
-                      src={MyLocationIcon}
-                      style={{
-                        maxHeight: '20px',
-                        maxWidth: '15px',
-                      }}
-                      alt="Use my location"
-                    />
-                  </MapActionButton>
-                </div>
-              </Row>
+            <Col span={2}>
+              <MapActionButton
+                onClick={() => setMapAddress(request.streetAddress)}
+              >
+                <img
+                  src={SearchIcon}
+                  style={{
+                    maxHeight: '20px',
+                    maxWidth: '15px',
+                  }}
+                  alt="Search for location"
+                />
+              </MapActionButton>
             </Col>
           </Row>
           <Form.Item
