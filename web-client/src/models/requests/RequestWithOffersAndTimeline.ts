@@ -1,5 +1,5 @@
 /* eslint no-underscore-dangle: 0 */
-import { IsArray } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 import { firestore } from 'firebase';
 import { firestore as db } from 'src/firebase';
 
@@ -22,6 +22,7 @@ export enum AbstractRequestStatus {
 export interface IRequestWithOffersAndTimeline extends IRequest {
   offers: Record<string, IOfferWithLocation>;
   timeline: ITimelineItem[];
+  contactNumber?: string | null;
 }
 
 export class RequestWithOffersAndTimeline extends Request
@@ -48,6 +49,7 @@ export class RequestWithOffersAndTimeline extends Request
     cavRatedAt: firebase.firestore.Timestamp | null = null,
     offers: Record<string, OfferWithLocation> = {},
     timeline: TimelineItem[] = [],
+    contactNumber: string | null = null,
   ) {
     super(
       pinUserRef,
@@ -68,6 +70,18 @@ export class RequestWithOffersAndTimeline extends Request
     );
     this._offers = offers;
     this._timeline = timeline;
+    this._contactNumber = contactNumber;
+  }
+
+  @IsString()
+  private _contactNumber: string | null;
+
+  get contactNumber(): string | null {
+    return this._contactNumber;
+  }
+
+  set contactNumber(contactNumber: string | null) {
+    this._contactNumber = contactNumber;
   }
 
   @IsArray()
@@ -208,6 +222,7 @@ export class RequestWithOffersAndTimeline extends Request
             : timeline.createdAt,
         }),
       ),
+      data.contactNumber,
     );
   }
 
@@ -238,6 +253,7 @@ export class RequestWithOffersAndTimeline extends Request
         {},
       ),
       timeline: this.timeline.map(obj => obj.toObject()),
+      contactNumber: this.contactNumber,
     };
   }
 }

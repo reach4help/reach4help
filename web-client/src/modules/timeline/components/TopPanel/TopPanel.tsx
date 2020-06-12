@@ -97,13 +97,16 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
               </Info>
             )}
           </Detail>
-          {userRequestStatus === RequestStatus.ongoing ||
-          userRequestStatus === RequestStatus.completed ? (
-            <img
-              src={PhoneIcon}
-              alt={t('modules.navigation.components.TopPanel.a11y_phone_icon')}
-            />
-          ) : null}
+          {userRequestStatus === RequestStatus.ongoing && (
+            <a href={`tel:${request.contactNumber}`}>
+              <img
+                src={PhoneIcon}
+                alt={t(
+                  'modules.navigation.components.TopPanel.a11y_phone_icon',
+                )}
+              />
+            </a>
+          )}
         </UserDetails>
       </UserRow>
       <RequestWrapper onClick={() => setTogglePanel(!togglePanel)}>
