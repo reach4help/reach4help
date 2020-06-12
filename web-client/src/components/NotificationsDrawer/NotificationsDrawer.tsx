@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
-import { Offer, OfferStatus } from 'src/models/offers';
+import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
 import NotificationsHeader from './NotificationsHeader';
@@ -14,30 +14,11 @@ const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
   visible,
   closeDrawer,
   offersState,
+  unseenOffers,
+  unseenOffersKeys,
   isCav,
 }) => {
   const dispatch = useDispatch();
-
-  const unseenOffers: Offer[] = [];
-  const unseenOffersKeys: string[] = [];
-  if (offersState.data) {
-    for (const offersKey in offersState.data) {
-      if (
-        offersState.data[offersKey] &&
-        !offersState.data[offersKey].seenAt &&
-        ((isCav &&
-          offersState.data[offersKey].status !== OfferStatus.pending &&
-          offersState.data[offersKey].status !== OfferStatus.cavDeclined) ||
-          (!isCav &&
-            (offersState.data[offersKey].status === OfferStatus.rejected ||
-              offersState.data[offersKey].status === OfferStatus.accepted)))
-      ) {
-        unseenOffers.push(offersState.data[offersKey]);
-        unseenOffersKeys.push(offersKey);
-      }
-    }
-  }
-  unseenOffers.sort((a, b) => b.updatedAt.toMillis() - a.updatedAt.toMillis());
 
   return (
     <SideDrawer
@@ -83,6 +64,8 @@ interface NotificationsDrawerProps {
   visible: boolean;
   closeDrawer: () => void;
   offersState: OffersState;
+  unseenOffers: Offer[];
+  unseenOffersKeys: string[];
   isCav?: boolean;
 }
 

@@ -233,7 +233,7 @@ const FindRequestsContainer: React.FC = () => {
         />
         {maybeRequestDetails()}
         <InformationModal
-          title={t('information_modal.FindequestsContainer.title')}
+          title={t('information_modal.FindRequestsContainer.title')}
           localStorageKey={instructionModalLocalStorageKey}
           instructions={instructions}
         />
