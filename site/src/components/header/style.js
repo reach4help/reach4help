@@ -230,3 +230,7 @@ export const DrawerWrapper = styled.div`
     }    
   }
 `
+
+export const LanguageLi = styled.li`
+  align-self: center;
+`

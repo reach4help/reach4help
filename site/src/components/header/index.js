@@ -7,22 +7,25 @@ import { useTranslation } from "react-i18next"
 import Logo from "src/assets/logo.svg"
 import LogoType from "src/assets/logo-type"
 import { LANGUAGES } from "src/locales/i18n"
-import { HeaderWrapper, TopWrapper, DrawerWrapper } from "./style"
+import { HeaderWrapper, TopWrapper, DrawerWrapper, LanguageLi } from "./style"
 import Hamburger from "../hamburger"
 import Backdrop from "../backdrop"
 
 import Languages from "../languages"
 
 function Header({ navSections }) {
-  const [drawerOpen, setDrawerOpen] = useState(false)
+  // I changed to drawerClose because I think there is a bug in the way the CSS is being handled in the menu that shows when we click the Hamburger and this is more semantic
+  // In this case, in this file (without looking to the CSS)
+  const [drawerClose, setDrawerClose] = useState(true)
   const { i18n } = useTranslation()
 
   const drawerToggler = () => {
-    setDrawerOpen(!drawerOpen)
+    setDrawerClose(!drawerClose)
   }
 
   const onLanguageChange = selectedLang => {
     i18n.changeLanguage(selectedLang.value)
+    drawerToggler()
   }
 
   return (
@@ -40,10 +43,10 @@ function Header({ navSections }) {
           {/* Sign Up */}
         </div>
 
-        <Hamburger show={drawerOpen} onClick={drawerToggler} />
+        <Hamburger show={drawerClose} onClick={drawerToggler} />
       </TopWrapper>
 
-      <DrawerWrapper show={drawerOpen}>
+      <DrawerWrapper show={drawerClose}>
         <nav>
           <ul>
             {navSections.map(section => (
@@ -57,11 +60,16 @@ function Header({ navSections }) {
                 </Link>
               </li>
             ))}
-            {/* <Languages languages={LANGUAGES} onChange={onLanguageChange} /> */}
+
+            {!drawerClose && (
+              <LanguageLi>
+                <Languages languages={LANGUAGES} onChange={onLanguageChange} />
+              </LanguageLi>
+            )}
           </ul>
         </nav>
       </DrawerWrapper>
-      <Backdrop show={drawerOpen} onClick={drawerToggler} />
+      <Backdrop show={drawerClose} onClick={drawerToggler} />
     </HeaderWrapper>
   )
 }
