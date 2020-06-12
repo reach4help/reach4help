@@ -12,6 +12,7 @@ const StyledSelect = styled(Select)`
 function Languages({ languages, onChange }) {
   const { i18n } = useTranslation()
 
+  console.log(i18n.language)
   return (
     <StyledSelect
       value={languages.find(lang => lang.value === i18n.language) || null}

@@ -1,0 +1,63 @@
+{
+  "common": {
+    "Navigation": {
+      "IndexPage": [
+        { "title": "Home", "link": "/#home" },
+        { "title": "Our Mission", "link": "/#mission" },
+        { "title": "Team", "link": "/#team" },
+        { "title": "Partners", "link": "/#partners" }
+      ],
+      "PrivacyPage": [
+        { "title": "Home", "link": "/" },
+        { "title": "Map", "link": "https://map.reach4help.org" }
+      ]
+    },
+    "Home": {
+      "heading": "We connect people in need to people who can help.",
+      "subheading": "We are launching on Saturday, June 13!",
+      "description": [
+        "Our map houses a growing list of aid organizations and pandemic care projects.",
+        "Use the map to find and join mutual aid efforts near you or create your own.",
+        "If you are an aid organization, add your information to the map so others can find you."
+      ],
+      "buttons": ["Mutual Aid Map", "BETA Sign Up"]
+    },
+    "Mission": {
+      "heading": "Our Mission",
+      "description": [
+        "Reach4Help is an open project that is completely run by volunteers that aims to address issues like providing an easier access to groceries, medicine, or a simple help to walk the dogs for those who can’t do it at the moment.",
+        "<strong>OUR GOAL</strong> is to enable those in need to receive help, and enable partner groups and organizations to help more efficiently, by mobilizing their volunteers with the help of our own system."
+      ]
+    },
+    "Partners": {
+      "heading": "Partners",
+      "subheading": "We want to thank all the brands, companies, and community supporters that have helped us on our mission."
+    },
+    "Team": {
+      "heading": "Team",
+      "subheading": "We’re looking for more people to join our teams, if you’d like to join.",
+      "description": [
+        "We are part of Helpful Engineering, a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commecial goals."
+      ],
+      "buttons": ["You’re the help next door. Join us!"]
+    },
+    "Privacy": "This is a privacy policy",
+    "Footer": {
+      "sections": [
+        { "title": "Politique de Confidentialité", "link": "/confidentialite" },
+        {
+          "title": "Code of Conduct",
+          "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+        }
+      ]
+    },
+    "404": {
+      "heading": "404 Not Found",
+      "description": [
+        "You've found a glitch in the matrix...",
+        "Or you're just clowning around. 🤡"
+      ],
+      "linkBackToHome": "Go back home"
+    }
+  }
+}
