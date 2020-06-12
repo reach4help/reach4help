@@ -1,10 +1,10 @@
 {
   "common": {
-    "okay": "Okay",
-    "cancel": "Cancel",
+    "okay": "D'accord",
+    "cancel": "Annuler",
     "welcome": "Bienvenue",
     "continue": "Continuer",
-    "verify": "Verify",
+    "verify": "Vérifié",
     "spinner": "Chargement...",
     "name": "Nom",
     "full_name": "Nom et prénom",
@@ -14,16 +14,16 @@
     "address1": "Adresse - ligne 1",
     "address2": "Adresse - ligne 2 (facultatif)",
     "city": "Ville",
-    "code": "Postal / Zip Code",
-    "State": "State / Province",
+    "code": "Code postal",
+    "State": "État / Province",
     "country": "Pays",
-    "for": " for ",
+    "for": " pour ",
     "information_modal": {
       "instructions": "Instructions",
-      "footer": "Please contact us if you need help: info@reach4help.org",
-      "a11y_logo": "Reach for Help logo",
+      "footer": "Contactez-nous si vous avez besoin d'aide : info@reach4help.org",
+      "a11y_logo": "Atteindre le logo d'aide",
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
+        "title": "Bienvenue sur Reach4Help!",
         "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
         "1": "When a volunteer takes your request, they will contact you with the telephone you used to register this account",
         "2": "You can check the status of your request as it progresses each stage from the sidebar:"
