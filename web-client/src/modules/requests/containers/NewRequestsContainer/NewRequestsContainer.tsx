@@ -11,6 +11,7 @@ import {
   getStreetAddressFromProfile,
 } from '../../../../components/WebClientMap/utils';
 import Map from '../../../../components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from '../../../../constants/mediaQueries';
 import { ProfileState } from '../../../../ducks/profile/types';
 import {
   resetSetRequestState,
@@ -31,6 +32,16 @@ const RequestDetails = styled.div`
 `;
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
+
+const MapContainer = styled.div`
+  // aspect ratio = 16:9
+  height: 56.25vw;
+
+  @media ${DEVICE_MIN.laptop} {
+    max-height: 400px;
+  }
+`;
+
 const NewRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
@@ -184,34 +195,31 @@ const NewRequestsContainer: React.FC = () => {
   };
 
   return (
-    <>
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'stretch',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ height: '100%', display: 'flex' }}>
-          <Map
-            isCav={false}
-            destinations={[]}
-            origin={currentLocation}
-            onGeocode={setGeocodedLocation}
-            address={mapAddress}
-            startGeocode={startGeocode}
-            startLocateMe={startLocateMe}
-          />
-        </div>
-        <div style={{ marginBottom: '50px', display: 'flex' }}>
-          {maybeNewRequest()}
-          {maybeRequestReview()}
-          {maybeRequestConfirmation()}
-        </div>
+    <div
+      style={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'stretch',
+        flexDirection: 'column',
+      }}
+    >
+      <MapContainer>
+        <Map
+          isCav={false}
+          destinations={[]}
+          origin={currentLocation}
+          onGeocode={setGeocodedLocation}
+          address={mapAddress}
+          startGeocode={startGeocode}
+          startLocateMe={startLocateMe}
+        />
+      </MapContainer>
+      <div style={{ display: 'flex', height: '100%' }}>
+        {maybeNewRequest()}
+        {maybeRequestReview()}
+        {maybeRequestConfirmation()}
       </div>
-    </>
+    </div>
   );
 };
 
