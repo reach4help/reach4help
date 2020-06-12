@@ -12,7 +12,7 @@ import {
 import Map from 'src/components/WebClientMap/WebClientMap';
 import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import { ProfileState } from 'src/ducks/profile/types';
-import { setRequest } from 'src/ducks/requests/actions';
+import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IUser } from 'src/models/users';
 import NewRequest from 'src/modules/requests/components/NewRequest/NewRequest';
@@ -182,7 +182,11 @@ const NewRequestsContainer: React.FC = () => {
           showModal={showConfirmationPage}
           closeModal={() => {
             setShowConfirmationPage(false);
-            history.push(OpenRequestsLocation.path);
+            // because I could observe race conditions in cloud function
+            setTimeout(() => {
+              history.push(OpenRequestsLocation.path);
+            }, 150);
+            dispatch(resetSetRequestState());
           }}
         />
       );

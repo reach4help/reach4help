@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
-import { db, auth } from '../../../app';
+import { auth, db } from '../../../app';
 import { IOffer, Offer, OfferStatus } from '../../../models/offers';
 import { IOfferWithLocation } from '../../../models/offers/offersWithLocation';
 import { IRequest, Request, RequestStatus } from '../../../models/requests';
@@ -193,10 +193,8 @@ const getOngoingRequests = async (userRef: firestore.DocumentReference, userType
     let contactNumber: string | null | undefined = null;
     if (userType === ApplicationPreference.cav && auth) {
       contactNumber = (await auth.getUser(request.pinUserRef.id)).phoneNumber;
-    } else {
-      if (request.cavUserRef && auth) {
-        contactNumber = (await auth.getUser(request.cavUserRef.id)).phoneNumber;
-      }
+    } else if (request.cavUserRef && auth) {
+      contactNumber = (await auth.getUser(request.cavUserRef.id)).phoneNumber;
     }
     if (!finished && request.pinRating && request.pinRatedAt) {
       // eslint-disable-next-line no-continue

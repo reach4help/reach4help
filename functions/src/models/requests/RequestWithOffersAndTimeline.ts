@@ -47,7 +47,7 @@ export class RequestWithOffersAndTimeline extends Request implements IRequestWit
     cavRatedAt: Timestamp | null = null,
     offers: Record<string, OfferWithLocation> = {},
     timeline: TimelineItem[] = [],
-    contactNumber: string | null = null
+    contactNumber: string | null = null,
   ) {
     super(
       pinUserRef,
