@@ -102,20 +102,20 @@
         "search": "Rechercher",
         "useMyLocation": "Identifier mon emplacement",
         "address_error_message": "Veuillez entrer votre adresse.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "type_error_message": "SVP préciser le type de requête.",
+        "other_error_message": "SVP entrez les détails. ",
+        "body_error_message": "Veuillez ajouter une description."
       }
     },
     "newRequestSuccess": {
-      "title": "Your request has been created",
-      "info": "Please be patient until you get an offer from a volunteer.",
-      "remember": "Remember",
-      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      "title": "Votre demande a été créée",
+      "info": "Soyez patient jusqu'à ce que vous receviez une offre d'un bénévole.",
+      "remember": "Attention",
+      "remember_info": "Une fois qu'un bénévole propose de l'aide, vous devez accepter leur offre avant qu'ils puissent consulter vos coordonnées."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
+      "submit": "Soumettre",
+      "back": "Précédent",
       "deliveryAddress": "Delivery address"
     },
     "roleinfo": {
@@ -179,48 +179,48 @@
           },
           "TopPanel": {
             "a11y_back_nav": "Back navigation icon",
-            "a11y_display_photo": "Display photo",
-            "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon"
+            "a11y_display_photo": "Photo",
+            "a11y_location_icon": "Icône d'emplacement",
+            "a11y_phone_icon": "Icône de téléphone"
           }
         }
       },
       "personal-data": {
         "containers": {
           "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
-            "missing_data": "Missing Data!"
+            "address_error": "Désolé, nous n'avons pas pu déterminer votre adresse. Veuillez réessayer!",
+            "missing_data": "Données manquantes!"
           }
         }
       },
       "requests": {
-        "a11y_profile_pic": "Profile Pic",
+        "a11y_profile_pic": "Photo de Profil",
         "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+          "choose_volunteer": "Choisissez quel bénévole répondra à votre demande."
         },
-        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
-        "cannot_help": "Cannot Help",
+        "bottom_warning": "Votre demande a été consultée par plusieurs volontaires, mais n'a pas été acceptée. Nous vous suggérons &ldquo;Fermer la Requête&rdquo; et en créer une nouvelle avec une description plus simple.",
+        "cannot_help": "Refuser",
         "containers": {
           "AcceptedRequestContainer": {
-            "accepted": "Accepted"
+            "accepted": "Accepter"
           },
           "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
+            "want_to_help": "Je veux vous aider!"
           },
           "FinishedRequestsContainer": {
-            "finished": "Finished"
+            "finished": "Terminé"
           },
           "NewRequestsContainer": {
-            "address_error": "Unable to find address",
-            "deliveries": "Deliveries"
+            "address_error": "Adresse introuvable",
+            "deliveries": "Livraisons"
           },
           "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
+            "ongoing": "En cours"
           },
           "OpenRequestContainer": {
-            "open": "Open"
+            "open": "Disponible"
           },
-          "no_reply": "No one has replied to your request."
+          "no_reply": "Aucune réponse."
         }
       }
     },
