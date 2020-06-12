@@ -1,10 +1,10 @@
 {
   "common": {
-    "okay": "D'accord",
+    "okay": "OK",
     "cancel": "Annuler",
     "welcome": "Bienvenue",
     "continue": "Continuer",
-    "verify": "Vérifié",
+    "verify": "Vérifiez",
     "spinner": "Chargement...",
     "name": "Nom",
     "full_name": "Nom et prénom",
@@ -121,25 +121,25 @@
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "Comment pouvons-nous vous aider ?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
-      "info": "Please tell us what is your purpose to use Reach4Help",
-      "info_pin": "I'm here because I need help",
-      "c2a_pin": "Get help now!",
-      "info_cav": "I'm here because I want to help people",
-      "c2a_cav": "Start helping now!"
+      "manifesto": "Nous croyons que nos actions ont du sens, que nous pouvons unir les gens autour des valeurs d'unité et de communauté, que la solidarité fait ressortir le meilleur de chacun.",
+      "info": "Veuillez nous indiquer votre objectif en utilisant Reach4Help",
+      "info_pin": "Je suis ici parce que j'ai besoin d'aide",
+      "c2a_pin": "Obtenir de l'aide maintenant!",
+      "info_cav": "Je suis ici car je veux aider les gens",
+      "c2a_cav": "Commencez à aider dès maintenant!"
     },
     "routeSubtitles": {
-      "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
-      "_personal-data": "Personal Data",
-      "_timeline": "Request Timeline",
-      "_personal-data_role-info": "Role Info",
-      "_phone_entry": "Enter Phone Number",
-      "_phone_verify": "Verifying Phone Number",
-      "_requests_accepted": "Accepted Requests",
-      "_requests_archived": "Closed Requests",
-      "_requests_find": "Find Requests",
+      "_login": "Connexion",
+      "_phone": "Téléphone",
+      "_requests": "Demandes",
+      "_personal-data": "Données personnelles",
+      "_timeline": "Chronologie de la requête",
+      "_personal-data_role-info": "Info du rôle",
+      "_phone_entry": "Saisir un numéro de téléphone",
+      "_phone_verify": "Vérifier le numéro de téléphone",
+      "_requests_accepted": "Demandes acceptées",
+      "_requests_archived": "Demandes clôturées",
+      "_requests_find": "Rechercher des demandes",
       "_requests_finished": "Completed Requests",
       "_requests_new": "New Request",
       "_requests_ongoing": "Ongoing Requests",
@@ -239,16 +239,16 @@
         "pin_accepted": "Vous avez accepté l’aide de ",
         "pin_declined_help": "Vous avez refusé l'aide de ",
         "pin_rejected": "Vous avez refusé l'aide de ",
-        "request_author": "The request_author",
+        "request_author": "request_author",
         "volunteer_accepted": " a accepté votre offre de ",
-        "your_task": "your task"
+        "your_task": "votre tâche"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "Mon emplacement",
+        "a11y_destination": "Destination ",
+        "api_error": "Obtention impossible",
+        "distance_error": "Erreur de service à distance :",
+        "geocode_error": "Géocodage impossible"
       }
     }
   }
