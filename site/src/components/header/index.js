@@ -57,6 +57,7 @@ function Header({ navSections }) {
                 </Link>
               </li>
             ))}
+            {/* <Languages languages={LANGUAGES} onChange={onLanguageChange} /> */}
           </ul>
         </nav>
       </DrawerWrapper>
