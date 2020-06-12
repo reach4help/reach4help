@@ -45,6 +45,14 @@
         "title": "You decided not to do it",
         "0": "You changed your mind and deleted your request."
       },
+      "MenuDrawer": {
+        "title": "Use Right Panel to keep track of each step of your request",
+        "0": "Open: Requests that still need a volunteer",
+        "1": "Accepted: Someone has offered to help you out.",
+        "2": "Ongoing: A volunteer is working on your request now.",
+        "3": "Finished: The volunteer has completed the request.",
+        "4": "Archived: Requests you deleted."
+      },
       "FindRequestsContainer": {
         "title": "Welcome to Reach4Help!",
         "0": "Thank you for joining Reach4Help! As a volunteer, you will be searching on this map for requests for help",

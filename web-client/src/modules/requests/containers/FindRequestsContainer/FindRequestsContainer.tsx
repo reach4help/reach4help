@@ -7,8 +7,6 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from 'src/components/InformationModal/InformationModal';
-import styled from 'styled-components';
-
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import {
   getCoordsFromProfile,
@@ -28,6 +26,7 @@ import { OfferStatus } from 'src/models/offers';
 import { ApplicationPreference } from 'src/models/users';
 import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem';
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import styled from 'styled-components';
 
 interface MapRequestProps {
   center: Coords;
