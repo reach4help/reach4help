@@ -1,6 +1,7 @@
-import { Button, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import styled from 'styled-components';
 
 import TitleWithAddon from '../../../../components/TitleWithAddon/TitleWithAddon';
@@ -21,14 +22,6 @@ const StyledTitle = styled.h4`
 const StyledText = styled.p`
   margin-bottom: 3px;
   font-family: Roboto, sans-serif;
-`;
-
-const StyledButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 `;
 
 export interface RequestInput {
@@ -81,21 +74,17 @@ const RequestReview: React.FC<RequestReviewProps> = ({
       </StyledText>
       <Row>
         <Col span={6}>
-          <StyledButton onClick={() => goBack()}>
+          <StepBackButton onClick={() => goBack()}>
             {t('requestReview.back')}
-          </StyledButton>
+          </StepBackButton>
         </Col>
         <Col span={16} offset={2}>
-          <StyledButton
-            style={{
-              background: '#52C41A',
-              color: '#FFFFFF',
-            }}
+          <StepForwardButton
             loading={isSubmitting}
             onClick={() => saveRequest(request)}
           >
             {t('requestReview.submit')}
-          </StyledButton>
+          </StepForwardButton>
         </Col>
       </Row>
     </MainDiv>

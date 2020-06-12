@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import React, { ReactElement, useEffect } from 'react';
+import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
@@ -14,9 +14,14 @@ import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
 import { PersonalDataLocation } from './routes/PersonalDataRoute/constants';
-import PersonalDataRoute from './routes/PersonalDataRoute/PersonalDataRoute';
 import { RoleInfoLocation } from './routes/RoleInfoRoute/constants';
-import RoleInfoRoute from './routes/RoleInfoRoute/RoleInfoRoute';
+
+const PersonalDataRoute = lazy(() =>
+  import('./routes/PersonalDataRoute/PersonalDataRoute'),
+);
+const RoleInfoRoute = lazy(() =>
+  import('./routes/RoleInfoRoute/RoleInfoRoute'),
+);
 
 const ContentPage = (): ReactElement => {
   const user = useSelector((state: AppState) => state.auth.user);
@@ -103,15 +108,17 @@ const ContentPage = (): ReactElement => {
   }
 
   return (
-    <Switch>
-      <Route
-        path={PersonalDataLocation.path}
-        component={PersonalDataRoute}
-        exact
-      />
-      <Route path={RoleInfoLocation.path} component={RoleInfoRoute} exact />
-      <Route path="*" component={NotFoundRoute} />
-    </Switch>
+    <Suspense fallback={<LoadingWrapper />}>
+      <Switch>
+        <Route
+          path={PersonalDataLocation.path}
+          component={PersonalDataRoute}
+          exact
+        />
+        <Route path={RoleInfoLocation.path} component={RoleInfoRoute} exact />
+        <Route path="*" component={NotFoundRoute} />
+      </Switch>
+    </Suspense>
   );
 };
 export default ContentPage;

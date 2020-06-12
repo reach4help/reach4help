@@ -106,7 +106,11 @@
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "How can we assist you ?",
+<<<<<<< HEAD
       "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
+=======
+      "manifesto": "Úgy gondoljuk, hogy mindent, amit teszünk értelmes. Hisszük, hogy alkalmas arra, hogy az emberek a saját értelme az összetartozás és a közösség. Meggyőződésünk, szolidaritás a legjobbat hozza ki az egyének.",
+>>>>>>> 4fd3d215822a2ffdcec8b5d1d594e9bde5954ecd
       "info": "Please tell us what is your purpose to use Reach4Help",
       "info_pin": "I'm here because I need help",
       "c2a_pin": "Get help now!",

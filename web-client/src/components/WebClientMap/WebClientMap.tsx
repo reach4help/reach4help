@@ -1,45 +1,48 @@
 import GoogleMapReact, { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import apiKey from './apiKey';
-import MyLocationIcon from './assets/MyLocationIcon.png';
+import MyLocationControl from './MyLocationControl';
 import { metersToImperial, metersToKm, secondsToTimestring } from './utils';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
 import WebClientMapMessage from './WebClientMapMessage';
 
 const createMapOptions = maps => ({
   zoomControlOptions: {
-    position: maps.ControlPosition.RIGHT_CENTER,
+    position: maps.ControlPosition.TOP_RIGHT,
     style: maps.ZoomControlStyle.SMALL,
   },
   mapTypeControlOptions: {
-    position: maps.ControlPosition.TOP_RIGHT,
+    position: maps.ControlPosition.TOP_LEFT,
   },
   mapTypeControl: true,
 });
 
 const WebClientMap: React.FC<MapProps> = ({
-  destinations,
   origin = { lat: 0, lng: 0 },
+  destinations,
   onDestinationClickedHandler,
   address,
   onGeocode,
-  zoom = 11,
-  isCav = true,
-  bannerMessage = '',
   startGeocode,
   startLocateMe,
+  bannerMessage = '',
+  zoom = 11,
+  isCav = true,
 }) => {
+  const { t } = useTranslation();
+
   /* banner message */
-  const [googleMap, setGoogleMap] = useState<any>(null);
   const [mapMessage, setMapMessage] = useState<string>('');
-  const [selectedDestination, setSelectedDestination] = useState<string>('');
 
   useEffect(() => {
     setMapMessage(bannerMessage);
   }, [bannerMessage]);
 
   /* google services */
+  const [googleMap, setGoogleMap] = useState<any>(null);
+  const [googleMapS, setGoogleMapS] = useState<any>(null);
 
   const [DirectionsRenderer, setDirectionsRenderer] = useState<any | undefined>(
     undefined,
@@ -52,6 +55,7 @@ const WebClientMap: React.FC<MapProps> = ({
   const initGoogleMapServices = ({ map, maps }) => {
     if (map && maps) {
       googleMap || setGoogleMap(map);
+      googleMapS || setGoogleMapS(maps);
       if (typeof DirectionsRenderer === 'undefined') {
         const directionsRenderer = new maps.DirectionsRenderer();
         directionsRenderer.setMap(map);
@@ -79,7 +83,7 @@ const WebClientMap: React.FC<MapProps> = ({
       }
     } else {
       // eslint-disable-next-line no-console
-      console.error('Unable to geocode');
+      console.error(t('components.web_client_map.geocode_error'));
     }
   };
 
@@ -101,8 +105,8 @@ const WebClientMap: React.FC<MapProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startGeocode, Geocoder, address, origin]);
 
-  /* get current location */
-  const getCurrentLocation = () => {
+  /* locate me */
+  const locateMe = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
         const pos: Coords = {
@@ -123,12 +127,15 @@ const WebClientMap: React.FC<MapProps> = ({
 
   useEffect(() => {
     if (startLocateMe) {
-      getCurrentLocation();
+      locateMe();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startLocateMe, Geocoder]);
 
-  /* Directions service */
+  /* Directions, Origin, Destination, Paths */
+
+  const [selectedDestination, setSelectedDestination] = useState<string>('');
+
   const getDirections = destination => {
     DirectionsService.route(
       { origin, destination: destination.center, travelMode: 'DRIVING' },
@@ -148,7 +155,11 @@ const WebClientMap: React.FC<MapProps> = ({
           );
         } else {
           // eslint-disable-next-line no-console
-          console.error('DISTANCE SERVICE ERROR:', status, result);
+          console.error(
+            t('components.web_client_map.distance_error'),
+            status,
+            result,
+          );
         }
       },
     );
@@ -164,32 +175,12 @@ const WebClientMap: React.FC<MapProps> = ({
     }
   };
 
-  if (!apiKey) {
-    return <>Could not obtain Google Maps API key</>;
-  }
-  const centerMarkerProps = { ...origin, isCav };
-
-  const LocateMeContainer = () => (
-    <div
-      onClick={() => getCurrentLocation()}
-      style={{
-        backgroundColor: 'rgb(275, 155, 54)',
-        display: 'flex',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-      }}
-    >
-      <img alt="My location" src={MyLocationIcon} />
-      <img alt="My location" src={MyLocationIcon} />
-      <img alt="My location" src={MyLocationIcon} />
-    </div>
-  );
-
-  return (
+  return !apiKey ? (
+    <>{t('components_web_client_map.api_error')} Google Maps API key</>
+  ) : (
     <>
       <div style={{ height: '100%', width: '100%' }}>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
-        {isCav && <LocateMeContainer />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: apiKey }}
@@ -198,7 +189,8 @@ const WebClientMap: React.FC<MapProps> = ({
           defaultZoom={zoom}
           onGoogleApiLoaded={initGoogleMapServices}
         >
-          <OriginMarker {...centerMarkerProps} />
+          <MyLocationControl map={googleMap || null} onClick={locateMe} />
+          <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
           {destinations.map(r => (
             <DestinationMarker
               key={r.id}

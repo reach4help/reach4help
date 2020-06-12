@@ -57,15 +57,36 @@ const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
   items,
   closeDrawer,
   isCav,
-}) => (
-  <Wrapper isCav={isCav}>
-    <Menu mode="inline">
-      {items.map((item: MenuItem, index) => (
-        <SideDrawerMenuItem key={index} item={item} closeDrawer={closeDrawer} />
-      ))}
-    </Menu>
-  </Wrapper>
-);
+}) => {
+  const defaultOpenKeys: string[] = [];
+  const defaultSelectedKeys: string[] = [];
+  if (items.length === 1) {
+    if (items[0].children) {
+      defaultOpenKeys.push(`${Number(items[0].id) - 1}`);
+    } else {
+      defaultSelectedKeys.push(`${Number(items[0].id) - 1}`);
+    }
+  } else {
+    defaultSelectedKeys.push(`${Number(items[0].id) - 1}`);
+  }
+  return (
+    <Wrapper isCav={isCav}>
+      <Menu
+        defaultOpenKeys={defaultOpenKeys}
+        defaultSelectedKeys={defaultSelectedKeys}
+        mode="inline"
+      >
+        {items.map((item: MenuItem, index) => (
+          <SideDrawerMenuItem
+            key={index}
+            item={item}
+            closeDrawer={closeDrawer}
+          />
+        ))}
+      </Menu>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled('div')<{ isCav?: boolean }>`
   flex: auto;
@@ -79,6 +100,15 @@ const Wrapper = styled('div')<{ isCav?: boolean }>`
 
       &:after {
         display: none;
+      }
+      &:hover,
+      &:focus,
+      &:active,
+      &:focus-within {
+        color: white;
+        font-weight: 700;
+        background-color: ${props =>
+          props.isCav ? COLORS.link : COLORS.brandOrange};
       }
     }
 

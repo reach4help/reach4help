@@ -10,5 +10,6 @@ export interface Module {
   protected?: boolean;
   component: ReactElement;
   layout?: string;
+  dynamicMenuLinks?: (profileState?: ProfileState) => Array<MenuItem>;
   menuItems?: Array<MenuItem>;
 }

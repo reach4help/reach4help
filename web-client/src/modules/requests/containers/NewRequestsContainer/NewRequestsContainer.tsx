@@ -1,6 +1,7 @@
 import { firestore } from 'firebase';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,6 +11,7 @@ import {
   getStreetAddressFromProfile,
 } from '../../../../components/WebClientMap/utils';
 import Map from '../../../../components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from '../../../../constants/mediaQueries';
 import { ProfileState } from '../../../../ducks/profile/types';
 import {
   resetSetRequestState,
@@ -17,7 +19,6 @@ import {
 } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from '../../../../models/users';
-import { RoleInfoLocation } from '../../../personalData/pages/routes/RoleInfoRoute/constants';
 import NewRequest from '../../components/NewRequest/NewRequest';
 import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
 import RequestReview, {
@@ -29,8 +30,20 @@ const RequestDetails = styled.div`
   width: 100%;
   background: white;
 `;
+/* TODO:  integrate with translation if safe */
+const DELIVERIES = 'Deliveries';
+
+const MapContainer = styled.div`
+  // aspect ratio = 16:9
+  height: 56.25vw;
+
+  @media ${DEVICE_MIN.laptop} {
+    max-height: 400px;
+  }
+`;
 
 const NewRequestsContainer: React.FC = () => {
+  const { t } = useTranslation();
   const history = useHistory();
 
   const [requestInfo, setRequestInfo] = useState<RequestInput | undefined>(
@@ -77,15 +90,16 @@ const NewRequestsContainer: React.FC = () => {
       profileState.userRef &&
       profileState.privilegedInformation
     ) {
-      const title =
-        request.type === 'Deliveries' ? request.type : request.other;
+      const title = request.type === DELIVERIES ? request.type : request.other;
 
       dispatch(
         setRequest({
           title,
           description: request.description,
           pinUserRef: profileState.userRef,
-          streetAddress: mapAddress || 'Unable to find address',
+          streetAddress:
+            mapAddress ||
+            t('modules.requests.containers.NewRequestsContainer.address_error'),
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: new firestore.GeoPoint(
             currentLocation.lat,
@@ -103,6 +117,8 @@ const NewRequestsContainer: React.FC = () => {
     address: string,
     other: string,
   ) => {
+    /*    const { t } = useTranslation(); */
+
     setRequestInfo({
       type,
       streetAddress: address,
@@ -128,7 +144,7 @@ const NewRequestsContainer: React.FC = () => {
     if (!showReviewPage) {
       const request = {
         streetAddress: mapAddress,
-        type: requestInfo ? requestInfo.type : 'Deliveries',
+        type: requestInfo ? requestInfo.type : DELIVERIES,
         other: requestInfo ? requestInfo.other : '',
         description: requestInfo ? requestInfo.description : '',
       };
@@ -137,7 +153,6 @@ const NewRequestsContainer: React.FC = () => {
         <RequestDetails>
           <NewRequest
             onSubmit={newRequestSubmitHandler}
-            onCancel={() => history.push(RoleInfoLocation.path)}
             request={request}
             setStreetAddress={setMapAddress}
             setMapAddress={() => setStartGeocode(true)}
@@ -180,34 +195,31 @@ const NewRequestsContainer: React.FC = () => {
   };
 
   return (
-    <>
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'stretch',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ height: '100%' }}>
-          <Map
-            isCav={false}
-            destinations={[]}
-            origin={currentLocation}
-            onGeocode={setGeocodedLocation}
-            address={mapAddress}
-            startGeocode={startGeocode}
-            startLocateMe={startLocateMe}
-          />
-        </div>
-        <div style={{ marginBottom: '50px' }}>
-          {maybeNewRequest()}
-          {maybeRequestReview()}
-          {maybeRequestConfirmation()}
-        </div>
+    <div
+      style={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'stretch',
+        flexDirection: 'column',
+      }}
+    >
+      <MapContainer>
+        <Map
+          isCav={false}
+          destinations={[]}
+          origin={currentLocation}
+          onGeocode={setGeocodedLocation}
+          address={mapAddress}
+          startGeocode={startGeocode}
+          startLocateMe={startLocateMe}
+        />
+      </MapContainer>
+      <div style={{ display: 'flex', height: '100%' }}>
+        {maybeNewRequest()}
+        {maybeRequestReview()}
+        {maybeRequestConfirmation()}
       </div>
-    </>
+    </div>
   );
 };
 
