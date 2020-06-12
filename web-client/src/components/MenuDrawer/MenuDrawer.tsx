@@ -6,6 +6,10 @@ import {
 import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
@@ -24,55 +28,77 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const instructions = [
+    t('information_modal.MenuDrawer.0'),
+    t('information_modal.MenuDrawer.1'),
+    t('information_modal.MenuDrawer.2'),
+    t('information_modal.MenuDrawer.3'),
+    t('information_modal.MenuDrawer.4'),
+    t('information_modal.MenuDrawer.5'),
+    t('information_modal.MenuDrawer.6'),
+  ];
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.MenuDrawer',
+    /* TODO:  get unique user id */
+    userid: null,
+  });
+
   return (
-    <SideDrawer
-      placement="left"
-      closable
-      onClose={closeDrawer}
-      visible={visible}
-      width="100%"
-    >
-      <SideDrawerProfile profileData={profileData} isCav={isCav} />
-      <SideDrawerMenu
-        items={menuItems || []}
-        closeDrawer={closeDrawer}
-        isCav={isCav}
+    <>
+      <SideDrawer
+        placement="left"
+        closable
+        onClose={closeDrawer}
+        visible={visible}
+        width="100%"
+      >
+        <SideDrawerProfile profileData={profileData} isCav={isCav} />
+        <SideDrawerMenu
+          items={menuItems || []}
+          closeDrawer={closeDrawer}
+          isCav={isCav}
+        />
+        <BottomLinks>
+          <BottomLinkItem
+            isCav={isCav}
+            role="link"
+            onClick={() => {
+              closeDrawer();
+              window.location.href = 'mailto:info@reach4help.org';
+            }}
+          >
+            <MailOutlined />
+            {t('menuDrawer.contactUs')}
+          </BottomLinkItem>
+          <BottomLinkItem
+            isCav={isCav}
+            role="link"
+            onClick={() => toggleApplicationPreference()}
+          >
+            <UserSwitchOutlined />
+            {`${
+              isCav ? t('menuDrawer.switchToPIN') : t('menuDrawer.switchToCAV')
+            }`}
+          </BottomLinkItem>
+          <BottomLinkItem
+            isCav={isCav}
+            role="link"
+            onClick={() => {
+              closeDrawer();
+              logoutHandler();
+            }}
+          >
+            <LogoutOutlined />
+            {t('menuDrawer.logout')}
+          </BottomLinkItem>
+        </BottomLinks>
+      </SideDrawer>
+      <InformationModal
+        title={t('information_modal.MenuDrawer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
       />
-      <BottomLinks>
-        <BottomLinkItem
-          isCav={isCav}
-          role="link"
-          onClick={() => {
-            closeDrawer();
-            window.location.href = 'mailto:info@reach4help.org';
-          }}
-        >
-          <MailOutlined />
-          {t('menuDrawer.contactUs')}
-        </BottomLinkItem>
-        <BottomLinkItem
-          isCav={isCav}
-          role="link"
-          onClick={() => toggleApplicationPreference()}
-        >
-          <UserSwitchOutlined />
-          {`${
-            isCav ? t('menuDrawer.switchToPIN') : t('menuDrawer.switchToCAV')
-          }`}
-        </BottomLinkItem>
-        <BottomLinkItem
-          isCav={isCav}
-          role="link"
-          onClick={() => {
-            closeDrawer();
-            logoutHandler();
-          }}
-        >
-          <LogoutOutlined />
-          {t('menuDrawer.logout')}
-        </BottomLinkItem>
-      </BottomLinks>
-    </SideDrawer>
+    </>
   );
 };
 
