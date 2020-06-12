@@ -222,20 +222,22 @@ const FindRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <Map
-        isCav
-        destinations={requestsWithoutOffer}
-        origin={currentLocation}
-        onDestinationClickedHandler={id => onRequestHandler(id)}
-        onGeocode={setGeocodedLocation}
-        bannerMessage={bannerMessage}
-      />
-      {maybeRequestDetails()}
-      <InformationModal
-        title={t('information_modal.FindequestsContainer.title')}
-        localStorageKey={instructionModalLocalStorageKey}
-        instructions={instructions}
-      />
+      <div style={{ height: '100vh' }}>
+        <Map
+          isCav
+          destinations={requestsWithoutOffer}
+          origin={currentLocation}
+          onDestinationClickedHandler={id => onRequestHandler(id)}
+          onGeocode={setGeocodedLocation}
+          bannerMessage={bannerMessage}
+        />
+        {maybeRequestDetails()}
+        <InformationModal
+          title={t('information_modal.FindequestsContainer.title')}
+          localStorageKey={instructionModalLocalStorageKey}
+          instructions={instructions}
+        />
+      </div>
     </>
   );
 };
