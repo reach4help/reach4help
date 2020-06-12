@@ -26,7 +26,7 @@
         "title": "Bienvenue sur Reach4Help!",
         "0": "Merci d'avoir rejoint Reach4Help ! En tant que personne dans le besoin, vous serez en mesure de trouver de l'aide dans votre région en créant des demandes. Actuellement, nous ne pouvons pas garantir qu'il y a des bénévoles qui peuvent vous aider dans votre région. Nous vous suggérons de partager notre application avec des bénévoles ou des organisations locales. Merci de vous être joint à nous pour la construction de cette plateforme d'entraide!",
         "1": "Lorsqu'un bénévole accepte de vous aider, il vous contactera avec le téléphone que vous avez utilisé pour créer ce compte",
-        "2": "You can check the status of your request as it progresses each stage from the sidebar:"
+        "2": "Vous pouvez vérifier le progrès de votre requête au fur et à mesure dans la barre latérale."
       }
     },
     "login": {
@@ -36,10 +36,10 @@
       "facebookButtonLabel": "Poursuivre avec Facebook"
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
-      "switchToCAV": "Switch to Volunteer",
-      "switchToPIN": "Switch to Person In Need"
+      "contactUs": "Contactez-nous",
+      "logout": "Se déconnecter",
+      "switchToCAV": "Offrir votre aide",
+      "switchToPIN": "Demander de l'aide"
     },
     "phoneNumber": {
       "sub_title": "Entrez votre numéro de téléphone pour commencer",
