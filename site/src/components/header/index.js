@@ -22,7 +22,7 @@ function Header({ navSections }) {
   }
 
   const onLanguageChange = selectedLang => {
-    i18n.changeLanguage(selectedLang)
+    i18n.changeLanguage(selectedLang.value)
   }
 
   return (

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React from "react"
-import { graphql } from "gatsby"
+import React, { useEffect } from "react"
+import { graphql, navigate } from "gatsby"
 import { useTranslation } from "react-i18next"
 
 import SEO from "src/components/seo"
@@ -15,7 +15,13 @@ function PrivacyPage({
     markdownRemark: { html },
   },
 }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+
+  // This exists to change the route when the language changes and user is in the privacy policy page
+  useEffect(() => {
+    navigate(t("Footer.sections.0.link"))
+  }, [i18n.language])
+
   return (
     <Layout>
       <SEO title="Privacy Policy" />
