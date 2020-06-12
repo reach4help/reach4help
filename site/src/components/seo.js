@@ -11,7 +11,11 @@ function SEO({ description, lang, title }) {
         site {
           siteMetadata {
             title
+            headerDescription
             description
+            url
+            image
+            socialLinks
           }
         }
       }
@@ -38,13 +42,16 @@ function SEO({ description, lang, title }) {
 
       <meta itemProp="name" content={title} />
       <meta itemProp="description" content={description} />
-      <meta itemProp="image" content={`/images/swarm_banner_main.png`} />
+      <meta itemProp="image" content={`${url}/images/swarm_banner_main.png`} />
 
       {/* OpenGraph tags for social media */}
       <meta property="og:site_name" content="Reach4Help" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={`/images/swarm_banner_main.png`} />
+      <meta
+        property="og:image"
+        content={`${url}/images/swarm_banner_main.png`}
+      />
       <meta property="og:locale" content="en_US" />
       <meta property="og:type" content="website" />
 
@@ -54,10 +61,13 @@ function SEO({ description, lang, title }) {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@Reach4HelpOrg" />
       <meta name="twitter:creator" content="@Reach4HelpOrg" />
-      <meta name="twitter:image" content={`/images/swarm_banner_main.png`} />
+      <meta
+        name="twitter:image"
+        content={`${url}/images/swarm_banner_main.png`}
+      />
       <meta
         name="twitter:image:src"
-        content={`/images/swarm_banner_main.png`}
+        content={`${url}/images/swarm_banner_main.png`}
       />
       <meta
         name="twitter:image:alt"
@@ -65,23 +75,23 @@ function SEO({ description, lang, title }) {
       />
 
       {/* Links */}
-      <link rel="shortcut icon" href={`images/logo32.png`} />
+      <link rel="shortcut icon" href={`${url}/images/logo32.png`} />
       <link
         rel="apple-touch-icon"
         sizes="180x180"
-        href={`/images/logo180.png`}
+        href={`${url}/images/logo180.png`}
       />
       <link
         rel="icon"
         type="image/png"
         sizes="32x32"
-        href={`/images/logo32.png`}
+        href={`${url}/images/logo32.png`}
       />
       <link
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href={`/images/logo16.png`}
+        href={`${url}/images/logo16.png`}
       />
     </Helmet>
   )
