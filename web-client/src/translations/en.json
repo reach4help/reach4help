@@ -38,8 +38,8 @@
     "menuDrawer": {
       "contactUs": "Contact us",
       "logout": "Sign out",
-      "switchToCAV": "Switch to Volunteer",
-      "switchToPIN": "Switch to Person In Need"
+      "switchToCAV": "Switch to Offering Support",
+      "switchToPIN": "Switch to Seeking Help"
     },
     "phoneNumber": {
       "sub_title": "Enter your telephone number to begin",
