@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import { ProfileState } from 'src/ducks/profile/types';
 import { getOngoingRequests } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
@@ -52,6 +56,12 @@ const OngoingRequestsContainer: React.FC = () => {
     return <LoadingWrapper />;
   }
 
+  const instructions = [t('information_modal.OngoingRequestsContainer.0')];
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.OngoingRequestsContainer',
+    userid: profileState.uid,
+  });
+
   return (
     <>
       <Header
@@ -75,6 +85,11 @@ const OngoingRequestsContainer: React.FC = () => {
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}
         RequestItem={RequestItem}
+      />
+      <InformationModal
+        title={t('information_modal.OngoingRequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
       />
     </>
   );

@@ -3,27 +3,31 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-
-import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from '../../../../components/WebClientMap/utils';
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { resetSetOfferState, setOffer } from '../../../../ducks/offers/actions';
-import { OffersState } from '../../../../ducks/offers/types';
-import { ProfileState } from '../../../../ducks/profile/types';
+} from 'src/components/WebClientMap/utils';
+import Map from 'src/components/WebClientMap/WebClientMap';
+import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
+import { OffersState } from 'src/ducks/offers/types';
+import { ProfileState } from 'src/ducks/profile/types';
 import {
   getOpenRequests,
   resetSetRequestState,
-} from '../../../../ducks/requests/actions';
-import { RequestState } from '../../../../ducks/requests/types';
-import { firestore } from '../../../../firebase';
-import { OfferStatus } from '../../../../models/offers';
-import { ApplicationPreference } from '../../../../models/users';
-import RequestItem from '../../components/RequestItem/RequestItem';
-import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
+} from 'src/ducks/requests/actions';
+import { RequestState } from 'src/ducks/requests/types';
+import { firestore } from 'src/firebase';
+import { OfferStatus } from 'src/models/offers';
+import { ApplicationPreference } from 'src/models/users';
+import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem';
+import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import styled from 'styled-components';
+
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 
 const FindRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -191,17 +195,38 @@ const FindRequestsContainer: React.FC = () => {
     return <LoadingWrapper />;
   }
 
+  const instructions = [
+    t('information_modal.FindRequestsContainer.0'),
+    t('information_modal.FindRequestsContainer.1'),
+    t('information_modal.FindRequestsContainer.2'),
+    t('information_modal.FindRequestsContainer.3'),
+    t('information_modal.FindRequestsContainer.4'),
+    t('information_modal.FindRequestsContainer.5'),
+    t('information_modal.FindRequestsContainer.6'),
+  ];
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.FindRequestsContainer',
+    userid: profileState.uid,
+  });
+
   return (
     <>
-      <Map
-        isCav
-        destinations={requestsWithoutOffer}
-        origin={currentLocation}
-        onDestinationClickedHandler={id => onRequestHandler(id)}
-        onGeocode={setGeocodedLocation}
-        bannerMessage={bannerMessage}
-      />
-      {maybeRequestDetails()}
+      <div style={{ height: '100vh' }}>
+        <Map
+          isCav
+          destinations={requestsWithoutOffer}
+          origin={currentLocation}
+          onDestinationClickedHandler={id => onRequestHandler(id)}
+          onGeocode={setGeocodedLocation}
+          bannerMessage={bannerMessage}
+        />
+        {maybeRequestDetails()}
+        <InformationModal
+          title={t('information_modal.FindRequestsContainer.title')}
+          localStorageKey={instructionModalLocalStorageKey}
+          instructions={instructions}
+        />
+      </div>
     </>
   );
 };

@@ -9,9 +9,9 @@ import { Typography } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import LocationIcon from 'src/assets/location-icon.svg';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
+import SMSIcon from 'src/assets/sms.svg';
 import { RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference, User } from 'src/models/users/index';
@@ -79,19 +79,22 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
                       : user?.pinRatingsReceived}
                   </span>
                 </InfoDetail>
-                <InfoDetail className={isCav ? 'cav' : 'pin'}>
-                  <img
-                    src={LocationIcon}
-                    alt={t(
-                      'modules.navigation.components.TopPanel.a11y_location_icon',
-                    )}
-                  />
-                  {/* TODO : Logic for calculating distance from request.latLng */}
-                  <span>5 Miles</span>
-                </InfoDetail>
               </Info>
             )}
           </Detail>
+          {userRequestStatus === RequestStatus.ongoing && (
+            <a href={`sms:${request.contactNumber}`}>
+              <img
+                src={SMSIcon}
+                style={{
+                  paddingTop: '5px',
+                  height: '45px',
+                  width: '45px',
+                }}
+                alt={t('modules.navigation.components.TopPanel.a11y_sms_icon')}
+              />
+            </a>
+          )}
           {userRequestStatus === RequestStatus.ongoing && (
             <a href={`tel:${request.contactNumber}`}>
               <img

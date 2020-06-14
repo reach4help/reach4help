@@ -38,6 +38,11 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
     cavUserName: isCurrentUserItem && isCavItem ? 'your' : cavUserName,
     pinRating,
     cavRating,
+    actedUpon: !isCurrentUserItem
+      ? 'You'
+      : isCavItem
+      ? cavUserName
+      : pinUserName,
   };
 
   return (
@@ -84,6 +89,7 @@ const TimelineListWrapper = styled.div`
   width: 100%;
   flex: auto;
   overflow: scroll;
+  padding-bottom: 64px;
 `;
 
 const ListItem = styled.li`

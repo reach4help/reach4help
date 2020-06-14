@@ -18,13 +18,10 @@ export const Wrapper = styled(SectionWrapper)`
       width: 60%;
     }
   }
-
-  img {
-  }
 `
 
 export const ContentWrapper = styled.div`
-  max-width: 35em;
+  max-width: 40em;
   display: flex;
   flex-direction: column;
   /* margin-bottom: 3em; */

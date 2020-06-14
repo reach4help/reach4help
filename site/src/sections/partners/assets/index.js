@@ -3,6 +3,11 @@
 
 export default [
   {
+    name: "The Programming Foundation",
+    logo: require("./tpf.svg"),
+    link: "https://www.theprogrammingfoundation.org/",
+  },
+  {
     name: "Helpful Engineering",
     logo: require("./helpful.svg"),
     link: "https://www.helpfulengineering.org/",
@@ -37,11 +42,11 @@ export default [
     logo: require("./twilio.svg"),
     link: "https://www.twilio.com/",
   },
-  // {
-  //   name: "Canva",
-  //   logo: require('./canva.svg'),
-  //   link: "https://www.canva.com/",
-  // },
+  {
+    name: "Canva",
+    logo: require("./canva.svg"),
+    link: "https://www.canva.com/",
+  },
   {
     name: "Datadog",
     logo: require("./datadog.svg"),

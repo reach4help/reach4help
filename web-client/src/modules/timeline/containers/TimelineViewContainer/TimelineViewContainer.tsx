@@ -4,6 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -232,6 +236,20 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   const isCav =
     profileState.profile.applicationPreference === ApplicationPreference.cav;
 
+  const instructions = [
+    t('information_modal.TimelineViewContainer.0'),
+    t('information_modal.TimelineViewContainer.1'),
+    t('information_modal.TimelineViewContainer.2'),
+    t('information_modal.TimelineViewContainer.3'),
+    t('information_modal.TimelineViewContainer.4'),
+    t('information_modal.TimelineViewContainer.5'),
+    t('information_modal.TimelineViewContainer.6'),
+  ];
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.TimelineViewContainer',
+    userid: profileState.uid,
+  });
+
   return (
     <>
       <TopPanel
@@ -269,6 +287,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           isCav={isCav}
         />
       </div>
+      <InformationModal
+        title={t('information_modal.TimelineViewContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
+      />
     </>
   );
 };

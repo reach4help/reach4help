@@ -4,7 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { InformationModal } from 'src/components/InformationModal/InformationModal';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -184,10 +187,13 @@ const NewRequestsContainer: React.FC = () => {
     t('information_modal.NewRequestsContainer.0'),
     t('information_modal.NewRequestsContainer.1'),
     t('information_modal.NewRequestsContainer.2'),
+    t('information_modal.NewRequestsContainer.3'),
+    t('information_modal.NewRequestsContainer.4'),
   ];
-  const instructionModalLocalStorageKey = profileState
-    ? `reach4help.modalSeen.NewRequestsContainer.${profileState.uid}`
-    : 'reach4help.modalSeen.NewRequestsContainer';
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.NewRequestsContainer',
+    userid: profileState.uid,
+  });
 
   return (
     <>

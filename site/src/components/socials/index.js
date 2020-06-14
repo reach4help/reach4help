@@ -4,6 +4,7 @@ import Logos from "./assets"
 
 import { SocialsWrapper } from "./style"
 
+// component for social icons/links
 function Socials() {
   return (
     <SocialsWrapper>
@@ -13,7 +14,7 @@ function Socials() {
           <a
             title={logo.name}
             href={logo.link}
-            key={logo.id}
+            key={logo.name}
             target="__blank"
             rel="noopener noreferrer"
           >

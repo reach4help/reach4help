@@ -1,26 +1,23 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { Link } from "gatsby"
+import { useTranslation } from "react-i18next"
+
 import { Wrapper, ContentWrapper } from "./style"
 
-// import Button from "src/components/button"
-
 function Error() {
-  const data = useStaticQuery(
-    graphql`
-      {
-        markdownRemark(frontmatter: { title: { eq: "Error" } }) {
-          html
-        }
-      }
-    `,
-  )
+  const { t } = useTranslation()
 
   return (
     <Wrapper id="error">
       <div>
-        <ContentWrapper
-          dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
-        />
+        <ContentWrapper>
+          <h1>{t("404.heading")}</h1>
+          <br />
+          <p>{t("404.description.0")}</p>
+          <p>{t("404.description.1")}</p>
+          <br />
+          <Link to="/">{t("404.linkBackToHome")}</Link>
+        </ContentWrapper>
       </div>
     </Wrapper>
   )

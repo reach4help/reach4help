@@ -1,3 +1,5 @@
+/* TODO:  error in haversine distance display. Distance should be given in KM and Miles */
+
 import {
   EnvironmentOutlined,
   HeartOutlined,
@@ -7,6 +9,7 @@ import {
 import { Button } from 'antd';
 import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { haversineDistance } from 'src/components/WebClientMap/utils';
 import { OfferStatus } from 'src/models/offers';
 import { OfferWithLocation as Offer } from 'src/models/offers/offersWithLocation';
@@ -16,53 +19,58 @@ const OfferItem: React.FC<OfferItemProps> = ({
   offer,
   handleOffer,
   destinationCoords,
-}): React.ReactElement => (
-  <Item>
-    {/* {offer.cavUserSnapshot.displayName} */}
-    <UserPic
-      src={
-        offer.cavUserSnapshot.displayPicture
-          ? offer.cavUserSnapshot.displayPicture
-          : ''
-      }
-      alt="Display Picture"
-    />
-    <UserName>{offer.cavUserSnapshot.displayName}</UserName>
-    <TextVolunteer>Volunteer</TextVolunteer>
-    <IconsBlock>
-      <IconContainerFirst>
-        <HeartOutlined />
-      </IconContainerFirst>
-      <TextIcon>{offer.cavUserSnapshot.casesCompleted}</TextIcon>
-      <IconContainer>
-        <StarOutlined />
-      </IconContainer>
-      <TextIcon>{offer.cavUserSnapshot.cavRatingsReceived}</TextIcon>
-      <IconContainer>
-        <EnvironmentOutlined />
-      </IconContainer>
-      <TextIcon>
-        {haversineDistance(offer.address.coords, destinationCoords)} miles
-      </TextIcon>
-    </IconsBlock>
-    <ButtonsContainer>
-      <RejectButton onClick={() => handleOffer(false)}>
-        <UserSwitchOutlined />
-        Reject
-      </RejectButton>
-      <AcceptButton onClick={() => handleOffer(true)}>
-        <HeartOutlined />
-        Accept
-      </AcceptButton>
-    </ButtonsContainer>
-  </Item>
-);
+}): React.ReactElement => {
+  const { t } = useTranslation();
+  return (
+    <Item>
+      {/* {offer.cavUserSnapshot.displayName} */}
+      <UserPic
+        src={
+          offer.cavUserSnapshot.displayPicture
+            ? offer.cavUserSnapshot.displayPicture
+            : ''
+        }
+        alt="Display Picture"
+      />
+      <UserName>{offer.cavUserSnapshot.displayName}</UserName>
+      <TextVolunteer>Volunteer</TextVolunteer>
+      <IconsBlock>
+        <IconContainerFirst>
+          <HeartOutlined />
+        </IconContainerFirst>
+        <TextIcon>{offer.cavUserSnapshot.casesCompleted}</TextIcon>
+        <IconContainer>
+          <StarOutlined />
+        </IconContainer>
+        <TextIcon>{offer.cavUserSnapshot.cavRatingsReceived}</TextIcon>
+        <IconContainer>
+          <EnvironmentOutlined />
+        </IconContainer>
+        <TextIcon>
+          {haversineDistance(offer.address.coords, destinationCoords)}{' '}
+          {t('modules.timeline.component.miles')}
+        </TextIcon>
+      </IconsBlock>
+      <ButtonsContainer>
+        <RejectButton onClick={() => handleOffer(false)}>
+          <UserSwitchOutlined />
+          {t('modules.timeline.component.reject')}
+        </RejectButton>
+        <AcceptButton onClick={() => handleOffer(true)}>
+          <HeartOutlined />
+          {t('modules.timeline.component.accept')}
+        </AcceptButton>
+      </ButtonsContainer>
+    </Item>
+  );
+};
 
 const OffersList: React.FC<OffersListProps> = ({
   offers,
   handleOffer,
   destinationCoords,
 }): React.ReactElement => {
+  const { t } = useTranslation();
   const [offersList, setOffersList] = useState<React.ReactElement<any>[]>([]);
 
   useEffect(() => {
@@ -83,15 +91,18 @@ const OffersList: React.FC<OffersListProps> = ({
   }, [offers, handleOffer, setOffersList, destinationCoords]);
 
   return (
-    <>
-      <VolunteerSelectTitle>Select A Volunteer</VolunteerSelectTitle>
+    // TODO fix when we have defined layout for this screen
+    // TODO remove when we fix bottom panel overlaps with others(both timelinelist and offerslist)
+    <div style={{ paddingBottom: '64px' }}>
+      <VolunteerSelectTitle>
+        {t('modules.timeline.component.OffersList')}
+      </VolunteerSelectTitle>
       {offersList}
-    </>
+    </div>
   );
 };
 
 const Item = styled.div`
-  overflow: auto;
   margin: 15px 15px 0px 15px;
   padding: 20px 16px 18px 16px;
   background: #ffffff;
