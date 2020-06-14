@@ -3,26 +3,26 @@ import { useTranslation } from 'react-i18next';
 import LoadingLogo from 'src/assets/loadinglogo.svg';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const LoadingWrapperContainer = styled.div`
   display: flex;
   height: 100vh;
   justify-content: center;
   align-items: center;
 `;
 
-const LoadingWrapper: React.FC<WrapperProps> = ({
+const LoadingWrapper: React.FC<LoadingWrapperProps> = ({
   children,
 }): React.ReactElement => {
   const { t } = useTranslation();
   return (
-    <Container>
+    <LoadingWrapperContainer>
       <img src={LoadingLogo} alt={t('components.loading_a11y_message')} />
       {children}
-    </Container>
+    </LoadingWrapperContainer>
   );
 };
 
-interface WrapperProps {
+interface LoadingWrapperProps {
   children?: React.ReactNode;
 }
 

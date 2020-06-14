@@ -21,7 +21,7 @@ export const ContentWrapper = styled.div`
 `
 
 export const LogosWrapper = styled.div`
-  padding: 2em 3em;
+  padding: 1.5em 3em;
   padding-bottom: 0;
   display: flex;
   align-items: center;
@@ -39,6 +39,10 @@ export const LogosWrapper = styled.div`
 
     :hover {
       opacity: 1;
+    }
+
+    ${p => p.theme.breakpoints.small} {
+      padding-bottom: 0.5em;
     }
   }
 `

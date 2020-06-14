@@ -12,17 +12,18 @@ import styled from 'styled-components';
 
 import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
 
-const BottomNavbar: React.FC<BottomNavProps> = ({
+const BottomNavbar: React.FC<BottomNavbarProps> = ({
   openMenu,
   openNotifications,
   isCav,
   visible = true,
+  unseenOffersCount,
 }) => {
   const history = useHistory();
   return !visible ? (
     <></>
   ) : (
-    <Wrapper>
+    <BottomNavbarContainer>
       <NavButton isCav={isCav} onClick={openMenu}>
         <SideMenuIcon />
       </NavButton>
@@ -42,9 +43,13 @@ const BottomNavbar: React.FC<BottomNavProps> = ({
         </NavButton>
       )}
       <NavButton isCav={isCav} onClick={openNotifications}>
-        <NotificationsIcon />
+        {unseenOffersCount > 0 ? (
+          <NotificationsIcon style={{ color: 'red' }} />
+        ) : (
+          <NotificationsIcon />
+        )}
       </NavButton>
-    </Wrapper>
+    </BottomNavbarContainer>
   );
 };
 
@@ -66,7 +71,7 @@ const NavButton = styled('button')<{ isCav?: boolean }>`
   }
 `;
 
-const Wrapper = styled.div`
+const BottomNavbarContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -78,11 +83,12 @@ const Wrapper = styled.div`
   z-index: 999;
 `;
 
-interface BottomNavProps {
+interface BottomNavbarProps {
   openMenu: () => void;
   openNotifications: () => void;
   isCav?: boolean;
   visible?: boolean;
+  unseenOffersCount: number;
 }
 
 export default BottomNavbar;

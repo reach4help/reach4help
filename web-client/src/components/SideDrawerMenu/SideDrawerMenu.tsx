@@ -70,7 +70,7 @@ const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
     defaultSelectedKeys.push(`${Number(items[0].id) - 1}`);
   }
   return (
-    <Wrapper isCav={isCav}>
+    <SideDrawerMenuContainer isCav={isCav}>
       <Menu
         defaultOpenKeys={defaultOpenKeys}
         defaultSelectedKeys={defaultSelectedKeys}
@@ -84,11 +84,11 @@ const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
           />
         ))}
       </Menu>
-    </Wrapper>
+    </SideDrawerMenuContainer>
   );
 };
 
-const Wrapper = styled('div')<{ isCav?: boolean }>`
+const SideDrawerMenuContainer = styled('div')<{ isCav?: boolean }>`
   flex: auto;
 
   .ant-menu {

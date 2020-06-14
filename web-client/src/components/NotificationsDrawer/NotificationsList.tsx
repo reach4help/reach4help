@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Offer } from 'src/models/offers';
+import styled from 'styled-components';
 
 import Notification from './Notification';
 
@@ -9,6 +10,13 @@ interface NotificationsList {
   unseenOffers: Offer[];
 }
 
+const NotificationListContainer = styled.div`
+  margin-left: 15px,
+  margin-right: 15px,
+  color: rgba(0, 0, 0, 0.65),
+  font-family: Roboto, sans-serif,
+`;
+
 const NotificationsList: React.FC<NotificationsList> = ({
   isCav,
   unseenOffers,
@@ -16,14 +24,7 @@ const NotificationsList: React.FC<NotificationsList> = ({
   const { t } = useTranslation();
 
   return (
-    <div
-      style={{
-        marginLeft: '15px',
-        marginRight: '15px',
-        color: 'rgba(0, 0, 0, 0.65)',
-        fontFamily: 'Roboto, sans-serif',
-      }}
-    >
+    <NotificationListContainer>
       {unseenOffers.length > 0 &&
         unseenOffers.map((item, index) => (
           <Notification
@@ -41,7 +42,7 @@ const NotificationsList: React.FC<NotificationsList> = ({
           <p>{t('components.notification.no_notifications')}</p>
         </div>
       )}
-    </div>
+    </NotificationListContainer>
   );
 };
 export default NotificationsList;
