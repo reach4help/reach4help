@@ -8,10 +8,10 @@ import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/Timeline
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-const Text = styled.p`
+const RequestNotification = styled.p`
   margin-bottom: 0px;
 `;
-const ReqTitle = styled.span`
+const RequestTitle = styled.span`
   color: ${COLORS.brandOrange};
 `;
 
@@ -40,118 +40,118 @@ const Notification: React.FC<NotificationProps> = ({
     if (offerStatus === OfferStatus.accepted) {
       if (isCav) {
         return (
-          <Text>
+          <RequestNotification>
             {offerRequest?.pinUserSnapshot.displayName ||
               offerRequest?.pinUserSnapshot.username ||
               t('components.notification.request_author')}
             {t('components.notification.volunteer_accepted')}
             {offerRequest?.title ? (
-              <ReqTitle>{offerRequest.title}</ReqTitle>
+              <RequestTitle>{offerRequest.title}</RequestTitle>
             ) : (
               'a request'
             )}
             .
-          </Text>
+          </RequestNotification>
         );
       }
       return (
-        <Text>
+        <RequestNotification>
           {t('components.notification.pin_accepted')}
           {cavUser.displayName || cavUser.username}
           {t('for')}
           {offerRequest?.title ? (
-            <ReqTitle>{offerRequest.title}</ReqTitle>
+            <RequestTitle>{offerRequest.title}</RequestTitle>
           ) : (
             t('components.notification.your_task')
           )}
           .
-        </Text>
+        </RequestNotification>
       );
     }
     if (offerStatus === OfferStatus.rejected) {
       if (isCav) {
         return (
-          <Text>
+          <RequestNotification>
             {offerRequest?.pinUserSnapshot.displayName ||
               offerRequest?.pinUserSnapshot.username ||
               `${t('components.notification.request_author')} ${t(
                 'components.notification.already_helped',
               )}`}
             {offerRequest?.title ? (
-              <ReqTitle>{offerRequest.title}</ReqTitle>
+              <RequestTitle>{offerRequest.title}</RequestTitle>
             ) : (
               t('components.notification.a_request')
             )}
             .
-          </Text>
+          </RequestNotification>
         );
       }
       return (
-        <Text>
+        <RequestNotification>
           {t('components.notification.pin_rejected')}
           {cavUser.displayName || cavUser.username}
           {t('for')}
           {offerRequest?.title ? (
-            <ReqTitle>{offerRequest.title}</ReqTitle>
+            <RequestTitle>{offerRequest.title}</RequestTitle>
           ) : (
             t('components.notification.your_task')
           )}
           .
-        </Text>
+        </RequestNotification>
       );
     }
     if (offerStatus === OfferStatus.pending) {
       if (isCav) {
         return (
-          <Text>
+          <RequestNotification>
             {t('components.notification.cav_offer')}
             {offerRequest?.title ? (
-              <ReqTitle>{offerRequest.title}</ReqTitle>
+              <RequestTitle>{offerRequest.title}</RequestTitle>
             ) : (
               t('components.notification.a_request')
             )}
             .
-          </Text>
+          </RequestNotification>
         );
       }
       return (
-        <Text>
+        <RequestNotification>
           {cavUser.displayName || cavUser.username}
           {t('components.notification.offered_help')}
           {offerRequest?.title ? (
-            <ReqTitle>{offerRequest.title}</ReqTitle>
+            <RequestTitle>{offerRequest.title}</RequestTitle>
           ) : (
             t('components.notification.your_task')
           )}
           .
-        </Text>
+        </RequestNotification>
       );
     }
     if (offerStatus === OfferStatus.cavDeclined) {
       if (isCav) {
         return (
-          <Text>
+          <RequestNotification>
             {t('components.notification.pin_declined_help')}
             {offerRequest?.title ? (
-              <ReqTitle>{offerRequest.title}</ReqTitle>
+              <RequestTitle>{offerRequest.title}</RequestTitle>
             ) : (
               t('components.notification.a_request')
             )}
             .
-          </Text>
+          </RequestNotification>
         );
       }
       return (
-        <Text>
+        <RequestNotification>
           {cavUser.displayName || cavUser.username}
           {t('components.notification.cav_declined_help')}
           {offerRequest?.title ? (
-            <ReqTitle>{offerRequest.title}</ReqTitle>
+            <RequestTitle>{offerRequest.title}</RequestTitle>
           ) : (
             t('components.notification.your_task')
           )}
           .
-        </Text>
+        </RequestNotification>
       );
     }
   };

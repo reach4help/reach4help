@@ -5,12 +5,13 @@ const Logo = styled.img`
   height: 125px;
   width: 125px;
 `;
-interface WrapperProps {
+
+interface IntroLogoProps {
   src: string;
   alt: string;
 }
 
-const IntroLogo: React.FC<WrapperProps> = ({
+const IntroLogo: React.FC<IntroLogoProps> = ({
   src,
   alt,
 }): React.ReactElement => <Logo src={src} alt={alt} />;
