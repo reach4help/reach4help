@@ -23,7 +23,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   const [notificationVisible, setNotificationVisible] = useState(false);
 
   return (
-    <DashboardLayoutContainer>
+    <DashboardLayoutWrapper>
       <TopNavbar />
       <MenuDrawer
         visible={menuVisible}
@@ -46,11 +46,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         openNotifications={() => setNotificationVisible(true)}
         isCav={isCav}
       />
-    </DashboardLayoutContainer>
+    </DashboardLayoutWrapper>
   );
 };
 
-const DashboardLayoutContainer = styled(Layout)`
+const DashboardLayoutWrapper = styled(Layout)`
   position: absolute;
   top: 0;
   bottom: 0;

@@ -5,18 +5,6 @@ import styled from 'styled-components';
 
 import Notification from './Notification';
 
-interface NotificationsList {
-  isCav?: boolean;
-  unseenOffers: Offer[];
-}
-
-const NotificationListContainer = styled.div`
-  margin-left: 15px,
-  margin-right: 15px,
-  color: rgba(0, 0, 0, 0.65),
-  font-family: Roboto, sans-serif,
-`;
-
 const NotificationsList: React.FC<NotificationsList> = ({
   isCav,
   unseenOffers,
@@ -24,7 +12,7 @@ const NotificationsList: React.FC<NotificationsList> = ({
   const { t } = useTranslation();
 
   return (
-    <NotificationListContainer>
+    <NotificationListWrapper>
       {unseenOffers.length > 0 &&
         unseenOffers.map((item, index) => (
           <Notification
@@ -42,7 +30,20 @@ const NotificationsList: React.FC<NotificationsList> = ({
           <p>{t('components.notification.no_notifications')}</p>
         </div>
       )}
-    </NotificationListContainer>
+    </NotificationListWrapper>
   );
 };
+
+const NotificationListWrapper = styled.div`
+  margin-left: 15px,
+  margin-right: 15px,
+  color: rgba(0, 0, 0, 0.65),
+  font-family: Roboto, sans-serif,
+`;
+
+interface NotificationsList {
+  isCav?: boolean;
+  unseenOffers: Offer[];
+}
+
 export default NotificationsList;

@@ -3,7 +3,13 @@ import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
 
-const Background = styled.div`
+const GradientBackground: React.FC<WrapperProps> = ({
+  children,
+}): React.ReactElement => (
+  <GradientBackgroundWrapper>{children}</GradientBackgroundWrapper>
+);
+
+const GradientBackgroundWrapper = styled.div`
   min-height: 100vh;
   width: 100vw;
   display: flex;
@@ -18,10 +24,6 @@ const Background = styled.div`
     ${COLORS.link} 100%
   );
 `;
-
-const GradientBackground: React.FC<WrapperProps> = ({
-  children,
-}): React.ReactElement => <Background>{children}</Background>;
 
 interface WrapperProps {
   children: React.ReactNode;

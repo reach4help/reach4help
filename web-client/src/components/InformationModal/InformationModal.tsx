@@ -9,10 +9,6 @@ import styled from 'styled-components';
 
 const SEEN = 'seen';
 
-const R4HloveListItem = styled(List.Item)`
-  display: flex;
-`;
-
 export const InformationModal: React.FC<InformationModalProps> = ({
   finishRequestHandler,
   title = 'Instructions',
@@ -94,6 +90,10 @@ export const InformationModal: React.FC<InformationModalProps> = ({
     </Modal>
   );
 };
+
+const R4HloveListItem = styled(List.Item)`
+  display: flex;
+`;
 
 interface InformationModalProps {
   title?: string;

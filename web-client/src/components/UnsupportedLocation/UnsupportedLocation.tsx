@@ -7,7 +7,21 @@ import mapPinLocation from '../../assets/mappinlocation.gif';
 
 const { Paragraph } = Typography;
 
-const Container = styled.div`
+const UnsupportedLocation = () => {
+  const { t } = useTranslation();
+
+  return (
+    <UnsupportedLocationWrapper>
+      <MapPinLocation src={mapPinLocation} alt="map pin location" />
+      <Title>{t('user_data_form.geolocation_unavailable_title')}</Title>
+      <Explanation>
+        {t('user_data_form.geolocation_unavailable_text')}
+      </Explanation>
+    </UnsupportedLocationWrapper>
+  );
+};
+
+const UnsupportedLocationWrapper = styled.div`
   min-height: 585px;
 `;
 
@@ -18,7 +32,7 @@ const MapPinLocation = styled.img`
   margin: auto;
 `;
 
-const StyledTitle = styled.h5`
+const Title = styled.h5`
   font-size: 20px;
   margin-top: 32px;
   text-align: center;
@@ -28,21 +42,5 @@ const Explanation = styled(Paragraph)`
   margin-top: 34px;
   text-align: center;
 `;
-
-const UnsupportedLocation = () => {
-  const { t } = useTranslation();
-
-  return (
-    <Container>
-      <MapPinLocation src={mapPinLocation} alt="map pin location" />
-      <StyledTitle>
-        {t('user_data_form.geolocation_unavailable_title')}
-      </StyledTitle>
-      <Explanation>
-        {t('user_data_form.geolocation_unavailable_text')}
-      </Explanation>
-    </Container>
-  );
-};
 
 export default UnsupportedLocation;
