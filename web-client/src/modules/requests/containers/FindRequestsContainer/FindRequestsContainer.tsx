@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import LoadingWrapper from '../../../../components/LoadingWrapper/LoadingWrapper';
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -24,18 +24,6 @@ import { OfferStatus } from '../../../../models/offers';
 import { ApplicationPreference } from '../../../../models/users';
 import RequestItem from '../../components/RequestItem/RequestItem';
 import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
-
-interface MapRequestProps {
-  center: Coords;
-  id: string;
-}
-
-const RequestDetails = styled.div`
-  position: fixed;
-  bottom: 64px;
-  width: 100%;
-  background: white;
-`;
 
 const FindRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -218,6 +206,16 @@ const FindRequestsContainer: React.FC = () => {
   );
 };
 
-FindRequestsContainer.propTypes = {};
+const RequestDetails = styled.div`
+  position: fixed;
+  bottom: 64px;
+  width: 100%;
+  background: white;
+`;
+
+interface MapRequestProps {
+  center: Coords;
+  id: string;
+}
 
 export default FindRequestsContainer;

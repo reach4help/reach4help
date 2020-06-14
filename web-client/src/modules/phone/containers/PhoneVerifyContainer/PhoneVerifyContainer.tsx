@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router-dom';
 import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
-import IntroWrapper from 'src/components/IntroWrapper/IntroWrapper';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import { verifyOTPPhone } from 'src/ducks/auth/phone/actions';
 import { AppState } from 'src/store';
 
+import IntroWrapper from '../../../../components/IntroComponent/IntroComponent';
 import PhoneNumberVerifyForm from '../../components/PhoneNumberVerifyForm/PhoneNumberVerifyForm';
 import { PhoneEntryLocation } from '../../pages/routes/PhoneEntryRoute/constants';
 
@@ -67,7 +67,5 @@ const PhoneVerifyContainer: React.FC = () => {
     </IntroWrapper>
   );
 };
-
-PhoneVerifyContainer.propTypes = {};
 
 export default PhoneVerifyContainer;

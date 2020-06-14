@@ -13,7 +13,9 @@ const UnsupportedLocation = () => {
   return (
     <UnsupportedLocationWrapper>
       <MapPinLocation src={mapPinLocation} alt="map pin location" />
-      <Title>{t('user_data_form.geolocation_unavailable_title')}</Title>
+      <UnsupportedLocationTitle>
+        {t('user_data_form.geolocation_unavailable_title')}
+      </UnsupportedLocationTitle>
       <Explanation>
         {t('user_data_form.geolocation_unavailable_text')}
       </Explanation>
@@ -32,7 +34,7 @@ const MapPinLocation = styled.img`
   margin: auto;
 `;
 
-const Title = styled.h5`
+const UnsupportedLocationTitle = styled.h5`
   font-size: 20px;
   margin-top: 32px;
   text-align: center;

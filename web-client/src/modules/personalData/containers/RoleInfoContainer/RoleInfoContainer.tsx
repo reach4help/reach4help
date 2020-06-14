@@ -29,6 +29,4 @@ const RoleInfoContainer: React.FC = () => {
   );
 };
 
-RoleInfoContainer.propTypes = {};
-
 export default RoleInfoContainer;

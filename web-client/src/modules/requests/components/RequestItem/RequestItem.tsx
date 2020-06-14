@@ -11,95 +11,6 @@ import avgRating from '../../assets/pinAverageRating.svg';
 import defaultUserPic from '../../assets/role_pin.png';
 import warningSign from '../../assets/warningExclamation.svg';
 
-const Item = styled.div`
-  overflow: auto;
-  margin: 15px;
-  padding: 12px;
-  background: #ffffff;
-  border: 1px solid ${COLORS.strokeCards};
-  border-radius: 2px;
-`;
-
-const Text = styled.div`
-  float: left;
-  font-family: Roboto, sans-serif;
-  color: rgba(0, 0, 0, 0.65);
-  padding: 5px;
-`;
-
-const StyledTitle = styled.h4`
-  font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 5px;
-`;
-
-const StyledText = styled.p`
-  margin-bottom: 3px;
-  font-family: Roboto, sans-serif;
-`;
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const UserPic = styled.img`
-  float: left;
-  width: 56px;
-  height: 56px;
-  margin: 5px;
-  border-radius: 105px;
-  animation: ${fadeIn} 0.75s;
-  object-fit: cover;
-`;
-
-const StyledButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-const UserDetails = styled.div`
-  display: inline-block;
-  margin-left: 15px;
-`;
-
-const StyledIcon = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-`;
-
-const WarningMessage = styled.div`
-  border: 1px solid ${COLORS.secondaryLight};
-  color: rgba(0, 0, 0, 0.65);
-  font-family: Roboto;
-  font-size: 12px;
-  line-height: 20px;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 15px;
-  padding: 12px;
-  border-radius: 2px;
-`;
-
-export interface RequestItemProps {
-  request: Request;
-  handleRequest: (action?: boolean) => void;
-  isCavAndOpenRequest: boolean;
-  hideUserPic?: boolean;
-  offers?: Record<string, Offer>;
-  loading?: boolean;
-  toCloseRequest?: (action?: boolean) => void;
-  isPinAndOpenRequest?: boolean;
-}
-
 const RequestItem: React.FC<RequestItemProps> = ({
   request,
   handleRequest,
@@ -166,12 +77,12 @@ const RequestItem: React.FC<RequestItemProps> = ({
         </Row>
         <Row>
           <Col span={12} offset={12}>
-            <StyledButton
+            <CloseButton
               onClick={() => toCloseRequest()}
               style={{ fontSize: '16px' }}
             >
               Close Request
-            </StyledButton>
+            </CloseButton>
           </Col>
         </Row>
       </WarningMessage>
@@ -190,28 +101,26 @@ const RequestItem: React.FC<RequestItemProps> = ({
             alt="Profile pic"
           />
           <UserDetails style={{ color: 'rgba(0, 0, 0, 0.85)' }}>
-            <StyledText style={{ fontSize: '18px' }}>
+            <Paragraph style={{ fontSize: '18px' }}>
               {request.pinUserSnapshot.displayName}
-            </StyledText>
+            </Paragraph>
             <div style={{ display: 'flex' }}>
-              <StyledIcon src={avgRating} />
-              <StyledText>{request.pinUserSnapshot.averageRating}</StyledText>
+              <Icon src={avgRating} />
+              <Paragraph>{request.pinUserSnapshot.averageRating}</Paragraph>
             </div>
           </UserDetails>
         </div>
         <hr style={{ margin: '5px' }} />
-        <Text>
-          <StyledTitle style={{ color: 'rgba(0, 0, 0, 1)' }}>
-            {request.title}
-          </StyledTitle>
-          <StyledText
+        <RequestItemDetails>
+          <Title style={{ color: 'rgba(0, 0, 0, 1)' }}>{request.title}</Title>
+          <Paragraph
             style={{
               color: 'rgba(0, 0, 0, 0.85)',
               marginBottom: '20px',
             }}
           >
             {request.description}
-          </StyledText>
+          </Paragraph>
           <Row>
             <Col span={11}>
               <StepBackButton
@@ -238,7 +147,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
               </StepForwardButton>
             </Col>
           </Row>
-        </Text>
+        </RequestItemDetails>
       </Item>
     );
   }
@@ -250,13 +159,13 @@ const RequestItem: React.FC<RequestItemProps> = ({
           onClick={handleRequestClick}
           style={{ display: 'flex', justifyContent: 'space-between' }}
         >
-          <Text
+          <RequestItemDetails
             style={{
               width: '75%',
               whiteSpace: 'nowrap',
             }}
           >
-            <StyledTitle
+            <Title
               style={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -264,16 +173,16 @@ const RequestItem: React.FC<RequestItemProps> = ({
               }}
             >
               {request.title}
-            </StyledTitle>
-            <StyledText
+            </Title>
+            <Paragraph
               style={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
               }}
             >
               {request.description}
-            </StyledText>
-          </Text>
+            </Paragraph>
+          </RequestItemDetails>
           {!hideUserPic && (
             <UserPic
               style={{
@@ -289,5 +198,94 @@ const RequestItem: React.FC<RequestItemProps> = ({
     </>
   );
 };
+
+const Item = styled.div`
+  overflow: auto;
+  margin: 15px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid ${COLORS.strokeCards};
+  border-radius: 2px;
+`;
+
+const RequestItemDetails = styled.div`
+  float: left;
+  font-family: Roboto, sans-serif;
+  color: rgba(0, 0, 0, 0.65);
+  padding: 5px;
+`;
+
+const Title = styled.h4`
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 5px;
+`;
+
+const Paragraph = styled.p`
+  margin-bottom: 3px;
+  font-family: Roboto, sans-serif;
+`;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const UserPic = styled.img`
+  float: left;
+  width: 56px;
+  height: 56px;
+  margin: 5px;
+  border-radius: 105px;
+  animation: ${fadeIn} 0.75s;
+  object-fit: cover;
+`;
+
+const CloseButton = styled(Button)`
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+const UserDetails = styled.div`
+  display: inline-block;
+  margin-left: 15px;
+`;
+
+const Icon = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+`;
+
+const WarningMessage = styled.div`
+  border: 1px solid ${COLORS.secondaryLight};
+  color: rgba(0, 0, 0, 0.65);
+  font-family: Roboto;
+  font-size: 12px;
+  line-height: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 2px;
+`;
+
+export interface RequestItemProps {
+  request: Request;
+  handleRequest: (action?: boolean) => void;
+  isCavAndOpenRequest: boolean;
+  hideUserPic?: boolean;
+  offers?: Record<string, Offer>;
+  loading?: boolean;
+  toCloseRequest?: (action?: boolean) => void;
+  isPinAndOpenRequest?: boolean;
+}
 
 export default RequestItem;

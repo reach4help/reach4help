@@ -44,13 +44,13 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
     <>
       {/* TODO group items by date, then only render once heading date */}
       <HeadingDate>{dateString}</HeadingDate>
-      <StyledListItem className={align}>
+      <ListItem className={align}>
         <ListItemBullet src={isCavItem ? CavBulletIcon : PinBulletIcon} />
         <MessageBox className={`message-box ${isCavItem ? 'cav' : 'pin'}`}>
           {t(`timeline.${item.action}`, messagePlaceholders)}
           <TimeAgo>{moment(date).fromNow()}</TimeAgo>
         </MessageBox>
-      </StyledListItem>
+      </ListItem>
     </>
   );
 };
@@ -64,9 +64,9 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
       a.createdAt.toMillis() - b.createdAt.toMillis(),
   );
   return (
-    <Wrapper>
+    <TimelineListWrapper>
       <Title>Request Timeline</Title>
-      <StyledList>
+      <List>
         <VerticalSeparator />
         {sortedItemsByDate.map((item, index) => (
           <RequestTimelineListItem
@@ -75,18 +75,18 @@ const TimelineList: React.FC<RequestTimelineListProps> = ({
             isCurrentUserItem={item.actorRef.id === currentUser.id}
           />
         ))}
-      </StyledList>
-    </Wrapper>
+      </List>
+    </TimelineListWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const TimelineListWrapper = styled.div`
   width: 100%;
   flex: auto;
   overflow: scroll;
 `;
 
-const StyledListItem = styled.li`
+const ListItem = styled.li`
   display: inline-block;
   width: 50%;
   position: relative;
@@ -159,7 +159,7 @@ const MessageBox = styled.div`
   }
 `;
 
-const StyledList = styled.ul`
+const List = styled.ul`
   position: relative;
   padding: 0;
   margin: 0;

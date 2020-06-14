@@ -12,18 +12,83 @@ import { OfferStatus } from 'src/models/offers';
 import { OfferWithLocation as Offer } from 'src/models/offers/offersWithLocation';
 import styled from 'styled-components';
 
-interface OffersListProps {
-  offers: Record<string, Offer>;
-  loading: boolean;
-  destinationCoords: firebase.firestore.GeoPoint;
-  handleOffer: (action: boolean, id: string) => void;
-}
+const OfferItem: React.FC<OfferItemProps> = ({
+  offer,
+  handleOffer,
+  destinationCoords,
+}): React.ReactElement => (
+  <Item>
+    {/* {offer.cavUserSnapshot.displayName} */}
+    <UserPic
+      src={
+        offer.cavUserSnapshot.displayPicture
+          ? offer.cavUserSnapshot.displayPicture
+          : ''
+      }
+      alt="Display Picture"
+    />
+    <UserName>{offer.cavUserSnapshot.displayName}</UserName>
+    <TextVolunteer>Volunteer</TextVolunteer>
+    <IconsBlock>
+      <IconContainerFirst>
+        <HeartOutlined />
+      </IconContainerFirst>
+      <TextIcon>{offer.cavUserSnapshot.casesCompleted}</TextIcon>
+      <IconContainer>
+        <StarOutlined />
+      </IconContainer>
+      <TextIcon>{offer.cavUserSnapshot.cavRatingsReceived}</TextIcon>
+      <IconContainer>
+        <EnvironmentOutlined />
+      </IconContainer>
+      <TextIcon>
+        {haversineDistance(offer.address.coords, destinationCoords)} miles
+      </TextIcon>
+    </IconsBlock>
+    <ButtonsContainer>
+      <RejectButton onClick={() => handleOffer(false)}>
+        <UserSwitchOutlined />
+        Reject
+      </RejectButton>
+      <AcceptButton onClick={() => handleOffer(true)}>
+        <HeartOutlined />
+        Accept
+      </AcceptButton>
+    </ButtonsContainer>
+  </Item>
+);
 
-interface OfferItemProps {
-  offer: Offer;
-  handleOffer: (action: boolean) => void;
-  destinationCoords: firestore.GeoPoint;
-}
+const OffersList: React.FC<OffersListProps> = ({
+  offers,
+  handleOffer,
+  destinationCoords,
+}): React.ReactElement => {
+  const [offersList, setOffersList] = useState<React.ReactElement<any>[]>([]);
+
+  useEffect(() => {
+    const internalOffersList: React.ReactElement<any>[] = [];
+    for (const key in offers) {
+      if (offers[key] && offers[key].status !== OfferStatus.rejected) {
+        internalOffersList.push(
+          <OfferItem
+            handleOffer={(action: boolean) => handleOffer(action, key)}
+            offer={offers[key]}
+            destinationCoords={destinationCoords}
+          />,
+        );
+      }
+    }
+
+    setOffersList(internalOffersList);
+  }, [offers, handleOffer, setOffersList, destinationCoords]);
+
+  return (
+    <>
+      <VolunteerSelectTitle>Select A Volunteer</VolunteerSelectTitle>
+      {offersList}
+    </>
+  );
+};
 
 const Item = styled.div`
   overflow: auto;
@@ -35,7 +100,7 @@ const Item = styled.div`
   width: -webkit-fill-available;
 `;
 
-const Title = styled.h1`
+const VolunteerSelectTitle = styled.h1`
   margin: 0;
   margin-top: 20px;
   font-size: 1.2rem;
@@ -85,7 +150,7 @@ const TextIcon = styled.text`
   margin-left: 10px;
 `;
 
-const StyledButton = styled(Button)`
+const RejectButton = styled(Button)`
   height: 36px;
   border-radius: 4px;
   max-width: 150px;
@@ -95,7 +160,7 @@ const StyledButton = styled(Button)`
   text-overflow: ellipsis;
 `;
 
-const AcceptButton = styled(StyledButton)`
+const AcceptButton = styled(RejectButton)`
   background-color: #52c41a !important;
   color: #fff !important;
   margin-left: 14px;
@@ -105,82 +170,17 @@ const ButtonsContainer = styled.div`
   margin-top: 12px;
 `;
 
-const OfferItem: React.FC<OfferItemProps> = ({
-  offer,
-  handleOffer,
-  destinationCoords,
-}): React.ReactElement => (
-  <Item>
-    {/* {offer.cavUserSnapshot.displayName} */}
-    <UserPic
-      src={
-        offer.cavUserSnapshot.displayPicture
-          ? offer.cavUserSnapshot.displayPicture
-          : ''
-      }
-      alt="Display Picture"
-    />
-    <UserName>{offer.cavUserSnapshot.displayName}</UserName>
-    <TextVolunteer>Volunteer</TextVolunteer>
-    <IconsBlock>
-      <IconContainerFirst>
-        <HeartOutlined />
-      </IconContainerFirst>
-      <TextIcon>{offer.cavUserSnapshot.casesCompleted}</TextIcon>
-      <IconContainer>
-        <StarOutlined />
-      </IconContainer>
-      <TextIcon>{offer.cavUserSnapshot.cavRatingsReceived}</TextIcon>
-      <IconContainer>
-        <EnvironmentOutlined />
-      </IconContainer>
-      <TextIcon>
-        {haversineDistance(offer.address.coords, destinationCoords)} miles
-      </TextIcon>
-    </IconsBlock>
-    <ButtonsContainer>
-      <StyledButton onClick={() => handleOffer(false)}>
-        <UserSwitchOutlined />
-        Reject
-      </StyledButton>
-      <AcceptButton onClick={() => handleOffer(true)}>
-        <HeartOutlined />
-        Accept
-      </AcceptButton>
-    </ButtonsContainer>
-  </Item>
-);
+interface OffersListProps {
+  offers: Record<string, Offer>;
+  loading: boolean;
+  destinationCoords: firebase.firestore.GeoPoint;
+  handleOffer: (action: boolean, id: string) => void;
+}
 
-const OffersList: React.FC<OffersListProps> = ({
-  offers,
-  handleOffer,
-  destinationCoords,
-}): React.ReactElement => {
-  const [offersList, setOffersList] = useState<React.ReactElement<any>[]>([]);
-
-  useEffect(() => {
-    const internalOffersList: React.ReactElement<any>[] = [];
-    for (const key in offers) {
-      if (offers[key] && offers[key].status !== OfferStatus.rejected) {
-        internalOffersList.push(
-          <OfferItem
-            handleOffer={(action: boolean) => handleOffer(action, key)}
-            offer={offers[key]}
-            destinationCoords={destinationCoords}
-          />,
-        );
-      }
-    }
-
-    setOffersList(internalOffersList);
-  }, [offers, handleOffer, setOffersList, destinationCoords]);
-
-  return (
-    <>
-      <Title>Select A Volunteer</Title>
-      {offersList}
-    </>
-  );
-};
+interface OfferItemProps {
+  offer: Offer;
+  handleOffer: (action: boolean) => void;
+  destinationCoords: firestore.GeoPoint;
+}
 
 export default OffersList;

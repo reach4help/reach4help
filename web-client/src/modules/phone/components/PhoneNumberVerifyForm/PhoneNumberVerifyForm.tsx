@@ -6,30 +6,6 @@ import styled from 'styled-components';
 
 const { Text } = Typography;
 
-const Description = styled(Text)`
-  margin-top: 3rem;
-  text-align: center;
-`;
-
-const StyledInput = styled(Input)`
-  margin-top: 1rem;
-  width: 11rem;
-`;
-
-const Info = styled(Text)`
-  color: ${COLORS.faded};
-  text-align: center;
-`;
-
-const StyledButton = styled(Button)`
-  margin-top: 40px;
-`;
-
-interface PhoneNumberVerifyFormProps {
-  handleFormSubmit: Function;
-  loading: boolean;
-}
-
 const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
   handleFormSubmit,
   loading,
@@ -61,7 +37,7 @@ const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
           },
         ]}
       >
-        <StyledInput placeholder="123456" maxLength={6} />
+        <PhoneInput placeholder="123456" maxLength={6} />
       </Form.Item>
       <Info>
         {t('verificationCode.info')}
@@ -69,12 +45,36 @@ const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
         <a href="/phone/entry">{t('verificationCode.resend')}</a>
       </Info>
       <Form.Item>
-        <StyledButton loading={loading} htmlType="submit" type="primary">
+        <VerifyButton loading={loading} htmlType="submit" type="primary">
           {t('verify')}
-        </StyledButton>
+        </VerifyButton>
       </Form.Item>
     </Form>
   );
 };
+
+const Description = styled(Text)`
+  margin-top: 3rem;
+  text-align: center;
+`;
+
+const PhoneInput = styled(Input)`
+  margin-top: 1rem;
+  width: 11rem;
+`;
+
+const Info = styled(Text)`
+  color: ${COLORS.faded};
+  text-align: center;
+`;
+
+const VerifyButton = styled(Button)`
+  margin-top: 40px;
+`;
+
+interface PhoneNumberVerifyFormProps {
+  handleFormSubmit: Function;
+  loading: boolean;
+}
 
 export default PhoneNumberVerifyForm;

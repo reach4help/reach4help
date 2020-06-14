@@ -20,11 +20,6 @@ import styled, { css } from 'styled-components';
 
 const { Text } = Typography;
 
-interface TopPanelProps {
-  request: RequestWithOffersAndTimeline;
-  user?: User;
-}
-
 const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
   const [togglePanel, setTogglePanel] = useState(false);
   const userRequestStatus = request.status;
@@ -344,5 +339,10 @@ const AddressInfo = styled.div`
     margin-right: 0.5rem;
   }
 `;
+
+interface TopPanelProps {
+  request: RequestWithOffersAndTimeline;
+  user?: User;
+}
 
 export default TopPanel;
