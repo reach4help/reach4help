@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
 
@@ -14,38 +15,36 @@ const NotificationsHeader: React.FC<NotificationsHeaderProps> = ({
 }): React.ReactElement => {
   const { t } = useTranslation();
 
+  const NotificationHeaderContainer = styled.div`
+    margin: 25px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-family: Roboto, sans-serif;
+  `;
+
+  const Header2 = styled.h2`
+    background-color: ${isCav ? COLORS.primaryDark : COLORS.brandOrange};
+    color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 17px;
+    border-radius: 5px;
+  `;
+
+  const Header1 = styled.h1`
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 30px;
+  `;
+
   return (
-    <div
-      style={{
-        margin: '25px',
-        marginBottom: '15px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        fontFamily: 'Roboto, sans-serif',
-      }}
-    >
-      <h1
-        style={{
-          color: 'rgba(0, 0, 0, 0.65)',
-          fontSize: '30px',
-        }}
-      >
+    <NotificationHeaderContainer>
+      <Header1>
         <b> {t('components.notification.notifications')} </b>
-      </h1>
-      <h2
-        style={{
-          backgroundColor: isCav ? COLORS.primaryDark : COLORS.brandOrange,
-          color: '#FFFFFF',
-          paddingLeft: '10px',
-          paddingRight: '10px',
-          marginTop: '10px',
-          marginBottom: '17px',
-          borderRadius: '5px',
-        }}
-      >
-        {numNotifications}
-      </h2>
-    </div>
+      </Header1>
+      <Header2>{numNotifications}</Header2>
+    </NotificationHeaderContainer>
   );
 };
 export default NotificationsHeader;

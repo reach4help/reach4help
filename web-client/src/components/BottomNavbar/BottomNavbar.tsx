@@ -12,7 +12,7 @@ import styled from 'styled-components';
 
 import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
 
-const BottomNavbar: React.FC<BottomNavProps> = ({
+const BottomNavbar: React.FC<BottomNavbarProps> = ({
   openMenu,
   openNotifications,
   isCav,
@@ -20,7 +20,7 @@ const BottomNavbar: React.FC<BottomNavProps> = ({
 }) => {
   const history = useHistory();
   return (
-    <Wrapper>
+    <BottomNavbarContainer>
       <NavButton isCav={isCav} onClick={openMenu}>
         <SideMenuIcon />
       </NavButton>
@@ -46,7 +46,7 @@ const BottomNavbar: React.FC<BottomNavProps> = ({
           <NotificationsIcon />
         )}
       </NavButton>
-    </Wrapper>
+    </BottomNavbarContainer>
   );
 };
 
@@ -68,7 +68,7 @@ const NavButton = styled('button')<{ isCav?: boolean }>`
   }
 `;
 
-const Wrapper = styled.div`
+const BottomNavbarContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -80,7 +80,7 @@ const Wrapper = styled.div`
   z-index: 999;
 `;
 
-interface BottomNavProps {
+interface BottomNavbarProps {
   openMenu: () => void;
   openNotifications: () => void;
   isCav?: boolean;
