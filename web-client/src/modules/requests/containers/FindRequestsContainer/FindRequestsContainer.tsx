@@ -78,6 +78,10 @@ const FindRequestsContainer: React.FC = () => {
   );
 
   useEffect(() => {
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (
       (!setRequestState.loading && setRequestState.success) ||
       (!setOfferState.loading && setOfferState.success)

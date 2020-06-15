@@ -8,7 +8,10 @@ import {
 } from 'src/components/InformationModal/InformationModal';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getOngoingRequests } from 'src/ducks/requests/actions';
+import {
+  getOngoingRequests,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
@@ -30,6 +33,10 @@ const OngoingRequestsContainer: React.FC = () => {
     ({ requests }: { requests: RequestState }) =>
       requests.syncOngoingRequestsState,
   );
+
+  useEffect(() => {
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (
