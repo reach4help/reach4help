@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getAcceptedRequests,
@@ -12,6 +15,7 @@ import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
 
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import Header from '../../components/Header/Header';
 import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
@@ -71,6 +75,16 @@ const OpenRequestsContainer: React.FC = () => {
     return <LoadingWrapper />;
   }
 
+  const instructions = [
+    t('information_modal.OpenRequestsContainer.0'),
+    t('information_modal.OpenRequestsContainer.1'),
+    t('information_modal.OpenRequestsContainer.2'),
+  ];
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.OpenRequestsContainer',
+    userid: profileState.uid,
+  });
+
   return (
     <>
       <Header
@@ -100,10 +114,13 @@ const OpenRequestsContainer: React.FC = () => {
         RequestItem={RequestItem}
         toCloseRequest={toCloseRequest}
       />
+      <InformationModal
+        title={t('information_modal.OpenRequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
+      />
     </>
   );
 };
-
-OpenRequestsContainer.propTypes = {};
 
 export default OpenRequestsContainer;

@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 
 import { ButtonWrapper } from "./style"
 
+// button component with consistent styling
 function Button({
   textColor,
   backgroundColor,
@@ -26,7 +27,7 @@ function Button({
 Button.propTypes = {
   textColor: PropTypes.string,
   backgroundColor: PropTypes.string,
-  outlineColor: PropTypes.string,
+  outlineColor: PropTypes.string, // border color on hover
   onClick: PropTypes.func,
   children: PropTypes.node,
 }

@@ -3,8 +3,9 @@ import React, { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
 import CenteredCard from 'src/components/CenteredCard/CenteredCard';
 import GradientBackground from 'src/components/GradientBackground/GradientBackground';
-import IntroWrapper from 'src/components/IntroWrapper/IntroWrapper';
 import LoginContainer from 'src/modules/login/containers/LoginContainer/LoginContainer';
+
+import IntroWrapper from '../../../../../components/IntroComponent/IntroComponent';
 
 const LoginRoute: React.FC = (): ReactElement => {
   const location = useLocation();

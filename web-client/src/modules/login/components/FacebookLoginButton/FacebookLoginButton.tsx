@@ -13,9 +13,6 @@ const FBButton = (props: any) => {
     </Button>
   );
 };
-interface FacebookLoginButtonProps {
-  onAuthenticate: Function;
-}
 
 const FacebookLoginButton: React.FC<FacebookLoginButtonProps> = ({
   onAuthenticate,
@@ -24,5 +21,9 @@ const FacebookLoginButton: React.FC<FacebookLoginButtonProps> = ({
     <FBButton onClick={onAuthenticate} />
   </>
 );
+
+interface FacebookLoginButtonProps {
+  onAuthenticate: Function;
+}
 
 export default FacebookLoginButton;

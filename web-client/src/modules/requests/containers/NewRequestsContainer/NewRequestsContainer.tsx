@@ -4,7 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { InformationModal } from 'src/components/InformationModal/InformationModal';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -23,21 +26,8 @@ import RequestReview, {
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 import styled from 'styled-components';
 
-const RequestDetails = styled.div`
-  width: 100%;
-  background: white;
-`;
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
-
-const MapContainer = styled.div`
-  // aspect ratio = 16:9
-  height: 56.25vw;
-
-  @media ${DEVICE_MIN.laptop} {
-    max-height: 400px;
-  }
-`;
 
 const NewRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -197,10 +187,13 @@ const NewRequestsContainer: React.FC = () => {
     t('information_modal.NewRequestsContainer.0'),
     t('information_modal.NewRequestsContainer.1'),
     t('information_modal.NewRequestsContainer.2'),
+    t('information_modal.NewRequestsContainer.3'),
+    t('information_modal.NewRequestsContainer.4'),
   ];
-  const instructionModalLocalStorageKey = profileState
-    ? `reach4help.modalSeen.NewRequestsContainer.${profileState.uid}`
-    : 'reach4help.modalSeen.NewRequestsContainer';
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.NewRequestsContainer',
+    userid: profileState.uid,
+  });
 
   return (
     <>
@@ -238,6 +231,18 @@ const NewRequestsContainer: React.FC = () => {
   );
 };
 
-NewRequestsContainer.propTypes = {};
+const RequestDetails = styled.div`
+  width: 100%;
+  background: white;
+`;
+
+const MapContainer = styled.div`
+  // aspect ratio = 16:9
+  height: 56.25vw;
+
+  @media ${DEVICE_MIN.laptop} {
+    max-height: 400px;
+  }
+`;
 
 export default NewRequestsContainer;

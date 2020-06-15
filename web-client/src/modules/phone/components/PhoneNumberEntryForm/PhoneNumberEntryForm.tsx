@@ -11,26 +11,6 @@ import useForceUpdate from 'use-force-update';
 const { Text } = Typography;
 const { Option } = Select;
 
-const StyledInput = styled(Input)`
-  margin-top: 1rem;
-  width: 14rem;
-`;
-
-const Info = styled(Text)`
-  color: ${COLORS.faded};
-  text-align: center;
-`;
-
-const StyledButton = styled(Button)`
-  margin-top: 40px;
-`;
-
-interface PhoneNumberEntryFormProps {
-  handleFormSubmit: Function;
-  loading: boolean;
-  reset: boolean;
-}
-
 const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   handleFormSubmit,
   loading,
@@ -203,7 +183,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     >
       <Instructions>{t('phoneNumber.sub_title')}</Instructions>
 
-      <FormLabel>{t('phoneNumber.country_label')}</FormLabel>
+      <FormLabel>{t('phoneNumber.select_instructions')}</FormLabel>
       <Form.Item
         name="prefix"
         rules={[
@@ -230,7 +210,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
         </Select>
       </Form.Item>
 
-      <FormLabel>{t('phoneNumber.phone_label')}</FormLabel>
+      <FormLabel>{t('phoneNumber.input_instructions')}</FormLabel>
       <div style={{ display: 'flex' }}>
         <CountryCodeDisplay
           maxLength={4}
@@ -247,7 +227,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
             },
           ]}
         >
-          <StyledInput
+          <PhoneInput
             onChange={e => setDigits(e.target.value)}
             placeholder="1234567"
             maxLength={14}
@@ -264,17 +244,37 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
 
       <Info>{t('phoneNumber.info')}</Info>
       <Form.Item>
-        <StyledButton
+        <SubmitButton
           loading={loading}
           id="submitButton"
           htmlType="submit"
           type="primary"
         >
           {t('continue')}
-        </StyledButton>
+        </SubmitButton>
       </Form.Item>
     </Form>
   );
 };
+
+const PhoneInput = styled(Input)`
+  margin-top: 1rem;
+  width: 14rem;
+`;
+
+const Info = styled(Text)`
+  color: ${COLORS.faded};
+  text-align: center;
+`;
+
+const SubmitButton = styled(Button)`
+  margin-top: 40px;
+`;
+
+interface PhoneNumberEntryFormProps {
+  handleFormSubmit: Function;
+  loading: boolean;
+  reset: boolean;
+}
 
 export default PhoneNumberEntryForm;

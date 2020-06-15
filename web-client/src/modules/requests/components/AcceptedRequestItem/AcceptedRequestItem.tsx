@@ -7,58 +7,6 @@ import styled, { keyframes } from 'styled-components';
 import { COLORS } from '../../../../theme/colors';
 import defaultUserPic from '../../assets/role_pin.png';
 
-const Item = styled.div`
-  overflow: auto;
-  margin: 15px;
-  padding: 12px;
-  background: #ffffff;
-  border: 1px solid ${COLORS.strokeCards};
-  border-radius: 2px;
-`;
-
-const Text = styled.div`
-  float: left;
-  font-family: Roboto, sans-serif;
-  color: rgba(0, 0, 0, 0.65);
-  padding: 5px;
-`;
-
-const StyledTitle = styled.h4`
-  font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 5px;
-`;
-
-const StyledText = styled.p`
-  margin-bottom: 3px;
-  font-family: Roboto, sans-serif;
-`;
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const UserPic = styled.img`
-  float: left;
-  width: 56px;
-  height: 56px;
-  margin: 5px;
-  border-radius: 105px;
-  animation: ${fadeIn} 0.75s;
-  object-fit: cover;
-`;
-
-export interface RequestItemProps {
-  request: Request;
-  handleRequest: (action?: boolean) => void;
-  offers: Record<string, Offer>;
-}
-
 const RequestItem: React.FC<RequestItemProps> = ({
   request,
   handleRequest,
@@ -88,14 +36,12 @@ const RequestItem: React.FC<RequestItemProps> = ({
   };
   return (
     <Item onClick={handleRequestClick}>
-      <Text>
-        <StyledTitle style={{ color: 'rgba(0, 0, 0, 0.65)' }}>
-          {request.title}
-        </StyledTitle>
-        <StyledText style={{ marginBottom: '20px' }}>
+      <RequestItemText>
+        <Title style={{ color: 'rgba(0, 0, 0, 0.65)' }}>{request.title}</Title>
+        <InnerText style={{ marginBottom: '20px' }}>
           {request.description}
-        </StyledText>
-        <StyledText
+        </InnerText>
+        <InnerText
           style={{
             color: 'rgba(0, 0, 0, 0.45)',
             fontSize: '12px',
@@ -103,7 +49,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
           }}
         >
           {t('modules.requests.AcceptedRequestItem.choose_volunteer')}
-        </StyledText>
+        </InnerText>
         <div style={{ display: 'flex' }}>
           {displayOfferPics()}
           {Object.keys(offers).length > 4 && (
@@ -126,9 +72,61 @@ const RequestItem: React.FC<RequestItemProps> = ({
             >{`+${Object.keys(offers).length - 4}`}</div>
           )}
         </div>
-      </Text>
+      </RequestItemText>
     </Item>
   );
 };
+
+const Item = styled.div`
+  overflow: auto;
+  margin: 15px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid ${COLORS.strokeCards};
+  border-radius: 2px;
+`;
+
+const RequestItemText = styled.div`
+  float: left;
+  font-family: Roboto, sans-serif;
+  color: rgba(0, 0, 0, 0.65);
+  padding: 5px;
+`;
+
+const Title = styled.h4`
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 5px;
+`;
+
+const InnerText = styled.p`
+  margin-bottom: 3px;
+  font-family: Roboto, sans-serif;
+`;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const UserPic = styled.img`
+  float: left;
+  width: 56px;
+  height: 56px;
+  margin: 5px;
+  border-radius: 105px;
+  animation: ${fadeIn} 0.75s;
+  object-fit: cover;
+`;
+
+export interface RequestItemProps {
+  request: Request;
+  handleRequest: (action?: boolean) => void;
+  offers: Record<string, Offer>;
+}
 
 export default RequestItem;
