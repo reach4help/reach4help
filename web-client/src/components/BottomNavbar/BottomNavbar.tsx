@@ -23,7 +23,6 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
   return !visible ? (
     <></>
   ) : (
-  return (
     <BottomNavbarWrapper>
       <NavButton isCav={isCav} onClick={openMenu}>
         <SideMenuIcon />
