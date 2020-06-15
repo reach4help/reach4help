@@ -20,7 +20,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
 }) => {
   const history = useHistory();
   return (
-    <BottomNavbarContainer>
+    <BottomNavbarWrapper>
       <NavButton isCav={isCav} onClick={openMenu}>
         <SideMenuIcon />
       </NavButton>
@@ -46,7 +46,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
           <NotificationsIcon />
         )}
       </NavButton>
-    </BottomNavbarContainer>
+    </BottomNavbarWrapper>
   );
 };
 
@@ -68,7 +68,7 @@ const NavButton = styled('button')<{ isCav?: boolean }>`
   }
 `;
 
-const BottomNavbarContainer = styled.div`
+const BottomNavbarWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;

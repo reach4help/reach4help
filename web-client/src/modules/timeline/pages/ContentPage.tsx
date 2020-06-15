@@ -1,7 +1,7 @@
 import React, { lazy, ReactElement, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 
+import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import { TimelineAcceptedViewLocation } from './routes/TimelineAcceptedViewRoute/constants';
 import { TimelineViewLocation } from './routes/TimelineViewRoute/constants';
 

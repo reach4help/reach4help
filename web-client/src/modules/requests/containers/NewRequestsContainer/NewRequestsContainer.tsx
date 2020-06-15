@@ -26,21 +26,8 @@ import RequestReview, {
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 import styled from 'styled-components';
 
-const RequestDetails = styled.div`
-  width: 100%;
-  background: white;
-`;
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
-
-const MapContainer = styled.div`
-  // aspect ratio = 16:9
-  height: 56.25vw;
-
-  @media ${DEVICE_MIN.laptop} {
-    max-height: 400px;
-  }
-`;
 
 const NewRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -244,6 +231,18 @@ const NewRequestsContainer: React.FC = () => {
   );
 };
 
-NewRequestsContainer.propTypes = {};
+const RequestDetails = styled.div`
+  width: 100%;
+  background: white;
+`;
+
+const MapContainer = styled.div`
+  // aspect ratio = 16:9
+  height: 56.25vw;
+
+  @media ${DEVICE_MIN.laptop} {
+    max-height: 400px;
+  }
+`;
 
 export default NewRequestsContainer;

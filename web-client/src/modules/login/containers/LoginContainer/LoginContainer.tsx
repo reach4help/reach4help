@@ -10,7 +10,6 @@ import {
 import { AppState } from 'src/store';
 
 import Login from '../../components/Login/Login';
-import { LoginRedirectProps } from './constants';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',
@@ -46,6 +45,8 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   );
 };
 
-LoginContainer.propTypes = {};
+interface LoginRedirectProps {
+  redirectBack?: string;
+}
 
 export default LoginContainer;

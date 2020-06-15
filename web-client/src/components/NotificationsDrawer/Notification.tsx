@@ -8,24 +8,6 @@ import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/Timeline
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-const RequestNotification = styled.p`
-  margin-bottom: 0px;
-`;
-const RequestTitle = styled.span`
-  color: ${COLORS.brandOrange};
-`;
-
-interface NotificationProps {
-  cavUser: User;
-  offerStatus: OfferStatus;
-  offerRequest: Request | null;
-  requestRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >;
-  updatedAt: Date;
-  isCav?: boolean;
-}
-
 const Notification: React.FC<NotificationProps> = ({
   cavUser,
   offerStatus,
@@ -199,4 +181,23 @@ const Notification: React.FC<NotificationProps> = ({
     </>
   );
 };
+
+const RequestNotification = styled.p`
+  margin-bottom: 0px;
+`;
+const RequestTitle = styled.span`
+  color: ${COLORS.brandOrange};
+`;
+
+interface NotificationProps {
+  cavUser: User;
+  offerStatus: OfferStatus;
+  offerRequest: Request | null;
+  requestRef: firebase.firestore.DocumentReference<
+    firebase.firestore.DocumentData
+  >;
+  updatedAt: Date;
+  isCav?: boolean;
+}
+
 export default Notification;
