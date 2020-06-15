@@ -19,6 +19,8 @@ const doAddonAlignment = (
       return left || '12%';
     case 'right':
       return '88%';
+    case undefined:
+      return 0;
     default:
       return '50%';
   }

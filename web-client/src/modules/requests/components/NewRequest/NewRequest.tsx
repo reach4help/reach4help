@@ -60,10 +60,15 @@ const NewRequest: React.FC<NewRequestProps> = ({
     );
   };
 
+  const LeftLabelColStyle = styled(Col)`
+    font-size: 16x;
+    font-weight: 700;
+  `;
+
   const FormContent = (
     <MainDiv>
       <FormDiv>
-        <TitleWithAddon alignAddon="left" level={3} left="0%" transform="none">
+        <TitleWithAddon level={3} left="0%" transform="none">
           {t('newRequest.title')}
         </TitleWithAddon>
 
@@ -113,7 +118,6 @@ const NewRequest: React.FC<NewRequestProps> = ({
           </Row>
           <Form.Item
             name="type"
-            label={t('newRequest.form.type')}
             rules={[
               {
                 required: true,
@@ -121,14 +125,22 @@ const NewRequest: React.FC<NewRequestProps> = ({
               },
             ]}
           >
-            <Select onChange={toggleOtherField}>
-              {Object.keys(REQUEST_TYPES).map(key => (
-                <Option value={key} key={key}>
-                  {' '}
-                  {REQUEST_TYPES[key]}{' '}
-                </Option>
-              ))}
-            </Select>
+            <Row justify="space-between" align="middle">
+              <LeftLabelColStyle lg={3} md={4} sm={6} xs={8}>
+                {t('newRequest.form.type')}
+              </LeftLabelColStyle>
+              <Col md={10} sm={12} xs={14}>
+                <Select onChange={toggleOtherField}>
+                  {Object.keys(REQUEST_TYPES).map(key => (
+                    <Option value={key} key={key}>
+                      {' '}
+                      {REQUEST_TYPES[key]}{' '}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col lg={11} md={10} sm={6} xs={2} />
+            </Row>
           </Form.Item>
           {mayBeOtherField()}
           <FormItem
