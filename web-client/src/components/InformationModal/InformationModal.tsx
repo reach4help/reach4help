@@ -15,7 +15,6 @@ export const makeLocalStorageKey = ({ prefix, userid }) => {
     : 'reach4help.modalSeen.NewRequestsContainer';
   return key;
 };
-const R4HloveListItem = styled(List.Item)``;
 
 export const InformationModal: React.FC<InformationModalProps> = ({
   finishRequestHandler,
@@ -99,6 +98,10 @@ export const InformationModal: React.FC<InformationModalProps> = ({
     </Modal>
   );
 };
+
+const R4HloveListItem = styled(List.Item)`
+  display: flex;
+`;
 
 interface InformationModalProps {
   title?: string;

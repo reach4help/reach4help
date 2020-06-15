@@ -10,7 +10,25 @@ import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
 
 const { Title, Text } = Typography;
 
-const StyledTitle = styled(Title)`
+const Login: React.FC<LoginProps> = ({
+  onLoginFacebook,
+}): React.ReactElement => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <IntroLogo src={logo} alt="logo" />
+      <LoginTitle>{t('login.title')}</LoginTitle>
+      <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
+      <Info>{t('login.info')}</Info>
+      <FacebookContainer>
+        <FacebookLoginButton onAuthenticate={onLoginFacebook} />
+      </FacebookContainer>
+    </>
+  );
+};
+
+const LoginTitle = styled(Title)`
   margin-top: 20px;
   margin-bottom: 50px !important;
 `;
@@ -27,23 +45,5 @@ const FacebookContainer = styled.div`
 interface LoginProps {
   onLoginFacebook: Function;
 }
-
-const Login: React.FC<LoginProps> = ({
-  onLoginFacebook,
-}): React.ReactElement => {
-  const { t } = useTranslation();
-
-  return (
-    <>
-      <IntroLogo src={logo} alt="logo" />
-      <StyledTitle>{t('login.title')}</StyledTitle>
-      <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
-      <Info>{t('login.info')}</Info>
-      <FacebookContainer>
-        <FacebookLoginButton onAuthenticate={onLoginFacebook} />
-      </FacebookContainer>
-    </>
-  );
-};
 
 export default Login;
