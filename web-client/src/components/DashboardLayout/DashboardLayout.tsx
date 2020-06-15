@@ -54,7 +54,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   }, [offersState, setUnseenOffersKeys, setUnseenOffers, isCav]);
 
   return (
-    <DashboardLayoutContainer>
+    <DashboardLayoutWrapper>
       <TopNavbar />
       <MenuDrawer
         visible={menuVisible}
@@ -81,11 +81,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         isCav={isCav}
         unseenOffersCount={unseenOffers.length}
       />
-    </DashboardLayoutContainer>
+    </DashboardLayoutWrapper>
   );
 };
 
-const DashboardLayoutContainer = styled(Layout)`
+const DashboardLayoutWrapper = styled(Layout)`
   position: absolute;
   top: 0;
   bottom: 0;

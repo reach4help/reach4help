@@ -228,6 +228,17 @@
       "thankYouModalBodyPartb": "with"
     },
     "modules": {
+      "timeline": {
+        "components": {
+          "OffersList": {
+            "miles": "miles",
+            "kilometers": "kilometers",
+            "reject": "Reject",
+            "accept": "Accept",
+            "volunteer_select": "Select A Volunteer"
+          }
+        }
+      },
       "navigation": {
         "components": {
           "Header": {

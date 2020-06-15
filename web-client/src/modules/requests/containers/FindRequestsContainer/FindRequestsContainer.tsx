@@ -7,7 +7,6 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from 'src/components/InformationModal/InformationModal';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -28,17 +27,7 @@ import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 import styled from 'styled-components';
 
-interface MapRequestProps {
-  center: Coords;
-  id: string;
-}
-
-const RequestDetails = styled.div`
-  position: fixed;
-  bottom: 64px;
-  width: 100%;
-  background: white;
-`;
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 
 const FindRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -242,6 +231,16 @@ const FindRequestsContainer: React.FC = () => {
   );
 };
 
-FindRequestsContainer.propTypes = {};
+const RequestDetails = styled.div`
+  position: fixed;
+  bottom: 64px;
+  width: 100%;
+  background: white;
+`;
+
+interface MapRequestProps {
+  center: Coords;
+  id: string;
+}
 
 export default FindRequestsContainer;
