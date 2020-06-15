@@ -16,9 +16,13 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
   openMenu,
   openNotifications,
   isCav,
+  visible = true,
   unseenOffersCount,
 }) => {
   const history = useHistory();
+  return !visible ? (
+    <></>
+  ) : (
   return (
     <BottomNavbarWrapper>
       <NavButton isCav={isCav} onClick={openMenu}>
@@ -84,6 +88,7 @@ interface BottomNavbarProps {
   openMenu: () => void;
   openNotifications: () => void;
   isCav?: boolean;
+  visible?: boolean;
   unseenOffersCount: number;
 }
 
