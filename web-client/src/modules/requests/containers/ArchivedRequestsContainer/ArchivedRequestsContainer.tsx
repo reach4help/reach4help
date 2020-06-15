@@ -7,7 +7,10 @@ import {
 } from 'src/components/InformationModal/InformationModal';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getArchivedRequests } from 'src/ducks/requests/actions';
+import {
+  getArchivedRequests,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 
@@ -25,6 +28,10 @@ const ClosedRequestsContainer: React.FC = () => {
     ({ requests }: { requests: RequestState }) =>
       requests.syncArchivedRequestsState,
   );
+
+  useEffect(() => {
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (profileState.userRef && profileState.profile?.applicationPreference) {

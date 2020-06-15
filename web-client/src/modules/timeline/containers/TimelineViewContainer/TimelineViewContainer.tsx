@@ -127,7 +127,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         accepted &&
         profileState.profile.applicationPreference === ApplicationPreference.cav
       ) {
-        history.push(TimelineViewLocation.toUrl({ requestId }));
+        history.replace(TimelineViewLocation.toUrl({ requestId }));
       } else {
         if (
           !requestsState.syncOpenRequestsState.data &&
@@ -197,7 +197,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       profileState.userRef
     ) {
       if (request && request.status === RequestStatus.ongoing && accepted) {
-        history.push(TimelineViewLocation.toUrl({ requestId }));
+        history.replace(TimelineViewLocation.toUrl({ requestId }));
       }
       if (request && request.offers) {
         let shouldRedirect = true;
@@ -207,14 +207,14 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           }
         }
         if (shouldRedirect && accepted) {
-          history.push(TimelineViewLocation.toUrl({ requestId }));
+          history.replace(TimelineViewLocation.toUrl({ requestId }));
         } else if (
           !shouldRedirect &&
           !accepted &&
           profileState.profile.applicationPreference ===
             ApplicationPreference.pin
         ) {
-          history.push(TimelineAcceptedViewLocation.toUrl({ requestId }));
+          history.replace(TimelineAcceptedViewLocation.toUrl({ requestId }));
         }
       }
     }
@@ -287,6 +287,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     <>
       <TopPanel
         request={request}
+        goBack={() => {
+          dispatch(resetSetRequestState());
+          setTimeout(() => {
+            history.goBack();
+          }, 100);
+        }}
         user={
           profileState.profile.applicationPreference ===
           ApplicationPreference.cav

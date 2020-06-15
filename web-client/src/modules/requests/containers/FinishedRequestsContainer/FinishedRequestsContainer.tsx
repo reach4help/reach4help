@@ -8,7 +8,10 @@ import {
 } from 'src/components/InformationModal/InformationModal';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getFinishedRequests } from 'src/ducks/requests/actions';
+import {
+  getFinishedRequests,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
@@ -30,6 +33,10 @@ const CompletedRequestsContainer: React.FC = () => {
     ({ requests }: { requests: RequestState }) =>
       requests.syncFinishedRequestsState,
   );
+
+  useEffect(() => {
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (
