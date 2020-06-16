@@ -231,7 +231,6 @@ const FindRequestsContainer: React.FC = () => {
   });
 
   const showMapIfMapTab = key => {
-    console.log('tab key', key);
     if (key === 'map') {
       setForceMapRerender(true);
     } else {
