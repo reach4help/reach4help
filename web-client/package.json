@@ -28,7 +28,7 @@
     "formik": "^2.1.4",
     "google-map-react": "^1.1.7",
     "i18next": "^19.3.3",
-    "i18next-browser-languagedetector": "^4.2.0",
+    "i18next-browser-languagedetector": "^4.3.0",
     "immer": "^6.0.2",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
