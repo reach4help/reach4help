@@ -240,8 +240,6 @@ const FindRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <div> forceMapRerender {forceMapRerender.toString()}</div>
-
       <Tabs
         defaultActiveKey="map"
         onChange={showMapIfMapTab}
