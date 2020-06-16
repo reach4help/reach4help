@@ -1,10 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types"
+
 import { ThemeProvider } from "styled-components"
 import { LayoutWrapper } from "./style"
 
 import Theme from "../../styles/theme"
 import GlobalStyles from "../../styles/global"
+
+import "src/locales/i18n"
 
 if (typeof window !== "undefined") {
   // eslint-disable-next-line global-require
@@ -14,6 +17,7 @@ if (typeof window !== "undefined") {
   })
 }
 
+// applies necessary styling and theming to pages
 function Layout({ children }) {
   return (
     <ThemeProvider theme={Theme}>

@@ -28,6 +28,7 @@
     "formik": "^2.1.4",
     "google-map-react": "^1.1.7",
     "i18next": "^19.3.3",
+    "i18next-browser-languagedetector": "^4.3.0",
     "immer": "^6.0.2",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
@@ -50,6 +51,7 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.1",
     "typescript": "~3.7.2",
+    "use-force-update": "^1.0.7",
     "yup": "^0.28.3"
   },
   "scripts": {

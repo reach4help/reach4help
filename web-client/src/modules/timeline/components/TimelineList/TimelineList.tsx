@@ -10,10 +10,11 @@ import { ApplicationPreference, User } from '../../../../models/users';
 
 const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
   item,
-  align,
+  isCurrentUserItem,
 }) => {
   const { t } = useTranslation();
 
+  const align = isCurrentUserItem ? 'right' : 'left';
   const isCavItem =
     item.actorSnapshot.applicationPreference === ApplicationPreference.cav;
   const date = new Date(item.createdAt.toDate());
@@ -21,6 +22,29 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
     day: 'numeric',
     month: 'short',
   });
+
+  const pinUserName = item.requestSnapshot.pinUserSnapshot.displayName;
+  const cavUserName =
+    item.offerSnapshot?.cavUserSnapshot.displayName ||
+    item.requestSnapshot.cavUserSnapshot?.displayName;
+  const { pinRating, cavRating } = item.requestSnapshot;
+  const messagePlaceholders = {
+    actorName: isCurrentUserItem
+      ? 'You'
+      : isCavItem
+      ? cavUserName
+      : pinUserName,
+    pinUserName: isCurrentUserItem && !isCavItem ? 'your' : pinUserName,
+    cavUserName: isCurrentUserItem && isCavItem ? 'your' : cavUserName,
+    pinRating,
+    cavRating,
+    actedUpon: !isCurrentUserItem
+      ? 'You'
+      : isCavItem
+      ? cavUserName
+      : pinUserName,
+  };
+
   return (
     <>
       {/* TODO group items by date, then only render once heading date */}
@@ -28,7 +52,7 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
       <StyledListItem className={align}>
         <ListItemBullet src={isCavItem ? CavBulletIcon : PinBulletIcon} />
         <MessageBox className={`message-box ${isCavItem ? 'cav' : 'pin'}`}>
-          {t(`timeline.${item.action}`)}
+          {t(`timeline.${item.action}`, messagePlaceholders)}
           <TimeAgo>{moment(date).fromNow()}</TimeAgo>
         </MessageBox>
       </StyledListItem>
@@ -39,26 +63,33 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
 const TimelineList: React.FC<RequestTimelineListProps> = ({
   items,
   currentUser,
-}) => (
-  <Wrapper>
-    <Title>Request Timeline</Title>
-    <StyledList>
-      <VerticalSeparator />
-      {items.map((item, index) => (
-        <RequestTimelineListItem
-          key={index}
-          item={item}
-          align={item.actorRef.id === currentUser.id ? 'right' : 'left'}
-        />
-      ))}
-    </StyledList>
-  </Wrapper>
-);
+}) => {
+  const sortedItemsByDate = items.sort(
+    (a: TimelineItem, b: TimelineItem) =>
+      a.createdAt.toMillis() - b.createdAt.toMillis(),
+  );
+  return (
+    <Wrapper>
+      <Title>Request Timeline</Title>
+      <StyledList>
+        <VerticalSeparator />
+        {sortedItemsByDate.map((item, index) => (
+          <RequestTimelineListItem
+            key={index}
+            item={item}
+            isCurrentUserItem={item.actorRef.id === currentUser.id}
+          />
+        ))}
+      </StyledList>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   width: 100%;
   flex: auto;
   overflow: scroll;
+  padding-bottom: 64px;
 `;
 
 const StyledListItem = styled.li`
@@ -168,7 +199,7 @@ interface RequestTimelineListProps {
 
 interface RequestTimelineListItemProps {
   item: TimelineItem;
-  align: 'left' | 'right';
+  isCurrentUserItem: boolean;
 }
 
 export default TimelineList;

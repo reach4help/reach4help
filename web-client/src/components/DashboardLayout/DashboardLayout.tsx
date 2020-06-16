@@ -1,7 +1,9 @@
 import { Layout } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { OffersState } from 'src/ducks/offers/types';
+import { Offer, OfferStatus } from 'src/models/offers';
 import { User } from 'src/models/users';
+import styled from 'styled-components';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
@@ -20,9 +22,39 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [notificationVisible, setNotificationVisible] = useState(false);
+  const [unseenOffers, setUnseenOffers] = useState<Offer[]>([]);
+  const [unseenOffersKeys, setUnseenOffersKeys] = useState<string[]>([]);
+
+  useEffect(() => {
+    const unseenOffersLocal: Offer[] = [];
+    const unseenOffersKeysLocal: string[] = [];
+    if (offersState.data) {
+      for (const offersKey in offersState.data) {
+        if (
+          offersState.data[offersKey] &&
+          !offersState.data[offersKey].seenAt &&
+          ((!isCav &&
+            (offersState.data[offersKey].status === OfferStatus.pending ||
+              offersState.data[offersKey].status ===
+                OfferStatus.cavDeclined)) ||
+            (isCav &&
+              (offersState.data[offersKey].status === OfferStatus.rejected ||
+                offersState.data[offersKey].status === OfferStatus.accepted)))
+        ) {
+          unseenOffersLocal.push(offersState.data[offersKey]);
+          unseenOffersKeysLocal.push(offersKey);
+        }
+      }
+      unseenOffersLocal.sort(
+        (a, b) => b.updatedAt.toMillis() - a.updatedAt.toMillis(),
+      );
+      setUnseenOffers(unseenOffersLocal);
+      setUnseenOffersKeys(unseenOffersKeysLocal);
+    }
+  }, [offersState, setUnseenOffersKeys, setUnseenOffers, isCav]);
 
   return (
-    <Layout>
+    <StyledLayout>
       <TopNavbar />
       <MenuDrawer
         visible={menuVisible}
@@ -36,22 +68,36 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       <NotificationsDrawer
         visible={notificationVisible}
         offersState={offersState}
+        unseenOffers={unseenOffers}
+        unseenOffersKeys={unseenOffersKeys}
         closeDrawer={() => setNotificationVisible(false)}
         isCav={isCav}
       />
-      <Layout.Content
-        style={{ marginTop: '64px', height: '90vh', overflow: 'auto' }}
-      >
-        {children}
-      </Layout.Content>
+      <StyledLayoutContent>{children}</StyledLayoutContent>
       <BottomNavbar
         openMenu={() => setMenuVisible(true)}
         openNotifications={() => setNotificationVisible(true)}
         isCav={isCav}
+        unseenOffersCount={unseenOffers.length}
       />
-    </Layout>
+    </StyledLayout>
   );
 };
+
+const StyledLayout = styled(Layout)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+`;
+
+const StyledLayoutContent = styled(Layout.Content)`
+  margin: 64px 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+`;
 
 interface DashboardLayoutProps {
   menuItems?: Array<MenuItem>;

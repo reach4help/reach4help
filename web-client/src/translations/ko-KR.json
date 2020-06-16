@@ -1,5 +1,8 @@
 {
   "common": {
+    "i_understand": "I understand.",
+    "okay": "Okay",
+    "cancel": "Cancel",
     "welcome": "Welcome",
     "continue": "Continue",
     "verify": "Verify",
@@ -12,8 +15,76 @@
     "address1": "Address line 1",
     "address2": "Address line 2 (optional)",
     "city": "City",
-    "code": "Postal Code",
+    "code": "Postal / Zip Code",
+    "State": "State / Province",
     "country": "Country",
+    "for": " for ",
+    "information_modal": {
+      "instructions": "Instructions",
+      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
+      "a11y_logo": "Reach for Help logo",
+      "OpenRequestsContainer": {
+        "title": "Still looking for help ...",
+        "0": "Your requests are out there but no one has yet volunteered to help",
+        "1": "You will also be receiving notifications to update you about the status of your requests.",
+        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+      },
+      "AcceptedRequestsContainer": {
+        "title": "Someone has offered to help!",
+        "0": "Someone has offered to help you out.",
+        "1": "Get in touch with them by phone to work out the details."
+      },
+      "OngoingRequestsContainer": {
+        "title": "Matched with a Volunteer!",
+        "0": "You matched with someone who is taking care of your request."
+      },
+      "FinishedRequestsContainer": {
+        "title": "All Done!",
+        "0": "You and the volunteer agree that everything is done."
+      },
+      "ArchivedRequestsContainer": {
+        "title": "You decided not to do it",
+        "0": "You changed your mind and deleted your request."
+      },
+      "TimelineViewContainer": {
+        "title": "View each step of your request",
+        "0": "A request is created.",
+        "1": "Someone offers help.",
+        "2": "The offer is accepted or rejected.",
+        "3": "The request is completed.",
+        "4": "The request is closed.",
+        "5": "The request was removed.",
+        "6": "Volunteers and People In Need rate each other."
+      },
+      "MenuDrawer": {
+        "title": "Using the Bottom Buttons",
+        "0": "Press the Left Menu to keep track of each step of your request",
+        "1": "Open: Requests that still need a volunteer",
+        "2": "Accepted: Someone has offered to help you out.",
+        "3": "Ongoing: A volunteer is working on your request now.",
+        "4": "Finished: The volunteer has completed the request.",
+        "5": "Archived: Requests you deleted.",
+        "6": "Press the Left Bell to see your notifications"
+      },
+      "FindRequestsContainer": {
+        "title": "Welcome to Reach4Help!",
+        "0": "Thank you for joining Reach4Help!",
+        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
+        "2": "Use this map to search for people in need.",
+        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
+        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
+        "5": "Check the Notifications panel to see updates about your offers to help.",
+        "6": "Thank you for joining us in building this unified platform of help!"
+      },
+      "NewRequestsContainer": {
+        "title": "Welcome to Reach4Help!",
+        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
+        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
+        "2": "Check the Notifications panel to see updates about your incoming offers.",
+        "3": "Once you accept an offer, your information will be shared with the volunteer.",
+        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+      }
+    },
     "login": {
       "title": "Reach4Help",
       "sub_title": "Please Note",
@@ -27,10 +98,21 @@
       "switchToPIN": "Switch to Person In Need"
     },
     "phoneNumber": {
+      "select_instructions": "Pick from the dropdown below",
+      "input_instructions": "Enter your digits",
       "sub_title": "Enter your telephone number to begin",
       "info": "This information is fundamental to validate your account. Data and rates may apply.",
       "error_message": "Please input your phone number!",
-      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!"
+      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!",
+      "no_country_error": "A country must be chosen.",
+      "no_digits_error": "You must enter the phone digits too.",
+      "is_valid_number": "is a valid telephone number",
+      "is_not_valid_number": "is not a valid telephone number",
+      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
+      "country_label": "Your country",
+      "country_placeholder": "Select a country",
+      "phone_label": "Enter your phone number",
+      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
     },
     "verificationCode": {
       "sub_title": "We just texted you a confirmation code. Please enter it below.",
@@ -54,14 +136,14 @@
       "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
       "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
       "policy_link": "Privacy & Security Policy.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture",
+      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
       "terms_conditions_text": "I understand and acknowledge the ",
       "terms_conditions_link": "Terms & Conditions.",
       "terms_conditions_error": "You need to accept the Terms & Conditions.",
       "full_name_error_message": "Please enter your name.",
       "display_name_error_message": "Please enter your display name.",
       "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "Would you like us to send you notifications and emails?"
+      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
     },
     "newRequest": {
       "title": "New Request",
@@ -71,6 +153,7 @@
         "type": "Type",
         "address": "Confirm Address",
         "body": "Enter details of what is needed",
+        "other": "Please enter your type",
         "consent": "Allow Push Notifications. You can always change this in your Settings later.",
         "submit": "Next",
         "cancel": "Cancel",
@@ -96,14 +179,40 @@
     "roleinfo": {
       "title": "Reach4Help",
       "sub_title": "How can we assist you ?",
-      "manifesto": "우리는 우리가하는 모든 것이 의미가있다 생각합니다. 우리는 우리가 공생과 지역 사회의 감각에 사람을 가능하게 할 수있다 생각합니다. 우리는 연대가 개인에서 최고의 돋보이게 생각합니다.",
+      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
       "info": "Please tell us what is your purpose to use Reach4Help",
       "info_pin": "I'm here because I need help",
       "c2a_pin": "Get help now!",
       "info_cav": "I'm here because I want to help people",
       "c2a_cav": "Start helping now!"
     },
+    "routeSubtitles": {
+      "_login": "Login",
+      "_phone": "Phone",
+      "_requests": "Requests",
+      "_personal-data": "Personal Data",
+      "_timeline": "Request Timeline",
+      "_personal-data_role-info": "Role Info",
+      "_phone_entry": "Enter Phone Number",
+      "_phone_verify": "Verifying Phone Number",
+      "_requests_accepted": "Accepted Requests",
+      "_requests_archived": "Closed Requests",
+      "_requests_find": "Find Requests",
+      "_requests_finished": "Completed Requests",
+      "_requests_new": "New Request",
+      "_requests_ongoing": "Ongoing Requests",
+      "_requests_open": "Open Requests"
+    },
     "timeline": {
+      "CREATE_REQUEST": "{{actorName}} created this request.",
+      "CANCEL_REQUEST": "{{actorName}} closed this request.",
+      "REMOVE_REQUEST": "{{actorName}} removed this request",
+      "COMPLETE_REQUEST": "Request has been completed.",
+      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
+      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
+      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
+      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
+      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
       "open_status": "Open",
       "cav": "Volunteer",
       "cav_wait": "WAITING FOR VOLUNTEER",
@@ -117,6 +226,89 @@
       "thankYouModalTitle": "Thank you!",
       "thankYouModalBodyParta": "You rated",
       "thankYouModalBodyPartb": "with"
+    },
+    "modules": {
+      "navigation": {
+        "components": {
+          "Header": {
+            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
+            "remember": "REMEMBER",
+            "requests": "Requests"
+          },
+          "TopPanel": {
+            "a11y_back_nav": "Back navigation icon",
+            "a11y_display_photo": "Display photo",
+            "a11y_location_icon": "Location icon",
+            "a11y_phone_icon": "Phone icon",
+            "a11y_sms_icon": "SMS icon"
+          }
+        }
+      },
+      "personal-data": {
+        "containers": {
+          "PersonalDataFormContainer": {
+            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
+            "missing_data": "Missing Data!"
+          }
+        }
+      },
+      "requests": {
+        "a11y_profile_pic": "Profile Pic",
+        "AcceptedRequestItem": {
+          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+        },
+        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
+        "cannot_help": "Cannot Help",
+        "containers": {
+          "AcceptedRequestContainer": {
+            "accepted": "Accepted"
+          },
+          "FindRequestsContainer": {
+            "want_to_help": "I want to help!"
+          },
+          "FinishedRequestsContainer": {
+            "finished": "Finished"
+          },
+          "NewRequestsContainer": {
+            "address_error": "Unable to find address",
+            "deliveries": "Deliveries"
+          },
+          "OngoingRequestContainer": {
+            "ongoing": "Ongoing"
+          },
+          "OpenRequestContainer": {
+            "open": "Open"
+          },
+          "no_reply": "No one has replied to your request."
+        }
+      }
+    },
+    "components": {
+      "loading": {
+        "a11y_message": "loading ..."
+      },
+      "notification": {
+        "a_request": "a request",
+        "already_helped": " is already getting help in ",
+        "cav_declined_help": " has declined to help in ",
+        "cav_offer": "You have offered help for ",
+        "no_notifications": "No new notifications.",
+        "notifications": "Notifications",
+        "offered_help": " has offered help in ",
+        "pin_accepted": "You have accepted help from ",
+        "pin_declined_help": "You have declined help for ",
+        "pin_rejected": "You have rejected help from ",
+        "request_author": "The request_author",
+        "volunteer_accepted": " accepted your offer for ",
+        "your_task": "your task"
+      },
+      "web_client_map": {
+        "a11y_my_location": "My location",
+        "a11y_destination": "Destination",
+        "api_error": "Could not obtain",
+        "distance_error": "Distance Service error:",
+        "geocode_error": "Unable to geocode"
+      }
     }
   }
 }

@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/InformationModal/InformationModal';
 import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getArchivedRequests } from 'src/ducks/requests/actions';
+import {
+  getArchivedRequests,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 
@@ -11,6 +19,7 @@ import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
 const ClosedRequestsContainer: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -19,6 +28,10 @@ const ClosedRequestsContainer: React.FC = () => {
     ({ requests }: { requests: RequestState }) =>
       requests.syncArchivedRequestsState,
   );
+
+  useEffect(() => {
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (profileState.userRef && profileState.profile?.applicationPreference) {
@@ -37,6 +50,11 @@ const ClosedRequestsContainer: React.FC = () => {
   ) {
     return <LoadingWrapper />;
   }
+  const instructions = [t('information_modal.ArchivedRequestsContainer.0')];
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.ArchivedRequestsContainer',
+    userid: profileState.uid,
+  });
 
   return (
     <>
@@ -58,6 +76,11 @@ const ClosedRequestsContainer: React.FC = () => {
         }
         isCavAndOpenRequest={false}
         RequestItem={RequestItem}
+      />
+      <InformationModal
+        title={t('information_modal.ArchivedRequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
       />
     </>
   );

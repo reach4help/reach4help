@@ -1,3 +1,5 @@
+/* TODO:  Not a React file */
+
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
 import { MenuItem, Module } from 'src/types/module';

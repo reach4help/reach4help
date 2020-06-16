@@ -1,38 +1,27 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { useTranslation } from "react-i18next"
 import { Wrapper, ContentWrapper, LogosWrapper } from "./style"
 import Logos from "./assets"
 
 function Partners() {
-  const data = useStaticQuery(
-    graphql`
-      {
-        markdownRemark(frontmatter: { title: { eq: "Partners" } }) {
-          html
-        }
-      }
-    `,
-  )
-
+  const { t } = useTranslation()
   return (
     <Wrapper id="partners">
-      <ContentWrapper
-        dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
-      />
+      <ContentWrapper>
+        <h2>{t("Partners.heading")}</h2>
+        <br />
+        <h3>{t("Partners.subheading")}</h3>
+      </ContentWrapper>
       <LogosWrapper>
         {Logos.map(logo => (
           <a
             title={logo.name}
             href={logo.link}
-            key={logo.id}
+            key={logo.name}
             target="__blank"
             rel="noopener noreferrer"
           >
-            <img
-              src={logo.logo}
-              alt={`${logo.name} Logo`}
-              maxWidth={logo.maxWidth}
-            />
+            <img src={logo.logo} alt={`${logo.name} Logo`} />
           </a>
         ))}
       </LogosWrapper>
