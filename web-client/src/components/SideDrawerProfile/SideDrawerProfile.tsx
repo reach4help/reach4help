@@ -15,7 +15,7 @@ const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
   profileData,
   isCav,
 }) => (
-  <Wrapper>
+  <SideDrawerProfileWrapper>
     <DisplayPhoto
       src={profileData?.displayPicture || undefined}
       style={{ objectFit: 'cover' }}
@@ -33,10 +33,10 @@ const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
         </Detail>
       </Details>
     </Content>
-  </Wrapper>
+  </SideDrawerProfileWrapper>
 );
 
-const Wrapper = styled.div`
+const SideDrawerProfileWrapper = styled.div`
   display: flex;
   background: ${COLORS.backgroundLightGray};
   padding: 30px 15px;

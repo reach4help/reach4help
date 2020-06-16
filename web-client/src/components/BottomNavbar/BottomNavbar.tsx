@@ -12,42 +12,47 @@ import styled from 'styled-components';
 
 import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
 
-const BottomNavbar: React.FC<BottomNavProps> = ({
+const BottomNavbar: React.FC<BottomNavbarProps> = ({
   openMenu,
   openNotifications,
   isCav,
+  visible = true,
   unseenOffersCount,
 }) => {
   const history = useHistory();
-  return (
-    <Wrapper>
-      <NavButton isCav={isCav} onClick={openMenu}>
-        <SideMenuIcon />
-      </NavButton>
-      {isCav ? (
-        <NavButton
-          isCav={isCav}
-          onClick={() => history.push(FindRequestsLocation.path)}
-        >
-          <MapsIcon />
+  if (visible) {
+    return (
+      <BottomNavbarWrapper>
+        <NavButton isCav={isCav} onClick={openMenu}>
+          <SideMenuIcon />
         </NavButton>
-      ) : (
-        <NavButton
-          isCav={isCav}
-          onClick={() => history.push(NewRequestsLocation.path)}
-        >
-          <NewRequestIcon />
-        </NavButton>
-      )}
-      <NavButton isCav={isCav} onClick={openNotifications}>
-        {unseenOffersCount > 0 ? (
-          <NotificationsIcon style={{ color: 'red' }} />
+        {isCav ? (
+          <NavButton
+            isCav={isCav}
+            onClick={() => history.push(FindRequestsLocation.path)}
+          >
+            <MapsIcon />
+          </NavButton>
         ) : (
-          <NotificationsIcon />
+          <NavButton
+            isCav={isCav}
+            onClick={() => history.push(NewRequestsLocation.path)}
+          >
+            <NewRequestIcon />
+          </NavButton>
         )}
-      </NavButton>
-    </Wrapper>
-  );
+        <NavButton isCav={isCav} onClick={openNotifications}>
+          {unseenOffersCount > 0 ? (
+            <NotificationsIcon style={{ color: 'red' }} />
+          ) : (
+            <NotificationsIcon />
+          )}
+        </NavButton>
+      </BottomNavbarWrapper>
+    );
+  }
+
+  return <></>;
 };
 
 const NavButton = styled('button')<{ isCav?: boolean }>`
@@ -68,7 +73,7 @@ const NavButton = styled('button')<{ isCav?: boolean }>`
   }
 `;
 
-const Wrapper = styled.div`
+const BottomNavbarWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -80,10 +85,11 @@ const Wrapper = styled.div`
   z-index: 999;
 `;
 
-interface BottomNavProps {
+interface BottomNavbarProps {
   openMenu: () => void;
   openNotifications: () => void;
   isCav?: boolean;
+  visible?: boolean;
   unseenOffersCount: number;
 }
 

@@ -4,7 +4,6 @@ import GoogleMapReact from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { AuthState } from 'src/ducks/auth/types';
 import {
@@ -15,6 +14,7 @@ import {
 import { ProfileState } from 'src/ducks/profile/types';
 import styled from 'styled-components';
 
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import PersonalDataForm, {
   IPersonalData,
 } from '../../components/PersonalDataForm/PersonalDataForm';
@@ -226,7 +226,5 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
     </>
   );
 };
-
-PersonalDataFormContainer.propTypes = {};
 
 export default PersonalDataFormContainer;
