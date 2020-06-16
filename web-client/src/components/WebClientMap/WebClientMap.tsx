@@ -30,6 +30,7 @@ const WebClientMap: React.FC<MapProps> = ({
   bannerMessage = '',
   zoom = 11,
   isCav = true,
+  forceRerender = false,
 }) => {
   const { t } = useTranslation();
 
@@ -69,6 +70,14 @@ const WebClientMap: React.FC<MapProps> = ({
       }
     }
   };
+
+  useEffect(() => {
+    if (forceRerender && googleMapS && googleMap) {
+      /*      console.log('i am going to rerender');
+      debugger; */
+      googleMapS.event.trigger(googleMap, 'resize');
+    }
+  }, [forceRerender, googleMap, googleMapS]);
 
   /* geocode */
   const geocodeCallback = (result, status) => {
@@ -226,6 +235,7 @@ interface MapProps {
   bannerMessage?: string;
   startGeocode?: boolean;
   startLocateMe?: boolean;
+  forceRerender?: boolean;
 }
 
 export default WebClientMap;

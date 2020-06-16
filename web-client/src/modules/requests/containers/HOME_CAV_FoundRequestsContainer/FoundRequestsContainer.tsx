@@ -1,3 +1,7 @@
+/*  Using tabs with maps
+https://stackoverflow.com/questions/32097454/google-map-is-not-working-in-my-responsive-tab
+*/
+import { Tabs } from 'antd';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +11,7 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from 'src/components/InformationModal/InformationModal';
+import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -22,12 +27,13 @@ import {
 import { RequestState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
 import { OfferStatus } from 'src/models/offers';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem';
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 import styled from 'styled-components';
 
-import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+const { TabPane } = Tabs;
 
 const FindRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -50,9 +56,11 @@ const FindRequestsContainer: React.FC = () => {
     getCoordsFromProfile(profileState),
   );
 
-  const [requestsWithoutOffer, setRequestsWithoutOffer] = useState<
-    MapRequestProps[]
+  const [requestsListData, setRequestsListData] = useState<
+    RequestWithOffersAndTimeline[]
   >([]);
+
+  const [requestsGeoData, setrequestsGeoData] = useState<MapRequestProps[]>([]);
 
   const pendingRequestsWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: RequestState }) =>
@@ -108,26 +116,34 @@ const FindRequestsContainer: React.FC = () => {
     ) {
       const requestsData = pendingRequestsWithOffersAndTimeline.data;
       if (requestsData) {
-        const transformedRequests: MapRequestProps[] = Object.keys(
-          requestsData,
-        ).reduce(
-          (acc: MapRequestProps[], curr: string) =>
-            !requestsData[curr]
-              ? acc
-              : [
-                  ...acc,
-                  {
-                    id: curr,
-                    center: {
-                      lat: requestsData[curr].latLng.latitude,
-                      lng: requestsData[curr].latLng.longitude,
-                    },
-                  },
-                ],
-          [],
-        );
+        /* TODO:  Should be reduce */
+        const keys = Object.keys(requestsData);
+        const values: RequestWithOffersAndTimeline[] = [];
+        for (let i = 0; i < keys.length; i++) {
+          if (requestsData[keys[i]]) {
+            values.push(requestsData[keys[i]]);
+          }
+        }
 
-        setRequestsWithoutOffer(transformedRequests);
+        setRequestsListData(values);
+        setrequestsGeoData(
+          Object.keys(requestsData).reduce(
+            (acc: MapRequestProps[], curr: string) =>
+              !requestsData[curr]
+                ? acc
+                : [
+                    ...acc,
+                    {
+                      id: curr,
+                      center: {
+                        lat: requestsData[curr].latLng.latitude,
+                        lng: requestsData[curr].latLng.longitude,
+                      },
+                    },
+                  ],
+            [],
+          ),
+        );
       }
     }
   }, [pendingRequestsWithOffersAndTimeline]);
@@ -215,22 +231,47 @@ const FindRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <div style={{ height: '100vh' }}>
-        <Map
-          isCav
-          destinations={requestsWithoutOffer}
-          origin={currentLocation}
-          onDestinationClickedHandler={id => onRequestHandler(id)}
-          onGeocode={setGeocodedLocation}
-          bannerMessage={bannerMessage}
-        />
-        {maybeRequestDetails()}
-        <InformationModal
-          title={t('information_modal.FindRequestsContainer.title')}
-          localStorageKey={instructionModalLocalStorageKey}
-          instructions={instructions}
-        />
-      </div>
+      <Tabs defaultActiveKey="map">
+        <TabPane
+          tab={t(
+            'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
+          )}
+          key="map"
+        >
+          <Map
+            isCav
+            destinations={requestsGeoData}
+            origin={currentLocation}
+            onDestinationClickedHandler={id => onRequestHandler(id)}
+            onGeocode={setGeocodedLocation}
+            bannerMessage={bannerMessage}
+            forceRerender
+          />
+          {maybeRequestDetails()}
+        </TabPane>
+        <TabPane
+          tab={t(
+            'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.list_tab_label',
+          )}
+          key="list"
+        >
+          {requestsListData.map((request, idx) => (
+            <RequestDetails key={idx}>
+              <RequestItem
+                request={request}
+                handleRequest={handleRequestForAcceptReject}
+                loading={setOfferState.loading}
+                isCavAndOpenRequest
+              />
+            </RequestDetails>
+          ))}
+        </TabPane>
+      </Tabs>
+      <InformationModal
+        title={t('information_modal.FindRequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
+      />
     </>
   );
 };

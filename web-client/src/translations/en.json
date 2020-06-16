@@ -271,6 +271,12 @@
         "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
         "cannot_help": "Cannot Help",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "Accepted"
           },
