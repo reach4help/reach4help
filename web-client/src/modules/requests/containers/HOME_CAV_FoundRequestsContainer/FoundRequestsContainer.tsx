@@ -1,7 +1,7 @@
 /*  Using tabs with maps
 https://stackoverflow.com/questions/32097454/google-map-is-not-working-in-my-responsive-tab
 */
-import { Tabs } from 'antd';
+import { List, Tabs } from 'antd';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -260,14 +260,16 @@ const FindRequestsContainer: React.FC = () => {
           key="list"
         >
           {requestsListData.map((request, idx) => (
-            <RequestDetailsListItem key={idx}>
-              <RequestItem
-                request={request}
-                handleRequest={handleRequestForAcceptReject}
-                loading={setOfferState.loading}
-                isCavAndOpenRequest
-              />
-            </RequestDetailsListItem>
+            <List>
+              <RequestDetailsListItem key={idx}>
+                <RequestItem
+                  request={request}
+                  handleRequest={handleRequestForAcceptReject}
+                  loading={setOfferState.loading}
+                  isCavAndOpenRequest
+                />
+              </RequestDetailsListItem>
+            </List>
           ))}
         </TabPane>
       </Tabs>
@@ -287,7 +289,7 @@ const RequestDetails = styled.div`
   background: white;
 `;
 
-const RequestDetailsListItem = styled.div`
+const RequestDetailsListItem = styled(List.Item)`
   bottom: 64px;
   width: 100%;
   background: white;
