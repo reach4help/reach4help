@@ -31,6 +31,7 @@ import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOff
 import { ApplicationPreference } from 'src/models/users';
 import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem';
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const { TabPane } = Tabs;
@@ -259,14 +260,14 @@ const FindRequestsContainer: React.FC = () => {
           key="list"
         >
           {requestsListData.map((request, idx) => (
-            <RequestDetails key={idx}>
+            <RequestDetailsListItem key={idx}>
               <RequestItem
                 request={request}
                 handleRequest={handleRequestForAcceptReject}
                 loading={setOfferState.loading}
                 isCavAndOpenRequest
               />
-            </RequestDetails>
+            </RequestDetailsListItem>
           ))}
         </TabPane>
       </Tabs>
@@ -284,6 +285,19 @@ const RequestDetails = styled.div`
   bottom: 64px;
   width: 100%;
   background: white;
+`;
+
+const RequestDetailsListItem = styled.div`
+  bottom: 64px;
+  width: 100%;
+  background: white;
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
+    background-color: ${COLORS.brandOrange};
+  }
+  border: 2px solid ${COLORS.brandOrange};
 `;
 
 interface MapRequestProps {
