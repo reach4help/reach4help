@@ -259,8 +259,8 @@ const FindRequestsContainer: React.FC = () => {
           )}
           key="list"
         >
-          {requestsListData.map((request, idx) => (
-            <List>
+          <List>
+            {requestsListData.map((request, idx) => (
               <RequestDetailsListItem key={idx}>
                 <RequestItem
                   request={request}
@@ -269,8 +269,8 @@ const FindRequestsContainer: React.FC = () => {
                   isCavAndOpenRequest
                 />
               </RequestDetailsListItem>
-            </List>
-          ))}
+            ))}
+          </List>
         </TabPane>
       </Tabs>
       <InformationModal
