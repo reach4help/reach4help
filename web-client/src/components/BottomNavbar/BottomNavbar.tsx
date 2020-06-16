@@ -20,37 +20,39 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
   unseenOffersCount,
 }) => {
   const history = useHistory();
-  return !visible ? (
-    <></>
-  ) : (
-    <BottomNavbarWrapper>
-      <NavButton isCav={isCav} onClick={openMenu}>
-        <SideMenuIcon />
-      </NavButton>
-      {isCav ? (
-        <NavButton
-          isCav={isCav}
-          onClick={() => history.push(FindRequestsLocation.path)}
-        >
-          <MapsIcon />
+  if (visible) {
+    return (
+      <BottomNavbarWrapper>
+        <NavButton isCav={isCav} onClick={openMenu}>
+          <SideMenuIcon />
         </NavButton>
-      ) : (
-        <NavButton
-          isCav={isCav}
-          onClick={() => history.push(NewRequestsLocation.path)}
-        >
-          <NewRequestIcon />
-        </NavButton>
-      )}
-      <NavButton isCav={isCav} onClick={openNotifications}>
-        {unseenOffersCount > 0 ? (
-          <NotificationsIcon style={{ color: 'red' }} />
+        {isCav ? (
+          <NavButton
+            isCav={isCav}
+            onClick={() => history.push(FindRequestsLocation.path)}
+          >
+            <MapsIcon />
+          </NavButton>
         ) : (
-          <NotificationsIcon />
+          <NavButton
+            isCav={isCav}
+            onClick={() => history.push(NewRequestsLocation.path)}
+          >
+            <NewRequestIcon />
+          </NavButton>
         )}
-      </NavButton>
-    </BottomNavbarWrapper>
-  );
+        <NavButton isCav={isCav} onClick={openNotifications}>
+          {unseenOffersCount > 0 ? (
+            <NotificationsIcon style={{ color: 'red' }} />
+          ) : (
+            <NotificationsIcon />
+          )}
+        </NavButton>
+      </BottomNavbarWrapper>
+    );
+  }
+
+  return <></>;
 };
 
 const NavButton = styled('button')<{ isCav?: boolean }>`

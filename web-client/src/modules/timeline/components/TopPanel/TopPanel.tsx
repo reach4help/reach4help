@@ -8,7 +8,6 @@ import {
 import { Typography } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
 import SMSIcon from 'src/assets/sms.svg';
@@ -20,18 +19,23 @@ import styled, { css } from 'styled-components';
 
 const { Text } = Typography;
 
-const TopPanel: React.FC<TopPanelProps> = ({ request, user }) => {
+interface TopPanelProps {
+  request: RequestWithOffersAndTimeline;
+  user?: User;
+  goBack: Function;
+}
+
+const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
   const [togglePanel, setTogglePanel] = useState(false);
   const userRequestStatus = request.status;
   const { t } = useTranslation();
-  const history = useHistory();
 
   const isCav = user?.applicationPreference === ApplicationPreference.cav;
 
   return (
     <TopPanelWrapper>
       <NavRow>
-        <div onClick={() => history.goBack()}>
+        <div onClick={() => goBack()}>
           <img
             src={NavBackIcon}
             alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}

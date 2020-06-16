@@ -7,7 +7,10 @@ import {
   makeLocalStorageKey,
 } from 'src/components/InformationModal/InformationModal';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getAcceptedRequests } from 'src/ducks/requests/actions';
+import {
+  getAcceptedRequests,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineAcceptedViewLocation } from 'src/modules/timeline/pages/routes/TimelineAcceptedViewRoute/constants';
@@ -29,6 +32,10 @@ const OpenRequestsContainer: React.FC = () => {
     ({ requests }: { requests: RequestState }) =>
       requests.syncAcceptedRequestsState,
   );
+
+  useEffect(() => {
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (profileState.profile && profileState.profile.applicationPreference) {

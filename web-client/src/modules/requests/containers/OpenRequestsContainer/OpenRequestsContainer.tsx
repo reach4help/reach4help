@@ -10,6 +10,7 @@ import { ProfileState } from 'src/ducks/profile/types';
 import {
   getAcceptedRequests,
   getOpenRequests,
+  resetSetRequestState,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
@@ -40,6 +41,10 @@ const OpenRequestsContainer: React.FC = () => {
       return requests.syncOpenRequestsState;
     },
   );
+
+  useEffect(() => {
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (profileState.profile && profileState.profile.applicationPreference) {
