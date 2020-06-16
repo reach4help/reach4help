@@ -231,7 +231,7 @@ const FindRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <Tabs defaultActiveKey="map" style={{ height: '100%' }}>
+      <Tabs defaultActiveKey="map">
         <TabPane
           tab={t(
             'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
@@ -239,15 +239,17 @@ const FindRequestsContainer: React.FC = () => {
           key="map"
         >
           {' '}
-          <Map
-            isCav
-            destinations={requestsGeoData}
-            origin={currentLocation}
-            onDestinationClickedHandler={id => onRequestHandler(id)}
-            onGeocode={setGeocodedLocation}
-            bannerMessage={bannerMessage}
-            forceRerender
-          />
+          <div style={{ height: '600px', width: '100%' }}>
+            <Map
+              isCav
+              destinations={requestsGeoData}
+              origin={currentLocation}
+              onDestinationClickedHandler={id => onRequestHandler(id)}
+              onGeocode={setGeocodedLocation}
+              bannerMessage={bannerMessage}
+              forceRerender
+            />
+          </div>
           {maybeRequestDetails()}
         </TabPane>
         <TabPane

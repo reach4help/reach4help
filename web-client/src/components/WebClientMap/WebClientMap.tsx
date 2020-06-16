@@ -73,8 +73,14 @@ const WebClientMap: React.FC<MapProps> = ({
 
   useEffect(() => {
     if (forceRerender && googleMapS && googleMap) {
-      /*      console.log('i am going to rerender');
-      debugger; */
+      /*
+      console.log(
+        'i am going to rerender',
+        forceRerender,
+        googleMap,
+        googleMapS,
+      );
+        debugger; */
       googleMapS.event.trigger(googleMap, 'resize');
     }
   }, [forceRerender, googleMap, googleMapS]);
@@ -237,5 +243,4 @@ interface MapProps {
   startLocateMe?: boolean;
   forceRerender?: boolean;
 }
-
 export default WebClientMap;
