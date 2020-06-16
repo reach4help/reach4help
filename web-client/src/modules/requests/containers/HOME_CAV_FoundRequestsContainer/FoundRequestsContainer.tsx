@@ -240,17 +240,19 @@ const FindRequestsContainer: React.FC = () => {
 
   return (
     <>
+      <div> forceMapRerender {forceMapRerender.toString()}</div>
+
       <Tabs defaultActiveKey="list" onChange={showMapIfMapTab}>
         <TabPane
           tab={t(
             'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
           )}
           key="map"
+          style={{ height: '100%' }}
         >
           {' '}
           {forceMapRerender && (
-            <>
-              <div> forceMapRerender {forceMapRerender}</div>
+            <div style={{ height: '100%' }}>
               <Map
                 isCav
                 destinations={requestsGeoData}
@@ -260,7 +262,7 @@ const FindRequestsContainer: React.FC = () => {
                 bannerMessage={bannerMessage}
                 forceRerender
               />
-            </>
+            </div>
           )}
           {maybeRequestDetails()}
         </TabPane>
