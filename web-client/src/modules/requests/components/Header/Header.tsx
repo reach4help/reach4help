@@ -3,13 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { COLORS } from '../../../../theme/colors';
 
-interface HeaderProps {
-  requestsType: string;
-  numRequests?: number;
-  isCav: boolean;
-  isAcceptedRequests?: boolean;
-}
-
 const Header: React.FC<HeaderProps> = ({
   requestsType,
   numRequests,
@@ -83,4 +76,12 @@ const Header: React.FC<HeaderProps> = ({
     </>
   );
 };
+
+interface HeaderProps {
+  requestsType: string;
+  numRequests?: number;
+  isCav: boolean;
+  isAcceptedRequests?: boolean;
+}
+
 export default Header;

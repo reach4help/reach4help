@@ -3,19 +3,6 @@ import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import { Offer } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 
-interface RequestListProps {
-  requests?: Record<string, RequestWithOffersAndTimeline>;
-  loading: boolean;
-  handleRequest?: Function;
-  isCavAndOpenRequest?: boolean;
-  isPinAndOpenRequest?: boolean;
-  RequestItem: React.FC<any>;
-  pendingOffersGiven?: Record<string, Offer[]>;
-  cavDeclinedOffersGiven?: Record<string, Offer[]>;
-  hideUserPics?: boolean;
-  toCloseRequest?: Function;
-}
-
 const RequestList: React.FC<RequestListProps> = ({
   requests,
   loading,
@@ -82,5 +69,18 @@ const RequestList: React.FC<RequestListProps> = ({
 
   return <div style={{ marginBottom: '64px' }}>{requestList}</div>;
 };
+
+interface RequestListProps {
+  requests?: Record<string, RequestWithOffersAndTimeline>;
+  loading: boolean;
+  handleRequest?: Function;
+  isCavAndOpenRequest?: boolean;
+  isPinAndOpenRequest?: boolean;
+  RequestItem: React.FC<any>;
+  pendingOffersGiven?: Record<string, Offer[]>;
+  cavDeclinedOffersGiven?: Record<string, Offer[]>;
+  hideUserPics?: boolean;
+  toCloseRequest?: Function;
+}
 
 export default RequestList;

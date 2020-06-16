@@ -354,4 +354,9 @@ const AddressInfo = styled.div`
   }
 `;
 
+interface TopPanelProps {
+  request: RequestWithOffersAndTimeline;
+  user?: User;
+}
+
 export default TopPanel;

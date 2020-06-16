@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -10,6 +9,8 @@ import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/Pers
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
 import { PhoneEntryLocation } from 'src/modules/phone/pages/routes/PhoneEntryRoute/constants';
 import { AppState } from 'src/store';
+
+import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 
 const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   const auth = useSelector((state: AppState) => state.auth);
