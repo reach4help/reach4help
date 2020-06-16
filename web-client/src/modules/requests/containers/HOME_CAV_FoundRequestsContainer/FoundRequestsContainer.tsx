@@ -40,6 +40,7 @@ const FindRequestsContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [forceMapRerender, setForceMapRerender] = useState<boolean>(false);
   const [expandedRequestId, setExpandedRequestId] = useState<
     string | undefined
   >(undefined);
@@ -229,24 +230,39 @@ const FindRequestsContainer: React.FC = () => {
     userid: profileState.uid,
   });
 
+  const showMapIfMapTab = key => {
+    console.log('tab key', key);
+    if (key === 'map') {
+      setForceMapRerender(true);
+    } else {
+      setForceMapRerender(false);
+    }
+  };
+
   return (
     <>
-      <Tabs defaultActiveKey="map">
+      <Tabs defaultActiveKey="list" onChange={showMapIfMapTab}>
         <TabPane
           tab={t(
             'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
           )}
           key="map"
         >
-          <Map
-            isCav
-            destinations={requestsGeoData}
-            origin={currentLocation}
-            onDestinationClickedHandler={id => onRequestHandler(id)}
-            onGeocode={setGeocodedLocation}
-            bannerMessage={bannerMessage}
-            forceRerender
-          />
+          {' '}
+          {forceMapRerender && (
+            <>
+              <div> forceMapRerender {forceMapRerender}</div>
+              <Map
+                isCav
+                destinations={requestsGeoData}
+                origin={currentLocation}
+                onDestinationClickedHandler={id => onRequestHandler(id)}
+                onGeocode={setGeocodedLocation}
+                bannerMessage={bannerMessage}
+                forceRerender
+              />
+            </>
+          )}
           {maybeRequestDetails()}
         </TabPane>
         <TabPane
