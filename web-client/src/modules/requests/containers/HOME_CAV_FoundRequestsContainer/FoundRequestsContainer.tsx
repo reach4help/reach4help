@@ -40,7 +40,7 @@ const FindRequestsContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [forceMapRerender, setForceMapRerender] = useState<boolean>(false);
+  const [forceMapRerender, setForceMapRerender] = useState<boolean>(true);
   const [expandedRequestId, setExpandedRequestId] = useState<
     string | undefined
   >(undefined);
@@ -242,27 +242,28 @@ const FindRequestsContainer: React.FC = () => {
     <>
       <div> forceMapRerender {forceMapRerender.toString()}</div>
 
-      <Tabs defaultActiveKey="list" onChange={showMapIfMapTab}>
+      <Tabs
+        defaultActiveKey="map"
+        onChange={showMapIfMapTab}
+        style={{ height: '100%' }}
+      >
         <TabPane
           tab={t(
             'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
           )}
           key="map"
-          style={{ height: '100%' }}
         >
           {' '}
           {forceMapRerender && (
-            <div style={{ height: '100%' }}>
-              <Map
-                isCav
-                destinations={requestsGeoData}
-                origin={currentLocation}
-                onDestinationClickedHandler={id => onRequestHandler(id)}
-                onGeocode={setGeocodedLocation}
-                bannerMessage={bannerMessage}
-                forceRerender
-              />
-            </div>
+            <Map
+              isCav
+              destinations={requestsGeoData}
+              origin={currentLocation}
+              onDestinationClickedHandler={id => onRequestHandler(id)}
+              onGeocode={setGeocodedLocation}
+              bannerMessage={bannerMessage}
+              forceRerender
+            />
           )}
           {maybeRequestDetails()}
         </TabPane>
