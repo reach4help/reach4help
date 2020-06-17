@@ -3,16 +3,20 @@ import detector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
 import en from './en.json';
+import fr from './fr-FR.json';
 import pt from './pt-PT.json';
 
 i18n
   .use(detector)
   .use(initReactI18next)
   .init({
-    lng: 'en',
+    detection: {
+      order: ['navigator'],
+    },
     fallbackLng: 'en',
     resources: {
       en,
+      fr,
       pt,
     },
     ns: ['common'],
