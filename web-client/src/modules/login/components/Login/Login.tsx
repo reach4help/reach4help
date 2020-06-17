@@ -7,10 +7,12 @@ import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
+import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
 
 const { Title, Text } = Typography;
 
 const Login: React.FC<LoginProps> = ({
+  onLoginGoogle,
   onLoginFacebook,
 }): React.ReactElement => {
   const { t } = useTranslation();
@@ -21,9 +23,10 @@ const Login: React.FC<LoginProps> = ({
       <LoginTitle>{t('login.title')}</LoginTitle>
       <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
       <Info>{t('login.info')}</Info>
-      <FacebookContainer>
+      <LoginButtonContainer>
+        <GoogleLoginButton onAuthenticate={onLoginGoogle} />
         <FacebookLoginButton onAuthenticate={onLoginFacebook} />
-      </FacebookContainer>
+      </LoginButtonContainer>
     </>
   );
 };
@@ -38,11 +41,15 @@ const Info = styled(Text)`
   text-align: center;
 `;
 
-const FacebookContainer = styled.div`
+const LoginButtonContainer = styled.div`
   padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  width: 220px;
 `;
 
 interface LoginProps {
+  onLoginGoogle: Function;
   onLoginFacebook: Function;
 }
 
