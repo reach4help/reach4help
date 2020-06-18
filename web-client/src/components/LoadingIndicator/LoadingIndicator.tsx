@@ -3,10 +3,6 @@ import Lottie from 'react-lottie';
 
 import animationData from '../../assets/lotties/loading.json';
 
-interface LoadingIndicator {
-  lottieJson?: object;
-}
-
 const LoadingIndicator: React.FC<LoadingIndicator> = ({
   lottieJson,
 }): React.ReactElement => {
@@ -21,5 +17,9 @@ const LoadingIndicator: React.FC<LoadingIndicator> = ({
 
   return <Lottie options={defaultOptions} height={240} width={240} />;
 };
+
+interface LoadingIndicator {
+  lottieJson?: object;
+}
 
 export default LoadingIndicator;

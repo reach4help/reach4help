@@ -87,15 +87,15 @@
     },
     "login": {
       "title": "Reach4Help",
-      "sub_title": "Please Note",
-      "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
+      "sub_title": "Sign Up Overview",
+      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
       "facebookButtonLabel": "Continue with Facebook"
     },
     "menuDrawer": {
       "contactUs": "Contact us",
       "logout": "Sign out",
-      "switchToCAV": "Switch to Volunteer",
-      "switchToPIN": "Switch to Person In Need"
+      "switchToCAV": "Switch to Offering Support",
+      "switchToPIN": "Switch to Seeking Help"
     },
     "phoneNumber": {
       "select_instructions": "Pick from the dropdown below",
@@ -228,6 +228,17 @@
       "thankYouModalBodyPartb": "with"
     },
     "modules": {
+      "timeline": {
+        "components": {
+          "OffersList": {
+            "miles": "miles",
+            "kilometers": "kilometers",
+            "reject": "Reject",
+            "accept": "Accept",
+            "volunteer_select": "Select A Volunteer"
+          }
+        }
+      },
       "navigation": {
         "components": {
           "Header": {

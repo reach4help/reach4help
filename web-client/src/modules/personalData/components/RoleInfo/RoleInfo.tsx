@@ -9,69 +9,16 @@ import styled from 'styled-components';
 import cav from '../../assets/role_cav.png';
 import pin from '../../assets/role_pin.png';
 
-const StyledIntro = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @media (min-width: 576px) {
-    padding: 50px 50px;
-  }
-`;
-
-const Manifesto = styled.div`
-  width: 66%;
-  margin: 25px auto 0 auto;
-
-  /* font-size-base */
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 22px;
-  /* or 157% */
-
-  text-align: center;
-
-  color: #000000;
-`;
-
-const Container = styled.div`
-  margin-top: 40px;
-`;
-
-const Box = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  @media (min-width: 480px) {
-    width: 310px;
-  }
-  min-width: 270px;
-  height: 290px;
-`;
-
-const Pin = styled.img``;
-const Cav = styled.img``;
-
-interface RoleInfoProps {
-  chooseApplicationPreference: Function;
-}
-
 const RoleInfo: React.FC<RoleInfoProps> = ({
   chooseApplicationPreference,
 }): React.ReactElement => {
   const { t } = useTranslation();
   // i18n.changeLanguage('pt-PT');
   return (
-    <StyledIntro className="withContentPaddingDesktop">
+    <Intro className="withContentPaddingDesktop">
       <TitleWithAddon level={2}>{t('roleinfo.sub_title')}</TitleWithAddon>
       <Manifesto>{t('roleinfo.manifesto')}</Manifesto>
-      <Container>
+      <RoleContainer>
         <Row gutter={12}>
           <Col
             style={{ display: 'flex', justifyContent: 'center' }}
@@ -121,9 +68,62 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
             </Box>
           </Col>
         </Row>
-      </Container>
-    </StyledIntro>
+      </RoleContainer>
+    </Intro>
   );
 };
+
+const Intro = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media (min-width: 576px) {
+    padding: 50px 50px;
+  }
+`;
+
+const Manifesto = styled.div`
+  width: 66%;
+  margin: 25px auto 0 auto;
+
+  /* font-size-base */
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  /* or 157% */
+
+  text-align: center;
+
+  color: #000000;
+`;
+
+const RoleContainer = styled.div`
+  margin-top: 40px;
+`;
+
+const Box = styled.div`
+  background: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: 480px) {
+    width: 310px;
+  }
+  min-width: 270px;
+  height: 290px;
+`;
+
+const Pin = styled.img``;
+const Cav = styled.img``;
+
+interface RoleInfoProps {
+  chooseApplicationPreference: Function;
+}
 
 export default RoleInfo;

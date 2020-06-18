@@ -5,28 +5,6 @@ import React from 'react';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-const RadioGroup = styled(Radio.Group)`
-  .ant-radio {
-    position: fixed;
-    opacity: 0;
-  }
-`;
-
-const FilledStar = styled(StarFilled)`
-  color: ${COLORS.secondaryLight};
-  font-size: 20px;
-`;
-
-const EmptyStar = styled(StarOutlined)`
-  font-size: 20px;
-`;
-
-interface StarRadioGroupProps {
-  name?: string;
-  rating: number | null;
-  handleChange: (value: number) => void;
-}
-
 const StarRadioGroup: React.FC<StarRadioGroupProps> = ({
   name = 'star-radio-group',
   rating,
@@ -51,5 +29,27 @@ const StarRadioGroup: React.FC<StarRadioGroupProps> = ({
     </RadioGroup>
   );
 };
+
+const RadioGroup = styled(Radio.Group)`
+  .ant-radio {
+    position: fixed;
+    opacity: 0;
+  }
+`;
+
+const FilledStar = styled(StarFilled)`
+  color: ${COLORS.secondaryLight};
+  font-size: 20px;
+`;
+
+const EmptyStar = styled(StarOutlined)`
+  font-size: 20px;
+`;
+
+interface StarRadioGroupProps {
+  name?: string;
+  rating: number | null;
+  handleChange: (value: number) => void;
+}
 
 export default StarRadioGroup;

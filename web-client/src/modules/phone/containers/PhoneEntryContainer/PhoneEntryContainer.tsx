@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
-import IntroWrapper from 'src/components/IntroWrapper/IntroWrapper';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import { triggerLoginWithPhone } from 'src/ducks/auth/phone/actions';
 import firebase from 'src/firebase';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
+import IntroWrapper from '../../../../components/IntroComponent/IntroComponent';
 import PhoneNumberEntryForm from '../../components/PhoneNumberEntryForm/PhoneNumberEntryForm';
 import { PhoneVerifyLocation } from '../../pages/routes/PhoneVerifyRoute/constants';
 
@@ -84,7 +84,5 @@ const PhoneEntryContainer: React.FC = () => {
 const ErrorMessage = styled(Text)`
   margin-bottom: 1rem;
 `;
-
-PhoneEntryContainer.propTypes = {};
 
 export default PhoneEntryContainer;
