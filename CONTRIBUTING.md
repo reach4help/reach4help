@@ -7,7 +7,7 @@ we're happy to have you on board!
 
 This document describes how to contribute the software aspects of our project,
 if you want to contribute by other means,
-please see our [Getting Involved / Onboarding](docs/GETTING_INVOLVED.md) document.
+please see our [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps).
 
 ## Please read our guidelines before you start.
 
@@ -31,7 +31,7 @@ to reduce the likelihood of duplicated or wasted effort.
 
 Before we can assign any tasks to you,
 we ask that you read and complete the process detailed in our
-[Getting Involved / Onboarding](docs/GETTING_INVOLVED.md) document,
+[Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps),
 and in particular **Join a Team** if possible.
 
 Once you have done this,
@@ -67,6 +67,11 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 - [Download Yarn Here](https://yarnpkg.com/lang/en/docs/install/ 'Download Yarn Here')
 
 #### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
+
+### Environment variables
+Each Project has it's own required environment variables. Instructions for setting up Environment variables varies depending on the project and it's important that you look at the Contributing Guidelines for the Project before proceeding to contribute to the project.
+
+The Guidelines for each project is detailed in the section below
 
 ## Projects
 

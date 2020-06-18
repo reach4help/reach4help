@@ -1,0 +1,5 @@
+files:
+  - source: /map/src/i18n/langs/en.json
+    translation: /map/src/i18n/langs/%locale%.json
+  - source: /web-client/src/translations/en.json
+    translation: /web-client/src/translations/%locale%.json

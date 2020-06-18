@@ -1,55 +1,22 @@
-import firebase from 'src/firebase';
-import {
-  completeLoginWithFirebaseRedirect,
-  facebookLoginWithFirebasePopUp,
-  facebookLoginWithFirebaseRedirect,
-  login,
-} from 'src/http/resources/auth';
+import { observeUser, signOutCurrentUser } from './functions';
+import { LOGOUT, OBSERVE_USER } from './types';
 
-import {
-  FIREBASE_FACEBOOK_LOGIN_POPUP,
-  FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
-  FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
-  LOGIN,
-  LoginAction,
-  /*
-    THESE ARE SOME MORE EXAMPLES
-    FIREBASE_PHONE_LOGIN_START, PhoneLoginStartWithFirebaseAction,
-    FIREBASE_PHONE_LOGIN_VERIFY, PhoneLoginVerifyWithFirebaseAction 
-  */
-} from './types';
-
-export const loginAction = (payload: LoginAction) => (dispatch: Function) => {
+export const observeUserAction = (dispatch: Function): Function => {
   dispatch({
-    type: LOGIN,
-    payload,
-    api: login,
+    type: OBSERVE_USER,
+    observer: observeUser,
   });
+
+  return () =>
+    dispatch({
+      type: OBSERVE_USER.UNSUBSCRIBE,
+      observerName: OBSERVE_USER,
+    });
 };
 
-export const loginWithFirebaseActionRedirect = () => (dispatch: Function) => {
+export const signOutCurrentUserAction = () => (dispatch: Function) => {
   dispatch({
-    type: FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
-    payload: {},
-    firebase: facebookLoginWithFirebaseRedirect,
-  });
-};
-
-export const completeLoginWithFirebaseActionRedirect = (
-  payload: firebase.auth.UserCredential | { user: firebase.User },
-) => (dispatch: Function) => {
-  dispatch({
-    type: FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
-    payload,
-    firebase: completeLoginWithFirebaseRedirect,
-  });
-};
-
-export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
-  dispatch({
-    type: FIREBASE_FACEBOOK_LOGIN_POPUP,
-    payload: {},
-    firebase: facebookLoginWithFirebasePopUp,
-    fallback: loginWithFirebaseActionRedirect,
+    type: LOGOUT,
+    firebase: signOutCurrentUser,
   });
 };

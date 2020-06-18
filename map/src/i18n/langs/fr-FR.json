@@ -1,0 +1,201 @@
+{
+  "title": "Carte d'entraide face au COVID-19",
+  "inFrameLink": "À propos de cette carte / ajouter des informations",
+  "aboutScreen": {
+    "intro": "Nous croyons que la solidarité fait ressortir le meilleur chez les individus.",
+    "info": "Afin d'aider les gens à trouver et à joindre leurs efforts d'aide mutuelle là où ils vivent, les inspirer pour commencer leurs propres initiatives ou encore remonter le moral, cette carte présente une liste grandissante de projets d'aide mutuelle en cas de pandémie mondiale.",
+    "warning": "Remarque : chaque projet est autonome et indépendant ; certains groupes utilisent des feuilles de calcul publiques pour partager les informations, nous vous conseillons de rester prudents lorsque vous entrez des informations que vous ne voulez pas diffuser publiquement.",
+    "project": "Cette carte fait partie de {reach4Help}, un projet porté par des volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter à l'adresse {email}.",
+    "githubSourceLabel": "trouvé sur GitHub",
+    "otherAreasHeading": "Vous êtes intéressé par l'une de ces zones géographiques?",
+    "otherAreasInfo": "Découvrez ces cartes alternatives :",
+    "otherAreasLocations": {
+      "france": "France",
+      "nyc": "New York"
+    },
+    "sourceHeading": "D'où viennent ces informations ?",
+    "sourceInfo": "Les informations sur cette carte sont une combinaison de données collectées par nos volontaires, soumises par nos utilisateurs, et fournies par d'autres projets menés par des volontaires, y compris {mutualaidwiki} et {mutualaidhub}.",
+    "sourceSubmit": "Nous vous encourageons à {addinfo} sur tous les projets que vous connaissez qui ne sont pas déjà sur la carte.",
+    "sourceSubmitButton": "ajouter des informations",
+    "usageHeading": "Puis-je utiliser ces données pour mon propre projet?",
+    "usageInfo": "Nous vous invitons à utiliser les données fournies par notre carte pour vos propres projets, à condition que vous suiviez les licences respectives.",
+    "usageLicenses": "Les données fournies par nos bénévoles et nos utilisateurs sont sous licence {license}, et les données provenant d'autres sources sont distribuées sous leurs licences respectives.",
+    "usageApi": "Vous pouvez accéder aux données brutes, ainsi qu'aux détails de licence de chaque point de données, à l'URL suivante : {api}"
+  },
+  "menu": {
+    "about": "À propos",
+    "map": "Afficher la carte"
+  },
+  "social": {
+    "email": "Nous contacter par e-mail",
+    "twitter": "Suivez-nous sur Twitter",
+    "facebook": "Nous liker sur Facebook",
+    "github": "Retrouvez-nous sur GitHub"
+  },
+  "addInformation": {
+    "button": "Ajouter des informations",
+    "backToMap": "Retour à la carte",
+    "prev": "Retour",
+    "continue": "Continuer",
+    "submit": "Envoyer",
+    "addMore": "Ajouter plus d'informations",
+    "tryAgain": "Essayez de nouveau",
+    "screen": {
+      "title": "Ajouter des informations à cette carte",
+      "information": {
+        "acceptedInformation": "Pour le moment, nous ne fournissons que des informations sur des organisations ou des entreprises fournissant une aide et une assistance, des initiatives d'assistance financière spécifiques à une région, et des groupes d'entraide. Nous n'acceptons actuellement pas les informations sur des personnes offrant de l'aide à titre individuel.",
+        "intro": "Veuillez remplir le formulaire ci-dessous pour commencer à ajouter des informations, nous vous demanderons ensuite de nous indiquer votre localisation et vos coordonnées.",
+        "form": {
+          "type": "Type de projet / groupe / organisation / initiative",
+          "typePleaseSelect": "Veuillez choisir un type",
+          "services": "Services ou aide que cette organisation / entreprise propose",
+          "name": "Nom du projet / groupe / organisation",
+          "namePlaceholder": "par ex. Aide mutuelle Antarctique",
+          "description": "(optionnel) Description détaillée du projet / groupe / organisation, et ce qu'il fait pour faciliter l'entraide",
+          "locationName": "Décrivez la zone géographique desservie. Ex. : Pays, états, comtés, villes, etc.",
+          "locationNamePlaceholder": "Par exemple: Zone de la baie de San Francisco, CA, USA",
+          "continue": "Cliquez sur continuer pour entrer les informations de localisation"
+        },
+        "mutualAidInstead": "Si vous souhaitez soumettre des informations sur un nouveau groupe d'entraide, veuillez visiter {link}. Les groupes qui y sont ajoutés seront automatiquement inclus dans notre carte."
+      },
+      "placeMarker": {
+        "instructions": "Localisez la zone desservie par ce projet / groupe / organisation / initiative en cliquant sur la carte pour placer un marqueur, ajustez ensuite la taille du cercle pour englober la zone au besoin.",
+        "continue": "Une fois que vous êtes satisfait de l'emplacement, cliquez sur continuer pour ajouter les informations de contact.",
+        "distance": "{kilometers, number}km ({miles, number}miles)"
+      },
+      "contactInfo": {
+        "header": "Coordonnées de {name}",
+        "info": "Vous y êtes presque! Veuillez renseigner la façon par laquelle les gens peuvent contacter {name}. S'il y a des méthodes de contact spécifiques à utiliser pour se porter volontaire pour aider ou pour demander de l'aide, veuillez les saisir!",
+        "deleteInfo": "Supprimer",
+        "addInfo": {
+          "general": "Ajouter des coordonnées générales",
+          "volunteers": "Ajouter des informations de contact pour les bénévoles",
+          "getHelp": "Ajouter des informations de contact pour les personnes qui ont besoin d'aide"
+        },
+        "sections": {
+          "general": "Coordonnées générales",
+          "volunteers": "Coordonnées pour les bénévoles",
+          "getHelp": "Informations de contact pour les personnes qui ont besoin d'aide"
+        },
+        "method": {
+          "phone": "Numéros de téléphone",
+          "email": "Adresses email",
+          "web": "Liens Web / URLs"
+        },
+        "placeholder": {
+          "phone": "Ajouter un numéro de téléphone",
+          "email": "Ajouter une adresse email",
+          "webURL": "URL",
+          "webLabel": "Nom"
+        }
+      },
+      "submitted": {
+        "loading": "Envoi des informations à la carte...",
+        "error": "Erreur lors de l'ajout des informations",
+        "success": "Vos informations ont bien été envoyées.",
+        "successExtra": "Avant de rendre vos informations visibles sur la carte, elles devront être examinées par un volontaire de notre équipe. Ce devrait être fait d'ici quelques jours."
+      }
+    },
+    "errors": {
+      "missingType": "Veuillez sélectionner le type de projet / groupe / organisation",
+      "missingServices": "Veuillez cocher tous les services fournis par cette organisation (au moins 1 est requis)",
+      "missingTitle": "Veuillez entrer le nom du projet / groupe / organisation",
+      "missingLocationName": "Veuillez entrer une description de la zone desservie",
+      "markerRequired": "Veuillez cliquer sur la carte pour entrer dans la zone de service avant de continuer.",
+      "noContactDetails": "Veuillez entrer les coordonnées pour au moins une catégorie",
+      "emptyContactSection": "Veuillez entrer des informations de contact pour {section} ou supprimez-les",
+      "urlMissingLabel": "Il manque un nom à une URL pour {section}",
+      "urlMissingURL": "Une entrée d'URL pour {section} ne contient pas l'URL",
+      "dataError": "Il y a eu un problème avec les informations que vous avez soumises, veuillez revenir en arrière et réessayer",
+      "submitError": "Un problème est survenu lors de l'envoi de vos informations : {error}. Veuillez réessayer plus tard",
+      "mutualAidGroupsNotAccepted": "Veuillez plutôt soumettre des informations sur de nouveaux groupes d'entraide sur {link}."
+    }
+  },
+  "buttons": {
+    "fullScreen": "Plein écran",
+    "exitFullScreen": "Quitter le plein écran"
+  },
+  "loading": "Chargement en cours...",
+  "filterBy": "Filtrer par:",
+  "services": {
+    "any": "Tous",
+    "food": "Alimentation",
+    "medicine": "Santé",
+    "supplies": "Autres Fournitures",
+    "mobility": "Mobilité",
+    "shelter": "Refuge",
+    "support": "Support",
+    "information": "Renseignements ",
+    "network": "Réseau",
+    "manufacturing": "Production",
+    "financial": "Finances",
+    "other": "Autre"
+  },
+  "serviceDescriptions": {
+    "food": null,
+    "medicine": null,
+    "supplies": "Fournitures autres que la nourriture ou les médicaments",
+    "mobility": "Transporter des personnes d'un lieu à un autre",
+    "shelter": null,
+    "support": "Un soutien adapté aux groupes vulnérables comme les sans-abri, les personnes exposées aux risques d'abus domestiques, etc.",
+    "information": "Aidez les gens à trouver des informations pertinentes",
+    "network": "Faciliter la communication et l'échange d'information pour fournir de l'aide et du soutien, par exemple entre les organisations d'entraide",
+    "manufacturing": "Fournit des fournitures ou des capacités de fabrication nécessaires pour faire face à la crise",
+    "financial": null,
+    "other": "Ne figure pas dans cette liste"
+  },
+  "markerTypes": {
+    "mutual-aid-group": "Groupe d’entraide",
+    "org": "Organisation / Entreprise",
+    "financial": "Financier",
+    "information": "Renseignements",
+    "other": "Autres "
+  },
+  "markerTypeSentence": {
+    "mutual-aid-group": "groupe d’entraide",
+    "org": "organisation / société",
+    "project": "projet"
+  },
+  "map": {
+    "jumpToLocation": "Aller à un emplacement sur la carte...",
+    "updateResultsForThisArea": "Mettre à jour les résultats pour cette zone",
+    "myLocation": "Ma position"
+  },
+  "results": {
+    "backToResults": "Retour aux résultats",
+    "openResults": "Voir {results, plural, =0 {no results} =1 {# résultat} other {# résultats}}",
+    "closeResults": "Masquer {results, plural, one {} =0 {aucun résultat} =1 {1 résultat} other {# résultats}}",
+    "showMore": "Afficher plus de résultats",
+    "contact": {
+      "general": "Informations Générales:",
+      "getHelp": "Obtenir de l'aide:",
+      "volunteer": "Bénévole:",
+      "facebookGroup": "Groupe Facebook"
+    },
+    "details": {
+      "disclaimer": {
+        "header": "Note",
+        "content": "Chaque projet est autonome et auto-organisé; beaucoup utilisent des feuilles de calcul publiques ou des forums pour partager des informations, soyez prudent lorsque vous entrez des informations privées que vous ne souhaitez pas rendre publiques."
+      },
+      "source": "Les informations relatives à ce {type} sont fournies par {source}."
+    }
+  },
+  "lang": "Langue:",
+  "langSelect": "Sélectionner la langue",
+  "footer": {
+    "netlifyNote": "Cette carte {link}",
+    "netlifyLinkText": "est hébergé par Netlify",
+    "githubRepo": "Dépôt GitHub",
+    "codeOfConduct": "Code de conduite",
+    "showHidden": "Afficher les informations masquées",
+    "hideHidden": "Masquer les informations masquées"
+  },
+  "hiddenMarkers": {
+    "visiblility": "Visibilité : {visibility}",
+    "filter": {
+      "any": "Tous",
+      "visible": "Visible uniquement",
+      "hidden": "Masqué uniquement"
+    }
+  }
+}

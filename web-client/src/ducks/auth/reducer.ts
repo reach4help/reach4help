@@ -1,82 +1,44 @@
-import { LoginResponse } from 'src/http/resources/auth';
+import firebase, { firebaseAuth } from 'src/firebase';
 import createReducer from 'src/store/utils/createReducer';
 
-import {
-  FIREBASE_FACEBOOK_LOGIN_POPUP,
-  FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE,
-  FIREBASE_FACEBOOK_LOGIN_REDIRECT_START,
-  LOGIN,
-} from './types';
-
-interface AuthState {
-  token?: string;
-  actionInProgress?: boolean;
-  error?: Error;
-}
+import facebookReducer from './facebook/reducer';
+import phoneReducer from './phone/reducer';
+import { AuthState, LOGOUT, OBSERVE_USER } from './types';
 
 const initialState: AuthState = {
-  token: undefined,
-  actionInProgress: false,
+  loading: false,
   error: undefined,
+  user: firebaseAuth.currentUser,
+  confirmationResult: undefined,
+  observerReceivedFirstUpdate: false,
 };
-
 export default createReducer<AuthState>(
   {
-    [LOGIN.COMPLETED]: (
-      state: AuthState,
-      { payload }: { payload: LoginResponse },
-    ) => {
-      state.token = payload.accessToken;
+    ...facebookReducer,
+    ...phoneReducer,
+    [OBSERVE_USER.SUBSCRIBE]: (state: AuthState) => {
+      state.loading = true;
     },
-    [FIREBASE_FACEBOOK_LOGIN_POPUP.PENDING]: (state: AuthState) => {
-      state.actionInProgress = true;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_POPUP.COMPLETED]: (
+    [OBSERVE_USER.UPDATED]: (
       state: AuthState,
-      { payload }: { payload: string },
+      { payload }: { payload: firebase.User },
     ) => {
-      state.token = payload;
-      state.actionInProgress = false;
+      // eslint-disable-next-line prefer-destructuring
+      state.user = payload;
+      state.loading = false;
+      state.observerReceivedFirstUpdate = true;
     },
-    [FIREBASE_FACEBOOK_LOGIN_POPUP.REJECTED]: (
-      state: AuthState,
-      { payload }: { payload: Error },
-    ) => {
+    [LOGOUT.PENDING]: (state: AuthState) => {
+      state.loading = true;
+    },
+    [LOGOUT.REJECTED]: (state: AuthState, { payload }: { payload: Error }) => {
+      state.loading = false;
       state.error = payload;
-      state.actionInProgress = false;
     },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.PENDING]: (state: AuthState) => {
-      window.localStorage.setItem('redirect_started', new Date().toISOString());
-      state.actionInProgress = true;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.REJECTED]: (
-      state: AuthState,
-      { payload }: { payload: Error },
-    ) => {
-      window.localStorage.removeItem('redirect_started');
-      state.error = payload;
-      state.actionInProgress = false;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_START.COMPLETED]: (state: AuthState) => {
-      state.actionInProgress = false;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.PENDING]: (state: AuthState) => {
-      window.localStorage.removeItem('redirect_started');
-      state.actionInProgress = true;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.COMPLETED]: (
-      state: AuthState,
-      { payload }: { payload: string },
-    ) => {
-      state.token = payload;
-      state.actionInProgress = false;
-    },
-    [FIREBASE_FACEBOOK_LOGIN_REDIRECT_COMPLETE.REJECTED]: (
-      state: AuthState,
-      { payload }: { payload: Error },
-    ) => {
-      state.error = payload;
-      state.actionInProgress = false;
+    [LOGOUT.COMPLETED]: (state: AuthState) => {
+      state.loading = false;
+      state.user = undefined;
+      state.confirmationResult = undefined;
     },
   },
   initialState,

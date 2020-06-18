@@ -2,13 +2,22 @@
   "projects": {
     "default": "reach4help-dev",
     "staging": "reach4help-staging",
-    "production": "reach4help-34372"
+    "production": "reach4help"
   },
   "targets": {
     "reach4help-dev": {
       "hosting": {
         "web-client": [
           "reach4help-dev-web-client"
+        ],
+        "map": [
+          "reach4help-dev-map-web"
+        ],
+        "api": [
+          "reach4help-dev-api"
+        ],
+        "site": [
+          "reach4help-dev"
         ]
       }
     },
@@ -16,13 +25,31 @@
       "hosting": {
         "web-client": [
           "reach4help-staging-web-client"
+        ],
+        "map": [
+          "reach4help-staging-map"
+        ],
+        "api": [
+          "reach4help-staging-api"
+        ],
+        "site": [
+          "reach4help-staging"
         ]
       }
     },
-    "reach4help-34372": {
+    "reach4help": {
       "hosting": {
         "web-client": [
-          "reach4help-web-client"
+          "reach4help-webclient"
+        ],
+        "map": [
+          "reach4help-map-site"
+        ],
+        "api": [
+          "reach4help-api"
+        ],
+        "site": [
+          "reach4help"
         ]
       }
     }

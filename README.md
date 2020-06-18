@@ -5,9 +5,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <p align="center">
@@ -26,7 +24,7 @@ Our goal is to address these issues, not only enabling those in need to receive 
 
 We’re part of [Helpful Engineering](https://www.helpfulengineering.org/), a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commercial goals.
 
-We're also partnering with [CheckUpOn.Me](https://checkupon.me/), an integral part of the Reach4Help family specifically focusing on faciliating communication between those who want to have the peace of mind of having someone check up on their health reguarly.
+We're also partnering with [CheckUpOn.Me](https://checkupon.me/), an integral part of the Reach4Help family specifically focusing on facilitating communication between those who want to have the peace of mind of having someone check up on their health regularly.
 
 ## Project Status
 
@@ -34,11 +32,12 @@ Right now, we’re developing our **MVP** and rapidly expanding our _reach_! We�
 
 ## How _You_ Can Contribute
 
-We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the [instructions for getting involved](docs/GETTING_INVOLVED.md). We'd be honored to have you join our humble abode!
+We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps). You can find more details on how to prepare the environment and the guidelines on how to contribute to the repo by looking at the [instructions for contributing](CONTRIBUTING.md). We'd be honored to have you join our humble abode!
 
 # Development
 
 This is the main/mono-repo for [Reach4Help](https://reach4help.org/).
+If you haven't already gone through the Instructions for setting up the environment and the standards that we follow, please go through the [instructions for contributing](CONTRIBUTING.md) before proceeding.
 
 ## Preparing the repository
 
@@ -63,7 +62,7 @@ and update the `yarn.lock` in the root of the repo.
 
 ### Our Website
 
-This is our landing page. It's  It shows a lot of helpful tips and general information.
+This is our landing page. It's It shows a lot of helpful tips and general information.
 
 More info [here](site/README.md)!
 
@@ -87,7 +86,7 @@ More info [here](functions/README.md)!
 
 ## Code of Conduct
 
-We expect everyone to abide by our [Code of Conduct](docs/CODE_OF_CONDUCT.md). Please read it.
+We expect everyone to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it.
 
 ## Contributors ✨
 
@@ -101,25 +100,29 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/comoser"><img src="https://avatars2.githubusercontent.com/u/5495320?v=4" width="100px;" alt=""/><br /><sub><b>David Alecrim</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=comoser" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/commits?author=comoser" title="Documentation">📖</a> <a href="#ideas-comoser" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-comoser" title="Maintenance">🚧</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Acomoser" title="Reviewed Pull Requests">👀</a> <a href="#projectManagement-comoser" title="Project Management">📆</a></td>
     <td align="center"><a href="https://sam.lanni.ng"><img src="https://avatars0.githubusercontent.com/u/3319932?v=4" width="100px;" alt=""/><br /><sub><b>Sam Lanning</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=s0" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/commits?author=s0" title="Documentation">📖</a> <a href="#ideas-s0" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-s0" title="Maintenance">🚧</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3As0" title="Reviewed Pull Requests">👀</a> <a href="#content-s0" title="Content">🖋</a> <a href="#projectManagement-s0" title="Project Management">📆</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/luis-oliveira-tech/"><img src="https://avatars0.githubusercontent.com/u/9373787?v=4" width="100px;" alt=""/><br /><sub><b>Luis Filipe</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=luisFilipePT" title="Documentation">📖</a> <a href="https://github.com/reach4help/reach4help/commits?author=luisFilipePT" title="Code">💻</a> <a href="#ideas-luisFilipePT" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="http://freethinking.it"><img src="https://avatars0.githubusercontent.com/u/961844?v=4" width="100px;" alt=""/><br /><sub><b>Dan Sabin</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Asabind" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/reach4help/reach4help/commits?author=sabind" title="Code">💻</a> <a href="#ideas-sabind" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-sabind" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/jpmarques66"><img src="https://avatars1.githubusercontent.com/u/52417176?v=4" width="100px;" alt=""/><br /><sub><b>João Marques</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=jpmarques66" title="Code">💻</a> <a href="#ideas-jpmarques66" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/commits?author=jpmarques66" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://freethinking.it"><img src="https://avatars0.githubusercontent.com/u/961844?v=4" width="100px;" alt=""/><br /><sub><b>Dan Sabin</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Asabind" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/jpmarques66"><img src="https://avatars1.githubusercontent.com/u/52417176?v=4" width="100px;" alt=""/><br /><sub><b>João Marques</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=jpmarques66" title="Code">💻</a> <a href="#ideas-jpmarques66" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/commits?author=jpmarques66" title="Documentation">📖</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Ajpmarques66" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="http://freethinking.it"><img src="https://avatars0.githubusercontent.com/u/961844?v=4" width="100px;" alt=""/><br /><sub><b>Dan Sabin</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Asabind" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/reach4help/reach4help/commits?author=sabind" title="Code">💻</a> <a href="#ideas-sabind" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-sabind" title="Maintenance">🚧</a> <a href="https://github.com/reach4help/reach4help/commits?author=sabind" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/rbgoncalves"><img src="https://avatars1.githubusercontent.com/u/24323690?v=4" width="100px;" alt=""/><br /><sub><b>Rúben Gonçalves</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=rbgoncalves" title="Code">💻</a> <a href="#ideas-rbgoncalves" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Arbgoncalves" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/wr46"><img src="https://avatars0.githubusercontent.com/u/5550776?v=4" width="100px;" alt=""/><br /><sub><b>Wilson Rodrigues</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=wr46" title="Code">💻</a> <a href="#ideas-wr46" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-wr46" title="Project Management">📆</a> <a href="#maintenance-wr46" title="Maintenance">🚧</a> <a href="https://github.com/reach4help/reach4help/commits?author=wr46" title="Documentation">📖</a></td>
   </tr>
   <tr>
     <td align="center"><a href="http://namadnuno.alojamento-gratis.com/"><img src="https://avatars1.githubusercontent.com/u/9502562?v=4" width="100px;" alt=""/><br /><sub><b>Nuno Alexandre</b></sub></a><br /><a href="#ideas-namadnuno" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/commits?author=namadnuno" title="Code">💻</a></td>
-    <td align="center"><a href="https://micaelr95.github.io/"><img src="https://avatars3.githubusercontent.com/u/12500655?v=4" width="100px;" alt=""/><br /><sub><b>Micael Rodrigues</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=micaelr95" title="Code">💻</a></td>
+    <td align="center"><a href="https://micaelr95.github.io/"><img src="https://avatars3.githubusercontent.com/u/12500655?v=4" width="100px;" alt=""/><br /><sub><b>Micael Rodrigues</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=micaelr95" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/commits?author=micaelr95" title="Documentation">📖</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Amicaelr95" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/mdeous"><img src="https://avatars1.githubusercontent.com/u/393165?v=4" width="100px;" alt=""/><br /><sub><b>Mathieu Deous</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=mdeous" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/cinthyaejh"><img src="https://avatars1.githubusercontent.com/u/40286823?v=4" width="100px;" alt=""/><br /><sub><b>cinthyaejh</b></sub></a><br /><a href="#design-cinthyaejh" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/PatriciaMiranda"><img src="https://avatars1.githubusercontent.com/u/62437898?v=4" width="100px;" alt=""/><br /><sub><b>PatriciaMiranda</b></sub></a><br /><a href="#design-PatriciaMiranda" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/r13serra11"><img src="https://avatars1.githubusercontent.com/u/62537457?v=4" width="100px;" alt=""/><br /><sub><b>Rita Serra</b></sub></a><br /><a href="#design-r13serra11" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/telmodias"><img src="https://avatars1.githubusercontent.com/u/30916?v=4" width="100px;" alt=""/><br /><sub><b>Telmo Dias</b></sub></a><br /><a href="#ideas-telmodias" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/commits?author=telmodias" title="Documentation">📖</a> <a href="https://github.com/reach4help/reach4help/commits?author=telmodias" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Atelmodias" title="Reviewed Pull Requests">👀</a> <a href="#projectManagement-telmodias" title="Project Management">📆</a> <a href="#design-telmodias" title="Design">🎨</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/ashwinkjoseph"><img src="https://avatars2.githubusercontent.com/u/13694998?v=4" width="100px;" alt=""/><br /><sub><b>Joseph Ashwin Kottapurath</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ashwinkjoseph" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Aashwinkjoseph" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://btuerker.com"><img src="https://avatars0.githubusercontent.com/u/46192266?v=4" width="100px;" alt=""/><br /><sub><b>Burhan Tuerker</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=btuerker" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

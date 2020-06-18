@@ -2,46 +2,54 @@ import { COLORS } from '../styling/theme';
 
 export const SERVICES = {
   food: {
-    label: 'Food',
     color: COLORS.red,
   },
-  supplies: {
-    label: 'Supplies',
-    color: COLORS.green,
-  },
-  aid: {
-    label: 'Aid',
-    color: COLORS.yellow,
-  },
-  mobility: {
-    label: 'Mobility',
-    color: COLORS.purple,
-  },
   medicine: {
-    label: 'Medicine',
     color: COLORS.blue,
   },
+  supplies: {
+    color: COLORS.green,
+  },
+  mobility: {
+    color: COLORS.purple,
+  },
+  shelter: {
+    color: COLORS.orange,
+  },
+  support: {
+    color: COLORS.yellow,
+  },
+  information: {
+    color: COLORS.orange,
+  },
+  network: {
+    color: COLORS.yellow,
+  },
   manufacturing: {
-    label: 'Manufacturing',
     color: COLORS.orange,
   },
   financial: {
-    label: 'Financial',
     color: COLORS.orange,
   },
-  information: {
-    label: 'Information',
-    color: COLORS.orange,
+  other: {
+    color: COLORS.yellow,
   },
 } as const;
 
-export type Service = keyof typeof SERVICES;
-
-export const isService = (service: string): service is Service =>
-  service in SERVICES;
-
-export const SERVICE_TYPES = Object.keys(SERVICES) as Service[];
-
-export interface Filter {
-  service?: Service;
-}
+export const MARKER_TYPES = {
+  'mutual-aid-group': {
+    color: COLORS.red,
+  },
+  org: {
+    color: COLORS.blue,
+  },
+  financial: {
+    color: COLORS.green,
+  },
+  information: {
+    color: COLORS.purple,
+  },
+  other: {
+    color: COLORS.orange,
+  },
+};

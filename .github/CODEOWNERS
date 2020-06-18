@@ -1,0 +1,19 @@
+# Branding
+branding/*          @reach4help/ux-design
+
+# Product and Operations
+.github/*           @reach4help/product-operations
+docs/*              @reach4help/product-operations
+site/*              @reach4help/product-operations
+*.md                @reach4help/product-operations
+
+# Firebase
+firebase/*          @reach4help/backend @reach4help/security
+functions/*         @reach4help/backend
+.firebaserc         @reach4help/backend
+
+# Map
+map/*               @reach4help/map-project
+
+# Front-End
+site/*              @reach4help/frontend

@@ -1,23 +1,42 @@
-import React from 'react';
-import Layout from '../components/Layout';
-import Landing from '../sections/Landing';
-import About from '../sections/About';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Resources from '../sections/Resources';
-import Team from '../sections/Team';
-import Thanks from '../sections/Thanks';
+import React from "react"
+import { useTranslation } from "react-i18next"
 
-const IndexPage = () => (
-  <Layout>
-    <Header />
-    <Landing />
-    <About />
-    <Resources />
-    <Team />
-    <Thanks />
-    <Footer />
-  </Layout>
-);
+// components
+import SEO from "src/components/seo"
+import Layout from "src/components/layout"
+import Header from "src/components/header"
+import Footer from "src/components/footer"
 
-export default IndexPage;
+// sections
+import Home from "src/sections/home"
+import Mission from "src/sections/mission"
+import Team from "src/sections/team"
+import Partners from "src/sections/partners"
+
+function IndexPage() {
+  const { t } = useTranslation()
+
+  return (
+    <Layout>
+      <SEO />
+      <Header
+        navSections={t("Navigation.IndexPage", { returnObjects: true })}
+      />
+      <div className="sections">
+        <Home />
+        <Mission />
+        <Team />
+      </div>
+      <div className="extendedFooter">
+        <Partners />
+        <Footer transparent />
+      </div>
+    </Layout>
+  )
+}
+
+export default IndexPage
+
+// When making folders for each page
+// import index from './index/index';
+// export default index;

@@ -1,7 +1,202 @@
 rules_version = '2';
+
+function verifyMarkerDataComplete(data) {
+   return data.visible == false &&
+          ('contentTitle' in data) &&
+          ('type' in data) &&
+          ('type' in data.type) &&
+          ('contact' in data) &&
+          ('loc' in data) &&
+          ('description' in data.loc) &&
+          verifyLatLngObject(data.loc.latlng) &&
+          ('serviceRadius' in data.loc)
+}
+
+function isAuthenticated() {
+  return request.auth.uid != null;
+}
+
+function isUser(id) {
+  return isAuthenticated() && request.auth.uid == id;
+}
+
+function isVerifiedCAV() {
+  // TODO: prepare frontend to refresh token to use request.auth.token.cav == true
+  return isAuthenticated();
+}
+
+function isVerifiedPIN() {
+  // TODO: prepare frontend to refresh token to use request.auth.token.pin == true
+  return isAuthenticated();
+}
+
+function currentUserIsCurrentPINRef(userID, database, data) {
+  return ('pinUserRef' in data) &&
+  data.pinUserRef == /databases/$(database)/documents/users/$(userID)
+}
+
+function currentUserIsCurrentCAVRef(userID, database, data) {
+  return isAuthenticated() &&
+  ('cavUserRef' in data) &&
+  data.cavUserRef == /databases/$(database)/documents/users/$(userID)
+}
+
+function questionnaireBelongsToUser(userID, database, data) {
+    return isAuthenticated() &&
+           ('parentRef' in data) &&
+           data.parentRef == /databases/$(database)/documents/users/$(userID)
+}
+
+function confirmEitherPINorCAV(userID, database, data) {
+    return currentUserIsCurrentPINRef(userID, database, data) || currentUserIsCurrentCAVRef(userID, database, data)
+}
+
+function isNotSameCAVPIN(data) {
+  return data.cavUserRef != data.pinUserRef
+}
+
+function verifyUserDataComplete(data) {
+   return data.casesCompleted >= 0 &&
+          data.requestsMade >= 0 &&
+          data.cavRatingsReceived >= 0 &&
+          data.pinRatingsReceived >= 0 &&
+          ('username' in data) &&
+          ('createdAt' in data) &&
+          data.createdAt is timestamp
+}
+
+function verifyQuestionnaireComplete(data) {
+   return ('parentRef' in data) &&
+          ('data' in data) &&
+          ('type' in data) &&
+          ('createdAt' in data) &&
+          data.createdAt is timestamp &&
+          ('version' in data)
+}
+
+// Completed requests need ratings on all sides
+function verifyHelpRequestAttributesForStatus(status, data) {
+    // No if/else so we have to do this
+    return (
+             status == 'ongoing' && ('cavUserRef' in data)
+           ) ||
+           (
+             (status == 'completed') &&
+             ('cavUserRef' in data) &&
+             ('pinRating' in data) &&
+             ('cavRating' in data) &&
+             ('pinRatedAt' in data) &&
+             ('cavRatedAt' in data)
+           ) ||
+           true // for other statuses we don't have extra requirements
+}
+
+function verifyLatLngObject(latLng) {
+    // Check the the attribute 'latLng' is of the data type 'latlng'
+    return latLng is latlng
+}
+
+function verifyHelpRequestDataComplete(data) {
+   return ('pinUserRef' in data) &&
+          ('pinUserSnapshot' in data) &&
+          ('title' in data) &&
+          ('description' in data) &&
+          ('status' in data) &&
+          ('createdAt' in data) &&
+          ('updatedAt' in data) &&
+          verifyHelpRequestAttributesForStatus(data.status, data) &&
+          verifyLatLngObject(data.latLng) &&
+          ('streetAddress' in data ) &&
+          ('createdAt' in data) &&
+          data.createdAt is timestamp
+}
+
+function verifyOfferDataComplete(data) {
+   return ('cavUserRef' in data) &&
+          ('pinUserRef' in data) &&
+          ('requestRef' in data) &&
+          ('cavUserSnapshot' in data) &&
+          ('message' in data) &&
+          ('status' in data) &&
+          ('createdAt' in data) &&
+          data.createdAt is timestamp
+}
+
+function verifyAddressDataComplete(address) {
+    // TODO: Further validate address object.
+    return true
+}
+
+function verifyUserPrivilegedInformationDataComplete(data) {
+   return ('address' in data) && verifyAddressDataComplete(data.address) &&
+          ('termsAccepted' in data) &&
+          data.termsAccepted is timestamp &&
+          ('termsVersion' in data)
+}
+
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Catch all -- Dont read/write to collections without rules
     match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /config/chatbot {
+      // Only the chatbot can read / write this config
+      allow read, write: if request.auth.uid == 'bot-chatbot';
+    }
+
+    match /markers/{markerID} {
+      // Anyone can read any marker
+      allow read: if true;
+      // Any one can add a marker (but not edit it)
+      allow write: if verifyMarkerDataComplete(request.resource.data) &&
+       !exists(/databases/$(database)/documents/markers/$(request.resource.id));
+    }
+
+    match /users/{userID} {
+      // Anyone can read your profile
+      allow read: if isAuthenticated();
+      // Only you can edit your own profile
+      allow write: if isUser(userID) && verifyUserDataComplete(request.resource.data);
+    }
+
+    // 1: Read + Writes to sub-collection can only be done by the owner
+    // 2: Writes to sub-collections must match userID chain so we can always directly reference
+    match /users/{userID}/privilegedInformation/{subDocID} {
+        allow read: if isUser(userID) && userID == subDocID;
+        allow write: if isUser(userID) && userID == subDocID && verifyUserPrivilegedInformationDataComplete(request.resource.data);
+    }
+
+    match /offers/{offerID} {
+      // Only the PIN or CAV of the request can read the offers
+      allow read: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
+      // Only CAVs can submit offers (as themselves) | issue - pin needs to accespt TODO: need more complicated logic for ensuring correct CAV and PIN
+      allow write: if verifyOfferDataComplete(request.resource.data);
+    }
+
+    match /requests/{reqID} {
+      // Only CAVs can see requests
+      allow read: if isVerifiedCAV() || isVerifiedPIN();
+      // TODO: need more complicated logic for ensuring correct CAV and PIN
+      allow write: if isNotSameCAVPIN(request.resource.data) &&
+       verifyHelpRequestDataComplete(request.resource.data);
+    }
+
+    match /questionnaires/{questID} {
+      // Can only read + write my own data
+      allow read: if isAuthenticated() && questionnaireBelongsToUser(request.auth.uid, database, resource.data);
+      // TODO: Change this rule once we allow other entities to submit questionnaires
+      allow write: if isAuthenticated() &&
+        verifyQuestionnaireComplete(request.resource.data) &&
+        questionnaireBelongsToUser(request.auth.uid, database, request.resource.data);
+    }
+
+    // Don't allow reading/writing to Teams and Orgs.
+    match /organizations/{orgID} {
+      allow read, write: if false;
+    }
+    match /teams/{orgID} {
       allow read, write: if false;
     }
   }
