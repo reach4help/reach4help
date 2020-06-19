@@ -13,8 +13,6 @@ import 'firebase/analytics';
     appId : process.env.REACT_APP_DEV_ID
   })
 
-firebase.analytics()
-
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -27,6 +25,7 @@ const config = {
 };
 
 firebase.initializeApp(config);
+firebase.analytics();
 
 export const firebaseAuth = firebase.auth();
 export const firestore = firebase.firestore();
