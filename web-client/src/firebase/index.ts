@@ -5,13 +5,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 // eslint-disable-next-line import/no-duplicates
 import 'firebase/functions';
-
+// eslint-disable-next-line import/no-duplicates
 import 'firebase/analytics';
-
-  app.initializeApp({
-    measurementId : process.env.REACT_APPMEASUREMENT_ID,
-    appId : process.env.REACT_APP_DEV_ID
-  })
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -25,10 +20,10 @@ const config = {
 };
 
 firebase.initializeApp(config);
-firebase.analytics();
 
 export const firebaseAuth = firebase.auth();
 export const firestore = firebase.firestore();
 export const functions = firebase.functions();
+export const analytics = firebase.analytics();
 
 export default firebase;
