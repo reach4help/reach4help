@@ -6,6 +6,15 @@ import 'firebase/firestore';
 // eslint-disable-next-line import/no-duplicates
 import 'firebase/functions';
 
+import 'firebase/analytics';
+
+  app.initializeApp({
+    measurementId : process.env.REACT_APPMEASUREMENT_ID,
+    appId : process.env.REACT_APP_DEV_ID
+  })
+
+firebase.analytics()
+
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
