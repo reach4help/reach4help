@@ -118,7 +118,7 @@ const getPendingRequestsWithOffers = async (
       let shouldPush = true;
       for (const timelineDoc of results[1]) {
         const timelineInstance = TimelineItem.factory(timelineDoc);
-        if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.actorRef.id === userRef.id) {
+        if ((timelineInstance.action === TimelineItemAction.CREATE_OFFER || timelineInstance.action === TimelineItemAction.CAV_DECLINED) && timelineInstance.actorRef.id === userRef.id) {
           shouldPush = false;
           break;
         }
