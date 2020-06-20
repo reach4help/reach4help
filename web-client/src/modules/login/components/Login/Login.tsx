@@ -8,8 +8,9 @@ import styled from 'styled-components';
 
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
 import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
+import LoginSteps from '../LoginSteps/LoginSteps';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const Login: React.FC<LoginProps> = ({
   onLoginGoogle,
@@ -22,7 +23,7 @@ const Login: React.FC<LoginProps> = ({
       <IntroLogo src={logo} alt="logo" />
       <LoginTitle>{t('login.title')}</LoginTitle>
       <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
-      <Info>{t('login.info')}</Info>
+      <LoginSteps />
       <LoginButtonContainer>
         <GoogleLoginButton onAuthenticate={onLoginGoogle} />
         <FacebookLoginButton onAuthenticate={onLoginFacebook} />
@@ -34,11 +35,6 @@ const Login: React.FC<LoginProps> = ({
 const LoginTitle = styled(Title)`
   margin-top: 20px;
   margin-bottom: 50px !important;
-`;
-
-const Info = styled(Text)`
-  margin-top: 40px;
-  text-align: center;
 `;
 
 const LoginButtonContainer = styled.div`

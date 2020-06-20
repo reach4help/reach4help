@@ -90,7 +90,22 @@
       "sub_title": "Sign Up Overview",
       "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
       "facebookButtonLabel": "Continue with Facebook",
-      "googleButtonLabel": "Continue with Google"
+      "googleButtonLabel": "Continue with Google",
+
+
+      "steps": {
+        "0": {
+          "a": "Welcome to Reach4Help",
+          "b": "Thank you so much for your interest in helping your community"
+        },
+        "1": {
+          "a": "Our app allows you to provide support to and to receive help from people in your area",
+          "b": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+          },
+        "2": {
+          "a": "Please sign up with one of the providers below"
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Contact us",
