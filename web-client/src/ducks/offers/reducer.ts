@@ -12,7 +12,7 @@ import {
 
 const initialSetActionState = {
   loading: false,
-  success: false,
+  success: undefined,
   error: undefined,
   modalState: false,
 };
@@ -32,19 +32,22 @@ export default createReducer<OffersState>(
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [SET.COMPLETED]: (state: OffersState) => {
+    [SET.COMPLETED]: (
+      state: OffersState,
+      { payload }: { payload: 1 | 2 | 3 },
+    ) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
-      state.setAction.success = true;
+      state.setAction.success = payload;
     },
     [SET.REJECTED]: (state: OffersState, { payload }: { payload: Error }) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
-      state.setAction.success = false;
+      state.setAction.success = undefined;
     },
     [RESET_SET]: (state: OffersState) => {
       state.setAction.loading = false;
-      state.setAction.success = false;
+      state.setAction.success = undefined;
     },
     [OBSERVE_OFFERS.SUBSCRIBE]: (state: OffersState) => {
       state.loading = true;
