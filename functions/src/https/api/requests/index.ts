@@ -53,8 +53,10 @@ const getTimelineForRequest = async (requestRef: firestore.DocumentReference, us
     const timelinesResult = await requestRef
       .collection('timeline')
       .where('action', 'in', [
+        TimelineItemAction.ACCEPT_OFFER,
         TimelineItemAction.CREATE_REQUEST,
         TimelineItemAction.CREATE_OFFER,
+        TimelineItemAction.CAV_DECLINED,
         TimelineItemAction.REJECT_OFFER,
         TimelineItemAction.REMOVE_REQUEST,
       ])
