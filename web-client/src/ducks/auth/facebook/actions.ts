@@ -9,22 +9,23 @@ import {
   TRIGGER_LOGIN_WITH_REDIRECT,
 } from './types';
 
-export const triggerLoginWithRedirect = () => (dispatch: Function) => {
+export const triggerFBLoginWithRedirect = () => (dispatch: Function) => {
   dispatch({
     type: TRIGGER_LOGIN_WITH_REDIRECT,
     firebase: loginWithFirebaseRedirect,
   });
 };
-export const loginWithFirebaseActionPopUp = () => (dispatch: Function) => {
+
+export const LoginWithFBFirebaseActionPopUp = () => (dispatch: Function) => {
   dispatch({
     type: FIREBASE_FACEBOOK_LOGIN_POPUP,
     payload: {},
     firebase: facebookLoginWithFirebasePopUp,
-    fallback: triggerLoginWithRedirect,
+    fallback: triggerFBLoginWithRedirect,
   });
 };
 
-export const getLoginRedirectResult = () => (dispatch: Function) => {
+export const getFBLoginRedirectResult = () => (dispatch: Function) => {
   dispatch({
     type: GET_LOGIN_REDIRECT_RESULT,
     firebase: getRedirectResult,
