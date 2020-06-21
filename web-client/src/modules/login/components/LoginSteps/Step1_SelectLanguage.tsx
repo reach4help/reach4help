@@ -1,65 +1,79 @@
+import { Select } from 'antd';
+import langs from 'langs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import * as i18n from 'i18next';
-import langs from 'langs';
-import { Select } from 'antd';
+import CONSTANTS from 'src/constants';
+import i18next from 'src/translations/i18n';
 import styled from 'styled-components';
 
+const { localStorageKey } = CONSTANTS;
+
+const { /* changeLanguage, */ language: currentLanguage } = i18next;
 const { Option } = Select;
 
 const Step0: React.FC = (): React.ReactElement => {
   const { t } = useTranslation();
 
   const allLanguages = langs.all();
-  const currentLanguage = 'English';
+
+  const setBrowserDefaultLanguage = val => {
+    localStorage.setItem(localStorageKey, val);
+    /*  TODO:  language should be changed immediately as well as in localStorage
+    console.log('new lang', val);
+  
+    changeLanguage(val)
+      .then(t => console.log(`Changed language to ${val}`))
+      .catch(err => console.error(`Error in ChangeLanguage ${err}`));
+      */
+  };
+
   return (
     <StepWrapper>
-      <LanguageSelectWrapper>
-        <LanguageSelectLabel>
-          {t('login.steps.1_select_language.select_language_label')}
-        </LanguageSelectLabel>
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder={t('should.be.current.language')}
-          optionFilterProp="children"
-          filterOption={(input, option) =>
-            option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          onChange={v => updateLanguage(v.toString())}
-        >
-          {// not correct. check contents of allLanguages array for options
-          allLanguages.map(language => (
-            <Option key={language['1']} value={language['1']}>
-              {language.name}
-            </Option>
-          ))}
-        </Select>
-      </LanguageSelectWrapper>
+      <LanguageSelectLabel>
+        <H6>{t('login.steps.1_select_language.select_language_label')}</H6>
+      </LanguageSelectLabel>
+      <Select
+        defaultValue={currentLanguage}
+        showSearch
+        style={{ width: 200 }}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        }
+        onChange={v => setBrowserDefaultLanguage(v.toString())}
+      >
+        {allLanguages.map(language => (
+          <Option key={language['1']} value={language['1']}>
+            {language.name}
+          </Option>
+        ))}
+      </Select>
     </StepWrapper>
   );
 };
 
-const updateLanguage = (newLang: string) => {
-  console.log('new lang', newLang);
-  /*    i18n.changeLanguage(newLang)
-    .then(t=>
-      console.log(t('hello world'))
-    )
-    .catch(err=>
-      console.error('Error in ChangeLanguage', err);
-    );
-    */
-};
+/* TODO: src/components/figma should be common library */
+const H6 = styled.span`
+  /* h6 */
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 26px;
+  /* or 144% */
+
+  text-align: center;
+`;
 
 const StepWrapper = styled('div')`
-  width: 75%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 25px;
 `;
 
-const LanguageSelectWrapper = styled('div')``;
-const LanguageSelectLabel = styled('div')``;
+const LanguageSelectLabel = styled('div')`
+  margin-bottom: 10px;
+`;
 
 export default Step0;

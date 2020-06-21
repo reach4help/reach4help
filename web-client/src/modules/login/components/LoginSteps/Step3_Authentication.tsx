@@ -1,10 +1,8 @@
 import React from 'react';
-import { Typography } from 'antd';
-import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
-import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
 import styled from 'styled-components';
 
-const { Title } = Typography;
+import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
+import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
 
 const StepAuthentication: React.FC<StepAuthenticationProps> = ({
   onLoginGoogle,
@@ -15,11 +13,6 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
     <FacebookLoginButton onAuthenticate={onLoginFacebook} />
   </LoginButtonContainer>
 );
-
-const LoginTitle = styled(Title)`
-  margin-top: 20px;
-  margin-bottom: 50px !important;
-`;
 
 const LoginButtonContainer = styled.div`
   padding-top: 80px;

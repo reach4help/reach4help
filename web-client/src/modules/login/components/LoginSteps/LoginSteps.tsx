@@ -1,14 +1,13 @@
-import { Button, message, Steps, Typography } from 'antd';
+import { Button, Steps } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+
 import Step0 from './Step0_Welcome';
 import Step1 from './Step1_SelectLanguage';
 import Step2 from './Step2_Explanation';
 import Step3 from './Step3_Authentication';
 
-import styled from 'styled-components';
-
-const { /* Title, */ Text } = Typography;
 const { Step } = Steps;
 
 const LoginSteps: React.FC<LoginStepsProps> = ({
@@ -18,7 +17,6 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
   const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState<number>(0);
   const incrementStep = () => setCurrentStep(currentStep + 1);
-  const decrementStep = () => setCurrentStep(currentStep - 1);
 
   const steps = [
     {
@@ -43,12 +41,7 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
       ),
     },
   ];
-  console.log(
-    'current step',
-    currentStep,
-    steps[currentStep],
-    steps[currentStep].content,
-  );
+
   return (
     <>
       <div className="steps-content">{steps[currentStep].content}</div>
