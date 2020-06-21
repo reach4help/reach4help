@@ -8,13 +8,14 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import StarRadioGroup from 'src/components/StarRadioGroup/StarRadioGroup';
-import { Request, RequestStatus } from 'src/models/requests';
+import { RequestStatus } from 'src/models/requests';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 export interface TimelineActionsProps {
-  request: Request;
+  request: RequestWithOffersAndTimeline;
   currentUser: User;
   handleRequest: ({
     status,
@@ -100,7 +101,13 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
       {(showRating || (finishedRequest && !isCav)) && (
         <MiddleAlignedColumn>
           <p>
-            {t('timeline.ratingQuestion')} <b>{currentUser.displayName}</b>?
+            {t('timeline.ratingQuestion')}{' '}
+            <b>
+              {isCav
+                ? request.pinUserSnapshot.displayName
+                : request.cavUserSnapshot?.displayName}
+            </b>
+            ?
           </p>
 
           <StarContainer>

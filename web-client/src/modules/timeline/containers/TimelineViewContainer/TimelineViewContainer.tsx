@@ -26,6 +26,7 @@ import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
+import { ArchivedRequestsLocation } from 'src/modules/requests/pages/routes/ArchivedRequestsRoute/constants';
 import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
 
 import BottomPanel from '../../components/BottomPanel/BottomPanel';
@@ -51,6 +52,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     boolean
   >(false);
 
+  const [shouldRedirectToArchived, setShouldRedirectToArchived] = useState<
+    boolean
+  >(false);
+
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
@@ -72,28 +77,33 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   }, [dispatch]);
 
   useEffect(() => {
-    let requestTemp: RequestWithOffersAndTimeline | undefined = requestsState
-      .syncOpenRequestsState.data
-      ? requestsState.syncOpenRequestsState.data[requestId]
-      : undefined;
+    let requestTemp: RequestWithOffersAndTimeline | undefined =
+      requestsState.syncOpenRequestsState.data &&
+      requestsState.syncOpenRequestsState.data[requestId]
+        ? requestsState.syncOpenRequestsState.data[requestId]
+        : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.syncAcceptedRequestsState.data
+      (requestsState.syncAcceptedRequestsState.data &&
+      requestsState.syncAcceptedRequestsState.data[requestId]
         ? requestsState.syncAcceptedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncOngoingRequestsState.data
+      (requestsState.syncOngoingRequestsState.data &&
+      requestsState.syncOngoingRequestsState.data[requestId]
         ? requestsState.syncOngoingRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncArchivedRequestsState.data
+      (requestsState.syncArchivedRequestsState.data &&
+      requestsState.syncArchivedRequestsState.data[requestId]
         ? requestsState.syncArchivedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncFinishedRequestsState.data
+      (requestsState.syncFinishedRequestsState.data &&
+      requestsState.syncFinishedRequestsState.data[requestId]
         ? requestsState.syncFinishedRequestsState.data[requestId]
         : undefined);
     setRequest(requestTemp);
@@ -108,12 +118,16 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       if (shouldRedirectToFinished) {
         history.push(FinishedRequestsLocation.path);
       }
+      if (shouldRedirectToArchived) {
+        history.push(ArchivedRequestsLocation.path);
+      }
     }
   }, [
     requestsState.setAction,
     offersState.setAction,
     dispatch,
     shouldRedirectToFinished,
+    shouldRedirectToArchived,
     history,
   ]);
 
@@ -244,6 +258,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         (updated.cavRatedAt = firestore.Timestamp.now());
       if (updated.status === RequestStatus.ongoing && updated.pinRatedAt) {
         setShouldRedirectToFinished(true);
+      }
+      if (updated.status === RequestStatus.completed && updated.cavRatedAt) {
+        setShouldRedirectToArchived(true);
       }
       dispatch(updateRequest(updated.toObject() as IRequest, requestId));
     }
