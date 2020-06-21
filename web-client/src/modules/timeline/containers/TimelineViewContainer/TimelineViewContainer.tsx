@@ -72,28 +72,33 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   }, [dispatch]);
 
   useEffect(() => {
-    let requestTemp: RequestWithOffersAndTimeline | undefined = requestsState
-      .syncOpenRequestsState.data
-      ? requestsState.syncOpenRequestsState.data[requestId]
-      : undefined;
+    let requestTemp: RequestWithOffersAndTimeline | undefined =
+      requestsState.syncOpenRequestsState.data &&
+      requestsState.syncOpenRequestsState.data[requestId]
+        ? requestsState.syncOpenRequestsState.data[requestId]
+        : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.syncAcceptedRequestsState.data
+      (requestsState.syncAcceptedRequestsState.data &&
+      requestsState.syncAcceptedRequestsState.data[requestId]
         ? requestsState.syncAcceptedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncOngoingRequestsState.data
+      (requestsState.syncOngoingRequestsState.data &&
+      requestsState.syncOngoingRequestsState.data[requestId]
         ? requestsState.syncOngoingRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncArchivedRequestsState.data
+      (requestsState.syncArchivedRequestsState.data &&
+      requestsState.syncArchivedRequestsState.data[requestId]
         ? requestsState.syncArchivedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncFinishedRequestsState.data
+      (requestsState.syncFinishedRequestsState.data &&
+      requestsState.syncFinishedRequestsState.data[requestId]
         ? requestsState.syncFinishedRequestsState.data[requestId]
         : undefined);
     setRequest(requestTemp);

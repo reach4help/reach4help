@@ -234,11 +234,13 @@ const getAcceptedRequests = async (userRef: firestore.DocumentReference, userTyp
       const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
       if (request.status === RequestStatus.pending) {
         const timeline = await getTimelineForRequest(offer.requestRef, userRef);
-        requestsWithTimeline[doc.id] = RequestWithOffersAndTimeline.factory({
-          ...(request.toObject() as IRequest),
-          offers: {},
-          timeline,
-        });
+        requestsWithTimeline[offer.requestRef.id] =
+          requestsWithTimeline[offer.requestRef.id] ||
+          RequestWithOffersAndTimeline.factory({
+            ...(request.toObject() as IRequest),
+            offers: {},
+            timeline,
+          });
       }
     }
     return requestsWithTimeline;
