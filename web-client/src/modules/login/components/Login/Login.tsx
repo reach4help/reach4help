@@ -1,49 +1,35 @@
 import { Typography } from 'antd';
+import { COLORS } from 'src/theme/colors';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
+/* TODO:  This component is a nightmare.   */
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
-import styled from 'styled-components';
 
-import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
-import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
 import LoginSteps from '../LoginSteps/LoginSteps';
 
 const { Title } = Typography;
 
-const Login: React.FC<LoginProps> = ({
-  onLoginGoogle,
-  onLoginFacebook,
-}): React.ReactElement => {
+const Reach4HelpLogo = () => (
+  <TitleWithAddon level={2} alignAddon="50%">
+    <span>Reach</span>
+    <span style={{ color: COLORS.brandOrange }}>4</span>
+    <span>Help</span>
+  </TitleWithAddon>
+);
+
+const Login: React.FC<LoginProps> = (props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (
     <>
       <IntroLogo src={logo} alt="logo" />
-      <LoginTitle>{t('login.title')}</LoginTitle>
-      <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
-      <LoginSteps />
-      <LoginButtonContainer>
-        <GoogleLoginButton onAuthenticate={onLoginGoogle} />
-        <FacebookLoginButton onAuthenticate={onLoginFacebook} />
-      </LoginButtonContainer>
+      <Reach4HelpLogo />
+      <LoginSteps {...props} />
     </>
   );
 };
-
-const LoginTitle = styled(Title)`
-  margin-top: 20px;
-  margin-bottom: 50px !important;
-`;
-
-const LoginButtonContainer = styled.div`
-  padding-top: 80px;
-  display: flex;
-  flex-direction: column;
-  width: 220px;
-`;
-
 interface LoginProps {
   onLoginGoogle: Function;
   onLoginFacebook: Function;

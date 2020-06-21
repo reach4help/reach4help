@@ -1,39 +1,65 @@
 import { Button, message, Steps, Typography } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import Step0 from './Step0_Welcome';
+import Step1 from './Step1_SelectLanguage';
+import Step2 from './Step2_Explanation';
+import Step3 from './Step3_Authentication';
+
 import styled from 'styled-components';
 
 const { /* Title, */ Text } = Typography;
 const { Step } = Steps;
 
-const LoginSteps: React.FC = (): React.ReactElement => {
+const LoginSteps: React.FC<LoginStepsProps> = ({
+  onLoginFacebook,
+  onLoginGoogle,
+}): React.ReactElement => {
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState<number>(0);
   const incrementStep = () => setCurrentStep(currentStep + 1);
   const decrementStep = () => setCurrentStep(currentStep - 1);
 
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const steps = getSteps();
+  const steps = [
+    {
+      title: t('login.steps.0_welcome.title'),
+      content: <Step0 />,
+    },
+    {
+      title: t('login.steps.1_select_language.title'),
+      content: <Step1 />,
+    },
+    {
+      title: t('login.steps.2_explanation.title'),
+      content: <Step2 />,
+    },
+    {
+      title: t('login.steps.3_authentication.title'),
+      content: (
+        <Step3
+          onLoginFacebook={onLoginFacebook}
+          onLoginGoogle={onLoginGoogle}
+        />
+      ),
+    },
+  ];
+  console.log(
+    'current step',
+    currentStep,
+    steps[currentStep],
+    steps[currentStep].content,
+  );
   return (
-    <div>
+    <>
       <div className="steps-content">{steps[currentStep].content}</div>
 
       <div className="steps-action">
         {currentStep < steps.length - 1 && (
-          <Button type="primary" onClick={incrementStep}>
-            Next
-          </Button>
-        )}
-        {currentStep === steps.length - 1 && (
-          <Button
-            type="primary"
-            onClick={() => message.success('Processing complete!')}
-          >
-            Done
-          </Button>
-        )}
-        {currentStep > 0 && (
-          <Button style={{ margin: '0 8px' }} onClick={decrementStep}>
-            Previous
-          </Button>
+          <ContinueButtonWrapper>
+            <ContinueButton type="primary" onClick={incrementStep}>
+              {t('login.steps.continue')}
+            </ContinueButton>
+          </ContinueButtonWrapper>
         )}
         <Steps current={currentStep}>
           {steps.map(item => (
@@ -41,62 +67,23 @@ const LoginSteps: React.FC = (): React.ReactElement => {
           ))}
         </Steps>
       </div>
-    </div>
+    </>
   );
 };
-
-const Info = styled(Text)`
-  margin-top: 40px;
-  text-align: center;
+const ContinueButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
 
-const getSteps = () => [
-  {
-    title: 'First',
-    content: <Info>hello world</Info>,
-  },
-  {
-    title: 'Second',
-    content: <Info>goodbye cruel world</Info>,
-  },
-  {
-    title: 'Last',
-    content: 'Last-content',
-  },
-];
-export default LoginSteps;
-
-/* 
-import allLanguages from 'languages-list';
-import * as i18n from 'i18next';
-import Select form 'antd';
-
-const updateLanguage = (newLang:  i18n.Language) => {
-  i18next.changeLanguage(newLang)
-  .then(t=>
-    console.log(t('hello world'))
-  )
-  .catch(err=>
-    console.error('Error in ChangeLanguage', err);
-  );
+const ContinueButton = styled(Button)`
+  margin-top: 50px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+`;
+interface LoginStepsProps {
+  onLoginGoogle: Function;
+  onLoginFacebook: Function;
 }
 
-const { Option } = Select;
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder={t('i.need.to.add.this')}
-          optionFilterProp="children"
-          filterOption={(input, option) =>
-            option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          onChange={v => changeLanguage(v.toString())}
-        >
-          {// not correct. check contents of allLanguages array for options 
-            allLanguages.map(l => (
-            <Option key={l} value={l}>
-              {l}
-            </Option>
-          ))}
-        </Select>
-*/
+export default LoginSteps;
