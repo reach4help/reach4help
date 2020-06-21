@@ -26,6 +26,7 @@ import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
+import { ArchivedRequestsLocation } from 'src/modules/requests/pages/routes/ArchivedRequestsRoute/constants';
 import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
 
 import BottomPanel from '../../components/BottomPanel/BottomPanel';
@@ -48,6 +49,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   >(undefined);
 
   const [shouldRedirectToFinished, setShouldRedirectToFinished] = useState<
+    boolean
+  >(false);
+
+  const [shouldRedirectToArchived, setShouldRedirectToArchived] = useState<
     boolean
   >(false);
 
@@ -113,12 +118,16 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       if (shouldRedirectToFinished) {
         history.push(FinishedRequestsLocation.path);
       }
+      if (shouldRedirectToArchived) {
+        history.push(ArchivedRequestsLocation.path);
+      }
     }
   }, [
     requestsState.setAction,
     offersState.setAction,
     dispatch,
     shouldRedirectToFinished,
+    shouldRedirectToArchived,
     history,
   ]);
 
@@ -249,6 +258,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         (updated.cavRatedAt = firestore.Timestamp.now());
       if (updated.status === RequestStatus.ongoing && updated.pinRatedAt) {
         setShouldRedirectToFinished(true);
+      }
+      if (updated.status === RequestStatus.completed && updated.cavRatedAt) {
+        setShouldRedirectToArchived(true);
       }
       dispatch(updateRequest(updated.toObject() as IRequest, requestId));
     }
