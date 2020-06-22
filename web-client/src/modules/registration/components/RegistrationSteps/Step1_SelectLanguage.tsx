@@ -3,12 +3,9 @@ import langs from 'langs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CONSTANTS from 'src/constants';
-import i18next from 'src/translations/i18n';
 import styled from 'styled-components';
 
 const { localStorageKey } = CONSTANTS;
-
-let { language: currentLanguage } = i18next;
 
 /* we are only using 2-digit language codes for now
   SELECT input below will get confused if it sees:
@@ -16,23 +13,26 @@ let { language: currentLanguage } = i18next;
   everything must be standardized to 
   > 'en'
   */
-currentLanguage = currentLanguage.substr(0, 2);
 const { Option } = Select;
 
 const Step0: React.FC = (): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  let { language: currentLanguage } = i18n;
+  currentLanguage = currentLanguage.substr(0, 2);
 
   const allLanguages = langs.all();
 
   const setBrowserDefaultLanguage = val => {
     localStorage.setItem(localStorageKey, val);
-    /*  TODO:  language should be changed immediately as well as in localStorage
-    console.log('new lang', val);
-  
-    changeLanguage(val)
-      .then(t => console.log(`Changed language to ${val}`))
-      .catch(err => console.error(`Error in ChangeLanguage ${err}`));
-      */
+    i18n.init();
+
+    /*  TODO:  language should be changed immediately as well as in localStorage 
+        both reload and don't change language
+        i18n.init();
+        changeLanguage(val)
+          .then(t => console.log(`Changed language to ${val}`))
+          .catch(err => console.error(`Error in ChangeLanguage ${err}`)); */
   };
 
   return (

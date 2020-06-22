@@ -10,10 +10,7 @@ import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from '../Modals/OneTimeModal';
+import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
 import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 
