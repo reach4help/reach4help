@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { StepForwardButton } from 'src/components/Buttons';
 import styled from 'styled-components';
 
-import ModalFooter from './ModalFooter';
 import r4hLOVE from '../../assets/r4hLOVE.png';
+import ModalFooter from './ModalFooter';
 
 const SEEN = 'seen';
 

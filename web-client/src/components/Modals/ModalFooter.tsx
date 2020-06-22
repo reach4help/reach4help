@@ -1,7 +1,6 @@
 import { MailOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { COLORS } from 'src/theme/colors';
 
 const ModalFooter = () => {

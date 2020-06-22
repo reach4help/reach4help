@@ -5,18 +5,18 @@ import styled from 'styled-components';
 
 const { supportEmail } = CONSTANTS;
 
-const LoginFooter = () => {
+const RegistrationFooter = () => {
   const { t } = useTranslation();
 
   return (
-    <LoginStepsFooterWrapper>
+    <RegistrationStepsFooterWrapper>
       {t('login.steps.footer.contact')} <br />
       <a href={`mailto:${supportEmail}`}> {supportEmail} </a>
-    </LoginStepsFooterWrapper>
+    </RegistrationStepsFooterWrapper>
   );
 };
 
-const LoginStepsFooterWrapper = styled.div`
+const RegistrationStepsFooterWrapper = styled.div`
   position: relative;
   width: 313px;
   margin: 25px auto 0 auto;
@@ -35,4 +35,4 @@ const LoginStepsFooterWrapper = styled.div`
   opacity: 0.8;
 `;
 
-export default LoginFooter;
+export default RegistrationFooter;

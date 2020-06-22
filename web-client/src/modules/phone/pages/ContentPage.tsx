@@ -8,7 +8,7 @@ import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
-import { LoginLocation } from '../../registration/pages/routes/LoginRoute/constants';
+import { LoginLocation } from '../../login/pages/routes/LoginRoute/constants';
 import { PhoneEntryLocation } from './routes/PhoneEntryRoute/constants';
 import { PhoneVerifyLocation } from './routes/PhoneVerifyRoute/constants';
 

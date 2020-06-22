@@ -1,13 +1,13 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import EventTriggeredModal from 'src/components/Modals/EventTriggeredModal';
+import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import CONSTANTS from 'src/constants';
 import styled from 'styled-components';
 
-import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
-import EventTriggeredModal from 'src/components/Modals/EventTriggeredModal';
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
 import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
-import CONSTANTS from 'src/constants';
 
 const { supportEmail } = CONSTANTS;
 
@@ -65,26 +65,33 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
 };
 
 const ModalTrigger = styled(Button)`
-  width: 90%;
+  text-align: center;
   border: 1px solid #250031;
   box-sizing: border-box;
-  padding: 5px;
   /* card */
 
-  margin: 33px auto 33px auto;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
+
+  /* TODO This is a hack */
+  width: 300px;
+  height: 50px;
+  margin: 33px auto 33px auto;
 `;
+
 const MainQuestion = styled.div`
+  text-align: center;
   margin-bottom: 25px;
   margin-top: 10px;
 `;
 const MainAnswer = styled.div`
+  text-align: center;
   margin-bottom: 60px;
 `;
 
 const SecondQuestion = styled.div`
   /* H4 */
+  text-align: center;
   margin-bottom: 25px;
 
   font-family: Roboto;
@@ -102,6 +109,7 @@ const SecondQuestion = styled.div`
 `;
 
 const SecondAnswer = styled.div`
+  text-align: center;
   margin-bottom: 120px;
 `;
 
@@ -143,6 +151,7 @@ const LoginButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 220px;
+  margin-bottom: 25px;
 `;
 
 interface StepAuthenticationProps {
