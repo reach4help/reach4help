@@ -4,10 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
-  InformationModal,
-  makeLocalStorageKey,
-} from '../../../../components/Modals/InformationModal';
-import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
@@ -28,6 +24,10 @@ import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequ
 import styled from 'styled-components';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from '../../../../components/Modals/OneTimeModal';
 
 const FindRequestsContainer: React.FC = () => {
   const { t } = useTranslation();

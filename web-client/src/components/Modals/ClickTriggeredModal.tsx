@@ -1,11 +1,9 @@
 import { MailOutlined } from '@ant-design/icons';
-import { List, Modal, Typography } from 'antd';
-import React, { Children, useEffect, useState } from 'react';
+import { Modal } from 'antd';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import r4hLOVE from '../../assets/r4hLOVE.png';
 import { StepForwardButton } from 'src/components/Buttons';
 import { COLORS } from 'src/theme/colors';
-import styled from 'styled-components';
 
 export const TriggeredModal: React.FC<TriggeredModalProps> = ({
   finishRequestHandler,
@@ -13,10 +11,6 @@ export const TriggeredModal: React.FC<TriggeredModalProps> = ({
   children,
 }) => {
   const { t } = useTranslation();
-
-  const [requestModalVisible, setRequestModalVisible] = useState<boolean>(
-    false,
-  );
 
   const onFinishRequest = (): void => {
     finishRequestHandler && finishRequestHandler();
@@ -45,20 +39,19 @@ export const TriggeredModal: React.FC<TriggeredModalProps> = ({
   );
 
   return (
-    <Modal visible={requestModalVisible} footer={null}>
+    <Modal onCancel={() => onFinishRequest()} footer={null}>
+      <ModalHeader />
       {children}
       <div style={{ display: 'flex' }}>
         <StepForwardButton onClick={onFinishRequest}>
           {t('i_understand')}
+          {title}
         </StepForwardButton>
       </div>
+      <ModalFooter />
     </Modal>
   );
 };
-
-const R4HloveListItem = styled(List.Item)`
-  display: flex;
-`;
 
 interface TriggeredModalProps {
   title?: string;

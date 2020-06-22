@@ -5,10 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
-  InformationModal,
-  makeLocalStorageKey,
-} from '../../../../components/Modals/InformationModal';
-import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
@@ -25,6 +21,11 @@ import RequestReview, {
 } from 'src/modules/requests/components/NewRequest/RequestReview';
 import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
 import styled from 'styled-components';
+
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from '../../../../components/Modals/OneTimeModal';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';

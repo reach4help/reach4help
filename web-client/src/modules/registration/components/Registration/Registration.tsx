@@ -3,10 +3,10 @@ import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 /* TODO:  This component is a nightmare.   */
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
-import LoginFooter from 'src/modules/login/components/LoginFooter/LoginFooter';
 import { COLORS } from 'src/theme/colors';
 
-import LoginSteps from '../LoginSteps/LoginSteps';
+import LoginFooter from '../RegistrationFooter/RegistrationFooter';
+import LoginSteps from '../RegistrationSteps/RegistrationSteps';
 
 const Reach4HelpLogo = () => (
   <TitleWithAddon level={2} alignAddon="50%">

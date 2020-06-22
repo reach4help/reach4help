@@ -1,8 +1,8 @@
 import { Module } from 'src/types/module';
 
-import Login from './login';
 import PersonalData from './personalData';
 import Phone from './phone';
+import Login from './registration';
 import Requests from './requests';
 import Timeline from './timeline';
 

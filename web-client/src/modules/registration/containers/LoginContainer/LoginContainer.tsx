@@ -14,7 +14,7 @@ import {
 } from 'src/ducks/auth/google/actions';
 import { AppState } from 'src/store';
 
-import Login from '../../components/Login/Login';
+import Login from '../../components/Registration/Registration';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',
