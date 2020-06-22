@@ -11,7 +11,7 @@ const LoginFooter = () => {
   return (
     <LoginStepsFooterWrapper>
       {t('login.steps.footer.contact')} <br />
-      <a href={supportEmail}> {supportEmail} </a>
+      <a href={`mailto:${supportEmail}`}> {supportEmail} </a>
     </LoginStepsFooterWrapper>
   );
 };

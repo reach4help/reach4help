@@ -7,12 +7,12 @@ import { COLORS } from 'src/theme/colors';
 
 export const TriggeredModal: React.FC<TriggeredModalProps> = ({
   finishRequestHandler,
-  title = 'Instructions',
   children,
+  visible = false,
 }) => {
   const { t } = useTranslation();
 
-  const onFinishRequest = (): void => {
+  const handleOKClose = (): void => {
     finishRequestHandler && finishRequestHandler();
   };
 
@@ -39,23 +39,26 @@ export const TriggeredModal: React.FC<TriggeredModalProps> = ({
   );
 
   return (
-    <Modal onCancel={() => onFinishRequest()} footer={null}>
-      <ModalHeader />
+    <Modal
+      title={null}
+      visible={visible}
+      onOk={() => handleOKClose()}
+      onCancel={() => handleOKClose()}
+      footer={ModalFooter}
+    >
       {children}
       <div style={{ display: 'flex' }}>
-        <StepForwardButton onClick={onFinishRequest}>
+        <StepForwardButton onClick={handleOKClose}>
           {t('i_understand')}
-          {title}
         </StepForwardButton>
       </div>
-      <ModalFooter />
     </Modal>
   );
 };
 
 interface TriggeredModalProps {
-  title?: string;
-  children: any;
+  children?: any;
+  visible?: boolean;
   finishRequestHandler?: () => void;
 }
 

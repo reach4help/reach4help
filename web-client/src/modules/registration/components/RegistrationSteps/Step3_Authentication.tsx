@@ -1,31 +1,65 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-/* import AuthenticationExplanationModal from 'src/components/TriggeredModal/TriggeredModal'; */
+import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import EventTriggeredModal from 'src/components/Modals/EventTriggeredModal';
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
 import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
+import CONSTANTS from 'src/constants';
+
+const { supportEmail } = CONSTANTS;
 
 const StepAuthentication: React.FC<StepAuthenticationProps> = ({
   onLoginGoogle,
   onLoginFacebook,
 }): React.ReactElement<StepAuthenticationProps> => {
+  const { t } = useTranslation();
+
   const [showExplanationModal, setShowExplanationModal] = useState<boolean>(
     false,
+  );
+  const AuthenticationExplanationModal = () => (
+    <EventTriggeredModal
+      visible
+      finishRequestHandler={() => setShowExplanationModal(false)}
+    >
+      <MainQuestion>
+        <TitleWithAddon level={2} alignAddon="50%">
+          {t('login.steps.3_authentication.popup_explanation.main_question')}
+        </TitleWithAddon>
+      </MainQuestion>
+      <MainAnswer>
+        <H6>
+          {t('login.steps.3_authentication.popup_explanation.main_answer')}
+        </H6>
+      </MainAnswer>
+      <SecondQuestion>
+        {t('login.steps.3_authentication.popup_explanation.second_question')}
+      </SecondQuestion>
+      <SecondAnswer>
+        <H6>
+          {t('login.steps.3_authentication.popup_explanation.second_answer')}{' '}
+          <a href={`mailto:${supportEmail}`}> {supportEmail} </a>
+        </H6>
+      </SecondAnswer>
+    </EventTriggeredModal>
   );
 
   return (
     <>
       <LoginButtonContainer>
-        <H6>Please sign up with one of our providers below</H6>
+        <H6>{t('login.steps.3_authentication.please')}</H6>
         <ModalTrigger onClick={() => setShowExplanationModal(true)}>
-          <H4>Why do you need an external account?</H4>
+          <H4>
+            {t('login.steps.3_authentication.popup_explanation.main_question')}
+          </H4>
         </ModalTrigger>
-
         <GoogleLoginButton onAuthenticate={onLoginGoogle} />
         <FacebookLoginButton onAuthenticate={onLoginFacebook} />
       </LoginButtonContainer>
-      {showExplanationModal && <div>Hello World</div>}
+      {showExplanationModal && <AuthenticationExplanationModal />}
     </>
   );
 };
@@ -40,6 +74,35 @@ const ModalTrigger = styled(Button)`
   margin: 33px auto 33px auto;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
+`;
+const MainQuestion = styled.div`
+  margin-bottom: 25px;
+  margin-top: 10px;
+`;
+const MainAnswer = styled.div`
+  margin-bottom: 60px;
+`;
+
+const SecondQuestion = styled.div`
+  /* H4 */
+  margin-bottom: 25px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  /* or 144% */
+
+  text-align: center;
+
+  /* @heading-color */
+
+  color: rgba(0, 0, 0, 0.85);
+`;
+
+const SecondAnswer = styled.div`
+  margin-bottom: 120px;
 `;
 
 const H6 = styled.span`
