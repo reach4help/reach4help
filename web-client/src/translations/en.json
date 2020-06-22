@@ -273,8 +273,8 @@
         "containers": {
           "FoundRequestsContainer": {
             "FoundRequestsContainer": {
-              "map_tab_label": "View Map of Requests",
-              "list_tab_label": "View List of Requests"
+              "map_tab_label": "Map of Requests",
+              "list_tab_label": "List of Requests"
             }
           },
           "AcceptedRequestContainer": {
