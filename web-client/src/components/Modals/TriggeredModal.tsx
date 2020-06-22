@@ -2,7 +2,7 @@ import { MailOutlined } from '@ant-design/icons';
 import { List, Modal, Typography } from 'antd';
 import React, { Children, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import r4hLOVE from 'src/assets/r4hLOVE.png';
+import r4hLOVE from '../../assets/r4hLOVE.png';
 import { StepForwardButton } from 'src/components/Buttons';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';

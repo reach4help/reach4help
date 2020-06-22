@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
+} from '../../../../components/Modals/InformationModal';
 import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
+} from '../Modals/InformationModal';
 import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';

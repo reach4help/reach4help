@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
+} from '../../../../components/Modals/InformationModal';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getArchivedRequests,

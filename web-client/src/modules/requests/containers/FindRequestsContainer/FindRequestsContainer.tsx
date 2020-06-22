@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
+} from '../../../../components/Modals/InformationModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
