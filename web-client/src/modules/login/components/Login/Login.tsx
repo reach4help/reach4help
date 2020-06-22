@@ -3,6 +3,7 @@ import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 /* TODO:  This component is a nightmare.   */
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import LoginFooter from 'src/modules/login/components/LoginFooter/LoginFooter';
 import { COLORS } from 'src/theme/colors';
 
 import LoginSteps from '../LoginSteps/LoginSteps';
@@ -20,6 +21,7 @@ const Login: React.FC<LoginProps> = (props): React.ReactElement => (
     <IntroLogo src={logo} alt="logo" />
     <Reach4HelpLogo />
     <LoginSteps {...props} />
+    <LoginFooter />
   </>
 );
 

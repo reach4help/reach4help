@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-import LoginStepsFooter from './LoginStepsFooter';
 import Step0 from './Step0_Welcome';
 import Step1 from './Step1_SelectLanguage';
 import Step2 from './Step2_Explanation';
@@ -60,7 +59,6 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
             <Step key={item.title} title={item.title} />
           ))}
         </Steps>
-        <LoginStepsFooter />
       </div>
     </>
   );
