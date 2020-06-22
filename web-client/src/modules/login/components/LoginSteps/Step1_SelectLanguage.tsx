@@ -8,7 +8,15 @@ import styled from 'styled-components';
 
 const { localStorageKey } = CONSTANTS;
 
-const { /* changeLanguage, */ language: currentLanguage } = i18next;
+let { language: currentLanguage } = i18next;
+
+/* we are only using 2-digit language codes for now
+  SELECT input below will get confused if it sees:
+  > 'en-US'
+  everything must be standardized to 
+  > 'en'
+  */
+currentLanguage = currentLanguage.substr(0, 2);
 const { Option } = Select;
 
 const Step0: React.FC = (): React.ReactElement => {
