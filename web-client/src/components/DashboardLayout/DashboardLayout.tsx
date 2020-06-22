@@ -95,9 +95,11 @@ const DashboardLayoutWrapper = styled(Layout)`
 `;
 
 const DashboardContent = styled(Layout.Content)`
+  display: flex;
+  flex-direction: column;
   margin: 64px 0;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 interface DashboardLayoutProps {
