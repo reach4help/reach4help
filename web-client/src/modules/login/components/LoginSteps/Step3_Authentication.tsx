@@ -1,27 +1,36 @@
-import React from 'react';
+import { Button } from 'antd';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
+/* import AuthenticationExplanationModal from 'src/components/TriggeredModal/TriggeredModal'; */
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
 import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
 
 const StepAuthentication: React.FC<StepAuthenticationProps> = ({
   onLoginGoogle,
   onLoginFacebook,
-}): React.ReactElement<StepAuthenticationProps> => (
-  <LoginButtonContainer>
-    <div>
-      <H6>Please sign up with one of our providers below</H6>
-    </div>
-    <ModalTrigger>
-      <H4>Why do you need an external account?</H4>
-    </ModalTrigger>
+}): React.ReactElement<StepAuthenticationProps> => {
+  const [showExplanationModal, setShowExplanationModal] = useState<boolean>(
+    false,
+  );
 
-    <GoogleLoginButton onAuthenticate={onLoginGoogle} />
-    <FacebookLoginButton onAuthenticate={onLoginFacebook} />
-  </LoginButtonContainer>
-);
+  return (
+    <>
+      <LoginButtonContainer>
+        <H6>Please sign up with one of our providers below</H6>
+        <ModalTrigger onClick={() => setShowExplanationModal(true)}>
+          <H4>Why do you need an external account?</H4>
+        </ModalTrigger>
 
-const ModalTrigger = styled.div`
+        <GoogleLoginButton onAuthenticate={onLoginGoogle} />
+        <FacebookLoginButton onAuthenticate={onLoginFacebook} />
+      </LoginButtonContainer>
+      {showExplanationModal && <div>Hello World</div>}
+    </>
+  );
+};
+
+const ModalTrigger = styled(Button)`
   width: 90%;
   border: 1px solid #250031;
   box-sizing: border-box;
