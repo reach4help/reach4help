@@ -5,6 +5,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 // eslint-disable-next-line import/no-duplicates
 import 'firebase/functions';
+// eslint-disable-next-line import/no-duplicates
+import 'firebase/analytics';
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -22,5 +24,6 @@ firebase.initializeApp(config);
 export const firebaseAuth = firebase.auth();
 export const firestore = firebase.firestore();
 export const functions = firebase.functions();
+export const analytics = firebase.analytics();
 
 export default firebase;
