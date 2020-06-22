@@ -25,10 +25,15 @@ export default {
     state.user = payload.user;
     state.loading = false;
   },
+
   [TRIGGER_LOGIN_WITH_REDIRECT.PENDING]: (state: AuthState) => {
-    window.sessionStorage.setItem('redirect_started', new Date().toISOString());
+    window.sessionStorage.setItem(
+      'redirect_started',
+      `facebook_${new Date().toISOString()}`,
+    );
     state.loading = true;
   },
+
   [GET_LOGIN_REDIRECT_RESULT.REJECTED]: (
     state: AuthState,
     { payload }: { payload: Error },
@@ -37,6 +42,7 @@ export default {
     state.error = payload;
     state.loading = false;
   },
+
   [GET_LOGIN_REDIRECT_RESULT.COMPLETED]: (
     state: AuthState,
     { payload }: { payload: firebase.auth.UserCredential },
