@@ -208,13 +208,22 @@
         "code"
       ]
     },
-     {
+    {
       "login": "mcverter",
       "name": "Mitchell Verter",
       "avatar_url": "https://avatars0.githubusercontent.com/u/1453956?v=4",
       "profile": "https://github.com/mcverter",
       "contributions": [
         "code",
+      ]
+    },
+    {
+      "login": "winggo",
+      "name": "Winggo Tse",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/26425671?v=4",
+      "profile": "https://github.com/winggo",
+      "contributions": [
+        "code"
       ]
     }
   ],
