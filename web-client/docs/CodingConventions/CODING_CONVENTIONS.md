@@ -1,4 +1,6 @@
-% r4h CODE CONVENTIONS
+<title>r4h CODE CONVENTIONS</title>
+<header>r4h CODE CONVENTIONS</header>
+title: r4h CODE CONVENTIONS 
 
 ## r4H Code Conventions
 ### LEARN IT.  KNOW IT.  LIVE IT
