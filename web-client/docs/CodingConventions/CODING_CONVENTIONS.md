@@ -16,53 +16,38 @@
 
 ## BlogPost.tsx
 
+```tsx
+
 import React from 'react';
-
 import { Typography } from 'antd';
-
 import styled from 'styled-components';
 
-
-/_ Simple Consts _/
-
+/* Simple Consts */
 const { Text } = Typography;
 
-
-/_ Component Declaration _/
-
+/* Component Declaration */
 const BlogPost: React.FC< BlogPostProps > = ({ title, description }) => (
-
-< BlogPostWrapper >
-
-< Title >{title}< /Title >
-
-< Description >{description}< /Description >
-
-< /BlogPostWrapper >
-
+   <BlogPostWrapper>
+   <Title>{title}</Title>
+   <Description>{description}</Description>
+   </BlogPostWrapper>
 );
 
-/_ styled-component declarations _/
+/* styled-component declarations */
+const BlogPostWrapper = styled.div`margin: 5px;`;
+const Title = styled.div`font-size: 125%;`;
+const Description = styled.div`font-style: italic;`;
 
-const BlogPostWrapper = styled.div"margin: 5px;";
+/* Complex consts -- See section below on Function Closures*/
 
-const Title = styled.div"font-size: 125%;";
-
-const Description = styled.div"font-style: italic;";
-
-/_ Complex consts -- documentation coming soon_/
-
-/_ interface declaration -- do not use PropTypes _/
-
+/* interface declaration -- do not use PropTypes */
 interface BlogPostProps {
-
-title: string;
-
-description: string;
-
+   title: string;
+   description: string;
 }
 
 export default BlogPost;
+```
 
 ## Constant Consts:  Function Closures
 
@@ -81,34 +66,33 @@ export default BlogPost;
 
 BAD:
 
-
+```html
 import react;
 
 const BadInnerComponentReliesOnClosureDiv = () => {
+  const innerVariable = "foo";
+  const InnerFunctionOrComponent = () => <div>{innerVariable}</div>
 
- const innerVariable = "foo";
-
- const InnerFunctionOrComponent = () => < div >{innerVariable}< /div >
-
-  return < InnerFunctionOrComponent / >
-  
+  return <InnerFunctionOrComponent/>
  }}
+```
 
 
 GOOD: 
 
+```html
 import react;
 
 const GoodIndependantDiv = () => {
-
- const innerVariable = "foo";
-
-  return < IndependantFunctionOrComponent >{innerVariable}< / IndependantFunctionOrComponent >
+  const innerVariable = "foo";
   
+  return <IndependantFunctionOrComponent>{innerVariable}</IndependantFunctionOrComponent>
  }}
 
- const IndependantFunctionOrComponent = (text) => < div >text< /div >
-
+ const IndependantFunctionOrComponent = (text) => (
+    <div>{text}</div>
+ )
+```
 
 ## NAMING
 
