@@ -30,15 +30,15 @@ const { Text } = Typography;
 
 /_ Component Declaration _/
 
-const BlogPost: React.FC<BlogPostProps> = ({ title, description }) => (
+const BlogPost: React.FC< BlogPostProps > = ({ title, description }) => (
 
-<BlogPostWrapper>
+< BlogPostWrapper >
 
-<Title>{title}</Title>
+< Title >{title}< /Title >
 
-<Description>{description}</Description>
+< Description >{description}< /Description >
 
-</BlogPostWrapper>
+< /BlogPostWrapper >
 
 );
 
@@ -88,13 +88,11 @@ const ClosureDiv = () => {
 
  const innerVariable = "foo";
 
- const InnerFunctionOrComponent = () => {
+ const InnerFunctionOrComponent = () => 
 
-    return <div>{innerVariable}</div>
+   {return < div >{innerVariable}< /div >}
 
-   }
-
-  return <InnerFunctionOrComponent />
+  return < InnerFunctionOrComponent / >
   
  }
 
@@ -109,7 +107,7 @@ const ClosureDiv = () => {
 
  const innerVariable = "foo";
 
-  return <InnerFunctionOrComponent>{innerVariable}<InnerFunctionOrComponent>
+  return < InnerFunctionOrComponent >{innerVariable}< / InnerFunctionOrComponent >
   
  }
 
@@ -117,7 +115,7 @@ const ClosureDiv = () => {
 
  const InnerFunctionOrComponent = (text) => {
 
-    return <div>text</div>
+    return < div >text< /div >
 
    }
 
