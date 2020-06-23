@@ -1,4 +1,7 @@
-## Code Conventions
+% r4h CODE CONVENTIONS
+
+## r4H Code Conventions
+### LEARN IT.  KNOW IT.  LIVE IT
 
 ## ORDER OF CODE
 
