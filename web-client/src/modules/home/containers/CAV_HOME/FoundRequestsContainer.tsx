@@ -1,6 +1,3 @@
-/*  Using tabs with maps
-https://stackoverflow.com/questions/32097454/google-map-is-not-working-in-my-responsive-tab
-*/
 import { List, Tabs } from 'antd';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
@@ -261,7 +258,8 @@ const FindRequestsContainer: React.FC = () => {
           key="list"
           style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
         >
-         {requestsListData && requestsListData.length ? (
+          {' '}
+          {requestsListData && requestsListData.length ? (
             <List>
               {requestsListData.map((request, idx) => (
                 <RequestDetailsListItem key={idx}>
@@ -282,9 +280,8 @@ const FindRequestsContainer: React.FC = () => {
             </NoRequestsDiv>
           )}
           }
-        </TabPane>
-      </Tabs>
-HOME_CAV_FoundRequestsContainer/FoundRequestsContainer.tsx
+        </StyledTabPane>
+      </StyledTabs>
       <InformationModal
         title={t('information_modal.FindRequestsContainer.title')}
         localStorageKey={instructionModalLocalStorageKey}
@@ -299,6 +296,21 @@ const NoRequestsDiv = styled.div`
   background: white;
   width: 50%;
   margin: 50 auto 100 auto;
+`;
+
+const StyledTabs = styled(Tabs)`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  .ant-tabs-content-holder {
+    display: flex;
+  }
+`;
+
+const StyledTabPane = styled(TabPane)`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 `;
 
 const RequestDetails = styled.div`
