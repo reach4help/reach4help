@@ -102,13 +102,13 @@
       "missingTitle": "Por favor, introduzca el nombre del proyecto / grupo / organización",
       "missingLocationName": "Por favor ingrese una descripción del área servida",
       "markerRequired": "Por favor, haga clic en el mapa para entrar en el área de servicio antes de continuar.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "noContactDetails": "Por favor, introduzca los datos de contacto para al menos una categoría",
+      "emptyContactSection": "Por favor, introduzca algunos datos de contacto para {section} o borrarlos",
+      "urlMissingLabel": "A una URL para {section} le falta un nombre",
+      "urlMissingURL": "A una URL para {section} le falta un nombre",
+      "dataError": "Hubo un problema con la información que enviaste, por favor regresa e inténtalo de nuevo",
+      "submitError": "Hubo un problema al designar tu asignación automática. Intenta de nuevo más tarde.",
+      "mutualAidGroupsNotAccepted": "Por favor, introduce en su lugar información sobre los nuevos grupos de ayuda mutua en el {link}."
     }
   },
   "buttons": {
@@ -128,21 +128,21 @@
     "information": "Información",
     "network": "Red",
     "manufacturing": "Fabricación",
-    "financial": "Financial",
-    "other": "Other"
+    "financial": "Financiero",
+    "other": "Otros"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "Suministros distintos de alimentos o medicinas",
+    "mobility": "Transportando personas de una ubicación a otra",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "Apoyar a medida para grupos vulnerables específicos, como personas sin hogar, personas en riesgo de abuso doméstico, etc...",
+    "information": "Apoyar a la gente a encontrar información relevante",
+    "network": "Prodicción de recursos para el trabajo en red para proporcionar ayuda, por ejemplo, entre organizaciones de ayuda mutua",
+    "manufacturing": "Proporciona suministros o capacidad manufacturera necesaria para hacer frente a la crisis",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Algo más no está en esta lista"
   },
   "markerTypes": {
     "mutual-aid-group": "Grupo de ayuda mutua",
@@ -152,9 +152,9 @@
     "other": "Otros"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "grupo de apoyo mutuo",
+    "org": "Organización / Empresa",
+    "project": "proyecto"
   },
   "map": {
     "jumpToLocation": "Ir a una ubicación en el mapa...",
@@ -162,10 +162,10 @@
     "myLocation": "Mi ubicación"
   },
   "results": {
-    "backToResults": "Back to results",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "backToResults": "Volver a los resultados",
+    "openResults": "¡Mira {results, plural, one {} =0 {¡No hay resultados} =1 {¡1 resultado} other {# resultados}}",
+    "closeResults": "¡Oculta {results, plural, one {} =0 {¡No hay resultados} =1 {¡1 resultado} other {¡# resultados}}",
+    "showMore": "Mostrar más resultados",
     "contact": {
       "general": "Información general:",
       "getHelp": "Conseguir ayuda:",
@@ -174,10 +174,10 @@
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "Nota",
+        "content": "Nota: Cada proyecto es autónoma y autoorganizado; Muchos usan hojas de cálculo públicas para compartir información, así que ten cuidado al introducir información privada que no quieres ser pública."
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "La información sobre este {type} es proporcionada por {source}."
     }
   },
   "lang": "Idioma:",
