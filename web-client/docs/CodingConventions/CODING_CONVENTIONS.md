@@ -30,8 +30,8 @@ const { Text } = Typography;
 /* Component Declaration */
 const BlogPost: React.FC< BlogPostProps > = ({ title, description }) => (
    <BlogPostWrapper>
-   <Title>{title}</Title>
-   <Description>{description}</Description>
+     <Title>{title}</Title>
+     <Description>{description}</Description>
    </BlogPostWrapper>
 );
 
