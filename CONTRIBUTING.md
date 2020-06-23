@@ -9,6 +9,10 @@ This document describes how to contribute the software aspects of our project,
 if you want to contribute by other means,
 please see our [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps).
 
+## web-client contributors must read the CODING_CONVENTIONS documentation
+
+[web-client Coding Conventions](/web-client/docs/CodingConventions/CODING_CONVENTIONS.md)
+
 ## Please read our guidelines before you start.
 
 This project is moving very fast at the moment,
@@ -69,6 +73,7 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 #### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
 
 ### Environment variables
+
 Each Project has it's own required environment variables. Instructions for setting up Environment variables varies depending on the project and it's important that you look at the Contributing Guidelines for the Project before proceeding to contribute to the project.
 
 The Guidelines for each project is detailed in the section below

@@ -24,6 +24,7 @@ const { Text } = Typography;
 /_ Component Declaration _/
 const BlogPost: React.FC<BlogPostProps> = ({ title, description }) => (
 <BlogPostWrapper>
+
 <Title>{title}</Title>
 <Description>{description}</Description>
 </BlogPostWrapper>
@@ -61,4 +62,48 @@ export default BlogPost;
 - - https://blog.elpassion.com/naming-101-quick-guide-on-how-to-name-things-a9bcbfd02f02
 - - All css must occur in styled-components
 
+---
+
+## Template Strings
+
+- When you are in vscode, you see the path to the string in en.json. This path should match the actual filepath where the string is used and should have a final name that corresponds to the meaning and usage of the string.
+
 ![How to write template strings](CODING_CONVENTIONS_TRANSLATIONS.png)
+
+## Generic Components in Figma
+
+src/components/figma
+
+Distinguish
+
+- TextStyle components (eg font-weight: 700px) I think these should be spans, not divs
+- DivStyle components (eg margin: 25px)
+
+## H2.tsx :
+
+<code>
+import react;
+import styles;
+
+export default styled.span "font-size: 150%;"
+</code>
+
+InfoBox.tsx :
+
+---
+
+<code>
+import react;
+import styles;
+
+export default styled.div "margin: 20px;"
+</code>
+
+## index.tsx:
+
+<code>
+import H4 from './H4'
+import InfoBox from './InfoBox'
+
+export {H4, InfoBox}
+</code>
