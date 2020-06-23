@@ -4,6 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { firestore } from 'src/firebase';
+import { OfferStatus } from 'src/models/offers';
+import { ApplicationPreference } from 'src/models/users';
+import { COLORS } from 'src/theme/colors';
+import styled from 'styled-components';
+
 import {
   InformationModal,
   makeLocalStorageKey,
@@ -22,14 +28,9 @@ import {
   resetSetRequestState,
 } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
-import { firestore } from 'src/firebase';
-import { OfferStatus } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from '../../../../models/requests/RequestWithOffersAndTimeline';
-import { ApplicationPreference } from 'src/models/users';
 import RequestItem from '../../../requests/components/RequestItem/RequestItem';
 import { OpenRequestsLocation } from '../../../requests/pages/routes/OpenRequestsRoute/constants';
-import { COLORS } from 'src/theme/colors';
-import styled from 'styled-components';
 
 const { TabPane } = Tabs;
 
@@ -279,7 +280,6 @@ const FindRequestsContainer: React.FC = () => {
               )}
             </NoRequestsDiv>
           )}
-          }
         </StyledTabPane>
       </StyledTabs>
       <InformationModal

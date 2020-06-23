@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { IUser } from 'src/models/users';
+import styled from 'styled-components';
+
 import {
   InformationModal,
   makeLocalStorageKey,
@@ -15,16 +18,17 @@ import {
 import Map from '../../../../components/WebClientMap/WebClientMap';
 import { DEVICE_MIN } from '../../../../constants/mediaQueries';
 import { ProfileState } from '../../../../ducks/profile/types';
-import { resetSetRequestState, setRequest } from '../../../../ducks/requests/actions';
+import {
+  resetSetRequestState,
+  setRequest,
+} from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
-import { IUser } from 'src/models/users';
 import NewRequest from '../../../requests/components/NewRequest/NewRequest';
 import RequestConfirmation from '../../../requests/components/NewRequest/RequestConfirmation';
 import RequestReview, {
   RequestInput,
 } from '../../../requests/components/NewRequest/RequestReview';
 import { OpenRequestsLocation } from '../../../requests/pages/routes/OpenRequestsRoute/constants';
-import styled from 'styled-components';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
