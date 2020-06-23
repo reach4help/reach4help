@@ -84,7 +84,7 @@ BAD:
 
 import react;
 
-const ClosureDiv = () => {
+const BadInnerComponentReliesOnClosureDiv = () => {
 
  const innerVariable = "foo";
 
@@ -99,15 +99,15 @@ GOOD:
 
 import react;
 
-const ClosureDiv = () => {
+const GoodIndependantDiv = () => {
 
  const innerVariable = "foo";
 
-  return < InnerFunctionOrComponent >{innerVariable}< / InnerFunctionOrComponent >
+  return < IndependantFunctionOrComponent >{innerVariable}< / IndependantFunctionOrComponent >
   
  }}
 
- const InnerFunctionOrComponent = (text) => < div >text< /div >
+ const IndependantFunctionOrComponent = (text) => < div >text< /div >
 
 
 ## NAMING
