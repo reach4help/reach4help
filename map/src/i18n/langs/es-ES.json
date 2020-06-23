@@ -6,7 +6,7 @@
     "info": "Para ayudar a las personas a encontrar y unirse a los esfuerzos de ayuda mutua donde viven, ofrecer inspiración para comenzar su propia y/o simplemente levantar espíritus, este mapa presenta una lista creciente de proyectos de ayuda pandémica de ayuda mutua a nivel mundial.",
     "warning": "Nota: Cada proyecto es autónoma y autoorganizado; Muchos usan hojas de cálculo públicas para compartir información, así que ten cuidado al introducir información privada que no quieres ser pública.",
     "project": "Este mapa es parte de {reach4Help}, un proyecto de voluntariado. Es de código abierto y puede ser de {githubSource}. Para cualquier consulta, puedes contactarnos como en {email}.",
-    "githubSourceLabel": "found on GitHub",
+    "githubSourceLabel": "Código fuente en GitHub",
     "otherAreasHeading": "¿Interesado en una de estas zonas?",
     "otherAreasInfo": "Echa un vistazo a estos mapas alternativos en su lugar:",
     "otherAreasLocations": {
@@ -20,22 +20,22 @@
     "usageHeading": "¿Puedo utilizar estos datos para mi propio proyecto?",
     "usageInfo": "Le invitamos a utilizar los datos proporcionados por nuestro mapa para sus propios proyectos, siempre que siga las respectivas licencias.",
     "usageLicenses": "Los datos proporcionados por nuestros voluntarios y usuarios están licenciados bajo una {license}y los datos de otras fuentes están disponibles bajo sus respectivas licencias.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "usageApi": "Puede acceder a los datos crudos, junto con detalles sobre cómo se licencia cada punto de datos, en la siguiente URL: {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "Acerca de",
+    "map": "Ver el mapa"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "Envíenos un correo electrónico",
+    "twitter": "¡Síguenos en Twitter",
+    "facebook": "Dale a \"Me gusta\" en Facebook",
+    "github": "Encuéntralo en Github"
   },
   "addInformation": {
-    "button": "Add information",
-    "backToMap": "Back to map",
-    "prev": "Back",
+    "button": "Agregar Información",
+    "backToMap": "Volver al mapa",
+    "prev": "Volver",
     "continue": "Continuar",
     "submit": "Guardar",
     "addMore": "Agregar más información",
@@ -46,30 +46,30 @@
         "acceptedInformation": "Por el momento, sólo estamos poniendo información sobre organizaciones o empresas que proporcionan ayuda y asistencia, iniciativas de asistencia financiera específicas para la región y grupos de ayuda mutua. No aceptamos información sobre personas que ofrecen ayuda en estos momentos.",
         "intro": "Por favor, rellene el siguiente formulario para comenzar a agregar información, le pediremos la ubicación y los datos de contacto después de eso.",
         "form": {
-          "type": "Type of project / group / organization / initiative",
+          "type": "Tipo de proyecto / grupo / organización / iniciativa",
           "typePleaseSelect": "Por favor, selecciona un tipo",
           "services": "Servicios o apoyo que proporciona esta organización / empresa",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "name": "Nombre del proyecto / grupo / organización",
+          "namePlaceholder": "ej. Ayuda Mutua Antártica",
+          "description": "(opcional) Descripción detallada del proyecto / grupo / organización y lo que pretende hacer para facilitar la ayuda mutua",
+          "locationName": "Describa el área geográfica servida, por ejemplo, países, estados, condados, pueblos, etc...",
+          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, EE.UU.",
+          "continue": "Haga clic en continuar para ingresar información de ubicación"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "Si desea enviar información sobre un nuevo grupo de ayuda mutua, visite {link} en su lugar. Los grupos añadidos se incluirán automáticamente en nuestro mapa."
       },
       "placeMarker": {
-        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
+        "instructions": "Localice el área atendida por este proyecto / grupo / organización / iniciativa haciendo clic en el mapa para colocar un marcador, luego ajustar el tamaño del círculo para englobar la zona según sea necesario.",
+        "continue": "Una vez que esté satisfecho con la ubicación, haga clic en continuar añadiendo información de contacto.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
-        "deleteInfo": "Delete",
+        "header": "Información de contacto para las solicitudes",
+        "info": "¡Ya casi está! Por favor, introduzca información sobre cómo la gente puede ponerse en contacto con {name}. Si hay métodos específicos de contacto que deben ser utilizados para ayudar o para solicitar ayuda, por favor introdúzcalos!",
+        "deleteInfo": "Borrar",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
+          "general": "Agregar información general de contacto",
+          "volunteers": "Agregar información de contacto para voluntarios",
           "getHelp": "Add contact information for people that need help"
         },
         "sections": {
@@ -194,8 +194,8 @@
     "visiblility": "Visibility: {visibility}",
     "filter": {
       "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "visible": "Visible solo en",
+      "hidden": "Sólo ocultos"
     }
   }
 }
