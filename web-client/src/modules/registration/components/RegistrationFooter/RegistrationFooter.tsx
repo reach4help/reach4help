@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import CONSTANTS from 'src/constants';
 import styled from 'styled-components';
 
-const { supportEmail } = CONSTANTS;
+const { SUPPORT_EMAIL } = CONSTANTS;
 
 const RegistrationFooter = () => {
   const { t } = useTranslation();
@@ -11,7 +11,7 @@ const RegistrationFooter = () => {
   return (
     <RegistrationStepsFooterWrapper>
       {t('login.steps.footer.contact')} <br />
-      <a href={`mailto:${supportEmail}`}> {supportEmail} </a>
+      <a href={`mailto:${SUPPORT_EMAIL}`}> {SUPPORT_EMAIL} </a>
     </RegistrationStepsFooterWrapper>
   );
 };

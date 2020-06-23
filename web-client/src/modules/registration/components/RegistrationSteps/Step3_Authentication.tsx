@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
 import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
 
-const { supportEmail } = CONSTANTS;
+const { SUPPORT_EMAIL } = CONSTANTS;
 
 const StepAuthentication: React.FC<StepAuthenticationProps> = ({
   onLoginGoogle,
@@ -41,7 +41,7 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
       <SecondAnswer>
         <H6>
           {t('login.steps.3_authentication.popup_explanation.second_answer')}{' '}
-          <a href={`mailto:${supportEmail}`}> {supportEmail} </a>
+          <a href={`mailto:${SUPPORT_EMAIL}`}> {SUPPORT_EMAIL} </a>
         </H6>
       </SecondAnswer>
     </EventTriggeredModal>
