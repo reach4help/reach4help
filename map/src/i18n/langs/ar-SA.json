@@ -3,7 +3,7 @@
   "inFrameLink": "حول هذا الخريطة / اضافة معلومات ",
   "aboutScreen": {
     "intro": "نؤمن ان التكافل يبرز الطاقة الايجابية عند الافراد ",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "info": "لمساعدة الناس في العثور على جهود المساعدة المتبادلة والانضمام إليها في المكان الذي يعيشون فيه ، وتقديم الإلهام لبدء حياتهم الخاصة ، و / أو رفع المعنويات ببساطة ، تقدم هذه الخريطة قائمة متزايدة بمشاريع الإغاثة من جائحة المساعدة المتبادلة في جميع أنحاء العالم.",
     "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
     "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
     "githubSourceLabel": "found on GitHub",
