@@ -15,7 +15,7 @@ const RegistrationSteps: React.FC<RegistrationStepsProps> = ({
   onLoginGoogle,
 }): React.ReactElement => {
   const { t } = useTranslation();
-  const [currentStep, setCurrentStep] = useState<number>(3);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const incrementStep = () => setCurrentStep(currentStep + 1);
 
   const steps = [
