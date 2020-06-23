@@ -1,6 +1,7 @@
 import GoogleMapReact, { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 import apiKey from './apiKey';
 import MyLocationControl from './MyLocationControl';
@@ -194,7 +195,7 @@ const WebClientMap: React.FC<MapProps> = ({
     <>{t('components_web_client_map.api_error')} Google Maps API key</>
   ) : (
     <>
-      <div style={{ height: '100%', width: '100%' }}>
+      <MapContainer>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
@@ -216,10 +217,16 @@ const WebClientMap: React.FC<MapProps> = ({
             />
           ))}
         </GoogleMapReact>
-      </div>
+      </MapContainer>
     </>
   );
 };
+
+const MapContainer = styled.div`
+  display: 'flex';
+  flex-direction: 'column';
+  flex-grow: 1;
+`;
 
 interface MapProps {
   destinations: {

@@ -232,15 +232,16 @@ const FindRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <Tabs defaultActiveKey="map">
-        <TabPane
+      <StyledTabs defaultActiveKey="map">
+        <StyledTabPane
           tab={t(
             'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
           )}
           key="map"
         >
-          {' '}
-          <div style={{ height: '600px', width: '100%' }}>
+          <div
+            style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
+          >
             <Map
               isCav
               destinations={requestsGeoData}
@@ -252,14 +253,15 @@ const FindRequestsContainer: React.FC = () => {
             />
           </div>
           {maybeRequestDetails()}
-        </TabPane>
-        <TabPane
+        </StyledTabPane>
+        <StyledTabPane
           tab={t(
             'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.list_tab_label',
           )}
           key="list"
+          style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
         >
-          {requestsListData && requestsListData.length ? (
+         {requestsListData && requestsListData.length ? (
             <List>
               {requestsListData.map((request, idx) => (
                 <RequestDetailsListItem key={idx}>
@@ -282,6 +284,7 @@ const FindRequestsContainer: React.FC = () => {
           }
         </TabPane>
       </Tabs>
+HOME_CAV_FoundRequestsContainer/FoundRequestsContainer.tsx
       <InformationModal
         title={t('information_modal.FindRequestsContainer.title')}
         localStorageKey={instructionModalLocalStorageKey}
