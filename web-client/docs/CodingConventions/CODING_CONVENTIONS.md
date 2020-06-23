@@ -64,7 +64,7 @@ description: string;
 
 export default BlogPost;
 
-## Function Closures
+## Constant Consts:  Function Closures
 
 - Function closure imposes some limits on how far down we can place certain declarations. 
 - - If the declaration uses a variable which is defined within the scope of the MainComponent, you have a function closure issue. 
@@ -76,7 +76,8 @@ export default BlogPost;
 - - - or
 - - -   // eslint-disable-next-line @typescript-eslint/no-use-before-declare
 
-## Try to parameterize declarations rather than relying on 
+## Try to parameterize declarations rather than relying on function closures
+
 
 BAD:
 
