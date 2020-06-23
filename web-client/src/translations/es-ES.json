@@ -270,45 +270,45 @@
           "choose_volunteer": "Choose from the following volunteers to fulfill your request."
         },
         "bottom_warning": "Su solicitud fue vista por varios voluntarios, pero no fue aceptada. Te sugerimos &ldquo;Cerrar Solicitud&rdquo; y crear una nueva con una descripción más simple.",
-        "cannot_help": "Cannot Help",
+        "cannot_help": "No se puede ayudar",
         "containers": {
           "AcceptedRequestContainer": {
-            "accepted": "Accepted"
+            "accepted": "Aceptado"
           },
           "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
+            "want_to_help": "¡Quiero apoyar!"
           },
           "FinishedRequestsContainer": {
-            "finished": "Finished"
+            "finished": "Concluido."
           },
           "NewRequestsContainer": {
-            "address_error": "Unable to find address",
-            "deliveries": "Deliveries"
+            "address_error": "No se puede localizar la dirección",
+            "deliveries": "Entregas"
           },
           "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
+            "ongoing": "En curso"
           },
           "OpenRequestContainer": {
-            "open": "Open"
+            "open": "Abierto"
           },
-          "no_reply": "No one has replied to your request."
+          "no_reply": "Nadie ha respondido a su solicitud."
         }
       }
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "Cargando ..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
-        "notifications": "Notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
+        "a_request": "una solicitud",
+        "already_helped": " ya está obteniendo apoyo en ",
+        "cav_declined_help": " ha rechazado ayudar en ",
+        "cav_offer": "Te has ofrecido apoyo para ",
+        "no_notifications": "No hay notificaciones nuevas",
+        "notifications": "Notificaciones",
+        "offered_help": " ha ofrecido apoyo para ",
+        "pin_accepted": "Has aceptado el apoyo de ",
+        "pin_declined_help": "Has rechazado la ayuda para ",
         "pin_rejected": "You have rejected help from ",
         "request_author": "The request_author",
         "volunteer_accepted": " accepted your offer for ",
