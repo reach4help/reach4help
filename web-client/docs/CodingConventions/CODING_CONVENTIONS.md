@@ -123,9 +123,10 @@ NOTE:  This screenshot is not exactly right.  The path of the string should corr
 
 Check Figma for styles -- it already has styles in it.  We need to create a generic component library in src/components/figma
 
-What should we name this style?  Is it really an H6?  What is a good name for it?
 
 A name should always correspond to the component's usage and function.  How has UIUX broken down the layout.  Figure it out or talk to them.  Is there MainText and SecondaryText?  InfoBoxes and ExplanationBoxes?
+
+What should we name this style?  Is it really an H6?  What is a good name for it?
 
 ![This is a style](H6.png)
 
