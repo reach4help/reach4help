@@ -92,9 +92,7 @@ const ClosureDiv = () => {
 
   return < InnerFunctionOrComponent / >
   
- }
-
-}
+ }}
 
 
 GOOD: 
