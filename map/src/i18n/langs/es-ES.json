@@ -85,21 +85,21 @@
         "placeholder": {
           "phone": "Agregar número de teléfono",
           "email": "Agregar correo electrónico",
-          "webURL": "URL",
-          "webLabel": "Name"
+          "webURL": "Dirección de Red",
+          "webLabel": "Nombre"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "Enviando información al mapa...",
+        "error": "Error al agregar información",
+        "success": "Tu solicitud se ha enviado con éxito.",
+        "successExtra": "Antes de que hagamos visible su información en el mapa, tendrá que ser revisada por un voluntario de nuestro equipo. Es de esperar que esto se haga dentro de un par de días."
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
+      "missingType": "Por favor, seleccione el tipo de proyecto / grupo / organización",
+      "missingServices": "Por favor, compruebe todos los servicios proporcionados por esta organización (al menos 1 es requerido)",
+      "missingTitle": "Por favor, introduzca el nombre del proyecto / grupo / organización",
       "missingLocationName": "Please enter a description of the area served",
       "markerRequired": "Please click on the map to enter the service area before continuing.",
       "noContactDetails": "Please enter contact details for at least one category",
