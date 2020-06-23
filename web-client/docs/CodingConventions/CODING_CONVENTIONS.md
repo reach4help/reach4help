@@ -72,7 +72,6 @@ export default BlogPost;
 - - All styled-components must have meaningful names that indicate their usage within the markup.
 - - They must be treated exactly the same as React Components
 - - The root styled-component for the module is {ModuleName}Wrapper
-- - Never use "SomeComponentWrapper" or "SomeContainerWrapper" as a filename. If you need the suffix, you can call use "Wrapper"
 - - -  Never use the suffix "Container" or "Component" for a styled component.  That is the name of the file export.  Always use the suffix "Wrapper"
 - - Never use a generic name that will clash with AntD components
 - - https://blog.elpassion.com/naming-101-quick-guide-on-how-to-name-things-a9bcbfd02f02
@@ -85,6 +84,8 @@ export default BlogPost;
 - When you are in vscode, you see the path to the string in en.json. This path should match the actual filepath where the string is used and should have a final name that corresponds to the meaning and usage of the string.
 
 ![How to write template strings](CODING_CONVENTIONS_TRANSLATIONS.png)
+
+NOTE:  This screenshot is not exactly right.  The path of the string should correspond to the path of the file.
 
 ## Generic Components in Figma
 
