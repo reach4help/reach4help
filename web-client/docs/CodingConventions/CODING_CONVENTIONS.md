@@ -5,7 +5,8 @@
 - All important declarations must be made on the first screen
 - - You should not have to scroll down
 - - In publishing this is called "ABOVE THE FOLD", like the first page of a newspaper.
-- - CORRECT ORDER OF FILE:
+
+## CORRECT ORDER OF FILE:
 
 1. Imports
 2. Simple Consts
