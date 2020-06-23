@@ -274,7 +274,8 @@
           "FoundRequestsContainer": {
             "FoundRequestsContainer": {
               "map_tab_label": "View Map of Requests",
-              "list_tab_label": "View List of Requests"
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
             }
           },
           "AcceptedRequestContainer": {

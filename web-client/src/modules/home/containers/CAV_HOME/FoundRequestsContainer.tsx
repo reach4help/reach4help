@@ -10,27 +10,27 @@ import { useHistory } from 'react-router-dom';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
-import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
+} from '../../../../components/InformationModal/InformationModal';
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from 'src/components/WebClientMap/utils';
-import Map from 'src/components/WebClientMap/WebClientMap';
-import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
-import { OffersState } from 'src/ducks/offers/types';
-import { ProfileState } from 'src/ducks/profile/types';
+} from '../../../../components/WebClientMap/utils';
+import Map from '../../../../components/WebClientMap/WebClientMap';
+import { resetSetOfferState, setOffer } from '../../../../ducks/offers/actions';
+import { OffersState } from '../../../../ducks/offers/types';
+import { ProfileState } from '../../../../ducks/profile/types';
 import {
   getOpenRequests,
   resetSetRequestState,
-} from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+} from '../../../../ducks/requests/actions';
+import { RequestState } from '../../../../ducks/requests/types';
 import { firestore } from 'src/firebase';
 import { OfferStatus } from 'src/models/offers';
-import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
+import { RequestWithOffersAndTimeline } from '../../../../models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
-import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import RequestItem from '../../../requests/components/RequestItem/RequestItem';
+import { OpenRequestsLocation } from '../../../requests/pages/routes/OpenRequestsRoute/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -259,18 +259,27 @@ const FindRequestsContainer: React.FC = () => {
           )}
           key="list"
         >
-          <List>
-            {requestsListData.map((request, idx) => (
-              <RequestDetailsListItem key={idx}>
-                <RequestItem
-                  request={request}
-                  handleRequest={handleRequestForAcceptReject}
-                  loading={setOfferState.loading}
-                  isCavAndOpenRequest
-                />
-              </RequestDetailsListItem>
-            ))}
-          </List>
+          {requestsListData && requestsListData.length ? (
+            <List>
+              {requestsListData.map((request, idx) => (
+                <RequestDetailsListItem key={idx}>
+                  <RequestItem
+                    request={request}
+                    handleRequest={handleRequestForAcceptReject}
+                    loading={setOfferState.loading}
+                    isCavAndOpenRequest
+                  />
+                </RequestDetailsListItem>
+              ))}
+            </List>
+          ) : (
+            <NoRequestsDiv>
+              {t(
+                'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.no_requests',
+              )}
+            </NoRequestsDiv>
+          )}
+          }
         </TabPane>
       </Tabs>
       <InformationModal
@@ -281,6 +290,13 @@ const FindRequestsContainer: React.FC = () => {
     </>
   );
 };
+
+const NoRequestsDiv = styled.div`
+  font-size: 28px;
+  background: white;
+  width: 50%;
+  margin: 50 auto 100 auto;
+`;
 
 const RequestDetails = styled.div`
   position: fixed;

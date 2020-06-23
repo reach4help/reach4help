@@ -7,23 +7,23 @@ import { useHistory } from 'react-router-dom';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
+} from '../../../../components/InformationModal/InformationModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from 'src/components/WebClientMap/utils';
-import Map from 'src/components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from 'src/constants/mediaQueries';
-import { ProfileState } from 'src/ducks/profile/types';
-import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+} from '../../../../components/WebClientMap/utils';
+import Map from '../../../../components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from '../../../../constants/mediaQueries';
+import { ProfileState } from '../../../../ducks/profile/types';
+import { resetSetRequestState, setRequest } from '../../../../ducks/requests/actions';
+import { RequestState } from '../../../../ducks/requests/types';
 import { IUser } from 'src/models/users';
-import NewRequest from 'src/modules/requests/components/NewRequest/NewRequest';
-import RequestConfirmation from 'src/modules/requests/components/NewRequest/RequestConfirmation';
+import NewRequest from '../../../requests/components/NewRequest/NewRequest';
+import RequestConfirmation from '../../../requests/components/NewRequest/RequestConfirmation';
 import RequestReview, {
   RequestInput,
-} from 'src/modules/requests/components/NewRequest/RequestReview';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+} from '../../../requests/components/NewRequest/RequestReview';
+import { OpenRequestsLocation } from '../../../requests/pages/routes/OpenRequestsRoute/constants';
 import styled from 'styled-components';
 
 /* TODO:  integrate with translation if safe */

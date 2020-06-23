@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NewRequestsContainer from '../../../containers/HOME_PIN_CreateRequestContainer/CreateRequestsContainer';
+import NewRequestsContainer from '../../../../home/containers/PIN_HOME/CreateRequestsContainer';
 
 const NewRequestsRoute: React.FC = () => <NewRequestsContainer />;
 
