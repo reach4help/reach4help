@@ -61,7 +61,7 @@ interface BlogPostProps {
 export default BlogPost;
 ```
 
-## Constant Consts: Function Closures
+## Complex Constants (Functions and Components): Function Closures
 
 - Function closure imposes some limits on how far down we can place certain declarations.
 - - If the declaration uses a variable which is defined within the scope of the MainComponent, you have a function closure issue.
