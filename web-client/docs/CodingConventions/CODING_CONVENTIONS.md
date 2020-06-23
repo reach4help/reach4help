@@ -12,42 +12,57 @@
 3. Main Component Declaration
 4. Complex Consts
 5. Styled-Components
-   <code>
+
+## BlogPost.tsx
 
 import React from 'react';
+
 import { Typography } from 'antd';
+
 import styled from 'styled-components';
 
+
 /_ Simple Consts _/
+
 const { Text } = Typography;
 
+
 /_ Component Declaration _/
+
 const BlogPost: React.FC<BlogPostProps> = ({ title, description }) => (
+
 <BlogPostWrapper>
 
 <Title>{title}</Title>
+
 <Description>{description}</Description>
+
 </BlogPostWrapper>
+
 );
 
 /_ styled-component declarations _/
 
-const BlogPostWrapper = styled.div`margin: 5px;`;
-const Title = styled.div`font-size: 125%;`;
-const Description = styled.div`font-style: italic;`;
+const BlogPostWrapper = styled.div"margin: 5px;";
+
+const Title = styled.div"font-size: 125%;";
+
+const Description = styled.div"font-style: italic;";
 
 /_ Complex consts -- documentation coming soon_/
 
 /_ interface declaration -- do not use PropTypes _/
 
 interface BlogPostProps {
+
 title: string;
+
 description: string;
+
 }
 
 export default BlogPost;
 
-</code>
 
 ## NAMING
 
@@ -57,7 +72,8 @@ export default BlogPost;
 - - All styled-components must have meaningful names that indicate their usage within the markup.
 - - They must be treated exactly the same as React Components
 - - The root styled-component for the module is {ModuleName}Wrapper
-- - Never use "SomeComponentWrapper" or "SomeContainerWrapper" as a filename. If you need the suffix, you can call use "Component" or "Wrapper"
+- - Never use "SomeComponentWrapper" or "SomeContainerWrapper" as a filename. If you need the suffix, you can call use "Wrapper"
+- - -  Never use the suffix "Container" or "Component" for a styled component.  That is the name of the file export.  Always use the suffix "Wrapper"
 - - Never use a generic name that will clash with AntD components
 - - https://blog.elpassion.com/naming-101-quick-guide-on-how-to-name-things-a9bcbfd02f02
 - - All css must occur in styled-components
@@ -72,38 +88,49 @@ export default BlogPost;
 
 ## Generic Components in Figma
 
+Check Figma for styles -- it already has styles in it.  We need to create a generic component library in src/components/figma
+
+What should we name this style?  Is it really an H6?  What is a good name for t?
+
+![This is a style](H6.png)
+
+
+Be careful because figma is not always consistent in its usage of H4 or H6.  for example, they may throw in a font-weight: 700.  Create a simple concise name for a reusable component
+
+What is this one called?
+
+![This is another style](AccentStyle.png)
+
+
 src/components/figma
 
 Distinguish
 
-- TextStyle components (eg font-weight: 700px) I think these should be spans, not divs
-- DivStyle components (eg margin: 25px)
+- TextStyle components (eg font-weight: 700px) are SPANS
+- BlockStyle components (eg margin: 25px) are DIVS
 
 ## H2.tsx :
 
-<code>
 import react;
+
 import styles;
+
 
 export default styled.span "font-size: 150%;"
-</code>
 
-InfoBox.tsx :
+## InfoBox.tsx :
 
----
-
-<code>
 import react;
+
 import styles;
 
+
 export default styled.div "margin: 20px;"
-</code>
 
 ## index.tsx:
 
-<code>
 import H4 from './H4'
+
 import InfoBox from './InfoBox'
 
 export {H4, InfoBox}
-</code>
