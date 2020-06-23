@@ -73,6 +73,8 @@ export default BlogPost;
 - - Perhaps tell the linter to ignore this error
 - - -  I believe this is:
 - - -   // eslint-disable-next-line @typescript-eslint/no-use-before-define
+- - - or
+- - -   // eslint-disable-next-line @typescript-eslint/no-use-before-declare
 - - Try to parameterize declarations rather than relying on 
 
 
