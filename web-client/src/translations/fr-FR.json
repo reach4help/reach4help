@@ -1,6 +1,6 @@
 {
   "common": {
-    "i_understand": "I understand.",
+    "i_understand": "Je comprends.",
     "okay": "OK",
     "cancel": "Annuler",
     "welcome": "Bienvenue",
@@ -21,56 +21,56 @@
     "for": " pour ",
     "information_modal": {
       "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
+      "footer": "Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse support@crowdin.com",
       "a11y_logo": "Atteindre le logo d'aide",
       "OpenRequestsContainer": {
-        "title": "Still looking for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
-        "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "title": "Toujours à la recherche d'aide ...",
+        "0": "Vos demandes sont là mais personne n'a encore été volontaire pour vous aider",
+        "1": "Vous recevrez également des notifications pour vous informer du statut de vos demandes.",
+        "2": " Si vous avez des questions ou des difficultés avec ceci, n'hésitez pas à contacter support@reach4help.org !"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "Quelqu'un a proposé de vous aider!",
+        "0": "Quelqu'un a proposé de vous aider.",
+        "1": "Contactez-les par téléphone pour vous renseigner sur les détails."
       },
       "OngoingRequestsContainer": {
-        "title": "Matched with a Volunteer!",
-        "0": "You matched with someone who is taking care of your request."
+        "title": "Correspondance avec un bénévole!",
+        "0": "Vous vous êtes associé à quelqu'un qui prend en charge votre demande."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "Et Voilà!",
+        "0": "Vous et le volontaire convenez que tout est fait."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "Vous avez décidé de ne pas le faire",
+        "0": "Vous avez changé d'avis et supprimé votre demande."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "Voir chaque étape de votre demande",
+        "0": "Une requête a été créée.",
+        "1": "Quelqu'un offre de l'aide.",
+        "2": "L'offre est acceptée ou rejetée.",
+        "3": "La demande est complétée.",
+        "4": "La demande est fermée.",
+        "5": "La demande a été retirée.",
+        "6": "Les bénévoles et les personnes dans le besoin se classent mutuellement."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "title": "Utiliser les boutons du bas",
+        "0": "Appuyez sur le menu gauche pour suivre chaque étape de votre demande",
+        "1": "Ouvert : Requêtes qui ont encore besoin d'un bénévole",
+        "2": "Accepté : Quelqu'un a proposé de vous aider.",
+        "3": "En cours : Un bénévole travaille sur votre demande maintenant.",
+        "4": "Terminé : Le bénévole a répondu à la demande.",
+        "5": "Archivé : Requêtes que vous avez supprimées.",
+        "6": "Appuyez sur la cloche gauche pour voir vos notifications"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
+        "title": "Bienvenue sur Reach4Help!",
+        "0": "Merci d'avoir rejoint Reach4Help !",
+        "1": "En tant que bénévole, vous pourrez aider les gens de votre région en répondant à leurs demandes d'aide.",
+        "2": "Utilisez cette carte pour rechercher des personnes dans le besoin.",
         "3": "Click on an orange marker to view that person's request and decide whether to accept it",
         "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
         "5": "Check the Notifications panel to see updates about your offers to help.",
@@ -234,9 +234,9 @@
           "OffersList": {
             "miles": "miles",
             "kilometers": "kilometers",
-            "reject": "Reject",
-            "accept": "Accept",
-            "volunteer_select": "Select A Volunteer"
+            "reject": "Refuser",
+            "accept": "J'accepte",
+            "volunteer_select": "Sélectionnez un bénévole"
           }
         }
       },
@@ -252,7 +252,7 @@
             "a11y_display_photo": "Photo",
             "a11y_location_icon": "Icône d'emplacement",
             "a11y_phone_icon": "Icône de téléphone",
-            "a11y_sms_icon": "SMS icon"
+            "a11y_sms_icon": "Icône SMS"
           }
         }
       },
