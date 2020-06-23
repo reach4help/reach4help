@@ -65,7 +65,7 @@ export default BlogPost;
 
 - Function closure imposes some limits on how far down we can place certain declarations.
 - - If the declaration uses a variable which is defined within the scope of the MainComponent, you have a function closure issue.
-- - This is often an issue if your CONSTANT uses React Hooks -- useEffect, useState, useTranslations
+- - This is often an issue if your Function or Component uses React Hooks -- useEffect, useState, useTranslations
 - - Typescript complains "you can not use < SYMBOL_NAME > before it is declared"
 - - Put all secondary declarations as low as possible
 - - Perhaps tell the linter to ignore this error
