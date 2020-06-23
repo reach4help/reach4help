@@ -215,51 +215,51 @@
       "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
       "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
       "open_status": "Open",
-      "cav": "Volunteer",
-      "cav_wait": "WAITING FOR VOLUNTEER",
-      "address": "Delivery Address",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
+      "cav": "Voluntario",
+      "cav_wait": "ESPERANDO PARA VOLUNTARIO",
+      "address": "Dirección de entrega",
+      "cancelRequest": "Cancelar solicitud",
+      "finishRequest": "Finalizar Solicitud",
+      "ratingQuestion": "¿Cómo valorarías tu experiencia?",
       "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "finishRequestModalParta": "¿Está seguro de que desea completar?",
+      "finishRequestModalPartb": "de",
+      "thankYouModalTitle": "¡Muchas gracias!",
+      "thankYouModalBodyParta": "Has puntuado",
+      "thankYouModalBodyPartb": "con"
     },
     "modules": {
       "timeline": {
         "components": {
           "OffersList": {
-            "miles": "miles",
-            "kilometers": "kilometers",
-            "reject": "Reject",
-            "accept": "Accept",
-            "volunteer_select": "Select A Volunteer"
+            "miles": "millas",
+            "kilometers": "kilómetros",
+            "reject": "Rechazar",
+            "accept": "Aceptar",
+            "volunteer_select": "Seleccionar un voluntario"
           }
         }
       },
       "navigation": {
         "components": {
           "Header": {
-            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
-            "remember": "REMEMBER",
-            "requests": "Requests"
+            "reject_reminder": " Si rechaza esta ayuda, su solicitud volverá a la lista de solicitudes disponibles, pero perderá prioridad.",
+            "remember": "RECUERDAR",
+            "requests": "Solicitudes"
           },
           "TopPanel": {
-            "a11y_back_nav": "Back navigation icon",
-            "a11y_display_photo": "Display photo",
-            "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon",
-            "a11y_sms_icon": "SMS icon"
+            "a11y_back_nav": "Navegación hacia atrás",
+            "a11y_display_photo": "Mostrar una foto",
+            "a11y_location_icon": "Icono de ubicación",
+            "a11y_phone_icon": "Icono de Teléfono",
+            "a11y_sms_icon": "Icono de SMS"
           }
         }
       },
       "personal-data": {
         "containers": {
           "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
+            "address_error": "Lo sentimos, no hemos podido determinar tu dirección actual, ¡inténtalo de nuevo!",
             "missing_data": "Missing Data!"
           }
         }
