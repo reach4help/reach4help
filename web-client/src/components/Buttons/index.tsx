@@ -32,7 +32,8 @@ export const StepForwardButton = styled(Button)`
   &:active,
   &:focus-within {
     background-color: ${COLORS.stepForwardEnhanced};
-    /* overrides antd */
+
+    /* overrides antd purple color */
     color: white;
   }
 `;

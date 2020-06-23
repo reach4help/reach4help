@@ -2,7 +2,6 @@ import get from 'lodash/get';
 import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -13,6 +12,7 @@ import { NewRequestsLocation } from 'src/modules/requests/pages/routes/NewReques
 import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
+import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import { PersonalDataLocation } from './routes/PersonalDataRoute/constants';
 import { RoleInfoLocation } from './routes/RoleInfoRoute/constants';
 
