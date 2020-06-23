@@ -109,7 +109,7 @@ Distinguish
 - TextStyle components (eg font-weight: 700px) are SPANS
 - BlockStyle components (eg margin: 25px) are DIVS
 
-## H2.tsx :
+## MainText.tsx :
 
 import react;
 
@@ -129,8 +129,8 @@ export default styled.div "margin: 20px;"
 
 ## index.tsx:
 
-import H4 from './H4'
+import MainText from './MainText'
 
 import InfoBox from './InfoBox'
 
-export {H4, InfoBox}
+export {MainText, InfoBox}
