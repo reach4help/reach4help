@@ -88,9 +88,7 @@ const ClosureDiv = () => {
 
  const innerVariable = "foo";
 
- const InnerFunctionOrComponent = () => 
-
-   {return < div >{innerVariable}< /div >}
+ const InnerFunctionOrComponent = () => < div >{innerVariable}< /div >
 
   return < InnerFunctionOrComponent / >
   
@@ -109,15 +107,9 @@ const ClosureDiv = () => {
 
   return < InnerFunctionOrComponent >{innerVariable}< / InnerFunctionOrComponent >
   
- }
+ }}
 
-}
-
- const InnerFunctionOrComponent = (text) => {
-
-    return < div >text< /div >
-
-   }
+ const InnerFunctionOrComponent = (text) => < div >text< /div >
 
 
 ## NAMING
