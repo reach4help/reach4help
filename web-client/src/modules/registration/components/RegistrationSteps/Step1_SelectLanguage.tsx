@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import CONSTANTS from 'src/constants';
 import styled from 'styled-components';
 
-const { localStorageKey } = CONSTANTS;
+const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
 /* we are only using 2-digit language codes for now
   SELECT input below will get confused if it sees:
@@ -24,7 +24,7 @@ const Step0: React.FC = (): React.ReactElement => {
   const allLanguages = langs.all();
 
   const setBrowserDefaultLanguage = val => {
-    localStorage.setItem(localStorageKey, val);
+    localStorage.setItem(LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY, val);
     i18n.init();
 
     /*  TODO:  language should be changed immediately as well as in localStorage 

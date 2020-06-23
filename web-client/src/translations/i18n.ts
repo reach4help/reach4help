@@ -7,7 +7,7 @@ import en from './en.json';
 import fr from './fr-FR.json';
 import pt from './pt-PT.json';
 
-const { localStorageKey } = CONSTANTS;
+const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
 i18n
   .use(detector)
@@ -15,7 +15,7 @@ i18n
   .init({
     detection: {
       order: ['localStorage', 'navigator'],
-      lookupLocalStorage: localStorageKey,
+      lookupLocalStorage: LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY,
     },
     fallbackLng: 'en',
     resources: {
