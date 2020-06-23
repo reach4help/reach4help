@@ -66,13 +66,17 @@ export default BlogPost;
 - Function closure imposes some limits on how far down we can place certain declarations.
 - - If the declaration uses a variable which is defined within the scope of the MainComponent, you have a function closure issue.
 - - This is often an issue if your Function or Component uses React Hooks -- useEffect, useState, useTranslations
-- - Typescript complains "you can not use < SYMBOL_NAME > before it is declared"
-- - Put all secondary declarations as low as possible
+
+- Put all secondary Function or Component declarations as low as possible.
+- - After the main component if possible
+- - Otherwise As low as possible within the main component
+
+- Typescript complains "you can not use < SYMBOL_NAME > before it is declared"
 - - Perhaps tell the linter to ignore this error
-- - - I believe this is:
-- - - // eslint-disable-next-line @typescript-eslint/no-use-before-define
-- - - or
-- - - // eslint-disable-next-line @typescript-eslint/no-use-before-declare
+- - I believe this is:
+- - // eslint-disable-next-line @typescript-eslint/no-use-before-define
+- - or
+- - // eslint-disable-next-line @typescript-eslint/no-use-before-declare
 
 ## Try to parameterize declarations rather than relying on function closures
 
