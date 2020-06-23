@@ -15,6 +15,8 @@
 3. Main Component Declaration
 4. Complex Consts
 5. Styled-Components
+6. Props interface
+7. export default
 
 ## BlogPost.tsx
 
@@ -35,12 +37,12 @@ const BlogPost: React.FC< BlogPostProps > = ({ title, description }) => (
    </BlogPostWrapper>
 );
 
+/* Complex consts -- See section below on Function Closures*/
+
 /* styled-component declarations */
 const BlogPostWrapper = styled.div`margin: 5px;`;
 const Title = styled.div`font-size: 125%;`;
 const Description = styled.div`font-style: italic;`;
-
-/* Complex consts -- See section below on Function Closures*/
 
 /* interface declaration -- do not use PropTypes */
 interface BlogPostProps {
