@@ -100,8 +100,8 @@
       "missingType": "Por favor, seleccione el tipo de proyecto / grupo / organización",
       "missingServices": "Por favor, compruebe todos los servicios proporcionados por esta organización (al menos 1 es requerido)",
       "missingTitle": "Por favor, introduzca el nombre del proyecto / grupo / organización",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
+      "missingLocationName": "Por favor ingrese una descripción del área servida",
+      "markerRequired": "Por favor, haga clic en el mapa para entrar en el área de servicio antes de continuar.",
       "noContactDetails": "Please enter contact details for at least one category",
       "emptyContactSection": "Please enter some contact information for {section} or delete it",
       "urlMissingLabel": "A URL for {section} is missing a Name",
@@ -187,13 +187,13 @@
     "netlifyLinkText": "está alojado por Netlify",
     "githubRepo": "Repositorio de GitHub",
     "codeOfConduct": "Código de conducta",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "showHidden": "Mostrar información oculta",
+    "hideHidden": "Mostrar información oculta"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "Visibilidad: {visibility}",
     "filter": {
-      "any": "Any",
+      "any": "Cualquiera",
       "visible": "Visible solo en",
       "hidden": "Sólo ocultos"
     }
