@@ -66,7 +66,7 @@ export default BlogPost;
 
 BAD:
 
-```html
+```tsx
 import react;
 
 const BadInnerComponentReliesOnClosureDiv = () => {
@@ -80,7 +80,7 @@ const BadInnerComponentReliesOnClosureDiv = () => {
 
 GOOD: 
 
-```html
+```tsx
 import react;
 
 const GoodIndependantDiv = () => {
@@ -142,26 +142,28 @@ Distinguish
 
 ## MainText.tsx :
 
+```tsx
 import react;
-
 import styles;
 
-
-export default styled.span "font-size: 150%;"
+export default styled.span `font-size: 150%;`
+```
 
 ## InfoBox.tsx :
 
+```tsx
 import react;
-
 import styles;
 
 
-export default styled.div "margin: 20px;"
+export default styled.div `margin: 20px;`
+```
 
 ## index.tsx:
 
+```tsx
 import MainText from './MainText'
-
 import InfoBox from './InfoBox'
 
 export {MainText, InfoBox}
+```
