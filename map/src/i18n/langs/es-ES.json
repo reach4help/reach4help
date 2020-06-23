@@ -70,7 +70,7 @@
         "addInfo": {
           "general": "Agregar información general de contacto",
           "volunteers": "Agregar información de contacto para voluntarios",
-          "getHelp": "Add contact information for people that need help"
+          "getHelp": "Agregar información de contacto para personas que necesitan ayuda"
         },
         "sections": {
           "general": "General contact info",
