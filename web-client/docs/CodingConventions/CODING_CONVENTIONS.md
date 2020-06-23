@@ -5,6 +5,15 @@
 - All important declarations must be made on the first screen
 - - You should not have to scroll down
 - - In publishing this is called "ABOVE THE FOLD", like the first page of a newspaper.
+- Function closure imposes some limits on how far down we can place certain declarations.  
+- - Typescript complains "you can not use < SYMBOL_NAME > before it is declared"
+- - Put all secondary declarations as low as possible
+- - Perhaps tell the linter to ignore this error
+- - -  I believe this is:
+- - -   // eslint-disable-next-line @typescript-eslint/no-use-before-define
+
+
+
 - - CORRECT ORDER OF FILE:
 
 1. Imports
