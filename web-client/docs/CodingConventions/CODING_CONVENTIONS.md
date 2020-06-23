@@ -31,8 +31,10 @@ const { Text } = Typography;
 /* Component Declaration */
 const BlogPost: React.FC<BlogPostProps> = ({ title, description }) => (
   <BlogPostWrapper>
-    <Title>{title}</Title>
-    <Description>{description}</Description>
+    <Description>
+      <TitleText>{title}</TitleText>
+      {description}
+    </Description>
   </BlogPostWrapper>
 );
 
@@ -40,13 +42,14 @@ const BlogPost: React.FC<BlogPostProps> = ({ title, description }) => (
 
 /* styled-component declarations */
 const BlogPostWrapper = styled.div`
-  margin: 5px;
+  display: flex;
 `;
-const Title = styled.div`
+const Title = styled.span`
   font-size: 125%;
+  font-style: italic;
 `;
 const Description = styled.div`
-  font-style: italic;
+  display: flex;
 `;
 
 /* interface declaration -- do not use PropTypes */
