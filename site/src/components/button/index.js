@@ -10,6 +10,7 @@ function Button({
   outlineColor,
   onClick,
   children,
+  fontSize,
 }) {
   return (
     <ButtonWrapper
@@ -18,6 +19,7 @@ function Button({
       textColor={textColor}
       backgroundColor={backgroundColor}
       outlineColor={outlineColor}
+      fontSize={fontSize}
     >
       {children}
     </ButtonWrapper>
@@ -30,6 +32,7 @@ Button.propTypes = {
   outlineColor: PropTypes.string, // border color on hover
   onClick: PropTypes.func,
   children: PropTypes.node,
+  fontSize: PropTypes.string,
 }
 
 export default Button
