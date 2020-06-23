@@ -32,7 +32,7 @@
       "AcceptedRequestsContainer": {
         "title": "¡Alguien ha ofrecido ayuda!",
         "0": "¡Alguien ha ofrecido ayuda!",
-        "1": "Get in touch with them by phone to work out the details."
+        "1": "Póngase en contacto con ellos por teléfono para averiguar los detalles."
       },
       "OngoingRequestsContainer": {
         "title": "¡Emparejado con un Voluntario!",
@@ -51,8 +51,8 @@
         "0": "Se ha creado una solicitud.",
         "1": "Alguien te ofrece ayuda.",
         "2": "La oferta se acepta o rechaza.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
+        "3": "La solicitud ha sido completada.",
+        "4": "La solicitud se ha cerrado.",
         "5": "La solicitud fue eliminada.",
         "6": "Los voluntarios y las personas necesitadas se valoran mutuamente."
       },
@@ -70,10 +70,10 @@
         "title": "¡Bienvenido a Reach4Help!",
         "0": "¡Gracias por unirse a Reach4Help!",
         "1": "Como voluntario, podrás ayudar a las personas de tu zona respondiendo a sus solicitudes de ayuda.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
+        "2": "Utiliza este mapa para buscar a personas que necestan el apoyo.",
+        "3": "Haga clic en un marcador naranja para ver la solicitud de esa persona y decidir si la acepta",
+        "4": "Una vez que la persona en cuestión acepte su oferta de ayuda, usted intercambiará información de contacto.",
+        "5": "Revisa el panel de notificaciones para ver las actualizaciones de tus ofertas para ayudarte.",
         "6": "Thank you for joining us in building this unified platform of help!"
       },
       "NewRequestsContainer": {
@@ -211,17 +211,17 @@
       "COMPLETE_REQUEST": "Request has been completed.",
       "CREATE_OFFER": "{{actorName}} offered to help with this request.",
       "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
-      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
-      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
-      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
-      "open_status": "Open",
+      "REJECT_OFFER": "{{actorName}} ha rechazado la ayuda de {{cavUserName}}.",
+      "RATE_PIN": "{{actorName}} ha valorado {{actedUpon}}.",
+      "RATE_CAV": "{{actorName}} ha valorado {{actedUpon}}.",
+      "open_status": "Abierto",
       "cav": "Voluntario",
       "cav_wait": "ESPERANDO PARA VOLUNTARIO",
       "address": "Dirección de entrega",
       "cancelRequest": "Cancelar solicitud",
       "finishRequest": "Finalizar Solicitud",
       "ratingQuestion": "¿Cómo valorarías tu experiencia?",
-      "submitRatingButton": "Submit Rating",
+      "submitRatingButton": "Enviar valoración",
       "finishRequestModalParta": "¿Está seguro de que desea completar?",
       "finishRequestModalPartb": "de",
       "thankYouModalTitle": "¡Muchas gracias!",
@@ -260,14 +260,14 @@
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "Lo sentimos, no hemos podido determinar tu dirección actual, ¡inténtalo de nuevo!",
-            "missing_data": "Missing Data!"
+            "missing_data": "Faltan datos"
           }
         }
       },
       "requests": {
-        "a11y_profile_pic": "Profile Pic",
+        "a11y_profile_pic": "Foto de Perfil",
         "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+          "choose_volunteer": "Elija entre los siguientes voluntarios para satisfacer su petición."
         },
         "bottom_warning": "Su solicitud fue vista por varios voluntarios, pero no fue aceptada. Te sugerimos &ldquo;Cerrar Solicitud&rdquo; y crear una nueva con una descripción más simple.",
         "cannot_help": "No se puede ayudar",
@@ -309,17 +309,17 @@
         "offered_help": " ha ofrecido apoyo para ",
         "pin_accepted": "Has aceptado el apoyo de ",
         "pin_declined_help": "Has rechazado la ayuda para ",
-        "pin_rejected": "You have rejected help from ",
-        "request_author": "The request_author",
-        "volunteer_accepted": " accepted your offer for ",
-        "your_task": "your task"
+        "pin_rejected": "Has rechazado la ayuda para ",
+        "request_author": "El autor de la solicitud",
+        "volunteer_accepted": " ha aceptado su oferta para ",
+        "your_task": "tu tarea"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "Mi ubicación",
+        "a11y_destination": "Destinación",
+        "api_error": "No se pudo obtener",
+        "distance_error": "Error de Servicio de Distancia:",
+        "geocode_error": "No se puede geocodificar"
       }
     }
   }
