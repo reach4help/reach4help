@@ -3,6 +3,7 @@ import detector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
 import en from './en.json';
+import es from './es-ES.json';
 import fr from './fr-FR.json';
 import pt from './pt-PT.json';
 
@@ -16,6 +17,7 @@ i18n
     fallbackLng: 'en',
     resources: {
       en,
+      es,
       fr,
       pt,
     },
