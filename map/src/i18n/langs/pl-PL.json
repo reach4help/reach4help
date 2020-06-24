@@ -66,79 +66,79 @@
       "contactInfo": {
         "header": "Dane kontaktowe dla zapytań",
         "info": "Prawie gotowe! Wprowadź informacje o tym, jak ludzie mogą skontaktować się z {name}. Jeśli istnieją określone metody kontaktów, które powinny być użyte do pomocy wolontariuszowi lub do żądania pomocy, wprowadź je!",
-        "deleteInfo": "Delete",
+        "deleteInfo": "Usuń",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "Ukryj puste wartości kontaktowe",
+          "volunteers": "Dodaj dane kontaktowe wolontariuszy",
+          "getHelp": "Dodaj informacje kontaktowe dla osób, które potrzebują pomocy"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "Wprowadź dane kontaktu",
+          "volunteers": "Dane kontaktowe wolontariuszy",
+          "getHelp": "Dodaj informacje kontaktowe dla osób, które potrzebują pomocy"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "Numery telefonów",
+          "email": "Adresy e-mail",
+          "web": "Adres linku"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
-          "webURL": "URL",
-          "webLabel": "Name"
+          "phone": "Wpisz numer telefonu",
+          "email": "Wpisz adres e-mail",
+          "webURL": "Adres URL",
+          "webLabel": "Nazwa"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "Przesyłanie informacji do mapy...",
+        "error": "Błąd podczas zapisywania informacji",
+        "success": "Twoja prośba została pomyślnie wysłana.",
+        "successExtra": "Zanim Twoje informacje staną się widoczne na mapie, wolontariusz musi je przejrzeć w naszej drużynie. Należy mieć nadzieję, że nastąpi to w ciągu kilku dni."
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "missingType": "Proszę wybrać typ projektu / grupy / organizacji",
+      "missingServices": "Sprawdź wszystkie usługi dostarczone przez tę organizację (co najmniej 1 jest wymagane)",
+      "missingTitle": "Proszę wybrać typ projektu / grupy / organizacji",
+      "missingLocationName": "Proszę podać opis problemu",
+      "markerRequired": "Proszę kliknąć na mapie, aby wejść do obszaru serwisowego przed kontynuowaniem.",
+      "noContactDetails": "Wprowadź dane kontaktowe dla co najmniej jednej kategorii",
+      "emptyContactSection": "Wprowadź dane kontaktowe dla {section} lub usuń",
+      "urlMissingLabel": "Brakuje nazwy adresu URL dla {section}",
+      "urlMissingURL": "Brakuje nazwy adresu URL dla {section}",
+      "dataError": "Wystąpił problem z informacjami, które przesłałeś, proszę wrócić i spróbować ponownie",
+      "submitError": "Podczas ustawiania automatycznie przypisywanej osoby wystąpił problem. Spróbuj ponownie później.",
+      "mutualAidGroupsNotAccepted": "Zamiast tego wprowadź informacje o nowych grupach wzajemnej pomocy na {link}."
     }
   },
   "buttons": {
     "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+    "exitFullScreen": "Wyłącz pełny ekran"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "Wczytywanie...",
+  "filterBy": "Filtruj według:",
   "services": {
     "any": "Any",
-    "food": "Food",
-    "medicine": "Medicine",
-    "supplies": "Other Supplies",
-    "mobility": "Mobility",
-    "shelter": "Shelter",
-    "support": "Support",
-    "information": "Information",
-    "network": "Network",
+    "food": "Żywność",
+    "medicine": "Medycyna",
+    "supplies": "Inne materiały",
+    "mobility": "mobilność",
+    "shelter": "Schronienie",
+    "support": "Wsparcie",
+    "information": "Informacje",
+    "network": "Sieć",
     "manufacturing": "Manufactoring",
-    "financial": "Financial",
-    "other": "Other"
+    "financial": "Finanse",
+    "other": "Inne"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "Dostawy inne niż żywność lub leki",
+    "mobility": "Przenoszenie ludzi z jednego miejsca do drugiego",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
+    "support": "Wsparcie dostosowane do potrzeb określonych grup szczególnie wrażliwych, np. bezdomnych, osób zagrożonych wykorzystywaniem w gospodarstwie domowym itp....",
+    "information": "Pomóż ludziom znaleźć odpowiednie informacje",
     "network": "Zapewnianie środków na tworzenie sieci w celu zapewnienia pomocy, np. między organizacjami wzajemnej pomocy",
     "manufacturing": "Zapewnianie dostaw lub zdolności produkcyjnych potrzebnych do radzenia sobie z kryzysem",
     "financial": null,
