@@ -21,11 +21,11 @@
     "for": " for ",
     "information_modal": {
       "instructions": "নির্দেশনা",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
-      "a11y_logo": "Reach for Help logo",
+      "footer": "আপনার কোনো প্রশ্ন ও প্রয়োজন থাকলে, \nআমাদেরকে support@reach4help.org এ ইমেল করুন।",
+      "a11y_logo": "রিচ ফর হেল্প লোগো",
       "OpenRequestsContainer": {
-        "title": "Still looking for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
+        "title": "এখনও সাহায্য খুঁজছি...",
+        "0": "আপনার অনুরোধগুলি প্রেরণ করা হয়েছে তবে এখনও কেউ সাহায্য করতে পারেনি",
         "1": "You will also be receiving notifications to update you about the status of your requests.",
         "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
       },
@@ -67,8 +67,8 @@
         "6": "Press the Left Bell to see your notifications"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
+        "title": "রিচ ফর হেল্পে স্বাগতম!",
+        "0": "রিচ ফর হেল্পে যোগদানের জন্য আপনাকে ধন্যবাদ!",
         "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
         "2": "Use this map to search for people in need.",
         "3": "Click on an orange marker to view that person's request and decide whether to accept it",
@@ -77,7 +77,7 @@
         "6": "Thank you for joining us in building this unified platform of help!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
+        "title": "রিচ ফর হেল্পে স্বাগতম!",
         "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
         "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
         "2": "Check the Notifications panel to see updates about your incoming offers.",
