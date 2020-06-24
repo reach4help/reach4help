@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { SectionWrapper } from "src/components/sectionLayout/style"
+import Button from "src/components/button"
 
 export const Wrapper = styled(SectionWrapper)`
   flex-direction: column;
@@ -101,4 +102,8 @@ export const ButtonsWrapper = styled.div`
       flex-basis: 100%;
     }
   }
+`
+
+export const MainCTA = styled(Button)`
+  font-size: 58px;
 `
