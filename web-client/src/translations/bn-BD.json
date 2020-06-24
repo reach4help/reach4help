@@ -16,11 +16,11 @@
     "address2": "ঠিকানা দ্বিতীয় (ঐচ্ছিক)",
     "city": "শহর",
     "code": "জিপ / পোস্টাল কোড",
-    "State": "State / Province",
-    "country": "Country",
+    "State": "রাজ্য / প্রদেশ",
+    "country": "দেশ",
     "for": " for ",
     "information_modal": {
-      "instructions": "Instructions",
+      "instructions": "নির্দেশনা",
       "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
       "a11y_logo": "Reach for Help logo",
       "OpenRequestsContainer": {
@@ -39,7 +39,7 @@
         "0": "You matched with someone who is taking care of your request."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
+        "title": "সব কাজ শেষ!",
         "0": "You and the volunteer agree that everything is done."
       },
       "ArchivedRequestsContainer": {
