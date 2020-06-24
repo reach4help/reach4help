@@ -5,13 +5,13 @@
     "intro": "نؤمن ان التكافل يبرز افضل ما يمكن لدى الافراد ",
     "info": "لمساعدة الناس في العثور على جهود المساعدة المتبادلة والانضمام إليها في المكان الذي يعيشون فيه ، وتقديم الإلهام لبدء حياتهم الخاصة ، و / أو رفع المعنويات ببساطة ، تقدم هذه الخريطة قائمة متزايدة بمشاريع الإغاثة من جائحة المساعدة المتبادلة في جميع أنحاء العالم.",
     "warning": "ملحوظة: كل مشروع مستقل ذاتي التنظيم. مما يجعل الكثير يستخدم جداول البيانات العامة لمشاركة المعلومات ، لذا كن حذرًا عند إدخال معلومات خاصة لا تريد أن تكون عامة.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "project": "هذه الخريطة جزء من {access4Help} ، وهو مشروع يديره متطوعون.  المصدر متاح ويمكن أن يكون {githubSource}.  لأية استفسارات ، يمكنك الوصول إلينا على العنوان {email}.",
+    "githubSourceLabel": "وجدت على GitHub",
+    "otherAreasHeading": "هل انت مهتم بإحد هذه المجالات؟",
+    "otherAreasInfo": "تحقق من هذه الخرائط البديلة بدلا من ذلك:",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York"
+      "france": "فرنسا",
+      "nyc": "نيويورك"
     },
     "sourceHeading": "Where does this information come from?",
     "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
