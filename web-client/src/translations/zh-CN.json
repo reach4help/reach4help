@@ -79,53 +79,53 @@
       "NewRequestsContainer": {
         "title": "欢迎使用 Reach4Help ！",
         "0": "感谢您加入 Reach4Help！作为一个需要帮助的人，您可以通过创建请求联系您所在的地区。 目前，我们不能保证有志愿者可以在你的地区提供帮助。 在这种情况下，我们建议与潜在的志愿者和当地志愿者组织分享。 感谢您加入我们创建这个统一的帮助平台！",
-        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
-        "2": "Check the Notifications panel to see updates about your incoming offers.",
-        "3": "Once you accept an offer, your information will be shared with the volunteer.",
-        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+        "1": "感谢您提交请求！当志愿者提出接受请求时，您会收到通知。要检查其状态，点击/点击此处或检查 ",
+        "2": "请检查通知面板以查看关于您要帮助的报价的更新。",
+        "3": "一旦您接受报价，您的信息将与志愿者共享。",
+        "4": "联系志愿人员（或等待他们与你联系）进行协调。"
       }
     },
     "login": {
-      "title": "Reach4Help",
-      "sub_title": "Sign Up Overview",
-      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
-      "facebookButtonLabel": "Continue with Facebook",
-      "googleButtonLabel": "Continue with Google"
+      "title": "到达4帮助",
+      "sub_title": "注册概览",
+      "info": "你好！非常感谢你关心帮助你的社区！ 确保我们用户的安全， 我们目前需要通过 Google 或 Facebook 登录来验证您的身份，并在出现任何差异时与您联系。\n\n在这个步骤之后，您将被要求提供您的电话号码并通过一个代码验证它，您将会通过文本接收。 这正是提供帮助的人与你联系的方式！ 联系信息只在您批准帮助他们的人时才与对方共享。 当您提交请求帮助时，您的准确位置不会共享(只有您邮政编码的前三位数)。\n谢谢你们在使我们的世界成为一个更安全和更有用的地方方面所给予的合作！ 如果您有任何疑问，请通过support@reach4help联系我们。 毫克",
+      "facebookButtonLabel": "以脸书帐号登录",
+      "googleButtonLabel": "继续用Google"
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
-      "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help"
+      "contactUs": "聯絡我們",
+      "logout": "登出",
+      "switchToCAV": "切换到提供支持",
+      "switchToPIN": "切换到寻找帮助"
     },
     "phoneNumber": {
-      "select_instructions": "Pick from the dropdown below",
-      "input_instructions": "Enter your digits",
-      "sub_title": "Enter your telephone number to begin",
-      "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!",
-      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!",
-      "no_country_error": "A country must be chosen.",
-      "no_digits_error": "You must enter the phone digits too.",
-      "is_valid_number": "is a valid telephone number",
-      "is_not_valid_number": "is not a valid telephone number",
-      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
-      "country_label": "Your country",
-      "country_placeholder": "Select a country",
-      "phone_label": "Enter your phone number",
-      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
+      "select_instructions": "从下面的下拉列表中选择",
+      "input_instructions": "填写您的电子邮件",
+      "sub_title": "输入您的电话号码以开始",
+      "info": "此信息对于验证您的帐户至关重要。数据和费率可能适用。",
+      "error_message": "请输入您的手机号",
+      "phone_valid": "有效的电话号码以 + 和国家代码开头，在字段中没有空格或其他特殊字符！",
+      "no_country_error": "必须选择一个国家。",
+      "no_digits_error": "您也必须输入手机数字。",
+      "is_valid_number": "是一个有效的电话号码",
+      "is_not_valid_number": "是一个有效的电话号码",
+      "is_plus_11": " 不是一个有效的电话号码。不要将您的国家代码输入输入框。只能使用国家选择器",
+      "country_label": "你的地區",
+      "country_placeholder": "选择国家",
+      "phone_label": "输入您的手机号码",
+      "bad_11_prefix": "无效号码：+11 是保加利亚的国家前缀，而不是加拿大或美国。不要将“1”作为您的主要数字"
     },
     "verificationCode": {
-      "sub_title": "We just texted you a confirmation code. Please enter it below.",
-      "info": "If you did not receive a code please click ",
-      "resend": "resend",
-      "error_message": "Insert the received number here!"
+      "sub_title": "我们只是给你写了一个确认码。请在下面输入它。",
+      "info": "如果您没有收到代码，请点击 ",
+      "resend": "重新发送",
+      "error_message": "在这里插入收到的号码！"
     },
     "user_data_form": {
-      "sub_title": "Please fill out the personal details below.",
-      "gps_button": "Use GPS to get my address",
-      "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
-      "learn_reactivate": "Learn how to reactivate geolocation",
+      "sub_title": "请填写下面的个人详细信息。",
+      "gps_button": "使用 GPS 获取我的地址",
+      "gps_unavailable_retry_button": "地理位置不可用。请重试。",
+      "learn_reactivate": "学习如何重新激活地理定位",
       "retry_geolocation": "设置地理位置",
       "continue_without_geolocation": "无地理位置继续",
       "go_back": "返回",
@@ -188,71 +188,71 @@
       "c2a_cav": "即刻销售！"
     },
     "routeSubtitles": {
-      "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
-      "_personal-data": "Personal Data",
-      "_timeline": "Request Timeline",
-      "_personal-data_role-info": "Role Info",
+      "_login": "登入",
+      "_phone": "拨号",
+      "_requests": "请求",
+      "_personal-data": "个人资料",
+      "_timeline": "请求时间表",
+      "_personal-data_role-info": "角色信息",
       "_phone_entry": "输入电话号码",
-      "_phone_verify": "Verifying Phone Number",
-      "_requests_accepted": "Accepted Requests",
-      "_requests_archived": "Closed Requests",
-      "_requests_find": "Find Requests",
-      "_requests_finished": "Completed Requests",
-      "_requests_new": "New Request",
-      "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_phone_verify": "确认电话号码",
+      "_requests_accepted": "接受的请求",
+      "_requests_archived": "已关闭的请求",
+      "_requests_find": "查找请求",
+      "_requests_finished": "已关闭的请求",
+      "_requests_new": "新的请求",
+      "_requests_ongoing": "进行中的竞赛",
+      "_requests_open": "打开请求:"
     },
     "timeline": {
-      "CREATE_REQUEST": "{{actorName}} created this request.",
-      "CANCEL_REQUEST": "{{actorName}} closed this request.",
-      "REMOVE_REQUEST": "{{actorName}} removed this request",
-      "COMPLETE_REQUEST": "Request has been completed.",
-      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
-      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
-      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
-      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
-      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
-      "open_status": "Open",
-      "cav": "Volunteer",
-      "cav_wait": "WAITING FOR VOLUNTEER",
-      "address": "Delivery Address",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
-      "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "CREATE_REQUEST": "{{actorName}} 创建了此请求。",
+      "CANCEL_REQUEST": "{{actorName}} 创建了此请求。",
+      "REMOVE_REQUEST": "{{actorName}} 创建了此请求。",
+      "COMPLETE_REQUEST": "已完成付款。",
+      "CREATE_OFFER": "{{actorName}} 表示愿意帮助处理此请求。",
+      "ACCEPT_OFFER": "{{actorName}} 接受了 {{cavUserName}} 帮助。",
+      "REJECT_OFFER": "{{actorName}} 接受了 {{cavUserName}} 帮助。",
+      "RATE_PIN": "{{actorName}} 评分 {{actedUpon}}。",
+      "RATE_CAV": "{{actorName}} 评分 {{actedUpon}}。",
+      "open_status": "打开",
+      "cav": "志愿者",
+      "cav_wait": "正在等待视频",
+      "address": "配送地址",
+      "cancelRequest": "取消请求",
+      "finishRequest": "查找请求",
+      "ratingQuestion": "您将如何评价您的体验",
+      "submitRatingButton": "提交评价",
+      "finishRequestModalParta": "您确定您希望加入",
+      "finishRequestModalPartb": "從",
+      "thankYouModalTitle": "谢谢!",
+      "thankYouModalBodyParta": "您的评分",
+      "thankYouModalBodyPartb": "与"
     },
     "modules": {
       "timeline": {
         "components": {
           "OffersList": {
-            "miles": "miles",
-            "kilometers": "kilometers",
-            "reject": "Reject",
-            "accept": "Accept",
-            "volunteer_select": "Select A Volunteer"
+            "miles": "英里",
+            "kilometers": "公里",
+            "reject": "拒绝",
+            "accept": "接受",
+            "volunteer_select": "选择一名志愿者"
           }
         }
       },
       "navigation": {
         "components": {
           "Header": {
-            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
-            "remember": "REMEMBER",
-            "requests": "Requests"
+            "reject_reminder": " 如果您拒绝此帮助，您的请求将回到可用请求列表中，但它将失去优先级别。",
+            "remember": "回归者",
+            "requests": "请求"
           },
           "TopPanel": {
-            "a11y_back_nav": "Back navigation icon",
-            "a11y_display_photo": "Display photo",
-            "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon",
-            "a11y_sms_icon": "SMS icon"
+            "a11y_back_nav": "显示返回选项",
+            "a11y_display_photo": "显示头像",
+            "a11y_location_icon": "位置信息图标",
+            "a11y_phone_icon": "电话图标",
+            "a11y_sms_icon": "短信图标"
           }
         }
       },
