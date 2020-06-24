@@ -13,13 +13,13 @@
       "france": "فرنسا",
       "nyc": "نيويورك"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
+    "sourceHeading": "من اين اتات هذه المعلومات؟!",
+    "sourceInfo": "المعلومات الواردة في هذه الخريطة هي مزيج من البيانات التي جمعها متطوعونا ، والتي قدمها مستخدمونا ، والتي قدمتها المشاريع الأخرى التي يديرها المتطوعون بما في ذلك {mutualaidwiki} و {mutuaidhub}.",
+    "sourceSubmit": "نحن نشجعك على {addinfo} حول أي مشروعات تعرفها غير موجودة بالفعل على الخريطة.",
+    "sourceSubmitButton": "اضافة المعلومات",
+    "usageHeading": "هل يمكنني استخدام هذه البيانات لمشروعي الخاص؟",
+    "usageInfo": "نرحب باستخدام البيانات المقدمة من خريطتنا لمشاريعك الخاصة ، طالما أنك تتبع التراخيص المعنية.",
+    "usageLicenses": "البيانات التي يقدمها المتطوعون والمستخدمون لدينا مرخصة بموجب {license} ، ويتم توفير البيانات من مصادر أخرى بموجب التراخيص الخاصة بهم.",
     "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
