@@ -27,10 +27,10 @@
     "map": "عرض الخريطة"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "راسل لنا عبر البريد الإكتروني",
+    "twitter": "تابعنا على تويتر",
+    "facebook": "اضغط جرس الاعجاب على صفحتنا على الفيس بوك",
+    "github": "تجدنا على GitHub"
   },
   "addInformation": {
     "button": "إضافة معلومات",
