@@ -33,6 +33,9 @@ jobs:
           REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.DEV_FIREBASE_STORAGE_BUCKET }}
           REACT_APP_GMAPS_API_KEY: ${{ secrets.DEV_MAPS_API_KEY }} # For the Web Client Project - they have different keys
           REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.DEV_MUTUAL_AID_MAP_API_KEY }} # For the Map Project - they have different keys
+          REACT_APP_DATADOG_APP_ID: ${{ secrets.DEV_DATADOG_APP_ID }}
+          REACT_APP_DATADOG_RUM_CLIENT_TOKEN: ${{ secrets.DEV_DATADOG_RUM_CLIENT_TOKEN }}
+          REACT_APP_DATADOG_LOGS_CLIENT_TOKEN: ${{ secrets.DEV_DATADOG_LOGS_CLIENT_TOKEN }}
         run: yarn build
 
       - name: Deploy
