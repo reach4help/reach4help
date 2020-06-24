@@ -1,60 +1,60 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "inFrameLink": "About this map / add information",
+  "title": "COVID-19 Wederzijdse Hulpkaart",
+  "inFrameLink": "Over deze kaart / voeg informatie toe",
   "aboutScreen": {
-    "intro": "We believe solidarity brings out the best in individuals.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "intro": "Wij zijn van mening dat solidariteit het beste is van individuen.",
+    "info": "Om mensen te helpen bij het vinden en aansluiten bij hun wederzijdse hulpinspanningen waar ze wonen, bied inspiratie aan om zelf te beginnen. en/of het simpelweg optillen van gedistilleerde dranken, presenteert deze kaart een groeiende lijst van wereldwijde projecten voor wederzijdse hulpverlening als pandemie.",
+    "warning": "Opmerking: elk project is autonoom en zelfgeorganiseerd; velen gebruiken publieke spreadsheets om informatie te delen, dus wees voorzichtig bij het invoeren van privéinformatie die je niet openbaar wilt zijn.",
+    "project": "Deze kaart is onderdeel van {reach4Help}, een vrijwillig project. Het is open source en kan {githubSource}zijn. Voor vragen kun je ons bereiken zoals bij {email}.",
+    "githubSourceLabel": "Broncode op GitHub",
+    "otherAreasHeading": "Geïnteresseerd op een van deze gebieden?",
+    "otherAreasInfo": "Bekijk in plaats daarvan deze alternatieve kaarten:",
     "otherAreasLocations": {
-      "france": "France",
+      "france": "Frankrijk",
       "nyc": "New York"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "sourceHeading": "Hoe kwam deze berekening tot stand?",
+    "sourceInfo": "De informatie op deze kaart is een combinatie van gegevens die zijn verzameld door onze vrijwilligers, ingediend door onze gebruikers, en aangeboden door andere vrijwilligersprojecten, waaronder {mutualaidwiki} en {mutualaidhub}.",
+    "sourceSubmit": "We raden u aan om {addinfo} te gebruiken voor projecten waarvan u weet dat ze nog niet op de kaart staan.",
+    "sourceSubmitButton": "informatie toevoegen",
+    "usageHeading": "Mag ik deze gegevens gebruiken voor mijn eigen project?",
+    "usageInfo": "U bent welkom om de gegevens van onze kaart te gebruiken voor uw eigen projecten, zolang u de desbetreffende licenties volgt.",
+    "usageLicenses": "Gegevens die worden verstrekt door onze vrijwilligers en gebruikers zijn gelicentieerd onder een {license}, en gegevens uit andere bronnen worden beschikbaar gesteld onder hun respectieve licenties.",
+    "usageApi": "Je hebt toegang tot de onbewerkte gegevens, samen met details over hoe elk data-punt gelicentieerd is, via de volgende URL: {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "Over",
+    "map": "Bekijk Kaart"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "E-mail ons",
+    "twitter": "Volg ons op Twitter",
+    "facebook": "Vind ons leuk op Facebook",
+    "github": "Fork ons op GitHub"
   },
   "addInformation": {
-    "button": "Add information",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "button": "Informatie toevoegen",
+    "backToMap": "Naar kaart",
+    "prev": "Vorige",
+    "continue": "Doorgaan",
+    "submit": "Toestaan",
+    "addMore": "Meer informatie toevoegen",
+    "tryAgain": "Probeer opnieuw",
     "screen": {
-      "title": "Add information to this map",
+      "title": "Voeg informatie toe aan deze kaart",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
-        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "acceptedInformation": "Op dit moment verstrekken we alleen informatie over organisaties of bedrijven die hulp en bijstand verlenen, regionale specifische initiatieven voor financiële bijstand en wederzijdse hulporganisaties. We accepteren op dit moment geen informatie over personen die hulp bieden.",
+        "intro": "Vul het formulier hieronder in om de informatie toe te voegen. We zullen u daarna om locatie en contactgegevens vragen.",
         "form": {
-          "type": "Type of project / group / organization / initiative",
-          "typePleaseSelect": "Please select type",
-          "services": "Services or support that this organization / company provides",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "type": "Type project / groep / organisatie / initiatief",
+          "typePleaseSelect": "Selecteer een type",
+          "services": "Diensten of ondersteuning die deze organisatie / bedrijf biedt",
+          "name": "Naam van het project / groep / organisatie",
+          "namePlaceholder": "bijv. wederzijdse hulp Antarctica",
+          "description": "(optioneel) Een gedetailleerde beschrijving van het project / groep / organisatie en wat het beoogt te doen om wederzijdse hulp te vergemakkelijken",
+          "locationName": "Omschrijf het geografische gebied in dienst. Bijv. Landen, staten, gemeentes, steden etc...",
+          "locationNamePlaceholder": "Bijvoorbeeld San Francisco Bay Area, CA, VS",
+          "continue": "Klik verder om locatiegegevens in te voeren"
         },
         "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
       },
