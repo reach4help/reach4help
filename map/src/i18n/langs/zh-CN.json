@@ -68,31 +68,31 @@
         "info": "马上！请输入如何联系 {name}的信息。 如果有特定的联系方式应该用于志愿帮助或请求帮助，请输入！",
         "deleteInfo": "删除",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "隐藏空联系信息",
+          "volunteers": "为志愿者添加联系人信息",
+          "getHelp": "为需要帮助的人添加联系信息"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "插入联系人信息",
+          "volunteers": "志愿者的联系信息",
+          "getHelp": "为需要帮助的人添加联系信息"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "电话号码",
+          "email": "电子邮件地址",
+          "web": "友情链接 / URL"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
+          "phone": "填写电话号码",
+          "email": "填写邮箱地址",
           "webURL": "URL",
-          "webLabel": "Name"
+          "webLabel": "应用名"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
+        "loading": "正在提交信息到地图...",
+        "error": "保存信息时出错",
+        "success": "提交成功",
         "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
       }
     },
@@ -104,11 +104,11 @@
       "markerRequired": "Please click on the map to enter the service area before continuing.",
       "noContactDetails": "Please enter contact details for at least one category",
       "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "urlMissingLabel": "{section} 的 URL 缺少一个名称",
+      "urlMissingURL": "{section} 的 URL 缺少一个名称",
+      "dataError": "您提交的信息出现问题，请返回并重试",
+      "submitError": "设置自动分配出错，请重新尝试。",
+      "mutualAidGroupsNotAccepted": "请在 {link} 输入新的互助组的信息。"
     }
   },
   "buttons": {
@@ -129,20 +129,20 @@
     "network": "社交",
     "manufacturing": "手工的",
     "financial": "财务上的",
-    "other": "Other"
+    "other": "其它"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "食品或药品以外的供应",
+    "mobility": "将人从一个地点迁移到另一个位置",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "专门为特定弱势群体提供的支持，如无家可归者、有遭受家庭虐待危险的人等...",
+    "information": "帮助人们找到相关信息",
+    "network": "鼓励为提供援助建立网络联系提供的资源，例如在互助组织之间提供的资源",
+    "manufacturing": "提供应付危机所需的供应或制造能力",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "不在这个列表中的其他事项"
   },
   "markerTypes": {
     "mutual-aid-group": "相互援助小组",
@@ -152,9 +152,9 @@
     "other": "其它"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "相互援助小组",
+    "org": "组织 / 公司",
+    "project": "项目"
   },
   "map": {
     "jumpToLocation": "跳转到地图上的位置...",
@@ -162,10 +162,10 @@
     "myLocation": "我的位置"
   },
   "results": {
-    "backToResults": "Back to results",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "backToResults": "返回成绩",
+    "openResults": "{results, plural, \n =1 {# 结果}\n other {# 结果}}",
+    "closeResults": "{results, plural, \n =1 {# 结果}\n other {# 结果}}",
+    "showMore": "显示更多结果",
     "contact": {
       "general": "基本信息",
       "getHelp": "获取帮助",
@@ -174,10 +174,10 @@
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "备注",
+        "content": "注：每个项目都是自主和自我组织的； 许多人使用公开的电子表格来分享信息，所以在输入您不想公开的私人信息时要小心谨慎。"
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "关于 {type} 的信息由 {source} 提供。"
     }
   },
   "lang": "语言:",
@@ -187,11 +187,11 @@
     "netlifyLinkText": "由Netlify承办",
     "githubRepo": "GitHub 项目源",
     "codeOfConduct": "行为守则",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "showHidden": "显示隐藏信息",
+    "hideHidden": "显示隐藏信息"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "可见性: {visibility}",
     "filter": {
       "any": "任何",
       "visible": "可见色",
