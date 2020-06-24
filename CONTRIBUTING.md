@@ -9,10 +9,6 @@ This document describes how to contribute the software aspects of our project,
 if you want to contribute by other means,
 please see our [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps).
 
-## web-client contributors must read the CODING_CONVENTIONS documentation
-
-[web-client Coding Conventions](/web-client/docs/CodingConventions/CODING_CONVENTIONS.md)
-
 ## Please read our guidelines before you start.
 
 This project is moving very fast at the moment,

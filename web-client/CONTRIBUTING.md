@@ -106,15 +106,32 @@ Your contribution will have to be Approved by a member of the Organization befor
 
 # Code, commit message and labeling conventions
 
-### Commit message conventions.
+## Commit message conventions.
 
 We follow the conventional commits guidelines. Check [here](https://www.conventionalcommits.org/en/v1.0.0/)
 
-### Code Style Enforced by Prettier
+## Naming, Declaring items and Where to declare items
+
+You must refer to this document for understanding the conventions followed in this project for naming and the order in which declarations have to be made.
+[web-client Coding Conventions](/docs/CodingConventions/NAMING_AND_DECLARATION_CONVENTIONS.md)
+
+## Application Breakdown (Modules, Pages, Routes, Ducks)
+
+### Module Pages Routes
+
+- This Documentation is still in the making
+
+### Ducks
+
+- This Documentation is still in the making
+
+## Code Style Enforced by Prettier
 
 Prettier guarantees the code style adopted and runs on commit, stick to this code style.
 
 <img height="42" width="42" src="https://prettier.io/icon.png" alt="Prettier">[ Prettier site for more information](https://prettier.io/ 'Prettier site for more information')
+
+In Addition to this, you must also refer to the guidelines on contributin
 
 # PULL Requests
 

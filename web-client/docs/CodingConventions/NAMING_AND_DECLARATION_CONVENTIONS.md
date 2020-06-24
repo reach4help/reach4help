@@ -1,4 +1,4 @@
-## r4H Code Conventions
+# R4H NAMING ANDDECLARATION CONVENTIONS
 
 ### LEARN IT. KNOW IT. LIVE IT.
 
@@ -124,13 +124,9 @@ const GoodIndependantDiv = () => {
 
 ---
 
-## Template Strings
+## Internationalisation
 
-- When you are in vscode, you see the path to the string in en.json. This path should match the actual filepath where the string is used and should have a final name that corresponds to the meaning and usage of the string.
-
-![How to write template strings](CODING_CONVENTIONS_TRANSLATIONS.png)
-
-NOTE: This screenshot is not exactly right. The path of the string should correspond to the path of the file.
+- This Documentation is still under construction
 
 ## CSS
 
