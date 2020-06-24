@@ -20,11 +20,11 @@
     "usageHeading": "هل يمكنني استخدام هذه البيانات لمشروعي الخاص؟",
     "usageInfo": "نرحب باستخدام البيانات المقدمة من خريطتنا لمشاريعك الخاصة ، طالما أنك تتبع التراخيص المعنية.",
     "usageLicenses": "البيانات التي يقدمها المتطوعون والمستخدمون لدينا مرخصة بموجب {license} ، ويتم توفير البيانات من مصادر أخرى بموجب التراخيص الخاصة بهم.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "usageApi": "يمكنك الوصول إلى البيانات الأولية ،إلى جانب تفاصيل حول كيفية ترخيص كل نقطة بيانات ،على عنوان التالي {URL : {api"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "عن",
+    "map": "عرض الخريطة"
   },
   "social": {
     "email": "Email Us",
