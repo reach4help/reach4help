@@ -1,118 +1,119 @@
 {
   "common": {
-    "i_understand": "I understand.",
-    "okay": "Okay",
-    "cancel": "Cancel",
+    "i_understand": "Eu compreendi",
+    "okay": "Bem",
+    "cancel": "Anular",
     "welcome": "Bem-vindo",
     "continue": "Continuar",
-    "verify": "Verify",
+    "verify": "Verificar",
     "spinner": "A carregar ...",
     "name": "Nome",
     "full_name": "Nome Completo",
     "display_name": "Nome de utilizador",
     "display_name_placeholder": "Nome usado em saudações, por defeito é o 1º nome",
-    "address": "Address",
+    "address": "Endereço",
     "address1": "Morada linha 1",
     "address2": "Morada linha 2 (opcional)",
     "city": "Cidade",
-    "code": "Postal / Zip Code",
-    "State": "State / Province",
+    "code": "Código postal",
+    "State": "Estado/Província",
     "country": "País",
-    "for": " for ",
+    "for": " para ",
     "information_modal": {
-      "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
-      "a11y_logo": "Reach for Help logo",
+      "instructions": "Instruções",
+      "footer": "Se tiver alguma dúvida ou precisar de ajuda, por favor contacte-nos: support@crowdin.com",
+      "a11y_logo": "Alcance o logotipo da ajuda",
       "OpenRequestsContainer": {
-        "title": "Still looking for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
-        "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "title": "Ainda em busca de ajuda...",
+        "0": "Os seus pedidos estão lá fora, mas ninguém se voluntariou para ajudar",
+        "1": "Você também receberá notificações para atualizá-lo sobre o status das suas solicitações.",
+        "2": " Se você tiver alguma dúvida ou dificuldade com isso, não hesite em entrar em contato com support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "Alguém se ofereceu para ajudar!",
+        "0": "Alguém se ofereceu para te ajudar.",
+        "1": "Entre em contato com eles por telefone para descobrir os detalhes."
       },
       "OngoingRequestsContainer": {
-        "title": "Matched with a Volunteer!",
-        "0": "You matched with someone who is taking care of your request."
+        "title": "Correspondido com um Voluntário!",
+        "0": "Você correspondeu a alguém que está cuidando da sua solicitação."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "Concluído!",
+        "0": "Você e o voluntário concordam que tudo está feito."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "Você decidiu não fazer isso",
+        "0": "Você mudou de ideia e excluiu o seu pedido."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "Veja cada passo da sua requisição.",
+        "0": "Uma solicitação foi criada.",
+        "1": "Alguém oferece ajuda.",
+        "2": "A oferta é aceita ou rejeitada.",
+        "3": "O passeio está completo.",
+        "4": "O passeio está completo.",
+        "5": "O passeio está completo.",
+        "6": "Voluntários e pessoas necessitadas avaliam-se mutuamente."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "title": "Usando os Bottom Buttons",
+        "0": "Pressione o Menu Esquerdo para acompanhar cada passo da sua solicitação",
+        "1": "Abrir: Pedidos que ainda precisam de um voluntário",
+        "2": "Alguém se ofereceu para te ajudar.",
+        "3": "Continuando: Agora um voluntário está trabalhando no seu pedido.",
+        "4": "Concluído: O voluntário completou o pedido.",
+        "5": "Arquivado: Solicitações que você excluiu.",
+        "6": "Pressione o Bell Esquerdo para ver suas notificações"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
-        "6": "Thank you for joining us in building this unified platform of help!"
+        "title": "Bem-vindo a Alcançar4Help!",
+        "0": "Obrigado por se juntar a Reach4Help!",
+        "1": "Como voluntário, você poderá ajudar pessoas em sua região respondendo aos pedidos de ajuda deles.",
+        "2": "Use este mapa para procurar pessoas em necessidade.",
+        "3": "Clique em um marcador laranja para ver o pedido desta pessoa e decidir se quer aceitá-lo",
+        "4": "Assim que a pessoa necessitada aceitar sua oferta de ajuda, você trocará informações de contato.",
+        "5": "Confira o painel de Notificações para ver atualizações sobre suas ofertas para ajudar.",
+        "6": "Obrigado por se juntar a nós na construção desta plataforma unificada de ajuda!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
-        "2": "Check the Notifications panel to see updates about your incoming offers.",
-        "3": "Once you accept an offer, your information will be shared with the volunteer.",
-        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+        "title": "Bem-vindo a Alcançar4Help!",
+        "0": "Obrigado por se juntar a Reach4Help! Como uma pessoa em necessidade você poderá entrar em contato para obter ajuda na sua região criando solicitações. Atualmente, não podemos garantir que haja voluntários que podem ajudar em sua área Nesse caso, sugerimos compartilhá-lo com potenciais voluntários e organizações de voluntários locais. Obrigado por se juntar a nós na construção desta plataforma unificada de ajuda!",
+        "1": "Obrigado por enviar uma solicitação! Você será notificado quando um voluntário oferecer para aceitá-la. Para verificar seu status, clique/toque aqui ou confira ",
+        "2": "Confira o painel de Notificações para ver atualizações sobre suas ofertas para ajudar.",
+        "3": "Quando você aceitar uma oferta, suas informações serão compartilhadas com o voluntário.",
+        "4": "Entre em contato com o voluntário (ou espere que ele entre em contato com você para coordenar."
       }
     },
     "login": {
-      "title": "Reach4Help",
-      "sub_title": "Atenção",
-      "info": "Por segurança só autorizamos utilizadores Facebook com conta verificada há pelo menos 6 meses. \nEstamos a trabalhar arduamente para trazer novas maneiras de se conectar no futuro. \nGratos pela sua paciência.",
-      "facebookButtonLabel": "Continuar com o Facebook"
+      "title": "Alcançar4Ajuda",
+      "sub_title": "Cadastrar Visão Geral",
+      "info": "Olá! Muito obrigado pelo seu interesse em ajudar a sua comunidade! Para garantir a segurança dos nossos usuários, Nós precisamos de login por meio do Google ou do Facebook para verificar sua identidade e entrar em contato com você se surgir alguma discrepância.\n\nApós esta etapa, você será solicitado a fornecer o seu número de telefone e a verificá-lo por meio de um código que você receberá por meio de texto. É assim que as pessoas que oferecem ajuda entrarão em contato com você! As informações de contato só são compartilhadas com a outra pessoa quando você tiver aprovado a pessoa que oferece para ajudá-los. Quando você enviar uma solicitação de ajuda, sua localização exata não é compartilhada (apenas os três primeiros dígitos do seu CEP).\nObrigado pela sua cooperação para tornar o nosso mundo um lugar mais seguro e mais útil! Em caso de dúvidas, entre em contato conosco pelo e-mail support@reach4help. rg.",
+      "facebookButtonLabel": "Continuar com o Facebook",
+      "googleButtonLabel": "Continuar com o Google"
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
-      "switchToCAV": "Switch to Volunteer",
-      "switchToPIN": "Switch to Person In Need"
+      "contactUs": "Contacte-nos",
+      "logout": "Sair",
+      "switchToCAV": "Alternar para Suporte de Ofertas",
+      "switchToPIN": "Trocar para Ajuda de Busca"
     },
     "phoneNumber": {
-      "select_instructions": "Pick from the dropdown below",
-      "input_instructions": "Enter your digits",
+      "select_instructions": "Escolha a partir do menu abaixo",
+      "input_instructions": "Introduza 4 dígitos",
       "sub_title": "Introduza o seu número de telefone para começar",
       "info": "Esta informação é fundamental para validar a sua conta. Dados e tarifas podem ser aplicadas.",
       "error_message": "Por favor insira o seu número de telefone!",
-      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!",
-      "no_country_error": "A country must be chosen.",
-      "no_digits_error": "You must enter the phone digits too.",
-      "is_valid_number": "is a valid telephone number",
-      "is_not_valid_number": "is not a valid telephone number",
-      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
-      "country_label": "Your country",
-      "country_placeholder": "Select a country",
-      "phone_label": "Enter your phone number",
-      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
+      "phone_valid": "Um número de Telefone válido começa com o código + e o código do país, sem quaisquer espaços ou outros caracteres especiais no campo!",
+      "no_country_error": "Um país deve ser escolhido.",
+      "no_digits_error": "Você também deve digitar os dígitos do telefone.",
+      "is_valid_number": "Introduza um número de telefone válido",
+      "is_not_valid_number": "Introduza um número de telefone válido",
+      "is_plus_11": " Não é um número de telefone válido. Não insira o código do seu país na caixa de entrada. Use apenas o Seletor de País",
+      "country_label": "Seu país",
+      "country_placeholder": "Seleccione um país",
+      "phone_label": "Insira o seu número de telefone",
+      "bad_11_prefix": "Número inválido: +11 é o prefixo do país para a Bulgária, não o Canadá ou os Estados Unidos. Não coloque '1' como seu dígito principal"
     },
     "verificationCode": {
       "sub_title": "Enviámos um código de confirmação. Por favor insira o código em baixo.",
@@ -136,33 +137,33 @@
       "instructions_modal_text": "Pode indicar a sua localização manualmente, mas se usasse Geolocalização poderíamos obter a sua posição com mais precisão. Se desejar reactivar, por favor siga o link abaixo :",
       "policy_text": "Nós precisamos destes dados para assegurar que a ajuda chega ao destino correto. Para quaisquer preocupações, leia os nossos termos de ",
       "policy_link": "Privacidade & Segurança.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+      "accept_to_use_profile_pic": "Concordo em deixar o Reach4Help usar minha foto do perfil.",
       "terms_conditions_text": "Eu percebo e reconheço os ",
       "terms_conditions_link": "Termos & Condições.",
       "terms_conditions_error": "Precisa de aceitar os Termos & Condições.",
-      "full_name_error_message": "Please enter your name.",
-      "display_name_error_message": "Please enter your display name.",
-      "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+      "full_name_error_message": "Introduza o seu nome.",
+      "display_name_error_message": "Introduza o seu nome a apresentar.",
+      "address_error_message": "Por favor, insira o seu endereço.",
+      "allow_send_notifications": "Eu gostaria que Reach4Ajuda para me enviar notificações e e-mails."
     },
     "newRequest": {
       "title": "Novo Pedido",
       "icon_text": "eu preciso de ajuda",
       "form": {
         "title": "Título",
-        "type": "Type",
-        "address": "Confirm Address",
+        "type": "Misturar (1-100):",
+        "address": "Confirme o endereço",
         "body": "Introduza os detalhes do que necessita",
-        "other": "Please enter your type",
+        "other": "Introduza o tipo",
         "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
-        "submit": "Next",
-        "cancel": "Cancel",
-        "search": "Search",
-        "useMyLocation": "Use my location",
-        "address_error_message": "Please enter your address.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "submit": "Próximo",
+        "cancel": "Anular",
+        "search": "Pesquisar",
+        "useMyLocation": "Usar a Minha Localização",
+        "address_error_message": "Por favor, insira o seu endereço.",
+        "type_error_message": "Seleccione um valor.",
+        "other_error_message": "Precisa de inserir o título.",
+        "body_error_message": "Por favor insira a descrição do produto."
       }
     },
     "newRequestSuccess": {
@@ -172,14 +173,14 @@
       "remember_info": "Quando um voluntário oferece ajuda, tem de a aceitar para que este veja as suas informações de contacto."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
-      "deliveryAddress": "Delivery address"
+      "submit": "Enviar solicitação",
+      "back": "Voltar",
+      "deliveryAddress": "Endereço de entrega"
     },
     "roleinfo": {
-      "title": "Reach4Help",
+      "title": "Alcançar4Ajuda",
       "sub_title": "Como podemos ajudá-lo(a) ?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
+      "manifesto": "Acreditamos que tudo o que fazemos é significativo; acreditamos que somos capazes de ajudar as pessoas no seu sentido de união e comunidade. Consideramos que a solidariedade é a melhor para os indivíduos.",
       "info": "Por favor diga-nos como pretende usar o Reach4Help",
       "info_pin": "Estou aqui porque preciso de ajuda",
       "c2a_pin": "Obter ajuda agora!",
@@ -188,31 +189,31 @@
     },
     "routeSubtitles": {
       "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
-      "_personal-data": "Personal Data",
-      "_timeline": "Request Timeline",
-      "_personal-data_role-info": "Role Info",
-      "_phone_entry": "Enter Phone Number",
-      "_phone_verify": "Verifying Phone Number",
-      "_requests_accepted": "Accepted Requests",
-      "_requests_archived": "Closed Requests",
-      "_requests_find": "Find Requests",
-      "_requests_finished": "Completed Requests",
-      "_requests_new": "New Request",
-      "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_phone": "Telefone",
+      "_requests": "Pedidos",
+      "_personal-data": "Dados pessoais",
+      "_timeline": "Cronograma da requisição",
+      "_personal-data_role-info": "Informação da Função",
+      "_phone_entry": "Inserir o número de telefone",
+      "_phone_verify": "Verificar número de telefone",
+      "_requests_accepted": "Aceitar pedido",
+      "_requests_archived": "Solicitações Fechadas",
+      "_requests_find": "Terminar Pedido",
+      "_requests_finished": "Solicitações Fechadas",
+      "_requests_new": "Novo Pedido",
+      "_requests_ongoing": "Solicitações em andamento",
+      "_requests_open": "Solicitações abertas:"
     },
     "timeline": {
-      "CREATE_REQUEST": "{{actorName}} created this request.",
-      "CANCEL_REQUEST": "{{actorName}} closed this request.",
-      "REMOVE_REQUEST": "{{actorName}} removed this request",
-      "COMPLETE_REQUEST": "Request has been completed.",
-      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
-      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
-      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
-      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
-      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
+      "CREATE_REQUEST": "{{actorName}} criou este pedido.",
+      "CANCEL_REQUEST": "{{actorName}} fechou esta solicitação.",
+      "REMOVE_REQUEST": "{{actorName}} criou este pedido",
+      "COMPLETE_REQUEST": "O pagamento foi concluído.",
+      "CREATE_OFFER": "{{actorName}} ofereceu ajuda com este pedido.",
+      "ACCEPT_OFFER": "{{actorName}} aceitou a ajuda de {{cavUserName}}.",
+      "REJECT_OFFER": "{{actorName}} aceitou a ajuda de {{cavUserName}}.",
+      "RATE_PIN": "{{actorName}} avaliou {{actedUpon}}.",
+      "RATE_CAV": "{{actorName}} avaliou {{actedUpon}}.",
       "open_status": "Aberto",
       "cav": "Voluntário/a",
       "cav_wait": "AGUARDANDO VOLUNTÁRIO/A",
@@ -228,86 +229,97 @@
       "thankYouModalBodyPartb": "com"
     },
     "modules": {
+      "timeline": {
+        "components": {
+          "OffersList": {
+            "miles": "milhas",
+            "kilometers": "quilómetros",
+            "reject": "Rejeitar",
+            "accept": "Aceitar",
+            "volunteer_select": "Selecionar um Voluntário"
+          }
+        }
+      },
       "navigation": {
         "components": {
           "Header": {
-            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
-            "remember": "REMEMBER",
-            "requests": "Requests"
+            "reject_reminder": " Se você rejeitar essa ajuda, seu pedido voltará para a lista de pedidos disponíveis, mas ela perderá prioridade.",
+            "remember": "LEMBRE-SE",
+            "requests": "Pedidos"
           },
           "TopPanel": {
-            "a11y_back_nav": "Back navigation icon",
-            "a11y_display_photo": "Display photo",
-            "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon",
-            "a11y_sms_icon": "SMS icon"
+            "a11y_back_nav": "Botão para recuar",
+            "a11y_display_photo": "Mostrar uma foto",
+            "a11y_location_icon": "Ícone de localização",
+            "a11y_phone_icon": "Escolher ícone",
+            "a11y_sms_icon": "Ícone SMS"
           }
         }
       },
       "personal-data": {
         "containers": {
           "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
-            "missing_data": "Missing Data!"
+            "address_error": "Desculpe, não conseguimos determinar seu endereço atual, por favor, tente novamente!",
+            "missing_data": "Dados em falta"
           }
         }
       },
       "requests": {
-        "a11y_profile_pic": "Profile Pic",
+        "a11y_profile_pic": "Perfil Pic",
         "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+          "choose_volunteer": "Escolha entre os seguintes voluntários para atender seu pedido."
         },
-        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
-        "cannot_help": "Cannot Help",
+        "bottom_warning": "Sua solicitação foi visualizada por vários voluntários, mas não foi aceita. Sugerimos você &ldquo;Fechar a solicitação&rdquo; e criar uma nova com uma descrição mais simples.",
+        "cannot_help": "Não pode ajudar",
         "containers": {
           "AcceptedRequestContainer": {
-            "accepted": "Accepted"
+            "accepted": "Aceite"
           },
           "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
+            "want_to_help": "Quero ajudar!"
           },
           "FinishedRequestsContainer": {
-            "finished": "Finished"
+            "finished": "Finalizado."
           },
           "NewRequestsContainer": {
-            "address_error": "Unable to find address",
-            "deliveries": "Deliveries"
+            "address_error": "Não foi possível encontrar este endereço",
+            "deliveries": "Entregas"
           },
           "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
+            "ongoing": "A decorrer"
           },
           "OpenRequestContainer": {
-            "open": "Open"
+            "open": "Aberto"
           },
-          "no_reply": "No one has replied to your request."
+          "no_reply": "Ninguém respondeu ao seu pedido."
         }
       }
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "a carregar ..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
-        "notifications": "Notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
-        "pin_rejected": "You have rejected help from ",
-        "request_author": "The request_author",
-        "volunteer_accepted": " accepted your offer for ",
-        "your_task": "your task"
+        "a_request": "solicitação",
+        "already_helped": " já está obtendo ajuda em ",
+        "cav_declined_help": " recusou a ajuda em ",
+        "cav_offer": "Você ofereceu ajuda por ",
+        "no_notifications": "Não há novas notificações.",
+        "notifications": "Notificação",
+        "offered_help": " ofereceu ajuda em ",
+        "pin_accepted": "Você ofereceu ajuda por ",
+        "pin_declined_help": "Você ofereceu ajuda por ",
+        "pin_rejected": "Você ofereceu ajuda por ",
+        "request_author": "O autor_requisição",
+        "volunteer_accepted": " aceitou sua oferta para ",
+        "your_task": "As suas tarefas"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "A minha localização",
+        "a11y_destination": "Destino",
+        "api_error": "Não foi possível obter",
+        "distance_error": "Erro de Serviço Distante:",
+        "geocode_error": "Incapaz de geocodificar"
       }
     }
   }

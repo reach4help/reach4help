@@ -1,114 +1,114 @@
 {
   "title": "COVID-19相互援助地图",
-  "inFrameLink": "About this map / add information",
+  "inFrameLink": "关于此地图/添加信息",
   "aboutScreen": {
-    "intro": "We believe solidarity brings out the best in individuals.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "intro": "我们认为，团结是个人中最好的行动。",
+    "info": "为了帮助人们找到并参与他们所生活的互助努力，提供启发，开始自己的工作。 和/或简单地提升精神，这一地图提供了一个日益增长的全世界互助大流行病救济项目清单。",
+    "warning": "注：每个项目都是自主和自我组织的； 许多人使用公开的电子表格来分享信息，所以在输入您不想公开的私人信息时要小心谨慎。",
+    "project": "这张地图是 {reach4Help}的一部分，由志愿者发起的项目。 它是开源的且可以是 {githubSource}。如果您有任何问题，您可以在 {email} 上联系我们。",
+    "githubSourceLabel": "源码在Github上",
+    "otherAreasHeading": "对其中一个领域感兴趣吗？",
+    "otherAreasInfo": "查看这些替代地图：",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York"
+      "france": "法国",
+      "nyc": "纽约"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "sourceHeading": "这种信息来自何处？",
+    "sourceInfo": "这张地图上的信息是我们的志愿者收集的数据的组合，由我们的用户提供。 由 {mutualaidwiki} 和 {mutualaidhub} 等其他志愿者管理的项目提供。",
+    "sourceSubmit": "我们鼓励你就你知道的任何项目 {addinfo} 到地图上还没有这个项目。",
+    "sourceSubmitButton": "添加信息",
+    "usageHeading": "我可以将此数据用于我自己的项目吗？",
+    "usageInfo": "欢迎您使用我们的地图为您自己的项目提供的数据，只要您遵循相应的许可证。",
+    "usageLicenses": "我们的志愿者和用户提供的数据是根据一个 {license}授权的，来自其他来源的数据是根据他们各自的许可证提供的。",
+    "usageApi": "您可以在以下URL访问原始数据以及每个数据点如何许可的详细信息： {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "关于",
+    "map": "查看地图"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "给我们发电子邮件",
+    "twitter": "在 Twitter 上关注我们",
+    "facebook": "在 Facebook 上赞我们",
+    "github": "在Github中查看"
   },
   "addInformation": {
-    "button": "Add information",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "button": "添加信息",
+    "backToMap": "返回到地图",
+    "prev": "后退",
+    "continue": "继续",
+    "submit": "提交",
+    "addMore": "添加更多信息",
+    "tryAgain": "再试一次",
     "screen": {
-      "title": "Add information to this map",
+      "title": "添加信息到此地图",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
-        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "acceptedInformation": "目前，我们只是提供关于提供援助和援助的组织或公司、区域特有的财政援助倡议和互助团体的信息。 我们不接受关于此时提供援助的个人的信息。",
+        "intro": "请填写下面的表单以开始添加信息，我们会在这之后询问您的位置和详细联系方式。",
         "form": {
-          "type": "Type of project / group / organization / initiative",
-          "typePleaseSelect": "Please select type",
-          "services": "Services or support that this organization / company provides",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "type": "项目/组/组织/倡议类型",
+          "typePleaseSelect": "请选择类型。",
+          "services": "此组织/公司提供的服务或支持",
+          "name": "项目/组/组织名称",
+          "namePlaceholder": "例如：南极互助会",
+          "description": "(可选) 详细描述项目/团体/组织以及它为促进互助而做的工作",
+          "locationName": "描述所服务的地理区域。例如国家、州、县、城镇等...",
+          "locationNamePlaceholder": "例如：San Francisco Bay area, CA, USA",
+          "continue": "点击继续输入位置信息"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "如果您想要提交有关新的互助组的信息，请访问 {link} 。 添加的群组将自动包含在我们的地图中。"
       },
       "placeMarker": {
-        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
+        "instructions": "通过点击地图放置标记来定位此项目/组/组织/倡议所服务的区域， 然后调整圆的大小，视需要包括区域。",
+        "continue": "一旦您对位置满意，点击继续添加联系人信息。",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
-        "deleteInfo": "Delete",
+        "header": "{name} 的联系信息",
+        "info": "马上！请输入如何联系 {name}的信息。 如果有特定的联系方式应该用于志愿帮助或请求帮助，请输入！",
+        "deleteInfo": "删除",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "隐藏空联系信息",
+          "volunteers": "为志愿者添加联系人信息",
+          "getHelp": "为需要帮助的人添加联系信息"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "插入联系人信息",
+          "volunteers": "志愿者的联系信息",
+          "getHelp": "为需要帮助的人添加联系信息"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "电话号码",
+          "email": "电子邮件地址",
+          "web": "友情链接 / URL"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
+          "phone": "填写电话号码",
+          "email": "填写邮箱地址",
           "webURL": "URL",
-          "webLabel": "Name"
+          "webLabel": "应用名"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "正在提交信息到地图...",
+        "error": "保存信息时出错",
+        "success": "提交成功",
+        "successExtra": "在地图上显示您的信息之前，它需要由我们团队中的志愿者审查。 希望能在几天内做到这一点。"
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "missingType": "请选择工程/组/组织类型",
+      "missingServices": "请检查该组织提供的所有服务 (至少需要1项)",
+      "missingTitle": "请选择工程/组/组织类型",
+      "missingLocationName": "请输入渲染模式的描述。",
+      "markerRequired": "请点击地图进入服务区，然后继续。",
+      "noContactDetails": "请输入至少一个类别的联系人详细信息",
+      "emptyContactSection": "请输入 {section} 的一些联系信息或删除它",
+      "urlMissingLabel": "{section} 的 URL 缺少一个名称",
+      "urlMissingURL": "{section} 的 URL 缺少一个名称",
+      "dataError": "您提交的信息出现问题，请返回并重试",
+      "submitError": "设置自动分配出错，请重新尝试。",
+      "mutualAidGroupsNotAccepted": "请在 {link} 输入新的互助组的信息。"
     }
   },
   "buttons": {
@@ -129,20 +129,20 @@
     "network": "社交",
     "manufacturing": "手工的",
     "financial": "财务上的",
-    "other": "Other"
+    "other": "其它"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "食品或药品以外的供应",
+    "mobility": "将人从一个地点迁移到另一个位置",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "专门为特定弱势群体提供的支持，如无家可归者、有遭受家庭虐待危险的人等...",
+    "information": "帮助人们找到相关信息",
+    "network": "鼓励为提供援助建立网络联系提供的资源，例如在互助组织之间提供的资源",
+    "manufacturing": "提供应付危机所需的供应或制造能力",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "不在这个列表中的其他事项"
   },
   "markerTypes": {
     "mutual-aid-group": "相互援助小组",
@@ -152,9 +152,9 @@
     "other": "其它"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "相互援助小组",
+    "org": "组织 / 公司",
+    "project": "项目"
   },
   "map": {
     "jumpToLocation": "跳转到地图上的位置...",
@@ -162,10 +162,10 @@
     "myLocation": "我的位置"
   },
   "results": {
-    "backToResults": "Back to results",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "backToResults": "返回成绩",
+    "openResults": "{results, plural, \n =1 {# 结果}\n other {# 结果}}",
+    "closeResults": "{results, plural, \n =1 {# 结果}\n other {# 结果}}",
+    "showMore": "显示更多结果",
     "contact": {
       "general": "基本信息",
       "getHelp": "获取帮助",
@@ -174,10 +174,10 @@
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "备注",
+        "content": "注：每个项目都是自主和自我组织的； 许多人使用公开的电子表格来分享信息，所以在输入您不想公开的私人信息时要小心谨慎。"
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "关于 {type} 的信息由 {source} 提供。"
     }
   },
   "lang": "语言:",
@@ -187,15 +187,15 @@
     "netlifyLinkText": "由Netlify承办",
     "githubRepo": "GitHub 项目源",
     "codeOfConduct": "行为守则",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "showHidden": "显示隐藏信息",
+    "hideHidden": "显示隐藏信息"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "可见性: {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "任何",
+      "visible": "可见色",
+      "hidden": "隐藏条目"
     }
   }
 }

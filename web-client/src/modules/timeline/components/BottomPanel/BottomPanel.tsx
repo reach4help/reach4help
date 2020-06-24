@@ -14,21 +14,6 @@ import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-export interface TimelineActionsProps {
-  request: RequestWithOffersAndTimeline;
-  currentUser: User;
-  handleRequest: ({
-    status,
-    pinRating,
-    cavRating,
-  }: {
-    status?: RequestStatus;
-    pinRating?: number;
-    cavRating?: number;
-  }) => void;
-  isCav: boolean;
-}
-
 const BottomPanel: React.FC<TimelineActionsProps> = ({
   request,
   currentUser,
@@ -206,32 +191,7 @@ const ButtonContainer = styled(FlexDiv)`
     width: 100%;
   }
 `;
-/* TODO:  Check if there is any useful code here
-This was the original code but wasn't working well.
-PrimaryButton has been replaced with ButtonForward
 
-const PrimaryButton = styled(Button)`
-  background-color: ${COLORS.success};
-  border-color: ${COLORS.success};
-  color: white;
-
-  &:nth-of-type(2) {
-    margin-left: 12px;
-  }
-
-  &:hover {
-    background-color: ${COLORS.success};
-    border-color: ${COLORS.success};
-    color: white;
-  }
-
-  &:focus {
-    background-color: ${COLORS.success};
-    border-color: ${COLORS.success};
-    color: white;
-  }
-`;
-*/
 const StarContainer = styled('div')`
   padding-bottom: 1em;
 `;
@@ -269,5 +229,20 @@ const RatingModal = styled(Modal)`
     margin-bottom: 0.5em;
   }
 `;
+
+export interface TimelineActionsProps {
+  request: RequestWithOffersAndTimeline;
+  currentUser: User;
+  handleRequest: ({
+    status,
+    pinRating,
+    cavRating,
+  }: {
+    status?: RequestStatus;
+    pinRating?: number;
+    cavRating?: number;
+  }) => void;
+  isCav: boolean;
+}
 
 export default BottomPanel;

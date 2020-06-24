@@ -3,26 +3,36 @@ import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
-  getLoginRedirectResult,
-  loginWithFirebaseActionPopUp,
-  triggerLoginWithRedirect,
+  getFBLoginRedirectResult,
+  LoginWithFBFirebaseActionPopUp,
+  triggerFBLoginWithRedirect,
 } from 'src/ducks/auth/facebook/actions';
+import {
+  getGoogleLoginRedirectResult,
+  loginWithGoogleFirebaseActionPopUp,
+  triggerGoogleLoginWithRedirect,
+} from 'src/ducks/auth/google/actions';
 import { AppState } from 'src/store';
 
 import Login from '../../components/Login/Login';
-import { LoginRedirectProps } from './constants';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',
 }) => {
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.auth.user);
+  const error = useSelector((state: AppState) => state.auth.error);
   const history = useHistory();
 
   useEffect(() => {
     const redirectStarted = window.sessionStorage.getItem('redirect_started');
     if (redirectStarted) {
-      dispatch(getLoginRedirectResult());
+      const loginMethod = redirectStarted.split('_')[0];
+      if (loginMethod === 'facebook') {
+        dispatch(getFBLoginRedirectResult());
+      } else {
+        dispatch(getGoogleLoginRedirectResult());
+      }
     }
   }, [dispatch]);
   useEffect(() => {
@@ -31,21 +41,37 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
     }
   }, [history, redirectBack, user]);
 
+  const handleLoginGoogle = () => {
+    if (isMobile) {
+      dispatch(triggerGoogleLoginWithRedirect());
+    } else {
+      dispatch(loginWithGoogleFirebaseActionPopUp());
+    }
+  };
+
   const handleLoginFacebook = () => {
     if (isMobile) {
-      dispatch(triggerLoginWithRedirect());
+      dispatch(triggerFBLoginWithRedirect());
     } else {
-      dispatch(loginWithFirebaseActionPopUp());
+      dispatch(LoginWithFBFirebaseActionPopUp());
     }
   };
 
   return (
     <>
-      <Login onLoginFacebook={handleLoginFacebook} />
+      <Login
+        onLoginGoogle={handleLoginGoogle}
+        onLoginFacebook={handleLoginFacebook}
+      />
+      <div style={{ color: 'red', textAlign: 'center' }}>
+        {error && error.message}
+      </div>
     </>
   );
 };
 
-LoginContainer.propTypes = {};
+interface LoginRedirectProps {
+  redirectBack?: string;
+}
 
 export default LoginContainer;

@@ -1,7 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const WebmapBannerContainer = styled.div`
+const WebClientMapMessage = ({ message }) => {
+  if (!message) {
+    return null;
+  }
+  return <WebmapBannerWrapper>{message}</WebmapBannerWrapper>;
+};
+
+const WebmapBannerWrapper = styled.div`
   padding-left: 20px;
   padding-top: 7px;
   padding-bottom: 7px;
@@ -18,12 +25,5 @@ const WebmapBannerContainer = styled.div`
   opacity: 80%;
   width: 100%;
 `;
-
-const WebClientMapMessage = ({ message }) => {
-  if (!message) {
-    return null;
-  }
-  return <WebmapBannerContainer>{message}</WebmapBannerContainer>;
-};
 
 export default WebClientMapMessage;

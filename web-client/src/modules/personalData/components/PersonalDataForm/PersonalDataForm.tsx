@@ -26,64 +26,6 @@ import gpstarget from '../../../../assets/gpstarget.svg';
 
 const { Text } = Typography;
 
-const ProfilePhoto = styled.img`
-  border-radius: 4px;
-  margin: 5px 0 20px 0;
-  width: 60px;
-  height: 60px;
-`;
-
-const Title = styled.h1`
-  font-size: 22px;
-  text-align: center;
-`;
-
-const StyledIntro = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Info = styled(Text)`
-  color: ${COLORS.faded};
-  text-align: center;
-`;
-
-const CheckboxContainer = styled.div`
-  margin-top: 1rem;
-
-  @media ${DEVICE_MIN.tablet} {
-    text-align: center;
-  }
-`;
-
-const StyledButton = styled(Button)`
-  margin-top: 20px;
-`;
-
-const GPSTarget = styled.img`
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-`;
-
-interface PersonalDataFormProps {
-  Geocoder: any;
-  handleFormSubmit: Function;
-  user: firebase.User | null | undefined;
-  profile: User | undefined;
-  privilegedInfo: PrivilegedUserInformation | undefined;
-}
-
-export interface IPersonalData {
-  fullName?: string | null;
-  displayName?: string | null;
-  displayPic?: string | null;
-  termsAndPrivacyAccepted?: Date;
-  address: IUserAddress;
-  sendNotificatoins: firebase.firestore.Timestamp | null;
-}
-
 const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   Geocoder,
   handleFormSubmit,
@@ -342,7 +284,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
     form,
   ]);
   return (
-    <StyledIntro className="withContentPaddingDesktop">
+    <Introduction className="withContentPaddingDesktop">
       {displayPic && <ProfilePhoto src={displayPic} />}
       <Title>{t('user_data_form.sub_title')}</Title>
       <Form
@@ -395,25 +337,25 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
           <Col span="24" style={{ textAlign: 'center' }}>
             {geolocationAuthorized !== false && geolocationAvailable && (
               <>
-                <Button
+                <PersonalDataFormButton
                   loading={isLoading}
                   icon={<GPSTarget src={gpstarget} />}
                   type="primary"
                   onClick={handleGetCoords}
                 >
                   {t('user_data_form.gps_button')}
-                </Button>
+                </PersonalDataFormButton>
               </>
             )}
             {geolocationAuthorized === false && (
-              <Button
+              <PersonalDataFormButton
                 icon={<GPSTarget src={gpstarget} />}
                 type="primary"
                 danger
                 onClick={handleGetCoords}
               >
                 {t('user_data_form.gps_button')}
-              </Button>
+              </PersonalDataFormButton>
             )}
           </Col>
         </Row>
@@ -504,7 +446,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             </Form.Item>
           </Col>
         </Row>
-        <Info>
+        <Information>
           {t('user_data_form.policy_text')}{' '}
           <a
             target="_blank"
@@ -513,7 +455,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
           >
             {t('user_data_form.policy_link')}
           </a>
-        </Info>
+        </Information>
         <CheckboxContainer>
           <Form.Item name="useProfilePic">
             <Checkbox
@@ -568,9 +510,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
         </CheckboxContainer>
 
         <Form.Item style={{ textAlign: 'center' }}>
-          <StyledButton type="primary" htmlType="submit">
+          <PersonalDataFormButton type="primary" htmlType="submit">
             {t('continue')}
-          </StyledButton>
+          </PersonalDataFormButton>
         </Form.Item>
       </Form>
       <Modal
@@ -581,7 +523,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
         footer={[
           <Fragment key="footer1">
             {!instructionsVisible && (
-              <Button
+              <PersonalDataFormButton
                 type="primary"
                 key="back"
                 onClick={() => {
@@ -589,10 +531,10 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                 }}
               >
                 {t('user_data_form.learn_reactivate')}
-              </Button>
+              </PersonalDataFormButton>
             )}
             {instructionsVisible && (
-              <Button
+              <PersonalDataFormButton
                 type="primary"
                 key="back"
                 onClick={() => {
@@ -602,12 +544,12 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                 }}
               >
                 {t('user_data_form.retry_geolocation')}
-              </Button>
+              </PersonalDataFormButton>
             )}
           </Fragment>,
           <Fragment key="footer2">
             {!instructionsVisible && (
-              <Button
+              <PersonalDataFormButton
                 type="primary"
                 key="back"
                 onClick={() => {
@@ -615,10 +557,10 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                 }}
               >
                 {t('user_data_form.continue_without_geolocation')}
-              </Button>
+              </PersonalDataFormButton>
             )}
             {instructionsVisible && (
-              <Button
+              <PersonalDataFormButton
                 type="primary"
                 key="back"
                 onClick={() => {
@@ -626,7 +568,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                 }}
               >
                 {t('user_data_form.go_back')}
-              </Button>
+              </PersonalDataFormButton>
             )}
           </Fragment>,
         ]}
@@ -649,9 +591,68 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
           </>
         )}
       </Modal>
-    </StyledIntro>
+    </Introduction>
   );
 };
+
+const ProfilePhoto = styled.img`
+  border-radius: 4px;
+  margin: 5px 0 20px 0;
+  width: 60px;
+  height: 60px;
+`;
+
+const Title = styled.h1`
+  font-size: 22px;
+  text-align: center;
+`;
+
+const Introduction = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Information = styled(Text)`
+  color: ${COLORS.faded};
+  text-align: center;
+`;
+
+const CheckboxContainer = styled.div`
+  margin-top: 1rem;
+
+  @media ${DEVICE_MIN.tablet} {
+    text-align: center;
+  }
+`;
+
+const PersonalDataFormButton = styled(Button)`
+  margin-top: 20px;
+`;
+
+const GPSTarget = styled.img`
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+`;
+
+interface PersonalDataFormProps {
+  Geocoder: any;
+  handleFormSubmit: Function;
+  user: firebase.User | null | undefined;
+  profile: User | undefined;
+  privilegedInfo: PrivilegedUserInformation | undefined;
+}
+
+export interface IPersonalData {
+  fullName?: string | null;
+  displayName?: string | null;
+  displayPic?: string | null;
+  termsAndPrivacyAccepted?: Date;
+  address: IUserAddress;
+  sendNotificatoins: firebase.firestore.Timestamp | null;
+}
+
 // TODO: Instructions modal text needs to be completed and eventually
 // do a browser detection to show the correct instructions message
 export default PersonalDataForm;
