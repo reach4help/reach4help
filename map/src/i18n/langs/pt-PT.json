@@ -15,12 +15,12 @@
     },
     "sourceHeading": "De onde vem esta informação?",
     "sourceInfo": "As informações contidas neste mapa são uma combinação de dados recolhidos pelos nossos voluntários, que foram submetidos pelos nossos usuários e fornecidos por outros projetos de execução voluntária, incluindo {mutualaidwiki} e {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
+    "sourceSubmit": "Nós encorajamos você a {addinfo} sobre qualquer projeto que você conheça que ainda não esteja no mapa.",
     "sourceSubmitButton": "adicionar Informação",
     "usageHeading": "Posso usar esses dados para meu próprio projeto?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "usageInfo": "Você está convidado a usar os dados fornecidos pelo nosso mapa para seus próprios projetos, contanto que você siga as respectivas licenças.",
+    "usageLicenses": "Dados fornecidos por nossos voluntários e usuários são licenciados sob um {license}, e dados de outras fontes são disponibilizados sob suas respectivas licenças.",
+    "usageApi": "Você pode acessar os dados brutos, juntamente com detalhes de como cada ponto é licenciado, na seguinte URL: {api}"
   },
   "menu": {
     "about": "Sobre",
@@ -56,7 +56,7 @@
           "locationNamePlaceholder": "Ex: São Francisco, CA, EUA",
           "continue": "Clique em continuar para inserir informações de localização"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "Se você deseja enviar informações sobre um novo grupo de auxílio mútuo, visite {link} . Grupos adicionados serão automaticamente incluídos em nosso mapa."
       },
       "placeMarker": {
         "instructions": "Localize a área servida por este projeto / grupo / organização / iniciativa clicando no mapa para colocar um marcador, depois ajuste o tamanho do círculo para abranger a área conforme necessário.",
@@ -101,14 +101,14 @@
       "missingServices": "Por favor, verifique todos os serviços fornecidos por esta organização (pelo menos 1 é obrigatório)",
       "missingTitle": "Por favor, digite o nome do projeto/grupo / organização",
       "missingLocationName": "Por favor, insira uma descrição da área servida",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "markerRequired": "Por favor clique no mapa para inserir a área de serviço antes de continuar.",
+      "noContactDetails": "Por favor, insira os detalhes de contato para pelo menos uma categoria",
+      "emptyContactSection": "Por favor insira algumas informações de contato para {section} ou exclua-as",
+      "urlMissingLabel": "Uma URL para {section} está faltando um Nome",
+      "urlMissingURL": "Uma URL para {section} está faltando um Nome",
+      "dataError": "Houve um problema com a informação que você enviou, por favor, volte e tente novamente",
+      "submitError": "Ocorreu um problema ao remover a atribuição automática. Tente novamente mais tarde.",
+      "mutualAidGroupsNotAccepted": "Ao invés disso, insira informações sobre novos grupos de auxílio mútuo na {link}."
     }
   },
   "buttons": {
@@ -134,13 +134,13 @@
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "Suprimentos que não sejam comida ou medicamento",
+    "mobility": "Transportar pessoas de um local para outro",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
+    "support": "Suporte sob medida para grupos vulneráveis específicos, por exemplo, pessoas sem abrigo, pessoas em risco de abuso doméstico, etc...",
     "information": "Ajude as pessoas a encontrar informações relevantes",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "network": "Proibido recursos para redes de ajuda por exemplo, entre organizações de auxílio mútuo",
+    "manufacturing": "Fornece suprimentos ou capacidade de fabricação necessária para lidar com a crise",
     "financial": null,
     "other": "Algo mais não está nesta lista"
   },
@@ -163,8 +163,8 @@
   },
   "results": {
     "backToResults": "Voltar para os resultados",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "openResults": "{num} resultados",
+    "closeResults": "{num} resultados",
     "showMore": "Mostrar mais resultados",
     "contact": {
       "general": "Informações gerais:",
@@ -175,9 +175,9 @@
     "details": {
       "disclaimer": {
         "header": "Nota",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "content": "Nota: Cada projeto é autónomo e auto-organizado; muitas organizações utilizam formulários publicos para partilhar informação, não insira informações que não pretende que estejam disponíveis publicamente."
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "As informações sobre este {type} são fornecidas por {source}."
     }
   },
   "lang": "Idioma:",
