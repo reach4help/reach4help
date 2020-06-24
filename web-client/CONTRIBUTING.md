@@ -113,7 +113,7 @@ We follow the conventional commits guidelines. Check [here](https://www.conventi
 ## Naming, Declaring items and Where to declare items
 
 You must refer to this document for understanding the conventions followed in this project for naming and the order in which declarations have to be made.
-[web-client Coding Conventions](/docs/CodingConventions/NAMING_AND_DECLARATION_CONVENTIONS.md)
+[web-client Coding Conventions](/web-client/docs/CodingConventions/NAMING_AND_DECLARATION_CONVENTIONS.md)
 
 ## Application Breakdown (Modules, Pages, Routes, Ducks)
 
