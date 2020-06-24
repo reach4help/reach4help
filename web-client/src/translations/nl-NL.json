@@ -40,45 +40,45 @@
       },
       "FinishedRequestsContainer": {
         "title": "Klaar!",
-        "0": "You and the volunteer agree that everything is done."
+        "0": "Jij en de vrijwilliger zijn het erover eens dat alles gedaan is."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "Je hebt besloten het niet te doen",
+        "0": "U bent van gedachten veranderd en heeft uw verzoek verwijderd."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "Bekijk elke stap van je verzoek",
+        "0": "Een verzoek is aangemaakt.",
+        "1": "Iemand biedt hulp.",
+        "2": "Wanneer voorstel is goedgekeurd of geweigerd",
+        "3": "Setup is voltooid!",
+        "4": "Setup is voltooid!",
+        "5": "Dit verzoek is verwijderd.",
+        "6": "Vrijwilligers en mensen in nood beoordelen elkaar."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "title": "De onderste knoppen gebruiken",
+        "0": "Druk op het linkermenu om elke stap van je verzoek bij te houden",
+        "1": "Open: Verzoeken die nog een vrijwilliger nodig hebben",
+        "2": "Iemand heeft aangeboden u te helpen.",
+        "3": "Lopend: Een vrijwilliger werkt nu aan uw aanvraag.",
+        "4": "Klaar: De vrijwilliger heeft het verzoek voltooid.",
+        "5": "Gearchiveerd: verzoeken die je hebt verwijderd.",
+        "6": "Druk op de linker bel om je meldingen te zien"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
-        "6": "Thank you for joining us in building this unified platform of help!"
+        "title": "Welkom bij Reach4Help!",
+        "0": "Bedankt voor uw aanmelding bij Reach4Help!",
+        "1": "Als vrijwilliger kun je mensen in jouw omgeving helpen door te reageren op hun help-verzoeken.",
+        "2": "Gebruik deze kaart om te zoeken naar mensen in behoefte.",
+        "3": "Klik op een oranje marker om het verzoek van die persoon te bekijken en te beslissen of het te accepteren",
+        "4": "Zodra de persoon in nood uw aanbod voor hulp accepteert, kunt u contactinformatie uitwisselen.",
+        "5": "Vink het meldingspaneel aan om de updates van uw inkomende aanbiedingen te zien.",
+        "6": "Bedankt voor het bouwen van dit verenigde platform van hulp!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
+        "title": "Welkom bij Reach4Help!",
+        "0": "Bedankt voor je aanmelding bij Reach4Help! Als persoon in nood kun je contact opnemen met hulp in jouw gebied door aanvragen aan te maken. Op dit moment kunnen we niet garanderen dat er vrijwilligers zijn die in uw gebied kunnen helpen. in dat geval zouden we voorstellen om het te delen met potentiële vrijwilligers en lokale vrijwilligersorganisaties. Bedankt voor het bouwen van dit verenigde platform van hulp!",
         "1": "Bedankt voor het indienen van een verzoek! Je wordt op de hoogte gebracht wanneer een vrijwilliger aanbiedt deze te accepteren. Om de status te controleren, klik of tik je hier ",
         "2": "Vink het meldingspaneel aan om de updates van uw inkomende aanbiedingen te zien.",
         "3": "Zodra u een aanbod accepteert, wordt uw informatie met de vrijwilliger gedeeld.",
@@ -297,29 +297,29 @@
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "laden..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
-        "notifications": "Notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
-        "pin_rejected": "You have rejected help from ",
-        "request_author": "The request_author",
-        "volunteer_accepted": " accepted your offer for ",
-        "your_task": "your task"
+        "a_request": "verzoek",
+        "already_helped": " wordt al hulp in ",
+        "cav_declined_help": " is geweigerd om te helpen in ",
+        "cav_offer": "U heeft hulp aangeboden voor ",
+        "no_notifications": "Geen nieuwe meldingen.",
+        "notifications": "Meldingen",
+        "offered_help": " heeft hulp aangeboden in ",
+        "pin_accepted": "U heeft hulp aangeboden voor ",
+        "pin_declined_help": "U heeft hulp aangeboden voor ",
+        "pin_rejected": "U heeft hulp aangeboden voor ",
+        "request_author": "De aanvraag_auteur",
+        "volunteer_accepted": " heeft je aanbod geaccepteerd voor ",
+        "your_task": "Jouw taken"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "Mijn locatie",
+        "a11y_destination": "Bestemming",
+        "api_error": "Kon niet verkrijgen",
+        "distance_error": "Afstand Service fout:",
+        "geocode_error": "Kan niet geocode maken"
       }
     }
   }
