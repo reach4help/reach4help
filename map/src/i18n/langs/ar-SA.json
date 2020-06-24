@@ -56,7 +56,7 @@
           "locationNamePlaceholder": "على سبيل المثال: منطقة خليج سان فرانسيسكو، CA، الولايات المتحدة الأمريكية",
           "continue": "إضغط لاستمرار إدخال معلومات الموقع"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "إذا كنت تريد إرسال معلومات حول مجموعة مساعدة تعاونية جديدة، فيرجى الانتقال إلى {link} .سيتم إضافة المجموعات المضافة هناك تلقائيًا في خريطتنا."
       },
       "placeMarker": {
         "instructions": "حدد مكان المنطقة التي يخدمها هذا المشروع / المجموعة/المنظمة / المبادرة بالنقر على الخريطة لوضع علامة ، ثم ضبط حجم الدائرة بحيث يشمل المساحة حسب الاقتضاء.",
