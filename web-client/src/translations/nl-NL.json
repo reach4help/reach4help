@@ -210,6 +210,7 @@
       "REMOVE_REQUEST": "{{actorName}} heeft dit verzoek aangemaakt",
       "COMPLETE_REQUEST": "Betaling is voltooid.",
       "CREATE_OFFER": "{{actorName}} heeft aangeboden om te helpen met dit verzoek.",
+      "CAV_DECLINED": "{{actorName}} rejected this request.",
       "ACCEPT_OFFER": "{{actorName}} heeft {{cavUserName}} hulp geaccepteerd.",
       "REJECT_OFFER": "{{actorName}} heeft {{cavUserName}} hulp afgewezen.",
       "RATE_PIN": "{{actorName}} heeft {{actedUpon}} gewaardeerd.",
