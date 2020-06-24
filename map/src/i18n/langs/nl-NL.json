@@ -56,146 +56,146 @@
           "locationNamePlaceholder": "Bijvoorbeeld San Francisco Bay Area, CA, VS",
           "continue": "Klik verder om locatiegegevens in te voeren"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "Als u informatie wilt indienen over een nieuwe wederzijdse hulpgroep, bezoek dan in plaats daarvan {link} . Groepen toegevoegd daar zullen automatisch worden opgenomen in onze kaart."
       },
       "placeMarker": {
-        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
+        "instructions": "Zoek de ruimte die aangeboden wordt door dit project / groep / organisatie / initiatief door te klikken op de kaart om een markering te plaatsen, vervolgens de grootte van de cirkel aanpassen zodat ook het gebied waar nodig wordt opgenomen.",
+        "continue": "Zodra u tevreden bent met de locatie, klik op doorgaan met het toevoegen van contactinformatie.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
-        "deleteInfo": "Delete",
+        "header": "Contactgegevens voor {name}",
+        "info": "Bijna klaar! Voer informatie in over hoe mensen contact kunnen opnemen met {name}. Als er specifieke contactmethoden zijn die moeten worden gebruikt om vrijwillig te helpen, of om hulp aan te vragen, voer die dan alstublieft in!",
+        "deleteInfo": "Verwijderen",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "Verberg lege contactinformatie",
+          "volunteers": "Contactinformatie voor vrijwilligers toevoegen",
+          "getHelp": "Voeg contactinformatie toe voor mensen die hulp nodig hebben"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "Contactgegevens selecteren",
+          "volunteers": "Contact info voor vrijwilligers",
+          "getHelp": "Voeg contactinformatie toe voor mensen die hulp nodig hebben"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "Nummers weergeven",
+          "email": "E-mailadressen",
+          "web": "Weblink (URL)"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
+          "phone": "Een telefoonnummer toevoegen",
+          "email": "Een e-mailadres toevoegen",
           "webURL": "URL",
-          "webLabel": "Name"
+          "webLabel": "Naam"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "Gegevens verzenden naar map...",
+        "error": "Fout bij opslaan informatie",
+        "success": "Uw formulier is succesvol ingediend",
+        "successExtra": "Voordat we uw gegevens zichtbaar maken op de kaart, moet deze worden beoordeeld door een vrijwilliger van ons team. Hopelijk zal dit binnen een paar dagen gebeuren."
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "missingType": "Selecteer het type van het project / groep / organisatie",
+      "missingServices": "Controleer alle diensten van deze organisatie (minimaal 1 is vereist)",
+      "missingTitle": "Voer de naam in van het project / groep / organisatie",
+      "missingLocationName": "A.u.b. geef een beschrijving van de bug die u wil raporteren.",
+      "markerRequired": "Klik op de kaart om in het servicegebied te gaan voordat u doorgaat.",
+      "noContactDetails": "Voer contactgegevens in voor ten minste één categorie",
+      "emptyContactSection": "Voer a.u.b. contactgegevens in voor {section} of verwijder deze",
+      "urlMissingLabel": "Een URL voor {section} mist een naam",
+      "urlMissingURL": "URL voor {section} ontbreekt de URL",
+      "dataError": "Er was een probleem met de informatie die je hebt ingediend, ga terug en probeer het opnieuw",
+      "submitError": "Er is een fout opgetreden bij het instellen van de automatisch toegewezen persoon. Probeer het later nogmaals.",
+      "mutualAidGroupsNotAccepted": "Voer in plaats daarvan informatie in over nieuwe wederzijdse hulporganisaties op {link}."
     }
   },
   "buttons": {
-    "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+    "fullScreen": "Volledig Scherm",
+    "exitFullScreen": "Volledig scherm verlaten"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "Bezig met laden...",
+  "filterBy": "Filteren op",
   "services": {
-    "any": "Any",
-    "food": "Food",
-    "medicine": "Medicine",
-    "supplies": "Other Supplies",
-    "mobility": "Mobility",
-    "shelter": "Shelter",
-    "support": "Support",
-    "information": "Information",
-    "network": "Network",
-    "manufacturing": "Manufactoring",
-    "financial": "Financial",
-    "other": "Other"
+    "any": "Elke",
+    "food": "Voedsel",
+    "medicine": "Geneeskunde",
+    "supplies": "Opgeslagen Voorraden",
+    "mobility": "Mobiliteit",
+    "shelter": "Schuilplaats",
+    "support": "Ondersteuning",
+    "information": "Informatie",
+    "network": "Netwerk",
+    "manufacturing": "Productie",
+    "financial": "Financieel",
+    "other": "Overig"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "Bevoorraden, behalve voedsel of medicijnen,",
+    "mobility": "Mensen verplaatsen van de ene locatie naar de andere",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "Ondersteuning afgestemd op specifieke kwetsbare groepen, zoals daklozen, mensen die gevaar lopen door huiselijk misbruik, etc...",
+    "information": "Help mensen relevante informatie te vinden",
+    "network": "Voordelen van netwerken om hulp te bieden, bijvoorbeeld tussen wederzijdse hulporganisaties",
+    "manufacturing": "Biedt voorraden of productiecapaciteit die nodig zijn om de crisis het hoofd te bieden",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Iets anders niet in deze lijst"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "Wederzijdse Hulpgroep",
+    "org": "Organisatie / bedrijf",
+    "financial": "Financieel",
+    "information": "Informatie",
+    "other": "Overig"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "wederzijdse Hulpgroep",
+    "org": "organisatie / bedrijf",
+    "project": "Projecten"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "Spring naar een locatie op de kaart...",
+    "updateResultsForThisArea": "Update de resultaten voor dit gebied",
+    "myLocation": "Mijn locatie"
   },
   "results": {
-    "backToResults": "Back to results",
+    "backToResults": "Ga terug naar resultaat",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "showMore": "Toon meer resultaten",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "Algemene informatie",
+      "getHelp": "Zoek Hulp",
+      "volunteer": "Vrijwilligers",
+      "facebookGroup": "Facebook groepen"
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "Opmerking",
+        "content": "Opmerking: elk project is autonoom en zelfgeorganiseerd; velen gebruiken publieke spreadsheets om informatie te delen, dus wees voorzichtig bij het invoeren van privéinformatie die je niet openbaar wilt zijn."
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "Informatie over deze {type} wordt verstrekt door {source}."
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "Taal:",
+  "langSelect": "Kies taal",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
+    "netlifyNote": "Deze map {link}",
+    "netlifyLinkText": "is gehost door Netlify",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "codeOfConduct": "Gedragscode",
+    "showHidden": "Verborgen informatie tonen",
+    "hideHidden": "Verborgen informatie tonen"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "visibility: visible;",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "Elke",
+      "visible": "Alleen zichtbaar",
+      "hidden": "Alleen verborgen"
     }
   }
 }
