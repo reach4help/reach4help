@@ -1,56 +1,56 @@
 {
   "common": {
-    "i_understand": "I understand.",
-    "okay": "Okay",
-    "cancel": "Cancel",
+    "i_understand": "Eu compreendi",
+    "okay": "Bem",
+    "cancel": "Anular",
     "welcome": "Bem-vindo",
     "continue": "Continuar",
-    "verify": "Verify",
+    "verify": "Verificar",
     "spinner": "A carregar ...",
     "name": "Nome",
     "full_name": "Nome Completo",
     "display_name": "Nome de utilizador",
     "display_name_placeholder": "Nome usado em saudações, por defeito é o 1º nome",
-    "address": "Address",
+    "address": "Endereço",
     "address1": "Morada linha 1",
     "address2": "Morada linha 2 (opcional)",
     "city": "Cidade",
-    "code": "Postal / Zip Code",
-    "State": "State / Province",
+    "code": "Código postal",
+    "State": "Estado/Província",
     "country": "País",
-    "for": " for ",
+    "for": " para ",
     "information_modal": {
-      "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
-      "a11y_logo": "Reach for Help logo",
+      "instructions": "Instruções",
+      "footer": "Se tiver alguma dúvida ou precisar de ajuda, por favor contacte-nos: support@crowdin.com",
+      "a11y_logo": "Alcance o logotipo da ajuda",
       "OpenRequestsContainer": {
-        "title": "Still looking for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
-        "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "title": "Ainda em busca de ajuda...",
+        "0": "Os seus pedidos estão lá fora, mas ninguém se voluntariou para ajudar",
+        "1": "Você também receberá notificações para atualizá-lo sobre o status das suas solicitações.",
+        "2": " Se você tiver alguma dúvida ou dificuldade com isso, não hesite em entrar em contato com support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "Alguém se ofereceu para ajudar!",
+        "0": "Alguém se ofereceu para te ajudar.",
+        "1": "Entre em contato com eles por telefone para descobrir os detalhes."
       },
       "OngoingRequestsContainer": {
-        "title": "Matched with a Volunteer!",
-        "0": "You matched with someone who is taking care of your request."
+        "title": "Correspondido com um Voluntário!",
+        "0": "Você correspondeu a alguém que está cuidando da sua solicitação."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "Concluído!",
+        "0": "Você e o voluntário concordam que tudo está feito."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "Você decidiu não fazer isso",
+        "0": "Você mudou de ideia e excluiu o seu pedido."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
+        "title": "Veja cada passo da sua requisição.",
+        "0": "Uma solicitação foi criada.",
+        "1": "Alguém oferece ajuda.",
+        "2": "A oferta é aceita ou rejeitada.",
         "3": "The request is completed.",
         "4": "The request is closed.",
         "5": "The request was removed.",
@@ -144,26 +144,26 @@
       "full_name_error_message": "Please enter your name.",
       "display_name_error_message": "Please enter your display name.",
       "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+      "allow_send_notifications": "Eu gostaria que Reach4Ajuda para me enviar notificações e e-mails."
     },
     "newRequest": {
       "title": "Novo Pedido",
       "icon_text": "eu preciso de ajuda",
       "form": {
         "title": "Título",
-        "type": "Type",
-        "address": "Confirm Address",
+        "type": "Misturar (1-100):",
+        "address": "Confirme o endereço",
         "body": "Introduza os detalhes do que necessita",
-        "other": "Please enter your type",
+        "other": "Introduza o tipo",
         "consent": "Permitir Notificações Push. Poderá alterar isto depois, nas suas Definições.",
-        "submit": "Next",
-        "cancel": "Cancel",
-        "search": "Search",
-        "useMyLocation": "Use my location",
-        "address_error_message": "Please enter your address.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "submit": "Próximo",
+        "cancel": "Anular",
+        "search": "Pesquisar",
+        "useMyLocation": "Usar a Minha Localização",
+        "address_error_message": "Por favor, insira o seu endereço.",
+        "type_error_message": "Seleccione um valor.",
+        "other_error_message": "Precisa de inserir o título.",
+        "body_error_message": "Por favor insira a descrição do produto."
       }
     },
     "newRequestSuccess": {
@@ -173,14 +173,14 @@
       "remember_info": "Quando um voluntário oferece ajuda, tem de a aceitar para que este veja as suas informações de contacto."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
-      "deliveryAddress": "Delivery address"
+      "submit": "Enviar solicitação",
+      "back": "Voltar",
+      "deliveryAddress": "Endereço de entrega"
     },
     "roleinfo": {
-      "title": "Reach4Help",
+      "title": "Alcançar4Ajuda",
       "sub_title": "Como podemos ajudá-lo(a) ?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
+      "manifesto": "Acreditamos que tudo o que fazemos é significativo; acreditamos que somos capazes de ajudar as pessoas no seu sentido de união e comunidade. Consideramos que a solidariedade é a melhor para os indivíduos.",
       "info": "Por favor diga-nos como pretende usar o Reach4Help",
       "info_pin": "Estou aqui porque preciso de ajuda",
       "c2a_pin": "Obter ajuda agora!",
@@ -189,17 +189,17 @@
     },
     "routeSubtitles": {
       "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
-      "_personal-data": "Personal Data",
-      "_timeline": "Request Timeline",
-      "_personal-data_role-info": "Role Info",
-      "_phone_entry": "Enter Phone Number",
-      "_phone_verify": "Verifying Phone Number",
-      "_requests_accepted": "Accepted Requests",
-      "_requests_archived": "Closed Requests",
-      "_requests_find": "Find Requests",
-      "_requests_finished": "Completed Requests",
+      "_phone": "Telefone",
+      "_requests": "Pedidos",
+      "_personal-data": "Dados pessoais",
+      "_timeline": "Cronograma da requisição",
+      "_personal-data_role-info": "Informação da Função",
+      "_phone_entry": "Inserir o número de telefone",
+      "_phone_verify": "Verificar número de telefone",
+      "_requests_accepted": "Aceitar pedido",
+      "_requests_archived": "Solicitações Fechadas",
+      "_requests_find": "Terminar Pedido",
+      "_requests_finished": "Solicitações Fechadas",
       "_requests_new": "New Request",
       "_requests_ongoing": "Ongoing Requests",
       "_requests_open": "Open Requests"
