@@ -1,324 +1,325 @@
 {
   "common": {
-    "i_understand": "I understand.",
-    "okay": "Okay",
-    "cancel": "Cancel",
-    "welcome": "Welcome",
-    "continue": "Continue",
-    "verify": "Verify",
-    "spinner": "Loading ...",
-    "name": "Name",
-    "full_name": "Full name",
-    "display_name": "Display name",
-    "display_name_placeholder": "Name used in greetings, defaults to 1st name",
-    "address": "Address",
-    "address1": "Address line 1",
-    "address2": "Address line 2 (optional)",
-    "city": "City",
-    "code": "Postal / Zip Code",
-    "State": "State / Province",
-    "country": "Country",
-    "for": " for ",
+    "i_understand": "Ik begrijp het.",
+    "okay": "OK",
+    "cancel": "Afbreken",
+    "welcome": "Welkom",
+    "continue": "Doorgaan",
+    "verify": "Bevestig",
+    "spinner": "Laden...",
+    "name": "Naam",
+    "full_name": "Volledige naam",
+    "display_name": "Weergavenaam",
+    "display_name_placeholder": "Naam gebruikt in groet, standaard op 1e naam",
+    "address": "地址",
+    "address1": "Adresveld 1",
+    "address2": "Adresregel (optioneel)",
+    "city": "Stad",
+    "code": "Postcode",
+    "State": "Staat / Provincie",
+    "country": "Land",
+    "for": " voor ",
     "information_modal": {
-      "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
-      "a11y_logo": "Reach for Help logo",
+      "instructions": "Instructies",
+      "footer": "Als u vragen heeft of hulp nodig heeft, stuur ons dan een e-mail via support@reach4help.org.",
+      "a11y_logo": "Bereik voor het hulplogo",
       "OpenRequestsContainer": {
-        "title": "Still looking for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
-        "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "title": "Nog steeds op zoek naar hulp ...",
+        "0": "Uw verzoeken zijn er maar er is nog niemand vrijwilligd om te helpen",
+        "1": "Je ontvangt ook meldingen om je bij te werken over de status van je verzoeken.",
+        "2": " Als u vragen of problemen hiermee heeft, aarzel dan niet om contact op te nemen met support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "Iemand heeft aangeboden om te helpen!",
+        "0": "Iemand heeft aangeboden u te helpen.",
+        "1": "Neem telefonisch contact met hen op om de details uit te werken."
       },
       "OngoingRequestsContainer": {
-        "title": "Matched with a Volunteer!",
-        "0": "You matched with someone who is taking care of your request."
+        "title": "Overeengekomen met een vrijwilliger!",
+        "0": "Je komt overeen met iemand die voor je verzoek zorgt."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "Klaar!",
+        "0": "Jij en de vrijwilliger zijn het erover eens dat alles gedaan is."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "Je hebt besloten het niet te doen",
+        "0": "U bent van gedachten veranderd en heeft uw verzoek verwijderd."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "Bekijk elke stap van je verzoek",
+        "0": "Een verzoek is aangemaakt.",
+        "1": "Iemand biedt hulp.",
+        "2": "Wanneer voorstel is goedgekeurd of geweigerd",
+        "3": "Setup is voltooid!",
+        "4": "Setup is voltooid!",
+        "5": "Dit verzoek is verwijderd.",
+        "6": "Vrijwilligers en mensen in nood beoordelen elkaar."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "title": "De onderste knoppen gebruiken",
+        "0": "Druk op het linkermenu om elke stap van je verzoek bij te houden",
+        "1": "Open: Verzoeken die nog een vrijwilliger nodig hebben",
+        "2": "Iemand heeft aangeboden u te helpen.",
+        "3": "Lopend: Een vrijwilliger werkt nu aan uw aanvraag.",
+        "4": "Klaar: De vrijwilliger heeft het verzoek voltooid.",
+        "5": "Gearchiveerd: verzoeken die je hebt verwijderd.",
+        "6": "Druk op de linker bel om je meldingen te zien"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
-        "6": "Thank you for joining us in building this unified platform of help!"
+        "title": "Welkom bij Reach4Help!",
+        "0": "Bedankt voor uw aanmelding bij Reach4Help!",
+        "1": "Als vrijwilliger kun je mensen in jouw omgeving helpen door te reageren op hun help-verzoeken.",
+        "2": "Gebruik deze kaart om te zoeken naar mensen in behoefte.",
+        "3": "Klik op een oranje marker om het verzoek van die persoon te bekijken en te beslissen of het te accepteren",
+        "4": "Zodra de persoon in nood uw aanbod voor hulp accepteert, kunt u contactinformatie uitwisselen.",
+        "5": "Vink het meldingspaneel aan om de updates van uw inkomende aanbiedingen te zien.",
+        "6": "Bedankt voor het bouwen van dit verenigde platform van hulp!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
-        "2": "Check the Notifications panel to see updates about your incoming offers.",
-        "3": "Once you accept an offer, your information will be shared with the volunteer.",
-        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+        "title": "Welkom bij Reach4Help!",
+        "0": "Bedankt voor je aanmelding bij Reach4Help! Als persoon in nood kun je contact opnemen met hulp in jouw gebied door aanvragen aan te maken. Op dit moment kunnen we niet garanderen dat er vrijwilligers zijn die in uw gebied kunnen helpen. in dat geval zouden we voorstellen om het te delen met potentiële vrijwilligers en lokale vrijwilligersorganisaties. Bedankt voor het bouwen van dit verenigde platform van hulp!",
+        "1": "Bedankt voor het indienen van een verzoek! Je wordt op de hoogte gebracht wanneer een vrijwilliger aanbiedt deze te accepteren. Om de status te controleren, klik of tik je hier ",
+        "2": "Vink het meldingspaneel aan om de updates van uw inkomende aanbiedingen te zien.",
+        "3": "Zodra u een aanbod accepteert, wordt uw informatie met de vrijwilliger gedeeld.",
+        "4": "Neem contact op met de vrijwilliger (of wacht tot ze je te bereiken) om te coördineren."
       }
     },
     "login": {
-      "title": "Reach4Help",
-      "sub_title": "Sign Up Overview",
-      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
-      "facebookButtonLabel": "Continue with Facebook"
+      "title": "Bereik4Help",
+      "sub_title": "Registreren Overzicht",
+      "info": "Hallo daar! Hartelijk dank voor uw interesse in het helpen van uw gemeenschap! Om de veiligheid van onze gebruikers te waarborgen We vereisen momenteel inloggen via Google of Facebook om uw identiteit te verifiëren en contact met u op te nemen als er discrepanties ontstaan.\n\nNa deze stap wordt u gevraagd uw telefoonnummer op te geven en dit te verifiëren via een code die u via tekst ontvangt. Dit is hoe mensen die hulp aanbieden contact met u opnemen! Contactinformatie wordt alleen met de andere persoon gedeeld als u de persoon hebt goedgekeurd die aanbiedt om hen te helpen. Wanneer je een verzoek om hulp indient, wordt je exacte locatie niet gedeeld (alleen de eerste drie cijfers van je postcode).\nBedankt voor uw samenwerking om onze wereld veiliger en nuttiger te maken! Als u vragen heeft, neem dan contact met ons op via support@reach4help. hl.",
+      "facebookButtonLabel": "Doorgaan met Facebook",
+      "googleButtonLabel": "[login&signup page] Doorgaan met Google"
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
-      "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help"
+      "contactUs": "Neem contact met ons op",
+      "logout": "Uitloggen",
+      "switchToCAV": "Overschakelen naar Offer Support",
+      "switchToPIN": "Overschakelen naar zoeken Help"
     },
     "phoneNumber": {
-      "select_instructions": "Pick from the dropdown below",
-      "input_instructions": "Enter your digits",
-      "sub_title": "Enter your telephone number to begin",
-      "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!",
-      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!",
-      "no_country_error": "A country must be chosen.",
-      "no_digits_error": "You must enter the phone digits too.",
-      "is_valid_number": "is a valid telephone number",
-      "is_not_valid_number": "is not a valid telephone number",
-      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
-      "country_label": "Your country",
-      "country_placeholder": "Select a country",
-      "phone_label": "Enter your phone number",
-      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
+      "select_instructions": "Kies uit de keuzelijst hieronder",
+      "input_instructions": "Voer uw PIN-code in",
+      "sub_title": "Voer je telefoonnummer in om te beginnen",
+      "info": "Deze informatie is van fundamenteel belang om uw account te valideren. Mogelijk zijn er gegevens en tarieven van toepassing.",
+      "error_message": "Please enter your phone number.",
+      "phone_valid": "Een geldig telefoonnummer begint met + en landcode zonder spaties of andere speciale tekens in het veld!",
+      "no_country_error": "Er moet worden gekozen voor een land.",
+      "no_digits_error": "Je moet ook de telefooncijfers invoeren.",
+      "is_valid_number": "is een geldig telefoonnummer",
+      "is_not_valid_number": "is een geldig telefoonnummer",
+      "is_plus_11": " is geen geldig telefoonnummer. Voer uw landcode niet in het invoerveld. Gebruik alleen het Land Selectiemenu",
+      "country_label": "Uw land",
+      "country_placeholder": "Kies een land",
+      "phone_label": "Voer uw telefoonnummer in",
+      "bad_11_prefix": "Ongeldig nummer: +11 is het land-voorvoegsel voor Bulgarije, niet Canada of de Verenigde Staten. Zet '1' niet als uw toonaangevende cijfer"
     },
     "verificationCode": {
-      "sub_title": "We just texted you a confirmation code. Please enter it below.",
-      "info": "If you did not receive a code please click ",
-      "resend": "resend",
-      "error_message": "Insert the received number here!"
+      "sub_title": "We hebben je zojuist een bevestigingscode gestuurd. Voer deze hieronder in.",
+      "info": "Als je geen code hebt ontvangen, klik dan op ",
+      "resend": "hersturen",
+      "error_message": "Voer het ontvangen nummer hier in!"
     },
     "user_data_form": {
-      "sub_title": "Please fill out the personal details below.",
-      "gps_button": "Use GPS to get my address",
-      "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
-      "learn_reactivate": "Learn how to reactivate geolocation",
-      "retry_geolocation": "Retry Geolocation",
-      "continue_without_geolocation": "Continue without Geolocation",
-      "go_back": "Go Back",
-      "geolocation_modal_title": "Geolocation is not authorized",
-      "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
-      "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
-      "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
-      "instructions_modal_title": "Instructions:",
-      "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
-      "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
-      "policy_link": "Privacy & Security Policy.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
-      "terms_conditions_text": "I understand and acknowledge the ",
-      "terms_conditions_link": "Terms & Conditions.",
-      "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "Please enter your name.",
-      "display_name_error_message": "Please enter your display name.",
-      "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+      "sub_title": "Vul hieronder de persoonlijke gegevens in.",
+      "gps_button": "GPS gebruiken om mijn adres op te halen",
+      "gps_unavailable_retry_button": "Geolocatie niet beschikbaar. Probeer opnieuw.",
+      "learn_reactivate": "Leer hoe geolocatie opnieuw te activeren",
+      "retry_geolocation": "Bewaar geolocatie",
+      "continue_without_geolocation": "Doorgaan zonder registratie",
+      "go_back": "Ga Terug",
+      "geolocation_modal_title": "Geolocatie is niet toegestaan",
+      "geolocation_modal_text": "Je kunt je locatie handmatig toevoegen, maar het zou ons helpen om je positie nauwkeuriger te maken als je de Geolocatie zou gebruiken. Kies een van de onderstaande opties:",
+      "geolocation_unavailable_title": "Helaas zijn we nog niet beschikbaar op je locatie",
+      "geolocation_unavailable_text": "Sorry, uw locatie wordt nog niet ondersteund op ons platform. U wordt op de hoogte gesteld via SMS of E-Mail, zodra onze applicatie beschikbaar wordt op uw locatie.",
+      "instructions_modal_title": "Instructies:",
+      "instructions_modal_text": "Je kunt je locatie handmatig toevoegen, maar het zou ons helpen om je positie nauwkeuriger te maken als je de Geolocatie zou gebruiken. Kies een van de onderstaande opties:",
+      "policy_text": "We hebben deze gegevens nodig om ervoor te zorgen dat de hulp de juiste bestemming bereikt. Lees voor meer informatie over ",
+      "policy_link": "Privacy en veiligheidsbeleid.",
+      "accept_to_use_profile_pic": "Ik ben het ermee eens om Reach4Help mijn profielfoto te laten gebruiken.",
+      "terms_conditions_text": "Ik begrijp en erken de ",
+      "terms_conditions_link": "Voorwaarden & condities",
+      "terms_conditions_error": "Je moet instemmen met de algemene voorwaarden.",
+      "full_name_error_message": "Typ uw naam.",
+      "display_name_error_message": "Voer je weergavenaam in.",
+      "address_error_message": "Waar woont u?",
+      "allow_send_notifications": "Ik zou graag willen dat Reach4Help mij meldingen en e-mails stuurt."
     },
     "newRequest": {
-      "title": "New Request",
-      "icon_text": "I need help",
+      "title": "Nieuwe aanvraag",
+      "icon_text": "Hulp nodig",
       "form": {
-        "title": "Title",
-        "type": "Type",
-        "address": "Confirm Address",
-        "body": "Enter details of what is needed",
-        "other": "Please enter your type",
-        "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Next",
-        "cancel": "Cancel",
-        "search": "Search",
-        "useMyLocation": "Use my location",
-        "address_error_message": "Please enter your address.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "title": "Titel",
+        "type": "Overvloeien (1-1000):",
+        "address": "Adres bevestigen",
+        "body": "Voer details in over wat nodig is",
+        "other": "Typ uw naam",
+        "consent": "Pushmeldingen toestaan. U kunt dit later altijd wijzigen in uw instellingen.",
+        "submit": "Volgende",
+        "cancel": "Afbreken",
+        "search": "Zoeken",
+        "useMyLocation": "Gebruik Mijn Locatie",
+        "address_error_message": "Waar woont u?",
+        "type_error_message": "Je moet een bedrag selecteren.",
+        "other_error_message": "U dient een titel in te vullen.",
+        "body_error_message": "Gelieve een beschrijving in te voeren."
       }
     },
     "newRequestSuccess": {
-      "title": "Your request has been created",
-      "info": "Please be patient until you get an offer from a volunteer.",
-      "remember": "Remember",
-      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      "title": "Uw aanvraag is\naangemaakt",
+      "info": "Wees alsjeblieft geduldig totdat je een aanbieding van een vrijwilliger ontvangt.",
+      "remember": "Onthouden",
+      "remember_info": "Zodra een vrijwilliger aanbiedt om te helpen, moet u hun hulp accepteren om uw contactinformatie te kunnen zien."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
-      "deliveryAddress": "Delivery address"
+      "submit": "Verzoek Indienen",
+      "back": "Vorige",
+      "deliveryAddress": "Leveringsadres"
     },
     "roleinfo": {
-      "title": "Reach4Help",
-      "sub_title": "How can we assist you ?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
-      "info": "Please tell us what is your purpose to use Reach4Help",
-      "info_pin": "I'm here because I need help",
-      "c2a_pin": "Get help now!",
-      "info_cav": "I'm here because I want to help people",
-      "c2a_cav": "Start helping now!"
+      "title": "Bereik4Help",
+      "sub_title": "Hoe kunnen we je helpen?",
+      "manifesto": "Wij zijn van mening dat alles wat wij doen zinvol is en dat wij in staat zijn mensen in hun gevoel van saamhorigheid en gemeenschap te brengen. Wij zijn van mening dat solidariteit het beste is van individuen.",
+      "info": "Vertel ons wat uw doel is om Reach4Help te gebruiken",
+      "info_pin": "Ik ben hier omdat ik hulp nodig heb",
+      "c2a_pin": "Krijg nu hulp!",
+      "info_cav": "Ik ben hier omdat ik mensen wil helpen",
+      "c2a_cav": "Maak nu jouw ontwerp!"
     },
     "routeSubtitles": {
       "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
-      "_personal-data": "Personal Data",
-      "_timeline": "Request Timeline",
-      "_personal-data_role-info": "Role Info",
-      "_phone_entry": "Enter Phone Number",
-      "_phone_verify": "Verifying Phone Number",
-      "_requests_accepted": "Accepted Requests",
-      "_requests_archived": "Closed Requests",
-      "_requests_find": "Find Requests",
-      "_requests_finished": "Completed Requests",
-      "_requests_new": "New Request",
-      "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_phone": "telefoon",
+      "_requests": "Verzoeken",
+      "_personal-data": "Persoonlijke gegevens",
+      "_timeline": "Verzoek tijdlijn",
+      "_personal-data_role-info": "Rol info",
+      "_phone_entry": "Telefoonnummer invoeren",
+      "_phone_verify": "Verifiëren met telefoonnummer",
+      "_requests_accepted": "Aanvraag accepteren",
+      "_requests_archived": "Gesloten verzoeken",
+      "_requests_find": "Aanvraag voltooien",
+      "_requests_finished": "Aanvraag aan %s gereed",
+      "_requests_new": "Nieuwe aanvraag",
+      "_requests_ongoing": "Lopende verzoeken",
+      "_requests_open": "Open aanvragen:"
     },
     "timeline": {
-      "CREATE_REQUEST": "{{actorName}} created this request.",
-      "CANCEL_REQUEST": "{{actorName}} closed this request.",
-      "REMOVE_REQUEST": "{{actorName}} removed this request",
-      "COMPLETE_REQUEST": "Request has been completed.",
-      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
-      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
-      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
-      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
-      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
+      "CREATE_REQUEST": "{{actorName}} heeft dit verzoek aangemaakt.",
+      "CANCEL_REQUEST": "{{actorName}} heeft dit verzoek aangemaakt.",
+      "REMOVE_REQUEST": "{{actorName}} heeft dit verzoek aangemaakt",
+      "COMPLETE_REQUEST": "Betaling is voltooid.",
+      "CREATE_OFFER": "{{actorName}} heeft aangeboden om te helpen met dit verzoek.",
+      "ACCEPT_OFFER": "{{actorName}} heeft {{cavUserName}} hulp geaccepteerd.",
+      "REJECT_OFFER": "{{actorName}} heeft {{cavUserName}} hulp afgewezen.",
+      "RATE_PIN": "{{actorName}} heeft {{actedUpon}} gewaardeerd.",
+      "RATE_CAV": "{{actorName}} heeft {{actedUpon}} gewaardeerd.",
       "open_status": "Open",
-      "cav": "Volunteer",
-      "cav_wait": "WAITING FOR VOLUNTEER",
-      "address": "Delivery Address",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
-      "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "cav": "Vrijwilliger",
+      "cav_wait": "WACHT VOLUNTEER",
+      "address": "Afleveringsadres:",
+      "cancelRequest": "Aanvraag annuleren",
+      "finishRequest": "Aanvraag voltooien",
+      "ratingQuestion": "Hoe zou u uw ervaring beoordelen?",
+      "submitRatingButton": "Stemmen",
+      "finishRequestModalParta": "Ben je er zeker van dat je wilt stoppen?",
+      "finishRequestModalPartb": "Van",
+      "thankYouModalTitle": "Bedankt!",
+      "thankYouModalBodyParta": "Je hebt beoordeeld",
+      "thankYouModalBodyPartb": "met"
     },
     "modules": {
       "timeline": {
         "components": {
           "OffersList": {
-            "miles": "miles",
+            "miles": "mijlen",
             "kilometers": "kilometers",
-            "reject": "Reject",
-            "accept": "Accept",
-            "volunteer_select": "Select A Volunteer"
+            "reject": "Annuleer",
+            "accept": "Accepteren",
+            "volunteer_select": "Selecteer een vrijwilliger"
           }
         }
       },
       "navigation": {
         "components": {
           "Header": {
-            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
-            "remember": "REMEMBER",
-            "requests": "Requests"
+            "reject_reminder": " Als u deze hulp afwijst, zal uw verzoek teruggaan naar de lijst van beschikbare verzoeken, maar zal het prioriteit verliezen.",
+            "remember": "REMENDERING",
+            "requests": "Verzoeken"
           },
           "TopPanel": {
-            "a11y_back_nav": "Back navigation icon",
-            "a11y_display_photo": "Display photo",
-            "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon",
-            "a11y_sms_icon": "SMS icon"
+            "a11y_back_nav": "Terugnavigatie",
+            "a11y_display_photo": "Weergave foto",
+            "a11y_location_icon": "Locatiepictogram",
+            "a11y_phone_icon": "Statusbalkmelding",
+            "a11y_sms_icon": "SMS icoon"
           }
         }
       },
       "personal-data": {
         "containers": {
           "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
-            "missing_data": "Missing Data!"
+            "address_error": "Sorry, we konden je werkelijke adres niet bepalen, probeer het opnieuw!",
+            "missing_data": "Missing data!"
           }
         }
       },
       "requests": {
-        "a11y_profile_pic": "Profile Pic",
+        "a11y_profile_pic": "Profiel afbeelding",
         "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+          "choose_volunteer": "Kies uit de volgende vrijwilligers om aan uw verzoek te voldoen."
         },
-        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
-        "cannot_help": "Cannot Help",
+        "bottom_warning": "Je verzoek werd bekeken door verschillende vrijwilligers, maar werd niet geaccepteerd. Wij raden je aan &ldquo;Sluitverzoek&rdquo; en maak een nieuwe met een eenvoudigere beschrijving.",
+        "cannot_help": "Kan niet sturen",
         "containers": {
           "AcceptedRequestContainer": {
-            "accepted": "Accepted"
+            "accepted": "Aangenomen"
           },
           "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
+            "want_to_help": "Wilt u helpen?"
           },
           "FinishedRequestsContainer": {
-            "finished": "Finished"
+            "finished": "Beëindigd"
           },
           "NewRequestsContainer": {
-            "address_error": "Unable to find address",
-            "deliveries": "Deliveries"
+            "address_error": "Kan adres niet vinden",
+            "deliveries": "Verzendmethoden"
           },
           "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
+            "ongoing": "Actief"
           },
           "OpenRequestContainer": {
             "open": "Open"
           },
-          "no_reply": "No one has replied to your request."
+          "no_reply": "Iemand heeft gereageerd op uw reactie."
         }
       }
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "laden..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
-        "notifications": "Notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
-        "pin_rejected": "You have rejected help from ",
-        "request_author": "The request_author",
-        "volunteer_accepted": " accepted your offer for ",
-        "your_task": "your task"
+        "a_request": "verzoek",
+        "already_helped": " wordt al hulp in ",
+        "cav_declined_help": " is geweigerd om te helpen in ",
+        "cav_offer": "U heeft hulp aangeboden voor ",
+        "no_notifications": "Geen nieuwe meldingen.",
+        "notifications": "Meldingen",
+        "offered_help": " heeft hulp aangeboden in ",
+        "pin_accepted": "U heeft hulp aangeboden voor ",
+        "pin_declined_help": "U heeft hulp aangeboden voor ",
+        "pin_rejected": "U heeft hulp aangeboden voor ",
+        "request_author": "De aanvraag_auteur",
+        "volunteer_accepted": " heeft je aanbod geaccepteerd voor ",
+        "your_task": "Jouw taken"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "Mijn locatie",
+        "a11y_destination": "Bestemming",
+        "api_error": "Kon niet verkrijgen",
+        "distance_error": "Afstand Service fout:",
+        "geocode_error": "Kan niet geocode maken"
       }
     }
   }

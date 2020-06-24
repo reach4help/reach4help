@@ -1,36 +1,36 @@
 {
   "title": "خريطة المساعدة المجتمعة ضد كوفيد-19",
-  "inFrameLink": "About this map / add information",
+  "inFrameLink": "حول هذا الخريطة / اضافة معلومات ",
   "aboutScreen": {
-    "intro": "We believe solidarity brings out the best in individuals.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "intro": "نؤمن ان التكافل يبرز افضل ما يمكن لدى الافراد ",
+    "info": "لمساعدة الناس في العثور على جهود المساعدة المتبادلة والانضمام إليها في المكان الذي يعيشون فيه ، وتقديم الإلهام لبدء حياتهم الخاصة ، و / أو رفع المعنويات ببساطة ، تقدم هذه الخريطة قائمة متزايدة بمشاريع الإغاثة من جائحة المساعدة المتبادلة في جميع أنحاء العالم.",
+    "warning": "ملحوظة: كل مشروع مستقل ذاتي التنظيم. مما يجعل الكثير يستخدم جداول البيانات العامة لمشاركة المعلومات ، لذا كن حذرًا عند إدخال معلومات خاصة لا تريد أن تكون عامة.",
+    "project": "هذه الخريطة جزء من {access4Help} ، وهو مشروع يديره متطوعون.  المصدر متاح ويمكن أن يكون {githubSource}.  لأية استفسارات ، يمكنك الوصول إلينا على العنوان {email}.",
+    "githubSourceLabel": "وجدت على GitHub",
+    "otherAreasHeading": "هل انت مهتم بإحد هذه المجالات؟",
+    "otherAreasInfo": "تحقق من هذه الخرائط البديلة بدلا من ذلك:",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York"
+      "france": "فرنسا",
+      "nyc": "نيويورك"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "sourceHeading": "من اين اتات هذه المعلومات؟!",
+    "sourceInfo": "المعلومات الواردة في هذه الخريطة هي مزيج من البيانات التي جمعها متطوعونا ، والتي قدمها مستخدمونا ، والتي قدمتها المشاريع الأخرى التي يديرها المتطوعون بما في ذلك {mutualaidwiki} و {mutuaidhub}.",
+    "sourceSubmit": "نحن نشجعك على {addinfo} حول أي مشروعات تعرفها غير موجودة بالفعل على الخريطة.",
+    "sourceSubmitButton": "اضافة المعلومات",
+    "usageHeading": "هل يمكنني استخدام هذه البيانات لمشروعي الخاص؟",
+    "usageInfo": "نرحب باستخدام البيانات المقدمة من خريطتنا لمشاريعك الخاصة ، طالما أنك تتبع التراخيص المعنية.",
+    "usageLicenses": "البيانات التي يقدمها المتطوعون والمستخدمون لدينا مرخصة بموجب {license} ، ويتم توفير البيانات من مصادر أخرى بموجب التراخيص الخاصة بهم.",
+    "usageApi": "يمكنك الوصول إلى البيانات الأولية ،إلى جانب تفاصيل حول كيفية ترخيص كل نقطة بيانات ،على عنوان التالي {URL : {api"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "عن",
+    "map": "عرض الخريطة"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "راسل لنا عبر البريد الإكتروني",
+    "twitter": "تابعنا على تويتر",
+    "facebook": "اضغط جرس الاعجاب على صفحتنا على الفيس بوك",
+    "github": "تجدنا على GitHub"
   },
   "addInformation": {
     "button": "إضافة معلومات",
@@ -56,7 +56,7 @@
           "locationNamePlaceholder": "على سبيل المثال: منطقة خليج سان فرانسيسكو، CA، الولايات المتحدة الأمريكية",
           "continue": "إضغط لاستمرار إدخال معلومات الموقع"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "إذا كنت تريد إرسال معلومات حول مجموعة مساعدة تعاونية جديدة، فيرجى الانتقال إلى {link} .سيتم إضافة المجموعات المضافة هناك تلقائيًا في خريطتنا."
       },
       "placeMarker": {
         "instructions": "حدد مكان المنطقة التي يخدمها هذا المشروع / المجموعة/المنظمة / المبادرة بالنقر على الخريطة لوضع علامة ، ثم ضبط حجم الدائرة بحيث يشمل المساحة حسب الاقتضاء.",
