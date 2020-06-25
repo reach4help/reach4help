@@ -27,43 +27,43 @@
         "title": "עדין מחפש.ת עזרה...",
         "0": "הבקשה שלך פורסמה אבל אף אחד עדין לא התנדב לעזור",
         "1": "תקבל.י התראות לגבי סטטוס הבקשות שלך",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "2": "אם יש לך שאלות או בעיות, אל תהסס.י ליצור קשר עימנו באי-מייל: support@reach4help.org"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "מישהו.י הציע.ה לעזור!",
+        "0": "מישהו.י הציע.ה לעזור לך.",
+        "1": "צור.י קשר עימם בטלפון לתיאום."
       },
       "OngoingRequestsContainer": {
-        "title": "Matched with a Volunteer!",
-        "0": "You matched with someone who is taking care of your request."
+        "title": "נמצאה התאמה למתנדב.ת!",
+        "0": "נמצאה התאמה למישהו.י שכרגע מטפלים בבקשתך."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "הכל בוצע!",
+        "0": "את.ה והמתנדב.ת מסכימים שהכל סודר."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "החלטת לא לעשות זאת",
+        "0": "שינית את דעתך ומחקת את בקשתך."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "צפה.י בכל שלב בבקשתך",
+        "0": "בקשה נוצרה.",
+        "1": "מישהו.י הציע.ה לעזור.",
+        "2": "ההצעה התקבלה או נדחתה.",
+        "3": "הבקשה הושלמה.",
+        "4": "הבקשה נסגרה.",
+        "5": "הבקשה הוסרה.",
+        "6": "מתנדבים ואלו הזקוקים לעזרה מדרגים זה את זה."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
+        "title": "להשתמש בכפתורים שלמטה",
+        "0": "לחצ.י על הכפתור השמאלי כדי לעקוב אחר הצעדים של בקשתך",
+        "1": "פתוח: בקשות המחפשות מתנדב.ת",
+        "2": "התקבל: מישהו.י הציע.ה לעזור לך.",
+        "3": "בתהליך: מתנדב.ת עובד.ת על בקשתך.",
+        "4": "הסתיים: המתנדב.ת השלימו את הבקשה.",
+        "5": "הועבר לארכיב: בקשות שנמחקו.",
         "6": "Press the Left Bell to see your notifications"
       },
       "FindRequestsContainer": {
@@ -129,12 +129,12 @@
       "retry_geolocation": "Retry Geolocation",
       "continue_without_geolocation": "Continue without Geolocation",
       "go_back": "Go Back",
-      "geolocation_modal_title": "Geolocation is not authorized",
-      "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
-      "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
-      "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
-      "instructions_modal_title": "Instructions:",
-      "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+      "geolocation_modal_title": "מיקום לא מאושר",
+      "geolocation_modal_text": "ניתן להוסיף את מיקומך באופן ידני, אך זה יעזור לנו לאתר את מיקומך בדיוק אם תאפשר.י מיקום. אנא בחר.י את אחת מהאפשרויות למטה:",
+      "geolocation_unavailable_title": "לצערינו, איננו זמינים באיזורך",
+      "geolocation_unavailable_text": "לצערינו מיקומך עדין לא נתמך על-ידי הפלטפורמה שלנו. תשלח הודעה בSMS או אי-מייל כאשר האפליקציה תהיה זמינה במיקומך.",
+      "instructions_modal_title": "הוראות:",
+      "instructions_modal_text": "ניתן להוסיף את מיקומך באופן ידני, אך זה יעזור לנו לאתר את מיקומך בדיוק אם תאפשר.י מיקום. אם תרצה.י להפעיל שירותי מיקום, אנא בקר.י בקישור הבא:",
       "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
       "policy_link": "Privacy & Security Policy.",
       "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
