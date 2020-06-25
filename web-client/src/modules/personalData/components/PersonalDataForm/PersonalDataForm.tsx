@@ -11,7 +11,7 @@ import {
 import { firestore } from 'firebase';
 import words from 'lodash/words';
 import React, { Fragment, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import { User } from 'src/models/users';
 import {
@@ -286,7 +286,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   return (
     <Introduction className="withContentPaddingDesktop">
       {displayPic && <ProfilePhoto src={displayPic} />}
-      <Title>{t('user_data_form.sub_title')}</Title>
+      <Title>
+        {t('modules.personal-data.components.PersonalDataForm.sub_title')}
+      </Title>
       <Form
         layout="vertical"
         form={form}
@@ -301,7 +303,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
               rules={[
                 {
                   required: true,
-                  message: t('user_data_form.full_name_error_message'),
+                  message: t(
+                    'modules.personal-data.components.PersonalDataForm.full_name_error_message',
+                  ),
                 },
               ]}
               label={t('name')}
@@ -322,7 +326,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
               rules={[
                 {
                   required: true,
-                  message: t('user_data_form.display_name_error_message'),
+                  message: t(
+                    'modules.personal-data.components.PersonalDataForm.display_name_error_message',
+                  ),
                 },
               ]}
             >
@@ -343,7 +349,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                   type="primary"
                   onClick={handleGetCoords}
                 >
-                  {t('user_data_form.gps_button')}
+                  {t(
+                    'modules.personal-data.components.PersonalDataForm.gps_button',
+                  )}
                 </PersonalDataFormButton>
               </>
             )}
@@ -354,7 +362,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                 danger
                 onClick={handleGetCoords}
               >
-                {t('user_data_form.gps_button')}
+                {t(
+                  'modules.personal-data.components.PersonalDataForm.gps_button',
+                )}
               </PersonalDataFormButton>
             )}
           </Col>
@@ -364,7 +374,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
           rules={[
             {
               required: true,
-              message: t('user_data_form.address_error_message'),
+              message: t(
+                'modules.personal-data.components.PersonalDataForm.address_error_message',
+              ),
             },
           ]}
           label={t('address')}
@@ -394,7 +406,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
               rules={[
                 {
                   required: true,
-                  message: t('user_data_form.address_error_message'),
+                  message: t(
+                    'modules.personal-data.components.PersonalDataForm.city_error_message',
+                  ),
                 },
               ]}
             >
@@ -435,7 +449,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
               rules={[
                 {
                   required: true,
-                  message: t('user_data_form.address_error_message'),
+                  message: t(
+                    'modules.personal-data.components.PersonalDataForm.country_error_message',
+                  ),
                 },
               ]}
             >
@@ -447,13 +463,13 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
           </Col>
         </Row>
         <Information>
-          {t('user_data_form.policy_text')}{' '}
+          {t('modules.personal-data.components.PersonalDataForm.policy_text')}{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
           >
-            {t('user_data_form.policy_link')}
+            {t('modules.personal-data.components.PersonalDataForm.policy_link')}
           </a>
         </Information>
         <CheckboxContainer>
@@ -462,7 +478,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
               checked={acceptToUsePhoto}
               onChange={({ target }) => setAcceptToUsePhoto(target.checked)}
             >
-              {t('user_data_form.accept_to_use_profile_pic')}
+              {t(
+                'modules.personal-data.components.PersonalDataForm.accept_to_use_profile_pic',
+              )}
             </Checkbox>
           </Form.Item>
           <Form.Item name="useSendNotifications">
@@ -472,7 +490,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                 setAllowSendNotifications(target.checked)
               }
             >
-              {t('user_data_form.allow_send_notifications')}
+              {t(
+                'modules.personal-data.components.PersonalDataForm.allow_send_notifications',
+              )}
             </Checkbox>
           </Form.Item>
           <Form.Item
@@ -484,7 +504,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                     ? Promise.resolve()
                     : // eslint-disable-next-line prefer-promise-reject-errors
                       Promise.reject(
-                        `${t('user_data_form.terms_conditions_error')}`,
+                        `${t(
+                          'modules.personal-data.components.PersonalDataForm.terms_conditions_error',
+                        )}`,
                       ),
               },
             ]}
@@ -497,14 +519,21 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                   : setTermsAndPrivacyAccepted(null)
               }
             >
-              {t('user_data_form.terms_conditions_text')}
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+              <Trans
+                i18nKey="modules.personal-data.components.PersonalDataForm.terms_conditions_text"
+                values={{
+                  linkText: t(
+                    'modules.personal-data.components.PersonalDataForm.terms_conditions_link_text',
+                  ),
+                }}
               >
-                {t('user_data_form.terms_conditions_link')}
-              </a>
+                {/* eslint-disable-next-line jsx-a11y/anchor-has-content,jsx-a11y/control-has-associated-label */}
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+                />
+              </Trans>
             </Checkbox>
           </Form.Item>
         </CheckboxContainer>
@@ -530,7 +559,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                   setInstructionsVisible(true);
                 }}
               >
-                {t('user_data_form.learn_reactivate')}
+                {t(
+                  'modules.personal-data.components.PersonalDataForm.learn_reactivate',
+                )}
               </PersonalDataFormButton>
             )}
             {instructionsVisible && (
@@ -543,7 +574,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                   handleGetCoords();
                 }}
               >
-                {t('user_data_form.retry_geolocation')}
+                {t(
+                  'modules.personal-data.components.PersonalDataForm.retry_geolocation',
+                )}
               </PersonalDataFormButton>
             )}
           </Fragment>,
@@ -556,7 +589,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                   setModalVisible(false);
                 }}
               >
-                {t('user_data_form.continue_without_geolocation')}
+                {t(
+                  'modules.personal-data.components.PersonalDataForm.continue_without_geolocation',
+                )}
               </PersonalDataFormButton>
             )}
             {instructionsVisible && (
@@ -567,7 +602,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
                   setInstructionsVisible(false);
                 }}
               >
-                {t('user_data_form.go_back')}
+                {t('modules.personal-data.components.PersonalDataForm.go_back')}
               </PersonalDataFormButton>
             )}
           </Fragment>,
@@ -579,15 +614,29 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
               <img alt="Geolocation Inactive" src={geolocationinactive} />
             </div>
             <h4 style={{ marginBottom: '20px' }}>
-              {t('user_data_form.geolocation_modal_title')}
+              {t(
+                'modulespersonal-data.components.PersonalDataForm.geolocation_modal_title',
+              )}
             </h4>
-            <p>{t('user_data_form.geolocation_modal_text')}</p>
+            <p>
+              {t(
+                'modules.personal-data.components.PersonalDataForm.geolocation_modal_text',
+              )}
+            </p>
           </>
         )}
         {instructionsVisible && (
           <>
-            <h4>{t('user_data_form.instructions_modal_title')}</h4>
-            <p>{t('user_data_form.instructions_modal_text')}</p>
+            <h4>
+              {t(
+                'modules.personal-data.components.PersonalDataForm.instructions_modal_title',
+              )}
+            </h4>
+            <p>
+              {t(
+                'modules.personal-data.components.PersonalDataForm.instructions_modal_text',
+              )}
+            </p>
           </>
         )}
       </Modal>
