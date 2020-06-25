@@ -297,6 +297,25 @@ const getArchivedRequestsWithTimeline = async (userRef: firestore.DocumentRefere
     .where('status', 'in', [RequestStatus.completed, RequestStatus.cancelled, RequestStatus.removed])
     .get();
   const requestsWithTimelines: Record<string, RequestWithOffersAndTimeline> = {};
+  if (userType === ApplicationPreference.cav) {
+    const offersMadeResult = await db
+      .collection('offers')
+      .where('cavUserRef', '==', userRef)
+      .where('status', '==', OfferStatus.pending)
+      .get();
+    for (const idoc of offersMadeResult.docs) {
+      const offer = Offer.factory(idoc.data() as IOffer);
+      const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
+      if (request.status === RequestStatus.removed) {
+        const timeline = await getTimelineForRequest(offer.requestRef, userRef);
+        requestsWithTimelines[offer.requestRef.id] = RequestWithOffersAndTimeline.factory({
+          ...(request.toObject() as IRequest),
+          offers: {},
+          timeline,
+        } as IRequestWithOffersAndTimeline);
+      }
+    }
+  }
   for (const doc of requests.docs) {
     const request = Request.factory(doc.data() as IRequest);
     // eslint-disable-next-line no-await-in-loop
