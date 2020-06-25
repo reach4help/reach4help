@@ -76,7 +76,7 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
       {request.status === RequestStatus.pending && !isCav && (
         <ButtonContainer>
           <StepBackButton
-            onClick={() => handleRequest({ status: RequestStatus.cancelled })}
+            onClick={() => handleRequest({ status: RequestStatus.removed })}
           >
             {t('timeline.cancelRequest')}
           </StepBackButton>
