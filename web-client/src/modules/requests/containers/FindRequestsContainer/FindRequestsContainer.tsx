@@ -59,29 +59,38 @@ const FindRequestsContainer: React.FC = () => {
       requests.syncOpenRequestsState,
   );
 
-  const setRequestState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.setAction,
-  );
   const setOfferState = useSelector(
     ({ offers }: { offers: OffersState }) => offers.setAction,
   );
 
   useEffect(() => {
-    dispatch(resetSetRequestState());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (
-      (!setRequestState.loading && setRequestState.success) ||
-      (!setOfferState.loading && setOfferState.success)
-    ) {
-      setTimeout(() => {
-        history.push(OpenRequestsLocation.path);
-      }, 150);
-      dispatch(resetSetRequestState());
-      dispatch(resetSetOfferState());
+    /*
+     *
+     * We needed to ensure that stale data is not present whenever someone returns to this page from somewhere else
+     * So we chose to reset the redux state whenever this page is loaded
+     * However, when an offer was rejected, this page was remounted and due to state changes, this effect was invoked multiple times
+     * This caused unpredictable behaviour such as multiple calls to the get sync open requests API
+     * which led to invalid data as the data wasn't updated in the backend fully
+     * This check therefore enables us to ensure that the action to set the offer is completed before we reset it
+     * We can identify that the offer made was for helping with the request by looking at the value of success.
+     * The value of success is 1 if the offer was made to help and 2 if the CAV declined
+     *
+     * This useEffect also handles the case when an offer to help is made for a request
+     * This logic was in another useEffect earlier but has been moved here as it made more sense to be here
+     *
+     */
+    if (!setOfferState.loading) {
+      if (!setOfferState.success || setOfferState.success === 2) {
+        dispatch(resetSetRequestState());
+      } else if (setOfferState.success && setOfferState.success === 1) {
+        setTimeout(() => {
+          history.push(OpenRequestsLocation.path);
+        }, 150);
+        dispatch(resetSetRequestState());
+        dispatch(resetSetOfferState());
+      }
     }
-  }, [setRequestState, setOfferState, dispatch, history]);
+  }, [dispatch, history, setOfferState]);
 
   useEffect(() => {
     if (
@@ -99,7 +108,12 @@ const FindRequestsContainer: React.FC = () => {
         }),
       );
     }
-  }, [profileState, dispatch, pendingRequestsWithOffersAndTimeline]);
+  }, [
+    profileState,
+    dispatch,
+    pendingRequestsWithOffersAndTimeline,
+    setOfferState,
+  ]);
 
   useEffect(() => {
     if (

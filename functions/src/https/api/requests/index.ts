@@ -53,8 +53,10 @@ const getTimelineForRequest = async (requestRef: firestore.DocumentReference, us
     const timelinesResult = await requestRef
       .collection('timeline')
       .where('action', 'in', [
+        TimelineItemAction.ACCEPT_OFFER,
         TimelineItemAction.CREATE_REQUEST,
         TimelineItemAction.CREATE_OFFER,
+        TimelineItemAction.CAV_DECLINED,
         TimelineItemAction.REJECT_OFFER,
         TimelineItemAction.REMOVE_REQUEST,
       ])
@@ -118,7 +120,10 @@ const getPendingRequestsWithOffers = async (
       let shouldPush = true;
       for (const timelineDoc of results[1]) {
         const timelineInstance = TimelineItem.factory(timelineDoc);
-        if (timelineInstance.action === TimelineItemAction.CREATE_OFFER && timelineInstance.actorRef.id === userRef.id) {
+        if (
+          (timelineInstance.action === TimelineItemAction.CREATE_OFFER || timelineInstance.action === TimelineItemAction.CAV_DECLINED) &&
+          timelineInstance.actorRef.id === userRef.id
+        ) {
           shouldPush = false;
           break;
         }
@@ -229,11 +234,13 @@ const getAcceptedRequests = async (userRef: firestore.DocumentReference, userTyp
       const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
       if (request.status === RequestStatus.pending) {
         const timeline = await getTimelineForRequest(offer.requestRef, userRef);
-        requestsWithTimeline[doc.id] = RequestWithOffersAndTimeline.factory({
-          ...(request.toObject() as IRequest),
-          offers: {},
-          timeline,
-        });
+        requestsWithTimeline[offer.requestRef.id] =
+          requestsWithTimeline[offer.requestRef.id] ||
+          RequestWithOffersAndTimeline.factory({
+            ...(request.toObject() as IRequest),
+            offers: {},
+            timeline,
+          });
       }
     }
     return requestsWithTimeline;

@@ -27,7 +27,7 @@ export interface OffersState {
   error?: Error;
   observerReceivedFirstUpdate: boolean;
   setAction: {
-    success: boolean;
+    success?: 1 | 2 | 3;
     loading: boolean;
     modalState: boolean;
     error?: Error;
