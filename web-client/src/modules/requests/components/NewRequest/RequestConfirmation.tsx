@@ -10,28 +10,6 @@ import { COLORS } from '../../../../theme/colors';
 
 const { Text } = Typography;
 
-const Footer = styled.div`
-  background-color: ${COLORS.backgroundLightOrange};
-  padding: 1em 1em;
-  text-align: center;
-  margin: 0 -24px -24px;
-`;
-
-const OrangeP = styled(Text)`
-  color: ${COLORS.highlight};
-`;
-
-const SubtitleP = styled.div`
-  font-size: 1.1em;
-  font-weight: 600;
-  text-align: center;
-  margin-top: 28px;
-`;
-
-const RememberInfoP = styled.p`
-  margin-top: 0.5em;
-`;
-
 const RequestConfirmation: React.FC<RequestConfirmationProps> = ({
   showModal,
   closeModal,
@@ -59,6 +37,28 @@ const RequestConfirmation: React.FC<RequestConfirmationProps> = ({
     </Modal>
   );
 };
+
+const Footer = styled.div`
+  background-color: ${COLORS.backgroundLightOrange};
+  padding: 1em 1em;
+  text-align: center;
+  margin: 0 -24px -24px;
+`;
+
+const OrangeP = styled(Text)`
+  color: ${COLORS.highlight};
+`;
+
+const SubtitleP = styled.div`
+  font-size: 1.1em;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 28px;
+`;
+
+const RememberInfoP = styled.p`
+  margin-top: 0.5em;
+`;
 
 interface RequestConfirmationProps {
   showModal: boolean;

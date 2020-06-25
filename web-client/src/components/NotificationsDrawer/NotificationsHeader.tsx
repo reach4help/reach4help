@@ -4,18 +4,13 @@ import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
 
-interface NotificationsHeaderProps {
-  numNotifications?: number;
-  isCav?: boolean;
-}
-
 const NotificationsHeader: React.FC<NotificationsHeaderProps> = ({
   numNotifications = 0,
   isCav,
 }): React.ReactElement => {
   const { t } = useTranslation();
 
-  const NotificationHeaderContainer = styled.div`
+  const NotificationHeaderWrapper = styled.div`
     margin: 25px;
     margin-bottom: 15px;
     display: flex;
@@ -39,12 +34,18 @@ const NotificationsHeader: React.FC<NotificationsHeaderProps> = ({
   `;
 
   return (
-    <NotificationHeaderContainer>
+    <NotificationHeaderWrapper>
       <Header1>
         <b> {t('components.notification.notifications')} </b>
       </Header1>
       <Header2>{numNotifications}</Header2>
-    </NotificationHeaderContainer>
+    </NotificationHeaderWrapper>
   );
 };
+
+interface NotificationsHeaderProps {
+  numNotifications?: number;
+  isCav?: boolean;
+}
+
 export default NotificationsHeader;

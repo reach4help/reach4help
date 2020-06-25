@@ -8,25 +8,11 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import StarRadioGroup from 'src/components/StarRadioGroup/StarRadioGroup';
-import { Request, RequestStatus } from 'src/models/requests';
+import { RequestStatus } from 'src/models/requests';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
-
-export interface TimelineActionsProps {
-  request: Request;
-  currentUser: User;
-  handleRequest: ({
-    status,
-    pinRating,
-    cavRating,
-  }: {
-    status?: RequestStatus;
-    pinRating?: number;
-    cavRating?: number;
-  }) => void;
-  isCav: boolean;
-}
 
 const BottomPanel: React.FC<TimelineActionsProps> = ({
   request,
@@ -90,7 +76,7 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
       {request.status === RequestStatus.pending && !isCav && (
         <ButtonContainer>
           <StepBackButton
-            onClick={() => handleRequest({ status: RequestStatus.cancelled })}
+            onClick={() => handleRequest({ status: RequestStatus.removed })}
           >
             {t('timeline.cancelRequest')}
           </StepBackButton>
@@ -100,7 +86,13 @@ const BottomPanel: React.FC<TimelineActionsProps> = ({
       {(showRating || (finishedRequest && !isCav)) && (
         <MiddleAlignedColumn>
           <p>
-            {t('timeline.ratingQuestion')} <b>{currentUser.displayName}</b>?
+            {t('timeline.ratingQuestion')}{' '}
+            <b>
+              {isCav
+                ? request.pinUserSnapshot.displayName
+                : request.cavUserSnapshot?.displayName}
+            </b>
+            ?
           </p>
 
           <StarContainer>
@@ -199,32 +191,7 @@ const ButtonContainer = styled(FlexDiv)`
     width: 100%;
   }
 `;
-/* TODO:  Check if there is any useful code here
-This was the original code but wasn't working well.
-PrimaryButton has been replaced with ButtonForward
 
-const PrimaryButton = styled(Button)`
-  background-color: ${COLORS.success};
-  border-color: ${COLORS.success};
-  color: white;
-
-  &:nth-of-type(2) {
-    margin-left: 12px;
-  }
-
-  &:hover {
-    background-color: ${COLORS.success};
-    border-color: ${COLORS.success};
-    color: white;
-  }
-
-  &:focus {
-    background-color: ${COLORS.success};
-    border-color: ${COLORS.success};
-    color: white;
-  }
-`;
-*/
 const StarContainer = styled('div')`
   padding-bottom: 1em;
 `;
@@ -262,5 +229,20 @@ const RatingModal = styled(Modal)`
     margin-bottom: 0.5em;
   }
 `;
+
+export interface TimelineActionsProps {
+  request: RequestWithOffersAndTimeline;
+  currentUser: User;
+  handleRequest: ({
+    status,
+    pinRating,
+    cavRating,
+  }: {
+    status?: RequestStatus;
+    pinRating?: number;
+    cavRating?: number;
+  }) => void;
+  isCav: boolean;
+}
 
 export default BottomPanel;

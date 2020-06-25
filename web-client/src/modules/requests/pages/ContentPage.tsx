@@ -1,7 +1,7 @@
 import React, { lazy, ReactElement, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 
+import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import { AcceptedRequestsLocation } from './routes/AcceptedRequestsRoute/constants';
 import { ArchivedRequestsLocation } from './routes/ArchivedRequestsRoute/constants';
 import { FindRequestsLocation } from './routes/FindRequestsRoute/constants';

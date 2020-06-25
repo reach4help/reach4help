@@ -1,312 +1,326 @@
 {
   "common": {
-    "i_understand": "I understand.",
-    "okay": "Okay",
-    "cancel": "Cancel",
-    "welcome": "Welcome",
-    "continue": "Continue",
-    "verify": "Verify",
-    "spinner": "Loading ...",
-    "name": "Name",
-    "full_name": "Full name",
-    "display_name": "Display name",
-    "display_name_placeholder": "Name used in greetings, defaults to 1st name",
-    "address": "Address",
-    "address1": "Address line 1",
-    "address2": "Address line 2 (optional)",
-    "city": "City",
-    "code": "Postal / Zip Code",
-    "State": "State / Province",
-    "country": "Country",
-    "for": " for ",
+    "i_understand": "Я понимаю.",
+    "okay": "Окей",
+    "cancel": "Отменить",
+    "welcome": "Добро пожаловать",
+    "continue": "Продолжить",
+    "verify": "Проверить",
+    "spinner": "Загружается ...",
+    "name": "Название",
+    "full_name": "Полное имя",
+    "display_name": "Имя",
+    "display_name_placeholder": "Имя используемое в приветствиях, по умолчанию Имя",
+    "address": "Адрес",
+    "address1": "Адрес (1-я строка)",
+    "address2": "Адрес 2 (необязательно)",
+    "city": "Город",
+    "code": "Почтовый индекс",
+    "State": "Штат / Область",
+    "country": "Страна",
+    "for": " для ",
     "information_modal": {
-      "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
-      "a11y_logo": "Reach for Help logo",
+      "instructions": "Инструкции",
+      "footer": "Если у вас есть вопросы или вам нужна помощь, пишите нам на support@reach4help.org.",
+      "a11y_logo": "Получить логотип справки",
       "OpenRequestsContainer": {
-        "title": "Still lookng for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
-        "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "title": "Все еще ищет помощь ...",
+        "0": "Ваши запросы отсутствуют, но никто еще не вызвался помочь",
+        "1": "Вы также будете получать уведомления об изменении статуса ваших запросов.",
+        "2": " Если у вас есть вопросы или трудности с этим, пишите на support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "Кто-то предложил помочь!",
+        "0": "Кто-то предложил помочь.",
+        "1": "Свяжитесь с ними по телефону для уточнения деталей."
       },
       "OngoingRequestsContainer": {
-        "title": "Matched with a Volunteer!",
-        "0": "You matched with someone who is taking care of your request."
+        "title": "Совпадение с волонтером!",
+        "0": "Вы подошли к тому, кто заботится о вашем запросе."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "Все готово!",
+        "0": "Вы и волонтер согласны с тем, что все сделано."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "Вы решили не делать это",
+        "0": "Вы изменили свой разум и удалили свой запрос."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "Просмотреть каждый шаг вашего запроса",
+        "0": "Запрос создан.",
+        "1": "Кто-то предлагает помощь.",
+        "2": "При принятии или отклонении предложения",
+        "3": "Проект завершен.",
+        "4": "Проект завершен.",
+        "5": "Проект завершен.",
+        "6": "Добровольцы и люди, нуждающиеся в помощи."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "title": "Использование кнопок внизу",
+        "0": "Нажмите левое меню, чтобы отслеживать каждый шаг вашего запроса",
+        "1": "Открыть: Запросы, которые нуждаются в волонтере",
+        "2": "Кто-то предложил помочь.",
+        "3": "Текущее: Ваш запрос сейчас работает с волонтером.",
+        "4": "Завершено: Волонтёр выполнил запрос.",
+        "5": "В архиве: Запросы, которые вы удалили.",
+        "6": "Нажмите левый колонок, чтобы увидеть ваши уведомления"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
-        "6": "Thank you for joining us in building this unified platform of help!"
+        "title": "Добро пожаловать в Reach4Help!",
+        "0": "Спасибо за присоединение к Reach4Help!",
+        "1": "Как волонтер, вы сможете помочь людям, находящимся в вашей области, отвечая на их запросы о помощи.",
+        "2": "Используйте эту карту для поиска нуждающихся в ней людей.",
+        "3": "Нажмите на оранжевый маркер, чтобы просмотреть запрос этого человека и решить, принять ли его",
+        "4": "Как только человек примет ваше предложение о помощи, вы будете обмениваться контактной информацией.",
+        "5": "Проверьте панель уведомлений, чтобы увидеть обновления о ваших предложениях для помощи.",
+        "6": "Благодарим Вас за присоединение к нам в создании этой единой платформы помощи!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
-        "2": "Check the Notifications panel to see updates about your incoming offers.",
-        "3": "Once you accept an offer, your information will be shared with the volunteer.",
-        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+        "title": "Добро пожаловать в Reach4Help!",
+        "0": "Благодарим вас за присоединение к Reach4Help! Как человек в этом нуждается, вы сможете связаться с вами для помощи в вашем районе, создав запросы. В настоящее время мы не можем гарантировать, что есть добровольцы, которые могут помочь в вашей области. в этом случае мы предлагаем поделиться им с потенциальными добровольцами и местными добровольческими организациями. Благодарим Вас за присоединение к нам в создании этой единой платформы помощи!",
+        "1": "Благодарим вас за отправку запроса! Вы будете уведомлены, когда предложения добровольца принять его. Чтобы проверить его статус, нажмите или проверьте ",
+        "2": "Проверьте панель уведомлений, чтобы увидеть обновления о ваших предложениях для помощи.",
+        "3": "Как только вы примете предложение, ваша информация будет передана волонтеру.",
+        "4": "Свяжитесь с волонтером (или дождитесь того, чтобы он связался с вами) для координации."
       }
     },
     "login": {
       "title": "Reach4Help",
-      "sub_title": "Please Note",
-      "info": "We are only allowing Facebook Users with a verified account 6 months or older for safety. \nWe are working hard to bring more ways to login in the future. \nThank you for your patience.",
-      "facebookButtonLabel": "Continue with Facebook"
+      "sub_title": "Регистрация",
+      "info": "Привет! Большое спасибо за интерес к помощи вашему сообществу! Для обеспечения безопасности наших пользователей, в настоящее время нам требуется войти через Google или Facebook, чтобы подтвердить вашу личность и связаться с вами при возникновении расхождений.\n\nПосле этого шага вас попросят предоставить ваш номер телефона и проверить его с помощью кода, который вы получите с помощью текста. Так люди с предложением помощи свяжутся с вами! Контактная информация передается другому лицу только после того, как вы одобрили лицо, предлагающее им помочь. Когда вы подаете запрос на помощь, ваше точное местоположение не разделено (только первые три цифры почтового индекса).\nБлагодарим вас за сотрудничество в создании нашего мира как более безопасного и полезного места! Если у вас есть какие-либо вопросы, пожалуйста, свяжитесь с нами по адресу support@reach4help. rg.",
+      "facebookButtonLabel": "Продолжить с Facebook",
+      "googleButtonLabel": "Войти через Google"
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
-      "switchToCAV": "Switch to Volunteer",
-      "switchToPIN": "Switch to Person In Need"
+      "contactUs": "Напишите нам",
+      "logout": "Выйти из учетной записи",
+      "switchToCAV": "Переключиться на поддержку предложения",
+      "switchToPIN": "Переключиться на помощь по поиску"
     },
     "phoneNumber": {
-      "select_instructions": "Pick from the dropdown below",
-      "input_instructions": "Enter your digits",
-      "sub_title": "Enter your telephone number to begin",
-      "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!",
-      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!",
-      "no_country_error": "A country must be chosen.",
-      "no_digits_error": "You must enter the phone digits too.",
-      "is_valid_number": "is a valid telephone number",
-      "is_not_valid_number": "is not a valid telephone number",
-      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
-      "country_label": "Your country",
-      "country_placeholder": "Select a country",
-      "phone_label": "Enter your phone number",
-      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
+      "select_instructions": "Выберите из выпадающего списка ниже",
+      "input_instructions": "Введите свой 4-значный PIN-код",
+      "sub_title": "Введите ваш номер телефона для входа",
+      "info": "Эта информация является основополагающей для вашей учетной записи. Данные и ставки могут применяться.",
+      "error_message": "Пожалуйста, введите номер телефона!",
+      "phone_valid": "Валидный номер телефона начинается с + и кода страны без пробелов или других специальных символов в поле!",
+      "no_country_error": "Необходимо выбрать страну.",
+      "no_digits_error": "Вы также должны ввести телефонные цифры.",
+      "is_valid_number": "является действительным номером телефона",
+      "is_not_valid_number": "является действительным номером телефона",
+      "is_plus_11": " неверный номер телефона. Не вводите код вашей страны в поле ввода. Используйте только выбор страны",
+      "country_label": "Ваша страна",
+      "country_placeholder": "Название страны",
+      "phone_label": "Введите свой номер телефона",
+      "bad_11_prefix": "Недопустимое число: +11 является префиксом страны для Болгарии, а не Канады или США. Не ставите '1' в качестве ведущей цифры"
     },
     "verificationCode": {
-      "sub_title": "We just texted you a confirmation code. Please enter it below.",
-      "info": "If you did not receive a code please click ",
-      "resend": "resend",
-      "error_message": "Insert the received number here!"
+      "sub_title": "Мы только что отправили вам код подтверждения. Пожалуйста, введите его ниже.",
+      "info": "Если вы не получили код, нажмите ",
+      "resend": "переотправить",
+      "error_message": "Вставьте полученный номер здесь!"
     },
     "user_data_form": {
-      "sub_title": "Please fill out the personal details below.",
-      "gps_button": "Use GPS to get my address",
-      "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
-      "learn_reactivate": "Learn how to reactivate geolocation",
-      "retry_geolocation": "Retry Geolocation",
-      "continue_without_geolocation": "Continue without Geolocation",
-      "go_back": "Go Back",
-      "geolocation_modal_title": "Geolocation is not authorized",
-      "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
-      "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
-      "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
-      "instructions_modal_title": "Instructions:",
-      "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
-      "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
-      "policy_link": "Privacy & Security Policy.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
-      "terms_conditions_text": "I understand and acknowledge the ",
-      "terms_conditions_link": "Terms & Conditions.",
-      "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "Please enter your name.",
-      "display_name_error_message": "Please enter your display name.",
-      "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+      "sub_title": "Пожалуйста, заполните данные ниже.",
+      "gps_button": "Использовать GPS для получения моего адреса",
+      "gps_unavailable_retry_button": "Геолокация недоступна. Повторите попытку.",
+      "learn_reactivate": "Узнайте, как активировать геолокацию",
+      "retry_geolocation": "Получить геолокацию",
+      "continue_without_geolocation": "Продолжить без определения местонахождения",
+      "go_back": "Назад",
+      "geolocation_modal_title": "Получение координат запрещено",
+      "geolocation_modal_text": "Вы можете добавить ваше местоположение вручную, но это поможет нам получить вашу позицию более точно, если вы будете использовать геолокацию. Пожалуйста, выберите один из вариантов ниже:",
+      "geolocation_unavailable_title": "К сожалению, мы еще не доступны в вашем местоположении",
+      "geolocation_unavailable_text": "К сожалению, ваше местоположение пока не поддерживается на нашей платформе. Вы будете уведомлены по SMS или электронной почте, как только наше приложение станет доступно в вашем местоположении.",
+      "instructions_modal_title": "Инструкции:",
+      "instructions_modal_text": "Вы можете добавить ваше местоположение вручную, но это поможет нам получить вашу позицию более точно, если вы будете использовать геолокацию. Пожалуйста, выберите один из вариантов ниже:",
+      "policy_text": "Мы нуждаемся в этих данных, чтобы убедиться, что помощь достигла правильного места назначения. По любым вопросам обращайтесь к нашей ",
+      "policy_link": "Политика конфиденциальности и безопасности.",
+      "accept_to_use_profile_pic": "Я отлично позволю Reach4Help использовать фотографию моего профиля.",
+      "terms_conditions_text": "Я понимаю и признаю ",
+      "terms_conditions_link": "Условия предоставления сервиса",
+      "terms_conditions_error": "Вы должны принять условия.",
+      "full_name_error_message": "Пожалуйста, введите свое имя.",
+      "display_name_error_message": "Введите отображаемое имя.",
+      "address_error_message": "Пожалуйста, введите Ваш адрес.",
+      "allow_send_notifications": "Я хотел бы Reach4Help отправлять мне уведомления и электронные письма."
     },
     "newRequest": {
-      "title": "New Request",
-      "icon_text": "I need help",
+      "title": "Новый запрос",
+      "icon_text": "Мне нужна помощь",
       "form": {
-        "title": "Title",
-        "type": "Type",
-        "address": "Confirm Address",
-        "body": "Enter details of what is needed",
-        "other": "Please enter your type",
-        "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Next",
-        "cancel": "Cancel",
-        "search": "Search",
-        "useMyLocation": "Use my location",
-        "address_error_message": "Please enter your address.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "title": "Название",
+        "type": "Тип",
+        "address": "Подтвердите адрес",
+        "body": "Введите данные о необходимом",
+        "other": "Пожалуйста, введите свое имя",
+        "consent": "Разрешить push-уведомления. Вы всегда можете изменить это в настройках позже.",
+        "submit": "Следующий",
+        "cancel": "Отменить",
+        "search": "Поиск",
+        "useMyLocation": "Найти меня на карте",
+        "address_error_message": "Пожалуйста, введите Ваш адрес.",
+        "type_error_message": "Вы должны указать сумму.",
+        "other_error_message": "Введите название.",
+        "body_error_message": "Пожалуйста, введите описание проблемы."
       }
     },
     "newRequestSuccess": {
-      "title": "Your request has been created",
-      "info": "Please be patient until you get an offer from a volunteer.",
-      "remember": "Remember",
-      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      "title": "Ваше обращение принято.",
+      "info": "Пожалуйста, будьте терпеливы, пока вы не получите предложение от волонтера.",
+      "remember": "Запомнить",
+      "remember_info": "Как только волонтер предложит вам помощь, вы должны принять их помощь, чтобы они могли увидеть вашу контактную информацию."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
-      "deliveryAddress": "Delivery address"
+      "submit": "Подать запрос",
+      "back": "Назад",
+      "deliveryAddress": "Адрес доставки"
     },
     "roleinfo": {
       "title": "Reach4Help",
-      "sub_title": "How can we assist you ?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
-      "info": "Please tell us what is your purpose to use Reach4Help",
-      "info_pin": "I'm here because I need help",
-      "c2a_pin": "Get help now!",
-      "info_cav": "I'm here because I want to help people",
-      "c2a_cav": "Start helping now!"
+      "sub_title": "Как мы можем Вам помочь?",
+      "manifesto": "Мы считаем, что все, что мы делаем, имеет смысл, и мы считаем, что мы способны помочь людям в их совместном чувстве и общности. Мы считаем, что солидарность открывает перед людьми лучшие возможности.",
+      "info": "Пожалуйста, сообщите нам, что вы хотите использовать Reach4Help",
+      "info_pin": "Я здесь, потому что мне нужна помощь",
+      "c2a_pin": "Получить помощь сейчас",
+      "info_cav": "Я здесь, потому что хочу помочь людям",
+      "c2a_cav": "Начать учиться сейчас!"
     },
     "routeSubtitles": {
-      "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
-      "_personal-data": "Personal Data",
-      "_timeline": "Request Timeline",
-      "_personal-data_role-info": "Role Info",
-      "_phone_entry": "Enter Phone Number",
-      "_phone_verify": "Verifying Phone Number",
-      "_requests_accepted": "Accepted Requests",
-      "_requests_archived": "Closed Requests",
-      "_requests_find": "Find Requests",
-      "_requests_finished": "Completed Requests",
-      "_requests_new": "New Request",
-      "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_login": "LOGIN",
+      "_phone": "Телефон",
+      "_requests": "Запросы",
+      "_personal-data": "Личные данные",
+      "_timeline": "Хронология запроса",
+      "_personal-data_role-info": "Информация о роли",
+      "_phone_entry": "Введите номер телефона",
+      "_phone_verify": "Подтвердить номер телефона",
+      "_requests_accepted": "Подтвердить запрос",
+      "_requests_archived": "Закрытые запросы",
+      "_requests_find": "Найти запросы",
+      "_requests_finished": "Запрос к %s завершен",
+      "_requests_new": "Новый запрос",
+      "_requests_ongoing": "Текущие Соревнования",
+      "_requests_open": "Открытые запросы:"
     },
     "timeline": {
-      "CREATE_REQUEST": "{{actorName}} created this request.",
-      "CANCEL_REQUEST": "{{actorName}} closed this request.",
-      "REMOVE_REQUEST": "{{actorName}} removed this request",
-      "COMPLETE_REQUEST": "Request has been completed.",
-      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
-      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
-      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
-      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
-      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
-      "open_status": "Open",
-      "cav": "Volunteer",
-      "cav_wait": "WAITING FOR VOLUNTEER",
-      "address": "Delivery Address",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
-      "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "CREATE_REQUEST": "{{actorName}} создал этот запрос.",
+      "CANCEL_REQUEST": "{{actorName}} создал этот запрос.",
+      "REMOVE_REQUEST": "{{actorName}} создал этот запрос",
+      "COMPLETE_REQUEST": "Оплата прошла успешно.",
+      "CREATE_OFFER": "{{actorName}} предложил помочь с этим запросом.",
+      "CAV_DECLINED": "{{actorName}} rejected this request.",
+      "ACCEPT_OFFER": "{{actorName}} принял помощь {{cavUserName}}.",
+      "REJECT_OFFER": "{{actorName}} принял помощь {{cavUserName}}.",
+      "RATE_PIN": "{{actorName}} оценил {{actedUpon}}.",
+      "RATE_CAV": "{{actorName}} оценил {{actedUpon}}.",
+      "open_status": "Открыть",
+      "cav": "Волонтер",
+      "cav_wait": "ОЖИДАНИЕ ВАЛЮТЫ",
+      "address": "Адрес доставки:",
+      "cancelRequest": "Отменить запрос",
+      "finishRequest": "Найти запросы",
+      "ratingQuestion": "Как бы вы оценили ваш опыт",
+      "submitRatingButton": "Отправить оценку",
+      "finishRequestModalParta": "Вы уверены, что хотите закончить",
+      "finishRequestModalPartb": "от",
+      "thankYouModalTitle": "Спасибо!",
+      "thankYouModalBodyParta": "Вы оценили",
+      "thankYouModalBodyPartb": "с"
     },
     "modules": {
+      "timeline": {
+        "components": {
+          "OffersList": {
+            "miles": "м.",
+            "kilometers": "километры",
+            "reject": "Отклонить",
+            "accept": "Принимаю",
+            "volunteer_select": "Выберите Волонтёра"
+          }
+        }
+      },
       "navigation": {
         "components": {
           "Header": {
-            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
-            "remember": "REMEMBER",
-            "requests": "Requests"
+            "reject_reminder": " Если вы отклоните эту помощь, ваш запрос вернется к списку доступных запросов, но он потеряет приоритет.",
+            "remember": "УДАЛИТЬ",
+            "requests": "Запросы"
           },
           "TopPanel": {
-            "a11y_back_nav": "Back navigation icon",
-            "a11y_display_photo": "Display photo",
-            "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon"
+            "a11y_back_nav": "Кнопка \"Назад\"",
+            "a11y_display_photo": "Показать фото",
+            "a11y_location_icon": "Иконка местоположения",
+            "a11y_phone_icon": "Мобильные иконки",
+            "a11y_sms_icon": "Значок SMS"
           }
         }
       },
       "personal-data": {
         "containers": {
           "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
-            "missing_data": "Missing Data!"
+            "address_error": "К сожалению, мы не смогли определить ваш фактический адрес, попробуйте еще раз!",
+            "missing_data": "Отсутствующие данные!"
           }
         }
       },
       "requests": {
-        "a11y_profile_pic": "Profile Pic",
+        "a11y_profile_pic": "Пик профиля",
         "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+          "choose_volunteer": "Выберите из следующих волонтеров, чтобы выполнить ваш запрос."
         },
-        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
-        "cannot_help": "Cannot Help",
+        "bottom_warning": "Ваш запрос был рассмотрен несколькими добровольцами, но не был принят. Мы рекомендуем вам &ldquo;закрыть запрос&rdquo; и создать новый с более простым описанием.",
+        "cannot_help": "Не можете отправить",
         "containers": {
           "AcceptedRequestContainer": {
-            "accepted": "Accepted"
+            "accepted": "Принятые"
           },
           "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
+            "want_to_help": "Я хочу Продать"
           },
           "FinishedRequestsContainer": {
-            "finished": "Finished"
+            "finished": "Готово"
           },
           "NewRequestsContainer": {
-            "address_error": "Unable to find address",
-            "deliveries": "Deliveries"
+            "address_error": "Не удалось найти адрес",
+            "deliveries": "Доставки"
           },
           "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
+            "ongoing": "Текущие"
           },
           "OpenRequestContainer": {
-            "open": "Open"
+            "open": "Открыть"
           },
-          "no_reply": "No one has replied to your request."
+          "no_reply": "Никто не ответил на ваш запрос."
         }
       }
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "загружается ..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
-        "notifications": "Notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
-        "pin_rejected": "You have rejected help from ",
-        "request_author": "The request_author",
-        "volunteer_accepted": " accepted your offer for ",
-        "your_task": "your task"
+        "a_request": "запрос",
+        "already_helped": " уже получает помощь в ",
+        "cav_declined_help": " отказался помогать в ",
+        "cav_offer": "Вы предложили помощь для ",
+        "no_notifications": "Нет новых уведомлений.",
+        "notifications": "Уведомления",
+        "offered_help": " предложил помощь через ",
+        "pin_accepted": "Вы предложили помощь для ",
+        "pin_declined_help": "Вы предложили помощь для ",
+        "pin_rejected": "Вы предложили помощь для ",
+        "request_author": "Запрос_автор",
+        "volunteer_accepted": " принял ваше предложение на ",
+        "your_task": "Ваши задачи"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "Свое местоположение",
+        "a11y_destination": "Куда:",
+        "api_error": "Не удалось установить сопряжение",
+        "distance_error": "Ошибка службы расстояния:",
+        "geocode_error": "Геокодирование не удалось"
       }
     }
   }

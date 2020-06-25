@@ -1,201 +1,201 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "inFrameLink": "About this map / add information",
+  "title": "COVID-19 Wederzijdse Hulpkaart",
+  "inFrameLink": "Over deze kaart / voeg informatie toe",
   "aboutScreen": {
-    "intro": "We believe solidarity brings out the best in individuals.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "intro": "Wij zijn van mening dat solidariteit het beste is van individuen.",
+    "info": "Om mensen te helpen bij het vinden en aansluiten bij hun wederzijdse hulpinspanningen waar ze wonen, bied inspiratie aan om zelf te beginnen. en/of het simpelweg optillen van gedistilleerde dranken, presenteert deze kaart een groeiende lijst van wereldwijde projecten voor wederzijdse hulpverlening als pandemie.",
+    "warning": "Opmerking: elk project is autonoom en zelfgeorganiseerd; velen gebruiken publieke spreadsheets om informatie te delen, dus wees voorzichtig bij het invoeren van privéinformatie die je niet openbaar wilt zijn.",
+    "project": "Deze kaart is onderdeel van {reach4Help}, een vrijwillig project. Het is open source en kan {githubSource}zijn. Voor vragen kun je ons bereiken zoals bij {email}.",
+    "githubSourceLabel": "Broncode op GitHub",
+    "otherAreasHeading": "Geïnteresseerd op een van deze gebieden?",
+    "otherAreasInfo": "Bekijk in plaats daarvan deze alternatieve kaarten:",
     "otherAreasLocations": {
-      "france": "France",
+      "france": "Frankrijk",
       "nyc": "New York"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "sourceHeading": "Hoe kwam deze berekening tot stand?",
+    "sourceInfo": "De informatie op deze kaart is een combinatie van gegevens die zijn verzameld door onze vrijwilligers, ingediend door onze gebruikers, en aangeboden door andere vrijwilligersprojecten, waaronder {mutualaidwiki} en {mutualaidhub}.",
+    "sourceSubmit": "We raden u aan om {addinfo} te gebruiken voor projecten waarvan u weet dat ze nog niet op de kaart staan.",
+    "sourceSubmitButton": "informatie toevoegen",
+    "usageHeading": "Mag ik deze gegevens gebruiken voor mijn eigen project?",
+    "usageInfo": "U bent welkom om de gegevens van onze kaart te gebruiken voor uw eigen projecten, zolang u de desbetreffende licenties volgt.",
+    "usageLicenses": "Gegevens die worden verstrekt door onze vrijwilligers en gebruikers zijn gelicentieerd onder een {license}, en gegevens uit andere bronnen worden beschikbaar gesteld onder hun respectieve licenties.",
+    "usageApi": "Je hebt toegang tot de onbewerkte gegevens, samen met details over hoe elk data-punt gelicentieerd is, via de volgende URL: {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "Over",
+    "map": "Bekijk Kaart"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "E-mail ons",
+    "twitter": "Volg ons op Twitter",
+    "facebook": "Vind ons leuk op Facebook",
+    "github": "Fork ons op GitHub"
   },
   "addInformation": {
-    "button": "Add information",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "button": "Informatie toevoegen",
+    "backToMap": "Naar kaart",
+    "prev": "Vorige",
+    "continue": "Doorgaan",
+    "submit": "Toestaan",
+    "addMore": "Meer informatie toevoegen",
+    "tryAgain": "Probeer opnieuw",
     "screen": {
-      "title": "Add information to this map",
+      "title": "Voeg informatie toe aan deze kaart",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
-        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "acceptedInformation": "Op dit moment verstrekken we alleen informatie over organisaties of bedrijven die hulp en bijstand verlenen, regionale specifische initiatieven voor financiële bijstand en wederzijdse hulporganisaties. We accepteren op dit moment geen informatie over personen die hulp bieden.",
+        "intro": "Vul het formulier hieronder in om de informatie toe te voegen. We zullen u daarna om locatie en contactgegevens vragen.",
         "form": {
-          "type": "Type of project / group / organization / initiative",
-          "typePleaseSelect": "Please select type",
-          "services": "Services or support that this organization / company provides",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "type": "Type project / groep / organisatie / initiatief",
+          "typePleaseSelect": "Selecteer een type",
+          "services": "Diensten of ondersteuning die deze organisatie / bedrijf biedt",
+          "name": "Naam van het project / groep / organisatie",
+          "namePlaceholder": "bijv. wederzijdse hulp Antarctica",
+          "description": "(optioneel) Een gedetailleerde beschrijving van het project / groep / organisatie en wat het beoogt te doen om wederzijdse hulp te vergemakkelijken",
+          "locationName": "Omschrijf het geografische gebied in dienst. Bijv. Landen, staten, gemeentes, steden etc...",
+          "locationNamePlaceholder": "Bijvoorbeeld San Francisco Bay Area, CA, VS",
+          "continue": "Klik verder om locatiegegevens in te voeren"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "Als u informatie wilt indienen over een nieuwe wederzijdse hulpgroep, bezoek dan in plaats daarvan {link} . Groepen toegevoegd daar zullen automatisch worden opgenomen in onze kaart."
       },
       "placeMarker": {
-        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
+        "instructions": "Zoek de ruimte die aangeboden wordt door dit project / groep / organisatie / initiatief door te klikken op de kaart om een markering te plaatsen, vervolgens de grootte van de cirkel aanpassen zodat ook het gebied waar nodig wordt opgenomen.",
+        "continue": "Zodra u tevreden bent met de locatie, klik op doorgaan met het toevoegen van contactinformatie.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
-        "deleteInfo": "Delete",
+        "header": "Contactgegevens voor {name}",
+        "info": "Bijna klaar! Voer informatie in over hoe mensen contact kunnen opnemen met {name}. Als er specifieke contactmethoden zijn die moeten worden gebruikt om vrijwillig te helpen, of om hulp aan te vragen, voer die dan alstublieft in!",
+        "deleteInfo": "Verwijderen",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "Verberg lege contactinformatie",
+          "volunteers": "Contactinformatie voor vrijwilligers toevoegen",
+          "getHelp": "Voeg contactinformatie toe voor mensen die hulp nodig hebben"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "Contactgegevens selecteren",
+          "volunteers": "Contact info voor vrijwilligers",
+          "getHelp": "Voeg contactinformatie toe voor mensen die hulp nodig hebben"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "Nummers weergeven",
+          "email": "E-mailadressen",
+          "web": "Weblink (URL)"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
+          "phone": "Een telefoonnummer toevoegen",
+          "email": "Een e-mailadres toevoegen",
           "webURL": "URL",
-          "webLabel": "Name"
+          "webLabel": "Naam"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "Gegevens verzenden naar map...",
+        "error": "Fout bij opslaan informatie",
+        "success": "Uw formulier is succesvol ingediend",
+        "successExtra": "Voordat we uw gegevens zichtbaar maken op de kaart, moet deze worden beoordeeld door een vrijwilliger van ons team. Hopelijk zal dit binnen een paar dagen gebeuren."
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "missingType": "Selecteer het type van het project / groep / organisatie",
+      "missingServices": "Controleer alle diensten van deze organisatie (minimaal 1 is vereist)",
+      "missingTitle": "Voer de naam in van het project / groep / organisatie",
+      "missingLocationName": "A.u.b. geef een beschrijving van de bug die u wil raporteren.",
+      "markerRequired": "Klik op de kaart om in het servicegebied te gaan voordat u doorgaat.",
+      "noContactDetails": "Voer contactgegevens in voor ten minste één categorie",
+      "emptyContactSection": "Voer a.u.b. contactgegevens in voor {section} of verwijder deze",
+      "urlMissingLabel": "Een URL voor {section} mist een naam",
+      "urlMissingURL": "URL voor {section} ontbreekt de URL",
+      "dataError": "Er was een probleem met de informatie die je hebt ingediend, ga terug en probeer het opnieuw",
+      "submitError": "Er is een fout opgetreden bij het instellen van de automatisch toegewezen persoon. Probeer het later nogmaals.",
+      "mutualAidGroupsNotAccepted": "Voer in plaats daarvan informatie in over nieuwe wederzijdse hulporganisaties op {link}."
     }
   },
   "buttons": {
-    "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+    "fullScreen": "Volledig Scherm",
+    "exitFullScreen": "Volledig scherm verlaten"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "Bezig met laden...",
+  "filterBy": "Filteren op",
   "services": {
-    "any": "Any",
-    "food": "Food",
-    "medicine": "Medicine",
-    "supplies": "Other Supplies",
-    "mobility": "Mobility",
-    "shelter": "Shelter",
-    "support": "Support",
-    "information": "Information",
-    "network": "Network",
-    "manufacturing": "Manufactoring",
-    "financial": "Financial",
-    "other": "Other"
+    "any": "Elke",
+    "food": "Voedsel",
+    "medicine": "Geneeskunde",
+    "supplies": "Opgeslagen Voorraden",
+    "mobility": "Mobiliteit",
+    "shelter": "Schuilplaats",
+    "support": "Ondersteuning",
+    "information": "Informatie",
+    "network": "Netwerk",
+    "manufacturing": "Productie",
+    "financial": "Financieel",
+    "other": "Overig"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "Bevoorraden, behalve voedsel of medicijnen,",
+    "mobility": "Mensen verplaatsen van de ene locatie naar de andere",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "Ondersteuning afgestemd op specifieke kwetsbare groepen, zoals daklozen, mensen die gevaar lopen door huiselijk misbruik, etc...",
+    "information": "Help mensen relevante informatie te vinden",
+    "network": "Voordelen van netwerken om hulp te bieden, bijvoorbeeld tussen wederzijdse hulporganisaties",
+    "manufacturing": "Biedt voorraden of productiecapaciteit die nodig zijn om de crisis het hoofd te bieden",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Iets anders niet in deze lijst"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "Wederzijdse Hulpgroep",
+    "org": "Organisatie / bedrijf",
+    "financial": "Financieel",
+    "information": "Informatie",
+    "other": "Overig"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "wederzijdse Hulpgroep",
+    "org": "organisatie / bedrijf",
+    "project": "Projecten"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "Spring naar een locatie op de kaart...",
+    "updateResultsForThisArea": "Update de resultaten voor dit gebied",
+    "myLocation": "Mijn locatie"
   },
   "results": {
-    "backToResults": "Back to results",
+    "backToResults": "Ga terug naar resultaat",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "showMore": "Toon meer resultaten",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "Algemene informatie",
+      "getHelp": "Zoek Hulp",
+      "volunteer": "Vrijwilligers",
+      "facebookGroup": "Facebook groepen"
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "Opmerking",
+        "content": "Opmerking: elk project is autonoom en zelfgeorganiseerd; velen gebruiken publieke spreadsheets om informatie te delen, dus wees voorzichtig bij het invoeren van privéinformatie die je niet openbaar wilt zijn."
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "Informatie over deze {type} wordt verstrekt door {source}."
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "Taal:",
+  "langSelect": "Kies taal",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
+    "netlifyNote": "Deze map {link}",
+    "netlifyLinkText": "is gehost door Netlify",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "codeOfConduct": "Gedragscode",
+    "showHidden": "Verborgen informatie tonen",
+    "hideHidden": "Verborgen informatie tonen"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "visibility: visible;",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "Elke",
+      "visible": "Alleen zichtbaar",
+      "hidden": "Alleen verborgen"
     }
   }
 }

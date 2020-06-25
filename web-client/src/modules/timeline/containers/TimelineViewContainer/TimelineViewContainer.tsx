@@ -8,7 +8,6 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from 'src/components/InformationModal/InformationModal';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -26,12 +25,15 @@ import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
+import { ArchivedRequestsLocation } from 'src/modules/requests/pages/routes/ArchivedRequestsRoute/constants';
 import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
 
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import BottomPanel from '../../components/BottomPanel/BottomPanel';
 import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
+import { TimelineAcceptedViewLocation } from '../../pages/routes/TimelineAcceptedViewRoute/constants';
 import { TimelineViewLocation } from '../../pages/routes/TimelineViewRoute/constants';
 
 const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
@@ -47,6 +49,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   >(undefined);
 
   const [shouldRedirectToFinished, setShouldRedirectToFinished] = useState<
+    boolean
+  >(false);
+
+  const [shouldRedirectToArchived, setShouldRedirectToArchived] = useState<
     boolean
   >(false);
 
@@ -67,28 +73,37 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   });
 
   useEffect(() => {
-    let requestTemp: RequestWithOffersAndTimeline | undefined = requestsState
-      .syncOpenRequestsState.data
-      ? requestsState.syncOpenRequestsState.data[requestId]
-      : undefined;
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
+
+  useEffect(() => {
+    let requestTemp: RequestWithOffersAndTimeline | undefined =
+      requestsState.syncOpenRequestsState.data &&
+      requestsState.syncOpenRequestsState.data[requestId]
+        ? requestsState.syncOpenRequestsState.data[requestId]
+        : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.syncAcceptedRequestsState.data
+      (requestsState.syncAcceptedRequestsState.data &&
+      requestsState.syncAcceptedRequestsState.data[requestId]
         ? requestsState.syncAcceptedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncOngoingRequestsState.data
+      (requestsState.syncOngoingRequestsState.data &&
+      requestsState.syncOngoingRequestsState.data[requestId]
         ? requestsState.syncOngoingRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncArchivedRequestsState.data
+      (requestsState.syncArchivedRequestsState.data &&
+      requestsState.syncArchivedRequestsState.data[requestId]
         ? requestsState.syncArchivedRequestsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
-      (requestsState.syncFinishedRequestsState.data
+      (requestsState.syncFinishedRequestsState.data &&
+      requestsState.syncFinishedRequestsState.data[requestId]
         ? requestsState.syncFinishedRequestsState.data[requestId]
         : undefined);
     setRequest(requestTemp);
@@ -103,12 +118,16 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       if (shouldRedirectToFinished) {
         history.push(FinishedRequestsLocation.path);
       }
+      if (shouldRedirectToArchived) {
+        history.push(ArchivedRequestsLocation.path);
+      }
     }
   }, [
     requestsState.setAction,
     offersState.setAction,
     dispatch,
     shouldRedirectToFinished,
+    shouldRedirectToArchived,
     history,
   ]);
 
@@ -122,9 +141,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         accepted &&
         profileState.profile.applicationPreference === ApplicationPreference.cav
       ) {
-        history.push(TimelineViewLocation.toUrl({ requestId }));
+        history.replace(TimelineViewLocation.toUrl({ requestId }));
       } else {
-        if (!requestsState.syncOpenRequestsState.data) {
+        if (
+          !requestsState.syncOpenRequestsState.data &&
+          !requestsState.syncOngoingRequestsState.loading
+        ) {
           dispatch(
             getOpenRequests({
               userType: profileState.profile.applicationPreference,
@@ -134,7 +156,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
             }),
           );
         }
-        if (!requestsState.syncAcceptedRequestsState.data) {
+        if (
+          !requestsState.syncAcceptedRequestsState.data &&
+          !requestsState.syncAcceptedRequestsState.loading
+        ) {
           dispatch(
             getAcceptedRequests({
               userType: profileState.profile.applicationPreference,
@@ -142,7 +167,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
             }),
           );
         }
-        if (!requestsState.syncOngoingRequestsState.data) {
+        if (
+          !requestsState.syncOngoingRequestsState.data &&
+          !requestsState.syncOngoingRequestsState.loading
+        ) {
           dispatch(
             getOngoingRequests({
               userType: profileState.profile.applicationPreference,
@@ -150,7 +178,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
             }),
           );
         }
-        if (!requestsState.syncFinishedRequestsState.data) {
+        if (
+          !requestsState.syncFinishedRequestsState.data &&
+          !requestsState.syncFinishedRequestsState.loading
+        ) {
           dispatch(
             getFinishedRequests({
               userType: profileState.profile.applicationPreference,
@@ -158,7 +189,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
             }),
           );
         }
-        if (!requestsState.syncArchivedRequestsState.data) {
+        if (
+          !requestsState.syncArchivedRequestsState.data &&
+          !requestsState.syncArchivedRequestsState.loading
+        ) {
           dispatch(
             getArchivedRequests({
               userRef: profileState.userRef,
@@ -171,21 +205,34 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   }, [dispatch, profileState, history, requestId, accepted, requestsState]);
 
   useEffect(() => {
-    if (request && request.status === RequestStatus.ongoing && accepted) {
-      history.push(TimelineViewLocation.toUrl({ requestId }));
-    }
-    if (request && request.offers && accepted) {
-      let shouldRedirect = true;
-      for (const k in request.offers) {
-        if (request.offers[k].status === OfferStatus.pending) {
-          shouldRedirect = false;
+    if (
+      profileState.profile &&
+      profileState.profile.applicationPreference &&
+      profileState.userRef
+    ) {
+      if (request && request.status === RequestStatus.ongoing && accepted) {
+        history.replace(TimelineViewLocation.toUrl({ requestId }));
+      }
+      if (request && request.offers) {
+        let shouldRedirect = true;
+        for (const k in request.offers) {
+          if (request.offers[k].status === OfferStatus.pending) {
+            shouldRedirect = false;
+          }
+        }
+        if (shouldRedirect && accepted) {
+          history.replace(TimelineViewLocation.toUrl({ requestId }));
+        } else if (
+          !shouldRedirect &&
+          !accepted &&
+          profileState.profile.applicationPreference ===
+            ApplicationPreference.pin
+        ) {
+          history.replace(TimelineAcceptedViewLocation.toUrl({ requestId }));
         }
       }
-      if (shouldRedirect) {
-        history.push(TimelineViewLocation.toUrl({ requestId }));
-      }
     }
-  }, [accepted, request, requestId, history]);
+  }, [accepted, request, requestId, history, profileState]);
 
   if (!(profileState.profile && request)) {
     return <LoadingWrapper />;
@@ -211,6 +258,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         (updated.cavRatedAt = firestore.Timestamp.now());
       if (updated.status === RequestStatus.ongoing && updated.pinRatedAt) {
         setShouldRedirectToFinished(true);
+      }
+      if (updated.status === RequestStatus.completed && updated.cavRatedAt) {
+        setShouldRedirectToArchived(true);
       }
       dispatch(updateRequest(updated.toObject() as IRequest, requestId));
     }
@@ -254,6 +304,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     <>
       <TopPanel
         request={request}
+        goBack={() => {
+          dispatch(resetSetRequestState());
+          setTimeout(() => {
+            history.goBack();
+          }, 100);
+        }}
         user={
           profileState.profile.applicationPreference ===
           ApplicationPreference.cav

@@ -24,7 +24,7 @@
       "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
       "a11y_logo": "Reach for Help logo",
       "OpenRequestsContainer": {
-        "title": "Still lookng for help ...",
+        "title": "Still looking for help ...",
         "0": "Your requests are out there but no one has yet volunteered to help",
         "1": "You will also be receiving notifications to update you about the status of your requests.",
         "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
@@ -87,15 +87,16 @@
     },
     "login": {
       "title": "Reach4Help",
-      "sub_title": "Bitte beachten Sie:",
-      "info": "Wir akzeptieren aus Sicherheitsgründen nur Facebook-Nutzer mit einem überprüften mindestens 6 Monate alten Nutzerkonto. \nWir arbeiten unermüdlich daran, weiter Möglichkeiten des  Zugangs zu schaffen. \nVielen Dank für ihre Geduld.",
-      "facebookButtonLabel": "Über Facebook anmelden"
+      "sub_title": "Sign Up Overview",
+      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
+      "facebookButtonLabel": "Über Facebook anmelden",
+      "googleButtonLabel": "Continue with Google"
     },
     "menuDrawer": {
       "contactUs": "Kontaktieren Sie uns",
       "logout": "Abmelden",
-      "switchToCAV": "Zu Freiwilligen wechseln",
-      "switchToPIN": "Zu Person in Not wechseln"
+      "switchToCAV": "Switch to Offering Support",
+      "switchToPIN": "Switch to Seeking Help"
     },
     "phoneNumber": {
       "select_instructions": "Pick from the dropdown below",
@@ -209,6 +210,7 @@
       "REMOVE_REQUEST": "{{actorName}} removed this request",
       "COMPLETE_REQUEST": "Anfrage wurde abgeschlossen.",
       "CREATE_OFFER": "{{actorName}} offered to help with this request.",
+      "CAV_DECLINED": "{{actorName}} rejected this request.",
       "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
       "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
       "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
@@ -228,6 +230,17 @@
       "thankYouModalBodyPartb": "mit"
     },
     "modules": {
+      "timeline": {
+        "components": {
+          "OffersList": {
+            "miles": "miles",
+            "kilometers": "kilometers",
+            "reject": "Reject",
+            "accept": "Accept",
+            "volunteer_select": "Select A Volunteer"
+          }
+        }
+      },
       "navigation": {
         "components": {
           "Header": {
@@ -239,7 +252,8 @@
             "a11y_back_nav": "Back navigation icon",
             "a11y_display_photo": "Display photo",
             "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon"
+            "a11y_phone_icon": "Phone icon",
+            "a11y_sms_icon": "SMS icon"
           }
         }
       },

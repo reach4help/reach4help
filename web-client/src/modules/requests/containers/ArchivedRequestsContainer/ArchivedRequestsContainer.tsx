@@ -5,12 +5,15 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from 'src/components/InformationModal/InformationModal';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getArchivedRequests } from 'src/ducks/requests/actions';
+import {
+  getArchivedRequests,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import Header from '../../components/Header/Header';
 import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
@@ -25,6 +28,10 @@ const ClosedRequestsContainer: React.FC = () => {
     ({ requests }: { requests: RequestState }) =>
       requests.syncArchivedRequestsState,
   );
+
+  useEffect(() => {
+    dispatch(resetSetRequestState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (profileState.userRef && profileState.profile?.applicationPreference) {
@@ -78,7 +85,5 @@ const ClosedRequestsContainer: React.FC = () => {
     </>
   );
 };
-
-ClosedRequestsContainer.propTypes = {};
 
 export default ClosedRequestsContainer;

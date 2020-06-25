@@ -2,7 +2,7 @@ module.exports = {
   title: "Reach4Help",
   subtitle: "Unifying Help Worldwide",
   description:
-    "Reach4Help is global volunteer-run initiative  connecting global mutual aid movements to people in need in the face of the COVID-19 pandemic and beyond.",
+    "We are a global volunteer-run initiative connecting global mutual aid movements to people in need through the COVID-19 pandemic and beyond.",
   siteURL:
     process.env.GATSBY_SITE_URL ||
     process.env.DEPLOY_PRIME_URL ||
