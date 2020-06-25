@@ -10,50 +10,7 @@ import { RequestInput } from './RequestReview';
 
 const { Option } = Select;
 
-const MainDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  padding: 16px;
-`;
-
-const FormDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-`;
-
-const CharacterLimitDiv = styled.div`
-  font-size: 12px;
-  margin-bottom: 24px;
-`;
-
-const StyledForm = styled(Form)`
-  width: 100%;
-  margin-top: 16px;
-  .ant-form-item-label {
-    line-height: 14px;
-  }
-  label {
-    height: 14px;
-    font-size: 12px;
-  }
-`;
-
-const StyledFormItem = styled(Form.Item)`
-  margin-bottom: 0;
-`;
-
-const MapActionButton = styled(Button)`
-  padding: 10px 10px 30px 10px;
-  border: 1px solid black;
-  border-radius: 17%;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-`;
-
+/* TODO:  type clarification */
 export const REQUEST_TYPES = {
   Deliveries: 'Deliveries',
   Other: 'Other',
@@ -103,16 +60,21 @@ const NewRequest: React.FC<NewRequestProps> = ({
     );
   };
 
+  const LeftLabelColStyle = styled(Col)`
+    font-size: 16x;
+    font-weight: 700;
+  `;
+
   const FormContent = (
     <MainDiv>
       <FormDiv>
-        <TitleWithAddon alignAddon="left" level={3} left="0%" transform="none">
+        <TitleWithAddon level={3} left="0%" transform="none">
           {t('newRequest.title')}
         </TitleWithAddon>
 
         {/* There is a bug with types regarding onFinish - apparently an issue with @types and antd types
         https://github.com/ant-design/ant-design/pull/21067 - If it's not please fix *.* */}
-        <StyledForm
+        <NewRequestForm
           layout="vertical"
           form={form}
           onFinish={values => {
@@ -126,7 +88,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
         >
           <Row justify="space-between" align="middle">
             <Col span={21}>
-              <StyledFormItem
+              <FormItem
                 name="streetAddress"
                 label={t('newRequest.form.address')}
                 rules={[
@@ -137,7 +99,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
                 ]}
               >
                 <Input onChange={e => setStreetAddress(e.target.value)} />
-              </StyledFormItem>
+              </FormItem>
             </Col>
             <Col span={2}>
               <MapActionButton
@@ -156,7 +118,6 @@ const NewRequest: React.FC<NewRequestProps> = ({
           </Row>
           <Form.Item
             name="type"
-            label={t('newRequest.form.type')}
             rules={[
               {
                 required: true,
@@ -164,17 +125,28 @@ const NewRequest: React.FC<NewRequestProps> = ({
               },
             ]}
           >
-            <Select onChange={toggleOtherField}>
-              {Object.keys(REQUEST_TYPES).map(key => (
-                <Option value={key} key={key}>
-                  {' '}
-                  {REQUEST_TYPES[key]}{' '}
-                </Option>
-              ))}
-            </Select>
+            <Row justify="space-between" align="middle">
+              <LeftLabelColStyle lg={3} md={4} sm={6} xs={8}>
+                {t('newRequest.form.type')}
+              </LeftLabelColStyle>
+              <Col md={10} sm={12} xs={14}>
+                <Select
+                  defaultValue={Object.keys(REQUEST_TYPES)[0]}
+                  onChange={toggleOtherField}
+                >
+                  {Object.keys(REQUEST_TYPES).map(key => (
+                    <Option value={key} key={key}>
+                      {' '}
+                      {REQUEST_TYPES[key]}{' '}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col lg={11} md={10} sm={6} xs={2} />
+            </Row>
           </Form.Item>
           {mayBeOtherField()}
-          <StyledFormItem
+          <FormItem
             name="body"
             label={t('newRequest.form.body')}
             rules={[
@@ -188,7 +160,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
               placeholder={t('newRequest.form.body')}
               maxLength={500}
             />
-          </StyledFormItem>
+          </FormItem>
           <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
           <Row>
             <Col span={24}>
@@ -197,13 +169,56 @@ const NewRequest: React.FC<NewRequestProps> = ({
               </StepForwardButton>
             </Col>
           </Row>
-        </StyledForm>
+        </NewRequestForm>
       </FormDiv>
     </MainDiv>
   );
 
   return <>{FormContent}</>;
 };
+const MainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding: 16px;
+`;
+
+const FormDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+`;
+
+const CharacterLimitDiv = styled.div`
+  font-size: 12px;
+  margin-bottom: 24px;
+`;
+
+const NewRequestForm = styled(Form)`
+  width: 100%;
+  margin-top: 16px;
+  .ant-form-item-label {
+    line-height: 14px;
+  }
+  label {
+    height: 14px;
+    font-size: 12px;
+  }
+`;
+
+const FormItem = styled(Form.Item)`
+  margin-bottom: 0;
+`;
+
+const MapActionButton = styled(Button)`
+  padding: 10px 10px 30px 10px;
+  border: 1px solid black;
+  border-radius: 17%;
+  &:hover {
+    background-color: #e0e0e0;
+  }
+`;
 
 interface NewRequestProps {
   onSubmit: Function;

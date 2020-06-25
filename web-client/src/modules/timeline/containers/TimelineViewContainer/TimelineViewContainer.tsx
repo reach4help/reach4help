@@ -8,7 +8,6 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from 'src/components/InformationModal/InformationModal';
-import LoadingWrapper from 'src/components/LoadingWrapper/LoadingWrapper';
 import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -29,6 +28,7 @@ import { ApplicationPreference } from 'src/models/users';
 import { ArchivedRequestsLocation } from 'src/modules/requests/pages/routes/ArchivedRequestsRoute/constants';
 import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
 
+import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import BottomPanel from '../../components/BottomPanel/BottomPanel';
 import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
@@ -191,7 +191,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         }
         if (
           !requestsState.syncArchivedRequestsState.data &&
-          requestsState.syncArchivedRequestsState.loading
+          !requestsState.syncArchivedRequestsState.loading
         ) {
           dispatch(
             getArchivedRequests({

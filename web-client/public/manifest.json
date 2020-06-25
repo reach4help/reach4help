@@ -1,11 +1,12 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Reach4Help",
+  "name": "Reach4Help",
+  "description": "Connecting people in need to people who can help.",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/x-icon",
+      "sizes": "64x64 32x32 24x24 16x16"
     },
     {
       "src": "logo192.png",
@@ -18,8 +19,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
+  "start_url": "/",
+  "display": "fullscreen",
+  "theme_color": "#7F02A2",
   "background_color": "#ffffff"
 }
