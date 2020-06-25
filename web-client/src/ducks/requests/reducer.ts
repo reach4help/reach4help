@@ -283,10 +283,15 @@ export default createReducer<RequestState>(
       state.setAction.loading = false;
       state.setAction.success = false;
       state.syncOpenRequestsState.data = undefined;
+      state.syncOpenRequestsState.loading = false;
       state.syncOngoingRequestsState.data = undefined;
+      state.syncOngoingRequestsState.loading = false;
       state.syncAcceptedRequestsState.data = undefined;
+      state.syncAcceptedRequestsState.loading = false;
       state.syncFinishedRequestsState.data = undefined;
+      state.syncFinishedRequestsState.loading = false;
       state.syncArchivedRequestsState.data = undefined;
+      state.syncArchivedRequestsState.loading = false;
     },
     [CHANGE_MODAL]: (
       state: RequestState,
