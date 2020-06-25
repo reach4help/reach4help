@@ -210,6 +210,7 @@
       "REMOVE_REQUEST": "{{actorName}} usunął to żądanie",
       "COMPLETE_REQUEST": "Płatność została zakończona.",
       "CREATE_OFFER": "{{actorName}} zaoferował/a pomoc przy tym żądaniu.",
+      "CAV_DECLINED": "{{actorName}} rejected this request.",
       "ACCEPT_OFFER": "{{actorName}} zaakceptował pomoc {{cavUserName}}.",
       "REJECT_OFFER": "{{actorName}} odrzucił {{cavUserName}} pomocy.",
       "RATE_PIN": "{{actorName}} ocenił {{actedUpon}}.",

@@ -210,6 +210,7 @@
       "REMOVE_REQUEST": "{{actorName}} 创建了此请求。",
       "COMPLETE_REQUEST": "已完成付款。",
       "CREATE_OFFER": "{{actorName}} 表示愿意帮助处理此请求。",
+      "CAV_DECLINED": "{{actorName}} rejected this request.",
       "ACCEPT_OFFER": "{{actorName}} 接受了 {{cavUserName}} 帮助。",
       "REJECT_OFFER": "{{actorName}} 接受了 {{cavUserName}} 帮助。",
       "RATE_PIN": "{{actorName}} 评分 {{actedUpon}}。",

@@ -210,6 +210,7 @@
       "REMOVE_REQUEST": "{{actorName}} removed this request",
       "COMPLETE_REQUEST": "Anfrage wurde abgeschlossen.",
       "CREATE_OFFER": "{{actorName}} offered to help with this request.",
+      "CAV_DECLINED": "{{actorName}} rejected this request.",
       "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
       "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
       "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
