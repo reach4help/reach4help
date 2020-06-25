@@ -1,6 +1,6 @@
 {
   "common": {
-    "i_understand": "אני מבינ/ה.",
+    "i_understand": "אני מבינ.ה.",
     "okay": "אוקיי",
     "cancel": "בטל",
     "welcome": "ברוך.ה הבא.ה",
@@ -64,15 +64,15 @@
         "3": "בתהליך: מתנדב.ת עובד.ת על בקשתך.",
         "4": "הסתיים: המתנדב.ת השלימו את הבקשה.",
         "5": "הועבר לארכיב: בקשות שנמחקו.",
-        "6": "Press the Left Bell to see your notifications"
+        "6": "לחצ.י על הפעמון משמאל כדי לצפות בהתראות שלך"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
+        "title": "ברוך.ה הבא.ה לReach4Help!",
+        "0": "תודה על הצטרפותך לReach4Help!",
+        "1": "כמתנדב, תוכל לעזור לאנשים באיזורך על-ידי מענה לבקשותיהם.",
+        "2": "השתמש.י במפה זו כדי לחפש בקשות לעזרה.",
+        "3": "לחצ.י על הסמן הכתום כדי לראות את הבקשה ולהחליט אם לקבל אותה",
+        "4": "לאחר שהמבקש הסכים להצעתך לעזור, שניכם.ן תקבלו את פרטי התקשורת של הצד השני.",
         "5": "Check the Notifications panel to see updates about your offers to help.",
         "6": "Thank you for joining us in building this unified platform of help!"
       },
@@ -135,62 +135,62 @@
       "geolocation_unavailable_text": "לצערינו מיקומך עדין לא נתמך על-ידי הפלטפורמה שלנו. תשלח הודעה בSMS או אי-מייל כאשר האפליקציה תהיה זמינה במיקומך.",
       "instructions_modal_title": "הוראות:",
       "instructions_modal_text": "ניתן להוסיף את מיקומך באופן ידני, אך זה יעזור לנו לאתר את מיקומך בדיוק אם תאפשר.י מיקום. אם תרצה.י להפעיל שירותי מיקום, אנא בקר.י בקישור הבא:",
-      "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
-      "policy_link": "Privacy & Security Policy.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
-      "terms_conditions_text": "I understand and acknowledge the ",
-      "terms_conditions_link": "Terms & Conditions.",
-      "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "Please enter your name.",
-      "display_name_error_message": "Please enter your display name.",
-      "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+      "policy_text": "אנו זקוקים למידע הזה כדי לוודא כי העזרה מגיע למיקום הנכון. אם יש לך דאגות בנושא, אנא קרא.י את",
+      "policy_link": "מדיניות הפרטיות והבטיחות שלנו.",
+      "accept_to_use_profile_pic": "אני מסכים שReach4Help תעשה שימוש בתמונת הפרופיל שלי.",
+      "terms_conditions_text": "אני מבין כי ",
+      "terms_conditions_link": "תנאי שימוש.",
+      "terms_conditions_error": "את.ה צריך.ה להסכים לתנאי השימוש.",
+      "full_name_error_message": "נא להזין את שמך.",
+      "display_name_error_message": "נא להזין את שם התצוגה שלך.",
+      "address_error_message": "נא להזין את כתובתך.",
+      "allow_send_notifications": "אבקש כי Reach4HElp תשלח לי התראות ואי-מיילים."
     },
     "newRequest": {
-      "title": "New Request",
-      "icon_text": "I need help",
+      "title": "בקשה חדשה",
+      "icon_text": "אני זקוק.ה לעזרה",
       "form": {
-        "title": "Title",
-        "type": "Type",
-        "address": "Confirm Address",
-        "body": "Enter details of what is needed",
-        "other": "Please enter your type",
-        "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Next",
-        "cancel": "Cancel",
-        "search": "Search",
-        "useMyLocation": "Use my location",
-        "address_error_message": "Please enter your address.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "title": "כותרת",
+        "type": "סוג",
+        "address": "אישור כתובת",
+        "body": "אנא פרט.י את העזרה הדרושה",
+        "other": "נא להזין סוג",
+        "consent": "כל ההתראות. תמיד ניתן לשנות זאת בתפריט ״הגדרות״ במועד מאוחר יותר.",
+        "submit": "הבא",
+        "cancel": "ביטול",
+        "search": "חיפוש",
+        "useMyLocation": "השתמש במיקומי",
+        "address_error_message": "נא להזין את כתובתך.",
+        "type_error_message": "את.ה צריך.ה לבחור סוג.",
+        "other_error_message": "את.ה צריך להזין פרטים.",
+        "body_error_message": "אנא הזן.י תיאור."
       }
     },
     "newRequestSuccess": {
-      "title": "Your request has been created",
-      "info": "Please be patient until you get an offer from a volunteer.",
-      "remember": "Remember",
-      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      "title": "בקשתך נוצרה בהצלחה.",
+      "info": "נא להיעזר בסבלנות עד שתקבל.י הצעה ממתנדב.",
+      "remember": "זכור.י",
+      "remember_info": "כאשר מתנגב.ת מציעים לעזור, את.ה חייב.ת להסכים לעזרה כדי שהם יוכלו לראות את פרטי התקשורת עמך."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
-      "deliveryAddress": "Delivery address"
+      "submit": "הגשת בקשה",
+      "back": "חזרה",
+      "deliveryAddress": "כתובת משלוח"
     },
     "roleinfo": {
       "title": "Reach4Help",
-      "sub_title": "How can we assist you ?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
-      "info": "Please tell us what is your purpose to use Reach4Help",
-      "info_pin": "I'm here because I need help",
-      "c2a_pin": "Get help now!",
-      "info_cav": "I'm here because I want to help people",
-      "c2a_cav": "Start helping now!"
+      "sub_title": "איך ניתן לסייע לך?",
+      "manifesto": "אנו מאמינים שלכל מה שאנו עושים יש משמעות. אנו מאמינים כי אנחנו מסוגלים לעזור לאנשים לחוש תחושת קהילתיות. אנו מאמינים כי סולידריות מבליטה את הטוב ביותר באינדיבידואלים.",
+      "info": "אנא ספר.י לנו את הסיבה שאת.ה רוצה לעשות שימוש בReach4Help",
+      "info_pin": "אני כאן משום שאני זקוק.ה לעזרה",
+      "c2a_pin": "עזרה עכשיו!",
+      "info_cav": "אני כאן משום שאני רוצה לעזור לאנשים",
+      "c2a_cav": "התחל.י לעזור עכשיו!"
     },
     "routeSubtitles": {
-      "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
+      "_login": "התחברות",
+      "_phone": "טלפון",
+      "_requests": "בקשות",
       "_personal-data": "Personal Data",
       "_timeline": "Request Timeline",
       "_personal-data_role-info": "Role Info",
@@ -261,66 +261,66 @@
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "Sorry, We couldn't determine your actual address, please try again!",
-            "missing_data": "Missing Data!"
+            "missing_data": "מידע חסר!"
           }
         }
       },
       "requests": {
-        "a11y_profile_pic": "Profile Pic",
+        "a11y_profile_pic": "תמונת פרופיל",
         "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+          "choose_volunteer": "בחר.י מהמתנדבים הבאים למילוי בקשתך."
         },
-        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
-        "cannot_help": "Cannot Help",
+        "bottom_warning": "בקשתך נצפתה על-ידי מספר מתנדבים, אך לא התקבלה. אנו מציעים &ldquo;לבטל בקשה&rdquo; וליצור בקשה חדשה עם תיאור פשוט יותר.",
+        "cannot_help": "לא ניתן לעזור",
         "containers": {
           "AcceptedRequestContainer": {
-            "accepted": "Accepted"
+            "accepted": "התקבל"
           },
           "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
+            "want_to_help": "אני רוצה לעזור!"
           },
           "FinishedRequestsContainer": {
-            "finished": "Finished"
+            "finished": "הושלם"
           },
           "NewRequestsContainer": {
-            "address_error": "Unable to find address",
-            "deliveries": "Deliveries"
+            "address_error": "לא ניתן לאתר כתובת",
+            "deliveries": "משלוחים"
           },
           "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
+            "ongoing": "מתמשך"
           },
           "OpenRequestContainer": {
-            "open": "Open"
+            "open": "פתיחה"
           },
-          "no_reply": "No one has replied to your request."
+          "no_reply": "אף-אחד לא ענה לבקשתך."
         }
       }
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "טוען..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
-        "notifications": "Notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
-        "pin_rejected": "You have rejected help from ",
-        "request_author": "The request_author",
-        "volunteer_accepted": " accepted your offer for ",
-        "your_task": "your task"
+        "a_request": "בקשה",
+        "already_helped": " כבר מקבל עזרה ב ",
+        "cav_declined_help": " סרב לעזור ב",
+        "cav_offer": "הצעת לעזור ב",
+        "no_notifications": "אין התראות חדשות.",
+        "notifications": "התראות",
+        "offered_help": " הציע.ה לעזור ב",
+        "pin_accepted": "הסכמת לעזרה מ",
+        "pin_declined_help": "סירבת לעזור ל",
+        "pin_rejected": "דחית עזרה מ",
+        "request_author": "request_author",
+        "volunteer_accepted": " הסכים.ה לעזרתך ב",
+        "your_task": "משימתך"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "המיקום שלי",
+        "a11y_destination": "יעד",
+        "api_error": "לא ניתן לבצע התאמה",
+        "distance_error": "שגיאת מרחק משירות:",
+        "geocode_error": "לא ניתן לקבל מיקום"
       }
     }
   }
