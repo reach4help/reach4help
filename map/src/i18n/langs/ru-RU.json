@@ -1,114 +1,114 @@
 {
   "title": "COVID-19 Карта Взаимопомощи",
-  "inFrameLink": "About this map / add information",
+  "inFrameLink": "Об этой карте / добавить информацию",
   "aboutScreen": {
-    "intro": "We believe solidarity brings out the best in individuals.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
-    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "intro": "Мы считаем, что солидарность открывает перед людьми лучшие возможности.",
+    "info": "Помогите людям найти и присоединиться к совместным усилиям по оказанию помощи, где они живут, вдохновляйте начинать свои собственные, и/или просто поднять духи, эта карта представляет растущий перечень проектов по оказанию взаимной помощи в борьбе с пандемией во всем мире.",
+    "warning": "Примечание: Каждый проект является автономным и самоорганизованным; Многие используют публичные электронные таблицы для обмена информацией, поэтому будьте осторожны при вводе частной информации, которую вы не хотите быть публичной.",
+    "project": "Эта карта часть {reach4Help} проекта осуществляемого добровольцами. Код находится в общем доступе {githubSource}. Если у вас есть вопросы или предложения, пишите на",
+    "githubSourceLabel": "на GitHub",
+    "otherAreasHeading": "Заинтересованы в одной из этих областей?",
+    "otherAreasInfo": "Посмотрите эти альтернативные карты:",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York"
+      "france": "Франция",
+      "nyc": "Нью-Йорк"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "sourceHeading": "Как вычисляются эти результаты?",
+    "sourceInfo": "Информация на этой карте представляет собой комбинацию данных, собранных нашими добровольцами, представленными нашими пользователями, и предоставлены другими добровольными проектами, включая {mutualaidwiki} и {mutualaidhub}.",
+    "sourceSubmit": "Мы рекомендуем вам {addinfo} обо всех известных вами проектах, которые еще не находятся на карте.",
+    "sourceSubmitButton": "добавить информацию",
+    "usageHeading": "Могу ли я использовать эти данные для своего собственного проекта?",
+    "usageInfo": "Вы можете использовать данные, предоставленные нашей картой для ваших собственных проектов, если вы следуете соответствующим лицензиям.",
+    "usageLicenses": "Данные, предоставленные нашими добровольцами и пользователями, лицензированы под лицензией {license}, а данные из других источников доступны под их лицензиями.",
+    "usageApi": "Вы можете получить доступ к исходным данным, а также подробные сведения о том, как каждая точка имеет лицензию, по следующему URL: {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "О программе",
+    "map": "Просмотр карты"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "Напишите нам",
+    "twitter": "Мы в Twitter",
+    "facebook": "Нажмите Нравится на Facebook",
+    "github": "Забудьте нас на GitHub"
   },
   "addInformation": {
-    "button": "Add information",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "button": "Добавить информацию",
+    "backToMap": "Перейти обратно к карте",
+    "prev": "Назад",
+    "continue": "Продолжить",
+    "submit": "Отправить",
+    "addMore": "Добавить больше информации",
+    "tryAgain": "Попробуйте снова",
     "screen": {
-      "title": "Add information to this map",
+      "title": "Добавить информацию на карту",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
-        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "acceptedInformation": "На данный момент мы размещаем информацию только об организациях или компаниях, оказывающих помощь и помощь, региональных инициативах по оказанию финансовой помощи и группах взаимопомощи. В настоящее время мы не принимаем информацию о физических лицах, предлагающих помощь.",
+        "intro": "Пожалуйста, заполните приведенную ниже форму, чтобы начать добавлять информацию, после этого мы попросим вас указать местоположение и контактную информацию.",
         "form": {
-          "type": "Type of project / group / organization / initiative",
-          "typePleaseSelect": "Please select type",
-          "services": "Services or support that this organization / company provides",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "type": "Тип проекта/группы / организация/инициатива",
+          "typePleaseSelect": "Выберите тип",
+          "services": "Услуги или поддержка, которые предоставляет эта организация / компания",
+          "name": "Название проекта/группы / организации",
+          "namePlaceholder": "Например, Mutual Aid Antarctica",
+          "description": "(опционное) Подробное описание проекта / группы / организации, а также то, что оно направлено на облегчение мультипомощи",
+          "locationName": "Например регионы стран, городов и т.д...",
+          "locationNamePlaceholder": "Например: San Francisco Bay Area, CA, USA",
+          "continue": "Нажмите \"Продолжить\", чтобы ввести информацию о местоположении"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "Если вы хотите предоставить информацию о новой группе взаимопомощи, пожалуйста, зайдите в {link} . Добавленные там группы будут автоматически включены в нашу карту."
       },
       "placeMarker": {
-        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
+        "instructions": "Найдите область, обслуживаемый этим проектом / группой / организацией / инициативой, нажав на карту для размещения маркера, затем отрегулировать размер круга, чтобы охватить область, как это требуется.",
+        "continue": "Как только вы будете довольны местоположением, нажмите продолжить, чтобы добавить контактную информацию.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
-        "deleteInfo": "Delete",
+        "header": "Контактная информация для {name}",
+        "info": "Почти готово! Пожалуйста, введите информацию о том, как люди могут связаться с {name}. Если есть конкретные методы контакта, которые должны быть использованы для добровольческой помощи или для запроса помощи, пожалуйста, введите их!",
+        "deleteInfo": "Удалить",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "Контактная информация",
+          "volunteers": "Добавить контактную информацию для волонтеров",
+          "getHelp": "Добавить контактную информацию для людей, которым нужна помощь"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "Выберите контакт",
+          "volunteers": "Контактная информация для волонтеров",
+          "getHelp": "Добавить контактную информацию для людей, которым нужна помощь"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "Номер телефона",
+          "email": "Адреса электронной почты",
+          "web": "Адрес ссылки"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
-          "webURL": "URL",
-          "webLabel": "Name"
+          "phone": "Добавить номер телефона",
+          "email": "Добавить адрес эл. почты",
+          "webURL": "Адрес URL",
+          "webLabel": "Название"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "Отправка информации на карту...",
+        "error": "Error updating information.",
+        "success": "Ваша информация успешно отправлена!",
+        "successExtra": "Прежде чем мы сделаем вашу информацию видимой на карте, она должна быть рассмотрена добровольцем в нашей команде. Надеемся, что это будет сделано в течение нескольких дней."
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "missingType": "Пожалуйста, выберите тип проекта / группы / организации",
+      "missingServices": "Пожалуйста, проверьте все сервисы, предоставляемые этой организацией (не менее 1)",
+      "missingTitle": "Пожалуйста, выберите тип проекта / группы / организации",
+      "missingLocationName": "Введите описание для этого события",
+      "markerRequired": "Пожалуйста, нажмите на карту, чтобы войти в зону обслуживания, прежде чем продолжить.",
+      "noContactDetails": "Пожалуйста, введите контактную информацию по крайней мере для одной категории",
+      "emptyContactSection": "Пожалуйста, введите некоторые контактные данные для {section} или удалите их",
+      "urlMissingLabel": "Отсутствует URL для {section}",
+      "urlMissingURL": "Отсутствует URL для {section}",
+      "dataError": "Возникла проблема с предоставленной информацией, пожалуйста, вернитесь назад и повторите попытку",
+      "submitError": "Произошла ошибка при изменении вашей электронной почты. Пожалуйста, повторите попытку позже",
+      "mutualAidGroupsNotAccepted": "Пожалуйста, введите информацию о новых группах взаимной помощи в {link}."
     }
   },
   "buttons": {
@@ -129,20 +129,20 @@
     "network": "Контакты",
     "manufacturing": "Производство",
     "financial": "Финансирование",
-    "other": "Other"
+    "other": "Другое"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "Принадлежности, отличные от продуктов питания или лекарств",
+    "mobility": "Перемещение людей из одной точки в другую",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "• оказание поддержки конкретным уязвимым группам, например бездомным людям, группам риска, связанным с бытовым насилием, и т.д. ...",
+    "information": "Помогите людям найти необходимую информацию",
+    "network": "Прогнозируемые ресурсы для создания сетей по оказанию помощи, например между организациями по оказанию взаимной помощи",
+    "manufacturing": "Обеспечивает поставки или производственные мощности, необходимые для преодоления кризиса",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Что-то еще не в этом списке"
   },
   "markerTypes": {
     "mutual-aid-group": "Группа взаимопомощи",
@@ -152,9 +152,9 @@
     "other": "Другое"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "группа взаимопомощи",
+    "org": "организация / Компания",
+    "project": "проект"
   },
   "map": {
     "jumpToLocation": "Показать на карте...",
@@ -162,10 +162,10 @@
     "myLocation": "Мое местоположение"
   },
   "results": {
-    "backToResults": "Back to results",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "backToResults": "Назад к результатам",
+    "openResults": "{results, plural, one {} few {# результатов} many {# результатов} =1 {1 результат} other {# результатов}}",
+    "closeResults": "{results, plural, one {} few {# результатов} many {# результатов} =1 {1 результат} other {# результатов}}",
+    "showMore": "Показать больше результатов",
     "contact": {
       "general": "Общая информация:",
       "getHelp": "Получить помощь:",
@@ -174,10 +174,10 @@
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "Заметка",
+        "content": "Примечание: Каждый проект является автономным и самоорганизованным; Многие используют публичные электронные таблицы для обмена информацией, поэтому будьте осторожны при вводе частной информации, которую вы не хотите быть публичной."
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "Информация об этом {type} предоставлена {source}."
     }
   },
   "lang": "Язык:",
@@ -187,15 +187,15 @@
     "netlifyLinkText": "поддерживается Netlify",
     "githubRepo": "GitHub репо",
     "codeOfConduct": "Кодекс поведения",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "showHidden": "Показать скрытую информацию",
+    "hideHidden": "Показать скрытую информацию"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "Видимость: {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "Все",
+      "visible": "Является видимым в",
+      "hidden": "Только скрытые"
     }
   }
 }
