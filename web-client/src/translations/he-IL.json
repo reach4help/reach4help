@@ -73,14 +73,14 @@
         "2": "השתמש.י במפה זו כדי לחפש בקשות לעזרה.",
         "3": "לחצ.י על הסמן הכתום כדי לראות את הבקשה ולהחליט אם לקבל אותה",
         "4": "לאחר שהמבקש הסכים להצעתך לעזור, שניכם.ן תקבלו את פרטי התקשורת של הצד השני.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
-        "6": "Thank you for joining us in building this unified platform of help!"
+        "5": "בדוק.י את שורת ההתראות כדי לצפות בעדכונים לגבי הצעותך לעזור.",
+        "6": "תודה על עזרתך בבניית פלטפורמה מאוחדת זו של עזרה הדדית!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
-        "2": "Check the Notifications panel to see updates about your incoming offers.",
+        "title": "ברוך.ה הבא.ה לReach4Help!",
+        "0": "תודה על הצטרפותך לReach4Help! כמישהו.י שזקוק לעזרה, תוכל.י לבקש עזרה באיזורך על-ידי יצירת בקשות. כרגע, איננו יכולים להבטיח כי ישנם.ן מתנדבים.ות היכולים.ות לעזור באיזורך. אם זה המצב, אנו מציעים לשתף את האפליקציה עם מתנדבים ואירגוני התנדבות באיזורך. תודה שהצטרפת אלינו לבניית פלטפורמה מאוחדת של עזרה הדדית!",
+        "1": "תודה שהגשת בקשה! תקבל.י התראה כאשר יציעו לעזור. כדי לבדוק את סטאטוס הבקשה לחצ.י או סמנ.י ",
+        "2": "בדוק.י את שורת ההתראות כדי לצפות בעדכונים לגבי הצעות שקיבלת.",
         "3": "Once you accept an offer, your information will be shared with the volunteer.",
         "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
       }
