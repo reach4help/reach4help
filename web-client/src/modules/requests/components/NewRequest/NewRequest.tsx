@@ -130,7 +130,10 @@ const NewRequest: React.FC<NewRequestProps> = ({
                 {t('newRequest.form.type')}
               </LeftLabelColStyle>
               <Col md={10} sm={12} xs={14}>
-                <Select onChange={toggleOtherField}>
+                <Select
+                  defaultValue={Object.keys(REQUEST_TYPES)[0]}
+                  onChange={toggleOtherField}
+                >
                   {Object.keys(REQUEST_TYPES).map(key => (
                     <Option value={key} key={key}>
                       {' '}
