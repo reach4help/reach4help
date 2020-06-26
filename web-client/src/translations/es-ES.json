@@ -249,17 +249,17 @@
             "instructions_modal_title": "Instrucciones:",
             "instructions_modal_text": "Puede agregar su ubicación manualmente, pero nos ayudaría a obtener su posición con mayor precisión si utilizara Geolocalización. Si desea reactivarlo, por favor siga el enlace:",
             "policy_text": "Necesitamos estos datos para asegurar que la ayuda llegue al destino correcto. Para cualquier duda, por favor lea nuestro ",
-            "policy_link": "Privacy & Security Policy.",
-            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
-            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
-            "terms_conditions_link_text": "Terms & Conditions.",
-            "terms_conditions_error": "You need to accept the Terms & Conditions.",
-            "full_name_error_message": "Please enter your name.",
-            "display_name_error_message": "Please enter your display name.",
-            "address_error_message": "Please enter your address.",
-            "city_error_message": "Please enter your city.",
-            "country_error_message": "Please enter your country.",
-            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+            "policy_link": "Política de Privacidad y Seguridad.",
+            "accept_to_use_profile_pic": "Estoy de acuerdo con permitir que Reach4Help use mi foto de perfil.",
+            "terms_conditions_text": "Entiendo y reconozco el <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Términos y Condiciones Generales",
+            "terms_conditions_error": "Tiene que aceptar los Términos y Condiciones.",
+            "full_name_error_message": "Por favor, introduzca su nombre.",
+            "display_name_error_message": "Por favor, introduzca su nombre para mostrar.",
+            "address_error_message": "Por favor, introduzca su dirección.",
+            "city_error_message": "Por favor ingrese su ciudad.",
+            "country_error_message": "Por favor, introduzca su país.",
+            "allow_send_notifications": "Me gustaría que Reach4Help me enviara notificaciones y correos electrónicos."
           }
         },
         "containers": {
