@@ -121,31 +121,6 @@
       "resend": "hersturen",
       "error_message": "Voer het ontvangen nummer hier in!"
     },
-    "user_data_form": {
-      "sub_title": "Vul hieronder de persoonlijke gegevens in.",
-      "gps_button": "GPS gebruiken om mijn adres op te halen",
-      "gps_unavailable_retry_button": "Geolocatie niet beschikbaar. Probeer opnieuw.",
-      "learn_reactivate": "Leer hoe geolocatie opnieuw te activeren",
-      "retry_geolocation": "Bewaar geolocatie",
-      "continue_without_geolocation": "Doorgaan zonder registratie",
-      "go_back": "Ga Terug",
-      "geolocation_modal_title": "Geolocatie is niet toegestaan",
-      "geolocation_modal_text": "Je kunt je locatie handmatig toevoegen, maar het zou ons helpen om je positie nauwkeuriger te maken als je de Geolocatie zou gebruiken. Kies een van de onderstaande opties:",
-      "geolocation_unavailable_title": "Helaas zijn we nog niet beschikbaar op je locatie",
-      "geolocation_unavailable_text": "Sorry, uw locatie wordt nog niet ondersteund op ons platform. U wordt op de hoogte gesteld via SMS of E-Mail, zodra onze applicatie beschikbaar wordt op uw locatie.",
-      "instructions_modal_title": "Instructies:",
-      "instructions_modal_text": "Je kunt je locatie handmatig toevoegen, maar het zou ons helpen om je positie nauwkeuriger te maken als je de Geolocatie zou gebruiken. Kies een van de onderstaande opties:",
-      "policy_text": "We hebben deze gegevens nodig om ervoor te zorgen dat de hulp de juiste bestemming bereikt. Lees voor meer informatie over ",
-      "policy_link": "Privacy en veiligheidsbeleid.",
-      "accept_to_use_profile_pic": "Ik ben het ermee eens om Reach4Help mijn profielfoto te laten gebruiken.",
-      "terms_conditions_text": "Ik begrijp en erken de ",
-      "terms_conditions_link": "Voorwaarden & condities",
-      "terms_conditions_error": "Je moet instemmen met de algemene voorwaarden.",
-      "full_name_error_message": "Typ uw naam.",
-      "display_name_error_message": "Voer je weergavenaam in.",
-      "address_error_message": "Waar woont u?",
-      "allow_send_notifications": "Ik zou graag willen dat Reach4Help mij meldingen en e-mails stuurt."
-    },
     "newRequest": {
       "title": "Nieuwe aanvraag",
       "icon_text": "Hulp nodig",
@@ -258,6 +233,35 @@
         }
       },
       "personal-data": {
+        "components": {
+          "PersonalDataForm": {
+            "sub_title": "Please fill out the personal details below.",
+            "gps_button": "Use GPS to get my address",
+            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+            "learn_reactivate": "Learn how to reactivate geolocation",
+            "retry_geolocation": "Retry Geolocation",
+            "continue_without_geolocation": "Continue without Geolocation",
+            "go_back": "Go Back",
+            "geolocation_modal_title": "Geolocation is not authorized",
+            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+            "instructions_modal_title": "Instructions:",
+            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+            "policy_link": "Privacy & Security Policy.",
+            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Terms & Conditions.",
+            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "full_name_error_message": "Please enter your name.",
+            "display_name_error_message": "Please enter your display name.",
+            "address_error_message": "Please enter your address.",
+            "city_error_message": "Please enter your city.",
+            "country_error_message": "Please enter your country.",
+            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+          }
+        },
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "Sorry, we konden je werkelijke adres niet bepalen, probeer het opnieuw!",
