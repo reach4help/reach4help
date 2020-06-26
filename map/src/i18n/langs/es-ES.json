@@ -188,13 +188,13 @@
     "githubRepo": "Repositorio de GitHub",
     "codeOfConduct": "Código de conducta",
     "showHidden": "Mostrar información oculta",
-    "hideHidden": "Mostrar información oculta"
+    "hideHidden": "Ocultar información"
   },
   "hiddenMarkers": {
     "visiblility": "Visibilidad: {visibility}",
     "filter": {
       "any": "Cualquiera",
-      "visible": "Visible solo en",
+      "visible": "Solo visible",
       "hidden": "Sólo ocultos"
     }
   }
