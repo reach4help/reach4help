@@ -173,7 +173,7 @@
       "_phone_verify": "Verificando número de teléfono…",
       "_requests_accepted": "Solicitudes aceptadas",
       "_requests_archived": "Solicitudes cerradas",
-      "_requests_find": "Encontrar solicitudes",
+      "_requests_find": "Buscar Solicitudes",
       "_requests_finished": "Solicitudes completadas",
       "_requests_new": "Nueva Solicitud",
       "_requests_ongoing": "Solicitudes en curso",
@@ -186,7 +186,7 @@
       "COMPLETE_REQUEST": "Tarea ha sido completada.",
       "CREATE_OFFER": "{{actorName}} se ofreció a apoyar con esta solicitud.",
       "CAV_DECLINED": "{{actorName}} rechazó esta solicitud.",
-      "ACCEPT_OFFER": "{{actorName}} ha rechazado la ayuda de {{cavUserName}}.",
+      "ACCEPT_OFFER": "{{actorName}} ha aceptado la ayuda de {{cavUserName}}.",
       "REJECT_OFFER": "{{actorName}} ha rechazado la ayuda de {{cavUserName}}.",
       "RATE_PIN": "{{actorName}} ha valorado {{actedUpon}}.",
       "RATE_CAV": "{{actorName}} ha valorado {{actedUpon}}.",
@@ -220,7 +220,7 @@
         "components": {
           "Header": {
             "reject_reminder": " Si rechaza esta ayuda, su solicitud volverá a la lista de solicitudes disponibles, pero perderá prioridad.",
-            "remember": "RECUERDAR",
+            "remember": "RECORDAR",
             "requests": "Solicitudes"
           },
           "TopPanel": {
