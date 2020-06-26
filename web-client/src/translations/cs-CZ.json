@@ -121,31 +121,6 @@
       "resend": "Znovu odeslat",
       "error_message": "Zde vložte přijaté číslo!"
     },
-    "user_data_form": {
-      "sub_title": "Vyplňte prosím osobní údaje níže.",
-      "gps_button": "Pro získání mé adresy použijte GPS",
-      "gps_unavailable_retry_button": "Geolokace není k dispozici. Opakování.",
-      "learn_reactivate": "Naučte se znovu aktivovat geolokaci",
-      "retry_geolocation": "Geolokace příspěvku",
-      "continue_without_geolocation": "Pokračovat bez povolení přístupu k poloze",
-      "go_back": "Vrátit se",
-      "geolocation_modal_title": "Geolokace není autorizována",
-      "geolocation_modal_text": "Můžete přidat svou polohu ručně, ale pokud byste použili Geolokaci, pomohlo by nám to získat vaši pozici přesněji. Vyberte prosím jednu z následujících možností:",
-      "geolocation_unavailable_title": "Bohužel ještě nejsme k dispozici ve vaší poloze",
-      "geolocation_unavailable_text": "Omlouváme se, vaše poloha ještě není na naší platformě podporována. Budete upozorněni SMS nebo E-Mail, jakmile bude naše aplikace k dispozici ve vašem místě.",
-      "instructions_modal_title": "Instrukce:",
-      "instructions_modal_text": "Můžete přidat svou polohu ručně, ale pokud byste použili Geolokaci, pomohlo by nám to získat vaši pozici přesněji. Vyberte prosím jednu z následujících možností:",
-      "policy_text": "Potřebujeme tyto údaje, abychom zajistili, že pomoc dosáhne správného místa určení. ",
-      "policy_link": "Zásady ochrany osobních údajů a bezpečnosti.",
-      "accept_to_use_profile_pic": "Jsem v pořádku, když nechám Reach4Help používat můj profilový obrázek.",
-      "terms_conditions_text": "Chápu a uznávám ",
-      "terms_conditions_link": "Smluvní podmínky",
-      "terms_conditions_error": "Je třeba přijmout obchodní podmínky.",
-      "full_name_error_message": "Prosím, zadejte vaše jméno.",
-      "display_name_error_message": "Vložte prosím jméno",
-      "address_error_message": "Prosím, zadejte Vaši adresu.",
-      "allow_send_notifications": "Chtěl bych, aby mi Reach4Help posílala oznámení a e-maily."
-    },
     "newRequest": {
       "title": "Nový požadavek",
       "icon_text": "Potřebuji pomoc",
@@ -258,6 +233,35 @@
         }
       },
       "personal-data": {
+        "components": {
+          "PersonalDataForm": {
+            "sub_title": "Please fill out the personal details below.",
+            "gps_button": "Use GPS to get my address",
+            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+            "learn_reactivate": "Learn how to reactivate geolocation",
+            "retry_geolocation": "Retry Geolocation",
+            "continue_without_geolocation": "Continue without Geolocation",
+            "go_back": "Go Back",
+            "geolocation_modal_title": "Geolocation is not authorized",
+            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+            "instructions_modal_title": "Instructions:",
+            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+            "policy_link": "Privacy & Security Policy.",
+            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Terms & Conditions.",
+            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "full_name_error_message": "Please enter your name.",
+            "display_name_error_message": "Please enter your display name.",
+            "address_error_message": "Please enter your address.",
+            "city_error_message": "Please enter your city.",
+            "country_error_message": "Please enter your country.",
+            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+          }
+        },
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "Omlouváme se, ale nemohli jsme zjistit vaši skutečnou adresu, zkuste to prosím znovu!",
