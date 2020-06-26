@@ -2,7 +2,7 @@
   "title": "Mapa de ayuda mutual para COVID-19",
   "inFrameLink": "Acerca de este mapa / añadir información",
   "aboutScreen": {
-    "intro": "Creemos que la solidaridad saca lo mejor de un individuo.",
+    "intro": "Creemos que la solidaridad saca lo mejor de las personas.",
     "info": "Para ayudar a las personas a encontrar y unirse a los esfuerzos de ayuda mutua donde viven, ofrecer inspiración para comenzar su propia y/o simplemente levantar espíritus, este mapa presenta una lista creciente de proyectos de ayuda pandémica de ayuda mutua a nivel mundial.",
     "warning": "Nota: Cada proyecto es autónoma y autoorganizado; Muchos usan hojas de cálculo públicas para compartir información, así que ten cuidado al introducir información privada que no quieres ser pública.",
     "project": "Este mapa es parte de {reach4Help}, un proyecto de voluntariado. Es de código abierto y puede ser de {githubSource}. Para cualquier consulta, puedes contactarnos como en {email}.",
