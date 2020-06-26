@@ -75,7 +75,7 @@
         "sections": {
           "general": "Introduzca la información de contacto",
           "volunteers": "Información de contacto para voluntarios",
-          "getHelp": "Agregar información de contacto para personas que necesitan ayuda"
+          "getHelp": "Información de contacto para personas que necesitan ayuda"
         },
         "method": {
           "phone": "Número de teléfono o móvil",
@@ -83,9 +83,9 @@
           "web": "URL del enlace web"
         },
         "placeholder": {
-          "phone": "Agregar número de teléfono",
+          "phone": "Agregar número de teléfono o móvil",
           "email": "Agregar correo electrónico",
-          "webURL": "Dirección de Red",
+          "webURL": "Dirección Web",
           "webLabel": "Nombre"
         }
       },
