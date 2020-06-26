@@ -17,12 +17,12 @@
     "city": "Ciudad",
     "code": "Código postal",
     "State": "Comunidad Autónoma/Estado/Provincia",
-    "country": "Country",
+    "country": "País",
     "for": " para ",
     "information_modal": {
       "instructions": "Instrucciones",
-      "footer": "Si tienes alguna duda o necesitas ayuda, no dudes en contactar con nosotros en support@crowdin.com",
-      "a11y_logo": "Alcanzar logo de ayuda",
+      "footer": "Si tiene alguna pregunta o necesita ayuda, no dude en enviarnos un correo electrónico a support@reach4help.org.",
+      "a11y_logo": "Logo para Alcanzar Para Ayuda",
       "OpenRequestsContainer": {
         "title": "Todavía buscando ayuda ...",
         "0": "Tus solicitudes están ahí fuera, pero nadie ha sido voluntario para ayudar",
@@ -49,7 +49,7 @@
       "TimelineViewContainer": {
         "title": "Ver cada paso de su solicitud",
         "0": "Se ha creado una solicitud.",
-        "1": "Alguien te ofrece ayuda.",
+        "1": "Alguien te ofrece apoyo.",
         "2": "La oferta se acepta o rechaza.",
         "3": "La solicitud ha sido completada.",
         "4": "La solicitud se ha cerrado.",
@@ -57,9 +57,9 @@
         "6": "Los voluntarios y las personas necesitadas se valoran mutuamente."
       },
       "MenuDrawer": {
-        "title": "Utilizando los botones de inicio",
+        "title": "Utilizando los botones del fondo",
         "0": "Pulse el menú izquierdo para seguir cada paso de su solicitud",
-        "1": "Abrir: Solicitudes que todavía necesitan un voluntario",
+        "1": "Abierto: Solicitudes que todavía necesitan un voluntario",
         "2": "Aceptado: Alguien te ha ofrecido ayudarte.",
         "3": "En curso: Un voluntario está trabajando ahora en su solicitud.",
         "4": "Finalizado: El voluntario ha completado la solicitud.",
@@ -88,7 +88,7 @@
     "login": {
       "title": "Reach4Help (Alcanzar Para Ayuda)",
       "sub_title": "Resumen de registro",
-      "info": "¡Hola! ¡Muchas gracias por tu interés en ayudar a tu comunidad! Garantizar la seguridad de nuestros usuarios, actualmente necesitamos iniciar sesión a través de Google o Facebook para verificar su identidad y ponerse en contacto con usted si surge alguna discrepencia.\n\nDespués de este paso, se te pedirá que proporciones tu número de teléfono y que lo verifiques a través de un código que recibirás por texto. Así es como las personas que ofrecen ayuda se pondrán en contacto con usted! La información de contacto sólo se comparte con la otra persona cuando usted ha aprobado la oferta de la persona para ayudarle. Cuando usted envía una solicitud de ayuda, su ubicación exacta no es compartida (sólo los tres primeros dígitos de su código postal).\n¡Gracias por su cooperación para hacer de nuestro mundo un lugar más seguro y útil! Si tienes alguna pregunta, por favor contáctanos a support@reach4help. rg.",
+      "info": "¡Hola! ¡Muchas gracias por tu interés en ayudar a tu comunidad! Garantizar la seguridad de nuestros usuarios, actualmente necesitamos iniciar sesión a través de Google o Facebook para verificar su identidad y ponerse en contacto con usted si surge alguna discrepencia.\n\nDespués de este paso, se te pedirá que proporciones tu número de teléfono y que lo verifiques a través de un código que recibirás por texto. Así es como las personas que ofrecen ayuda se pondrán en contacto con usted! La información de contacto sólo se comparte con la otra persona cuando usted ha aprobado la oferta de la persona para ayudarle. Cuando usted envía una solicitud de ayuda, su ubicación exacta no es compartida (sólo los tres primeros dígitos de su código postal).\n¡Gracias por su cooperación para hacer de nuestro mundo un lugar más seguro y útil! Si tienes alguna pregunta, por favor contáctanos a support@reach4help.org.",
       "facebookButtonLabel": "Continuar con Facebook",
       "googleButtonLabel": "Continuar con Google"
     },
@@ -100,8 +100,8 @@
     },
     "phoneNumber": {
       "select_instructions": "Elegir del menú desplegable de abajo",
-      "input_instructions": "Introduce tus dígitos de telefono",
-      "sub_title": "Introduzca su número de teléfono para comenzar",
+      "input_instructions": "Introduce tus dígitos de telefono o movil",
+      "sub_title": "Introduzca su número de teléfono o movil para comenzar",
       "info": "Esta información es fundamental para validar tu cuenta. Pueden aplicarse datos y tarifas.",
       "error_message": "Por favor, ¡introduzca su número de teléfono!",
       "phone_valid": "Un número de teléfono válido comienza con + y código de país sin ningún espacio u otros caracteres especiales en el campo!",
