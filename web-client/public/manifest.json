@@ -1,6 +1,7 @@
 {
-  "name": "Reach4Help",
   "short_name": "Reach4Help",
+  "name": "Reach4Help",
+  "description": "Connecting people in need to people who can help.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +19,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#250031",
+  "start_url": "/",
+  "display": "fullscreen",
+  "theme_color": "#7F02A2",
   "background_color": "#ffffff"
 }
