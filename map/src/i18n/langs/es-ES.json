@@ -80,7 +80,7 @@
         "method": {
           "phone": "Número de teléfono o móvil",
           "email": "Direcciones de Correo Electrónico",
-          "web": "URL del enlace web"
+          "web": "Enlaces Web"
         },
         "placeholder": {
           "phone": "Agregar número de teléfono o móvil",
@@ -139,13 +139,13 @@
     "shelter": null,
     "support": "Apoyar a medida para grupos vulnerables específicos, como personas sin hogar, personas en riesgo de abuso doméstico, etc...",
     "information": "Apoyar a la gente a encontrar información relevante",
-    "network": "Prodicción de recursos para el trabajo en red para proporcionar ayuda, por ejemplo, entre organizaciones de ayuda mutua",
+    "network": "Prodicción de recursos para el trabajo en red para proporcionar ayuda, por ejemplo, entre organizaciones de apoyo mutuo",
     "manufacturing": "Proporciona suministros o capacidad manufacturera necesaria para hacer frente a la crisis",
     "financial": null,
-    "other": "Algo más no está en esta lista"
+    "other": "Otra cosa que no está en esta lista"
   },
   "markerTypes": {
-    "mutual-aid-group": "Grupo de ayuda mutua",
+    "mutual-aid-group": "Grupo de apoyo mutuo",
     "org": "Organización / Empresa",
     "financial": "Financiero",
     "information": "Información",
@@ -169,7 +169,7 @@
     "contact": {
       "general": "Información general:",
       "getHelp": "Conseguir ayuda:",
-      "volunteer": "Voluntariado:",
+      "volunteer": "Voluntario:",
       "facebookGroup": "Grupo Facebook"
     },
     "details": {
