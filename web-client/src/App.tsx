@@ -5,9 +5,12 @@ import SEO from 'src/components/SEO/SEO';
 
 import MasterPage from './pages/MasterPage';
 import configureStore from './store';
+import { enableLogger, enableMonitoring } from './telemetry';
 
 // Later we can check if we need all immer plugins
 enableAllPlugins();
+enableLogger();
+enableMonitoring();
 
 const App = (): ReactElement => {
   const store = configureStore();
