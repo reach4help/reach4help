@@ -121,31 +121,6 @@
       "resend": "wyślij",
       "error_message": "Wstaw otrzymany numer tutaj!"
     },
-    "user_data_form": {
-      "sub_title": "Proszę wypełnić dane osobowe poniżej.",
-      "gps_button": "Użyj GPS, aby uzyskać mój adres",
-      "gps_unavailable_retry_button": "Geolokalizacja niedostępna. Spróbuj ponownie.",
-      "learn_reactivate": "Dowiedz się, jak reaktywować geolokalizację",
-      "retry_geolocation": "Pobierz Geolokalizację",
-      "continue_without_geolocation": "Kontynuuj bez lokalizacji",
-      "go_back": "Powrót",
-      "geolocation_modal_title": "Geolokalizacja nie jest autoryzowana",
-      "geolocation_modal_text": "Możesz dodać swoją lokalizację ręcznie, ale pomogłoby nam to uzyskać dokładniejszą pozycję, jeśli korzystasz z geolokalizacji. Proszę wybrać jedną z poniższych opcji:",
-      "geolocation_unavailable_title": "Niestety, nie jesteśmy jeszcze dostępni w Twojej lokalizacji",
-      "geolocation_unavailable_text": "Przepraszamy, Twoja lokalizacja nie jest jeszcze obsługiwana na naszej platformie. Zostaniesz powiadomiony SMS-em lub E-Mailem, gdy nasza aplikacja stanie się dostępna w Twojej lokalizacji.",
-      "instructions_modal_title": "Instrukcje: ",
-      "instructions_modal_text": "Możesz dodać swoją lokalizację ręcznie, ale pomogłoby nam to uzyskać dokładniejszą pozycję, jeśli korzystasz z geolokalizacji. Proszę wybrać jedną z poniższych opcji:",
-      "policy_text": "Potrzebujemy tych danych, aby zagwarantować, że pomoc dotrze do właściwego miejsca przeznaczenia. W razie jakichkolwiek wątpliwości przeczytaj nasze ",
-      "policy_link": "Polityka prywatności i bezpieczeństwa.",
-      "accept_to_use_profile_pic": "Jestem w porządku, gdy pozwalam Reach4Help używać mojego zdjęcia profilowego.",
-      "terms_conditions_text": "Rozumiem i potwierdzam ",
-      "terms_conditions_link": "Warunki i zasady",
-      "terms_conditions_error": "Musisz zaakceptować warunki.",
-      "full_name_error_message": "Wpisz swoje imię.",
-      "display_name_error_message": "Wprowadź swoją nazwę użytkownika.",
-      "address_error_message": "Podaj adres.",
-      "allow_send_notifications": "Chciałbym, aby Reach4Help wysyłał mi powiadomienia i wiadomości e-mail."
-    },
     "newRequest": {
       "title": "Nowe żądanie",
       "icon_text": "Potrzebuję pomocy",
@@ -258,6 +233,35 @@
         }
       },
       "personal-data": {
+        "components": {
+          "PersonalDataForm": {
+            "sub_title": "Please fill out the personal details below.",
+            "gps_button": "Use GPS to get my address",
+            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+            "learn_reactivate": "Learn how to reactivate geolocation",
+            "retry_geolocation": "Retry Geolocation",
+            "continue_without_geolocation": "Continue without Geolocation",
+            "go_back": "Go Back",
+            "geolocation_modal_title": "Geolocation is not authorized",
+            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+            "instructions_modal_title": "Instructions:",
+            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+            "policy_link": "Privacy & Security Policy.",
+            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Terms & Conditions.",
+            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "full_name_error_message": "Please enter your name.",
+            "display_name_error_message": "Please enter your display name.",
+            "address_error_message": "Please enter your address.",
+            "city_error_message": "Please enter your city.",
+            "country_error_message": "Please enter your country.",
+            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+          }
+        },
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "Przepraszamy, nie mogliśmy określić Twojego aktualnego adresu, spróbuj ponownie!",
