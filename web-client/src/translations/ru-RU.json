@@ -121,31 +121,6 @@
       "resend": "переотправить",
       "error_message": "Вставьте полученный номер здесь!"
     },
-    "user_data_form": {
-      "sub_title": "Пожалуйста, заполните данные ниже.",
-      "gps_button": "Использовать GPS для получения моего адреса",
-      "gps_unavailable_retry_button": "Геолокация недоступна. Повторите попытку.",
-      "learn_reactivate": "Узнайте, как активировать геолокацию",
-      "retry_geolocation": "Получить геолокацию",
-      "continue_without_geolocation": "Продолжить без определения местонахождения",
-      "go_back": "Назад",
-      "geolocation_modal_title": "Получение координат запрещено",
-      "geolocation_modal_text": "Вы можете добавить ваше местоположение вручную, но это поможет нам получить вашу позицию более точно, если вы будете использовать геолокацию. Пожалуйста, выберите один из вариантов ниже:",
-      "geolocation_unavailable_title": "К сожалению, мы еще не доступны в вашем местоположении",
-      "geolocation_unavailable_text": "К сожалению, ваше местоположение пока не поддерживается на нашей платформе. Вы будете уведомлены по SMS или электронной почте, как только наше приложение станет доступно в вашем местоположении.",
-      "instructions_modal_title": "Инструкции:",
-      "instructions_modal_text": "Вы можете добавить ваше местоположение вручную, но это поможет нам получить вашу позицию более точно, если вы будете использовать геолокацию. Пожалуйста, выберите один из вариантов ниже:",
-      "policy_text": "Мы нуждаемся в этих данных, чтобы убедиться, что помощь достигла правильного места назначения. По любым вопросам обращайтесь к нашей ",
-      "policy_link": "Политика конфиденциальности и безопасности.",
-      "accept_to_use_profile_pic": "Я отлично позволю Reach4Help использовать фотографию моего профиля.",
-      "terms_conditions_text": "Я понимаю и признаю ",
-      "terms_conditions_link": "Условия предоставления сервиса",
-      "terms_conditions_error": "Вы должны принять условия.",
-      "full_name_error_message": "Пожалуйста, введите свое имя.",
-      "display_name_error_message": "Введите отображаемое имя.",
-      "address_error_message": "Пожалуйста, введите Ваш адрес.",
-      "allow_send_notifications": "Я хотел бы Reach4Help отправлять мне уведомления и электронные письма."
-    },
     "newRequest": {
       "title": "Новый запрос",
       "icon_text": "Мне нужна помощь",
@@ -258,6 +233,35 @@
         }
       },
       "personal-data": {
+        "components": {
+          "PersonalDataForm": {
+            "sub_title": "Please fill out the personal details below.",
+            "gps_button": "Use GPS to get my address",
+            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+            "learn_reactivate": "Learn how to reactivate geolocation",
+            "retry_geolocation": "Retry Geolocation",
+            "continue_without_geolocation": "Continue without Geolocation",
+            "go_back": "Go Back",
+            "geolocation_modal_title": "Geolocation is not authorized",
+            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+            "instructions_modal_title": "Instructions:",
+            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+            "policy_link": "Privacy & Security Policy.",
+            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Terms & Conditions.",
+            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "full_name_error_message": "Please enter your name.",
+            "display_name_error_message": "Please enter your display name.",
+            "address_error_message": "Please enter your address.",
+            "city_error_message": "Please enter your city.",
+            "country_error_message": "Please enter your country.",
+            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+          }
+        },
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "К сожалению, мы не смогли определить ваш фактический адрес, попробуйте еще раз!",
