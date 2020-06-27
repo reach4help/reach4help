@@ -1,7 +1,6 @@
 import { Select } from 'antd';
 import langs from 'langs';
 import React from 'react';
-// import {H6}  from 'src/components/figma';
 import { useTranslation } from 'react-i18next';
 import CONSTANTS from 'src/constants';
 import styled from 'styled-components';
@@ -28,13 +27,16 @@ const Step0: React.FC = (): React.ReactElement => {
 
   return (
     <StepWrapper>
-      <LanguageSelectLabel>
+      <Explanation>
         <H6>{t('login.steps.0_welcome.welcome')}</H6>
-      </LanguageSelectLabel>
+      </Explanation>
       <Select
         defaultValue={currentLanguage}
         showSearch
-        style={{ width: 200 }}
+        style={{
+          margin: 'auto',
+          width: '200px',
+        }}
         optionFilterProp="children"
         filterOption={(input, option) =>
           option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -47,9 +49,9 @@ const Step0: React.FC = (): React.ReactElement => {
           </Option>
         ))}
       </Select>
-      <p>
+      <Explanation>
         <H6>{t('login.steps.2_explanation.purpose')}</H6>
-      </p>
+      </Explanation>
     </StepWrapper>
   );
 };
@@ -69,13 +71,21 @@ const H6 = styled.span`
 `;
 
 const StepWrapper = styled('div')`
-  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+
+  /*  margin-left: auto;
   margin-right: auto;
   margin-top: 25px;
+  */
 `;
 
-const LanguageSelectLabel = styled('div')`
-  margin-bottom: 10px;
+const Explanation = styled('div')`
+  margin-bottom: 50px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
 `;
 
 export default Step0;

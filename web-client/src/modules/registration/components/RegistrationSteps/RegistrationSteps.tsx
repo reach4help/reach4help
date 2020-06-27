@@ -1,12 +1,10 @@
-import { Button, Steps } from 'antd';
+import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import Step1 from './Step1_SelectLanguage';
 import Step3 from './Step3_Authentication';
-
-const { Step } = Steps;
 
 const RegistrationSteps: React.FC<RegistrationStepsProps> = ({
   onLoginFacebook,
