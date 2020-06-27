@@ -81,28 +81,28 @@
         "0": "תודה על הצטרפותך לReach4Help! כמישהו.י שזקוק לעזרה, תוכל.י לבקש עזרה באיזורך על-ידי יצירת בקשות. כרגע, איננו יכולים להבטיח כי ישנם.ן מתנדבים.ות היכולים.ות לעזור באיזורך. אם זה המצב, אנו מציעים לשתף את האפליקציה עם מתנדבים ואירגוני התנדבות באיזורך. תודה שהצטרפת אלינו לבניית פלטפורמה מאוחדת של עזרה הדדית!",
         "1": "תודה שהגשת בקשה! תקבל.י התראה כאשר יציעו לעזור. כדי לבדוק את סטאטוס הבקשה לחצ.י או סמנ.י ",
         "2": "בדוק.י את שורת ההתראות כדי לצפות בעדכונים לגבי הצעות שקיבלת.",
-        "3": "Once you accept an offer, your information will be shared with the volunteer.",
-        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+        "3": "לאחר שתסכים.י להצעה, פרטי התקשורת שלך ישותפו עם המתנדב.ת.",
+        "4": "פנה.י אל המתנדב.ת (או חכה.י עד שהם יפנו אליך) כדי לתאם."
       }
     },
     "login": {
       "title": "Reach4Help",
-      "sub_title": "Sign Up Overview",
-      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
-      "facebookButtonLabel": "Continue with Facebook",
-      "googleButtonLabel": "Continue with Google"
+      "sub_title": "פרטי הרשמה",
+      "info": "שלום! תודה רבה שהבעת ענין בעזרה לקהילה שלך! כדי להבטיח את בטחונם של כל המשתמשים שלנו, אנו מבקשים לאמת את פרטיך על-ידי כניסה לחשבון בעזרת חשבון הGoogle או Facebook. אימות זה גם יעזור לנו לפנות אליך במקרה ויצוצו חוסר התאמות.",
+      "facebookButtonLabel": "המשך באמצעות פייסבוק",
+      "googleButtonLabel": "המשך באמצעות גוגל"
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
-      "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help"
+      "contactUs": "צרו קשר",
+      "logout": "התנתקות",
+      "switchToCAV": "החלף להצעת תמיכה",
+      "switchToPIN": "החלף לבקשת עזרה"
     },
     "phoneNumber": {
-      "select_instructions": "Pick from the dropdown below",
-      "input_instructions": "Enter your digits",
-      "sub_title": "Enter your telephone number to begin",
-      "info": "This information is fundamental to validate your account. Data and rates may apply.",
+      "select_instructions": "בחר.י מרשימה",
+      "input_instructions": "הזן.י את ספרותיך",
+      "sub_title": "הזן.י את מספר הטלפון שלך כדי להתחיל",
+      "info": "מידע זה חיוני כדי לאמת את פרטי החשבון שלך. עלות שליחת הודעה יכולה להיות כרוכה בתשלום.",
       "error_message": "Please input your phone number!",
       "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!",
       "no_country_error": "A country must be chosen.",
