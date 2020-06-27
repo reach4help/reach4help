@@ -1,217 +1,192 @@
 {
   "common": {
-    "i_understand": "I understand.",
-    "okay": "Okay",
-    "cancel": "Cancel",
-    "welcome": "Welcome",
-    "continue": "Continue",
-    "verify": "Verify",
-    "spinner": "Loading ...",
-    "name": "Name",
-    "full_name": "Full name",
-    "display_name": "Display name",
-    "display_name_placeholder": "Name used in greetings, defaults to 1st name",
-    "address": "Address",
-    "address1": "Address line 1",
-    "address2": "Address line 2 (optional)",
-    "city": "City",
-    "code": "Postal / Zip Code",
-    "State": "State / Province",
-    "country": "Country",
-    "for": " for ",
+    "i_understand": "אני מבינ.ה.",
+    "okay": "אוקיי",
+    "cancel": "בטל",
+    "welcome": "ברוך.ה הבא.ה",
+    "continue": "המשך",
+    "verify": "אמת",
+    "spinner": "טוען...",
+    "name": "שם",
+    "full_name": "שם מלא",
+    "display_name": "שם לתצוגה",
+    "display_name_placeholder": "שם לצרכי ברכות והיכרות. כברירת מחדל, המערכת תשתמש בשם הראשון",
+    "address": "כתובת",
+    "address1": "שורת כתובת 1",
+    "address2": "שורת כתובת 2 (לא חובה)",
+    "city": "עיר",
+    "code": "מיקוד",
+    "State": "מדינה \\ מחוז",
+    "country": "ארץ",
+    "for": "בשביל",
     "information_modal": {
-      "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
-      "a11y_logo": "Reach for Help logo",
+      "instructions": "הוראות",
+      "footer": "אם יש לך שאלות, או אם את.ה זקוקים לעזרה, אנא צרו עימנו קשר בכתובת האי-מייל: support@reach4help.org.",
+      "a11y_logo": "לוגו קריאה לעזרה",
       "OpenRequestsContainer": {
-        "title": "Still looking for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
-        "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "title": "עדין מחפש.ת עזרה...",
+        "0": "הבקשה שלך פורסמה אבל אף אחד עדין לא התנדב לעזור",
+        "1": "תקבל.י התראות לגבי סטטוס הבקשות שלך",
+        "2": "אם יש לך שאלות או בעיות, אל תהסס.י ליצור קשר עימנו באי-מייל: support@reach4help.org"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "מישהו.י הציע.ה לעזור!",
+        "0": "מישהו.י הציע.ה לעזור לך.",
+        "1": "צור.י קשר עימם בטלפון לתיאום."
       },
       "OngoingRequestsContainer": {
-        "title": "Matched with a Volunteer!",
-        "0": "You matched with someone who is taking care of your request."
+        "title": "נמצאה התאמה למתנדב.ת!",
+        "0": "נמצאה התאמה למישהו.י שכרגע מטפלים בבקשתך."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "הכל בוצע!",
+        "0": "את.ה והמתנדב.ת מסכימים שהכל סודר."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "החלטת לא לעשות זאת",
+        "0": "שינית את דעתך ומחקת את בקשתך."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "צפה.י בכל שלב בבקשתך",
+        "0": "בקשה נוצרה.",
+        "1": "מישהו.י הציע.ה לעזור.",
+        "2": "ההצעה התקבלה או נדחתה.",
+        "3": "הבקשה הושלמה.",
+        "4": "הבקשה נסגרה.",
+        "5": "הבקשה הוסרה.",
+        "6": "מתנדבים ואלו הזקוקים לעזרה מדרגים זה את זה."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "title": "להשתמש בכפתורים שלמטה",
+        "0": "לחצ.י על הכפתור השמאלי כדי לעקוב אחר הצעדים של בקשתך",
+        "1": "פתוח: בקשות המחפשות מתנדב.ת",
+        "2": "התקבל: מישהו.י הציע.ה לעזור לך.",
+        "3": "בתהליך: מתנדב.ת עובד.ת על בקשתך.",
+        "4": "הסתיים: המתנדב.ת השלימו את הבקשה.",
+        "5": "הועבר לארכיב: בקשות שנמחקו.",
+        "6": "לחצ.י על הפעמון משמאל כדי לצפות בהתראות שלך"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
-        "6": "Thank you for joining us in building this unified platform of help!"
+        "title": "ברוך.ה הבא.ה לReach4Help!",
+        "0": "תודה על הצטרפותך לReach4Help!",
+        "1": "כמתנדב, תוכל לעזור לאנשים באיזורך על-ידי מענה לבקשותיהם.",
+        "2": "השתמש.י במפה זו כדי לחפש בקשות לעזרה.",
+        "3": "לחצ.י על הסמן הכתום כדי לראות את הבקשה ולהחליט אם לקבל אותה",
+        "4": "לאחר שהמבקש הסכים להצעתך לעזור, שניכם.ן תקבלו את פרטי התקשורת של הצד השני.",
+        "5": "בדוק.י את שורת ההתראות כדי לצפות בעדכונים לגבי הצעותך לעזור.",
+        "6": "תודה על עזרתך בבניית פלטפורמה מאוחדת זו של עזרה הדדית!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
-        "2": "Check the Notifications panel to see updates about your incoming offers.",
-        "3": "Once you accept an offer, your information will be shared with the volunteer.",
-        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+        "title": "ברוך.ה הבא.ה לReach4Help!",
+        "0": "תודה על הצטרפותך לReach4Help! כמישהו.י שזקוק לעזרה, תוכל.י לבקש עזרה באיזורך על-ידי יצירת בקשות. כרגע, איננו יכולים להבטיח כי ישנם.ן מתנדבים.ות היכולים.ות לעזור באיזורך. אם זה המצב, אנו מציעים לשתף את האפליקציה עם מתנדבים ואירגוני התנדבות באיזורך. תודה שהצטרפת אלינו לבניית פלטפורמה מאוחדת של עזרה הדדית!",
+        "1": "תודה שהגשת בקשה! תקבל.י התראה כאשר יציעו לעזור. כדי לבדוק את סטאטוס הבקשה לחצ.י או סמנ.י ",
+        "2": "בדוק.י את שורת ההתראות כדי לצפות בעדכונים לגבי הצעות שקיבלת.",
+        "3": "לאחר שתסכים.י להצעה, פרטי התקשורת שלך ישותפו עם המתנדב.ת.",
+        "4": "פנה.י אל המתנדב.ת (או חכה.י עד שהם יפנו אליך) כדי לתאם."
       }
     },
     "login": {
       "title": "Reach4Help",
-      "sub_title": "Sign Up Overview",
-      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
-      "facebookButtonLabel": "Continue with Facebook",
-      "googleButtonLabel": "Continue with Google"
+      "sub_title": "פרטי הרשמה",
+      "info": "שלום! תודה רבה שהבעת ענין בעזרה לקהילה שלך! כדי להבטיח את בטחונם של כל המשתמשים שלנו, אנו מבקשים לאמת את פרטיך על-ידי כניסה לחשבון בעזרת חשבון הGoogle או Facebook. אימות זה גם יעזור לנו לפנות אליך במקרה ויצוצו חוסר התאמות.",
+      "facebookButtonLabel": "המשך באמצעות פייסבוק",
+      "googleButtonLabel": "המשך באמצעות גוגל"
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
-      "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help"
+      "contactUs": "צרו קשר",
+      "logout": "התנתקות",
+      "switchToCAV": "החלף להצעת תמיכה",
+      "switchToPIN": "החלף לבקשת עזרה"
     },
     "phoneNumber": {
-      "select_instructions": "Pick from the dropdown below",
-      "input_instructions": "Enter your digits",
-      "sub_title": "Enter your telephone number to begin",
-      "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!",
-      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!",
-      "no_country_error": "A country must be chosen.",
-      "no_digits_error": "You must enter the phone digits too.",
-      "is_valid_number": "is a valid telephone number",
-      "is_not_valid_number": "is not a valid telephone number",
-      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
-      "country_label": "Your country",
-      "country_placeholder": "Select a country",
-      "phone_label": "Enter your phone number",
-      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
+      "select_instructions": "בחר.י מרשימה",
+      "input_instructions": "הזן.י את ספרותיך",
+      "sub_title": "הזן.י את מספר הטלפון שלך כדי להתחיל",
+      "info": "מידע זה חיוני כדי לאמת את פרטי החשבון שלך. עלות שליחת הודעה יכולה להיות כרוכה בתשלום.",
+      "error_message": "אנא הזן.י מספר טלפון!",
+      "phone_valid": "מספר טלפון נכון מתחיל ב-+ ואחריו קוד מדינה, ללא רווחים או תווים מיוחדים!",
+      "no_country_error": "יש לבחור מדינה.",
+      "no_digits_error": "יש להכניס גם מספר טלפון.",
+      "is_valid_number": "הינו מספר טלפון נכון",
+      "is_not_valid_number": "אינו מספר טלפון נכון",
+      "is_plus_11": " אין מספר טלפון נכון. נא לא להכניס את קוד המדינה לתיבה. יש להשתמש אך ורק ברשימת המדינות",
+      "country_label": "מדינתך",
+      "country_placeholder": "בחר.י מדינה",
+      "phone_label": "הנכס.י מספר פלאפון",
+      "bad_11_prefix": "מספר שגוי: +11 הינו קידומת המדינה של בולגריה, לא של קנדה או ארצות-הברית. נא לא להשתמש בספרה ׳1׳ כספרה הראשונה שלך"
     },
     "verificationCode": {
-      "sub_title": "We just texted you a confirmation code. Please enter it below.",
-      "info": "If you did not receive a code please click ",
-      "resend": "resend",
-      "error_message": "Insert the received number here!"
-    },
-    "user_data_form": {
-      "sub_title": "Please fill out the personal details below.",
-      "gps_button": "Use GPS to get my address",
-      "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
-      "learn_reactivate": "Learn how to reactivate geolocation",
-      "retry_geolocation": "Retry Geolocation",
-      "continue_without_geolocation": "Continue without Geolocation",
-      "go_back": "Go Back",
-      "geolocation_modal_title": "Geolocation is not authorized",
-      "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
-      "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
-      "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
-      "instructions_modal_title": "Instructions:",
-      "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
-      "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
-      "policy_link": "Privacy & Security Policy.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
-      "terms_conditions_text": "I understand and acknowledge the ",
-      "terms_conditions_link": "Terms & Conditions.",
-      "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "Please enter your name.",
-      "display_name_error_message": "Please enter your display name.",
-      "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+      "sub_title": "שלחנו לך הודעת טקסט עם קוד אימות. הכנס.י אותו למטה.",
+      "info": "אם לא קיבלת קוד, נא ללחוץ ",
+      "resend": "שליחה חוזרת",
+      "error_message": "הכנס.י את המספר שהתקבל כאן!"
     },
     "newRequest": {
-      "title": "New Request",
-      "icon_text": "I need help",
+      "title": "בקשה חדשה",
+      "icon_text": "אני זקוק.ה לעזרה",
       "form": {
-        "title": "Title",
-        "type": "Type",
-        "address": "Confirm Address",
-        "body": "Enter details of what is needed",
-        "other": "Please enter your type",
-        "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Next",
-        "cancel": "Cancel",
-        "search": "Search",
-        "useMyLocation": "Use my location",
-        "address_error_message": "Please enter your address.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "title": "כותרת",
+        "type": "סוג",
+        "address": "אישור כתובת",
+        "body": "אנא פרט.י את העזרה הדרושה",
+        "other": "נא להזין סוג",
+        "consent": "כל ההתראות. תמיד ניתן לשנות זאת בתפריט ״הגדרות״ במועד מאוחר יותר.",
+        "submit": "הבא",
+        "cancel": "ביטול",
+        "search": "חיפוש",
+        "useMyLocation": "השתמש במיקומי",
+        "address_error_message": "נא להזין את כתובתך.",
+        "type_error_message": "את.ה צריך.ה לבחור סוג.",
+        "other_error_message": "את.ה צריך להזין פרטים.",
+        "body_error_message": "אנא הזן.י תיאור."
       }
     },
     "newRequestSuccess": {
-      "title": "Your request has been created",
-      "info": "Please be patient until you get an offer from a volunteer.",
-      "remember": "Remember",
-      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      "title": "בקשתך נוצרה בהצלחה.",
+      "info": "נא להיעזר בסבלנות עד שתקבל.י הצעה ממתנדב.",
+      "remember": "זכור.י",
+      "remember_info": "כאשר מתנגב.ת מציעים לעזור, את.ה חייב.ת להסכים לעזרה כדי שהם יוכלו לראות את פרטי התקשורת עמך."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
-      "deliveryAddress": "Delivery address"
+      "submit": "הגשת בקשה",
+      "back": "חזרה",
+      "deliveryAddress": "כתובת משלוח"
     },
     "roleinfo": {
       "title": "Reach4Help",
-      "sub_title": "How can we assist you ?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
-      "info": "Please tell us what is your purpose to use Reach4Help",
-      "info_pin": "I'm here because I need help",
-      "c2a_pin": "Get help now!",
-      "info_cav": "I'm here because I want to help people",
-      "c2a_cav": "Start helping now!"
+      "sub_title": "איך ניתן לסייע לך?",
+      "manifesto": "אנו מאמינים שלכל מה שאנו עושים יש משמעות. אנו מאמינים כי אנחנו מסוגלים לעזור לאנשים לחוש תחושת קהילתיות. אנו מאמינים כי סולידריות מבליטה את הטוב ביותר באינדיבידואלים.",
+      "info": "אנא ספר.י לנו את הסיבה שאת.ה רוצה לעשות שימוש בReach4Help",
+      "info_pin": "אני כאן משום שאני זקוק.ה לעזרה",
+      "c2a_pin": "עזרה עכשיו!",
+      "info_cav": "אני כאן משום שאני רוצה לעזור לאנשים",
+      "c2a_cav": "התחל.י לעזור עכשיו!"
     },
     "routeSubtitles": {
-      "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
-      "_personal-data": "Personal Data",
-      "_timeline": "Request Timeline",
-      "_personal-data_role-info": "Role Info",
-      "_phone_entry": "Enter Phone Number",
-      "_phone_verify": "Verifying Phone Number",
-      "_requests_accepted": "Accepted Requests",
-      "_requests_archived": "Closed Requests",
-      "_requests_find": "Find Requests",
-      "_requests_finished": "Completed Requests",
-      "_requests_new": "New Request",
-      "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_login": "התחברות",
+      "_phone": "טלפון",
+      "_requests": "בקשות",
+      "_personal-data": "פרטים אישיים",
+      "_timeline": "בקש לוח זמנים",
+      "_personal-data_role-info": "פרטי תפקיד",
+      "_phone_entry": "הכנס.י מספר טלפון",
+      "_phone_verify": "מאמת את מספר הטלפון",
+      "_requests_accepted": "בקשות שהתקבלו",
+      "_requests_archived": "בקשות סגורות",
+      "_requests_find": "מצא.י בקשות",
+      "_requests_finished": "בקשות שהושלמו",
+      "_requests_new": "בקשה חדשה",
+      "_requests_ongoing": "בקשות מתמשכות",
+      "_requests_open": "בקשות פתוחות"
     },
     "timeline": {
-      "CREATE_REQUEST": "{{actorName}} created this request.",
-      "CANCEL_REQUEST": "{{actorName}} closed this request.",
-      "REMOVE_REQUEST": "{{actorName}} removed this request",
-      "COMPLETE_REQUEST": "Request has been completed.",
-      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
-      "CAV_DECLINED": "{{actorName}} rejected this request.",
-      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
+      "CREATE_REQUEST": "{{actorName}} יצר.ה בקשה זאת",
+      "CANCEL_REQUEST": "{{actorName}} סגר.ה בקשה זו",
+      "REMOVE_REQUEST": "{{actorName}} הסיר.ה בקשה זו",
+      "COMPLETE_REQUEST": "הבקשה הושלמה",
+      "CREATE_OFFER": "{{actorName}} הציע.ה לעזור בבקשה זו.",
+      "CAV_DECLINED": "{{actorName}} דחה.תה בקשה זו.",
+      "ACCEPT_OFFER": "{{actorName}} הסכים.ה לעזרת {{cavUserName}}.",
       "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
       "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
       "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
@@ -258,69 +233,98 @@
         }
       },
       "personal-data": {
+        "components": {
+          "PersonalDataForm": {
+            "sub_title": "Please fill out the personal details below.",
+            "gps_button": "Use GPS to get my address",
+            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+            "learn_reactivate": "Learn how to reactivate geolocation",
+            "retry_geolocation": "Retry Geolocation",
+            "continue_without_geolocation": "Continue without Geolocation",
+            "go_back": "Go Back",
+            "geolocation_modal_title": "Geolocation is not authorized",
+            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+            "instructions_modal_title": "Instructions:",
+            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+            "policy_link": "Privacy & Security Policy.",
+            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Terms & Conditions.",
+            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "full_name_error_message": "Please enter your name.",
+            "display_name_error_message": "Please enter your display name.",
+            "address_error_message": "נא להזין את כתובתך.",
+            "city_error_message": "אנא הזן את העיר שלך.",
+            "country_error_message": "אנא בחר.י את המדינה שלך.",
+            "allow_send_notifications": "אבקש כי Reach4Help תשלח לי התראות ואי-מיילים."
+          }
+        },
         "containers": {
           "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
-            "missing_data": "Missing Data!"
+            "address_error": "סליחה, לא הצלחנו לאתר את כתובתך, אנא נסה.י שוב!",
+            "missing_data": "מידע חסר!"
           }
         }
       },
       "requests": {
-        "a11y_profile_pic": "Profile Pic",
+        "a11y_profile_pic": "תמונת פרופיל",
         "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+          "choose_volunteer": "בחר.י מהמתנדבים הבאים למילוי בקשתך."
         },
-        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
-        "cannot_help": "Cannot Help",
+        "bottom_warning": "בקשתך נצפתה על-ידי מספר מתנדבים, אך לא התקבלה. אנו מציעים &ldquo;לבטל בקשה&rdquo; וליצור בקשה חדשה עם תיאור פשוט יותר.",
+        "cannot_help": "לא ניתן לעזור",
         "containers": {
           "AcceptedRequestContainer": {
-            "accepted": "Accepted"
+            "accepted": "התקבל"
           },
           "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
+            "want_to_help": "אני רוצה לעזור!"
           },
           "FinishedRequestsContainer": {
-            "finished": "Finished"
+            "finished": "הושלם"
           },
           "NewRequestsContainer": {
-            "address_error": "Unable to find address",
-            "deliveries": "Deliveries"
+            "address_error": "לא ניתן לאתר כתובת",
+            "deliveries": "משלוחים"
           },
           "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
+            "ongoing": "מתמשך"
           },
           "OpenRequestContainer": {
-            "open": "Open"
+            "open": "פתיחה"
           },
-          "no_reply": "No one has replied to your request."
+          "no_reply": "אף-אחד לא ענה לבקשתך."
         }
       }
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "טוען..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
-        "notifications": "Notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
-        "pin_rejected": "You have rejected help from ",
-        "request_author": "The request_author",
-        "volunteer_accepted": " accepted your offer for ",
-        "your_task": "your task"
+        "a_request": "בקשה",
+        "already_helped": " כבר מקבל עזרה ב ",
+        "cav_declined_help": " סרב לעזור ב",
+        "cav_offer": "הצעת לעזור ב",
+        "no_notifications": "אין התראות חדשות.",
+        "notifications": "התראות",
+        "offered_help": " הציע.ה לעזור ב",
+        "pin_accepted": "הסכמת לעזרה מ",
+        "pin_declined_help": "סירבת לעזור ל",
+        "pin_rejected": "דחית עזרה מ",
+        "request_author": "request_author",
+        "volunteer_accepted": " הסכים.ה לעזרתך ב",
+        "your_task": "משימתך"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "המיקום שלי",
+        "a11y_destination": "יעד",
+        "api_error": "לא ניתן לבצע התאמה",
+        "distance_error": "שגיאת מרחק משירות:",
+        "geocode_error": "לא ניתן לקבל מיקום"
       }
     }
   }
