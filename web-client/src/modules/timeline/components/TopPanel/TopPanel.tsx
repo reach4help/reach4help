@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React, { useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import PhoneIcon from 'src/assets/phone-icon.svg';
@@ -86,7 +87,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
               </Info>
             )}
           </Detail>
-          {userRequestStatus === RequestStatus.ongoing && (
+          {userRequestStatus === RequestStatus.ongoing && isMobile && (
             <a href={`sms:${request.contactNumber}`}>
               <img
                 src={SMSIcon}
@@ -100,7 +101,13 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
             </a>
           )}
           {userRequestStatus === RequestStatus.ongoing && (
-            <a href={`tel:${request.contactNumber}`}>
+            <a style={{ color: 'white' }} href={`tel:${request.contactNumber}`}>
+              {!isMobile && (
+                <span style={{ paddingRight: '5px' }}>
+                  {' '}
+                  {request.contactNumber}{' '}
+                </span>
+              )}
               <img
                 src={PhoneIcon}
                 alt={t(
