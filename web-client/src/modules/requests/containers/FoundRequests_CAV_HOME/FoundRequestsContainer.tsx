@@ -29,8 +29,8 @@ import {
 } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
 import { RequestWithOffersAndTimeline } from '../../../../models/requests/RequestWithOffersAndTimeline';
-import RequestItem from '../../../requests/components/RequestItem/RequestItem';
-import { OpenRequestsLocation } from '../../../requests/pages/routes/OpenRequestsRoute/constants';
+import RequestItem from '../../components/RequestItem/RequestItem';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 const { TabPane } = Tabs;
 

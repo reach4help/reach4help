@@ -23,12 +23,12 @@ import {
   setRequest,
 } from '../../../../ducks/requests/actions';
 import { RequestState } from '../../../../ducks/requests/types';
-import NewRequest from '../../../requests/components/NewRequest/NewRequest';
-import RequestConfirmation from '../../../requests/components/NewRequest/RequestConfirmation';
+import NewRequest from '../../components/NewRequest/NewRequest';
+import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
 import RequestReview, {
   RequestInput,
-} from '../../../requests/components/NewRequest/RequestReview';
-import { OpenRequestsLocation } from '../../../requests/pages/routes/OpenRequestsRoute/constants';
+} from '../../components/NewRequest/RequestReview';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
