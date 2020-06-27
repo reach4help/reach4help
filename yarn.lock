@@ -1505,6 +1505,14 @@
     "@datadog/browser-core" "1.12.5"
     tslib "1.10.0"
 
+"@datadog/browser-rum@^1.12.5":
+  version "1.12.5"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-1.12.5.tgz#31c5f8420bccbec9d2ddec1ce54173a803fc479b"
+  integrity sha512-oknyPxW5DsXSdS9PN+uDUTomUXErBxkr7wXi7EleHhCTBBhFdICVt9MLM2BvY6DYR4GUoa+dCAw3FmYxwmyigw==
+  dependencies:
+    "@datadog/browser-core" "1.12.5"
+    tslib "1.10.0"
+
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
