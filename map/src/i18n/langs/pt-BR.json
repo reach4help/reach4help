@@ -125,11 +125,11 @@
     "mobility": "Mobilidade",
     "shelter": "Shelter",
     "support": "Support",
-    "information": "Information",
+    "information": "Informações",
     "network": "Network",
     "manufacturing": "Manufactoring",
-    "financial": "Financial",
-    "other": "Other"
+    "financial": "Financeiro",
+    "other": "Outro"
   },
   "serviceDescriptions": {
     "food": null,
