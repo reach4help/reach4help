@@ -191,7 +191,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         }
         if (
           !requestsState.syncArchivedRequestsState.data &&
-          requestsState.syncArchivedRequestsState.loading
+          !requestsState.syncArchivedRequestsState.loading
         ) {
           dispatch(
             getArchivedRequests({
