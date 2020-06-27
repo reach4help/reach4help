@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FindRequestsContainer from '../../../containers/FoundRequests_CAV_HOME/FoundRequestsContainer';
+import FindRequestsContainer from '../../../containers/FindRequestsContainer/FindRequestsContainer';
 
 const FindRequestsRoute: React.FC = () => <FindRequestsContainer />;
 
