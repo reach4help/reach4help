@@ -1,33 +1,38 @@
+import { List, Tabs } from 'antd';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
-import {
-  getCoordsFromProfile,
-  getStreetAddressFromProfile,
-} from 'src/components/WebClientMap/utils';
-import Map from 'src/components/WebClientMap/WebClientMap';
-import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
-import { OffersState } from 'src/ducks/offers/types';
-import { ProfileState } from 'src/ducks/profile/types';
-import {
-  getOpenRequests,
-  resetSetRequestState,
-} from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
 import { OfferStatus } from 'src/models/offers';
 import { ApplicationPreference } from 'src/models/users';
-import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from '../../../../components/InformationModal/InformationModal';
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import {
+  getCoordsFromProfile,
+  getStreetAddressFromProfile,
+} from '../../../../components/WebClientMap/utils';
+import Map from '../../../../components/WebClientMap/WebClientMap';
+import { resetSetOfferState, setOffer } from '../../../../ducks/offers/actions';
+import { OffersState } from '../../../../ducks/offers/types';
+import { ProfileState } from '../../../../ducks/profile/types';
+import {
+  getOpenRequests,
+  resetSetRequestState,
+} from '../../../../ducks/requests/actions';
+import { RequestState } from '../../../../ducks/requests/types';
+import { RequestWithOffersAndTimeline } from '../../../../models/requests/RequestWithOffersAndTimeline';
+import RequestItem from '../../components/RequestItem/RequestItem';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
+
+const { TabPane } = Tabs;
 
 const FindRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -50,9 +55,11 @@ const FindRequestsContainer: React.FC = () => {
     getCoordsFromProfile(profileState),
   );
 
-  const [requestsWithoutOffer, setRequestsWithoutOffer] = useState<
-    MapRequestProps[]
+  const [requestsListData, setRequestsListData] = useState<
+    RequestWithOffersAndTimeline[]
   >([]);
+
+  const [requestsGeoData, setrequestsGeoData] = useState<MapRequestProps[]>([]);
 
   const pendingRequestsWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: RequestState }) =>
@@ -122,26 +129,34 @@ const FindRequestsContainer: React.FC = () => {
     ) {
       const requestsData = pendingRequestsWithOffersAndTimeline.data;
       if (requestsData) {
-        const transformedRequests: MapRequestProps[] = Object.keys(
-          requestsData,
-        ).reduce(
-          (acc: MapRequestProps[], curr: string) =>
-            !requestsData[curr]
-              ? acc
-              : [
-                  ...acc,
-                  {
-                    id: curr,
-                    center: {
-                      lat: requestsData[curr].latLng.latitude,
-                      lng: requestsData[curr].latLng.longitude,
-                    },
-                  },
-                ],
-          [],
-        );
+        /* TODO:  Should be reduce */
+        const keys = Object.keys(requestsData);
+        const values: RequestWithOffersAndTimeline[] = [];
+        for (let i = 0; i < keys.length; i++) {
+          if (requestsData[keys[i]]) {
+            values.push(requestsData[keys[i]]);
+          }
+        }
 
-        setRequestsWithoutOffer(transformedRequests);
+        setRequestsListData(values);
+        setrequestsGeoData(
+          Object.keys(requestsData).reduce(
+            (acc: MapRequestProps[], curr: string) =>
+              !requestsData[curr]
+                ? acc
+                : [
+                    ...acc,
+                    {
+                      id: curr,
+                      center: {
+                        lat: requestsData[curr].latLng.latitude,
+                        lng: requestsData[curr].latLng.longitude,
+                      },
+                    },
+                  ],
+            [],
+          ),
+        );
       }
     }
   }, [pendingRequestsWithOffersAndTimeline]);
@@ -229,31 +244,107 @@ const FindRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <div style={{ height: '100vh' }}>
-        <Map
-          isCav
-          destinations={requestsWithoutOffer}
-          origin={currentLocation}
-          onDestinationClickedHandler={id => onRequestHandler(id)}
-          onGeocode={setGeocodedLocation}
-          bannerMessage={bannerMessage}
-        />
-        {maybeRequestDetails()}
-        <InformationModal
-          title={t('information_modal.FindRequestsContainer.title')}
-          localStorageKey={instructionModalLocalStorageKey}
-          instructions={instructions}
-        />
-      </div>
+      <StyledTabs defaultActiveKey="map">
+        <StyledTabPane
+          tab={t(
+            'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
+          )}
+          key="map"
+        >
+          <div
+            style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
+          >
+            <Map
+              isCav
+              destinations={requestsGeoData}
+              origin={currentLocation}
+              onDestinationClickedHandler={id => onRequestHandler(id)}
+              onGeocode={setGeocodedLocation}
+              bannerMessage={bannerMessage}
+              forceRerender
+            />
+          </div>
+          {maybeRequestDetails()}
+        </StyledTabPane>
+        <StyledTabPane
+          tab={t(
+            'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.list_tab_label',
+          )}
+          key="list"
+          style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
+        >
+          {' '}
+          {requestsListData && requestsListData.length ? (
+            <List>
+              {requestsListData.map((request, idx) => (
+                <RequestDetailsListItem key={idx}>
+                  <RequestItem
+                    request={request}
+                    handleRequest={handleRequestForAcceptReject}
+                    loading={setOfferState.loading}
+                    isCavAndOpenRequest
+                  />
+                </RequestDetailsListItem>
+              ))}
+            </List>
+          ) : (
+            <NoRequestsDiv>
+              {t(
+                'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.no_requests',
+              )}
+            </NoRequestsDiv>
+          )}
+        </StyledTabPane>
+      </StyledTabs>
+      <InformationModal
+        title={t('information_modal.FindRequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
+      />
     </>
   );
 };
+
+const NoRequestsDiv = styled.div`
+  font-size: 28px;
+  background: white;
+  width: 50%;
+  margin: 50 auto 100 auto;
+`;
+
+const StyledTabs = styled(Tabs)`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  .ant-tabs-content-holder {
+    display: flex;
+  }
+`;
+
+const StyledTabPane = styled(TabPane)`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
 
 const RequestDetails = styled.div`
   position: fixed;
   bottom: 64px;
   width: 100%;
   background: white;
+`;
+
+const RequestDetailsListItem = styled(List.Item)`
+  bottom: 64px;
+  width: 100%;
+  background: white;
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
+    background-color: ${COLORS.brandOrange};
+  }
+  border: 2px solid ${COLORS.brandOrange};
 `;
 
 interface MapRequestProps {

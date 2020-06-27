@@ -4,27 +4,31 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { IUser } from 'src/models/users';
+import styled from 'styled-components';
+
 import {
   InformationModal,
   makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
+} from '../../../../components/InformationModal/InformationModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from 'src/components/WebClientMap/utils';
-import Map from 'src/components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from 'src/constants/mediaQueries';
-import { ProfileState } from 'src/ducks/profile/types';
-import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
-import { IUser } from 'src/models/users';
-import NewRequest from 'src/modules/requests/components/NewRequest/NewRequest';
-import RequestConfirmation from 'src/modules/requests/components/NewRequest/RequestConfirmation';
+} from '../../../../components/WebClientMap/utils';
+import Map from '../../../../components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from '../../../../constants/mediaQueries';
+import { ProfileState } from '../../../../ducks/profile/types';
+import {
+  resetSetRequestState,
+  setRequest,
+} from '../../../../ducks/requests/actions';
+import { RequestState } from '../../../../ducks/requests/types';
+import NewRequest from '../../components/NewRequest/NewRequest';
+import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
 import RequestReview, {
   RequestInput,
-} from 'src/modules/requests/components/NewRequest/RequestReview';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
-import styled from 'styled-components';
+} from '../../components/NewRequest/RequestReview';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
