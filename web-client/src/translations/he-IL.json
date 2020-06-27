@@ -186,7 +186,7 @@
       "COMPLETE_REQUEST": "הבקשה הושלמה",
       "CREATE_OFFER": "{{actorName}} הציע.ה לעזור בבקשה זו.",
       "CAV_DECLINED": "{{actorName}} דחה.תה בקשה זו.",
-      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
+      "ACCEPT_OFFER": "{{actorName}} הסכים.ה לעזרת {{cavUserName}}.",
       "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
       "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
       "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
@@ -256,15 +256,15 @@
             "terms_conditions_error": "You need to accept the Terms & Conditions.",
             "full_name_error_message": "Please enter your name.",
             "display_name_error_message": "Please enter your display name.",
-            "address_error_message": "Please enter your address.",
-            "city_error_message": "Please enter your city.",
-            "country_error_message": "Please enter your country.",
-            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+            "address_error_message": "נא להזין את כתובתך.",
+            "city_error_message": "אנא הזן את העיר שלך.",
+            "country_error_message": "אנא בחר.י את המדינה שלך.",
+            "allow_send_notifications": "אבקש כי Reach4Help תשלח לי התראות ואי-מיילים."
           }
         },
         "containers": {
           "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
+            "address_error": "סליחה, לא הצלחנו לאתר את כתובתך, אנא נסה.י שוב!",
             "missing_data": "מידע חסר!"
           }
         }
