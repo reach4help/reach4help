@@ -1,6 +1,7 @@
 import { Select } from 'antd';
 import langs from 'langs';
 import React from 'react';
+// import {H6}  from 'src/components/figma';
 import { useTranslation } from 'react-i18next';
 import CONSTANTS from 'src/constants';
 import styled from 'styled-components';
@@ -8,10 +9,7 @@ import styled from 'styled-components';
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
 /* we are only using 2-digit language codes for now
-  SELECT input below will get confused if it sees:
-  > 'en-US'
-  everything must be standardized to 
-  > 'en'
+  Both 'pt-BR' and 'pt-PT' will be standardized to 'pt'
   */
 const { Option } = Select;
 
@@ -26,19 +24,12 @@ const Step0: React.FC = (): React.ReactElement => {
   const setBrowserDefaultLanguage = val => {
     localStorage.setItem(LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY, val);
     i18n.init();
-
-    /*  TODO:  language should be changed immediately as well as in localStorage 
-        both reload and don't change language
-        i18n.init();
-        changeLanguage(val)
-          .then(t => console.log(`Changed language to ${val}`))
-          .catch(err => console.error(`Error in ChangeLanguage ${err}`)); */
   };
 
   return (
     <StepWrapper>
       <LanguageSelectLabel>
-        <H6>{t('login.steps.1_select_language.select_language_label')}</H6>
+        <H6>{t('login.steps.0_welcome.welcome')}</H6>
       </LanguageSelectLabel>
       <Select
         defaultValue={currentLanguage}
@@ -56,6 +47,9 @@ const Step0: React.FC = (): React.ReactElement => {
           </Option>
         ))}
       </Select>
+      <p>
+        <H6>{t('login.steps.2_explanation.purpose')}</H6>
+      </p>
     </StepWrapper>
   );
 };
