@@ -90,7 +90,38 @@
       "sub_title": "Resumen de registro",
       "info": "¡Hola! ¡Muchas gracias por tu interés en ayudar a tu comunidad! Garantizar la seguridad de nuestros usuarios, actualmente necesitamos iniciar sesión a través de Google o Facebook para verificar su identidad y ponerse en contacto con usted si surge alguna discrepencia.\n\nDespués de este paso, se te pedirá que proporciones tu número de teléfono y que lo verifiques a través de un código que recibirás por texto. Así es como las personas que ofrecen ayuda se pondrán en contacto con usted! La información de contacto sólo se comparte con la otra persona cuando usted ha aprobado la oferta de la persona para ayudarle. Cuando usted envía una solicitud de ayuda, su ubicación exacta no es compartida (sólo los tres primeros dígitos de su código postal).\n¡Gracias por su cooperación para hacer de nuestro mundo un lugar más seguro y útil! Si tienes alguna pregunta, por favor contáctanos a support@reach4help. rg.",
       "facebookButtonLabel": "Continuar con Facebook",
-      "googleButtonLabel": "Continuar con Google"
+      "googleButtonLabel": "Continuar con Google",
+
+      "steps": {
+        "continue": "Seguir",
+        "footer": {
+          "contact": "Si tiene alguna pregunta o necesita ayuda, no dude en enviarnos un correo electrónico a "
+        },
+        "0_welcome": {
+          "title": "¡Bienvenido!",
+          "welcome": "¡Bienvenido a Reach4Help!",
+          "thanks": "Muchas gracias por su interés en ayudar a su comunidad."
+        },
+        "1_select_language": {
+          "title": "Idioma",
+          "select_language_label": "¿Cual es tu idioma principal?"
+        },
+        "2_explanation": {
+          "title": "Explicación",
+          "purpose": "A través de nuestra plataforma, podrá conectarse con otros para recibir y brindar ayuda a las personas en su área.",
+          "connect": "Puede conectarse con voluntarios y personas necesitadas y personas necesitadas creando solicitudes de ayuda y ofreciendo apoyo para esas solicitudes."
+        },
+        "3_authentication": {
+          "title": "Identidad",
+          "please": "Regístrese con uno de los proveedores a continuación",
+          "popup_explanation": {
+            "main_question": "¿Por qué necesitas una cuenta externa?",
+            "main_answer": "Para garantizar la seguridad de nuestros usuarios, actualmente requerimos iniciar sesión a través de Google o Facebook. Esto es para proporcionar otra capa de verificación para nuestros usuarios en caso de que necesitemos contactarlo.",
+            "second_question": "¿Puedo usar otros medios para verificar mi identidad?",
+            "second_answer": "Si no se siente cómodo usando Google / Facebook, puede sugerir una alternativa a"
+          }
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Póngase en contacto con nosotros",
