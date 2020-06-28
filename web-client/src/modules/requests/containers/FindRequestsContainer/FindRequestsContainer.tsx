@@ -1,8 +1,14 @@
+import { List, Tabs } from 'antd';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/Modals/OneTimeModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
@@ -18,16 +24,15 @@ import {
 import { RequestState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
 import { OfferStatus } from 'src/models/offers';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
-import RequestItem from 'src/modules/requests/components/RequestItem/RequestItem';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from '../../../../components/Modals/OneTimeModal';
+import RequestItem from '../../components/RequestItem/RequestItem';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
+
+const { TabPane } = Tabs;
 
 const FindRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -50,38 +55,49 @@ const FindRequestsContainer: React.FC = () => {
     getCoordsFromProfile(profileState),
   );
 
-  const [requestsWithoutOffer, setRequestsWithoutOffer] = useState<
-    MapRequestProps[]
+  const [requestsListData, setRequestsListData] = useState<
+    RequestWithOffersAndTimeline[]
   >([]);
+
+  const [requestsGeoData, setrequestsGeoData] = useState<MapRequestProps[]>([]);
 
   const pendingRequestsWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: RequestState }) =>
       requests.syncOpenRequestsState,
   );
 
-  const setRequestState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.setAction,
-  );
   const setOfferState = useSelector(
     ({ offers }: { offers: OffersState }) => offers.setAction,
   );
 
   useEffect(() => {
-    dispatch(resetSetRequestState());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (
-      (!setRequestState.loading && setRequestState.success) ||
-      (!setOfferState.loading && setOfferState.success)
-    ) {
-      setTimeout(() => {
-        history.push(OpenRequestsLocation.path);
-      }, 150);
-      dispatch(resetSetRequestState());
-      dispatch(resetSetOfferState());
+    /*
+     *
+     * We needed to ensure that stale data is not present whenever someone returns to this page from somewhere else
+     * So we chose to reset the redux state whenever this page is loaded
+     * However, when an offer was rejected, this page was remounted and due to state changes, this effect was invoked multiple times
+     * This caused unpredictable behaviour such as multiple calls to the get sync open requests API
+     * which led to invalid data as the data wasn't updated in the backend fully
+     * This check therefore enables us to ensure that the action to set the offer is completed before we reset it
+     * We can identify that the offer made was for helping with the request by looking at the value of success.
+     * The value of success is 1 if the offer was made to help and 2 if the CAV declined
+     *
+     * This useEffect also handles the case when an offer to help is made for a request
+     * This logic was in another useEffect earlier but has been moved here as it made more sense to be here
+     *
+     */
+    if (!setOfferState.loading) {
+      if (!setOfferState.success || setOfferState.success === 2) {
+        dispatch(resetSetRequestState());
+      } else if (setOfferState.success && setOfferState.success === 1) {
+        setTimeout(() => {
+          history.push(OpenRequestsLocation.path);
+        }, 150);
+        dispatch(resetSetRequestState());
+        dispatch(resetSetOfferState());
+      }
     }
-  }, [setRequestState, setOfferState, dispatch, history]);
+  }, [dispatch, history, setOfferState]);
 
   useEffect(() => {
     if (
@@ -99,7 +115,12 @@ const FindRequestsContainer: React.FC = () => {
         }),
       );
     }
-  }, [profileState, dispatch, pendingRequestsWithOffersAndTimeline]);
+  }, [
+    profileState,
+    dispatch,
+    pendingRequestsWithOffersAndTimeline,
+    setOfferState,
+  ]);
 
   useEffect(() => {
     if (
@@ -108,26 +129,34 @@ const FindRequestsContainer: React.FC = () => {
     ) {
       const requestsData = pendingRequestsWithOffersAndTimeline.data;
       if (requestsData) {
-        const transformedRequests: MapRequestProps[] = Object.keys(
-          requestsData,
-        ).reduce(
-          (acc: MapRequestProps[], curr: string) =>
-            !requestsData[curr]
-              ? acc
-              : [
-                  ...acc,
-                  {
-                    id: curr,
-                    center: {
-                      lat: requestsData[curr].latLng.latitude,
-                      lng: requestsData[curr].latLng.longitude,
-                    },
-                  },
-                ],
-          [],
-        );
+        /* TODO:  Should be reduce */
+        const keys = Object.keys(requestsData);
+        const values: RequestWithOffersAndTimeline[] = [];
+        for (let i = 0; i < keys.length; i++) {
+          if (requestsData[keys[i]]) {
+            values.push(requestsData[keys[i]]);
+          }
+        }
 
-        setRequestsWithoutOffer(transformedRequests);
+        setRequestsListData(values);
+        setrequestsGeoData(
+          Object.keys(requestsData).reduce(
+            (acc: MapRequestProps[], curr: string) =>
+              !requestsData[curr]
+                ? acc
+                : [
+                    ...acc,
+                    {
+                      id: curr,
+                      center: {
+                        lat: requestsData[curr].latLng.latitude,
+                        lng: requestsData[curr].latLng.longitude,
+                      },
+                    },
+                  ],
+            [],
+          ),
+        );
       }
     }
   }, [pendingRequestsWithOffersAndTimeline]);
@@ -215,31 +244,107 @@ const FindRequestsContainer: React.FC = () => {
 
   return (
     <>
-      <div style={{ height: '100vh' }}>
-        <Map
-          isCav
-          destinations={requestsWithoutOffer}
-          origin={currentLocation}
-          onDestinationClickedHandler={id => onRequestHandler(id)}
-          onGeocode={setGeocodedLocation}
-          bannerMessage={bannerMessage}
-        />
-        {maybeRequestDetails()}
-        <InformationModal
-          title={t('information_modal.FindRequestsContainer.title')}
-          localStorageKey={instructionModalLocalStorageKey}
-          instructions={instructions}
-        />
-      </div>
+      <StyledTabs defaultActiveKey="map">
+        <StyledTabPane
+          tab={t(
+            'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
+          )}
+          key="map"
+        >
+          <div
+            style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
+          >
+            <Map
+              isCav
+              destinations={requestsGeoData}
+              origin={currentLocation}
+              onDestinationClickedHandler={id => onRequestHandler(id)}
+              onGeocode={setGeocodedLocation}
+              bannerMessage={bannerMessage}
+              forceRerender
+            />
+          </div>
+          {maybeRequestDetails()}
+        </StyledTabPane>
+        <StyledTabPane
+          tab={t(
+            'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.list_tab_label',
+          )}
+          key="list"
+          style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
+        >
+          {' '}
+          {requestsListData && requestsListData.length ? (
+            <List>
+              {requestsListData.map((request, idx) => (
+                <RequestDetailsListItem key={idx}>
+                  <RequestItem
+                    request={request}
+                    handleRequest={handleRequestForAcceptReject}
+                    loading={setOfferState.loading}
+                    isCavAndOpenRequest
+                  />
+                </RequestDetailsListItem>
+              ))}
+            </List>
+          ) : (
+            <NoRequestsDiv>
+              {t(
+                'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.no_requests',
+              )}
+            </NoRequestsDiv>
+          )}
+        </StyledTabPane>
+      </StyledTabs>
+      <InformationModal
+        title={t('information_modal.FindRequestsContainer.title')}
+        localStorageKey={instructionModalLocalStorageKey}
+        instructions={instructions}
+      />
     </>
   );
 };
+
+const NoRequestsDiv = styled.div`
+  font-size: 28px;
+  background: white;
+  width: 50%;
+  margin: 50 auto 100 auto;
+`;
+
+const StyledTabs = styled(Tabs)`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  .ant-tabs-content-holder {
+    display: flex;
+  }
+`;
+
+const StyledTabPane = styled(TabPane)`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
 
 const RequestDetails = styled.div`
   position: fixed;
   bottom: 64px;
   width: 100%;
   background: white;
+`;
+
+const RequestDetailsListItem = styled(List.Item)`
+  bottom: 64px;
+  width: 100%;
+  background: white;
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
+    background-color: ${COLORS.brandOrange};
+  }
+  border: 2px solid ${COLORS.brandOrange};
 `;
 
 interface MapRequestProps {

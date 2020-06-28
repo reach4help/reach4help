@@ -8,10 +8,7 @@ import styled from 'styled-components';
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
 /* we are only using 2-digit language codes for now
-  SELECT input below will get confused if it sees:
-  > 'en-US'
-  everything must be standardized to 
-  > 'en'
+  Both 'pt-BR' and 'pt-PT' will be standardized to 'pt'
   */
 const { Option } = Select;
 
@@ -26,24 +23,20 @@ const Step0: React.FC = (): React.ReactElement => {
   const setBrowserDefaultLanguage = val => {
     localStorage.setItem(LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY, val);
     i18n.init();
-
-    /*  TODO:  language should be changed immediately as well as in localStorage 
-        both reload and don't change language
-        i18n.init();
-        changeLanguage(val)
-          .then(t => console.log(`Changed language to ${val}`))
-          .catch(err => console.error(`Error in ChangeLanguage ${err}`)); */
   };
 
   return (
     <StepWrapper>
-      <LanguageSelectLabel>
-        <H6>{t('login.steps.1_select_language.select_language_label')}</H6>
-      </LanguageSelectLabel>
+      <Explanation>
+        <H6>{t('login.steps.0_welcome.welcome')}</H6>
+      </Explanation>
       <Select
         defaultValue={currentLanguage}
         showSearch
-        style={{ width: 200 }}
+        style={{
+          margin: 'auto',
+          width: '200px',
+        }}
         optionFilterProp="children"
         filterOption={(input, option) =>
           option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -56,6 +49,9 @@ const Step0: React.FC = (): React.ReactElement => {
           </Option>
         ))}
       </Select>
+      <Explanation>
+        <H6>{t('login.steps.2_explanation.purpose')}</H6>
+      </Explanation>
     </StepWrapper>
   );
 };
@@ -75,13 +71,21 @@ const H6 = styled.span`
 `;
 
 const StepWrapper = styled('div')`
-  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+
+  /*  margin-left: auto;
   margin-right: auto;
   margin-top: 25px;
+  */
 `;
 
-const LanguageSelectLabel = styled('div')`
-  margin-bottom: 10px;
+const Explanation = styled('div')`
+  margin-bottom: 50px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
 `;
 
 export default Step0;

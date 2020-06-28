@@ -1,6 +1,6 @@
 {
   "common": {
-    "i_understand": "I understand.",
+    "i_understand": "আমি বুঝেছি",
     "okay": "ঠিক",
     "cancel": "বাতিল",
     "welcome": "স্বাগতম",
@@ -10,27 +10,27 @@
     "name": "নাম",
     "full_name": "পূর্ণ নাম",
     "display_name": "নাম প্রদর্শন করুন",
-    "display_name_placeholder": "Name used in greetings, defaults to 1st name",
+    "display_name_placeholder": "আপনার ডাকনাম",
     "address": "ঠিকানা",
     "address1": "ঠিকানার প্রথম লাইন",
-    "address2": "Address line 2 (optional)",
-    "city": "City",
-    "code": "Postal / Zip Code",
-    "State": "State / Province",
-    "country": "Country",
+    "address2": "ঠিকানা দ্বিতীয় (ঐচ্ছিক)",
+    "city": "শহর",
+    "code": "জিপ / পোস্টাল কোড",
+    "State": "রাজ্য / প্রদেশ",
+    "country": "দেশ",
     "for": " for ",
     "information_modal": {
-      "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
-      "a11y_logo": "Reach for Help logo",
+      "instructions": "নির্দেশনা",
+      "footer": "আপনার কোনো প্রশ্ন ও প্রয়োজন থাকলে, \nআমাদেরকে support@reach4help.org এ ইমেল করুন।",
+      "a11y_logo": "রিচ ফর হেল্প লোগো",
       "OpenRequestsContainer": {
-        "title": "Still looking for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
+        "title": "এখনও সাহায্য খুঁজছি...",
+        "0": "আপনার অনুরোধগুলি প্রেরণ করা হয়েছে তবে এখনও কেউ সাহায্য করতে পারেনি",
         "1": "You will also be receiving notifications to update you about the status of your requests.",
         "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
+        "title": "কেউ সাহায্য করার প্রস্তাব দিয়েছেন!",
         "0": "Someone has offered to help you out.",
         "1": "Get in touch with them by phone to work out the details."
       },
@@ -39,7 +39,7 @@
         "0": "You matched with someone who is taking care of your request."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
+        "title": "সব কাজ শেষ!",
         "0": "You and the volunteer agree that everything is done."
       },
       "ArchivedRequestsContainer": {
@@ -67,8 +67,8 @@
         "6": "Press the Left Bell to see your notifications"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
+        "title": "রিচ ফর হেল্পে স্বাগতম!",
+        "0": "রিচ ফর হেল্পে যোগদানের জন্য আপনাকে ধন্যবাদ!",
         "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
         "2": "Use this map to search for people in need.",
         "3": "Click on an orange marker to view that person's request and decide whether to accept it",
@@ -77,7 +77,7 @@
         "6": "Thank you for joining us in building this unified platform of help!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
+        "title": "রিচ ফর হেল্পে স্বাগতম!",
         "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
         "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
         "2": "Check the Notifications panel to see updates about your incoming offers.",
@@ -88,8 +88,9 @@
     "login": {
       "title": "Reach4Help",
       "sub_title": "Sign Up Overview",
-      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
-      "facebookButtonLabel": "Continue with Facebook"
+      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
+      "facebookButtonLabel": "Continue with Facebook",
+      "googleButtonLabel": "Continue with Google"
     },
     "menuDrawer": {
       "contactUs": "Contact us",
@@ -209,6 +210,7 @@
       "REMOVE_REQUEST": "{{actorName}} removed this request",
       "COMPLETE_REQUEST": "Request has been completed.",
       "CREATE_OFFER": "{{actorName}} offered to help with this request.",
+      "CAV_DECLINED": "{{actorName}} rejected this request.",
       "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
       "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
       "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",

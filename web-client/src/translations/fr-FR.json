@@ -1,6 +1,6 @@
 {
   "common": {
-    "i_understand": "I understand.",
+    "i_understand": "Je comprends.",
     "okay": "OK",
     "cancel": "Annuler",
     "welcome": "Bienvenue",
@@ -21,85 +21,86 @@
     "for": " pour ",
     "information_modal": {
       "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
+      "footer": "Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse support@crowdin.com",
       "a11y_logo": "Atteindre le logo d'aide",
       "OpenRequestsContainer": {
-        "title": "Still looking for help ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
-        "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "title": "Toujours à la recherche d'aide ...",
+        "0": "Vos demandes sont là mais personne n'a encore été volontaire pour vous aider",
+        "1": "Vous recevrez également des notifications pour vous informer du statut de vos demandes.",
+        "2": " Si vous avez des questions ou des difficultés avec ceci, n'hésitez pas à contacter support@reach4help.org !"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "Quelqu'un a proposé de vous aider!",
+        "0": "Quelqu'un a proposé de vous aider.",
+        "1": "Contactez-les par téléphone pour vous renseigner sur les détails."
       },
       "OngoingRequestsContainer": {
-        "title": "Matched with a Volunteer!",
-        "0": "You matched with someone who is taking care of your request."
+        "title": "Correspondance avec un bénévole!",
+        "0": "Vous vous êtes associé à quelqu'un qui prend en charge votre demande."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "Et Voilà!",
+        "0": "Vous et le volontaire convenez que tout est fait."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "Vous avez décidé de ne pas le faire",
+        "0": "Vous avez changé d'avis et supprimé votre demande."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "Voir chaque étape de votre demande",
+        "0": "Une requête a été créée.",
+        "1": "Quelqu'un offre de l'aide.",
+        "2": "L'offre est acceptée ou rejetée.",
+        "3": "La demande est complétée.",
+        "4": "La demande est fermée.",
+        "5": "La demande a été retirée.",
+        "6": "Les bénévoles et les personnes dans le besoin se classent mutuellement."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "title": "Utiliser les boutons du bas",
+        "0": "Appuyez sur le menu gauche pour suivre chaque étape de votre demande",
+        "1": "Ouvert : Requêtes qui ont encore besoin d'un bénévole",
+        "2": "Accepté : Quelqu'un a proposé de vous aider.",
+        "3": "En cours : Un bénévole travaille sur votre demande maintenant.",
+        "4": "Terminé : Le bénévole a répondu à la demande.",
+        "5": "Archivé : Requêtes que vous avez supprimées.",
+        "6": "Appuyez sur la cloche gauche pour voir vos notifications"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
-        "6": "Thank you for joining us in building this unified platform of help!"
+        "title": "Bienvenue sur Reach4Help!",
+        "0": "Merci d'avoir rejoint Reach4Help !",
+        "1": "En tant que bénévole, vous pourrez aider les gens de votre région en répondant à leurs demandes d'aide.",
+        "2": "Utilisez cette carte pour rechercher des personnes dans le besoin.",
+        "3": "Cliquez sur un marqueur orange pour voir la demande de cette personne et décidez de l'accepter",
+        "4": "Une fois que la personne dans le besoin a accepté votre offre d'aide, vous échangerez des informations de contact.",
+        "5": "Consultez le panneau Notifications pour voir les mises à jour sur vos offres d'aide.",
+        "6": "Merci de vous être joint à nous pour la construction de cette plateforme de l'entraide!"
       },
       "NewRequestsContainer": {
         "title": "Bienvenue sur Reach4Help!",
         "0": "Merci d'avoir rejoint Reach4Help ! En tant que personne dans le besoin, vous serez en mesure de trouver de l'aide dans votre région en créant des demandes. Actuellement, nous ne pouvons pas garantir qu'il y a des bénévoles qui peuvent vous aider dans votre région. Nous vous suggérons de partager notre application avec des bénévoles ou des organisations locales. Merci de vous être joint à nous pour la construction de cette plateforme d'entraide!",
-        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
-        "2": "Check the Notifications panel to see updates about your incoming offers.",
-        "3": "Once you accept an offer, your information will be shared with the volunteer.",
-        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+        "1": "Merci d'avoir envoyé une demande ! Vous serez notifié quand un volontaire propose de l'accepter. Pour vérifier son statut, cliquez ici ou vérifiez ",
+        "2": "Consultez le panneau Notifications pour voir les mises à jour de vos offres entrantes.",
+        "3": "Une fois que vous aurez accepté une offre, vos informations seront partagées avec le volontaire.",
+        "4": "Atteignez le bénévole (ou attendez qu'il vous atteigne) pour coordonner."
       }
     },
     "login": {
       "title": "Reach4Help",
-      "sub_title": "Sign Up Overview",
-      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
-      "facebookButtonLabel": "Poursuivre avec Facebook"
+      "sub_title": "Aperçu de l'inscription",
+      "info": "Bonjour! Merci beaucoup de votre intérêt à aider votre communauté! Pour assurer la sécurité de nos utilisateurs, nous avons actuellement besoin d'une connexion via Google ou Facebook pour vérifier votre identité et vous contacter en cas de divergence.\n\nAprès cette étape, il vous sera demandé de fournir votre numéro de téléphone et de le vérifier via un code que vous recevrez par SMS. C'est ainsi que les personnes offrant de l'aide entreront en contact avec vous! Les informations de contact ne sont partagées avec l'autre personne que si vous avez approuvé la personne qui propose de l'aider. Lorsque vous soumettez une demande d'aide, votre position précise n'est pas partagée (uniquement les trois premiers chiffres de votre code postal).\n\nMerci de votre coopération pour faire de notre monde un endroit plus sûr et plus utile! Si vous avez des questions, veuillez nous contacter à support@reach4help.org.",
+      "facebookButtonLabel": "Poursuivre avec Facebook",
+      "googleButtonLabel": "Continuer avec Google"
     },
     "menuDrawer": {
       "contactUs": "Contactez-nous",
       "logout": "Se déconnecter",
-      "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help"
+      "switchToCAV": "Basculer vers le offrir de l'aide",
+      "switchToPIN": "Basculer vers Chercher Pour L'aide"
     },
     "phoneNumber": {
-      "select_instructions": "Pick from the dropdown below",
-      "input_instructions": "Enter your digits",
+      "select_instructions": "Choisissez dans le menu déroulant ci-dessous",
+      "input_instructions": "Saisissez vos chiffres telefonique",
       "sub_title": "Entrez votre numéro de téléphone pour commencer",
       "info": "Ces informations sont essentielles pour valider votre compte. Des frais de données peuvent être appliqués par votre opérateur.",
       "error_message": "Veuillez saisir votre numéro de téléphone !",
@@ -209,10 +210,11 @@
       "REMOVE_REQUEST": "{{actorName}} a supprimé cette demande",
       "COMPLETE_REQUEST": "La demande a été complétée.",
       "CREATE_OFFER": "{{actorName}} a proposé son l'aide avec cette demande.",
+      "CAV_DECLINED": "{{actorName}} rejected this request.",
       "ACCEPT_OFFER": "{{actorName}} a accepté l'aide de {{cavUserName}}.",
       "REJECT_OFFER": "{{actorName}} a rejeté l'aide de {{cavUserName}}.",
-      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
-      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
+      "RATE_PIN": "{{actorName}} a évalué {{actedUpon}}.",
+      "RATE_CAV": "{{actorName}} a évalué {{actedUpon}}.",
       "open_status": "Ouvert",
       "cav": "Bénévole",
       "cav_wait": "En attente de Bénévole(s)",
@@ -231,11 +233,11 @@
       "timeline": {
         "components": {
           "OffersList": {
-            "miles": "miles",
-            "kilometers": "kilometers",
-            "reject": "Reject",
-            "accept": "Accept",
-            "volunteer_select": "Select A Volunteer"
+            "miles": "mi",
+            "kilometers": "kilomètres",
+            "reject": "Refuser",
+            "accept": "J'accepte",
+            "volunteer_select": "Sélectionnez un bénévole"
           }
         }
       },
@@ -251,7 +253,7 @@
             "a11y_display_photo": "Photo",
             "a11y_location_icon": "Icône d'emplacement",
             "a11y_phone_icon": "Icône de téléphone",
-            "a11y_sms_icon": "SMS icon"
+            "a11y_sms_icon": "Icône SMS"
           }
         }
       },

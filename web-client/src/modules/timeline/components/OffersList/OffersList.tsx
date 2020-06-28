@@ -48,17 +48,17 @@ const OfferItem: React.FC<OfferItemProps> = ({
         </IconContainer>
         <TextIcon>
           {haversineDistance(offer.address.coords, destinationCoords)}{' '}
-          {t('modules.timeline.component.miles')}
+          {t('modules.timeline.components.OffersList.miles')}
         </TextIcon>
       </IconsBlock>
       <ButtonsContainer>
         <RejectButton onClick={() => handleOffer(false)}>
           <UserSwitchOutlined />
-          {t('modules.timeline.component.reject')}
+          {t('modules.timeline.components.OffersList.reject')}
         </RejectButton>
         <AcceptButton onClick={() => handleOffer(true)}>
           <HeartOutlined />
-          {t('modules.timeline.component.accept')}
+          {t('modules.timeline.components.OffersList.accept')}
         </AcceptButton>
       </ButtonsContainer>
     </Item>
@@ -93,9 +93,9 @@ const OffersList: React.FC<OffersListProps> = ({
   return (
     // TODO fix when we have defined layout for this screen
     // TODO remove when we fix bottom panel overlaps with others(both timelinelist and offerslist)
-    <div style={{ paddingBottom: '64px' }}>
+    <div style={{ paddingBottom: '64px', width: '-webkit-fill-available' }}>
       <VolunteerSelectTitle>
-        {t('modules.timeline.component.OffersList')}
+        {t('modules.timeline.components.OffersList.volunteer_select')}
       </VolunteerSelectTitle>
       {offersList}
     </div>
@@ -174,7 +174,7 @@ const RejectButton = styled(Button)`
 const AcceptButton = styled(RejectButton)`
   background-color: #52c41a !important;
   color: #fff !important;
-  margin-left: 14px;
+  margin-left: 12px;
 `;
 
 const ButtonsContainer = styled.div`

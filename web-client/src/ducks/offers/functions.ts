@@ -1,5 +1,5 @@
 import { firestore } from 'src/firebase';
-import { Offer, OfferFirestoreConverter } from 'src/models/offers';
+import { Offer, OfferFirestoreConverter, OfferStatus } from 'src/models/offers';
 import { ApplicationPreference } from 'src/models/users';
 
 import { IgetOffers, IgetRequestOffers } from './types';
@@ -49,7 +49,10 @@ export const createUserOffer = async ({
     .collection('offers')
     .doc()
     .withConverter(OfferFirestoreConverter)
-    .set(offerPayload);
+    .set(offerPayload)
+    .then(() =>
+      Promise.resolve(offerPayload.status === OfferStatus.pending ? 1 : 2),
+    );
 
 export const setUserOffer = async ({
   offerPayload,
@@ -62,4 +65,13 @@ export const setUserOffer = async ({
     .collection('offers')
     .doc(offerId)
     .withConverter(OfferFirestoreConverter)
-    .set(offerPayload);
+    .set(offerPayload)
+    .then(() =>
+      Promise.resolve(
+        offerPayload.status === OfferStatus.pending
+          ? 1
+          : offerPayload.status === OfferStatus.cavDeclined
+          ? 2
+          : 3,
+      ),
+    );

@@ -1,14 +1,10 @@
-import { Button, Steps } from 'antd';
+import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-import Step0 from './Step0_Welcome';
 import Step1 from './Step1_SelectLanguage';
-import Step2 from './Step2_Explanation';
 import Step3 from './Step3_Authentication';
-
-const { Step } = Steps;
 
 const RegistrationSteps: React.FC<RegistrationStepsProps> = ({
   onLoginFacebook,
@@ -20,16 +16,8 @@ const RegistrationSteps: React.FC<RegistrationStepsProps> = ({
 
   const steps = [
     {
-      title: t('login.steps.0_welcome.title'),
-      content: <Step0 />,
-    },
-    {
       title: t('login.steps.1_select_language.title'),
       content: <Step1 />,
-    },
-    {
-      title: t('login.steps.2_explanation.title'),
-      content: <Step2 />,
     },
     {
       title: t('login.steps.3_authentication.title'),
@@ -54,11 +42,6 @@ const RegistrationSteps: React.FC<RegistrationStepsProps> = ({
             </ContinueButton>
           </ContinueButtonWrapper>
         )}
-        <Steps current={currentStep}>
-          {steps.map(item => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
       </div>
     </>
   );
