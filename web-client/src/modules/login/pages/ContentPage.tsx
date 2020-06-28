@@ -2,11 +2,11 @@ import get from 'lodash/get';
 import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import { observeUserAction } from 'src/ducks/auth/actions';
-import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
+import { observeUserAction } from '../../../ducks/auth/actions';
+import NotFoundRoute from '../../../pages/routes/NotFoundRoute';
 import { LoginLocation } from './routes/LoginRoute/constants';
 
 const LoginRoute = lazy(() => import('./routes/LoginRoute/LoginRoute'));

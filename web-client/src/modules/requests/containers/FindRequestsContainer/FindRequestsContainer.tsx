@@ -4,31 +4,31 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/Modals/OneTimeModal';
+import {
+  getCoordsFromProfile,
+  getStreetAddressFromProfile,
+} from 'src/components/WebClientMap/utils';
+import Map from 'src/components/WebClientMap/WebClientMap';
+import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
+import { OffersState } from 'src/ducks/offers/types';
+import { ProfileState } from 'src/ducks/profile/types';
+import {
+  getOpenRequests,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
+import { RequestState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
 import { OfferStatus } from 'src/models/offers';
+import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from '../../../../components/InformationModal/InformationModal';
-import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
-import {
-  getCoordsFromProfile,
-  getStreetAddressFromProfile,
-} from '../../../../components/WebClientMap/utils';
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { resetSetOfferState, setOffer } from '../../../../ducks/offers/actions';
-import { OffersState } from '../../../../ducks/offers/types';
-import { ProfileState } from '../../../../ducks/profile/types';
-import {
-  getOpenRequests,
-  resetSetRequestState,
-} from '../../../../ducks/requests/actions';
-import { RequestState } from '../../../../ducks/requests/types';
-import { RequestWithOffersAndTimeline } from '../../../../models/requests/RequestWithOffersAndTimeline';
 import RequestItem from '../../components/RequestItem/RequestItem';
 import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 

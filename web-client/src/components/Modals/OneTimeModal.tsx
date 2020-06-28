@@ -1,11 +1,11 @@
-import { MailOutlined } from '@ant-design/icons';
 import { List, Modal, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import r4hLOVE from 'src/assets/r4hLOVE.png';
 import { StepForwardButton } from 'src/components/Buttons';
-import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
+
+import r4hLOVE from '../../assets/r4hLOVE.png';
+import ModalFooter from './ModalFooter';
 
 const SEEN = 'seen';
 
@@ -45,26 +45,6 @@ export const InformationModal: React.FC<InformationModalProps> = ({
   };
 
   const ModalHeader = header => <h2>{header}</h2>;
-
-  const ModalFooter = () => (
-    <div>
-      <a href="mailto:support@reach4help.org">
-        <em
-          style={{
-            color: COLORS.lightBlue,
-          }}
-        >
-          {t('information_modal.footer')}
-        </em>
-        &nbsp;&nbsp;&nbsp;
-        <MailOutlined
-          style={{
-            color: COLORS.lightBlue,
-          }}
-        />
-      </a>
-    </div>
-  );
 
   return (
     <Modal
