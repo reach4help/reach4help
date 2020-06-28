@@ -5,8 +5,8 @@ import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import { COLORS } from 'src/theme/colors';
 
-import RegistrationFooter from '../RegistrationFooter/RegistrationFooter';
-import RegistrationSteps from '../RegistrationSteps/RegistrationSteps';
+import LoginFooter from '../LoginFooter/LoginFooter';
+import LoginSteps from '../LoginSteps/LoginSteps';
 
 const Reach4HelpLogo = () => (
   <TitleWithAddon level={2} alignAddon="50%">
@@ -22,8 +22,8 @@ const Registration: React.FC<RegistrationProps> = (
   <>
     <IntroLogo src={logo} alt="logo" />
     <Reach4HelpLogo />
-    <RegistrationSteps {...props} />
-    <RegistrationFooter />
+    <LoginSteps {...props} />
+    <LoginFooter />
   </>
 );
 

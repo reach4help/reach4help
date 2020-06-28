@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Step1 from './Step1_SelectLanguage';
 import Step3 from './Step3_Authentication';
 
-const RegistrationSteps: React.FC<RegistrationStepsProps> = ({
+const LoginSteps: React.FC<LoginStepsProps> = ({
   onLoginFacebook,
   onLoginGoogle,
 }): React.ReactElement => {
@@ -57,9 +57,9 @@ const ContinueButton = styled(Button)`
   display: flex;
   justify-content: space-around;
 `;
-interface RegistrationStepsProps {
+interface LoginStepsProps {
   onLoginGoogle: Function;
   onLoginFacebook: Function;
 }
 
-export default RegistrationSteps;
+export default LoginSteps;

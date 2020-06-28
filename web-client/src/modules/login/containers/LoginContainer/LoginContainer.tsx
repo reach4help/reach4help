@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Login from 'src/modules/registration/components/Registration/Registration';
+import Login from 'src/modules/login/components/Login/Login';
 import { AppState } from 'src/store';
 
 import {
