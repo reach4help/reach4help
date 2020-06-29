@@ -1,56 +1,35 @@
-import { Typography } from 'antd';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import logo from 'src/assets/logo.png';
 import IntroLogo from 'src/components/IntroLogo/IntroLogo';
+/* TODO:  This component is a nightmare.   */
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
-import styled from 'styled-components';
+import { COLORS } from 'src/theme/colors';
 
-import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
-import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
+import LoginFooter from '../LoginFooter/LoginFooter';
+import LoginSteps from '../LoginSteps/LoginSteps';
 
-const { Title, Text } = Typography;
+const Reach4HelpLogo = () => (
+  <TitleWithAddon level={2} alignAddon="50%">
+    <span>Reach</span>
+    <span style={{ color: COLORS.brandOrange }}>4</span>
+    <span>Help</span>
+  </TitleWithAddon>
+);
 
-const Login: React.FC<LoginProps> = ({
-  onLoginGoogle,
-  onLoginFacebook,
-}): React.ReactElement => {
-  const { t } = useTranslation();
+const Registration: React.FC<RegistrationProps> = (
+  props,
+): React.ReactElement => (
+  <>
+    <IntroLogo src={logo} alt="logo" />
+    <Reach4HelpLogo />
+    <LoginSteps {...props} />
+    <LoginFooter />
+  </>
+);
 
-  return (
-    <>
-      <IntroLogo src={logo} alt="logo" />
-      <LoginTitle>{t('login.title')}</LoginTitle>
-      <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
-      <Info>{t('login.info')}</Info>
-      <LoginButtonContainer>
-        <GoogleLoginButton onAuthenticate={onLoginGoogle} />
-        <FacebookLoginButton onAuthenticate={onLoginFacebook} />
-      </LoginButtonContainer>
-    </>
-  );
-};
-
-const LoginTitle = styled(Title)`
-  margin-top: 20px;
-  margin-bottom: 50px !important;
-`;
-
-const Info = styled(Text)`
-  margin-top: 40px;
-  text-align: center;
-`;
-
-const LoginButtonContainer = styled.div`
-  padding-top: 80px;
-  display: flex;
-  flex-direction: column;
-  width: 220px;
-`;
-
-interface LoginProps {
+interface RegistrationProps {
   onLoginGoogle: Function;
   onLoginFacebook: Function;
 }
 
-export default Login;
+export default Registration;
