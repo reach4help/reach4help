@@ -1,6 +1,9 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import logoSmall from 'src/assets/logoSmall.png';
+import { H6Font } from 'src/components/figma/';
+import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 import EventTriggeredModal from 'src/components/Modals/EventTriggeredModal';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import CONSTANTS from 'src/constants';
@@ -31,26 +34,28 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
         </TitleWithAddon>
       </MainQuestion>
       <MainAnswer>
-        <H6>
+        <H6Font>
           {t('login.steps.3_authentication.popup_explanation.main_answer')}
-        </H6>
+        </H6Font>
       </MainAnswer>
       <SecondQuestion>
         {t('login.steps.3_authentication.popup_explanation.second_question')}
       </SecondQuestion>
       <SecondAnswer>
-        <H6>
+        <H6Font>
           {t('login.steps.3_authentication.popup_explanation.second_answer')}{' '}
           <a href={`mailto:${SUPPORT_EMAIL}`}> {SUPPORT_EMAIL} </a>
-        </H6>
+        </H6Font>
       </SecondAnswer>
     </EventTriggeredModal>
   );
 
   return (
     <>
+      <IntroLogo src={logoSmall} alt="logo" />
+
       <LoginButtonContainer>
-        <H6>{t('login.steps.3_authentication.please')}</H6>
+        <H6Font>{t('login.steps.3_authentication.please')}</H6Font>
         <ModalTrigger onClick={() => setShowExplanationModal(true)}>
           <H4>
             {t('login.steps.3_authentication.popup_explanation.main_question')}
@@ -111,22 +116,6 @@ const SecondQuestion = styled.div`
 const SecondAnswer = styled.div`
   text-align: center;
   margin-bottom: 120px;
-`;
-
-const H6 = styled.span`
-  /* h6 */
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 144%;
-
-  text-align: center;
-
-  /* @heading-color */
-
-  color: rgba(0, 0, 0, 0.85);
 `;
 
 const H4 = styled.span`
