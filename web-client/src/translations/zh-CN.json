@@ -90,7 +90,37 @@
       "sub_title": "注册概览",
       "info": "你好！非常感谢你关心帮助你的社区！ 确保我们用户的安全， 我们目前需要通过 Google 或 Facebook 登录来验证您的身份，并在出现任何差异时与您联系。\n\n在这个步骤之后，您将被要求提供您的电话号码并通过一个代码验证它，您将会通过文本接收。 这正是提供帮助的人与你联系的方式！ 联系信息只在您批准帮助他们的人时才与对方共享。 当您提交请求帮助时，您的准确位置不会共享(只有您邮政编码的前三位数)。\n谢谢你们在使我们的世界成为一个更安全和更有用的地方方面所给予的合作！ 如果您有任何疑问，请通过support@reach4help联系我们。 毫克",
       "facebookButtonLabel": "以脸书帐号登录",
-      "googleButtonLabel": "继续用Google"
+      "googleButtonLabel": "继续用Google",
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "3_authentication": {
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "聯絡我們",
@@ -277,6 +307,13 @@
         "bottom_warning": "你的请求已被好几个志愿者阅读，但没有被接受。 我们建议您 &ldquo;关闭请求&rdquo; 并创建一个更简单描述的新请求。",
         "cannot_help": "无法帮助",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "已接受"
           },
