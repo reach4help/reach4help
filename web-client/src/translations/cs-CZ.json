@@ -90,7 +90,37 @@
       "sub_title": "Přehled registrace",
       "info": "Ahoj! Mnohokrát vám děkujeme za váš zájem pomoci vaší komunitě! Pro zajištění bezpečnosti našich uživatelů, pro ověření Vaší identity potřebujeme přihlášení přes Google nebo Facebook a pokud nastanou nějaké nesrovnalosti, kontaktujte vás.\n\nPo tomto kroku budete vyzváni k poskytnutí Vašeho telefonního čísla a k ověření pomocí kódu, který obdržíte prostřednictvím textu. Takto se s vámi lidé nabízející pomoc spojí! Kontaktní údaje jsou sdíleny s druhou osobou pouze tehdy, když jste schválili nabízející osobu. Při odeslání žádosti o pomoc není vaše přesná poloha sdílena (pouze první tři číslice vašeho poštovního směrovacího čísla).\nDěkujeme vám za vaši spolupráci při vytváření bezpečnějšího a užitečnějšího místa! Pokud máte jakékoliv dotazy, kontaktujte nás prosím na support@reach4help. rg.",
       "facebookButtonLabel": "Pokračovat pomocí Facebooku",
-      "googleButtonLabel": "Pokračovat pomocí účtu Google"
+      "googleButtonLabel": "Pokračovat pomocí účtu Google",
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "3_authentication": {
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Kontaktujte nás",
@@ -277,6 +307,13 @@
         "bottom_warning": "Váš požadavek byl zobrazen několika dobrovolníky, ale nebyl přijat. Doporučujeme vám &ldquo;Uzavřít požadavek&rdquo; a vytvořit nový s jednodušším popisem.",
         "cannot_help": "Nemohu pomoci",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "Přijato"
           },
