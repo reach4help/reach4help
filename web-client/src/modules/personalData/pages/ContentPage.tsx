@@ -6,13 +6,13 @@ import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
-import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
 import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
 import { NewRequestsLocation } from 'src/modules/requests/pages/routes/NewRequestsRoute/constants';
 import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
+import { LoginLocation } from '../../login/pages/routes/LoginRoute/constants';
 import { PersonalDataLocation } from './routes/PersonalDataRoute/constants';
 import { RoleInfoLocation } from './routes/RoleInfoRoute/constants';
 

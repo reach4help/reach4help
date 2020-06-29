@@ -2,10 +2,6 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getAcceptedRequests,
@@ -16,6 +12,10 @@ import { ApplicationPreference } from 'src/models/users';
 import { TimelineAcceptedViewLocation } from 'src/modules/timeline/pages/routes/TimelineAcceptedViewRoute/constants';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from '../../../../components/Modals/OneTimeModal';
 import AcceptedRequestItem from '../../components/AcceptedRequestItem/AcceptedRequestItem';
 import Header from '../../components/Header/Header';
 import RequestList from '../../components/RequestList/RequestList';

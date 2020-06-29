@@ -215,7 +215,10 @@ const MapActionButton = styled(Button)`
   padding: 10px 10px 30px 10px;
   border: 1px solid black;
   border-radius: 17%;
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
     background-color: #e0e0e0;
   }
 `;

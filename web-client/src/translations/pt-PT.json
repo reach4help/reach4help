@@ -90,7 +90,38 @@
       "sub_title": "Cadastrar Visão Geral",
       "info": "Olá! Muito obrigado pelo seu interesse em ajudar a sua comunidade! Para garantir a segurança dos nossos usuários, Nós precisamos de login por meio do Google ou do Facebook para verificar sua identidade e entrar em contato com você se surgir alguma discrepância.\n\nApós esta etapa, você será solicitado a fornecer o seu número de telefone e a verificá-lo por meio de um código que você receberá por meio de texto. É assim que as pessoas que oferecem ajuda entrarão em contato com você! As informações de contato só são compartilhadas com a outra pessoa quando você tiver aprovado a pessoa que oferece para ajudá-los. Quando você enviar uma solicitação de ajuda, sua localização exata não é compartilhada (apenas os três primeiros dígitos do seu CEP).\nObrigado pela sua cooperação para tornar o nosso mundo um lugar mais seguro e mais útil! Em caso de dúvidas, entre em contato conosco pelo e-mail support@reach4help. rg.",
       "facebookButtonLabel": "Continuar com o Facebook",
-      "googleButtonLabel": "Continuar com o Google"
+      "googleButtonLabel": "Continuar com o Google",
+
+      "steps": {
+        "continue": "Continuar",
+        "footer": {
+          "contact": "Se você tiver alguma dúvida ou precisar de assistência, envie um e-mail para "
+        },
+        "0_welcome": {
+          "title": "Bem-vinda",
+          "welcome": "Bem-vindo ao Reach4Help!",
+          "thanks": "Muito obrigado pelo seu interesse em ajudar sua comunidade"
+        },
+        "1_select_language": {
+          "title": "Língua",
+          "select_language_label": "Qual é o seu idioma principal?"
+        },
+        "2_explanation": {
+          "title": "Explicação",
+          "purpose": "Através de nossa plataforma, você poderá se conectar com outras pessoas para receber e fornecer ajuda às pessoas em sua área",
+          "connect": "Você pode se conectar com voluntários e pessoas necessitadas, criando solicitações de ajuda e oferecendo suporte para essas solicitações."
+        },
+        "3_authentication": {
+          "title": "Identidade",
+          "please": "Inscreva-se com um dos fornecedores abaixo",
+          "popup_explanation": {
+            "main_question": "Por que você precisa de uma conta externa?",
+            "main_answer": "Para garantir a segurança de nossos usuários, atualmente exigimos login através do Google ou Facebook. Isso serve para fornecer outra camada de verificação para nossos usuários, caso precisemos entrar em contato com você.",
+            "second_question": "Posso usar outros meios para verificar minha identidade?",
+            "second_answer": "Se você não se sentir confortável ao usar o Google / Facebook, sugira uma alternativa para"
+          }
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Contacte-nos",

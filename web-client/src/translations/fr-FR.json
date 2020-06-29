@@ -90,7 +90,38 @@
       "sub_title": "Aperçu de l'inscription",
       "info": "Bonjour! Merci beaucoup de votre intérêt à aider votre communauté! Pour assurer la sécurité de nos utilisateurs, nous avons actuellement besoin d'une connexion via Google ou Facebook pour vérifier votre identité et vous contacter en cas de divergence.\n\nAprès cette étape, il vous sera demandé de fournir votre numéro de téléphone et de le vérifier via un code que vous recevrez par SMS. C'est ainsi que les personnes offrant de l'aide entreront en contact avec vous! Les informations de contact ne sont partagées avec l'autre personne que si vous avez approuvé la personne qui propose de l'aider. Lorsque vous soumettez une demande d'aide, votre position précise n'est pas partagée (uniquement les trois premiers chiffres de votre code postal).\n\nMerci de votre coopération pour faire de notre monde un endroit plus sûr et plus utile! Si vous avez des questions, veuillez nous contacter à support@reach4help.org.",
       "facebookButtonLabel": "Poursuivre avec Facebook",
-      "googleButtonLabel": "Continuer avec Google"
+      "googleButtonLabel": "Continuer avec Google",
+
+      "steps": {
+        "continue": "Continuer",
+        "footer": {
+          "contact": "Si vous avez des questions ou avez besoin d'aide, n'hésitez pas à nous envoyer un courriel à "
+        },
+        "0_welcome": {
+          "title": "Bonjour!",
+          "welcome": "Bienvenue sur Reach4Help!",
+          "thanks": "Merci beaucoup pour votre intérêt à aider votre communauté"
+        },
+        "1_select_language": {
+          "title": "Langue",
+          "select_language_label": "Quelle est votre langue maternelle?"
+        },
+        "2_explanation": {
+          "title": "Explication",
+          "purpose": "Grâce à notre plateforme, vous pourrez vous connecter avec d'autres personnes pour recevoir et fournir de l'aide aux personnes de votre région",
+          "connect": "Vous pouvez vous connecter avec des bénévoles et des personnes dans le besoin et des personnes dans le besoin en créant des demandes d'aide et en offrant un soutien pour ces demandes."
+        },
+        "3_authentication": {
+          "title": "Identité",
+          "please": "Veuillez vous inscrire avec l'un des fournisseurs ci-dessous",
+          "popup_explanation": {
+            "main_question": "Pourquoi avez-vous besoin d'un compte externe?",
+            "main_answer": "Pour assurer la sécurité de nos utilisateurs, nous avons actuellement besoin d'une connexion via Google ou Facebook. Il s'agit de fournir une autre couche de vérification à nos utilisateurs au cas où nous aurions besoin de vous contacter.",
+            "second_question": "Puis-je utiliser d'autres moyens pour vérifier mon identité?",
+            "second_answer": "Si vous n'êtes pas à l'aise avec Google / Facebook, vous êtes invités à suggérer une alternative à"
+          }
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Contactez-nous",
