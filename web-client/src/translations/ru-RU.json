@@ -90,7 +90,37 @@
       "sub_title": "Регистрация",
       "info": "Привет! Большое спасибо за интерес к помощи вашему сообществу! Для обеспечения безопасности наших пользователей, в настоящее время нам требуется войти через Google или Facebook, чтобы подтвердить вашу личность и связаться с вами при возникновении расхождений.\n\nПосле этого шага вас попросят предоставить ваш номер телефона и проверить его с помощью кода, который вы получите с помощью текста. Так люди с предложением помощи свяжутся с вами! Контактная информация передается другому лицу только после того, как вы одобрили лицо, предлагающее им помочь. Когда вы подаете запрос на помощь, ваше точное местоположение не разделено (только первые три цифры почтового индекса).\nБлагодарим вас за сотрудничество в создании нашего мира как более безопасного и полезного места! Если у вас есть какие-либо вопросы, пожалуйста, свяжитесь с нами по адресу support@reach4help. rg.",
       "facebookButtonLabel": "Продолжить с Facebook",
-      "googleButtonLabel": "Войти через Google"
+      "googleButtonLabel": "Войти через Google",
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "3_authentication": {
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Напишите нам",
@@ -277,6 +307,13 @@
         "bottom_warning": "Ваш запрос был рассмотрен несколькими добровольцами, но не был принят. Мы рекомендуем вам &ldquo;закрыть запрос&rdquo; и создать новый с более простым описанием.",
         "cannot_help": "Не можете отправить",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "Принятые"
           },
