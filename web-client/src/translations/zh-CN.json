@@ -121,31 +121,6 @@
       "resend": "重新发送",
       "error_message": "在这里插入收到的号码！"
     },
-    "user_data_form": {
-      "sub_title": "请填写下面的个人详细信息。",
-      "gps_button": "使用 GPS 获取我的地址",
-      "gps_unavailable_retry_button": "地理位置不可用。请重试。",
-      "learn_reactivate": "学习如何重新激活地理定位",
-      "retry_geolocation": "设置地理位置",
-      "continue_without_geolocation": "无地理位置继续",
-      "go_back": "返回",
-      "geolocation_modal_title": "地理位置未授权",
-      "geolocation_modal_text": "您可以手动添加您的位置，但如果您使用地理定位，它将有助于我们更准确地获得您的位置。 请选择下面的选项之一：",
-      "geolocation_unavailable_title": "不幸的是，我们还不能在您的位置使用",
-      "geolocation_unavailable_text": "很抱歉，我们的平台上还不支持您的位置。 一旦我们的应用程序在您的位置可用，您将通过短信或E-Mail收到通知。",
-      "instructions_modal_title": "说明:",
-      "instructions_modal_text": "您可以手动添加您的位置，但如果您使用地理定位，它将有助于我们更准确地获得您的位置。 请选择下面的选项之一：",
-      "policy_text": "我们需要这个数据来确保帮助到达正确的目的地。对于任何问题，请阅读我们的信息 ",
-      "policy_link": "隐私与安全政策。",
-      "accept_to_use_profile_pic": "让Reach4帮助使用我的个人资料图片我没问题。",
-      "terms_conditions_text": "我理解并确认 ",
-      "terms_conditions_link": "条款&条件",
-      "terms_conditions_error": "您必须同意此服务条款。",
-      "full_name_error_message": "请输入你的会员名.",
-      "display_name_error_message": "请输入您的显示昵称。",
-      "address_error_message": "请输入您的地址。",
-      "allow_send_notifications": "我希望Reach4Help 给我发送通知和电子邮件。"
-    },
     "newRequest": {
       "title": "新的请求",
       "icon_text": "我需要帮助",
@@ -210,7 +185,7 @@
       "REMOVE_REQUEST": "{{actorName}} 创建了此请求。",
       "COMPLETE_REQUEST": "已完成付款。",
       "CREATE_OFFER": "{{actorName}} 表示愿意帮助处理此请求。",
-      "CAV_DECLINED": "{{actorName}} rejected this request.",
+      "CAV_DECLINED": "{{actorName}} 创建了此请求。",
       "ACCEPT_OFFER": "{{actorName}} 接受了 {{cavUserName}} 帮助。",
       "REJECT_OFFER": "{{actorName}} 接受了 {{cavUserName}} 帮助。",
       "RATE_PIN": "{{actorName}} 评分 {{actedUpon}}。",
@@ -258,6 +233,35 @@
         }
       },
       "personal-data": {
+        "components": {
+          "PersonalDataForm": {
+            "sub_title": "Please fill out the personal details below.",
+            "gps_button": "Use GPS to get my address",
+            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+            "learn_reactivate": "Learn how to reactivate geolocation",
+            "retry_geolocation": "Retry Geolocation",
+            "continue_without_geolocation": "Continue without Geolocation",
+            "go_back": "Go Back",
+            "geolocation_modal_title": "Geolocation is not authorized",
+            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+            "instructions_modal_title": "Instructions:",
+            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+            "policy_link": "Privacy & Security Policy.",
+            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Terms & Conditions.",
+            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "full_name_error_message": "Please enter your name.",
+            "display_name_error_message": "Please enter your display name.",
+            "address_error_message": "Please enter your address.",
+            "city_error_message": "Please enter your city.",
+            "country_error_message": "Please enter your country.",
+            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+          }
+        },
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "抱歉，我们无法确定您的实际地址，请重试！",
