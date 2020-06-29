@@ -2,9 +2,13 @@ import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoLarge from 'src/assets/logoLarge.png';
-import { H6Font } from 'src/components/figma/';
+import {
+  Explanation,
+  H6Font,
+  LogoWrapper,
+  StepWrapper,
+} from 'src/components/figma/';
 import CONSTANTS from 'src/constants';
-import styled from 'styled-components';
 
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
@@ -57,25 +61,6 @@ const Step1SelectLanguage: React.FC = (): React.ReactElement => {
     </StepWrapper>
   );
 };
-
-const LogoWrapper = styled('div')`
-  display: flex;
-  justify-content: space-around;
-`;
-
-const StepWrapper = styled('div')`
-  display: flex;
-  flex-direction: column;
-  margin-top: 25px;
-`;
-
-const Explanation = styled('div')`
-  margin-bottom: 50px;
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
-`;
 
 const allLanguages = [
   {

@@ -1,4 +1,9 @@
-import { ExampleDivStyle } from './BlockStyles';
+import {
+  Explanation,
+  LoginButtonContainer,
+  LogoWrapper,
+  StepWrapper,
+} from './BlockStyles';
 import {
   FontSizeBase,
   FontSizeLg,
@@ -21,5 +26,8 @@ export {
   FontSizeLg,
   FontSizeSm,
   FontSizeBase,
-  ExampleDivStyle,
+  LoginButtonContainer,
+  LogoWrapper,
+  Explanation,
+  StepWrapper,
 };
