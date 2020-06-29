@@ -1,14 +1,14 @@
 import React from 'react';
 
-import RegistrationFooter from '../RegistrationFooter/RegistrationFooter';
-import RegistrationSteps from '../RegistrationSteps/RegistrationSteps';
+import LoginFooter from '../LoginFooter/LoginFooter';
+import LoginSteps from '../LoginSteps/LoginSteps';
 
 const Registration: React.FC<RegistrationProps> = (
   props,
 ): React.ReactElement => (
   <>
-    <RegistrationSteps {...props} />
-    <RegistrationFooter />
+    <LoginSteps {...props} />
+    <LoginFooter />
   </>
 );
 
