@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Login from 'src/modules/login/components/Login/Login';
+import { AppState } from 'src/store';
+
 import {
   getFBLoginRedirectResult,
   LoginWithFBFirebaseActionPopUp,
   triggerFBLoginWithRedirect,
-} from 'src/ducks/auth/facebook/actions';
+} from '../../../../ducks/auth/facebook/actions';
 import {
   getGoogleLoginRedirectResult,
   loginWithGoogleFirebaseActionPopUp,
   triggerGoogleLoginWithRedirect,
-} from 'src/ducks/auth/google/actions';
-import { AppState } from 'src/store';
-
-import Login from '../../components/Login/Login';
+} from '../../../../ducks/auth/google/actions';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',

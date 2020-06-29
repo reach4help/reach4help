@@ -2,10 +2,6 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getFinishedRequests,
@@ -16,6 +12,10 @@ import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from '../../../../components/Modals/OneTimeModal';
 import Header from '../../components/Header/Header';
 import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';

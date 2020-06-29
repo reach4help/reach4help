@@ -1,6 +1,7 @@
 import GoogleMapReact, { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 import apiKey from './apiKey';
 import MyLocationControl from './MyLocationControl';
@@ -30,6 +31,7 @@ const WebClientMap: React.FC<MapProps> = ({
   bannerMessage = '',
   zoom = 11,
   isCav = true,
+  forceRerender = false,
 }) => {
   const { t } = useTranslation();
 
@@ -69,6 +71,20 @@ const WebClientMap: React.FC<MapProps> = ({
       }
     }
   };
+
+  useEffect(() => {
+    if (forceRerender && googleMapS && googleMap) {
+      /*
+      console.log(
+        'i am going to rerender',
+        forceRerender,
+        googleMap,
+        googleMapS,
+      );
+        debugger; */
+      googleMapS.event.trigger(googleMap, 'resize');
+    }
+  }, [forceRerender, googleMap, googleMapS]);
 
   /* geocode */
   const geocodeCallback = (result, status) => {
@@ -179,7 +195,7 @@ const WebClientMap: React.FC<MapProps> = ({
     <>{t('components_web_client_map.api_error')} Google Maps API key</>
   ) : (
     <>
-      <div style={{ height: '100%', width: '100%' }}>
+      <MapContainer>
         {mapMessage && <WebClientMapMessage message={mapMessage} />}
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
@@ -201,10 +217,16 @@ const WebClientMap: React.FC<MapProps> = ({
             />
           ))}
         </GoogleMapReact>
-      </div>
+      </MapContainer>
     </>
   );
 };
+
+const MapContainer = styled.div`
+  display: 'flex';
+  flex-direction: 'column';
+  flex-grow: 1;
+`;
 
 interface MapProps {
   destinations: {
@@ -226,6 +248,6 @@ interface MapProps {
   bannerMessage?: string;
   startGeocode?: boolean;
   startLocateMe?: boolean;
+  forceRerender?: boolean;
 }
-
 export default WebClientMap;
