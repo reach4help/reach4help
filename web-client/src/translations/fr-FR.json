@@ -90,7 +90,37 @@
       "sub_title": "Aperçu de l'inscription",
       "info": "Bonjour! Merci beaucoup de votre intérêt à aider votre communauté! Pour assurer la sécurité de nos utilisateurs, nous avons actuellement besoin d'une connexion via Google ou Facebook pour vérifier votre identité et vous contacter en cas de divergence.\n\nAprès cette étape, il vous sera demandé de fournir votre numéro de téléphone et de le vérifier via un code que vous recevrez par SMS. C'est ainsi que les personnes offrant de l'aide entreront en contact avec vous! Les informations de contact ne sont partagées avec l'autre personne que si vous avez approuvé la personne qui propose de l'aider. Lorsque vous soumettez une demande d'aide, votre position précise n'est pas partagée (uniquement les trois premiers chiffres de votre code postal).\n\nMerci de votre coopération pour faire de notre monde un endroit plus sûr et plus utile! Si vous avez des questions, veuillez nous contacter à support@reach4help.org.",
       "facebookButtonLabel": "Poursuivre avec Facebook",
-      "googleButtonLabel": "Continuer avec Google"
+      "googleButtonLabel": "Continuer avec Google",
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "3_authentication": {
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Contactez-nous",
@@ -277,6 +307,13 @@
         "bottom_warning": "Votre demande a été consultée par plusieurs volontaires, mais n'a pas été acceptée. Nous vous suggérons &ldquo;Fermer la Requête&rdquo; et en créer une nouvelle avec une description plus simple.",
         "cannot_help": "Refuser",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "Accepter"
           },
