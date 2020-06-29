@@ -22,7 +22,7 @@ const Step0: React.FC = (): React.ReactElement => {
 
   const setBrowserDefaultLanguage = val => {
     localStorage.setItem(LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY, val);
-    i18n.init();
+    i18n.changeLanguage(val);
   };
 
   return (
