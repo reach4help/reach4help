@@ -1,5 +1,4 @@
 import { Select } from 'antd';
-import langs from 'langs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoLarge from 'src/assets/logoLarge.png';
@@ -11,15 +10,13 @@ const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
 const { Option } = Select;
 
-const Step0: React.FC = (): React.ReactElement => {
+const Step1SelectLanguage: React.FC = (): React.ReactElement => {
   const { t, i18n } = useTranslation();
 
   /*  We are only using 2-digit language codes for now
   Both 'pt-BR' and 'pt-PT' will be standardized to 'pt' */
   let { language: currentLanguage } = i18n;
   currentLanguage = currentLanguage.substr(0, 2);
-
-  const allLanguages = langs.all();
 
   const setBrowserDefaultLanguage = val => {
     localStorage.setItem(LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY, val);
@@ -47,7 +44,8 @@ const Step0: React.FC = (): React.ReactElement => {
         }
         onChange={v => setBrowserDefaultLanguage(v.toString())}
       >
-        {allLanguages.map(language => (
+        {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+        allLanguages.map(language => (
           <Option key={language['1']} value={language['1']}>
             {language.name}
           </Option>
@@ -79,4 +77,43 @@ const Explanation = styled('div')`
   text-align: center;
 `;
 
-export default Step0;
+const allLanguages = [
+  {
+    '1': 'en',
+    '2': 'eng',
+    '3': 'eng',
+    name: 'English',
+    local: 'English',
+    '2T': 'eng',
+    '2B': 'eng',
+  },
+  {
+    '1': 'fr',
+    '2': 'fra',
+    '3': 'fra',
+    name: 'French',
+    local: 'Français',
+    '2T': 'fra',
+    '2B': 'fre',
+  },
+  {
+    '1': 'pt',
+    '2': 'por',
+    '3': 'por',
+    name: 'Portuguese',
+    local: 'Português',
+    '2T': 'por',
+    '2B': 'por',
+  },
+  {
+    '1': 'es',
+    '2': 'spa',
+    '3': 'spa',
+    name: 'Spanish',
+    local: 'Español',
+    '2T': 'spa',
+    '2B': 'spa',
+  },
+];
+
+export default Step1SelectLanguage;
