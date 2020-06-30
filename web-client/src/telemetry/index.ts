@@ -20,8 +20,10 @@ export const logError = (message: string, context?: {}) => {
 };
 
 export const enableMonitoring = () => {
-  if (process.env.REACT_APP_DATADOG_APP_ID &&
-    process.env.REACT_APP_DATADOG_RUM_CLIENT_TOKEN) {
+  if (
+    process.env.REACT_APP_DATADOG_APP_ID &&
+    process.env.REACT_APP_DATADOG_RUM_CLIENT_TOKEN
+  ) {
     datadogRum.init({
       applicationId: `${process.env.REACT_APP_DATADOG_APP_ID}`,
       clientToken: `${process.env.REACT_APP_DATADOG_RUM_CLIENT_TOKEN}`,
