@@ -138,7 +138,19 @@
       "contactUs": "Contact us",
       "logout": "Sign out",
       "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help"
+      "switchToPIN": "Switch to Seeking Help",
+      "settings": "Settings"
+    },
+    "settings": {
+      "heading": "Settings",
+      "changeName": "Change my name",
+      "deleteAccount": "Delete my account",
+      "changeNameForm": {
+        "full_name_error_message": "Please enter your name.",
+        "display_name_error_message": "Please enter your display name.",
+        "cancel": "Cancel",
+        "submit": "Save"
+      }
     },
     "phoneNumber": {
       "select_instructions": "Pick from the dropdown below",
@@ -219,7 +231,8 @@
       "_requests_finished": "Completed Requests",
       "_requests_new": "New Request",
       "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_requests_open": "Open Requests",
+      "_settings": "Settings"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} created this request.",

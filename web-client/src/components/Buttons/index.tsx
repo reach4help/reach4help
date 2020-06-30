@@ -70,3 +70,35 @@ export const StepForwardButton = styled(Button)`
     color: white;
   }
 `;
+
+export const SettingsButton = styled(Button)`
+  display: flex;
+  justify-content: start;
+  font-size: 20px
+  font-weight: normal;
+  padding: 10px;
+  width: 100%;
+  > span {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+  }
+`;
+
+export const ModalCancelButton = styled(Button)`
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+export const ModalContinueButton = styled(Button)`
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: ${COLORS.secondary};
+  color: ${COLORS.white};
+`;
