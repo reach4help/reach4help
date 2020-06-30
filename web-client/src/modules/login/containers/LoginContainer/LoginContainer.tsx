@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Login from 'src/modules/login/components/Login/Login';
 import { AppState } from 'src/store';
 
 import {
@@ -15,6 +14,8 @@ import {
   loginWithGoogleFirebaseActionPopUp,
   triggerGoogleLoginWithRedirect,
 } from '../../../../ducks/auth/google/actions';
+import LoginFooter from '../../components/LoginFooter/LoginFooter';
+import LoginSteps from '../../components/LoginSteps/LoginSteps';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',
@@ -59,10 +60,11 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
 
   return (
     <>
-      <Login
+      <LoginSteps
         onLoginGoogle={handleLoginGoogle}
         onLoginFacebook={handleLoginFacebook}
       />
+      <LoginFooter />
       <div style={{ color: 'red', textAlign: 'center' }}>
         {error && error.message}
       </div>
