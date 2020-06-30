@@ -9,6 +9,7 @@ import {
   LogoWrapper,
   StepWrapper,
 } from 'src/components/figma/';
+import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import CONSTANTS from 'src/constants';
 
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
@@ -31,44 +32,45 @@ const Step1SelectLanguage: React.FC<Step1SelectLanguageProps> = ({
   };
 
   return (
-    <>
-      <StepWrapper>
-        <LogoWrapper>
-          <img src={logoLarge} alt="logo" height="125px" width="125px" />
-        </LogoWrapper>
-        <Explanation>
-          <H6Font>{t('login.steps.0_welcome.welcome')}</H6Font>
-        </Explanation>
-        <Select
-          defaultValue={currentLanguage}
-          showSearch
-          style={{
-            margin: 'auto',
-            width: '200px',
-          }}
-          optionFilterProp="children"
-          filterOption={(input, option) =>
-            option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          onChange={v => setBrowserDefaultLanguage(v.toString())}
-        >
-          {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */
-          allLanguages.map(language => (
-            <Option key={language['1']} value={language['1']}>
-              {language.name}
-            </Option>
-          ))}
-        </Select>
-        <Explanation>
-          <H6Font>{t('login.steps.2_explanation.purpose')}</H6Font>
-        </Explanation>
-      </StepWrapper>
+    <StepWrapper>
+      <LogoWrapper>
+        <img src={logoLarge} alt="logo" height="125px" width="125px" />
+      </LogoWrapper>
+      <TitleWithAddon level={2} alignAddon="50%">
+        {' '}
+      </TitleWithAddon>
+      <Explanation>
+        <H6Font>{t('login.steps.0_welcome.welcome')}</H6Font>
+      </Explanation>
+      <Explanation>
+        <H6Font>{t('login.steps.2_explanation.purpose')}</H6Font>
+      </Explanation>
+      <Select
+        defaultValue={currentLanguage}
+        showSearch
+        style={{
+          margin: 'auto',
+          width: '200px',
+        }}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        }
+        onChange={v => setBrowserDefaultLanguage(v.toString())}
+      >
+        {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+        allLanguages.map(language => (
+          <Option key={language['1']} value={language['1']}>
+            {language.name}
+          </Option>
+        ))}
+      </Select>
       <ContinueButtonWrapper>
         <ContinueButton type="primary" onClick={incrementStep}>
           {t('login.steps.continue')}
         </ContinueButton>
       </ContinueButtonWrapper>
-    </>
+    </StepWrapper>
   );
 };
 
