@@ -36,7 +36,7 @@ const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
       </LogoWrapper>
       <Form
         {...layout}
-        name="basic"
+        name="emailSignup"
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -64,7 +64,9 @@ const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
               </Button>
             </ButtonWrapper>
             <ButtonWrapper>
-              <Button type="default">{t('back')}</Button>
+              <Button type="default" htmlType="button">
+                {t('back')}
+              </Button>
             </ButtonWrapper>
           </LoginButtonsWrapper>
         </Form.Item>
