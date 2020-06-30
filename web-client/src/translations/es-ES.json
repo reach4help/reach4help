@@ -92,32 +92,32 @@
       "facebookButtonLabel": "Continuar con Facebook",
       "googleButtonLabel": "Continuar con Google",
       "steps": {
-        "continue": "Continue",
+        "continue": "Continuar",
         "footer": {
-          "contact": "If you have any questions or need assistance feel free to email us at "
+          "contact": "Si tiene alguna pregunta o necesita ayuda, no dude en enviarnos un correo electrónico a support@reach4help. org "
         },
         "0_welcome": {
-          "title": "Welcome",
-          "welcome": "Welcome to Reach4Help",
-          "thanks": "Thank you so much for your interest in helping your community"
+          "title": "Bienvenido",
+          "welcome": "¡Bienvenido a Reach4Help",
+          "thanks": "Muchas gracias por tu interés en ayudar a tu comunidad"
         },
         "1_select_language": {
-          "title": "Language",
-          "select_language_label": "What is your primary language?"
+          "title": "Idioma",
+          "select_language_label": "¿Cuál es tu idioma preferido?"
         },
         "2_explanation": {
-          "title": "Explanation",
-          "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
-          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+          "title": "Explicación",
+          "purpose": "A través de nuestra plataforma, podrás conectar con otros para recibir y proporcionar ayuda a las personas de tu área",
+          "connect": "Usted puede conectar con voluntarios y personas necesitadas y personas necesitadas creando solicitudes de ayuda y ofreciendo apoyo para esas solicitudes."
         },
         "3_authentication": {
-          "title": "Identity",
-          "please": "Please sign up with one of the providers below",
+          "title": "Identidad",
+          "please": "Por favor, regístrate con uno de los siguientes proveedores",
           "popup_explanation": {
-            "main_question": "Why do you need an external account?",
-            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
-            "second_question": "Can I use other means to verify my identity?",
-            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+            "main_question": "¿Por qué necesitas una cuenta externa?",
+            "main_answer": "Para garantizar la seguridad de nuestros usuarios, actualmente necesitamos iniciar sesión a través de Google o Facebook. Esto es para proporcionar otra capa de verificación para nuestros usuarios en caso de que necesitemos contactar contigo.",
+            "second_question": "¿Puedo utilizar otros medios para verificar mi identidad?",
+            "second_answer": "Si no te sientes cómodo usando Google/Facebook, te invitamos a sugerir una alternativa a"
           }
         }
       }
@@ -309,9 +309,9 @@
         "containers": {
           "FoundRequestsContainer": {
             "FoundRequestsContainer": {
-              "map_tab_label": "View Map of Requests",
-              "list_tab_label": "View List of Requests",
-              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+              "map_tab_label": "Ver mapa de solicitudes",
+              "list_tab_label": "Ver mapa de solicitudes",
+              "no_requests": "Actualmente no hay peticiones en tu área. Revisa el mapa más tarde. También puedes hacer una Solicitud de Necesidad"
             }
           },
           "AcceptedRequestContainer": {
