@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import React from 'react';
-/* import { useTranslation } from 'react-i18next'; */
+import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
 import {
   ButtonWrapper,
@@ -9,7 +9,7 @@ import {
 } from 'src/components/figma/';
 
 const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
-  /* const { t } = useTranslation(); */
+  const { t } = useTranslation();
 
   const onFinish = values => {
     // eslint-disable-next-line no-console
@@ -42,15 +42,15 @@ const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label={t('email')}
+          name="email"
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          label={t('password')}
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
@@ -60,13 +60,11 @@ const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
           <LoginButtonsWrapper>
             <ButtonWrapper>
               <Button type="primary" htmlType="submit">
-                Continue
+                {t('continue')}
               </Button>
             </ButtonWrapper>
             <ButtonWrapper>
-              <Button type="default" htmlType="submit">
-                Back
-              </Button>
+              <Button type="default">{t('back')}</Button>
             </ButtonWrapper>
           </LoginButtonsWrapper>
         </Form.Item>

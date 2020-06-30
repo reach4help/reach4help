@@ -6,6 +6,7 @@
     "cancel": "Cancel",
     "welcome": "Welcome",
     "continue": "Continue",
+    "back": "Back",
     "verify": "Verify",
     "spinner": "Loading ...",
     "name": "Name",
@@ -19,6 +20,8 @@
     "code": "Postal / Zip Code",
     "State": "State / Province",
     "country": "Country",
+    "email": "Email",
+    "password": "Password",
     "for": " for ",
     "information_modal": {
       "instructions": "Instructions",
@@ -122,7 +125,8 @@
             "second_question": "Can I use other means to verify my identity?",
             "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
           }
-        }
+        },
+        "4_email_signup": {}
       }
     },
     "menuDrawer": {
