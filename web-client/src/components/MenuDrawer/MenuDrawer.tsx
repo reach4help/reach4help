@@ -6,14 +6,11 @@ import {
 import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
 import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
+import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
 import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 

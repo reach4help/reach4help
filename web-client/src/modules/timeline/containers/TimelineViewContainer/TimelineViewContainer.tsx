@@ -4,10 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
 import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -29,6 +25,10 @@ import { ArchivedRequestsLocation } from 'src/modules/requests/pages/routes/Arch
 import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from '../../../../components/Modals/OneTimeModal';
 import BottomPanel from '../../components/BottomPanel/BottomPanel';
 import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';

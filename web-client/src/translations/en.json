@@ -90,7 +90,38 @@
       "sub_title": "Sign Up Overview",
       "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
       "facebookButtonLabel": "Continue with Facebook",
-      "googleButtonLabel": "Continue with Google"
+      "googleButtonLabel": "Continue with Google",
+
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "3_authentication": {
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Contact us",
