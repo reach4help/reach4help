@@ -4,10 +4,9 @@ import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
 import {
   ButtonWrapper,
-  FormLabel,
-  H6Font,
   LoginButtonsWrapper,
   LogoWrapper,
+  StepWrapper,
 } from 'src/components/figma/';
 
 const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
@@ -16,21 +15,13 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
 }): React.ReactElement<Step4EmailLoginProps> => {
   const { t } = useTranslation();
 
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
-
   return (
-    <>
+    <StepWrapper>
       <LogoWrapper>
         <img src={logoSmall} alt="logo" height="50px" width="50px" />
       </LogoWrapper>
       <Form
-        {...layout}
+        layout="vertical"
         name="emailSignup"
         initialValues={{ remember: true }}
         onFinish={submitHandler}
@@ -43,13 +34,10 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
               message: t('login.steps.4_email_signup.email_message'),
             },
           ]}
+          label={t('login.steps.4_email_signup.email_label')}
         >
-          <FormLabel>
-            <H6Font>{t('login.steps.4_email_signup.email_label')}</H6Font>
-          </FormLabel>
           <Input />
         </Form.Item>
-
         <Form.Item
           name="password"
           rules={[
@@ -58,10 +46,8 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
               message: t('login.steps.4_email_signup.password_message'),
             },
           ]}
+          label={t('login.steps.4_email_signup.password_label')}
         >
-          <FormLabel>
-            <H6Font>{t('login.steps.4_email_signup.password_label')}</H6Font>
-          </FormLabel>
           <Input.Password />
         </Form.Item>
 
@@ -73,16 +59,12 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
               message: t('login.steps.4_email_signup.password_confirm_message'),
             },
           ]}
+          label={t('login.steps.4_email_signup.password_confirm_label')}
         >
-          <FormLabel>
-            <H6Font>
-              {t('login.steps.4_email_signup.password_confirm_label')}
-            </H6Font>
-          </FormLabel>
           <Input.Password />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
+        <Form.Item>
           <LoginButtonsWrapper>
             <ButtonWrapper>
               <Button type="primary" htmlType="submit">
@@ -97,7 +79,7 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
           </LoginButtonsWrapper>
         </Form.Item>
       </Form>
-    </>
+    </StepWrapper>
   );
 };
 

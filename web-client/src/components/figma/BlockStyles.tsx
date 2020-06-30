@@ -39,6 +39,7 @@ const LoginButtonsWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 10px;
   justify-content: space-around;
 `;
 
