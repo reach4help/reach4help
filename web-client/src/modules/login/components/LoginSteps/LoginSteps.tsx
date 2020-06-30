@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import Step1 from './Step1SelectLanguage';
@@ -10,6 +11,8 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
   onLoginFacebook,
   onLoginGoogle,
 }): React.ReactElement => {
+  const { t } = useTranslation();
+
   const [currentStep, setCurrentStep] = useState<number>(2);
   const incrementStep = () => setCurrentStep(currentStep + 1);
 
