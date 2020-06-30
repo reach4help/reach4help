@@ -4,7 +4,7 @@ import {
   loginWithFirebaseRedirect,
 } from './functions';
 import {
-  FIREBASE_GOOGLE_LOGIN_POPUP,
+  FIREBASE_EMAIL_LOGIN_POPUP,
   GET_LOGIN_REDIRECT_RESULT,
   TRIGGER_LOGIN_WITH_REDIRECT,
 } from './types';
@@ -18,7 +18,7 @@ export const triggerEmailLoginWithRedirect = () => (dispatch: Function) => {
 
 export const loginWithEmailFirebaseActionPopUp = () => (dispatch: Function) => {
   dispatch({
-    type: FIREBASE_GOOGLE_LOGIN_POPUP,
+    type: FIREBASE_EMAIL_LOGIN_POPUP,
     payload: {},
     firebase: emailLoginWithFirebasePopUp,
     fallback: triggerEmailLoginWithRedirect,

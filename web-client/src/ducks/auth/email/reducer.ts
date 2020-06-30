@@ -1,16 +1,16 @@
 import { AuthState } from '../types';
 import {
-  FIREBASE_GOOGLE_LOGIN_POPUP,
+  FIREBASE_EMAIL_LOGIN_POPUP,
   GET_LOGIN_REDIRECT_RESULT,
   TRIGGER_LOGIN_WITH_REDIRECT,
 } from './types';
 
 export default {
-  [FIREBASE_GOOGLE_LOGIN_POPUP.PENDING]: (state: AuthState) => {
+  [FIREBASE_EMAIL_LOGIN_POPUP.PENDING]: (state: AuthState) => {
     state.loading = true;
   },
 
-  [FIREBASE_GOOGLE_LOGIN_POPUP.REJECTED]: (
+  [FIREBASE_EMAIL_LOGIN_POPUP.REJECTED]: (
     state: AuthState,
     { payload }: { payload: Error },
   ) => {
@@ -18,7 +18,7 @@ export default {
     state.loading = false;
   },
 
-  [FIREBASE_GOOGLE_LOGIN_POPUP.COMPLETED]: (
+  [FIREBASE_EMAIL_LOGIN_POPUP.COMPLETED]: (
     state: AuthState,
     { payload }: { payload: firebase.auth.UserCredential },
   ) => {
