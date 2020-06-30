@@ -52,7 +52,7 @@ const RequestTimelineListItem: React.FC<RequestTimelineListItemProps> = ({
       <ListItem className={align}>
         <ListItemBullet src={isCavItem ? CavBulletIcon : PinBulletIcon} />
         <MessageBox className={`message-box ${isCavItem ? 'cav' : 'pin'}`}>
-          {t(`timeline.${item.action}`, messagePlaceholders)}
+          {`${t(`timeline.${item.action}`, messagePlaceholders)}.`}
           <TimeAgo>{moment(date).fromNow()}</TimeAgo>
         </MessageBox>
       </ListItem>
