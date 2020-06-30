@@ -21,12 +21,25 @@ const Explanation = styled('div')`
   text-align: center;
 `;
 
-const LoginButtonContainer = styled.div`
-  padding-top: 80px;
+const LoginButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 220px;
+  align-items: center;
+  justify-content: space-between;
+  justify-items: center;
   margin-bottom: 25px;
 `;
 
-export { Explanation, LoginButtonContainer, LogoWrapper, StepWrapper };
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+
+export {
+  ButtonWrapper,
+  Explanation,
+  LoginButtonsWrapper,
+  LogoWrapper,
+  StepWrapper,
+};

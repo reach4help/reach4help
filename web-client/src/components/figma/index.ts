@@ -1,6 +1,7 @@
 import {
+  ButtonWrapper,
   Explanation,
-  LoginButtonContainer,
+  LoginButtonsWrapper,
   LogoWrapper,
   StepWrapper,
 } from './BlockStyles';
@@ -23,10 +24,11 @@ export {
   H4Font,
   H5Font,
   H6Font,
+  ButtonWrapper,
   FontSizeLg,
   FontSizeSm,
   FontSizeBase,
-  LoginButtonContainer,
+  LoginButtonsWrapper,
   LogoWrapper,
   Explanation,
   StepWrapper,

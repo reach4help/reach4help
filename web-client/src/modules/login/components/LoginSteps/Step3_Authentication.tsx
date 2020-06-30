@@ -2,8 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
 import {
+  ButtonWrapper,
+  Explanation,
   H6Font,
-  LoginButtonContainer,
+  LoginButtonsWrapper,
   LogoWrapper,
 } from 'src/components/figma/';
 
@@ -19,14 +21,19 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
   return (
     <>
       <LogoWrapper>
-        <img src={logoSmall} alt="logo" height="125px" width="125px" />
+        <img src={logoSmall} alt="logo" height="50px" width="50px" />
       </LogoWrapper>
-
-      <LoginButtonContainer>
+      <Explanation>
         <H6Font>{t('login.steps.3_authentication.please')}</H6Font>
-        <GoogleLoginButton onAuthenticate={onLoginGoogle} />
-        <FacebookLoginButton onAuthenticate={onLoginFacebook} />
-      </LoginButtonContainer>
+      </Explanation>
+      <LoginButtonsWrapper>
+        <ButtonWrapper>
+          <GoogleLoginButton onAuthenticate={onLoginGoogle} />
+        </ButtonWrapper>
+        <ButtonWrapper>
+          <FacebookLoginButton onAuthenticate={onLoginFacebook} />
+        </ButtonWrapper>
+      </LoginButtonsWrapper>
     </>
   );
 };
