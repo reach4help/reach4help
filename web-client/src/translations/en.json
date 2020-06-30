@@ -113,6 +113,7 @@
           "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
         },
         "3_authentication": {
+          "email_signup": "Sign up with email",
           "title": "Identity",
           "please": "Please sign up with one of the providers below",
           "popup_explanation": {

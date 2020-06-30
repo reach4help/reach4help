@@ -1,6 +1,8 @@
+import { MailOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
+import { MailAuthButton } from 'src/components/Buttons';
 import {
   ButtonWrapper,
   Explanation,
@@ -36,6 +38,10 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
         </ButtonWrapper>
       </LoginButtonsWrapper>
       <OrDivider />
+      <MailAuthButton>
+        <MailOutlined />
+        {t('login.steps.3_authentication.email_signup')}
+      </MailAuthButton>
     </>
   );
 };
