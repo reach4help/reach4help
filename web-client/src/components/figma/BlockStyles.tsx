@@ -1,5 +1,6 @@
 /* Common layout patterns used by Figma */
-
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 const LogoWrapper = styled.div`
@@ -36,10 +37,38 @@ const ButtonWrapper = styled.div`
   justify-content: space-around;
 `;
 
+const Splitter = styled.div`
+  height: 0;
+  margin: 50 0;
+  border: 1px solid rgba(0, 0, 0, 0.85);
+  width: 38%;
+`;
+
+const OrDividerWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 75 0 50 0;
+`;
+
+const OrWordWrapper = styled.div`
+  position: relative;
+  bottom: 10px;
+`;
+
+const OrDivider = () => {
+  const { t } = useTranslation();
+  return (
+    <OrDividerWrapper>
+      <Splitter /> <OrWordWrapper>{t('or')}</OrWordWrapper> <Splitter />
+    </OrDividerWrapper>
+  );
+};
+
 export {
   ButtonWrapper,
   Explanation,
   LoginButtonsWrapper,
   LogoWrapper,
+  OrDivider,
   StepWrapper,
 };

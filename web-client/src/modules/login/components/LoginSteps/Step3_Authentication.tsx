@@ -7,6 +7,7 @@ import {
   H6Font,
   LoginButtonsWrapper,
   LogoWrapper,
+  OrDivider,
 } from 'src/components/figma/';
 
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
@@ -34,6 +35,7 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
           <FacebookLoginButton onAuthenticate={onLoginFacebook} />
         </ButtonWrapper>
       </LoginButtonsWrapper>
+      <OrDivider />
     </>
   );
 };

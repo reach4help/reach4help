@@ -3,6 +3,7 @@ import {
   Explanation,
   LoginButtonsWrapper,
   LogoWrapper,
+  OrDivider,
   StepWrapper,
 } from './BlockStyles';
 import {
@@ -31,5 +32,6 @@ export {
   LoginButtonsWrapper,
   LogoWrapper,
   Explanation,
+  OrDivider,
   StepWrapper,
 };

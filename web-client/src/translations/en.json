@@ -1,5 +1,6 @@
 {
   "common": {
+    "or": "or",
     "i_understand": "I understand.",
     "okay": "Okay",
     "cancel": "Cancel",
