@@ -29,13 +29,13 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
   const { t } = useTranslation();
 
   const instructions = [
-    t('information_modal.MenuDrawer.0'),
-    t('information_modal.MenuDrawer.1'),
-    t('information_modal.MenuDrawer.2'),
-    t('information_modal.MenuDrawer.3'),
-    t('information_modal.MenuDrawer.4'),
-    t('information_modal.MenuDrawer.5'),
-    t('information_modal.MenuDrawer.6'),
+    `${t('information_modal.MenuDrawer.0')}.`,
+    `${t('information_modal.MenuDrawer.1')}.`,
+    `${t('information_modal.MenuDrawer.2')}.`,
+    `${t('information_modal.MenuDrawer.3')}.`,
+    `${t('information_modal.MenuDrawer.4')}.`,
+    `${t('information_modal.MenuDrawer.5')}.`,
+    `${t('information_modal.MenuDrawer.6')}.`,
   ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.MenuDrawer',

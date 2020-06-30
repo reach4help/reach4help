@@ -54,7 +54,7 @@ export const InformationModal: React.FC<InformationModalProps> = ({
             color: COLORS.lightBlue,
           }}
         >
-          {t('information_modal.footer')}
+          {`${t('information_modal.footer')}.`}
         </em>
         &nbsp;&nbsp;&nbsp;
         <MailOutlined
@@ -92,7 +92,7 @@ export const InformationModal: React.FC<InformationModalProps> = ({
 
       <div style={{ display: 'flex' }}>
         <StepForwardButton onClick={onFinishRequest}>
-          {t('i_understand')}
+          {`${t('i_understand')}.`}
         </StepForwardButton>
       </div>
     </Modal>

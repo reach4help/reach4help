@@ -26,14 +26,14 @@ const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
         handleFormSubmit({ otp });
       }}
     >
-      <Description>{t('verificationCode.sub_title')}</Description>
+      <Description>{`${t('verificationCode.sub_title')}.`}</Description>
       <Form.Item
         style={{ textAlign: 'center' }}
         name="otp"
         rules={[
           {
             required: true,
-            message: t('verificationCode.error_message'),
+            message: `${t('verificationCode.error_message')}!`,
           },
         ]}
       >

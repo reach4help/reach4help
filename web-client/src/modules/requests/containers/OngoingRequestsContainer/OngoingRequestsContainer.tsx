@@ -63,7 +63,9 @@ const OngoingRequestsContainer: React.FC = () => {
     return <LoadingWrapper />;
   }
 
-  const instructions = [t('information_modal.OngoingRequestsContainer.0')];
+  const instructions = [
+    `${t('information_modal.OngoingRequestsContainer.0')}.`,
+  ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.OngoingRequestsContainer',
     userid: profileState.uid,

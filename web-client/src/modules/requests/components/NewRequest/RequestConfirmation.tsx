@@ -25,13 +25,15 @@ const RequestConfirmation: React.FC<RequestConfirmationProps> = ({
     >
       <>
         <TitleWithAddon level={1} bottom="-16px">
-          {t('newRequestSuccess.title')}
+          {`${t('newRequestSuccess.title')}!`}
         </TitleWithAddon>
-        <SubtitleP>{t('newRequestSuccess.info')}</SubtitleP>
+        <SubtitleP>{`${t('newRequestSuccess.info')}.`}</SubtitleP>
         <LoadingIndicator lottieJson={stayAtHomeLottieJson} />
         <Footer>
-          <OrangeP>{t('newRequestSuccess.remember')}</OrangeP>
-          <RememberInfoP>{t('newRequestSuccess.remember_info')}</RememberInfoP>
+          <OrangeP>{`${t('newRequestSuccess.remember')}:`}</OrangeP>
+          <RememberInfoP>{`${t(
+            'newRequestSuccess.remember_info',
+          )}.`}</RememberInfoP>
         </Footer>
       </>
     </Modal>

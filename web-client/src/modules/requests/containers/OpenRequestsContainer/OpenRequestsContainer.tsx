@@ -81,9 +81,9 @@ const OpenRequestsContainer: React.FC = () => {
   }
 
   const instructions = [
-    t('information_modal.OpenRequestsContainer.0'),
-    t('information_modal.OpenRequestsContainer.1'),
-    t('information_modal.OpenRequestsContainer.2'),
+    `${t('information_modal.OpenRequestsContainer.0')}.`,
+    `${t('information_modal.OpenRequestsContainer.1')}.`,
+    `${t('information_modal.OpenRequestsContainer.2')}!`,
   ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.OpenRequestsContainer',

@@ -287,13 +287,13 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     profileState.profile.applicationPreference === ApplicationPreference.cav;
 
   const instructions = [
-    t('information_modal.TimelineViewContainer.0'),
-    t('information_modal.TimelineViewContainer.1'),
-    t('information_modal.TimelineViewContainer.2'),
-    t('information_modal.TimelineViewContainer.3'),
-    t('information_modal.TimelineViewContainer.4'),
-    t('information_modal.TimelineViewContainer.5'),
-    t('information_modal.TimelineViewContainer.6'),
+    `${t('information_modal.TimelineViewContainer.0')}.`,
+    `${t('information_modal.TimelineViewContainer.1')}.`,
+    `${t('information_modal.TimelineViewContainer.2')}.`,
+    `${t('information_modal.TimelineViewContainer.3')}.`,
+    `${t('information_modal.TimelineViewContainer.4')}.`,
+    `${t('information_modal.TimelineViewContainer.5')}.`,
+    `${t('information_modal.TimelineViewContainer.6')}.`,
   ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.TimelineViewContainer',

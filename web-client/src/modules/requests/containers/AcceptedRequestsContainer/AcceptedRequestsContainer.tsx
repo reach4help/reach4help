@@ -58,8 +58,8 @@ const OpenRequestsContainer: React.FC = () => {
     return <LoadingWrapper />;
   }
   const instructions = [
-    t('information_modal.AcceptedRequestsContainer.0'),
-    t('information_modal.AcceptedRequestsContainer.1'),
+    `${t('information_modal.AcceptedRequestsContainer.0')}.`,
+    `${t('information_modal.AcceptedRequestsContainer.1')}.`,
   ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.AcceptedRequestsContainer',

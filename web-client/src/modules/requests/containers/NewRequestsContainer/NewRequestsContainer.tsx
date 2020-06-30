@@ -4,25 +4,22 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { IUser } from 'src/models/users';
-import styled from 'styled-components';
-
 import {
   InformationModal,
   makeLocalStorageKey,
-} from '../../../../components/InformationModal/InformationModal';
+} from 'src/components/InformationModal/InformationModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
-} from '../../../../components/WebClientMap/utils';
-import Map from '../../../../components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from '../../../../constants/mediaQueries';
-import { ProfileState } from '../../../../ducks/profile/types';
-import {
-  resetSetRequestState,
-  setRequest,
-} from '../../../../ducks/requests/actions';
-import { RequestState } from '../../../../ducks/requests/types';
+} from 'src/components/WebClientMap/utils';
+import Map from 'src/components/WebClientMap/WebClientMap';
+import { DEVICE_MIN } from 'src/constants/mediaQueries';
+import { ProfileState } from 'src/ducks/profile/types';
+import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
+import { RequestState } from 'src/ducks/requests/types';
+import { IUser } from 'src/models/users';
+import styled from 'styled-components';
+
 import NewRequest from '../../components/NewRequest/NewRequest';
 import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
 import RequestReview, {
@@ -188,11 +185,11 @@ const NewRequestsContainer: React.FC = () => {
   };
 
   const instructions = [
-    t('information_modal.NewRequestsContainer.0'),
-    t('information_modal.NewRequestsContainer.1'),
-    t('information_modal.NewRequestsContainer.2'),
-    t('information_modal.NewRequestsContainer.3'),
-    t('information_modal.NewRequestsContainer.4'),
+    `${t('information_modal.NewRequestsContainer.0')}!`,
+    `${t('information_modal.NewRequestsContainer.1')}.`,
+    `${t('information_modal.NewRequestsContainer.2')}`,
+    `${t('information_modal.NewRequestsContainer.3')}.`,
+    `${t('information_modal.NewRequestsContainer.4')}.`,
   ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.NewRequestsContainer',

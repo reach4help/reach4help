@@ -51,7 +51,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
         rules={[
           {
             required: form.getFieldValue('type') === 'Other',
-            message: t('newRequest.form.other_error_message'),
+            message: `${t('newRequest.form.other_error_message')}.`,
           },
         ]}
       >
@@ -94,7 +94,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
                 rules={[
                   {
                     required: true,
-                    message: t('newRequest.form.address_error_message'),
+                    message: `${t('newRequest.form.address_error_message')}.`,
                   },
                 ]}
               >
@@ -121,7 +121,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
             rules={[
               {
                 required: true,
-                message: t('newRequest.form.type_error_message'),
+                message: `${t('newRequest.form.type_error_message')}.`,
               },
             ]}
           >
@@ -152,7 +152,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
             rules={[
               {
                 required: true,
-                message: t('newRequest.form.body_error_message'),
+                message: `${t('newRequest.form.body_error_message')}.`,
               },
             ]}
           >

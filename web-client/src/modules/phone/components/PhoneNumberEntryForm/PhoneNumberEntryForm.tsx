@@ -125,14 +125,14 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
 
     if (!countryCode) {
       return showMessage({
-        message: t('phoneNumber.no_country_error'),
+        message: `${t('phoneNumber.no_country_error')}.`,
         valid: false,
       });
     }
 
     if (!number) {
       return showMessage({
-        message: t('phoneNumber.no_digits_error'),
+        message: `${t('phoneNumber.no_digits_error')}.`,
         valid: false,
       });
     }
@@ -144,18 +144,18 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     if (fullTelephone.startsWith('+11')) {
       return showMessage({
         valid: false,
-        message: `${fullTelephone} ${t('phoneNumber.is_plus_11')}`,
+        message: `${fullTelephone} ${t('phoneNumber.is_plus_11')}.`,
       });
     }
     if (pnv.isValid() && pnv.canBeInternationallyDialled()) {
       return showMessage({
         valid: true,
-        message: `${fullTelephone} ${t('phoneNumber.is_valid_number')}`,
+        message: `${fullTelephone} ${t('phoneNumber.is_valid_number')}.`,
       });
     }
     return showMessage({
       valid: false,
-      message: `${fullTelephone} ${t('phoneNumber.is_not_valid_number')}`,
+      message: `${fullTelephone} ${t('phoneNumber.is_not_valid_number')}.`,
     });
   };
 
@@ -242,7 +242,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
         <SuccessDisplay>{numberValidMessage}</SuccessDisplay>
       )}
 
-      <Info>{t('phoneNumber.info')}</Info>
+      <Info>{`${t('phoneNumber.info')}.`}</Info>
       <Form.Item>
         <SubmitButton
           loading={loading}
