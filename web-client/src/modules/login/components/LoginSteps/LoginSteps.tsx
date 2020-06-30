@@ -13,8 +13,14 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
 }): React.ReactElement => {
   const { t } = useTranslation();
 
-  const [currentStep, setCurrentStep] = useState<number>(2);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const incrementStep = () => setCurrentStep(currentStep + 1);
+
+  const goToAuthSelectionStep = () => setCurrentStep(1);
+
+  function firebaseEmailAuth() {
+    document.title = 'auth clicked';
+  }
 
   const steps = [
     {
@@ -32,7 +38,12 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
     },
     {
       title: t('login.steps.4_email_login.title'),
-      content: <Step4 />,
+      content: (
+        <Step4
+          backHandler={goToAuthSelectionStep}
+          submitHandler={firebaseEmailAuth}
+        />
+      ),
     },
   ];
 

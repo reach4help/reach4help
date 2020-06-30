@@ -8,18 +8,11 @@ import {
   LogoWrapper,
 } from 'src/components/figma/';
 
-const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
+const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
+  backHandler,
+  submitHandler,
+}): React.ReactElement<Step4EmailLoginProps> => {
   const { t } = useTranslation();
-
-  const onFinish = values => {
-    // eslint-disable-next-line no-console
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = errorInfo => {
-    // eslint-disable-next-line no-console
-    console.log('Failed:', errorInfo);
-  };
 
   const layout = {
     labelCol: { span: 8 },
@@ -38,8 +31,8 @@ const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
         {...layout}
         name="emailSignup"
         initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        onFinish={submitHandler}
+        onFinishFailed={backHandler}
       >
         <Form.Item
           label={t('email')}
@@ -64,7 +57,7 @@ const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
               </Button>
             </ButtonWrapper>
             <ButtonWrapper>
-              <Button type="default" htmlType="button">
+              <Button type="default" htmlType="button" onClick={backHandler}>
                 {t('back')}
               </Button>
             </ButtonWrapper>
@@ -74,5 +67,10 @@ const Step4EmailLogin: React.FC<{}> = (): React.ReactElement<{}> => {
     </>
   );
 };
+
+interface Step4EmailLoginProps {
+  backHandler: () => void;
+  submitHandler: () => void;
+}
 
 export default Step4EmailLogin;
