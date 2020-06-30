@@ -128,7 +128,9 @@
           "email_label": "Email",
           "email_message": "Please input your email",
           "password_label": "Choose Password",
-          "password_message": "Please input the password you will use for Reach4Help"
+          "password_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm New Password",
+          "password_confirm_message": "Your passwords must match"
         }
       }
     },

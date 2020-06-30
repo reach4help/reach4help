@@ -65,6 +65,23 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
           <Input.Password />
         </Form.Item>
 
+        <Form.Item
+          name="confirmPassword"
+          rules={[
+            {
+              required: true,
+              message: t('login.steps.4_email_signup.password_confirm_message'),
+            },
+          ]}
+        >
+          <FormLabel>
+            <H6Font>
+              {t('login.steps.4_email_signup.password_confirm_label')}
+            </H6Font>
+          </FormLabel>
+          <Input.Password />
+        </Form.Item>
+
         <Form.Item {...tailLayout}>
           <LoginButtonsWrapper>
             <ButtonWrapper>
