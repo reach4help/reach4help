@@ -2,6 +2,7 @@ import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoLarge from 'src/assets/logoLarge.png';
+import { ContinueButton, ContinueButtonWrapper } from 'src/components/Buttons';
 import {
   Explanation,
   H6Font,
@@ -14,7 +15,9 @@ const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
 const { Option } = Select;
 
-const Step1SelectLanguage: React.FC = (): React.ReactElement => {
+const Step1SelectLanguage: React.FC<Step1SelectLanguageProps> = ({
+  incrementStep,
+}): React.ReactElement<Step1SelectLanguageProps> => {
   const { t, i18n } = useTranslation();
 
   /*  We are only using 2-digit language codes for now
@@ -28,37 +31,44 @@ const Step1SelectLanguage: React.FC = (): React.ReactElement => {
   };
 
   return (
-    <StepWrapper>
-      <LogoWrapper>
-        <img src={logoLarge} alt="logo" height="125px" width="125px" />
-      </LogoWrapper>
-      <Explanation>
-        <H6Font>{t('login.steps.0_welcome.welcome')}</H6Font>
-      </Explanation>
-      <Select
-        defaultValue={currentLanguage}
-        showSearch
-        style={{
-          margin: 'auto',
-          width: '200px',
-        }}
-        optionFilterProp="children"
-        filterOption={(input, option) =>
-          option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        }
-        onChange={v => setBrowserDefaultLanguage(v.toString())}
-      >
-        {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */
-        allLanguages.map(language => (
-          <Option key={language['1']} value={language['1']}>
-            {language.name}
-          </Option>
-        ))}
-      </Select>
-      <Explanation>
-        <H6Font>{t('login.steps.2_explanation.purpose')}</H6Font>
-      </Explanation>
-    </StepWrapper>
+    <>
+      <StepWrapper>
+        <LogoWrapper>
+          <img src={logoLarge} alt="logo" height="125px" width="125px" />
+        </LogoWrapper>
+        <Explanation>
+          <H6Font>{t('login.steps.0_welcome.welcome')}</H6Font>
+        </Explanation>
+        <Select
+          defaultValue={currentLanguage}
+          showSearch
+          style={{
+            margin: 'auto',
+            width: '200px',
+          }}
+          optionFilterProp="children"
+          filterOption={(input, option) =>
+            option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+          onChange={v => setBrowserDefaultLanguage(v.toString())}
+        >
+          {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+          allLanguages.map(language => (
+            <Option key={language['1']} value={language['1']}>
+              {language.name}
+            </Option>
+          ))}
+        </Select>
+        <Explanation>
+          <H6Font>{t('login.steps.2_explanation.purpose')}</H6Font>
+        </Explanation>
+      </StepWrapper>
+      <ContinueButtonWrapper>
+        <ContinueButton type="primary" onClick={incrementStep}>
+          {t('login.steps.continue')}
+        </ContinueButton>
+      </ContinueButtonWrapper>
+    </>
   );
 };
 
@@ -100,5 +110,9 @@ const allLanguages = [
     '2B': 'spa',
   },
 ];
+
+interface Step1SelectLanguageProps {
+  incrementStep: (Event) => void;
+}
 
 export default Step1SelectLanguage;

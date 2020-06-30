@@ -2,6 +2,18 @@ import { Button } from 'antd';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
+export const ContinueButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+export const ContinueButton = styled(Button)`
+  margin-top: 50px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+`;
+
 export const MailAuthButton = styled(Button)`
   /* gradient_logo */
 
