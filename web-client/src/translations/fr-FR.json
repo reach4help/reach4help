@@ -92,32 +92,32 @@
       "facebookButtonLabel": "Poursuivre avec Facebook",
       "googleButtonLabel": "Continuer avec Google",
       "steps": {
-        "continue": "Continue",
+        "continue": "Continuer",
         "footer": {
-          "contact": "If you have any questions or need assistance feel free to email us at "
+          "contact": "Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse support@reach4help.org "
         },
         "0_welcome": {
-          "title": "Welcome",
-          "welcome": "Welcome to Reach4Help",
-          "thanks": "Thank you so much for your interest in helping your community"
+          "title": "Bienvenue",
+          "welcome": "Bienvenue sur Reach4Help",
+          "thanks": "Merci beaucoup pour votre intérêt à aider votre communauté"
         },
         "1_select_language": {
-          "title": "Language",
-          "select_language_label": "What is your primary language?"
+          "title": "Langue",
+          "select_language_label": "Sélectionnez votre langue de préférence?"
         },
         "2_explanation": {
-          "title": "Explanation",
-          "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
-          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+          "title": "Explication",
+          "purpose": "Grâce à notre plateforme, vous serez en mesure de vous connecter avec d'autres personnes pour recevoir et fournir de l'aide aux gens de votre région",
+          "connect": "Vous pouvez communiquer avec des bénévoles et des personnes dans le besoin et des personnes dans le besoin en créant des demandes d'aide et en offrant de l'aide pour ces demandes."
         },
         "3_authentication": {
-          "title": "Identity",
-          "please": "Please sign up with one of the providers below",
+          "title": "Identité",
+          "please": "Veuillez vous inscrire avec l'un des fournisseurs ci-dessous",
           "popup_explanation": {
-            "main_question": "Why do you need an external account?",
-            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
-            "second_question": "Can I use other means to verify my identity?",
-            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+            "main_question": "Pourquoi avez-vous besoin d'un compte externe ?",
+            "main_answer": "Pour assurer la sécurité de nos utilisateurs, nous avons actuellement besoin de vous connecter via Google ou Facebook. Il s'agit de fournir une autre couche de vérification à nos utilisateurs au cas où nous aurions besoin de vous contacter.",
+            "second_question": "Puis-je utiliser d'autres moyens pour vérifier mon identité?",
+            "second_answer": "Si vous n’êtes pas à l’aise avec Google/Facebook, vous pouvez proposer une alternative à"
           }
         }
       }
@@ -265,31 +265,31 @@
       "personal-data": {
         "components": {
           "PersonalDataForm": {
-            "sub_title": "Please fill out the personal details below.",
-            "gps_button": "Use GPS to get my address",
-            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
-            "learn_reactivate": "Learn how to reactivate geolocation",
-            "retry_geolocation": "Retry Geolocation",
-            "continue_without_geolocation": "Continue without Geolocation",
-            "go_back": "Go Back",
-            "geolocation_modal_title": "Geolocation is not authorized",
-            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
-            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
-            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
-            "instructions_modal_title": "Instructions:",
-            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
-            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
-            "policy_link": "Privacy & Security Policy.",
-            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
-            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
-            "terms_conditions_link_text": "Terms & Conditions.",
-            "terms_conditions_error": "You need to accept the Terms & Conditions.",
-            "full_name_error_message": "Please enter your name.",
-            "display_name_error_message": "Please enter your display name.",
-            "address_error_message": "Please enter your address.",
-            "city_error_message": "Please enter your city.",
-            "country_error_message": "Please enter your country.",
-            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+            "sub_title": "Veuillez remplir les informations personnelles ci-dessous.",
+            "gps_button": "Utiliser le GPS pour obtenir mon adresse",
+            "gps_unavailable_retry_button": "Géolocalisation indisponible. Essayez à nouveau.",
+            "learn_reactivate": "Apprenez comment réactiver la géolocalisation",
+            "retry_geolocation": "Réessayer la géolocalisation",
+            "continue_without_geolocation": "Poursuivre sans géolocalisation",
+            "go_back": "Retour",
+            "geolocation_modal_title": "La géolocalisation n'est pas autorisée",
+            "geolocation_modal_text": "Vous pouvez ajouter votre localisation manuellement, mais cela nous aiderait à obtenir votre position plus précisément si vous utilisiez la géolocalisation. Veuillez choisir une des options ci-dessous :",
+            "geolocation_unavailable_title": "Malheureusement, nous ne sommes pas encore disponibles dans votre secteur",
+            "geolocation_unavailable_text": "Désolé, votre secteur n'est pas encore pris en charge sur notre plateforme. Vous serez averti par SMS ou E-Mail une fois que notre application sera disponibledans votre zone.",
+            "instructions_modal_title": "Instructions :",
+            "instructions_modal_text": "Vous pouvez ajouter votre adresse manuellement, mais cela nous aiderait à obtenir votre position avec plus de précision si vous utilisez la géolocalisation. Si vous voulez le réactiver, veuillez suivre les instructions suivantes:",
+            "policy_text": "Nous avons besoin de ces données pour nous assurer que l'aide arrive à la bonne destination. Pour toute question, veuillez lire notre ",
+            "policy_link": "Politique de Confidentialité et Sécurité.",
+            "accept_to_use_profile_pic": "Utiliser ma photo de profil sur Reach4Help.",
+            "terms_conditions_text": "Je comprends et reconnais le <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Termes et Conditions.",
+            "terms_conditions_error": "Vous devez accepter les Termes et Conditions.",
+            "full_name_error_message": "Entrez votre nom.",
+            "display_name_error_message": "Veuillez entrer votre nom d'utilisateur.",
+            "address_error_message": "Veuillez entrer votre adresse.",
+            "city_error_message": "Veuillez entrer votre ville.",
+            "country_error_message": "Veuillez entrer votre ville.",
+            "allow_send_notifications": "J'aimerais que Reach4Help m'envoie des notifications et/ou des emails."
           }
         },
         "containers": {
@@ -309,9 +309,9 @@
         "containers": {
           "FoundRequestsContainer": {
             "FoundRequestsContainer": {
-              "map_tab_label": "View Map of Requests",
-              "list_tab_label": "View List of Requests",
-              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+              "map_tab_label": "Voir la carte des demandes",
+              "list_tab_label": "Voir la carte des demandes",
+              "no_requests": "Il n'y a actuellement aucune demande dans votre région. Consultez la carte plus tard. N'hésitez pas aussi à placer une demande de besoin"
             }
           },
           "AcceptedRequestContainer": {
