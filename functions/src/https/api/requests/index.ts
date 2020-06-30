@@ -1,5 +1,7 @@
 import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
+// 'require' instead of 'import' workaround b/c type declarations for this module does not exist
+const firebaseTools = require('firebase-tools');
 
 import { auth, db } from '../../../app';
 import { IOffer, Offer, OfferStatus } from '../../../models/offers';
@@ -421,4 +423,34 @@ export const getRequests = functions.https.onCall(async (data, context) => {
   } else {
     throw new functions.https.HttpsError('unauthenticated', "Can't determine the logged in user");
   }
+});
+
+export const deleteUserPrivilegedInformation = functions.https.onCall(async (data, context) => {
+  const userId = context.auth?.uid;
+  if (!userId) {
+    throw new functions.https.HttpsError(
+      'permission-denied',
+      'Must be signed in to a user to initiate deleting user privileged info.'
+    );
+  }
+
+  try {
+    await firebaseTools.firestore
+      .delete(`users/${userId}/privilegedInformation`, {
+        project: process.env.GCLOUD_PROJECT,
+        recursive: true,
+        yes: true,
+        token: functions.config().fb.token,
+      });
+  } catch (e) {
+    throw new functions.https.HttpsError(
+      'internal',
+      'Failed to delete user\'s  privileged information'
+    );
+  }
+
+  return {
+    success: true,
+    path: `users/${userId}/privilegedInformation`,
+  };
 });
