@@ -20,8 +20,6 @@
     "code": "Postal / Zip Code",
     "State": "State / Province",
     "country": "Country",
-    "email": "Email",
-    "password": "Password",
     "for": " for ",
     "information_modal": {
       "instructions": "Instructions",
@@ -127,7 +125,10 @@
           }
         },
         "4_email_signup": {
-          "password_label": "Choose a Password for Reach4Help"
+          "email_label": "Email",
+          "email_message": "Please input your email",
+          "password_label": "Choose Password",
+          "password_message": "Please input the password you will use for Reach4Help"
         }
       }
     },

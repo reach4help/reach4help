@@ -34,21 +34,30 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
         name="emailSignup"
         initialValues={{ remember: true }}
         onFinish={submitHandler}
-        onFinishFailed={backHandler}
       >
         <Form.Item
           name="email"
-          rules={[{ required: true, message: 'Please input your username!' }]}
+          rules={[
+            {
+              required: true,
+              message: t('login.steps.4_email_signup.email_message'),
+            },
+          ]}
         >
           <FormLabel>
-            <H6Font>{t('email')}</H6Font>
+            <H6Font>{t('login.steps.4_email_signup.email_label')}</H6Font>
           </FormLabel>
           <Input />
         </Form.Item>
 
         <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          rules={[
+            {
+              required: true,
+              message: t('login.steps.4_email_signup.password_message'),
+            },
+          ]}
         >
           <FormLabel>
             <H6Font>{t('login.steps.4_email_signup.password_label')}</H6Font>

@@ -15,9 +15,8 @@ const StepWrapper = styled('div')`
 `;
 
 const FormLabel = styled('div')`
-  margin: 10 0 10;
   display: flex;
-  justify-content: space-around;
+  justify-content: spa ce-around;
   text-align: center;
 `;
 
