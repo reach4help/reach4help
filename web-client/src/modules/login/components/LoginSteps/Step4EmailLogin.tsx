@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
 import {
   ButtonWrapper,
+  FormLabel,
+  H6Font,
   LoginButtonsWrapper,
   LogoWrapper,
 } from 'src/components/figma/';
@@ -35,20 +37,25 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
         onFinishFailed={backHandler}
       >
         <Form.Item
-          label={t('email')}
           name="email"
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
+          <FormLabel>
+            <H6Font>{t('email')}</H6Font>
+          </FormLabel>
           <Input />
         </Form.Item>
 
         <Form.Item
-          label={t('password')}
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
+          <FormLabel>
+            <H6Font>{t('login.steps.4_email_signup.password_label')}</H6Font>
+          </FormLabel>
           <Input.Password />
         </Form.Item>
+
         <Form.Item {...tailLayout}>
           <LoginButtonsWrapper>
             <ButtonWrapper>

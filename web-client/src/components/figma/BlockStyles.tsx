@@ -14,9 +14,15 @@ const StepWrapper = styled('div')`
   margin-top: 25px;
 `;
 
+const FormLabel = styled('div')`
+  margin: 10 0 10;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+`;
+
 const Explanation = styled('div')`
-  margin-bottom: 50px;
-  margin-top: 30px;
+  margin: 30 0 50;
   display: flex;
   justify-content: space-around;
   text-align: center;
@@ -67,6 +73,7 @@ const OrDivider = () => {
 export {
   ButtonWrapper,
   Explanation,
+  FormLabel,
   LoginButtonsWrapper,
   LogoWrapper,
   OrDivider,

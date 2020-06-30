@@ -126,7 +126,9 @@
             "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
           }
         },
-        "4_email_signup": {}
+        "4_email_signup": {
+          "password_label": "Choose a Password for Reach4Help"
+        }
       }
     },
     "menuDrawer": {
