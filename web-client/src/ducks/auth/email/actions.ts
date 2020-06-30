@@ -1,33 +1,41 @@
 import {
-  emailLoginWithFirebasePopUp,
-  getRedirectResult,
-  loginWithFirebaseRedirect,
+  fetchSignInMethods,
+  signIn as signInFunc,
+  signUp as signUpFunc,
 } from './functions';
 import {
-  FIREBASE_EMAIL_LOGIN_POPUP,
-  GET_LOGIN_REDIRECT_RESULT,
-  TRIGGER_LOGIN_WITH_REDIRECT,
+  CHECK_EMAIL,
+  EmailAndPasswordPayload,
+  SIGN_IN,
+  SIGN_UP,
 } from './types';
 
-export const triggerEmailLoginWithRedirect = () => (dispatch: Function) => {
+export const signIn = (payload: EmailAndPasswordPayload) => (
+  dispatch: Function,
+) => {
   dispatch({
-    type: TRIGGER_LOGIN_WITH_REDIRECT,
-    firebase: loginWithFirebaseRedirect,
+    type: SIGN_IN,
+    payload,
+    firebase: signInFunc,
   });
 };
 
-export const loginWithEmailFirebaseActionPopUp = () => (dispatch: Function) => {
+export const signUp = (payload: EmailAndPasswordPayload) => (
+  dispatch: Function,
+) => {
   dispatch({
-    type: FIREBASE_EMAIL_LOGIN_POPUP,
-    payload: {},
-    firebase: emailLoginWithFirebasePopUp,
-    fallback: triggerEmailLoginWithRedirect,
+    type: SIGN_UP,
+    payload,
+    firebase: signUpFunc,
   });
 };
 
-export const getEmailLoginRedirectResult = () => (dispatch: Function) => {
+export const checkEmail = (email: string) => (dispatch: Function) => {
   dispatch({
-    type: GET_LOGIN_REDIRECT_RESULT,
-    firebase: getRedirectResult,
+    type: CHECK_EMAIL,
+    payload: {
+      email,
+    },
+    firebase: fetchSignInMethods,
   });
 };

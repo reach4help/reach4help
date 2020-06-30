@@ -1,53 +1,74 @@
-import { AuthState } from '../types';
-import {
-  FIREBASE_EMAIL_LOGIN_POPUP,
-  GET_LOGIN_REDIRECT_RESULT,
-  TRIGGER_LOGIN_WITH_REDIRECT,
-} from './types';
+import { authProviders, AuthState } from '../types';
+import { CHECK_EMAIL, SIGN_IN, SIGN_UP } from './types';
 
 export default {
-  [FIREBASE_EMAIL_LOGIN_POPUP.PENDING]: (state: AuthState) => {
-    state.loading = true;
+  [CHECK_EMAIL.PENDING]: (state: AuthState) => {
+    state.checkEmail = {
+      loading: false,
+      present: false,
+      method: undefined,
+    };
   },
 
-  [FIREBASE_EMAIL_LOGIN_POPUP.REJECTED]: (
+  [CHECK_EMAIL.COMPLETED]: (
+    state: AuthState,
+    { payload }: { payload: string[] },
+  ) => {
+    if (state.checkEmail) {
+      state.checkEmail.loading = true;
+      state.checkEmail.error = undefined;
+      if (payload && Array.isArray(payload) && payload.length > 0) {
+        state.checkEmail.present = true;
+        state.checkEmail.method = authProviders.email;
+      }
+    }
+  },
+
+  [CHECK_EMAIL.REJECTED]: (
     state: AuthState,
     { payload }: { payload: Error },
   ) => {
-    state.error = payload;
-    state.loading = false;
+    if (state.checkEmail) {
+      state.checkEmail.error = payload;
+      state.checkEmail.loading = false;
+      state.checkEmail.method = undefined;
+      state.checkEmail.present = false;
+    }
   },
 
-  [FIREBASE_EMAIL_LOGIN_POPUP.COMPLETED]: (
+  [SIGN_IN.PENDING]: (state: AuthState) => {
+    state.loading = true;
+  },
+
+  [SIGN_IN.COMPLETED]: (
     state: AuthState,
     { payload }: { payload: firebase.auth.UserCredential },
   ) => {
     state.user = payload.user;
     state.loading = false;
+    state.error = undefined;
   },
 
-  [TRIGGER_LOGIN_WITH_REDIRECT.PENDING]: (state: AuthState) => {
-    window.sessionStorage.setItem(
-      'redirect_started',
-      `email_${new Date().toISOString()}`,
-    );
-    state.loading = true;
-  },
-
-  [GET_LOGIN_REDIRECT_RESULT.REJECTED]: (
-    state: AuthState,
-    { payload }: { payload: Error },
-  ) => {
-    window.sessionStorage.removeItem('redirect_started');
+  [SIGN_IN.REJECTED]: (state: AuthState, { payload }: { payload: Error }) => {
     state.error = payload;
     state.loading = false;
   },
 
-  [GET_LOGIN_REDIRECT_RESULT.COMPLETED]: (
+  [SIGN_UP.PENDING]: (state: AuthState) => {
+    state.loading = true;
+  },
+
+  [SIGN_UP.COMPLETED]: (
     state: AuthState,
     { payload }: { payload: firebase.auth.UserCredential },
   ) => {
     state.user = payload.user;
+    state.loading = false;
+    state.error = undefined;
+  },
+
+  [SIGN_UP.REJECTED]: (state: AuthState, { payload }: { payload: Error }) => {
+    state.error = payload;
     state.loading = false;
   },
 };

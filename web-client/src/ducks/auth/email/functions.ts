@@ -1,14 +1,12 @@
-import firebase, { firebaseAuth } from 'src/firebase';
+import { firebaseAuth } from 'src/firebase';
 
-export const emailLoginWithFirebasePopUp = async (): Promise<firebase.auth.UserCredential> => {
-  const provider = new firebase.auth.EmailAuthProvider();
-  return firebaseAuth.signInWithPopup(provider);
-};
+import { EmailAndPasswordPayload } from './types';
 
-export const loginWithFirebaseRedirect = (): void => {
-  const provider = new firebase.auth.EmailAuthProvider();
-  firebaseAuth.signInWithRedirect(provider);
-};
+export const signIn = async ({ email, password }: EmailAndPasswordPayload) =>
+  firebaseAuth.signInWithEmailAndPassword(email, password);
 
-export const getRedirectResult = (): Promise<firebase.auth.UserCredential> =>
-  firebaseAuth.getRedirectResult();
+export const signUp = async ({ email, password }: EmailAndPasswordPayload) =>
+  firebaseAuth.createUserWithEmailAndPassword(email, password);
+
+export const fetchSignInMethods = async ({ email }: { email: string }) =>
+  firebaseAuth.fetchSignInMethodsForEmail(email);
