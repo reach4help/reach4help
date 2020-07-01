@@ -9,8 +9,10 @@ import { enableLogger, enableMonitoring } from './telemetry';
 
 // Later we can check if we need all immer plugins
 enableAllPlugins();
-enableLogger();
-enableMonitoring();
+if (process.env.NODE_ENV !== 'development') {
+  enableLogger();
+  enableMonitoring();
+}
 
 const App = (): ReactElement => {
   const store = configureStore();

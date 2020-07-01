@@ -24,7 +24,7 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
         layout="vertical"
         name="emailSignup"
         initialValues={{ remember: true }}
-        onFinish={submitHandler}
+        onFinish={({ email, password }) => submitHandler(email, password)}
       >
         <Form.Item
           name="email"
@@ -85,7 +85,7 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
 
 interface Step4EmailLoginProps {
   backHandler: () => void;
-  submitHandler: () => void;
+  submitHandler: Function;
 }
 
 export default Step4EmailLogin;

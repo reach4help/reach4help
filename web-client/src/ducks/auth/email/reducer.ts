@@ -1,12 +1,16 @@
-import { authProviders, AuthState } from '../types';
+import { authProviders, AuthState, EmailAndPasswordPayload } from '../types';
 import { CHECK_EMAIL, SIGN_IN, SIGN_UP } from './types';
 
 export default {
-  [CHECK_EMAIL.PENDING]: (state: AuthState) => {
+  [CHECK_EMAIL.PENDING]: (
+    state: AuthState,
+    { payload }: { payload: EmailAndPasswordPayload },
+  ) => {
     state.checkEmail = {
-      loading: false,
+      loading: true,
       present: false,
       method: undefined,
+      intermediateData: payload,
     };
   },
 
@@ -15,11 +19,17 @@ export default {
     { payload }: { payload: string[] },
   ) => {
     if (state.checkEmail) {
-      state.checkEmail.loading = true;
+      state.checkEmail.loading = false;
       state.checkEmail.error = undefined;
       if (payload && Array.isArray(payload) && payload.length > 0) {
         state.checkEmail.present = true;
-        state.checkEmail.method = authProviders.email;
+        if (payload.includes('password')) {
+          state.checkEmail.method = authProviders.email;
+        } else if (payload.includes('google.com')) {
+          state.checkEmail.method = authProviders.google;
+        } else if (payload.includes('facebook.com')) {
+          state.checkEmail.method = authProviders.facebook;
+        }
       }
     }
   },

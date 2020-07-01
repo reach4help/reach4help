@@ -1,6 +1,6 @@
 import { firebaseAuth } from 'src/firebase';
 
-import { EmailAndPasswordPayload } from './types';
+import { EmailAndPasswordPayload } from '../types';
 
 export const signIn = async ({ email, password }: EmailAndPasswordPayload) =>
   firebaseAuth.signInWithEmailAndPassword(email, password);

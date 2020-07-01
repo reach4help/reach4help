@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Step1 from './Step1SelectLanguage';
@@ -6,16 +6,13 @@ import Step3 from './Step3Authentication';
 import Step4 from './Step4EmailLogin';
 
 const LoginSteps: React.FC<LoginStepsProps> = ({
+  currentStep,
+  setCurrentStep,
   onLoginFacebook,
   onLoginGoogle,
+  onEmailSignInUp,
 }): React.ReactElement => {
   const { t } = useTranslation();
-
-  const [currentStep, setCurrentStep] = useState<number>(0);
-
-  function firebaseEmailAuth() {
-    document.title = 'auth clicked';
-  }
 
   const steps = [
     {
@@ -37,7 +34,7 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
       content: (
         <Step4
           backHandler={() => setCurrentStep(1)}
-          submitHandler={firebaseEmailAuth}
+          submitHandler={onEmailSignInUp}
         />
       ),
     },
@@ -51,8 +48,11 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
 };
 
 interface LoginStepsProps {
+  currentStep: number;
+  setCurrentStep: Function;
   onLoginGoogle: Function;
   onLoginFacebook: Function;
+  onEmailSignInUp: Function;
 }
 
 export default LoginSteps;
