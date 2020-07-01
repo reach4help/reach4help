@@ -58,51 +58,53 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   }, [history, redirectBack, user]);
 
   useEffect(() => {
-    let shouldCheck = true;
-    if (checkEmail && !checkEmail.loading) {
-      if (checkEmail.present) {
-        if (checkEmail.method === authProviders.email) {
-          if (
-            checkEmail.intermediateData.email &&
-            checkEmail.intermediateData.password
-          ) {
-            dispatch(
-              signIn({
-                email: checkEmail.intermediateData.email,
-                password: checkEmail.intermediateData.password,
-              }),
-            );
-            shouldCheck = false;
+    if (!authLoading) {
+      let shouldCheck = true;
+      if (checkEmail && !checkEmail.loading) {
+        if (checkEmail.present) {
+          if (checkEmail.method === authProviders.email) {
+            if (
+              checkEmail.intermediateData.email &&
+              checkEmail.intermediateData.password
+            ) {
+              dispatch(
+                signIn({
+                  email: checkEmail.intermediateData.email,
+                  password: checkEmail.intermediateData.password,
+                }),
+              );
+              shouldCheck = false;
+            }
+          } else {
+            // the actions to take when the email provided is being used for another login provider like Google/Facebook
           }
-        } else {
-          // the actions to take when the email provided is being used for another login provider like Google/Facebook
+        } else if (
+          checkEmail.intermediateData.email &&
+          checkEmail.intermediateData.password
+        ) {
+          dispatch(
+            signUp({
+              email: checkEmail.intermediateData.email,
+              password: checkEmail.intermediateData.password,
+            }),
+          );
+          shouldCheck = false;
         }
-      } else if (
-        checkEmail.intermediateData.email &&
-        checkEmail.intermediateData.password
+      }
+      if (
+        shouldCheck &&
+        emailAndPassword.email &&
+        !(checkEmail && checkEmail.loading)
       ) {
         dispatch(
-          signUp({
-            email: checkEmail.intermediateData.email,
-            password: checkEmail.intermediateData.password,
+          checkEmailFunc({
+            email: emailAndPassword.email,
+            password: emailAndPassword.password,
           }),
         );
-        shouldCheck = false;
       }
     }
-    if (
-      shouldCheck &&
-      emailAndPassword.email &&
-      !(checkEmail && checkEmail.loading)
-    ) {
-      dispatch(
-        checkEmailFunc({
-          email: emailAndPassword.email,
-          password: emailAndPassword.password,
-        }),
-      );
-    }
-  }, [checkEmail, emailAndPassword, dispatch]);
+  }, [authLoading, checkEmail, emailAndPassword, dispatch]);
 
   const handleLoginGoogle = () => {
     if (isMobile) {
