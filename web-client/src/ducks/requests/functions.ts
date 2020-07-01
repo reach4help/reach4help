@@ -117,3 +117,6 @@ export const getArchivedRequest = async ({ lat, lng }: IgetOpenRequests) =>
     radius: 5,
     status: AbstractRequestStatus.archived,
   });
+
+export const deleteUserRequests = async () =>
+  functions.httpsCallable('https-api-requests-deleteUserRequests')();

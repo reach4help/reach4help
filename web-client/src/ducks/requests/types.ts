@@ -100,6 +100,12 @@ export interface RequestState {
     modalState: boolean;
     error?: Error;
   };
+  updateAction: {
+    success: boolean;
+    loading: boolean;
+    modalState: boolean;
+    error?: Error;
+  };
 }
 
 export interface IgetOpenRequests {

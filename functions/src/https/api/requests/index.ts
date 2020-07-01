@@ -1,7 +1,5 @@
 import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
-// 'require' instead of 'import' workaround b/c type declarations for this module does not exist
-const firebaseTools = require('firebase-tools');
 
 import { auth, db } from '../../../app';
 import { IOffer, Offer, OfferStatus } from '../../../models/offers';
@@ -15,6 +13,10 @@ import {
   RequestWithOffersAndTimeline,
 } from '../../../models/requests/RequestWithOffersAndTimeline';
 import { IPrivilegedUserInformation, PrivilegedUserInformation } from '../../../models/users/privilegedInformation';
+
+// 'require' instead of 'import' workaround b/c type declarations for this module does not exist
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const firebaseTools = require('firebase-tools');
 
 const RADIUS = 5; // In Miles
 
@@ -429,8 +431,8 @@ export const deleteUserPrivilegedInformation = functions.https.onCall(async (dat
   const userId = context.auth?.uid;
   if (!userId) {
     throw new functions.https.HttpsError(
-      'permission-denied',
-      'Must be signed in to a user to initiate deleting user privileged info.'
+      'unauthenticated',
+      "Can't determine the logged in user to initiate deleting user privileged info",
     );
   }
 
@@ -442,15 +444,73 @@ export const deleteUserPrivilegedInformation = functions.https.onCall(async (dat
         yes: true,
         token: functions.config().fb.token,
       });
-  } catch (e) {
+  } catch (err) {
     throw new functions.https.HttpsError(
       'internal',
-      'Failed to delete user\'s  privileged information'
+      "Failed to delete user's privileged information",
+      err,
     );
   }
 
   return {
     success: true,
     path: `users/${userId}/privilegedInformation`,
+  };
+});
+
+export const deleteUserRequests = functions.https.onCall(async (data, context) => {
+  const userId = context.auth?.uid;
+  if (!userId) {
+    throw new functions.https.HttpsError(
+      'unauthenticated',
+      "Can't determine the logged in user to delete user requests",
+    );
+  }
+
+  const userRef = db.collection('users').doc(userId);
+  const user = User.factory((await userRef.get()).data() as IUser);
+  if (!user || !user.applicationPreference) {
+    throw new functions.https.HttpsError(
+      'out-of-range', 'user application preference is not defined',
+    );
+  }
+
+  user.displayPicture = null;
+  user.displayName = 'Deleted User';
+  let userRequests;
+  try {
+    if (user.applicationPreference === ApplicationPreference.pin) {
+      userRequests = await db
+        .collection('requests')
+        .where('pinUserRef', '==', userRef)
+        .get();
+      for (const doc of userRequests.docs) {
+        doc.ref.update({
+          pinUserSnapshot: user,
+          status: RequestStatus.deleted,
+        });
+      }
+    } else {
+      userRequests = await db
+        .collection('requests')
+        .where('cavUserRef', '==', userRef)
+        .get();
+      for (const doc of userRequests.docs) {
+        doc.ref.update({
+          cavUserSnapshot: user,
+          status: RequestStatus.deleted,
+        });
+      }
+    }
+  } catch (err) {
+    throw new functions.https.HttpsError(
+      'internal',
+      "Failed to delete user's requests",
+      err,
+    );
+  }
+
+  return {
+    success: true,
   };
 });

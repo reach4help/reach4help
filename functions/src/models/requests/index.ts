@@ -15,6 +15,7 @@ export enum RequestStatus {
   completed = 'completed',
   cancelled = 'cancelled',
   removed = 'removed',
+  deleted = 'deleted',
 }
 
 export interface IRequest extends DocumentData {
