@@ -12,6 +12,7 @@ enableAllPlugins();
 if (process.env.NODE_ENV !== 'development') {
   enableLogger();
   enableMonitoring();
+  
 }
 
 const App = (): ReactElement => {
