@@ -21,8 +21,9 @@ const FormLabel = styled('div')`
 `;
 
 const Explanation = styled('div')`
-  margin: 30 0 50;
   display: flex;
+  padding: 25px;
+  max-width: 550px;
   justify-content: space-around;
   text-align: center;
 `;

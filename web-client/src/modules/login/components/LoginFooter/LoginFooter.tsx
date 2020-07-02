@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CONSTANTS from 'src/constants';
-import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import styled from 'styled-components';
 
 const { SUPPORT_EMAIL } = CONSTANTS;
@@ -33,13 +32,6 @@ const RegistrationStepsFooterWrapper = styled.div`
   background: rgba(24, 144, 255, 0.1);
   color: rgba(0, 0, 0, 0.85);
   opacity: 0.8;
-
-  @media ${DEVICE_MIN.mobileS} {
-    margin: 25px auto 0px -55px;
-  }
-  @media ${DEVICE_MIN.tablet} {
-    margin: 25px auto 0 auto;
-  }
 `;
 
 export default RegistrationFooter;
