@@ -427,90 +427,110 @@ export const getRequests = functions.https.onCall(async (data, context) => {
   }
 });
 
-export const deleteUserPrivilegedInformation = functions.https.onCall(async (data, context) => {
-  const userId = context.auth?.uid;
-  if (!userId) {
-    throw new functions.https.HttpsError(
-      'unauthenticated',
-      "Can't determine the logged in user to initiate deleting user privileged info",
-    );
-  }
-
-  try {
-    await firebaseTools.firestore
-      .delete(`users/${userId}/privilegedInformation`, {
-        project: process.env.GCLOUD_PROJECT,
-        recursive: true,
-        yes: true,
-        token: functions.config().fb.token,
-      });
-  } catch (err) {
-    throw new functions.https.HttpsError(
-      'internal',
-      "Failed to delete user's privileged information",
-      err,
-    );
-  }
+const deleteUserPrivilegedInformation = async userId => {
+  await firebaseTools.firestore
+    .delete(`users/${userId}/privilegedInformation`, {
+      project: process.env.GCLOUD_PROJECT,
+      recursive: true,
+      yes: true,
+      token: functions.config().fb.token,
+    });
 
   return {
-    success: true,
     path: `users/${userId}/privilegedInformation`,
   };
-});
+};
 
-export const deleteUserRequests = functions.https.onCall(async (data, context) => {
+const deleteUserTimelines = async userRef => {
+  const deletedUser = User.factory((await userRef.get()).data() as IUser);
+  deletedUser.displayPicture = null;
+  deletedUser.displayName = 'Deleted User';
+
+  const userTimelines = await db
+    .collectionGroup('timeline')
+    .where('actorRef', '==', userRef)
+    .get();
+  for (const doc of userTimelines.docs) {
+    doc.ref.update({
+      actorSnapshot: deletedUser,
+      actorRef: null,
+    });
+  }
+};
+
+const deletePinUserRequests = async userRef => {
+  const deletedUser = User.factory((await userRef.get()).data() as IUser);
+  deletedUser.displayPicture = null;
+  deletedUser.displayName = 'Deleted User';
+
+  const userRequests = await db
+    .collection('requests')
+    .where('pinUserRef', '==', userRef)
+    .get();
+  for (const doc of userRequests.docs) {
+    doc.ref.update({
+      pinUserSnapshot: deletedUser,
+      pinUserRef: null,
+      status: RequestStatus.deleted,
+    });
+    const requestTimelines = doc.ref.collection('timeline').get();
+    for (const timelineDoc of requestTimelines.docs) {
+      const deletedRequestSnapshot = Request.factory(
+        timelineDoc.get('requestRef').data() as IRequest,
+      );
+      deletedRequestSnapshot.pinUserSnapshot = deletedUser;
+      deletedRequestSnapshot.pinUserRef = null;
+      deletedRequestSnapshot.status = RequestStatus.deleted;
+      timelineDoc.ref.update({
+        requestSnapshot: deletedRequestSnapshot,
+      });
+    }
+  }
+};
+
+const deleteCavUserRequests = async userRef => {
+  const deletedUser = User.factory((await userRef.get()).data() as IUser);
+  deletedUser.displayPicture = null;
+  deletedUser.displayName = 'Deleted User';
+
+  const userRequests = await db
+    .collection('requests')
+    .where('cavUserRef', '==', userRef)
+    .get();
+  for (const doc of userRequests.docs) {
+    doc.ref.update({
+      cavUserSnapshot: deletedUser,
+      cavUserRef: null,
+      status: RequestStatus.deleted,
+    });
+    const requestTimelines = doc.ref.collection('timeline').get();
+    for (const timelineDoc of requestTimelines.docs) {
+      const deletedRequestSnapshot = Request.factory(
+        timelineDoc.get('requestRef').data() as IRequest,
+      );
+      deletedRequestSnapshot.cavUserSnapshot = deletedUser;
+      deletedRequestSnapshot.cavUserRef = null;
+      deletedRequestSnapshot.status = RequestStatus.deleted;
+      timelineDoc.ref.update({
+        requestSnapshot: deletedRequestSnapshot,
+      });
+    }
+  }
+};
+
+export const deleteUserData = functions.https.onCall(async (data, context) => {
   const userId = context.auth?.uid;
   if (!userId) {
-    throw new functions.https.HttpsError(
-      'unauthenticated',
-      "Can't determine the logged in user to delete user requests",
-    );
+    throw new functions.http.HttpsError('unauthenticated', "Can't determine the logged in user");
   }
 
-  const userRef = db.collection('users').doc(userId);
-  const user = User.factory((await userRef.get()).data() as IUser);
-  if (!user || !user.applicationPreference) {
-    throw new functions.https.HttpsError(
-      'out-of-range', 'user application preference is not defined',
-    );
-  }
-
-  user.displayPicture = null;
-  user.displayName = 'Deleted User';
-  let userRequests;
   try {
-    if (user.applicationPreference === ApplicationPreference.pin) {
-      userRequests = await db
-        .collection('requests')
-        .where('pinUserRef', '==', userRef)
-        .get();
-      for (const doc of userRequests.docs) {
-        doc.ref.update({
-          pinUserSnapshot: user,
-          status: RequestStatus.deleted,
-        });
-      }
-    } else {
-      userRequests = await db
-        .collection('requests')
-        .where('cavUserRef', '==', userRef)
-        .get();
-      for (const doc of userRequests.docs) {
-        doc.ref.update({
-          cavUserSnapshot: user,
-          status: RequestStatus.deleted,
-        });
-      }
-    }
+    const userRef = db.collection('users').doc(userId);
+    await deleteUserPrivilegedInformation(userId);
+    await deleteUserTimelines(userRef);
+    await deletePinUserRequests(userRef);
+    await deleteCavUserRequests(userRef);
   } catch (err) {
-    throw new functions.https.HttpsError(
-      'internal',
-      "Failed to delete user's requests",
-      err,
-    );
+    throw new functions.http.HttpsError('internal', 'deleting all user data failed', err);
   }
-
-  return {
-    success: true,
-  };
 });

@@ -99,7 +99,5 @@ export const updateUserPrivilegedInformationData = async ({
     .withConverter(PrivilegedUserInformationFirestoreConverter)
     .set(dataPayload);
 
-export const deleteUserPrivilegedInformation = async () =>
-  functions.httpsCallable(
-    'https-api-requests-deleteUserPrivilegedInformation',
-  )();
+export const deleteUserData = async () =>
+  functions.httpsCallable('https-api-requests-deleteUserData')();

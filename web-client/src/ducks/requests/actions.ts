@@ -2,7 +2,6 @@ import { IRequest, Request, RequestStatus } from 'src/models/requests';
 
 import {
   createUserRequest,
-  deleteUserRequests as deleteUserRequestsFunc,
   getAcceptedRequest as getAcceptedRequestFunc,
   getArchivedRequest as getArchivedRequestFunc,
   getFinishedRequest as getFinishedRequestFunc,
@@ -28,7 +27,6 @@ import {
   OBSERVE_REMOVED_REQUESTS,
   RESET_SET,
   SET,
-  UPDATE,
 } from './types';
 
 const requestStatusMapper = {
@@ -144,11 +142,4 @@ export const changeModal = state => (dispatch: Function) =>
   dispatch({
     type: CHANGE_MODAL,
     payload: state,
-  });
-
-export const deleteUserRequests = () => (dispatch: Function) =>
-  dispatch({
-    type: UPDATE,
-    payload: {},
-    firebase: deleteUserRequestsFunc,
   });

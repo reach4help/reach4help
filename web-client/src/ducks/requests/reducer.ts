@@ -20,17 +20,9 @@ import {
   RequestState,
   RESET_SET,
   SET,
-  UPDATE,
 } from './types';
 
 const initialSetActionState = {
-  loading: false,
-  success: false,
-  error: undefined,
-  modalState: false,
-};
-
-const initialUpdateActionState = {
   loading: false,
   success: false,
   error: undefined,
@@ -62,7 +54,6 @@ const initialState: RequestState = {
   cancelledRequests: initialRequestsState,
   removedRequests: initialRequestsState,
   setAction: initialSetActionState,
-  updateAction: initialUpdateActionState,
 };
 
 const requestStatusMapper = {
@@ -287,23 +278,6 @@ export default createReducer<RequestState>(
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
-    },
-    [UPDATE.PENDING]: (state: RequestState) => {
-      state.updateAction.loading = true;
-      state.updateAction.error = undefined;
-    },
-    [UPDATE.COMPLETED]: (state: RequestState) => {
-      state.updateAction.error = undefined;
-      state.updateAction.loading = false;
-      state.updateAction.success = true;
-    },
-    [UPDATE.REJECTED]: (
-      state: RequestState,
-      { payload }: { payload: Error },
-    ) => {
-      state.updateAction.loading = false;
-      state.updateAction.error = payload;
-      state.updateAction.success = false;
     },
     [RESET_SET]: (state: RequestState) => {
       state.setAction.loading = false;

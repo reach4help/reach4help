@@ -5,7 +5,6 @@ import { PrivilegedUserInformation } from 'src/models/users/privilegedInformatio
 import createReducer from 'src/store/utils/createReducer';
 
 import {
-  DELETE_PRIVILEGED,
   GET,
   OBSERVE_PRIVILEGED,
   OBSERVE_PROFILE,
@@ -23,7 +22,6 @@ const initialState: ProfileState = {
   loading: false,
   setAction: undefined,
   updateAction: undefined,
-  deleteAction: undefined,
   observerReceivedFirstUpdate: false,
   error: undefined,
 };
@@ -108,23 +106,6 @@ export default createReducer<ProfileState>(
       state.loading = false;
       state.error = payload;
       state.updateAction = undefined;
-    },
-    [DELETE_PRIVILEGED.PENDING]: (state: ProfileState) => {
-      state.loading = true;
-      state.error = undefined;
-    },
-    [DELETE_PRIVILEGED.COMPLETED]: (state: ProfileState) => {
-      state.error = undefined;
-      state.loading = false;
-      state.deleteAction = true;
-    },
-    [DELETE_PRIVILEGED.REJECTED]: (
-      state: ProfileState,
-      { payload }: { payload: Error },
-    ) => {
-      state.loading = false;
-      state.error = payload;
-      state.deleteAction = undefined;
     },
     [OBSERVE_PRIVILEGED.SUBSCRIBE]: (state: ProfileState) => {
       state.loading = true;
