@@ -17,10 +17,10 @@ export const ContinueButton = styled(Button)`
 export const MailAuthButton = styled(Button)`
   /* gradient_logo */
 
+  margin-bottom: 25px;
   background: linear-gradient(172.72deg, #f27979 2.64%, #7d00a3 97.36%);
   /* button */
 
-  margin: 50 0 50;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   white-space: nowrap;

@@ -54,7 +54,7 @@ const Splitter = styled.div`
 const OrDividerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 75 0 50 0;
+  margin: 50px;
 `;
 
 const OrWordWrapper = styled.div`
