@@ -1,10 +1,12 @@
 {
   "common": {
+    "or": "or",
     "i_understand": "分かりました",
     "okay": "OK",
     "cancel": "キャンセル",
     "welcome": "ようこそ",
     "continue": "続行",
+    "back": "Back",
     "verify": "検証",
     "spinner": "ロード中...",
     "name": "名",
@@ -111,6 +113,7 @@
           "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
         },
         "3_authentication": {
+          "email_signup": "Sign up with email",
           "title": "Identity",
           "please": "Please sign up with one of the providers below",
           "popup_explanation": {
@@ -119,6 +122,14 @@
             "second_question": "Can I use other means to verify my identity?",
             "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
           }
+        },
+        "4_email_signup": {
+          "email_label": "Email",
+          "email_message": "Please input your email",
+          "password_label": "Choose Password",
+          "password_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm New Password",
+          "password_confirm_message": "Your passwords must match"
         }
       }
     },
