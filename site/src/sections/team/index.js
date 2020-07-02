@@ -40,8 +40,8 @@ function Team() {
         <a href="https://github.com/reach4help/reach4help/wiki#onboading-steps">
           <Button
             textColor="white"
-            backgroundColor="accent"
-            outlineColor="secondary"
+            backgroundColor="#ff7b02"
+            outlineColor="#7d00a3"
           >
             {t("Team.buttons.0")}
           </Button>

@@ -83,7 +83,7 @@ export const TopWrapper = styled.div`
         fill: ${p => p.theme.colors.secondaryDark};
       }
       .accent {
-        fill: ${p => p.theme.colors.secondary};
+        fill: ${p => p.theme.colors.accent};
       }
     }
 
