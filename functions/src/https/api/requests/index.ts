@@ -53,7 +53,7 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
 
 const getTimelineForRequest = async (requestRef: firestore.DocumentReference, userRef: firestore.DocumentReference): Promise<ITimelineItem[]> => {
   const request = Request.factory((await requestRef.get()).data() as IRequest);
-  if (!((request.cavUserRef && request.cavUserRef.id === userRef.id) || request.pinUserRef.id === userRef.id)) {
+  if (!((request.cavUserRef && request.cavUserRef.id === userRef.id) || request.pinUserRef?.id === userRef.id)) {
     const timelinesResult = await requestRef
       .collection('timeline')
       .where('action', 'in', [
@@ -115,7 +115,7 @@ const getPendingRequestsWithOffers = async (
     const requests = await getRequestsWithinDistance(lat, lng, radius, RequestStatus.pending);
     for (const doc of requests.docs) {
       const request = Request.factory(doc.data() as IRequest);
-      if (request.pinUserRef.id === userRef.id) {
+      if (request.pinUserRef?.id === userRef.id) {
         // eslint-disable-next-line no-continue
         continue;
       }
@@ -200,7 +200,7 @@ const getOngoingRequests = async (userRef: firestore.DocumentReference, userType
   for (const doc of requests.docs) {
     const request = Request.factory(doc.data() as IRequest);
     let contactNumber: string | null | undefined = null;
-    if (userType === ApplicationPreference.cav && auth) {
+    if (userType === ApplicationPreference.cav && request.pinUserRef && auth) {
       contactNumber = (await auth.getUser(request.pinUserRef.id)).phoneNumber;
     } else if (request.cavUserRef && auth) {
       contactNumber = (await auth.getUser(request.cavUserRef.id)).phoneNumber;
@@ -427,7 +427,7 @@ export const getRequests = functions.https.onCall(async (data, context) => {
   }
 });
 
-const deleteUserPrivilegedInformation = async userId => {
+const deleteUserPrivilegedInformation = async (userId: string) => {
   await firebaseTools.firestore
     .delete(`users/${userId}/privilegedInformation`, {
       project: process.env.GCLOUD_PROJECT,
@@ -441,7 +441,7 @@ const deleteUserPrivilegedInformation = async userId => {
   };
 };
 
-const deleteUserTimelines = async userRef => {
+const deleteUserTimelines = async (userRef: firestore.DocumentReference) => {
   const deletedUser = User.factory((await userRef.get()).data() as IUser);
   deletedUser.displayPicture = null;
   deletedUser.displayName = 'Deleted User';
@@ -458,7 +458,7 @@ const deleteUserTimelines = async userRef => {
   }
 };
 
-const deletePinUserRequests = async userRef => {
+const deletePinUserRequests = async (userRef: firestore.DocumentReference) => {
   const deletedUser = User.factory((await userRef.get()).data() as IUser);
   deletedUser.displayPicture = null;
   deletedUser.displayName = 'Deleted User';
@@ -473,7 +473,7 @@ const deletePinUserRequests = async userRef => {
       pinUserRef: null,
       status: RequestStatus.deleted,
     });
-    const requestTimelines = doc.ref.collection('timeline').get();
+    const requestTimelines = await doc.ref.collection('timeline').get();
     for (const timelineDoc of requestTimelines.docs) {
       const deletedRequestSnapshot = Request.factory(
         timelineDoc.get('requestRef').data() as IRequest,
@@ -488,7 +488,7 @@ const deletePinUserRequests = async userRef => {
   }
 };
 
-const deleteCavUserRequests = async userRef => {
+const deleteCavUserRequests = async (userRef: firestore.DocumentReference) => {
   const deletedUser = User.factory((await userRef.get()).data() as IUser);
   deletedUser.displayPicture = null;
   deletedUser.displayName = 'Deleted User';
@@ -503,7 +503,7 @@ const deleteCavUserRequests = async userRef => {
       cavUserRef: null,
       status: RequestStatus.deleted,
     });
-    const requestTimelines = doc.ref.collection('timeline').get();
+    const requestTimelines = await doc.ref.collection('timeline').get();
     for (const timelineDoc of requestTimelines.docs) {
       const deletedRequestSnapshot = Request.factory(
         timelineDoc.get('requestRef').data() as IRequest,
@@ -521,7 +521,7 @@ const deleteCavUserRequests = async userRef => {
 export const deleteUserData = functions.https.onCall(async (data, context) => {
   const userId = context.auth?.uid;
   if (!userId) {
-    throw new functions.http.HttpsError('unauthenticated', "Can't determine the logged in user");
+    throw new functions.https.HttpsError('unauthenticated', "Can't determine the logged in user");
   }
 
   try {
@@ -531,6 +531,6 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     await deletePinUserRequests(userRef);
     await deleteCavUserRequests(userRef);
   } catch (err) {
-    throw new functions.http.HttpsError('internal', 'deleting all user data failed', err);
+    throw new functions.https.HttpsError('internal', 'deleting all user data failed', err);
   }
 });

@@ -32,7 +32,7 @@ export interface IRequest extends firebase.firestore.DocumentData {
   cavUserSnapshot?: IUser | null;
   pinUserRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
-  >;
+  > | null;
   pinUserSnapshot: IUser;
   title: string;
   description: string;
@@ -51,7 +51,7 @@ export class Request implements IRequest {
   constructor(
     pinUserRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
-    >,
+    > | null = null,
     pinUserSnapshot: User,
     title: string,
     description: string,
@@ -109,18 +109,18 @@ export class Request implements IRequest {
   @IsNotEmptyObject()
   private _pinUserRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
-  >;
+  > | null;
 
   get pinUserRef(): firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
-  > {
+  > | null {
     return this._pinUserRef;
   }
 
   set pinUserRef(
     value: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
-    >,
+    > | null,
   ) {
     this._pinUserRef = value;
   }
