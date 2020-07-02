@@ -74,10 +74,17 @@ export const StepForwardButton = styled(Button)`
 export const SettingsButton = styled(Button)`
   display: flex;
   justify-content: start;
-  font-size: 20px
   font-weight: normal;
-  padding: 10px;
+  padding: 22px 10px;
+  border: none;
   width: 100%;
+  color: ${COLORS.black};
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
+    color: ${COLORS.black};
+  }
   > span {
       display: flex;
       align-items: center;
@@ -85,7 +92,7 @@ export const SettingsButton = styled(Button)`
   }
 `;
 
-export const ModalCancelButton = styled(Button)`
+export const MediumCancelButton = styled(Button)`
   border-radius: 4px;
   width: 100%;
   overflow: hidden;
@@ -93,7 +100,7 @@ export const ModalCancelButton = styled(Button)`
   text-overflow: ellipsis;
 `;
 
-export const ModalContinueButton = styled(Button)`
+export const MediumSaveButton = styled(Button)`
   border-radius: 4px;
   width: 100%;
   overflow: hidden;

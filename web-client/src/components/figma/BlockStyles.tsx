@@ -77,6 +77,15 @@ const OrDivider = () => {
 
 const SettingsWrapper = styled.div`
   padding: 10px;
+  background-color: ${COLORS.greyBackground};
+  height: 100%;
+`;
+
+const ChangeNameHeaderContent = styled.span`
+  padding-left: 7px;
+`;
+
+const CollapsePanelWrapper = styled.span`
 `;
 
 const TopPanelWrapper = styled.div`
@@ -159,6 +168,8 @@ export {
   OrDivider,
   StepWrapper,
   SettingsWrapper,
+  ChangeNameHeaderContent,
+  CollapsePanelWrapper,
   TopPanelWrapper,
   TopPanelNavRow,
   TopPanelHeadingRow,

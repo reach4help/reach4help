@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
-import { ChangeNameModal } from '../../../../components/Modals/ChangeNameModal';
 import { AuthState } from '../../../../ducks/auth/types';
 import { observeProfile, updateUserProfile } from '../../../../ducks/profile/actions';
 import { ProfileState } from '../../../../ducks/profile/types';
@@ -16,7 +15,6 @@ const SettingsContainer: React.FC = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [showChangeNameModal, setShowChangeNameModal] = useState<boolean>(false);
     // const [showDeleteAccountModal, setDeleteAccountModal] = useState<boolean>(false);
 
     const profileState = useSelector(
@@ -39,9 +37,7 @@ const SettingsContainer: React.FC = () => {
     if (!profileState.profile || !authState) {
         return <LoadingWrapper />;
     }
-    const changeNameClickHandler = () => {
-        setShowChangeNameModal(true);
-    };
+
     // const deleteAccountClickHandler = () => {
     //     setDeleteAccountModal(true);
     // };
@@ -63,18 +59,13 @@ const SettingsContainer: React.FC = () => {
             user={profileState.profile}
         />
         <Settings
-            changeNameClickHandler={changeNameClickHandler}
+            changeNameSubmitHandler={changeNameSubmitHandler}
             deleteAccountClickHandler={() => ''}
+            initialValues={{
+                displayName: profileState.profile.displayName,
+                username: profileState.profile.username,
+            }}
         />
-        <ChangeNameModal
-              changeNameHandler={changeNameSubmitHandler}
-              showModal={showChangeNameModal}
-              closeModal={() => setShowChangeNameModal(false)}
-              initialValues={{
-                  displayName: profileState.profile.displayName,
-                  username: profileState.profile.username,
-              }}
-          />
       </>
     );
 };

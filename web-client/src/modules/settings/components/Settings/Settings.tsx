@@ -1,28 +1,52 @@
 import { UserDeleteOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Row } from 'antd';
-import React from 'react';
+import { Col, Collapse, Row } from 'antd';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SettingsButton } from '../../../../components/Buttons';
-import { SettingsWrapper } from '../../../../components/figma/BlockStyles';
+import { H4Font } from '../../../../components/figma';
+import { ChangeNameHeaderContent, CollapsePanelWrapper, SettingsWrapper } from '../../../../components/figma/BlockStyles';
+import { ChangeName } from '../ChangeName/ChangeName';
+
+const { Panel } = Collapse;
 
 const Settings: React.FC<SettingsProps> = ({
-                                               changeNameClickHandler,
+                                               changeNameSubmitHandler,
                                                deleteAccountClickHandler,
+                                               initialValues,
                                            }): React.ReactElement => {
     const { t } = useTranslation();
+    const [collapseActiveKey, setCollapseActiveKey] = useState<string[]>([]);
+
+    const changeNameHandler = activeKey => setCollapseActiveKey(activeKey);
+    const ChangeNameExpandedHeader = () => (
+      <H4Font>
+        <UserOutlined />
+        <ChangeNameHeaderContent>{t('settings.changeName')}</ChangeNameHeaderContent>
+      </H4Font>
+    );
+
+    const ChangeNameHeader = () => (
+      <>
+        <UserOutlined />
+        <ChangeNameHeaderContent>{t('settings.changeName')}</ChangeNameHeaderContent>
+      </>
+    );
+    const PanelHeader = () => (collapseActiveKey.length > 0) ? ChangeNameExpandedHeader() : ChangeNameHeader();
 
     return (
       <SettingsWrapper>
         <Row gutter={[0, 12]}>
           <Col span="24" md={12}>
-            <SettingsButton
-                    type="default"
-                    onClick={() => changeNameClickHandler()}
-                >
-              <UserOutlined />
-              <span>{t('settings.changeName')}</span>
-            </SettingsButton>
+            <Collapse onChange={changeNameHandler} bordered={false} activeKey={collapseActiveKey}>
+              <Panel showArrow={false} header={PanelHeader()} key={1} forceRender>
+                <ChangeName
+                    changeNameHandler={() => changeNameSubmitHandler()}
+                    cancelHandler={() => setCollapseActiveKey([])}
+                    initialValues={initialValues}
+                />
+              </Panel>
+            </Collapse>
           </Col>
         </Row>
         <Row gutter={[0, 12]}>
@@ -41,8 +65,12 @@ const Settings: React.FC<SettingsProps> = ({
 };
 
 interface SettingsProps {
-    changeNameClickHandler: Function;
+    changeNameSubmitHandler: Function;
     deleteAccountClickHandler: Function;
+    initialValues: {
+        displayName: string | null;
+        username: string | null;
+    };
 }
 
 export default Settings;
