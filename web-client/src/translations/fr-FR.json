@@ -1,10 +1,12 @@
 {
   "common": {
+    "or": "or",
     "i_understand": "Je comprends.",
     "okay": "OK",
     "cancel": "Annuler",
     "welcome": "Bienvenue",
     "continue": "Continuer",
+    "back": "Back",
     "verify": "Vérifiez",
     "spinner": "Chargement...",
     "name": "Nom",
@@ -111,6 +113,7 @@
           "connect": "Vous pouvez communiquer avec des bénévoles et des personnes dans le besoin et des personnes dans le besoin en créant des demandes d'aide et en offrant de l'aide pour ces demandes."
         },
         "3_authentication": {
+          "email_signup": "Sign up with email",
           "title": "Identité",
           "please": "Veuillez vous inscrire avec l'un des fournisseurs ci-dessous",
           "popup_explanation": {
@@ -119,6 +122,14 @@
             "second_question": "Puis-je utiliser d'autres moyens pour vérifier mon identité?",
             "second_answer": "Si vous n’êtes pas à l’aise avec Google/Facebook, vous pouvez proposer une alternative à"
           }
+        },
+        "4_email_signup": {
+          "email_label": "Email",
+          "email_message": "Please input your email",
+          "password_label": "Choose Password",
+          "password_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm New Password",
+          "password_confirm_message": "Your passwords must match"
         }
       }
     },
