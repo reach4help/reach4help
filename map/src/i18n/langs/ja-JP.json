@@ -1,201 +1,201 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "inFrameLink": "About this map / add information",
+  "title": "COVID-19 相互援助マップ",
+  "inFrameLink": "このマップについて/情報を追加",
   "aboutScreen": {
-    "intro": "We believe solidarity brings out the best in individuals.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
-    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "intro": "私たちは、連帯が個人の中で最高のものをもたらすと信じています。",
+    "info": "人々が住んでいる場所で相互援助の努力を見つけて参加するのを助けるために、自分自身を始めるためにインスピレーションを提供します。 この地図は世界中の相互援助パンデミック救援プロジェクトのリストを示しています",
+    "warning": "注: 各プロジェクトは自律的で自己組織化されています。 多くは情報を共有するために公的なスプレッドシートを使用しているので、あなたが公表したくない個人情報を入力するときは注意してください。",
     "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
-    "githubSourceLabel": "found on GitHub",
-    "otherAreasHeading": "Interested in one of these areas?",
-    "otherAreasInfo": "Check out these alternative maps instead:",
+    "githubSourceLabel": "GitHub上でのソース",
+    "otherAreasHeading": "これらの地域のいずれかに興味がありますか?",
+    "otherAreasInfo": "代わりにこれらの代替地図を確認してください。",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York"
+      "france": "フランス",
+      "nyc": "ニューヨーク"
     },
-    "sourceHeading": "Where does this information come from?",
-    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
-    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
-    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
-    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
+    "sourceHeading": "この情報はどこから来るのでしょうか。",
+    "sourceInfo": "この地図上の情報は、私たちのユーザーが提出したボランティアによって収集されたデータの組み合わせです。 {mutualaidwiki} や {mutualaidhub} を含む他のボランティアが運営するプロジェクトによって提供されます。",
+    "sourceSubmit": "あなたが知っているプロジェクトについて {addinfo} をお勧めします。",
+    "sourceSubmitButton": "情報の追加",
+    "usageHeading": "このデータを自分のプロジェクトに使用できますか?",
+    "usageInfo": "お客様がそれぞれのライセンスに従っている限り、当社の地図で提供されたデータをお客様のプロジェクトに使用することを歓迎します。",
+    "usageLicenses": "私たちのボランティアとユーザーによって提供されるデータは、 {license}の下でライセンスされており、他のソースからのデータは、それぞれのライセンスの下で利用可能になります。",
+    "usageApi": "各データポイントがどのようにライセンスされるかの詳細とともに、次の URL で生データにアクセスできます: {api}"
   },
   "menu": {
-    "about": "About",
-    "map": "View Map"
+    "about": "について",
+    "map": "マップを見てください"
   },
   "social": {
-    "email": "Email Us",
-    "twitter": "Follow us on Twitter",
-    "facebook": "Like us on Facebook",
-    "github": "Find us on GitHub"
+    "email": "メールでのお問い合わせ",
+    "twitter": "Twitterでフォロー",
+    "facebook": "Facebookでいいね！",
+    "github": "GitHub上でのソース"
   },
   "addInformation": {
-    "button": "Add information",
-    "backToMap": "Back to map",
-    "prev": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "addMore": "Add more info",
-    "tryAgain": "Try again",
+    "button": "情報の追加",
+    "backToMap": "地図に戻る",
+    "prev": "戻る",
+    "continue": "続行",
+    "submit": "送信",
+    "addMore": "さらに情報を追加",
+    "tryAgain": "ドンマイ!",
     "screen": {
-      "title": "Add information to this map",
+      "title": "この地図に情報を追加",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
-        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
+        "acceptedInformation": "現時点では、援助や支援を行っている組織や企業、地域別の金融支援活動、相互援助団体などについてのみ情報を提供しています。 現時点では援助を行う個人に関する情報は受け付けておりません。",
+        "intro": "以下のフォームにご記入の上、情報を追加してください。その後、場所と連絡先の詳細をお伺いします。",
         "form": {
-          "type": "Type of project / group / organization / initiative",
-          "typePleaseSelect": "Please select type",
-          "services": "Services or support that this organization / company provides",
-          "name": "Name of the project / group / organization",
-          "namePlaceholder": "e.g. Mutual Aid Antarctica",
-          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
-          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
-          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
-          "continue": "Click continue to enter location information"
+          "type": "プロジェクト / グループ / 組織 / イニシアチブの種類",
+          "typePleaseSelect": "種別を入力",
+          "services": "この組織/会社が提供するサービスまたはサポート",
+          "name": "プロジェクト / グループ / 組織の名前",
+          "namePlaceholder": "例: 相互援助南極format@@0",
+          "description": "(オプション) プロジェクト/グループ/組織の詳細と相互援助を容易にするために何をするか。",
+          "locationName": "提供される地理的領域を説明します。例えば、国、州、町など...",
+          "locationNamePlaceholder": "例：サンフランシスコベイエリア、カリフォルニア、アメリカ",
+          "continue": "「続行」をクリックして位置情報を入力します"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "新しい相互援助グループに関する情報を提出したい場合は、代わりに {link} をご覧ください。 そこに追加されたグループは自動的にマップに含まれます。"
       },
       "placeMarker": {
-        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
-        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
+        "instructions": "マーカーを配置するためにマップをクリックして、このプロジェクト / グループ / 組織 / イニシアチブによって提供されるエリアを特定します 必要に応じて円の大きさを調整してください",
+        "continue": "場所に満足したら、format@@0をクリックして連絡先情報の追加を続行します。",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "Contact information for {name}",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
-        "deleteInfo": "Delete",
+        "header": "{name} の連絡先情報",
+        "info": "もう少しです！ {name}に連絡する方法についての情報を入力してください。 ボランティアや支援を依頼するために使用すべき特定の連絡方法がある場合は、それらを入力してください!",
+        "deleteInfo": "削除",
         "addInfo": {
-          "general": "Add general contact information",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "general": "一般的な連絡先情報を追加",
+          "volunteers": "ボランティアの連絡先情報を追加",
+          "getHelp": "ヘルプが必要な人に連絡先情報を追加"
         },
         "sections": {
-          "general": "General contact info",
-          "volunteers": "Contact info for volunteers",
-          "getHelp": "Contact info for people that need help"
+          "general": "連絡先情報を挿入",
+          "volunteers": "ボランティアの連絡先情報",
+          "getHelp": "ヘルプが必要な人に連絡先情報を追加"
         },
         "method": {
-          "phone": "Phone Numbers",
-          "email": "Email Addresses",
-          "web": "Web Links / URLs"
+          "phone": "電話番号",
+          "email": "メール・アドレス",
+          "web": "ウェブリンク / URL"
         },
         "placeholder": {
-          "phone": "Add a phone number",
-          "email": "Add an email address",
+          "phone": "電話番号を追加してください",
+          "email": "メールアドレスを入力",
           "webURL": "URL",
-          "webLabel": "Name"
+          "webLabel": "名"
         }
       },
       "submitted": {
-        "loading": "Submitting information to map...",
-        "error": "Error adding information",
-        "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "loading": "地図に情報を送信しています...",
+        "error": "情報の保存中にエラーが発生しました",
+        "success": "Your information has been successfully sent!",
+        "successExtra": "地図上にあなたの情報を表示する前に、私たちのチームのボランティアによって確認される必要があります。 これは数日以内に行われることを願っています。"
       }
     },
     "errors": {
-      "missingType": "Please select the type of the project / group / organization",
-      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
-      "missingTitle": "Please enter the name of the project / group / organization",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "missingType": "プロジェクト / グループ / 組織のタイプを選択してください",
+      "missingServices": "この組織が提供するすべてのサービスを確認してください（少なくとも1が必要です）",
+      "missingTitle": "プロジェクト / グループ / 組織のタイプを選択してください",
+      "missingLocationName": "動画の紹介説明を入力して下さい",
+      "markerRequired": "続行する前に、地図をクリックしてサービスエリアを入力してください。",
+      "noContactDetails": "少なくとも 1 つのカテゴリの連絡先の詳細を入力してください。",
+      "emptyContactSection": "{section} の連絡先情報を入力するか、削除してください",
+      "urlMissingLabel": "{section} の URL に名前がありません",
+      "urlMissingURL": "{section} の URL エントリに URL がありません",
+      "dataError": "送信した情報に問題がありました。戻ってもう一度やり直してください。",
+      "submitError": "あなたの情報を送信中に問題が発生しました: {error}。後でもう一度やり直してください。",
+      "mutualAidGroupsNotAccepted": "代わりに {link} に新しい相互援助グループに関する情報を入力してください。"
     }
   },
   "buttons": {
-    "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+    "fullScreen": "フルスクリーン",
+    "exitFullScreen": "全画面表示を終了"
   },
-  "loading": "Loading...",
+  "loading": "読み込んでいます.",
   "filterBy": "Filter by:",
   "services": {
-    "any": "Any",
-    "food": "Food",
-    "medicine": "Medicine",
-    "supplies": "Other Supplies",
-    "mobility": "Mobility",
-    "shelter": "Shelter",
-    "support": "Support",
-    "information": "Information",
-    "network": "Network",
-    "manufacturing": "Manufactoring",
-    "financial": "Financial",
-    "other": "Other"
+    "any": "任意の",
+    "food": "食料",
+    "medicine": "医学",
+    "supplies": "ホーム用品",
+    "mobility": "機動性",
+    "shelter": "都市を守る",
+    "support": "サポート",
+    "information": "情報",
+    "network": "ネットワーク",
+    "manufacturing": "製造中",
+    "financial": "財務",
+    "other": "その他"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "食料や薬以外の用品",
+    "mobility": "ある場所から別の場所に人を移動する",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "特定の脆弱なグループに合わせたサポート, 例えばホームレスの人, 家庭内虐待の危険にさらされている人など.",
+    "information": "人々が関連情報を見つけるのに役立ちます",
+    "network": "相互援助組織間など、援助を提供するためのネットワークのためのリソースを提供する",
+    "manufacturing": "危機に対処するために必要な供給または製造能力を提供します",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "このリストにないものがあります"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "相互援助グループ",
+    "org": "組織/会社",
+    "financial": "財務",
+    "information": "情報",
+    "other": "その他"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "相互援助グループ",
+    "org": "組織/会社",
+    "project": "プロジェクト"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "地図上の場所に移動...",
+    "updateResultsForThisArea": "このエリアの結果を更新",
+    "myLocation": "自分の場所"
   },
   "results": {
-    "backToResults": "Back to results",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "backToResults": "結果に戻る",
+    "openResults": "表示 {results, plural, =0 {なし} =1 {1 結果} other {# results}}",
+    "closeResults": "表示 {results, plural, =0 {なし} =1 {1 結果} other {# results}}",
+    "showMore": "より多くの結果を表示",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "一般",
+      "getHelp": "ヘルプを参照する",
+      "volunteer": "ボランティア",
+      "facebookGroup": "Facebookグループページ"
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "ノート",
+        "content": "注: 各プロジェクトは自律的で自己組織化されています。 多くは情報を共有するために公的なスプレッドシートを使用しているので、あなたが公表したくない個人情報を入力するときは注意してください。"
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "この {type} に関する情報は {source} によって提供されています。"
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "言語:",
+  "langSelect": "言語を選択してください。",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
+    "netlifyNote": "この地図 {link}",
+    "netlifyLinkText": "Netlify がホストしています",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "codeOfConduct": "行動規範",
+    "showHidden": "隠し情報を表示",
+    "hideHidden": "会計情報を非表示にする"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "可視性: {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "任意の",
+      "visible": "以下のみで表示：",
+      "hidden": "非表示のみ"
     }
   }
 }

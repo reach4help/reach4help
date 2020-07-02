@@ -2,18 +2,18 @@
   "title": "Mapa de ayuda mutual para COVID-19",
   "inFrameLink": "Acerca de este mapa / añadir información",
   "aboutScreen": {
-    "intro": "Creemos que la solidaridad saca lo mejor de un individuo.",
+    "intro": "Creemos que la solidaridad saca lo mejor de las personas.",
     "info": "Para ayudar a las personas a encontrar y unirse a los esfuerzos de ayuda mutua donde viven, ofrecer inspiración para comenzar su propia y/o simplemente levantar espíritus, este mapa presenta una lista creciente de proyectos de ayuda pandémica de ayuda mutua a nivel mundial.",
     "warning": "Nota: Cada proyecto es autónoma y autoorganizado; Muchos usan hojas de cálculo públicas para compartir información, así que ten cuidado al introducir información privada que no quieres ser pública.",
     "project": "Este mapa es parte de {reach4Help}, un proyecto de voluntariado. Es de código abierto y puede ser de {githubSource}. Para cualquier consulta, puedes contactarnos como en {email}.",
     "githubSourceLabel": "Código fuente en GitHub",
-    "otherAreasHeading": "¿Interesado en una de estas zonas?",
-    "otherAreasInfo": "Echa un vistazo a estos mapas alternativos en su lugar:",
+    "otherAreasHeading": "¿Interesado en una de estas areas?",
+    "otherAreasInfo": "Revise estos mapas alternativos:",
     "otherAreasLocations": {
       "france": "Francia",
       "nyc": "Nueva York"
     },
-    "sourceHeading": "¿De dónde procede esta información?",
+    "sourceHeading": "¿De dónde proviene esta información?",
     "sourceInfo": "La información en este mapa es una combinación de datos recopilados por nuestros voluntarios, enviados por nuestros usuarios. y proporcionado por otros proyectos de voluntariado incluyendo {mutualaidwiki} y {mutualaidhub}.",
     "sourceSubmit": "Te animamos a {addinfo} sobre cualquier proyecto que conozcas que no esté ya en el mapa.",
     "sourceSubmitButton": "Agregar Información",
@@ -75,17 +75,17 @@
         "sections": {
           "general": "Introduzca la información de contacto",
           "volunteers": "Información de contacto para voluntarios",
-          "getHelp": "Agregar información de contacto para personas que necesitan ayuda"
+          "getHelp": "Información de contacto para personas que necesitan ayuda"
         },
         "method": {
           "phone": "Número de teléfono o móvil",
           "email": "Direcciones de Correo Electrónico",
-          "web": "URL del enlace web"
+          "web": "Enlaces Web"
         },
         "placeholder": {
-          "phone": "Agregar número de teléfono",
+          "phone": "Agregar número de teléfono o móvil",
           "email": "Agregar correo electrónico",
-          "webURL": "Dirección de Red",
+          "webURL": "Dirección Web",
           "webLabel": "Nombre"
         }
       },
@@ -139,13 +139,13 @@
     "shelter": null,
     "support": "Apoyar a medida para grupos vulnerables específicos, como personas sin hogar, personas en riesgo de abuso doméstico, etc...",
     "information": "Apoyar a la gente a encontrar información relevante",
-    "network": "Prodicción de recursos para el trabajo en red para proporcionar ayuda, por ejemplo, entre organizaciones de ayuda mutua",
+    "network": "Prodicción de recursos para el trabajo en red para proporcionar ayuda, por ejemplo, entre organizaciones de apoyo mutuo",
     "manufacturing": "Proporciona suministros o capacidad manufacturera necesaria para hacer frente a la crisis",
     "financial": null,
-    "other": "Algo más no está en esta lista"
+    "other": "Otra cosa que no está en esta lista"
   },
   "markerTypes": {
-    "mutual-aid-group": "Grupo de ayuda mutua",
+    "mutual-aid-group": "Grupo de apoyo mutuo",
     "org": "Organización / Empresa",
     "financial": "Financiero",
     "information": "Información",
@@ -169,7 +169,7 @@
     "contact": {
       "general": "Información general:",
       "getHelp": "Conseguir ayuda:",
-      "volunteer": "Voluntariado:",
+      "volunteer": "Voluntario:",
       "facebookGroup": "Grupo Facebook"
     },
     "details": {
@@ -188,13 +188,13 @@
     "githubRepo": "Repositorio de GitHub",
     "codeOfConduct": "Código de conducta",
     "showHidden": "Mostrar información oculta",
-    "hideHidden": "Mostrar información oculta"
+    "hideHidden": "Ocultar información"
   },
   "hiddenMarkers": {
     "visiblility": "Visibilidad: {visibility}",
     "filter": {
       "any": "Cualquiera",
-      "visible": "Visible solo en",
+      "visible": "Solo visible",
       "hidden": "Sólo ocultos"
     }
   }

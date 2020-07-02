@@ -152,31 +152,6 @@
       "resend": "renvoyer",
       "error_message": "Entrez le numéro reçu ici !"
     },
-    "user_data_form": {
-      "sub_title": "Veuillez remplir les informations personnelles ci-dessous.",
-      "gps_button": "Utiliser le GPS pour obtenir mon adresse",
-      "gps_unavailable_retry_button": "Géolocalisation indisponible. Essayez à nouveau.",
-      "learn_reactivate": "Apprenez comment réactiver la géolocalisation",
-      "retry_geolocation": "Réessayer la géolocalisation",
-      "continue_without_geolocation": "Poursuivre sans géolocalisation",
-      "go_back": "Retour",
-      "geolocation_modal_title": "La géolocalisation n'est pas autorisée",
-      "geolocation_modal_text": "Vous pouvez ajouter votre localisation manuellement, mais cela nous aiderait à obtenir votre position plus précisément si vous utilisiez la géolocalisation. Veuillez choisir une des options ci-dessous :",
-      "geolocation_unavailable_title": "Malheureusement, nous ne sommes pas encore disponibles dans votre secteur",
-      "geolocation_unavailable_text": "Désolé, votre secteur n'est pas encore pris en charge sur notre plateforme. Vous serez averti par SMS ou E-Mail une fois que notre application sera disponibledans votre zone.",
-      "instructions_modal_title": "Instructions : ",
-      "instructions_modal_text": "Vous pouvez ajouter votre adresse manuellement, mais cela nous aiderait à obtenir votre position avec plus de précision si vous utilisez la géolocalisation. Si vous voulez le réactiver, veuillez suivre les instructions suivantes:",
-      "policy_text": "Nous avons besoin de ces données pour nous assurer que l'aide arrive à la bonne destination. Pour toute question, veuillez lire notre ",
-      "policy_link": "Politique de Confidentialité et Sécurité.",
-      "accept_to_use_profile_pic": "Utiliser ma photo de profil sur Reach4Help.",
-      "terms_conditions_text": "J'ai lu et j'accepte les ",
-      "terms_conditions_link": "Termes et Conditions.",
-      "terms_conditions_error": "Vous devez accepter les Termes et Conditions.",
-      "full_name_error_message": "Entrez votre nom.",
-      "display_name_error_message": "Veuillez entrer votre nom d'utilisateur.",
-      "address_error_message": "Veuillez entrer votre adresse.",
-      "allow_send_notifications": "J'aimerais que Reach4Help m'envoie des notifications et/ou des emails."
-    },
     "newRequest": {
       "title": "Nouvelle Demande",
       "icon_text": "J'ai besoin d'aide",
@@ -241,7 +216,7 @@
       "REMOVE_REQUEST": "{{actorName}} a supprimé cette demande",
       "COMPLETE_REQUEST": "La demande a été complétée.",
       "CREATE_OFFER": "{{actorName}} a proposé son l'aide avec cette demande.",
-      "CAV_DECLINED": "{{actorName}} rejected this request.",
+      "CAV_DECLINED": "{{actorName}} a rejeté cette demande.",
       "ACCEPT_OFFER": "{{actorName}} a accepté l'aide de {{cavUserName}}.",
       "REJECT_OFFER": "{{actorName}} a rejeté l'aide de {{cavUserName}}.",
       "RATE_PIN": "{{actorName}} a évalué {{actedUpon}}.",
@@ -289,6 +264,35 @@
         }
       },
       "personal-data": {
+        "components": {
+          "PersonalDataForm": {
+            "sub_title": "Please fill out the personal details below.",
+            "gps_button": "Use GPS to get my address",
+            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+            "learn_reactivate": "Learn how to reactivate geolocation",
+            "retry_geolocation": "Retry Geolocation",
+            "continue_without_geolocation": "Continue without Geolocation",
+            "go_back": "Go Back",
+            "geolocation_modal_title": "Geolocation is not authorized",
+            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+            "instructions_modal_title": "Instructions:",
+            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+            "policy_link": "Privacy & Security Policy.",
+            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Terms & Conditions.",
+            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "full_name_error_message": "Please enter your name.",
+            "display_name_error_message": "Please enter your display name.",
+            "address_error_message": "Please enter your address.",
+            "city_error_message": "Please enter your city.",
+            "country_error_message": "Please enter your country.",
+            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+          }
+        },
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "Désolé, nous n'avons pas pu déterminer votre adresse. Veuillez réessayer!",
