@@ -70,7 +70,9 @@ const PhoneEntryContainer: React.FC = () => {
       </ErrorMessage>
       <IntroLogo src={profilePhoto} alt="User logo" />
       <TitleWithAddon level={4}>
-        {`${t('welcome')}, ${user?.displayName}`}
+        {`${t('welcome')}${
+          user && user.displayName ? `, ${user.displayName}` : ''
+        }`}
       </TitleWithAddon>
       <PhoneNumberEntryForm
         loading={loading}
