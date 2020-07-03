@@ -6,16 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { SettingsButton } from '../../../../components/Buttons';
 import { H4Font } from '../../../../components/figma';
 import {
-  ChangeNameHeaderContent,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  CollapsePanelWrapper,
+  SettingsCollapsePanel,
+  SettingsCollapsePanelHeaderContent,
   SettingsWrapper,
 } from '../../../../components/figma/BlockStyles';
 import { ChangeName } from '../ChangeName/ChangeName';
 
-const { Panel } = Collapse;
-
-const Settings: React.FC<SettingsProps> = ({
+const SettingsList: React.FC<SettingsProps> = ({
   changeNameSubmitHandler,
   deleteAccountClickHandler,
   initialValues,
@@ -27,18 +24,18 @@ const Settings: React.FC<SettingsProps> = ({
   const ChangeNameExpandedHeader = () => (
     <H4Font>
       <UserOutlined />
-      <ChangeNameHeaderContent>
+      <SettingsCollapsePanelHeaderContent>
         {t('settings.changeName')}
-      </ChangeNameHeaderContent>
+      </SettingsCollapsePanelHeaderContent>
     </H4Font>
   );
 
   const ChangeNameHeader = () => (
     <>
       <UserOutlined />
-      <ChangeNameHeaderContent>
+      <SettingsCollapsePanelHeaderContent>
         {t('settings.changeName')}
-      </ChangeNameHeaderContent>
+      </SettingsCollapsePanelHeaderContent>
     </>
   );
   const PanelHeader = () =>
@@ -55,13 +52,18 @@ const Settings: React.FC<SettingsProps> = ({
             bordered={false}
             activeKey={collapseActiveKey}
           >
-            <Panel showArrow={false} header={PanelHeader()} key={1} forceRender>
+            <SettingsCollapsePanel
+              showArrow={false}
+              header={PanelHeader()}
+              key={1}
+              forceRender
+            >
               <ChangeName
                 changeNameHandler={changeNameSubmitHandler}
                 cancelHandler={() => setCollapseActiveKey([])}
                 initialValues={initialValues}
               />
-            </Panel>
+            </SettingsCollapsePanel>
           </Collapse>
         </Col>
       </Row>
@@ -89,4 +91,4 @@ interface SettingsProps {
   };
 }
 
-export default Settings;
+export default SettingsList;

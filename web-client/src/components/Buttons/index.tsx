@@ -86,9 +86,9 @@ export const SettingsButton = styled(Button)`
     color: ${COLORS.black};
   }
   > span {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 `;
 

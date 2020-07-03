@@ -5,69 +5,72 @@ import { useHistory } from 'react-router-dom';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import { AuthState } from '../../../../ducks/auth/types';
-import { observeProfile, updateUserProfile } from '../../../../ducks/profile/actions';
+import {
+  observeProfile,
+  updateUserProfile,
+} from '../../../../ducks/profile/actions';
 import { ProfileState } from '../../../../ducks/profile/types';
-import Settings from '../../components/Settings/Settings';
-import TopPanel from '../../components/TopPanel/TopPanel';
+import SettingsList from '../../components/SettingsList/SettingsList';
+import SettingsTopPanel from '../../components/TopPanel/SettingsTopPanel';
 
 const SettingsContainer: React.FC = () => {
-    const { t } = useTranslation();
-    const history = useHistory();
-    const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-    // const [showDeleteAccountModal, setDeleteAccountModal] = useState<boolean>(false);
+  // const [showDeleteAccountModal, setDeleteAccountModal] = useState<boolean>(false);
 
-    const profileState = useSelector(
-        ({ profile }: { profile: ProfileState }) => profile,
-    );
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
+  );
 
-    const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
+  const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
 
-    useEffect(() => {
-        document.title = 'Reach4Help: '.concat(t('routeSubtitles._settings'));
-    });
+  useEffect(() => {
+    document.title = 'Reach4Help: '.concat(t('routeSubtitles._settings'));
+  });
 
-    useEffect((): any => {
-        if (authState && authState.user && authState.user.uid) {
-            return observeProfile(dispatch, { uid: authState.user.uid });
-        }
-        return undefined;
-    }, [dispatch, authState]);
-
-    if (!profileState.profile || !authState) {
-        return <LoadingWrapper />;
+  useEffect((): any => {
+    if (authState && authState.user && authState.user.uid) {
+      return observeProfile(dispatch, { uid: authState.user.uid });
     }
+    return undefined;
+  }, [dispatch, authState]);
 
-    // const deleteAccountClickHandler = () => {
-    //     setDeleteAccountModal(true);
-    // };
+  if (!profileState.profile || !authState) {
+    return <LoadingWrapper />;
+  }
 
-    const changeNameSubmitHandler = (displayName, username) => {
-        const user = profileState.profile;
-        if (user && authState.user) {
-            user.displayName = displayName;
-            user.username = username;
+  // const deleteAccountClickHandler = () => {
+  //     setDeleteAccountModal(true);
+  // };
 
-            dispatch(updateUserProfile(authState.user.uid, user));
-        }
-    };
+  const changeNameSubmitHandler = (displayName, username) => {
+    const user = profileState.profile;
+    if (user && authState.user) {
+      user.displayName = displayName;
+      user.username = username;
 
-    return (
-      <>
-        <TopPanel
-            goBack={() => history.goBack()}
-            user={profileState.profile}
-        />
-        <Settings
-            changeNameSubmitHandler={changeNameSubmitHandler}
-            deleteAccountClickHandler={() => ''}
-            initialValues={{
-                displayName: profileState.profile.displayName,
-                username: profileState.profile.username,
-            }}
-        />
-      </>
-    );
+      dispatch(updateUserProfile(authState.user.uid, user));
+    }
+  };
+
+  return (
+    <>
+      <SettingsTopPanel
+        goBack={() => history.goBack()}
+        user={profileState.profile}
+      />
+      <SettingsList
+        changeNameSubmitHandler={changeNameSubmitHandler}
+        deleteAccountClickHandler={() => ''}
+        initialValues={{
+          displayName: profileState.profile.displayName,
+          username: profileState.profile.username,
+        }}
+      />
+    </>
+  );
 };
 
 export default SettingsContainer;

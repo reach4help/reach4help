@@ -1,5 +1,5 @@
 /* Common layout patterns used by Figma */
-import { Typography } from 'antd';
+import { Collapse, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../theme/colors';
 
 const { Text } = Typography;
+const { Panel } = Collapse;
 
 const LogoWrapper = styled.div`
   display: flex;
@@ -81,14 +82,15 @@ const SettingsWrapper = styled.div`
   height: 100%;
 `;
 
-const ChangeNameHeaderContent = styled.span`
+const SettingsCollapsePanelHeaderContent = styled.span`
   padding-left: 7px;
 `;
 
-const CollapsePanelWrapper = styled.span`
+const SettingsCollapsePanel = styled(Panel)`
+  background: ${COLORS.white};
 `;
 
-const TopPanelWrapper = styled.div`
+const SettingsTopPanelWrapper = styled.div`
   width: 100%;
   background: linear-gradient(
     142.67deg,
@@ -109,13 +111,13 @@ const TopPanelWrapper = styled.div`
   }
 `;
 
-const TopPanelNavRow = styled.div`
+const SettingsTopPanelNavRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const TopPanelHeadingRow = styled.div`
+const SettingsTopPanelHeadingRow = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -127,7 +129,7 @@ const TopPanelHeadingRow = styled.div`
   line-height: 36px;
 `;
 
-const TopPanelUserRow = styled.div`
+const SettingsTopPanelUserRow = styled.div`
   display: flex;
   align-items: left;
   width: 100%;
@@ -135,14 +137,14 @@ const TopPanelUserRow = styled.div`
   margin: 0.5rem 0;
 `;
 
-const TopPanelDisplayPhoto = styled.img`
+const SettingsTopPanelDisplayPhoto = styled.img`
   width: 56px;
   height: 56px;
   border-radius: 50%;
   margin-right: 20px;
 `;
 
-const TopPanelEmptyPhoto = styled.div`
+const SettingsTopPanelEmptyPhoto = styled.div`
   background: linear-gradient(180deg, #ffffff 0%, #dddddd 100%);
   transform: matrix(0, -1, -1, 0, 0, 0);
   width: 48px;
@@ -151,7 +153,7 @@ const TopPanelEmptyPhoto = styled.div`
   margin-right: 12px;
 `;
 
-const TopPanelDisplayName = styled(Text)`
+const SettingsTopPanelDisplayName = styled(Text)`
   color: #f0f0f0;
   display: flex;
   align-items: center;
@@ -168,13 +170,13 @@ export {
   OrDivider,
   StepWrapper,
   SettingsWrapper,
-  ChangeNameHeaderContent,
-  CollapsePanelWrapper,
-  TopPanelWrapper,
-  TopPanelNavRow,
-  TopPanelHeadingRow,
-  TopPanelUserRow,
-  TopPanelDisplayPhoto,
-  TopPanelEmptyPhoto,
-  TopPanelDisplayName,
+  SettingsCollapsePanelHeaderContent,
+  SettingsCollapsePanel,
+  SettingsTopPanelWrapper,
+  SettingsTopPanelNavRow,
+  SettingsTopPanelHeadingRow,
+  SettingsTopPanelUserRow,
+  SettingsTopPanelDisplayPhoto,
+  SettingsTopPanelEmptyPhoto,
+  SettingsTopPanelDisplayName,
 };
