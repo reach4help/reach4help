@@ -55,16 +55,30 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
         </Form.Item>
 
         <Form.Item
-          name="confirmPassword"
+          name="confirm"
+          label={t('login.steps.4_email_signup.password_confirm_label')}
+          dependencies={['password']}
+          hasFeedback
           rules={[
             {
               required: true,
               message: t(
-                'login.steps.4_email_signup.password_confirm_error_message',
+                'login.steps.4_email_signup.password_confirm_empty_message',
               ),
             },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  t(
+                    'login.steps.4_email_signup.password_confirm_error_message',
+                  ),
+                );
+              },
+            }),
           ]}
-          label={t('login.steps.4_email_signup.password_confirm_label')}
         >
           <Input.Password />
         </Form.Item>
@@ -93,7 +107,8 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
 const RegistrationButtonsPanel = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
+  margin-top: 20px;
 `;
 
 const RegistrationButtonWrapper = styled.div`

@@ -136,6 +136,7 @@
           "password_label": "Choose password",
           "password_error_message": "Please input the password you will use for Reach4Help",
           "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
           "password_confirm_error_message": "Your passwords must match"
         }
       }

@@ -17,9 +17,10 @@ const RegistrationFooter = () => {
 };
 
 const RegistrationStepsFooterWrapper = styled.div`
-  position: relative;
-  width: 313px;
+  position: absolute;
+  width: 100%;
   bottom: 0;
+  left: 0;
 
   font-family: Roboto;
   font-style: normal;
