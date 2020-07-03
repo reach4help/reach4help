@@ -2,6 +2,7 @@ import { enableAllPlugins } from 'immer';
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import SEO from 'src/components/SEO/SEO';
+import PhoneNumberModal from 'src/pages/modals/phoneNumber';
 
 import MasterPage from './pages/MasterPage';
 import configureStore from './store';
@@ -20,6 +21,7 @@ const App = (): ReactElement => {
     <Provider store={store}>
       <SEO />
       <MasterPage />
+      <PhoneNumberModal />
     </Provider>
   );
 };

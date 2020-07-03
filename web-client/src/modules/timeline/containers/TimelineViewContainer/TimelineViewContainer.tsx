@@ -23,6 +23,7 @@ import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOff
 import { ApplicationPreference } from 'src/models/users';
 import { ArchivedRequestsLocation } from 'src/modules/requests/pages/routes/ArchivedRequestsRoute/constants';
 import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
+import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import {
@@ -66,6 +67,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
+  );
+
+  const phoneNumber = useSelector(
+    (state: AppState) => state.auth.user?.phoneNumber,
   );
 
   useEffect(() => {
@@ -262,7 +267,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       if (updated.status === RequestStatus.completed && updated.cavRatedAt) {
         setShouldRedirectToArchived(true);
       }
-      dispatch(updateRequest(updated.toObject() as IRequest, requestId));
+      dispatch(
+        updateRequest(updated.toObject() as IRequest, requestId, phoneNumber),
+      );
     }
   };
 

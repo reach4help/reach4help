@@ -3,7 +3,7 @@ import React from 'react';
 
 export const GenericFigmaModal: React.FC<GenericFigmaModalProps> = ({
   children,
-  modalProps,
+  ...modalProps
 }) => (
   <Modal
     {...modalProps}
@@ -15,7 +15,10 @@ export const GenericFigmaModal: React.FC<GenericFigmaModalProps> = ({
 
 interface GenericFigmaModalProps {
   children?: any;
-  modalProps: any;
+  visible: boolean;
+  footer: any;
+  closable: boolean;
+  title: string | null;
 }
 
 export default GenericFigmaModal;

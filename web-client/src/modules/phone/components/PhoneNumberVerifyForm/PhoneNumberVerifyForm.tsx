@@ -8,6 +8,7 @@ const { Text } = Typography;
 
 const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
   handleFormSubmit,
+  resendCode,
   loading,
 }): React.ReactElement => {
   const { t } = useTranslation();
@@ -41,8 +42,8 @@ const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
       </Form.Item>
       <Info>
         {t('verificationCode.info')}
-        {/* TODO: FIND A BETTER SOLUTION TO RESENDING CODE */}
-        <a href="/phone/entry">{t('verificationCode.resend')}</a>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a onClick={e => resendCode(e)}>{t('verificationCode.resend')}</a>
       </Info>
       <Form.Item>
         <VerifyButton loading={loading} htmlType="submit" type="primary">
@@ -74,6 +75,7 @@ const VerifyButton = styled(Button)`
 
 interface PhoneNumberVerifyFormProps {
   handleFormSubmit: Function;
+  resendCode: Function;
   loading: boolean;
 }
 
