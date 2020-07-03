@@ -71,7 +71,7 @@ export const StepForwardButton = styled(Button)`
   }
 `;
 
-export const SettingsButton = styled(Button)`
+export const SettingsListButton = styled(Button)`
   display: flex;
   justify-content: start;
   font-weight: normal;

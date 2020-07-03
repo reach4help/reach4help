@@ -3,12 +3,12 @@ import { Col, Collapse, Row } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SettingsButton } from '../../../../components/Buttons';
+import { SettingsListButton } from '../../../../components/Buttons';
 import { H4Font } from '../../../../components/figma';
 import {
-  SettingsCollapsePanel,
+  SettingsListCollapsePanel,
   SettingsCollapsePanelHeaderContent,
-  SettingsWrapper,
+  SettingsListWrapper,
 } from '../../../../components/figma/BlockStyles';
 import { ChangeName } from '../ChangeName/ChangeName';
 
@@ -44,15 +44,15 @@ const SettingsList: React.FC<SettingsProps> = ({
       : ChangeNameHeader();
 
   return (
-    <SettingsWrapper>
+    <SettingsListWrapper>
       <Row gutter={[0, 12]}>
-        <Col span="24" md={12}>
+        <Col span="24" lg={12}>
           <Collapse
             onChange={changeNameHandler}
             bordered={false}
             activeKey={collapseActiveKey}
           >
-            <SettingsCollapsePanel
+            <SettingsListCollapsePanel
               showArrow={false}
               header={PanelHeader()}
               key={1}
@@ -63,22 +63,22 @@ const SettingsList: React.FC<SettingsProps> = ({
                 cancelHandler={() => setCollapseActiveKey([])}
                 initialValues={initialValues}
               />
-            </SettingsCollapsePanel>
+            </SettingsListCollapsePanel>
           </Collapse>
         </Col>
       </Row>
       <Row gutter={[0, 12]}>
-        <Col span="24" md={12}>
-          <SettingsButton
+        <Col span="24" lg={12}>
+          <SettingsListButton
             type="default"
             onClick={() => deleteAccountClickHandler()}
           >
             <UserDeleteOutlined />
             <span>{t('settings.deleteAccount')}</span>
-          </SettingsButton>
+          </SettingsListButton>
         </Col>
       </Row>
-    </SettingsWrapper>
+    </SettingsListWrapper>
   );
 };
 

@@ -76,17 +76,17 @@ const OrDivider = () => {
   );
 };
 
-const SettingsWrapper = styled.div`
+const SettingsListWrapper = styled.div`
   padding: 10px;
   background-color: ${COLORS.greyBackground};
-  height: 100%;
+  height: 100vh;
 `;
 
 const SettingsCollapsePanelHeaderContent = styled.span`
   padding-left: 7px;
 `;
 
-const SettingsCollapsePanel = styled(Panel)`
+const SettingsListCollapsePanel = styled(Panel)`
   background: ${COLORS.white};
 `;
 
@@ -169,9 +169,9 @@ export {
   LogoWrapper,
   OrDivider,
   StepWrapper,
-  SettingsWrapper,
+  SettingsListWrapper,
   SettingsCollapsePanelHeaderContent,
-  SettingsCollapsePanel,
+  SettingsListCollapsePanel,
   SettingsTopPanelWrapper,
   SettingsTopPanelNavRow,
   SettingsTopPanelHeadingRow,

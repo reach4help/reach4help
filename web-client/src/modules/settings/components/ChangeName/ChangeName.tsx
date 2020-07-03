@@ -39,7 +39,9 @@ export const ChangeName: React.FC<ChangeNameProps> = ({
               rules={[
                 {
                   required: true,
-                  message: t('settings.changeNameForm.full_name_error_message'),
+                  message: `${t(
+                    'settings.changeNameForm.full_name_error_message',
+                  )}.`,
                 },
               ]}
               label={t('name')}
@@ -59,9 +61,9 @@ export const ChangeName: React.FC<ChangeNameProps> = ({
               rules={[
                 {
                   required: true,
-                  message: t(
+                  message: `${t(
                     'settings.changeNameForm.display_name_error_message',
-                  ),
+                  )}.`,
                 },
               ]}
             >

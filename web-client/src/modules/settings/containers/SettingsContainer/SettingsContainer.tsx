@@ -1,3 +1,5 @@
+import { CloseOutlined, UserDeleteOutlined } from '@ant-design/icons/lib';
+import { Modal } from 'antd';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,8 +19,6 @@ const SettingsContainer: React.FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
-
-  // const [showDeleteAccountModal, setDeleteAccountModal] = useState<boolean>(false);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -41,9 +41,31 @@ const SettingsContainer: React.FC = () => {
     return <LoadingWrapper />;
   }
 
-  // const deleteAccountClickHandler = () => {
-  //     setDeleteAccountModal(true);
-  // };
+  const deleteAccountHandler = () => '';
+  const deleteAccountClickHandler = () => {
+    Modal.confirm({
+      title: `${t('settings.deleteAccountModal.title')}?`,
+      icon: <UserDeleteOutlined style={{ color: 'black' }} />,
+      content: `${t('settings.deleteAccountModal.body')}.`,
+      okText: `${t('settings.deleteAccountModal.deleteAccount')}`,
+      cancelText: `${t('settings.changeNameForm.cancel')}`,
+      centered: true,
+      className: 'confirm-modal-wrapper',
+      // antd is not exposing the correct typings for type prop, so added the following ignores
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      okButtonProps: {
+        danger: true,
+        type: 'danger',
+        size: 'middle',
+      },
+      cancelButtonProps: {
+        icon: <CloseOutlined />,
+        size: 'middle',
+      },
+      onOk: deleteAccountHandler,
+    });
+  };
 
   const changeNameSubmitHandler = (displayName, username) => {
     const user = profileState.profile;
@@ -63,7 +85,7 @@ const SettingsContainer: React.FC = () => {
       />
       <SettingsList
         changeNameSubmitHandler={changeNameSubmitHandler}
-        deleteAccountClickHandler={() => ''}
+        deleteAccountClickHandler={deleteAccountClickHandler}
         initialValues={{
           displayName: profileState.profile.displayName,
           username: profileState.profile.username,

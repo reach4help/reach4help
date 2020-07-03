@@ -146,10 +146,15 @@
       "changeName": "Change my name",
       "deleteAccount": "Delete my account",
       "changeNameForm": {
-        "full_name_error_message": "Please enter your name.",
-        "display_name_error_message": "Please enter your display name.",
+        "full_name_error_message": "Please enter your name",
+        "display_name_error_message": "Please enter your display name",
         "cancel": "Cancel",
         "submit": "Save"
+      },
+      "deleteAccountModal": {
+        "title": "Are you sure you want to delete your account",
+        "body": "Closing your account means you will no longer be able to provide help or ask for help",
+        "deleteAccount": "Delete my account"
       }
     },
     "phoneNumber": {
