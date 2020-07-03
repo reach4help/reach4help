@@ -1,12 +1,15 @@
 import firebase, { firebaseAuth } from 'src/firebase';
 import createReducer from 'src/store/utils/createReducer';
 
+import emailReducer from './email/reducer';
 import facebookReducer from './facebook/reducer';
+import googleReducer from './google/reducer';
 import phoneReducer from './phone/reducer';
 import { AuthState, LOGOUT, OBSERVE_USER } from './types';
 
 const initialState: AuthState = {
   loading: false,
+  checkEmail: undefined,
   error: undefined,
   user: firebaseAuth.currentUser,
   confirmationResult: undefined,
@@ -16,6 +19,8 @@ export default createReducer<AuthState>(
   {
     ...facebookReducer,
     ...phoneReducer,
+    ...emailReducer,
+    ...googleReducer,
     [OBSERVE_USER.SUBSCRIBE]: (state: AuthState) => {
       state.loading = true;
     },

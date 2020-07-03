@@ -1,10 +1,7 @@
 import { Alert, Typography } from 'antd';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import logo from 'src/assets/logo.png';
-import IntroLogo from 'src/components/IntroLogo/IntroLogo';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import { triggerLoginWithPhone } from 'src/ducks/auth/phone/actions';
 import firebase from 'src/firebase';
@@ -13,7 +10,6 @@ import styled from 'styled-components';
 
 import IntroWrapper from '../../../../components/IntroComponent/IntroComponent';
 import PhoneNumberEntryForm from '../../components/PhoneNumberEntryForm/PhoneNumberEntryForm';
-import { PhoneVerifyLocation } from '../../pages/routes/PhoneVerifyRoute/constants';
 
 const { Text } = Typography;
 
@@ -21,18 +17,8 @@ const PhoneEntryContainer: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.auth.user);
   const loading = useSelector((state: AppState) => state.auth.loading);
-  const confirmationResult = useSelector(
-    (state: AppState) => state.auth.confirmationResult,
-  );
   const error = useSelector((state: AppState) => state.auth.error);
-  const history = useHistory();
   const { t } = useTranslation();
-
-  useEffect(() => {
-    if (confirmationResult) {
-      history.push(PhoneVerifyLocation.path);
-    }
-  }, [confirmationResult, history]);
 
   const handleEntrySubmit = (
     values: { phoneNumber: string },
@@ -59,18 +45,15 @@ const PhoneEntryContainer: React.FC = () => {
     }
     return null;
   }, [error]);
-  const profilePhoto = useMemo(
-    () => (user?.photoURL ? `${user.photoURL}?height=300` : logo),
-    [user],
-  );
   return (
     <IntroWrapper>
       <ErrorMessage>
         {errorMessage && <Alert message={errorMessage} type="error" />}
       </ErrorMessage>
-      <IntroLogo src={profilePhoto} alt="User logo" />
-      <TitleWithAddon level={4}>
-        {`${t('welcome')}, ${user?.displayName}`}
+      <TitleWithAddon level={3}>
+        {`${t('welcome')}${
+          user && user.displayName ? `, ${user.displayName}` : ''
+        }`}
       </TitleWithAddon>
       <PhoneNumberEntryForm
         loading={loading}

@@ -8,6 +8,7 @@ import {
   OffersState,
   RESET_SET,
   SET,
+  SET_TEMP_OFFER,
 } from './types';
 
 const initialSetActionState = {
@@ -44,6 +45,19 @@ export default createReducer<OffersState>(
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = undefined;
+    },
+    [SET_TEMP_OFFER]: (
+      state: OffersState,
+      {
+        payload,
+      }: {
+        payload: {
+          offerPayload: Offer;
+          offerId: string;
+        };
+      },
+    ) => {
+      state.newOfferTemp = payload;
     },
     [RESET_SET]: (state: OffersState) => {
       state.setAction.loading = false;

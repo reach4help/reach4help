@@ -20,6 +20,7 @@ import {
   RequestState,
   RESET_SET,
   SET,
+  SET_TEMP_REQUEST,
 } from './types';
 
 const initialSetActionState = {
@@ -54,6 +55,7 @@ const initialState: RequestState = {
   cancelledRequests: initialRequestsState,
   removedRequests: initialRequestsState,
   setAction: initialSetActionState,
+  newRequestTemp: undefined,
 };
 
 const requestStatusMapper = {
@@ -273,11 +275,26 @@ export default createReducer<RequestState>(
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
+      state.newRequestTemp = undefined;
     },
     [SET.REJECTED]: (state: RequestState, { payload }: { payload: Error }) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
+      state.newRequestTemp = undefined;
+    },
+    [SET_TEMP_REQUEST]: (
+      state: RequestState,
+      {
+        payload,
+      }: {
+        payload: {
+          requestPayload: Request;
+          requestId: string;
+        };
+      },
+    ) => {
+      state.newRequestTemp = payload;
     },
     [RESET_SET]: (state: RequestState) => {
       state.setAction.loading = false;

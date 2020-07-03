@@ -29,7 +29,7 @@ const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
             if (offersState.data && offersState.data[key]) {
               const offer = offersState.data[key];
               offer.seenAt = firestore.Timestamp.now();
-              dispatch(setOffer(offer, key));
+              dispatch(setOffer(offer, key, 'notificationsshouldnttrigger'));
             }
           }
         }
