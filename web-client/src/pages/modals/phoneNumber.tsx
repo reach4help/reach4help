@@ -25,6 +25,8 @@ const PhoneNumberModal: React.FC = () => {
     (state: AppState) => state.requests.newRequestTemp,
   );
 
+  const newOffer = useSelector((state: AppState) => state.offers.newOfferTemp);
+
   useEffect(() => {
     if (confirmationResult) {
       setShowConfirmationPage(true);
@@ -34,13 +36,19 @@ const PhoneNumberModal: React.FC = () => {
   }, [confirmationResult]);
 
   useEffect(() => {
-    if (profile && !phoneNumber && newRequest && newRequest.requestPayload) {
+    if (
+      profile &&
+      !phoneNumber &&
+      ((newRequest && newRequest.requestPayload) ||
+        (newOffer && newOffer.offerPayload))
+    ) {
+      //   let isRequest = newRequest && newRequest.requestPayload;
       setIsVisible(true);
     }
     if (isVisible && profile && phoneNumber) {
       setIsVisible(false);
     }
-  }, [phoneNumber, profile, newRequest, isVisible]);
+  }, [phoneNumber, profile, newRequest, isVisible, newOffer]);
 
   return (
     <Modal visible={isVisible} closable={false} footer={null} title={null}>

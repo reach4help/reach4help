@@ -287,7 +287,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       offer.status = OfferStatus.rejected;
     }
     offer.seenAt = null;
-    dispatch(setOffer(offer.toObject() as IOffer, id));
+    dispatch(setOffer(offer.toObject() as IOffer, id, phoneNumber));
   };
 
   const isCav =
