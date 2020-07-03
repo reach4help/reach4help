@@ -43,8 +43,6 @@ function SEO({ description, lang, title, location }) {
   const url =
     typeof location !== "undefined" ? `${siteURL}${location}` : siteURL
 
-  console.log(siteURL + image)
-
   return (
     <Helmet>
       {/* <!-- Primary Meta Tags --> */}

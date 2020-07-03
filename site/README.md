@@ -5,7 +5,7 @@
   </a>
 </p>
 <h1 align="center">
-  Reach4Help Site Redesign
+  Reach4Help Site
 </h1>
 
 [![Released under the MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
@@ -33,13 +33,13 @@ Check out our [**Contributing Guide**](./CONTRIBUTING.md) for information on con
 
 ## ✅ To-Do
 
-- Improve the styling (esp for `/privacy`)
-- When opening the drawer on mobile, change hamburger to cross (maybe a [cool animation](https://jonsuh.com/hamburgers/)?)
-- Add localization (ask Sam)
-  - Figure out whether to use `.json` or `.md` for Crowdin translations
+- Add a visual of the app and a quick description
+- Add a site-wide navigation bar
+- Replace all `button`s nested in `a` tags with styled `a` tags (accessibility)
+- Improve privacy policy (`/privacy`) with law firm
+- Integrate Crowdin for crowdsourced translations
 - Integrate TypeScript, thank you [Sam](https://youtu.be/b8AHUXxGas8)!
-- Add blog functionality w/ Contentful
-- Plan out eventual integration with web-client?
+- Add blog functionality (or just use Medium, which is easier + better for outreach)
 - (_optional?_) Fix `.babelrc` issue causing _`Generating SSR bundle failed`_ (needed for `babel-plugin-styled-components`)
 
 ## 📝 License
