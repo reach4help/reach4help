@@ -9,10 +9,10 @@ import {
   StepWrapper,
 } from 'src/components/figma/';
 
-const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
+const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
   backHandler,
   submitHandler,
-}): React.ReactElement<Step4EmailLoginProps> => {
+}): React.ReactElement<Step4EmailRegistrationProps> => {
   const { t } = useTranslation();
 
   return (
@@ -83,9 +83,9 @@ const Step4EmailLogin: React.FC<Step4EmailLoginProps> = ({
   );
 };
 
-interface Step4EmailLoginProps {
+interface Step4EmailRegistrationProps {
   backHandler: () => void;
   submitHandler: Function;
 }
 
-export default Step4EmailLogin;
+export default Step4EmailRegistration;

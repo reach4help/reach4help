@@ -22,7 +22,7 @@ import {
 } from '../../../../ducks/auth/google/actions';
 import { authProviders } from '../../../../ducks/auth/types';
 import LoginFooter from '../../components/LoginFooter/LoginFooter';
-import LoginSteps from '../../components/LoginSteps/LoginSteps';
+import LoginSteps from '../../components/RegistrationSteps/RegistrationSteps';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',

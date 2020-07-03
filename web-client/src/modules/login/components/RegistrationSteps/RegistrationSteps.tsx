@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import Step1 from './Step1SelectLanguage';
 import Step3 from './Step3Authentication';
-import Step4 from './Step4EmailLogin';
+import Step4 from './Step4EmailRegistration';
 
-const LoginSteps: React.FC<LoginStepsProps> = ({
+const RegistrationSteps: React.FC<RegistrationStepsProps> = ({
   currentStep,
   setCurrentStep,
   onLoginFacebook,
@@ -47,7 +47,7 @@ const LoginSteps: React.FC<LoginStepsProps> = ({
   );
 };
 
-interface LoginStepsProps {
+interface RegistrationStepsProps {
   currentStep: number;
   setCurrentStep: Function;
   onLoginGoogle: Function;
@@ -55,4 +55,4 @@ interface LoginStepsProps {
   onEmailSignInUp: Function;
 }
 
-export default LoginSteps;
+export default RegistrationSteps;
