@@ -28,6 +28,8 @@ const PhoneNumberModal: React.FC = () => {
   useEffect(() => {
     if (confirmationResult) {
       setShowConfirmationPage(true);
+    } else {
+      setShowConfirmationPage(false);
     }
   }, [confirmationResult]);
 
@@ -35,7 +37,10 @@ const PhoneNumberModal: React.FC = () => {
     if (profile && !phoneNumber && newRequest && newRequest.requestPayload) {
       setIsVisible(true);
     }
-  }, [phoneNumber, profile, newRequest]);
+    if (isVisible && profile && phoneNumber) {
+      setIsVisible(false);
+    }
+  }, [phoneNumber, profile, newRequest, isVisible]);
 
   return (
     <Modal visible={isVisible} closable={false} footer={null} title={null}>
