@@ -8,6 +8,7 @@ import {
   LogoWrapper,
   StepWrapper,
 } from 'src/components/figma/';
+import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 
 const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
   backHandler,
@@ -20,6 +21,9 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
       <LogoWrapper>
         <img src={logoSmall} alt="logo" height="50px" width="50px" />
       </LogoWrapper>
+      <TitleWithAddon level={2} alignAddon="50%">
+        Continue with email
+      </TitleWithAddon>
       <Form
         layout="vertical"
         name="emailSignup"

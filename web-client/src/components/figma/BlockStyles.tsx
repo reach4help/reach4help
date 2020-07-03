@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const LogoWrapper = styled.div`
   display: flex;
   justify-content: space-around;
+  margin-bottom: 30px;
 `;
 
 const StepWrapper = styled('div')`
