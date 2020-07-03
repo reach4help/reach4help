@@ -3,6 +3,7 @@ import Select from "react-select"
 
 export const LanguageWrapper = styled(Select)`
   width: 10em;
+  margin-left: 7px;
 
   .react-select__control {
     :hover {
