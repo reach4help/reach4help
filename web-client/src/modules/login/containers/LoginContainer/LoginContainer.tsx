@@ -22,7 +22,7 @@ import {
 } from '../../../../ducks/auth/google/actions';
 import { authProviders } from '../../../../ducks/auth/types';
 import LoginFooter from '../../components/LoginFooter/LoginFooter';
-import LoginSteps from '../../components/RegistrationSteps/RegistrationSteps';
+import RegistrationSteps from '../../components/RegistrationSteps/RegistrationSteps';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',
@@ -146,7 +146,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
 
   return (
     <>
-      <LoginSteps
+      <RegistrationSteps
         currentStep={currentStep}
         setCurrentStep={setCurrentStep}
         onLoginGoogle={handleLoginGoogle}

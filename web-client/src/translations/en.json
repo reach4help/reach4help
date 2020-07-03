@@ -125,12 +125,14 @@
           }
         },
         "4_email_signup": {
+          "title": "Continue with email",
+          "create_account": "Create Account",
           "email_label": "Email",
-          "email_message": "Please input your email",
-          "password_label": "Choose Password",
-          "password_message": "Please input the password you will use for Reach4Help",
-          "password_confirm_label": "Confirm New Password",
-          "password_confirm_message": "Your passwords must match"
+          "email_error_message": "Please input your email",
+          "password_label": "Choose password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_error_message": "Your passwords must match"
         }
       }
     },

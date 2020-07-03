@@ -1,14 +1,11 @@
+import { ArrowRightOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
-import {
-  ButtonWrapper,
-  LoginButtonsWrapper,
-  LogoWrapper,
-  StepWrapper,
-} from 'src/components/figma/';
+import { LogoWrapper, StepWrapper } from 'src/components/figma/';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import styled from 'styled-components';
 
 const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
   backHandler,
@@ -21,9 +18,11 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
       <LogoWrapper>
         <img src={logoSmall} alt="logo" height="50px" width="50px" />
       </LogoWrapper>
-      <TitleWithAddon level={2} alignAddon="50%">
-        Continue with email
-      </TitleWithAddon>
+      <TitleWrapper>
+        <TitleWithAddon level={2} alignAddon="50%">
+          {t('login.steps.4_email_signup.title')}
+        </TitleWithAddon>
+      </TitleWrapper>
       <Form
         layout="vertical"
         name="emailSignup"
@@ -35,7 +34,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
           rules={[
             {
               required: true,
-              message: t('login.steps.4_email_signup.email_message'),
+              message: t('login.steps.4_email_signup.email_error_message'),
             },
           ]}
           label={t('login.steps.4_email_signup.email_label')}
@@ -47,7 +46,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
           rules={[
             {
               required: true,
-              message: t('login.steps.4_email_signup.password_message'),
+              message: t('login.steps.4_email_signup.password_error_message'),
             },
           ]}
           label={t('login.steps.4_email_signup.password_label')}
@@ -60,7 +59,9 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
           rules={[
             {
               required: true,
-              message: t('login.steps.4_email_signup.password_confirm_message'),
+              message: t(
+                'login.steps.4_email_signup.password_confirm_error_message',
+              ),
             },
           ]}
           label={t('login.steps.4_email_signup.password_confirm_label')}
@@ -69,24 +70,39 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
         </Form.Item>
 
         <Form.Item>
-          <LoginButtonsWrapper>
-            <ButtonWrapper>
-              <Button type="primary" htmlType="submit">
-                {t('continue')}
+          <RegistrationButtonsPanel>
+            <RegistrationButtonWrapper>
+              <Button onClick={backHandler}> X {t('cancel')} </Button>
+            </RegistrationButtonWrapper>
+            <RegistrationButtonWrapper>
+              <Button
+                type="primary"
+                htmlType="submit"
+                icon={<ArrowRightOutlined />}
+              >
+                {t('login.steps.4_email_signup.create_account')}{' '}
               </Button>
-            </ButtonWrapper>
-            <ButtonWrapper>
-              <Button type="default" htmlType="button" onClick={backHandler}>
-                {t('back')}
-              </Button>
-            </ButtonWrapper>
-          </LoginButtonsWrapper>
+            </RegistrationButtonWrapper>
+          </RegistrationButtonsPanel>
         </Form.Item>
       </Form>
     </StepWrapper>
   );
 };
 
+const RegistrationButtonsPanel = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+`;
+
+const RegistrationButtonWrapper = styled.div`
+  flex: 1 1 auto;
+`;
+
+const TitleWrapper = styled.div`
+  margin: 20px 0 30px;
+`;
 interface Step4EmailRegistrationProps {
   backHandler: () => void;
   submitHandler: Function;
