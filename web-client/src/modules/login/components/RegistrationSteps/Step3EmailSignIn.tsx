@@ -9,6 +9,8 @@ import styled from 'styled-components';
 
 const EmailSignIn: React.FC<EmailSignInProps> = ({
   submitHandler,
+  goToSignUp,
+  goBack,
 }): React.ReactElement<EmailSignInProps> => {
   const { t } = useTranslation();
 
@@ -33,10 +35,10 @@ const EmailSignIn: React.FC<EmailSignInProps> = ({
           rules={[
             {
               required: true,
-              message: t('login.steps.4_email_signup.email_error_message'),
+              message: t('login.steps.3_email_signin.email_error_message'),
             },
           ]}
-          label={t('login.steps.4_email_signup.email_label')}
+          label={t('login.steps.3_email_signin.email_label')}
         >
           <Input />
         </Form.Item>
@@ -53,15 +55,31 @@ const EmailSignIn: React.FC<EmailSignInProps> = ({
           <Input.Password />
         </Form.Item>
 
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          {/* <TextLink>Forgot password</TextLink> */}
+          <TextLink onClick={() => goToSignUp()}>
+            New user? Sign up instead
+          </TextLink>
+        </div>
+
         <Form.Item>
           <RegistrationButtonsPanel>
+            <RegistrationButtonWrapper>
+              <Button onClick={() => goBack()}> X {t('cancel')} </Button>
+            </RegistrationButtonWrapper>
             <RegistrationButtonWrapper>
               <Button
                 type="primary"
                 htmlType="submit"
                 icon={<ArrowRightOutlined />}
               >
-                {t('continue')}{' '}
+                {t('login.steps.3_email_signin.signin')}{' '}
               </Button>
             </RegistrationButtonWrapper>
           </RegistrationButtonsPanel>
@@ -75,10 +93,17 @@ const RegistrationButtonsPanel = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+  margin-top: 10px;
 `;
 
 const RegistrationButtonWrapper = styled.div`
+  padding: 5px;
   flex: 1 1 auto;
+`;
+
+const TextLink = styled.span`
+  color: #1890ff;
+  cursor: pointer;
 `;
 
 const TitleWrapper = styled.div`
@@ -86,6 +111,8 @@ const TitleWrapper = styled.div`
 `;
 interface EmailSignInProps {
   submitHandler: Function;
+  goToSignUp: Function;
+  goBack: Function;
 }
 
 export default EmailSignIn;

@@ -117,8 +117,9 @@
           "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
           "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
         },
-        "3_authentication": {
+        "2_authentication": {
           "email_signup": "Sign up with email",
+          "email_signin": "Continue with email",
           "title": "Identity",
           "please": "Please sign up with one of the providers below",
           "popup_explanation": {
@@ -128,8 +129,19 @@
             "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
           }
         },
+        "3_email_signin": {
+          "title": "SignIn with email",
+          "signin": "Sign In",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Choose password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        },
         "4_email_signup": {
-          "title": "Continue with email",
+          "title": "SignUp with email",
           "create_account": "Create Account",
           "email_label": "Email",
           "email_error_message": "Please input your email",

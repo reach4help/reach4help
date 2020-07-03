@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
   backHandler,
+  goToSignIn,
   submitHandler,
 }): React.ReactElement<Step4EmailRegistrationProps> => {
   const { t } = useTranslation();
@@ -83,6 +84,18 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
           <Input.Password />
         </Form.Item>
 
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <TextLink onClick={() => goToSignIn()}>
+            Already a user? Login instead.
+          </TextLink>
+        </div>
+
         <Form.Item>
           <RegistrationButtonsPanel>
             <RegistrationButtonWrapper>
@@ -112,7 +125,13 @@ const RegistrationButtonsPanel = styled.div`
 `;
 
 const RegistrationButtonWrapper = styled.div`
+  padding: 5px;
   flex: 1 1 auto;
+`;
+
+const TextLink = styled.span`
+  color: #1890ff;
+  cursor: pointer;
 `;
 
 const TitleWrapper = styled.div`
@@ -120,6 +139,7 @@ const TitleWrapper = styled.div`
 `;
 interface Step4EmailRegistrationProps {
   backHandler: () => void;
+  goToSignIn: Function;
   submitHandler: Function;
 }
 

@@ -75,7 +75,9 @@ const MasterPage = (): ReactElement => {
   const dispatch = useDispatch();
   // const history = useHistory();
 
-  const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
+  const authStateUser = useSelector(
+    ({ auth }: { auth: AuthState }) => auth.user,
+  );
 
   useEffect(() => {
     if (
@@ -104,7 +106,7 @@ const MasterPage = (): ReactElement => {
 
   const toggleApplicationPreference = () => {
     const user = profileState.profile;
-    if (user && authState.user) {
+    if (user && authStateUser) {
       const currentPreference = user.applicationPreference;
       if (currentPreference) {
         setChangeRolePast(currentPreference);
@@ -113,7 +115,7 @@ const MasterPage = (): ReactElement => {
         currentPreference === ApplicationPreference.cav
           ? ApplicationPreference.pin
           : ApplicationPreference.cav;
-      dispatch(updateUserProfile(authState.user.uid, user));
+      dispatch(updateUserProfile(authStateUser.uid, user));
     }
   };
 
