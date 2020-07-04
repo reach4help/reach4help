@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
-import { db } from '../../../app';
+import { auth, db } from '../../../app';
 import { IRequest, Request } from '../../../models/requests';
 import { IUser, User } from '../../../models/users';
 
@@ -90,6 +90,10 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     await deleteUserTimelines(userRef, deletedUser);
     await deletePinUserRequests(userRef, deletedUser);
     await deleteCavUserRequests(userRef, deletedUser);
+    // Madhvi's functions should be called here
+
+    // delete the user from auth itself.
+    await auth?.deleteUser(userRef.id);
   } catch (err) {
     throw new functions.https.HttpsError('internal', 'deleting all user data failed', err);
   }
