@@ -15,13 +15,12 @@ export enum RequestStatus {
   completed = 'completed',
   cancelled = 'cancelled',
   removed = 'removed',
-  deleted = 'deleted',
 }
 
 export interface IRequest extends DocumentData {
   cavUserRef?: DocumentReference<DocumentData> | null;
   cavUserSnapshot?: IUser | null;
-  pinUserRef: DocumentReference<DocumentData> | null;
+  pinUserRef: DocumentReference<DocumentData>;
   pinUserSnapshot: IUser;
   title: string;
   description: string;
@@ -38,7 +37,7 @@ export interface IRequest extends DocumentData {
 
 export class Request implements IRequest {
   constructor(
-    pinUserRef: DocumentReference<DocumentData> | null = null,
+    pinUserRef: DocumentReference<DocumentData>,
     pinUserSnapshot: User,
     title: string,
     description: string,
@@ -84,13 +83,13 @@ export class Request implements IRequest {
   }
 
   @IsNotEmptyObject()
-  private _pinUserRef: DocumentReference<DocumentData> | null;
+  private _pinUserRef: DocumentReference<DocumentData>;
 
-  get pinUserRef(): DocumentReference<DocumentData> | null {
+  get pinUserRef(): DocumentReference<DocumentData> {
     return this._pinUserRef;
   }
 
-  set pinUserRef(value: DocumentReference<DocumentData> | null) {
+  set pinUserRef(value: DocumentReference<DocumentData>) {
     this._pinUserRef = value;
   }
 

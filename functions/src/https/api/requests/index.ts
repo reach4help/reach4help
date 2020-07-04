@@ -14,10 +14,6 @@ import {
 } from '../../../models/requests/RequestWithOffersAndTimeline';
 import { IPrivilegedUserInformation, PrivilegedUserInformation } from '../../../models/users/privilegedInformation';
 
-// 'require' instead of 'import' workaround b/c type declarations for this module does not exist
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const firebaseTools = require('firebase-tools');
-
 const RADIUS = 5; // In Miles
 
 const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentReference) => {
@@ -53,7 +49,7 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
 
 const getTimelineForRequest = async (requestRef: firestore.DocumentReference, userRef: firestore.DocumentReference): Promise<ITimelineItem[]> => {
   const request = Request.factory((await requestRef.get()).data() as IRequest);
-  if (!((request.cavUserRef && request.cavUserRef.id === userRef.id) || request.pinUserRef?.id === userRef.id)) {
+  if (!((request.cavUserRef && request.cavUserRef.id === userRef.id) || request.pinUserRef.id === userRef.id)) {
     const timelinesResult = await requestRef
       .collection('timeline')
       .where('action', 'in', [
@@ -115,7 +111,7 @@ const getPendingRequestsWithOffers = async (
     const requests = await getRequestsWithinDistance(lat, lng, radius, RequestStatus.pending);
     for (const doc of requests.docs) {
       const request = Request.factory(doc.data() as IRequest);
-      if (request.pinUserRef?.id === userRef.id) {
+      if (request.pinUserRef.id === userRef.id) {
         // eslint-disable-next-line no-continue
         continue;
       }
@@ -200,7 +196,7 @@ const getOngoingRequests = async (userRef: firestore.DocumentReference, userType
   for (const doc of requests.docs) {
     const request = Request.factory(doc.data() as IRequest);
     let contactNumber: string | null | undefined = null;
-    if (userType === ApplicationPreference.cav && request.pinUserRef && auth) {
+    if (userType === ApplicationPreference.cav && auth) {
       contactNumber = (await auth.getUser(request.pinUserRef.id)).phoneNumber;
     } else if (request.cavUserRef && auth) {
       contactNumber = (await auth.getUser(request.cavUserRef.id)).phoneNumber;
@@ -424,113 +420,5 @@ export const getRequests = functions.https.onCall(async (data, context) => {
     }
   } else {
     throw new functions.https.HttpsError('unauthenticated', "Can't determine the logged in user");
-  }
-});
-
-const deleteUserPrivilegedInformation = async (userId: string) => {
-  await firebaseTools.firestore
-    .delete(`users/${userId}/privilegedInformation`, {
-      project: process.env.GCLOUD_PROJECT,
-      recursive: true,
-      yes: true,
-      token: functions.config().fb.token,
-    });
-
-  return {
-    path: `users/${userId}/privilegedInformation`,
-  };
-};
-
-const deleteUserTimelines = async (userRef: firestore.DocumentReference) => {
-  const deletedUser = User.factory((await userRef.get()).data() as IUser);
-  deletedUser.displayPicture = null;
-  deletedUser.displayName = 'Deleted User';
-
-  const userTimelines = await db
-    .collectionGroup('timeline')
-    .where('actorRef', '==', userRef)
-    .get();
-  for (const doc of userTimelines.docs) {
-    doc.ref.update({
-      actorSnapshot: deletedUser,
-      actorRef: null,
-    });
-  }
-};
-
-const deletePinUserRequests = async (userRef: firestore.DocumentReference) => {
-  const deletedUser = User.factory((await userRef.get()).data() as IUser);
-  deletedUser.displayPicture = null;
-  deletedUser.displayName = 'Deleted User';
-
-  const userRequests = await db
-    .collection('requests')
-    .where('pinUserRef', '==', userRef)
-    .get();
-  for (const doc of userRequests.docs) {
-    doc.ref.update({
-      pinUserSnapshot: deletedUser,
-      pinUserRef: null,
-      status: RequestStatus.deleted,
-    });
-    const requestTimelines = await doc.ref.collection('timeline').get();
-    for (const timelineDoc of requestTimelines.docs) {
-      const deletedRequestSnapshot = Request.factory(
-        timelineDoc.get('requestRef').data() as IRequest,
-      );
-      deletedRequestSnapshot.pinUserSnapshot = deletedUser;
-      deletedRequestSnapshot.pinUserRef = null;
-      deletedRequestSnapshot.status = RequestStatus.deleted;
-      timelineDoc.ref.update({
-        requestSnapshot: deletedRequestSnapshot,
-      });
-    }
-  }
-};
-
-const deleteCavUserRequests = async (userRef: firestore.DocumentReference) => {
-  const deletedUser = User.factory((await userRef.get()).data() as IUser);
-  deletedUser.displayPicture = null;
-  deletedUser.displayName = 'Deleted User';
-
-  const userRequests = await db
-    .collection('requests')
-    .where('cavUserRef', '==', userRef)
-    .get();
-  for (const doc of userRequests.docs) {
-    doc.ref.update({
-      cavUserSnapshot: deletedUser,
-      cavUserRef: null,
-      status: RequestStatus.deleted,
-    });
-    const requestTimelines = await doc.ref.collection('timeline').get();
-    for (const timelineDoc of requestTimelines.docs) {
-      const deletedRequestSnapshot = Request.factory(
-        timelineDoc.get('requestRef').data() as IRequest,
-      );
-      deletedRequestSnapshot.cavUserSnapshot = deletedUser;
-      deletedRequestSnapshot.cavUserRef = null;
-      deletedRequestSnapshot.status = RequestStatus.deleted;
-      timelineDoc.ref.update({
-        requestSnapshot: deletedRequestSnapshot,
-      });
-    }
-  }
-};
-
-export const deleteUserData = functions.https.onCall(async (data, context) => {
-  const userId = context.auth?.uid;
-  if (!userId) {
-    throw new functions.https.HttpsError('unauthenticated', "Can't determine the logged in user");
-  }
-
-  try {
-    const userRef = db.collection('users').doc(userId);
-    await deleteUserPrivilegedInformation(userId);
-    await deleteUserTimelines(userRef);
-    await deletePinUserRequests(userRef);
-    await deleteCavUserRequests(userRef);
-  } catch (err) {
-    throw new functions.https.HttpsError('internal', 'deleting all user data failed', err);
   }
 });
