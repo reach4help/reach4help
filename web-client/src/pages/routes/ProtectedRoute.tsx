@@ -6,7 +6,6 @@ import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/PersonalDataRoute/constants';
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
-import { PhoneEntryLocation } from 'src/modules/phone/pages/routes/PhoneEntryRoute/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
@@ -45,17 +44,6 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: `${location.pathname}${location.search}` },
-        }}
-      />
-    );
-  }
-
-  if (!auth.user.phoneNumber) {
-    return (
-      <Redirect
-        to={{
-          pathname: PhoneEntryLocation.path,
           state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />

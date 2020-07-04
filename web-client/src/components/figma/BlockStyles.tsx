@@ -12,6 +12,7 @@ const { Panel } = Collapse;
 const LogoWrapper = styled.div`
   display: flex;
   justify-content: space-around;
+  margin-bottom: 30px;
 `;
 
 const StepWrapper = styled('div')`
@@ -27,8 +28,9 @@ const FormLabel = styled('div')`
 `;
 
 const Explanation = styled('div')`
-  margin: 30 0 50;
   display: flex;
+  padding: 25px;
+  max-width: 550px;
   justify-content: space-around;
   text-align: center;
 `;
@@ -59,7 +61,7 @@ const Splitter = styled.div`
 const OrDividerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 75 0 50 0;
+  margin: 50px;
 `;
 
 const OrWordWrapper = styled.div`

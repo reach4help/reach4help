@@ -18,7 +18,7 @@ import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
 const StepAuthentication: React.FC<StepAuthenticationProps> = ({
   onLoginGoogle,
   onLoginFacebook,
-  incrementStep,
+  goToSignIn,
 }): React.ReactElement<StepAuthenticationProps> => {
   const { t } = useTranslation();
 
@@ -28,7 +28,7 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
         <img src={logoSmall} alt="logo" height="50px" width="50px" />
       </LogoWrapper>
       <Explanation>
-        <H6Font>{t('login.steps.3_authentication.please')}</H6Font>
+        <H6Font>{t('login.steps.2_authentication.please')}</H6Font>
       </Explanation>
       <LoginButtonsWrapper>
         <ButtonWrapper>
@@ -39,9 +39,9 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
         </ButtonWrapper>
       </LoginButtonsWrapper>
       <OrDivider />
-      <MailAuthButton onClick={incrementStep}>
+      <MailAuthButton onClick={() => goToSignIn()}>
         <MailOutlined />
-        {t('login.steps.3_authentication.email_signup')}
+        {t('login.steps.2_authentication.email_signin')}
       </MailAuthButton>
     </>
   );
@@ -50,7 +50,8 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
 interface StepAuthenticationProps {
   onLoginGoogle: Function;
   onLoginFacebook: Function;
-  incrementStep: (Event) => void;
+  goToSignUp: Function;
+  goToSignIn: Function;
 }
 
 export default StepAuthentication;

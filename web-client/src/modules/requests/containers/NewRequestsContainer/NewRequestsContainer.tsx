@@ -13,7 +13,6 @@ import {
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
@@ -197,7 +196,7 @@ const NewRequestsContainer: React.FC = () => {
   });
 
   return (
-    <>
+    <div style={{ height: '100%' }}>
       <div
         style={{
           height: '100%',
@@ -217,7 +216,7 @@ const NewRequestsContainer: React.FC = () => {
             startLocateMe={startLocateMe}
           />
         </MapContainer>
-        <div style={{ display: 'flex', height: '100%' }}>
+        <div style={{ height: '100%' }}>
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
@@ -228,7 +227,7 @@ const NewRequestsContainer: React.FC = () => {
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
-    </>
+    </div>
   );
 };
 
@@ -238,12 +237,9 @@ const RequestDetails = styled.div`
 `;
 
 const MapContainer = styled.div`
-  // aspect ratio = 16:9
-  height: 56.25vw;
-
-  @media ${DEVICE_MIN.laptop} {
-    max-height: 400px;
-  }
+  overflow: hidden;
+  position: relative;
+  height: 100%;
 `;
 
 export default NewRequestsContainer;
