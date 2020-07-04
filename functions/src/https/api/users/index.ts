@@ -80,6 +80,18 @@ const deleteCavUserRequests = async (userRef: firestore.DocumentReference, delet
   }
 };
 
+const deleteCavUserOffers = async (userRef: firestore.DocumentReference, deletedUser: User) => {
+  const userOffers = await db
+    .collection('offers')
+    .where('cavUserRef', '==', userRef)
+    .get();
+  for (const doc of userOffers.docs) {
+    doc.ref.update({
+      cavUserSnapshot: deletedUser,
+    });
+  }
+};
+
 export const deleteUserData = functions.https.onCall(async (data, context) => {
   const userId = context.auth?.uid;
   if (!userId) {
@@ -98,7 +110,7 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     await deleteUserTimelines(userRef, deletedUser);
     await deletePinUserRequests(userRef, deletedUser);
     await deleteCavUserRequests(userRef, deletedUser);
-    // Madhvi's functions should be called here
+    await deleteCavUserOffers(userRef, deletedUser);
 
     // delete the user from auth itself.
     await auth?.deleteUser(userRef.id);
