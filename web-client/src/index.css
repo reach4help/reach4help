@@ -82,3 +82,8 @@ h2.ant-typography,
 .ant-modal-footer {
   padding-bottom: 30px !important;
 }
+
+/* This might not to be the right way of overriding */
+.confirm-modal-wrapper.ant-modal-confirm .ant-modal-body {
+  padding: 24px;
+}

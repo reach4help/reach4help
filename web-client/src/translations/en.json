@@ -93,7 +93,11 @@
       "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
       "facebookButtonLabel": "Continue with Facebook",
       "googleButtonLabel": "Continue with Google",
-
+      "sign_in": {
+        "title": "Login with email",
+        "password_label": "Password",
+        "password_error_message": "Please input your password"
+      },
       "steps": {
         "continue": "Continue",
         "footer": {
@@ -113,8 +117,9 @@
           "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
           "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
         },
-        "3_authentication": {
+        "2_authentication": {
           "email_signup": "Sign up with email",
+          "email_signin": "Continue with email",
           "title": "Identity",
           "please": "Please sign up with one of the providers below",
           "popup_explanation": {
@@ -124,13 +129,27 @@
             "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
           }
         },
-        "4_email_signup": {
+        "3_email_signin": {
+          "title": "SignIn with email",
+          "signin": "Sign In",
           "email_label": "Email",
-          "email_message": "Please input your email",
-          "password_label": "Choose Password",
-          "password_message": "Please input the password you will use for Reach4Help",
-          "password_confirm_label": "Confirm New Password",
-          "password_confirm_message": "Your passwords must match"
+          "email_error_message": "Please input your email",
+          "password_label": "Choose password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        },
+        "4_email_signup": {
+          "title": "SignUp with email",
+          "create_account": "Create Account",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Choose password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
         }
       }
     },
@@ -138,7 +157,24 @@
       "contactUs": "Contact us",
       "logout": "Sign out",
       "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help"
+      "switchToPIN": "Switch to Seeking Help",
+      "settings": "Settings"
+    },
+    "settings": {
+      "heading": "Settings",
+      "changeName": "Change my name",
+      "deleteAccount": "Delete my account",
+      "changeNameForm": {
+        "full_name_error_message": "Please enter your name",
+        "display_name_error_message": "Please enter your display name",
+        "cancel": "Cancel",
+        "submit": "Save"
+      },
+      "deleteAccountModal": {
+        "title": "Are you sure you want to delete your account",
+        "body": "Closing your account means you will no longer be able to provide help or ask for help",
+        "deleteAccount": "Delete my account"
+      }
     },
     "phoneNumber": {
       "title": "Before you continue...",
@@ -224,7 +260,8 @@
       "_requests_finished": "Completed Requests",
       "_requests_new": "New Request",
       "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_requests_open": "Open Requests",
+      "_settings": "Settings"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} created this request.",
