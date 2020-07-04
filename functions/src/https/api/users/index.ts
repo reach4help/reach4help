@@ -22,11 +22,7 @@ const deleteUserPrivilegedInformation = async (userId: string) => {
   };
 };
 
-const deleteUserTimelines = async (userRef: firestore.DocumentReference) => {
-  const deletedUser = User.factory((await userRef.get()).data() as IUser);
-  deletedUser.displayPicture = null;
-  deletedUser.displayName = 'Deleted User';
-
+const deleteUserTimelines = async (userRef: firestore.DocumentReference, deletedUser: User) => {
   const userTimelines = await db
     .collectionGroup('timeline')
     .where('actorRef', '==', userRef)
@@ -38,11 +34,7 @@ const deleteUserTimelines = async (userRef: firestore.DocumentReference) => {
   }
 };
 
-const deletePinUserRequests = async (userRef: firestore.DocumentReference) => {
-  const deletedUser = User.factory((await userRef.get()).data() as IUser);
-  deletedUser.displayPicture = null;
-  deletedUser.displayName = 'Deleted User';
-
+const deletePinUserRequests = async (userRef: firestore.DocumentReference, deletedUser: User) => {
   const userRequests = await db
     .collection('requests')
     .where('pinUserRef', '==', userRef)
@@ -62,11 +54,7 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference) => {
   }
 };
 
-const deleteCavUserRequests = async (userRef: firestore.DocumentReference) => {
-  const deletedUser = User.factory((await userRef.get()).data() as IUser);
-  deletedUser.displayPicture = null;
-  deletedUser.displayName = 'Deleted User';
-
+const deleteCavUserRequests = async (userRef: firestore.DocumentReference, deletedUser: User) => {
   const userRequests = await db
     .collection('requests')
     .where('cavUserRef', '==', userRef)
@@ -94,10 +82,13 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
 
   try {
     const userRef = db.collection('users').doc(userId);
+    const deletedUser = User.factory((await userRef.get()).data() as IUser);
+    deletedUser.displayPicture = null;
+    deletedUser.displayName = 'Deleted User';
     await deleteUserPrivilegedInformation(userId);
-    await deleteUserTimelines(userRef);
-    await deletePinUserRequests(userRef);
-    await deleteCavUserRequests(userRef);
+    await deleteUserTimelines(userRef, deletedUser);
+    await deletePinUserRequests(userRef, deletedUser);
+    await deleteCavUserRequests(userRef, deletedUser);
   } catch (err) {
     throw new functions.https.HttpsError('internal', 'deleting all user data failed', err);
   }
