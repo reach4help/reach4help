@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 import { UserDeleteOutlined, UserOutlined } from '@ant-design/icons';
 import { Col, Collapse, Row } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 import { SettingsListButton } from '../../../../components/Buttons';
 import { H4Font } from '../../../../components/figma';
 import {
@@ -14,6 +16,7 @@ import { ChangeName } from '../ChangeName/ChangeName';
 
 const SettingsList: React.FC<SettingsProps> = ({
   changeNameSubmitHandler,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   deleteAccountClickHandler,
   initialValues,
 }): React.ReactElement => {
@@ -67,6 +70,10 @@ const SettingsList: React.FC<SettingsProps> = ({
           </Collapse>
         </Col>
       </Row>
+      {/* 
+      
+      Removing Temporarily for staging deployment as this isn't fully ready yet
+
       <Row gutter={[0, 12]}>
         <Col span="24" lg={12}>
           <SettingsListButton
@@ -77,7 +84,8 @@ const SettingsList: React.FC<SettingsProps> = ({
             <span>{t('settings.deleteAccount')}</span>
           </SettingsListButton>
         </Col>
-      </Row>
+      </Row> 
+      */}
     </SettingsListWrapper>
   );
 };
