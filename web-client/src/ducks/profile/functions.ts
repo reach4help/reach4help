@@ -100,4 +100,4 @@ export const updateUserPrivilegedInformationData = async ({
     .set(dataPayload);
 
 export const deleteUserData = async () =>
-  functions.httpsCallable('https-api-requests-deleteUserData')();
+  functions.httpsCallable('https-api-users-deleteUserData')();
