@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { SettingsListButton } from '../../../../components/Buttons';
 import { H4Font } from '../../../../components/figma';
 import {
-  SettingsListCollapsePanel,
   SettingsCollapsePanelHeaderContent,
+  SettingsListCollapsePanel,
   SettingsListWrapper,
 } from '../../../../components/figma/BlockStyles';
 import { ChangeName } from '../ChangeName/ChangeName';

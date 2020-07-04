@@ -39,7 +39,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
         <div onClick={() => goBack()}>
           <img
             src={NavBackIcon}
-            alt={t('modules.navigation.components.SettingsTopPanel.a11y_back_nav')}
+            alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}
           />
         </div>
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
@@ -52,7 +52,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
         {user && user.displayPicture ? (
           <DisplayPhoto
             src={user.displayPicture}
-            alt={t('modules.navigation.components.SettingsTopPanel.a11y_display_photo')}
+            alt={t('modules.navigation.components.TopPanel.a11y_display_photo')}
           />
         ) : (
           <EmptyPhoto />
@@ -96,7 +96,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
                   height: '45px',
                   width: '45px',
                 }}
-                alt={t('modules.navigation.components.SettingsTopPanel.a11y_sms_icon')}
+                alt={t('modules.navigation.components.TopPanel.a11y_sms_icon')}
               />
             </a>
           )}
@@ -111,7 +111,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
               <img
                 src={PhoneIcon}
                 alt={t(
-                  'modules.navigation.components.SettingsTopPanel.a11y_phone_icon',
+                  'modules.navigation.components.TopPanel.a11y_phone_icon',
                 )}
               />
             </a>

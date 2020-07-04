@@ -22,9 +22,7 @@ const SettingsTopPanel: React.FC<SettingsTopPanel> = ({ user, goBack }) => {
         <div onClick={() => goBack()}>
           <img
             src={NavBackIcon}
-            alt={t(
-              'modules.navigation.components.SettingsTopPanel.a11y_back_nav',
-            )}
+            alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}
           />
         </div>
       </SettingsTopPanelNavRow>
@@ -35,9 +33,7 @@ const SettingsTopPanel: React.FC<SettingsTopPanel> = ({ user, goBack }) => {
         {user && user.displayPicture ? (
           <SettingsTopPanelDisplayPhoto
             src={user.displayPicture}
-            alt={t(
-              'modules.navigation.components.SettingsTopPanel.a11y_display_photo',
-            )}
+            alt={t('modules.navigation.components.TopPanel.a11y_display_photo')}
           />
         ) : (
           <SettingsTopPanelEmptyPhoto />
