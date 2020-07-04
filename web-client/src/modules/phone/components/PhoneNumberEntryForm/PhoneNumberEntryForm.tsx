@@ -42,9 +42,8 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
 
   const CountryCodeDisplay = styled(Input)`
     /* might need media query to get positioning right */
-    height: 30px;
+    height: 32px;
     position: relative;
-    top: 18px;
     width: 5rem;
     &:disabled {
       color: black;
@@ -58,6 +57,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     font-weight: 700;
     width: 75%;
     margin: auto;
+    margin-bottom: 1em;
     border: 2px solid ${COLORS.backgroundAlternative};
     padding: 10px;
     text-align: center;
@@ -67,10 +67,12 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     font-weight: 700;
     width: 75%;
     margin: auto;
+    margin-bottom: 1em;
     border: 2px solid #52c41a;
     padding: 10px;
     text-align: center;
   `;
+  // Probably should merge the above two to conditionally color using props
 
   const FormLabel = styled.div`
     font-family: Roboto;
@@ -79,7 +81,13 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     font-size: 12px;
     line-height: 20px;
     color: rgba(0, 0, 0, 0.65);
-    margin-top: 5px;
+    margin: 5px 0;
+    align-self: flex-start;
+  `;
+
+  const FormSection = styled.div`
+    width: 95%;
+    max-width: 400px;
   `;
 
   const Instructions = styled.div`
@@ -90,7 +98,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     line-height: 28px;
     text-align: center;
     color: rgba(0, 0, 0, 0.85);
-    margin-top: 30px;
+    margin: 30px 0;
   `;
 
   const showMessage = ({ message, valid }) => {
@@ -183,57 +191,62 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     >
       <Instructions>{t('phoneNumber.sub_title')}</Instructions>
 
-      <FormLabel>{t('phoneNumber.select_instructions')}</FormLabel>
-      <Form.Item
-        name="prefix"
-        rules={[
-          {
-            validator: (_, value) => fullTelephoneValidator(value, false),
-          },
-        ]}
-      >
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder={t('phoneNumber.country_placeholder')}
-          optionFilterProp="children"
-          filterOption={(input, option) =>
-            option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          onChange={v => setDialCode(v.toString().replace(/\D/g, ''))}
-        >
-          {allCountries.map(c => (
-            <Option key={c.iso2} value={c.dialCode.concat(c.iso2)}>
-              {c.name}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-
-      <FormLabel>{t('phoneNumber.input_instructions')}</FormLabel>
-      <div style={{ display: 'flex' }}>
-        <CountryCodeDisplay
-          maxLength={4}
-          read-only
-          disabled
-          value={dialCode ? `+${dialCode}` : '+000'}
-        />
+      <FormSection>
+        <FormLabel>{t('phoneNumber.select_instructions')}</FormLabel>
         <Form.Item
-          style={{ textAlign: 'center' }}
-          name="suffix"
+          name="prefix"
           rules={[
             {
-              validator: (_, value) => fullTelephoneValidator(value, true),
+              validator: (_, value) => fullTelephoneValidator(value, false),
             },
           ]}
         >
-          <PhoneInput
-            onChange={e => setDigits(e.target.value)}
-            placeholder="1234567"
-            maxLength={14}
-          />
+          <Select
+            showSearch
+            style={{ width: '100%' }}
+            placeholder={t('phoneNumber.country_placeholder')}
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+            onChange={v => setDialCode(v.toString().replace(/\D/g, ''))}
+          >
+            {allCountries.map(c => (
+              <Option key={c.iso2} value={c.dialCode.concat(c.iso2)}>
+                {c.name}
+              </Option>
+            ))}
+          </Select>
         </Form.Item>
-      </div>
+      </FormSection>
+
+      <FormSection>
+        <FormLabel>{t('phoneNumber.input_instructions')}</FormLabel>
+        <div style={{ display: 'flex' }}>
+          <CountryCodeDisplay
+            maxLength={4}
+            read-only
+            disabled
+            value={dialCode ? `+${dialCode}` : '+000'}
+          />
+          <Form.Item
+            style={{ textAlign: 'center', width: '100%' }}
+            name="suffix"
+            rules={[
+              {
+                validator: (_, value) => fullTelephoneValidator(value, true),
+              },
+            ]}
+          >
+            <PhoneInput
+              onChange={e => setDigits(e.target.value)}
+              placeholder="1234567"
+              maxLength={14}
+            />
+          </Form.Item>
+        </div>
+      </FormSection>
+
       {numberINValidMessage && (
         <ErrorDisplay> {numberINValidMessage}</ErrorDisplay>
       )}
@@ -258,8 +271,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
 };
 
 const PhoneInput = styled(Input)`
-  margin-top: 1rem;
-  width: 14rem;
+  width: 100%;
 `;
 
 const Info = styled(Text)`

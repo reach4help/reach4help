@@ -1,23 +1,20 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Select from "react-select"
 import { useTranslation } from "react-i18next"
 
-import styled from "styled-components"
-
-const StyledSelect = styled(Select)`
-  width: 10em;
-`
+import { LanguageWrapper } from "./style"
 
 function Languages({ languages, onChange }) {
   const { i18n } = useTranslation()
 
   return (
-    <StyledSelect
+    <LanguageWrapper
       value={languages.find(lang => lang.value === i18n.language) || null}
       onChange={onChange}
       options={languages}
-      isSearchable={false}
+      isSearchable={false} // remove this as we add more langs
+      classNamePrefix="react-select"
+      placeholder="Language..."
     />
   )
 }

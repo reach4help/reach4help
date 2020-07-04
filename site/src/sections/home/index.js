@@ -44,7 +44,7 @@ function Home() {
           target="__blank"
           rel="noopener noreferrer"
         >
-          <Button>{t("Home.buttons.0")}</Button>
+          <Button fontSize="1.05em">{t("Home.buttons.0")}</Button>
         </a>
       </ButtonsWrapper>
       <Socials />

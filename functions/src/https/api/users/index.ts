@@ -27,11 +27,13 @@ const deleteUserTimelines = async (userRef: firestore.DocumentReference, deleted
     .collectionGroup('timeline')
     .where('actorRef', '==', userRef)
     .get();
-  for (const doc of userTimelines.docs) {
-    doc.ref.update({
-      actorSnapshot: deletedUser,
-    });
-  }
+  await Promise.all(
+    userTimelines.docs.map(doc =>
+      doc.ref.update({
+        actorSnapshot: deletedUser,
+      }),
+    ),
+  );
 };
 
 const deletePinUserRequests = async (userRef: firestore.DocumentReference, deletedUser: User) => {
@@ -41,23 +43,27 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
     .get();
   const nullLatLng = new firestore.GeoPoint(0, 0);
   const deletedAddress = 'deleted address';
-  for (const doc of userRequests.docs) {
-    doc.ref.update({
-      pinUserSnapshot: deletedUser,
-      latLng: nullLatLng,
-      streetAddress: deletedAddress,
-    });
-    const requestTimelines = await doc.ref.collection('timeline').get();
-    const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
-    deletedRequestSnapshot.pinUserSnapshot = deletedUser;
-    deletedRequestSnapshot.latLng = nullLatLng;
-    deletedRequestSnapshot.streetAddress = deletedAddress;
-    for (const timelineDoc of requestTimelines.docs) {
-      timelineDoc.ref.update({
-        requestSnapshot: deletedRequestSnapshot,
+  await Promise.all(
+    userRequests.docs.map(async doc => {
+      doc.ref.update({
+        pinUserSnapshot: deletedUser,
+        latLng: nullLatLng,
+        streetAddress: deletedAddress,
       });
-    }
-  }
+      const requestTimelines = await doc.ref.collection('timeline').get();
+      const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
+      deletedRequestSnapshot.pinUserSnapshot = deletedUser;
+      deletedRequestSnapshot.latLng = nullLatLng;
+      deletedRequestSnapshot.streetAddress = deletedAddress;
+      return Promise.all(
+        requestTimelines.docs.map(timelineDoc =>
+          timelineDoc.ref.update({
+            requestSnapshot: deletedRequestSnapshot,
+          }),
+        ),
+      );
+    }),
+  );
 };
 
 const deleteCavUserRequests = async (userRef: firestore.DocumentReference, deletedUser: User) => {
@@ -65,19 +71,23 @@ const deleteCavUserRequests = async (userRef: firestore.DocumentReference, delet
     .collection('requests')
     .where('cavUserRef', '==', userRef)
     .get();
-  for (const doc of userRequests.docs) {
-    doc.ref.update({
-      cavUserSnapshot: deletedUser,
-    });
-    const requestTimelines = await doc.ref.collection('timeline').get();
-    const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
-    deletedRequestSnapshot.cavUserSnapshot = deletedUser;
-    for (const timelineDoc of requestTimelines.docs) {
-      timelineDoc.ref.update({
-        requestSnapshot: deletedRequestSnapshot,
+  await Promise.all(
+    userRequests.docs.map(async doc => {
+      doc.ref.update({
+        cavUserSnapshot: deletedUser,
       });
-    }
-  }
+      const requestTimelines = await doc.ref.collection('timeline').get();
+      const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
+      deletedRequestSnapshot.cavUserSnapshot = deletedUser;
+      return Promise.all(
+        requestTimelines.docs.map(timelineDoc =>
+          timelineDoc.ref.update({
+            requestSnapshot: deletedRequestSnapshot,
+          }),
+        ),
+      );
+    }),
+  );
 };
 
 export const deleteUserData = functions.https.onCall(async (data, context) => {

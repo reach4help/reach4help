@@ -14,7 +14,7 @@ body {
 /*TODO: fix after we put a general layout */
 #root {
   height: 100%;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 h2.ant-typography,
