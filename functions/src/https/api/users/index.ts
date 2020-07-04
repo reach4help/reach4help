@@ -39,13 +39,19 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
     .collection('requests')
     .where('pinUserRef', '==', userRef)
     .get();
+  const nullLatLng = new firestore.GeoPoint(0, 0);
+  const deletedAddress = 'deleted address';
   for (const doc of userRequests.docs) {
     doc.ref.update({
       pinUserSnapshot: deletedUser,
+      latLng: nullLatLng,
+      streetAddress: deletedAddress,
     });
     const requestTimelines = await doc.ref.collection('timeline').get();
     const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
     deletedRequestSnapshot.pinUserSnapshot = deletedUser;
+    deletedRequestSnapshot.latLng = nullLatLng;
+    deletedRequestSnapshot.streetAddress = deletedAddress;
     for (const timelineDoc of requestTimelines.docs) {
       timelineDoc.ref.update({
         requestSnapshot: deletedRequestSnapshot,
@@ -86,6 +92,8 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     deletedUser.displayPicture = null;
     deletedUser.displayName = 'Deleted User';
     deletedUser.username = 'deleteduser';
+    deletedUser.cavQuestionnaireRef = null;
+    deletedUser.pinQuestionnaireRef = null;
     await deleteUserPrivilegedInformation(userId);
     await deleteUserTimelines(userRef, deletedUser);
     await deletePinUserRequests(userRef, deletedUser);
