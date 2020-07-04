@@ -85,6 +85,7 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     const deletedUser = User.factory((await userRef.get()).data() as IUser);
     deletedUser.displayPicture = null;
     deletedUser.displayName = 'Deleted User';
+    deletedUser.username = 'deleteduser';
     await deleteUserPrivilegedInformation(userId);
     await deleteUserTimelines(userRef, deletedUser);
     await deletePinUserRequests(userRef, deletedUser);
