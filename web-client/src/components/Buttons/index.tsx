@@ -70,3 +70,42 @@ export const StepForwardButton = styled(Button)`
     color: white;
   }
 `;
+
+export const SettingsListButton = styled(Button)`
+  display: flex;
+  justify-content: start;
+  font-weight: normal;
+  padding: 22px 10px;
+  border: none;
+  width: 100%;
+  color: ${COLORS.black};
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-within {
+    color: ${COLORS.black};
+  }
+  > span {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+`;
+
+export const MediumCancelButton = styled(Button)`
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+export const MediumSaveButton = styled(Button)`
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: ${COLORS.secondary};
+  color: ${COLORS.white};
+`;

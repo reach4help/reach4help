@@ -1,7 +1,8 @@
 @import '~antd/dist/antd.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-html, body {
+html,
+body {
   /* to fix bouncing scroll */
   /* https://stackoverflow.com/questions/21209223/remove-bounce-on-scroll-in-browser-issue-with-positionfixed-div */
   overflow: hidden;
@@ -10,7 +11,7 @@ html, body {
   overflow: hidden;
 }
 
- /*TODO: fix after we put a general layout */
+/*TODO: fix after we put a general layout */
 #root {
   height: 100%;
   overflow-y: scroll;
@@ -80,4 +81,9 @@ h2.ant-typography,
 }
 .ant-modal-footer {
   padding-bottom: 30px !important;
+}
+
+/* This might not to be the right way of overriding */
+.confirm-modal-wrapper.ant-modal-confirm .ant-modal-body {
+  padding: 24px;
 }
