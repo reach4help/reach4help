@@ -135,6 +135,7 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     // delete the user from auth itself.
     await deleteUserPrivilegedInformation(userRef);
     console.log('passed privilege');
+    await userRef.update({ ...deletedUser.toObject() });
     await auth?.deleteUser(userRef.id);
     console.log('passed auth');
   } catch (err) {
