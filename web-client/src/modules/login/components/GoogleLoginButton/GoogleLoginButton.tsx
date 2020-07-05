@@ -14,15 +14,19 @@ const GoogleButton = (props: any) => {
       onClick={onClick}
       block
       style={{
-        display: 'flex',
-        justifyContent: 'space-around',
-        margin: '8px',
-        boxShadow: '1px 1px silver',
+        marginBottom: '8px',
         paddingLeft: '10px',
         paddingRight: '10px',
       }}
+      size="large"
     >
-      <img src={GoogleLogo} alt="Google Logo" width="22px" height="22px" />
+      <img
+        src={GoogleLogo}
+        alt="Google Logo"
+        width="22px"
+        height="22px"
+        style={{ margin: '0 10px 3px 0' }}
+      />
       <b>{t('login.googleButtonLabel')}</b>
     </Button>
   );
