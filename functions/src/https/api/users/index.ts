@@ -95,11 +95,13 @@ const deleteCavUserOffers = async (userRef: firestore.DocumentReference, deleted
     .collection('offers')
     .where('cavUserRef', '==', userRef)
     .get();
-  for (const doc of userOffers.docs) {
-    doc.ref.update({
-      cavUserSnapshot: deletedUser,
-    });
-  }
+  await Promise.all(
+    userOffers.docs.map(async doc =>
+      doc.ref.update({
+        cavUserSnapshot: deletedUser,
+      }),
+    ),
+  );
 };
 
 export const deleteUserData = functions.https.onCall(async (data, context) => {
