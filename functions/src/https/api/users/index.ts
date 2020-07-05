@@ -5,21 +5,9 @@ import { auth, db } from '../../../app';
 import { IRequest, Request } from '../../../models/requests';
 import { IUser, User } from '../../../models/users';
 
-// 'require' instead of 'import' workaround b/c type declarations for this module does not exist
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const firebaseTools = require('firebase-tools');
-
-const deleteUserPrivilegedInformation = async (userId: string) => {
-  await firebaseTools.firestore.delete(`users/${userId}/privilegedInformation`, {
-    project: process.env.GCLOUD_PROJECT,
-    recursive: true,
-    yes: true,
-    token: functions.config().fb.token,
-  });
-
-  return {
-    path: `users/${userId}/privilegedInformation`,
-  };
+const deleteUserPrivilegedInformation = async (userRef: firestore.DocumentReference) => {
+  const snapshot = await userRef.collection('privilegedInformation').get();
+  return Promise.all(snapshot.docs.map(doc => doc.ref.delete()));
 };
 
 const deleteUserTimelines = async (userRef: firestore.DocumentReference, deletedUser: User) => {
@@ -134,7 +122,7 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     deletedUser.username = 'deleteduser';
     deletedUser.cavQuestionnaireRef = null;
     deletedUser.pinQuestionnaireRef = null;
-    await deleteUserPrivilegedInformation(userId);
+    await deleteUserPrivilegedInformation(userRef);
     await deleteUserTimelines(userRef, deletedUser);
     await deletePinUserRequests(userRef, deletedUser);
     await deleteCavUserRequests(userRef, deletedUser);
