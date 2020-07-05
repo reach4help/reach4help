@@ -16,6 +16,22 @@ import { IPrivilegedUserInformation, PrivilegedUserInformation } from '../../../
 
 const RADIUS = 5; // In Miles
 
+/*
+* We are deleting privileged information when deleting a user instead of replacing address
+* The reason why we aren't replacing address with this in delete operation is because
+* We are soon migrating to a format where privileged information is not required to access the address for a request or offer
+* Instead we are assosciating each requrest/offer directly with the address
+*/
+const deletedAddress = {
+  address1: '[Deleted Address]',
+  address2: '[Deleted Address]',
+  postalCode: '[Deleted Address]',
+  city: '[Deleted Address]',
+  state: '[Deleted Address]',
+  country: '[Deleted Address]',
+  coords: new firestore.GeoPoint(0, 0),
+}
+
 const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentReference) => {
   const result = await db
     .collection('offers')
@@ -29,7 +45,7 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
   for (const doc of result.docs) {
     console.log('doc.id, doc.data: ', doc.id, JSON.stringify(doc.data()));
     const offer = Offer.factory(doc.data() as IOffer);
-    const cavPrivilegedInfo = PrivilegedUserInformation.factory(
+    const cavPrivilegedInfo = offer.cavUserSnapshot.username === 'deleteduser' ? null : PrivilegedUserInformation.factory(
       /* eslint-disable no-await-in-loop */
       (
         await offer.cavUserRef
@@ -41,7 +57,7 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
 
     offersWithLocation[doc.id] = {
       ...offer.toObject(),
-      address: cavPrivilegedInfo.address,
+      address: cavPrivilegedInfo && cavPrivilegedInfo.address ? cavPrivilegedInfo.address : deletedAddress,
     } as IOfferWithLocation;
   }
   return offersWithLocation;
@@ -197,9 +213,9 @@ const getOngoingRequests = async (userRef: firestore.DocumentReference, userType
     const request = Request.factory(doc.data() as IRequest);
     let contactNumber: string | null | undefined = null;
     if (userType === ApplicationPreference.cav && auth) {
-      contactNumber = (await auth.getUser(request.pinUserRef.id)).phoneNumber;
-    } else if (request.cavUserRef && auth) {
-      contactNumber = (await auth.getUser(request.cavUserRef.id)).phoneNumber;
+      contactNumber = request.pinUserSnapshot.username === 'deleteduser' ? 'deleteduser' : (await auth.getUser(request.pinUserRef.id)).phoneNumber;
+    } else if (request.cavUserRef && request.cavUserSnapshot && auth) {
+      contactNumber = request.cavUserSnapshot.username === 'deleteduser' ? 'deleteduser' : (await auth.getUser(request.cavUserRef.id)).phoneNumber;
     }
     if (!finished && request.pinRating && request.pinRatedAt) {
       // eslint-disable-next-line no-continue
