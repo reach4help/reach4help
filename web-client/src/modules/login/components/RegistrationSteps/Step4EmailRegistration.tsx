@@ -3,7 +3,7 @@ import { Button, Form, Input } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
-import { LogoWrapper, StepWrapper } from 'src/components/figma/';
+import { FormWrapper, LogoWrapper, StepWrapper } from 'src/components/figma/';
 import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
 import styled from 'styled-components';
 
@@ -16,117 +16,123 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
 
   return (
     <StepWrapper>
-      <LogoWrapper>
-        <img src={logoSmall} alt="logo" height="50px" width="50px" />
+      <LogoWrapper style={{ marginBottom: 0 }}>
+        <img src={logoSmall} alt="logo" height="70px" width="70px" />
       </LogoWrapper>
       <TitleWrapper>
-        <TitleWithAddon level={2} alignAddon="50%">
+        <TitleWithAddon level={2} alignAddon="50%" bottom="-10px">
           {t('login.steps.4_email_signup.title')}
         </TitleWithAddon>
       </TitleWrapper>
-      <Form
-        layout="vertical"
-        name="emailSignup"
-        initialValues={{ remember: true }}
-        onFinish={({ email, password }) => submitHandler(email, password)}
-      >
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: t('login.steps.4_email_signup.email_error_message'),
-            },
-          ]}
-          label={t('login.steps.4_email_signup.email_label')}
+      <FormWrapper>
+        <Form
+          layout="vertical"
+          name="emailSignup"
+          initialValues={{ remember: true }}
+          onFinish={({ email, password }) => submitHandler(email, password)}
+          size="large"
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: t('login.steps.4_email_signup.password_error_message'),
-            },
-          ]}
-          label={t('login.steps.4_email_signup.password_label')}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          name="confirm"
-          label={t('login.steps.4_email_signup.password_confirm_label')}
-          dependencies={['password']}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: t(
-                'login.steps.4_email_signup.password_confirm_empty_message',
-              ),
-            },
-            ({ getFieldValue }) => ({
-              validator(rule, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  t(
-                    'login.steps.4_email_signup.password_confirm_error_message',
-                  ),
-                );
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: t('login.steps.4_email_signup.email_error_message'),
               },
-            }),
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
+            ]}
+            label={t('login.steps.4_email_signup.email_label')}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: t('login.steps.4_email_signup.password_error_message'),
+              },
+            ]}
+            label={t('login.steps.4_email_signup.password_label')}
+          >
+            <Input.Password />
+          </Form.Item>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <TextLink onClick={() => goToSignIn()}>
-            Already a user? Login instead.
-          </TextLink>
-        </div>
+          <Form.Item
+            name="confirm"
+            label={t('login.steps.4_email_signup.password_confirm_label')}
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: t(
+                  'login.steps.4_email_signup.password_confirm_empty_message',
+                ),
+              },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    t(
+                      'login.steps.4_email_signup.password_confirm_error_message',
+                    ),
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
 
-        <Form.Item>
-          <RegistrationButtonsPanel>
-            <RegistrationButtonWrapper>
-              <Button onClick={backHandler}> X {t('cancel')} </Button>
-            </RegistrationButtonWrapper>
-            <RegistrationButtonWrapper>
-              <Button
-                type="primary"
-                htmlType="submit"
-                icon={<ArrowRightOutlined />}
-              >
-                {t('login.steps.4_email_signup.create_account')}{' '}
-              </Button>
-            </RegistrationButtonWrapper>
-          </RegistrationButtonsPanel>
-        </Form.Item>
-      </Form>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <TextLink onClick={() => goToSignIn()}>
+              Already a user? Login instead.
+            </TextLink>
+          </div>
+
+          <Form.Item>
+            <RegistrationButtonsPanel>
+              <RegistrationButtonWrapper style={{ flexGrow: 2 }}>
+                <Button onClick={backHandler}> X {t('cancel')} </Button>
+              </RegistrationButtonWrapper>
+              <RegistrationButtonWrapper style={{ flexGrow: 5 }}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  icon={<ArrowRightOutlined />}
+                >
+                  {t('login.steps.4_email_signup.create_account')}{' '}
+                </Button>
+              </RegistrationButtonWrapper>
+            </RegistrationButtonsPanel>
+          </Form.Item>
+        </Form>
+      </FormWrapper>
     </StepWrapper>
   );
 };
 
 const RegistrationButtonsPanel = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 40px;
   margin-top: 20px;
 `;
 
 const RegistrationButtonWrapper = styled.div`
   padding: 5px;
-  flex: 1 1 auto;
+
+  .ant-btn {
+    width: 100%;
+  }
 `;
 
 const TextLink = styled.span`
@@ -135,8 +141,9 @@ const TextLink = styled.span`
 `;
 
 const TitleWrapper = styled.div`
-  margin: 20px 0 30px;
+  margin: 20px 0;
 `;
+
 interface Step4EmailRegistrationProps {
   backHandler: () => void;
   goToSignIn: Function;
