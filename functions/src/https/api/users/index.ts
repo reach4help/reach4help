@@ -36,6 +36,20 @@ const deleteUserTimelines = async (userRef: firestore.DocumentReference, deleted
   );
 };
 
+const updateOffersForRequest = async (requestRef: firestore.DocumentReference, deletedRequest: Request) => {
+  const offersForRequest = await db
+    .collection('offers')
+    .where('requestRef', '==', requestRef)
+    .get();
+  await Promise.all(
+    offersForRequest.docs.map(async doc =>
+      doc.ref.update({
+        requestSnapshot: deletedRequest,
+      }),
+    ),
+  );
+};
+
 const deletePinUserRequests = async (userRef: firestore.DocumentReference, deletedUser: User) => {
   const userRequests = await db
     .collection('requests')
@@ -55,6 +69,7 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
       deletedRequestSnapshot.pinUserSnapshot = deletedUser;
       deletedRequestSnapshot.latLng = nullLatLng;
       deletedRequestSnapshot.streetAddress = deletedAddress;
+      await updateOffersForRequest(doc.ref, deletedRequestSnapshot);
       return Promise.all(
         requestTimelines.docs.map(timelineDoc =>
           timelineDoc.ref.update({
