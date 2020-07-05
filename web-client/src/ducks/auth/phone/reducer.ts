@@ -1,5 +1,9 @@
 import { AuthState } from '../types';
-import { FIREBASE_PHONE_TRIGGER, FIREBASE_PHONE_VERIFY } from './types';
+import {
+  FIREBASE_PHONE_TRIGGER,
+  FIREBASE_PHONE_VERIFY,
+  RESET_CONFIRMATION_CODE,
+} from './types';
 
 export default {
   [FIREBASE_PHONE_TRIGGER.PENDING]: (state: AuthState) => {
@@ -36,6 +40,10 @@ export default {
     { payload }: { payload: Error },
   ) => {
     state.error = payload;
+    state.confirmationResult = undefined;
+    state.loading = false;
+  },
+  [RESET_CONFIRMATION_CODE]: (state: AuthState) => {
     state.confirmationResult = undefined;
     state.loading = false;
   },

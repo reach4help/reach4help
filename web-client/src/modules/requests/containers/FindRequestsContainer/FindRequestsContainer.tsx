@@ -26,6 +26,7 @@ import { firestore } from 'src/firebase';
 import { OfferStatus } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
+import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -68,6 +69,10 @@ const FindRequestsContainer: React.FC = () => {
 
   const setOfferState = useSelector(
     ({ offers }: { offers: OffersState }) => offers.setAction,
+  );
+
+  const phoneNumber = useSelector(
+    (state: AppState) => state.auth.user?.phoneNumber,
   );
 
   useEffect(() => {
@@ -175,21 +180,25 @@ const FindRequestsContainer: React.FC = () => {
       profileState.profile.applicationPreference === ApplicationPreference.cav
     ) {
       dispatch(
-        setOffer({
-          cavUserRef: profileState.userRef,
-          pinUserRef:
-            pendingRequestsWithOffersAndTimeline.data[expandedRequestId]
-              .pinUserRef,
-          requestRef: firestore.collection('requests').doc(expandedRequestId),
-          cavUserSnapshot: profileState.profile,
-          requestSnapshot: pendingRequestsWithOffersAndTimeline.data[
-            expandedRequestId
-          ].getRequest(),
-          message: t(
-            'modules.requests.containers.FindRequestsContainer.want_to_help',
-          ),
-          status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
-        }),
+        setOffer(
+          {
+            cavUserRef: profileState.userRef,
+            pinUserRef:
+              pendingRequestsWithOffersAndTimeline.data[expandedRequestId]
+                .pinUserRef,
+            requestRef: firestore.collection('requests').doc(expandedRequestId),
+            cavUserSnapshot: profileState.profile,
+            requestSnapshot: pendingRequestsWithOffersAndTimeline.data[
+              expandedRequestId
+            ].getRequest(),
+            message: t(
+              'modules.requests.containers.FindRequestsContainer.want_to_help',
+            ),
+            status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
+          },
+          undefined,
+          phoneNumber,
+        ),
       );
     }
   };
