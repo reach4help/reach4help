@@ -116,6 +116,8 @@ export default createReducer<ProfileState>(
       state.error = undefined;
       state.loading = false;
       state.updateAction = true;
+      // This is a bad practice as Reducers are not supposed to have side effects, but this is an exception to make things simpler
+      window.location.href = '/';
     },
     [DELETE_ME.REJECTED]: (
       state: ProfileState,

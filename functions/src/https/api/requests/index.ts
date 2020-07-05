@@ -17,11 +17,11 @@ import { IPrivilegedUserInformation, PrivilegedUserInformation } from '../../../
 const RADIUS = 5; // In Miles
 
 /*
-* We are deleting privileged information when deleting a user instead of replacing address
-* The reason why we aren't replacing address with this in delete operation is because
-* We are soon migrating to a format where privileged information is not required to access the address for a request or offer
-* Instead we are assosciating each requrest/offer directly with the address
-*/
+ * We are deleting privileged information when deleting a user instead of replacing address
+ * The reason why we aren't replacing address with this in delete operation is because
+ * We are soon migrating to a format where privileged information is not required to access the address for a request or offer
+ * Instead we are assosciating each requrest/offer directly with the address
+ */
 const deletedAddress = {
   address1: '[Deleted Address]',
   address2: '[Deleted Address]',
@@ -30,7 +30,7 @@ const deletedAddress = {
   state: '[Deleted Address]',
   country: '[Deleted Address]',
   coords: new firestore.GeoPoint(0, 0),
-}
+};
 
 const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentReference) => {
   const result = await db
@@ -45,15 +45,18 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
   for (const doc of result.docs) {
     console.log('doc.id, doc.data: ', doc.id, JSON.stringify(doc.data()));
     const offer = Offer.factory(doc.data() as IOffer);
-    const cavPrivilegedInfo = offer.cavUserSnapshot.username === 'deleteduser' ? null : PrivilegedUserInformation.factory(
-      /* eslint-disable no-await-in-loop */
-      (
-        await offer.cavUserRef
-          .collection('privilegedInformation')
-          .doc(offer.cavUserRef.id)
-          .get()
-      ).data() as IPrivilegedUserInformation,
-    );
+    const cavPrivilegedInfo =
+      offer.cavUserSnapshot.username === 'deleteduser'
+        ? null
+        : PrivilegedUserInformation.factory(
+            /* eslint-disable no-await-in-loop */
+            (
+              await offer.cavUserRef
+                .collection('privilegedInformation')
+                .doc(offer.cavUserRef.id)
+                .get()
+            ).data() as IPrivilegedUserInformation,
+          );
 
     offersWithLocation[doc.id] = {
       ...offer.toObject(),

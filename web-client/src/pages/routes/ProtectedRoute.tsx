@@ -25,7 +25,6 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
   useEffect((): any => {
-    console.log('user has changed: ', user);
     if (user && user.uid) {
       return observeProfile(dispatch, { uid: user.uid });
     }
@@ -44,7 +43,6 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   }
 
   if (!user) {
-    console.log('redirecting to login page');
     return (
       <Redirect
         to={{
@@ -63,7 +61,6 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       profileState.privilegedInformation?.address
     )
   ) {
-    console.log('redirecting to the personal data page');
     return (
       <Redirect
         to={{
