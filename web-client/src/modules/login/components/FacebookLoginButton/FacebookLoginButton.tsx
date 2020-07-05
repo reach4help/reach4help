@@ -15,21 +15,17 @@ const FBButton = (props: any) => {
       onClick={onClick}
       block
       style={{
-        marginBottom: '8px',
+        display: 'flex',
+        justifyContent: 'space-around',
+        margin: '8px',
+        boxShadow: '1px 1px silver',
         paddingLeft: '10px',
         paddingRight: '10px',
         background: '#3B5998',
         color: 'white',
       }}
-      size="large"
     >
-      <img
-        src={FacebookLogo}
-        alt="Facebook Logo"
-        width="22px"
-        height="22px"
-        style={{ margin: '0 10px 3px 0' }}
-      />
+      <img src={FacebookLogo} alt="Facebook Logo" width="22px" height="22px" />
       <b>{t('login.facebookButtonLabel')}</b>
     </Button>
   );
