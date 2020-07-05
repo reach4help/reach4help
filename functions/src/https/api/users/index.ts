@@ -18,7 +18,7 @@ const deleteUserTimelines = async (userRef: firestore.DocumentReference, deleted
   return Promise.all(
     userTimelines.docs.map(doc =>
       doc.ref.update({
-        actorSnapshot: deletedUser,
+        actorSnapshot: deletedUser.toObject(),
       }),
     ),
   );
@@ -32,7 +32,7 @@ const updateOffersForRequest = async (requestRef: firestore.DocumentReference, d
   return Promise.all(
     offersForRequest.docs.map(async doc =>
       doc.ref.update({
-        requestSnapshot: deletedRequest,
+        requestSnapshot: deletedRequest.toObject(),
       }),
     ),
   );
@@ -48,7 +48,7 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
   return Promise.all(
     userRequests.docs.map(async doc => {
       doc.ref.update({
-        pinUserSnapshot: deletedUser,
+        pinUserSnapshot: deletedUser.toObject(),
         latLng: nullLatLng,
         streetAddress: deletedAddress,
       });
@@ -61,7 +61,7 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
       return Promise.all(
         requestTimelines.docs.map(timelineDoc =>
           timelineDoc.ref.update({
-            requestSnapshot: deletedRequestSnapshot,
+            requestSnapshot: deletedRequestSnapshot.toObject(),
           }),
         ),
       );
@@ -77,7 +77,7 @@ const deleteCavUserRequests = async (userRef: firestore.DocumentReference, delet
   return Promise.all(
     userRequests.docs.map(async doc => {
       doc.ref.update({
-        cavUserSnapshot: deletedUser,
+        cavUserSnapshot: deletedUser.toObject(),
       });
       const requestTimelines = await doc.ref.collection('timeline').get();
       const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
@@ -86,7 +86,7 @@ const deleteCavUserRequests = async (userRef: firestore.DocumentReference, delet
       return Promise.all(
         requestTimelines.docs.map(timelineDoc =>
           timelineDoc.ref.update({
-            requestSnapshot: deletedRequestSnapshot,
+            requestSnapshot: deletedRequestSnapshot.toObject(),
           }),
         ),
       );
@@ -102,7 +102,7 @@ const deleteCavUserOffers = async (userRef: firestore.DocumentReference, deleted
   return Promise.all(
     userOffers.docs.map(async doc =>
       doc.ref.update({
-        cavUserSnapshot: deletedUser,
+        cavUserSnapshot: deletedUser.toObject(),
       }),
     ),
   );
@@ -122,15 +122,23 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     deletedUser.username = 'deleteduser';
     deletedUser.cavQuestionnaireRef = null;
     deletedUser.pinQuestionnaireRef = null;
-    await deleteUserPrivilegedInformation(userRef);
+    console.log('about to begin user timelines');
     await deleteUserTimelines(userRef, deletedUser);
+    console.log('passed user timelines');
     await deletePinUserRequests(userRef, deletedUser);
+    console.log('passed pin user requests');
     await deleteCavUserRequests(userRef, deletedUser);
+    console.log('passed cav user requests');
     await deleteCavUserOffers(userRef, deletedUser);
+    console.log('passed cav user offers');
 
     // delete the user from auth itself.
+    await deleteUserPrivilegedInformation(userRef);
+    console.log('passed privilege');
     await auth?.deleteUser(userRef.id);
+    console.log('passed auth');
   } catch (err) {
+    console.log('error: ', err);
     throw new functions.https.HttpsError('internal', 'deleting all user data failed', err);
   }
 });
