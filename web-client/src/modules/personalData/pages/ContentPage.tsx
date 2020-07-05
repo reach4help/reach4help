@@ -36,6 +36,7 @@ const ContentPage = (): ReactElement => {
   const redirectBack = get(location, 'state.redirectBack');
 
   useEffect((): any => {
+    console.log('user has changed: ', user);
     if (user && user.uid) {
       return observeProfile(dispatch, { uid: user.uid });
     }
@@ -57,6 +58,7 @@ const ContentPage = (): ReactElement => {
   }
 
   if (!user) {
+    console.log('redirecting to login page');
     return (
       <Redirect
         to={{
