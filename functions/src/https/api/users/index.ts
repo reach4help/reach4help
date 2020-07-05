@@ -94,6 +94,7 @@ const deleteCavUserRequests = async (userRef: firestore.DocumentReference, delet
       const requestTimelines = await doc.ref.collection('timeline').get();
       const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
       deletedRequestSnapshot.cavUserSnapshot = deletedUser;
+      await updateOffersForRequest(doc.ref, deletedRequestSnapshot);
       return Promise.all(
         requestTimelines.docs.map(timelineDoc =>
           timelineDoc.ref.update({
