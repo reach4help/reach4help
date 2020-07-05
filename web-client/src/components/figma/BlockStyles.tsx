@@ -15,31 +15,19 @@ const LogoWrapper = styled.div`
   margin-bottom: 30px;
 `;
 
-const StepWrapper = styled.div`
+const StepWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   margin-top: 25px;
 `;
 
-const FormWrapper = styled.div`
-  .ant-form-item {
-    margin-bottom: 12px;
-
-    .ant-form-item-label {
-      label {
-        height: auto;
-      }
-    }
-  }
-`;
-
-const FormLabel = styled.div`
+const FormLabel = styled('div')`
   display: flex;
   justify-content: spa ce-around;
   text-align: center;
 `;
 
-const Explanation = styled.div`
+const Explanation = styled('div')`
   display: flex;
   padding: 25px;
   max-width: 550px;
@@ -66,15 +54,14 @@ const ButtonWrapper = styled.div`
 const Splitter = styled.div`
   height: 0;
   margin: 50 0;
-  border: 1px solid rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.85);
   width: 38%;
 `;
 
 const OrDividerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  color: rgba(0, 0, 0, 0.35);
-  /* margin: 50px; */
+  margin: 50px;
 `;
 
 const OrWordWrapper = styled.div`
@@ -179,7 +166,6 @@ const SettingsTopPanelDisplayName = styled(Text)`
 export {
   ButtonWrapper,
   Explanation,
-  FormWrapper,
   FormLabel,
   LoginButtonsWrapper,
   LogoWrapper,
