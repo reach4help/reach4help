@@ -32,31 +32,26 @@ const Step1SelectLanguage: React.FC<Step1SelectLanguageProps> = ({
   };
 
   return (
-    <StepWrapper style={{ paddingBottom: '10px' }}>
+    <StepWrapper>
       <LogoWrapper>
         <img src={logoLarge} alt="logo" height="125px" width="125px" />
       </LogoWrapper>
-      <div style={{ paddingBottom: '5px' }}>
-        <Explanation style={{ padding: 0 }}>
-          <H6Font>{t('login.steps.0_welcome.welcome')}</H6Font>
-        </Explanation>
-        <Explanation style={{ padding: 0 }}>
-          <H6Font>{t('login.steps.2_explanation.purpose')}</H6Font>
-        </Explanation>
-      </div>
       <TitleWithAddon level={2} alignAddon="50%">
         {' '}
       </TitleWithAddon>
-
+      <Explanation>
+        <H6Font>{t('login.steps.0_welcome.welcome')}</H6Font>
+      </Explanation>
+      <Explanation>
+        <H6Font>{t('login.steps.2_explanation.purpose')}</H6Font>
+      </Explanation>
       <Select
         defaultValue={currentLanguage}
         showSearch
         style={{
           margin: 'auto',
-          marginTop: '20px',
-          width: '100%',
+          width: '200px',
         }}
-        size="large"
         optionFilterProp="children"
         filterOption={(input, option) =>
           option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -71,7 +66,7 @@ const Step1SelectLanguage: React.FC<Step1SelectLanguageProps> = ({
         ))}
       </Select>
       <ContinueButtonWrapper>
-        <ContinueButton type="primary" onClick={incrementStep} size="large">
+        <ContinueButton type="primary" onClick={incrementStep}>
           {t('login.steps.continue')}
         </ContinueButton>
       </ContinueButtonWrapper>

@@ -10,7 +10,6 @@ import {
   LoginButtonsWrapper,
   LogoWrapper,
   OrDivider,
-  StepWrapper,
 } from 'src/components/figma/';
 
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
@@ -24,29 +23,27 @@ const StepAuthentication: React.FC<StepAuthenticationProps> = ({
   const { t } = useTranslation();
 
   return (
-    <StepWrapper>
+    <>
       <LogoWrapper>
-        <img src={logoSmall} alt="logo" height="70px" width="70px" />
+        <img src={logoSmall} alt="logo" height="50px" width="50px" />
       </LogoWrapper>
       <Explanation>
         <H6Font>{t('login.steps.2_authentication.please')}</H6Font>
       </Explanation>
       <LoginButtonsWrapper>
-        <ButtonWrapper style={{ width: '100%' }}>
+        <ButtonWrapper>
           <GoogleLoginButton onAuthenticate={onLoginGoogle} />
         </ButtonWrapper>
-        <ButtonWrapper style={{ width: '100%' }}>
+        <ButtonWrapper>
           <FacebookLoginButton onAuthenticate={onLoginFacebook} />
         </ButtonWrapper>
       </LoginButtonsWrapper>
       <OrDivider />
-      <ButtonWrapper style={{ width: '100%' }}>
-        <MailAuthButton onClick={() => goToSignIn()} size="large">
-          <MailOutlined />
-          {t('login.steps.2_authentication.email_signin')}
-        </MailAuthButton>
-      </ButtonWrapper>
-    </StepWrapper>
+      <MailAuthButton onClick={() => goToSignIn()}>
+        <MailOutlined />
+        {t('login.steps.2_authentication.email_signin')}
+      </MailAuthButton>
+    </>
   );
 };
 

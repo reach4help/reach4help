@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 
 import Step1 from './Step1SelectLanguage';
 import Step2 from './Step2Authentication';
@@ -57,15 +56,10 @@ const RegistrationSteps: React.FC<RegistrationStepsProps> = ({
 
   return (
     <>
-      <StepsContent>{steps[currentStep].content}</StepsContent>
+      <div className="steps-content">{steps[currentStep].content}</div>
     </>
   );
 };
-
-const StepsContent = styled.div`
-  width: 100%;
-  max-width: 400px;
-`;
 
 interface RegistrationStepsProps {
   currentStep: number;

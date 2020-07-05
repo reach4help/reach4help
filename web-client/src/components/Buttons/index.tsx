@@ -3,17 +3,15 @@ import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 export const ContinueButtonWrapper = styled.div`
-  margin-top: 50px;
-  margin-bottom: 30px;
-
   display: flex;
   justify-content: space-around;
 `;
 
 export const ContinueButton = styled(Button)`
+  margin-top: 50px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: space-around;
-  width: 100%;
 `;
 
 export const MailAuthButton = styled(Button)`
@@ -23,7 +21,8 @@ export const MailAuthButton = styled(Button)`
   background: linear-gradient(172.72deg, #f27979 2.64%, #7d00a3 97.36%);
   /* button */
 
-  border-color: transparent;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
   white-space: nowrap;
   width: 100%;
   color: white;
