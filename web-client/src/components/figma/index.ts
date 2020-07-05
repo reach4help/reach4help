@@ -2,6 +2,7 @@ import {
   ButtonWrapper,
   Explanation,
   FormLabel,
+  FormWrapper,
   LoginButtonsWrapper,
   LogoWrapper,
   OrDivider,
@@ -36,4 +37,5 @@ export {
   OrDivider,
   StepWrapper,
   FormLabel,
+  FormWrapper,
 };
