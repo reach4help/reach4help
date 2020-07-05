@@ -27,7 +27,7 @@ const deleteUserTimelines = async (userRef: firestore.DocumentReference, deleted
     .collectionGroup('timeline')
     .where('actorRef', '==', userRef)
     .get();
-  await Promise.all(
+  return Promise.all(
     userTimelines.docs.map(doc =>
       doc.ref.update({
         actorSnapshot: deletedUser,
@@ -41,7 +41,7 @@ const updateOffersForRequest = async (requestRef: firestore.DocumentReference, d
     .collection('offers')
     .where('requestRef', '==', requestRef)
     .get();
-  await Promise.all(
+  return Promise.all(
     offersForRequest.docs.map(async doc =>
       doc.ref.update({
         requestSnapshot: deletedRequest,
@@ -57,7 +57,7 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
     .get();
   const nullLatLng = new firestore.GeoPoint(0, 0);
   const deletedAddress = 'deleted address';
-  await Promise.all(
+  return Promise.all(
     userRequests.docs.map(async doc => {
       doc.ref.update({
         pinUserSnapshot: deletedUser,
@@ -86,7 +86,7 @@ const deleteCavUserRequests = async (userRef: firestore.DocumentReference, delet
     .collection('requests')
     .where('cavUserRef', '==', userRef)
     .get();
-  await Promise.all(
+  return Promise.all(
     userRequests.docs.map(async doc => {
       doc.ref.update({
         cavUserSnapshot: deletedUser,
@@ -110,7 +110,7 @@ const deleteCavUserOffers = async (userRef: firestore.DocumentReference, deleted
     .collection('offers')
     .where('cavUserRef', '==', userRef)
     .get();
-  await Promise.all(
+  return Promise.all(
     userOffers.docs.map(async doc =>
       doc.ref.update({
         cavUserSnapshot: deletedUser,
