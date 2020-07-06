@@ -93,7 +93,9 @@ const FindRequestsContainer: React.FC = () => {
      */
     if (!setOfferState.loading) {
       if (!setOfferState.success || setOfferState.success === 2) {
-        dispatch(resetSetRequestState());
+        setTimeout(() => {
+          dispatch(resetSetRequestState());
+        }, 100);
       } else if (setOfferState.success && setOfferState.success === 1) {
         setTimeout(() => {
           history.push(OpenRequestsLocation.path);
