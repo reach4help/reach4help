@@ -150,7 +150,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       } else {
         if (
           !requestsState.syncOpenRequestsState.data &&
-          !requestsState.syncOngoingRequestsState.loading
+          !requestsState.syncOpenRequestsState.loading
         ) {
           dispatch(
             getOpenRequests({
