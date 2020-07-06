@@ -93,6 +93,11 @@
       "info": "Ciao! Grazie mille per il vostro interesse ad aiutare la vostra comunità! Per garantire la sicurezza dei nostri utenti, al momento abbiamo bisogno di accedere tramite Google o Facebook per verificare la tua identità e contattarti in caso di discrepanze.\n\nDopo questo passaggio, ti verrà chiesto di fornire il tuo numero di telefono e di verificarlo attraverso un codice che riceverai tramite testo. Questo è il modo in cui le persone che offrono aiuto si metteranno in contatto con voi! Le informazioni di contatto sono condivise solo con l'altra persona quando hai approvato la persona che offre di aiutarle. Quando si invia una richiesta di aiuto, la posizione esatta non è condivisa (solo le prime tre cifre del codice postale).\nGrazie per la vostra collaborazione nel rendere il nostro mondo un posto più sicuro e più utile! Se avete domande, vi preghiamo di contattarci a support@reach4help. rg.",
       "facebookButtonLabel": "Accedi con Facebook",
       "googleButtonLabel": "Continua con Google",
+      "sign_in": {
+        "title": "Login with email",
+        "password_label": "Password",
+        "password_error_message": "Please input your password"
+      },
       "steps": {
         "continue": "Continue",
         "footer": {
@@ -100,7 +105,7 @@
         },
         "0_welcome": {
           "title": "Welcome",
-          "welcome": "Welcome to Reach4Help",
+          "welcome": "Welcome to Reach4Help!",
           "thanks": "Thank you so much for your interest in helping your community"
         },
         "1_select_language": {
@@ -109,11 +114,12 @@
         },
         "2_explanation": {
           "title": "Explanation",
-          "purpose": "Through our platform, you will be able to connect with others to receive and provide help to people in your area",
+          "purpose": "Through our platform, you’ll be able to connect with people to recieve and provide help to people in your area!",
           "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
         },
-        "3_authentication": {
+        "2_authentication": {
           "email_signup": "Sign up with email",
+          "email_signin": "Continue with email",
           "title": "Identity",
           "please": "Please sign up with one of the providers below",
           "popup_explanation": {
@@ -123,13 +129,27 @@
             "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
           }
         },
-        "4_email_signup": {
+        "3_email_signin": {
+          "title": "Login with email",
+          "signin": "Login",
           "email_label": "Email",
-          "email_message": "Please input your email",
-          "password_label": "Choose Password",
-          "password_message": "Please input the password you will use for Reach4Help",
-          "password_confirm_label": "Confirm New Password",
-          "password_confirm_message": "Your passwords must match"
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        },
+        "4_email_signup": {
+          "title": "Sign up with email",
+          "create_account": "Create Account",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
         }
       }
     },
@@ -137,30 +157,52 @@
       "contactUs": "Contattaci",
       "logout": "Esci",
       "switchToCAV": "Passa all'offerta di supporto",
-      "switchToPIN": "Passa a cercare aiuto"
+      "switchToPIN": "Passa a cercare aiuto",
+      "settings": "Settings"
+    },
+    "settings": {
+      "heading": "Settings",
+      "changeName": "Change my name",
+      "deleteAccount": "Delete my account",
+      "changeNameForm": {
+        "full_name_error_message": "Please enter your name",
+        "display_name_error_message": "Please enter your display name",
+        "cancel": "Cancel",
+        "submit": "Save"
+      },
+      "deleteAccountModal": {
+        "title": "Are you sure you want to delete your account",
+        "body": "Closing your account means you will no longer be able to provide help or ask for help",
+        "deleteAccount": "Delete my account"
+      }
     },
     "phoneNumber": {
-      "select_instructions": "Scegli dal menu a tendina sotto",
-      "input_instructions": "Inserisci le tue cifre",
-      "sub_title": "Imposta numero di telefono per iniziare",
+      "title": "Before you continue...",
+      "select_instructions": "Enter your country",
+      "input_instructions": "Enter your phone number",
+      "sub_title": "We need to ask you for your phone number so you can communicate with the person helping you. You'll be asked to verify it with a code via text.",
       "info": "Queste informazioni sono fondamentali per convalidare il tuo account. Potrebbero essere applicati dati e tasse.",
       "error_message": "Inserisci il tuo numero di telefono!",
-      "phone_valid": "Un numero di telefono valido inizia con + e il codice paese senza spazi o altri caratteri speciali nel campo!",
+      "phone_valid": "A valid phone number starts with + and country code without any spaces or other special characters in the field!",
       "no_country_error": "Occorre scegliere un paese.",
       "no_digits_error": "È necessario inserire anche le cifre del telefono.",
-      "is_valid_number": "{0} non è un numero di telefono valido",
-      "is_not_valid_number": "{0} non è un numero di telefono valido",
-      "is_plus_11": " non è un numero di telefono valido. Non inserire il codice paese nella casella di input. Usare solo il selettore del paese",
+      "is_valid_number": "is a valid phone number",
+      "is_not_valid_number": "is not a valid phone number",
+      "is_plus_11": " is not a valid phone number. Please only use the country selector for your country code and not include it in your phone number.",
       "country_label": "Il tuo paese",
       "country_placeholder": "Seleziona la nazione",
       "phone_label": "Inserite il vostro numero di telefono",
-      "bad_11_prefix": "Numero non valido: +11 è il prefisso paese per Bulgaria, non Canada o Stati Uniti. Non mettere '1' come cifra iniziale"
+      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit.",
+      "popup_explanation": {
+        "main_question": "How is my phone number used?",
+        "main_answer": "Your number is shared only with the person you explicitly accept to help you so that you can communicate with each other to carry out the request."
+      }
     },
     "verificationCode": {
       "sub_title": "Ti abbiamo appena inviato un codice di conferma. Inserisci qui sotto.",
       "info": "Se non hai ricevuto un codice per favore clicca ",
       "resend": "inviare di nuovo",
-      "error_message": "Inserisci il numero ricevuto qui!"
+      "error_message": "Insert the received code here!"
     },
     "newRequest": {
       "title": "Nuova richiesta",
@@ -218,7 +260,8 @@
       "_requests_finished": "Richieste Chiuse",
       "_requests_new": "Nuova richiesta",
       "_requests_ongoing": "Richieste In Corso",
-      "_requests_open": "Domande aperte"
+      "_requests_open": "Domande aperte",
+      "_settings": "Settings"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} ha creato questa richiesta.",
