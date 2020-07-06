@@ -116,10 +116,10 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     let countryCode;
     let number;
     if (isDigits) {
-      countryCode = dialCode;
+      countryCode = dialCode.replace(/\D/g, '');
       number = value.replace(/\D/g, '');
     } else {
-      countryCode = value;
+      countryCode = value.replace(/\D/g, '');
       number = digits;
     }
 
