@@ -93,6 +93,11 @@
       "info": "Bonjour! Merci beaucoup de votre intérêt à aider votre communauté! Pour assurer la sécurité de nos utilisateurs, nous avons actuellement besoin d'une connexion via Google ou Facebook pour vérifier votre identité et vous contacter en cas de divergence.\n\nAprès cette étape, il vous sera demandé de fournir votre numéro de téléphone et de le vérifier via un code que vous recevrez par SMS. C'est ainsi que les personnes offrant de l'aide entreront en contact avec vous! Les informations de contact ne sont partagées avec l'autre personne que si vous avez approuvé la personne qui propose de l'aider. Lorsque vous soumettez une demande d'aide, votre position précise n'est pas partagée (uniquement les trois premiers chiffres de votre code postal).\n\nMerci de votre coopération pour faire de notre monde un endroit plus sûr et plus utile! Si vous avez des questions, veuillez nous contacter à support@reach4help.org.",
       "facebookButtonLabel": "Poursuivre avec Facebook",
       "googleButtonLabel": "Continuer avec Google",
+      "sign_in": {
+        "title": "Login with email",
+        "password_label": "Password",
+        "password_error_message": "Please input your password"
+      },
       "steps": {
         "continue": "Continuer",
         "footer": {
@@ -100,7 +105,7 @@
         },
         "0_welcome": {
           "title": "Bienvenue",
-          "welcome": "Bienvenue sur Reach4Help",
+          "welcome": "Welcome to Reach4Help!",
           "thanks": "Merci beaucoup pour votre intérêt à aider votre communauté"
         },
         "1_select_language": {
@@ -109,27 +114,42 @@
         },
         "2_explanation": {
           "title": "Explication",
-          "purpose": "Grâce à notre plateforme, vous serez en mesure de vous connecter avec d'autres personnes pour recevoir et fournir de l'aide aux gens de votre région",
+          "purpose": "Through our platform, you’ll be able to connect with people to recieve and provide help to people in your area!",
           "connect": "Vous pouvez communiquer avec des bénévoles et des personnes dans le besoin et des personnes dans le besoin en créant des demandes d'aide et en offrant de l'aide pour ces demandes."
         },
-        "3_authentication": {
+        "2_authentication": {
           "email_signup": "Sign up with email",
-          "title": "Identité",
-          "please": "Veuillez vous inscrire avec l'un des fournisseurs ci-dessous",
+          "email_signin": "Continue with email",
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
           "popup_explanation": {
-            "main_question": "Pourquoi avez-vous besoin d'un compte externe ?",
-            "main_answer": "Pour assurer la sécurité de nos utilisateurs, nous avons actuellement besoin de vous connecter via Google ou Facebook. Il s'agit de fournir une autre couche de vérification à nos utilisateurs au cas où nous aurions besoin de vous contacter.",
-            "second_question": "Puis-je utiliser d'autres moyens pour vérifier mon identité?",
-            "second_answer": "Si vous n’êtes pas à l’aise avec Google/Facebook, vous pouvez proposer une alternative à"
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
           }
         },
-        "4_email_signup": {
+        "3_email_signin": {
+          "title": "Login with email",
+          "signin": "Login",
           "email_label": "Email",
-          "email_message": "Please input your email",
-          "password_label": "Choose Password",
-          "password_message": "Please input the password you will use for Reach4Help",
-          "password_confirm_label": "Confirm New Password",
-          "password_confirm_message": "Your passwords must match"
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        },
+        "4_email_signup": {
+          "title": "Sign up with email",
+          "create_account": "Create Account",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
         }
       }
     },
@@ -137,30 +157,52 @@
       "contactUs": "Contactez-nous",
       "logout": "Se déconnecter",
       "switchToCAV": "Basculer vers le offrir de l'aide",
-      "switchToPIN": "Basculer vers Chercher Pour L'aide"
+      "switchToPIN": "Basculer vers Chercher Pour L'aide",
+      "settings": "Settings"
+    },
+    "settings": {
+      "heading": "Settings",
+      "changeName": "Change my name",
+      "deleteAccount": "Delete my account",
+      "changeNameForm": {
+        "full_name_error_message": "Please enter your name",
+        "display_name_error_message": "Please enter your display name",
+        "cancel": "Cancel",
+        "submit": "Save"
+      },
+      "deleteAccountModal": {
+        "title": "Are you sure you want to delete your account",
+        "body": "Closing your account means you will no longer be able to provide help or ask for help",
+        "deleteAccount": "Delete my account"
+      }
     },
     "phoneNumber": {
-      "select_instructions": "Choisissez dans le menu déroulant ci-dessous",
-      "input_instructions": "Saisissez vos chiffres telefonique",
-      "sub_title": "Entrez votre numéro de téléphone pour commencer",
+      "title": "Before you continue...",
+      "select_instructions": "Enter your country",
+      "input_instructions": "Enter your phone number",
+      "sub_title": "We need to ask you for your phone number so you can communicate with the person helping you. You'll be asked to verify it with a code via text.",
       "info": "Ces informations sont essentielles pour valider votre compte. Des frais de données peuvent être appliqués par votre opérateur.",
       "error_message": "Veuillez saisir votre numéro de téléphone !",
-      "phone_valid": "Un numéro de téléphone valide commence par + suivi par l'indicatif téléphonique, sans espace ou caractères spéciaux !",
+      "phone_valid": "A valid phone number starts with + and country code without any spaces or other special characters in the field!",
       "no_country_error": "Indiquez votre pays.",
       "no_digits_error": "Entrer votre numéro de téléphone.",
-      "is_valid_number": "est un numéro de téléphone valide",
-      "is_not_valid_number": "n'est pas un numéro de téléphone valide",
-      "is_plus_11": " n'est pas un numéro de téléphone valide. Entrez votre numéro de téléphone avec indicatif régional seulement.",
+      "is_valid_number": "is a valid phone number",
+      "is_not_valid_number": "is not a valid phone number",
+      "is_plus_11": " is not a valid phone number. Please only use the country selector for your country code and not include it in your phone number.",
       "country_label": "Votre pays",
       "country_placeholder": "Sélectionnez votre pays",
       "phone_label": "Entrez votre numéro de téléphone",
-      "bad_11_prefix": "Numéro invalide : +11 est l'indicatif téléphonique pour la Bulgarie, pas le Canada ou les États-Unis. "
+      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit.",
+      "popup_explanation": {
+        "main_question": "How is my phone number used?",
+        "main_answer": "Your number is shared only with the person you explicitly accept to help you so that you can communicate with each other to carry out the request."
+      }
     },
     "verificationCode": {
       "sub_title": "Nous venons de vous envoyer un code de confirmation par SMS. Veuillez le saisir ci-dessous.",
       "info": "Si vous n'avez pas reçu de code, veuillez cliquer ",
       "resend": "renvoyer",
-      "error_message": "Entrez le numéro reçu ici !"
+      "error_message": "Insert the received code here!"
     },
     "newRequest": {
       "title": "Nouvelle Demande",
@@ -218,7 +260,8 @@
       "_requests_finished": "Demandes Complétées",
       "_requests_new": "Nouvelle Demande",
       "_requests_ongoing": "Demandes En Cours",
-      "_requests_open": "Demandes Ouvertes"
+      "_requests_open": "Demandes Ouvertes",
+      "_settings": "Settings"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} a créé cette demande.",
