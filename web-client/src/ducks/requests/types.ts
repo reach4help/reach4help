@@ -38,6 +38,8 @@ export const GET_ARCHIVED = asyncType('GET_ARCHIVED');
 
 export const UPDATE = asyncType('UPDATE');
 
+export const SET_TEMP_REQUEST = syncType('SET_TEMP_REQUEST');
+
 export interface RequestState {
   syncOpenRequestsState: {
     loading: boolean;
@@ -99,6 +101,10 @@ export interface RequestState {
     loading: boolean;
     modalState: boolean;
     error?: Error;
+  };
+  newRequestTemp?: {
+    requestPayload: Request;
+    requestId: string;
   };
 }
 

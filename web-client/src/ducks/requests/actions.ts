@@ -27,6 +27,7 @@ import {
   OBSERVE_REMOVED_REQUESTS,
   RESET_SET,
   SET,
+  SET_TEMP_REQUEST,
 } from './types';
 
 const requestStatusMapper = {
@@ -115,20 +116,26 @@ export const observeNonOpenRequests = (
     });
 };
 
-export const setRequest = (payload: IRequest, requestId?: string) => (
-  dispatch: Function,
-) => {
+export const setRequest = (
+  payload: IRequest,
+  requestId?: string,
+  phoneNumber?: string | null,
+) => (dispatch: Function) => {
   const requestPayload = Request.factory({
     ...payload,
   });
 
   dispatch({
-    type: SET,
+    type: phoneNumber ? SET : SET_TEMP_REQUEST,
     payload: {
       requestPayload,
       requestId,
     },
-    firebase: requestId ? setUserRequest : createUserRequest,
+    firebase: phoneNumber
+      ? requestId
+        ? setUserRequest
+        : createUserRequest
+      : null,
   });
 };
 

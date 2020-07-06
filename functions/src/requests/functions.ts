@@ -193,6 +193,21 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
   return validateRequest(change.after.data() as IRequest)
     .then(() => {
+      // Check if this was a delete user operation or not
+      const requestBefore = change.before.exists ? (change.before.data() as Request) : null;
+      const requestAfter = change.after.exists ? (change.after.data() as Request) : null;
+      if (
+        requestBefore?.status === requestAfter?.status &&
+        (requestAfter?.pinUserSnapshot.displayName === 'Deleted User' || requestAfter?.cavUserSnapshot?.displayName === 'Deleted User')
+      ) {
+        return;
+      }
+      console.log('requestBefore.status: ', requestBefore?.status);
+      console.log('requestAfter.status: ', requestAfter?.status);
+      console.log('requestAfter.pinUserSnapshot.displayName: ', requestAfter?.pinUserSnapshot.displayName);
+      console.log('requestBefore.pinUserSnapshot.displayName: ', requestBefore?.pinUserSnapshot.displayName);
+      console.log('requestAfter.cavUserSnapshot.displayName: ', requestAfter?.cavUserSnapshot?.displayName);
+      console.log('requestBefore.cavUserSnapshot.displayName: ', requestBefore?.cavUserSnapshot?.displayName);
       return Promise.all([
         queueStatusUpdateTriggers(change),
         queueRatingUpdatedTriggers(change),

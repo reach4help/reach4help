@@ -139,6 +139,17 @@ export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: Event
 export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context: EventContext) => {
   return validateOffer(change.after.data() as IOffer)
     .then(() => {
+      const offerBefore = change.before.exists ? (change.before.data() as Offer) : null;
+      const offerAfter = change.after.exists ? (change.after.data() as Offer) : null;
+      if (offerBefore?.status === offerAfter?.status && offerAfter?.cavUserSnapshot.displayName === 'Deleted User') {
+        return;
+      }
+      console.log('offerBefore.status: ', offerBefore?.status);
+      console.log('offerAfter.status: ', offerAfter?.status);
+      console.log('offerAfter.request: ', offerAfter?.requestSnapshot);
+      console.log('requestBefore.request: ', offerBefore?.requestSnapshot);
+      console.log('requestAfter.cavUserSnapshot.displayName: ', offerAfter?.cavUserSnapshot?.displayName);
+      console.log('requestBefore.cavUserSnapshot.displayName: ', offerAfter?.cavUserSnapshot?.displayName);
       return Promise.all([
         queueStatusUpdateTriggers(change),
         queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, 'offer', change.after as firestore.DocumentSnapshot<Offer>),

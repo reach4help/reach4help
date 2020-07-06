@@ -1,6 +1,8 @@
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
-export const { asyncType, observerType } = createActionTypeFactory('AUTH');
+export const { asyncType, observerType, syncType } = createActionTypeFactory(
+  'AUTH',
+);
 
 export const LOGIN = asyncType('LOGIN');
 export const LOGOUT = asyncType('LOGOUT');
