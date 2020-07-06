@@ -23,7 +23,7 @@ import {
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
-import { OfferStatus } from 'src/models/offers';
+import { Offer, OfferStatus } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 import { AppState } from 'src/store';
@@ -71,9 +71,26 @@ const FindRequestsContainer: React.FC = () => {
     ({ offers }: { offers: OffersState }) => offers.setAction,
   );
 
+  const tempOffer = useSelector(
+    ({ offers }: { offers: OffersState }) => offers.newOfferTemp,
+  );
+
   const phoneNumber = useSelector(
     (state: AppState) => state.auth.user?.phoneNumber,
   );
+
+  useEffect(() => {
+    if (
+      tempOffer?.offerPayload &&
+      tempOffer.offerPayload instanceof Offer &&
+      !tempOffer?.offerId &&
+      phoneNumber &&
+      !setOfferState.loading &&
+      !setOfferState.success
+    ) {
+      dispatch(setOffer(tempOffer.offerPayload, undefined, phoneNumber));
+    }
+  }, [phoneNumber, tempOffer, dispatch, setOfferState]);
 
   useEffect(() => {
     /*
