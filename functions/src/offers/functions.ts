@@ -144,6 +144,12 @@ export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context:
       if (offerBefore?.status === offerAfter?.status && offerAfter?.cavUserSnapshot.displayName === 'Deleted User') {
         return;
       }
+      console.log('offerBefore.status: ', offerBefore?.status);
+      console.log('offerAfter.status: ', offerAfter?.status);
+      console.log('offerAfter.request: ', offerAfter?.requestSnapshot);
+      console.log('requestBefore.request: ', offerBefore?.requestSnapshot);
+      console.log('requestAfter.cavUserSnapshot.displayName: ', offerAfter?.cavUserSnapshot?.displayName);
+      console.log('requestBefore.cavUserSnapshot.displayName: ', offerAfter?.cavUserSnapshot?.displayName);
       return Promise.all([
         queueStatusUpdateTriggers(change),
         queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, 'offer', change.after as firestore.DocumentSnapshot<Offer>),
