@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import { AuthState } from '../../../../ducks/auth/types';
 import {
+  deleteUserData,
   observeProfile,
   updateUserProfile,
 } from '../../../../ducks/profile/actions';
@@ -41,7 +42,12 @@ const SettingsContainer: React.FC = () => {
     return <LoadingWrapper />;
   }
 
-  const deleteAccountHandler = () => '';
+  const deleteAccountHandler = () => {
+    const user = profileState.profile;
+    if (user && authState.user) {
+      dispatch(deleteUserData());
+    }
+  };
   const deleteAccountClickHandler = () => {
     Modal.confirm({
       title: `${t('settings.deleteAccountModal.title')}?`,

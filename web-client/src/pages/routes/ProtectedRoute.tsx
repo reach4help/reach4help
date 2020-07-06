@@ -12,7 +12,10 @@ import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import { LoginLocation } from '../../modules/login/pages/routes/LoginRoute/constants';
 
 const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
-  const auth = useSelector((state: AppState) => state.auth);
+  const user = useSelector((state: AppState) => state.auth.user);
+  const observerReceivedFirstUpdate = useSelector(
+    (state: AppState) => state.auth.observerReceivedFirstUpdate,
+  );
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
@@ -22,24 +25,24 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
   useEffect((): any => {
-    if (auth.user && auth.user.uid) {
-      return observeProfile(dispatch, { uid: auth.user.uid });
+    if (user && user.uid) {
+      return observeProfile(dispatch, { uid: user.uid });
     }
     return undefined;
-  }, [dispatch, auth]);
+  }, [dispatch, user]);
 
   useEffect((): any => {
-    if (auth.user && auth.user.uid) {
-      return observePrivileged(dispatch, { uid: auth.user.uid });
+    if (user && user.uid) {
+      return observePrivileged(dispatch, { uid: user.uid });
     }
     return undefined;
-  }, [dispatch, auth]);
+  }, [dispatch, user]);
 
-  if (!auth.observerReceivedFirstUpdate || !auth.observerReceivedFirstUpdate) {
+  if (!observerReceivedFirstUpdate) {
     return <LoadingWrapper />;
   }
 
-  if (!auth.user) {
+  if (!user) {
     return (
       <Redirect
         to={{

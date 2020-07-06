@@ -5,10 +5,8 @@ html,
 body {
   /* to fix bouncing scroll */
   /* https://stackoverflow.com/questions/21209223/remove-bounce-on-scroll-in-browser-issue-with-positionfixed-div */
-  overflow: hidden;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 /*TODO: fix after we put a general layout */

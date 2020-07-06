@@ -16,6 +16,7 @@ import Map from 'src/components/WebClientMap/WebClientMap';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
+import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -54,6 +55,14 @@ const NewRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
+  const [mapAddress, setMapAddress] = useState<string>(
+    () =>
+      getStreetAddressFromProfile(profileState) || 'Address could not be found',
+  );
+  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
+    getCoordsFromProfile(profileState),
+  );
+
   const newRequestState = useSelector(
     ({ requests }: { requests: RequestState }) => requests.setAction,
   );
@@ -61,6 +70,27 @@ const NewRequestsContainer: React.FC = () => {
   const newRequestTemp = useSelector(
     ({ requests }: { requests: RequestState }) => requests.newRequestTemp,
   );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (
+      newRequestTemp?.requestPayload &&
+      newRequestTemp.requestPayload instanceof Request &&
+      !newRequestTemp?.requestId &&
+      phoneNumber &&
+      !newRequestState.loading &&
+      !newRequestState.success
+    ) {
+      dispatch(
+        setRequest(
+          newRequestTemp.requestPayload.toObject() as IRequest,
+          undefined,
+          phoneNumber,
+        ),
+      );
+    }
+  }, [phoneNumber, newRequestTemp, dispatch, newRequestState]);
 
   useEffect(() => {
     if (newRequestTemp && newRequestTemp.requestPayload) {
@@ -76,16 +106,6 @@ const NewRequestsContainer: React.FC = () => {
       setShowReviewPage(true);
     }
   }, [newRequestTemp]);
-
-  const [mapAddress, setMapAddress] = useState<string>(
-    () =>
-      getStreetAddressFromProfile(profileState) || 'Address could not be found',
-  );
-  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
-    getCoordsFromProfile(profileState),
-  );
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (newRequestState.success) {

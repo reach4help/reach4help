@@ -202,6 +202,12 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
       ) {
         return;
       }
+      console.log('requestBefore.status: ', requestBefore?.status);
+      console.log('requestAfter.status: ', requestAfter?.status);
+      console.log('requestAfter.pinUserSnapshot.displayName: ', requestAfter?.pinUserSnapshot.displayName);
+      console.log('requestBefore.pinUserSnapshot.displayName: ', requestBefore?.pinUserSnapshot.displayName);
+      console.log('requestAfter.cavUserSnapshot.displayName: ', requestAfter?.cavUserSnapshot?.displayName);
+      console.log('requestBefore.cavUserSnapshot.displayName: ', requestBefore?.cavUserSnapshot?.displayName);
       return Promise.all([
         queueStatusUpdateTriggers(change),
         queueRatingUpdatedTriggers(change),

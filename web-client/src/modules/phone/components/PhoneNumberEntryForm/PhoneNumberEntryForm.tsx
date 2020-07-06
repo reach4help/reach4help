@@ -20,6 +20,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   const [form] = Form.useForm();
   const [recaptchaVerifier, setRecaptchaVerifier] = useState({});
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const [digits, setDigits] = useState<string>('');
   const [dialCode, setDialCode] = useState<string>('');
   const [numberValidMessage, setNumberValidMessage] = useState<string>('');
@@ -109,10 +110,16 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     }
     setNumberValidMessage('');
     setNumberINValidMessage(message);
-    return Promise.resolve();
+    return Promise.reject();
   };
 
-  const fullTelephoneValidator = (value, isDigits = false) => {
+  // We might need to do something similar to this initialCheck here to prevent the error message from staying
+  const fullTelephoneValidator = (
+    value,
+    isDigits = false,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+    initialCheck = false,
+  ) => {
     /* TODO:  Check if this conditional is needed */
     if (!value) {
       if (isDigits) {
@@ -177,7 +184,8 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       autoComplete="off"
       layout="vertical"
       form={form}
-      onFinish={({ prefix, suffix }) => {
+      onFinish={async ({ prefix, suffix }) => {
+        await fullTelephoneValidator(suffix, true, true);
         handleFormSubmit(
           {
             phoneNumber: `+${prefix.replace(/\D/g, '')}${suffix.replace(
@@ -232,17 +240,8 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           <Form.Item
             style={{ textAlign: 'center', width: '100%' }}
             name="suffix"
-            rules={[
-              {
-                validator: (_, value) => fullTelephoneValidator(value, true),
-              },
-            ]}
           >
-            <PhoneInput
-              onChange={e => setDigits(e.target.value)}
-              placeholder="1234567"
-              maxLength={14}
-            />
+            <PhoneInput placeholder="1234567" maxLength={14} />
           </Form.Item>
         </div>
       </FormSection>

@@ -16,6 +16,22 @@ import { IPrivilegedUserInformation, PrivilegedUserInformation } from '../../../
 
 const RADIUS = 5; // In Miles
 
+/*
+ * We are deleting privileged information when deleting a user instead of replacing address
+ * The reason why we aren't replacing address with this in delete operation is because
+ * We are soon migrating to a format where privileged information is not required to access the address for a request or offer
+ * Instead we are assosciating each requrest/offer directly with the address
+ */
+const deletedAddress = {
+  address1: '[Deleted Address]',
+  address2: '[Deleted Address]',
+  postalCode: '[Deleted Address]',
+  city: '[Deleted Address]',
+  state: '[Deleted Address]',
+  country: '[Deleted Address]',
+  coords: new firestore.GeoPoint(0, 0),
+};
+
 const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentReference) => {
   const result = await db
     .collection('offers')
@@ -29,19 +45,22 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
   for (const doc of result.docs) {
     console.log('doc.id, doc.data: ', doc.id, JSON.stringify(doc.data()));
     const offer = Offer.factory(doc.data() as IOffer);
-    const cavPrivilegedInfo = PrivilegedUserInformation.factory(
-      /* eslint-disable no-await-in-loop */
-      (
-        await offer.cavUserRef
-          .collection('privilegedInformation')
-          .doc(offer.cavUserRef.id)
-          .get()
-      ).data() as IPrivilegedUserInformation,
-    );
+    const cavPrivilegedInfo =
+      offer.cavUserSnapshot.username === 'deleteduser'
+        ? null
+        : PrivilegedUserInformation.factory(
+            /* eslint-disable no-await-in-loop */
+            (
+              await offer.cavUserRef
+                .collection('privilegedInformation')
+                .doc(offer.cavUserRef.id)
+                .get()
+            ).data() as IPrivilegedUserInformation,
+          );
 
     offersWithLocation[doc.id] = {
       ...offer.toObject(),
-      address: cavPrivilegedInfo.address,
+      address: cavPrivilegedInfo && cavPrivilegedInfo.address ? cavPrivilegedInfo.address : deletedAddress,
     } as IOfferWithLocation;
   }
   return offersWithLocation;
@@ -71,6 +90,7 @@ const getTimelineForRequest = async (requestRef: firestore.DocumentReference, us
     const timelinesResult = await requestRef.collection('timeline').get();
     const timeline: ITimelineItem[] = [];
     for (const doc of timelinesResult.docs) {
+      console.log('actorRef: ', doc.data().actorRef);
       timeline.push(doc.data() as ITimelineItem);
     }
     return timeline;
@@ -146,12 +166,14 @@ const getPendingRequestsWithOffers = async (
       .get();
     for (const doc of requests.docs) {
       console.log('doc.id: ', doc.id);
-      console.log('doc.data: ', JSON.stringify(doc.data()));
+      // console.log('doc.data: ', JSON.stringify(doc.data()));
       const request = Request.factory(doc.data() as IRequest);
       // eslint-disable-next-line no-await-in-loop
       const timeline = await getTimelineForRequest(doc.ref, userRef);
       const mapping: Record<string, boolean> = {};
       for (const timelineDoc of timeline) {
+        console.log('timelinedoc being parsed: ', JSON.stringify(timelineDoc));
+        console.log('timelineDoc.actorRef: ', timelineDoc.actorRef);
         const timelineInstance = TimelineItem.factory(timelineDoc);
         if (
           timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
@@ -197,9 +219,9 @@ const getOngoingRequests = async (userRef: firestore.DocumentReference, userType
     const request = Request.factory(doc.data() as IRequest);
     let contactNumber: string | null | undefined = null;
     if (userType === ApplicationPreference.cav && auth) {
-      contactNumber = (await auth.getUser(request.pinUserRef.id)).phoneNumber;
-    } else if (request.cavUserRef && auth) {
-      contactNumber = (await auth.getUser(request.cavUserRef.id)).phoneNumber;
+      contactNumber = request.pinUserSnapshot.username === 'deleteduser' ? 'deleteduser' : (await auth.getUser(request.pinUserRef.id)).phoneNumber;
+    } else if (request.cavUserRef && request.cavUserSnapshot && auth) {
+      contactNumber = request.cavUserSnapshot.username === 'deleteduser' ? 'deleteduser' : (await auth.getUser(request.cavUserRef.id)).phoneNumber;
     }
     if (!finished && request.pinRating && request.pinRatedAt) {
       // eslint-disable-next-line no-continue
@@ -349,7 +371,7 @@ export const getRequests = functions.https.onCall(async (data, context) => {
             }),
             {},
           );
-          console.log('dataToSend: ', dataToSend);
+          // console.log('dataToSend: ', dataToSend);
           console.log('serialized data to send: ', JSON.stringify(dataToSend));
           return {
             success: true,

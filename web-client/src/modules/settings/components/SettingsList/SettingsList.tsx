@@ -70,10 +70,6 @@ const SettingsList: React.FC<SettingsProps> = ({
           </Collapse>
         </Col>
       </Row>
-      {/* 
-      
-      Removing Temporarily for staging deployment as this isn't fully ready yet
-
       <Row gutter={[0, 12]}>
         <Col span="24" lg={12}>
           <SettingsListButton
@@ -84,8 +80,7 @@ const SettingsList: React.FC<SettingsProps> = ({
             <span>{t('settings.deleteAccount')}</span>
           </SettingsListButton>
         </Col>
-      </Row> 
-      */}
+      </Row>
     </SettingsListWrapper>
   );
 };
