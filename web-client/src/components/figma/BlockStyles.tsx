@@ -22,11 +22,6 @@ const StepWrapper = styled.div`
 `;
 
 const FormWrapper = styled.div`
-  @media (max-width: 350px) and (orientation: portrait) {
-    width: 80%;
-    align-self: center;
-  }
-
   .ant-form-item {
     margin-bottom: 12px;
 
