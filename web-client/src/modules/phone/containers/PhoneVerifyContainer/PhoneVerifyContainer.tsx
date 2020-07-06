@@ -58,7 +58,9 @@ const PhoneVerifyContainer: React.FC = () => {
       {errorMessage && <Alert message={errorMessage} type="error" />}
       <IntroLogo src={profilePhoto} alt="User logo" />
       <TitleWithAddon level={4}>
-        {`${t('welcome')}, ${user?.displayName}`}
+        {`${t('welcome')}${
+          user && user.displayName ? `, ${user.displayName}` : ''
+        }`}
       </TitleWithAddon>
       <PhoneNumberVerifyForm
         loading={loading}
