@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import { AppState } from 'src/store';
+import styled from 'styled-components';
 
 import {
   checkEmail as checkEmailFunc,
@@ -160,7 +161,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   }
 
   return (
-    <>
+    <LoginContainerWrapper>
       <RegistrationSteps
         currentStep={currentStep}
         setCurrentStep={setCurrentStep}
@@ -170,7 +171,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
         onEmailSignUp={handleEmailSignUp}
       />
       <LoginFooter />
-      <div style={{ color: 'red', textAlign: 'center' }}>
+      <div style={{ color: 'red', textAlign: 'center', marginBottom: '40px' }}>
         {error && error.message}
         {(() => {
           if (
@@ -191,10 +192,15 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
           }
         })()}
       </div>
-    </>
+    </LoginContainerWrapper>
   );
 };
 
+const LoginContainerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 interface LoginRedirectProps {
   redirectBack?: string;
 }

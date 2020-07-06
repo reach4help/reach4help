@@ -70,7 +70,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
                 ),
               },
               ({ getFieldValue }) => ({
-                validator(rule, value) {
+                validator(value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
@@ -123,8 +123,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
 const RegistrationButtonsPanel = styled.div`
   display: flex;
   /* justify-content: space-between; */
-  margin-bottom: 40px;
-  margin-top: 20px;
+  margin: 10px 0;
 `;
 
 const RegistrationButtonWrapper = styled.div`

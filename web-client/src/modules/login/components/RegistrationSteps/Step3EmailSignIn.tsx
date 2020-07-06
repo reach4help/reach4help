@@ -95,8 +95,7 @@ const EmailSignIn: React.FC<EmailSignInProps> = ({
 const RegistrationButtonsPanel = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
-  margin-top: 10px;
+  margin: 10px 0;
 `;
 
 const RegistrationButtonWrapper = styled.div`
