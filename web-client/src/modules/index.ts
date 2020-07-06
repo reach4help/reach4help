@@ -4,6 +4,7 @@ import Login from './login';
 import PersonalData from './personalData';
 import Phone from './phone';
 import Requests from './requests';
+import Settings from './settings';
 import Timeline from './timeline';
 
 const modules: Record<string, Module> = {
@@ -12,6 +13,7 @@ const modules: Record<string, Module> = {
   PersonalData,
   Requests,
   Timeline,
+  Settings,
 };
 
 export default modules;

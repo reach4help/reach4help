@@ -1,5 +1,5 @@
 import { firestore as Firestore } from 'firebase';
-import { firestore } from 'src/firebase';
+import { firestore, functions } from 'src/firebase';
 import { User, UserFirestoreConverter } from 'src/models/users';
 import {
   PrivilegedUserInformation,
@@ -98,3 +98,6 @@ export const updateUserPrivilegedInformationData = async ({
     .doc(uid)
     .withConverter(PrivilegedUserInformationFirestoreConverter)
     .set(dataPayload);
+
+export const deleteUserData = async () =>
+  functions.httpsCallable('https-api-users-deleteUserData')();

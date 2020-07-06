@@ -7,9 +7,10 @@ import { useTranslation } from "react-i18next"
 import Logo from "src/assets/logo.svg"
 import LogoType from "src/assets/logo-type"
 import { LANGUAGES } from "src/locales/i18n"
-import { HeaderWrapper, TopWrapper, DrawerWrapper, LanguageLi } from "./style"
+import { HeaderWrapper, TopWrapper, DrawerWrapper, ActionsLi } from "./style"
 import Hamburger from "../hamburger"
 import Backdrop from "../backdrop"
+import Button from "../button"
 
 import Languages from "../languages"
 
@@ -17,7 +18,7 @@ function Header({ navSections }) {
   // I changed to drawerClose because I think there is a bug in the way the CSS is being handled in the menu that shows when we click the Hamburger and this is more semantic
   // In this case, in this file (without looking to the CSS)
   const [drawerClose, setDrawerClose] = useState(true)
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   const drawerToggler = () => {
     setDrawerClose(!drawerClose)
@@ -41,6 +42,19 @@ function Header({ navSections }) {
         <div className="actions">
           <Languages languages={LANGUAGES} onChange={onLanguageChange} />
           {/* Sign Up */}
+          <a href="https://app.reach4help.org/" rel="noopener">
+            <Button
+              onClick={() => {
+                window.location.href = "https://app.reach4help.org/"
+              }}
+              backgroundColor="#ff7b02"
+              textColor="white"
+              outlineColor="white"
+              fontSize="0.95em"
+            >
+              {t("Home.buttons.1")}
+            </Button>
+          </a>
         </div>
 
         <Hamburger show={drawerClose} onClick={drawerToggler} />
@@ -60,16 +74,30 @@ function Header({ navSections }) {
                 </Link>
               </li>
             ))}
+            <ActionsLi show={drawerClose}>
+              <a href="https://app.reach4help.org/" rel="noopener">
+                <Button
+                  onClick={() => {
+                    window.location.href = "https://app.reach4help.org/"
+                  }}
+                  backgroundColor="#ff7b02"
+                  textColor="white"
+                  outlineColor="white"
+                  fontSize="0.95em"
+                >
+                  {t("Home.buttons.1")}
+                </Button>
+              </a>
 
-            {!drawerClose && (
-              <LanguageLi>
-                <Languages languages={LANGUAGES} onChange={onLanguageChange} />
-              </LanguageLi>
-            )}
+              <Languages languages={LANGUAGES} onChange={onLanguageChange} />
+            </ActionsLi>
           </ul>
         </nav>
       </DrawerWrapper>
-      <Backdrop show={drawerClose} onClick={() => setDrawerClose(false)} />
+      <Backdrop
+        show={drawerClose}
+        onClick={() => setDrawerClose(!drawerClose)}
+      />
     </HeaderWrapper>
   )
 }

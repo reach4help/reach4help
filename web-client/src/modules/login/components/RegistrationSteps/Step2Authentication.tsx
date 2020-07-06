@@ -10,6 +10,7 @@ import {
   LoginButtonsWrapper,
   LogoWrapper,
   OrDivider,
+  StepWrapper,
 } from 'src/components/figma/';
 
 import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
@@ -18,39 +19,42 @@ import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
 const StepAuthentication: React.FC<StepAuthenticationProps> = ({
   onLoginGoogle,
   onLoginFacebook,
-  incrementStep,
+  goToSignIn,
 }): React.ReactElement<StepAuthenticationProps> => {
   const { t } = useTranslation();
 
   return (
-    <>
+    <StepWrapper>
       <LogoWrapper>
-        <img src={logoSmall} alt="logo" height="50px" width="50px" />
+        <img src={logoSmall} alt="logo" height="70px" width="70px" />
       </LogoWrapper>
       <Explanation>
-        <H6Font>{t('login.steps.3_authentication.please')}</H6Font>
+        <H6Font>{t('login.steps.2_authentication.please')}</H6Font>
       </Explanation>
       <LoginButtonsWrapper>
-        <ButtonWrapper>
+        <ButtonWrapper style={{ width: '100%' }}>
           <GoogleLoginButton onAuthenticate={onLoginGoogle} />
         </ButtonWrapper>
-        <ButtonWrapper>
+        <ButtonWrapper style={{ width: '100%' }}>
           <FacebookLoginButton onAuthenticate={onLoginFacebook} />
         </ButtonWrapper>
       </LoginButtonsWrapper>
       <OrDivider />
-      <MailAuthButton onClick={incrementStep}>
-        <MailOutlined />
-        {t('login.steps.3_authentication.email_signup')}
-      </MailAuthButton>
-    </>
+      <ButtonWrapper style={{ width: '100%' }}>
+        <MailAuthButton onClick={() => goToSignIn()} size="large">
+          <MailOutlined />
+          {t('login.steps.2_authentication.email_signin')}
+        </MailAuthButton>
+      </ButtonWrapper>
+    </StepWrapper>
   );
 };
 
 interface StepAuthenticationProps {
   onLoginGoogle: Function;
   onLoginFacebook: Function;
-  incrementStep: (Event) => void;
+  goToSignUp: Function;
+  goToSignIn: Function;
 }
 
 export default StepAuthentication;

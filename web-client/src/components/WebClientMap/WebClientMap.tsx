@@ -194,38 +194,38 @@ const WebClientMap: React.FC<MapProps> = ({
   return !apiKey ? (
     <>{t('components_web_client_map.api_error')} Google Maps API key</>
   ) : (
-    <>
-      <MapContainer>
-        {mapMessage && <WebClientMapMessage message={mapMessage} />}
-        <GoogleMapReact
-          yesIWantToUseGoogleMapApiInternals
-          bootstrapURLKeys={{ key: apiKey }}
-          options={createMapOptions}
-          center={origin}
-          defaultZoom={zoom}
-          onGoogleApiLoaded={initGoogleMapServices}
-        >
-          <MyLocationControl map={googleMap || null} onClick={locateMe} />
-          <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
-          {destinations.map(r => (
-            <DestinationMarker
-              key={r.id}
-              selected={r.id === selectedDestination}
-              lat={r.center.lat}
-              lng={r.center.lng}
-              onClick={() => destinationClickedHandler(r)}
-            />
-          ))}
-        </GoogleMapReact>
-      </MapContainer>
-    </>
+    <MapContainer>
+      {mapMessage && <WebClientMapMessage message={mapMessage} />}
+      <GoogleMapReact
+        yesIWantToUseGoogleMapApiInternals
+        bootstrapURLKeys={{ key: apiKey }}
+        options={createMapOptions}
+        center={origin}
+        defaultZoom={zoom}
+        onGoogleApiLoaded={initGoogleMapServices}
+      >
+        <MyLocationControl map={googleMap || null} onClick={locateMe} />
+        <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
+        {destinations.map(r => (
+          <DestinationMarker
+            key={r.id}
+            selected={r.id === selectedDestination}
+            lat={r.center.lat}
+            lng={r.center.lng}
+            onClick={() => destinationClickedHandler(r)}
+          />
+        ))}
+      </GoogleMapReact>
+    </MapContainer>
   );
 };
 
 const MapContainer = styled.div`
-  display: 'flex';
-  flex-direction: 'column';
-  flex-grow: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 `;
 
 interface MapProps {

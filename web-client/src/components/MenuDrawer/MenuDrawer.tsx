@@ -1,15 +1,18 @@
 import {
   LogoutOutlined,
   MailOutlined,
+  SettingOutlined,
   UserSwitchOutlined,
 } from '@ant-design/icons';
 import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
+import { SettingsLocation } from '../../modules/settings/pages/routes/SettingsRoute/constants';
 import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
 import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
@@ -24,6 +27,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
   toggleApplicationPreference,
 }) => {
   const { t } = useTranslation();
+  const history = useHistory();
 
   const instructions = [
     t('information_modal.MenuDrawer.0'),
@@ -56,6 +60,10 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
           isCav={isCav}
         />
         <BottomLinks>
+          <BottomLinkItem onClick={() => history.push(SettingsLocation.path)}>
+            <SettingOutlined />
+            {t('menuDrawer.settings')}
+          </BottomLinkItem>
           <BottomLinkItem
             isCav={isCav}
             role="link"
