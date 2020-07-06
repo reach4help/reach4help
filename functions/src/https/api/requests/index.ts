@@ -90,6 +90,7 @@ const getTimelineForRequest = async (requestRef: firestore.DocumentReference, us
     const timelinesResult = await requestRef.collection('timeline').get();
     const timeline: ITimelineItem[] = [];
     for (const doc of timelinesResult.docs) {
+      console.log('actorRef: ', doc.data().actorRef);
       timeline.push(doc.data() as ITimelineItem);
     }
     return timeline;
@@ -165,12 +166,14 @@ const getPendingRequestsWithOffers = async (
       .get();
     for (const doc of requests.docs) {
       console.log('doc.id: ', doc.id);
-      console.log('doc.data: ', JSON.stringify(doc.data()));
+      // console.log('doc.data: ', JSON.stringify(doc.data()));
       const request = Request.factory(doc.data() as IRequest);
       // eslint-disable-next-line no-await-in-loop
       const timeline = await getTimelineForRequest(doc.ref, userRef);
       const mapping: Record<string, boolean> = {};
       for (const timelineDoc of timeline) {
+        console.log('timelinedoc being parsed: ', JSON.stringify(timelineDoc));
+        console.log('timelineDoc.actorRef: ', timelineDoc.actorRef);
         const timelineInstance = TimelineItem.factory(timelineDoc);
         if (
           timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
@@ -368,7 +371,7 @@ export const getRequests = functions.https.onCall(async (data, context) => {
             }),
             {},
           );
-          console.log('dataToSend: ', dataToSend);
+          // console.log('dataToSend: ', dataToSend);
           console.log('serialized data to send: ', JSON.stringify(dataToSend));
           return {
             success: true,
