@@ -22,7 +22,7 @@ import {
 } from '../../../../ducks/auth/google/actions';
 import { authProviders } from '../../../../ducks/auth/types';
 import LoginFooter from '../../components/LoginFooter/LoginFooter';
-import LoginSteps from '../../components/LoginSteps/LoginSteps';
+import RegistrationSteps from '../../components/RegistrationSteps/RegistrationSteps';
 
 const LoginContainer: React.FC<LoginRedirectProps> = ({
   redirectBack = '/',
@@ -37,6 +37,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   const [emailAndPassword, setEmailAndPassword] = useState<
     Record<string, string>
   >({});
+  const [shouldCheck, setShouldCheck] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   useEffect(() => {
@@ -59,43 +60,43 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
 
   useEffect(() => {
     if (!authLoading) {
-      let shouldCheck = true;
-      if (checkEmail && !checkEmail.loading) {
+      if (
+        !shouldCheck &&
+        checkEmail &&
+        !checkEmail.loading &&
+        emailAndPassword.email &&
+        emailAndPassword.password &&
+        emailAndPassword.action
+      ) {
         if (checkEmail.present) {
           if (checkEmail.method === authProviders.email) {
-            if (
-              checkEmail.intermediateData.email &&
-              checkEmail.intermediateData.password
-            ) {
+            if (emailAndPassword.action === 'signin') {
               dispatch(
                 signIn({
-                  email: checkEmail.intermediateData.email,
-                  password: checkEmail.intermediateData.password,
+                  email: emailAndPassword.email,
+                  password: emailAndPassword.password,
                 }),
               );
-              shouldCheck = false;
             }
           } else {
             // the actions to take when the email provided is being used for another login provider like Google/Facebook
           }
-        } else if (
-          checkEmail.intermediateData.email &&
-          checkEmail.intermediateData.password
-        ) {
+        } else if (emailAndPassword.action === 'signup') {
           dispatch(
             signUp({
-              email: checkEmail.intermediateData.email,
-              password: checkEmail.intermediateData.password,
+              email: emailAndPassword.email,
+              password: emailAndPassword.password,
             }),
           );
-          shouldCheck = false;
         }
+        setEmailAndPassword({});
       }
       if (
         shouldCheck &&
         emailAndPassword.email &&
         !(checkEmail && checkEmail.loading)
       ) {
+        setShouldCheck(false);
         dispatch(
           checkEmailFunc({
             email: emailAndPassword.email,
@@ -104,7 +105,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
         );
       }
     }
-  }, [authLoading, checkEmail, emailAndPassword, dispatch]);
+  }, [authLoading, checkEmail, emailAndPassword, shouldCheck, dispatch]);
 
   const handleLoginGoogle = () => {
     if (isMobile) {
@@ -122,11 +123,24 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
     }
   };
 
-  const handleEmailSignInUp = (email: string, password: string) => {
+  const handleEmailSignIn = (email: string, password: string) => {
     if (email && password) {
+      setShouldCheck(true);
       setEmailAndPassword({
         email,
         password,
+        action: 'signin',
+      });
+    }
+  };
+
+  const handleEmailSignUp = (email: string, password: string) => {
+    if (email && password) {
+      setShouldCheck(true);
+      setEmailAndPassword({
+        email,
+        password,
+        action: 'signup',
       });
     }
   };
@@ -134,6 +148,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const checkEmailExists = (email: string) => {
     if (email) {
+      setShouldCheck(true);
       setEmailAndPassword({
         email,
       });
@@ -146,19 +161,33 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
 
   return (
     <>
-      <LoginSteps
+      <RegistrationSteps
         currentStep={currentStep}
         setCurrentStep={setCurrentStep}
         onLoginGoogle={handleLoginGoogle}
         onLoginFacebook={handleLoginFacebook}
-        onEmailSignInUp={handleEmailSignInUp}
+        onEmailSignIn={handleEmailSignIn}
+        onEmailSignUp={handleEmailSignUp}
       />
       <LoginFooter />
       <div style={{ color: 'red', textAlign: 'center' }}>
         {error && error.message}
         {(() => {
-          if (checkEmail && checkEmail.method !== authProviders.email) {
-            return `You must use ${checkEmail.method} to login`;
+          if (
+            checkEmail &&
+            !checkEmail.loading &&
+            checkEmail.method &&
+            checkEmail.present
+          ) {
+            if (checkEmail.method !== authProviders.email) {
+              return `You must use ${checkEmail.method} to login`;
+            }
+            if (currentStep === 3) {
+              return 'You already have an account, please Sign In!';
+            }
+          }
+          if (currentStep === 2 && checkEmail && !checkEmail.present) {
+            return "We don't have an account with this email in our system, Please Sign Up!";
           }
         })()}
       </div>

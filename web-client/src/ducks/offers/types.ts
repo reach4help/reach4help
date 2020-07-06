@@ -15,6 +15,8 @@ export const RESET_SET = syncType('RESET_SET');
 
 export const UPDATE = asyncType('UPDATE');
 
+export const SET_TEMP_OFFER = syncType('SET_TEMP_OFFER');
+
 export interface OffersState {
   forRequest?: {
     requestId: string;
@@ -31,6 +33,10 @@ export interface OffersState {
     loading: boolean;
     modalState: boolean;
     error?: Error;
+  };
+  newOfferTemp?: {
+    offerPayload: Offer;
+    offerId: string;
   };
 }
 

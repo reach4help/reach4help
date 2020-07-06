@@ -13,11 +13,11 @@ import {
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IUser } from 'src/models/users';
+import { AppState } from 'src/store';
 import styled from 'styled-components';
 
 import NewRequest from '../../components/NewRequest/NewRequest';
@@ -46,6 +46,10 @@ const NewRequestsContainer: React.FC = () => {
     false,
   );
 
+  const phoneNumber = useSelector(
+    (state: AppState) => state.auth.user?.phoneNumber,
+  );
+
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
@@ -53,6 +57,25 @@ const NewRequestsContainer: React.FC = () => {
   const newRequestState = useSelector(
     ({ requests }: { requests: RequestState }) => requests.setAction,
   );
+
+  const newRequestTemp = useSelector(
+    ({ requests }: { requests: RequestState }) => requests.newRequestTemp,
+  );
+
+  useEffect(() => {
+    if (newRequestTemp && newRequestTemp.requestPayload) {
+      setRequestInfo({
+        type:
+          newRequestTemp.requestPayload.title === DELIVERIES
+            ? newRequestTemp.requestPayload.title
+            : 'Other',
+        streetAddress: newRequestTemp.requestPayload.streetAddress,
+        description: newRequestTemp.requestPayload.description,
+        other: newRequestTemp.requestPayload.title,
+      });
+      setShowReviewPage(true);
+    }
+  }, [newRequestTemp]);
 
   const [mapAddress, setMapAddress] = useState<string>(
     () =>
@@ -79,19 +102,25 @@ const NewRequestsContainer: React.FC = () => {
       const title = request.type === DELIVERIES ? request.type : request.other;
 
       dispatch(
-        setRequest({
-          title,
-          description: request.description,
-          pinUserRef: profileState.userRef,
-          streetAddress:
-            mapAddress ||
-            t('modules.requests.containers.NewRequestsContainer.address_error'),
-          pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: new firestore.GeoPoint(
-            currentLocation.lat,
-            currentLocation.lng,
-          ),
-        }),
+        setRequest(
+          {
+            title,
+            description: request.description,
+            pinUserRef: profileState.userRef,
+            streetAddress:
+              mapAddress ||
+              t(
+                'modules.requests.containers.NewRequestsContainer.address_error',
+              ),
+            pinUserSnapshot: profileState.profile.toObject() as IUser,
+            latLng: new firestore.GeoPoint(
+              currentLocation.lat,
+              currentLocation.lng,
+            ),
+          },
+          undefined,
+          phoneNumber,
+        ),
       );
       setIsSubmitting(true);
     }
@@ -197,7 +226,7 @@ const NewRequestsContainer: React.FC = () => {
   });
 
   return (
-    <>
+    <div style={{ height: '100%' }}>
       <div
         style={{
           height: '100%',
@@ -217,7 +246,7 @@ const NewRequestsContainer: React.FC = () => {
             startLocateMe={startLocateMe}
           />
         </MapContainer>
-        <div style={{ display: 'flex', height: '100%' }}>
+        <div style={{ height: '100%' }}>
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
@@ -228,7 +257,7 @@ const NewRequestsContainer: React.FC = () => {
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
-    </>
+    </div>
   );
 };
 
@@ -238,12 +267,9 @@ const RequestDetails = styled.div`
 `;
 
 const MapContainer = styled.div`
-  // aspect ratio = 16:9
-  height: 56.25vw;
-
-  @media ${DEVICE_MIN.laptop} {
-    max-height: 400px;
-  }
+  overflow: hidden;
+  position: relative;
+  height: 100%;
 `;
 
 export default NewRequestsContainer;
