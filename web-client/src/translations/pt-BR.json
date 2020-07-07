@@ -23,13 +23,13 @@
     "for": " for ",
     "information_modal": {
       "instructions": "Instructions",
-      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
+      "footer": "Se você tiver alguma dúvida ou precisar de assistência sinta-se à vontade para nos enviar um e-mail para.",
       "a11y_logo": "Reach for Help logo",
       "OpenRequestsContainer": {
         "title": "Still looking for help ...",
         "0": "Your requests are out there but no one has yet volunteered to help",
         "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "2": " Se você tiver alguma dúvida ou dificuldade com isso, não hesite em entrar em contato com support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
         "title": "Someone has offered to help!",
@@ -248,30 +248,30 @@
     "routeSubtitles": {
       "_login": "Conectar-se",
       "_phone": "Telefone",
-      "_requests": "Requisitos",
-      "_personal-data": "Personal Data",
-      "_timeline": "Request Timeline",
-      "_personal-data_role-info": "Role Info",
-      "_phone_entry": "Enter Phone Number",
-      "_phone_verify": "Verifying Phone Number",
-      "_requests_accepted": "Accepted Requests",
-      "_requests_archived": "Closed Requests",
-      "_requests_find": "Find Requests",
-      "_requests_finished": "Completed Requests",
-      "_requests_new": "New Request",
-      "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests",
-      "_settings": "Settings"
+      "_requests": "Solicitações",
+      "_personal-data": "Dados Pessoais",
+      "_timeline": "Cronograma da requisição",
+      "_personal-data_role-info": "Informação de Permissão",
+      "_phone_entry": "Digite o número de telefone",
+      "_phone_verify": "Verificar número de telefone",
+      "_requests_accepted": "Aceitar solicitação",
+      "_requests_archived": "Solicitações Fechadas",
+      "_requests_find": "Encontrar Solicitações",
+      "_requests_finished": "Solicitações Fechadas",
+      "_requests_new": "Nova Solicitação",
+      "_requests_ongoing": "Solicitações em andamento",
+      "_requests_open": "Solicitações abertas",
+      "_settings": "Configurações"
     },
     "timeline": {
-      "CREATE_REQUEST": "{{actorName}} created this request.",
-      "CANCEL_REQUEST": "{{actorName}} closed this request.",
-      "REMOVE_REQUEST": "{{actorName}} removed this request",
-      "COMPLETE_REQUEST": "Request has been completed.",
-      "CREATE_OFFER": "{{actorName}} offered to help with this request.",
-      "CAV_DECLINED": "{{actorName}} rejected this request.",
-      "ACCEPT_OFFER": "{{actorName}} accepted {{cavUserName}} help.",
-      "REJECT_OFFER": "{{actorName}} rejected {{cavUserName}} help.",
+      "CREATE_REQUEST": "{{actorName}} criou esta solicitação.",
+      "CANCEL_REQUEST": "{{actorName}} criou esta solicitação.",
+      "REMOVE_REQUEST": "{{actorName}} removeu este pedido",
+      "COMPLETE_REQUEST": "A Tarefa foi concluída.",
+      "CREATE_OFFER": "{{actorName}} ofereceu ajuda com esta solicitação.",
+      "CAV_DECLINED": "{{actorName}} criou esta solicitação.",
+      "ACCEPT_OFFER": "{{actorName}} aceitou a ajuda de {{cavUserName}}.",
+      "REJECT_OFFER": "{{actorName}} rejeitou a ajuda de {{cavUserName}}.",
       "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
       "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
       "open_status": "Open",
@@ -341,81 +341,81 @@
             "full_name_error_message": "Please enter your name.",
             "display_name_error_message": "Please enter your display name.",
             "address_error_message": "Please enter your address.",
-            "city_error_message": "Please enter your city.",
-            "country_error_message": "Please enter your country.",
-            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+            "city_error_message": "Por favor, insira sua cidade.",
+            "country_error_message": "Por favor, insira o seu país.",
+            "allow_send_notifications": "Eu gostaria que Reach4Ajuda para me enviar notificações e e-mails."
           }
         },
         "containers": {
           "PersonalDataFormContainer": {
-            "address_error": "Sorry, We couldn't determine your actual address, please try again!",
-            "missing_data": "Missing Data!"
+            "address_error": "Desculpe, não conseguimos determinar seu endereço atual, por favor, tente novamente!",
+            "missing_data": "Dados faltantes!"
           }
         }
       },
       "requests": {
-        "a11y_profile_pic": "Profile Pic",
+        "a11y_profile_pic": "Perfil Pic",
         "AcceptedRequestItem": {
-          "choose_volunteer": "Choose from the following volunteers to fulfill your request."
+          "choose_volunteer": "Escolha entre os seguintes voluntários para atender seu pedido."
         },
-        "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
-        "cannot_help": "Cannot Help",
+        "bottom_warning": "Sua solicitação foi visualizada por vários voluntários, mas não foi aceita. Sugerimos você &ldquo;Fechar a solicitação&rdquo; e criar uma nova com uma descrição mais simples.",
+        "cannot_help": "Não pode enviar",
         "containers": {
           "FoundRequestsContainer": {
             "FoundRequestsContainer": {
-              "map_tab_label": "View Map of Requests",
-              "list_tab_label": "View List of Requests",
-              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+              "map_tab_label": "Ver mapa das solicitações",
+              "list_tab_label": "Ver lista de solicitações",
+              "no_requests": "Atualmente não há nenhuma solicitação em sua área. Verifique o mapa mais tarde. Também sinta-se livre para fazer um pedido de Necessidade"
             }
           },
           "AcceptedRequestContainer": {
-            "accepted": "Accepted"
+            "accepted": "Aceitado"
           },
           "FindRequestsContainer": {
-            "want_to_help": "I want to help!"
+            "want_to_help": "Eu quero ajudar!"
           },
           "FinishedRequestsContainer": {
-            "finished": "Finished"
+            "finished": "Finalizado"
           },
           "NewRequestsContainer": {
-            "address_error": "Unable to find address",
-            "deliveries": "Deliveries"
+            "address_error": "Não foi possível localizar o endereço",
+            "deliveries": "Entregas"
           },
           "OngoingRequestContainer": {
-            "ongoing": "Ongoing"
+            "ongoing": "Em curso"
           },
           "OpenRequestContainer": {
-            "open": "Open"
+            "open": "Abrir"
           },
-          "no_reply": "No one has replied to your request."
+          "no_reply": "Ninguém respondeu ao seu pedido."
         }
       }
     },
     "components": {
       "loading": {
-        "a11y_message": "loading ..."
+        "a11y_message": "carregando ..."
       },
       "notification": {
-        "a_request": "a request",
-        "already_helped": " is already getting help in ",
-        "cav_declined_help": " has declined to help in ",
-        "cav_offer": "You have offered help for ",
-        "no_notifications": "No new notifications.",
-        "notifications": "Notifications",
-        "offered_help": " has offered help in ",
-        "pin_accepted": "You have accepted help from ",
-        "pin_declined_help": "You have declined help for ",
-        "pin_rejected": "You have rejected help from ",
-        "request_author": "The request_author",
-        "volunteer_accepted": " accepted your offer for ",
-        "your_task": "your task"
+        "a_request": "uma solicitação",
+        "already_helped": " já está obtendo ajuda em ",
+        "cav_declined_help": " recusou a ajuda em ",
+        "cav_offer": "Você ofereceu ajuda por ",
+        "no_notifications": "Não há novas notificações.",
+        "notifications": "Notificações",
+        "offered_help": " ofereceu ajuda em ",
+        "pin_accepted": "Você aceitou a ajuda de ",
+        "pin_declined_help": "Você recusou a ajuda de ",
+        "pin_rejected": "Você rejeitou a ajuda de ",
+        "request_author": "O autor_solicitação",
+        "volunteer_accepted": " aceitou sua oferta para ",
+        "your_task": "sua tarefa"
       },
       "web_client_map": {
-        "a11y_my_location": "My location",
-        "a11y_destination": "Destination",
-        "api_error": "Could not obtain",
-        "distance_error": "Distance Service error:",
-        "geocode_error": "Unable to geocode"
+        "a11y_my_location": "A minha localização",
+        "a11y_destination": "Destino",
+        "api_error": "Não foi possível obter",
+        "distance_error": "Erro de Serviço Distante:",
+        "geocode_error": "Incapaz de geocodificar"
       }
     }
   }
