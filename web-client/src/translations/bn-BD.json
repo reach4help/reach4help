@@ -1,12 +1,12 @@
 {
   "common": {
-    "or": "or",
+    "or": "অথবা",
     "i_understand": "আমি বুঝেছি",
     "okay": "ঠিক",
     "cancel": "বাতিল",
     "welcome": "স্বাগতম",
     "continue": "চালিয়ে",
-    "back": "Back",
+    "back": "পেছনে",
     "verify": "যাচাই",
     "spinner": "লোড হচ্ছে...",
     "name": "নাম",
@@ -33,7 +33,7 @@
       },
       "AcceptedRequestsContainer": {
         "title": "কেউ সাহায্য করার প্রস্তাব দিয়েছেন!",
-        "0": "Someone has offered to help you out.",
+        "0": "কেউ সাহায্য করার প্রস্তাব দিয়েছেন.",
         "1": "Get in touch with them by phone to work out the details."
       },
       "OngoingRequestsContainer": {
@@ -96,15 +96,15 @@
       "sign_in": {
         "title": "Login with email",
         "password_label": "Password",
-        "password_error_message": "Please input your password"
+        "password_error_message": "অনুগ্রহ করে আপনার পাসওয়ার্ড লিখুন"
       },
       "steps": {
-        "continue": "Continue",
+        "continue": "চালিয়ে",
         "footer": {
-          "contact": "If you have any questions or need assistance feel free to email us at "
+          "contact": "আপনার কোনো প্রশ্ন ও প্রয়োজন থাকলে, \nআমাদেরকে support@reach4help.org এ ইমেল করুন। "
         },
         "0_welcome": {
-          "title": "Welcome",
+          "title": "স্বাগতম",
           "welcome": "Welcome to Reach4Help!",
           "thanks": "Thank you so much for your interest in helping your community"
         },
@@ -120,7 +120,7 @@
         "2_authentication": {
           "email_signup": "Sign up with email",
           "email_signin": "Continue with email",
-          "title": "Identity",
+          "title": "পরিচয়",
           "please": "Please sign up with one of the providers below",
           "popup_explanation": {
             "main_question": "Why do you need an external account?",
@@ -132,8 +132,8 @@
         "3_email_signin": {
           "title": "Login with email",
           "signin": "Login",
-          "email_label": "Email",
-          "email_error_message": "Please input your email",
+          "email_label": "ই-মেইল",
+          "email_error_message": "আপনার ই-মেইল লিখুন",
           "password_label": "Password",
           "password_error_message": "Please input the password you will use for Reach4Help",
           "password_confirm_label": "Confirm password",
