@@ -56,7 +56,7 @@
           "locationNamePlaceholder": "Ex: Baía de São Francisco, CA, EUA",
           "continue": "Clique em continuar para inserir informações de localização"
         },
-        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
+        "mutualAidInstead": "Se você deseja enviar informações sobre um novo grupo de auxílio mútuo, visite {link}. Grupos adicionados serão automaticamente incluídos em nosso mapa."
       },
       "placeMarker": {
         "instructions": "Localize a área servida por este projeto / grupo / organização / iniciativa clicando no mapa para colocar um marcados, depois ajuste o tamanho do círculo para abranger a área conforme necessário.",
@@ -108,7 +108,7 @@
       "urlMissingURL": "Um registro de URL para {section} está faltando um Nome",
       "dataError": "Houve um problema com a informação que você enviou, por favor, retorne e tente de novo",
       "submitError": "Ocorreu um problema ao enviar suas informações: {error}. Por favor, tente novamente mais tarde",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "mutualAidGroupsNotAccepted": "Ao invés disso, insira informações sobre novos grupos de auxílio mútuo na {link}."
     }
   },
   "buttons": {
@@ -123,79 +123,79 @@
     "medicine": "Medicamentos",
     "supplies": "Outros Recursos",
     "mobility": "Mobilidade",
-    "shelter": "Shelter",
-    "support": "Support",
+    "shelter": "Abrigar",
+    "support": "Suporte",
     "information": "Informações",
-    "network": "Network",
-    "manufacturing": "Manufactoring",
+    "network": "Rede",
+    "manufacturing": "Fabricação",
     "financial": "Financeiro",
     "other": "Outro"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Supplies other than food or medicine",
-    "mobility": "Transporting people from one location to another",
+    "supplies": "Suprimentos que não sejam comida ou medicamento",
+    "mobility": "Transportar pessoas de um local para outro",
     "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
-    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "Suporte sob medida para grupos vulneráveis específicos, por exemplo, pessoas sem abrigo, pessoas em risco de abuso doméstico, etc...",
+    "information": "Ajude as pessoas a encontrar informações relevantes",
+    "network": "Proibido recursos para redes de ajuda por exemplo, entre organizações de auxílio mútuo",
+    "manufacturing": "Fornece suprimentos ou capacidade de fabricação necessária para lidar com a crise",
     "financial": null,
-    "other": "Something else not on this list"
+    "other": "Algo mais não está nesta lista"
   },
   "markerTypes": {
-    "mutual-aid-group": "Mutual Aid Group",
-    "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "Information",
-    "other": "Other"
+    "mutual-aid-group": "Grupo de Ajudas Mútuas",
+    "org": "Organização / Empresa",
+    "financial": "Financeiro",
+    "information": "Informações",
+    "other": "Outro"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "mutual aid group",
-    "org": "organization / company",
-    "project": "project"
+    "mutual-aid-group": "grupo de Ajudas Mútuas",
+    "org": "organização / Empresa",
+    "project": "projeto"
   },
   "map": {
-    "jumpToLocation": "Jump to a location on the map...",
-    "updateResultsForThisArea": "Update results for this area",
-    "myLocation": "My Location"
+    "jumpToLocation": "Ir para uma localização no mapa...",
+    "updateResultsForThisArea": "Atualizar resultados para esta área",
+    "myLocation": "Meu Local"
   },
   "results": {
-    "backToResults": "Back to results",
-    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
-    "showMore": "Show more results",
+    "backToResults": "Voltar aos resultados",
+    "openResults": "Veja {results, plural, one {} =0 {sem resultados} =1 {1 resultado} other {# resultados}}",
+    "closeResults": "Oculte {results, plural, one {} =0 {sem resultados} =1 {1 resultado} other {# resultados}}",
+    "showMore": "Mostrar mais resultados",
     "contact": {
-      "general": "General Information:",
-      "getHelp": "Get Help:",
-      "volunteer": "Volunteer:",
-      "facebookGroup": "Facebook group"
+      "general": "Informações gerais:",
+      "getHelp": "Obter ajuda:",
+      "volunteer": "Voluntário:",
+      "facebookGroup": "Grupos do Facebook"
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
-        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
+        "header": "Anotação",
+        "content": "Nota: Cada projeto é autônomo e organizado; alguns podem usar planilhas públicas para divulgar informações, então seja cuidado quando inserir informações privadas que você não queria que se torne públicas."
       },
-      "source": "Information about this {type} is provided by {source}."
+      "source": "As informações sobre este {type} são fornecidas por {source}."
     }
   },
-  "lang": "Language:",
-  "langSelect": "Select Language",
+  "lang": "Idioma:",
+  "langSelect": "Selecione o idioma",
   "footer": {
-    "netlifyNote": "This map {link}",
-    "netlifyLinkText": "is hosted by Netlify",
-    "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct",
-    "showHidden": "Show Hidden Information",
-    "hideHidden": "Hide Hidden Information"
+    "netlifyNote": "Este mapa {link}",
+    "netlifyLinkText": "está hospedado pelo Netlify",
+    "githubRepo": "Repositório do GitHub",
+    "codeOfConduct": "Código de Conduta",
+    "showHidden": "Mostrar Informações Ocultas",
+    "hideHidden": "Mostrar Informações Ocultas"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibility: {visibility}",
+    "visiblility": "Visibilidade: {visibility}",
     "filter": {
-      "any": "Any",
-      "visible": "Visible only",
-      "hidden": "Hidden only"
+      "any": "Qualquer",
+      "visible": "Visível apenas em",
+      "hidden": "Apenas ocultas"
     }
   }
 }
