@@ -144,18 +144,18 @@
           "title": "Cadastrar-se com e-mail",
           "create_account": "Criar Conta",
           "email_label": "Email",
-          "email_error_message": "Please input your email",
-          "password_label": "Password",
-          "password_error_message": "Please input the password you will use for Reach4Help",
-          "password_confirm_label": "Confirm password",
-          "password_confirm_empty_message": "Please confirm your password",
-          "password_confirm_error_message": "Your passwords must match"
+          "email_error_message": "Por favor, digite seu e-mail",
+          "password_label": "Senha",
+          "password_error_message": "Por favor, insira a senha que você usará para Alcançar Ajuda",
+          "password_confirm_label": "Confirmar senha",
+          "password_confirm_empty_message": "Por favor, confirme sua senha",
+          "password_confirm_error_message": "Suas senhas não conferem"
         }
       }
     },
     "menuDrawer": {
-      "contactUs": "Contact us",
-      "logout": "Sign out",
+      "contactUs": "Contate-nos",
+      "logout": "Sair",
       "switchToCAV": "Switch to Offering Support",
       "switchToPIN": "Switch to Seeking Help",
       "settings": "Settings"
@@ -338,9 +338,9 @@
             "terms_conditions_text": "Eu entendo e reconheço o <0>{{linkText}}</0>",
             "terms_conditions_link_text": "Termos e condições.",
             "terms_conditions_error": "Você deve aceitar os Termos e Condições.",
-            "full_name_error_message": "Please enter your name.",
-            "display_name_error_message": "Please enter your display name.",
-            "address_error_message": "Please enter your address.",
+            "full_name_error_message": "Por favor, digite seu nome.",
+            "display_name_error_message": "Digite seu nome de exibição.",
+            "address_error_message": "Por favor, insira o seu endereço.",
             "city_error_message": "Por favor, insira sua cidade.",
             "country_error_message": "Por favor, insira o seu país.",
             "allow_send_notifications": "Eu gostaria que Reach4Ajuda para me enviar notificações e e-mails."
