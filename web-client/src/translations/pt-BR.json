@@ -41,32 +41,32 @@
         "0": "Você correspondeu a alguém que está cuidando da sua solicitação."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "Tudo pronto!",
+        "0": "Você e o voluntário concordam que tudo está feito."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
-        "0": "You changed your mind and deleted your request."
+        "title": "Você decidiu não fazer isso",
+        "0": "Você mudou de ideia e excluiu o seu pedido."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "Veja cada passo da sua requisição",
+        "0": "Uma solicitação foi criada.",
+        "1": "Alguém oferece ajuda.",
+        "2": "Quando a proposta é aceita ou rejeitada.",
+        "3": "A troca foi completada.",
+        "4": "O pedido está encerrado.",
+        "5": "O produto foi removido.",
+        "6": "Voluntários e pessoas necessitadas avaliam-se mutuamente."
       },
       "MenuDrawer": {
-        "title": "Using the Bottom Buttons",
-        "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "title": "Usando os Bottom Buttons",
+        "0": "Pressione o Menu Esquerdo para acompanhar cada passo da sua solicitação",
+        "1": "Abrir: Pedidos que ainda precisam de um voluntário",
+        "2": "Alguém se ofereceu para ajudar.",
+        "3": "Continuando: Agora um voluntário está trabalhando no seu pedido.",
+        "4": "Concluído: O voluntário completou o pedido.",
+        "5": "Arquivado: Solicitações que você excluiu.",
+        "6": "Pressione o Bell Esquerdo para ver suas notificações"
       },
       "FindRequestsContainer": {
         "title": "Bem-vindo a Reach4Help (Alcançar Para Ajuda)!",
@@ -142,7 +142,7 @@
         },
         "4_email_signup": {
           "title": "Cadastrar-se com e-mail",
-          "create_account": "Create Account",
+          "create_account": "Criar Conta",
           "email_label": "Email",
           "email_error_message": "Please input your email",
           "password_label": "Password",
@@ -274,70 +274,70 @@
       "REJECT_OFFER": "{{actorName}} rejeitou a ajuda de {{cavUserName}}.",
       "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
       "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
-      "open_status": "Open",
-      "cav": "Volunteer",
-      "cav_wait": "WAITING FOR VOLUNTEER",
-      "address": "Delivery Address",
-      "cancelRequest": "Cancel Request",
-      "finishRequest": "Finish Request",
-      "ratingQuestion": "How would you rate your experience with",
-      "submitRatingButton": "Submit Rating",
-      "finishRequestModalParta": "Are you sure you want to finish",
-      "finishRequestModalPartb": "from",
-      "thankYouModalTitle": "Thank you!",
-      "thankYouModalBodyParta": "You rated",
-      "thankYouModalBodyPartb": "with"
+      "open_status": "Abrir",
+      "cav": "Voluntário",
+      "cav_wait": "ESPERANDO VOLUNTEER",
+      "address": "Endereço de Entrega",
+      "cancelRequest": "Cancelar Requisição",
+      "finishRequest": "Encontrar Solicitações",
+      "ratingQuestion": "Como você classificaria sua experiência",
+      "submitRatingButton": "Enviar avaliação",
+      "finishRequestModalParta": "Tem certeza que deseja terminar",
+      "finishRequestModalPartb": "de",
+      "thankYouModalTitle": "Muito Obrigado!",
+      "thankYouModalBodyParta": "Você avaliou",
+      "thankYouModalBodyPartb": "com"
     },
     "modules": {
       "timeline": {
         "components": {
           "OffersList": {
-            "miles": "miles",
-            "kilometers": "kilometers",
-            "reject": "Reject",
-            "accept": "Accept",
-            "volunteer_select": "Select A Volunteer"
+            "miles": "milhas",
+            "kilometers": "quilômetros",
+            "reject": "Rejeitar",
+            "accept": "Aceitar",
+            "volunteer_select": "Selecionar um Voluntário"
           }
         }
       },
       "navigation": {
         "components": {
           "Header": {
-            "reject_reminder": " If you reject this help, your request will go back to the list of  available requests but it will lose priority.",
-            "remember": "REMEMBER",
-            "requests": "Requests"
+            "reject_reminder": " Se você rejeitar essa ajuda, seu pedido voltará para a lista de pedidos disponíveis, mas ela perderá prioridade.",
+            "remember": "LEMBRE-SE",
+            "requests": "Solicitações"
           },
           "TopPanel": {
-            "a11y_back_nav": "Back navigation icon",
-            "a11y_display_photo": "Display photo",
-            "a11y_location_icon": "Location icon",
-            "a11y_phone_icon": "Phone icon",
-            "a11y_sms_icon": "SMS icon"
+            "a11y_back_nav": "Botão de navegação",
+            "a11y_display_photo": "Mostrar uma foto",
+            "a11y_location_icon": "Ícone de Localização",
+            "a11y_phone_icon": "Ícones de telefone",
+            "a11y_sms_icon": "Ícone SMS"
           }
         }
       },
       "personal-data": {
         "components": {
           "PersonalDataForm": {
-            "sub_title": "Please fill out the personal details below.",
-            "gps_button": "Use GPS to get my address",
-            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
-            "learn_reactivate": "Learn how to reactivate geolocation",
-            "retry_geolocation": "Retry Geolocation",
-            "continue_without_geolocation": "Continue without Geolocation",
-            "go_back": "Go Back",
-            "geolocation_modal_title": "Geolocation is not authorized",
-            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
-            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
-            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
-            "instructions_modal_title": "Instructions:",
-            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
-            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
-            "policy_link": "Privacy & Security Policy.",
-            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
-            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
-            "terms_conditions_link_text": "Terms & Conditions.",
-            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "sub_title": "Por favor, preencha os dados pessoais abaixo.",
+            "gps_button": "Usar GPS para obter meu endereço",
+            "gps_unavailable_retry_button": "Geolocalização indisponível. Tente novamente.",
+            "learn_reactivate": "Aprenda a reativar a geolocalização",
+            "retry_geolocation": "Repetir Geolocalização",
+            "continue_without_geolocation": "Continuar sem Geolocalização",
+            "go_back": "Voltar atrás",
+            "geolocation_modal_title": "A geolocalização está proibida",
+            "geolocation_modal_text": "Você pode adicionar sua localização manualmente, mas nos ajudaria a obter sua posição mais precisamente se você usasse Geolocalização. Por favor, escolha uma das opções abaixo:",
+            "geolocation_unavailable_title": "Infelizmente, ainda não estamos disponíveis na sua localização",
+            "geolocation_unavailable_text": "Desculpe, sua localização ainda não é suportada em nossa plataforma. Você será notificado por SMS ou E-mail, assim que nosso aplicativo estiver disponível na sua localização.",
+            "instructions_modal_title": "Instruções:",
+            "instructions_modal_text": "Você pode adicionar sua localização manualmente, mas nos ajudaria a obter sua posição mais precisamente se você usasse Geolocalização. Por favor, escolha uma das opções abaixo:",
+            "policy_text": "Precisamos desses dados para garantir que a ajuda chegue ao destino correto. Para qualquer problema, leia nosso ",
+            "policy_link": "Política de Privacidade e Segurança.",
+            "accept_to_use_profile_pic": "Não tenho problema em deixar Alcançar4Ajudar a usar minha imagem de perfil.",
+            "terms_conditions_text": "Eu entendo e reconheço o <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Termos e condições.",
+            "terms_conditions_error": "Você deve aceitar os Termos e Condições.",
             "full_name_error_message": "Please enter your name.",
             "display_name_error_message": "Please enter your display name.",
             "address_error_message": "Please enter your address.",
