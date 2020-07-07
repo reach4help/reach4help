@@ -156,61 +156,61 @@
     "menuDrawer": {
       "contactUs": "Contate-nos",
       "logout": "Sair",
-      "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help",
-      "settings": "Settings"
+      "switchToCAV": "Alternar para Suporte de Ofertas",
+      "switchToPIN": "Trocar para Ajuda de Busca",
+      "settings": "Configurações"
     },
     "settings": {
-      "heading": "Settings",
-      "changeName": "Change my name",
-      "deleteAccount": "Delete my account",
+      "heading": "Configurações",
+      "changeName": "Mudar nome",
+      "deleteAccount": "Excluir minha conta",
       "changeNameForm": {
-        "full_name_error_message": "Please enter your name",
-        "display_name_error_message": "Please enter your display name",
-        "cancel": "Cancel",
-        "submit": "Save"
+        "full_name_error_message": "Por favor, digite seu nome",
+        "display_name_error_message": "Digite seu nome de exibição",
+        "cancel": "Cancelar",
+        "submit": "Salve"
       },
       "deleteAccountModal": {
-        "title": "Are you sure you want to delete your account",
-        "body": "Closing your account means you will no longer be able to provide help or ask for help",
-        "deleteAccount": "Delete my account"
+        "title": "Tem certeza que deseja excluir sua conta",
+        "body": "Encerrar sua conta significa que você não poderá mais fornecer ajuda ou pedir ajuda",
+        "deleteAccount": "Deletar minha conta"
       }
     },
     "phoneNumber": {
-      "title": "Before you continue...",
-      "select_instructions": "Enter your country",
-      "input_instructions": "Enter your phone number",
-      "sub_title": "We need to ask you for your phone number so you can communicate with the person helping you. You'll be asked to verify it with a code via text.",
-      "info": "This information is fundamental to validate your account. Data and rates may apply.",
-      "error_message": "Please input your phone number!",
-      "phone_valid": "A valid phone number starts with + and country code without any spaces or other special characters in the field!",
-      "no_country_error": "A country must be chosen.",
-      "no_digits_error": "You must enter the phone digits too.",
-      "is_valid_number": "is a valid phone number",
-      "is_not_valid_number": "is not a valid phone number",
-      "is_plus_11": " is not a valid phone number. Please only use the country selector for your country code and not include it in your phone number.",
-      "country_label": "Your country",
-      "country_placeholder": "Select a country",
-      "phone_label": "Enter your phone number",
-      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit.",
+      "title": "Antes de continuar...",
+      "select_instructions": "Selecione seu país",
+      "input_instructions": "Insira seu número de telefone",
+      "sub_title": "Precisamos pedir seu número de telefone para que você possa se comunicar com a pessoa que o ajudou. Você será solicitado a verificá-lo com um código via texto.",
+      "info": "Estas informações são fundamentais para validar sua conta. Dados e taxas podem ser aplicados.",
+      "error_message": "Por favor, insira seu número de telefone!",
+      "phone_valid": "Um número de telefone válido começa com o código + e o código do país sem quaisquer espaços ou outros caracteres especiais no campo!",
+      "no_country_error": "Um país deve ser escolhido.",
+      "no_digits_error": "Você também deve digitar os dígitos do telefone.",
+      "is_valid_number": "insira um número de telefone válido",
+      "is_not_valid_number": "insira um número de telefone válido",
+      "is_plus_11": " não é um número de telefone válido. Use somente o seletor de país para o código do seu país e não o inclua no seu número de telefone.",
+      "country_label": "Seu país",
+      "country_placeholder": "Selecione um país",
+      "phone_label": "Insira seu número de telefone",
+      "bad_11_prefix": "Número inválido: +11 é o prefixo do país para a Bulgária, não o Canadá ou os Estados Unidos. Não coloque '1' como seu dígito principal.",
       "popup_explanation": {
-        "main_question": "How is my phone number used?",
-        "main_answer": "Your number is shared only with the person you explicitly accept to help you so that you can communicate with each other to carry out the request."
+        "main_question": "Como o meu número de telefone é usado?",
+        "main_answer": "Seu número é compartilhado apenas com a pessoa que você aceita explicitamente para ajudá-lo a se comunicar entre si para realizar o pedido."
       }
     },
     "verificationCode": {
-      "sub_title": "We just texted you a confirmation code. Please enter it below.",
-      "info": "If you did not receive a code please click ",
-      "resend": "resend",
-      "error_message": "Insert the received code here!"
+      "sub_title": "Acabamos de enviar um Sms com o código de confirmação. Por favor, digite abaixo.",
+      "info": "Se você não recebeu um código por favor clique ",
+      "resend": "reenviar",
+      "error_message": "Insira o código recebido aqui!"
     },
     "newRequest": {
-      "title": "New Request",
-      "icon_text": "I need help",
+      "title": "Nova Solicitação",
+      "icon_text": "Preciso de ajuda",
       "form": {
-        "title": "Title",
-        "type": "Type",
-        "address": "Confirm Address",
+        "title": "Título",
+        "type": "Tipo",
+        "address": "Confirme o endereço",
         "body": "Insira os detalhes do que é necessário",
         "other": "Digite seu nome",
         "consent": "Permita notificações Push. Você sempre pode alterar isto em suas Configurações mais tarde.",
@@ -272,8 +272,8 @@
       "CAV_DECLINED": "{{actorName}} criou esta solicitação.",
       "ACCEPT_OFFER": "{{actorName}} aceitou a ajuda de {{cavUserName}}.",
       "REJECT_OFFER": "{{actorName}} rejeitou a ajuda de {{cavUserName}}.",
-      "RATE_PIN": "{{actorName}} rated {{actedUpon}}.",
-      "RATE_CAV": "{{actorName}} rated {{actedUpon}}.",
+      "RATE_PIN": "{{actorName}} avaliou {{actedUpon}}.",
+      "RATE_CAV": "{{actorName}} avaliou {{actedUpon}}.",
       "open_status": "Abrir",
       "cav": "Voluntário",
       "cav_wait": "ESPERANDO VOLUNTEER",
