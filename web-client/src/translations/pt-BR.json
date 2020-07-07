@@ -1,8 +1,8 @@
 {
   "common": {
-    "or": "or",
-    "i_understand": "I understand.",
-    "okay": "Okay",
+    "or": "ou",
+    "i_understand": "Entendi.",
+    "okay": "Ok",
     "cancel": "Cancel",
     "welcome": "Welcome",
     "continue": "Continue",
@@ -69,79 +69,79 @@
         "6": "Press the Left Bell to see your notifications"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
-        "2": "Use this map to search for people in need.",
-        "3": "Click on an orange marker to view that person's request and decide whether to accept it",
-        "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
-        "5": "Check the Notifications panel to see updates about your offers to help.",
-        "6": "Thank you for joining us in building this unified platform of help!"
+        "title": "Bem-vindo a Reach4Help (Alcançar Para Ajuda)!",
+        "0": "Obrigado por se juntar a Reach4Help!",
+        "1": "Como voluntário, você poderá ajudar pessoas em sua região respondendo aos pedidos de ajuda deles.",
+        "2": "Use este mapa para procurar pessoas em necessidade.",
+        "3": "Clique em um marcador laranja para ver o pedido desta pessoa e decidir se quer aceitá-lo",
+        "4": "Assim que a pessoa necessitada aceitar sua oferta de ajuda, você trocará informações de contato.",
+        "5": "Confira o painel de Notificações para ver atualizações sobre suas ofertas para ajudar.",
+        "6": "Obrigado por se juntar a nós na construção desta plataforma unificada de ajuda!"
       },
       "NewRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help! As a person in need, you'll be able reach out for help in your area by creating requests. Currently, we can't guarantee that there are volunteers who can help in your area, in which case we'd suggest sharing it with potential volunteers and local volunteer organizations. Thank you for joining us in building this unified platform of help!",
-        "1": "Thank you for submitting a request! You'll be notified when a volunteer offers to accept it. To check its status, click/tap here or check ",
-        "2": "Check the Notifications panel to see updates about your incoming offers.",
-        "3": "Once you accept an offer, your information will be shared with the volunteer.",
-        "4": "Reach out to the volunteer (or wait for them to reach out to you) to coordinate."
+        "title": "Bem-vindo a Reach4Help (Alcançar Para Ajuda)!",
+        "0": "Obrigado por se juntar a Reach4Help! Como uma pessoa em necessidade você poderá entrar em contato para obter ajuda na sua região criando solicitações. Atualmente, não podemos garantir que haja voluntários que podem ajudar em sua área Nesse caso, sugerimos compartilhá-lo com potenciais voluntários e organizações de voluntários locais. Obrigado por se juntar a nós na construção desta plataforma unificada de ajuda!",
+        "1": "Obrigado por enviar uma solicitação! Você será notificado quando um voluntário oferecer para aceitá-la. Para verificar seu status, clique/toque aqui ou confira ",
+        "2": "Confira o painel de Notificações para ver atualizações sobre suas ofertas para ajudar.",
+        "3": "Quando você aceitar uma oferta, suas informações serão compartilhadas com o voluntário.",
+        "4": "Entre em contato com o voluntário (ou espere que ele entre em contato com você) para coordenar."
       }
     },
     "login": {
-      "title": "Reach4Help",
-      "sub_title": "Sign Up Overview",
-      "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
-      "facebookButtonLabel": "Continue with Facebook",
-      "googleButtonLabel": "Continue with Google",
+      "title": "Alcançar4Ajuda",
+      "sub_title": "Cadastrar Visão Geral",
+      "info": "Olá! Muito obrigado pelo seu interesse em ajudar a sua comunidade! Para garantir a segurança dos nossos usuários, Nós precisamos de login por meio do Google ou do Facebook para verificar sua identidade e entrar em contato com você se surgir alguma discrepância.\n\nApós esta etapa, você será solicitado a fornecer o seu número de telefone e a verificá-lo por meio de um código que você receberá por meio de texto. É assim que as pessoas que oferecem ajuda entrarão em contato com você! As informações de contato só são compartilhadas com a outra pessoa quando você tiver aprovado a pessoa que oferece para ajudá-los. Quando você enviar uma solicitação de ajuda, sua localização exata não é compartilhada (apenas os três primeiros dígitos do seu Cep).\nObrigado pela sua cooperação para tornar o nosso mundo um lugar mais seguro e mais útil! Em caso de dúvidas, entre em contato conosco pelo e-mail support@reach4help.org.",
+      "facebookButtonLabel": "Continue com o Facebook",
+      "googleButtonLabel": "Continue com o Google",
       "sign_in": {
-        "title": "Login with email",
-        "password_label": "Password",
-        "password_error_message": "Please input your password"
+        "title": "Entrar com E-mail",
+        "password_label": "Senha",
+        "password_error_message": "Por favor, insira sua senha"
       },
       "steps": {
-        "continue": "Continue",
+        "continue": "Continuar",
         "footer": {
-          "contact": "If you have any questions or need assistance feel free to email us at "
+          "contact": "Se você tiver alguma dúvida ou precisar de assistência sinta-se à vontade para nos enviar um e-mail para "
         },
         "0_welcome": {
-          "title": "Welcome",
-          "welcome": "Welcome to Reach4Help!",
-          "thanks": "Thank you so much for your interest in helping your community"
+          "title": "Bem-vindo",
+          "welcome": "Bem-vindo a Reach4Help (Alcançar Para Ajuda)!",
+          "thanks": "Muito obrigado pelo seu interesse em ajudar sua comunidade"
         },
         "1_select_language": {
-          "title": "Language",
-          "select_language_label": "What is your primary language?"
+          "title": "Idioma",
+          "select_language_label": "Qual é o seu idioma nativo?"
         },
         "2_explanation": {
-          "title": "Explanation",
-          "purpose": "Through our platform, you’ll be able to connect with people to recieve and provide help to people in your area!",
-          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+          "title": "Explicação",
+          "purpose": "Através de nossa plataforma, você poderá conectar-se com as pessoas para receber e fornecer ajuda às pessoas da sua área!",
+          "connect": "Você pode se conectar com voluntários e pessoas necessitadas e com necessidades criando pedidos de ajuda e oferecendo apoio para essas solicitações."
         },
         "2_authentication": {
-          "email_signup": "Sign up with email",
-          "email_signin": "Continue with email",
-          "title": "Identity",
-          "please": "Please sign up with one of the providers below",
+          "email_signup": "Cadastrar-se com e-mail",
+          "email_signin": "Continuar com email",
+          "title": "Identidade",
+          "please": "Por favor cadastre-se com um dos provedores abaixo",
           "popup_explanation": {
-            "main_question": "Why do you need an external account?",
-            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
-            "second_question": "Can I use other means to verify my identity?",
-            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+            "main_question": "Por que você precisa de uma conta externa?",
+            "main_answer": "Para garantir a segurança de nossos usuários, precisamos atualmente de login através do Google ou Facebook. Isso serve para fornecer outra camada de verificação para nossos usuários, caso precisemos entrar em contato com você.",
+            "second_question": "Posso usar outros meios para verificar minha identidade?",
+            "second_answer": "Se você está desconfortável usando o Google/Facebook, é bem-vindo para sugerir uma alternativa"
           }
         },
         "3_email_signin": {
-          "title": "Login with email",
-          "signin": "Login",
+          "title": "Entrar com E-mail",
+          "signin": "Conectar-se",
           "email_label": "Email",
-          "email_error_message": "Please input your email",
-          "password_label": "Password",
-          "password_error_message": "Please input the password you will use for Reach4Help",
-          "password_confirm_label": "Confirm password",
-          "password_confirm_empty_message": "Please confirm your password",
-          "password_confirm_error_message": "Your passwords must match"
+          "email_error_message": "Por favor, digite seu e-mail",
+          "password_label": "Senha",
+          "password_error_message": "Por favor, insira a senha que você usará para Alcançar Ajuda",
+          "password_confirm_label": "Confirmar senha",
+          "password_confirm_empty_message": "Por favor, confirme sua senha",
+          "password_confirm_error_message": "Suas senhas não conferem"
         },
         "4_email_signup": {
-          "title": "Sign up with email",
+          "title": "Cadastrar-se com e-mail",
           "create_account": "Create Account",
           "email_label": "Email",
           "email_error_message": "Please input your email",
@@ -211,44 +211,44 @@
         "title": "Title",
         "type": "Type",
         "address": "Confirm Address",
-        "body": "Enter details of what is needed",
-        "other": "Please enter your type",
-        "consent": "Allow Push Notifications. You can always change this in your Settings later.",
-        "submit": "Next",
-        "cancel": "Cancel",
-        "search": "Search",
-        "useMyLocation": "Use my location",
-        "address_error_message": "Please enter your address.",
-        "type_error_message": "You need to select a type.",
-        "other_error_message": "You need to enter details.",
-        "body_error_message": "Please enter your description."
+        "body": "Insira os detalhes do que é necessário",
+        "other": "Digite seu nome",
+        "consent": "Permita notificações Push. Você sempre pode alterar isto em suas Configurações mais tarde.",
+        "submit": "Avançar",
+        "cancel": "Cancelar",
+        "search": "Pesquisar",
+        "useMyLocation": "Usar minha localização",
+        "address_error_message": "Por favor, insira o seu endereço.",
+        "type_error_message": "Você precisa selecionar uma quantidade.",
+        "other_error_message": "Você precisa inserir um título.",
+        "body_error_message": "Por favor, insira uma descrição."
       }
     },
     "newRequestSuccess": {
-      "title": "Your request has been created",
-      "info": "Please be patient until you get an offer from a volunteer.",
-      "remember": "Remember",
-      "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
+      "title": "Sua solicitação de suporte foi aceita",
+      "info": "Por favor, seja paciente até obter uma oferta de um voluntário.",
+      "remember": "Lembrar",
+      "remember_info": "Quando um voluntário oferecer ajuda, você deve aceitar a ajuda dele para que veja suas informações de contato."
     },
     "requestReview": {
-      "submit": "Submit Request",
-      "back": "Back",
-      "deliveryAddress": "Delivery address"
+      "submit": "Enviar solicitação",
+      "back": "Voltar",
+      "deliveryAddress": "Endereço de entrega"
     },
     "roleinfo": {
-      "title": "Reach4Help",
-      "sub_title": "How can we assist you ?",
-      "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
-      "info": "Please tell us what is your purpose to use Reach4Help",
-      "info_pin": "I'm here because I need help",
-      "c2a_pin": "Get help now!",
-      "info_cav": "I'm here because I want to help people",
-      "c2a_cav": "Start helping now!"
+      "title": "Alcançar4Ajuda",
+      "sub_title": "Como podemos ajudá-lo ?",
+      "manifesto": "Acreditamos que tudo o que fazemos é significativo; acreditamos que somos capazes de ajudar as pessoas no seu sentido de união e comunidade. Consideramos que a solidariedade é a melhor para os indivíduos.",
+      "info": "Por favor, diga-nos qual é o seu objetivo para usar a Reach4Help",
+      "info_pin": "Eu estou aqui porque preciso de ajuda",
+      "c2a_pin": "Obter ajuda agora!",
+      "info_cav": "Estou aqui porque quero ajudar as pessoas",
+      "c2a_cav": "Comece a aprender agora!"
     },
     "routeSubtitles": {
-      "_login": "Login",
-      "_phone": "Phone",
-      "_requests": "Requests",
+      "_login": "Conectar-se",
+      "_phone": "Telefone",
+      "_requests": "Requisitos",
       "_personal-data": "Personal Data",
       "_timeline": "Request Timeline",
       "_personal-data_role-info": "Role Info",
