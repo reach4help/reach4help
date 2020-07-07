@@ -126,7 +126,7 @@
             "main_question": "Pourquoi avez-vous besoin d'un compte externe ?",
             "main_answer": "Pour assurer la sécurité de nos utilisateurs, nous avons actuellement besoin de vous connecter via Google ou Facebook. Il s'agit de fournir une autre couche de vérification à nos utilisateurs au cas où nous aurions besoin de vous contacter.",
             "second_question": "Puis-je utiliser d'autres moyens pour vérifier mon identité?",
-            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+            "second_answer": "Si vous n’êtes pas à l’aise avec Google/Facebook, vous pouvez proposer une alternative à"
           }
         },
         "3_email_signin": {
@@ -195,14 +195,14 @@
       "bad_11_prefix": "Numéro invalide : +11 est l'indicatif téléphonique pour la Bulgarie, pas le Canada ou les États-Unis.",
       "popup_explanation": {
         "main_question": "Comment mon numéro de téléphone est-il utilisé ?",
-        "main_answer": "Your number is shared only with the person you explicitly accept to help you so that you can communicate with each other to carry out the request."
+        "main_answer": "Votre numéro est partagé uniquement avec la personne que vous acceptez explicitement pour vous aider afin que vous puissiez communiquer entre vous pour exécuter la demande."
       }
     },
     "verificationCode": {
       "sub_title": "Nous venons de vous envoyer un code de confirmation par SMS. Veuillez le saisir ci-dessous.",
       "info": "Si vous n'avez pas reçu de code, veuillez cliquer ",
       "resend": "renvoyer",
-      "error_message": "Insert the received code here!"
+      "error_message": "Insérez le code reçu ici !"
     },
     "newRequest": {
       "title": "Nouvelle Demande",
@@ -261,7 +261,7 @@
       "_requests_new": "Nouvelle Demande",
       "_requests_ongoing": "Demandes En Cours",
       "_requests_open": "Demandes Ouvertes",
-      "_settings": "Settings"
+      "_settings": "Réglages"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} a créé cette demande.",
