@@ -23,7 +23,7 @@
     "for": " pour ",
     "information_modal": {
       "instructions": "Instructions",
-      "footer": "Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse support@crowdin.com",
+      "footer": "Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse support@reach4help.org",
       "a11y_logo": "Atteindre le logo d'aide",
       "OpenRequestsContainer": {
         "title": "Toujours à la recherche d'aide ...",
@@ -131,7 +131,7 @@
         },
         "3_email_signin": {
           "title": "Login with email",
-          "signin": "Login",
+          "signin": "Connexion",
           "email_label": "Email",
           "email_error_message": "Please input your email",
           "password_label": "Password",
@@ -173,11 +173,11 @@
       "deleteAccountModal": {
         "title": "Are you sure you want to delete your account",
         "body": "Closing your account means you will no longer be able to provide help or ask for help",
-        "deleteAccount": "Delete my account"
+        "deleteAccount": "Supprimer mon compte"
       }
     },
     "phoneNumber": {
-      "title": "Before you continue...",
+      "title": "Avant de continuer...",
       "select_instructions": "Enter your country",
       "input_instructions": "Enter your phone number",
       "sub_title": "We need to ask you for your phone number so you can communicate with the person helping you. You'll be asked to verify it with a code via text.",
