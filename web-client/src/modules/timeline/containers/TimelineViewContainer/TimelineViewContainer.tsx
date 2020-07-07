@@ -150,7 +150,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       } else {
         if (
           !requestsState.syncOpenRequestsState.data &&
-          !requestsState.syncOngoingRequestsState.loading
+          !requestsState.syncOpenRequestsState.loading
         ) {
           dispatch(
             getOpenRequests({
@@ -274,12 +274,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   };
 
   const handleOffer = (action: boolean, id: string) => {
-    console.log('offers: ', request.offers);
-    console.log('received id: ', id);
-    console.log('requestWithOffer: ', request);
-    console.log('request: ', request.getRequest());
     const offer = request.offers[id].getOffer();
-    console.log('chosen offer: ', offer);
     if (action === true) {
       offer.status = OfferStatus.accepted;
     }

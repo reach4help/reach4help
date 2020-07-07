@@ -32,6 +32,7 @@ export default createReducer<OffersState>(
     [SET.PENDING]: (state: OffersState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
+      state.newOfferTemp = undefined;
     },
     [SET.COMPLETED]: (
       state: OffersState,
