@@ -20,6 +20,50 @@ We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Pl
 
 # Your First Contribution
 
+## First make a fork of the repo to your local github
+![Forking on Gitub](forkExample.png)
+
+## Clone the fork to your local machine and set the remote upstream
+* https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork
+* $ git remote add upstream https://github.com/reach4help/reach4help.git
+* Do $ git remote -v to make sure you are correctly pointing to your fork and to the upstream branch
+
+## Creating a branch
+* All branches must be based off of upstream/development
+* Before you do any work you must:
+* * git fetch --all
+* * git checkout upstream/development
+
+## Naming a branch
+* The branch name must tell us
+* * The kind of issue it resolves
+* * The number of the issue on github
+* * A description of the issue.
+
+### Example
+![Issue on Gitub](githubIssueExample.png)
+
+The branch for this is named
+* documentation/855-forking-pr-instructions
+* Note that I do not put "#" before the 855.  This is because "#" is a special character in HTML so it's harder to type into a web browser address bar.
+
+## Before you commit
+* Always fix your linting errors
+* * within the web-client directory (not the top directory!!!)
+* * Run yarn lint and fix the errors manually
+* * Ran yarn lint:fix and let the linter fix them for you
+* Before you commit anything, always always always merge with upstream development 
+* * git merge upstream/development
+
+## Commit and pull request
+* git commit -m "message"
+* git push
+* Git will give you instructions on how to push a new branch.  Follow them.
+* Go to github and create a Pull Request against reach4help/development
+* Assign people to review and approve your pull request
+
+
+
 Here are a couple of friendly tutorials to help you get started: http://makeapullrequest.com/ and http://www.firsttimersonly.com/
 
 > Working on your first Pull Request? You can learn how from this _free_ series, [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
