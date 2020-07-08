@@ -59,6 +59,7 @@ The branch for this is named
 * git commit -m "message"
 * git push
 * Git will give you instructions on how to push a new branch.  Follow them.
+* * eg:      git push --set-upstream origin documentation/855-forking-pr-instructions
 * Go to github and create a Pull Request against reach4help/development
 * Assign people to review and approve your pull request
 
