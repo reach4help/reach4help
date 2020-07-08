@@ -73,7 +73,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     padding: 10px;
     text-align: center;
   `;
-  // Probably should merge the above two to conditionally color using props
+  // TODO: Merge the above two to conditionally color using props
 
   const FormLabel = styled.div`
     font-family: Roboto;
@@ -131,11 +131,11 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     let countryCode;
     let number;
     if (isDigits) {
-      countryCode = dialCode;
+      countryCode = dialCode.replace(/\D/g, '');
       number = value.replace(/\D/g, '');
     } else {
-      countryCode = value;
-      number = digits;
+      countryCode = value.replace(/\D/g, '');
+      number = digits.replace(/\D/g, '');
     }
 
     if (!countryCode) {
@@ -197,6 +197,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
         );
       }}
     >
+      {/* These template strings must never contain the word "country" or Chrome will try to autocomplete */}
       <Instructions>{t('phoneNumber.sub_title')}</Instructions>
 
       <FormSection>
