@@ -41,67 +41,6 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     }
   }, [reset, forceUpdate]);
 
-  const CountryCodeDisplay = styled(Input)`
-    /* might need media query to get positioning right */
-    height: 32px;
-    position: relative;
-    width: 5rem;
-    &:disabled {
-      color: black;
-      font-weight: 900px;
-      background-color: #d0d0d0;
-    }
-  `;
-
-  const ErrorDisplay = styled.div`
-    color: ${COLORS.backgroundAlternative};
-    font-weight: 700;
-    width: 75%;
-    margin: auto;
-    margin-bottom: 1em;
-    border: 2px solid ${COLORS.backgroundAlternative};
-    padding: 10px;
-    text-align: center;
-  `;
-  const SuccessDisplay = styled.div`
-    color: #52c41a;
-    font-weight: 700;
-    width: 75%;
-    margin: auto;
-    margin-bottom: 1em;
-    border: 2px solid #52c41a;
-    padding: 10px;
-    text-align: center;
-  `;
-  // TODO: Merge the above two to conditionally color using props
-
-  const FormLabel = styled.div`
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 20px;
-    color: rgba(0, 0, 0, 0.65);
-    margin: 5px 0;
-    align-self: flex-start;
-  `;
-
-  const FormSection = styled.div`
-    width: 95%;
-    max-width: 400px;
-  `;
-
-  const Instructions = styled.div`
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 28px;
-    text-align: center;
-    color: rgba(0, 0, 0, 0.85);
-    margin: 30px 0;
-  `;
-
   const showMessage = ({ message, valid }) => {
     if (valid) {
       setNumberValidMessage(message);
@@ -113,41 +52,25 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     return Promise.resolve();
   };
 
-  // We might need to do something similar to this initialCheck here to prevent the error message from staying
-  const fullTelephoneValidator = (value, isDigits = false) => {
+  const fullFormValidator = (changedValues, allValues) => {
+    const prefix = allValues.prefix ? allValues.prefix.replace(/\D/g, '') : '';
+    const suffix = allValues.suffix ? allValues.suffix.replace(/\D/g, '') : '';
     /* TODO:  Check if this conditional is needed */
-    if (!value) {
-      if (isDigits) {
-        return Promise.reject(t('phoneNumber.error_message'));
-      }
-      return Promise.reject(t('phoneNumber.error_message'));
-    }
 
-    let countryCode;
-    let number;
-    if (isDigits) {
-      countryCode = dialCode.replace(/\D/g, '');
-      number = value.replace(/\D/g, '');
-    } else {
-      countryCode = value.replace(/\D/g, '');
-      number = digits.replace(/\D/g, '');
-    }
-
-    if (!countryCode) {
+    if (!prefix) {
       return showMessage({
         message: t('phoneNumber.no_country_error'),
         valid: false,
       });
     }
-
-    if (!number) {
+    if (!suffix) {
       return showMessage({
         message: t('phoneNumber.no_digits_error'),
         valid: false,
       });
     }
 
-    const fullTelephone = `+${countryCode}${number}`;
+    const fullTelephone = `+${prefix}${suffix}`;
 
     const pnv = new PhoneNumberValidator(fullTelephone);
 
@@ -179,6 +102,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       autoComplete="off"
       layout="vertical"
       form={form}
+      onValuesChange={fullFormValidator}
       onFinish={({ prefix, suffix }) => {
         handleFormSubmit(
           {
@@ -196,14 +120,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
 
       <FormSection>
         <FormLabel>{t('phoneNumber.select_instructions')}</FormLabel>
-        <Form.Item
-          name="prefix"
-          rules={[
-            {
-              validator: (_, value) => fullTelephoneValidator(value, false),
-            },
-          ]}
-        >
+        <Form.Item name="prefix">
           <Select
             showSearch
             style={{ width: '100%' }}
@@ -235,11 +152,6 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           <Form.Item
             style={{ textAlign: 'center', width: '100%' }}
             name="suffix"
-            rules={[
-              {
-                validator: (_, value) => fullTelephoneValidator(value, true),
-              },
-            ]}
           >
             <PhoneInput
               onChange={e => setDigits(e.target.value)}
@@ -272,6 +184,67 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     </Form>
   );
 };
+
+const CountryCodeDisplay = styled(Input)`
+  /* might need media query to get positioning right */
+  height: 32px;
+  position: relative;
+  width: 5rem;
+  &:disabled {
+    color: black;
+    font-weight: 900px;
+    background-color: #d0d0d0;
+  }
+`;
+
+// TODO: Merge the following two to conditionally color using props
+const ErrorDisplay = styled.div`
+  color: ${COLORS.backgroundAlternative};
+  font-weight: 700;
+  width: 75%;
+  margin: auto;
+  margin-bottom: 1em;
+  border: 2px solid ${COLORS.backgroundAlternative};
+  padding: 10px;
+  text-align: center;
+`;
+const SuccessDisplay = styled.div`
+  color: #52c41a;
+  font-weight: 700;
+  width: 75%;
+  margin: auto;
+  margin-bottom: 1em;
+  border: 2px solid #52c41a;
+  padding: 10px;
+  text-align: center;
+`;
+
+const FormLabel = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.65);
+  margin: 5px 0;
+  align-self: flex-start;
+`;
+
+const FormSection = styled.div`
+  width: 95%;
+  max-width: 400px;
+`;
+
+const Instructions = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.85);
+  margin: 30px 0;
+`;
 
 const PhoneInput = styled(Input)`
   width: 100%;
