@@ -110,16 +110,11 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     }
     setNumberValidMessage('');
     setNumberINValidMessage(message);
-    return Promise.reject();
+    return Promise.resolve();
   };
 
   // We might need to do something similar to this initialCheck here to prevent the error message from staying
-  const fullTelephoneValidator = (
-    value,
-    isDigits = false,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-    initialCheck = false,
-  ) => {
+  const fullTelephoneValidator = (value, isDigits = false) => {
     /* TODO:  Check if this conditional is needed */
     if (!value) {
       if (isDigits) {
@@ -184,8 +179,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       autoComplete="off"
       layout="vertical"
       form={form}
-      onFinish={async ({ prefix, suffix }) => {
-        await fullTelephoneValidator(suffix, true, true);
+      onFinish={({ prefix, suffix }) => {
         handleFormSubmit(
           {
             phoneNumber: `+${prefix.replace(/\D/g, '')}${suffix.replace(
@@ -241,8 +235,17 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
           <Form.Item
             style={{ textAlign: 'center', width: '100%' }}
             name="suffix"
+            rules={[
+              {
+                validator: (_, value) => fullTelephoneValidator(value, true),
+              },
+            ]}
           >
-            <PhoneInput placeholder="1234567" maxLength={14} />
+            <PhoneInput
+              onChange={e => setDigits(e.target.value)}
+              placeholder="345-6789"
+              maxLength={14}
+            />
           </Form.Item>
         </div>
       </FormSection>
