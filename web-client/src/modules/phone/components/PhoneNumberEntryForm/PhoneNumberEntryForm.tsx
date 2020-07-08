@@ -52,7 +52,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     return Promise.resolve();
   };
 
-  const fullFormValidator = (changedValues, allValues) => {
+  const fullPhoneValidator = (changedValues, allValues) => {
     const prefix = allValues.prefix ? allValues.prefix.replace(/\D/g, '') : '';
     const suffix = allValues.suffix ? allValues.suffix.replace(/\D/g, '') : '';
     /* TODO:  Check if this conditional is needed */
@@ -91,6 +91,7 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       message: `${fullTelephone} ${t('phoneNumber.is_not_valid_number')}`,
     });
   };
+  const formSubmitValidator = allValues => fullPhoneValidator(null, allValues);
 
   return (
     <Form
@@ -102,16 +103,18 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       autoComplete="off"
       layout="vertical"
       form={form}
-      onValuesChange={fullFormValidator}
+      onValuesChange={fullPhoneValidator}
       onFinish={({ prefix, suffix }) => {
-        handleFormSubmit(
-          {
-            phoneNumber: `+${prefix.replace(/\D/g, '')}${suffix.replace(
-              /\D/g,
-              '',
-            )}`,
-          },
-          recaptchaVerifier,
+        formSubmitValidator({ prefix, suffix }).then(
+          handleFormSubmit(
+            {
+              phoneNumber: `+${prefix.replace(/\D/g, '')}${suffix.replace(
+                /\D/g,
+                '',
+              )}`,
+            },
+            recaptchaVerifier,
+          ),
         );
       }}
     >
