@@ -70,7 +70,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
                 ),
               },
               ({ getFieldValue }) => ({
-                validator(rule, value) {
+                validator(value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
@@ -108,6 +108,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
                   type="primary"
                   htmlType="submit"
                   icon={<ArrowRightOutlined />}
+                  style={{ minWidth: 0 }}
                 >
                   {t('login.steps.4_email_signup.create_account')}{' '}
                 </Button>
@@ -122,9 +123,9 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
 
 const RegistrationButtonsPanel = styled.div`
   display: flex;
-  /* justify-content: space-between; */
-  margin-bottom: 40px;
-  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 10px 0;
 `;
 
 const RegistrationButtonWrapper = styled.div`

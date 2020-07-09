@@ -80,6 +80,7 @@ const EmailSignIn: React.FC<EmailSignInProps> = ({
                   type="primary"
                   htmlType="submit"
                   icon={<ArrowRightOutlined />}
+                  style={{ minWidth: '165px' }}
                 >
                   {t('login.steps.3_email_signin.signin')}{' '}
                 </Button>
@@ -94,9 +95,9 @@ const EmailSignIn: React.FC<EmailSignInProps> = ({
 
 const RegistrationButtonsPanel = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  margin: 10px 0;
 `;
 
 const RegistrationButtonWrapper = styled.div`
