@@ -1,7 +1,11 @@
 import React, { ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-const CustomMapControl = ({ map, controlPosition, children }: Props) => {
+const CustomMapControlPortal = ({
+  map,
+  controlPosition,
+  children,
+}: CustomMapControlPortalProps) => {
   const controlDiv = document.createElement('div');
 
   useEffect(() => {
@@ -18,10 +22,10 @@ const CustomMapControl = ({ map, controlPosition, children }: Props) => {
   return createPortal(<div>{children}</div>, controlDiv);
 };
 
-interface Props {
+interface CustomMapControlPortalProps {
   map: any | null;
   controlPosition?: number;
   children: ReactNode;
 }
 
-export default CustomMapControl;
+export default CustomMapControlPortal;
