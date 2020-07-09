@@ -1,10 +1,12 @@
 {
   "common": {
+    "or": "or",
     "i_understand": "I understand.",
     "okay": "Okay",
     "cancel": "Cancel",
     "welcome": "Welcome",
     "continue": "Continue",
+    "back": "Back",
     "verify": "Verify",
     "spinner": "Loading ...",
     "name": "Name",
@@ -90,61 +92,117 @@
       "sub_title": "Sign Up Overview",
       "info": "Hello there! Thank you so much for your interest in helping your community!  To ensure the safety of our users, we currently require login through Google or Facebook to verify your identity and contact you if any discrepancies arise.\n\nAfter this step, you’ll be asked to provide your phone number and to verify it through a code you’ll receive via text. This is how people offering help will get in touch with you!  Contact information is only shared with the other person when you have approved the person offering to help them. When you submit a request for help, your precise location is not shared (only the first three digits of your postal code).\nThank you for your cooperation in making our world a safer and more helpful place!  If you have any questions, please contact us at support@reach4help.org.",
       "facebookButtonLabel": "Continue with Facebook",
-      "googleButtonLabel": "Continue with Google"
+      "googleButtonLabel": "Continue with Google",
+      "sign_in": {
+        "title": "Login with email",
+        "password_label": "Password",
+        "password_error_message": "Please input your password"
+      },
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help!",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you’ll be able to connect with people to recieve and provide help to people in your area!",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "2_authentication": {
+          "email_signup": "Sign up with email",
+          "email_signin": "Continue with email",
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        },
+        "3_email_signin": {
+          "title": "Login with email",
+          "signin": "Login",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        },
+        "4_email_signup": {
+          "title": "Sign up with email",
+          "create_account": "Create Account",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "Contact us",
       "logout": "Sign out",
       "switchToCAV": "Switch to Offering Support",
-      "switchToPIN": "Switch to Seeking Help"
+      "switchToPIN": "Switch to Seeking Help",
+      "settings": "Settings"
+    },
+    "settings": {
+      "heading": "Settings",
+      "changeName": "Change my name",
+      "deleteAccount": "Delete my account",
+      "changeNameForm": {
+        "full_name_error_message": "Please enter your name",
+        "display_name_error_message": "Please enter your display name",
+        "cancel": "Cancel",
+        "submit": "Save"
+      },
+      "deleteAccountModal": {
+        "title": "Are you sure you want to delete your account",
+        "body": "Closing your account means you will no longer be able to provide help or ask for help",
+        "deleteAccount": "Delete my account"
+      }
     },
     "phoneNumber": {
-      "select_instructions": "Pick from the dropdown below",
-      "input_instructions": "Enter your digits",
-      "sub_title": "Enter your telephone number to begin",
+      "title": "Before you continue...",
+      "select_instructions": "Enter your country",
+      "input_instructions": "Enter your phone number",
+      "sub_title": "We need to ask you for your phone number so you can communicate with the person helping you. You'll be asked to verify it with a code via text.",
       "info": "This information is fundamental to validate your account. Data and rates may apply.",
       "error_message": "Please input your phone number!",
-      "phone_valid": "A valid Phone number starts with + and country code without any spaces or other special characters in the field!",
+      "phone_valid": "A valid phone number starts with + and country code without any spaces or other special characters in the field!",
       "no_country_error": "A country must be chosen.",
       "no_digits_error": "You must enter the phone digits too.",
-      "is_valid_number": "is a valid telephone number",
-      "is_not_valid_number": "is not a valid telephone number",
-      "is_plus_11": " is not a valid telephone number.  Do not enter your country code into the input box.  Only use the Country Selector",
+      "is_valid_number": "is a valid phone number",
+      "is_not_valid_number": "is not a valid phone number",
+      "is_plus_11": " is not a valid phone number. Please only use the country selector for your country code and not include it in your phone number.",
       "country_label": "Your country",
       "country_placeholder": "Select a country",
       "phone_label": "Enter your phone number",
-      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit"
+      "bad_11_prefix": "Invalid Number: +11 is the country prefix for Bulgaria, not Canada or the United States.  Do not put '1' as your leading digit.",
+      "popup_explanation": {
+        "main_question": "How is my phone number used?",
+        "main_answer": "Your number is shared only with the person you explicitly accept to help you so that you can communicate with each other to carry out the request."
+      }
     },
     "verificationCode": {
       "sub_title": "We just texted you a confirmation code. Please enter it below.",
       "info": "If you did not receive a code please click ",
       "resend": "resend",
-      "error_message": "Insert the received number here!"
-    },
-    "user_data_form": {
-      "sub_title": "Please fill out the personal details below.",
-      "gps_button": "Use GPS to get my address",
-      "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
-      "learn_reactivate": "Learn how to reactivate geolocation",
-      "retry_geolocation": "Retry Geolocation",
-      "continue_without_geolocation": "Continue without Geolocation",
-      "go_back": "Go Back",
-      "geolocation_modal_title": "Geolocation is not authorized",
-      "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
-      "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
-      "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
-      "instructions_modal_title": "Instructions:",
-      "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
-      "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
-      "policy_link": "Privacy & Security Policy.",
-      "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
-      "terms_conditions_text": "I understand and acknowledge the ",
-      "terms_conditions_link": "Terms & Conditions.",
-      "terms_conditions_error": "You need to accept the Terms & Conditions.",
-      "full_name_error_message": "Please enter your name.",
-      "display_name_error_message": "Please enter your display name.",
-      "address_error_message": "Please enter your address.",
-      "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+      "error_message": "Insert the received code here!"
     },
     "newRequest": {
       "title": "New Request",
@@ -202,7 +260,8 @@
       "_requests_finished": "Completed Requests",
       "_requests_new": "New Request",
       "_requests_ongoing": "Ongoing Requests",
-      "_requests_open": "Open Requests"
+      "_requests_open": "Open Requests",
+      "_settings": "Settings"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} created this request.",
@@ -258,6 +317,35 @@
         }
       },
       "personal-data": {
+        "components": {
+          "PersonalDataForm": {
+            "sub_title": "Please fill out the personal details below.",
+            "gps_button": "Use GPS to get my address",
+            "gps_unavailable_retry_button": "Geolocation unavailable. Retry.",
+            "learn_reactivate": "Learn how to reactivate geolocation",
+            "retry_geolocation": "Retry Geolocation",
+            "continue_without_geolocation": "Continue without Geolocation",
+            "go_back": "Go Back",
+            "geolocation_modal_title": "Geolocation is not authorized",
+            "geolocation_modal_text": "You can add your location manually, but it would help us get your position more accurately if you would use Geolocation. Please choose one of the options below :",
+            "geolocation_unavailable_title": "Unfortunately, we are not yet available in your location",
+            "geolocation_unavailable_text": "Sorry your location is not yet supported on our platform.  You will be notified by SMS or E-Mail, once our application becomes available at your location.",
+            "instructions_modal_title": "Instructions:",
+            "instructions_modal_text": "You can add your location manually, but it would help us get your position more accurately if you used Geolocation. If you wish to re-activate it, please follow the link :",
+            "policy_text": "We need this data to ensure the help reaches the correct destination. For any concerns, please read our ",
+            "policy_link": "Privacy & Security Policy.",
+            "accept_to_use_profile_pic": "I am okay with letting Reach4Help use my profile picture.",
+            "terms_conditions_text": "I understand and acknowledge the <0>{{linkText}}</0>",
+            "terms_conditions_link_text": "Terms & Conditions.",
+            "terms_conditions_error": "You need to accept the Terms & Conditions.",
+            "full_name_error_message": "Please enter your name.",
+            "display_name_error_message": "Please enter your display name.",
+            "address_error_message": "Please enter your address.",
+            "city_error_message": "Please enter your city.",
+            "country_error_message": "Please enter your country.",
+            "allow_send_notifications": "I would like Reach4Help to send me notifications and emails."
+          }
+        },
         "containers": {
           "PersonalDataFormContainer": {
             "address_error": "Sorry, We couldn't determine your actual address, please try again!",
@@ -273,6 +361,13 @@
         "bottom_warning": "Your request was viewed by several volunteers, but was not accepted. We suggest you &ldquo;Close Request&rdquo; and create a new one with a simpler description.",
         "cannot_help": "Cannot Help",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "Accepted"
           },

@@ -1,5 +1,5 @@
 import { firestore } from 'firebase';
-import { IOffer, Offer } from 'src/models/offers';
+import { IOffer, Offer, OfferStatus } from 'src/models/offers';
 
 import {
   createUserOffer,
@@ -14,6 +14,7 @@ import {
   OBSERVE_OFFERS,
   RESET_SET,
   SET,
+  SET_TEMP_OFFER,
 } from './types';
 
 export const observeOffers = (
@@ -42,21 +43,31 @@ export const getRequestOffers = (payload: IgetRequestOffers) => (
     firebase: getRequestOffersFunc,
   });
 
-export const setOffer = (payload: Offer | IOffer, offerId?: string) => (
-  dispatch: Function,
-) => {
+export const setOffer = (
+  payload: Offer | IOffer,
+  offerId?: string,
+  phoneNumber?: string | null,
+) => (dispatch: Function) => {
   if (!(payload instanceof Offer)) {
     const offerPayload = Offer.factory({
       ...payload,
     });
 
     dispatch({
-      type: SET,
+      type:
+        phoneNumber || offerPayload.status === OfferStatus.cavDeclined
+          ? SET
+          : SET_TEMP_OFFER,
       payload: {
         offerPayload,
         offerId,
       },
-      firebase: offerId ? setUserOffer : createUserOffer,
+      firebase:
+        phoneNumber || offerPayload.status === OfferStatus.cavDeclined
+          ? offerId
+            ? setUserOffer
+            : createUserOffer
+          : null,
     });
   } else {
     const offerPayload = payload;

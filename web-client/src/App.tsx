@@ -2,12 +2,18 @@ import { enableAllPlugins } from 'immer';
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import SEO from 'src/components/SEO/SEO';
+import PhoneNumberModal from 'src/pages/modals/phoneNumber';
 
 import MasterPage from './pages/MasterPage';
 import configureStore from './store';
+import { enableLogger, enableMonitoring } from './telemetry';
 
 // Later we can check if we need all immer plugins
 enableAllPlugins();
+if (process.env.NODE_ENV !== 'development') {
+  enableLogger();
+  enableMonitoring();
+}
 
 const App = (): ReactElement => {
   const store = configureStore();
@@ -15,6 +21,7 @@ const App = (): ReactElement => {
     <Provider store={store}>
       <SEO />
       <MasterPage />
+      <PhoneNumberModal />
     </Provider>
   );
 };

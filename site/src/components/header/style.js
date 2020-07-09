@@ -1,5 +1,6 @@
 import styled from "styled-components"
 
+const DRAWER_HEIGHT_MOBILE = "70px"
 const PADDING_HORIZONTAL = "50px"
 
 export const HeaderWrapper = styled.header`
@@ -12,7 +13,7 @@ export const HeaderWrapper = styled.header`
   }
 
   .actions {
-    margin: 0 -6px;
+    margin: 0 -20px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -23,10 +24,9 @@ export const HeaderWrapper = styled.header`
 
     button {
       margin: 6px;
-      background: ${p => p.theme.colors.primaryDark};
-      padding: 11px 30px;
+      padding: 9px 30px;
       font-family: Roboto;
-      font-style: normal;
+      /* font-style: normal;
       font-weight: 500;
       font-size: 15px;
       line-height: 18px;
@@ -34,14 +34,9 @@ export const HeaderWrapper = styled.header`
       outline: none;
       border: none;
       cursor: pointer;
-      box-sizing: border-box;
-      border-radius: 6px;
-      white-space: nowrap;
-
-      &:hover,
-      &:focus {
-        background: ${p => p.theme.colors.primary};
-      }
+      box-sizing: border-box; */
+      /* border-radius: 6px;
+      white-space: nowrap; */
     }
   }
 `
@@ -83,7 +78,7 @@ export const TopWrapper = styled.div`
         fill: ${p => p.theme.colors.secondaryDark};
       }
       .accent {
-        fill: ${p => p.theme.colors.secondary};
+        fill: ${p => p.theme.colors.accent};
       }
     }
 
@@ -112,15 +107,7 @@ export const DrawerWrapper = styled.div`
   background: ${p => p.theme.colors.accent};
   box-shadow: 0px 4px 10px rgba(31, 0, 41, 0.15);
   z-index: ${p => p.theme.zIndices.headerSecondary};
-
-  /* .actions {
-    justify-content: center;
-    margin: 20px 0 10px;
-
-    ${p => p.theme.breakpoints.small} {
-      display: none;
-    }
-  } */
+  padding-bottom: 15px;
 
   nav {
     display: flex;
@@ -141,11 +128,11 @@ export const DrawerWrapper = styled.div`
 
     li {
       padding-top: 2.5%;
-      height: ${p => p.theme.measurements.drawerHeight}px;
+      height: ${DRAWER_HEIGHT_MOBILE};
       position: relative;
       font-weight: bold;
       margin: 0px 35px;
-      
+
       ${p => p.theme.breakpoints.small} {
         padding-top: 0%;
       }
@@ -163,11 +150,9 @@ export const DrawerWrapper = styled.div`
           transition: opacity 0.25s ease;
 
           :hover {
-        opacity: 1;
-      }
+            opacity: 1;
+          }
         }
-
-        
 
         ${p => p.theme.breakpoints.small} {
           color: ${props => props.theme.colors.accent};
@@ -179,9 +164,7 @@ export const DrawerWrapper = styled.div`
           :hover {
             color: ${props => props.theme.colors.accent};
           }
-      } 
-
-        
+        }
       }
 
       .active {
@@ -192,7 +175,7 @@ export const DrawerWrapper = styled.div`
           p {
             opacity: 1;
           }
-      } 
+        }
 
         ::after {
           position: relative;
@@ -212,10 +195,10 @@ export const DrawerWrapper = styled.div`
   /* TODO: note to self - clean this up at some point PLEASE */
   ${p => p.theme.breakpoints.small} {
     width: 100%;
-    height: 300px;
+    height: 315px;
     /* max-height: 300px; */
     background: rgb(248, 248, 248);
-    box-shadow: 1px 0 10px 4px rgba(0,0,0,0.5);
+    box-shadow: 1px 0 10px 4px rgba(0, 0, 0, 0.5);
     text-align: center;
     position: absolute;
 
@@ -227,10 +210,24 @@ export const DrawerWrapper = styled.div`
       padding: 0;
       display: flex;
       flex-direction: column;
-    }    
+    }
   }
 `
 
-export const LanguageLi = styled.li`
+export const ActionsLi = styled.li`
+  display: none;
+
+  ${p => p.theme.breakpoints.small} {
+    display: list-item;
+  }
+
+  button {
+    margin: 6px;
+    padding: 9px 30px;
+    font-family: Roboto;
+  }
+
   align-self: center;
+  visibility: ${props => (props.show ? "hidden" : "visible")};
+  transition: visibility 0.3s;
 `

@@ -4,16 +4,18 @@ import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
 import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/PersonalDataRoute/constants';
 import { RoleInfoLocation } from 'src/modules/personalData/pages/routes/RoleInfoRoute/constants';
-import { PhoneEntryLocation } from 'src/modules/phone/pages/routes/PhoneEntryRoute/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
+import { LoginLocation } from '../../modules/login/pages/routes/LoginRoute/constants';
 
 const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
-  const auth = useSelector((state: AppState) => state.auth);
+  const user = useSelector((state: AppState) => state.auth.user);
+  const observerReceivedFirstUpdate = useSelector(
+    (state: AppState) => state.auth.observerReceivedFirstUpdate,
+  );
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
@@ -23,39 +25,28 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   useEffect((): any => observeUserAction(dispatch), [dispatch]);
 
   useEffect((): any => {
-    if (auth.user && auth.user.uid) {
-      return observeProfile(dispatch, { uid: auth.user.uid });
+    if (user && user.uid) {
+      return observeProfile(dispatch, { uid: user.uid });
     }
     return undefined;
-  }, [dispatch, auth]);
+  }, [dispatch, user]);
 
   useEffect((): any => {
-    if (auth.user && auth.user.uid) {
-      return observePrivileged(dispatch, { uid: auth.user.uid });
+    if (user && user.uid) {
+      return observePrivileged(dispatch, { uid: user.uid });
     }
     return undefined;
-  }, [dispatch, auth]);
+  }, [dispatch, user]);
 
-  if (!auth.observerReceivedFirstUpdate || !auth.observerReceivedFirstUpdate) {
+  if (!observerReceivedFirstUpdate) {
     return <LoadingWrapper />;
   }
 
-  if (!auth.user) {
+  if (!user) {
     return (
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: `${location.pathname}${location.search}` },
-        }}
-      />
-    );
-  }
-
-  if (!auth.user.phoneNumber) {
-    return (
-      <Redirect
-        to={{
-          pathname: PhoneEntryLocation.path,
           state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />

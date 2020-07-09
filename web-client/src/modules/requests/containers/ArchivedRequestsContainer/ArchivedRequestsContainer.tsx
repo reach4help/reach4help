@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getArchivedRequests,
@@ -14,6 +10,10 @@ import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from '../../../../components/Modals/OneTimeModal';
 import Header from '../../components/Header/Header';
 import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';

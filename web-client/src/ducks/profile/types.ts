@@ -4,6 +4,8 @@ import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 export const { asyncType, observerType } = createActionTypeFactory('PROFILE');
 
+export const DELETE_ME = asyncType('DELETE_ME');
+
 export const GET = asyncType('GET');
 
 export const OBSERVE_PROFILE = observerType('OBSERVE_PROFILE');

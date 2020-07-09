@@ -91,13 +91,17 @@ const DashboardLayoutWrapper = styled(Layout)`
   bottom: 0;
   left: 0;
   right: 0;
+  height: 100%;
   overflow: auto;
 `;
 
 const DashboardContent = styled(Layout.Content)`
+  display: flex;
+  flex-direction: column;
   margin: 64px 0;
+  height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 interface DashboardLayoutProps {

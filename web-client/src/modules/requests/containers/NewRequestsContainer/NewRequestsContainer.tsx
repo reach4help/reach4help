@@ -7,24 +7,26 @@ import { useHistory } from 'react-router-dom';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from 'src/components/InformationModal/InformationModal';
+} from 'src/components/Modals/OneTimeModal';
 import {
   getCoordsFromProfile,
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
-import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
+import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
-import NewRequest from 'src/modules/requests/components/NewRequest/NewRequest';
-import RequestConfirmation from 'src/modules/requests/components/NewRequest/RequestConfirmation';
+import { AppState } from 'src/store';
+import styled from 'styled-components';
+
+import NewRequest from '../../components/NewRequest/NewRequest';
+import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
 import RequestReview, {
   RequestInput,
-} from 'src/modules/requests/components/NewRequest/RequestReview';
-import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequestsRoute/constants';
-import styled from 'styled-components';
+} from '../../components/NewRequest/RequestReview';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
@@ -45,12 +47,12 @@ const NewRequestsContainer: React.FC = () => {
     false,
   );
 
-  const profileState = useSelector(
-    ({ profile }: { profile: ProfileState }) => profile,
+  const phoneNumber = useSelector(
+    (state: AppState) => state.auth.user?.phoneNumber,
   );
 
-  const newRequestState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.setAction,
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
   );
 
   const [mapAddress, setMapAddress] = useState<string>(
@@ -61,7 +63,49 @@ const NewRequestsContainer: React.FC = () => {
     getCoordsFromProfile(profileState),
   );
 
+  const newRequestState = useSelector(
+    ({ requests }: { requests: RequestState }) => requests.setAction,
+  );
+
+  const newRequestTemp = useSelector(
+    ({ requests }: { requests: RequestState }) => requests.newRequestTemp,
+  );
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (
+      newRequestTemp?.requestPayload &&
+      newRequestTemp.requestPayload instanceof Request &&
+      !newRequestTemp?.requestId &&
+      phoneNumber &&
+      !newRequestState.loading &&
+      !newRequestState.success
+    ) {
+      dispatch(
+        setRequest(
+          newRequestTemp.requestPayload.toObject() as IRequest,
+          undefined,
+          phoneNumber,
+        ),
+      );
+    }
+  }, [phoneNumber, newRequestTemp, dispatch, newRequestState]);
+
+  useEffect(() => {
+    if (newRequestTemp && newRequestTemp.requestPayload) {
+      setRequestInfo({
+        type:
+          newRequestTemp.requestPayload.title === DELIVERIES
+            ? newRequestTemp.requestPayload.title
+            : 'Other',
+        streetAddress: newRequestTemp.requestPayload.streetAddress,
+        description: newRequestTemp.requestPayload.description,
+        other: newRequestTemp.requestPayload.title,
+      });
+      setShowReviewPage(true);
+    }
+  }, [newRequestTemp]);
 
   useEffect(() => {
     if (newRequestState.success) {
@@ -78,19 +122,25 @@ const NewRequestsContainer: React.FC = () => {
       const title = request.type === DELIVERIES ? request.type : request.other;
 
       dispatch(
-        setRequest({
-          title,
-          description: request.description,
-          pinUserRef: profileState.userRef,
-          streetAddress:
-            mapAddress ||
-            t('modules.requests.containers.NewRequestsContainer.address_error'),
-          pinUserSnapshot: profileState.profile.toObject() as IUser,
-          latLng: new firestore.GeoPoint(
-            currentLocation.lat,
-            currentLocation.lng,
-          ),
-        }),
+        setRequest(
+          {
+            title,
+            description: request.description,
+            pinUserRef: profileState.userRef,
+            streetAddress:
+              mapAddress ||
+              t(
+                'modules.requests.containers.NewRequestsContainer.address_error',
+              ),
+            pinUserSnapshot: profileState.profile.toObject() as IUser,
+            latLng: new firestore.GeoPoint(
+              currentLocation.lat,
+              currentLocation.lng,
+            ),
+          },
+          undefined,
+          phoneNumber,
+        ),
       );
       setIsSubmitting(true);
     }
@@ -196,7 +246,7 @@ const NewRequestsContainer: React.FC = () => {
   });
 
   return (
-    <>
+    <div style={{ height: '100%' }}>
       <div
         style={{
           height: '100%',
@@ -216,7 +266,7 @@ const NewRequestsContainer: React.FC = () => {
             startLocateMe={startLocateMe}
           />
         </MapContainer>
-        <div style={{ display: 'flex', height: '100%' }}>
+        <div style={{ height: '100%' }}>
           {maybeNewRequest()}
           {maybeRequestReview()}
           {maybeRequestConfirmation()}
@@ -227,7 +277,7 @@ const NewRequestsContainer: React.FC = () => {
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
-    </>
+    </div>
   );
 };
 
@@ -237,12 +287,9 @@ const RequestDetails = styled.div`
 `;
 
 const MapContainer = styled.div`
-  // aspect ratio = 16:9
-  height: 56.25vw;
-
-  @media ${DEVICE_MIN.laptop} {
-    max-height: 400px;
-  }
+  overflow: hidden;
+  position: relative;
+  height: 100%;
 `;
 
 export default NewRequestsContainer;
