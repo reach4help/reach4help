@@ -1,4 +1,13 @@
-import { ExampleDivStyle } from './BlockStyles';
+import {
+  ButtonWrapper,
+  Explanation,
+  FormLabel,
+  FormWrapper,
+  LoginButtonsWrapper,
+  LogoWrapper,
+  OrDivider,
+  StepWrapper,
+} from './BlockStyles';
 import {
   FontSizeBase,
   FontSizeLg,
@@ -18,8 +27,15 @@ export {
   H4Font,
   H5Font,
   H6Font,
+  ButtonWrapper,
   FontSizeLg,
   FontSizeSm,
   FontSizeBase,
-  ExampleDivStyle,
+  LoginButtonsWrapper,
+  LogoWrapper,
+  Explanation,
+  OrDivider,
+  StepWrapper,
+  FormLabel,
+  FormWrapper,
 };

@@ -154,6 +154,8 @@ export class TimelineItem implements ITimelineItem {
   }
 
   static factory(data: ITimelineItem): TimelineItem {
+    console.log('data: ', JSON.stringify(data));
+    console.log('data.actorRef: ', data.actorRef);
     return new TimelineItem(
       data.actorRef,
       data.offerRef || null,
@@ -167,10 +169,11 @@ export class TimelineItem implements ITimelineItem {
   }
 
   toObject(): object {
+    console.log('actorRef: ', this.actorRef);
     return {
-      actorRef: this.actorRef.path,
-      offerRef: this.offerRef?.path,
-      requestRef: this.requestRef.path,
+      actorRef: this.actorRef,
+      offerRef: this.offerRef ? this.offerRef : null,
+      requestRef: this.requestRef,
       actorSnapshot: this.actorSnapshot.toObject(),
       offerSnapshot: this.offerSnapshot ? this.offerSnapshot.toObject() : null,
       requestSnapshot: this.requestSnapshot.toObject(),

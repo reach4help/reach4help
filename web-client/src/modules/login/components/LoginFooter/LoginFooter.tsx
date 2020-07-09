@@ -17,10 +17,11 @@ const RegistrationFooter = () => {
 };
 
 const RegistrationStepsFooterWrapper = styled.div`
-  position: relative;
-  width: 313px;
-  margin: 25px auto 0 auto;
+  position: absolute;
   bottom: 0;
+  width: 100%;
+  height: 5em;
+  padding: 10px;
 
   font-family: Roboto;
   font-style: normal;

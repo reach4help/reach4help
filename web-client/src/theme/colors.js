@@ -12,6 +12,8 @@ module.exports = {
     link: '#7D00A3',
     highlight: '#FFA32A',
     faded: '#767676',
+    black: '#000000',
+    white: '#ffffff',
     // TODO: We should rethink this name
     backgroundAlternative: '#F27979',
     backgroundLightGray: '#0000000d',

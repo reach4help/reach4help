@@ -3,7 +3,7 @@ import React from 'react';
 
 const CenteredCard: React.FC<CenteredScreenProps> = ({
   children,
-}): React.ReactElement => <Card>{children}</Card>;
+}): React.ReactElement => <Card style={{ minHeight: '90vh' }}>{children}</Card>;
 
 interface CenteredScreenProps {
   children: React.ReactNode;
