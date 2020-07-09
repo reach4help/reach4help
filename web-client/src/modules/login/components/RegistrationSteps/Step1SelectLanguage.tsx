@@ -66,7 +66,7 @@ const Step1SelectLanguage: React.FC<Step1SelectLanguageProps> = ({
         {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */
         allLanguages.map(language => (
           <Option key={language['1']} value={language['1']}>
-            {language.name}
+            {language.local}
           </Option>
         ))}
       </Select>
