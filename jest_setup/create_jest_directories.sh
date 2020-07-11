@@ -19,8 +19,6 @@ while read dir; do
     if [ ! -e $index_jest ]
     then
 	cp $jest_basic_file $index_jest
-    else
-    cp $jest_basic_file $index_jest   
     fi    
 done < $all_directories_file
 
