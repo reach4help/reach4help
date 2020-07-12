@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import apiKey from './apiKey';
+import CustomMapControlPortal from './CustomMapControlPortal';
 import MyLocationControl from './MyLocationControl';
 import { metersToImperial, metersToKm, secondsToTimestring } from './utils';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
@@ -196,7 +197,12 @@ const WebClientMap: React.FC<MapProps> = ({
         defaultZoom={zoom}
         onGoogleApiLoaded={initGoogleMapServices}
       >
-        <MyLocationControl map={googleMap || null} onClick={locateMe} />
+        <CustomMapControlPortal
+          map={googleMap || null}
+          controlPosition={googleMapS?.ControlPosition.LEFT_TOP}
+        >
+          <MyLocationControl onClick={locateMe} />
+        </CustomMapControlPortal>
         <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
         {destinations.map(r => (
           <DestinationMarker
