@@ -4,7 +4,7 @@ SCRIPT_DIRECTORY=`pwd`
 cd ..
 ROOT_DIRECTORY=`pwd`
 all_directories_file="${SCRIPT_DIRECTORY}/allDirectories.txt"
-jest_basic_file="${SCRIPT_DIRECTORY}/index.jestSample.ts"
+jest_basic_file="${SCRIPT_DIRECTORY}/index.jestSample.txt"
 mapfile -t list_of_directories < $all_directories_file
 
 while read dir; do
@@ -14,7 +14,13 @@ while read dir; do
 	mkdir $full_path
     fi
     
-    index_jest="${full_path}/index.ts"
+    rm_index_jest="${full_path}/index.ts"
+    if [  -e $rm_index_jest ]
+    then
+	rm $rm_index_jest
+    fi    
+
+    index_jest="${full_path}/index.tsx"
 
     if [ ! -e $index_jest ]
     then
