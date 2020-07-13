@@ -2,7 +2,7 @@
   "common": {
     "or": "ou",
     "i_understand": "Je comprends.",
-    "okay": "OK",
+    "okay": "D'accord",
     "cancel": "Annuler",
     "welcome": "Bienvenue",
     "continue": "Continuer",
@@ -24,21 +24,21 @@
     "information_modal": {
       "instructions": "Instructions",
       "footer": "Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse support@reach4help.org",
-      "a11y_logo": "Atteindre le logo d'aide",
+      "a11y_logo": "Logo de Reach4Help",
       "OpenRequestsContainer": {
         "title": "Toujours à la recherche d'aide ...",
-        "0": "Vos demandes sont là mais personne n'a encore été volontaire pour vous aider",
+        "0": "Vos demandes sont là mais personne ne s'est encore porté volontaire pour vous aider",
         "1": "Vous recevrez également des notifications pour vous informer du statut de vos demandes.",
         "2": " Si vous avez des questions ou des difficultés avec ceci, n'hésitez pas à contacter support@reach4help.org !"
       },
       "AcceptedRequestsContainer": {
         "title": "Quelqu'un a proposé de vous aider!",
         "0": "Quelqu'un a proposé de vous aider.",
-        "1": "Contactez-les par téléphone pour vous renseigner sur les détails."
+        "1": "Contactez-le par téléphone pour vous mettre d'accord sur les détails."
       },
       "OngoingRequestsContainer": {
-        "title": "Correspondance avec un bénévole!",
-        "0": "Vous vous êtes associé à quelqu'un qui prend en charge votre demande."
+        "title": "Bénévole trouvé!",
+        "0": "Vous êtes mis en relation avec quelqu'un qui prend en charge votre demande."
       },
       "FinishedRequestsContainer": {
         "title": "Et Voilà!",
@@ -53,10 +53,10 @@
         "0": "Une requête a été créée.",
         "1": "Quelqu'un offre de l'aide.",
         "2": "L'offre est acceptée ou rejetée.",
-        "3": "La demande est complétée.",
-        "4": "La demande est fermée.",
+        "3": "La demande est satisfaite.",
+        "4": "La demande est close.",
         "5": "La demande a été retirée.",
-        "6": "Les bénévoles et les personnes dans le besoin se classent mutuellement."
+        "6": "Les bénévoles et les personnes dans le besoin se notent mutuellement."
       },
       "MenuDrawer": {
         "title": "Utiliser les boutons du bas",
