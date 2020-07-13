@@ -7,119 +7,164 @@ import { IUser, User } from '../../../models/users';
 import { ITimelineItem, TimelineItem } from '../../../models/requests/timeline';
 import { IOffer, Offer } from '../../../models/offers';
 
+const deleteQueryBatch = async (query: firestore.Query, resolve: Function) => {
+  const querySnapshot = await query.get();
+  const batchSize = querySnapshot.size;
+  if (batchSize === 0) {
+    resolve();
+    return;
+  }
+
+  const batch = db.batch();
+  querySnapshot.docs.forEach(doc => {
+    batch.delete(doc.ref);
+  });
+  await batch.commit();
+
+  process.nextTick(() => {
+    deleteQueryBatch(query, resolve);
+  });
+};
+
+const updateQueryBatch = async (query: firestore.Query, resolve: Function, updatedFields: {}) => {
+  const querySnapshot = await query.get();
+  const batchSize = querySnapshot.size;
+  if (batchSize === 0) {
+    resolve();
+    return;
+  }
+
+  const batch = db.batch();
+  querySnapshot.docs.forEach(doc => {
+    batch.update(doc.ref, updatedFields);
+  });
+  await batch.commit();
+
+  process.nextTick(() => {
+    updateQueryBatch(query, resolve, updatedFields);
+  });
+};
+
 const deleteUserPrivilegedInformation = async (userRef: firestore.DocumentReference) => {
-  const snapshot = await userRef.collection('privilegedInformation').get();
-  return Promise.all(snapshot.docs.map(doc => doc.ref.delete()));
+  const userPrivilegedInfoQuery = userRef.collection('privilegedInformation').limit(500);
+  return new Promise((resolve, reject) => {
+    try {
+      deleteQueryBatch(userPrivilegedInfoQuery, resolve);
+    } catch {
+      reject();
+    }
+  });
 };
 
 const deleteUserTimelines = async (userRef: firestore.DocumentReference, deletedUser: User) => {
-  const userTimelines = await db
+  const userTimelinesQuery = db
     .collectionGroup('timeline')
     .where('actorRef', '==', userRef)
-    .get();
-  return Promise.all(
-    userTimelines.docs.map(doc =>
-      doc.ref.update({
+    .limit(500);
+  return new Promise((resolve, reject) => {
+    try {
+      updateQueryBatch(userTimelinesQuery, resolve, {
         actorSnapshot: deletedUser.toObject(),
-      }),
-    ),
-  );
-};
-
-const updateOffersForRequest = async (requestRef: firestore.DocumentReference, deletedRequest: Request) => {
-  const offersForRequest = await db
-    .collection('offers')
-    .where('requestRef', '==', requestRef)
-    .get();
-  return Promise.all(
-    offersForRequest.docs.map(async doc =>
-      doc.ref.update({
-        requestSnapshot: deletedRequest.toObject(),
-      }),
-    ),
-  );
+      });
+    } catch {
+      reject();
+    }
+  });
 };
 
 const deletePinUserRequests = async (userRef: firestore.DocumentReference, deletedUser: User) => {
   // Get All the requests that the user made
-  const userRequests = await db
-    .collection('requests')
-    .where('pinUserRef', '==', userRef)
-    .get();
-  const nullLatLng = new firestore.GeoPoint(0, 0);
-  const deletedAddress = 'deleted address';
-  return Promise.all(
-    userRequests.docs.map(async doc => {
-      doc.ref.update({
-        pinUserSnapshot: deletedUser.toObject(),
-        latLng: nullLatLng,
-        streetAddress: deletedAddress,
-      });
-      const requestTimelines = await doc.ref.collection('timeline').get();
-      const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
-      deletedRequestSnapshot.pinUserSnapshot = deletedUser;
-      deletedRequestSnapshot.latLng = nullLatLng;
-      deletedRequestSnapshot.streetAddress = deletedAddress;
-      // The old request details still exist in every offer made for it
-      await updateOffersForRequest(doc.ref, deletedRequestSnapshot);
-      return Promise.all(
-        requestTimelines.docs.map(timelineDoc => {
+  try {
+    await db.runTransaction(async t => {
+      const userRequests = await db
+        .collection('requests')
+        .where('pinUserRef', '==', userRef)
+        .get();
+      const nullLatLng = new firestore.GeoPoint(0, 0);
+      const deletedAddress = 'deleted address';
+      userRequests.docs.map(async doc => {
+        const requestTimelines = await doc.ref.collection('timeline').get();
+        // The old request details still exist in every offer made for it
+        const requestOffers = await db
+          .collection('offers')
+          .where('requestRef', '==', doc.ref)
+          .get();
+        t.update(doc.ref, {
+          pinUserSnapshot: deletedUser.toObject(),
+          latLng: nullLatLng,
+          streetAddress: deletedAddress,
+        });
+        const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
+        deletedRequestSnapshot.pinUserSnapshot = deletedUser;
+        deletedRequestSnapshot.latLng = nullLatLng;
+        deletedRequestSnapshot.streetAddress = deletedAddress;
+        requestTimelines.docs.forEach(timelineDoc => {
           const timelineObject = TimelineItem.factory(timelineDoc.data() as ITimelineItem);
           if (timelineObject.offerSnapshot) {
             timelineObject.offerSnapshot.requestSnapshot = deletedRequestSnapshot;
           }
           timelineObject.requestSnapshot = deletedRequestSnapshot;
-          return timelineDoc.ref.update({
+          t.update(timelineDoc.ref, {
             ...timelineObject.toObject(),
           });
-        }),
-      );
-    }),
-  );
+        });
+        requestOffers.docs.forEach(offerDoc => {
+          t.update(offerDoc.ref, {
+            requestSnapshot: deletedRequestSnapshot.toObject(),
+          });
+        });
+      });
+    });
+    console.log('Delete Pin User Requests transaction succeeded');
+  } catch (e) {
+    console.log('Delete Pin User Requests transaction failure:', e);
+  }
 };
 
 const deleteCavUserOffersAndRequests = async (userRef: firestore.DocumentReference, deletedUser: User) => {
   // Get All Offers that the user has made as a cav
-  const userOffers = await db
-    .collection('offers')
-    .where('cavUserRef', '==', userRef)
-    .get();
-  return Promise.all(
-    userOffers.docs.map(async doc => {
-      const offer = Offer.factory(doc.data() as IOffer);
-      // Find the request the offer was made for
-      const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
-      // Check if the offer was acceptec for the request
-      if (request.cavUserRef?.id === offer.cavUserRef.id) {
-        await offer.requestRef.update({
-          cavUserSnapshot: deletedUser.toObject(),
+  try {
+    await db.runTransaction(async t => {
+      const userOffers = await db
+        .collection('offers')
+        .where('cavUserRef', '==', userRef)
+        .get();
+      userOffers.docs.map(async doc => {
+        const offer = Offer.factory(doc.data() as IOffer);
+        // Find the request the offer was made for
+        const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
+        // Even if the offer wasn't accepted the user details would still exist in the timeline objects
+        const requestTimelines = await offer.requestRef.collection('timeline').get();
+        // Check if the offer was accepted for the request
+        if (request.cavUserRef?.id === offer.cavUserRef.id) {
+          t.update(offer.requestRef, {
+            cavUserSnapshot: deletedUser.toObject(),
+          });
+          request.cavUserSnapshot = deletedUser;
+          offer.requestSnapshot = request;
+        }
+        // You still have to update the user details irrespective of whether the offer was accepted or not
+        offer.cavUserSnapshot = deletedUser;
+        t.update(doc.ref, {
+          ...offer.toObject(),
         });
-        request.cavUserSnapshot = deletedUser;
-        offer.requestSnapshot = request;
-      }
-
-      // You still have to update the user details irrespective of whether the offer was accepted or not
-      offer.cavUserSnapshot = deletedUser;
-      await doc.ref.update({
-        ...offer.toObject(),
-      });
-      // Even if the offer wasn't accepted the user details would still exist in the timeline objects
-      const requestTimelines = await offer.requestRef.collection('timeline').get();
-      return Promise.all(
-        requestTimelines.docs.map(timelineDoc => {
+        requestTimelines.docs.forEach(timelineDoc => {
           const timelineObject = TimelineItem.factory(timelineDoc.data() as ITimelineItem);
           console.log('timelineObject.actorRef: ', timelineObject.actorRef);
           if (timelineObject.offerSnapshot) {
             timelineObject.offerSnapshot = offer;
           }
           timelineObject.requestSnapshot = request;
-          return timelineDoc.ref.update({
+          t.update(timelineDoc.ref, {
             ...timelineObject.toObject(),
           });
-        }),
-      );
-    }),
-  );
+        });
+      });
+    });
+    console.log('Delete Cav User Offers and Requests transaction succeeded');
+  } catch (e) {
+    console.log('Delete Cav User Offers and Requests transaction failure:', e);
+  }
 };
 
 export const deleteUserData = functions.https.onCall(async (data, context) => {
