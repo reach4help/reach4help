@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
 import { FormWrapper, LogoWrapper, StepWrapper } from 'src/components/figma/';
-import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import styled from 'styled-components';
 
 const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
@@ -20,9 +20,13 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
         <img src={logoSmall} alt="logo" height="70px" width="70px" />
       </LogoWrapper>
       <TitleWrapper>
-        <TitleWithAddon level={2} alignAddon="50%" bottom="-10px">
+        <TitleWithOrangeUnderline
+          level={2}
+          orangealignment="center"
+          bottom="-10px"
+        >
           {t('login.steps.4_email_signup.title')}
-        </TitleWithAddon>
+        </TitleWithOrangeUnderline>
       </TitleWrapper>
       <FormWrapper>
         <Form
@@ -70,7 +74,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
                 ),
               },
               ({ getFieldValue }) => ({
-                validator(rule, value) {
+                validator(value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
@@ -108,6 +112,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
                   type="primary"
                   htmlType="submit"
                   icon={<ArrowRightOutlined />}
+                  style={{ minWidth: 0 }}
                 >
                   {t('login.steps.4_email_signup.create_account')}{' '}
                 </Button>
@@ -122,9 +127,9 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
 
 const RegistrationButtonsPanel = styled.div`
   display: flex;
-  /* justify-content: space-between; */
-  margin-bottom: 40px;
-  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 10px 0;
 `;
 
 const RegistrationButtonWrapper = styled.div`
