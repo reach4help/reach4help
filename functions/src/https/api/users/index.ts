@@ -11,6 +11,7 @@ const deleteQueryBatch = async (query: firestore.Query, resolve: Function) => {
   const querySnapshot = await query.get();
   const batchSize = querySnapshot.size;
   if (batchSize === 0) {
+    console.log('Completed batch deletes');
     resolve();
     return;
   }
@@ -30,6 +31,7 @@ const updateQueryBatch = async (query: firestore.Query, resolve: Function, updat
   const querySnapshot = await query.get();
   const batchSize = querySnapshot.size;
   if (batchSize === 0) {
+    console.log('Completed batch updates');
     resolve();
     return;
   }
@@ -76,25 +78,33 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
   // Get All the requests that the user made
   try {
     await db.runTransaction(async t => {
+      // Perform all reads
       const userRequests = await db
         .collection('requests')
         .where('pinUserRef', '==', userRef)
         .get();
       const nullLatLng = new firestore.GeoPoint(0, 0);
       const deletedAddress = 'deleted address';
-      userRequests.docs.map(async doc => {
-        const requestTimelines = await doc.ref.collection('timeline').get();
+      const requestTimelinesAndOffers = userRequests.docs.map(async doc => {
         // The old request details still exist in every offer made for it
-        const requestOffers = await db
-          .collection('offers')
-          .where('requestRef', '==', doc.ref)
-          .get();
-        t.update(doc.ref, {
+        return {
+          requestDoc: doc,
+          requestTimelines: await doc.ref.collection('timeline').get(),
+          requestOffers: await db
+            .collection('offers')
+            .where('requestRef', '==', doc.ref)
+            .get(),
+        };
+      });
+      const resolvedRequestTimelinesAndOffers = await Promise.all(requestTimelinesAndOffers);
+      // Perform all writes
+      resolvedRequestTimelinesAndOffers.forEach(({ requestDoc, requestTimelines, requestOffers }) => {
+        t.update(requestDoc.ref, {
           pinUserSnapshot: deletedUser.toObject(),
           latLng: nullLatLng,
           streetAddress: deletedAddress,
         });
-        const deletedRequestSnapshot = Request.factory(doc.data() as IRequest);
+        const deletedRequestSnapshot = Request.factory(requestDoc.data() as IRequest);
         deletedRequestSnapshot.pinUserSnapshot = deletedUser;
         deletedRequestSnapshot.latLng = nullLatLng;
         deletedRequestSnapshot.streetAddress = deletedAddress;
@@ -117,7 +127,7 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
     });
     console.log('Delete Pin User Requests transaction succeeded');
   } catch (e) {
-    console.log('Delete Pin User Requests transaction failure:', e);
+    throw new functions.https.HttpsError('internal', 'Delete Pin User Requests transaction failed', e);
   }
 };
 
@@ -125,17 +135,27 @@ const deleteCavUserOffersAndRequests = async (userRef: firestore.DocumentReferen
   // Get All Offers that the user has made as a cav
   try {
     await db.runTransaction(async t => {
+      // Perform all reads
       const userOffers = await db
         .collection('offers')
         .where('cavUserRef', '==', userRef)
         .get();
-      userOffers.docs.map(async doc => {
+      const userOfferRequestsAndRequestTimelines = userOffers.docs.map(async doc => {
         const offer = Offer.factory(doc.data() as IOffer);
         // Find the request the offer was made for
-        const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
         // Even if the offer wasn't accepted the user details would still exist in the timeline objects
-        const requestTimelines = await offer.requestRef.collection('timeline').get();
+        return {
+          userOfferDoc: doc,
+          offer,
+          request: Request.factory((await offer.requestRef.get()).data() as IRequest),
+          requestTimelines: await offer.requestRef.collection('timeline').get(),
+        };
+      });
+      const resolvedReads = await Promise.all(userOfferRequestsAndRequestTimelines);
+      // Perform all writes
+      resolvedReads.forEach(({ userOfferDoc, offer, request, requestTimelines }) => {
         // Check if the offer was accepted for the request
+        /* eslint-disable no-param-reassign */
         if (request.cavUserRef?.id === offer.cavUserRef.id) {
           t.update(offer.requestRef, {
             cavUserSnapshot: deletedUser.toObject(),
@@ -145,9 +165,10 @@ const deleteCavUserOffersAndRequests = async (userRef: firestore.DocumentReferen
         }
         // You still have to update the user details irrespective of whether the offer was accepted or not
         offer.cavUserSnapshot = deletedUser;
-        t.update(doc.ref, {
+        t.update(userOfferDoc.ref, {
           ...offer.toObject(),
         });
+        /* eslint-enable no-param-reassign */
         requestTimelines.docs.forEach(timelineDoc => {
           const timelineObject = TimelineItem.factory(timelineDoc.data() as ITimelineItem);
           console.log('timelineObject.actorRef: ', timelineObject.actorRef);
@@ -163,7 +184,7 @@ const deleteCavUserOffersAndRequests = async (userRef: firestore.DocumentReferen
     });
     console.log('Delete Cav User Offers and Requests transaction succeeded');
   } catch (e) {
-    console.log('Delete Cav User Offers and Requests transaction failure:', e);
+    throw new functions.https.HttpsError('internal', 'Delete Cav User Offers and Requests transaction failed', e);
   }
 };
 
