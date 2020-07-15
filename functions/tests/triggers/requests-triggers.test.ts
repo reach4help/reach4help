@@ -1,5 +1,8 @@
 import * as firebase from '@firebase/testing';
 
+import { firebaseFunctionsTest } from '../index.test';
+import { triggerEventsWhenRequestIsDeleted } from '../../src/requests';
+
 const projectId = 'reach-4-help-test';
 
 /**
@@ -21,12 +24,19 @@ afterAll(async () => {
   await Promise.all(firebase.apps().map(app => app.delete()));
 });
 
-describe('request creation triggers', () => {
+describe('request triggers', () => {
   const db = adminApp();
-  it('should delete invalid data', async () => {
+  it('should delete document from algolia index', async () => {
+    const triggeredOnRequestDelete = firebaseFunctionsTest.wrap(triggerEventsWhenRequestIsDeleted);
     const ref = db.collection('requests').doc('request-1');
     await ref.set({
       displayName: 'sdd',
     });
+    const snap = await ref.get();
+    expect(await triggeredOnRequestDelete(snap)).toMatchObject(
+      expect.objectContaining({
+        taskID: expect.any(Number),
+      }),
+    );
   });
 });
