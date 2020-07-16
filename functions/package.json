@@ -5,9 +5,10 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "test:firestore": "firebase emulators:exec --only firestore 'yarn jest ./tests/*.test.ts'",
+    "test:firestore": "firebase emulators:exec --only firestore 'yarn jest ./tests/firestore/*.test.ts'",
     "test:triggers": "firebase emulators:exec --only firestore 'yarn jest ./tests/triggers/*.test.ts'",
-    "test": "yarn run test:firestore && yarn run test:triggers",
+    "test:https": "firebase emulators:exec --only firestore 'yarn jest ./tests/https/*.test.ts'",
+    "test": "yarn run test:firestore && yarn run test:triggers && yarn run test:https",
     "lint": "eslint . --ext .ts && prettier --check \"./**/*.ts\"",
     "lint:fix": "eslint . --fix --ext .ts && prettier --write \"./**/*.ts\"",
     "clean": "rm -rf lib ",

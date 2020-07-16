@@ -1,6 +1,6 @@
 import { validateOrReject } from 'class-validator';
 
-import { ApplicationPreference, User } from '../src/models/users';
+import { ApplicationPreference, User } from '../../src/models/users';
 
 describe('user validation', () => {
   it('fails when you pass it negative average ', () => {

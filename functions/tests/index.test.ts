@@ -18,10 +18,4 @@ firebaseFunctionsTest.mockConfig({
   },
 });
 
-describe('Jest test suite for functions', () => {
-  it('tests operational', () => {
-    expect(1 + 1).toBe(2);
-  });
-});
-
 export { firebaseFunctionsTest };
