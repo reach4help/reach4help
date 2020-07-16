@@ -96,9 +96,9 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
             .get(),
         };
       });
-      const resolvedRequestTimelinesAndOffers = await Promise.all(requestTimelinesAndOffers);
+      const resolvedReads = await Promise.all(requestTimelinesAndOffers);
       // Perform all writes
-      resolvedRequestTimelinesAndOffers.forEach(({ requestDoc, requestTimelines, requestOffers }) => {
+      resolvedReads.forEach(({ requestDoc, requestTimelines, requestOffers }) => {
         t.update(requestDoc.ref, {
           pinUserSnapshot: deletedUser.toObject(),
           latLng: nullLatLng,
