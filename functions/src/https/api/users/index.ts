@@ -2,9 +2,9 @@ import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
 import { auth, db } from '../../../app';
-import { IRequest, Request } from '../../../models/requests';
+import { IRequest, Request, RequestFirestoreConverter, RequestStatus } from '../../../models/requests';
 import { IUser, User } from '../../../models/users';
-import { ITimelineItem, TimelineItem } from '../../../models/requests/timeline';
+import { TimelineItemAction, ITimelineItem, TimelineItem } from '../../../models/requests/timeline';
 import { IOffer, Offer } from '../../../models/offers';
 
 const deleteQueryBatch = async (query: firestore.Query, resolve: Function) => {
@@ -101,26 +101,29 @@ const deletePinUserRequests = async (userRef: firestore.DocumentReference, delet
       resolvedReads.forEach(({ requestDoc, requestTimelines, requestOffers }) => {
         t.update(requestDoc.ref, {
           pinUserSnapshot: deletedUser.toObject(),
-          latLng: nullLatLng,
+          latLng: JSON.stringify(nullLatLng),
           streetAddress: deletedAddress,
+          status: RequestStatus.removed,
         });
         const deletedRequestSnapshot = Request.factory(requestDoc.data() as IRequest);
         deletedRequestSnapshot.pinUserSnapshot = deletedUser;
-        deletedRequestSnapshot.latLng = nullLatLng;
+        deletedRequestSnapshot.latLng = JSON.stringify(nullLatLng) as any;
         deletedRequestSnapshot.streetAddress = deletedAddress;
+        deletedRequestSnapshot.status = RequestStatus.removed;
         requestTimelines.docs.forEach(timelineDoc => {
           const timelineObject = TimelineItem.factory(timelineDoc.data() as ITimelineItem);
           if (timelineObject.offerSnapshot) {
             timelineObject.offerSnapshot.requestSnapshot = deletedRequestSnapshot;
           }
           timelineObject.requestSnapshot = deletedRequestSnapshot;
+          timelineObject.action = TimelineItemAction.CANCEL_REQUEST;
           t.update(timelineDoc.ref, {
             ...timelineObject.toObject(),
           });
         });
         requestOffers.docs.forEach(offerDoc => {
           t.update(offerDoc.ref, {
-            requestSnapshot: deletedRequestSnapshot.toObject(),
+            requestSnapshot: RequestFirestoreConverter.toFirestore(deletedRequestSnapshot),
           });
         });
       });
@@ -141,41 +144,42 @@ const deleteCavUserOffersAndRequests = async (userRef: firestore.DocumentReferen
         .where('cavUserRef', '==', userRef)
         .get();
       const userOfferRequestsAndRequestTimelines = userOffers.docs.map(async doc => {
-        const offer = Offer.factory(doc.data() as IOffer);
+        const deletedOffer = Offer.factory(doc.data() as IOffer);
         // Find the request the offer was made for
         // Even if the offer wasn't accepted the user details would still exist in the timeline objects
         return {
           userOfferDoc: doc,
-          offer,
-          request: Request.factory((await offer.requestRef.get()).data() as IRequest),
-          requestTimelines: await offer.requestRef.collection('timeline').get(),
+          deletedOffer,
+          deletedRequest: Request.factory((await deletedOffer.requestRef.get()).data() as IRequest),
+          requestTimelines: await deletedOffer.requestRef.collection('timeline').get(),
         };
       });
       const resolvedReads = await Promise.all(userOfferRequestsAndRequestTimelines);
       // Perform all writes
-      resolvedReads.forEach(({ userOfferDoc, offer, request, requestTimelines }) => {
+      resolvedReads.forEach(({ userOfferDoc, deletedOffer, deletedRequest, requestTimelines }) => {
         // Check if the offer was accepted for the request
         /* eslint-disable no-param-reassign */
-        if (request.cavUserRef?.id === offer.cavUserRef.id) {
-          t.update(offer.requestRef, {
+        if (deletedRequest.cavUserRef?.id === deletedOffer.cavUserRef.id) {
+          t.update(deletedOffer.requestRef, {
             cavUserSnapshot: deletedUser.toObject(),
           });
-          request.cavUserSnapshot = deletedUser;
-          offer.requestSnapshot = request;
+          deletedRequest.cavUserSnapshot = deletedUser;
+          deletedOffer.requestSnapshot = deletedRequest;
         }
         // You still have to update the user details irrespective of whether the offer was accepted or not
-        offer.cavUserSnapshot = deletedUser;
+        deletedOffer.cavUserSnapshot = deletedUser;
         t.update(userOfferDoc.ref, {
-          ...offer.toObject(),
+          ...deletedOffer.toObject(),
         });
         /* eslint-enable no-param-reassign */
         requestTimelines.docs.forEach(timelineDoc => {
           const timelineObject = TimelineItem.factory(timelineDoc.data() as ITimelineItem);
           console.log('timelineObject.actorRef: ', timelineObject.actorRef);
           if (timelineObject.offerSnapshot) {
-            timelineObject.offerSnapshot = offer;
+            timelineObject.offerSnapshot = deletedOffer;
           }
-          timelineObject.requestSnapshot = request;
+          timelineObject.requestSnapshot = deletedRequest;
+          timelineObject.action = TimelineItemAction.CANCEL_REQUEST;
           t.update(timelineDoc.ref, {
             ...timelineObject.toObject(),
           });
