@@ -35,6 +35,8 @@ function Team() {
           <h2>{t("Team.heading")}</h2>
           <p>{t("Team.description.0")}</p>
           <br />
+          <p>{t("Team.description.1")}</p>
+          <br />
           <h3>{t("Team.subheading")}</h3>
         </ContentWrapper>
         <a href="https://github.com/reach4help/reach4help/wiki#onboading-steps">
@@ -42,6 +44,7 @@ function Team() {
             textColor="white"
             backgroundColor="#ff7b02"
             outlineColor="#7d00a3"
+            fontSize="1em"
           >
             {t("Team.buttons.0")}
           </Button>
