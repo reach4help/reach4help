@@ -6,6 +6,7 @@ import {
 } from 'src/models/users/privilegedInformation';
 
 import {
+  deleteUserData as deleteUserDataFunc,
   getUserProfile as getUserProfileFunc,
   observePrivileged as observePrivilegedFunc,
   observeProfile as observeProfileFunc,
@@ -14,6 +15,7 @@ import {
   updateUserProfileData,
 } from './functions';
 import {
+  DELETE_ME,
   GET,
   IgetUserProfile,
   OBSERVE_PRIVILEGED,
@@ -130,4 +132,11 @@ export const updateUserPrivilegedInformation = (
       dataPayload: data,
     },
     firebase: updateUserPrivilegedInformationData,
+  });
+
+export const deleteUserData = () => (dispatch: Function) =>
+  dispatch({
+    type: DELETE_ME,
+    payload: {},
+    firebase: deleteUserDataFunc,
   });

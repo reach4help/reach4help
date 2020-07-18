@@ -46,23 +46,25 @@ const PhoneEntryContainer: React.FC = () => {
     return null;
   }, [error]);
   return (
-    <IntroWrapper>
+    <PhoneEntryWrapper>
       <ErrorMessage>
         {errorMessage && <Alert message={errorMessage} type="error" />}
       </ErrorMessage>
-      <TitleWithAddon level={3}>
-        {`${t('welcome')}${
-          user && user.displayName ? `, ${user.displayName}` : ''
-        }`}
+      <TitleWithAddon level={3} alignAddon="50%">
+        {t('phoneNumber.title')}
       </TitleWithAddon>
       <PhoneNumberEntryForm
         loading={loading}
         reset={error instanceof Error}
         handleFormSubmit={handleEntrySubmit}
       />
-    </IntroWrapper>
+    </PhoneEntryWrapper>
   );
 };
+
+const PhoneEntryWrapper = styled(IntroWrapper)`
+  padding: 0;
+`;
 
 const ErrorMessage = styled(Text)`
   margin-bottom: 1rem;
