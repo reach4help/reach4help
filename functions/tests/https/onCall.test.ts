@@ -99,7 +99,7 @@ describe('deleteUserData: user with request', () => {
     await requestRef
       .withConverter(RequestFirestoreConverter)
       .set(testRequest);
-  })
+  });
 
   it('all personal data should be deleted', async () => {
     await deleteUserData(undefined, {
@@ -114,7 +114,7 @@ describe('deleteUserData: user with request', () => {
     expect(afterSnap?.username).toBe('deleteduser');
   });
 
-  it(`request should be updated to deleted state`, async () => {
+  it('request should be updated to deleted state', async () => {
     await deleteUserData(undefined, {
       auth: {
         uid: userId,
@@ -172,7 +172,7 @@ describe('deleteUserData: user with request', () => {
       await offerRef
         .withConverter(OfferFirestoreConverter)
         .set(testOffer);
-    })
+    });
 
     it('personal data should be deleted', async () => {
       await deleteUserData(undefined, {
@@ -186,7 +186,7 @@ describe('deleteUserData: user with request', () => {
       expect(afterSnap?.displayName).toBe('Deleted User');
       expect(afterSnap?.username).toBe('deleteduser');
     });
-    
+
     // it(`unaccepted offer should be deleted`, async () => {
     //   await deleteUserData(undefined, {
     //     auth: {

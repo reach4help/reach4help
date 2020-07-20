@@ -4,8 +4,8 @@ import { firestore } from 'firebase-admin';
 import { auth, db } from '../../../app';
 import { IRequest, Request, RequestFirestoreConverter, RequestStatus } from '../../../models/requests';
 import { IUser, User } from '../../../models/users';
-import { TimelineItemAction, ITimelineItem, TimelineItem } from '../../../models/requests/timeline';
-import { IOffer, Offer } from '../../../models/offers';
+import { ITimelineItem, TimelineItem, TimelineItemAction } from '../../../models/requests/timeline';
+import { IOffer, Offer, OfferFirestoreConverter } from '../../../models/offers';
 
 const deleteQueryBatch = async (query: firestore.Query, resolve: Function) => {
   const querySnapshot = await query.get();
@@ -168,8 +168,9 @@ const deleteCavUserOffersAndRequests = async (userRef: firestore.DocumentReferen
         }
         // You still have to update the user details irrespective of whether the offer was accepted or not
         deletedOffer.cavUserSnapshot = deletedUser;
+        const convertedOffer = OfferFirestoreConverter.toFirestore(deletedOffer);
         t.update(userOfferDoc.ref, {
-          ...deletedOffer.toObject(),
+          convertedOffer,
         });
         /* eslint-enable no-param-reassign */
         requestTimelines.docs.forEach(timelineDoc => {
