@@ -91,7 +91,8 @@
   },
   "jest": {
     "setupFiles": [
-      "fake-indexeddb/auto"
+      "fake-indexeddb/auto",
+      "<rootDir>src/testUtils/setupTests.ts"
     ]
   },
   "devDependencies": {
