@@ -5,7 +5,7 @@ import { auth, db } from '../../../app';
 import { IRequest, Request, RequestFirestoreConverter, RequestStatus } from '../../../models/requests';
 import { IUser, User } from '../../../models/users';
 import { ITimelineItem, TimelineItem, TimelineItemAction } from '../../../models/requests/timeline';
-import { IOffer, Offer, OfferFirestoreConverter } from '../../../models/offers';
+import { IOffer, Offer, OfferFirestoreConverter, OfferStatus } from '../../../models/offers';
 
 const deleteQueryBatch = async (query: firestore.Query, resolve: Function) => {
   const querySnapshot = await query.get();
@@ -158,33 +158,50 @@ const deleteCavUserOffersAndRequests = async (userRef: firestore.DocumentReferen
       // Perform all writes
       resolvedReads.forEach(({ userOfferDoc, deletedOffer, deletedRequest, requestTimelines }) => {
         // Check if the offer was accepted for the request
-        /* eslint-disable no-param-reassign */
-        if (deletedRequest.cavUserRef?.id === deletedOffer.cavUserRef.id) {
-          t.update(deletedOffer.requestRef, {
-            cavUserSnapshot: deletedUser.toObject(),
+        // If offer is not accepted, delete the offer
+        // Otherwise, update the offer and timelines to remove all personal data about the CAV, also update request status to cancelled
+        if (deletedOffer.status !== OfferStatus.accepted) {
+          t.delete(userOfferDoc.ref);
+          requestTimelines.docs.forEach(timelineDoc => {
+            const timelineObject = TimelineItem.factory(timelineDoc.data() as ITimelineItem);
+            console.log('timelineObject.actorRef: ', timelineObject.actorRef);
+            if (timelineObject.offerSnapshot) {
+              timelineObject.offerSnapshot = null;
+            }
+            timelineObject.requestSnapshot = deletedRequest;
+            timelineObject.action = TimelineItemAction.CANCEL_REQUEST;
+            t.update(timelineDoc.ref, {
+              ...timelineObject.toObject(),
+            });
           });
-          deletedRequest.cavUserSnapshot = deletedUser;
-          deletedOffer.requestSnapshot = deletedRequest;
-        }
-        // You still have to update the user details irrespective of whether the offer was accepted or not
-        deletedOffer.cavUserSnapshot = deletedUser;
-        const convertedOffer = OfferFirestoreConverter.toFirestore(deletedOffer);
-        t.update(userOfferDoc.ref, {
-          convertedOffer,
-        });
-        /* eslint-enable no-param-reassign */
-        requestTimelines.docs.forEach(timelineDoc => {
-          const timelineObject = TimelineItem.factory(timelineDoc.data() as ITimelineItem);
-          console.log('timelineObject.actorRef: ', timelineObject.actorRef);
-          if (timelineObject.offerSnapshot) {
-            timelineObject.offerSnapshot = deletedOffer;
+        } else {
+          /* eslint-disable no-param-reassign */
+          if (deletedRequest.cavUserRef?.id === deletedOffer.cavUserRef.id) {
+            t.update(deletedOffer.requestRef, {
+              cavUserSnapshot: deletedUser.toObject(),
+            });
+            deletedRequest.cavUserSnapshot = deletedUser;
+            deletedRequest.status = RequestStatus.cancelled;
+            deletedOffer.requestSnapshot = deletedRequest;
           }
-          timelineObject.requestSnapshot = deletedRequest;
-          timelineObject.action = TimelineItemAction.CANCEL_REQUEST;
-          t.update(timelineDoc.ref, {
-            ...timelineObject.toObject(),
+          // You still have to update the user details irrespective of whether the offer was accepted or not
+          deletedOffer.cavUserSnapshot = deletedUser;
+          const convertedOffer = OfferFirestoreConverter.toFirestore(deletedOffer);
+          t.update(userOfferDoc.ref, convertedOffer);
+          /* eslint-enable no-param-reassign */
+          requestTimelines.docs.forEach(timelineDoc => {
+            const timelineObject = TimelineItem.factory(timelineDoc.data() as ITimelineItem);
+            console.log('timelineObject.actorRef: ', timelineObject.actorRef);
+            if (timelineObject.offerSnapshot) {
+              timelineObject.offerSnapshot = deletedOffer;
+            }
+            timelineObject.requestSnapshot = deletedRequest;
+            timelineObject.action = TimelineItemAction.CANCEL_REQUEST;
+            t.update(timelineDoc.ref, {
+              ...timelineObject.toObject(),
+            });
           });
-        });
+        }
       });
     });
     console.log('Delete Cav User Offers and Requests transaction succeeded');

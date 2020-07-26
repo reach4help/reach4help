@@ -136,34 +136,44 @@ describe('deleteUserData: user with request', () => {
   describe('deleteUserData: user with request and offer', () => {
     const ref2 = db.collection('users').doc(userId2);
     const offerRef = db.collection('offers').doc(userId);
+    const requestRef2 = db.collection('requests').doc(userId2);
 
     beforeEach(async () => {
     // create an offer for new user before each test within this block
-      const pinUser = User.factory({
+      const cavUser = User.factory({
         username: 'new user',
         displayName: 'newUser',
         displayPicture: 'me.png',
       });
-      const cavUser = User.factory({
+      const pinUser = User.factory({
         username: 'other user',
         displayName: 'otherUser',
         displayPicture: 'them.png',
       });
-      await ref2
+      await ref
         .withConverter(UserFirestoreConverter)
         .set(cavUser);
+      await ref2
+        .withConverter(UserFirestoreConverter)
+        .set(pinUser);
       const testRequest = Request.factory({
-        pinUserRef: ref as any,
+        pinUserRef: ref2 as any,
         pinUserSnapshot: pinUser,
+        cavUserRef: ref as any,
+        cavUserSnapshot: cavUser,
         title: 'I need help!',
         description: 'Please help with groceries',
         latLng: new firestore.GeoPoint(10, -122),
         streetAddress: '123 Main St.',
+        status: RequestStatus.pending,
       });
-      const testOffer = Offer.factory({
+      await requestRef2
+        .withConverter(RequestFirestoreConverter)
+        .set(testRequest);
+      const testOfferUnaccepted = Offer.factory({
         cavUserRef: ref as any,
         pinUserRef: ref2 as any,
-        requestRef: requestRef as any,
+        requestRef: requestRef2 as any,
         cavUserSnapshot: cavUser,
         requestSnapshot: testRequest,
         message: 'Willing to help!',
@@ -171,7 +181,7 @@ describe('deleteUserData: user with request', () => {
       });
       await offerRef
         .withConverter(OfferFirestoreConverter)
-        .set(testOffer);
+        .set(testOfferUnaccepted);
     });
 
     it('personal data should be deleted', async () => {
@@ -187,33 +197,36 @@ describe('deleteUserData: user with request', () => {
       expect(afterSnap?.username).toBe('deleteduser');
     });
 
-    // it(`unaccepted offer should be deleted`, async () => {
-    //   await deleteUserData(undefined, {
-    //     auth: {
-    //       uid: userId,
-    //     },
-    //   });
-    //   const offerSnap = (await offerRef.get()).data();
-    //   expect((await privilegedRef.get()).docs).toHaveLength(0);
-    //   expect(afterSnap?.displayPicture).toBeNull();
-    //   expect(afterSnap?.displayName).toBe('Deleted User');
-    //   expect(afterSnap?.username).toBe('deleteduser');
-    // });
+    it('unaccepted offer should be deleted', async () => {
+      await deleteUserData(undefined, {
+        auth: {
+          uid: userId,
+        },
+      });
+      const offerSnapUnaccepted = (await offerRef
+        .withConverter(OfferFirestoreConverter)
+        .get()).data();
+      expect(offerSnapUnaccepted).toBe(undefined);
+    });
 
-    // it('accepted offer should be updated', async () => {
-    //   await deleteUserData(undefined, {
-    //     auth: {
-    //       uid: userId,
-    //     },
-    //   });
-    // });
+    it('accepted offer should be updated', async () => {
+      // update unaccepted offer to accepted
+      await offerRef.update({
+        status: OfferStatus.accepted,
+      });
 
-    // it('timeline should be updated to cancelled', async () => {
+      await deleteUserData(undefined, {
+        auth: {
+          uid: userId,
+        },
+      });
 
-    // });
-
-    // it('request should be updated to cancelled', async () => {
-
-    // });
+      const offerSnapAccepted = (await offerRef
+        .withConverter(OfferFirestoreConverter)
+        .get()).data();
+      expect(offerSnapAccepted?.cavUserSnapshot.displayPicture).toBeNull();
+      expect(offerSnapAccepted?.cavUserSnapshot.displayName).toBe('Deleted User');
+      expect(offerSnapAccepted?.cavUserSnapshot.username).toBe('deleteduser');
+    });
   });
 });
