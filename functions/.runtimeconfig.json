@@ -1,0 +1,18 @@
+{
+  "algolia": {
+    "requests_index": "requests-dev",
+    "id": "F7OG87T3T6",
+    "key": "17ba2a4c61035ea06cf27f34e3be1252"
+  },
+  "bot_auth_tokens": {
+    "bot-chatbot": "ba384181034a22b99822e59caef86124ca39b611"
+  },
+  "twilio": {
+    "auth_token": "1",
+    "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "service_sid": "1"
+  },
+  "fb": {
+    "token": "1//06su28C0ZANq0CgYIARAAGAYSNwF-L9IrTojjrfG1NkEHwIuyTn04Mh21LxPCsXhkLSbaQLkQAeJ3mT4lC660scyX2Vfrt_o7vuw"
+  }
+}

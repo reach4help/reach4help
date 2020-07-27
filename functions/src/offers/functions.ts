@@ -160,6 +160,16 @@ export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context:
       for (const e of errors) {
         console.error('e: ', e.target, e.value, e.property, e.constraints);
       }
+      const prevData = change.before.data();
+      if (prevData) {
+        return db
+          .collection('offers')
+          .doc(context.params.offerId)
+          .set(prevData)
+          .catch(() => {
+            return Promise.resolve();
+          });
+      }
       return db
         .collection('offers')
         .doc(context.params.offerId)

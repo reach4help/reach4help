@@ -217,6 +217,16 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
     })
     .catch(e => {
       console.error('Invalid Request Found: ', e);
+      const prevData = change.before.data();
+      if (prevData) {
+        return db
+          .collection('requests')
+          .doc(context.params.requestId)
+          .set(prevData)
+          .catch(() => {
+            return Promise.resolve();
+          });
+      }
       return db
         .collection('requests')
         .doc(context.params.requestId)
