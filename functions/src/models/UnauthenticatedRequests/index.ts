@@ -1,10 +1,12 @@
-import { FirestoreDataConverter, DocumentReference } from '@google-cloud/firestore';
+import { FirestoreDataConverter } from '@google-cloud/firestore';
 import { IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { db } from '../../app';
 import { Request } from '../requests';
+
 import DocumentData = firestore.DocumentData;
+import DocumentReference = firestore.DocumentReference;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
@@ -59,7 +61,7 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
     this._requestRef = value;
   }
 
-  @ValidateNested()
+  @IsObject()
   private _userSnapshot: IStrippedUser;
 
   get userSnapshot(): IStrippedUser {
@@ -83,7 +85,6 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
   }
 
   @IsString()
-  @IsNotEmpty()
   private _description: string;
 
   get description(): string {
@@ -133,7 +134,7 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
     this._updatedAt = value;
   }
 
-  public static fromRequest(data: Request, path: string): UnauthenticatedRequest {
+  public static async fromRequest(data: Request, path: string): Promise<UnauthenticatedRequest> {
     return new UnauthenticatedRequest(
       path,
       {
@@ -151,18 +152,15 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
     );
   }
 
-  public static fromFirestore(data: DocumentData, ref: DocumentReference): UnauthenticatedRequest {
+  public static fromFirestore(data: DocumentData): UnauthenticatedRequest {
     return new UnauthenticatedRequest(
-      ref.path,
-      {
-        displayName: data.pinUserSnapshot.displayName || '',
-        displayPicture: data.pinUserSnapshot.displayPicture,
-      },
+      (data.requestRef as DocumentReference).path,
+      data.userSnapshot,
       data.title,
       data.description,
       {
-        latitude: data.latLng.latitude,
-        longitude: data.latLng.longitude,
+        latitude: (data.latLng as GeoPoint).latitude,
+        longitude: (data.latLng as GeoPoint).longitude
       },
       data.createdAt.toDate(),
       data.updatedAt.toDate(),
@@ -176,11 +174,24 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
       data.title,
       data.description,
       { latitude: data['_geoloc'].lat, longitude: data['_geoloc'].lng },
+      data.createdAt,
       data.updatedAt,
     );
   }
 
-  toRawObject(): IUnauthenticatedRequest {
+  public static fromObject(data: IUnauthenticatedRequest): UnauthenticatedRequest {
+    return new UnauthenticatedRequest(
+      data.requestRef,
+      data.userSnapshot,
+      data.title,
+      data.description,
+      data.latLng,
+      data.createdAt,
+      data.updatedAt,
+    )
+  }
+
+  toObject(): IUnauthenticatedRequest {
     return {
       requestRef: this.requestRef,
       userSnapshot: this.userSnapshot,
@@ -194,6 +205,7 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
 
   toFirestore(): DocumentData {
     return {
+      requestRef: db.doc(this.requestRef),
       userSnapshot: this.userSnapshot,
       title: this.title,
       description: this.description,
@@ -214,15 +226,15 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
         lat: this.latLng.latitude,
         lng: this.latLng.longitude,
       },
-      createdAt: Timestamp.fromDate(this.createdAt),
-      updatedAt: Timestamp.fromDate(this.updatedAt),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
     };
   }
 }
 
 export const UnauthenticatedRequestFirestoreConverter: FirestoreDataConverter<UnauthenticatedRequest> = {
   fromFirestore: (data: QueryDocumentSnapshot<IUnauthenticatedRequest>): UnauthenticatedRequest => {
-    return UnauthenticatedRequest.fromFirestore(data.data(), data.ref);
+    return UnauthenticatedRequest.fromFirestore(data.data());
   },
   toFirestore: (modelObject: UnauthenticatedRequest): DocumentData => {
     return modelObject.toFirestore();

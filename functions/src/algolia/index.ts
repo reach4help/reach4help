@@ -4,10 +4,15 @@ import { firestore } from 'firebase-admin';
 import { IRequest, Request } from '../models/requests';
 import DocumentSnapshot = firestore.DocumentSnapshot;
 import { UnauthenticatedRequest } from '../models/UnauthenticatedRequests';
+import { GeneralRequest } from '../models/GeneralRequests';
+import { config } from '../config/config'
+import { Offer, OfferStatus } from '../models/offers';
 
 const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
 const ALGOLIA_REQUESTS_INDEX = functions.config().algolia.requests_index;
+const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX = config.get('env') === 'test' ? 'unauthenticatedRequests_test' : functions.config().algolia.unauthenticated_requests_index;
+const ALGOLIA_GENERALREQUESTS_INDEX = config.get('env') === 'test' ? 'generalRequests_test' : functions.config().algolia.general_requests_index;
 
 const adminClient = algolia(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
 
@@ -68,12 +73,48 @@ export const removeRequestFromIndex = (snap: DocumentSnapshot) => {
   }
 };
 
-export const indexUnauthenticatedRequest = (request: Request, path: string) => {
-  const algoliaDoc = UnauthenticatedRequest.fromRequest(request, path).toAlgolia();
-  const index = adminClient.initIndex('unauthenticatedRequests_dev');
+export const indexUnauthenticatedRequest = async (request: Request, path: string) => {
+  const algoliaDoc = (await UnauthenticatedRequest.fromRequest(request, path)).toAlgolia();
+  const index = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
 
   // Throw away the result since these are all void promises.
   return index.saveObject(algoliaDoc).then(() => {
     return Promise.resolve();
+  });
+}
+
+export const indexGeneralRequests = async (request: Request, path: string) => {
+  const algoliaDoc = (await GeneralRequest.fromRequest(request, path)).toAlgolia();
+  const index = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
+
+  // Throw away the result since these are all void promises.
+  return index.saveObject(algoliaDoc).then(() => {
+    return Promise.resolve();
+  });
+}
+
+export const reflectOfferInRequest = async (offer: Offer, isFirstOffer = false) => {
+  const algoliaObjectId = GeneralRequest.getObjectId(offer.requestRef.path);
+  const index = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
+
+  const algoliaUpdateDoc = {
+    [offer.status === OfferStatus.pending ? 'participants' : 'rejected']: {
+      _operation: 'AddUnique',
+      value: GeneralRequest.getParticipantId(offer.cavUserRef.path),
+    },
+    [offer.status === OfferStatus.pending ? 'offersCount' : 'rejectionCount']: {
+      _operation: 'Increment',
+      value: 1,
+    },
+    [offer.status === OfferStatus.pending ? 'lastOfferMade' : 'lastRejectionMade']: offer.createdAt.toDate(),
+    objectID: algoliaObjectId,
+  }
+
+  if (isFirstOffer) {
+    algoliaUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt.toDate();
+  }
+  
+  return index.partialUpdateObject(algoliaUpdateDoc, {
+    createIfNotExists: false
   });
 }
