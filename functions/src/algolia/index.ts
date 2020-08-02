@@ -144,3 +144,15 @@ export const reflectOfferInRequest = async (offer: Offer) => {
     createIfNotExists: false,
   });
 };
+
+/**
+ * To retrieve a single object based on the provided objectID from algolia index
+ * The Algolia Index is decided based on whether the request is to be authenticated or not
+ *
+ * @param offer: The instance of Offer class for the offer which is created
+ * @param authenitcated: Defaults to false, is the request from authenticated user or not
+ */
+export const retrieveObjectFromIndex = async (objectId: string, authenticated = false) => {
+  const index = authenticated ? adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX) : adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
+  return index.getObject(objectId);
+}

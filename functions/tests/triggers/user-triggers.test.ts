@@ -9,7 +9,6 @@ const projectId = 'reach-4-help-test';
  *
  * @return {object} the app.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const adminApp = () => {
   return firebase.initializeAdminApp({ projectId }).firestore();
 };
