@@ -2,7 +2,6 @@ import { validateOrReject } from 'class-validator';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { firestore } from 'firebase-admin';
 
-import { reflectOfferInRequest } from '../algolia';
 import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import { IRequest, Request, RequestStatus } from '../models/requests';
@@ -72,12 +71,37 @@ const queueStatusUpdateTriggers = async (change: Change<firestore.DocumentSnapsh
   return Promise.all(operations);
 };
 
+/**
+ * When an offer is made against a request in the DB, 
+ * Associate the details of the offer in the request
+ * This helps prevent additional reads from offers collection to get aggregate and count values
+ *
+ * @param offer: The instance of Offer class for the offer
+ */
+const reflectOfferInRequest = (offer: Offer) => {
+  const firebaseUpdateDoc = {
+    [offer.status === OfferStatus.pending ? 'offerCount' : 'rejectionCount']: firestore.FieldValue.increment(1),
+    [offer.status === OfferStatus.pending ? 'lastOfferMade' : 'lastRejectionMade']: offer.createdAt,
+  };
+
+  if (offer.requestSnapshot && (offer.requestSnapshot.offerCount > 0 || offer.requestSnapshot.rejectionCount > 0)) {
+    firebaseUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt;
+  }
+  
+  return offer
+    .requestRef
+    .update(firebaseUpdateDoc)
+    .then(() => Promise.resolve())
+}
+
 const queueOfferCreationTriggers = async (snap: firestore.DocumentSnapshot): Promise<void[]> => {
   const offer = snap.data() as Offer;
   const operations: Promise<void>[] = [];
 
   if (offer) {
     const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
+
+    operations.push(reflectOfferInRequest(offer));
 
     operations.push(
       (async (): Promise<void> => {
@@ -127,6 +151,7 @@ export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: Event
         queueOfferCreationTriggers(snapshot),
         queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer'),
       ])
+      // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
       .then(() => Promise.all([reflectOfferInRequest(Offer.factory(snapshot.data() as IOffer))])),
     )
     .catch(errors => {

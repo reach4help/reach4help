@@ -173,11 +173,9 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
   return validateRequest(snapshot.data() as IRequest)
     .then(() => {
       const request = Request.factory(snapshot.data() as IRequest);
-      return Promise.all([
-        queueCreateTriggers(snapshot),
-        queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request'),
-      ])
-      .then(() => Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)]))
+      return Promise.all([queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request')]).then(() =>
+        Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)]),
+      );
     })
     .catch(errors => {
       console.error('Invalid Request Found: ', errors);
@@ -198,18 +196,35 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
       const requestBefore = change.before.exists ? (change.before.data() as Request) : null;
       const requestAfter = change.after.exists ? (change.after.data() as Request) : null;
       if (
-        requestBefore?.status === requestAfter?.status &&
-        (requestAfter?.pinUserSnapshot.displayName === 'Deleted User' || requestAfter?.cavUserSnapshot?.displayName === 'Deleted User')
+        requestBefore &&
+        requestAfter &&
+        (
+          // No need to execute update trigger if the user's account was deleted
+          (requestBefore?.status === requestAfter?.status &&
+          (requestAfter?.pinUserSnapshot.displayName === 'Deleted User' || requestAfter?.cavUserSnapshot?.displayName === 'Deleted User')) ||
+          // No need to execute update trigger if the offer count and last offer or rejection count and last rejection is being updated
+          (requestBefore.offerCount < requestAfter.offerCount &&
+            requestBefore.lastOfferMade?.isEqual(requestAfter.lastOfferMade ? requestAfter.lastOfferMade : requestBefore.lastOfferMade)) ||
+            (requestBefore.rejectionCount < requestAfter.rejectionCount &&
+              requestBefore.lastRejectionMade?.isEqual(
+                requestAfter.lastRejectionMade ? requestAfter.lastRejectionMade : requestBefore.lastRejectionMade,
+              )))
       ) {
         return;
       }
-      const updatedRequest = Request.factory(change.after.data() as IRequest)
+      const updatedRequest = Request.factory(change.after.data() as IRequest);
       return Promise.all([
         queueStatusUpdateTriggers(change),
         queueRatingUpdatedTriggers(change),
         queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
       ])
-      .then(() => Promise.all([indexUnauthenticatedRequest(updatedRequest, change.after.ref.path), indexGeneralRequests(updatedRequest, change.after.ref.path)]))
+      // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
+      .then(() =>
+        Promise.all([
+          indexUnauthenticatedRequest(updatedRequest, change.after.ref.path),
+          indexGeneralRequests(updatedRequest, change.after.ref.path),
+        ]),
+      );
     })
     .catch(e => {
       console.error('Invalid Request Found: ', e);

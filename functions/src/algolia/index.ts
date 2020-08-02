@@ -117,8 +117,7 @@ export const indexGeneralRequests = async (request: Request, path: string) => {
  * Associate the details of the offer in the request currently stored in the the index
  * This is so that a participant is reflected in the participant list to be filterable from the next query
  *
- * @param request: The instance of Request class for the request which is being updated
- * @param path: The path of the request in firestore db
+ * @param offer: The instance of Offer class for the offer which is created
  */
 export const reflectOfferInRequest = async (offer: Offer) => {
   const algoliaObjectId = GeneralRequest.getObjectId(offer.requestRef.path);
@@ -129,7 +128,7 @@ export const reflectOfferInRequest = async (offer: Offer) => {
       _operation: 'AddUnique',
       value: GeneralRequest.getParticipantId(offer.cavUserRef.path),
     },
-    [offer.status === OfferStatus.pending ? 'offersCount' : 'rejectionCount']: {
+    [offer.status === OfferStatus.pending ? 'offerCount' : 'rejectionCount']: {
       _operation: 'Increment',
       value: 1,
     },
@@ -137,10 +136,9 @@ export const reflectOfferInRequest = async (offer: Offer) => {
     objectID: algoliaObjectId,
   };
 
-  // Condition to be added back when these attributes are added to the model
-  // if (offer.requestSnapshot.offersCount > 0 || offer.requestSnapshot.rejectionCount > 0) {
+  if (offer.requestSnapshot && (offer.requestSnapshot.offerCount > 0 || offer.requestSnapshot.rejectionCount > 0)) {
     algoliaUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt.toDate();
-  // }
+  }
 
   return index.partialUpdateObject(algoliaUpdateDoc, {
     createIfNotExists: false,

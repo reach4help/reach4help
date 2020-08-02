@@ -27,7 +27,7 @@ export interface IGeneralRequest extends IUnauthenticatedRequest {
   streetAddress: string;
   participants: string[];
   rejected: string[];
-  offersCount: number;
+  offerCount: number;
   rejectionCount: number;
   firstOfferMade: Date | null;
   lastOfferMade: Date | null;
@@ -47,7 +47,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     streetAddress: string,
     participants: string[] = [],
     rejected: string[] = [],
-    offersCount = 0,
+    offerCount = 0,
     rejectionCount = 0,
     firstOfferMade: Date | null = null,
     lastOfferMade: Date | null = null,
@@ -74,7 +74,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     this._streetAddress = streetAddress;
     this._participants = participants;
     this._rejected = rejected;
-    this._offersCount = offersCount;
+    this._offerCount = offerCount;
     this._rejectionCount = rejectionCount;
     this._firstOfferMade = firstOfferMade;
     this._lastOfferMade = lastOfferMade;
@@ -158,14 +158,14 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
   }
 
   @IsNumber()
-  private _offersCount: number;
+  private _offerCount: number;
 
-  get offersCount(): number {
-    return this._offersCount;
+  get offerCount(): number {
+    return this._offerCount;
   }
 
-  set offersCount(offersCount: number) {
-    this._offersCount = offersCount;
+  set offerCount(offerCount: number) {
+    this._offerCount = offerCount;
   }
 
   @IsNumber()
@@ -246,7 +246,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
     const participants = [data.pinUserRef.id];
     const rejected = [];
-    let offersCount = 0;
+    let offerCount = 0;
     let rejectionCount = 0;
     let firstOfferMade: Date | null = null;
     let lastOfferMade: Date | null = null;
@@ -265,7 +265,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
           lastRejectionMade = offer.createdAt.toDate();
         }
       } else {
-        offersCount += 1;
+        offerCount += 1;
         participants.push(offer.cavUserRef.id);
         if (!firstOfferMade || (firstOfferMade && offer.createdAt.toDate() < firstOfferMade)) {
           firstOfferMade = offer.createdAt.toDate();
@@ -294,7 +294,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.streetAddress,
       participants,
       rejected,
-      offersCount,
+      offerCount,
       rejectionCount,
       firstOfferMade,
       lastOfferMade,
@@ -320,7 +320,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.streetAddress,
       data.participants,
       data.rejected,
-      data.offersCount,
+      data.offerCount,
       data.rejectionCount,
       (data.firstOfferMade as Timestamp).toDate(),
       (data.lastOfferMade as Timestamp).toDate(),
@@ -343,7 +343,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.streetAddress,
       data.participants,
       data.rejected,
-      data.offersCount,
+      data.offerCount,
       data.rejectionCount,
       data.firstOfferMade,
       data.lastOfferMade,
@@ -374,7 +374,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.streetAddress,
       data.participants,
       data.rejected,
-      data.offersCount,
+      data.offerCount,
       data.rejectionCount,
       data.firstOfferMade,
       data.lastOfferMade,
@@ -397,7 +397,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       streetAddress: this.streetAddress,
       participants: this.participants,
       rejected: this.rejected,
-      offersCount: this.offersCount,
+      offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
       firstOfferMade: this.firstOfferMade,
       lastOfferMade: this.lastOfferMade,
@@ -420,7 +420,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       streetAddress: this.streetAddress,
       participants: this.participants,
       rejected: this.rejected,
-      offersCount: this.offersCount,
+      offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
       firstOfferMade: this.firstOfferMade ? Timestamp.fromDate(this.firstOfferMade) : null,
       lastOfferMade: this.lastOfferMade ? Timestamp.fromDate(this.lastOfferMade) : null,
@@ -447,7 +447,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       streetAddress: this.streetAddress,
       participants: this.participants,
       rejected: this.rejected,
-      offersCount: this.offersCount,
+      offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
       firstOfferMade: this.firstOfferMade,
       lastOfferMade: this.lastOfferMade,
