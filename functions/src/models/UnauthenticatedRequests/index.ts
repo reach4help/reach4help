@@ -160,7 +160,7 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
       data.description,
       {
         latitude: (data.latLng as GeoPoint).latitude,
-        longitude: (data.latLng as GeoPoint).longitude
+        longitude: (data.latLng as GeoPoint).longitude,
       },
       data.createdAt.toDate(),
       data.updatedAt.toDate(),
@@ -180,15 +180,7 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
   }
 
   public static fromObject(data: IUnauthenticatedRequest): UnauthenticatedRequest {
-    return new UnauthenticatedRequest(
-      data.requestRef,
-      data.userSnapshot,
-      data.title,
-      data.description,
-      data.latLng,
-      data.createdAt,
-      data.updatedAt,
-    )
+    return new UnauthenticatedRequest(data.requestRef, data.userSnapshot, data.title, data.description, data.latLng, data.createdAt, data.updatedAt);
   }
 
   toObject(): IUnauthenticatedRequest {

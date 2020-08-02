@@ -1,17 +1,20 @@
 import * as functions from 'firebase-functions';
 import algolia from 'algoliasearch';
 import { firestore } from 'firebase-admin';
+
 import { IRequest, Request } from '../models/requests';
-import DocumentSnapshot = firestore.DocumentSnapshot;
 import { UnauthenticatedRequest } from '../models/UnauthenticatedRequests';
 import { GeneralRequest } from '../models/GeneralRequests';
-import { config } from '../config/config'
+import { config } from '../config/config';
 import { Offer, OfferStatus } from '../models/offers';
+
+import DocumentSnapshot = firestore.DocumentSnapshot;
 
 const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
 const ALGOLIA_REQUESTS_INDEX = functions.config().algolia.requests_index;
-const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX = config.get('env') === 'test' ? 'unauthenticatedRequests_test' : functions.config().algolia.unauthenticated_requests_index;
+const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX =
+  config.get('env') === 'test' ? 'unauthenticatedRequests_test' : functions.config().algolia.unauthenticated_requests_index;
 const ALGOLIA_GENERALREQUESTS_INDEX = config.get('env') === 'test' ? 'generalRequests_test' : functions.config().algolia.general_requests_index;
 
 const adminClient = algolia(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
@@ -73,6 +76,14 @@ export const removeRequestFromIndex = (snap: DocumentSnapshot) => {
   }
 };
 
+/**
+ * When a request in the DB is updated, 
+ * add/update the details of the request in the index after hiding personal details
+ * This Index is for people who aren't authenitcated to be able to see stripped down versions of it
+ *
+ * @param request: The instance of Request class for the request which is being updated
+ * @param path: The path of the request in firestore db
+ */
 export const indexUnauthenticatedRequest = async (request: Request, path: string) => {
   const algoliaDoc = (await UnauthenticatedRequest.fromRequest(request, path)).toAlgolia();
   const index = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
@@ -81,8 +92,16 @@ export const indexUnauthenticatedRequest = async (request: Request, path: string
   return index.saveObject(algoliaDoc).then(() => {
     return Promise.resolve();
   });
-}
+};
 
+/**
+ * When a request in the DB is updated, 
+ * add/update the details of the request in the index along with searchable geodata and filterable participant list
+ * This Index is for people who are authenitcated to be able to search with geodata and filter with participant list
+ *
+ * @param request: The instance of Request class for the request which is being updated
+ * @param path: The path of the request in firestore db
+ */
 export const indexGeneralRequests = async (request: Request, path: string) => {
   const algoliaDoc = (await GeneralRequest.fromRequest(request, path)).toAlgolia();
   const index = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
@@ -91,9 +110,17 @@ export const indexGeneralRequests = async (request: Request, path: string) => {
   return index.saveObject(algoliaDoc).then(() => {
     return Promise.resolve();
   });
-}
+};
 
-export const reflectOfferInRequest = async (offer: Offer, isFirstOffer = false) => {
+/**
+ * When an offer is made against a request in the DB, 
+ * Associate the details of the offer in the request currently stored in the the index
+ * This is so that a participant is reflected in the participant list to be filterable from the next query
+ *
+ * @param request: The instance of Request class for the request which is being updated
+ * @param path: The path of the request in firestore db
+ */
+export const reflectOfferInRequest = async (offer: Offer) => {
   const algoliaObjectId = GeneralRequest.getObjectId(offer.requestRef.path);
   const index = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
 
@@ -108,13 +135,14 @@ export const reflectOfferInRequest = async (offer: Offer, isFirstOffer = false) 
     },
     [offer.status === OfferStatus.pending ? 'lastOfferMade' : 'lastRejectionMade']: offer.createdAt.toDate(),
     objectID: algoliaObjectId,
-  }
+  };
 
-  if (isFirstOffer) {
+  // Condition to be added back when these attributes are added to the model
+  // if (offer.requestSnapshot.offersCount > 0 || offer.requestSnapshot.rejectionCount > 0) {
     algoliaUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt.toDate();
-  }
-  
+  // }
+
   return index.partialUpdateObject(algoliaUpdateDoc, {
-    createIfNotExists: false
+    createIfNotExists: false,
   });
-}
+};

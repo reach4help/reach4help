@@ -2,6 +2,7 @@ import { validateOrReject } from 'class-validator';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import { firestore } from 'firebase-admin';
 
+import { reflectOfferInRequest } from '../algolia';
 import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import { IRequest, Request, RequestStatus } from '../models/requests';
@@ -122,7 +123,11 @@ const validateOffer = (value: IOffer): Promise<void> => {
 export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: EventContext) => {
   return validateOffer(snapshot.data() as IOffer)
     .then(() =>
-      Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer')]),
+      Promise.all([
+        queueOfferCreationTriggers(snapshot),
+        queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer'),
+      ])
+      .then(() => Promise.all([reflectOfferInRequest(Offer.factory(snapshot.data() as IOffer))])),
     )
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
@@ -144,16 +149,15 @@ export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context:
       if (offerBefore?.status === offerAfter?.status && offerAfter?.cavUserSnapshot.displayName === 'Deleted User') {
         return;
       }
-      console.log('offerBefore.status: ', offerBefore?.status);
-      console.log('offerAfter.status: ', offerAfter?.status);
-      console.log('offerAfter.request: ', offerAfter?.requestSnapshot);
-      console.log('requestBefore.request: ', offerBefore?.requestSnapshot);
-      console.log('requestAfter.cavUserSnapshot.displayName: ', offerAfter?.cavUserSnapshot?.displayName);
-      console.log('requestBefore.cavUserSnapshot.displayName: ', offerAfter?.cavUserSnapshot?.displayName);
       return Promise.all([
         queueStatusUpdateTriggers(change),
         queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, 'offer', change.after as firestore.DocumentSnapshot<Offer>),
       ]);
+      /* 
+      *Only details realted to a request is stored in Algolia
+      *Only situation which should affect algolia is when the offer gets accepted
+      *No need to update algolia indices as it would already be done when in the trigger attached to a request update
+      */
     })
     .catch(errors => {
       console.error('Invalid Offer Found: ');

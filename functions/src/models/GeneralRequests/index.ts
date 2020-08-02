@@ -1,18 +1,18 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsArray, IsString, IsEnum, IsObject, IsNumber, IsDate, IsOptional } from 'class-validator';
+import { IsArray, IsDate, IsEnum, IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { db } from '../../app';
 
+import { IOffer, Offer, OfferStatus } from '../offers';
 import { Request, RequestStatus } from '../requests';
-import { IUnauthenticatedRequest, UnauthenticatedRequest } from '../UnauthenticatedRequests'
+import { IUnauthenticatedRequest, UnauthenticatedRequest } from '../UnauthenticatedRequests';
 
 import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
-import { IOffer, Offer, OfferStatus } from '../offers';
 
 interface IUserGeneral {
   displayName: string;
@@ -41,7 +41,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     userSnapshot: IUserGeneral,
     title: string,
     description: string,
-    latLng: IGeneralRequest["latLng"],
+    latLng: IGeneralRequest['latLng'],
     userRef: string,
     status: RequestStatus,
     streetAddress: string,
@@ -60,13 +60,13 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       requestRef,
       {
         displayName: userSnapshot.displayName,
-        displayPicture: userSnapshot.displayPicture
+        displayPicture: userSnapshot.displayPicture,
       },
       title,
       description,
       latLng,
       createdAt,
-      updatedAt
+      updatedAt,
     );
     this._userSnapshotGeneral = userSnapshot;
     this._userRef = userRef;
@@ -117,7 +117,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
   public addParticipants(participant: string) {
     if (!this._participants.includes(participant)) {
-      this._participants.push(participant)
+      this._participants.push(participant);
     }
   }
 
@@ -138,7 +138,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
   public addRejection(rejection: string) {
     if (!this._rejected.includes(rejection)) {
-      this._rejected.push(rejection)
+      this._rejected.push(rejection);
     }
   }
 
@@ -178,7 +178,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
   set rejectionCount(rejectionCount: number) {
     this._rejectionCount = rejectionCount;
   }
-  
+
   @IsDate()
   @IsOptional()
   private _firstOfferMade: Date | null;
@@ -239,10 +239,10 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
   }
 
   public static async fromRequest(data: Request, path: string): Promise<GeneralRequest> {
-
-    const offersData = await db.collection('offers')
-                  .where('requestRef', '==', db.doc(path))
-                  .get();
+    const offersData = await db
+      .collection('offers')
+      .where('requestRef', '==', db.doc(path))
+      .get();
 
     const participants = [data.pinUserRef.id];
     const rejected = [];
@@ -275,13 +275,13 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
         }
       }
     }
-    
+
     return new GeneralRequest(
       path,
       {
         displayName: data.pinUserSnapshot.displayName || '',
         displayPicture: data.pinUserSnapshot.displayPicture,
-        rating: (data.pinUserSnapshot.pinRatingsReceived/data.pinUserSnapshot.requestsMade)
+        rating: data.pinUserSnapshot.pinRatingsReceived / data.pinUserSnapshot.requestsMade,
       },
       data.title,
       data.description,
@@ -299,7 +299,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       firstOfferMade,
       lastOfferMade,
       firstRejectionMade,
-      lastRejectionMade,  
+      lastRejectionMade,
       data.createdAt.toDate(),
       data.updatedAt.toDate(),
     );
@@ -313,7 +313,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.description,
       {
         latitude: (data.latLng as GeoPoint).latitude,
-        longitude: (data.latLng as GeoPoint).longitude
+        longitude: (data.latLng as GeoPoint).longitude,
       },
       (data.userRef as DocumentReference).path,
       data.status,
@@ -325,7 +325,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       (data.firstOfferMade as Timestamp).toDate(),
       (data.lastOfferMade as Timestamp).toDate(),
       (data.firstRejectionMade as Timestamp).toDate(),
-      (data.lastRejectionMade as Timestamp).toDate(),  
+      (data.lastRejectionMade as Timestamp).toDate(),
       (data.createdAt as Timestamp).toDate(),
       (data.updatedAt as Timestamp).toDate(),
     );
@@ -382,7 +382,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.lastRejectionMade,
       data.createdAt,
       data.updatedAt,
-    )
+    );
   }
 
   toObject(): IGeneralRequest {

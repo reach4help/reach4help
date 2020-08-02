@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import * as moment from 'moment';
 
-import { indexRequest, removeRequestFromIndex } from '../algolia';
+import { indexGeneralRequests, indexUnauthenticatedRequest, removeRequestFromIndex } from '../algolia';
 import { db } from '../app';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { IUser, User } from '../models/users';
@@ -172,11 +172,12 @@ const validateRequest = (value: IRequest): Promise<void> => {
 export const createRequest = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateRequest(snapshot.data() as IRequest)
     .then(() => {
+      const request = Request.factory(snapshot.data() as IRequest);
       return Promise.all([
-        indexRequest(snapshot),
         queueCreateTriggers(snapshot),
         queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request'),
-      ]);
+      ])
+      .then(() => Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)]))
     })
     .catch(errors => {
       console.error('Invalid Request Found: ', errors);
@@ -202,18 +203,13 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
       ) {
         return;
       }
-      console.log('requestBefore.status: ', requestBefore?.status);
-      console.log('requestAfter.status: ', requestAfter?.status);
-      console.log('requestAfter.pinUserSnapshot.displayName: ', requestAfter?.pinUserSnapshot.displayName);
-      console.log('requestBefore.pinUserSnapshot.displayName: ', requestBefore?.pinUserSnapshot.displayName);
-      console.log('requestAfter.cavUserSnapshot.displayName: ', requestAfter?.cavUserSnapshot?.displayName);
-      console.log('requestBefore.cavUserSnapshot.displayName: ', requestBefore?.cavUserSnapshot?.displayName);
+      const updatedRequest = Request.factory(change.after.data() as IRequest)
       return Promise.all([
         queueStatusUpdateTriggers(change),
         queueRatingUpdatedTriggers(change),
-        indexRequest(change.after),
         queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
-      ]);
+      ])
+      .then(() => Promise.all([indexUnauthenticatedRequest(updatedRequest, change.after.ref.path), indexGeneralRequests(updatedRequest, change.after.ref.path)]))
     })
     .catch(e => {
       console.error('Invalid Request Found: ', e);
