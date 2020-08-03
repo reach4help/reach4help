@@ -1,14 +1,19 @@
 import * as firebase from '@firebase/testing';
 import * as Test from 'firebase-functions-test';
+import * as fs from 'fs';
+import { v4 as uuid } from 'uuid';
 
 import { triggerEventsWhenRequestIsCreated } from '../../src/requests'
 import { User, ApplicationPreference } from '../../src/models/users';
 import { Request, RequestStatus } from '../../src/models/requests';
-import { retrieveObjectFromIndex } from '../../src/algolia'
+import { retrieveObjectFromIndex, removeObjectFromIndices } from '../../src/algolia'
 
 const projectId = 'reach-4-help-test';
 
 const test = Test();
+
+
+const rules = fs.readFileSync(`${__dirname}/dummy.rules`, 'utf8');
 
 /**
  * Creates a new app with specified user authentication.
@@ -23,11 +28,19 @@ const authedApp = (auth?: object) => {
   }
 };
 
+const pinUserId = uuid();
+
 const pinUser = User.factory({
-  displayPicture: '',
+  displayPicture: null,
   displayName: 'newtestuser',
   applicationPreference: ApplicationPreference.pin,
   username: 'newtestuser'
+});
+
+const requestId = uuid();
+
+beforeAll(async () => {
+  await firebase.loadFirestoreRules({ projectId, rules });
 });
 
 afterAll(async () => {
@@ -37,18 +50,24 @@ afterAll(async () => {
 beforeEach(async () => {
   // Clear the database between tests
   await firebase.clearFirestoreData({ projectId });
-  const { db } = authedApp({uid: '1234'});
-  await db.collection('users').doc('1234').set(pinUser.toObject());
+  const { db } = authedApp({uid: pinUserId});
+  console.log("Setting the user data: ", pinUserId);
+  await db.collection('users').doc(pinUserId).set(pinUser.toObject())
+  console.log("finished setting user data", pinUserId);
+});
+
+afterEach(async () => {
+  await removeObjectFromIndices(requestId);
 });
 
 describe('request creation triggers', () => {
-  const { db } = authedApp({ uid: '1234' });
+  const { db } = authedApp({ uid: pinUserId });
 
   it('should delete invalid data', async () => {
-    const requestRef = db.collection('requests').doc('request-1');
+    const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
-      .set({ displayName: 'fsdfs' })
+      .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
       .then(
         (): Promise<firebase.firestore.DocumentSnapshot> => {
           return requestRef.get();
@@ -57,7 +76,8 @@ describe('request creation triggers', () => {
       .then(snap => {
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
-            userId: '1234',
+            userId: pinUserId,
+            requestId: requestRef.id
           },
         });
       })
@@ -66,14 +86,14 @@ describe('request creation triggers', () => {
       })
       .then(snapAfter => {
         expect(snapAfter.exists).toBeFalsy();
-      });
+      })
   });
 
   it('should not add invalid data in algolia unauthenticated request', async () => {
-    const requestRef = db.collection('requests').doc('request-1');
+    const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
-      .set({ displayName: 'fsdfs' })
+      .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
       .then(
         (): Promise<firebase.firestore.DocumentSnapshot> => {
           return requestRef.get();
@@ -82,24 +102,23 @@ describe('request creation triggers', () => {
       .then(snap => {
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
-            userId: '1234',
+            userId: pinUserId,
+            requestId: requestRef.id
           },
         });
       })
       .then(() => {
         return retrieveObjectFromIndex(requestRef.id, false);
       })
-      .then(snapAfter => {
-        console.log("snapAfter: ", snapAfter);
-        expect(snapAfter).toBeFalsy();
-      });
+      .then(() => expect(false).toBeTruthy())
+      .catch(error => expect(error.status).toBe(404));
   });
 
   it('should not add invalid data in algolia authenticated request', async () => {
-    const requestRef = db.collection('requests').doc('request-1');
+    const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
-      .set({ displayName: 'fsdfs' })
+      .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
       .then(
         (): Promise<firebase.firestore.DocumentSnapshot> => {
           return requestRef.get();
@@ -108,22 +127,21 @@ describe('request creation triggers', () => {
       .then(snap => {
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
-            userId: '1234',
+            userId: pinUserId,
+            requestId: requestRef.id
           },
         });
       })
       .then(() => {
         return retrieveObjectFromIndex(requestRef.id, true);
       })
-      .then(snapAfter => {
-        console.log("snapAfter: ", snapAfter);
-        expect(snapAfter).toBeFalsy();
-      });
+      .then(() => expect(false).toBeTruthy())
+      .catch(error => expect(error.status).toBe(404));
   });
 
   it('should keep valid data', async () => {
     const newRequest = Request.factory({
-      pinUserRef: db.collection('users').doc('1234') as any,
+      pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
       description: 'new request description',
@@ -135,9 +153,12 @@ describe('request creation triggers', () => {
       firstRejectionMade: null,
       lastOfferMade: null,
       lastRejectionMade: null,
-      status: RequestStatus.pending
+      status: RequestStatus.pending,
+      createdAt: firebase.firestore.Timestamp.now(),
+      updatedAt: firebase.firestore.Timestamp.now(),
     })
-    const requestRef = db.collection('requests').doc('request-1');
+
+    const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
       .set(newRequest.toObject())
@@ -149,7 +170,8 @@ describe('request creation triggers', () => {
       .then(snap => {
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
-            userId: '1234',
+            userId: pinUserId,
+            requestId: requestRef.id
           },
         });
       })
@@ -157,15 +179,16 @@ describe('request creation triggers', () => {
         return requestRef.get();
       })
       .then(snapAfter => {
+        console.log("snapAfter.exists: ", snapAfter.exists);
         expect(snapAfter.exists).toBeTruthy();
       });
   });
 
   it('should add valid data in algolia unauthenticated request', async () => {
-    const requestRef = db.collection('requests').doc('request-1');
+    const requestRef = db.collection('requests').doc(requestId);
 
     const newRequest = Request.factory({
-      pinUserRef: db.collection('users').doc('1234') as any,
+      pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
       description: 'new request description',
@@ -177,7 +200,9 @@ describe('request creation triggers', () => {
       firstRejectionMade: null,
       lastOfferMade: null,
       lastRejectionMade: null,
-      status: RequestStatus.pending
+      status: RequestStatus.pending,
+      createdAt: firebase.firestore.Timestamp.now(),
+      updatedAt: firebase.firestore.Timestamp.now(),
     })
 
     return requestRef
@@ -190,24 +215,37 @@ describe('request creation triggers', () => {
       .then(snap => {
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
-            userId: '1234',
+            userId: pinUserId,
+            requestId: requestRef.id
           },
         });
       })
       .then(() => {
-        return retrieveObjectFromIndex(requestRef.id, false);
+        return new Promise((resolve, reject) => {
+          setTimeout(async () => {
+            try {
+              let result = await retrieveObjectFromIndex(requestRef.id, false);
+              resolve(result);
+            } catch (error) {
+              reject(error);
+            }
+          }, 150)
+        });
       })
-      .then(snapAfter => {
-        console.log("snapAfter: ", snapAfter);
-        expect(snapAfter).toBeFalsy();
+      .then((snapAfter: any) => {
+        expect(snapAfter.objectID).toBe(requestId);
+      })
+      .catch(error => {
+        console.error("error: ", error);
+        expect(error.status).toBe(200)
       });
   });
 
   it('should add valid data in algolia authenticated request', async () => {
-    const requestRef = db.collection('requests').doc('request-1');
+    const requestRef = db.collection('requests').doc(requestId);
 
     const newRequest = Request.factory({
-      pinUserRef: db.collection('users').doc('1234') as any,
+      pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
       description: 'new request description',
@@ -219,7 +257,9 @@ describe('request creation triggers', () => {
       firstRejectionMade: null,
       lastOfferMade: null,
       lastRejectionMade: null,
-      status: RequestStatus.pending
+      status: RequestStatus.pending,
+      createdAt: firebase.firestore.Timestamp.now(),
+      updatedAt: firebase.firestore.Timestamp.now(),
     })
 
     return requestRef
@@ -232,7 +272,8 @@ describe('request creation triggers', () => {
       .then(snap => {
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
-            userId: '1234',
+            userId: pinUserId,
+            requestId: requestRef.id
           },
         });
       })
@@ -240,8 +281,8 @@ describe('request creation triggers', () => {
         return retrieveObjectFromIndex(requestRef.id, true);
       })
       .then(snapAfter => {
-        console.log("snapAfter: ", snapAfter);
-        expect(snapAfter).toBeFalsy();
-      });
+        expect(snapAfter.objectID).toBe(requestId);
+      })
+      .catch(error => expect(error.status).toBe(200));
   });
 });

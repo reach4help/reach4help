@@ -39,6 +39,7 @@
     "@types/flat": "^5.0.0",
     "@types/googlemaps": "^3.39.3",
     "@types/node-fetch": "^2.5.7",
+    "@types/uuid": "^8.0.0",
     "algoliasearch": "^4.1.0",
     "class-validator": "^0.11.1",
     "convict": "^5.2.0",

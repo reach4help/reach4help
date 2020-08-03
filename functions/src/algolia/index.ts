@@ -89,7 +89,7 @@ export const indexUnauthenticatedRequest = async (request: Request, path: string
   const index = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
 
   // Throw away the result since these are all void promises.
-  return index.saveObject(algoliaDoc).then(() => {
+  return index.saveObject(algoliaDoc).wait().then(() => {
     return Promise.resolve();
   });
 };
@@ -107,7 +107,7 @@ export const indexGeneralRequests = async (request: Request, path: string) => {
   const index = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
 
   // Throw away the result since these are all void promises.
-  return index.saveObject(algoliaDoc).then(() => {
+  return index.saveObject(algoliaDoc).wait().then(() => {
     return Promise.resolve();
   });
 };
@@ -142,17 +142,33 @@ export const reflectOfferInRequest = async (offer: Offer) => {
 
   return index.partialUpdateObject(algoliaUpdateDoc, {
     createIfNotExists: false,
-  });
+  }).wait().then(() => Promise.resolve())
 };
 
 /**
  * To retrieve a single object based on the provided objectID from algolia index
  * The Algolia Index is decided based on whether the request is to be authenticated or not
  *
- * @param offer: The instance of Offer class for the offer which is created
+ * @param objectId: The objectId of the object to retrieve from the index
  * @param authenitcated: Defaults to false, is the request from authenticated user or not
  */
 export const retrieveObjectFromIndex = async (objectId: string, authenticated = false) => {
   const index = authenticated ? adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX) : adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
   return index.getObject(objectId);
+}
+
+/**
+ * To remove a single object based on the provided objectID from algolia indices
+ * The object will be removed from both the indices for authenticated and unauthenticated requests
+ *
+ * @param objectId: The objectId of the object to delete from the indices
+ */
+export const removeObjectFromIndices = async (objectId: string) => {
+  const index1 = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
+  const index2 = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
+  return Promise.all([index1.deleteObject(objectId).wait().then(() => {
+    return Promise.resolve();
+  }), index2.deleteObject(objectId).wait().then(() => {
+    return Promise.resolve();
+  })]);
 }

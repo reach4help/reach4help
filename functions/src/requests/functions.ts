@@ -4,7 +4,7 @@ import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import * as moment from 'moment';
 
 import { indexGeneralRequests, indexUnauthenticatedRequest, removeRequestFromIndex } from '../algolia';
-import { db } from '../app';
+import { db, fieldIncrementer } from '../app';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { IUser, User } from '../models/users';
 import { queueTimelineItemTriggers } from '../shared/triggerFunctions';
@@ -69,7 +69,7 @@ const attemptToUpdateCavCompletedOffersCounts = (operations: Promise<void>[], re
     operations.push(
       requestAfter.cavUserRef
         .update({
-          casesCompleted: admin.firestore.FieldValue.increment(1),
+          casesCompleted: fieldIncrementer(1),
         })
         .then(() => Promise.resolve()),
     );
@@ -156,18 +156,17 @@ const queueCreateTriggers = async (snapshot: DocumentSnapshot): Promise<void[]> 
   if (data) {
     operations.push(
       data.pinUserRef.update({
-        requestsMade: admin.firestore.FieldValue.increment(1),
+        requestsMade: fieldIncrementer(1),
       }),
     );
   }
   return Promise.all(operations);
 };
 
-const validateRequest = (value: IRequest): Promise<void> => {
-  return validateOrReject(Request.factory(value)).then(() => {
+const validateRequest = (value: IRequest): Promise<void> =>
+  validateOrReject(Request.factory(value)).then(() => {
     return Promise.resolve();
   });
-};
 
 export const createRequest = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateRequest(snapshot.data() as IRequest)
@@ -178,7 +177,14 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
       );
     })
     .catch(errors => {
-      console.error('Invalid Request Found: ', errors);
+      if (errors && Array.isArray(errors)){
+        console.error('Invalid Request Found: ');
+        for (const e of errors) {
+          console.error("e: ", e);
+        }
+      } else {
+        console.error("error occured: ", errors);
+      }
       return db
         .collection('requests')
         .doc(context.params.requestId)
