@@ -61,10 +61,6 @@ afterAll(async () => {
 beforeEach(async () => {
   // Clear the database between tests
   await firebase.clearFirestoreData({ projectId });
-  const { db: pinDb } = authedApp({uid: pinUserId });
-  const { db: cavDb } = authedApp({ uid: cavUserId });
-  await pinDb.collection('users').doc(pinUserId).set(pinUser.toObject());
-  await cavDb.collection('users').doc(cavUserId).set(cavUser.toObject());
 });
 
 afterEach(async () => {
@@ -72,10 +68,15 @@ afterEach(async () => {
 });
 
 describe('offer creation triggers', () => {
+
   const { db: pinDb } = authedApp({uid: pinUserId });
   const { db: cavDb } = authedApp({ uid: cavUserId });
 
   it('should not keep invalid data', async () => {
+
+    await pinDb.collection('users').doc(pinUserId).set(pinUser.toObject());
+    await cavDb.collection('users').doc(cavUserId).set(cavUser.toObject());
+
     const newRequest = Request.factory({
       pinUserRef: pinDb.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
@@ -137,6 +138,10 @@ describe('offer creation triggers', () => {
   });
 
   it('should not assosciate invalid offer with data in authenticatd request', async () => {
+
+    await pinDb.collection('users').doc(pinUserId).set(pinUser.toObject());
+    await cavDb.collection('users').doc(cavUserId).set(cavUser.toObject());
+
     const newRequest = Request.factory({
       pinUserRef: pinDb.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
@@ -202,6 +207,10 @@ describe('offer creation triggers', () => {
   });
 
   it('should keep valid data', async () => {
+
+    await pinDb.collection('users').doc(pinUserId).set(pinUser.toObject());
+    await cavDb.collection('users').doc(cavUserId).set(cavUser.toObject());
+
     const newRequest = Request.factory({
       pinUserRef: pinDb.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
@@ -280,6 +289,10 @@ describe('offer creation triggers', () => {
   });
 
   it('should associate offer with data in algolia authenticated request', async () => {
+
+    await pinDb.collection('users').doc(pinUserId).set(pinUser.toObject());
+    await cavDb.collection('users').doc(cavUserId).set(cavUser.toObject());
+
     const newRequest = Request.factory({
       pinUserRef: pinDb.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,

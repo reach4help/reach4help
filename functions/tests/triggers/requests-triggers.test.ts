@@ -50,10 +50,6 @@ afterAll(async () => {
 beforeEach(async () => {
   // Clear the database between tests
   await firebase.clearFirestoreData({ projectId });
-  const { db } = authedApp({uid: pinUserId});
-  console.log("Setting the user data: ", pinUserId);
-  await db.collection('users').doc(pinUserId).set(pinUser.toObject())
-  console.log("finished setting user data", pinUserId);
 });
 
 afterEach(async () => {
@@ -64,6 +60,9 @@ describe('request creation triggers', () => {
   const { db } = authedApp({ uid: pinUserId });
 
   it('should delete invalid data', async () => {
+
+    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
+
     const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
@@ -90,6 +89,9 @@ describe('request creation triggers', () => {
   });
 
   it('should not add invalid data in algolia unauthenticated request', async () => {
+
+    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
+
     const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
@@ -115,6 +117,9 @@ describe('request creation triggers', () => {
   });
 
   it('should not add invalid data in algolia authenticated request', async () => {
+
+    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
+
     const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
@@ -140,6 +145,9 @@ describe('request creation triggers', () => {
   });
 
   it('should keep valid data', async () => {
+
+    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
+
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
@@ -179,12 +187,15 @@ describe('request creation triggers', () => {
         return requestRef.get();
       })
       .then(snapAfter => {
-        console.log("snapAfter.exists: ", snapAfter.exists);
         expect(snapAfter.exists).toBeTruthy();
-      });
+      })
+      .catch(error => console.error("error occured: ", error));
   });
 
   it('should add valid data in algolia unauthenticated request', async () => {
+
+    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
+
     const requestRef = db.collection('requests').doc(requestId);
 
     const newRequest = Request.factory({
@@ -242,6 +253,9 @@ describe('request creation triggers', () => {
   });
 
   it('should add valid data in algolia authenticated request', async () => {
+
+    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
+
     const requestRef = db.collection('requests').doc(requestId);
 
     const newRequest = Request.factory({
