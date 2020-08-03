@@ -50,7 +50,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
         name="other"
         rules={[
           {
-            required: form.getFieldValue('type') === 'Other',
+            required: true,
             message: t('newRequest.form.other_error_message'),
           },
         ]}
