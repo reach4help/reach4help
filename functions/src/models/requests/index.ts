@@ -1,5 +1,18 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { Allow, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, IsString, Max, Min, ValidateNested, IsNumber } from 'class-validator';
+import {
+  Allow,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNotEmptyObject,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { IUser, User } from '../users';
@@ -51,8 +64,8 @@ export class Request implements IRequest {
     streetAddress: string,
     cavUserRef: DocumentReference<DocumentData> | null = null,
     cavUserSnapshot: User | null = null,
-    offerCount: number = 0,
-    rejectionCount: number = 0,
+    offerCount = 0,
+    rejectionCount = 0,
     firstOfferMade: Timestamp | null = null,
     firstRejectionMade: Timestamp | null = null,
     lastOfferMade: Timestamp | null = null,

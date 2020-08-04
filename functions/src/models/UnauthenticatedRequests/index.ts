@@ -135,7 +135,7 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
   }
 
   public static async fromRequest(data: Request, path: string): Promise<UnauthenticatedRequest> {
-    return new UnauthenticatedRequest(
+    return Promise.resolve(new UnauthenticatedRequest(
       path,
       {
         displayName: data.pinUserSnapshot.displayName || '',
@@ -149,7 +149,7 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
       },
       data.createdAt.toDate(),
       data.updatedAt.toDate(),
-    );
+    ));
   }
 
   public static fromFirestore(data: DocumentData): UnauthenticatedRequest {
@@ -173,7 +173,7 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
       data.pinUserSnapshot,
       data.title,
       data.description,
-      { latitude: data['_geoloc'].lat, longitude: data['_geoloc'].lng },
+      { latitude: data._geoloc.lat, longitude: data._geoloc.lng },
       data.createdAt,
       data.updatedAt,
     );

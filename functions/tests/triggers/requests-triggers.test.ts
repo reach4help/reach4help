@@ -3,15 +3,14 @@ import * as Test from 'firebase-functions-test';
 import * as fs from 'fs';
 import { v4 as uuid } from 'uuid';
 
-import { triggerEventsWhenRequestIsCreated } from '../../src/requests'
-import { User, ApplicationPreference } from '../../src/models/users';
+import { triggerEventsWhenRequestIsCreated } from '../../src/requests';
+import { ApplicationPreference, User } from '../../src/models/users';
 import { Request, RequestStatus } from '../../src/models/requests';
-import { retrieveObjectFromIndex, removeObjectFromIndices } from '../../src/algolia'
+import { removeObjectFromIndices, retrieveObjectFromIndex } from '../../src/algolia';
 
 const projectId = 'reach-4-help-test';
 
 const test = Test();
-
 
 const rules = fs.readFileSync(`${__dirname}/dummy.rules`, 'utf8');
 
@@ -21,11 +20,11 @@ const rules = fs.readFileSync(`${__dirname}/dummy.rules`, 'utf8');
  * @return {object} the app.
  */
 const authedApp = (auth?: object) => {
-  const app = firebase.initializeTestApp({ projectId, auth })
+  const app = firebase.initializeTestApp({ projectId, auth });
   return {
-      app,
-      db: app.firestore()
-  }
+    app,
+    db: app.firestore(),
+  };
 };
 
 const pinUserId = uuid();
@@ -34,16 +33,18 @@ const pinUser = User.factory({
   displayPicture: null,
   displayName: 'newtestuser',
   applicationPreference: ApplicationPreference.pin,
-  username: 'newtestuser'
+  username: 'newtestuser',
 });
 
 const requestId = uuid();
 
 beforeAll(async () => {
+  // To allow reads and writes from authed db
   await firebase.loadFirestoreRules({ projectId, rules });
 });
 
 afterAll(async () => {
+  // clear all app instances
   await Promise.all(firebase.apps().map(app => app.delete()));
 });
 
@@ -53,6 +54,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
+  // Don't keep adding data into test indices, use it temporarily
   await removeObjectFromIndices(requestId);
 });
 
@@ -60,9 +62,13 @@ describe('request creation triggers', () => {
   const { db } = authedApp({ uid: pinUserId });
 
   it('should delete invalid data', async () => {
+    // create record of user who makes request
+    await db
+      .collection('users')
+      .doc(pinUserId)
+      .set(pinUser.toObject());
 
-    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
-
+    // declare a requestRef to which writes should be made to simplify access later
     const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
@@ -73,10 +79,11 @@ describe('request creation triggers', () => {
         },
       )
       .then(snap => {
+        // Execute the trigger on the request object on firestore
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
             userId: pinUserId,
-            requestId: requestRef.id
+            requestId: requestRef.id,
           },
         });
       })
@@ -85,13 +92,17 @@ describe('request creation triggers', () => {
       })
       .then(snapAfter => {
         expect(snapAfter.exists).toBeFalsy();
-      })
+      });
   });
 
   it('should not add invalid data in algolia unauthenticated request', async () => {
+    // create record of user who makes request
+    await db
+      .collection('users')
+      .doc(pinUserId)
+      .set(pinUser.toObject());
 
-    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
-
+    // declare a requestRef to which writes should be made to simplify access later
     const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
@@ -102,24 +113,31 @@ describe('request creation triggers', () => {
         },
       )
       .then(snap => {
+        // Execute the trigger on the request object on firestore
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
             userId: pinUserId,
-            requestId: requestRef.id
+            requestId: requestRef.id,
           },
         });
       })
       .then(() => {
+        // Try to read the request from algolia
         return retrieveObjectFromIndex(requestRef.id, false);
       })
+      // Trigger shouldn't add incorrect data into algolia so the above request must fail
       .then(() => expect(false).toBeTruthy())
       .catch(error => expect(error.status).toBe(404));
   });
 
   it('should not add invalid data in algolia authenticated request', async () => {
+    // create record of user who makes request
+    await db
+      .collection('users')
+      .doc(pinUserId)
+      .set(pinUser.toObject());
 
-    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
-
+    // declare a requestRef to which writes should be made to simplify access later
     const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
@@ -130,30 +148,37 @@ describe('request creation triggers', () => {
         },
       )
       .then(snap => {
+        // Execute the trigger on the request object on firestore
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
             userId: pinUserId,
-            requestId: requestRef.id
+            requestId: requestRef.id,
           },
         });
       })
       .then(() => {
+        // Try to read the request from algolia
         return retrieveObjectFromIndex(requestRef.id, true);
       })
+      // Trigger shouldn't add incorrect data into algolia so the above request must fail
       .then(() => expect(false).toBeTruthy())
       .catch(error => expect(error.status).toBe(404));
   });
 
   it('should keep valid data', async () => {
+    // create record of user who makes request
+    await db
+      .collection('users')
+      .doc(pinUserId)
+      .set(pinUser.toObject());
 
-    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
-
+    // create a properly filled and acceptable request object
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
       description: 'new request description',
-      latLng: new firebase.firestore.GeoPoint(0,0),
+      latLng: new firebase.firestore.GeoPoint(0, 0),
       streetAddress: 'new request street address',
       offerCount: 0,
       rejectionCount: 0,
@@ -164,8 +189,9 @@ describe('request creation triggers', () => {
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
-    })
+    });
 
+    // declare a requestRef to which writes should be made to simplify access later
     const requestRef = db.collection('requests').doc(requestId);
 
     return requestRef
@@ -176,10 +202,12 @@ describe('request creation triggers', () => {
         },
       )
       .then(snap => {
+        // Execute the trigger on the request object on firestore
+        console.log("executing request triggers");
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
             userId: pinUserId,
-            requestId: requestRef.id
+            requestId: requestRef.id,
           },
         });
       })
@@ -187,23 +215,28 @@ describe('request creation triggers', () => {
         return requestRef.get();
       })
       .then(snapAfter => {
+        console.log("snapAfter.exists: ", snapAfter.exists);
         expect(snapAfter.exists).toBeTruthy();
-      })
-      .catch(error => console.error("error occured: ", error));
+      });
   });
 
   it('should add valid data in algolia unauthenticated request', async () => {
+    // create record of user who makes request
+    await db
+      .collection('users')
+      .doc(pinUserId)
+      .set(pinUser.toObject());
 
-    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
-
+    // declare a requestRef to which writes should be made to simplify access later
     const requestRef = db.collection('requests').doc(requestId);
 
+    // create a properly filled and acceptable request object
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
       description: 'new request description',
-      latLng: new firebase.firestore.GeoPoint(0,0),
+      latLng: new firebase.firestore.GeoPoint(0, 0),
       streetAddress: 'new request street address',
       offerCount: 0,
       rejectionCount: 0,
@@ -214,7 +247,7 @@ describe('request creation triggers', () => {
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
-    })
+    });
 
     return requestRef
       .set(newRequest.toObject())
@@ -224,46 +257,40 @@ describe('request creation triggers', () => {
         },
       )
       .then(snap => {
+        // Execute the trigger on the request object on firestore
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
             userId: pinUserId,
-            requestId: requestRef.id
+            requestId: requestRef.id,
           },
         });
       })
       .then(() => {
-        return new Promise((resolve, reject) => {
-          setTimeout(async () => {
-            try {
-              let result = await retrieveObjectFromIndex(requestRef.id, false);
-              resolve(result);
-            } catch (error) {
-              reject(error);
-            }
-          }, 150)
-        });
+        return retrieveObjectFromIndex(requestRef.id, false);
       })
+      // since data is correct, the request should be present in algolia indexed with requestId as the objectId
       .then((snapAfter: any) => {
         expect(snapAfter.objectID).toBe(requestId);
-      })
-      .catch(error => {
-        console.error("error: ", error);
-        expect(error.status).toBe(200)
       });
   });
 
   it('should add valid data in algolia authenticated request', async () => {
+    // create record of user who creates request
+    await db
+      .collection('users')
+      .doc(pinUserId)
+      .set(pinUser.toObject());
 
-    await db.collection('users').doc(pinUserId).set(pinUser.toObject())
-
+    // declare a requestRef to which writes should be made to simplify access later
     const requestRef = db.collection('requests').doc(requestId);
 
+    // create a properly filled and acceptable request object
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
       description: 'new request description',
-      latLng: new firebase.firestore.GeoPoint(0,0),
+      latLng: new firebase.firestore.GeoPoint(0, 0),
       streetAddress: 'new request street address',
       offerCount: 0,
       rejectionCount: 0,
@@ -274,7 +301,7 @@ describe('request creation triggers', () => {
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
-    })
+    });
 
     return requestRef
       .set(newRequest.toObject())
@@ -284,19 +311,20 @@ describe('request creation triggers', () => {
         },
       )
       .then(snap => {
+        // Execute the trigger on the request object on firestore
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
             userId: pinUserId,
-            requestId: requestRef.id
+            requestId: requestRef.id,
           },
         });
       })
       .then(() => {
         return retrieveObjectFromIndex(requestRef.id, true);
       })
+      // since data is correct, the request should be present in algolia indexed with requestId as the objectId
       .then(snapAfter => {
         expect(snapAfter.objectID).toBe(requestId);
-      })
-      .catch(error => expect(error.status).toBe(200));
+      });
   });
 });

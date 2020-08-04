@@ -171,19 +171,20 @@ const validateRequest = (value: IRequest): Promise<void> =>
 export const createRequest = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateRequest(snapshot.data() as IRequest)
     .then(() => {
+      return Promise.all([queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request')])
+    })
+    .then(() => {
       const request = Request.factory(snapshot.data() as IRequest);
-      return Promise.all([queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request')]).then(() =>
-        Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)]),
-      );
+      return Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)])
     })
     .catch(errors => {
-      if (errors && Array.isArray(errors)){
+      if (errors && Array.isArray(errors)) {
         console.error('Invalid Request Found: ');
         for (const e of errors) {
-          console.error("e: ", e);
+          console.error('e: ', e);
         }
       } else {
-        console.error("error occured: ", errors);
+        console.error('error occured: ', errors);
       }
       return db
         .collection('requests')
@@ -192,7 +193,8 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
         .catch(() => {
           return Promise.resolve();
         });
-    });
+    })
+    .then(() => Promise.resolve());
 };
 
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
@@ -204,32 +206,33 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
       if (
         requestBefore &&
         requestAfter &&
-        (
-          // No need to execute update trigger if the user's account was deleted
-          (requestBefore?.status === requestAfter?.status &&
+        // No need to execute update trigger if the user's account was deleted
+        ((requestBefore?.status === requestAfter?.status &&
           (requestAfter?.pinUserSnapshot.displayName === 'Deleted User' || requestAfter?.cavUserSnapshot?.displayName === 'Deleted User')) ||
           // No need to execute update trigger if the offer count and last offer or rejection count and last rejection is being updated
           (requestBefore.offerCount < requestAfter.offerCount &&
             requestBefore.lastOfferMade?.isEqual(requestAfter.lastOfferMade ? requestAfter.lastOfferMade : requestBefore.lastOfferMade)) ||
-            (requestBefore.rejectionCount < requestAfter.rejectionCount &&
-              requestBefore.lastRejectionMade?.isEqual(
-                requestAfter.lastRejectionMade ? requestAfter.lastRejectionMade : requestBefore.lastRejectionMade,
-              )))
+          (requestBefore.rejectionCount < requestAfter.rejectionCount &&
+            requestBefore.lastRejectionMade?.isEqual(
+              requestAfter.lastRejectionMade ? requestAfter.lastRejectionMade : requestBefore.lastRejectionMade,
+            )))
       ) {
         return;
       }
       const updatedRequest = Request.factory(change.after.data() as IRequest);
-      return Promise.all([
-        queueStatusUpdateTriggers(change),
-        queueRatingUpdatedTriggers(change),
-        queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
-      ])
-      // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
-      .then(() =>
+      return (
         Promise.all([
-          indexUnauthenticatedRequest(updatedRequest, change.after.ref.path),
-          indexGeneralRequests(updatedRequest, change.after.ref.path),
-        ]),
+          queueStatusUpdateTriggers(change),
+          queueRatingUpdatedTriggers(change),
+          queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
+        ])
+          // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
+          .then(() =>
+            Promise.all([
+              indexUnauthenticatedRequest(updatedRequest, change.after.ref.path),
+              indexGeneralRequests(updatedRequest, change.after.ref.path),
+            ]),
+          )
       );
     })
     .catch(e => {

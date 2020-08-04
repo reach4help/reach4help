@@ -77,7 +77,7 @@ export const removeRequestFromIndex = (snap: DocumentSnapshot) => {
 };
 
 /**
- * When a request in the DB is updated, 
+ * When a request in the DB is updated,
  * add/update the details of the request in the index after hiding personal details
  * This Index is for people who aren't authenitcated to be able to see stripped down versions of it
  *
@@ -89,13 +89,16 @@ export const indexUnauthenticatedRequest = async (request: Request, path: string
   const index = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
 
   // Throw away the result since these are all void promises.
-  return index.saveObject(algoliaDoc).wait().then(() => {
-    return Promise.resolve();
-  });
+  return index
+    .saveObject(algoliaDoc)
+    .wait()
+    .then(() => {
+      return Promise.resolve();
+    });
 };
 
 /**
- * When a request in the DB is updated, 
+ * When a request in the DB is updated,
  * add/update the details of the request in the index along with searchable geodata and filterable participant list
  * This Index is for people who are authenitcated to be able to search with geodata and filter with participant list
  *
@@ -107,13 +110,16 @@ export const indexGeneralRequests = async (request: Request, path: string) => {
   const index = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
 
   // Throw away the result since these are all void promises.
-  return index.saveObject(algoliaDoc).wait().then(() => {
-    return Promise.resolve();
-  });
+  return index
+    .saveObject(algoliaDoc)
+    .wait()
+    .then(() => {
+      return Promise.resolve();
+    });
 };
 
 /**
- * When an offer is made against a request in the DB, 
+ * When an offer is made against a request in the DB,
  * Associate the details of the offer in the request currently stored in the the index
  * This is so that a participant is reflected in the participant list to be filterable from the next query
  *
@@ -140,9 +146,12 @@ export const reflectOfferInRequest = async (offer: Offer) => {
     algoliaUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt.toDate();
   }
 
-  return index.partialUpdateObject(algoliaUpdateDoc, {
-    createIfNotExists: false,
-  }).wait().then(() => Promise.resolve())
+  return index
+    .partialUpdateObject(algoliaUpdateDoc, {
+      createIfNotExists: false,
+    })
+    .wait()
+    .then(() => Promise.resolve());
 };
 
 /**
@@ -155,7 +164,7 @@ export const reflectOfferInRequest = async (offer: Offer) => {
 export const retrieveObjectFromIndex = async (objectId: string, authenticated = false) => {
   const index = authenticated ? adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX) : adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
   return index.getObject(objectId);
-}
+};
 
 /**
  * To remove a single object based on the provided objectID from algolia indices
@@ -166,9 +175,18 @@ export const retrieveObjectFromIndex = async (objectId: string, authenticated = 
 export const removeObjectFromIndices = async (objectId: string) => {
   const index1 = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
   const index2 = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
-  return Promise.all([index1.deleteObject(objectId).wait().then(() => {
-    return Promise.resolve();
-  }), index2.deleteObject(objectId).wait().then(() => {
-    return Promise.resolve();
-  })]);
-}
+  return Promise.all([
+    index1
+      .deleteObject(objectId)
+      .wait()
+      .then(() => {
+        return Promise.resolve();
+      }),
+    index2
+      .deleteObject(objectId)
+      .wait()
+      .then(() => {
+        return Promise.resolve();
+      }),
+  ]);
+};

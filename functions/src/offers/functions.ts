@@ -73,7 +73,7 @@ const queueStatusUpdateTriggers = async (change: Change<firestore.DocumentSnapsh
 };
 
 /**
- * When an offer is made against a request in the DB, 
+ * When an offer is made against a request in the DB,
  * Associate the details of the offer in the request
  * This helps prevent additional reads from offers collection to get aggregate and count values
  *
@@ -88,12 +88,9 @@ const reflectOfferInRequestFirebase = (offer: Offer) => {
   if (offer.requestSnapshot && (offer.requestSnapshot.offerCount > 0 || offer.requestSnapshot.rejectionCount > 0)) {
     firebaseUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt;
   }
-  
-  return offer
-    .requestRef
-    .update(firebaseUpdateDoc)
-    .then(() => Promise.resolve())
-}
+
+  return offer.requestRef.update(firebaseUpdateDoc).then(() => Promise.resolve());
+};
 
 const queueOfferCreationTriggers = async (snap: firestore.DocumentSnapshot): Promise<void[]> => {
   const offer = snap.data() as Offer;
@@ -148,17 +145,11 @@ const validateOffer = (value: IOffer): Promise<void> => {
 export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: EventContext) => {
   return validateOffer(snapshot.data() as IOffer)
     .then(() =>
-      Promise.all([
-        queueOfferCreationTriggers(snapshot),
-        queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer'),
-      ])
-      // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
-      .then(() => {
-        return Promise.all([reflectOfferInRequest(Offer.factory(snapshot.data() as IOffer))])
-      })
-      .then(() => {
-        return Promise.resolve();
-      }),
+      Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer')])
+    )
+    // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
+    .then(() =>
+      reflectOfferInRequest(Offer.factory(snapshot.data() as IOffer))
     )
     .catch(errors => {
       console.error('Invalid Offer Found: ', errors);
@@ -169,7 +160,8 @@ export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: Event
         .catch(() => {
           return Promise.resolve();
         });
-    });
+    })
+    .then(() => Promise.resolve());
 };
 
 export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context: EventContext) => {
@@ -184,11 +176,11 @@ export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context:
         queueStatusUpdateTriggers(change),
         queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, 'offer', change.after as firestore.DocumentSnapshot<Offer>),
       ]);
-      /* 
-      *Only details realted to a request is stored in Algolia
-      *Only situation which should affect algolia is when the offer gets accepted
-      *No need to update algolia indices as it would already be done when in the trigger attached to a request update
-      */
+      /*
+       *Only details realted to a request is stored in Algolia
+       *Only situation which should affect algolia is when the offer gets accepted
+       *No need to update algolia indices as it would already be done when in the trigger attached to a request update
+       */
     })
     .catch(errors => {
       console.error('Invalid Offer Found: ');

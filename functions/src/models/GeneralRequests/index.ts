@@ -337,7 +337,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.userSnapshot,
       data.title,
       data.description,
-      { latitude: data['_geoloc'].lat, longitude: data['_geoloc'].lng },
+      { latitude: data._geoloc.lat, longitude: data._geoloc.lng },
       data.userRef,
       data.status,
       data.streetAddress,

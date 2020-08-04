@@ -17,6 +17,7 @@ if (config.get('env') !== 'test') {
   internalDB = admin.firestore();
   internalAuth = admin.auth();
   internalMessaging = internalApp.messaging();
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   internalFieldIncrementer = admin.firestore.FieldValue.increment;
 } else {
   // Only import when we're in a test environment
@@ -27,8 +28,8 @@ if (config.get('env') !== 'test') {
   internalDB = internalApp.firestore();
   internalAuth = null;
   internalMessaging = {
-    send: () => Promise.resolve("randomID")
-  }
+    send: () => Promise.resolve('randomID'),
+  };
   internalFieldIncrementer = firebaseTest.firestore.FieldValue.increment;
 }
 

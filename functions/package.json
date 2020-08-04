@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test:firestore": "firebase emulators:exec --only firestore 'yarn jest ./tests/*.test.ts'",
-    "test:triggers": "firebase emulators:exec --only firestore 'yarn jest ./tests/triggers/*.test.ts'",
+    "test:triggers": "/bin/sh ./tests/triggers/testscript.sh",
     "test": "yarn run test:firestore && yarn run test:triggers",
     "lint": "eslint . --ext .ts && prettier --check \"./**/*.ts\"",
     "lint:fix": "eslint . --fix --ext .ts && prettier --write \"./**/*.ts\"",
