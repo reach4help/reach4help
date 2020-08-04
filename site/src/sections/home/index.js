@@ -23,7 +23,9 @@ function Home() {
         <LogoType className="logo-type" />
       </LogoWrapper>
       <h2>{t("Home.heading")}</h2>
-      <h3>{t("Home.subheading")}</h3>
+      <div style={{ maxWidth: "600px" }}>
+        <h3>{t("Home.subheading")}</h3>
+      </div>
       <ButtonsWrapper>
         <a
           href="https://app.reach4help.org/"

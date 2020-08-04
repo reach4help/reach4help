@@ -13,33 +13,34 @@
       ]
     },
     "Home": {
-      "heading": "We connect people in need to people who can help.",
-      "subheading": "",
+      "heading": "Unifying Help Worldwide",
+      "subheading": "We are a global volunteer-run initiative bridging the gap between people in need and volunteers who can help through the pandemic and beyond.",
       "description": [
         "Our map houses a growing list of aid organizations and pandemic care projects.",
         "Use the map to find and join mutual aid efforts near you or create your own.",
         "If you are an aid organization, add your information to the map so others can find you."
       ],
-      "buttons": ["Mutual Aid Map", "BETA Sign Up"]
+      "buttons": ["Mutual Aid Map", "Sign Up"]
     },
     "Mission": {
       "heading": "Our Mission",
       "description": [
-        "Reach4Help is an open project that is completely run by volunteers that aims to address issues like providing an easier access to groceries, medicine, or a simple help to walk the dogs for those who can’t do it at the moment.",
-        "<strong>OUR GOAL</strong> is to enable those in need to receive help, and enable partner groups and organizations to help more efficiently, by mobilizing their volunteers with the help of our own system."
+        "We're working with existing mutual aid networks such as AIESEC in Portugal and Bangladesh and the Outremont COVID-19 Help Foundation in Quebec to reach more people in need and to mobilize volunteer help more effectively.",
+        "Through the development of open-source and accessible tools for volunteers, people in need, and volunteer organizations alike, we aim to build a large-scale network of help to keep us stronger and more interconnected during this pandemic and beyond."
       ]
     },
     "Partners": {
       "heading": "Partners",
-      "subheading": "We want to thank all the brands, companies, and community supporters that have helped us on our mission."
+      "subheading": "We want to thank all the brands, companies, and community supporters that are helping us on our mission!"
     },
     "Team": {
       "heading": "Team",
-      "subheading": "We’re looking for more people to join our teams, if you’d like to join.",
+      "subheading": "",
       "description": [
-        "We are part of Helpful Engineering, a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commecial goals."
+        "Our team is all over the world, hailing from LA to Morocco and Portugal to Bangladesh. Despite the time differences and new faces, each of us decided to step up and become a part of something bigger: a global movement for unity.",
+        "Now, we're part of The Programming Foundation, teaching developers skills for the tech industry through coding user-oriented software, working with Cloud infrastructure, and showing leadership by supporting communities during times of peril."
       ],
-      "buttons": ["You’re the help next door. Join us!"]
+      "buttons": ["Join us on our mission!"]
     },
     "Footer": {
       "sections": [
