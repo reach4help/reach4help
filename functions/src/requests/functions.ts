@@ -171,11 +171,11 @@ const validateRequest = (value: IRequest): Promise<void> =>
 export const createRequest = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateRequest(snapshot.data() as IRequest)
     .then(() => {
-      return Promise.all([queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request')])
+      return Promise.all([queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request')]);
     })
     .then(() => {
       const request = Request.factory(snapshot.data() as IRequest);
-      return Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)])
+      return Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)]);
     })
     .catch(errors => {
       if (errors && Array.isArray(errors)) {

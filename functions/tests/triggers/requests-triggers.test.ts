@@ -105,29 +105,31 @@ describe('request creation triggers', () => {
     // declare a requestRef to which writes should be made to simplify access later
     const requestRef = db.collection('requests').doc(requestId);
 
-    return requestRef
-      .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return requestRef.get();
-        },
-      )
-      .then(snap => {
-        // Execute the trigger on the request object on firestore
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-          params: {
-            userId: pinUserId,
-            requestId: requestRef.id,
+    return (
+      requestRef
+        .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
           },
-        });
-      })
-      .then(() => {
-        // Try to read the request from algolia
-        return retrieveObjectFromIndex(requestRef.id, false);
-      })
-      // Trigger shouldn't add incorrect data into algolia so the above request must fail
-      .then(() => expect(false).toBeTruthy())
-      .catch(error => expect(error.status).toBe(404));
+        )
+        .then(snap => {
+          // Execute the trigger on the request object on firestore
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
+          });
+        })
+        .then(() => {
+          // Try to read the request from algolia
+          return retrieveObjectFromIndex(requestRef.id, false);
+        })
+        // Trigger shouldn't add incorrect data into algolia so the above request must fail
+        .then(() => expect(false).toBeTruthy())
+        .catch(error => expect(error.status).toBe(404))
+    );
   });
 
   it('should not add invalid data in algolia authenticated request', async () => {
@@ -140,29 +142,31 @@ describe('request creation triggers', () => {
     // declare a requestRef to which writes should be made to simplify access later
     const requestRef = db.collection('requests').doc(requestId);
 
-    return requestRef
-      .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return requestRef.get();
-        },
-      )
-      .then(snap => {
-        // Execute the trigger on the request object on firestore
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-          params: {
-            userId: pinUserId,
-            requestId: requestRef.id,
+    return (
+      requestRef
+        .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
           },
-        });
-      })
-      .then(() => {
-        // Try to read the request from algolia
-        return retrieveObjectFromIndex(requestRef.id, true);
-      })
-      // Trigger shouldn't add incorrect data into algolia so the above request must fail
-      .then(() => expect(false).toBeTruthy())
-      .catch(error => expect(error.status).toBe(404));
+        )
+        .then(snap => {
+          // Execute the trigger on the request object on firestore
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
+          });
+        })
+        .then(() => {
+          // Try to read the request from algolia
+          return retrieveObjectFromIndex(requestRef.id, true);
+        })
+        // Trigger shouldn't add incorrect data into algolia so the above request must fail
+        .then(() => expect(false).toBeTruthy())
+        .catch(error => expect(error.status).toBe(404))
+    );
   });
 
   it('should keep valid data', async () => {
@@ -203,7 +207,7 @@ describe('request creation triggers', () => {
       )
       .then(snap => {
         // Execute the trigger on the request object on firestore
-        console.log("executing request triggers");
+        console.log('executing request triggers');
         return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
           params: {
             userId: pinUserId,
@@ -215,7 +219,7 @@ describe('request creation triggers', () => {
         return requestRef.get();
       })
       .then(snapAfter => {
-        console.log("snapAfter.exists: ", snapAfter.exists);
+        console.log('snapAfter.exists: ', snapAfter.exists);
         expect(snapAfter.exists).toBeTruthy();
       });
   });
@@ -249,29 +253,31 @@ describe('request creation triggers', () => {
       updatedAt: firebase.firestore.Timestamp.now(),
     });
 
-    return requestRef
-      .set(newRequest.toObject())
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return requestRef.get();
-        },
-      )
-      .then(snap => {
-        // Execute the trigger on the request object on firestore
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-          params: {
-            userId: pinUserId,
-            requestId: requestRef.id,
+    return (
+      requestRef
+        .set(newRequest.toObject())
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
           },
-        });
-      })
-      .then(() => {
-        return retrieveObjectFromIndex(requestRef.id, false);
-      })
-      // since data is correct, the request should be present in algolia indexed with requestId as the objectId
-      .then((snapAfter: any) => {
-        expect(snapAfter.objectID).toBe(requestId);
-      });
+        )
+        .then(snap => {
+          // Execute the trigger on the request object on firestore
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
+          });
+        })
+        .then(() => {
+          return retrieveObjectFromIndex(requestRef.id, false);
+        })
+        // since data is correct, the request should be present in algolia indexed with requestId as the objectId
+        .then((snapAfter: any) => {
+          expect(snapAfter.objectID).toBe(requestId);
+        })
+    );
   });
 
   it('should add valid data in algolia authenticated request', async () => {
@@ -303,28 +309,30 @@ describe('request creation triggers', () => {
       updatedAt: firebase.firestore.Timestamp.now(),
     });
 
-    return requestRef
-      .set(newRequest.toObject())
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return requestRef.get();
-        },
-      )
-      .then(snap => {
-        // Execute the trigger on the request object on firestore
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-          params: {
-            userId: pinUserId,
-            requestId: requestRef.id,
+    return (
+      requestRef
+        .set(newRequest.toObject())
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
           },
-        });
-      })
-      .then(() => {
-        return retrieveObjectFromIndex(requestRef.id, true);
-      })
-      // since data is correct, the request should be present in algolia indexed with requestId as the objectId
-      .then(snapAfter => {
-        expect(snapAfter.objectID).toBe(requestId);
-      });
+        )
+        .then(snap => {
+          // Execute the trigger on the request object on firestore
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
+          });
+        })
+        .then(() => {
+          return retrieveObjectFromIndex(requestRef.id, true);
+        })
+        // since data is correct, the request should be present in algolia indexed with requestId as the objectId
+        .then(snapAfter => {
+          expect(snapAfter.objectID).toBe(requestId);
+        })
+    );
   });
 });

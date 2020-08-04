@@ -143,25 +143,25 @@ const validateOffer = (value: IOffer): Promise<void> => {
 };
 
 export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: EventContext) => {
-  return validateOffer(snapshot.data() as IOffer)
-    .then(() =>
-      Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer')])
-    )
-    // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
-    .then(() =>
-      reflectOfferInRequest(Offer.factory(snapshot.data() as IOffer))
-    )
-    .catch(errors => {
-      console.error('Invalid Offer Found: ', errors);
-      return db
-        .collection('offers')
-        .doc(context.params.offerId)
-        .delete()
-        .catch(() => {
-          return Promise.resolve();
-        });
-    })
-    .then(() => Promise.resolve());
+  return (
+    validateOffer(snapshot.data() as IOffer)
+      .then(() =>
+        Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer')]),
+      )
+      // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
+      .then(() => reflectOfferInRequest(Offer.factory(snapshot.data() as IOffer)))
+      .catch(errors => {
+        console.error('Invalid Offer Found: ', errors);
+        return db
+          .collection('offers')
+          .doc(context.params.offerId)
+          .delete()
+          .catch(() => {
+            return Promise.resolve();
+          });
+      })
+      .then(() => Promise.resolve())
+  );
 };
 
 export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context: EventContext) => {

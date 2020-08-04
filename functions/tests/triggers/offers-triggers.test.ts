@@ -81,7 +81,7 @@ describe('offer creation triggers', () => {
       db
         .collection('users')
         .doc(cavUserId)
-        .set(cavUser.toObject())
+        .set(cavUser.toObject()),
     ]);
 
     // create a valid request instane, we are testing offers so no need for invalid request
@@ -107,41 +107,43 @@ describe('offer creation triggers', () => {
     const requestRef = db.collection('requests').doc(requestId);
     const offerRef = db.collection('offers').doc(offerId);
 
-    return requestRef
-      .set(newRequest.toObject())
-      // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return requestRef.get();
-        },
-      )
-      .then(snap => {
-        // We need to execute request triggers to put data into algolia
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-          params: {
-            userId: pinUserId,
-            requestId: requestRef.id,
+    return (
+      requestRef
+        .set(newRequest.toObject())
+        // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
           },
-        });
-      })
-      .then((): Promise<void> => offerRef.set({ displayName: 'sgsdg', cavUserSnapshot: cavUser.toObject(), pinUserSnapshot: pinUser.toObject() }))
-      // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-      .then((): Promise<firebase.firestore.DocumentSnapshot> => offerRef.get())
-      .then(snap => {
-        // execute offer triggers
-        return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
-          params: {
-            userId: cavUserId,
-            offerId,
-          },
-        });
-      })
-      .then(() => {
-        return offerRef.get();
-      })
-      .then(snapAfter => {
-        expect(snapAfter.exists).toBeFalsy();
-      });
+        )
+        .then(snap => {
+          // We need to execute request triggers to put data into algolia
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
+          });
+        })
+        .then((): Promise<void> => offerRef.set({ displayName: 'sgsdg', cavUserSnapshot: cavUser.toObject(), pinUserSnapshot: pinUser.toObject() }))
+        // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
+        .then((): Promise<firebase.firestore.DocumentSnapshot> => offerRef.get())
+        .then(snap => {
+          // execute offer triggers
+          return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
+            params: {
+              userId: cavUserId,
+              offerId,
+            },
+          });
+        })
+        .then(() => {
+          return offerRef.get();
+        })
+        .then(snapAfter => {
+          expect(snapAfter.exists).toBeFalsy();
+        })
+    );
   });
 
   it('should not assosciate invalid offer with data in authenticatd request', async () => {
@@ -154,7 +156,7 @@ describe('offer creation triggers', () => {
       db
         .collection('users')
         .doc(cavUserId)
-        .set(cavUser.toObject())
+        .set(cavUser.toObject()),
     ]);
 
     // create a valid request instane, we are testing offers so no need for invalid request
@@ -180,46 +182,53 @@ describe('offer creation triggers', () => {
     const requestRef = db.collection('requests').doc(requestId);
     const offerRef = db.collection('offers').doc(offerId);
 
-    return requestRef
-      .set(newRequest.toObject())
-      // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return requestRef.get();
-        },
-      )
-      .then(snap => {
-        // We need to execute request triggers to put data into algolia
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-          params: {
-            userId: pinUserId,
-            requestId: requestRef.id,
+    return (
+      requestRef
+        .set(newRequest.toObject())
+        // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
           },
-        });
-      })
-      .then(
-        (): Promise<void> =>
-          offerRef.set({ displayName: 'sgsdg', cavUserSnapshot: cavUser.toObject(), pinUserSnapshot: pinUser.toObject(), requestRef: requestRef.id }),
-      )
-      // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-      .then((): Promise<firebase.firestore.DocumentSnapshot> => offerRef.get())
-      .then(snap => {
-        // execute offer triggers
-        return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
-          params: {
-            userId: cavUserId,
-            offerId,
-          },
-        });
-      })
-      .then(() => {
-        return retrieveObjectFromIndex(requestRef.id, true);
-      })
-      .then((snapAfter: any) => {
-        // the cav shouldn't be added to the participant list when the offer is invalid
-        // by default, the participatn list will have the pin so the length should be 1
-        expect(snapAfter.participants.length).toBe(1);
-      });
+        )
+        .then(snap => {
+          // We need to execute request triggers to put data into algolia
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
+          });
+        })
+        .then(
+          (): Promise<void> =>
+            offerRef.set({
+              displayName: 'sgsdg',
+              cavUserSnapshot: cavUser.toObject(),
+              pinUserSnapshot: pinUser.toObject(),
+              requestRef: requestRef.id,
+            }),
+        )
+        // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
+        .then((): Promise<firebase.firestore.DocumentSnapshot> => offerRef.get())
+        .then(snap => {
+          // execute offer triggers
+          return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
+            params: {
+              userId: cavUserId,
+              offerId,
+            },
+          });
+        })
+        .then(() => {
+          return retrieveObjectFromIndex(requestRef.id, true);
+        })
+        .then((snapAfter: any) => {
+          // the cav shouldn't be added to the participant list when the offer is invalid
+          // by default, the participatn list will have the pin so the length should be 1
+          expect(snapAfter.participants.length).toBe(1);
+        })
+    );
   });
 
   it('should keep valid data', async () => {
@@ -232,7 +241,7 @@ describe('offer creation triggers', () => {
       db
         .collection('users')
         .doc(cavUserId)
-        .set(cavUser.toObject())
+        .set(cavUser.toObject()),
     ]);
 
     // create a valid request instane, we are testing offers so no need for invalid request
@@ -258,63 +267,65 @@ describe('offer creation triggers', () => {
     const requestRef = db.collection('requests').doc(requestId);
     const offerRef = db.collection('offers').doc(offerId);
 
-    return requestRef
-      .set(newRequest.toObject())
-      // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return requestRef.get();
-        },
-      )
-      .then(snap => {
-        // We need to execute request triggers to put data into algolia
-        console.log("triggering request")
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-          params: {
-            userId: pinUserId,
-            requestId: requestRef.id,
+    return (
+      requestRef
+        .set(newRequest.toObject())
+        // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
           },
-        });
-      })
-      .then(
-        (): Promise<void> => {
-          const newOffer = Offer.factory({
-            cavUserRef: db.collection('users').doc(cavUserId) as any,
-            cavUserSnapshot: cavUser,
-            pinUserRef: db.collection('users').doc(pinUserId) as any,
-            requestRef: db.collection('requests').doc(requestId) as any,
-            requestSnapshot: newRequest,
-            message: 'I want to help',
-            status: OfferStatus.pending,
-            createdAt: firebase.firestore.Timestamp.now(),
-            updatedAt: firebase.firestore.Timestamp.now(),
+        )
+        .then(snap => {
+          // We need to execute request triggers to put data into algolia
+          console.log('triggering request');
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
           });
-          return offerRef.set(newOffer.toObject());
-        },
-      )
-      // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return offerRef.get();
-        },
-      )
-      .then(snap => {
-        // execute offer triggers
-        console.log("executin offer trigger");
-        return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
-          params: {
-            userId: cavUserId,
-            offerId,
+        })
+        .then(
+          (): Promise<void> => {
+            const newOffer = Offer.factory({
+              cavUserRef: db.collection('users').doc(cavUserId) as any,
+              cavUserSnapshot: cavUser,
+              pinUserRef: db.collection('users').doc(pinUserId) as any,
+              requestRef: db.collection('requests').doc(requestId) as any,
+              requestSnapshot: newRequest,
+              message: 'I want to help',
+              status: OfferStatus.pending,
+              createdAt: firebase.firestore.Timestamp.now(),
+              updatedAt: firebase.firestore.Timestamp.now(),
+            });
+            return offerRef.set(newOffer.toObject());
           },
-        });
-      })
-      .then(() => {
-        return offerRef.get();
-      })
-      .then(snapAfter => {
-        console.log("snapAfter.exists: ", snapAfter.exists);
-        expect(snapAfter.exists).toBeTruthy();
-      });
+        )
+        // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return offerRef.get();
+          },
+        )
+        .then(snap => {
+          // execute offer triggers
+          console.log('executin offer trigger');
+          return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
+            params: {
+              userId: cavUserId,
+              offerId,
+            },
+          });
+        })
+        .then(() => {
+          return offerRef.get();
+        })
+        .then(snapAfter => {
+          console.log('snapAfter.exists: ', snapAfter.exists);
+          expect(snapAfter.exists).toBeTruthy();
+        })
+    );
   });
 
   it('should associate offer with data in algolia authenticated request', async () => {
@@ -327,7 +338,7 @@ describe('offer creation triggers', () => {
       db
         .collection('users')
         .doc(cavUserId)
-        .set(cavUser.toObject())
+        .set(cavUser.toObject()),
     ]);
 
     // create a valid request instane, we are testing offers so no need for invalid request
@@ -353,60 +364,62 @@ describe('offer creation triggers', () => {
     const requestRef = db.collection('requests').doc(requestId);
     const offerRef = db.collection('offers').doc(offerId);
 
-    return requestRef
-      .set(newRequest.toObject())
-      // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return requestRef.get();
-        },
-      )
-      .then(snap => {
-        // We need to execute request triggers to put data into algolia
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-          params: {
-            userId: pinUserId,
-            requestId: requestRef.id,
+    return (
+      requestRef
+        .set(newRequest.toObject())
+        // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
           },
-        });
-      })
-      .then(
-        (): Promise<void> => {
-          const newOffer = Offer.factory({
-            cavUserRef: db.collection('users').doc(cavUserId) as any,
-            cavUserSnapshot: cavUser,
-            pinUserRef: db.collection('users').doc(pinUserId) as any,
-            requestRef: requestRef as any,
-            requestSnapshot: newRequest,
-            message: 'I want to help',
-            status: OfferStatus.pending,
-            createdAt: firebase.firestore.Timestamp.now(),
-            updatedAt: firebase.firestore.Timestamp.now(),
+        )
+        .then(snap => {
+          // We need to execute request triggers to put data into algolia
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
           });
-          return offerRef.set(newOffer.toObject());
-        },
-      )
-      // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-      .then(
-        (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return offerRef.get();
-        },
-      )
-      .then(snap => {
-        // execute offer triggers
-        return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
-          params: {
-            userId: cavUserId,
-            offerId,
+        })
+        .then(
+          (): Promise<void> => {
+            const newOffer = Offer.factory({
+              cavUserRef: db.collection('users').doc(cavUserId) as any,
+              cavUserSnapshot: cavUser,
+              pinUserRef: db.collection('users').doc(pinUserId) as any,
+              requestRef: requestRef as any,
+              requestSnapshot: newRequest,
+              message: 'I want to help',
+              status: OfferStatus.pending,
+              createdAt: firebase.firestore.Timestamp.now(),
+              updatedAt: firebase.firestore.Timestamp.now(),
+            });
+            return offerRef.set(newOffer.toObject());
           },
-        });
-      })
-      .then(() => {
-        return retrieveObjectFromIndex(requestRef.id, true);
-      })
-      .then((snapAfter: any) => {
-        // the participant list should include both the pin and the cav
-        expect(snapAfter.participants.length).toBe(2);
-      });
+        )
+        // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return offerRef.get();
+          },
+        )
+        .then(snap => {
+          // execute offer triggers
+          return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
+            params: {
+              userId: cavUserId,
+              offerId,
+            },
+          });
+        })
+        .then(() => {
+          return retrieveObjectFromIndex(requestRef.id, true);
+        })
+        .then((snapAfter: any) => {
+          // the participant list should include both the pin and the cav
+          expect(snapAfter.participants.length).toBe(2);
+        })
+    );
   });
 });
