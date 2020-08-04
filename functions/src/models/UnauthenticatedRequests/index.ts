@@ -135,21 +135,23 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
   }
 
   public static async fromRequest(data: Request, path: string): Promise<UnauthenticatedRequest> {
-    return Promise.resolve(new UnauthenticatedRequest(
-      path,
-      {
-        displayName: data.pinUserSnapshot.displayName || '',
-        displayPicture: data.pinUserSnapshot.displayPicture,
-      },
-      data.title,
-      data.description,
-      {
-        latitude: data.latLng.latitude,
-        longitude: data.latLng.longitude,
-      },
-      data.createdAt.toDate(),
-      data.updatedAt.toDate(),
-    ));
+    return Promise.resolve(
+      new UnauthenticatedRequest(
+        path,
+        {
+          displayName: data.pinUserSnapshot.displayName || '',
+          displayPicture: data.pinUserSnapshot.displayPicture,
+        },
+        data.title,
+        data.description,
+        {
+          latitude: data.latLng.latitude,
+          longitude: data.latLng.longitude,
+        },
+        data.createdAt.toDate(),
+        data.updatedAt.toDate(),
+      ),
+    );
   }
 
   public static fromFirestore(data: DocumentData): UnauthenticatedRequest {
