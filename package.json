@@ -8,9 +8,9 @@
     "web-client"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "firebase-tools": "^7.16.2",
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "firebase-tools": "^8.6.0",
     "husky": "^4.2.3"
   },
   "scripts": {
