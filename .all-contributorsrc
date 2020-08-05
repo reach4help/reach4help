@@ -1,5 +1,7 @@
 {
-  "files": ["README.md"],
+  "files": [
+    "README.md"
+  ],
   "imageSize": 100,
   "commit": false,
   "contributors": [
@@ -32,7 +34,7 @@
         "projectManagement"
       ]
     },
-     {
+    {
       "login": "puzzledbytheweb",
       "name": "Pedro Filipe",
       "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
@@ -212,7 +214,7 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/1453956?v=4",
       "profile": "https://github.com/mcverter",
       "contributions": [
-        "code",
+        "code"
       ]
     },
     {
