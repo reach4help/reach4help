@@ -1,34 +1,28 @@
-# Reach4Help
+<h1 align="center">
+  <a href="https://www.reach4help.org">
+    <img src="branding/logo/logo-compat.svg" width="60">
+    <img src="branding/logo/logo-type.svg" height="40">
+  </a>
+</h1>
 
-[![Reach4Help site released under the MIT license.](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Reach4Help released under the MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
-
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-<p align="center">
-  <img src="branding/logo/logo-compat.svg">
-</p>
-
 ## Who We Are
 
-We are an open source project dedicated to **unifying help around the world**. Our platform enables users to create mutual help networks in their local communities where people in need can send out a local call for help (need in-home care items, require grocery/medical supplies delivery, etc.) and are paired with trusted volunteers who can help.
+[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative developing technologies to bridge the gap between people in need and volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers, people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond. 
 
-This project was created in response to the global COVID-19 crisis, leaving people around the world quarantined and unable to leave their houses to obtain necessities without putting themselves or others at risk. To mitigate this, many local groups and organizations, big and small, have started initiatives to help meet these needs.
+We're working with existing mutual aid networks like [AIESEC](https://aiesec.org/) to reach more people in need and to mobilize volunteer help more effectively. A month from launching [our app](https://app.reach4help.org/), we've been streamlining and automating help requests (primarily food and medical supply deliveries) for over a hundred users around the world. 
 
-Unfortunately, a number of these organizations are struggling with certain logistics, such as coordinating their volunteer workforce, prioritizing the most urgent requests, and ensuring that all requests get fulfilled.
-
-Our goal is to address these issues, not only enabling those in need to receive help, but also enabling partner groups and organizations to help more efficiently by mobilizing their volunteers with the help of our own tracking and ticketing system.
-
-We’re part of [Helpful Engineering](https://www.helpfulengineering.org/), a collective of volunteers who have congregated to come up with solutions in the COVID-19 Coronavirus Pandemic, without any commercial goals.
-
-We're also partnering with [CheckUpOn.Me](https://checkupon.me/), an integral part of the Reach4Help family specifically focusing on facilitating communication between those who want to have the peace of mind of having someone check up on their health regularly.
+[Learn more about us here!](https://docs.google.com/document/d/1sdKn4K2cJfs3yRD1Xl4iGxLw9T3bNI2TeSHNygV22vQ/edit?usp=sharing)
 
 ## Project Status
 
-Right now, we’re developing our **MVP** and rapidly expanding our _reach_! We’re currently working on partnerships with other open source projects and support from companies like **Google** and **RapidSOS**, as well as speaking to our users and volunteer organizations to design our platform around their needs.
+We just released [v2.2.0 of our app](https://github.com/reach4help/reach4help/releases/tag/v2.2.0) to support community volunteers and volunteer organizations in providing for people in need during quarantine. We're currently working 
 
 ## How _You_ Can Contribute
 
@@ -36,8 +30,7 @@ We're currently looking for help on the project in a number of fields. If you’
 
 # Development
 
-This is the main/mono-repo for [Reach4Help](https://reach4help.org/).
-If you haven't already gone through the Instructions for setting up the environment and the standards that we follow, please go through the [instructions for contributing](CONTRIBUTING.md) before proceeding.
+This is our mono-repo, containing all the sub-projects we're working on. If you haven't already, please take a look at out our [instructions for contributing](CONTRIBUTING.md) before proceeding. **We also expect everyone to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Thank you!**
 
 ## Preparing the repository
 
@@ -60,33 +53,21 @@ and update the `yarn.lock` in the root of the repo.
 
 ## Sub Projects
 
-### Our Website
+### [Reach4Help App](web-client)
 
-This is our landing page. It's It shows a lot of helpful tips and general information.
+This is our main app connecting people in need with volunteers who can help. **Check it out live [here](https://app.reach4help.org/)!**
 
-More info [here](site/README.md)!
+### [Global Interactive Mutual Aid Map](map)
 
-### Interactive Mutual Aid Map
+This is an interactive gloabl map visualizing over 7000 volunteer organizations supporting communities in need around the world! We're looking for help reaching out to more organizations and for developing the map further (optimizing loading all those datapoints). **Check it out live [here](https://app.reach4help.org/)!**
 
-This is an interactive map visualizing aid around the world. It allows users to quickly find organizations in their area.
+### [Website](site)
 
-More info [here](map/README.md)!
+Our website highlighting the project and those working on it. **Check it out live [here](https://reach4help.org/)!** 
 
-### React Web Client
+### [Backend](functions)
 
-This is the web client with which our people in need and our volunteers interact with the platform.
-
-More info [here](web-client/README.md)!
-
-### Backend
-
-This is the layer that will manage our data for the [Web client](web-client/README.md).
-
-More info [here](functions/README.md)!
-
-## Code of Conduct
-
-We expect everyone to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it.
+This is the layer that manages our data for the [main app](web-client).
 
 ## Contributors ✨
 

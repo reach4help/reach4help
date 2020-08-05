@@ -1,6 +1,7 @@
 import { triggerEventsWhenUserIsCreated } from '../../src/users';
 import * as firebase from '@firebase/testing';
-import * as Test from 'firebase-functions-test';
+
+import { firebaseFunctionsTest } from '../index.test';
 
 const projectId = 'reach-4-help-test';
 
@@ -23,8 +24,6 @@ afterAll(async () => {
   await Promise.all(firebase.apps().map(app => app.delete()));
 });
 
-const test = Test();
-
 describe('user triggers', () => {
   it('should delete invalid data', async () => {
     const db = adminApp();
@@ -39,7 +38,7 @@ describe('user triggers', () => {
         },
       )
       .then(snap => {
-        return test.wrap(triggerEventsWhenUserIsCreated)(snap, {
+        return firebaseFunctionsTest.wrap(triggerEventsWhenUserIsCreated)(snap, {
           params: {
             userId: 'user1',
           },

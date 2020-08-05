@@ -74,8 +74,9 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
                 ),
               },
               ({ getFieldValue }) => ({
-                validator(value) {
-                  if (!value || getFieldValue('password') === value) {
+                validator: (_, confirmPassword) => {
+                  const password = getFieldValue('password');
+                  if (!password || password === confirmPassword) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
