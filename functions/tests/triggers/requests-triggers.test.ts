@@ -25,7 +25,7 @@ afterAll(async () => {
 });
 
 // must enter algolia_key, algolia_id, and algolia_requests_index into .env for test to pass
-describe('request triggers', () => {
+describe.skip('request triggers', () => {
   const db = adminApp();
   it('should delete document from algolia index', async () => {
     const triggeredOnRequestDelete = firebaseFunctionsTest.wrap(triggerEventsWhenRequestIsDeleted);
