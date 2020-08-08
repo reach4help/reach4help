@@ -59,7 +59,8 @@
     "start": "cross-env SKIP_PREFLIGHT_CHECK=true HTTPS=true react-app-rewired start",
     "clean": "rm -rf build",
     "build": "cross-env react-app-rewired build",
-    "test": "react-app-rewired test --watchAll --env=jest-environment-jsdom-sixteen",
+    "test": "react-app-rewired test --env=jest-environment-jsdom-sixteen",
+    "test:ci": "cross-env CI=true react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-app-rewired eject",
     "lint": "eslint . --ext .js,.ts,.tsx && prettier --check \"./src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx && prettier --write \"./src/**/*.{ts,tsx}\"",
@@ -90,10 +91,6 @@
     ]
   },
   "jest": {
-    "setupFiles": [
-      "fake-indexeddb/auto",
-      "<rootDir>src/testUtils/setupTests.ts"
-    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
