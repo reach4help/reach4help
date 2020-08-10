@@ -42,7 +42,7 @@ jobs:
         run: yarn install
 
       - name: Run Unit Tests
-        run: yarn run test
+        run: yarn run test:ci
   functions-build-and-lint:
     name: "functions: build & lint"
     runs-on: ubuntu-latest
