@@ -19,6 +19,10 @@ const ALGOLIA_GENERALREQUESTS_INDEX = config.get('env') === 'test' ? 'generalReq
 
 const adminClient = algolia(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
 
+const requestsIndex = adminClient.initIndex(ALGOLIA_REQUESTS_INDEX);
+const unauthenticatedRequestsIndex = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
+const generalRequestsIndex = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
+
 /**
  * When records in the DB are updated, add/update the text index
  *
@@ -29,7 +33,6 @@ export const indexRequest = (snap: DocumentSnapshot) => {
 
   if (data) {
     const request = Request.factory(data as IRequest);
-    const index = adminClient.initIndex(ALGOLIA_REQUESTS_INDEX);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const indexData: any = { ...request.toObject() };
@@ -45,7 +48,7 @@ export const indexRequest = (snap: DocumentSnapshot) => {
     };
 
     // Throw away the result since these are all void promises.
-    return index.saveObject(indexData).then(() => {
+    return requestsIndex.saveObject(indexData).then(() => {
       return Promise.resolve();
     });
   }
@@ -60,8 +63,7 @@ export const indexRequest = (snap: DocumentSnapshot) => {
  */
 export const removeRequestFromIndex = (snap: DocumentSnapshot) => {
   const objectID = snap.id;
-  const index = adminClient.initIndex(ALGOLIA_REQUESTS_INDEX);
-  return index.deleteObject(objectID);
+  return requestsIndex.deleteObject(objectID);
 };
 
 /**
@@ -74,10 +76,9 @@ export const removeRequestFromIndex = (snap: DocumentSnapshot) => {
  */
 export const indexUnauthenticatedRequest = async (request: Request, path: string) => {
   const algoliaDoc = (await UnauthenticatedRequest.fromRequest(request, path)).toAlgolia();
-  const index = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
 
   // Throw away the result since these are all void promises.
-  return index
+  return unauthenticatedRequestsIndex
     .saveObject(algoliaDoc)
     .wait()
     .then(() => {
@@ -95,10 +96,9 @@ export const indexUnauthenticatedRequest = async (request: Request, path: string
  */
 export const indexGeneralRequests = async (request: Request, path: string) => {
   const algoliaDoc = (await GeneralRequest.fromRequest(request, path)).toAlgolia();
-  const index = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
 
   // Throw away the result since these are all void promises.
-  return index
+  return generalRequestsIndex
     .saveObject(algoliaDoc)
     .wait()
     .then(() => {
@@ -115,7 +115,6 @@ export const indexGeneralRequests = async (request: Request, path: string) => {
  */
 export const reflectOfferInRequest = async (offer: Offer) => {
   const algoliaObjectId = GeneralRequest.getObjectId(offer.requestRef.path);
-  const index = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
 
   const algoliaUpdateDoc = {
     [offer.status === OfferStatus.pending ? 'participants' : 'rejected']: {
@@ -134,7 +133,7 @@ export const reflectOfferInRequest = async (offer: Offer) => {
     algoliaUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt.toDate();
   }
 
-  return index
+  return generalRequestsIndex
     .partialUpdateObject(algoliaUpdateDoc, {
       createIfNotExists: false,
     })
@@ -150,7 +149,7 @@ export const reflectOfferInRequest = async (offer: Offer) => {
  * @param authenitcated: Defaults to false, is the request from authenticated user or not
  */
 export const retrieveObjectFromIndex = async (objectId: string, authenticated = false) => {
-  const index = authenticated ? adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX) : adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
+  const index = authenticated ? generalRequestsIndex : unauthenticatedRequestsIndex;
   return index.getObject(objectId);
 };
 
@@ -161,16 +160,14 @@ export const retrieveObjectFromIndex = async (objectId: string, authenticated = 
  * @param objectId: The objectId of the object to delete from the indices
  */
 export const removeObjectFromIndices = async (objectId: string) => {
-  const index1 = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
-  const index2 = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
   return Promise.all([
-    index1
+    generalRequestsIndex
       .deleteObject(objectId)
       .wait()
       .then(() => {
         return Promise.resolve();
       }),
-    index2
+    unauthenticatedRequestsIndex
       .deleteObject(objectId)
       .wait()
       .then(() => {
