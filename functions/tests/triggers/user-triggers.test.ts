@@ -1,9 +1,10 @@
 import { triggerEventsWhenUserIsCreated } from '../../src/users';
 import * as firebase from '@firebase/testing';
-
-import { firebaseFunctionsTest } from '../index.test';
+import * as Test from 'firebase-functions-test';
 
 const projectId = 'reach-4-help-test';
+
+const test = Test();
 
 /**
  * Creates a new app with admin authentication.
@@ -38,7 +39,7 @@ describe('user triggers', () => {
         },
       )
       .then(snap => {
-        return firebaseFunctionsTest.wrap(triggerEventsWhenUserIsCreated)(snap, {
+        return test.wrap(triggerEventsWhenUserIsCreated)(snap, {
           params: {
             userId: 'user1',
           },

@@ -1,9 +1,11 @@
 import * as firebase from '@firebase/testing';
+import * as Test from 'firebase-functions-test';
 
-import { firebaseFunctionsTest } from '../index.test';
 import { triggerEventsWhenRequestIsDeleted } from '../../src/requests';
 
 const projectId = 'reach-4-help-test';
+
+const test = Test();
 
 /**
  * Creates a new app with admin authentication.
@@ -28,7 +30,7 @@ afterAll(async () => {
 describe.skip('request triggers', () => {
   const db = adminApp();
   it('should delete document from algolia index', async () => {
-    const triggeredOnRequestDelete = firebaseFunctionsTest.wrap(triggerEventsWhenRequestIsDeleted);
+    const triggeredOnRequestDelete = test.wrap(triggerEventsWhenRequestIsDeleted);
     const ref = db.collection('requests').doc('request-1');
     await ref.set({
       displayName: 'sdd',

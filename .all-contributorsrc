@@ -234,6 +234,14 @@
       "contributions": [
         "code",
         "test"
+     },
+     {
+      "login": "juozasg",
+      "name": "Juozas Gaigalas",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4100?v=4",
+      "profile": "https://github.com/juozasg",
+      "contributions": [
+        "code"
       ]
     }
   ],
