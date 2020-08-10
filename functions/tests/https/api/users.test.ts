@@ -1,18 +1,20 @@
 import * as firebase from '@firebase/testing';
 import { firestore } from 'firebase-admin';
+import * as Test from 'firebase-functions-test';
 
-import { firebaseFunctionsTest } from '../index.test';
-import { deleteUserData as deleteUserDataFunc } from '../../src/https/api/users';
-import { Offer, OfferFirestoreConverter, OfferStatus } from '../../src/models/offers';
-import { Request, RequestFirestoreConverter, RequestStatus } from '../../src/models/requests';
-import { User, UserFirestoreConverter } from '../../src/models/users';
+import { deleteUserData as deleteUserDataFunc } from '../../../src/https/api/users';
+import { Offer, OfferFirestoreConverter, OfferStatus } from '../../../src/models/offers';
+import { Request, RequestFirestoreConverter, RequestStatus } from '../../../src/models/requests';
+import { User, UserFirestoreConverter } from '../../../src/models/users';
 
 const projectId = 'reach-4-help-test';
+
+const test = Test();
 
 const adminApp = () => firebase.initializeAdminApp({ projectId }).firestore();
 
 const db = adminApp();
-const deleteUserData = firebaseFunctionsTest.wrap(deleteUserDataFunc);
+const deleteUserData = test.wrap(deleteUserDataFunc);
 const userId = 'user1';
 const userId2 = 'user2';
 const deletedAddress = 'deleted address';
@@ -35,9 +37,7 @@ beforeEach(async () => {
     sendNotifications: null,
   };
   const ref = db.collection('users').doc(userId);
-  await ref
-    .withConverter(UserFirestoreConverter)
-    .set(testUser);
+  await ref.withConverter(UserFirestoreConverter).set(testUser);
   await ref
     .collection('privilegedInformation')
     .doc(userId)
@@ -96,9 +96,7 @@ describe('deleteUserData: user with request', () => {
       latLng: new firestore.GeoPoint(10, -122),
       streetAddress: '123 Main St.',
     });
-    await requestRef
-      .withConverter(RequestFirestoreConverter)
-      .set(testRequest);
+    await requestRef.withConverter(RequestFirestoreConverter).set(testRequest);
   });
 
   it('all personal data should be deleted', async () => {
@@ -121,10 +119,7 @@ describe('deleteUserData: user with request', () => {
       },
     });
 
-    const requestSnap = (await requestRef
-      .withConverter(RequestFirestoreConverter)
-      .get())
-      .data();
+    const requestSnap = (await requestRef.withConverter(RequestFirestoreConverter).get()).data();
     expect(requestSnap?.pinUserSnapshot.username).toBe('deleteduser');
     expect(requestSnap?.pinUserSnapshot.displayName).toBe('Deleted User');
     expect(requestSnap?.pinUserSnapshot.displayPicture).toBeNull();
@@ -139,7 +134,7 @@ describe('deleteUserData: user with request', () => {
     const requestRef2 = db.collection('requests').doc(userId2);
 
     beforeEach(async () => {
-    // create an offer for new user before each test within this block
+      // create an offer for new user before each test within this block
       const cavUser = User.factory({
         username: 'new user',
         displayName: 'newUser',
@@ -150,12 +145,8 @@ describe('deleteUserData: user with request', () => {
         displayName: 'otherUser',
         displayPicture: 'them.png',
       });
-      await ref
-        .withConverter(UserFirestoreConverter)
-        .set(cavUser);
-      await ref2
-        .withConverter(UserFirestoreConverter)
-        .set(pinUser);
+      await ref.withConverter(UserFirestoreConverter).set(cavUser);
+      await ref2.withConverter(UserFirestoreConverter).set(pinUser);
       const testRequest = Request.factory({
         pinUserRef: ref2 as any,
         pinUserSnapshot: pinUser,
@@ -167,9 +158,7 @@ describe('deleteUserData: user with request', () => {
         streetAddress: '123 Main St.',
         status: RequestStatus.pending,
       });
-      await requestRef2
-        .withConverter(RequestFirestoreConverter)
-        .set(testRequest);
+      await requestRef2.withConverter(RequestFirestoreConverter).set(testRequest);
       const testOfferUnaccepted = Offer.factory({
         cavUserRef: ref as any,
         pinUserRef: ref2 as any,
@@ -179,9 +168,7 @@ describe('deleteUserData: user with request', () => {
         message: 'Willing to help!',
         status: OfferStatus.pending,
       });
-      await offerRef
-        .withConverter(OfferFirestoreConverter)
-        .set(testOfferUnaccepted);
+      await offerRef.withConverter(OfferFirestoreConverter).set(testOfferUnaccepted);
     });
 
     it('personal data should be deleted', async () => {
@@ -203,9 +190,7 @@ describe('deleteUserData: user with request', () => {
           uid: userId,
         },
       });
-      const offerSnapUnaccepted = (await offerRef
-        .withConverter(OfferFirestoreConverter)
-        .get()).data();
+      const offerSnapUnaccepted = (await offerRef.withConverter(OfferFirestoreConverter).get()).data();
       expect(offerSnapUnaccepted).toBe(undefined);
     });
 
@@ -221,9 +206,7 @@ describe('deleteUserData: user with request', () => {
         },
       });
 
-      const offerSnapAccepted = (await offerRef
-        .withConverter(OfferFirestoreConverter)
-        .get()).data();
+      const offerSnapAccepted = (await offerRef.withConverter(OfferFirestoreConverter).get()).data();
       expect(offerSnapAccepted?.cavUserSnapshot.displayPicture).toBeNull();
       expect(offerSnapAccepted?.cavUserSnapshot.displayName).toBe('Deleted User');
       expect(offerSnapAccepted?.cavUserSnapshot.username).toBe('deleteduser');
