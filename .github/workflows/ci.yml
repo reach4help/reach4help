@@ -82,4 +82,4 @@ jobs:
         run: cd functions && yarn install
 
       - name: Run Unit Tests
-        run: cd functions && (([ -z "${{secrets.FIREBASE_TOKEN}}" ] && exit 0) || (firebase --token "${{secrets.FIREBASE_TOKEN}}" -P reach4help-dev functions:config:get > .runtimeconfig.json && yarn run test))
+        run: cd functions && (([ -z "${{secrets.FIREBASE_TOKEN}}" ] && exit 0) || (yarn run firebase --token "${{secrets.FIREBASE_TOKEN}}" -P reach4help-dev functions:config:get > .runtimeconfig.json && yarn run test))
