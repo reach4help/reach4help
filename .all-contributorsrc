@@ -225,16 +225,6 @@
       "contributions": [
         "code"
       ]
-    },
-    {
-      "login": "skspade",
-      "name": "skspade",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/43147936?v=4",
-      "profile": "https://github.com/skspade",
-      "contributions": [
-        "code",
-        "test"
-      ]
     }
   ],
   "contributorsPerLine": 7,
