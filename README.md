@@ -103,6 +103,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/mcverter"><img src="https://avatars0.githubusercontent.com/u/1453956?v=4" width="100px;" alt=""/><br /><sub><b>Mitchell Verter</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=mcverter" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/winggo"><img src="https://avatars1.githubusercontent.com/u/26425671?v=4" width="100px;" alt=""/><br /><sub><b>Winggo Tse</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=winggo" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/sharmmad"><img src="https://avatars1.githubusercontent.com/u/5454024?v=4" width="100px;" alt=""/><br /><sub><b>sharmmad</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=sharmmad" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/skspade"><img src="https://avatars0.githubusercontent.com/u/43147936?v=4" width="100px;" alt=""/><br /><sub><b>skspade</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=skspade" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/commits?author=skspade" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/juozasg"><img src="https://avatars3.githubusercontent.com/u/4100?v=4" width="100px;" alt=""/><br /><sub><b>Juozas Gaigalas</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=juozasg" title="Code">💻</a></td>
   </tr>
 </table>
 
