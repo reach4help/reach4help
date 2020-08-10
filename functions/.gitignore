@@ -11,4 +11,4 @@ node_modules/
 
 # firebase-functions-test online mode
 serviceAccountKey-dev.json
-.env
+.runtimeconfig.json

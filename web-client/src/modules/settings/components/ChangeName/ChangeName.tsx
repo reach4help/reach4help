@@ -22,7 +22,7 @@ export const ChangeName: React.FC<ChangeNameProps> = ({
       username: initialValues.username,
     });
     cancelHandler();
-  }
+  };
 
   useEffect(() => {
     form.setFieldsValue({
