@@ -19,7 +19,7 @@ The virtualisation is configured to map the `src` directory from the container t
 
 ### Prerequisites
 
-Go through the [Getting Started guide](CONTRIBUTING.md#getting-started) in [CONTRIBUTING.md](CONTRIBUTING.md) to set up the project.
+Go through the [Getting Started guide](./docs/CodingConventions/CONTRIBUTING.md#getting-started) in [CONTRIBUTING.md](./docs/CodingConventions/CONTRIBUTING.md) to set up the project.
 
 In the project directory, you can run:
 
