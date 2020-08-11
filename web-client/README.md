@@ -5,7 +5,7 @@
 ## Prerequisites
 
 You have to set up the environment variables for the external services.
-Instructions on setting up environment variables can be found in [section for setting up environment variabled](CONTRIBUTING.md#setting-up-the-environment-variables) in the [CONTRIBUTING.md](CONTRIBUTING.md)
+Instructions on setting up environment variables can be found in [section for setting up environment variables](./docs/CodingConventions/CONTRIBUTING.md#setting-up-the-environment-variables) in [CONTRIBUTING.md](./docs/CodingConventions/CONTRIBUTING.md)
 
 Just run:
 
