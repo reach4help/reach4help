@@ -67,7 +67,7 @@ Our website highlighting the project and those working on it. **Check it out liv
 
 ### [Backend](functions)
 
-This is the layer that manages our data for the [main app](web-client).
+This is the layer that manages our data for the [main app](/web-client/src/firebase/index.ts).
 
 ## Contributors ✨
 
