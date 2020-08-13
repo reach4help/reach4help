@@ -9,7 +9,7 @@
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-25-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
@@ -108,6 +108,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/skspade"><img src="https://avatars0.githubusercontent.com/u/43147936?v=4" width="100px;" alt=""/><br /><sub><b>skspade</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=skspade" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/commits?author=skspade" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/thomas-t-huynh"><img src="https://avatars1.githubusercontent.com/u/16145617?v=4" width="100px;" alt=""/><br /><sub><b>Thomas Huynh</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=thomas-t-huynh" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/juozasg"><img src="https://avatars3.githubusercontent.com/u/4100?v=4" width="100px;" alt=""/><br /><sub><b>Juozas Gaigalas</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=juozasg" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/schowdhury8"><img src="https://avatars3.githubusercontent.com/u/29135917?v=4" width="100px;" alt=""/><br /><sub><b>Shayan Chowdhury</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=schowdhury8" title="Code">💻</a> <a href="#ideas-schowdhury8" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Aschowdhury8" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/reach4help/reach4help/commits?author=schowdhury8" title="Documentation">📖</a> <a href="#projectManagement-schowdhury8" title="Project Management">📆</a></td>
   </tr>
 </table>
 
