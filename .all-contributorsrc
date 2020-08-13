@@ -264,6 +264,19 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "schowdhury8",
+      "name": "Shayan Chowdhury",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/29135917?v=4",
+      "profile": "https://github.com/schowdhury8",
+      "contributions": [
+        "code",
+        "ideas",
+        "review",
+        "doc",
+        "projectManagement"
+      ]
     }
   ],
   "contributorsPerLine": 7,
