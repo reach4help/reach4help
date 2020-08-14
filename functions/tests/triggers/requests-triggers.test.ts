@@ -106,80 +106,6 @@ describe('request creation triggers', () => {
       });
   });
 
-  it('should not add invalid data in algolia unauthenticated request', async () => {
-    // create record of user who makes request
-    await db
-      .collection('users')
-      .doc(pinUserId)
-      .set(pinUser.toObject());
-
-    // declare a requestRef to which writes should be made to simplify access later
-    const requestRef = db.collection('requests').doc(requestId);
-
-    return (
-      requestRef
-        .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
-        .then(
-          (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return requestRef.get();
-          },
-        )
-        .then(snap => {
-          // Execute the trigger on the request object on firestore
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-            params: {
-              userId: pinUserId,
-              requestId: requestRef.id,
-            },
-          });
-        })
-        .then(() => {
-          // Try to read the request from algolia
-          return retrieveObjectFromIndex(requestRef.id, false);
-        })
-        // Trigger shouldn't add incorrect data into algolia so the above request must fail
-        .then(() => expect(false).toBeTruthy())
-        .catch(error => expect(error.status).toBe(404))
-    );
-  });
-
-  it('should not add invalid data in algolia authenticated request', async () => {
-    // create record of user who makes request
-    await db
-      .collection('users')
-      .doc(pinUserId)
-      .set(pinUser.toObject());
-
-    // declare a requestRef to which writes should be made to simplify access later
-    const requestRef = db.collection('requests').doc(requestId);
-
-    return (
-      requestRef
-        .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
-        .then(
-          (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return requestRef.get();
-          },
-        )
-        .then(snap => {
-          // Execute the trigger on the request object on firestore
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
-            params: {
-              userId: pinUserId,
-              requestId: requestRef.id,
-            },
-          });
-        })
-        .then(() => {
-          // Try to read the request from algolia
-          return retrieveObjectFromIndex(requestRef.id, true);
-        })
-        // Trigger shouldn't add incorrect data into algolia so the above request must fail
-        .then(() => expect(false).toBeTruthy())
-        .catch(error => expect(error.status).toBe(404))
-    );
-  });
-
   it('should keep valid data', async () => {
     // create record of user who makes request
     await db
@@ -234,8 +160,49 @@ describe('request creation triggers', () => {
         expect(snapAfter.exists).toBeTruthy();
       });
   });
+});
 
-  it('should add valid data in algolia unauthenticated request', async () => {
+describe('request creation effects on algolia unauthenticated request', () => {
+  const { db } = authedApp({ uid: pinUserId });
+
+  it('should not add invalid data', async () => {
+    // create record of user who makes request
+    await db
+      .collection('users')
+      .doc(pinUserId)
+      .set(pinUser.toObject());
+
+    // declare a requestRef to which writes should be made to simplify access later
+    const requestRef = db.collection('requests').doc(requestId);
+
+    return (
+      requestRef
+        .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
+          },
+        )
+        .then(snap => {
+          // Execute the trigger on the request object on firestore
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
+          });
+        })
+        .then(() => {
+          // Try to read the request from algolia
+          return retrieveObjectFromIndex(requestRef.id, false);
+        })
+        // Trigger shouldn't add incorrect data into algolia so the above request must fail
+        .then(() => expect(false).toBeTruthy())
+        .catch(error => expect(error.status).toBe(404))
+    );
+  });
+
+  it('should add valid data', async () => {
     // create record of user who makes request
     await db
       .collection('users')
@@ -290,8 +257,49 @@ describe('request creation triggers', () => {
         })
     );
   });
+});
 
-  it('should add valid data in algolia authenticated request', async () => {
+describe('request creation effects on algolia authenticated request', () => {
+  const { db } = authedApp({ uid: pinUserId });
+
+  it('should not add invalid data', async () => {
+    // create record of user who makes request
+    await db
+      .collection('users')
+      .doc(pinUserId)
+      .set(pinUser.toObject());
+
+    // declare a requestRef to which writes should be made to simplify access later
+    const requestRef = db.collection('requests').doc(requestId);
+
+    return (
+      requestRef
+        .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
+        .then(
+          (): Promise<firebase.firestore.DocumentSnapshot> => {
+            return requestRef.get();
+          },
+        )
+        .then(snap => {
+          // Execute the trigger on the request object on firestore
+          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+            params: {
+              userId: pinUserId,
+              requestId: requestRef.id,
+            },
+          });
+        })
+        .then(() => {
+          // Try to read the request from algolia
+          return retrieveObjectFromIndex(requestRef.id, true);
+        })
+        // Trigger shouldn't add incorrect data into algolia so the above request must fail
+        .then(() => expect(false).toBeTruthy())
+        .catch(error => expect(error.status).toBe(404))
+    );
+  });
+
+  it('should add valid data', async () => {
     // create record of user who creates request
     await db
       .collection('users')
