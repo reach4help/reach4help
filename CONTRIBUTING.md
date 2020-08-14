@@ -51,6 +51,8 @@ We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Pl
 
 # Your First Contribution
 
+
+
 Here are a couple of friendly tutorials to help you get started: http://makeapullrequest.com/ and http://www.firsttimersonly.com/
 
 > Working on your first Pull Request? You can learn how from this _free_ series, [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
@@ -79,7 +81,7 @@ The Guidelines for each project is detailed in the section below
 Each project counts with it's own contributing guidelines, since they are different.
 So to read the specific guidelines for each project please refer to:
 
-[**web-client**](web-client/CONTRIBUTING.md)
+[**web-client**](web-client/docs/CodingConventions/CONTRIBUTING.md)
 
 # How to report a bug
 

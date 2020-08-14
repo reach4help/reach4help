@@ -8,11 +8,22 @@ import { ApplicationPreference, User } from '../../src/models/users';
 import { Request, RequestStatus } from '../../src/models/requests';
 import { removeObjectFromIndices, retrieveObjectFromIndex } from '../../src/algolia';
 
+import { triggerEventsWhenRequestIsDeleted } from '../../src/requests';
+
 const projectId = 'reach-4-help-test';
 
 const test = Test();
 
 const rules = fs.readFileSync(`${__dirname}/dummy.rules`, 'utf8');
+
+/**
+ * Creates a new app with admin authentication.
+ *
+ * @return {object} the app.
+ */
+const adminApp = () => {
+  return firebase.initializeAdminApp({ projectId }).firestore();
+};
 
 /**
  * Creates a new app with specified user authentication.
@@ -333,6 +344,23 @@ describe('request creation triggers', () => {
         .then(snapAfter => {
           expect(snapAfter.objectID).toBe(requestId);
         })
+    );
+  });
+});
+
+describe('request deletion triggers', () => {
+  const db = adminApp();
+  it('should delete document from algolia index', async () => {
+    const triggeredOnRequestDelete = test.wrap(triggerEventsWhenRequestIsDeleted);
+    const ref = db.collection('requests').doc('request-1');
+    await ref.set({
+      displayName: 'sdd',
+    });
+    const snap = await ref.get();
+    expect(await triggeredOnRequestDelete(snap)).toMatchObject(
+      expect.objectContaining({
+        taskID: expect.any(Number),
+      }),
     );
   });
 });

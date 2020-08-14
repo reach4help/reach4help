@@ -4,6 +4,8 @@ import * as Test from 'firebase-functions-test';
 
 const projectId = 'reach-4-help-test';
 
+const test = Test();
+
 /**
  * Creates a new app with admin authentication.
  *
@@ -21,8 +23,6 @@ beforeEach(async () => {
 afterAll(async () => {
   await Promise.all(firebase.apps().map(app => app.delete()));
 });
-
-const test = Test();
 
 describe('user triggers', () => {
   it('should delete invalid data', async () => {

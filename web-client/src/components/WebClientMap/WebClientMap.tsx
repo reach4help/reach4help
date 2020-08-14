@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import apiKey from './apiKey';
+import CustomMapControlPortal from './CustomMapControlPortal';
 import MyLocationControl from './MyLocationControl';
 import { metersToImperial, metersToKm, secondsToTimestring } from './utils';
 import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
@@ -74,14 +75,6 @@ const WebClientMap: React.FC<MapProps> = ({
 
   useEffect(() => {
     if (forceRerender && googleMapS && googleMap) {
-      /*
-      console.log(
-        'i am going to rerender',
-        forceRerender,
-        googleMap,
-        googleMapS,
-      );
-        debugger; */
       googleMapS.event.trigger(googleMap, 'resize');
     }
   }, [forceRerender, googleMap, googleMapS]);
@@ -194,7 +187,7 @@ const WebClientMap: React.FC<MapProps> = ({
   return !apiKey ? (
     <>{t('components_web_client_map.api_error')} Google Maps API key</>
   ) : (
-    <MapContainer>
+    <MapWrapper isCav={isCav}>
       {mapMessage && <WebClientMapMessage message={mapMessage} />}
       <GoogleMapReact
         yesIWantToUseGoogleMapApiInternals
@@ -204,7 +197,12 @@ const WebClientMap: React.FC<MapProps> = ({
         defaultZoom={zoom}
         onGoogleApiLoaded={initGoogleMapServices}
       >
-        <MyLocationControl map={googleMap || null} onClick={locateMe} />
+        <CustomMapControlPortal
+          map={googleMap || null}
+          controlPosition={googleMapS?.ControlPosition.LEFT_TOP}
+        >
+          <MyLocationControl onClick={locateMe} />
+        </CustomMapControlPortal>
         <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
         {destinations.map(r => (
           <DestinationMarker
@@ -216,13 +214,18 @@ const WebClientMap: React.FC<MapProps> = ({
           />
         ))}
       </GoogleMapReact>
-    </MapContainer>
+    </MapWrapper>
   );
 };
 
-const MapContainer = styled.div`
+/* TODO:  find better css solution.
+Because the FindRequest map (CAV map) appears within a tab, 
+we have to make room for tab buttons
+We are currently adjusting the top css but there is probably a better solution.
+*/
+const MapWrapper = styled.div<{ isCav?: boolean }>`
   left: 0;
-  top: 0;
+  top: ${props => (props.isCav ? '117px' : '0')};
   height: 100%;
   width: 100%;
   position: absolute;

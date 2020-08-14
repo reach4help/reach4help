@@ -2,7 +2,7 @@ import { Button, Col, Form, Input, Row, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepForwardButton } from 'src/components/Buttons';
-import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import styled from 'styled-components';
 
 import SearchIcon from '../../assets/search.svg';
@@ -50,7 +50,7 @@ const NewRequest: React.FC<NewRequestProps> = ({
         name="other"
         rules={[
           {
-            required: form.getFieldValue('type') === 'Other',
+            required: true,
             message: t('newRequest.form.other_error_message'),
           },
         ]}
@@ -68,9 +68,9 @@ const NewRequest: React.FC<NewRequestProps> = ({
   const FormContent = (
     <MainDiv>
       <FormDiv>
-        <TitleWithAddon level={3} left="0%" transform="none">
+        <TitleWithOrangeUnderline level={3} left="0%" transform="none">
           {t('newRequest.title')}
-        </TitleWithAddon>
+        </TitleWithOrangeUnderline>
 
         {/* There is a bug with types regarding onFinish - apparently an issue with @types and antd types
         https://github.com/ant-design/ant-design/pull/21067 - If it's not please fix *.* */}

@@ -74,20 +74,23 @@ const OffersList: React.FC<OffersListProps> = ({
   const [offersList, setOffersList] = useState<React.ReactElement<any>[]>([]);
 
   useEffect(() => {
-    const internalOffersList: React.ReactElement<any>[] = [];
-    for (const key in offers) {
-      if (offers[key] && offers[key].status !== OfferStatus.rejected) {
-        internalOffersList.push(
+    function filteredOfferItemList(allOffers) {
+      return Object.keys(allOffers)
+        .filter(
+          offerKey =>
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            offers[offerKey] && isValidStatus(offers[offerKey].status),
+        )
+        .map(filteredKey => (
           <OfferItem
-            handleOffer={(action: boolean) => handleOffer(action, key)}
-            offer={offers[key]}
+            key={filteredKey}
+            handleOffer={(action: boolean) => handleOffer(action, filteredKey)}
+            offer={offers[filteredKey]}
             destinationCoords={destinationCoords}
-          />,
-        );
-      }
+          />
+        ));
     }
-
-    setOffersList(internalOffersList);
+    setOffersList(filteredOfferItemList(offers));
   }, [offers, handleOffer, setOffersList, destinationCoords]);
 
   return (
@@ -101,6 +104,10 @@ const OffersList: React.FC<OffersListProps> = ({
     </div>
   );
 };
+
+function isValidStatus(status) {
+  return status !== OfferStatus.rejected && status !== OfferStatus.cavDeclined;
+}
 
 const Item = styled.div`
   margin: 15px 15px 0px 15px;

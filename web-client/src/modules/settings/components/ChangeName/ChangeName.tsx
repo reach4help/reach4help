@@ -16,6 +16,14 @@ export const ChangeName: React.FC<ChangeNameProps> = ({
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
+  const handleCancelHandler = (): void => {
+    form.setFieldsValue({
+      displayName: initialValues.displayName,
+      username: initialValues.username,
+    });
+    cancelHandler();
+  };
+
   useEffect(() => {
     form.setFieldsValue({
       displayName: initialValues.displayName,
@@ -73,7 +81,7 @@ export const ChangeName: React.FC<ChangeNameProps> = ({
         </Row>
         <Row>
           <Col span={11}>
-            <MediumCancelButton onClick={() => cancelHandler()}>
+            <MediumCancelButton onClick={() => handleCancelHandler()}>
               <CloseOutlined />
               {t('settings.changeNameForm.cancel')}
             </MediumCancelButton>

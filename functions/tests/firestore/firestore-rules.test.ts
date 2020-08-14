@@ -1,16 +1,16 @@
 import * as firebase from '@firebase/testing';
 import * as fs from 'fs';
 
-import { Offer, OfferFirestoreConverter, OfferStatus } from '../src/models/offers';
-import { Questionnaire, QuestionnaireFirestoreConverter, QuestionnaireType } from '../src/models/questionnaires';
-import { User, UserFirestoreConverter } from '../src/models/users';
-import { Request, RequestFirestoreConverter } from '../src/models/requests';
+import { Offer, OfferFirestoreConverter, OfferStatus } from '../../src/models/offers';
+import { Questionnaire, QuestionnaireFirestoreConverter, QuestionnaireType } from '../../src/models/questionnaires';
+import { User, UserFirestoreConverter } from '../../src/models/users';
+import { Request, RequestFirestoreConverter } from '../../src/models/requests';
 import * as firebaseApp from 'firebase-admin';
 import GeoPoint = firebaseApp.firestore.GeoPoint;
 
 const projectId = 'reach-4-help-test';
 
-const rules = fs.readFileSync(`${__dirname}/../../firebase/firestore.rules`, 'utf8');
+const rules = fs.readFileSync(`${__dirname}/../../../firebase/firestore.rules`, 'utf8');
 
 /**
  * Creates a new app with authentication data matching the input.
