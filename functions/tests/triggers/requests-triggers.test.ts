@@ -3,12 +3,10 @@ import * as Test from 'firebase-functions-test';
 import * as fs from 'fs';
 import { v4 as uuid } from 'uuid';
 
-import { triggerEventsWhenRequestIsCreated } from '../../src/requests';
+import { triggerEventsWhenRequestIsCreated, triggerEventsWhenRequestIsDeleted } from '../../src/requests';
 import { ApplicationPreference, User } from '../../src/models/users';
 import { Request, RequestStatus } from '../../src/models/requests';
 import { removeObjectFromIndices, retrieveObjectFromIndex } from '../../src/algolia';
-
-import { triggerEventsWhenRequestIsDeleted } from '../../src/requests';
 
 const projectId = 'reach-4-help-test';
 
