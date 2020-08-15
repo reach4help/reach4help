@@ -3,8 +3,8 @@ import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import * as moment from 'moment';
 
-import { indexRequest, removeRequestFromIndex } from '../algolia';
-import { db } from '../app';
+import { indexGeneralRequests, indexUnauthenticatedRequest, removeRequestFromIndex } from '../algolia';
+import { db, fieldIncrementer } from '../app';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { IUser, User } from '../models/users';
 import { queueTimelineItemTriggers } from '../shared/triggerFunctions';
@@ -69,7 +69,7 @@ const attemptToUpdateCavCompletedOffersCounts = (operations: Promise<void>[], re
     operations.push(
       requestAfter.cavUserRef
         .update({
-          casesCompleted: admin.firestore.FieldValue.increment(1),
+          casesCompleted: fieldIncrementer(1),
         })
         .then(() => Promise.resolve()),
     );
@@ -156,30 +156,36 @@ const queueCreateTriggers = async (snapshot: DocumentSnapshot): Promise<void[]> 
   if (data) {
     operations.push(
       data.pinUserRef.update({
-        requestsMade: admin.firestore.FieldValue.increment(1),
+        requestsMade: fieldIncrementer(1),
       }),
     );
   }
   return Promise.all(operations);
 };
 
-const validateRequest = (value: IRequest): Promise<void> => {
-  return validateOrReject(Request.factory(value)).then(() => {
+const validateRequest = (value: IRequest): Promise<void> =>
+  validateOrReject(Request.factory(value)).then(() => {
     return Promise.resolve();
   });
-};
 
 export const createRequest = (snapshot: DocumentSnapshot, context: EventContext) => {
   return validateRequest(snapshot.data() as IRequest)
     .then(() => {
-      return Promise.all([
-        indexRequest(snapshot),
-        queueCreateTriggers(snapshot),
-        queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request'),
-      ]);
+      return Promise.all([queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request')]);
+    })
+    .then(() => {
+      const request = Request.factory(snapshot.data() as IRequest);
+      return Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)]);
     })
     .catch(errors => {
-      console.error('Invalid Request Found: ', errors);
+      if (errors && Array.isArray(errors)) {
+        console.error('Invalid Request Found: ');
+        for (const e of errors) {
+          console.error('e: ', e);
+        }
+      } else {
+        console.error('error occured: ', errors);
+      }
       return db
         .collection('requests')
         .doc(context.params.requestId)
@@ -187,7 +193,8 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
         .catch(() => {
           return Promise.resolve();
         });
-    });
+    })
+    .then(() => Promise.resolve());
 };
 
 export const updateRequest = (change: Change<DocumentSnapshot>, context: EventContext) => {
@@ -197,26 +204,49 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
       const requestBefore = change.before.exists ? (change.before.data() as Request) : null;
       const requestAfter = change.after.exists ? (change.after.data() as Request) : null;
       if (
-        requestBefore?.status === requestAfter?.status &&
-        (requestAfter?.pinUserSnapshot.displayName === 'Deleted User' || requestAfter?.cavUserSnapshot?.displayName === 'Deleted User')
+        requestBefore &&
+        requestAfter &&
+        // No need to execute update trigger if the user's account was deleted
+        ((requestBefore?.status === requestAfter?.status &&
+          (requestAfter?.pinUserSnapshot.displayName === 'Deleted User' || requestAfter?.cavUserSnapshot?.displayName === 'Deleted User')) ||
+          // No need to execute update trigger if the offer count and last offer or rejection count and last rejection is being updated
+          (requestBefore.offerCount < requestAfter.offerCount &&
+            requestBefore.lastOfferMade?.isEqual(requestAfter.lastOfferMade ? requestAfter.lastOfferMade : requestBefore.lastOfferMade)) ||
+          (requestBefore.rejectionCount < requestAfter.rejectionCount &&
+            requestBefore.lastRejectionMade?.isEqual(
+              requestAfter.lastRejectionMade ? requestAfter.lastRejectionMade : requestBefore.lastRejectionMade,
+            )))
       ) {
         return;
       }
-      console.log('requestBefore.status: ', requestBefore?.status);
-      console.log('requestAfter.status: ', requestAfter?.status);
-      console.log('requestAfter.pinUserSnapshot.displayName: ', requestAfter?.pinUserSnapshot.displayName);
-      console.log('requestBefore.pinUserSnapshot.displayName: ', requestBefore?.pinUserSnapshot.displayName);
-      console.log('requestAfter.cavUserSnapshot.displayName: ', requestAfter?.cavUserSnapshot?.displayName);
-      console.log('requestBefore.cavUserSnapshot.displayName: ', requestBefore?.cavUserSnapshot?.displayName);
-      return Promise.all([
-        queueStatusUpdateTriggers(change),
-        queueRatingUpdatedTriggers(change),
-        indexRequest(change.after),
-        queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
-      ]);
+      const updatedRequest = Request.factory(change.after.data() as IRequest);
+      return (
+        Promise.all([
+          queueStatusUpdateTriggers(change),
+          queueRatingUpdatedTriggers(change),
+          queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
+        ])
+          // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
+          .then(() =>
+            Promise.all([
+              indexUnauthenticatedRequest(updatedRequest, change.after.ref.path),
+              indexGeneralRequests(updatedRequest, change.after.ref.path),
+            ]),
+          )
+      );
     })
     .catch(e => {
       console.error('Invalid Request Found: ', e);
+      const prevData = change.before.data();
+      if (prevData) {
+        return db
+          .collection('requests')
+          .doc(context.params.requestId)
+          .set(prevData)
+          .catch(() => {
+            return Promise.resolve();
+          });
+      }
       return db
         .collection('requests')
         .doc(context.params.requestId)
