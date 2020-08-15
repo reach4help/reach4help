@@ -14,19 +14,11 @@
 
 ## Who We Are
 
-[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative developing technologies to bridge the gap between people in need and volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers, people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond. 
-
-We're working with existing mutual aid networks like [AIESEC](https://aiesec.org/) to reach more people in need and to mobilize volunteer help more effectively. A month from launching [our app](https://app.reach4help.org/), we've been streamlining and automating help requests (primarily food and medical supply deliveries) for over a hundred users around the world. 
-
-[Learn more about us here!](https://docs.google.com/document/d/1sdKn4K2cJfs3yRD1Xl4iGxLw9T3bNI2TeSHNygV22vQ/edit?usp=sharing)
-
-## Project Status
-
-We just released [v2.2.0 of our app](https://github.com/reach4help/reach4help/releases/tag/v2.2.0) to support community volunteers and volunteer organizations in providing for people in need during quarantine. We're currently working 
+[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative developing technologies to bridge the gap between people in need and volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond. 
 
 ## How _You_ Can Contribute
 
-We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps). You can find more details on how to prepare the environment and the guidelines on how to contribute to the repo by looking at the [instructions for contributing](CONTRIBUTING.md). We'd be honored to have you join our humble abode!
+We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the **[Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps)**. You can find more details on how to prepare the environment and the guidelines on how to contribute to the repo by looking at the [instructions for contributing](CONTRIBUTING.md). We'd be honored to have you join our humble abode!
 
 # Development
 
