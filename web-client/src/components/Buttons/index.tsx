@@ -61,6 +61,9 @@ export const StepForwardButton = styled(Button)`
   color: white;
   font-weight: 700;
   border: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
   &:hover,
   &:focus,
   &:active,

@@ -143,7 +143,10 @@ const RequestItem: React.FC<RequestItemProps> = ({
                   handleRequest(true);
                 }}
               >
-                Help {request.pinUserSnapshot.displayName}
+                Help{' '}
+                {request.pinUserSnapshot.displayName
+                  ? request.pinUserSnapshot.displayName.split(' ')[0]
+                  : ''}
               </StepForwardButton>
             </Col>
           </Row>
