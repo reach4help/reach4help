@@ -277,6 +277,15 @@
         "doc",
         "projectManagement"
       ]
+    },
+    {
+      "login": "CorporateInvesther",
+      "name": "Esther Handy-Malouin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/65609627?v=4",
+      "profile": "https://github.com/CorporateInvesther",
+      "contributions": [
+        "userTesting"
+      ]
     }
   ],
   "contributorsPerLine": 7,
