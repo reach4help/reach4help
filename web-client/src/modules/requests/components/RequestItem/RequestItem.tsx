@@ -46,7 +46,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
           background: '#FAFAFA',
         }}
       >
-        {t('modules.requests.no_reply')}
+        {t('modules.requests.containers.no_reply')}
       </WarningMessage>
     );
   } else if (
