@@ -49,7 +49,6 @@ export const menuLinks: Array<MenuItem> = [
 const requestsModule: Module = {
   path: '/requests',
   layout: 'dashboard',
-  protected: true,
   dynamicMenuLinks: (profileState?: ProfileState) => {
     if (
       profileState?.profile?.applicationPreference === ApplicationPreference.cav

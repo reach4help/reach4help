@@ -21,7 +21,6 @@ const RegistrationStepsFooterWrapper = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 5em;
   padding: 10px 10%;
 
   font-family: Roboto;
