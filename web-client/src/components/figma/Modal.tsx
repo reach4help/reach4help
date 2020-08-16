@@ -6,7 +6,6 @@ export const GenericFigmaModal: React.FC<GenericFigmaModalProps> = ({
   ...modalProps
 }) => (
   <Modal
-  centered
     {...modalProps}
     // style this further to meet any standards specified in Figma and use this instead of the antd Modal
   >

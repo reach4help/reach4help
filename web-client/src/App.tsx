@@ -2,7 +2,6 @@ import { enableAllPlugins } from 'immer';
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import SEO from 'src/components/SEO/SEO';
-import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 
 import MasterPage from './pages/MasterPage';
 import configureStore from './store';
@@ -21,7 +20,6 @@ const App = (): ReactElement => {
     <Provider store={store}>
       <SEO />
       <MasterPage />
-      <AuthenticationModal />
     </Provider>
   );
 };
