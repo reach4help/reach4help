@@ -11,7 +11,6 @@ const test = Test();
  *
  * @return {object} the app.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const adminApp = () => {
   return firebase.initializeAdminApp({ projectId }).firestore();
 };

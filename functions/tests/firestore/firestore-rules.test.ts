@@ -184,6 +184,12 @@ describe('offers', () => {
       description: 'Please help with groceries',
       latLng: new GeoPoint(10, -122),
       streetAddress: '123 Main St.',
+      offerCount: 0,
+      rejectionCount: 0,
+      firstOfferMade: null,
+      firstRejectionMade: null,
+      lastOfferMade: null,
+      lastRejectionMade: null,
     });
     await firebase.assertSucceeds(
       db
@@ -357,6 +363,12 @@ describe('requests', () => {
             description: 'I Need Stuff',
             latLng: new GeoPoint(10, -122),
             streetAddress: '',
+            offerCount: 0,
+            rejectionCount: 0,
+            firstOfferMade: null,
+            firstRejectionMade: null,
+            lastOfferMade: null,
+            lastRejectionMade: null,
           }),
         ),
     );

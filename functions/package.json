@@ -7,9 +7,9 @@
   "scripts": {
     "firebase": "firebase",
     "test:firestore": "firebase emulators:exec --only firestore 'yarn jest ./tests/firestore/*.test.ts'",
-    "test:triggers": "firebase emulators:exec --only firestore 'yarn jest ./tests/triggers/*.test.ts'",
-    "test:models": "firebase emulators:exec --only firestore 'yarn jest ./tests/models/*.test.ts'",
     "test:https": "firebase emulators:exec --only firestore 'yarn jest ./tests/https/**/*.test.ts'",
+    "test:triggers": "/bin/sh ./tests/triggers/testscript.sh",
+    "test:models": "firebase emulators:exec --only firestore 'yarn jest ./tests/models/*.test.ts'",
     "test": "yarn run test:firestore && yarn run test:triggers && yarn run test:https && yarn run test:models",
     "test:ci": "yarn run test",
     "lint": "eslint . --ext .ts && prettier --check \"./**/*.ts\"",
@@ -59,6 +59,7 @@
   "devDependencies": {
     "@firebase/testing": "^0.18.2",
     "@types/jest": "^25.1.4",
+    "@types/uuid": "^8.0.1",
     "eslint": "^6.8.0",
     "firebase-functions-test": "^0.1.6",
     "firebase-tools": "^8.4.3",

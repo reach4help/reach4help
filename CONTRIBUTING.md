@@ -1,33 +1,10 @@
 # Contributing Code to Reach4Help
 
-First off, thank you for considering contributing to this project.
-Whether you're interested in contributing code,
-or contributing in some other manner,
-we're happy to have you on board!
-
 This document describes how to contribute the software aspects of our project,
 if you want to contribute by other means,
 please see our [Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps).
 
-## Please read our guidelines before you start.
-
-This project is moving very fast at the moment,
-both from development and organizational standpoints,
-and so it's very important you **read this guide fully**
-to reduce the additional work for our development and management teams.
-
-Following these guidelines helps to communicate that you respect the time
-of the team leads managing and developing this open source project.
-In return,
-they should reciprocate that respect in addressing your issue,
-assessing changes, and helping you finalize your
-pull requests and other contributions.
-
 ## Code contributions we are looking for.
-
-Lots of people are working on this project at the same time,
-so we try our best to explicitly assign tasks to individuals
-to reduce the likelihood of duplicated or wasted effort.
 
 Before we can assign any tasks to you,
 we ask that you read and complete the process detailed in our
@@ -40,8 +17,6 @@ You may take a look at the open issues,
 in particular,
 those labelled
 [good first issue](https://github.com/reach4help/reach4help/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
-or
-[help wanted](https://github.com/reach4help/reach4help/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
 
 # Ground Rules
 
@@ -50,8 +25,6 @@ or
 We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it. 🤝
 
 # Your First Contribution
-
-
 
 Here are a couple of friendly tutorials to help you get started: http://makeapullrequest.com/ and http://www.firsttimersonly.com/
 
