@@ -34,7 +34,7 @@
         "projectManagement"
       ]
     },
-     {
+    {
       "login": "puzzledbytheweb",
       "name": "Pedro Filipe",
       "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
@@ -196,7 +196,9 @@
       "profile": "https://github.com/ashwinkjoseph",
       "contributions": [
         "code",
-        "review"
+        "review",
+        "ideas",
+        "doc"
       ]
     },
     {
@@ -214,7 +216,7 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/1453956?v=4",
       "profile": "https://github.com/mcverter",
       "contributions": [
-        "code",
+        "code"
       ]
     },
     {
@@ -224,6 +226,65 @@
       "profile": "https://github.com/winggo",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "sharmmad",
+      "name": "sharmmad",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5454024?v=4",
+      "profile": "https://github.com/sharmmad",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "skspade",
+      "name": "skspade",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/43147936?v=4",
+      "profile": "https://github.com/skspade",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "thomas-t-huynh",
+      "name": "Thomas Huynh",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/16145617?v=4",
+      "profile": "https://github.com/thomas-t-huynh",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "juozasg",
+      "name": "Juozas Gaigalas",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4100?v=4",
+      "profile": "https://github.com/juozasg",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "schowdhury8",
+      "name": "Shayan Chowdhury",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/29135917?v=4",
+      "profile": "https://github.com/schowdhury8",
+      "contributions": [
+        "code",
+        "ideas",
+        "review",
+        "doc",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "CorporateInvesther",
+      "name": "Esther Handy-Malouin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/65609627?v=4",
+      "profile": "https://github.com/CorporateInvesther",
+      "contributions": [
+        "userTesting"
       ]
     }
   ],

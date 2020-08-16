@@ -1,0 +1,15 @@
+{
+  "twilio": {
+    "auth_token": "",
+    "account_sid": "",
+    "service_sid": ""
+  },
+  "algolia": {
+    "key": "",
+    "id": "",
+    "requests_index": ""
+  },
+  "bot_auth_tokens": {
+    "bot-chatbot": ""
+  }
+}

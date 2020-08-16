@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 
 import React, { useState } from 'react';
-import { render, screen } from 'src/testUtils/customRender';
+import { render, screen, waitFor } from 'src/testUtils/customRender';
 
 import RegistrationSteps from '../components/RegistrationSteps/RegistrationSteps';
 
@@ -15,13 +15,43 @@ const mockedProps = {
 };
 
 const steps = {
-  setLanguage: 0,
-  login: 1,
-  emailSignIn: 2,
-  emailSignUp: 3,
+  login: 0,
+  emailSignIn: 1,
+  emailSignUp: 2,
+};
+
+// Since in the RegistrationSteps component relies on state from the parent.
+// I will wrap it in a fake component to handle the state for testing.
+const RegistrationStepsWithState = ({
+  initialStep,
+}: {
+  initialStep: number;
+}) => {
+  const [currentStep, setCurrentStep] = useState<number>(initialStep);
+
+  return (
+    <div>
+      <RegistrationSteps
+        {...mockedProps}
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+      />
+    </div>
+  );
 };
 
 describe('RegistrationSteps', () => {
+  it('User has option to login with facebook, google and email', () => {
+    render(<RegistrationStepsWithState initialStep={steps.login} />);
+
+    // Check to see if we landed on the sign in page
+    screen.getByText(/Please sign up with one of the providers below/i);
+
+    // Lets make sure the login providers all rendered.
+    screen.getByText(/Continue with Google/i);
+    screen.getByText(/Continue with Facebook/i);
+    screen.getByText(/Continue with email/i);
+  });
   it('Can register with google', () => {
     render(<RegistrationSteps {...mockedProps} currentStep={steps.login} />);
     const googleButton = screen.getByText(/Continue with Google/i);
@@ -39,25 +69,12 @@ describe('RegistrationSteps', () => {
 
     expect(mockedProps.onLoginFacebook).toBeCalled();
   });
-  it('Can register with email', () => {
+  it('Can login with email', async () => {
     const email = 'testingFan101@email.com';
     const password = 'Securepassword1';
     // Since in the RegistrationSteps component relies on state from the parent.
     // I will wrap it in a fake component to handle the state for testing.
-    const RegistrationStepsWithState = () => {
-      const [currentStep, setCurrentStep] = useState<number>(steps.login);
-
-      return (
-        <div>
-          <RegistrationSteps
-            {...mockedProps}
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-          />
-        </div>
-      );
-    };
-    render(<RegistrationStepsWithState />);
+    render(<RegistrationStepsWithState initialStep={steps.login} />);
 
     const emailButton = screen.getByText(/Continue with email/i);
 
@@ -78,7 +95,44 @@ describe('RegistrationSteps', () => {
     });
 
     userEvent.click(loginButton);
-    // TODO Figure out why this mock is not being called
-    // expect(mockedProps.onEmailSignUp).toBeCalledWith(email, password);
+    // Since the form submission is async and our tests are synchronous, we need to
+    // wrap our expect in a waitFor
+    await waitFor(() =>
+      expect(mockedProps.onEmailSignIn).toBeCalledWith(email, password),
+    );
+  });
+  it('Can register with email', async () => {
+    const email = 'testingFan101@email.com';
+    const password = 'Securepassword1';
+
+    render(<RegistrationStepsWithState initialStep={steps.login} />);
+
+    const emailButton = screen.getByText(/Continue with email/i);
+
+    userEvent.click(emailButton);
+
+    screen.getByText(/Login with email/i);
+
+    userEvent.click(screen.getByText(/New User/i));
+
+    const emailInput = screen.getByLabelText(/Email/i);
+    const passwordInput = screen.getByLabelText('Password');
+    const confirmPasswordInput = screen.getByLabelText(/Confirm Password/i);
+
+    userEvent.type(emailInput, email);
+    userEvent.type(passwordInput, password);
+    userEvent.type(confirmPasswordInput, password);
+
+    const createAccountButton = screen.getByRole('button', {
+      name: 'arrow-right Create Account',
+    });
+
+    userEvent.click(createAccountButton);
+
+    // Since the form submission is async and our tests are synchronous, we need to
+    // wrap our expect in a waitFor
+    await waitFor(() =>
+      expect(mockedProps.onEmailSignUp).toBeCalledWith(email, password),
+    );
   });
 });

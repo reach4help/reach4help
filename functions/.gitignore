@@ -8,3 +8,7 @@ node_modules/
 .firebase-debug.log
 
 **/*.log
+
+# firebase-functions-test online mode
+serviceAccountKey-dev.json
+.runtimeconfig.json
