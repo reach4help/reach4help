@@ -95,6 +95,12 @@ describe('deleteUserData: user with request', () => {
       description: 'Please help with groceries',
       latLng: new firestore.GeoPoint(10, -122),
       streetAddress: '123 Main St.',
+      offerCount: 0,
+      rejectionCount: 0,
+      firstOfferMade: null,
+      firstRejectionMade: null,
+      lastOfferMade: null,
+      lastRejectionMade: null,
     });
     await requestRef.withConverter(RequestFirestoreConverter).set(testRequest);
   });
@@ -156,6 +162,12 @@ describe('deleteUserData: user with request', () => {
         description: 'Please help with groceries',
         latLng: new firestore.GeoPoint(10, -122),
         streetAddress: '123 Main St.',
+        offerCount: 0,
+        rejectionCount: 0,
+        firstOfferMade: null,
+        firstRejectionMade: null,
+        lastOfferMade: null,
+        lastRejectionMade: null,
         status: RequestStatus.pending,
       });
       await requestRef2.withConverter(RequestFirestoreConverter).set(testRequest);

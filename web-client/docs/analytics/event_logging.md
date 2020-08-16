@@ -1,16 +1,18 @@
 # Logging Events
 
 ## Summary
-This document should guide you through the minimal steps, along with some best practices, you require to log events in different situations, for example when a user clicks a button. 
+
+This document should guide you through the minimal steps, along with some best practices, you require to log events in different situations, for example when a user clicks a button.
 
 ## Usage and Guidance
-We are using Firebase Analytics to track events triggered in our app. Firebase Analytics uses `gtag.js` behind the hood and they point us to use these [docs](https://developers.google.com/gtagjs/reference/parameter) as a reference to the parameters we can pass to the `analytics.logEvent` method. 
+
+We are using Firebase Analytics to track events triggered in our app. Firebase Analytics uses `gtag.js` behind the hood and they point us to use these [docs](https://developers.google.com/gtagjs/reference/parameter) as a reference to the parameters we can pass to the `analytics.logEvent` method.
 
 ```js
 analytics.logEvent('select_content', {
   content_type: 'image',
   content_id: 'P12453',
-  items: [{ name: 'Kittens' }]
+  items: [{ name: 'Kittens' }],
 });
 ```
 
