@@ -26,6 +26,7 @@ import { firestore } from 'src/firebase';
 import { Offer, OfferStatus } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
+import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
@@ -250,8 +251,11 @@ const FindRequestsContainer: React.FC = () => {
   };
 
   if (
-    !pendingRequestsWithOffersAndTimeline.data ||
-    pendingRequestsWithOffersAndTimeline.loading
+    phoneNumber &&
+    profileState.privilegedInformation &&
+    profileState.privilegedInformation.address &&
+    (!pendingRequestsWithOffersAndTimeline.data ||
+      pendingRequestsWithOffersAndTimeline.loading)
   ) {
     return <LoadingWrapper />;
   }
@@ -329,6 +333,11 @@ const FindRequestsContainer: React.FC = () => {
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
+      {!(
+        phoneNumber &&
+        profileState.privilegedInformation &&
+        profileState.privilegedInformation.address
+      ) && <AuthenticationModal isVisible />}
     </>
   );
 };

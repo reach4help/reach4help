@@ -40,7 +40,7 @@ export interface IUser extends firebase.firestore.DocumentData {
 export class User implements IUser {
   constructor(
     username: string,
-    applicationPreference: ApplicationPreference | null = null,
+    applicationPreference: ApplicationPreference | null = ApplicationPreference.pin,
     pinQuestionnaireRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     > | null = null,
