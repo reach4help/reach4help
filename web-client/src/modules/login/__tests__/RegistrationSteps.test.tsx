@@ -15,10 +15,9 @@ const mockedProps = {
 };
 
 const steps = {
-  setLanguage: 0,
-  login: 1,
-  emailSignIn: 2,
-  emailSignUp: 3,
+  login: 0,
+  emailSignIn: 1,
+  emailSignUp: 2,
 };
 
 // Since in the RegistrationSteps component relies on state from the parent.
@@ -43,16 +42,7 @@ const RegistrationStepsWithState = ({
 
 describe('RegistrationSteps', () => {
   it('User has option to login with facebook, google and email', () => {
-    render(<RegistrationStepsWithState initialStep={steps.setLanguage} />);
-    // First let's check for some text to make sure the component loaded.
-    // We will use one of the 'getBy' queries. Some queries such as this will throw
-    // an exception when they do not fine anything, therefore they fail the test without explicitly asserting.
-    screen.getByText(/Welcome to Reach4Help!/i);
-
-    // Save the continue button element to a variable so that we can reference it later.
-    const continueButton = screen.getByText(/continue/i);
-    // Use the 'userEvent' library to simulate user actions.
-    userEvent.click(continueButton);
+    render(<RegistrationStepsWithState initialStep={steps.login} />);
 
     // Check to see if we landed on the sign in page
     screen.getByText(/Please sign up with one of the providers below/i);

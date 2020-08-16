@@ -56,11 +56,14 @@ export const StepBackButton = styled(Button)`
 export const StepForwardButton = styled(Button)`
   border-radius: 4px;
   white-space: nowrap;
-  width: 100%;
+  min-width: 100%;
+  max-width: 175px;
   background-color: ${COLORS.stepForwardNormal};
   color: white;
   font-weight: 700;
   border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
   &:hover,
   &:focus,
   &:active,
