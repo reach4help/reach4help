@@ -34,6 +34,14 @@ const RequestItem: React.FC<RequestItemProps> = ({
     }
   };
 
+  const displayUserFirstname = (username: string | null): string => {
+    if (username) {
+      const firstname = username.split(' ')[0];
+      return firstname;
+    }
+    return '';
+  };
+
   let bottomWarningMessage;
   if (
     isPinAndOpenRequest &&
@@ -121,7 +129,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
           >
             {request.description}
           </Paragraph>
-          <Row>
+          <Row justify="space-around">
             <Col span={11}>
               <StepBackButton
                 loading={loading && actionPerformed === 2}
@@ -134,7 +142,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
                 {t('modules.requests.cannot_help')}
               </StepBackButton>
             </Col>
-            <Col span={11} offset={2}>
+            <Col span={11}>
               <StepForwardButton
                 loading={loading && actionPerformed === 1}
                 disabled={loading && actionPerformed !== 1}
@@ -143,10 +151,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
                   handleRequest(true);
                 }}
               >
-                Help{' '}
-                {request.pinUserSnapshot.displayName
-                  ? request.pinUserSnapshot.displayName.split(' ')[0]
-                  : ''}
+                Help {displayUserFirstname(request.pinUserSnapshot.displayName)}
               </StepForwardButton>
             </Col>
           </Row>
