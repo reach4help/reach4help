@@ -1,6 +1,6 @@
 {
   "common": {
-    "or": "or",
+    "or": "অথবা",
     "i_understand": "আমি বুঝেছি",
     "okay": "ঠিক",
     "cancel": "বাতিল",
@@ -45,7 +45,7 @@
         "0": "You and the volunteer agree that everything is done."
       },
       "ArchivedRequestsContainer": {
-        "title": "You decided not to do it",
+        "title": "আপনি এটি না করার সিদ্ধান্ত নিয়েছেন",
         "0": "You changed your mind and deleted your request."
       },
       "TimelineViewContainer": {
