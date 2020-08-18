@@ -56,9 +56,8 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   if (
     !(
       profileState &&
-      profileState.profile &&
-      profileState.profile.displayName &&
-      profileState.privilegedInformation?.address
+      profileState.profile?.displayName &&
+      profileState.privilegedInformation?.addresses?.default
     )
   ) {
     return (

@@ -185,9 +185,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
         setFullName(profile.displayName);
       }
     }
-    if (!privilegedInfoSet && privilegedInfo && privilegedInfo.address) {
+    if (!privilegedInfoSet && privilegedInfo && privilegedInfo.addresses[0]) {
       setPrivilegedInfoSet(true);
-      const addressToSet = privilegedInfo.address;
+      const addressToSet = privilegedInfo.addresses.default;
       if (addressToSet.address1) {
         setAddress1(addressToSet.address1);
       }

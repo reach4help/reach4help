@@ -28,8 +28,7 @@ beforeEach(async () => {
     displayPicture: 'me.png',
   });
   const testPrivilegedInfo = {
-    addressFromGoogle: 'Amphitheatre Parkway',
-    address: 'Mountain View',
+    addresses: { default: { name: 'default' } },
     privacyAccepted: new Date(),
     privacyVersion: '1.0',
     termsAccepted: new Date(),

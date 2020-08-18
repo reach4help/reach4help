@@ -70,8 +70,7 @@ export const observePrivileged = (
 };
 
 export const setUserProfile = (
-  address: IUserAddress,
-  addressFromGoogle: google.maps.GeocoderResult,
+  addresses: Record<string, IUserAddress>,
   termsAndPrivacyAccepted: Date,
   displayName: string,
   uid: string,
@@ -79,8 +78,7 @@ export const setUserProfile = (
   displayPic?: string | null,
 ) => (dispatch: Function) => {
   const privilegedPayload = PrivilegedUserInformation.factory({
-    addressFromGoogle,
-    address,
+    addresses,
     // eslint-disable-next-line import/no-named-as-default-member
     termsAccepted: firebase.firestore.Timestamp.fromDate(
       termsAndPrivacyAccepted,
