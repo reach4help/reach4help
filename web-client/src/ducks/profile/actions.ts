@@ -13,6 +13,7 @@ import {
   setUserProfile as setUserProfileFunc,
   updateUserPrivilegedInformationData,
   updateUserProfileData,
+  uploadUserAvatarData,
 } from './functions';
 import {
   DELETE_ME,
@@ -23,6 +24,7 @@ import {
   SET,
   UPDATE,
   UPDATE_PRIVILEGED,
+  UPLOAD,
 } from './types';
 
 export const getUserProfile = (payload: IgetUserProfile) => (
@@ -138,3 +140,15 @@ export const deleteUserData = () => (dispatch: Function) =>
     payload: {},
     firebase: deleteUserDataFunc,
   });
+
+export const uploadUserAvatar = (
+  uid: string,
+  file: File,
+) => (dispatch: Function) => dispatch({
+  type: UPLOAD,
+  payload: {
+    uid,
+    file,
+  },
+  firebase: uploadUserAvatarData,
+});

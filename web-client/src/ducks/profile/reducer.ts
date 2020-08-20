@@ -13,6 +13,7 @@ import {
   SET,
   UPDATE,
   UPDATE_PRIVILEGED,
+  UPLOAD,
 } from './types';
 
 const initialState: ProfileState = {
@@ -164,6 +165,16 @@ export default createReducer<ProfileState>(
       state.loading = false;
       state.observerReceivedFirstUpdate = true;
     },
+    [UPLOAD.PENDING]: (
+      state: ProfileState, 
+      {
+        payload,
+      }: {
+        payload: string;
+      },
+    ) => {
+      state.profile = { ...state.profile, displayPicture: payload };
+    }
   },
   initialState,
 );

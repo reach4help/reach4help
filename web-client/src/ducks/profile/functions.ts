@@ -102,15 +102,19 @@ export const updateUserPrivilegedInformationData = async ({
 export const deleteUserData = async () =>
   functions.httpsCallable('https-api-users-deleteUserData')();
 
-export const uploadAvatar = async ({
+export const uploadUserAvatarData = async ({
   uid,
+  userPayload,
   filePayload,
 }: {
     uid: string;
+    userPayload: User;
     filePayload: File;
 }) => {
   const storageRef = storage.ref();
   const date = Date.now();
   const fileExt = filePayload.type.split('/')[1];
-  return storageRef.child(`/${uid}/displayPicture/${date}.${fileExt}`).put(filePayload);
+
+  const snapshot = await storageRef.child(`/${uid}/displayPicture/${date}.${fileExt}`).put(filePayload, { contentType: 'image/*' });
+  
 };

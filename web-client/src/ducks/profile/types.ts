@@ -16,6 +16,8 @@ export const SET = asyncType('SET');
 export const UPDATE = asyncType('UPDATE');
 export const UPDATE_PRIVILEGED = asyncType('UPDATE_PRIVILEGED');
 
+export const UPLOAD = asyncType('UPLOAD');
+
 export interface ProfileState {
   profile?: User;
   privilegedInformation?: PrivilegedUserInformation;
