@@ -1,5 +1,5 @@
 import { firestore as Firestore } from 'firebase';
-import { firestore, functions } from 'src/firebase';
+import { firestore, functions, storage } from 'src/firebase';
 import { User, UserFirestoreConverter } from 'src/models/users';
 import {
   PrivilegedUserInformation,
@@ -101,3 +101,16 @@ export const updateUserPrivilegedInformationData = async ({
 
 export const deleteUserData = async () =>
   functions.httpsCallable('https-api-users-deleteUserData')();
+
+export const uploadAvatar = async ({
+  uid,
+  filePayload,
+}: {
+    uid: string;
+    filePayload: File;
+}) => {
+  const storageRef = storage.ref();
+  const date = Date.now();
+  const fileExt = filePayload.type.split('/')[1];
+  return storageRef.child(`/${uid}/displayPicture/${date}.${fileExt}`).put(filePayload);
+};
