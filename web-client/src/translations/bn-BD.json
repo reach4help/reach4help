@@ -6,7 +6,7 @@
     "cancel": "বাতিল",
     "welcome": "স্বাগতম",
     "continue": "চালিয়ে",
-    "back": "Back",
+    "back": "পেছনে",
     "verify": "যাচাই",
     "spinner": "লোড হচ্ছে...",
     "name": "নাম",
@@ -20,7 +20,7 @@
     "code": "জিপ / পোস্টাল কোড",
     "State": "রাজ্য / প্রদেশ",
     "country": "দেশ",
-    "for": " for ",
+    "for": " জন্য ",
     "information_modal": {
       "instructions": "নির্দেশনা",
       "footer": "আপনার কোনো প্রশ্ন ও প্রয়োজন থাকলে, \nআমাদেরকে support@reach4help.org এ ইমেল করুন।",
@@ -29,11 +29,11 @@
         "title": "এখনও সাহায্য খুঁজছি...",
         "0": "আপনার অনুরোধগুলি প্রেরণ করা হয়েছে তবে এখনও কেউ সাহায্য করতে পারেনি",
         "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "2": " আপনার যদি কোনও প্রশ্ন বা সমস্যা থাকে তবে দয়া করে ইমেল করুন support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
         "title": "কেউ সাহায্য করার প্রস্তাব দিয়েছেন!",
-        "0": "Someone has offered to help you out.",
+        "0": "কেউ সাহায্য করার প্রস্তাব দিয়েছেন.",
         "1": "Get in touch with them by phone to work out the details."
       },
       "OngoingRequestsContainer": {
