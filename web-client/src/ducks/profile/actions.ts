@@ -6,6 +6,7 @@ import {
 } from 'src/models/users/privilegedInformation';
 
 import {
+  deleteUserAvatarData,
   deleteUserData as deleteUserDataFunc,
   getUserProfile as getUserProfileFunc,
   observePrivileged as observePrivilegedFunc,
@@ -16,6 +17,7 @@ import {
   uploadUserAvatarData,
 } from './functions';
 import {
+  DELETE_AVATAR,
   DELETE_ME,
   GET,
   IgetUserProfile,
@@ -24,7 +26,7 @@ import {
   SET,
   UPDATE,
   UPDATE_PRIVILEGED,
-  UPLOAD,
+  UPLOAD_AVATAR,
 } from './types';
 
 export const getUserProfile = (payload: IgetUserProfile) => (
@@ -147,11 +149,24 @@ export const uploadUserAvatar = (
   file: File,
 ) => (dispatch: Function) =>
   dispatch({
-    type: UPLOAD,
+    type: UPLOAD_AVATAR,
     payload: {
       userRef,
       userPayload: user,
       filePayload: file,
     },
     firebase: uploadUserAvatarData,
+  });
+
+export const deleteUserAvatar = (
+  userRef: firebase.firestore.DocumentReference<User>,
+  user: User,
+) => (dispatch: Function) =>
+  dispatch({
+    type: DELETE_AVATAR,
+    payload: {
+      userRef,
+      userPayload: user,
+    },
+    firebase: deleteUserAvatarData,
   });

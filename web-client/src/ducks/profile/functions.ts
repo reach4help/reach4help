@@ -122,3 +122,22 @@ export const uploadUserAvatarData = async ({
   const newUserWithAvatar = User.factory(newUserPayload);
   return userRef.set(newUserWithAvatar);
 };
+
+export const deleteUserAvatarData = async ({
+  userRef,
+  userPayload,
+}: {
+  userRef: Firestore.DocumentReference<User>;
+  userPayload: User;
+}) => {
+  const newUserWithoutAvatar = User.factory(userPayload);
+  if (userPayload.displayPicture) {
+    const fileRef = storage
+      .ref()
+      .storage.refFromURL(userPayload.displayPicture);
+    fileRef.getDownloadURL().then(() => {
+      newUserWithoutAvatar.displayPicture = null;
+    });
+  }
+  return userRef.set(newUserWithoutAvatar);
+};

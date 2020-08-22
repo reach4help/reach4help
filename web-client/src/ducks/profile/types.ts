@@ -16,7 +16,8 @@ export const SET = asyncType('SET');
 export const UPDATE = asyncType('UPDATE');
 export const UPDATE_PRIVILEGED = asyncType('UPDATE_PRIVILEGED');
 
-export const UPLOAD = asyncType('UPLOAD');
+export const UPLOAD_AVATAR = asyncType('UPLOAD');
+export const DELETE_AVATAR = asyncType('DELETE_AVATAR');
 
 export interface ProfileState {
   profile?: User;
