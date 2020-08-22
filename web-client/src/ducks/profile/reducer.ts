@@ -165,16 +165,36 @@ export default createReducer<ProfileState>(
       state.loading = false;
       state.observerReceivedFirstUpdate = true;
     },
-    [UPLOAD.PENDING]: (
-      state: ProfileState, 
+    [UPLOAD.PENDING]: (state: ProfileState) => {
+      state.loading = true;
+      state.error = undefined;
+    },
+    [UPLOAD.COMPLETED]: (
+      state: ProfileState,
       {
         payload,
       }: {
-        payload: string;
+        payload: firestore.DocumentSnapshot<User>;
       },
     ) => {
-      state.profile = { ...state.profile, displayPicture: payload };
-    }
+      state.profile = payload.data();
+      state.userRef = db
+        .collection('users')
+        .doc(payload.id)
+        .withConverter(UserFirestoreConverter);
+      state.uid = payload.id;
+      state.loading = false;
+      state.error = undefined;
+    },
+    [UPLOAD.REJECTED]: (
+      state: ProfileState,
+      { payload }: { payload: Error },
+    ) => {
+      state.error = payload;
+      state.loading = false;
+      state.profile = undefined;
+      state.uid = undefined;
+    },
   },
   initialState,
 );

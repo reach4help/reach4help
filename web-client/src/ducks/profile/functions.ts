@@ -103,18 +103,22 @@ export const deleteUserData = async () =>
   functions.httpsCallable('https-api-users-deleteUserData')();
 
 export const uploadUserAvatarData = async ({
-  uid,
+  userRef,
   userPayload,
   filePayload,
 }: {
-    uid: string;
-    userPayload: User;
-    filePayload: File;
+  userRef: Firestore.DocumentReference<User>;
+  userPayload: User;
+  filePayload: File;
 }) => {
   const storageRef = storage.ref();
   const date = Date.now();
   const fileExt = filePayload.type.split('/')[1];
-
-  const snapshot = await storageRef.child(`/${uid}/displayPicture/${date}.${fileExt}`).put(filePayload, { contentType: 'image/*' });
-  
+  const snapshot = await storageRef
+    .child(`/${userRef.id}/displayPicture/${date}.${fileExt}`)
+    .put(filePayload, { contentType: 'image/*' });
+  const newUserPayload = userPayload;
+  newUserPayload.displayPicture = snapshot.downloadURL;
+  const newUserWithAvatar = User.factory(newUserPayload);
+  return userRef.set(newUserWithAvatar);
 };

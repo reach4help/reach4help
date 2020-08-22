@@ -142,13 +142,16 @@ export const deleteUserData = () => (dispatch: Function) =>
   });
 
 export const uploadUserAvatar = (
-  uid: string,
+  userRef: firebase.firestore.DocumentReference<User>,
+  user: User,
   file: File,
-) => (dispatch: Function) => dispatch({
-  type: UPLOAD,
-  payload: {
-    uid,
-    file,
-  },
-  firebase: uploadUserAvatarData,
-});
+) => (dispatch: Function) =>
+  dispatch({
+    type: UPLOAD,
+    payload: {
+      userRef,
+      userPayload: user,
+      filePayload: file,
+    },
+    firebase: uploadUserAvatarData,
+  });
