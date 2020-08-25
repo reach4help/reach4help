@@ -164,6 +164,7 @@
       "heading": "Settings",
       "changeName": "Change my name",
       "deleteAccount": "Delete my account",
+      "changeAddresses": "Change saved addresses",
       "changeNameForm": {
         "full_name_error_message": "Please enter your name",
         "display_name_error_message": "Please enter your display name",
@@ -174,6 +175,13 @@
         "title": "Are you sure you want to delete your account",
         "body": "Closing your account means you will no longer be able to provide help or ask for help",
         "deleteAccount": "Delete my account"
+      },
+      "changeAddressForm": {
+        "deliveryAddress": "Delivery Address",
+        "nameOfAddress": "Name of Address",
+        "address": "Address",
+        "cancel": "Cancel",
+        "submit": "Save"
       }
     },
     "phoneNumber": {

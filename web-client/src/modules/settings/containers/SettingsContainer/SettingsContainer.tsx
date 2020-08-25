@@ -10,6 +10,7 @@ import { AuthState } from '../../../../ducks/auth/types';
 import {
   deleteUserData,
   observeProfile,
+  updateUserPrivilegedInformation,
   updateUserProfile,
 } from '../../../../ducks/profile/actions';
 import { ProfileState } from '../../../../ducks/profile/types';
@@ -83,6 +84,20 @@ const SettingsContainer: React.FC = () => {
     }
   };
 
+  const changeAddressesSubmitHandler = addresses => {
+    const { privilegedInformation } = profileState;
+    if (privilegedInformation && authState.user) {
+      privilegedInformation.addresses = addresses;
+
+      dispatch(
+        updateUserPrivilegedInformation(
+          authState.user.uid,
+          privilegedInformation,
+        ),
+      );
+    }
+  };
+
   return (
     <>
       <SettingsTopPanel
@@ -91,10 +106,12 @@ const SettingsContainer: React.FC = () => {
       />
       <SettingsList
         changeNameSubmitHandler={changeNameSubmitHandler}
+        changeAddressesSubmitHandler={changeAddressesSubmitHandler}
         deleteAccountClickHandler={deleteAccountClickHandler}
         initialValues={{
           displayName: profileState.profile.displayName,
           username: profileState.profile.username,
+          addresses: profileState.privilegedInformation?.addresses,
         }}
       />
     </>
