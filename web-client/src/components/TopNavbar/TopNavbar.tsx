@@ -19,7 +19,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
 }) =>
   visible ? (
     <TopNavbarWrapper>
-      <NavButton isCav={isCav} onClick={openMenu}>
+      <NavButton aria-label="Menu Button" isCav={isCav} onClick={openMenu}>
         <SideMenuIcon />
       </NavButton>
       <NavButton>
@@ -28,7 +28,11 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
           Reach<TextOrange>4</TextOrange>Help
         </IconText>
       </NavButton>
-      <NavButton isCav={isCav} onClick={openNotifications}>
+      <NavButton
+        aria-label="Notifications Button"
+        isCav={isCav}
+        onClick={openNotifications}
+      >
         {unseenOffersCount > 0 ? (
           <NotificationsIcon style={{ color: 'red' }} />
         ) : (
