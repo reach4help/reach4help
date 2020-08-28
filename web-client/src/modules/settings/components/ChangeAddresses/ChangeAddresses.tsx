@@ -1,8 +1,11 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Col, Form, Input, Row, Select } from 'antd';
-import React, { useState } from 'react';
+import { useForm } from 'antd/lib/form/util';
+import firebase from 'firebase';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { useSelector } from 'react-redux';
+import { AppState } from 'src/store';
 
 import {
   MediumCancelButton,
@@ -12,91 +15,188 @@ import {
 export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
   changeAddressesHandler,
   cancelHandler,
-  addresses,
 }) => {
   const { t } = useTranslation();
-  const addressesKeys = addresses ? Object.keys(addresses) : ([] as string[]);
-  const defaultKey = addressesKeys.includes('default')
-    ? 'default'
-    : addressesKeys[0];
-  const [currentAddressKey, setCurrentAddressKey] = useState<string>(
-    defaultKey,
+  const [form] = useForm();
+  const addresses = useSelector(
+    (state: AppState) => state.profile.privilegedInformation?.addresses,
   );
-  const [currentAddress, setCurrentAddress] = useState<
-    IUserAddress | undefined
-  >(addresses ? addresses.default : undefined);
-  const [form] = Form.useForm();
+  const addressesOptions = addresses
+    ? Object.keys(addresses)
+    : ([] as string[]);
+
+  const [currentAddressKey, setCurrentAddressKey] = useState<string>();
+
+  const handleNameSelected = (value: string) => {
+    if (!addresses) {
+      return;
+    }
+    setCurrentAddressKey(value);
+    if (value === 'add') {
+      form.setFieldsValue({
+        name: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        country: '',
+      });
+    } else {
+      const currentAddress = addresses[value];
+      form.setFieldsValue({
+        name: currentAddress.name || 'default',
+        address1: currentAddress.address1,
+        address2: currentAddress.address2,
+        city: currentAddress.city,
+        state: currentAddress.state,
+        postalCode: currentAddress.postalCode,
+        country: currentAddress.country,
+      });
+    }
+  };
+
+  const handleFinish = value => {
+    if (!addresses) {
+      return;
+    }
+    const newAddress = {
+      name: value.name,
+      address1: value.address1,
+      address2: value.address2,
+      city: value.city,
+      state: value.state,
+      postalCode: value.postalCode,
+      country: value.country,
+    };
+    const newAddresses = addresses;
+    if (value.name in newAddresses) {
+      newAddresses[value.name] = {
+        ...newAddresses[value.current],
+        ...newAddress,
+      };
+    } else {
+      newAddresses[value.name] = {
+        ...newAddress,
+        coords: new firebase.firestore.GeoPoint(0, 0),
+      };
+    }
+    changeAddressesHandler(newAddresses);
+  };
 
   const handleCancelHandler = () => {
+    if (!addresses) {
+      return;
+    }
+    const currentSelectedName = form.getFieldValue('current');
+    if (currentSelectedName === 'add') {
+      form.setFieldsValue({
+        name: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        country: '',
+      });
+      return;
+    }
+    const currentAddress = addresses[currentSelectedName];
+    form.setFieldsValue({
+      name: currentAddress.name,
+      address1: currentAddress.address1,
+      address2: currentAddress.address2,
+      city: currentAddress.city,
+      state: currentAddress.state,
+      postalCode: currentAddress.postalCode,
+      country: currentAddress.country,
+    });
     cancelHandler();
   };
 
-  const handleNameSelected = (value: string) => {
-    if (addresses) {
-      setCurrentAddressKey(value);
-      setCurrentAddress(addresses[value]);
+  useEffect(() => {
+    const currentName = form.getFieldValue('current');
+    if (addresses && currentName) {
+      const currentAddress = addresses[currentName];
+      form.setFieldsValue({
+        name: currentAddress.name,
+        address1: currentAddress.address1,
+        address2: currentAddress.address2,
+        city: currentAddress.city,
+        state: currentAddress.state,
+        postalCode: currentAddress.postalCode,
+        country: currentAddress.country,
+      });
     }
-  };
-
-  const handleFinish = (): void => {
-    if (addresses && currentAddress) {
-      const newAddresses = addresses;
-      newAddresses[currentAddressKey] = currentAddress;
-      changeAddressesHandler(newAddresses);
-    }
-  };
+  }, [addresses, form]);
 
   return (
     <>
       <Form form={form} onFinish={handleFinish}>
-        <Row gutter={[16, 12]}>
+        <Row gutter={[16, 6]}>
           <Col span={24}>
-            <Form.Item label={t('settings.changeAddressForm.deliveryAddress')}>
-              <Select defaultValue={defaultKey} onSelect={handleNameSelected}>
-                {addressesKeys.map((addressesKey: string) => (
-                  <Select.Option key={addressesKey} value={addressesKey}>
-                    {addressesKey}
-                  </Select.Option>
-                ))}
+            <Form.Item
+              name="current"
+              label={t('settings.changeAddressForm.deliveryAddress')}
+            >
+              <Select value={currentAddressKey} onSelect={handleNameSelected}>
+                {addressesOptions &&
+                  addressesOptions.map((addressesKey: string) => (
+                    <Select.Option key={addressesKey} value={addressesKey}>
+                      {addressesKey}
+                    </Select.Option>
+                  ))}
+                <Select.Option value="add">Add a new one</Select.Option>
               </Select>
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={[16, 12]}>
+        <Row gutter={[16, 6]}>
           <Col span={24}>
-            <Form.Item label={t('settings.changeAddressForm.nameOfAddress')}>
-              <Input defaultValue={currentAddress?.name} />
+            <Form.Item
+              name="name"
+              label={t('settings.changeAddressForm.nameOfAddress')}
+            >
+              <Input id="nameofAddress" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={[16, 12]}>
+        <Row gutter={[16, 6]}>
           <Col span={24}>
-            <Form.Item label={t('settings.changeAddressForm.address')}>
-              <Input defaultValue={currentAddress?.address1} />
+            <Form.Item
+              name="address1"
+              label={t('settings.changeAddressForm.address')}
+            >
+              <Input placeholder={t('address1')} />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={[16, 12]}>
+        <Row gutter={[16, 6]}>
           <Col span={24}>
-            <Form.Item>
-              <Input defaultValue={currentAddress?.address2} />
+            <Form.Item name="address2">
+              <Input placeholder={t('address2')} />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={[16, 12]}>
-          <Col span={12}>
-            <Form.Item>
-              <Input defaultValue={currentAddress?.city} />
+        <Row>
+          <Col span={11}>
+            <Form.Item name="city">
+              <Input placeholder={t('city')} />
             </Form.Item>
           </Col>
-          <Col span={8}>
-            <Form.Item>
-              <Input defaultValue={currentAddress?.state} />
+          <Col span={3} offset={1}>
+            <Form.Item name="state">
+              <Input placeholder={t('State')} />
             </Form.Item>
           </Col>
-          <Col span={4}>
-            <Form.Item>
-              <Input defaultValue={currentAddress?.country} />
+          <Col span={5}>
+            <Form.Item name="postalCode">
+              <Input placeholder={t('code')} />
+            </Form.Item>
+          </Col>
+          <Col span={3} offset={1}>
+            <Form.Item name="country">
+              <Input placeholder={t('country')} />
             </Form.Item>
           </Col>
         </Row>
@@ -122,5 +222,4 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
 interface ChangeAddressesProps {
   changeAddressesHandler: Function;
   cancelHandler: () => void;
-  addresses: Record<string, IUserAddress> | undefined;
 }

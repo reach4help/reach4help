@@ -111,7 +111,6 @@ const SettingsContainer: React.FC = () => {
         initialValues={{
           displayName: profileState.profile.displayName,
           username: profileState.profile.username,
-          addresses: profileState.privilegedInformation?.addresses,
         }}
       />
     </>

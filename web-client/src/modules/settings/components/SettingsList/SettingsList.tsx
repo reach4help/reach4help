@@ -4,7 +4,6 @@ import { Col, Collapse, Row } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-import { IUserAddress } from 'src/models/users/privilegedInformation';
 
 import { SettingsListButton } from '../../../../components/Buttons';
 import { H4Font } from '../../../../components/figma';
@@ -128,7 +127,6 @@ const SettingsList: React.FC<SettingsProps> = ({
               <ChangeAddresses
                 changeAddressesHandler={changeAddressesSubmitHandler}
                 cancelHandler={() => setCollapseActiveKey([])}
-                addresses={initialValues.addresses}
               />
             </SettingsListCollapsePanel>
           </Collapse>
@@ -145,7 +143,6 @@ interface SettingsProps {
   initialValues: {
     displayName: string | null;
     username: string | null;
-    addresses: Record<string, IUserAddress> | undefined;
   };
 }
 
