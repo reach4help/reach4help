@@ -5,11 +5,12 @@ import emailReducer from './email/reducer';
 import facebookReducer from './facebook/reducer';
 import googleReducer from './google/reducer';
 import phoneReducer from './phone/reducer';
-import { AuthState, LOGOUT, OBSERVE_USER } from './types';
+import { AuthState, LOGOUT, OBSERVE_USER, SET_ONBOARDED } from './types';
 
 const initialState: AuthState = {
   loading: false,
   checkEmail: undefined,
+  onboarded: false,
   error: undefined,
   user: firebaseAuth.currentUser,
   confirmationResult: undefined,
@@ -44,6 +45,9 @@ export default createReducer<AuthState>(
       state.loading = false;
       state.user = undefined;
       state.confirmationResult = undefined;
+    },
+    [SET_ONBOARDED]: (state: AuthState, { payload }: { payload: boolean }) => {
+      state.onboarded = payload;
     },
   },
   initialState,
