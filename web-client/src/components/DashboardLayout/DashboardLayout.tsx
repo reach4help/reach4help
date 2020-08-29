@@ -5,7 +5,6 @@ import { Offer, OfferStatus } from 'src/models/offers';
 import { User } from 'src/models/users';
 import styled from 'styled-components';
 
-import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
 import { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
@@ -55,7 +54,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
   return (
     <DashboardLayoutWrapper>
-      <TopNavbar />
+      <TopNavbar
+        visible={!menuVisible && !notificationVisible}
+        openMenu={() => setMenuVisible(true)}
+        openNotifications={() => setNotificationVisible(true)}
+        isCav={isCav}
+        unseenOffersCount={unseenOffers.length}
+      />
       <MenuDrawer
         visible={menuVisible}
         closeDrawer={() => setMenuVisible(false)}
@@ -74,13 +79,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         isCav={isCav}
       />
       <DashboardContent>{children}</DashboardContent>
-      <BottomNavbar
-        visible={!menuVisible && !notificationVisible}
-        openMenu={() => setMenuVisible(true)}
-        openNotifications={() => setNotificationVisible(true)}
-        isCav={isCav}
-        unseenOffersCount={unseenOffers.length}
-      />
     </DashboardLayoutWrapper>
   );
 };
