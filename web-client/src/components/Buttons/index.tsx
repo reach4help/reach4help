@@ -39,7 +39,7 @@ export const MailAuthButton = styled(Button)`
 export const StepBackButton = styled(Button)`
   border-radius: 4px;
   white-space: nowrap;
-  width: 100%;
+  max-width: 110px;
   background-color: ${COLORS.stepBackwardNormal};
   color: white;
   font-weight: 700;
@@ -57,7 +57,7 @@ export const StepForwardButton = styled(Button)`
   border-radius: 4px;
   white-space: nowrap;
   min-width: 100%;
-  max-width: 175px;
+  max-width: 180px;
   background-color: ${COLORS.stepForwardNormal};
   color: white;
   font-weight: 700;
