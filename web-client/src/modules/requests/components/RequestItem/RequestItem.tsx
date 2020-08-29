@@ -129,8 +129,8 @@ const RequestItem: React.FC<RequestItemProps> = ({
           >
             {request.description}
           </Paragraph>
-          <Row justify="space-around">
-            <Col span={11}>
+          <Row justify="space-between" gutter={16}>
+            <Col>
               <StepBackButton
                 loading={loading && actionPerformed === 2}
                 disabled={loading && actionPerformed !== 2}
@@ -142,7 +142,7 @@ const RequestItem: React.FC<RequestItemProps> = ({
                 {t('modules.requests.cannot_help')}
               </StepBackButton>
             </Col>
-            <Col span={11}>
+            <Col>
               <StepForwardButton
                 loading={loading && actionPerformed === 1}
                 disabled={loading && actionPerformed !== 1}
