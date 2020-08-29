@@ -2,7 +2,7 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Col, Form, Input, Row, Select } from 'antd';
 import { useForm } from 'antd/lib/form/util';
 import firebase from 'firebase';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { AppState } from 'src/store';
@@ -25,14 +25,12 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
     ? Object.keys(addresses)
     : ([] as string[]);
 
-  const [currentAddressKey, setCurrentAddressKey] = useState<string>();
-
-  const handleNameSelected = (value: string) => {
+  const handleNameSelected = () => {
     if (!addresses) {
       return;
     }
-    setCurrentAddressKey(value);
-    if (value === 'add') {
+    const currentName = form.getFieldValue('current');
+    if (currentName === 'add') {
       form.setFieldsValue({
         name: '',
         address1: '',
@@ -43,7 +41,7 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
         country: '',
       });
     } else {
-      const currentAddress = addresses[value];
+      const currentAddress = addresses[currentName];
       form.setFieldsValue({
         name: currentAddress.name || 'default',
         address1: currentAddress.address1,
@@ -70,11 +68,12 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
       country: value.country,
     };
     const newAddresses = addresses;
-    if (value.name in newAddresses) {
+    if (value.current in newAddresses) {
       newAddresses[value.name] = {
         ...newAddresses[value.current],
         ...newAddress,
       };
+      delete newAddresses[value.current];
     } else {
       newAddresses[value.name] = {
         ...newAddress,
@@ -103,6 +102,7 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
     }
     const currentAddress = addresses[currentSelectedName];
     form.setFieldsValue({
+      current: currentAddress.name || 'default',
       name: currentAddress.name,
       address1: currentAddress.address1,
       address2: currentAddress.address2,
@@ -139,7 +139,7 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
               name="current"
               label={t('settings.changeAddressForm.deliveryAddress')}
             >
-              <Select value={currentAddressKey} onSelect={handleNameSelected}>
+              <Select onSelect={handleNameSelected}>
                 {addressesOptions &&
                   addressesOptions.map((addressesKey: string) => (
                     <Select.Option key={addressesKey} value={addressesKey}>
