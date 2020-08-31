@@ -16,6 +16,7 @@ const initialState: AuthState = {
   confirmationResult: undefined,
   observerReceivedFirstUpdate: false,
 };
+
 export default createReducer<AuthState>(
   {
     ...facebookReducer,
