@@ -67,7 +67,7 @@ const RequestList: React.FC<RequestListProps> = ({
     return <LoadingIndicator />;
   }
 
-  return <div style={{ marginBottom: '64px' }}>{requestList}</div>;
+  return <div>{requestList}</div>;
 };
 
 interface RequestListProps {
