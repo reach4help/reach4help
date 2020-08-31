@@ -25,6 +25,35 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
     ? Object.keys(addresses)
     : ([] as string[]);
 
+  const defaultAddressName = addresses
+    ? 'default' in addresses
+      ? 'default'
+      : addressesOptions[0]
+    : '';
+  const defaultAddress =
+    addresses && defaultAddressName.length > 0 && addresses[defaultAddressName];
+  const formInitial = defaultAddress
+    ? {
+        current: defaultAddressName,
+        name: defaultAddress.name || 'default',
+        address1: defaultAddress.address1,
+        address2: defaultAddress.address2,
+        city: defaultAddress.city,
+        state: defaultAddress.state,
+        postalCode: defaultAddress.postalCode,
+        country: defaultAddress.country,
+      }
+    : {
+        current: '',
+        name: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        country: '',
+      };
+
   const handleNameSelected = () => {
     if (!addresses) {
       return;
@@ -132,7 +161,7 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
 
   return (
     <>
-      <Form form={form} onFinish={handleFinish}>
+      <Form form={form} onFinish={handleFinish} initialValues={formInitial}>
         <Row gutter={[16, 6]}>
           <Col span={24}>
             <Form.Item
@@ -140,6 +169,7 @@ export const ChangeAddresses: React.FC<ChangeAddressesProps> = ({
               label={t('settings.changeAddressForm.deliveryAddress')}
             >
               <Select onSelect={handleNameSelected}>
+                ;
                 {addressesOptions &&
                   addressesOptions.map((addressesKey: string) => (
                     <Select.Option key={addressesKey} value={addressesKey}>

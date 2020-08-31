@@ -162,6 +162,7 @@
     },
     "settings": {
       "heading": "Settings",
+      "changeAvatar": "Change my avatar",
       "changeName": "Change my name",
       "deleteAccount": "Delete my account",
       "changeAddresses": "Change saved addresses",
