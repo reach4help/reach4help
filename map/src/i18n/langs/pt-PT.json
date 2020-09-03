@@ -163,8 +163,8 @@
   },
   "results": {
     "backToResults": "Voltar para os resultados",
-    "openResults": "{num} resultados",
-    "closeResults": "{num} resultados",
+    "openResults": "Veja {results, plural, =0 {Sem resultados} =1 {1 resultado} other {# resultados}}",
+    "closeResults": "Ocultar {results, plural, =0 {Sem resultados} =1 {1 resultado} other {# resultados}}",
     "showMore": "Mostrar mais resultados",
     "contact": {
       "general": "Informações gerais:",
