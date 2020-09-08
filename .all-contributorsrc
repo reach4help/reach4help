@@ -295,6 +295,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "gorostiaga",
+      "name": "gorostiaga",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/46466795?v=4",
+      "profile": "https://github.com/gorostiaga",
+      "contributions": [
+        "projectManagement",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
