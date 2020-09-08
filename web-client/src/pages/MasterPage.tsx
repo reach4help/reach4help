@@ -18,10 +18,14 @@ import { Module } from 'src/types/module';
 
 import { AuthState } from '../ducks/auth/types';
 import { updateUserProfile } from '../ducks/profile/actions';
-import { ApplicationPreference } from '../models/users';
+import { ApplicationPreference, User } from '../models/users';
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
+
+const mockProfile = User.factory({
+  username: 'pleaseLogin',
+});
 
 const MasterPage = (): ReactElement => {
   const { t } = useTranslation();
@@ -120,7 +124,7 @@ const MasterPage = (): ReactElement => {
   };
 
   const renderLayout = (routeModule: Module) => {
-    if (routeModule.layout === 'dashboard' && userProfile) {
+    if (routeModule.layout === 'dashboard') {
       return (
         <>
           <Helmet>
@@ -132,8 +136,8 @@ const MasterPage = (): ReactElement => {
                 ? routeModule.dynamicMenuLinks(profileState)
                 : routeModule.menuItems
             }
-            offersState={offersState}
-            profileData={userProfile}
+            offersState={offersState || {}}
+            profileData={userProfile || mockProfile}
             isCav={userProfile?.applicationPreference === 'cav'}
             logoutHandler={() => dispatch(signOutCurrentUserAction())}
             toggleApplicationPreference={toggleApplicationPreference}

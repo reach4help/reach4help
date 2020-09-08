@@ -37,7 +37,6 @@ const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
       }}
       visible={visible}
       width="100%"
-      style={{ marginTop: '64px', height: 'calc(100vh - 128px)' }}
     >
       <NotificationsHeader
         isCav={isCav}
