@@ -52,7 +52,7 @@
     "firebase-functions": "^3.8.0",
     "flat": "^5.0.0",
     "moment": "^2.24.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "twilio": "^3.42.2",
     "uuid": "^7.0.3"
   },
