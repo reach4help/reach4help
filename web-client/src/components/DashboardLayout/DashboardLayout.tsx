@@ -94,12 +94,10 @@ const DashboardLayoutWrapper = styled(Layout)`
 `;
 
 const DashboardContent = styled(Layout.Content)`
-  display: flex;
-  flex-direction: column;
-  margin: 64px 0;
-  height: 100%;
+  position: relative;
+  top: 64px;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 `;
 
 interface DashboardLayoutProps {
