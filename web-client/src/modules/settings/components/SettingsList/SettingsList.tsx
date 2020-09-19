@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 import { UserDeleteOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Collapse, Row } from 'antd';
+import { Col, Collapse } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -10,6 +10,7 @@ import { H4Font } from '../../../../components/figma';
 import {
   SettingsCollapsePanelHeaderContent,
   SettingsListCollapsePanel,
+  SettingsListItemWrapper,
   SettingsListWrapper,
 } from '../../../../components/figma/BlockStyles';
 import { ChangeName } from '../ChangeName/ChangeName';
@@ -48,7 +49,7 @@ const SettingsList: React.FC<SettingsProps> = ({
 
   return (
     <SettingsListWrapper>
-      <Row gutter={[0, 12]}>
+      <SettingsListItemWrapper topSpace="-15px">
         <Col span="24" lg={12}>
           <Collapse
             onChange={changeNameHandler}
@@ -69,8 +70,8 @@ const SettingsList: React.FC<SettingsProps> = ({
             </SettingsListCollapsePanel>
           </Collapse>
         </Col>
-      </Row>
-      <Row gutter={[0, 12]}>
+      </SettingsListItemWrapper>
+      <SettingsListItemWrapper topSpace="40px">
         <Col span="24" lg={12}>
           <SettingsListButton
             type="default"
@@ -80,7 +81,7 @@ const SettingsList: React.FC<SettingsProps> = ({
             <span>{t('settings.deleteAccount')}</span>
           </SettingsListButton>
         </Col>
-      </Row>
+      </SettingsListItemWrapper>
     </SettingsListWrapper>
   );
 };

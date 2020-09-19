@@ -8,7 +8,6 @@ import {
   SettingsTopPanelDisplayPhoto,
   SettingsTopPanelEmptyPhoto,
   SettingsTopPanelHeadingRow,
-  SettingsTopPanelNavRow,
   SettingsTopPanelUserRow,
   SettingsTopPanelWrapper,
 } from '../../../../components/figma/BlockStyles';
@@ -18,15 +17,21 @@ const SettingsTopPanel: React.FC<SettingsTopPanel> = ({ user, goBack }) => {
 
   return (
     <SettingsTopPanelWrapper>
-      <SettingsTopPanelNavRow>
+      {/* <SettingsTopPanelNavRow>
         <div onClick={() => goBack()}>
           <img
             src={NavBackIcon}
             alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}
           />
         </div>
-      </SettingsTopPanelNavRow>
+      </SettingsTopPanelNavRow> */}
       <SettingsTopPanelHeadingRow>
+        <div onClick={() => goBack()}>
+          <img
+            src={NavBackIcon}
+            alt={t('modules.navigation.components.TopPanel.a11y_back_nav')}
+          />
+        </div>
         {t('settings.heading')}
       </SettingsTopPanelHeadingRow>
       <SettingsTopPanelUserRow>

@@ -92,9 +92,17 @@ const OrDivider = () => {
 };
 
 const SettingsListWrapper = styled.div`
+  position: relative;
   padding: 10px;
   background-color: ${COLORS.greyBackground};
   height: 100vh;
+`;
+
+const SettingsListItemWrapper = styled.div<{ topSpace: string }>`
+  position: absolute;
+  top: ${props => props.topSpace};
+  left: 22px;
+  width: 90%;
 `;
 
 const SettingsCollapsePanelHeaderContent = styled.span`
@@ -119,7 +127,7 @@ const SettingsTopPanelWrapper = styled.div`
   .ant-typography {
     color: #f0f0f0;
   }
-
+  position: relative;
   span,
   img {
     user-select: none;
@@ -137,11 +145,15 @@ const SettingsTopPanelHeadingRow = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 0.5rem;
-  margin: 0.5rem 0;
+  margin: 0 0 0.5rem 0;
   font-size: 1rem;
   color: #f0f0f0;
   font-size: 30px;
   line-height: 36px;
+  font-weight: bold;
+  div {
+    margin: 0 10px 6px 0;
+  }
 `;
 
 const SettingsTopPanelUserRow = styled.div`
@@ -186,6 +198,7 @@ export {
   OrDivider,
   StepWrapper,
   SettingsListWrapper,
+  SettingsListItemWrapper,
   SettingsCollapsePanelHeaderContent,
   SettingsListCollapsePanel,
   SettingsTopPanelWrapper,
