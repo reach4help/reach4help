@@ -8,6 +8,7 @@ export interface MenuItem {
 export interface Module {
   path: string;
   protected?: boolean;
+  partiallyProtected?: boolean;
   component: ReactElement;
   layout?: string;
   dynamicMenuLinks?: (profileState?: ProfileState) => Array<MenuItem>;

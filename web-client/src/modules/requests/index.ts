@@ -48,6 +48,7 @@ export const menuLinks: Array<MenuItem> = [
 
 const requestsModule: Module = {
   path: '/requests',
+  partiallyProtected: true,
   layout: 'dashboard',
   dynamicMenuLinks: (profileState?: ProfileState) => {
     if (
