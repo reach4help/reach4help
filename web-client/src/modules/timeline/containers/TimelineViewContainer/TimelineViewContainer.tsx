@@ -156,8 +156,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
             getOpenRequests({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
-              lat: profileState.privilegedInformation?.address.coords.latitude,
-              lng: profileState.privilegedInformation?.address.coords.longitude,
+              lat:
+                profileState.privilegedInformation?.addresses?.default.coords
+                  .latitude,
+              lng:
+                profileState.privilegedInformation?.addresses?.default.coords
+                  .longitude,
             }),
           );
         }

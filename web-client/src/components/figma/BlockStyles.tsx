@@ -156,16 +156,13 @@ const SettingsTopPanelDisplayPhoto = styled.img`
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  margin-right: 20px;
 `;
 
 const SettingsTopPanelEmptyPhoto = styled.div`
   background: linear-gradient(180deg, #ffffff 0%, #dddddd 100%);
-  transform: matrix(0, -1, -1, 0, 0, 0);
   width: 48px;
-  height: 45px;
+  height: 48px;
   border-radius: 50%;
-  margin-right: 12px;
 `;
 
 const SettingsTopPanelDisplayName = styled(Text)`

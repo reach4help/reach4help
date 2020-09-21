@@ -60,7 +60,7 @@ const getOffersForRequestWithLocation = async (requestRef: firestore.DocumentRef
 
     offersWithLocation[doc.id] = {
       ...offer.toObject(),
-      address: cavPrivilegedInfo && cavPrivilegedInfo.address ? cavPrivilegedInfo.address : deletedAddress,
+      address: cavPrivilegedInfo && cavPrivilegedInfo.addresses ? cavPrivilegedInfo.addresses.default : deletedAddress,
     } as IOfferWithLocation;
   }
   return offersWithLocation;

@@ -9,6 +9,8 @@ export const LOGOUT = asyncType('LOGOUT');
 
 export const OBSERVE_USER = observerType('OBSERVE_USER');
 
+export const SET_ONBOARDED = syncType('SET_ONBOARDED');
+
 export enum authProviders {
   facebook = 'facebook',
   google = 'google',
@@ -29,6 +31,7 @@ export interface AuthState {
     method?: authProviders;
     error?: Error;
   };
+  onboarded: boolean;
   loading: boolean;
   observerReceivedFirstUpdate: boolean;
   error?: Error;

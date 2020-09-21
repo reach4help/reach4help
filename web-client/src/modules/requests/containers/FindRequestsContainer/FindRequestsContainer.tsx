@@ -63,6 +63,8 @@ const FindRequestsContainer: React.FC = () => {
 
   const [requestsGeoData, setrequestsGeoData] = useState<MapRequestProps[]>([]);
 
+  const [authModalIsVisible, setAuthModalIsVisible] = useState<boolean>(false);
+
   const pendingRequestsWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: RequestState }) =>
       requests.syncOpenRequestsState,
@@ -75,6 +77,8 @@ const FindRequestsContainer: React.FC = () => {
   const tempOffer = useSelector(
     ({ offers }: { offers: OffersState }) => offers.newOfferTemp,
   );
+
+  const onboarded = useSelector((state: AppState) => state.auth.onboarded);
 
   const phoneNumber = useSelector(
     (state: AppState) => state.auth.user?.phoneNumber,
@@ -135,8 +139,12 @@ const FindRequestsContainer: React.FC = () => {
         getOpenRequests({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
-          lat: profileState.privilegedInformation?.address.coords.latitude,
-          lng: profileState.privilegedInformation?.address.coords.longitude,
+          lat:
+            profileState.privilegedInformation?.addresses?.default.coords
+              .latitude,
+          lng:
+            profileState.privilegedInformation?.addresses?.default.coords
+              .longitude,
         }),
       );
     }
@@ -148,43 +156,47 @@ const FindRequestsContainer: React.FC = () => {
   ]);
 
   useEffect(() => {
-    if (
-      pendingRequestsWithOffersAndTimeline &&
-      pendingRequestsWithOffersAndTimeline.data
-    ) {
-      const requestsData = pendingRequestsWithOffersAndTimeline.data;
-      if (requestsData) {
-        /* TODO:  Should be reduce */
-        const keys = Object.keys(requestsData);
-        const values: RequestWithOffersAndTimeline[] = [];
-        for (let i = 0; i < keys.length; i++) {
-          if (requestsData[keys[i]]) {
-            values.push(requestsData[keys[i]]);
+    if (onboarded) {
+      if (
+        pendingRequestsWithOffersAndTimeline &&
+        pendingRequestsWithOffersAndTimeline.data
+      ) {
+        const requestsData = pendingRequestsWithOffersAndTimeline.data;
+        if (requestsData) {
+          /* TODO:  Should be reduce */
+          const keys = Object.keys(requestsData);
+          const values: RequestWithOffersAndTimeline[] = [];
+          for (let i = 0; i < keys.length; i++) {
+            if (requestsData[keys[i]]) {
+              values.push(requestsData[keys[i]]);
+            }
           }
-        }
 
-        setRequestsListData(values);
-        setrequestsGeoData(
-          Object.keys(requestsData).reduce(
-            (acc: MapRequestProps[], curr: string) =>
-              !requestsData[curr]
-                ? acc
-                : [
-                    ...acc,
-                    {
-                      id: curr,
-                      center: {
-                        lat: requestsData[curr].latLng.latitude,
-                        lng: requestsData[curr].latLng.longitude,
+          setRequestsListData(values);
+          setrequestsGeoData(
+            Object.keys(requestsData).reduce(
+              (acc: MapRequestProps[], curr: string) =>
+                !requestsData[curr]
+                  ? acc
+                  : [
+                      ...acc,
+                      {
+                        id: curr,
+                        center: {
+                          lat: requestsData[curr].latLng.latitude,
+                          lng: requestsData[curr].latLng.longitude,
+                        },
                       },
-                    },
-                  ],
-            [],
-          ),
-        );
+                    ],
+              [],
+            ),
+          );
+        }
       }
+    } else {
+      setrequestsGeoData([]);
     }
-  }, [pendingRequestsWithOffersAndTimeline]);
+  }, [pendingRequestsWithOffersAndTimeline, onboarded]);
 
   const onRequestHandler = (id: string) => {
     setExpandedRequestId(id);
@@ -235,7 +247,11 @@ const FindRequestsContainer: React.FC = () => {
         <RequestDetails>
           <RequestItem
             request={request}
-            handleRequest={handleRequestForAcceptReject}
+            handleRequest={
+              onboarded
+                ? handleRequestForAcceptReject
+                : (action = true) => action && setAuthModalIsVisible(true)
+            }
             loading={setOfferState.loading}
             isCavAndOpenRequest
           />
@@ -253,7 +269,7 @@ const FindRequestsContainer: React.FC = () => {
   if (
     phoneNumber &&
     profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
+    profileState.privilegedInformation.addresses &&
     (!pendingRequestsWithOffersAndTimeline.data ||
       pendingRequestsWithOffersAndTimeline.loading)
   ) {
@@ -333,11 +349,7 @@ const FindRequestsContainer: React.FC = () => {
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
-      {!(
-        phoneNumber &&
-        profileState.privilegedInformation &&
-        profileState.privilegedInformation.address
-      ) && <AuthenticationModal isVisible />}
+      {!onboarded && <AuthenticationModal isVisible={authModalIsVisible} />}
     </>
   );
 };
@@ -366,7 +378,7 @@ const StyledTabPane = styled(TabPane)`
 
 const RequestDetails = styled.div`
   position: fixed;
-  bottom: 64px;
+  bottom: 0px;
   width: 100%;
   background: white;
 `;

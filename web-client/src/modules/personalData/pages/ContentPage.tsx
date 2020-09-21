@@ -61,7 +61,10 @@ const ContentPage = (): ReactElement => {
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: redirectBack || '/' },
+          state: {
+            redirectBack:
+              redirectBack || `${location.pathname}${location.search}`,
+          },
         }}
       />
     );
@@ -71,7 +74,7 @@ const ContentPage = (): ReactElement => {
     profileState &&
     profileState.profile &&
     profileState.profile.displayName &&
-    profileState.privilegedInformation?.address
+    profileState.privilegedInformation?.addresses
   ) {
     if (
       profileState.profile.applicationPreference === ApplicationPreference.pin

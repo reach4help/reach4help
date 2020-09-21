@@ -21,6 +21,7 @@ import { updateUserProfile } from '../ducks/profile/actions';
 import { ApplicationPreference, User } from '../models/users';
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
+import PartiallyProtectedRoute from './routes/ParitallyProtectedRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 const mockProfile = User.factory({
@@ -156,6 +157,12 @@ const MasterPage = (): ReactElement => {
 
       return routeModule.protected ? (
         <ProtectedRoute
+          key={moduleName}
+          path={routeModule.path}
+          component={() => renderLayout(routeModule)}
+        />
+      ) : routeModule.partiallyProtected ? (
+        <PartiallyProtectedRoute
           key={moduleName}
           path={routeModule.path}
           component={() => renderLayout(routeModule)}
