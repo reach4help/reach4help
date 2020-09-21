@@ -18,6 +18,7 @@ import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
+import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
@@ -46,6 +47,10 @@ const NewRequestsContainer: React.FC = () => {
   const [showConfirmationPage, setShowConfirmationPage] = useState<boolean>(
     false,
   );
+
+  const [authModalIsVisible, setAuthModalIsVisible] = useState<boolean>(false);
+
+  const onboarded = useSelector((state: AppState) => state.auth.onboarded);
 
   const phoneNumber = useSelector(
     (state: AppState) => state.auth.user?.phoneNumber,
@@ -114,11 +119,7 @@ const NewRequestsContainer: React.FC = () => {
   }, [newRequestState, dispatch]);
 
   const reviewRequestSubmitHandler = request => {
-    if (
-      profileState.profile &&
-      profileState.userRef &&
-      profileState.privilegedInformation
-    ) {
+    if (onboarded) {
       const title = request.type === DELIVERIES ? request.type : request.other;
 
       dispatch(
@@ -126,13 +127,13 @@ const NewRequestsContainer: React.FC = () => {
           {
             title,
             description: request.description,
-            pinUserRef: profileState.userRef,
+            pinUserRef: profileState.userRef!,
             streetAddress:
               mapAddress ||
               t(
                 'modules.requests.containers.NewRequestsContainer.address_error',
               ),
-            pinUserSnapshot: profileState.profile.toObject() as IUser,
+            pinUserSnapshot: profileState.profile!.toObject() as IUser,
             latLng: new firestore.GeoPoint(
               currentLocation.lat,
               currentLocation.lng,
@@ -143,6 +144,8 @@ const NewRequestsContainer: React.FC = () => {
         ),
       );
       setIsSubmitting(true);
+    } else {
+      setAuthModalIsVisible(true);
     }
   };
 
@@ -277,6 +280,7 @@ const NewRequestsContainer: React.FC = () => {
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
+      {!onboarded && <AuthenticationModal isVisible={authModalIsVisible} />}
     </div>
   );
 };
