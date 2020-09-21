@@ -325,28 +325,28 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
   public static fromFirestore(data: DocumentData): GeneralRequest {
     return new GeneralRequest(
-      data.requestRef.path,
+      (data.requestRef as DocumentReference).path,
       data.userSnapshot,
       data.title,
       data.description,
       {
-        latitude: data.latLng.latitude,
-        longitude: data.latLng.longitude,
+        latitude: (data.latLng as GeoPoint).latitude,
+        longitude: (data.latLng as GeoPoint).longitude,
       },
-      data.userRef.path,
+      (data.userRef as DocumentReference).path,
       data.status,
       data.streetAddress,
       data.participants,
       data.rejected,
       data.offerCount,
       data.rejectionCount,
-      data.firstOfferMade.toDate(),
-      data.lastOfferMade.toDate(),
-      data.firstRejectionMade.toDate(),
-      data.lastRejectionMade.toDate(),
+      (data.firstOfferMade as Timestamp).toDate(),
+      (data.lastOfferMade as Timestamp).toDate(),
+      (data.firstRejectionMade as Timestamp).toDate(),
+      (data.lastRejectionMade as Timestamp).toDate(),
       data.seenBy,
-      data.createdAt.toDate(),
-      data.updatedAt.toDate(),
+      (data.createdAt as Timestamp).toDate(),
+      (data.updatedAt as Timestamp).toDate(),
     );
   }
 
