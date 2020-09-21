@@ -33,14 +33,8 @@ export const getCoordsFromProfile = (profileState: ProfileState) => {
 export const getStreetAddressFromProfile = (profileState: ProfileState) => {
   if (profileState?.privilegedInformation?.addresses) {
     const { addresses } = profileState.privilegedInformation;
-    const {
-      address1,
-      address2,
-      postalCode,
-      city,
-      state,
-      country,
-    } = addresses.default;
+    const { address1, address2, postalCode, city, state, country } =
+      addresses.default || addresses[Object.keys(addresses || {})[0]] || {};
     const undefinedSafe = value => value || '';
     const formattedAddress = `${undefinedSafe(address1)} ${undefinedSafe(
       address2,

@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 
+import { AddressChooser } from '../../../../components/AddressChooser/AddressChooser';
 import { SettingsListButton } from '../../../../components/Buttons';
 import { H4Font } from '../../../../components/figma';
 import {
@@ -12,11 +13,9 @@ import {
   SettingsListCollapsePanel,
   SettingsListWrapper,
 } from '../../../../components/figma/BlockStyles';
-import { ChangeAddresses } from '../ChangeAddresses/ChangeAddresses';
 import { ChangeName } from '../ChangeName/ChangeName';
 
 const SettingsList: React.FC<SettingsProps> = ({
-  changeAddressesSubmitHandler,
   changeNameSubmitHandler,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   deleteAccountClickHandler,
@@ -73,6 +72,15 @@ const SettingsList: React.FC<SettingsProps> = ({
       ? ChangeAddressesExpandedHeader()
       : ChangeAddressesHeader();
 
+  const forceCollapse = (key: number) => {
+    const index = collapseActiveKey.indexOf(`${key}`);
+    const newCollapseKey = [...collapseActiveKey];
+    if (index > -1) {
+      newCollapseKey.splice(index, 1);
+    }
+    setCollapseActiveKey(newCollapseKey);
+  };
+
   return (
     <SettingsListWrapper>
       <Row gutter={[0, 12]}>
@@ -124,9 +132,12 @@ const SettingsList: React.FC<SettingsProps> = ({
               key={2}
               forceRender
             >
-              <ChangeAddresses
-                changeAddressesHandler={changeAddressesSubmitHandler}
-                cancelHandler={() => setCollapseActiveKey([])}
+              <AddressChooser
+                actionHandler={() => forceCollapse(2)}
+                actionType="submit"
+                isSettings
+                cancelHandler={() => forceCollapse(2)}
+                cancelType="cancel"
               />
             </SettingsListCollapsePanel>
           </Collapse>
@@ -139,7 +150,6 @@ const SettingsList: React.FC<SettingsProps> = ({
 interface SettingsProps {
   changeNameSubmitHandler: Function;
   deleteAccountClickHandler: Function;
-  changeAddressesSubmitHandler: Function;
   initialValues: {
     displayName: string | null;
     username: string | null;

@@ -182,7 +182,10 @@
         "nameOfAddress": "Name of Address",
         "address": "Address",
         "cancel": "Cancel",
-        "submit": "Save"
+        "submit": "Save",
+        "next": "Next",
+        "back": "Back",
+        "saveChangesCheckbox": "Save Address"
       }
     },
     "phoneNumber": {
