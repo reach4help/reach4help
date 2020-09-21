@@ -5,7 +5,7 @@
   </a>
 </h1>
 
-[![Reach4Help released under the MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Reach4Help released under the GPL license](https://img.shields.io/badge/license-GPL-blue.svg)](./LICENSE)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -14,15 +14,29 @@
 
 ## Who We Are
 
-[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative developing technologies to bridge the gap between people in need and volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond. 
+[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond. 
 
 ## How _You_ Can Contribute
 
-We're currently looking for help on the project in a number of fields. If you’d like to help, please take a look at the **[Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps)**. You can find more details on how to prepare the environment and the guidelines on how to contribute to the repo by looking at the [instructions for contributing](CONTRIBUTING.md). We'd be honored to have you join our humble abode!
+We're currently looking for help on the project in several fields, especially in React development, design and marketing. If you’d like to help, please take a look at the **[Onboarding Steps](https://github.com/reach4help/reach4help/wiki#onboading-steps)**. You can find more details on how to prepare the environment and the guidelines on how to contribute to the repo by looking at the [instructions for contributing](CONTRIBUTING.md). We'd be honored to have you join our humble abode!
+
+# Projects
+
+## [Reach4Help App](web-client)
+
+Our main app connecting people in need with volunteers who can help. We’re working with volunteer organizations across the world, amassing over 150 volunteers in 13 countries worldwide, providing support for charity events, food banks, and day-to-day delivery services. Our [backend layer](functions) manages all the data for our [main app](/web-client/src/firebase/index.ts). **Check it out live [here](https://app.reach4help.org/)!**
+
+## [Global Mutual Aid Map](map)
+
+A global interactive map visualizing over 10,000 volunteer organizations supporting communities in need around the world! We're looking for help reaching out to more organizations and for developing the map further (especially in optimizing loading all those data points). **Check it out live [here](https://map.reach4help.org/)!**
+
+## [Official Website](site)
+
+Our website highlighting the project and our hardworking team of volunteers. **Check it out live [here](https://reach4help.org/)!** 
 
 # Development
 
-This is our mono-repo, containing all the sub-projects we're working on. If you haven't already, please take a look at out our [instructions for contributing](CONTRIBUTING.md) before proceeding. **We also expect everyone to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Thank you!**
+This is our mono-repo, containing all the sub-projects we're working on. If you haven't already, please take a look at our [instructions for contributing](CONTRIBUTING.md) before proceeding. **We also expect everyone to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Thank you!**
 
 ## Preparing the repository
 
@@ -42,24 +56,6 @@ root of this repository.
 At this point running `yarn add` or `yarn install` in any of the sub directories
 should update the appropriate `package.json`,
 and update the `yarn.lock` in the root of the repo.
-
-## Sub Projects
-
-### [Reach4Help App](web-client)
-
-This is our main app connecting people in need with volunteers who can help. **Check it out live [here](https://app.reach4help.org/)!**
-
-### [Global Interactive Mutual Aid Map](map)
-
-This is an interactive gloabl map visualizing over 7000 volunteer organizations supporting communities in need around the world! We're looking for help reaching out to more organizations and for developing the map further (optimizing loading all those datapoints). **Check it out live [here](https://app.reach4help.org/)!**
-
-### [Website](site)
-
-Our website highlighting the project and those working on it. **Check it out live [here](https://reach4help.org/)!** 
-
-### [Backend](functions)
-
-This is the layer that manages our data for the [main app](/web-client/src/firebase/index.ts).
 
 ## Contributors ✨
 
