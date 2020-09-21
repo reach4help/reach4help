@@ -33,7 +33,7 @@ export interface IGeneralRequest extends IUnauthenticatedRequest {
   lastOfferMade: Date | null;
   firstRejectionMade: Date | null;
   lastRejectionMade: Date | null;
-  seenBy: Record<string,boolean>;
+  seenBy: Record<string, boolean>;
 }
 
 export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRequest {
@@ -54,7 +54,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     lastOfferMade: Date | null = null,
     firstRejectionMade: Date | null = null,
     lastRejectionMade: Date | null = null,
-    seenBy: Record<string,boolean> = {},
+    seenBy: Record<string, boolean> = {},
     createdAt?: Date,
     updatedAt?: Date,
   ) {
@@ -231,13 +231,13 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
   }
 
   @IsObject()
-  private _seenBy: Record<string,boolean>;
+  private _seenBy: Record<string, boolean>;
 
-  get seenBy(): Record<string,boolean> {
+  get seenBy(): Record<string, boolean> {
     return this._seenBy;
   }
 
-  set seenBy(seenBy: Record<string,boolean>) {
+  set seenBy(seenBy: Record<string, boolean>) {
     this._seenBy = seenBy;
   }
 
@@ -267,8 +267,8 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     let firstRejectionMade: Date | null = null;
     let lastRejectionMade: Date | null = null;
     const seenBy = {
-      [data.pinUserRef.id]: true
-    }
+      [data.pinUserRef.id]: true,
+    };
 
     for (const doc of offersData.docs) {
       const offer = Offer.factory(doc.data() as IOffer);
@@ -325,28 +325,28 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
   public static fromFirestore(data: DocumentData): GeneralRequest {
     return new GeneralRequest(
-      (data.requestRef as DocumentReference).path,
+      data.requestRef.path,
       data.userSnapshot,
       data.title,
       data.description,
       {
-        latitude: (data.latLng as GeoPoint).latitude,
-        longitude: (data.latLng as GeoPoint).longitude,
+        latitude: data.latLng.latitude,
+        longitude: data.latLng.longitude,
       },
-      (data.userRef as DocumentReference).path,
+      data.userRef.path,
       data.status,
       data.streetAddress,
       data.participants,
       data.rejected,
       data.offerCount,
       data.rejectionCount,
-      (data.firstOfferMade as Timestamp).toDate(),
-      (data.lastOfferMade as Timestamp).toDate(),
-      (data.firstRejectionMade as Timestamp).toDate(),
-      (data.lastRejectionMade as Timestamp).toDate(),
+      data.firstOfferMade.toDate(),
+      data.lastOfferMade.toDate(),
+      data.firstRejectionMade.toDate(),
+      data.lastRejectionMade.toDate(),
       data.seenBy,
-      (data.createdAt as Timestamp).toDate(),
-      (data.updatedAt as Timestamp).toDate(),
+      data.createdAt.toDate(),
+      data.updatedAt.toDate(),
     );
   }
 
