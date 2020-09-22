@@ -33,7 +33,7 @@ export interface IGeneralRequest extends IUnauthenticatedRequest {
   lastOfferMade: Date | null;
   firstRejectionMade: Date | null;
   lastRejectionMade: Date | null;
-  seenBy: Record<string, boolean>;
+  seenBy: string[];
 }
 
 export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRequest {
@@ -54,7 +54,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     lastOfferMade: Date | null = null,
     firstRejectionMade: Date | null = null,
     lastRejectionMade: Date | null = null,
-    seenBy: Record<string, boolean> = {},
+    seenBy: string[] = [],
     createdAt?: Date,
     updatedAt?: Date,
   ) {
@@ -231,13 +231,13 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
   }
 
   @IsObject()
-  private _seenBy: Record<string, boolean>;
+  private _seenBy: string[];
 
-  get seenBy(): Record<string, boolean> {
+  get seenBy(): string[] {
     return this._seenBy;
   }
 
-  set seenBy(seenBy: Record<string, boolean>) {
+  set seenBy(seenBy: string[]) {
     this._seenBy = seenBy;
   }
 
