@@ -380,6 +380,13 @@
               "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
             }
           },
+          "PostsContainer": {
+            "PostsContainer": {
+              "ask_tab_label": "View Requests for Help",
+              "offer_tab_label": "View Your Offers",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "Accepted"
           },

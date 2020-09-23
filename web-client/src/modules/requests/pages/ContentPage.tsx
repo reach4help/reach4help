@@ -34,9 +34,7 @@ const OngoingRequestsRoute = lazy(() =>
 const OpenRequestsRoute = lazy(() =>
   import('./routes/OpenRequestsRoute/OpenRequestsRoute'),
 );
-const PostsRoute = lazy(() =>
-  import('./routes/PostsRoute/PostsRoute'),
-);
+const PostsRoute = lazy(() => import('./routes/PostsRoute/PostsRoute'));
 
 const ContentPage = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
@@ -46,11 +44,7 @@ const ContentPage = (): ReactElement => (
         component={OpenRequestsRoute}
         exact
       />
-      <Route
-        path={PostsLocation.path}
-        component={PostsRoute}
-        exact
-      />
+      <Route path={PostsLocation.path} component={PostsRoute} exact />
       <Route
         path={AcceptedRequestsLocation.path}
         component={AcceptedRequestsRoute}

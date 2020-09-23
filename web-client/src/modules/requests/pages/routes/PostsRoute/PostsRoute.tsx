@@ -1,16 +1,11 @@
 import React, { ReactElement } from 'react';
-import { useParams } from 'react-router-dom';
-import { OfferPosts } from 'src/modules/requests/containers/OfferPostsContainer';
+/* ?? see note below import { useParams } from 'react-router-dom'; */
+import { PostsContainer } from 'src/modules/requests/containers/PostsContainer/PostsContainer';
 
-import { AskPosts } from '../../../containers/AskPostsContainer';
-
-const RequestsRoute: React.FC = (): ReactElement => {
+const PostsRoute: React.FC = (): ReactElement => (
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const { type } = useParams() as Record<string, string>;
-  if (type === 'ask') {
-    return <AskPosts />;
-  }
-  return <OfferPosts />;
-};
+  /* ?? maybe this will be needed - ask or offer - const { type } = useParams() as Record<string, string>; */
+  <PostsContainer />
+);
 
-export default RequestsRoute;
+export default PostsRoute;

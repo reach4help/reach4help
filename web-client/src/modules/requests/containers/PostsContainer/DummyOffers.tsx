@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
 
-export const OfferPosts: React.FC = (): ReactElement => (
+export const DummyOffers: React.FC = (): ReactElement => (
   <span>Offer Posts</span>
 );
