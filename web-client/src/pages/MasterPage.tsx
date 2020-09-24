@@ -36,6 +36,7 @@ const MasterPage = (): ReactElement => {
     const title = 'Reach4Help';
 
     switch (path) {
+      case '/create':
       case '/login':
       case '/phone':
       case '/requests':
@@ -154,7 +155,7 @@ const MasterPage = (): ReactElement => {
   const renderModules = () =>
     Object.keys(modules).map(moduleName => {
       const routeModule = modules[moduleName];
-
+      // test components here
       return routeModule.protected ? (
         <ProtectedRoute
           key={moduleName}

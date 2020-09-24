@@ -10,7 +10,7 @@ import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequ
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
+import { NewRequestsLocation } from '../../modules/create/pages/routes/NewRequestsRoute/constants';
 
 const BottomNavbar: React.FC<BottomNavbarProps> = ({
   openMenu,

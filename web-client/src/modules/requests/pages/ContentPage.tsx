@@ -23,7 +23,7 @@ const FinishedRequestsRoute = lazy(() =>
   import('./routes/FinishedRequestsRoute/FinishedRequestsRoute'),
 );
 const NewRequestsRoute = lazy(() =>
-  import('./routes/NewRequestsRoute/NewRequestsRoute'),
+  import('../../create/pages/routes/NewRequestsRoute/NewRequestsRoute'),
 );
 const OngoingRequestsRoute = lazy(() =>
   import('./routes/OngoingRequestsRoute/OngoingRequestsRoute'),
