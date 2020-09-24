@@ -73,7 +73,7 @@ const NewRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  // *** new state to be implemented later on *** 
+  // *** new state to be implemented later on ***
 
   // const [requestDetails, setRequestDetails] = useState<RequestDetails>({
   //   title: '',
