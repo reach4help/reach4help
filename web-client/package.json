@@ -59,7 +59,7 @@
     "start": "cross-env SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
     "clean": "rm -rf build",
     "build": "cross-env react-app-rewired build",
-    "test": "react-app-rewired test --watchAll --env=jest-environment-jsdom-sixteen --setupFiles",
+    "test": "react-app-rewired test --watchAll --env=jest-environment-jsdom-sixteen",
     "test:ci": "cross-env CI=true react-app-rewired test --env=jest-environment-jsdom-sixteen",
     "eject": "react-app-rewired eject",
     "lint": "eslint . --ext .js,.ts,.tsx && prettier --check \"./src/**/*.{ts,tsx}\"",

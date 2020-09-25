@@ -21,7 +21,7 @@ import Header from '../../components/Header/Header';
 import RequestItem from '../../components/RequestItem/RequestItem';
 import RequestList from '../../components/RequestList/RequestList';
 
-export const DummyAsks: React.FC = () => {
+export const RequestsContainer: React.FC = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -53,34 +53,6 @@ export const DummyAsks: React.FC = () => {
         userRef: profileState.userRef,
       }),
     );
-    // TODO: ?? temporarily commented, should be delted
-    // if (profileState.profile && profileState.profile.applicationPreference) {
-    //     dispatch(
-    //         getOpenRequests({
-    //           userType: profileState.profile.applicationPreference,
-    //           userRef: profileState.userRef,
-    //         }),
-    //       );
-    // }
-    // if (profileState.profile && profileState.profile.applicationPreference) {
-    //   if (
-    //     profileState.profile.applicationPreference === ApplicationPreference.cav
-    //   ) {
-    //     dispatch(
-    //       getAcceptedRequests({
-    //         userType: profileState.profile.applicationPreference,
-    //         userRef: profileState.userRef,
-    //       }),
-    //     );
-    //   } else {
-    //     dispatch(
-    //       getOpenRequests({
-    //         userType: profileState.profile.applicationPreference,
-    //         userRef: profileState.userRef,
-    //       }),
-    //     );
-    //   }
-    // }
   }, [profileState, dispatch]);
 
   const handleRequest: Function = id =>

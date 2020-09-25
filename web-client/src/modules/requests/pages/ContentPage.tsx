@@ -1,5 +1,3 @@
-/* NOTE: OpenRequests copied to Posts */
-
 import React, { lazy, ReactElement, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
@@ -11,7 +9,7 @@ import { FinishedRequestsLocation } from './routes/FinishedRequestsRoute/constan
 import { NewRequestsLocation } from './routes/NewRequestsRoute/constants';
 import { OngoingRequestsLocation } from './routes/OngoingRequestsRoute/constants';
 import { OpenRequestsLocation } from './routes/OpenRequestsRoute/constants';
-import { PostsLocation } from './routes/PostsRoute/constants';
+import { MainLocation } from './routes/PostsRoute/constants';
 
 const AcceptedRequestsRoute = lazy(() =>
   import('./routes/AcceptedRequestsRoute/AcceptedRequestsRoute'),
@@ -34,7 +32,8 @@ const OngoingRequestsRoute = lazy(() =>
 const OpenRequestsRoute = lazy(() =>
   import('./routes/OpenRequestsRoute/OpenRequestsRoute'),
 );
-const PostsRoute = lazy(() => import('./routes/PostsRoute/PostsRoute'));
+/* ?? refactoring here - discuss */
+const MainContainer = lazy(() => import('../containers/MainContainer/MainContainer'));
 
 const ContentPage = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
@@ -44,7 +43,7 @@ const ContentPage = (): ReactElement => (
         component={OpenRequestsRoute}
         exact
       />
-      <Route path={PostsLocation.path} component={PostsRoute} exact />
+      <Route path={MainLocation.path} component={MainContainer} exact />
       <Route
         path={AcceptedRequestsLocation.path}
         component={AcceptedRequestsRoute}
