@@ -33,7 +33,9 @@ const OpenRequestsRoute = lazy(() =>
   import('./routes/OpenRequestsRoute/OpenRequestsRoute'),
 );
 /* ?? refactoring here - discuss */
-const MainContainer = lazy(() => import('../containers/MainContainer/MainContainer'));
+const MainContainer = lazy(() =>
+  import('../containers/MainContainer/MainContainer'),
+);
 
 const ContentPage = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>

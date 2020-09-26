@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-// ?? complex code to use with toUrl 
+// ?? complex code to use with toUrl
 // import Location from 'react-app-location';
 // import * as Yup from 'yup';
 // const LocationObj = new Location(MainLocation, {MainLocation, type: Yup.string()});
 // history.push(LocationObj.toUrl({type: activeKey}))
 
 import { MainLocation } from '../../pages/routes/PostsRoute/constants';
-import { OffersContainer } from '../OfferedRequestsContainer/OfferedRequestsContainer';
-import { RequestsContainer } from '../RequestedRequestsContainer/RequestedRequestsContainer';
+import { OffersContainer } from '../CavRequestsContainer/CavRequestsContainer';
+import { RequestsContainer } from '../PinRequestsContainer/PinRequestsContainer';
 
 const { TabPane } = Tabs;
 
