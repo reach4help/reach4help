@@ -714,10 +714,10 @@ class AddInstructions extends React.Component<Props, State> {
             // Remove array completely if empty
             if (arr.length === 0) {
               // eslint-disable-next-line no-param-reassign
-              delete info.contact[type][method];
+              delete (info.contact[type] as ContactDetails)[method];
             } else {
               // eslint-disable-next-line no-param-reassign
-              info.contact[type][method] = arr;
+              (info.contact[type] as ContactDetails)[method] = arr;
             }
           }
         });
