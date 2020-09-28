@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
 
-export const OfferedRequestsContainer: React.FC = (): ReactElement => (
+export const OffersContainer: React.FC = (): ReactElement => (
   <span>Offered Requests</span>
 );

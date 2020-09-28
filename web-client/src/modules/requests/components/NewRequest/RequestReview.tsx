@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import styled from 'styled-components';
 
-import TitleWithOrangeUnderline from '../../../components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
+import TitleWithOrangeUnderline from '../../../../components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 
 const RequestReview: React.FC<RequestReviewProps> = ({
   isSubmitting,

@@ -22,10 +22,12 @@ import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
-import NewRequest from '../components/NewRequest';
-import RequestConfirmation from '../components/RequestConfirmation';
-import RequestReview, { RequestInput } from '../components/RequestReview';
-import { TabbedRequestsLocation } from '../constants';
+import NewRequest from '../../components/NewRequest/NewRequest';
+import RequestConfirmation from '../../components/NewRequest/RequestConfirmation';
+import RequestReview, {
+  RequestInput,
+} from '../../components/NewRequest/RequestReview';
+import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
@@ -225,7 +227,7 @@ const NewRequestsContainer: React.FC = () => {
             setShowConfirmationPage(false);
             // because I could observe race conditions in cloud function
             setTimeout(() => {
-              history.push(TabbedRequestsLocation.path);
+              history.push(OpenRequestsLocation.path);
             }, 150);
             dispatch(resetSetRequestState());
           }}

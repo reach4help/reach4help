@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { COLORS } from '../../../theme/colors';
+import { COLORS } from '../../../../theme/colors';
 
 const Header: React.FC<HeaderProps> = ({
   requestsType,

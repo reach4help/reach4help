@@ -6,7 +6,7 @@ import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import styled from 'styled-components';
 
-import { COLORS } from '../../../theme/colors';
+import { COLORS } from '../../../../theme/colors';
 
 const { Text } = Typography;
 
