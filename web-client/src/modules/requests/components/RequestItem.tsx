@@ -6,10 +6,11 @@ import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
 
-import { COLORS } from '../../../../theme/colors';
-import avgRating from '../../assets/pinAverageRating.svg';
-import defaultUserPic from '../../assets/role_pin.png';
-import warningSign from '../../assets/warningExclamation.svg';
+import { COLORS } from '../../../theme/colors';
+// import avgRating from '../assets/pinAverageRating.svg';
+import avgRating from '../assets/pinAverageRating.svg';
+import defaultUserPic from '../assets/role_pin.png';
+import warningSign from '../assets/warningExclamation.svg';
 
 const RequestItem: React.FC<RequestItemProps> = ({
   request,

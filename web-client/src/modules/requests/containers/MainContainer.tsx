@@ -10,9 +10,9 @@ import styled from 'styled-components';
 // const LocationObj = new Location(MainLocation, {MainLocation, type: Yup.string()});
 // history.push(LocationObj.toUrl({type: activeKey}))
 
-import { MainLocation } from '../../pages/routes/PostsRoute/constants';
-import { OffersContainer } from '../CavRequestsContainer/CavRequestsContainer';
-import { RequestsContainer } from '../PinRequestsContainer/PinRequestsContainer';
+import { TabbedRequestsLocation } from '../constants';
+import { OfferedRequestsContainer } from './OfferedRequestsContainer';
+import { RequestedRequestsContainer } from './RequestedRequestsContainer';
 
 const { TabPane } = Tabs;
 
@@ -27,7 +27,7 @@ const MainContainer: React.FC = (): ReactElement => {
   const { t } = useTranslation();
   const history = useHistory();
   const onChange = (activeKey: string) => {
-    history.push(getUrlForKey(MainLocation, activeKey));
+    history.push(getUrlForKey(TabbedRequestsLocation, activeKey));
   };
   return (
     <>
@@ -38,7 +38,7 @@ const MainContainer: React.FC = (): ReactElement => {
           )}
           key="offer"
         >
-          <OffersContainer />
+          <OfferedRequestsContainer />
         </StyledTabPane>
         <StyledTabPane
           tab={t(
@@ -46,7 +46,7 @@ const MainContainer: React.FC = (): ReactElement => {
           )}
           key="request"
         >
-          <RequestsContainer />
+          <RequestedRequestsContainer />
         </StyledTabPane>
       </StyledTabs>
     </>

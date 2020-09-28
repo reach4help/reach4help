@@ -31,8 +31,8 @@ import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import RequestItem from '../../components/RequestItem/RequestItem';
-import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
+import RequestItem from '../components/RequestItem';
+import { TabbedRequestsLocation } from '../constants';
 
 const { TabPane } = Tabs;
 
@@ -120,7 +120,7 @@ const FindRequestsContainer: React.FC = () => {
         }, 100);
       } else if (setOfferState.success && setOfferState.success === 1) {
         setTimeout(() => {
-          history.push(OpenRequestsLocation.path);
+          history.push(TabbedRequestsLocation.path);
         }, 150);
         dispatch(resetSetRequestState());
         dispatch(resetSetOfferState());

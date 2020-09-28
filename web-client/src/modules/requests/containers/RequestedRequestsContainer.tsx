@@ -12,16 +12,16 @@ import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
 
-import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from '../../../../components/Modals/OneTimeModal';
-import Header from '../../components/Header/Header';
-import RequestItem from '../../components/RequestItem/RequestItem';
-import RequestList from '../../components/RequestList/RequestList';
+} from '../../../components/Modals/OneTimeModal';
+import Header from '../components/Header';
+import RequestItem from '../components/RequestItem';
+import RequestList from '../components/RequestList';
 
-export const RequestsContainer: React.FC = () => {
+export const RequestedRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();

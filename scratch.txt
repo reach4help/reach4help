@@ -1,0 +1,22 @@
+data 
+    RequestsData
+        getRequestedRequests return a list of my requests of type Requests
+        getOfferedRequests
+        getMapRequests
+
+somewhere
+    RequestsClass
+      getRequests (type)
+        if not already fetched or stale, it would set requests = getRequestedRequests
+        loop through all of those and only return the ones that are of status type
+      getRequestsWithUnansweredOffers
+         
+
+<InstanstSearch indexName=>
+    <RefinementList  >
+        <Hits component  />
+    </RefinementList>
+</InstanstSearch>
+
+
+
