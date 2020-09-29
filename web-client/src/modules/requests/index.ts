@@ -5,7 +5,7 @@ import { ApplicationPreference } from 'src/models/users';
 import { MenuItem, Module } from 'src/types/module';
 
 import { AcceptedRequestsLocation, FindRequestsLocation, OpenRequestsLocation } from './constants';
-import TabbedRequestsPage from './containers/TabbedRequestsPage';
+import RequestsRoutingPage from './containers/RequestsRoutingPage';
 
 export const menuLinks: Array<MenuItem> = [
   {
@@ -66,6 +66,6 @@ const requestsModule: Module = {
       },
     ] as MenuItem[];
   },
-  component: TabbedRequestsPage,
+  component: RequestsRoutingPage,
 };
 export default requestsModule;
