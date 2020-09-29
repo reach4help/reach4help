@@ -5,7 +5,7 @@ import { ApplicationPreference } from 'src/models/users';
 import { MenuItem, Module } from 'src/types/module';
 
 import { AcceptedRequestsLocation, FindRequestsLocation, OpenRequestsLocation } from './constants';
-import ContentPage from './pages/ContentPage';
+import ContentPage from './containers/TabbedRequestsPage';
 
 export const menuLinks: Array<MenuItem> = [
   {

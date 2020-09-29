@@ -5,23 +5,23 @@ import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponen
 import { AcceptedRequestsLocation, FindRequestsLocation, MainLocation, NewRequestsLocation, OpenRequestsLocation } from '../constants';
 
 const AcceptedRequestsContainer = lazy(() =>
-  import('../containers/AcceptedRequestsContainer'),
+  import('./AcceptedRequestsContainer'),
 );
 
 const FindRequestsContainer = lazy(() =>
-  import('../containers/FindRequestsContainer'),
+  import('./FindRequestsContainer'),
 );
 
 const NewRequestsContainer = lazy(() =>
-  import('../containers/NewRequestsContainer'),
+  import('./NewRequestsContainer'),
 );
 
 const OpenRequestsContainer = lazy(() =>
-  import('../containers/OpenRequestsContainer'),
+  import('./OpenRequestsContainer'),
 );
 /* ?? refactoring here - discuss */
 const MainContainer = lazy(() =>
-  import('../containers/MainContainer'),
+  import('./MainContainer'),
 );
 
 const ContentPage = (): ReactElement => (
