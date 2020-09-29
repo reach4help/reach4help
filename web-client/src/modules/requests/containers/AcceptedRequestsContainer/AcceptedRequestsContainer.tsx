@@ -16,9 +16,9 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from '../../../../components/Modals/OneTimeModal';
-import AcceptedRequestItem from '../../components/AcceptedRequestItem/AcceptedRequestItem';
-import Header from '../../components/Header/Header';
-import RequestList from '../../components/RequestList/RequestList';
+import AcceptedRequestItem from '../../components/AcceptedRequestItem';
+import Header from '../../components/Header';
+import RequestList from '../../components/RequestList';
 
 const OpenRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
