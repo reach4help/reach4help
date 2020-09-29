@@ -9,7 +9,7 @@ import {
   FindRequestsLocation,
   OpenRequestsLocation,
 } from './constants';
-import RequestsRoutingPage from './containers/RequestsRoutingPage';
+import RequestsRoutingPage from './RequestsRoutingPage';
 
 export const menuLinks: Array<MenuItem> = [
   {
