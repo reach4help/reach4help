@@ -11,8 +11,8 @@ import styled from 'styled-components';
 // history.push(LocationObj.toUrl({type: activeKey}))
 
 import { TabbedRequestsLocation } from '../constants';
-import { OffersContainer } from './CavRequestsContainer';
-import { RequestsContainer } from './PinRequestsContainer';
+import { OfferedRequestsContainer } from './OfferedRequestsContainer';
+import { RequestedRequestsContainer } from './RequestedRequestsContainer';
 
 const { TabPane } = Tabs;
 
@@ -39,7 +39,7 @@ const TabbedRequestsContainer: React.FC = (): ReactElement => {
           )}
           key="offer"
         >
-          <OffersContainer />
+          <OfferedRequestsContainer />
         </StyledTabPane>
         <StyledTabPane
           tab={t(
@@ -47,7 +47,7 @@ const TabbedRequestsContainer: React.FC = (): ReactElement => {
           )}
           key="request"
         >
-          <RequestsContainer />
+          <RequestedRequestsContainer />
         </StyledTabPane>
       </StyledTabs>
     </>
