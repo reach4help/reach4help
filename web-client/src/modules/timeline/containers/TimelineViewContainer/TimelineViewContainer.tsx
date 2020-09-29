@@ -21,8 +21,6 @@ import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
-import { ArchivedRequestsLocation } from 'src/modules/requests/pages/routes/ArchivedRequestsRoute/constants';
-import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
@@ -120,12 +118,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
-      if (shouldRedirectToFinished) {
-        history.push(FinishedRequestsLocation.path);
-      }
-      if (shouldRedirectToArchived) {
-        history.push(ArchivedRequestsLocation.path);
-      }
+      // ?? need to change this logic if (shouldRedirectToFinished) {
+      //   history.push(FinishedRequestsLocation.path);
+      // }
+      // if (shouldRedirectToArchived) {
+      //   history.push(ArchivedRequestsLocation.path);
+      // }
     }
   }, [
     requestsState.setAction,
