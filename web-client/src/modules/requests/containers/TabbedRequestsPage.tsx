@@ -24,7 +24,7 @@ const MainContainer = lazy(() =>
   import('./MainContainer'),
 );
 
-const ContentPage = (): ReactElement => (
+const TabbedRequestsPage = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
       <Route
@@ -52,4 +52,4 @@ const ContentPage = (): ReactElement => (
   </Suspense>
 );
 
-export default ContentPage;
+export default TabbedRequestsPage;
