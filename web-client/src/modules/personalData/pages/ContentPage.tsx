@@ -6,8 +6,7 @@ import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
-import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
-import { NewRequestsLocation } from 'src/modules/requests/pages/routes/NewRequestsRoute/constants';
+import { FindRequestsLocation, NewRequestsLocation } from 'src/modules/requests/constants';
 import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 

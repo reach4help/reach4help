@@ -2,26 +2,22 @@ import React, { lazy, ReactElement, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
-import { AcceptedRequestsLocation } from './routes/AcceptedRequestsRoute/constants';
-import { FindRequestsLocation } from './routes/FindRequestsRoute/constants';
-import { NewRequestsLocation } from './routes/NewRequestsRoute/constants';
-import { OpenRequestsLocation } from './routes/OpenRequestsRoute/constants';
-import { MainLocation } from './routes/PostsRoute/constants';
+import { AcceptedRequestsLocation, FindRequestsLocation, MainLocation, NewRequestsLocation, OpenRequestsLocation } from '../constants';
 
-const AcceptedRequestsRoute = lazy(() =>
-  import('./routes/AcceptedRequestsRoute/AcceptedRequestsRoute'),
+const AcceptedRequestsContainer = lazy(() =>
+  import('../containers/AcceptedRequestsContainer'),
 );
 
-const FindRequestsRoute = lazy(() =>
-  import('./routes/FindRequestsRoute/FindRequestsRoute'),
+const FindRequestsContainer = lazy(() =>
+  import('../containers/FindRequestsContainer'),
 );
 
-const NewRequestsRoute = lazy(() =>
-  import('./routes/NewRequestsRoute/NewRequestsRoute'),
+const NewRequestsContainer = lazy(() =>
+  import('../containers/NewRequestsContainer'),
 );
 
-const OpenRequestsRoute = lazy(() =>
-  import('./routes/OpenRequestsRoute/OpenRequestsRoute'),
+const OpenRequestsContainer = lazy(() =>
+  import('../containers/OpenRequestsContainer'),
 );
 /* ?? refactoring here - discuss */
 const MainContainer = lazy(() =>
@@ -33,23 +29,23 @@ const ContentPage = (): ReactElement => (
     <Switch>
       <Route
         path={OpenRequestsLocation.path}
-        component={OpenRequestsRoute}
+        component={OpenRequestsContainer}
         exact
       />
       <Route path={MainLocation.path} component={MainContainer} exact />
       <Route
         path={AcceptedRequestsLocation.path}
-        component={AcceptedRequestsRoute}
+        component={AcceptedRequestsContainer}
         exact
       />
       <Route
         path={FindRequestsLocation.path}
-        component={FindRequestsRoute}
+        component={FindRequestsContainer}
         exact
       />
       <Route
         path={NewRequestsLocation.path}
-        component={NewRequestsRoute}
+        component={NewRequestsContainer}
         exact
       />
     </Switch>

@@ -4,10 +4,8 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
 import { MenuItem, Module } from 'src/types/module';
 
+import { AcceptedRequestsLocation, FindRequestsLocation, OpenRequestsLocation } from './constants';
 import ContentPage from './pages/ContentPage';
-import { AcceptedRequestsLocation } from './pages/routes/AcceptedRequestsRoute/constants';
-import { FindRequestsLocation } from './pages/routes/FindRequestsRoute/constants';
-import { OpenRequestsLocation } from './pages/routes/OpenRequestsRoute/constants';
 
 export const menuLinks: Array<MenuItem> = [
   {

@@ -13,7 +13,7 @@ import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { observeOffers } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { NewRequestsLocation } from 'src/modules/requests/pages/routes/NewRequestsRoute/constants';
+import { NewRequestsLocation } from 'src/modules/requests/constants';
 import { Module } from 'src/types/module';
 
 import { AuthState } from '../ducks/auth/types';

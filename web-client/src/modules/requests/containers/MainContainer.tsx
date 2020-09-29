@@ -10,7 +10,7 @@ import styled from 'styled-components';
 // const LocationObj = new Location(MainLocation, {MainLocation, type: Yup.string()});
 // history.push(LocationObj.toUrl({type: activeKey}))
 
-import { MainLocation } from '../pages/routes/PostsRoute/constants';
+import { MainLocation } from '../constants';
 import { OffersContainer } from './CavRequestsContainer';
 import { RequestsContainer } from './PinRequestsContainer';
 

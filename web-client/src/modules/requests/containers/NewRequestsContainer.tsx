@@ -27,7 +27,7 @@ import RequestConfirmation from '../components/RequestConfirmation';
 import RequestReview, {
   RequestInput,
 } from '../components/RequestReview';
-import { OpenRequestsLocation } from '../pages/routes/OpenRequestsRoute/constants';
+import { OpenRequestsLocation } from '../constants';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
