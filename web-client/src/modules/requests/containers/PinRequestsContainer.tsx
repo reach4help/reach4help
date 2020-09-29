@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getAcceptedRequests,
+  //   ?? temporarily commented out, should be deleted getAcceptedRequests,
   getOpenRequests,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
@@ -12,16 +12,16 @@ import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
 
-import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from '../../../../components/Modals/OneTimeModal';
-import Header from '../../components/Header';
-import RequestItem from '../../components/RequestItem';
-import RequestList from '../../components/RequestList';
+} from '../../../components/Modals/OneTimeModal';
+import Header from '../components/Header';
+import RequestItem from '../components/RequestItem';
+import RequestList from '../components/RequestList';
 
-const OpenRequestsContainer: React.FC = () => {
+export const RequestsContainer: React.FC = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -31,15 +31,15 @@ const OpenRequestsContainer: React.FC = () => {
   );
 
   const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) => {
-      if (
-        profileState.profile?.applicationPreference ===
-        ApplicationPreference.cav
-      ) {
-        return requests.syncAcceptedRequestsState;
-      }
-      return requests.syncOpenRequestsState;
-    },
+    ({ requests }: { requests: RequestState }) =>
+      //  TODO: ?? remove this - old code, keeping just in case
+      // if (
+      //     profileState.profile?.applicationPreference ===
+      //     ApplicationPreference.cav
+      //   ) {
+      //     return requests.syncAcceptedRequestsState;
+      //   }
+      requests.syncOpenRequestsState,
   );
 
   useEffect(() => {
@@ -47,25 +47,12 @@ const OpenRequestsContainer: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (profileState.profile && profileState.profile.applicationPreference) {
-      if (
-        profileState.profile.applicationPreference === ApplicationPreference.cav
-      ) {
-        dispatch(
-          getAcceptedRequests({
-            userType: profileState.profile.applicationPreference,
-            userRef: profileState.userRef,
-          }),
-        );
-      } else {
-        dispatch(
-          getOpenRequests({
-            userType: profileState.profile.applicationPreference,
-            userRef: profileState.userRef,
-          }),
-        );
-      }
-    }
+    dispatch(
+      getOpenRequests({
+        userType: ApplicationPreference.pin,
+        userRef: profileState.userRef,
+      }),
+    );
   }, [profileState, dispatch]);
 
   const handleRequest: Function = id =>
@@ -127,5 +114,3 @@ const OpenRequestsContainer: React.FC = () => {
     </>
   );
 };
-
-export default OpenRequestsContainer;

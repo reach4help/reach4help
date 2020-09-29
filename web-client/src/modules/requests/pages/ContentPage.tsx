@@ -3,38 +3,29 @@ import { Route, Switch } from 'react-router-dom';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import { AcceptedRequestsLocation } from './routes/AcceptedRequestsRoute/constants';
-import { ArchivedRequestsLocation } from './routes/ArchivedRequestsRoute/constants';
 import { FindRequestsLocation } from './routes/FindRequestsRoute/constants';
-import { FinishedRequestsLocation } from './routes/FinishedRequestsRoute/constants';
 import { NewRequestsLocation } from './routes/NewRequestsRoute/constants';
-import { OngoingRequestsLocation } from './routes/OngoingRequestsRoute/constants';
 import { OpenRequestsLocation } from './routes/OpenRequestsRoute/constants';
 import { MainLocation } from './routes/PostsRoute/constants';
 
 const AcceptedRequestsRoute = lazy(() =>
   import('./routes/AcceptedRequestsRoute/AcceptedRequestsRoute'),
 );
-const ArchivedRequestsRoute = lazy(() =>
-  import('./routes/ArchivedRequestsRoute/ArchivedRequestsRoute'),
-);
+
 const FindRequestsRoute = lazy(() =>
   import('./routes/FindRequestsRoute/FindRequestsRoute'),
 );
-const FinishedRequestsRoute = lazy(() =>
-  import('./routes/FinishedRequestsRoute/FinishedRequestsRoute'),
-);
+
 const NewRequestsRoute = lazy(() =>
   import('./routes/NewRequestsRoute/NewRequestsRoute'),
 );
-const OngoingRequestsRoute = lazy(() =>
-  import('./routes/OngoingRequestsRoute/OngoingRequestsRoute'),
-);
+
 const OpenRequestsRoute = lazy(() =>
   import('./routes/OpenRequestsRoute/OpenRequestsRoute'),
 );
 /* ?? refactoring here - discuss */
 const MainContainer = lazy(() =>
-  import('../containers/MainContainer/MainContainer'),
+  import('../containers/MainContainer'),
 );
 
 const ContentPage = (): ReactElement => (
@@ -49,21 +40,6 @@ const ContentPage = (): ReactElement => (
       <Route
         path={AcceptedRequestsLocation.path}
         component={AcceptedRequestsRoute}
-        exact
-      />
-      <Route
-        path={OngoingRequestsLocation.path}
-        component={OngoingRequestsRoute}
-        exact
-      />
-      <Route
-        path={FinishedRequestsLocation.path}
-        component={FinishedRequestsRoute}
-        exact
-      />
-      <Route
-        path={ArchivedRequestsLocation.path}
-        component={ArchivedRequestsRoute}
         exact
       />
       <Route

@@ -22,12 +22,12 @@ import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
-import NewRequest from '../../components/NewRequest';
-import RequestConfirmation from '../../components/RequestConfirmation';
+import NewRequest from '../components/NewRequest';
+import RequestConfirmation from '../components/RequestConfirmation';
 import RequestReview, {
   RequestInput,
-} from '../../components/RequestReview';
-import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
+} from '../components/RequestReview';
+import { OpenRequestsLocation } from '../pages/routes/OpenRequestsRoute/constants';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';

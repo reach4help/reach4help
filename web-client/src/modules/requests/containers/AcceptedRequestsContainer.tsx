@@ -4,34 +4,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getFinishedRequests,
+  getAcceptedRequests,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
-import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
+import { TimelineAcceptedViewLocation } from 'src/modules/timeline/pages/routes/TimelineAcceptedViewRoute/constants';
 
-import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
+import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {
   InformationModal,
   makeLocalStorageKey,
-} from '../../../../components/Modals/OneTimeModal';
-import Header from '../../components/Header';
-import RequestItem from '../../components/RequestItem';
-import RequestList from '../../components/RequestList';
+} from '../../../components/Modals/OneTimeModal';
+import AcceptedRequestItem from '../components/AcceptedRequestItem';
+import Header from '../components/Header';
+import RequestList from '../components/RequestList';
 
-const CompletedRequestsContainer: React.FC = () => {
+const OpenRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
-
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const finishedRequestsWithOffersAndTimeline = useSelector(
+  const acceptedRequestsWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: RequestState }) =>
-      requests.syncFinishedRequestsState,
+      requests.syncAcceptedRequestsState,
   );
 
   useEffect(() => {
@@ -39,13 +38,9 @@ const CompletedRequestsContainer: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (
-      profileState.profile &&
-      profileState.userRef &&
-      profileState.profile.applicationPreference
-    ) {
+    if (profileState.profile && profileState.profile.applicationPreference) {
       dispatch(
-        getFinishedRequests({
+        getAcceptedRequests({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
         }),
@@ -54,17 +49,20 @@ const CompletedRequestsContainer: React.FC = () => {
   }, [profileState, dispatch]);
 
   const handleRequest: Function = id =>
-    history.push(TimelineViewLocation.toUrl({ requestId: id }));
+    history.push(TimelineAcceptedViewLocation.toUrl({ requestId: id }));
 
   if (
-    !finishedRequestsWithOffersAndTimeline.data ||
-    finishedRequestsWithOffersAndTimeline.loading
+    !acceptedRequestsWithOffersAndTimeline.data ||
+    acceptedRequestsWithOffersAndTimeline.loading
   ) {
     return <LoadingWrapper />;
   }
-  const instructions = [t('information_modal.FinishedRequestsContainer.0')];
+  const instructions = [
+    t('information_modal.AcceptedRequestsContainer.0'),
+    t('information_modal.AcceptedRequestsContainer.1'),
+  ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
-    prefix: 'reach4help.modalSeen.FinishedRequestsContainer',
+    prefix: 'reach4help.modalSeen.AcceptedRequestsContainer',
     userid: profileState.uid,
   });
 
@@ -72,28 +70,28 @@ const CompletedRequestsContainer: React.FC = () => {
     <>
       <Header
         requestsType={t(
-          'modules.requests.containers.FinishedRequestsContainer.finished',
+          'modules.requests.containers.AcceptedRequestContainer.accepted',
         )}
         numRequests={
-          Object.keys(finishedRequestsWithOffersAndTimeline.data || {}).length
+          Object.keys(acceptedRequestsWithOffersAndTimeline.data || {}).length
         }
         isCav={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav
         }
+        isAcceptedRequests
       />
       <RequestList
-        requests={finishedRequestsWithOffersAndTimeline.data}
+        requests={acceptedRequestsWithOffersAndTimeline.data}
         loading={
-          finishedRequestsWithOffersAndTimeline &&
-          finishedRequestsWithOffersAndTimeline.loading
+          acceptedRequestsWithOffersAndTimeline &&
+          acceptedRequestsWithOffersAndTimeline.loading
         }
         handleRequest={handleRequest}
-        isCavAndOpenRequest={false}
-        RequestItem={RequestItem}
+        RequestItem={AcceptedRequestItem}
       />
       <InformationModal
-        title={t('information_modal.FinishedRequestsContainer.title')}
+        title={t('information_modal.AcceptedRequestsContainer.title')}
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
@@ -101,4 +99,4 @@ const CompletedRequestsContainer: React.FC = () => {
   );
 };
 
-export default CompletedRequestsContainer;
+export default OpenRequestsContainer;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AcceptedRequestsContainer from '../../../containers/AcceptedRequestsContainer/AcceptedRequestsContainer';
+import AcceptedRequestsContainer from '../../../containers/AcceptedRequestsContainer';
 
 const AcceptedRequestsRoute: React.FC = (): React.ReactElement => (
   <AcceptedRequestsContainer />
