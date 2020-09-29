@@ -2,27 +2,25 @@ import React, { lazy, ReactElement, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
-import { AcceptedRequestsLocation, FindRequestsLocation, TabbedRequestsLocation, NewRequestsLocation, OpenRequestsLocation } from '../constants';
+import {
+  AcceptedRequestsLocation,
+  FindRequestsLocation,
+  NewRequestsLocation,
+  OpenRequestsLocation,
+  TabbedRequestsLocation,
+} from '../constants';
 
 const AcceptedRequestsContainer = lazy(() =>
   import('./AcceptedRequestsContainer'),
 );
 
-const FindRequestsContainer = lazy(() =>
-  import('./FindRequestsContainer'),
-);
+const FindRequestsContainer = lazy(() => import('./FindRequestsContainer'));
 
-const NewRequestsContainer = lazy(() =>
-  import('./NewRequestsContainer'),
-);
+const NewRequestsContainer = lazy(() => import('./NewRequestsContainer'));
 
-const OpenRequestsContainer = lazy(() =>
-  import('./OpenRequestsContainer'),
-);
+const OpenRequestsContainer = lazy(() => import('./OpenRequestsContainer'));
 /* ?? refactoring here - discuss */
-const TabbedRequestsContainer = lazy(() =>
-  import('./TabbedRequestsContainer'),
-);
+const TabbedRequestsContainer = lazy(() => import('./TabbedRequestsContainer'));
 
 const RequestsRoutingPage = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
@@ -32,7 +30,11 @@ const RequestsRoutingPage = (): ReactElement => (
         component={OpenRequestsContainer}
         exact
       />
-      <Route path={TabbedRequestsLocation.path} component={TabbedRequestsContainer} exact />
+      <Route
+        path={TabbedRequestsLocation.path}
+        component={TabbedRequestsContainer}
+        exact
+      />
       <Route
         path={AcceptedRequestsLocation.path}
         component={AcceptedRequestsContainer}

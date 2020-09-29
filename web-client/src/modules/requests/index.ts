@@ -4,7 +4,11 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
 import { MenuItem, Module } from 'src/types/module';
 
-import { AcceptedRequestsLocation, FindRequestsLocation, OpenRequestsLocation } from './constants';
+import {
+  AcceptedRequestsLocation,
+  FindRequestsLocation,
+  OpenRequestsLocation,
+} from './constants';
 import RequestsRoutingPage from './containers/RequestsRoutingPage';
 
 export const menuLinks: Array<MenuItem> = [

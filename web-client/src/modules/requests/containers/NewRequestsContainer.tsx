@@ -24,9 +24,7 @@ import styled from 'styled-components';
 
 import NewRequest from '../components/NewRequest';
 import RequestConfirmation from '../components/RequestConfirmation';
-import RequestReview, {
-  RequestInput,
-} from '../components/RequestReview';
+import RequestReview, { RequestInput } from '../components/RequestReview';
 import { OpenRequestsLocation } from '../constants';
 
 /* TODO:  integrate with translation if safe */

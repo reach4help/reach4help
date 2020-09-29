@@ -7,7 +7,10 @@ import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
 // ?? test what happens here
-import { FindRequestsLocation, NewRequestsLocation } from 'src/modules/requests/constants';
+import {
+  FindRequestsLocation,
+  NewRequestsLocation,
+} from 'src/modules/requests/constants';
 import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
