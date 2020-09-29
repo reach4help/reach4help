@@ -266,9 +266,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     let lastOfferMade: Date | null = null;
     let firstRejectionMade: Date | null = null;
     let lastRejectionMade: Date | null = null;
-    const seenBy = {
-      [data.pinUserRef.id]: true,
-    };
+    const seenBy = [data.pinUserRef.id];
 
     for (const doc of offersData.docs) {
       const offer = Offer.factory(doc.data() as IOffer);
