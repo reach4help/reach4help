@@ -10,7 +10,8 @@ import { H4Font } from '../../../../components/figma';
 import {
   SettingsCollapsePanelHeaderContent,
   SettingsListCollapsePanel,
-  SettingsListItemWrapper,
+  SettingsListDeleteWrapper,
+  SettingsListNameWrapper,
   SettingsListWrapper,
 } from '../../../../components/figma/BlockStyles';
 import { ChangeName } from '../ChangeName/ChangeName';
@@ -49,7 +50,7 @@ const SettingsList: React.FC<SettingsProps> = ({
 
   return (
     <SettingsListWrapper>
-      <SettingsListItemWrapper topSpace="-15px">
+      <SettingsListNameWrapper>
         <Col span="24" lg={12}>
           <Collapse
             onChange={changeNameHandler}
@@ -70,8 +71,8 @@ const SettingsList: React.FC<SettingsProps> = ({
             </SettingsListCollapsePanel>
           </Collapse>
         </Col>
-      </SettingsListItemWrapper>
-      <SettingsListItemWrapper topSpace="40px">
+      </SettingsListNameWrapper>
+      <SettingsListDeleteWrapper>
         <Col span="24" lg={12}>
           <SettingsListButton
             type="default"
@@ -81,7 +82,7 @@ const SettingsList: React.FC<SettingsProps> = ({
             <span>{t('settings.deleteAccount')}</span>
           </SettingsListButton>
         </Col>
-      </SettingsListItemWrapper>
+      </SettingsListDeleteWrapper>
     </SettingsListWrapper>
   );
 };
