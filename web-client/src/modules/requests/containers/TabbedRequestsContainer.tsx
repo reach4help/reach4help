@@ -1,3 +1,4 @@
+// ?? get errors because of imports - why
 import { Tabs } from 'antd';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,13 +7,6 @@ import styled from 'styled-components';
 
 import { ApplicationPreference } from 'src/models/users';
 import { TabbedRequestsLocation } from '../constants';
-
-// ?? complex code to use with toUrl
-// import Location from 'react-app-location';
-// import * as Yup from 'yup';
-// const LocationObj = new Location(TabbedRequestsLocation, {TabbedRequestsLocation, type: Yup.string()});
-// history.push(LocationObj.toUrl({type: activeKey}))
-
 import OfferAndRequestPostsContainer from './OfferAndRequestPostsContainer';
 
 const { TabPane } = Tabs;
