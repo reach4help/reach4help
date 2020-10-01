@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { ApplicationPreference } from 'src/models/users';
+import { TabbedRequestsLocation } from '../constants';
+
 // ?? complex code to use with toUrl
 // import Location from 'react-app-location';
 // import * as Yup from 'yup';
 // const LocationObj = new Location(TabbedRequestsLocation, {TabbedRequestsLocation, type: Yup.string()});
 // history.push(LocationObj.toUrl({type: activeKey}))
 
-import { TabbedRequestsLocation } from '../constants';
-import { OfferedRequestsContainer } from './OfferedRequestsContainer';
-import { RequestedRequestsContainer } from './RequestedRequestsContainer';
+import OfferAndRequestPostsContainer from './OfferAndRequestPostsContainer';
 
 const { TabPane } = Tabs;
 
@@ -39,7 +40,10 @@ const TabbedRequestsContainer: React.FC = (): ReactElement => {
           )}
           key="offer"
         >
-          <OfferedRequestsContainer />
+          <OfferAndRequestPostsContainer
+          postMode = { ApplicationPreference.cav }
+          status = 'all'
+        />
         </StyledTabPane>
         <StyledTabPane
           tab={t(
@@ -47,7 +51,10 @@ const TabbedRequestsContainer: React.FC = (): ReactElement => {
           )}
           key="request"
         >
-          <RequestedRequestsContainer />
+          <OfferAndRequestPostsContainer
+             postMode = { ApplicationPreference.pin }
+             status = 'all'
+             />
         </StyledTabPane>
       </StyledTabs>
     </>

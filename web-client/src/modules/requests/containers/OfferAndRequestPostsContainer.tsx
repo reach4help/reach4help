@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  //   ?? temporarily commented out, should be deleted getAcceptedRequests,
+  getAcceptedRequests,
   getOpenRequests,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
@@ -21,39 +21,50 @@ import Header from '../components/Header';
 import RequestItem from '../components/RequestItem';
 import RequestList from '../components/RequestList';
 
-export const RequestedRequestsContainer: React.FC = () => {
+const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
+  postMode, // offer or request
+  status,
+}) => {
   const { t } = useTranslation();
-
   const dispatch = useDispatch();
   const history = useHistory();
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
+  const isOffer = postMode === ApplicationPreference.cav;
+
   const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) =>
-      //  TODO: ?? remove this - old code, keeping just in case
-      // if (
-      //     profileState.profile?.applicationPreference ===
-      //     ApplicationPreference.cav
-      //   ) {
-      //     return requests.syncAcceptedRequestsState;
-      //   }
-      requests.syncOpenRequestsState,
+    ({ requests }: { requests: RequestState }) => {
+      if ( isOffer ) {
+        return requests.syncAcceptedRequestsState;
+      }
+      return requests.syncOpenRequestsState;
+    },
   );
 
   useEffect(() => {
     dispatch(resetSetRequestState());
   }, [dispatch]);
 
+  // ?? how to call isOffer - why does applicationPreference not have to be in dependences
   useEffect(() => {
-    dispatch(
-      getOpenRequests({
-        userType: ApplicationPreference.pin,
-        userRef: profileState.userRef,
-      }),
-    );
-  }, [profileState, dispatch]);
+    if ( isOffer ) {
+      dispatch(
+        getAcceptedRequests({
+          userType: ApplicationPreference.cav,
+          userRef: profileState.userRef,
+        }),
+      );
+    } else {
+      dispatch(
+        getOpenRequests({
+          userType: ApplicationPreference.pin,
+          userRef: profileState.userRef,
+        }),
+      );
+    }
+  }, [profileState, isOffer, dispatch]);
 
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
@@ -72,6 +83,7 @@ export const RequestedRequestsContainer: React.FC = () => {
     t('information_modal.OpenRequestsContainer.1'),
     t('information_modal.OpenRequestsContainer.2'),
   ];
+
   const instructionModalLocalStorageKey = makeLocalStorageKey({
     prefix: 'reach4help.modalSeen.OpenRequestsContainer',
     userid: profileState.uid,
@@ -92,6 +104,7 @@ export const RequestedRequestsContainer: React.FC = () => {
         }
         isAcceptedRequests={false}
       />
+      <p>{ status }</p>
       <RequestList
         requests={requestWithOffersAndTimeline.data}
         loading={
@@ -114,3 +127,9 @@ export const RequestedRequestsContainer: React.FC = () => {
     </>
   );
 };
+
+interface PostsProps {
+  postMode: ApplicationPreference; // offer or request
+  status: string;
+};
+export default OfferAndRequestPostsContainer;
