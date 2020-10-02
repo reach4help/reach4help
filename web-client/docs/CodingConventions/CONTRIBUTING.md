@@ -20,7 +20,7 @@ We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Pl
 
 # Your First Contribution
 
-## First make a fork of the repo to your local github
+## First make a fork of the repo to your local github or clone directly.  Separate instructions for both are below.
 
 ![Forking on Gitub](forkExample.png)
 
@@ -29,6 +29,10 @@ We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Pl
 - https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork
 - \$ git remote add upstream https://github.com/reach4help/reach4help.git
 - Do \$ git remote -v to make sure you are correctly pointing to your fork and to the upstream branch
+
+## Clone directly
+- ask for permission to the github repository from Joseph.
+- clone using https://github.com/reach4help/reach4help.git
 
 ## Creating a branch
 
