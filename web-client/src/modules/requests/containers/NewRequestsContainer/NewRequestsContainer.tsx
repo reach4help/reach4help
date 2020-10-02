@@ -8,10 +8,6 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from 'src/components/Modals/OneTimeModal';
-import {
-  getCoordsFromProfile,
-  getStreetAddressFromProfile,
-} from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
@@ -60,13 +56,11 @@ const NewRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const [mapAddress, setMapAddress] = useState<string>(
-    () =>
-      getStreetAddressFromProfile(profileState) || 'Address could not be found',
-  );
-  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
-    getCoordsFromProfile(profileState),
-  );
+  const [mapAddress, setMapAddress] = useState<string>('');
+  const [currentLocation, setCurrentLocation] = useState<Coords>({
+    lat: 0,
+    lng: 0,
+  });
 
   const newRequestState = useSelector(
     ({ requests }: { requests: RequestState }) => requests.setAction,

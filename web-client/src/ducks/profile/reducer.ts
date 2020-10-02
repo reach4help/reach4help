@@ -26,6 +26,7 @@ const initialState: ProfileState = {
   setAction: undefined,
   updateAction: undefined,
   observerReceivedFirstUpdate: false,
+  privilegedObserverReceivedFirstUpdate: false,
   error: undefined,
 };
 
@@ -143,7 +144,7 @@ export default createReducer<ProfileState>(
       // eslint-disable-next-line prefer-destructuring
       state.privilegedInformation = payload.data();
       state.loading = false;
-      state.observerReceivedFirstUpdate = true;
+      state.privilegedObserverReceivedFirstUpdate = true;
     },
     [OBSERVE_PROFILE.SUBSCRIBE]: (state: ProfileState) => {
       state.loading = true;

@@ -55,6 +55,15 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
 
   if (
     !(
+      profileState.observerReceivedFirstUpdate &&
+      profileState.privilegedObserverReceivedFirstUpdate
+    )
+  ) {
+    return <LoadingWrapper />;
+  }
+
+  if (
+    !(
       profileState &&
       profileState.profile?.displayName &&
       (profileState.privilegedInformation?.addresses?.default ||

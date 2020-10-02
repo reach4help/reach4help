@@ -73,8 +73,7 @@ const ContentPage = (): ReactElement => {
   if (
     profileState &&
     profileState.profile &&
-    profileState.profile.displayName &&
-    profileState.privilegedInformation?.addresses
+    profileState.profile.displayName
   ) {
     if (
       profileState.profile.applicationPreference === ApplicationPreference.pin
