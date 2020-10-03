@@ -36,7 +36,7 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
 
   const requestWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: RequestState }) => {
-      if ( isOffer ) {
+      if (isOffer) {
         return requests.syncAcceptedRequestsState;
       }
       return requests.syncOpenRequestsState;
@@ -49,7 +49,7 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
 
   // ?? how to call isOffer - why does applicationPreference not have to be in dependences
   useEffect(() => {
-    if ( isOffer ) {
+    if (isOffer) {
       dispatch(
         getAcceptedRequests({
           userType: ApplicationPreference.cav,
@@ -104,7 +104,7 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
         }
         isAcceptedRequests={false}
       />
-      <p>{ status }</p>
+      <p>{status}</p>
       <RequestList
         requests={requestWithOffersAndTimeline.data}
         loading={
@@ -131,5 +131,5 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
 interface PostsProps {
   postMode: ApplicationPreference; // offer or request
   status: string;
-};
+}
 export default OfferAndRequestPostsContainer;

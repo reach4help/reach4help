@@ -3,9 +3,9 @@ import { Tabs } from 'antd';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
+import { ApplicationPreference } from 'src/models/users';
 import styled from 'styled-components';
 
-import { ApplicationPreference } from 'src/models/users';
 import { TabbedRequestsLocation } from '../constants';
 import OfferAndRequestPostsContainer from './OfferAndRequestPostsContainer';
 
@@ -35,9 +35,9 @@ const TabbedRequestsContainer: React.FC = (): ReactElement => {
           key="offer"
         >
           <OfferAndRequestPostsContainer
-          postMode = { ApplicationPreference.cav }
-          status = 'all'
-        />
+            postMode={ApplicationPreference.cav}
+            status="all"
+          />
         </StyledTabPane>
         <StyledTabPane
           tab={t(
@@ -46,9 +46,9 @@ const TabbedRequestsContainer: React.FC = (): ReactElement => {
           key="request"
         >
           <OfferAndRequestPostsContainer
-             postMode = { ApplicationPreference.pin }
-             status = 'all'
-             />
+            postMode={ApplicationPreference.pin}
+            status="all"
+          />
         </StyledTabPane>
       </StyledTabs>
     </>
