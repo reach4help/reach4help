@@ -121,6 +121,8 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
     } else {
       actionHandler(addresses[currentName]);
     }
+    form.resetFields();
+    setAddressChosen(false);
   };
 
   return (

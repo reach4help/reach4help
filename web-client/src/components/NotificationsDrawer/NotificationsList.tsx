@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import Notification from './Notification';
 
 const NotificationsList: React.FC<NotificationsList> = ({
-  isCav,
   unseenOffers,
 }): React.ReactElement => {
   const { t } = useTranslation();
@@ -22,7 +21,6 @@ const NotificationsList: React.FC<NotificationsList> = ({
             offerRequest={item.requestSnapshot}
             requestRef={item.requestRef}
             updatedAt={item.updatedAt.toDate()}
-            isCav={isCav}
           />
         ))}
       {unseenOffers.length === 0 && (
@@ -42,7 +40,6 @@ const NotificationListWrapper = styled.div`
 `;
 
 interface NotificationsList {
-  isCav?: boolean;
   unseenOffers: Offer[];
 }
 

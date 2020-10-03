@@ -135,16 +135,18 @@ const FindRequestsContainer: React.FC = () => {
       !pendingRequestsWithOffersAndTimeline.data &&
       !pendingRequestsWithOffersAndTimeline.loading
     ) {
+      const addressToUse = profileState.privilegedInformation?.addresses
+        ?.default
+        ? profileState.privilegedInformation.addresses.default
+        : profileState.privilegedInformation?.addresses[
+            Object.keys(profileState.privilegedInformation.addresses)[0]
+          ];
       dispatch(
         getOpenRequests({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
-          lat:
-            profileState.privilegedInformation?.addresses?.default.coords
-              .latitude,
-          lng:
-            profileState.privilegedInformation?.addresses?.default.coords
-              .longitude,
+          lat: addressToUse?.coords.latitude || 0,
+          lng: addressToUse?.coords.longitude || 0,
         }),
       );
     }

@@ -62,14 +62,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
     return <LoadingWrapper />;
   }
 
-  if (
-    !(
-      profileState &&
-      profileState.profile?.displayName &&
-      (profileState.privilegedInformation?.addresses?.default ||
-        Object.keys(profileState.privilegedInformation?.addresses || {})[0])
-    )
-  ) {
+  if (!(profileState && profileState.profile?.displayName)) {
     return (
       <Redirect
         to={{

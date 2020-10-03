@@ -45,14 +45,22 @@ const PartiallyProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
         profileState.observerReceivedFirstUpdate &&
         profileState.privilegedObserverReceivedFirstUpdate)
     ) {
-      setStatusDetected(true);
+      if (!statusDetected) {
+        setStatusDetected(true);
+      }
       if (user?.uid && user.phoneNumber && profileState.profile?.displayName) {
         return setOnboarded(dispatch, true);
       }
       return setOnboarded(dispatch, false);
     }
     return undefined;
-  }, [dispatch, user, profileState, observerReceivedFirstUpdate]);
+  }, [
+    dispatch,
+    observerReceivedFirstUpdate,
+    profileState,
+    statusDetected,
+    user,
+  ]);
 
   if (!statusDetected) {
     return <LoadingWrapper />;

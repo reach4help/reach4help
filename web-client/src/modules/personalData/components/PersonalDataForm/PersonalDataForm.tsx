@@ -1,15 +1,6 @@
-import {
-  Button,
-  Checkbox,
-  Col,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Typography,
-} from 'antd';
+import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
 import words from 'lodash/words';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { DEVICE_MIN } from 'src/constants/mediaQueries';
 import { User } from 'src/models/users';
@@ -44,8 +35,6 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   const [allowSendNotifications, setAllowSendNotifications] = useState<boolean>(
     false,
   );
-  const [modalVisible, setModalVisible] = useState(false);
-  const [instructionsVisible, setInstructionsVisible] = useState(false);
   const [
     termsAndPrivacyAccepted,
     setTermsAndPrivacyAccepted,
@@ -252,98 +241,6 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
           </PersonalDataFormButton>
         </Form.Item>
       </Form>
-      <Modal
-        closable={false}
-        style={{ top: 10 }}
-        title=""
-        visible={modalVisible}
-        footer={[
-          <Fragment key="footer1">
-            {!instructionsVisible && (
-              <PersonalDataFormButton
-                type="primary"
-                key="back"
-                onClick={() => {
-                  setInstructionsVisible(true);
-                }}
-              >
-                {t(
-                  'modules.personal-data.components.PersonalDataForm.learn_reactivate',
-                )}
-              </PersonalDataFormButton>
-            )}
-            {instructionsVisible && (
-              <PersonalDataFormButton
-                type="primary"
-                key="back"
-                onClick={() => {
-                  setInstructionsVisible(false);
-                  setModalVisible(false);
-                }}
-              >
-                {t(
-                  'modules.personal-data.components.PersonalDataForm.retry_geolocation',
-                )}
-              </PersonalDataFormButton>
-            )}
-          </Fragment>,
-          <Fragment key="footer2">
-            {!instructionsVisible && (
-              <PersonalDataFormButton
-                type="primary"
-                key="back"
-                onClick={() => {
-                  setModalVisible(false);
-                }}
-              >
-                {t(
-                  'modules.personal-data.components.PersonalDataForm.continue_without_geolocation',
-                )}
-              </PersonalDataFormButton>
-            )}
-            {instructionsVisible && (
-              <PersonalDataFormButton
-                type="primary"
-                key="back"
-                onClick={() => {
-                  setInstructionsVisible(false);
-                }}
-              >
-                {t('modules.personal-data.components.PersonalDataForm.go_back')}
-              </PersonalDataFormButton>
-            )}
-          </Fragment>,
-        ]}
-      >
-        {!instructionsVisible && (
-          <>
-            <h4 style={{ marginBottom: '20px' }}>
-              {t(
-                'modulespersonal-data.components.PersonalDataForm.geolocation_modal_title',
-              )}
-            </h4>
-            <p>
-              {t(
-                'modules.personal-data.components.PersonalDataForm.geolocation_modal_text',
-              )}
-            </p>
-          </>
-        )}
-        {instructionsVisible && (
-          <>
-            <h4>
-              {t(
-                'modules.personal-data.components.PersonalDataForm.instructions_modal_title',
-              )}
-            </h4>
-            <p>
-              {t(
-                'modules.personal-data.components.PersonalDataForm.instructions_modal_text',
-              )}
-            </p>
-          </>
-        )}
-      </Modal>
     </Introduction>
   );
 };
