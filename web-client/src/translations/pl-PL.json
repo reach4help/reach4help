@@ -380,6 +380,11 @@
               "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
             }
           },
+          "TabbedRequestsContainer": {
+            "requests_tab_label": "View Requests for Help",
+            "offers_tab_label": "View Your Offers",
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+          },
           "AcceptedRequestContainer": {
             "accepted": "Zaakceptowane"
           },
