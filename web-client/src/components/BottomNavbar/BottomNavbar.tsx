@@ -6,11 +6,12 @@ import {
 } from '@ant-design/icons';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
+import {
+  FindRequestsLocation,
+  NewRequestsLocation,
+} from 'src/modules/requests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
-
-import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
 
 const BottomNavbar: React.FC<BottomNavbarProps> = ({
   openMenu,

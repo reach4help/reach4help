@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { COLORS } from '../../../../theme/colors';
+import { COLORS } from '../../../theme/colors';
 
 const Header: React.FC<HeaderProps> = ({
   requestsType,
@@ -10,9 +10,12 @@ const Header: React.FC<HeaderProps> = ({
   isAcceptedRequests,
 }): React.ReactElement => {
   const { t } = useTranslation();
-  return (
-    <>
-      {isAcceptedRequests && !isCav && (
+  const isPin = !isCav;
+  let acceptedWarning = <></>;
+  // ?? how to turn this into function - when I try, I get various errors
+  if (isAcceptedRequests && isPin) {
+    acceptedWarning = (
+      <>
         <div
           style={{
             fontFamily: 'Roboto, sans-serif',
@@ -39,7 +42,12 @@ const Header: React.FC<HeaderProps> = ({
             {t('modules.navigation.components.Header.reject_reminder')}
           </p>
         </div>
-      )}
+      </>
+    );
+  }
+  return (
+    <>
+      {acceptedWarning}
       <div
         style={{
           margin: '25px',

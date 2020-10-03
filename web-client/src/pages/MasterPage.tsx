@@ -13,7 +13,7 @@ import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { observeOffers } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
+import { NewRequestsLocation } from 'src/modules/requests/constants';
 import { Module } from 'src/types/module';
 
 import { AuthState } from '../ducks/auth/types';
@@ -182,7 +182,7 @@ const MasterPage = (): ReactElement => {
         {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
         <Route
           path="/"
-          component={() => <Redirect to={FindRequestsLocation.path} />}
+          component={() => <Redirect to={NewRequestsLocation.path} />}
         />
         <Route path="*" component={NotFoundRoute} />
       </Switch>
