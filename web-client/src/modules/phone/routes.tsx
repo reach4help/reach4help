@@ -6,7 +6,7 @@ import CenteredCard from 'src/components/CenteredCard/CenteredCard';
 import GradientBackground from 'src/components/GradientBackground/GradientBackground';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
-import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/PersonalDataRoute/constants';
+import { PersonalDataLocation } from 'src/modules/personalData/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
