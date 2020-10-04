@@ -20,7 +20,7 @@ We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Pl
 
 # Your First Contribution
 
-## First make a fork of the repo to your local github
+## First make a fork of the repo to your local github or clone directly.  Separate instructions for both are below.
 
 ![Forking on Gitub](forkExample.png)
 
@@ -29,6 +29,10 @@ We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Pl
 - https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork
 - \$ git remote add upstream https://github.com/reach4help/reach4help.git
 - Do \$ git remote -v to make sure you are correctly pointing to your fork and to the upstream branch
+
+## Clone directly
+- ask for permission to the github repository from Joseph.
+- clone using https://github.com/reach4help/reach4help.git
 
 ## Creating a branch
 
@@ -94,7 +98,7 @@ This Project uses Services that require API keys and environment variables such 
 The environment variables should be set up in a file named `.env` outside the `src` directory.
 
 Unfortunately, we cannot provide the values for any of the keys that we use internally as it's linked to our billing account.
-We have however, included the keys for a starter project in [`.env.EXAMPLE`](.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away.
+We have however, included the keys for a starter project in [`.env.EXAMPLE`](https://github.com/reach4help/reach4help/blob/development/web-client/.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away.
 
 For development purposes, we have also stubbed the response from the Google Maps Geocoding API so you don't need to obtain a Google Maps API Key with a billing account associated with it. Note that this produces a fixed location response (which shouldn't hinder your development).
 
