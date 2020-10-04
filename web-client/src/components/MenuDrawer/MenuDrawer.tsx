@@ -11,7 +11,7 @@ import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import { SettingsLocation } from '../../modules/settings/pages/routes/SettingsRoute/constants';
+import { SettingsLocation } from '../../modules/settings/constants';
 import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
 import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
