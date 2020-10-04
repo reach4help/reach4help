@@ -1,10 +1,10 @@
 import { Module } from 'src/types/module';
 
-import ContentPage from './pages/ContentPage';
+import Routes from './routes';
 
 const requestModule: Module = {
   path: '/timeline',
   protected: true,
-  component: ContentPage,
+  component: Routes,
 };
 export default requestModule;

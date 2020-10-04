@@ -9,7 +9,7 @@ import {
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
-import { TimelineAcceptedViewLocation } from 'src/modules/timeline/pages/routes/TimelineAcceptedViewRoute/constants';
+import { TimelineAcceptedViewLocation } from 'src/modules/timeline/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {

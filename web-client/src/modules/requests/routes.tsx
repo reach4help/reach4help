@@ -1,5 +1,11 @@
 import React, { lazy, ReactElement, Suspense } from 'react';
-import { Route, Switch, useHistory, useParams } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useParams,
+} from 'react-router-dom';
 import Tabs from 'src/components/Tabs';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
@@ -87,6 +93,7 @@ const Routes = (): ReactElement => (
         component={NewRequestsContainer}
         exact
       />
+      <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>
   </Suspense>
 );

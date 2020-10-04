@@ -1,6 +1,5 @@
 import React, { lazy, ReactElement, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import { SettingsLocation } from './constants';
@@ -13,7 +12,7 @@ const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
       <Route path={SettingsLocation.path} component={SettingsContainer} exact />
-      <Route path="*" component={NotFoundRoute} />
+      <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>
   </Suspense>
 );
