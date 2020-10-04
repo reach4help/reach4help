@@ -8,7 +8,7 @@ import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
-import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
+import { LoginLocation } from 'src/modules/login/constants';
 import {
   FindRequestsLocation,
   NewRequestsLocation,

@@ -11,7 +11,7 @@ import {
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
-import { LoginLocation } from '../../modules/login/pages/routes/LoginRoute/constants';
+import { LoginLocation } from '../../modules/login/constants';
 
 const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
   const user = useSelector((state: AppState) => state.auth.user);

@@ -5,7 +5,7 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import CenteredCard from 'src/components/CenteredCard/CenteredCard';
 import GradientBackground from 'src/components/GradientBackground/GradientBackground';
 import { observeUserAction } from 'src/ducks/auth/actions';
-import { LoginLocation } from 'src/modules/login/pages/routes/LoginRoute/constants';
+import { LoginLocation } from 'src/modules/login/constants';
 import { PersonalDataLocation } from 'src/modules/personalData/constants';
 import { AppState } from 'src/store';
 
