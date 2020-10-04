@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
+import { FindRequestsLocation } from 'src/modules/requests/constants';
 import { Module } from 'src/types/module';
 
 import modules from '../modules';

@@ -157,23 +157,24 @@ const getPendingRequestsWithOffers = async (
       }
     }
   } else {
-    console.log('a pin is looking for requests with the status as: ', RequestStatus.pending);
-    console.log("the pin's ref path is: ", userRef.path);
+    // ?? Change console.log to debug
+    // console.log('a pin is looking for requests with the status as: ', RequestStatus.pending);
+    // console.log("the pin's ref path is: ", userRef.path);
     const requests = await db
       .collection('requests')
       .where('status', '==', RequestStatus.pending)
       .where('pinUserRef', '==', userRef)
       .get();
     for (const doc of requests.docs) {
-      console.log('doc.id: ', doc.id);
+      // console.log('doc.id: ', doc.id);
       // console.log('doc.data: ', JSON.stringify(doc.data()));
       const request = Request.factory(doc.data() as IRequest);
       // eslint-disable-next-line no-await-in-loop
       const timeline = await getTimelineForRequest(doc.ref, userRef);
       const mapping: Record<string, boolean> = {};
       for (const timelineDoc of timeline) {
-        console.log('timelinedoc being parsed: ', JSON.stringify(timelineDoc));
-        console.log('timelineDoc.actorRef: ', timelineDoc.actorRef);
+        // console.log('timelinedoc being parsed: ', JSON.stringify(timelineDoc));
+        // console.log('timelineDoc.actorRef: ', timelineDoc.actorRef);
         const timelineInstance = TimelineItem.factory(timelineDoc);
         if (
           timelineInstance.action === TimelineItemAction.CREATE_OFFER &&

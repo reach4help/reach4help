@@ -31,8 +31,8 @@ import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import RequestItem from '../../components/RequestItem/RequestItem';
-import { OpenRequestsLocation } from '../../pages/routes/OpenRequestsRoute/constants';
+import RequestItem from '../components/RequestItem';
+import { OpenRequestsLocation } from '../constants';
 
 const { TabPane } = Tabs;
 

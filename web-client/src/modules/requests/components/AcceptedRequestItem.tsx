@@ -4,8 +4,8 @@ import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import styled, { keyframes } from 'styled-components';
 
-import { COLORS } from '../../../../theme/colors';
-import defaultUserPic from '../../assets/role_pin.png';
+import { COLORS } from '../../../theme/colors';
+import defaultUserPic from '../assets/role_pin.png';
 
 const RequestItem: React.FC<RequestItemProps> = ({
   request,
