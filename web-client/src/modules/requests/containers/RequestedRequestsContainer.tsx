@@ -10,7 +10,7 @@ import {
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
-import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
+import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {

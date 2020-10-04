@@ -13,13 +13,12 @@ const { Text } = Typography;
 const TopNavbar: React.FC<TopNavbarProps> = ({
   openMenu,
   openNotifications,
-  isCav,
   unseenOffersCount,
   visible = true,
 }) =>
   visible ? (
     <TopNavbarWrapper>
-      <NavButton aria-label="Menu Button" isCav={isCav} onClick={openMenu}>
+      <NavButton aria-label="Menu Button" onClick={openMenu}>
         <SideMenuIcon />
       </NavButton>
       <NavButton>
@@ -28,11 +27,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
           Reach<TextOrange>4</TextOrange>Help
         </IconText>
       </NavButton>
-      <NavButton
-        aria-label="Notifications Button"
-        isCav={isCav}
-        onClick={openNotifications}
-      >
+      <NavButton aria-label="Notifications Button" onClick={openNotifications}>
         {unseenOffersCount > 0 ? (
           <NotificationsIcon style={{ color: 'red' }} />
         ) : (
@@ -42,7 +37,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
     </TopNavbarWrapper>
   ) : null;
 
-const NavButton = styled('button')<{ isCav?: boolean }>`
+const NavButton = styled('button')`
   font-size: 1.3rem;
   background: transparent;
   border: none;
@@ -53,8 +48,7 @@ const NavButton = styled('button')<{ isCav?: boolean }>`
   &:focus,
   &:active,
   &:focus-within {
-    color: ${props =>
-      props.isCav ? COLORS.link : COLORS.brandOrange} !important;
+    color: ${COLORS.link} !important;
     font-weight: 700;
   }
 `;
@@ -93,7 +87,6 @@ const TextOrange = styled(Text)`
 interface TopNavbarProps {
   openMenu: () => void;
   openNotifications: () => void;
-  isCav?: boolean;
   visible?: boolean;
   unseenOffersCount: number;
 }

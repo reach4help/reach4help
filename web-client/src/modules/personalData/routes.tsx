@@ -2,31 +2,46 @@ import get from 'lodash/get';
 import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import CenteredCard from 'src/components/CenteredCard/CenteredCard';
+import GradientBackground from 'src/components/GradientBackground/GradientBackground';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
-// ?? test what happens here
+import { LoginLocation } from 'src/modules/login/constants';
 import {
   FindRequestsLocation,
   NewRequestsLocation,
 } from 'src/modules/requests/constants';
-import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
 import { AppState } from 'src/store';
 
-import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
-import { LoginLocation } from '../../login/pages/routes/LoginRoute/constants';
-import { PersonalDataLocation } from './routes/PersonalDataRoute/constants';
-import { RoleInfoLocation } from './routes/RoleInfoRoute/constants';
+import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
+import { PersonalDataLocation, RoleInfoLocation } from './constants';
 
-const PersonalDataRoute = lazy(() =>
-  import('./routes/PersonalDataRoute/PersonalDataRoute'),
+const PersonalDataFormContainer = lazy(() =>
+  import('./containers/PersonalDataFormContainer/PersonalDataFormContainer'),
 );
-const RoleInfoRoute = lazy(() =>
-  import('./routes/RoleInfoRoute/RoleInfoRoute'),
+const RoleInfoContainer = lazy(() =>
+  import('./containers/RoleInfoContainer/RoleInfoContainer'),
 );
 
-const ContentPage = (): ReactElement => {
+const PersonalDataPage: React.FC = () => (
+  <GradientBackground>
+    <CenteredCard>
+      <PersonalDataFormContainer />
+    </CenteredCard>
+  </GradientBackground>
+);
+
+const RoleInfoPage: React.FC = () => (
+  <GradientBackground>
+    <CenteredCard>
+      <RoleInfoContainer />
+    </CenteredCard>
+  </GradientBackground>
+);
+
+const Routes = (): ReactElement => {
   const user = useSelector((state: AppState) => state.auth.user);
   const authLoading = useSelector((state: AppState) => state.auth.loading);
   const profileState = useSelector(
@@ -76,8 +91,7 @@ const ContentPage = (): ReactElement => {
   if (
     profileState &&
     profileState.profile &&
-    profileState.profile.displayName &&
-    profileState.privilegedInformation?.addresses
+    profileState.profile.displayName
   ) {
     if (
       profileState.profile.applicationPreference === ApplicationPreference.pin
@@ -118,13 +132,14 @@ const ContentPage = (): ReactElement => {
       <Switch>
         <Route
           path={PersonalDataLocation.path}
-          component={PersonalDataRoute}
+          component={PersonalDataPage}
           exact
         />
-        <Route path={RoleInfoLocation.path} component={RoleInfoRoute} exact />
-        <Route path="*" component={NotFoundRoute} />
+        <Route path={RoleInfoLocation.path} component={RoleInfoPage} exact />
+        <Route path="*" render={() => <Redirect to="/404" />} />
       </Switch>
     </Suspense>
   );
 };
-export default ContentPage;
+
+export default Routes;

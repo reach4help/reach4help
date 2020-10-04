@@ -32,8 +32,10 @@ import BottomPanel from '../../components/BottomPanel/BottomPanel';
 import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
-import { TimelineAcceptedViewLocation } from '../../pages/routes/TimelineAcceptedViewRoute/constants';
-import { TimelineViewLocation } from '../../pages/routes/TimelineViewRoute/constants';
+import {
+  TimelineAcceptedViewLocation,
+  TimelineViewLocation,
+} from '../../constants';
 
 const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   requestId,

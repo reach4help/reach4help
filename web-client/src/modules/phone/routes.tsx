@@ -2,24 +2,41 @@ import get from 'lodash/get';
 import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import CenteredCard from 'src/components/CenteredCard/CenteredCard';
+import GradientBackground from 'src/components/GradientBackground/GradientBackground';
 import { observeUserAction } from 'src/ducks/auth/actions';
-import { PersonalDataLocation } from 'src/modules/personalData/pages/routes/PersonalDataRoute/constants';
-import NotFoundRoute from 'src/pages/routes/NotFoundRoute';
+import { LoginLocation } from 'src/modules/login/constants';
+import { PersonalDataLocation } from 'src/modules/personalData/constants';
 import { AppState } from 'src/store';
 
-import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
-import { LoginLocation } from '../../login/pages/routes/LoginRoute/constants';
-import { PhoneEntryLocation } from './routes/PhoneEntryRoute/constants';
-import { PhoneVerifyLocation } from './routes/PhoneVerifyRoute/constants';
+import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
+import { PhoneEntryLocation, PhoneVerifyLocation } from './constants';
 
-const PhoneEntryRoute = lazy(() =>
-  import('./routes/PhoneEntryRoute/PhoneEntryRoute'),
-);
-const PhoneVerifyRoute = lazy(() =>
-  import('./routes/PhoneVerifyRoute/PhoneVerifyRoute'),
+const PhoneEntryContainer = lazy(() =>
+  import('./containers/PhoneEntryContainer/PhoneEntryContainer'),
 );
 
-const ContentPage = (): ReactElement => {
+const PhoneVerifyContainer = lazy(() =>
+  import('./containers/PhoneVerifyContainer/PhoneVerifyContainer'),
+);
+
+const PhoneEntryPage: React.FC = (): ReactElement => (
+  <GradientBackground>
+    <CenteredCard>
+      <PhoneEntryContainer />
+    </CenteredCard>
+  </GradientBackground>
+);
+
+const PhoneVerifyPage: React.FC = (): ReactElement => (
+  <GradientBackground>
+    <CenteredCard>
+      <PhoneVerifyContainer />
+    </CenteredCard>
+  </GradientBackground>
+);
+
+const Routes = (): ReactElement => {
   const user = useSelector((state: AppState) => state.auth.user);
   const loading = useSelector((state: AppState) => state.auth.loading);
   const dispatch = useDispatch();
@@ -58,18 +75,18 @@ const ContentPage = (): ReactElement => {
       <Switch>
         <Route
           path={PhoneEntryLocation.path}
-          component={PhoneEntryRoute}
+          component={PhoneEntryPage}
           exact
         />
         <Route
           path={PhoneVerifyLocation.path}
-          component={PhoneVerifyRoute}
+          component={PhoneVerifyPage}
           exact
         />
-        <Route path="*" component={NotFoundRoute} />
+        <Route path="*" render={() => <Redirect to="/404" />} />
       </Switch>
     </Suspense>
   );
 };
 
-export default ContentPage;
+export default Routes;

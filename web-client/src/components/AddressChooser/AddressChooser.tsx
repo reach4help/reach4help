@@ -1,7 +1,6 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Checkbox, Col, Form, Input, Row, Select } from 'antd';
 import { useForm } from 'antd/lib/form/util';
-import { firestore } from 'firebase';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,18 +11,18 @@ import { AppState } from 'src/store';
 import { MediumCancelButton, MediumSaveButton } from '../Buttons';
 import { GeocoderComponent } from '../Geocoder/Geocoder';
 
-export const AddressChooser: React.FC<AddressChooserProps> = ({
+const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
   actionHandler,
   actionType,
   cancelHandler,
   cancelType,
   isSettings = false,
+  geocode,
 }) => {
   const { t } = useTranslation();
   const [form] = useForm();
   const [addressChosen, setAddressChosen] = useState<boolean>(false);
   const [shouldSave, setShouldSave] = useState<boolean>(isSettings);
-  const [Geocoder, setGeocoder] = useState<any | undefined>(undefined);
 
   const addresses = useSelector(
     (state: AppState) => state.profile.privilegedInformation?.addresses,
@@ -77,7 +76,7 @@ export const AddressChooser: React.FC<AddressChooserProps> = ({
     }
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
     if (!addresses) {
       return;
     }
@@ -95,46 +94,35 @@ export const AddressChooser: React.FC<AddressChooserProps> = ({
         postalCode: form.getFieldValue('postalCode'),
         country: form.getFieldValue('country'),
       };
-      // eslint-disable-next-line max-len
-      const address = `${chosenAddress.address1},${chosenAddress.address2},${chosenAddress.city},${chosenAddress.state},${chosenAddress.postalCode},${chosenAddress.country}`;
-      Geocoder.geocode({ address }, (results, status) => {
-        if (status === 'OK') {
-          const lat = results[0].geometry.location.lat();
-          const lng = results[0].geometry.location.lng();
-          const chosenAddressWithCoords: IUserAddress = {
-            ...chosenAddress,
-            coords: new firestore.GeoPoint(lat, lng),
+      const chosenAddressWithCoords = await geocode(chosenAddress);
+      if (shouldSave) {
+        if (privilegedInformation && userId) {
+          const addressesToSave = {
+            ...addresses,
           };
-          if (shouldSave) {
-            if (privilegedInformation && userId) {
-              const addressesToSave = {
-                ...addresses,
-              };
-              if (currentName !== chosenAddressWithCoords.name) {
-                delete addressesToSave[currentName];
-                addressesToSave[
-                  chosenAddressWithCoords.name
-                ] = chosenAddressWithCoords;
-              }
-              privilegedInformation.addresses = addressesToSave;
-
-              dispatch(
-                updateUserPrivilegedInformation(userId, privilegedInformation),
-              );
-            }
+          if (currentName !== chosenAddressWithCoords.name) {
+            delete addressesToSave[currentName];
+            addressesToSave[
+              chosenAddressWithCoords.name
+            ] = chosenAddressWithCoords;
+          } else {
+            addressesToSave[
+              chosenAddressWithCoords.name
+            ] = chosenAddressWithCoords;
           }
-          actionHandler(chosenAddressWithCoords);
-        } else {
-          alert(
-            t(
-              'modules.personal-data.containers.PersonalDataFormContainer.address_error',
-            ),
+          privilegedInformation.addresses = addressesToSave;
+
+          dispatch(
+            updateUserPrivilegedInformation(userId, privilegedInformation),
           );
         }
-      });
+      }
+      actionHandler(chosenAddressWithCoords);
     } else {
       actionHandler(addresses[currentName]);
     }
+    form.resetFields();
+    setAddressChosen(false);
   };
 
   return (
@@ -239,10 +227,28 @@ export const AddressChooser: React.FC<AddressChooserProps> = ({
           </Col>
         </Row>
       </Form>
-      <GeocoderComponent Geocoder={Geocoder} setGeocoder={setGeocoder} />
     </>
   );
 };
+
+export const AddressChooser: React.FC<AddressChooserProps> = ({
+  actionHandler,
+  actionType,
+  cancelHandler,
+  cancelType,
+  isSettings = false,
+}) => (
+  <GeocoderComponent<AddressChooserWrapped>
+    otherProps={{
+      actionHandler,
+      actionType,
+      cancelHandler,
+      cancelType,
+      isSettings,
+    }}
+    Component={AddressChooserComponent}
+  />
+);
 
 export interface AddressChooserProps {
   actionHandler: (address: IUserAddress) => void;
@@ -250,4 +256,10 @@ export interface AddressChooserProps {
   cancelHandler: () => void;
   cancelType: 'cancel' | 'back';
   isSettings: boolean;
+}
+
+interface AddressChooserWrapped extends AddressChooserProps {
+  geocode: (
+    address: Pick<IUserAddress, Exclude<keyof IUserAddress, 'coords'>>,
+  ) => Promise<IUserAddress>;
 }
