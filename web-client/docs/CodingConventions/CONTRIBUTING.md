@@ -98,7 +98,7 @@ This Project uses Services that require API keys and environment variables such 
 The environment variables should be set up in a file named `.env` outside the `src` directory.
 
 Unfortunately, we cannot provide the values for any of the keys that we use internally as it's linked to our billing account.
-We have however, included the keys for a starter project in [`.env.EXAMPLE`](.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away.
+We have however, included the keys for a starter project in [`.env.EXAMPLE`](https://github.com/reach4help/reach4help/blob/development/web-client/.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away.
 
 For development purposes, we have also stubbed the response from the Google Maps Geocoding API so you don't need to obtain a Google Maps API Key with a billing account associated with it. Note that this produces a fixed location response (which shouldn't hinder your development).
 
