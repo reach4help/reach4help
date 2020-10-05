@@ -111,7 +111,9 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     new PrivilegedUserInformation(
       data.addresses && !((data.addresses as unknown) as IUserAddress).coords
         ? data.addresses
-        : { default: data.address as IUserAddress },
+        : data.address
+        ? { default: data.address as IUserAddress }
+        : {},
       data.privacyAccepted,
       data.privacyVersion,
       data.termsAccepted,
