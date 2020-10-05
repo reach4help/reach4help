@@ -1,10 +1,10 @@
 import { Module } from 'src/types/module';
 
-import ContentPage from './pages/ContentPage';
+import Routes from './routes';
 
 const requestsModule: Module = {
   path: '/create',
-  component: ContentPage,
+  component: Routes,
   partiallyProtected: true,
 };
 

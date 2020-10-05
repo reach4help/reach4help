@@ -2,9 +2,8 @@ import { Col, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
+import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import styled from 'styled-components';
-
-import TitleWithOrangeUnderline from '../../../../components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 
 const RequestReview: React.FC<RequestReviewProps> = ({
   isSubmitting,

@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next';
 import stayAtHomeLottieJson from 'src/assets/lotties/stay-at-home.json';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
-
-import { COLORS } from '../../../../theme/colors';
 
 const { Text } = Typography;
 
