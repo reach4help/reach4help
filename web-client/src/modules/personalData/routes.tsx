@@ -8,11 +8,12 @@ import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
-import { LoginLocation } from 'src/modules/login/constants';
 import {
-  FindRequestsLocation,
-  NewRequestsLocation,
-} from 'src/modules/requests/constants';
+  CreatePostLocation,
+  CreatePostTypes,
+} from 'src/modules/create/constants';
+import { LoginLocation } from 'src/modules/login/constants';
+import { FindRequestsLocation } from 'src/modules/requests/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
@@ -40,6 +41,10 @@ const RoleInfoPage: React.FC = () => (
     </CenteredCard>
   </GradientBackground>
 );
+
+const CreateRequestLocationUrl = CreatePostLocation.toUrl({
+  type: CreatePostTypes.request,
+});
 
 const Routes = (): ReactElement => {
   const user = useSelector((state: AppState) => state.auth.user);
@@ -99,7 +104,7 @@ const Routes = (): ReactElement => {
       return (
         <Redirect
           to={{
-            pathname: redirectBack || NewRequestsLocation.path,
+            pathname: redirectBack || CreateRequestLocationUrl,
           }}
         />
       );

@@ -8,13 +8,16 @@
 [![Reach4Help released under the GPL license](https://img.shields.io/badge/license-GPL-blue.svg)](./LICENSE)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
 
-[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond. 
+[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond.
 
 ## How _You_ Can Contribute
 
@@ -32,7 +35,7 @@ A global interactive map visualizing over 10,000 volunteer organizations support
 
 ## [Official Website](site)
 
-Our website highlighting the project and our hardworking team of volunteers. **Check it out live [here](https://reach4help.org/)!** 
+Our website highlighting the project and our hardworking team of volunteers. **Check it out live [here](https://reach4help.org/)!**
 
 # Development
 
@@ -105,6 +108,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
