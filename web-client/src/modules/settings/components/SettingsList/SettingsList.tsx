@@ -10,8 +10,8 @@ import { H4Font } from '../../../../components/figma';
 import {
   SettingsCollapsePanelHeaderContent,
   SettingsListCollapsePanel,
-  SettingsListDeleteWrapper,
-  SettingsListNameWrapper,
+  SettingsListContainer,
+  SettingsListItemWrapper,
   SettingsListWrapper,
 } from '../../../../components/figma/BlockStyles';
 import { ChangeName } from '../ChangeName/ChangeName';
@@ -50,39 +50,41 @@ const SettingsList: React.FC<SettingsProps> = ({
 
   return (
     <SettingsListWrapper>
-      <SettingsListNameWrapper>
-        <Col span="24" lg={12}>
-          <Collapse
-            onChange={changeNameHandler}
-            bordered={false}
-            activeKey={collapseActiveKey}
-          >
-            <SettingsListCollapsePanel
-              showArrow={false}
-              header={PanelHeader()}
-              key={1}
-              forceRender
+      <SettingsListContainer>
+        <SettingsListItemWrapper>
+          <Col span="24" lg={12}>
+            <Collapse
+              onChange={changeNameHandler}
+              bordered={false}
+              activeKey={collapseActiveKey}
             >
-              <ChangeName
-                changeNameHandler={changeNameSubmitHandler}
-                cancelHandler={() => setCollapseActiveKey([])}
-                initialValues={initialValues}
-              />
-            </SettingsListCollapsePanel>
-          </Collapse>
-        </Col>
-      </SettingsListNameWrapper>
-      <SettingsListDeleteWrapper>
-        <Col span="24" lg={12}>
-          <SettingsListButton
-            type="default"
-            onClick={() => deleteAccountClickHandler()}
-          >
-            <UserDeleteOutlined />
-            <span>{t('settings.deleteAccount')}</span>
-          </SettingsListButton>
-        </Col>
-      </SettingsListDeleteWrapper>
+              <SettingsListCollapsePanel
+                showArrow={false}
+                header={PanelHeader()}
+                key={1}
+                forceRender
+              >
+                <ChangeName
+                  changeNameHandler={changeNameSubmitHandler}
+                  cancelHandler={() => setCollapseActiveKey([])}
+                  initialValues={initialValues}
+                />
+              </SettingsListCollapsePanel>
+            </Collapse>
+          </Col>
+        </SettingsListItemWrapper>
+        <SettingsListItemWrapper>
+          <Col span="24" lg={12}>
+            <SettingsListButton
+              type="default"
+              onClick={() => deleteAccountClickHandler()}
+            >
+              <UserDeleteOutlined />
+              <span>{t('settings.deleteAccount')}</span>
+            </SettingsListButton>
+          </Col>
+        </SettingsListItemWrapper>
+      </SettingsListContainer>
     </SettingsListWrapper>
   );
 };

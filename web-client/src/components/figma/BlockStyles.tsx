@@ -2,7 +2,6 @@
 import { Collapse, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DEVICE_MAX, DEVICE_MIN } from 'src/constants/mediaQueries';
 import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
@@ -93,25 +92,23 @@ const OrDivider = () => {
 };
 
 const SettingsListWrapper = styled.div`
-  padding: 10px;
+  padding: 0px 10px;
   background-color: ${COLORS.greyBackground};
   height: 100vh;
+  position: relative;
+`;
+
+const SettingsListContainer = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  top: -20px;
+  right: 0;
+  left: 0;
 `;
 
-const SettingsListNameWrapper = styled.div`
-  margin: -25px 0px;
-`;
-
-const SettingsListDeleteWrapper = styled.div`
-  @media ${DEVICE_MAX.desktop} {
-    margin: 30px 0px 0px 0px;
-  }
-  @media ${DEVICE_MIN.tablet} {
-    margin: -20px 0px 0px 0px;
-  }
+const SettingsListItemWrapper = styled.div`
+  margin: 5px 20px;
 `;
 
 const SettingsCollapsePanelHeaderContent = styled.span`
@@ -207,8 +204,8 @@ export {
   OrDivider,
   StepWrapper,
   SettingsListWrapper,
-  SettingsListNameWrapper,
-  SettingsListDeleteWrapper,
+  SettingsListContainer,
+  SettingsListItemWrapper,
   SettingsCollapsePanelHeaderContent,
   SettingsListCollapsePanel,
   SettingsTopPanelWrapper,
