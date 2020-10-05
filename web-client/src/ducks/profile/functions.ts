@@ -1,5 +1,5 @@
 import { firestore as Firestore } from 'firebase';
-import { firestore, functions } from 'src/firebase';
+import { firestore, functions, storage } from 'src/firebase';
 import { User, UserFirestoreConverter } from 'src/models/users';
 import {
   PrivilegedUserInformation,
@@ -101,3 +101,43 @@ export const updateUserPrivilegedInformationData = async ({
 
 export const deleteUserData = async () =>
   functions.httpsCallable('https-api-users-deleteUserData')();
+
+export const uploadUserAvatarData = async ({
+  userRef,
+  userPayload,
+  filePayload,
+}: {
+  userRef: Firestore.DocumentReference<User>;
+  userPayload: User;
+  filePayload: File;
+}) => {
+  const storageRef = storage.ref();
+  const date = Date.now();
+  const fileExt = filePayload.type.split('/')[1];
+  const snapshot = await storageRef
+    .child(`/${userRef.id}/displayPicture/${date}.${fileExt}`)
+    .put(filePayload, { contentType: 'image/*' });
+  const newUserPayload = userPayload;
+  newUserPayload.displayPicture = snapshot.downloadURL;
+  const newUserWithAvatar = User.factory(newUserPayload);
+  return userRef.set(newUserWithAvatar);
+};
+
+export const deleteUserAvatarData = async ({
+  userRef,
+  userPayload,
+}: {
+  userRef: Firestore.DocumentReference<User>;
+  userPayload: User;
+}) => {
+  const newUserWithoutAvatar = User.factory(userPayload);
+  if (userPayload.displayPicture) {
+    const fileRef = storage
+      .ref()
+      .storage.refFromURL(userPayload.displayPicture);
+    fileRef.getDownloadURL().then(() => {
+      newUserWithoutAvatar.displayPicture = null;
+    });
+  }
+  return userRef.set(newUserWithoutAvatar);
+};

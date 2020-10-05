@@ -1,5 +1,6 @@
 import { firestore } from 'firebase';
 import moment from 'moment';
+import { ProfileState } from 'src/ducks/profile/types';
 
 // default center
 const ANGKOR_WAT = {
@@ -15,16 +16,16 @@ export const metersToKm = (meters: number) => `${(meters / 1000).toFixed(1)}km`;
 export const metersToImperial = (meters: number) =>
   `${(meters * 0.000621371).toFixed(1)}mi`;
 
-export const getCoordsFromProfile = profileState => {
-  if (
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
-    profileState.privilegedInformation.address.coords
-  ) {
+export const getCoordsFromProfile = (profileState: ProfileState) => {
+  if (profileState?.privilegedInformation?.addresses) {
+    const addressToUse = profileState.privilegedInformation.addresses.default
+      ? profileState.privilegedInformation.addresses.default
+      : profileState.privilegedInformation.addresses[
+          Object.keys(profileState.privilegedInformation.addresses)[0]
+        ];
     return {
-      lat: profileState.privilegedInformation.address.coords.latitude,
-      lng: profileState.privilegedInformation.address.coords.longitude,
+      lat: addressToUse.coords.latitude,
+      lng: addressToUse.coords.longitude,
     };
   }
   return {
@@ -33,14 +34,11 @@ export const getCoordsFromProfile = profileState => {
   };
 };
 
-export const getStreetAddressFromProfile = profileState => {
-  if (
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address
-  ) {
-    const { address } = profileState.privilegedInformation;
-    const { address1, address2, postalCode, city, state, country } = address;
+export const getStreetAddressFromProfile = (profileState: ProfileState) => {
+  if (profileState?.privilegedInformation?.addresses) {
+    const { addresses } = profileState.privilegedInformation;
+    const { address1, address2, postalCode, city, state, country } =
+      addresses.default || addresses[Object.keys(addresses || {})[0]] || {};
     const undefinedSafe = value => value || '';
     const formattedAddress = `${undefinedSafe(address1)} ${undefinedSafe(
       address2,

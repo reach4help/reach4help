@@ -1,3 +1,5 @@
+import { ProfileState } from 'src/ducks/profile/types';
+
 export interface MenuItem {
   id: string;
   icon?: React.FunctionComponent<{}> | React.ComponentClass<{}, any>;

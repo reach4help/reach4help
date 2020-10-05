@@ -1,11 +1,19 @@
+<h1 align="center">
+  <a href="https://app.reach4help.org">
+    <img src="../branding/logo/logo-compat.svg" width="60">
+    <img src="../branding/logo/logo-type.svg" height="40">
+  </a>
+</h1>
+
+# Introduction
+
+This is our main app connecting people in need with volunteers who can help. We’re working with volunteer organizations across the world, amassing over 150 volunteers in 13 countries worldwide, providing support for charity events, food banks, and day-to-day delivery services. Our [backend layer](functions) manages all the data for our **Check it out live [here](https://app.reach4help.org/)!**
+
 # Local development
 
+For contributing code, please take a look at our [CONTRIBUTING.md](./docs/CodingConventions/CONTRIBUTING.md) for in depth-instructions.
+
 ## Using Docker
-
-## Prerequisites
-
-You have to set up the environment variables for the external services.
-Instructions on setting up environment variables can be found in [section for setting up environment variables](./docs/CodingConventions/CONTRIBUTING.md#setting-up-the-environment-variables) in [CONTRIBUTING.md](./docs/CodingConventions/CONTRIBUTING.md)
 
 Just run:
 

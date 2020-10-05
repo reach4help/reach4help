@@ -33,6 +33,7 @@ export interface IGeneralRequest extends IUnauthenticatedRequest {
   lastOfferMade: Date | null;
   firstRejectionMade: Date | null;
   lastRejectionMade: Date | null;
+  seenBy: string[];
 }
 
 export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRequest {
@@ -53,6 +54,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     lastOfferMade: Date | null = null,
     firstRejectionMade: Date | null = null,
     lastRejectionMade: Date | null = null,
+    seenBy: string[] = [],
     createdAt?: Date,
     updatedAt?: Date,
   ) {
@@ -80,6 +82,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     this._lastOfferMade = lastOfferMade;
     this._firstRejectionMade = firstRejectionMade;
     this._lastRejectionMade = lastRejectionMade;
+    this._seenBy = seenBy;
   }
 
   @IsObject()
@@ -227,6 +230,17 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     this._lastRejectionMade = lastRejectionMade;
   }
 
+  @IsObject()
+  private _seenBy: string[];
+
+  get seenBy(): string[] {
+    return this._seenBy;
+  }
+
+  set seenBy(seenBy: string[]) {
+    this._seenBy = seenBy;
+  }
+
   @IsString()
   private _streetAddress: string;
 
@@ -252,6 +266,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     let lastOfferMade: Date | null = null;
     let firstRejectionMade: Date | null = null;
     let lastRejectionMade: Date | null = null;
+    const seenBy = [data.pinUserRef.id];
 
     for (const doc of offersData.docs) {
       const offer = Offer.factory(doc.data() as IOffer);
@@ -300,6 +315,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       lastOfferMade,
       firstRejectionMade,
       lastRejectionMade,
+      seenBy,
       data.createdAt.toDate(),
       data.updatedAt.toDate(),
     );
@@ -326,6 +342,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       (data.lastOfferMade as Timestamp).toDate(),
       (data.firstRejectionMade as Timestamp).toDate(),
       (data.lastRejectionMade as Timestamp).toDate(),
+      data.seenBy,
       (data.createdAt as Timestamp).toDate(),
       (data.updatedAt as Timestamp).toDate(),
     );
@@ -349,6 +366,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.lastOfferMade,
       data.firstRejectionMade,
       data.lastRejectionMade,
+      data.seenBy,
       data.createdAt,
       data.updatedAt,
     );
@@ -380,6 +398,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.lastOfferMade,
       data.firstRejectionMade,
       data.lastRejectionMade,
+      data.seenBy,
       data.createdAt,
       data.updatedAt,
     );
@@ -403,6 +422,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       lastOfferMade: this.lastOfferMade,
       firstRejectionMade: this.firstRejectionMade,
       lastRejectionMade: this.lastRejectionMade,
+      seenBy: this.seenBy,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
@@ -426,6 +446,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       lastOfferMade: this.lastOfferMade ? Timestamp.fromDate(this.lastOfferMade) : null,
       firstRejectionMade: this.firstRejectionMade ? Timestamp.fromDate(this.firstRejectionMade) : null,
       lastRejectionMade: this.lastRejectionMade ? Timestamp.fromDate(this.lastRejectionMade) : null,
+      seenBy: this.seenBy,
       createdAt: Timestamp.fromDate(this.createdAt),
       updatedAt: Timestamp.fromDate(this.updatedAt),
     };
@@ -453,6 +474,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       lastOfferMade: this.lastOfferMade,
       firstRejectionMade: this.firstRejectionMade,
       lastRejectionMade: this.lastRejectionMade,
+      seenBy: this.seenBy,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

@@ -5,6 +5,7 @@ import { PrivilegedUserInformation } from 'src/models/users/privilegedInformatio
 import createReducer from 'src/store/utils/createReducer';
 
 import {
+  DELETE_AVATAR,
   DELETE_ME,
   GET,
   OBSERVE_PRIVILEGED,
@@ -13,6 +14,7 @@ import {
   SET,
   UPDATE,
   UPDATE_PRIVILEGED,
+  UPLOAD_AVATAR,
 } from './types';
 
 const initialState: ProfileState = {
@@ -24,6 +26,7 @@ const initialState: ProfileState = {
   setAction: undefined,
   updateAction: undefined,
   observerReceivedFirstUpdate: false,
+  privilegedObserverReceivedFirstUpdate: false,
   error: undefined,
 };
 
@@ -141,7 +144,7 @@ export default createReducer<ProfileState>(
       // eslint-disable-next-line prefer-destructuring
       state.privilegedInformation = payload.data();
       state.loading = false;
-      state.observerReceivedFirstUpdate = true;
+      state.privilegedObserverReceivedFirstUpdate = true;
     },
     [OBSERVE_PROFILE.SUBSCRIBE]: (state: ProfileState) => {
       state.loading = true;
@@ -163,6 +166,66 @@ export default createReducer<ProfileState>(
       state.uid = payload.id;
       state.loading = false;
       state.observerReceivedFirstUpdate = true;
+    },
+    [UPLOAD_AVATAR.PENDING]: (state: ProfileState) => {
+      state.loading = true;
+      state.error = undefined;
+    },
+    [UPLOAD_AVATAR.COMPLETED]: (
+      state: ProfileState,
+      {
+        payload,
+      }: {
+        payload: firestore.DocumentSnapshot<User>;
+      },
+    ) => {
+      state.profile = payload.data();
+      state.userRef = db
+        .collection('users')
+        .doc(payload.id)
+        .withConverter(UserFirestoreConverter);
+      state.uid = payload.id;
+      state.loading = false;
+      state.error = undefined;
+    },
+    [UPLOAD_AVATAR.REJECTED]: (
+      state: ProfileState,
+      { payload }: { payload: Error },
+    ) => {
+      state.error = payload;
+      state.loading = false;
+      state.profile = undefined;
+      state.uid = undefined;
+    },
+    [DELETE_AVATAR.PENDING]: (state: ProfileState) => {
+      state.loading = true;
+      state.error = undefined;
+    },
+    [DELETE_AVATAR.COMPLETED]: (
+      state: ProfileState,
+      {
+        payload,
+      }: {
+        payload: firestore.DocumentSnapshot<User>;
+      },
+    ) => {
+      state.profile = payload.data();
+      state.userRef = db
+        .collection('users')
+        .doc(payload.id)
+        .withConverter(UserFirestoreConverter);
+      state.uid = payload.id;
+      state.loading = false;
+      state.error = undefined;
+    },
+    [DELETE_AVATAR.REJECTED]: (
+      state: ProfileState,
+      { payload }: { payload: Error },
+    ) => {
+      state.error = payload;
+      state.loading = false;
+      state.profile = undefined;
+      state.uid = undefined;
     },
   },
   initialState,

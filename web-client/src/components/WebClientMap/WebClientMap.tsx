@@ -225,7 +225,6 @@ We are currently adjusting the top css but there is probably a better solution.
 */
 const MapWrapper = styled.div<{ isCav?: boolean }>`
   left: 0;
-  top: ${props => (props.isCav ? '117px' : '0')};
   height: 100%;
   width: 100%;
   position: absolute;
