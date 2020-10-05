@@ -1,3 +1,4 @@
+/* ?? using src */
 import firebase from 'firebase';
 import { firestore, functions } from 'src/firebase';
 import {
@@ -8,14 +9,7 @@ import {
 import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 
-import { IgetNonOpenRequests, IgetOpenRequests } from './types';
-
-const whereConditionHelper = {
-  applicationPreference: {
-    [ApplicationPreference.pin]: 'pinUserRef',
-    [ApplicationPreference.cav]: 'cavUserRef',
-  },
-};
+import { IgetOpenRequests } from './types';
 
 export const observeOpenRequests = (
   nextValue: Function,
@@ -33,26 +27,6 @@ export const observeOpenRequests = (
     .withConverter(RequestFirestoreConverter)
     .onSnapshot(snap => nextValue(snap));
 };
-
-export const observeNonOpenRequests = (
-  nextValue: Function,
-  payload: IgetNonOpenRequests,
-): firebase.Unsubscribe =>
-  firestore
-    .collection('requests')
-    .where('status', '==', payload.requestStatus)
-    .where(
-      whereConditionHelper.applicationPreference[payload.userType],
-      '==',
-      payload.userRef,
-    )
-    .withConverter(RequestFirestoreConverter)
-    .onSnapshot(snap =>
-      nextValue({
-        requestStatus: payload.requestStatus,
-        snap,
-      }),
-    );
 
 export const createUserRequest = async ({
   requestPayload,

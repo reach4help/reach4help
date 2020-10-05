@@ -13,7 +13,5 @@
     "experimentalDecorators": true
   },
   "compileOnSave": true,
-  "include": [
-    "."
-  ]
+  "include": ["."]
 }

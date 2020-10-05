@@ -122,13 +122,13 @@ function verifyOfferDataComplete(data) {
           data.createdAt is timestamp
 }
 
-function verifyAddressDataComplete(address) {
-    // TODO: Further validate address object.
+function verifyAddressDataComplete(addresses) {
+    // TODO: Further validate addresses object.
     return true
 }
 
 function verifyUserPrivilegedInformationDataComplete(data) {
-   return ('address' in data) && verifyAddressDataComplete(data.address) &&
+   return ('addresses' in data) && verifyAddressDataComplete(data.addresses) &&
           ('termsAccepted' in data) &&
           data.termsAccepted is timestamp &&
           ('termsVersion' in data)

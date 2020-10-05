@@ -2,6 +2,7 @@
 import { Collapse, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { DEVICE_MAX, DEVICE_MIN } from 'src/constants/mediaQueries';
 import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
@@ -111,6 +112,15 @@ const SettingsListItemWrapper = styled.div`
   margin: 5px 20px;
 `;
 
+const SettingsListPopupWrapper = styled.div`
+  @media ${DEVICE_MAX.desktop} {
+    margin: 30px 0px 0px 0px;
+  }
+  @media ${DEVICE_MIN.tablet} {
+    margin: -20px 0px 0px 0px;
+  }
+`;
+
 const SettingsCollapsePanelHeaderContent = styled.span`
   padding-left: 7px;
 `;
@@ -174,16 +184,13 @@ const SettingsTopPanelDisplayPhoto = styled.img`
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  margin-right: 20px;
 `;
 
 const SettingsTopPanelEmptyPhoto = styled.div`
   background: linear-gradient(180deg, #ffffff 0%, #dddddd 100%);
-  transform: matrix(0, -1, -1, 0, 0, 0);
   width: 48px;
-  height: 45px;
+  height: 48px;
   border-radius: 50%;
-  margin-right: 12px;
 `;
 
 const SettingsTopPanelDisplayName = styled(Text)`
@@ -206,6 +213,7 @@ export {
   SettingsListWrapper,
   SettingsListContainer,
   SettingsListItemWrapper,
+  SettingsListPopupWrapper,
   SettingsCollapsePanelHeaderContent,
   SettingsListCollapsePanel,
   SettingsTopPanelWrapper,

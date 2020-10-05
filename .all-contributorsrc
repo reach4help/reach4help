@@ -286,6 +286,25 @@
       "contributions": [
         "userTesting"
       ]
+    },
+    {
+      "login": "milkrong",
+      "name": "milkrong",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15906981?v=4",
+      "profile": "http://codingeric.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "gorostiaga",
+      "name": "gorostiaga",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/46466795?v=4",
+      "profile": "https://github.com/gorostiaga",
+      "contributions": [
+        "projectManagement",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
