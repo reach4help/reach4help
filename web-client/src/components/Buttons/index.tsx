@@ -78,6 +78,7 @@ export const StepForwardButton = styled(Button)`
 export const SettingsListButton = styled(Button)`
   display: flex;
   justify-content: start;
+  align-items: center;
   font-weight: normal;
   padding: 22px 10px;
   border: none;
@@ -89,7 +90,7 @@ export const SettingsListButton = styled(Button)`
   &:focus-within {
     color: ${COLORS.black};
   }
-  > span {
+  span {
     display: flex;
     align-items: center;
     justify-content: space-around;
