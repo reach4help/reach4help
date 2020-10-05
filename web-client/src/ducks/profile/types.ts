@@ -27,6 +27,7 @@ export interface ProfileState {
   setAction?: Record<string, any>;
   updateAction?: boolean;
   observerReceivedFirstUpdate: boolean;
+  privilegedObserverReceivedFirstUpdate: boolean;
   loading: boolean;
   error?: Error;
 }

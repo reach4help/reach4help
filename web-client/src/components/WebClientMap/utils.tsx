@@ -18,10 +18,14 @@ export const metersToImperial = (meters: number) =>
 
 export const getCoordsFromProfile = (profileState: ProfileState) => {
   if (profileState?.privilegedInformation?.addresses) {
+    const addressToUse = profileState.privilegedInformation.addresses.default
+      ? profileState.privilegedInformation.addresses.default
+      : profileState.privilegedInformation.addresses[
+          Object.keys(profileState.privilegedInformation.addresses)[0]
+        ];
     return {
-      lat: profileState.privilegedInformation.addresses.default.coords.latitude,
-      lng:
-        profileState.privilegedInformation.addresses.default.coords.longitude,
+      lat: addressToUse.coords.latitude,
+      lng: addressToUse.coords.longitude,
     };
   }
   return {

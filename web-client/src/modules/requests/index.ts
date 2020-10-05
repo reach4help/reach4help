@@ -9,7 +9,7 @@ import {
   FindRequestsLocation,
   OpenRequestsLocation,
 } from './constants';
-import RequestsRoutingPage from './RequestsRoutingPage';
+import Routes from './routes';
 
 export const menuLinks: Array<MenuItem> = [
   {
@@ -70,6 +70,6 @@ const requestsModule: Module = {
       },
     ] as MenuItem[];
   },
-  component: RequestsRoutingPage,
+  component: Routes,
 };
 export default requestsModule;

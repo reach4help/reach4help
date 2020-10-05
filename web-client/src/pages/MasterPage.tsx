@@ -1,7 +1,7 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Redirect,
   Route,
@@ -10,32 +10,25 @@ import {
 } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import { observeOffers } from 'src/ducks/offers/actions';
-import { OffersState } from 'src/ducks/offers/types';
-import { ProfileState } from 'src/ducks/profile/types';
-import { NewRequestsLocation } from 'src/modules/requests/constants';
+import { FindRequestsLocation } from 'src/modules/requests/constants';
 import { Module } from 'src/types/module';
 
-import { AuthState } from '../ducks/auth/types';
-import { updateUserProfile } from '../ducks/profile/actions';
-import { ApplicationPreference, User } from '../models/users';
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
 import PartiallyProtectedRoute from './routes/ParitallyProtectedRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
 
-const mockProfile = User.factory({
-  username: 'pleaseLogin',
-});
-
 const MasterPage = (): ReactElement => {
   const { t } = useTranslation();
+
+  const dispatch = useDispatch();
 
   const titleFromPath = () => {
     const path = window.location.pathname;
     const title = 'Reach4Help';
 
     switch (path) {
+      case '/create':
       case '/login':
       case '/phone':
       case '/requests':
@@ -66,64 +59,6 @@ const MasterPage = (): ReactElement => {
     }
   };
 
-  const profileState = useSelector(
-    ({ profile }: { profile: ProfileState }) => profile,
-  );
-  const offersState = useSelector(
-    ({ offers }: { offers: OffersState }) => offers,
-  );
-  const [changeRolePast, setChangeRolePast] = useState<
-    ApplicationPreference | undefined
-  >(undefined);
-  const userProfile = profileState.profile;
-
-  const dispatch = useDispatch();
-  // const history = useHistory();
-
-  const authStateUser = useSelector(
-    ({ auth }: { auth: AuthState }) => auth.user,
-  );
-
-  useEffect(() => {
-    if (
-      !(profileState.error && profileState.loading) &&
-      profileState.updateAction &&
-      changeRolePast &&
-      userProfile &&
-      userProfile.applicationPreference
-    ) {
-      if (changeRolePast !== userProfile.applicationPreference) {
-        window.location.href = '/';
-      }
-    }
-    if (
-      profileState.profile &&
-      profileState.profile.applicationPreference &&
-      !offersState.data &&
-      !offersState.loading
-    ) {
-      observeOffers(dispatch, {
-        userType: profileState.profile.applicationPreference,
-        userRef: profileState.userRef,
-      });
-    }
-  }, [userProfile, changeRolePast, profileState, offersState, dispatch]);
-
-  const toggleApplicationPreference = () => {
-    const user = profileState.profile;
-    if (user && authStateUser) {
-      const currentPreference = user.applicationPreference;
-      if (currentPreference) {
-        setChangeRolePast(currentPreference);
-      }
-      user.applicationPreference =
-        currentPreference === ApplicationPreference.cav
-          ? ApplicationPreference.pin
-          : ApplicationPreference.cav;
-      dispatch(updateUserProfile(authStateUser.uid, user));
-    }
-  };
-
   const renderLayout = (routeModule: Module) => {
     if (routeModule.layout === 'dashboard') {
       return (
@@ -134,14 +69,12 @@ const MasterPage = (): ReactElement => {
           <DashboardLayout
             menuItems={
               routeModule.dynamicMenuLinks
-                ? routeModule.dynamicMenuLinks(profileState)
+                ? routeModule.dynamicMenuLinks
                 : routeModule.menuItems
+                ? routeModule.menuItems
+                : []
             }
-            offersState={offersState || {}}
-            profileData={userProfile || mockProfile}
-            isCav={userProfile?.applicationPreference === 'cav'}
             logoutHandler={() => dispatch(signOutCurrentUserAction())}
-            toggleApplicationPreference={toggleApplicationPreference}
           >
             <Route path={routeModule.path} component={routeModule.component} />
           </DashboardLayout>
@@ -154,7 +87,7 @@ const MasterPage = (): ReactElement => {
   const renderModules = () =>
     Object.keys(modules).map(moduleName => {
       const routeModule = modules[moduleName];
-
+      // test components here
       return routeModule.protected ? (
         <ProtectedRoute
           key={moduleName}
@@ -175,6 +108,7 @@ const MasterPage = (): ReactElement => {
         />
       );
     });
+
   return (
     <Router>
       <Switch>
@@ -182,7 +116,7 @@ const MasterPage = (): ReactElement => {
         {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
         <Route
           path="/"
-          component={() => <Redirect to={NewRequestsLocation.path} />}
+          component={() => <Redirect to={FindRequestsLocation.path} />}
         />
         <Route path="*" component={NotFoundRoute} />
       </Switch>

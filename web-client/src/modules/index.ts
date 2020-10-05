@@ -1,5 +1,6 @@
 import { Module } from 'src/types/module';
 
+import Create from './create';
 import Login from './login';
 import PersonalData from './personalData';
 import Phone from './phone';
@@ -14,6 +15,7 @@ const modules: Record<string, Module> = {
   Requests,
   Timeline,
   Settings,
+  Create,
 };
 
 export default modules;
