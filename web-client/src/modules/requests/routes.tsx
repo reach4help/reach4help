@@ -12,7 +12,6 @@ import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import {
   AcceptedRequestsLocation,
   FindRequestsLocation,
-  NewRequestsLocation,
   OpenRequestsLocation,
   PostListLocation,
 } from './constants';
@@ -25,10 +24,6 @@ const AcceptedRequestsContainer = lazy(() =>
 
 const FindRequestsContainer = lazy(() =>
   import('./containers/FindRequestsContainer'),
-);
-
-const NewRequestsContainer = lazy(() =>
-  import('./containers/NewRequestsContainer'),
 );
 
 const OpenRequestsContainer = lazy(() =>
@@ -86,11 +81,6 @@ const Routes = (): ReactElement => (
       <Route
         path={FindRequestsLocation.path}
         component={FindRequestsContainer}
-        exact
-      />
-      <Route
-        path={NewRequestsLocation.path}
-        component={NewRequestsContainer}
         exact
       />
       <Route path="*" render={() => <Redirect to="/404" />} />

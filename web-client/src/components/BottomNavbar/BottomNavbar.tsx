@@ -7,11 +7,16 @@ import {
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  FindRequestsLocation,
-  NewRequestsLocation,
-} from 'src/modules/requests/constants';
+  CreatePostLocation,
+  CreatePostTypes,
+} from 'src/modules/create/constants';
+import { FindRequestsLocation } from 'src/modules/requests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
+
+const CreateRequestLocationUrl = CreatePostLocation.toUrl({
+  type: CreatePostTypes.request,
+});
 
 const BottomNavbar: React.FC<BottomNavbarProps> = ({
   openMenu,
@@ -37,7 +42,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
         ) : (
           <NavButton
             isCav={isCav}
-            onClick={() => history.push(NewRequestsLocation.path)}
+            onClick={() => history.push(CreateRequestLocationUrl)}
           >
             <NewRequestIcon />
           </NavButton>

@@ -8,25 +8,55 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from 'src/components/Modals/OneTimeModal';
+import {
+  getCoordsFromProfile,
+  getStreetAddressFromProfile,
+} from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
+import {
+  PostListLocation,
+  PostsListTypes,
+} from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
-import NewRequest from '../components/NewRequest';
-import RequestConfirmation from '../components/RequestConfirmation';
-import RequestReview, { RequestInput } from '../components/RequestReview';
-import { OpenRequestsLocation } from '../constants';
+import NewPost from '../components/NewPost';
+import PostConfirmation from '../components/PostConfirmation';
+import PostReview, { RequestInput } from '../components/PostReview';
+import { CreatePostTypes } from '../constants';
 
 /* TODO:  integrate with translation if safe */
 const DELIVERIES = 'Deliveries';
 
-const NewRequestsContainer: React.FC = () => {
+// TS interfaces for state later on.
+
+// enum Type {
+//   delivery = 'Deliveries',
+//   other = 'Other',
+// }
+
+// interface RequestDetails {
+//   title: string;
+//   type: Type;
+//   details: string;
+// }
+
+// interface RequestAddress {
+//   streetAddress: string;
+//   latLng: firestore.GeoPoint;
+// }
+
+const RequestListLocationUrl = PostListLocation.toUrl({
+  type: PostsListTypes.request,
+});
+
+const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
   const { t } = useTranslation();
   const history = useHistory();
 
@@ -54,11 +84,29 @@ const NewRequestsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const [mapAddress, setMapAddress] = useState<string>('');
-  const [currentLocation, setCurrentLocation] = useState<Coords>({
-    lat: 0,
-    lng: 0,
-  });
+  // *** new state to be implemented later on ***
+
+  // const [requestDetails, setRequestDetails] = useState<RequestDetails>({
+  //   title: '',
+  //   type: Type.delivery,
+  //   details: '',
+  // });
+
+  // const coordsFromProfile = getCoordsFromProfile(profileState);
+
+  // const [requestAddress, setRequestAddress] = useState<RequestAddress>({
+  //   streetAddress: getStreetAddressFromProfile(profileState) || 'Address could not be found',
+  //   latLng: new firestore.GeoPoint(coordsFromProfile.lat, coordsFromProfile.lng),
+  // });
+
+  const [mapAddress, setMapAddress] = useState<string>(
+    () =>
+      getStreetAddressFromProfile(profileState) || 'Address could not be found',
+  );
+
+  const [currentLocation, setCurrentLocation] = useState<Coords>(() =>
+    getCoordsFromProfile(profileState),
+  );
 
   const newRequestState = useSelector(
     ({ requests }: { requests: RequestState }) => requests.setAction,
@@ -181,7 +229,7 @@ const NewRequestsContainer: React.FC = () => {
 
       return (
         <RequestDetails>
-          <NewRequest
+          <NewPost
             onSubmit={newRequestSubmitHandler}
             request={request}
             setStreetAddress={setMapAddress}
@@ -197,7 +245,7 @@ const NewRequestsContainer: React.FC = () => {
     if (showReviewPage && requestInfo) {
       return (
         <RequestDetails>
-          <RequestReview
+          <PostReview
             request={requestInfo}
             saveRequest={() => {
               reviewRequestSubmitHandler(requestInfo);
@@ -213,13 +261,13 @@ const NewRequestsContainer: React.FC = () => {
   const maybeRequestConfirmation = () => {
     if (showConfirmationPage) {
       return (
-        <RequestConfirmation
+        <PostConfirmation
           showModal={showConfirmationPage}
           closeModal={() => {
             setShowConfirmationPage(false);
             // because I could observe race conditions in cloud function
             setTimeout(() => {
-              history.push(OpenRequestsLocation.path);
+              history.push(RequestListLocationUrl);
             }, 150);
             dispatch(resetSetRequestState());
           }}
@@ -288,4 +336,8 @@ const MapContainer = styled.div`
   height: 100%;
 `;
 
-export default NewRequestsContainer;
+interface ICreatePostContainer {
+  type: CreatePostTypes;
+}
+
+export default CreatePostContainer;
