@@ -2,15 +2,9 @@ import React, { ReactElement } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import {
-  Redirect,
-  Route,
-  BrowserRouter as Router,
-  Switch,
-} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import { FindRequestsLocation } from 'src/modules/requests/constants';
 import { Module } from 'src/types/module';
 
 import modules from '../modules';
@@ -113,11 +107,6 @@ const MasterPage = (): ReactElement => {
     <Router>
       <Switch>
         {renderModules()}
-        {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
-        <Route
-          path="/"
-          component={() => <Redirect to={FindRequestsLocation.path} />}
-        />
         <Route path="*" component={NotFoundRoute} />
       </Switch>
     </Router>
