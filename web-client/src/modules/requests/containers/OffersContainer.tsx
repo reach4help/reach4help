@@ -1,11 +1,13 @@
 import React from 'react';
-import PostsContainer from './PostsContainer';
-import { offersPostType} from '../constants';
+// import PostsContainer from './PostsContainer';
+// import { offersPostType} from '../constants';
+console.log('Executing offers container');
 
 const OffersContainer: React.FC = () => (
-  <PostsContainer
-    postType={ offersPostType }
-  />
+  <p>Offers</p>
+  // <PostsContainer
+  //   postType={ offersPostType }
+  // />
 );
 
 export default OffersContainer;

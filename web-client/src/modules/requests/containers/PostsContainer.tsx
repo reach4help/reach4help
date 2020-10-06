@@ -42,6 +42,7 @@ const PostsContainer: React.FC<PostsProps> = ({
       return requests.syncOpenRequestsState;
     },
   );
+  console.log('Executing posts')
 
   useEffect(() => {
     dispatch(resetSetRequestState());
@@ -104,7 +105,6 @@ const PostsContainer: React.FC<PostsProps> = ({
         }
         isAcceptedRequests={false}
       />
-      <p>{status}</p>
       <RequestList
         requests={requestWithOffersAndTimeline.data}
         loading={
