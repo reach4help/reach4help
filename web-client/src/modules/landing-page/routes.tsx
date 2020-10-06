@@ -7,7 +7,7 @@ import { AboutPageLocation, HomePageLocation } from './constants';
 const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 
-const NewDesignRoutingPage = (): ReactElement => (
+const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
       <Route path={HomePageLocation.path} component={HomePage} exact />
@@ -16,4 +16,4 @@ const NewDesignRoutingPage = (): ReactElement => (
   </Suspense>
 );
 
-export default NewDesignRoutingPage;
+export default Routes;
