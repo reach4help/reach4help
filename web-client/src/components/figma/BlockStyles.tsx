@@ -92,9 +92,23 @@ const OrDivider = () => {
 };
 
 const SettingsListWrapper = styled.div`
-  padding: 10px;
+  padding: 0px 10px;
   background-color: ${COLORS.greyBackground};
   height: 100vh;
+  position: relative;
+`;
+
+const SettingsListContainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: -20px;
+  right: 0;
+  left: 0;
+`;
+
+const SettingsListItemWrapper = styled.div`
+  margin: 5px 20px;
 `;
 
 const SettingsCollapsePanelHeaderContent = styled.span`
@@ -119,7 +133,7 @@ const SettingsTopPanelWrapper = styled.div`
   .ant-typography {
     color: #f0f0f0;
   }
-
+  position: relative;
   span,
   img {
     user-select: none;
@@ -137,11 +151,15 @@ const SettingsTopPanelHeadingRow = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 0.5rem;
-  margin: 0.5rem 0;
+  margin: 0 0 0.5rem 0;
   font-size: 1rem;
   color: #f0f0f0;
   font-size: 30px;
   line-height: 36px;
+  font-weight: bold;
+  div {
+    margin: 0 10px 6px 0;
+  }
 `;
 
 const SettingsTopPanelUserRow = styled.div`
@@ -183,6 +201,8 @@ export {
   OrDivider,
   StepWrapper,
   SettingsListWrapper,
+  SettingsListContainer,
+  SettingsListItemWrapper,
   SettingsCollapsePanelHeaderContent,
   SettingsListCollapsePanel,
   SettingsTopPanelWrapper,

@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 import { UserDeleteOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Collapse, Row } from 'antd';
+import { Col, Collapse } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
@@ -11,6 +11,8 @@ import { H4Font } from '../../../../components/figma';
 import {
   SettingsCollapsePanelHeaderContent,
   SettingsListCollapsePanel,
+  SettingsListContainer,
+  SettingsListItemWrapper,
   SettingsListWrapper,
 } from '../../../../components/figma/BlockStyles';
 import { ChangeName } from '../ChangeName/ChangeName';
@@ -83,66 +85,68 @@ const SettingsList: React.FC<SettingsProps> = ({
 
   return (
     <SettingsListWrapper>
-      <Row gutter={[0, 12]}>
-        <Col span="24" lg={12}>
-          <Collapse
-            onChange={changeNameHandler}
-            bordered={false}
-            activeKey={collapseActiveKey}
-          >
-            <SettingsListCollapsePanel
-              showArrow={false}
-              header={NamePanelHeader()}
-              key={1}
-              forceRender
+      <SettingsListContainer>
+        <SettingsListItemWrapper>
+          <Col span="24" lg={12}>
+            <Collapse
+              onChange={changeNameHandler}
+              bordered={false}
+              activeKey={collapseActiveKey}
             >
-              <ChangeName
-                changeNameHandler={changeNameSubmitHandler}
-                cancelHandler={() => setCollapseActiveKey([])}
-                initialValues={{
-                  displayName: initialValues.displayName,
-                  username: initialValues.username,
-                }}
-              />
-            </SettingsListCollapsePanel>
-          </Collapse>
-        </Col>
-      </Row>
-      <Row gutter={[0, 12]}>
-        <Col span="24" lg={12}>
-          <SettingsListButton
-            type="default"
-            onClick={() => deleteAccountClickHandler()}
-          >
-            <UserDeleteOutlined />
-            <span>{t('settings.deleteAccount')}</span>
-          </SettingsListButton>
-        </Col>
-      </Row>
-      <Row gutter={[0, 12]}>
-        <Col span="24" lg={12}>
-          <Collapse
-            onChange={changeAddressesHandler}
-            bordered={false}
-            activeKey={collapseActiveKey}
-          >
-            <SettingsListCollapsePanel
-              showArrow={false}
-              header={AddressesPanelHeader()}
-              key={2}
-              forceRender
+              <SettingsListCollapsePanel
+                showArrow={false}
+                header={NamePanelHeader()}
+                key={1}
+                forceRender
+              >
+                <ChangeName
+                  changeNameHandler={changeNameSubmitHandler}
+                  cancelHandler={() => setCollapseActiveKey([])}
+                  initialValues={{
+                    displayName: initialValues.displayName,
+                    username: initialValues.username,
+                  }}
+                />
+              </SettingsListCollapsePanel>
+            </Collapse>
+          </Col>
+        </SettingsListItemWrapper>
+        <SettingsListItemWrapper>
+          <Col span="24" lg={12}>
+            <SettingsListButton
+              type="default"
+              onClick={() => deleteAccountClickHandler()}
             >
-              <AddressChooser
-                actionHandler={() => forceCollapse(2)}
-                actionType="submit"
-                isSettings
-                cancelHandler={() => forceCollapse(2)}
-                cancelType="cancel"
-              />
-            </SettingsListCollapsePanel>
-          </Collapse>
-        </Col>
-      </Row>
+              <UserDeleteOutlined />
+              <span>{t('settings.deleteAccount')}</span>
+            </SettingsListButton>
+          </Col>
+        </SettingsListItemWrapper>
+        <SettingsListItemWrapper>
+          <Col span="24" lg={12}>
+            <Collapse
+              onChange={changeAddressesHandler}
+              bordered={false}
+              activeKey={collapseActiveKey}
+            >
+              <SettingsListCollapsePanel
+                showArrow={false}
+                header={AddressesPanelHeader()}
+                key={2}
+                forceRender
+              >
+                <AddressChooser
+                  actionHandler={() => forceCollapse(2)}
+                  actionType="submit"
+                  isSettings
+                  cancelHandler={() => forceCollapse(2)}
+                  cancelType="cancel"
+                />
+              </SettingsListCollapsePanel>
+            </Collapse>
+          </Col>
+        </SettingsListItemWrapper>
+      </SettingsListContainer>
     </SettingsListWrapper>
   );
 };

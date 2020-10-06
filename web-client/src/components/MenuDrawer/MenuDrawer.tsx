@@ -2,7 +2,6 @@ import {
   LogoutOutlined,
   MailOutlined,
   SettingOutlined,
-  UserSwitchOutlined,
 } from '@ant-design/icons';
 import { Drawer } from 'antd';
 import React from 'react';
@@ -12,7 +11,7 @@ import { User } from 'src/models/users';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import { SettingsLocation } from '../../modules/settings/pages/routes/SettingsRoute/constants';
+import { SettingsLocation } from '../../modules/settings/constants';
 import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
 import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
@@ -23,8 +22,6 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
   menuItems,
   profileData,
   logoutHandler,
-  isCav,
-  toggleApplicationPreference,
 }) => {
   const { t } = useTranslation();
   const history = useHistory();
@@ -53,19 +50,14 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
         visible={visible}
         width="100%"
       >
-        <SideDrawerProfile profileData={profileData} isCav={isCav} />
-        <SideDrawerMenu
-          items={menuItems || []}
-          closeDrawer={closeDrawer}
-          isCav={isCav}
-        />
+        <SideDrawerProfile profileData={profileData} />
+        <SideDrawerMenu items={menuItems || []} closeDrawer={closeDrawer} />
         <BottomLinks>
           <BottomLinkItem onClick={() => history.push(SettingsLocation.path)}>
             <SettingOutlined />
             {t('menuDrawer.settings')}
           </BottomLinkItem>
           <BottomLinkItem
-            isCav={isCav}
             role="link"
             onClick={() => {
               closeDrawer();
@@ -76,17 +68,6 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
             {t('menuDrawer.contactUs')}
           </BottomLinkItem>
           <BottomLinkItem
-            isCav={isCav}
-            role="link"
-            onClick={() => toggleApplicationPreference()}
-          >
-            <UserSwitchOutlined />
-            {`${
-              isCav ? t('menuDrawer.switchToPIN') : t('menuDrawer.switchToCAV')
-            }`}
-          </BottomLinkItem>
-          <BottomLinkItem
-            isCav={isCav}
             role="link"
             onClick={() => {
               closeDrawer();
@@ -121,7 +102,7 @@ const SideDrawer = styled(Drawer)`
   }
 `;
 
-const BottomLinkItem = styled('div')<{ isCav?: boolean }>`
+const BottomLinkItem = styled('div')`
   color: inherit;
   margin-bottom: 10px;
   padding: 10px;
@@ -135,8 +116,7 @@ const BottomLinkItem = styled('div')<{ isCav?: boolean }>`
   &:focus-within {
     color: white;
     font-weight: 700;
-    background-color: ${props =>
-      props.isCav ? COLORS.link : COLORS.brandOrange};
+    background-color: ${COLORS.link};
   }
 `;
 const BottomLinks = styled.div`
@@ -152,8 +132,6 @@ interface MenuDrawerProps {
   menuItems?: Array<MenuItem>;
   profileData?: User;
   logoutHandler: Function;
-  isCav?: boolean;
-  toggleApplicationPreference: Function;
 }
 
 export default MenuDrawer;

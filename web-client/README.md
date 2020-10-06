@@ -6,12 +6,12 @@
 </h1>
 
 # Introduction
- 
-This is our main app connecting people in need with volunteers who can help. We’re working with volunteer organizations across the world, amassing over 150 volunteers in 13 countries worldwide, providing support for charity events, food banks, and day-to-day delivery services. Our [backend layer](functions) manages all the data for our  **Check it out live [here](https://app.reach4help.org/)!**
+
+This is our main app connecting people in need with volunteers who can help. We’re working with volunteer organizations across the world, amassing over 150 volunteers in 13 countries worldwide, providing support for charity events, food banks, and day-to-day delivery services. Our [backend layer](functions) manages all the data for our **Check it out live [here](https://app.reach4help.org/)!**
 
 # Local development
 
-For contributing code, please take a look at our [CONTRIBUTING.md](./docs/CodingConventions/CONTRIBUTING.md) for in depth-instructions. 
+For contributing code, please take a look at our [CONTRIBUTING.md](./docs/CodingConventions/CONTRIBUTING.md) for in depth-instructions.
 
 ## Using Docker
 
