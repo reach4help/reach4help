@@ -16,7 +16,7 @@ import {
   OpenRequestsLocation,
   PostListLocation,
 } from './constants';
-import OfferAndRequestPostsContainer from './containers/OfferAndRequestPostsContainer';
+import PostsContainer from './containers/PostsContainer';
 
 const AcceptedRequestsContainer = lazy(() =>
   import('./containers/AcceptedRequestsContainer'),
@@ -32,7 +32,7 @@ const OpenRequestsContainer = lazy(() =>
 
 // TODO: To be removed and container for request list should be used instead
 const RequestListPage: React.FC = () => (
-  <OfferAndRequestPostsContainer
+  <PostsContainer
     postMode={ApplicationPreference.pin}
     status="all"
   />
@@ -40,7 +40,7 @@ const RequestListPage: React.FC = () => (
 
 // TODO: To be removed and container for offer list should be used instead
 const OfferListPage: React.FC = () => (
-  <OfferAndRequestPostsContainer
+  <PostsContainer
     postMode={ApplicationPreference.cav}
     status="all"
   />

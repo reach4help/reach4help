@@ -10,6 +10,7 @@ import {
 } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
+import { offersPostType } from '../constants';
 import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
@@ -21,9 +22,8 @@ import Header from '../components/Header';
 import RequestItem from '../components/RequestItem';
 import RequestList from '../components/RequestList';
 
-const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
-  postMode, // offer or request
-  status,
+const PostsContainer: React.FC<PostsProps> = ({
+  postType, // offer or request
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const isOffer = postMode === ApplicationPreference.cav;
+  const isOffer = postType === offersPostType;
 
   const requestWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: RequestState }) => {
@@ -129,7 +129,6 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
 };
 
 interface PostsProps {
-  postMode: ApplicationPreference; // offer or request
-  status: string;
+  postType: string; // offer or request
 }
-export default OfferAndRequestPostsContainer;
+export default PostsContainer;
