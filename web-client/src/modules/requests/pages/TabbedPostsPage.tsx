@@ -1,31 +1,18 @@
-// TODOS: ??
-// ?? undo Tabs
-// ?? create constants for offer and request
-// ?? rename OfferAndRequestsPostsContainer
-// ?? create an OfferTab container
-// ?? create OfferListLocation and RequestListLoc equal to post/offer
-
-import React, { lazy, ReactElement, Suspense } from 'react';
-import {
-  useHistory,
-  useParams,
-} from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Tabs } from 'antd';
-import {
-  PostListLocation,
-  offersPostType,
-  requestsPostType,
-  OffersLocation,
-  RequestsLocation,
-} from '../constants';
-import PostsContainer from '../containers/PostsContainer';
-import { ApplicationPreference } from 'src/models/users';
+import React, { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-// ?? why does Tabs.TabPane not work?
-const { t } = useTranslation();
+
+import {
+  OfferPostsLocation,
+  PostsSuffixTypes,
+  RequestPostsLocation,
+} from '../constants';
+import OfferPostsContainer from '../containers/OfferPostsContainer';
+import RequestPostsContainer from '../containers/RequestPostsContainer';
+
 const { TabPane } = Tabs;
-// TODO: ?? To be removed and container for request list should be used instead
 
 const StyledTabs = styled(Tabs)`
   display: flex;
@@ -44,36 +31,36 @@ const StyledTabPane = styled(TabPane)`
 
 const TabbedPosts: React.FC = (): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const { type } = useParams() as Record<string, string>;
   const history = useHistory();
-  const currentKey = window.location.href === OffersLocation? offersPostType : requestsPostType; 
+  const currentKey = window.location.href.includes(OfferPostsLocation.toUrl())
+    ? PostsSuffixTypes.offers
+    : PostsSuffixTypes.requests;
+  const { t } = useTranslation();
 
-  function onChange (activeKey: string) {
-    history.push(PostListLocation.toUrl({ type: activeKey }));
-  };
-
+  function onChange(activeKey: string) {
+    if (activeKey === PostsSuffixTypes.offers.valueOf()) {
+      history.push(OfferPostsLocation.path);
+    } else {
+      history.push(RequestPostsLocation.path);
+    }
+  }
 
   return (
-    <StyledTabs
-      activeKey={currentKey}
-      onChange={onChange}
-    >
+    <StyledTabs activeKey={currentKey.valueOf()} onChange={onChange}>
       <StyledTabPane
-            tab={t(
-              'modules.requests.containers.TabbedPostPage.requests_tab_label',
-            )}
-            key="requests"
-          >
+        tab={t('modules.requests.containers.TabbedPostPage.requests_tab_label')}
+        key={PostsSuffixTypes.requests.valueOf()}
+      >
+        <RequestPostsContainer />
       </StyledTabPane>
+
       <StyledTabPane
-            tab={t(
-              'modules.requests.containers.TabbedPostPage.offers_tab_label',
-            )}
-            key="offers"
-          >
+        tab={t('modules.requests.containers.TabbedPostPage.offers_tab_label')}
+        key={PostsSuffixTypes.offers.valueOf()}
+      >
+        <OfferPostsContainer />
       </StyledTabPane>
     </StyledTabs>
   );
-
 };
 export default TabbedPosts;

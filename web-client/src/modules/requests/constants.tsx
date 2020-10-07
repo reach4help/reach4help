@@ -1,22 +1,23 @@
 import Location from 'react-app-location';
-import * as Yup from 'yup';
 
 /*
  * :type is either 'request' or 'offer'
  */
-export const PostListLocation = new Location('/requests/list/:type', {
-  type: Yup.string(),
-});
-// ?? todo remove Accepted and Open
-export const offersPostType = 'offers';
-export const offersLocationStr = '/requests/'+offersPostType;
-export const requestsPostType = 'requests';
-export const requestsLocationStr = '/requests/'+requestsPostType;
+export const postUrlRoot = '/post';
 
-export const AcceptedRequestsLocation = new Location('/requests/accepted');
-export const FindRequestsLocation = new Location('/requests/find');
-export const OpenRequestsLocation = new Location('/requests/opxxxen');
-export const OffersLocation = new Location(offersLocationStr);
-export const RequestsLocation = new Location(requestsLocationStr);
+export enum PostsSuffixTypes {
+  requests = 'requests',
+  offers = 'offers',
+}
+const offerPostsSuffix = PostsSuffixTypes.offers.valueOf();
+const requestPostsSuffix = PostsSuffixTypes.requests.valueOf();
 
-
+export const AcceptedRequestsLocation = new Location(`${postUrlRoot}/accepted`);
+export const FindRequestsLocation = new Location(`${postUrlRoot}/find`);
+export const OpenRequestsLocation = new Location(`${postUrlRoot}/open`);
+export const OfferPostsLocation = new Location(
+  `${postUrlRoot}/${offerPostsSuffix}`,
+);
+export const RequestPostsLocation = new Location(
+  `${postUrlRoot}/${requestPostsSuffix}`,
+);

@@ -7,47 +7,11 @@ const Header: React.FC<HeaderProps> = ({
   requestsType,
   numRequests,
   isCav,
-  isAcceptedRequests,
 }): React.ReactElement => {
   const { t } = useTranslation();
-  const isPin = !isCav;
-  let acceptedWarning = <></>;
-  // ?? how to turn this into function - when I try, I get various errors
-  if (isAcceptedRequests && isPin) {
-    acceptedWarning = (
-      <>
-        <div
-          style={{
-            fontFamily: 'Roboto, sans-serif',
-            textAlign: 'center',
-            paddingTop: '12px',
-            paddingBottom: '4px',
-            paddingLeft: '15px',
-            paddingRight: '15px',
-            background: 'rgba(0, 0, 0, 0.05)',
-            fontSize: '12px',
-            lineHeight: '20px',
-          }}
-        >
-          <p
-            style={{
-              color: COLORS.backgroundAlternative,
-              fontWeight: 'bold',
-              marginBottom: '4px',
-            }}
-          >
-            {t('modules.navigation.components.Header.remember')}
-          </p>
-          <p style={{ color: 'rgba(0, 0, 0, 0.5' }}>
-            {t('modules.navigation.components.Header.reject_reminder')}
-          </p>
-        </div>
-      </>
-    );
-  }
+
   return (
     <>
-      {acceptedWarning}
       <div
         style={{
           margin: '25px',
