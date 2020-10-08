@@ -10,9 +10,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
@@ -104,11 +102,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://codingeric.com"><img src="https://avatars2.githubusercontent.com/u/15906981?v=4" width="100px;" alt=""/><br /><sub><b>milkrong</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=milkrong" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/gorostiaga"><img src="https://avatars1.githubusercontent.com/u/46466795?v=4" width="100px;" alt=""/><br /><sub><b>gorostiaga</b></sub></a><br /><a href="#projectManagement-gorostiaga" title="Project Management">📆</a> <a href="#ideas-gorostiaga" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://ethanstrominger.com"><img src="https://avatars0.githubusercontent.com/u/32078396?v=4" width="100px;" alt=""/><br /><sub><b>Ethan-Strominger</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ethanstrominger" title="Code">💻</a> <a href="#ideas-ethanstrominger" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
