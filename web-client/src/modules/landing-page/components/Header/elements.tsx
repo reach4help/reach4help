@@ -6,6 +6,9 @@ export const Nav = styled.nav`
   align-items: center;
   width: 100vw;
   height: 10vh;
+  position: fixed;
+  top: 0;
+  background: white;
 `;
 
 export const Logo = styled.img``;
@@ -40,19 +43,22 @@ export const LogInButton = styled(Button)`
   border: none;
   color: #eb7100;
   transition: all 0.3s ease;
+
+  &:hover {
+    border: 1px solid #eb7100;
+  }
 `;
 export const SignUpButton = styled(Button)`
   border: none;
   color: white;
   background: #ff7b02;
-  transition: all 0.3s ease;
 `;
 
 export const LinkContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 50vw;
+  flex: 1;
 `;
 
 export const Link = styled.a`
@@ -62,7 +68,6 @@ export const Link = styled.a`
 `;
 
 export const Dropdown = styled.div`
-  padding-right: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,23 +77,25 @@ export const Dropdown = styled.div`
   ul {
     list-style: none;
     padding-left: 2px;
-    padding-right: 0;
     height: 25px;
     overflow: hidden;
     position: relative;
     top: 5px;
     width: 80px;
+    background: white;
+    border-radius: 5px;
 
     &: hover {
       position: relative;
-      top: 38px;
-      height: 90px;
+      top: 40px;
+      height: 95px;
     }
 
     li {
       cursor: pointer;
       border-radius: 5px;
       padding: 4px;
+      margin-right: 2px;
       &: hover {
         color: white;
         background: #ffcb52;

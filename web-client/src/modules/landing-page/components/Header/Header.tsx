@@ -27,7 +27,6 @@ const Header: React.FC = (): JSX.Element => (
       <Link href="/about">About Us</Link>
       <Link href="/">Partners</Link>
       <Link href="/">FAQs</Link>
-      {/* es-lint doesn't allow the use of apostrophe, resolve */}
       <Link href="/">Mutual Aid Map</Link>
     </LinkContainer>
 
