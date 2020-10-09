@@ -4,11 +4,12 @@ export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
-  height: 10vh;
+  width: 100%;
+  height: 65px;
   position: fixed;
   top: 0;
   background: white;
+  z-index: 5;
 `;
 
 export const Logo = styled.img``;
