@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { AuthState } from 'src/ducks/auth/types';
-import { updateUserProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getAcceptedRequests,
@@ -27,36 +25,42 @@ import { PostsSuffixTypes } from '../constants';
 const PostsContainer: React.FC<PostsProps> = ({
   postType, // offer or request
 }) => {
+  const isOffers = postType === PostsSuffixTypes.offers;
+  const isRequests = !isOffers;
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
+
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const isOffers = postType === PostsSuffixTypes.offers;
-
   const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) => {
-      if (isOffers) {
-        return requests.syncAcceptedRequestsState;
-      }
-      return requests.syncOpenRequestsState;
-    },
+    ({ requests }: { requests: RequestState }) =>
+      isOffers
+        ? requests.syncAcceptedRequestsState
+        : requests.syncOpenRequestsState,
   );
-  const user = profileState.profile;
-  const authState = useSelector(({ auth }: { auth: AuthState }) => auth);
 
-  function chooseApplicationPreference(preference) {
-    if (user && authState.user) {
-      user.applicationPreference = preference;
-      dispatch(updateUserProfile(authState.user.uid, user));
-    }
+  const instructions = [
+    t('information_modal.OpenRequestsContainer.0'),
+    t('information_modal.OpenRequestsContainer.1'),
+    t('information_modal.OpenRequestsContainer.2'),
+  ];
+
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.OpenRequestsContainer',
+    userid: profileState.uid,
+  });
+
+  function handleRequest(id) {
+    history.push(TimelineViewLocation.toUrl({ requestId: id }));
   }
-  const preference = isOffers
-    ? ApplicationPreference.cav
-    : ApplicationPreference.pin;
-  chooseApplicationPreference(preference);
+
+  function toCloseRequest(id) {
+    return `Fill logic: Remove request ${id}`;
+  }
 
   useEffect(() => {
     dispatch(resetSetRequestState());
@@ -80,28 +84,12 @@ const PostsContainer: React.FC<PostsProps> = ({
     }
   }, [profileState, isOffers, dispatch]);
 
-  const handleRequest: Function = id =>
-    history.push(TimelineViewLocation.toUrl({ requestId: id }));
-
-  const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
-
   if (
     !requestWithOffersAndTimeline.data ||
     requestWithOffersAndTimeline.loading
   ) {
     return <LoadingWrapper />;
   }
-
-  const instructions = [
-    t('information_modal.OpenRequestsContainer.0'),
-    t('information_modal.OpenRequestsContainer.1'),
-    t('information_modal.OpenRequestsContainer.2'),
-  ];
-
-  const instructionModalLocalStorageKey = makeLocalStorageKey({
-    prefix: 'reach4help.modalSeen.OpenRequestsContainer',
-    userid: profileState.uid,
-  });
 
   return (
     <>
@@ -112,10 +100,7 @@ const PostsContainer: React.FC<PostsProps> = ({
         numRequests={
           Object.keys(requestWithOffersAndTimeline.data || {}).length
         }
-        isCav={
-          profileState.profile?.applicationPreference ===
-          ApplicationPreference.cav
-        }
+        isCav={isOffers}
         isAcceptedRequests={false}
       />
       <RequestList
@@ -125,10 +110,7 @@ const PostsContainer: React.FC<PostsProps> = ({
         }
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}
-        isPinAndOpenRequest={
-          profileState.profile?.applicationPreference ===
-          ApplicationPreference.pin
-        }
+        isPinAndOpenRequest={isRequests}
         RequestItem={RequestItem}
         toCloseRequest={toCloseRequest}
       />
