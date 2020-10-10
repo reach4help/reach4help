@@ -21,10 +21,7 @@ import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
-import {
-  OfferPostsLocation,
-  RequestPostsLocation,
-} from 'src/modules/requests/constants';
+import { ListMyPostsLocation } from 'src/modules/requests/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
@@ -127,10 +124,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
+      // ?? temporary until we refactor use of ApplicatonPreference
       if (isCav) {
-        history.push(OfferPostsLocation);
+        history.replace(ListMyPostsLocation.toUrl({ postType: 'offers' }));
       } else {
-        history.push(RequestPostsLocation);
+        history.replace(ListMyPostsLocation.toUrl({ postType: 'requests' }));
       }
     }
   }, [

@@ -18,7 +18,10 @@ import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
-import { RequestPostsLocation } from 'src/modules/requests/constants';
+import {
+  ListMyPostsLocation,
+  PostTabsType,
+} from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -260,7 +263,11 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
             setShowConfirmationPage(false);
             // because I could observe race conditions in cloud function
             setTimeout(() => {
-              history.push(RequestPostsLocation.path);
+              history.replace(
+                ListMyPostsLocation.toUrl({
+                  postType: PostTabsType.requests.valueOf(),
+                }),
+              );
             }, 150);
             dispatch(resetSetRequestState());
           }}

@@ -5,9 +5,8 @@ import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import {
   AcceptedRequestsLocation,
   FindRequestsLocation,
-  OfferPostsLocation,
+  ListMyPostsLocation,
   OpenRequestsLocation,
-  RequestPostsLocation,
 } from './constants';
 
 const AcceptedRequestsContainer = lazy(() =>
@@ -37,13 +36,12 @@ const Routes = (): ReactElement => (
         component={FindRequestsContainer}
         exact
       />
-      <Route path={OfferPostsLocation.path} component={TabbedPostsPage} exact />
       <Route
         path={OpenRequestsLocation.path}
         component={OpenRequestsContainer}
         exact
       />
-      <Route path={RequestPostsLocation.path} component={TabbedPostsPage} />
+      <Route path={ListMyPostsLocation.path} component={TabbedPostsPage} />
 
       <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>

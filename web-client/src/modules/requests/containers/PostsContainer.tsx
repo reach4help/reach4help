@@ -20,12 +20,12 @@ import {
 import Header from '../components/Header';
 import RequestItem from '../components/RequestItem';
 import RequestList from '../components/RequestList';
-import { PostsSuffixTypes } from '../constants';
+import { PostTabsType } from '../constants';
 
 const PostsContainer: React.FC<PostsProps> = ({
   postType, // offer or request
 }) => {
-  const isOffers = postType === PostsSuffixTypes.offers;
+  const isOffers = postType === PostTabsType.offers;
   const isRequests = !isOffers;
 
   const { t } = useTranslation();
@@ -124,6 +124,6 @@ const PostsContainer: React.FC<PostsProps> = ({
 };
 
 interface PostsProps {
-  postType: PostsSuffixTypes; // offer or request
+  postType: PostTabsType; // offer or request
 }
 export default PostsContainer;

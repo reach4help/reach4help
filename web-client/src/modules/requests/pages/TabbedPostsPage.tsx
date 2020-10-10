@@ -1,14 +1,10 @@
 import { Tabs } from 'antd';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import {
-  OfferPostsLocation,
-  PostsSuffixTypes,
-  RequestPostsLocation,
-} from '../constants';
+import { ListMyPostsLocation, PostTabsType } from '../constants';
 import OfferPostsContainer from '../containers/OfferPostsContainer';
 import RequestPostsContainer from '../containers/RequestPostsContainer';
 
@@ -32,31 +28,26 @@ const StyledTabPane = styled(TabPane)`
 const TabbedPosts: React.FC = (): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const history = useHistory();
-  const currentKey = window.location.href.includes(OfferPostsLocation.toUrl())
-    ? PostsSuffixTypes.offers
-    : PostsSuffixTypes.requests;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  const { postType } = useParams() as Record<string, string>;
   const { t } = useTranslation();
 
   function onChange(activeKey: string) {
-    if (activeKey === PostsSuffixTypes.offers.valueOf()) {
-      history.push(OfferPostsLocation.path);
-    } else {
-      history.push(RequestPostsLocation.path);
-    }
+    history.replace(ListMyPostsLocation.toUrl({ postType: activeKey }));
   }
 
   return (
-    <StyledTabs activeKey={currentKey.valueOf()} onChange={onChange}>
+    <StyledTabs defaultActiveKey={postType} onChange={onChange}>
       <StyledTabPane
         tab={t('modules.requests.containers.TabbedPostPage.requests_tab_label')}
-        key={PostsSuffixTypes.requests.valueOf()}
+        key={PostTabsType.requests.valueOf()}
       >
         <RequestPostsContainer />
       </StyledTabPane>
 
       <StyledTabPane
         tab={t('modules.requests.containers.TabbedPostPage.offers_tab_label')}
-        key={PostsSuffixTypes.offers.valueOf()}
+        key={PostTabsType.offers.valueOf()}
       >
         <OfferPostsContainer />
       </StyledTabPane>

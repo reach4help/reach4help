@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PostsSuffixTypes } from '../constants';
+import { PostTabsType } from '../constants';
 import PostsContainer from './PostsContainer';
 
 const OfferPostsContainer: React.FC = () => (
-  <PostsContainer postType={PostsSuffixTypes.offers} />
+  <PostsContainer postType={PostTabsType.offers} />
 );
 
 export default OfferPostsContainer;
