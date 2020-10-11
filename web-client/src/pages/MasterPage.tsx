@@ -5,9 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import {
-  postUrlRoot,
-} from 'src/modules/requests/constants';
+import { postUrlRoot } from 'src/modules/requests/constants';
 import { Module } from 'src/types/module';
 
 import modules from '../modules';
