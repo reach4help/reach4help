@@ -21,6 +21,7 @@ import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
+import { ListMyPostsLocation } from 'src/modules/requests/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
@@ -73,6 +74,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     (state: AppState) => state.auth.user?.phoneNumber,
   );
 
+  const isCav =
+    profileState?.profile?.applicationPreference === ApplicationPreference.cav;
+
   useEffect(() => {
     document.title = 'Reach4Help: '.concat(t('routeSubtitles._timeline'));
   });
@@ -120,12 +124,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
-      // ?? need to change this logic if (shouldRedirectToFinished) {
-      //   history.push(FinishedRequestsLocation.path);
-      // }
-      // if (shouldRedirectToArchived) {
-      //   history.push(ArchivedRequestsLocation.path);
-      // }
+      // ?? temporary until we refactor use of ApplicatonPreference
+      if (isCav) {
+        history.replace(ListMyPostsLocation.toUrl({ postType: 'offers' }));
+      } else {
+        history.replace(ListMyPostsLocation.toUrl({ postType: 'requests' }));
+      }
     }
   }, [
     requestsState.setAction,
@@ -134,6 +138,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     shouldRedirectToFinished,
     shouldRedirectToArchived,
     history,
+    isCav,
   ]);
 
   useEffect(() => {
@@ -288,9 +293,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     offer.seenAt = null;
     dispatch(setOffer(offer.toObject() as IOffer, id, phoneNumber));
   };
-
-  const isCav =
-    profileState.profile.applicationPreference === ApplicationPreference.cav;
 
   const instructions = [
     t('information_modal.TimelineViewContainer.0'),

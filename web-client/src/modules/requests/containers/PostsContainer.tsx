@@ -20,36 +20,54 @@ import {
 import Header from '../components/Header';
 import RequestItem from '../components/RequestItem';
 import RequestList from '../components/RequestList';
+import { PostTabsType } from '../constants';
 
-const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
-  postMode, // offer or request
-  status,
+const PostsContainer: React.FC<PostsProps> = ({
+  postType, // offer or request
 }) => {
+  const isOffers = postType === PostTabsType.offers;
+  const isRequests = !isOffers;
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
+
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const isOffer = postMode === ApplicationPreference.cav;
-
   const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) => {
-      if (isOffer) {
-        return requests.syncAcceptedRequestsState;
-      }
-      return requests.syncOpenRequestsState;
-    },
+    ({ requests }: { requests: RequestState }) =>
+      isOffers
+        ? requests.syncAcceptedRequestsState
+        : requests.syncOpenRequestsState,
   );
+
+  const instructions = [
+    t('information_modal.OpenRequestsContainer.0'),
+    t('information_modal.OpenRequestsContainer.1'),
+    t('information_modal.OpenRequestsContainer.2'),
+  ];
+
+  const instructionModalLocalStorageKey = makeLocalStorageKey({
+    prefix: 'reach4help.modalSeen.OpenRequestsContainer',
+    userid: profileState.uid,
+  });
+
+  function handleRequest(id) {
+    history.push(TimelineViewLocation.toUrl({ requestId: id }));
+  }
+
+  function toCloseRequest(id) {
+    return `Fill logic: Remove request ${id}`;
+  }
 
   useEffect(() => {
     dispatch(resetSetRequestState());
   }, [dispatch]);
 
-  // ?? how to call isOffer - why does applicationPreference not have to be in dependences
   useEffect(() => {
-    if (isOffer) {
+    if (isOffers) {
       dispatch(
         getAcceptedRequests({
           userType: ApplicationPreference.cav,
@@ -64,12 +82,7 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
         }),
       );
     }
-  }, [profileState, isOffer, dispatch]);
-
-  const handleRequest: Function = id =>
-    history.push(TimelineViewLocation.toUrl({ requestId: id }));
-
-  const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
+  }, [profileState, isOffers, dispatch]);
 
   if (
     !requestWithOffersAndTimeline.data ||
@@ -77,17 +90,6 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
   ) {
     return <LoadingWrapper />;
   }
-
-  const instructions = [
-    t('information_modal.OpenRequestsContainer.0'),
-    t('information_modal.OpenRequestsContainer.1'),
-    t('information_modal.OpenRequestsContainer.2'),
-  ];
-
-  const instructionModalLocalStorageKey = makeLocalStorageKey({
-    prefix: 'reach4help.modalSeen.OpenRequestsContainer',
-    userid: profileState.uid,
-  });
 
   return (
     <>
@@ -98,13 +100,9 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
         numRequests={
           Object.keys(requestWithOffersAndTimeline.data || {}).length
         }
-        isCav={
-          profileState.profile?.applicationPreference ===
-          ApplicationPreference.cav
-        }
+        isCav={isOffers}
         isAcceptedRequests={false}
       />
-      <p>{status}</p>
       <RequestList
         requests={requestWithOffersAndTimeline.data}
         loading={
@@ -112,10 +110,7 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
         }
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}
-        isPinAndOpenRequest={
-          profileState.profile?.applicationPreference ===
-          ApplicationPreference.pin
-        }
+        isPinAndOpenRequest={isRequests}
         RequestItem={RequestItem}
         toCloseRequest={toCloseRequest}
       />
@@ -129,7 +124,6 @@ const OfferAndRequestPostsContainer: React.FC<PostsProps> = ({
 };
 
 interface PostsProps {
-  postMode: ApplicationPreference; // offer or request
-  status: string;
+  postType: PostTabsType; // offer or request
 }
-export default OfferAndRequestPostsContainer;
+export default PostsContainer;
