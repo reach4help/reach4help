@@ -1,6 +1,6 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Col, Form, Input, Row, Select } from 'antd';
-import { useForm } from 'antd/lib/form/util';
+import { useForm } from 'antd/lib/form/Form';
 import firebase from 'firebase';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
