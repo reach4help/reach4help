@@ -2,7 +2,12 @@ import React, { ReactElement } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  BrowserRouter as Router,
+  Switch,
+} from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { postUrlRoot } from 'src/modules/requests/constants';
@@ -107,7 +112,8 @@ const MasterPage = (): ReactElement => {
     <Router>
       <Switch>
         {renderModules()}
-        <Route path="*" component={NotFoundRoute} />
+        <Redirect path="/" to="/home" exact />
+        <Route path="" component={NotFoundRoute} />
       </Switch>
     </Router>
   );

@@ -1,9 +1,10 @@
 import { Module } from 'src/types/module';
 
+import { urlPrefix } from './constants';
 import Routes from './routes';
 
 const moduleDef: Module = {
-  path: '/',
+  path: urlPrefix,
   component: Routes,
 };
 
