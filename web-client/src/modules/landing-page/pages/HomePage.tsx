@@ -4,7 +4,6 @@ import logo from '../assets/logo.svg';
 import mockupImg from '../assets/mockups.svg';
 import peopleTop from '../assets/peopleTop.svg';
 import rectTop from '../assets/rectTop.svg';
-import Header from '../components/Header/Header';
 import {
   Footer,
   FooterLine,
@@ -21,7 +20,8 @@ import {
   TextTopContainer,
   TopSection,
   VolunteerBtn,
-} from './elements';
+} from '../components/figma';
+import Header from '../components/Header';
 
 const HomePage: React.FC = (): JSX.Element => (
   <Root>

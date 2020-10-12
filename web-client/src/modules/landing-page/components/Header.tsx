@@ -1,8 +1,8 @@
 import React from 'react';
 
-import betaFlair from '../../assets/beta_flair.svg';
-import langLogo from '../../assets/langLogo.svg';
-import logo from '../../assets/logo.svg';
+import betaFlair from '../assets/beta_flair.svg';
+import langLogo from '../assets/langLogo.svg';
+import logo from '../assets/logo.svg';
 import {
   BetaFlair,
   ButtonContainer,
@@ -14,7 +14,7 @@ import {
   LogoContainer,
   Nav,
   SignUpButton,
-} from './elements';
+} from './figma';
 
 const Header: React.FC = (): JSX.Element => (
   <Nav>
