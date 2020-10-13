@@ -1,10 +1,15 @@
 import React from 'react';
 
+import card from '../assets/card.svg';
+import check from '../assets/check.svg';
 import logo from '../assets/logo.svg';
 import mockupImg from '../assets/mockups.svg';
 import peopleTop from '../assets/peopleTop.svg';
 import rectTop from '../assets/rectTop.svg';
+import shop from '../assets/shop.svg';
 import {
+  Card,
+  Check,
   Footer,
   FooterLine,
   FooterLogo,
@@ -12,8 +17,13 @@ import {
   MiddleSection,
   MockupImage,
   PeopleTop,
+  ReasonsCard,
+  ReasonsCardIconContainer,
+  ReasonsContainer,
+  ReasonsSection,
   RectTop,
   Root,
+  Shop,
   TextMiddle,
   TextMiddleContainer,
   TextTop,
@@ -56,6 +66,40 @@ const HomePage: React.FC = (): JSX.Element => (
         </TextMiddle>
       </TextMiddleContainer>
     </MiddleSection>
+    <ReasonsSection>
+      <h1>Why use Reach4Help</h1>
+      <ReasonsContainer>
+        <ReasonsCard>
+          <ReasonsCardIconContainer>
+            <Shop src={shop} />
+          </ReasonsCardIconContainer>
+          <h3>One-stop Shop</h3>
+          <p>
+            No need to spend hours searching. Our database of local volunteers
+            and organizations gets you your needs quickly.
+          </p>
+        </ReasonsCard>
+        <ReasonsCard>
+          <ReasonsCardIconContainer>
+            <Check src={check} />
+          </ReasonsCardIconContainer>
+          <h3>Easily Available</h3>
+          <p>
+            Use our app on the go from any mobile device, tablet, or desktop.
+          </p>
+        </ReasonsCard>
+        <ReasonsCard>
+          <ReasonsCardIconContainer>
+            <Card src={card} />
+          </ReasonsCardIconContainer>
+          <h3>Completely Free</h3>
+          <p>
+            No subscriptions or hidden fees. Our platform is free for
+            individuals in need and individual volunteers.
+          </p>
+        </ReasonsCard>
+      </ReasonsContainer>
+    </ReasonsSection>
     <Footer>
       <FooterLine />
       <FooterLogo src={logo} />

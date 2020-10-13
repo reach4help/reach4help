@@ -23,6 +23,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const ReasonsCardIcon = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
 // ---------------------------------------------------------------------------------------------------- //
 
 // Principal Components
@@ -67,7 +72,10 @@ export const MiddleSection = styled(Flex)`
   margin-bottom: 250px;
 `;
 
-export const AttributesSection = styled(Container)``;
+export const ReasonsSection = styled(Container)`
+  text-align: center;
+  align-items: center;
+`;
 
 export const HelpInfoSection = styled(Container)``;
 
@@ -107,6 +115,21 @@ export const TextMiddleContainer = styled(Container)`
   position: relative;
   top: 40px;
   width: 500px;
+`;
+
+export const ReasonsContainer = styled(Container)`
+  flex-direction: row;
+`;
+
+export const ReasonsCardIconContainer = styled(Container)`
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9ff;
+  width: 50px;
+  height: 50px;
+  padding: 20px;
+  border-radius: 50%;
+  margin-bottom: 50px;
 `;
 
 export const AboutTextContainer = styled(Container)``;
@@ -181,6 +204,22 @@ export const TextMiddle = styled.div`
   p {
     font-size: 18px;
     width: 400px;
+  }
+`;
+
+export const ReasonsCard = styled(Container)`
+  margin: 65px 35px;
+  height: 350px;
+  justify-content: flex-start;
+  align-items: center;
+
+  h3 {
+    font-weight: 700;
+  }
+
+  p {
+    width: 250px;
+    text-align: left;
   }
 `;
 
@@ -261,6 +300,12 @@ export const RectTop = styled.img`
   z-index: -5;
   width: 100%;
 `;
+
+export const Shop = styled(ReasonsCardIcon)``;
+
+export const Check = styled(ReasonsCardIcon)``;
+
+export const Card = styled(ReasonsCardIcon)``;
 
 export const PeopleTop = styled.img``;
 
