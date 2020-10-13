@@ -2,9 +2,15 @@ import React, { ReactElement } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  BrowserRouter as Router,
+  Switch,
+} from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
+import { postUrlRoot } from 'src/modules/requests/constants';
 import { Module } from 'src/types/module';
 
 import modules from '../modules';
@@ -25,19 +31,19 @@ const MasterPage = (): ReactElement => {
       case '/create':
       case '/login':
       case '/phone':
-      case '/requests':
+      case `${postUrlRoot}`:
       case '/personal-data':
       case '/timeline':
       case '/personal-data/role-info':
       case '/phone/entry':
       case '/phone/verify':
-      case '/requests/accepted':
-      case '/requests/archived':
-      case '/requests/find':
-      case '/requests/finished':
-      case '/requests/new':
-      case '/requests/ongoing':
-      case '/requests/open':
+      case `${postUrlRoot}/accepted`:
+      case `${postUrlRoot}/archived`:
+      case `${postUrlRoot}/find`:
+      case `${postUrlRoot}/finished`:
+      case `${postUrlRoot}/new`:
+      case `${postUrlRoot}/ongoing`:
+      case `${postUrlRoot}/open`:
         return `${title}: `.concat(
           t(`routeSubtitles.${path.replace(/\//g, '_')}`),
         );
@@ -102,12 +108,12 @@ const MasterPage = (): ReactElement => {
         />
       );
     });
-
   return (
     <Router>
       <Switch>
         {renderModules()}
-        <Route path="*" component={NotFoundRoute} />
+        <Redirect path="/" to="/home" exact />
+        <Route path="" component={NotFoundRoute} />
       </Switch>
     </Router>
   );

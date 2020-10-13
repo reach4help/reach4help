@@ -19,8 +19,8 @@ import { RequestState } from 'src/ducks/requests/types';
 import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
 import {
-  PostListLocation,
-  PostsListTypes,
+  ListMyPostsLocation,
+  PostTabsType,
 } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
@@ -51,10 +51,6 @@ const DELIVERIES = 'Deliveries';
 //   streetAddress: string;
 //   latLng: firestore.GeoPoint;
 // }
-
-const RequestListLocationUrl = PostListLocation.toUrl({
-  type: PostsListTypes.request,
-});
 
 const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
   const { t } = useTranslation();
@@ -267,7 +263,11 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
             setShowConfirmationPage(false);
             // because I could observe race conditions in cloud function
             setTimeout(() => {
-              history.push(RequestListLocationUrl);
+              history.replace(
+                ListMyPostsLocation.toUrl({
+                  postType: PostTabsType.requests.valueOf(),
+                }),
+              );
             }, 150);
             dispatch(resetSetRequestState());
           }}

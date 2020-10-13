@@ -8,6 +8,7 @@ import {
   AcceptedRequestsLocation,
   FindRequestsLocation,
   OpenRequestsLocation,
+  postUrlRoot,
 } from './constants';
 import Routes from './routes';
 
@@ -31,7 +32,7 @@ export const menuLinks: Array<MenuItem> = [
 ];
 
 const requestsModule: Module = {
-  path: '/requests',
+  path: `${postUrlRoot}`,
   partiallyProtected: true,
   layout: 'dashboard',
   dynamicMenuLinks: (profileState?: ProfileState) => {

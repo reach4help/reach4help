@@ -1,17 +1,16 @@
 import Location from 'react-app-location';
 import * as Yup from 'yup';
 
-/*
- * :type is either 'request' or 'offer'
- */
-export const PostListLocation = new Location('/requests/list/:type', {
-  type: Yup.string(),
-});
-export const AcceptedRequestsLocation = new Location('/requests/accepted');
-export const FindRequestsLocation = new Location('/requests/find');
-export const OpenRequestsLocation = new Location('/requests/open');
+export const postUrlRoot = '/list';
 
-export enum PostsListTypes {
-  request = 'request',
-  offer = 'offer',
+export enum PostTabsType {
+  requests = 'requests',
+  offers = 'offers',
 }
+
+export const AcceptedRequestsLocation = new Location(`${postUrlRoot}/accepted`);
+export const FindRequestsLocation = new Location(`${postUrlRoot}/find`);
+export const OpenRequestsLocation = new Location(`${postUrlRoot}/open`);
+export const ListMyPostsLocation = new Location(`${postUrlRoot}/my/:postType`, {
+  postType: Yup.string().required(),
+});
