@@ -9,7 +9,6 @@ import styled from 'styled-components';
 
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
-import { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
@@ -49,6 +48,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     const unseenOffersLocal: Offer[] = [];
     const unseenOffersKeysLocal: string[] = [];
     if (offersState.data) {
+      // TODO: Replace below with logic without user roles
       // for (const offersKey in offersState.data) {
       //   if (
       //     offersState.data[offersKey] &&
@@ -65,7 +65,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       //     unseenOffersKeysLocal.push(offersKey);
       //   }
       // }
-      // TODO: Replace above with logic without user roles
       unseenOffersLocal.sort(
         (a, b) => b.updatedAt.toMillis() - a.updatedAt.toMillis(),
       );
@@ -118,9 +117,6 @@ const DashboardContent = styled(Layout.Content)`
 `;
 
 interface DashboardLayoutProps {
-  menuItems:
-    | ((profileState?: ProfileState) => Array<MenuItem>)
-    | Array<MenuItem>;
   children?: React.ReactNode;
   logoutHandler: Function;
 }
