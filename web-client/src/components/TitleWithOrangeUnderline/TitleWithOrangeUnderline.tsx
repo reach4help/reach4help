@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../theme/colors';
 
 const TitleWithOrangeUnderline: React.FC<TitleWithAddonProps> = ({
+  // children is a ReactProp which is the children of the element that calls this component
   children,
   level,
   orangealignment,

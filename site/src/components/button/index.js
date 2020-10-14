@@ -9,6 +9,7 @@ function Button({
   backgroundColor,
   outlineColor,
   onClick,
+  // children is a ReactProp which is the children of the element that calls this component
   children,
   fontSize,
 }) {

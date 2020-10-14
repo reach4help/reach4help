@@ -2,8 +2,11 @@ import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { User } from 'src/models/users';
+import { CreatePostLocation } from 'src/modules/create/constants';
 import {
   AcceptedRequestsLocation,
+  ListMyOffersLocation,
+  ListMyRequestLocation,
   OpenRequestsLocation,
 } from 'src/modules/requests/constants';
 import { MenuItem } from 'src/types/module';
@@ -14,6 +17,8 @@ import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
 import SideDrawerMenu from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 
+// TODO:: translate
+// TODO: change to Location.path?
 const menuItems: Array<MenuItem> = [
   {
     id: '1',
@@ -36,18 +41,21 @@ const menuItems: Array<MenuItem> = [
   {
     id: '2',
     title: 'My Requests',
+    location: ListMyRequestLocation,
     showWhenLogggedOn: true,
     showWhenNotLogggedOn: false,
   },
   {
     id: '3',
     title: 'My Offers',
+    location: ListMyOffersLocation,
     showWhenLogggedOn: true,
     showWhenNotLogggedOn: false,
   },
   {
     id: '6',
     title: 'Create Request',
+    location: CreatePostLocation,
     showWhenLogggedOn: true,
     showWhenNotLogggedOn: true,
   },
