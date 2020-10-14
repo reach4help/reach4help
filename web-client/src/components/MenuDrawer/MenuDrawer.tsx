@@ -1,30 +1,91 @@
-import {
-  LogoutOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
 import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 import { User } from 'src/models/users';
-import { COLORS } from 'src/theme/colors';
+import {
+  AcceptedRequestsLocation,
+  OpenRequestsLocation,
+} from 'src/modules/requests/constants';
+import { MenuItem } from 'src/types/module';
 import styled from 'styled-components';
 
-import { SettingsLocation } from '../../modules/settings/constants';
+import BottomLinks from '../BottomLinks/BottomLinks';
 import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
-import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
+import SideDrawerMenu from '../SideDrawerMenu/SideDrawerMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 
-const MenuDrawer: React.FC<MenuDrawerProps> = ({
+const menuItems: Array<MenuItem> = [
+  {
+    id: '1',
+    title: 'Find Requests',
+    showWhenLogggedOn: true,
+    showWhenNotLogggedOn: false,
+    children: [
+      {
+        id: '1.1',
+        title: 'Open',
+        location: OpenRequestsLocation,
+      },
+      {
+        id: '1.2',
+        title: 'Accepted',
+        location: AcceptedRequestsLocation,
+      },
+    ],
+  },
+  {
+    id: '2',
+    title: 'My Requests',
+    showWhenLogggedOn: true,
+    showWhenNotLogggedOn: false,
+  },
+  {
+    id: '3',
+    title: 'My Offers',
+    showWhenLogggedOn: true,
+    showWhenNotLogggedOn: false,
+  },
+  {
+    id: '6',
+    title: 'Create Request',
+    showWhenLogggedOn: true,
+    showWhenNotLogggedOn: true,
+  },
+  {
+    id: '7',
+    title: 'Log In',
+    showWhenLogggedOn: false,
+    showWhenNotLogggedOn: true,
+  },
+  {
+    id: '8',
+    title: 'Sign Up',
+    showWhenLogggedOn: false,
+    showWhenNotLogggedOn: true,
+  },
+  {
+    id: '9',
+    title: 'Log Out',
+    showWhenLogggedOn: true,
+    showWhenNotLogggedOn: false,
+  },
+];
+
+const generateFinalList = (profileData?: User) => {
+  const isLoggedIn = profileData && profileData.displayName;
+  if (isLoggedIn) {
+    return menuItems.filter(item => item.showWhenLogggedOn);
+  }
+  return menuItems.filter(item => item.showWhenNotLogggedOn);
+};
+
+const MenuDrawer: React.FC<IMenuDrawerProps> = ({
   visible,
   closeDrawer,
-  menuItems,
   profileData,
   logoutHandler,
 }) => {
   const { t } = useTranslation();
-  const history = useHistory();
 
   const instructions = [
     t('information_modal.MenuDrawer.0'),
@@ -51,33 +112,15 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
         width="100%"
       >
         <SideDrawerProfile profileData={profileData} />
-        <SideDrawerMenu items={menuItems || []} closeDrawer={closeDrawer} />
-        <BottomLinks>
-          <BottomLinkItem onClick={() => history.push(SettingsLocation.path)}>
-            <SettingOutlined />
-            {t('menuDrawer.settings')}
-          </BottomLinkItem>
-          <BottomLinkItem
-            role="link"
-            onClick={() => {
-              closeDrawer();
-              window.location.href = 'mailto:info@reach4help.org';
-            }}
-          >
-            <MailOutlined />
-            {t('menuDrawer.contactUs')}
-          </BottomLinkItem>
-          <BottomLinkItem
-            role="link"
-            onClick={() => {
-              closeDrawer();
-              logoutHandler();
-            }}
-          >
-            <LogoutOutlined />
-            {t('menuDrawer.logout')}
-          </BottomLinkItem>
-        </BottomLinks>
+        <SideDrawerMenu
+          items={generateFinalList(profileData)}
+          closeDrawer={closeDrawer}
+        />
+        <BottomLinks
+          logoutHandler={logoutHandler}
+          isLoggedIn={false}
+          closeDrawer={closeDrawer}
+        />
       </SideDrawer>
       <InformationModal
         title={t('information_modal.MenuDrawer.title')}
@@ -102,34 +145,9 @@ const SideDrawer = styled(Drawer)`
   }
 `;
 
-const BottomLinkItem = styled('div')`
-  color: inherit;
-  margin-bottom: 10px;
-  padding: 10px;
-  cursor: pointer;
-  svg {
-    margin-right: 10px;
-  }
-  &:hover,
-  &:focus,
-  &:active,
-  &:focus-within {
-    color: white;
-    font-weight: 700;
-    background-color: ${COLORS.link};
-  }
-`;
-const BottomLinks = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 15px;
-  color: inherit;
-`;
-
-interface MenuDrawerProps {
+interface IMenuDrawerProps {
   visible: boolean;
   closeDrawer: () => void;
-  menuItems?: Array<MenuItem>;
   profileData?: User;
   logoutHandler: Function;
 }

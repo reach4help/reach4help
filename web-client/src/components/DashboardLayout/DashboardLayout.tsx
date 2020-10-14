@@ -13,7 +13,6 @@ import { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
-  menuItems,
   children,
   logoutHandler,
 }) => {
@@ -86,9 +85,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       <MenuDrawer
         visible={menuVisible}
         closeDrawer={() => setMenuVisible(false)}
-        menuItems={
-          Array.isArray(menuItems) ? menuItems : menuItems(profileState)
-        }
         profileData={userProfile}
         logoutHandler={logoutHandler}
       />
