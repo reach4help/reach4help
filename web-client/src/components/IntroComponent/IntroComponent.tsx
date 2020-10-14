@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const IntroComponent: React.FC<IntroComponentProps> = ({
+  // children is a ReactProp which is the children of the element that calls this component
   children,
 }): React.ReactElement => <IntroWrapper>{children}</IntroWrapper>;
 

@@ -9,5 +9,9 @@ export enum CreatePostTypes {
 export const CreatePostLocation = new Location('/create/post/:type', {
   type: Yup.string(),
 });
-export const CreateOfferLocation = new Location(`/create/post/${CreatePostTypes.offer.valueOf()}`);
-export const CreateRequestLocation = new Location(`/create/post/${CreatePostTypes.request.valueOf()}`);
+export const CreateOfferLocation = new Location(
+  `/create/post/${CreatePostTypes.offer.valueOf()}`,
+);
+export const CreateRequestLocation = new Location(
+  `/create/post/${CreatePostTypes.request.valueOf()}`,
+);

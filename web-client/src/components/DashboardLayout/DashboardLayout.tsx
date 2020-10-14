@@ -12,6 +12,7 @@ import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
+  // children is a ReactProp which is the children of the element that calls this component
   children,
   logoutHandler,
 }) => {
