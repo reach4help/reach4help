@@ -124,7 +124,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
-      // ?? temporary until we refactor use of ApplicatonPreference
+      // TODO: change below when we replace use of ApplicatonPreference
       if (isCav) {
         history.replace(ListMyPostsLocation.toUrl({ postType: 'offers' }));
       } else {

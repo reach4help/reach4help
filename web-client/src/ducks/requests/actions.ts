@@ -1,6 +1,6 @@
 import { IRequest, Request } from 'src/models/requests';
 
-/* why rename?? */
+/* TODO: why rename? */
 import {
   createUserRequest,
   getAcceptedRequest as getAcceptedRequestFunc,
