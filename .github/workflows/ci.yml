@@ -1,6 +1,6 @@
 name: Run CI Checks
 
-on: push
+on: [push, pull_request]
 
 jobs:
   build-and-lint:
@@ -26,6 +26,23 @@ jobs:
 
       - name: Clean
         run: yarn run clean
+  test-all:
+    name: "Test All Projects"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
+      - name: Install Deps
+        run: yarn install
+
+      - name: Run Unit Tests
+        run: yarn run test:ci
   functions-build-and-lint:
     name: "functions: build & lint"
     runs-on: ubuntu-latest
@@ -65,4 +82,4 @@ jobs:
         run: cd functions && yarn install
 
       - name: Run Unit Tests
-        run: cd functions && yarn run test
+        run: cd functions && (([ -z "${{secrets.FIREBASE_TOKEN}}" ] && exit 0) || (yarn run --silent firebase --token "${{secrets.FIREBASE_TOKEN}}" -P reach4help-dev functions:config:get > .runtimeconfig.json && yarn run test))

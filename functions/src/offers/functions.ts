@@ -5,8 +5,9 @@ import { firestore } from 'firebase-admin';
 import * as dispatch from '../dispatch';
 import { IOffer, Offer, OfferStatus } from '../models/offers';
 import { IRequest, Request, RequestStatus } from '../models/requests';
-import { auth, db } from '../app';
+import { auth, db, fieldIncrementer } from '../app';
 import { queueTimelineItemTriggers } from '../shared/triggerFunctions';
+import { reflectOfferInRequest } from '../algolia';
 
 const queueStatusUpdateTriggers = async (change: Change<firestore.DocumentSnapshot>): Promise<void[]> => {
   const offerBefore = change.before.exists ? (change.before.data() as Offer) : null;
@@ -71,12 +72,34 @@ const queueStatusUpdateTriggers = async (change: Change<firestore.DocumentSnapsh
   return Promise.all(operations);
 };
 
+/**
+ * When an offer is made against a request in the DB,
+ * Associate the details of the offer in the request
+ * This helps prevent additional reads from offers collection to get aggregate and count values
+ *
+ * @param offer: The instance of Offer class for the offer
+ */
+const reflectOfferInRequestFirebase = (offer: Offer) => {
+  const firebaseUpdateDoc = {
+    [offer.status === OfferStatus.pending ? 'offerCount' : 'rejectionCount']: fieldIncrementer(1),
+    [offer.status === OfferStatus.pending ? 'lastOfferMade' : 'lastRejectionMade']: offer.createdAt,
+  };
+
+  if (offer.requestSnapshot && (offer.requestSnapshot.offerCount > 0 || offer.requestSnapshot.rejectionCount > 0)) {
+    firebaseUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt;
+  }
+
+  return offer.requestRef.update(firebaseUpdateDoc).then(() => Promise.resolve());
+};
+
 const queueOfferCreationTriggers = async (snap: firestore.DocumentSnapshot): Promise<void[]> => {
   const offer = snap.data() as Offer;
   const operations: Promise<void>[] = [];
 
   if (offer) {
     const request = Request.factory((await offer.requestRef.get()).data() as IRequest);
+
+    operations.push(reflectOfferInRequestFirebase(offer));
 
     operations.push(
       (async (): Promise<void> => {
@@ -120,20 +143,25 @@ const validateOffer = (value: IOffer): Promise<void> => {
 };
 
 export const offerCreate = (snapshot: firestore.DocumentSnapshot, context: EventContext) => {
-  return validateOffer(snapshot.data() as IOffer)
-    .then(() =>
-      Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer')]),
-    )
-    .catch(errors => {
-      console.error('Invalid Offer Found: ', errors);
-      return db
-        .collection('offers')
-        .doc(context.params.offerId)
-        .delete()
-        .catch(() => {
-          return Promise.resolve();
-        });
-    });
+  return (
+    validateOffer(snapshot.data() as IOffer)
+      .then(() =>
+        Promise.all([queueOfferCreationTriggers(snapshot), queueTimelineItemTriggers(snapshot as firestore.DocumentSnapshot<Offer>, 'offer')]),
+      )
+      // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
+      .then(() => reflectOfferInRequest(Offer.factory(snapshot.data() as IOffer)))
+      .catch(errors => {
+        console.error('Invalid Offer Found: ', errors);
+        return db
+          .collection('offers')
+          .doc(context.params.offerId)
+          .delete()
+          .catch(() => {
+            return Promise.resolve();
+          });
+      })
+      .then(() => Promise.resolve())
+  );
 };
 
 export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context: EventContext) => {
@@ -144,21 +172,30 @@ export const offerUpdate = (change: Change<firestore.DocumentSnapshot>, context:
       if (offerBefore?.status === offerAfter?.status && offerAfter?.cavUserSnapshot.displayName === 'Deleted User') {
         return;
       }
-      console.log('offerBefore.status: ', offerBefore?.status);
-      console.log('offerAfter.status: ', offerAfter?.status);
-      console.log('offerAfter.request: ', offerAfter?.requestSnapshot);
-      console.log('requestBefore.request: ', offerBefore?.requestSnapshot);
-      console.log('requestAfter.cavUserSnapshot.displayName: ', offerAfter?.cavUserSnapshot?.displayName);
-      console.log('requestBefore.cavUserSnapshot.displayName: ', offerAfter?.cavUserSnapshot?.displayName);
       return Promise.all([
         queueStatusUpdateTriggers(change),
         queueTimelineItemTriggers(change.before as firestore.DocumentSnapshot<Offer>, 'offer', change.after as firestore.DocumentSnapshot<Offer>),
       ]);
+      /*
+       *Only details realted to a request is stored in Algolia
+       *Only situation which should affect algolia is when the offer gets accepted
+       *No need to update algolia indices as it would already be done when in the trigger attached to a request update
+       */
     })
     .catch(errors => {
       console.error('Invalid Offer Found: ');
       for (const e of errors) {
         console.error('e: ', e.target, e.value, e.property, e.constraints);
+      }
+      const prevData = change.before.data();
+      if (prevData) {
+        return db
+          .collection('offers')
+          .doc(context.params.offerId)
+          .set(prevData)
+          .catch(() => {
+            return Promise.resolve();
+          });
       }
       return db
         .collection('offers')

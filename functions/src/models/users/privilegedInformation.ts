@@ -7,6 +7,7 @@ import DocumentData = firestore.DocumentData;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export interface IUserAddress {
+  name: string;
   address1?: string;
   address2?: string;
   postalCode?: string;
@@ -17,8 +18,7 @@ export interface IUserAddress {
 }
 
 export interface IPrivilegedUserInformation extends DocumentData {
-  addressFromGoogle: google.maps.GeocoderResult;
-  address: IUserAddress;
+  addresses: Record<string, IUserAddress>;
   termsAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
   privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
@@ -28,16 +28,14 @@ export interface IPrivilegedUserInformation extends DocumentData {
 
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   constructor(
-    addressFromGoogle: google.maps.GeocoderResult,
-    address: IUserAddress,
+    addresses: Record<string, IUserAddress>,
     privacyAccepted: Timestamp,
     privacyVersion: string,
     termsAccepted: Timestamp,
     termsVersion: string,
     sendNotifications: Timestamp | null,
   ) {
-    this._addressFromGoogle = addressFromGoogle;
-    this._address = address;
+    this._addresses = addresses;
     this._privacyAccepted = privacyAccepted;
     this._privacyVersion = privacyVersion;
     this._termsAccepted = termsAccepted;
@@ -46,25 +44,14 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _addressFromGoogle: google.maps.GeocoderResult;
+  private _addresses: Record<string, IUserAddress>;
 
-  get addressFromGoogle(): google.maps.GeocoderResult {
-    return this._addressFromGoogle;
+  get addresses(): Record<string, IUserAddress> {
+    return this._addresses;
   }
 
-  set addressFromGoogle(value: google.maps.GeocoderResult) {
-    this._addressFromGoogle = value;
-  }
-
-  @IsObject()
-  private _address: IUserAddress;
-
-  get address(): IUserAddress {
-    return this._address;
-  }
-
-  set address(value: IUserAddress) {
-    this._address = value;
+  set addresses(value: Record<string, IUserAddress>) {
+    this._addresses = value;
   }
 
   @IsObject()
@@ -125,8 +112,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   static factory = (data: IPrivilegedUserInformation): PrivilegedUserInformation =>
     new PrivilegedUserInformation(
-      data.addressFromGoogle,
-      data.address,
+      data.addresses && !((data.addresses as unknown) as IUserAddress).coords ? data.addresses : { default: data.address as IUserAddress },
       data.privacyAccepted,
       data.privacyVersion,
       data.termsAccepted,
@@ -136,8 +122,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   toObject(): object {
     return {
-      addressFromGoogle: this.addressFromGoogle,
-      address: this.address,
+      addresses: this.addresses,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,

@@ -2,6 +2,7 @@
 import { IsObject, IsString } from 'class-validator';
 
 export interface IUserAddress {
+  name: string;
   address1?: string;
   address2?: string;
   postalCode?: string;
@@ -13,8 +14,7 @@ export interface IUserAddress {
 
 export interface IPrivilegedUserInformation
   extends firebase.firestore.DocumentData {
-  addressFromGoogle: google.maps.GeocoderResult;
-  address: IUserAddress;
+  addresses: Record<string, IUserAddress>;
   sendNotifications?: firebase.firestore.Timestamp | null;
   termsAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
@@ -24,16 +24,14 @@ export interface IPrivilegedUserInformation
 
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   constructor(
-    addressFromGoogle: google.maps.GeocoderResult,
-    address: IUserAddress,
+    addresses: Record<string, IUserAddress>,
     privacyAccepted: firebase.firestore.Timestamp,
     privacyVersion: string,
     termsAccepted: firebase.firestore.Timestamp,
     termsVersion: string,
     sendNotificatoins: firebase.firestore.Timestamp | null = null,
   ) {
-    this._addressFromGoogle = addressFromGoogle;
-    this._address = address;
+    this._addresses = addresses;
     this._sendNotifications = sendNotificatoins;
     this._privacyAccepted = privacyAccepted;
     this._privacyVersion = privacyVersion;
@@ -42,25 +40,14 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _addressFromGoogle: google.maps.GeocoderResult;
+  private _addresses: Record<string, IUserAddress>;
 
-  get addressFromGoogle(): google.maps.GeocoderResult {
-    return this._addressFromGoogle;
+  get addresses(): Record<string, IUserAddress> {
+    return this._addresses;
   }
 
-  set addressFromGoogle(value: google.maps.GeocoderResult) {
-    this._addressFromGoogle = value;
-  }
-
-  @IsObject()
-  private _address: IUserAddress;
-
-  get address(): IUserAddress {
-    return this._address;
-  }
-
-  set address(value: IUserAddress) {
-    this._address = value;
+  set addresses(value: Record<string, IUserAddress>) {
+    this._addresses = value;
   }
 
   @IsObject()
@@ -122,8 +109,11 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     data: IPrivilegedUserInformation,
   ): PrivilegedUserInformation =>
     new PrivilegedUserInformation(
-      data.addressFromGoogle,
-      data.address,
+      data.addresses && !((data.addresses as unknown) as IUserAddress).coords
+        ? data.addresses
+        : data.address
+        ? { default: data.address as IUserAddress }
+        : {},
       data.privacyAccepted,
       data.privacyVersion,
       data.termsAccepted,
@@ -133,16 +123,17 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   toObject(): object {
     return {
-      addressFromGoogle: JSON.parse(JSON.stringify(this.addressFromGoogle)),
-      address: Object.keys(this.address).reduce((acc, key) => {
-        if (this.address[key]) {
-          return {
-            ...acc,
-            [key]: this.address[key],
-          };
-        }
-        return acc;
-      }, {}),
+      addresses: Object.values(this.addresses).reduce(
+        (accum, address) => ({
+          ...accum,
+          [address.name]: Object.keys(address).reduce(
+            (acc, key) =>
+              address[key] ? { ...acc, [key]: address[key] } : acc,
+            {},
+          ),
+        }),
+        {},
+      ),
       sendNotifications: this.sendNotifications,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
@@ -154,9 +145,11 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
 export const PrivilegedUserInformationFirestoreConverter: firebase.firestore.FirestoreDataConverter<PrivilegedUserInformation> = {
   fromFirestore: (
-    data: firebase.firestore.QueryDocumentSnapshot<IPrivilegedUserInformation>,
+    data: firebase.firestore.QueryDocumentSnapshot<
+      firebase.firestore.DocumentData
+    >,
   ): PrivilegedUserInformation =>
-    PrivilegedUserInformation.factory(data.data()),
+    PrivilegedUserInformation.factory(data.data() as any),
   toFirestore: (
     modelObject: PrivilegedUserInformation,
   ): firebase.firestore.DocumentData => modelObject.toObject(),

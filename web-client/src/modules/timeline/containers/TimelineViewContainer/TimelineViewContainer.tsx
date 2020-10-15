@@ -21,8 +21,7 @@ import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
-import { ArchivedRequestsLocation } from 'src/modules/requests/pages/routes/ArchivedRequestsRoute/constants';
-import { FinishedRequestsLocation } from 'src/modules/requests/pages/routes/FinishedRequestsRoute/constants';
+import { ListMyPostsLocation } from 'src/modules/requests/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
@@ -34,8 +33,10 @@ import BottomPanel from '../../components/BottomPanel/BottomPanel';
 import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
-import { TimelineAcceptedViewLocation } from '../../pages/routes/TimelineAcceptedViewRoute/constants';
-import { TimelineViewLocation } from '../../pages/routes/TimelineViewRoute/constants';
+import {
+  TimelineAcceptedViewLocation,
+  TimelineViewLocation,
+} from '../../constants';
 
 const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   requestId,
@@ -72,6 +73,9 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   const phoneNumber = useSelector(
     (state: AppState) => state.auth.user?.phoneNumber,
   );
+
+  const isCav =
+    profileState?.profile?.applicationPreference === ApplicationPreference.cav;
 
   useEffect(() => {
     document.title = 'Reach4Help: '.concat(t('routeSubtitles._timeline'));
@@ -120,11 +124,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
-      if (shouldRedirectToFinished) {
-        history.push(FinishedRequestsLocation.path);
-      }
-      if (shouldRedirectToArchived) {
-        history.push(ArchivedRequestsLocation.path);
+      // ?? temporary until we refactor use of ApplicatonPreference
+      if (isCav) {
+        history.replace(ListMyPostsLocation.toUrl({ postType: 'offers' }));
+      } else {
+        history.replace(ListMyPostsLocation.toUrl({ postType: 'requests' }));
       }
     }
   }, [
@@ -134,6 +138,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     shouldRedirectToFinished,
     shouldRedirectToArchived,
     history,
+    isCav,
   ]);
 
   useEffect(() => {
@@ -156,8 +161,12 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
             getOpenRequests({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
-              lat: profileState.privilegedInformation?.address.coords.latitude,
-              lng: profileState.privilegedInformation?.address.coords.longitude,
+              lat:
+                profileState.privilegedInformation?.addresses?.default.coords
+                  .latitude,
+              lng:
+                profileState.privilegedInformation?.addresses?.default.coords
+                  .longitude,
             }),
           );
         }
@@ -284,9 +293,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     offer.seenAt = null;
     dispatch(setOffer(offer.toObject() as IOffer, id, phoneNumber));
   };
-
-  const isCav =
-    profileState.profile.applicationPreference === ApplicationPreference.cav;
 
   const instructions = [
     t('information_modal.TimelineViewContainer.0'),

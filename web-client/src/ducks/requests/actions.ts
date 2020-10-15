@@ -1,5 +1,6 @@
-import { IRequest, Request, RequestStatus } from 'src/models/requests';
+import { IRequest, Request } from 'src/models/requests';
 
+/* why rename?? */
 import {
   createUserRequest,
   getAcceptedRequest as getAcceptedRequestFunc,
@@ -7,7 +8,6 @@ import {
   getFinishedRequest as getFinishedRequestFunc,
   getOngoingRequest as getOngoingRequestFunc,
   getOpenRequest as getOpenRequestFunc,
-  observeNonOpenRequests as observeNonOpenRequestsFunc,
   observeOpenRequests as observeOpenRequestsFunc,
   setUserRequest,
 } from './functions';
@@ -18,24 +18,12 @@ import {
   GET_FINISHED,
   GET_ONGOING,
   GET_OPEN,
-  IgetNonOpenRequests,
   IgetOpenRequests,
-  OBSERVE_CANCELLED_REQUESTS,
-  OBSERVE_COMPLETED_REQUESTS,
-  OBSERVE_ONGOING_REQUESTS,
   OBSERVE_OPEN_REQUESTS,
-  OBSERVE_REMOVED_REQUESTS,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
 } from './types';
-
-const requestStatusMapper = {
-  [RequestStatus.ongoing]: OBSERVE_ONGOING_REQUESTS,
-  [RequestStatus.completed]: OBSERVE_COMPLETED_REQUESTS,
-  [RequestStatus.cancelled]: OBSERVE_CANCELLED_REQUESTS,
-  [RequestStatus.removed]: OBSERVE_REMOVED_REQUESTS,
-};
 
 export const getOpenRequests = (payload: IgetOpenRequests) => (
   dispatch: Function,
@@ -96,23 +84,6 @@ export const observeOpenRequests = (
     dispatch({
       type: OBSERVE_OPEN_REQUESTS.UNSUBSCRIBE,
       observerName: OBSERVE_OPEN_REQUESTS,
-    });
-};
-
-export const observeNonOpenRequests = (
-  dispatch: Function,
-  payload: IgetNonOpenRequests,
-): any => {
-  dispatch({
-    type: requestStatusMapper[payload.requestStatus],
-    observer: observeNonOpenRequestsFunc,
-    payload,
-  });
-
-  return () =>
-    dispatch({
-      type: requestStatusMapper[payload.requestStatus].UNSUBSCRIBE,
-      observerName: requestStatusMapper[payload.requestStatus],
     });
 };
 

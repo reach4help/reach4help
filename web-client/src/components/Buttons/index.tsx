@@ -39,7 +39,7 @@ export const MailAuthButton = styled(Button)`
 export const StepBackButton = styled(Button)`
   border-radius: 4px;
   white-space: nowrap;
-  width: 100%;
+  max-width: 110px;
   background-color: ${COLORS.stepBackwardNormal};
   color: white;
   font-weight: 700;
@@ -56,11 +56,14 @@ export const StepBackButton = styled(Button)`
 export const StepForwardButton = styled(Button)`
   border-radius: 4px;
   white-space: nowrap;
-  width: 100%;
+  min-width: 100%;
+  max-width: 180px;
   background-color: ${COLORS.stepForwardNormal};
   color: white;
   font-weight: 700;
   border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
   &:hover,
   &:focus,
   &:active,
@@ -75,6 +78,7 @@ export const StepForwardButton = styled(Button)`
 export const SettingsListButton = styled(Button)`
   display: flex;
   justify-content: start;
+  align-items: center;
   font-weight: normal;
   padding: 22px 10px;
   border: none;
@@ -86,7 +90,7 @@ export const SettingsListButton = styled(Button)`
   &:focus-within {
     color: ${COLORS.black};
   }
-  > span {
+  span {
     display: flex;
     align-items: center;
     justify-content: space-around;

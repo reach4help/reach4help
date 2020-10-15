@@ -4,13 +4,13 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
 import { MenuItem, Module } from 'src/types/module';
 
-import ContentPage from './pages/ContentPage';
-import { AcceptedRequestsLocation } from './pages/routes/AcceptedRequestsRoute/constants';
-import { ArchivedRequestsLocation } from './pages/routes/ArchivedRequestsRoute/constants';
-import { FindRequestsLocation } from './pages/routes/FindRequestsRoute/constants';
-import { FinishedRequestsLocation } from './pages/routes/FinishedRequestsRoute/constants';
-import { OngoingRequestsLocation } from './pages/routes/OngoingRequestsRoute/constants';
-import { OpenRequestsLocation } from './pages/routes/OpenRequestsRoute/constants';
+import {
+  AcceptedRequestsLocation,
+  FindRequestsLocation,
+  OpenRequestsLocation,
+  postUrlRoot,
+} from './constants';
+import Routes from './routes';
 
 export const menuLinks: Array<MenuItem> = [
   {
@@ -27,29 +27,14 @@ export const menuLinks: Array<MenuItem> = [
         title: 'Accepted',
         location: AcceptedRequestsLocation,
       },
-      {
-        id: '4',
-        title: 'Ongoing',
-        location: OngoingRequestsLocation,
-      },
-      {
-        id: '5',
-        title: 'Finished',
-        location: FinishedRequestsLocation,
-      },
-      {
-        id: '6',
-        title: 'Archived',
-        location: ArchivedRequestsLocation,
-      },
     ],
   },
 ];
 
 const requestsModule: Module = {
-  path: '/requests',
+  path: `${postUrlRoot}`,
+  partiallyProtected: true,
   layout: 'dashboard',
-  protected: true,
   dynamicMenuLinks: (profileState?: ProfileState) => {
     if (
       profileState?.profile?.applicationPreference === ApplicationPreference.cav
@@ -64,21 +49,6 @@ const requestsModule: Module = {
           id: '2',
           title: 'Open',
           location: OpenRequestsLocation,
-        },
-        {
-          id: '3',
-          title: 'Ongoing',
-          location: OngoingRequestsLocation,
-        },
-        {
-          id: '4',
-          title: 'Finished',
-          location: FinishedRequestsLocation,
-        },
-        {
-          id: '5',
-          title: 'Archived',
-          location: ArchivedRequestsLocation,
         },
       ] as MenuItem[];
     }
@@ -97,25 +67,10 @@ const requestsModule: Module = {
             title: 'Accepted',
             location: AcceptedRequestsLocation,
           },
-          {
-            id: '4',
-            title: 'Ongoing',
-            location: OngoingRequestsLocation,
-          },
-          {
-            id: '5',
-            title: 'Finished',
-            location: FinishedRequestsLocation,
-          },
-          {
-            id: '6',
-            title: 'Archived',
-            location: ArchivedRequestsLocation,
-          },
         ],
       },
     ] as MenuItem[];
   },
-  component: ContentPage,
+  component: Routes,
 };
 export default requestsModule;

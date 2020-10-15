@@ -1,3 +1,5 @@
+import { ProfileState } from 'src/ducks/profile/types';
+
 export interface MenuItem {
   id: string;
   icon?: React.FunctionComponent<{}> | React.ComponentClass<{}, any>;
@@ -8,6 +10,7 @@ export interface MenuItem {
 export interface Module {
   path: string;
   protected?: boolean;
+  partiallyProtected?: boolean;
   component: ReactElement;
   layout?: string;
   dynamicMenuLinks?: (profileState?: ProfileState) => Array<MenuItem>;

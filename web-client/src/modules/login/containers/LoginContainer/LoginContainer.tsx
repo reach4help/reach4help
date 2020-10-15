@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import { AppState } from 'src/store';
+import styled from 'styled-components';
 
 import {
   checkEmail as checkEmailFunc,
@@ -24,15 +24,11 @@ import { authProviders } from '../../../../ducks/auth/types';
 import LoginFooter from '../../components/LoginFooter/LoginFooter';
 import RegistrationSteps from '../../components/RegistrationSteps/RegistrationSteps';
 
-const LoginContainer: React.FC<LoginRedirectProps> = ({
-  redirectBack = '/',
-}) => {
+const LoginContainer: React.FC<LoginRedirectProps> = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state: AppState) => state.auth.user);
   const error = useSelector((state: AppState) => state.auth.error);
   const checkEmail = useSelector((state: AppState) => state.auth.checkEmail);
   const authLoading = useSelector((state: AppState) => state.auth.loading);
-  const history = useHistory();
 
   const [emailAndPassword, setEmailAndPassword] = useState<
     Record<string, string>
@@ -51,12 +47,6 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
       }
     }
   }, [dispatch]);
-
-  useEffect(() => {
-    if (user) {
-      history.replace(redirectBack);
-    }
-  }, [history, redirectBack, user]);
 
   useEffect(() => {
     if (!authLoading) {
@@ -160,7 +150,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
   }
 
   return (
-    <>
+    <LoginContainerWrapper>
       <RegistrationSteps
         currentStep={currentStep}
         setCurrentStep={setCurrentStep}
@@ -170,7 +160,7 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
         onEmailSignUp={handleEmailSignUp}
       />
       <LoginFooter />
-      <div style={{ color: 'red', textAlign: 'center' }}>
+      <div style={{ color: 'red', textAlign: 'center', marginBottom: '40px' }}>
         {error && error.message}
         {(() => {
           if (
@@ -191,10 +181,15 @@ const LoginContainer: React.FC<LoginRedirectProps> = ({
           }
         })()}
       </div>
-    </>
+    </LoginContainerWrapper>
   );
 };
 
+const LoginContainerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 interface LoginRedirectProps {
   redirectBack?: string;
 }

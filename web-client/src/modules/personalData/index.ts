@@ -1,9 +1,9 @@
 import { Module } from 'src/types/module';
 
-import ContentPage from './pages/ContentPage';
+import Routes from './routes';
 
 const personalDataModule: Module = {
   path: '/personal-data',
-  component: ContentPage,
+  component: Routes,
 };
 export default personalDataModule;

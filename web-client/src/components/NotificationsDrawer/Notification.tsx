@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { OfferStatus } from 'src/models/offers';
 import { Request } from 'src/models/requests';
 import { User } from 'src/models/users';
-import { TimelineViewLocation } from 'src/modules/timeline/pages/routes/TimelineViewRoute/constants';
+import { TimelineViewLocation } from 'src/modules/timeline/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -14,28 +14,28 @@ const Notification: React.FC<NotificationProps> = ({
   offerRequest,
   requestRef,
   updatedAt,
-  isCav,
 }): React.ReactElement => {
   const { t } = useTranslation();
   const history = useHistory();
   const visualizeNotification = () => {
     if (offerStatus === OfferStatus.accepted) {
-      if (isCav) {
-        return (
-          <RequestNotification>
-            {offerRequest?.pinUserSnapshot.displayName ||
-              offerRequest?.pinUserSnapshot.username ||
-              t('components.notification.request_author')}
-            {t('components.notification.volunteer_accepted')}
-            {offerRequest?.title ? (
-              <RequestTitle>{offerRequest.title}</RequestTitle>
-            ) : (
-              'a request'
-            )}
-            .
-          </RequestNotification>
-        );
-      }
+      // if (isCav) {
+      //   return (
+      //     <RequestNotification>
+      //       {offerRequest?.pinUserSnapshot.displayName ||
+      //         offerRequest?.pinUserSnapshot.username ||
+      //         t('components.notification.request_author')}
+      //       {t('components.notification.volunteer_accepted')}
+      //       {offerRequest?.title ? (
+      //         <RequestTitle>{offerRequest.title}</RequestTitle>
+      //       ) : (
+      //         'a request'
+      //       )}
+      //       .
+      //     </RequestNotification>
+      //   );
+      // }
+      // TODO: Find a better solution
       return (
         <RequestNotification>
           {t('components.notification.pin_accepted')}
@@ -51,23 +51,24 @@ const Notification: React.FC<NotificationProps> = ({
       );
     }
     if (offerStatus === OfferStatus.rejected) {
-      if (isCav) {
-        return (
-          <RequestNotification>
-            {offerRequest?.pinUserSnapshot.displayName ||
-              offerRequest?.pinUserSnapshot.username ||
-              `${t('components.notification.request_author')} ${t(
-                'components.notification.already_helped',
-              )}`}
-            {offerRequest?.title ? (
-              <RequestTitle>{offerRequest.title}</RequestTitle>
-            ) : (
-              t('components.notification.a_request')
-            )}
-            .
-          </RequestNotification>
-        );
-      }
+      // if (isCav) {
+      //   return (
+      //     <RequestNotification>
+      //       {offerRequest?.pinUserSnapshot.displayName ||
+      //         offerRequest?.pinUserSnapshot.username ||
+      //         `${t('components.notification.request_author')} ${t(
+      //           'components.notification.already_helped',
+      //         )}`}
+      //       {offerRequest?.title ? (
+      //         <RequestTitle>{offerRequest.title}</RequestTitle>
+      //       ) : (
+      //         t('components.notification.a_request')
+      //       )}
+      //       .
+      //     </RequestNotification>
+      //   );
+      // }
+      // TODO: Find a better solution
       return (
         <RequestNotification>
           {t('components.notification.pin_rejected')}
@@ -83,19 +84,20 @@ const Notification: React.FC<NotificationProps> = ({
       );
     }
     if (offerStatus === OfferStatus.pending) {
-      if (isCav) {
-        return (
-          <RequestNotification>
-            {t('components.notification.cav_offer')}
-            {offerRequest?.title ? (
-              <RequestTitle>{offerRequest.title}</RequestTitle>
-            ) : (
-              t('components.notification.a_request')
-            )}
-            .
-          </RequestNotification>
-        );
-      }
+      // if (isCav) {
+      //   return (
+      //     <RequestNotification>
+      //       {t('components.notification.cav_offer')}
+      //       {offerRequest?.title ? (
+      //         <RequestTitle>{offerRequest.title}</RequestTitle>
+      //       ) : (
+      //         t('components.notification.a_request')
+      //       )}
+      //       .
+      //     </RequestNotification>
+      //   );
+      // }
+      // TODO: Find a better solution
       return (
         <RequestNotification>
           {cavUser.displayName || cavUser.username}
@@ -110,19 +112,20 @@ const Notification: React.FC<NotificationProps> = ({
       );
     }
     if (offerStatus === OfferStatus.cavDeclined) {
-      if (isCav) {
-        return (
-          <RequestNotification>
-            {t('components.notification.pin_declined_help')}
-            {offerRequest?.title ? (
-              <RequestTitle>{offerRequest.title}</RequestTitle>
-            ) : (
-              t('components.notification.a_request')
-            )}
-            .
-          </RequestNotification>
-        );
-      }
+      // if (isCav) {
+      //   return (
+      //     <RequestNotification>
+      //       {t('components.notification.pin_declined_help')}
+      //       {offerRequest?.title ? (
+      //         <RequestTitle>{offerRequest.title}</RequestTitle>
+      //       ) : (
+      //         t('components.notification.a_request')
+      //       )}
+      //       .
+      //     </RequestNotification>
+      //   );
+      // }
+      // TODO: Find a better solution for this
       return (
         <RequestNotification>
           {cavUser.displayName || cavUser.username}
@@ -197,7 +200,6 @@ interface NotificationProps {
     firebase.firestore.DocumentData
   >;
   updatedAt: Date;
-  isCav?: boolean;
 }
 
 export default Notification;

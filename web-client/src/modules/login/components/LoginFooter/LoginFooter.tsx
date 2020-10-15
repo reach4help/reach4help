@@ -19,14 +19,14 @@ const RegistrationFooter = () => {
 const RegistrationStepsFooterWrapper = styled.div`
   position: absolute;
   bottom: 0;
+  left: 0;
   width: 100%;
-  height: 5em;
-  padding: 10px;
+  padding: 10px 10%;
 
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 150%;
 
   text-align: center;
