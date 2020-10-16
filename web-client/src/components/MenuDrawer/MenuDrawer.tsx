@@ -2,7 +2,7 @@ import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { User } from 'src/models/users';
-import { CreatePostLocation } from 'src/modules/create/constants';
+import { CreateRequestLocation } from 'src/modules/create/constants';
 import {
   AcceptedRequestsLocation,
   ListMyOffersLocation,
@@ -53,27 +53,38 @@ const menuItems: Array<MenuItem> = [
     showWhenNotLogggedOn: false,
   },
   {
-    id: '6',
-    title: 'Create Request',
-    location: CreatePostLocation,
+    id: '4',
+    title: 'Create',
     showWhenLogggedOn: true,
+    showWhenNotLogggedOn: true,
+    children: [
+      {
+        id: '4.1',
+        title: 'Create Requests',
+        location: CreateRequestLocation,
+      },
+      {
+        id: '4.2',
+        title: 'Create Offers - not implemented',
+        // location: CreateOfferLocation,
+      },
+    ],
+  },
+  {
+    id: '5',
+    title: 'Log In - not implemented',
+    showWhenLogggedOn: false,
+    showWhenNotLogggedOn: true,
+  },
+  {
+    id: '6',
+    title: 'Sign Up (under construction)',
+    showWhenLogggedOn: false,
     showWhenNotLogggedOn: true,
   },
   {
     id: '7',
-    title: 'Log In',
-    showWhenLogggedOn: false,
-    showWhenNotLogggedOn: true,
-  },
-  {
-    id: '8',
-    title: 'Sign Up',
-    showWhenLogggedOn: false,
-    showWhenNotLogggedOn: true,
-  },
-  {
-    id: '9',
-    title: 'Log Out',
+    title: 'Log Out (under construction)',
     showWhenLogggedOn: true,
     showWhenNotLogggedOn: false,
   },
