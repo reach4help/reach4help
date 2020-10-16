@@ -1,5 +1,6 @@
 import React, { lazy, ReactElement, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import ProtectedRoute from 'src/pages/routes/ProtectedRoute';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import {
@@ -26,23 +27,22 @@ const TabbedPostsPage = lazy(() => import('./pages/TabbedPostsPage'));
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
-      <Route
+      <ProtectedRoute
         path={AcceptedRequestsLocation.path}
         component={AcceptedRequestsContainer}
-        exact
       />
-      <Route
+      <ProtectedRoute
         path={FindRequestsLocation.path}
         component={FindRequestsContainer}
-        exact
       />
-      <Route
+      <ProtectedRoute
         path={OpenRequestsLocation.path}
         component={OpenRequestsContainer}
-        exact
       />
-      <Route path={ListMyPostsLocation.path} component={TabbedPostsPage} />
-
+      <ProtectedRoute
+        path={ListMyPostsLocation.path}
+        component={TabbedPostsPage}
+      />
       <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>
   </Suspense>

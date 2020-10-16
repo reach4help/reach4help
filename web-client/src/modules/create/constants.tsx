@@ -6,7 +6,7 @@ export enum CreatePostTypes {
   offer = 'offer',
 }
 // ?? refactor to make it createPostType
-export const CreatePostLocation = new Location('/create/post/:type', {
+export const CreatePostLocation = new Location('/create/:type', {
   type: Yup.string(),
 });
 export const CreateOfferLocation = new Location(

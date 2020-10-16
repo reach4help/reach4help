@@ -1,5 +1,6 @@
 import React, { lazy, ReactElement, Suspense } from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router-dom';
+import ProtectedRoute from 'src/pages/routes/ProtectedRoute';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import { CreatePostLocation, CreatePostTypes } from './constants';
@@ -17,7 +18,10 @@ const CreatePostPage: React.FC = () => {
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
-      <Route path={CreatePostLocation.path} component={CreatePostPage} />
+      <ProtectedRoute
+        path={CreatePostLocation.path}
+        component={CreatePostPage}
+      />
       <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>
   </Suspense>
