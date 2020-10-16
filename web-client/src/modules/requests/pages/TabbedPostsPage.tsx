@@ -37,7 +37,7 @@ const TabbedPosts: React.FC = (): ReactElement => {
   }
 
   return (
-    <StyledTabs defaultActiveKey={postType} onChange={onChange}>
+    <StyledTabs activeKey={postType} onChange={onChange}>
       <StyledTabPane
         tab={t('modules.requests.containers.TabbedPostPage.requests_tab_label')}
         key={PostTabsType.requests.valueOf()}
