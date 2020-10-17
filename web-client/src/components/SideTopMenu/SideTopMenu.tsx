@@ -72,7 +72,9 @@ const SideTopMenu: React.FC<{
       <SideMenuLink
         key="CreateOffer"
         title="Create Offer - not implemented"
-        path={`notimplemented-${CreateOfferLocation}` /* TODO: implement */}
+        path={
+          `notimplemented:${CreateOfferLocation.path}` /* TODO: implement */
+        }
         onClick={closeDrawer}
       />
     </Menu>
