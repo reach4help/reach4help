@@ -2,7 +2,35 @@ import { Menu } from 'antd';
 import React from 'react';
 import { Link, RouteProps } from 'react-router-dom';
 import { COLORS } from 'src/theme/colors';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { CreateRequestLocation } from 'src/modules/create/constants';
+import {
+  AcceptedRequestsLocation,
+  ListMyOffersLocation,
+  ListMyRequestLocation,
+  OpenRequestsLocation,
+} from 'src/modules/requests/constants';
+
+const SideDrawerMenuItem2: React.FC<SideDrawerMenuItemProps2> = ({
+  key,
+  title,
+  path,
+  closeDrawer,
+  ...other
+}) => {
+const menuItem = (
+    <Menu.Item key={key} {...other}>
+       {title}
+    </Menu.Item>
+)
+return (
+  <>
+      <Link to={path} onClick={closeDrawer}>
+        {menuItem}
+      </Link>
+  </>
+);
+    }
 
 const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
   item,
@@ -33,6 +61,7 @@ const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
       </Menu.SubMenu>
     );
   } else {
+    console.log('other',{...other},item.id)
     menuItem = (
       <Menu.Item key={item.id} {...other}>
         {item.icon ? <item.icon /> : null}
@@ -82,6 +111,11 @@ const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
             closeDrawer={closeDrawer}
           />
         ))}
+        <SideDrawerMenuItem2 key="1" title="Open Requests" path={OpenRequestsLocation.path} closeDrawer={closeDrawer} />
+        <SideDrawerMenuItem2 key="2" title="Accepted Requests" path={OpenRequestsLocation.path} closeDrawer={closeDrawer} />
+        <SideDrawerMenuItem2 key="3" title="My Requests" path={OpenRequestsLocation.path} closeDrawer={closeDrawer} />
+        <SideDrawerMenuItem2 key="4" title="My Offers" path={OpenRequestsLocation.path} closeDrawer={closeDrawer} />
+
       </Menu>
     </SideDrawerMenuWrapper>
   );
@@ -144,7 +178,12 @@ interface SideDrawerMenuItemProps extends RouteProps {
   item: MenuItem;
   closeDrawer: () => void;
 }
-
+interface SideDrawerMenuItemProps2 extends RouteProps {
+  key: string;
+  title: string;
+  path: string;
+  closeDrawer: () => void;
+}
 interface SideDrawerMenuProps extends RouteProps {
   items: Array<MenuItem>;
   closeDrawer: () => void;
