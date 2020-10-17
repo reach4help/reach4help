@@ -8,6 +8,7 @@
     "id": "F7OG87T3T6",
     "general_requests_index": "generalRequests_test",
     "key": "de24ffdbb66d368ada367d5bd0afd275",
+    "searchOnlyKey": "c8b1aa96de9843328aedac00d568df44",
     "unauthenticated_requests_index": "unauthenticatedRequests_test"
   }
 }

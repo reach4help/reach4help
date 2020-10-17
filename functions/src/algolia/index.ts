@@ -125,3 +125,36 @@ export const removeObjectFromIndices = async (objectId: string) => {
       }),
   ]);
 };
+
+/**
+ * Users who are visiting the app without logging in should be able to see posts on the map
+ * But they shouldn't be able to see the personal details of the posts.
+ * Information without personal details are stored in the unauthenticated requests index.
+ * This function generates a search key restricted to the unauthenticated requests index
+ *
+ * @returns {string} The secured key restricted to the unauthenticated requests index
+ */
+export const generateUnauthenticatedRequestsKey = () => {
+  return adminClient.generateSecuredApiKey(
+    'YourSearchOnlyAPIKey', // A search key that you keep private
+    {
+      restrictIndices: ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX,
+    },
+  );
+};
+
+/**
+ * Users who are visiting the app after logging in should be able to see posts on the map
+ * More detailed information including participant list is stored in the general requests index.
+ * This function generates a search key restricted to the general requests index
+ *
+ * @returns {string} The secured key restricted to the general requests index
+ */
+export const generateGeneralRequestsKey = () => {
+  return adminClient.generateSecuredApiKey(
+    'YourSearchOnlyAPIKey', // A search key that you keep private
+    {
+      restrictIndices: ALGOLIA_GENERALREQUESTS_INDEX,
+    },
+  );
+};
