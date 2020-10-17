@@ -35,7 +35,7 @@ const SideMenuLink: React.FC<SideTopMenuItemsProps> = ({
   );
 };
 
-const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
+const SideTopMenu: React.FC<SideTopMenuProps> = ({
   items,
   closeDrawer,
 }) => {
@@ -157,9 +157,9 @@ interface SideTopMenuItemsProps extends RouteProps {
   path: string;
   onClick: () => void;
 }
-interface SideDrawerMenuProps extends RouteProps {
+interface SideTopMenuProps extends RouteProps {
   items: Array<MenuItem>;
   closeDrawer: () => void;
 }
 
-export default SideDrawerMenu;
+export default SideTopMenu;

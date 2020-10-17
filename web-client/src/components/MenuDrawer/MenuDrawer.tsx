@@ -14,7 +14,7 @@ import styled from 'styled-components';
 
 import BottomLinks from '../BottomLinks/BottomLinks';
 import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
-import SideDrawerMenu from '../SideDrawerMenu/SideDrawerMenu';
+import SideTopMenu from '../SideDrawerMenu/SideTopMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 
 // TODO:: translate
@@ -131,7 +131,7 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
         width="100%"
       >
         <SideDrawerProfile profileData={profileData} />
-        <SideDrawerMenu
+        <SideTopMenu
           items={generateFinalList(profileData)}
           closeDrawer={closeDrawer}
         />
