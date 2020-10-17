@@ -5,7 +5,6 @@ import { StepForwardButton } from 'src/components/Buttons';
 
 export const TriggeredModal: React.FC<TriggeredModalProps> = ({
   finishRequestHandler,
-  // children is a ReactProp which is the children of the element that calls this component
   children,
   visible = false,
 }) => {

@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { User } from 'src/models/users';
 import styled from 'styled-components';
 
-import BottomLinks from '../BottomLinks/BottomLinks';
 import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
-import SideTopMenu from '../SideDrawerMenu/SideTopMenu';
+import SideBottomMenu from '../SideBottomMenu/SideBottomMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
+import SideTopMenu from '../SideTopMenu/SideTopMenu';
 
 const MenuDrawer: React.FC<IMenuDrawerProps> = ({
   visible,
@@ -47,7 +47,7 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
           closeDrawer={closeDrawer}
           isLoggedIn={isLoggedIn}
         />
-        <BottomLinks
+        <SideBottomMenu
           logoutHandler={logoutHandler}
           isLoggedIn={isLoggedIn}
           closeDrawer={closeDrawer}

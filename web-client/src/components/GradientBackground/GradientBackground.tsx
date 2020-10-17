@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { COLORS } from '../../theme/colors';
 
 const GradientBackground: React.FC<GradientBackgroundProps> = ({
-  // children is a ReactProp which is the children of the element that calls this component
   children,
 }): React.ReactElement => (
   <GradientBackgroundWrapper>{children}</GradientBackgroundWrapper>

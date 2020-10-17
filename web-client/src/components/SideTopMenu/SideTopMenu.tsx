@@ -31,7 +31,6 @@ onClick: () => void;}
       <Menu.Item key={key} {...other}>
         {title}
       </Menu.Item>
-
     </Link>
   </>
   );

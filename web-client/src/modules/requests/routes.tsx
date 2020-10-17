@@ -27,13 +27,14 @@ const TabbedPostsPage = lazy(() => import('./pages/TabbedPostsPage'));
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
+
+      <Route
+        path={FindRequestsLocation.path}
+        component={FindRequestsContainer}
+      />
       <ProtectedRoute
         path={AcceptedRequestsLocation.path}
         component={AcceptedRequestsContainer}
-      />
-      <ProtectedRoute
-        path={FindRequestsLocation.path}
-        component={FindRequestsContainer}
       />
       <ProtectedRoute
         path={OpenRequestsLocation.path}

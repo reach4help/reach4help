@@ -6,12 +6,18 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { LoginLocation } from 'src/modules/login/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import { SettingsLocation } from '../../modules/settings/constants';
 
-const BottomLinks: React.FC<IBottomLinksProps> = ({
+const SideBottomMenu: React.FC< {
+  closeDrawer: () => void;
+  isLoggedIn: boolean;
+  logoutHandler: Function;
+}
+> = ({
   closeDrawer,
   isLoggedIn,
   logoutHandler,
@@ -21,15 +27,15 @@ const BottomLinks: React.FC<IBottomLinksProps> = ({
 
   return (
     <>
-      <BottomLinksStyle>
+      <SideBottomMenuStyle>
         { isLoggedIn && (
-        <BottomLinkItemStyle data-id="settings"
+        <SideBotomMenuItemStyle data-id="settings"
           onClick={() => history.push(SettingsLocation.path)}
         >
           <SettingOutlined />
           {t('menuDrawer.settings')}
-        </BottomLinkItemStyle>)}
-        <BottomLinkItemStyle
+        </SideBotomMenuItemStyle>)}
+        <SideBotomMenuItemStyle
         data-id="contactus"
           role="link"
           onClick={() => {
@@ -39,8 +45,8 @@ const BottomLinks: React.FC<IBottomLinksProps> = ({
         >
           <MailOutlined />
           {t('menuDrawer.contactUs')}
-        </BottomLinkItemStyle>
-        { isLoggedIn && ( <BottomLinkItemStyle
+        </SideBotomMenuItemStyle>
+        { isLoggedIn && ( <SideBotomMenuItemStyle
           data-id="logout"
           role="link"
           onClick={() => {
@@ -51,24 +57,22 @@ const BottomLinks: React.FC<IBottomLinksProps> = ({
 
           <LogoutOutlined />
             {t('menuDrawer.logout')}
-          </BottomLinkItemStyle>)}
-        { isLoggedIn && ( <BottomLinkItemStyle
+          </SideBotomMenuItemStyle>)}
+        { !isLoggedIn && ( <SideBotomMenuItemStyle
           data-id="login-signup"
           role="link"
           onClick={() => {
-            closeDrawer();
+            history.push(LoginLocation.path);
           }}
         >
-
-          <LogoutOutlined />
-            {t('menuDrawer.logout')}
-          </BottomLinkItemStyle>)}
-      </BottomLinksStyle>
+            {t('menuDrawer.login-signup')}
+          </SideBotomMenuItemStyle>)}
+      </SideBottomMenuStyle>
     </>
   );
 };
 
-const BottomLinkItemStyle = styled('div')`
+const SideBotomMenuItemStyle = styled('div')`
   color: inherit;
   margin-bottom: 10px;
   padding: 10px;
@@ -85,17 +89,11 @@ const BottomLinkItemStyle = styled('div')`
     background-color: ${COLORS.link};
   }
 `;
-const BottomLinksStyle = styled.div`
+const SideBottomMenuStyle = styled.div`
   display: flex;
   flex-direction: column;
   margin: 15px;
   color: inherit;
 `;
 
-interface IBottomLinksProps {
-  closeDrawer: () => void;
-  isLoggedIn: boolean;
-  logoutHandler: Function;
-}
-
-export default BottomLinks;
+export default SideBottomMenu;

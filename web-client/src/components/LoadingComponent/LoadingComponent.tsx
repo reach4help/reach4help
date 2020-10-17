@@ -4,7 +4,6 @@ import LoadingLogo from 'src/assets/loadinglogo.svg';
 import styled from 'styled-components';
 
 const LoadingWrapper: React.FC<LoadingWrapperProps> = ({
-  // children is a ReactProp which is the children of the element that calls this component
   children,
 }): React.ReactElement => {
   const { t } = useTranslation();

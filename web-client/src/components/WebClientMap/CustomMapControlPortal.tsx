@@ -4,7 +4,6 @@ import { createPortal } from 'react-dom';
 const CustomMapControlPortal = ({
   map,
   controlPosition,
-  // children is a ReactProp which is the children of the element that calls this component
   children,
 }: CustomMapControlPortalProps) => {
   const controlDiv = document.createElement('div');
