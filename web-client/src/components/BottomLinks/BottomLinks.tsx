@@ -11,71 +11,9 @@ import styled from 'styled-components';
 
 import { SettingsLocation } from '../../modules/settings/constants';
 
-// import { MenuItem } from 'src/types/module';
-
-// import {
-//   AcceptedRequestsLocation,
-//   OpenRequestsLocation,
-// } from 'src/modules/requests/constants';
-
-// const menuItems2: Array<MenuItem> = [
-//   {
-//     id: '1',
-//     title: 'Find Requests',
-//     showWhenLogggedOn: true,
-//     showWhenNotLogggedOn: false,
-//     children: [
-//       {
-//         id: '1.1',
-//         title: 'Open',
-//         location: OpenRequestsLocation,
-//       },
-//       {
-//         id: '1.2',
-//         title: 'Accepted',
-//         location: AcceptedRequestsLocation,
-//       },
-//     ]},
-//     {
-//       id: '2',
-//       title: 'My Requests',
-//       showWhenLogggedOn: true,
-//       showWhenNotLogggedOn: false,
-//     },
-//     {
-//       id: '3',
-//       title: 'My Offers',
-//       showWhenLogggedOn: true,
-//       showWhenNotLogggedOn: false,
-//     },
-//     {
-//       id: '6',
-//       title: 'Create Request',
-//       showWhenLogggedOn: true,
-//       showWhenNotLogggedOn: true,
-//     },
-//     {
-//       id: '7',
-//       title: 'Log In',
-//       showWhenLogggedOn: false,
-//       showWhenNotLogggedOn: true,
-//     },
-//     {
-//       id: '8',
-//       title: 'Sign Up',
-//       showWhenLogggedOn: false,
-//       showWhenNotLogggedOn: true,
-//     },
-//     {
-//       id: '9',
-//       title: 'Log Out',
-//       showWhenLogggedOn: true,
-//       showWhenNotLogggedOn: false,
-//     },
-// ];
-
 const BottomLinks: React.FC<IBottomLinksProps> = ({
   closeDrawer,
+  isLoggedIn,
   logoutHandler,
 }) => {
   const { t } = useTranslation();
@@ -84,13 +22,15 @@ const BottomLinks: React.FC<IBottomLinksProps> = ({
   return (
     <>
       <BottomLinksStyle>
-        <BottomLinkItemStyle
+        { isLoggedIn && (
+        <BottomLinkItemStyle data-id="settings"
           onClick={() => history.push(SettingsLocation.path)}
         >
           <SettingOutlined />
           {t('menuDrawer.settings')}
-        </BottomLinkItemStyle>
+        </BottomLinkItemStyle>)}
         <BottomLinkItemStyle
+        data-id="contactus"
           role="link"
           onClick={() => {
             closeDrawer();
@@ -100,16 +40,29 @@ const BottomLinks: React.FC<IBottomLinksProps> = ({
           <MailOutlined />
           {t('menuDrawer.contactUs')}
         </BottomLinkItemStyle>
-        <BottomLinkItemStyle
+        { isLoggedIn && ( <BottomLinkItemStyle
+          data-id="logout"
           role="link"
           onClick={() => {
             closeDrawer();
             logoutHandler();
           }}
         >
+
           <LogoutOutlined />
-          {t('menuDrawer.logout')}
-        </BottomLinkItemStyle>
+            {t('menuDrawer.logout')}
+          </BottomLinkItemStyle>)}
+        { isLoggedIn && ( <BottomLinkItemStyle
+          data-id="login-signup"
+          role="link"
+          onClick={() => {
+            closeDrawer();
+          }}
+        >
+
+          <LogoutOutlined />
+            {t('menuDrawer.logout')}
+          </BottomLinkItemStyle>)}
       </BottomLinksStyle>
     </>
   );

@@ -31,6 +31,7 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
     /* TODO:  get unique user id */
     userid: null,
   });
+  const isLoggedIn = !!(profileData && profileData.displayName);
 
   return (
     <>
@@ -44,10 +45,11 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
         <SideDrawerProfile profileData={profileData} />
         <SideTopMenu
           closeDrawer={closeDrawer}
+          isLoggedIn={isLoggedIn}
         />
         <BottomLinks
           logoutHandler={logoutHandler}
-          isLoggedIn={false}
+          isLoggedIn={isLoggedIn}
           closeDrawer={closeDrawer}
         />
       </SideDrawer>

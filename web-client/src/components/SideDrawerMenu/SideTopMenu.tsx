@@ -1,6 +1,6 @@
 import { Menu } from 'antd';
 import React from 'react';
-import { Link, RouteProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   CreateOfferLocation,
   CreateRequestLocation,
@@ -14,35 +14,38 @@ import {
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-const SideMenuLink: React.FC<SideTopMenuItemsProps> = ({
+const SideMenuLink: React.FC<
+{key: string;
+title: string;
+path: string;
+onClick: () => void;}
+> = ({
   key,
   title,
   path,
   onClick,
   ...other
-}) => {
-  const menuItem = (
-    <Menu.Item key={key} {...other}>
-      {title}
-    </Menu.Item>
-  );
-  return (
-    <>
-      <Link to={path} onClick={onClick}>
-        {menuItem}
-      </Link>
-    </>
-  );
-};
+}) => (
+  <>
+    <Link to={path} onClick={onClick}>
+      <Menu.Item key={key} {...other}>
+        {title}
+      </Menu.Item>
 
-const SideTopMenu: React.FC<SideTopMenuProps> = ({
+    </Link>
+  </>
+  );
+
+const SideTopMenu: React.FC<{closeDrawer: () => void; isLoggedIn: boolean}> = ({
   closeDrawer,
-}) => {
-  return (
-    <SideTopMenuStyle>
-      <Menu
+  isLoggedIn,
+}) => (
+  <SideTopMenuStyle>
+    <Menu
         mode="inline"
       >
+      { isLoggedIn && (
+      <>
         <SideMenuLink
           key="OpenRequests"
           title="Open Requests"
@@ -67,22 +70,24 @@ const SideTopMenu: React.FC<SideTopMenuProps> = ({
           path={MyOffersLocation.path}
           onClick={closeDrawer}
         />
-        <SideMenuLink
+
+      </>)
+}
+      <SideMenuLink
           key="CreateRequest"
           title="Create Request"
           path={CreateRequestLocation.path}
           onClick={closeDrawer}
         />
-        <SideMenuLink
+      <SideMenuLink
           key="CreateOffer"
           title="Create Offer - not implemented"
           path={CreateOfferLocation.path}
           onClick={closeDrawer}
         />
-      </Menu>
-    </SideTopMenuStyle>
+    </Menu>
+  </SideTopMenuStyle>
   );
-};
 
 const SideTopMenuStyle = styled('div')`
   flex: auto;
@@ -128,23 +133,5 @@ const SideTopMenuStyle = styled('div')`
     }
   }
 `;
-
-export interface MenuItem {
-  id: string;
-  icon?: React.FunctionComponent<{}> | React.ComponentClass<{}, any>;
-  title: string;
-  children?: Array<MenuItem>;
-  location?: { path: string };
-}
-
-interface SideTopMenuItemsProps extends RouteProps {
-  key: string;
-  title: string;
-  path: string;
-  onClick: () => void;
-}
-interface SideTopMenuProps extends RouteProps {
-  closeDrawer: () => void;
-}
 
 export default SideTopMenu;
