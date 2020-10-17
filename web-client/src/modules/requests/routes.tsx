@@ -6,7 +6,7 @@ import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import {
   AcceptedRequestsLocation,
   FindRequestsLocation,
-  ListMyPostsLocation,
+  MyPostsLocation,
   OpenRequestsLocation,
 } from './constants';
 
@@ -27,7 +27,6 @@ const TabbedPostsPage = lazy(() => import('./pages/TabbedPostsPage'));
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
-
       <Route
         path={FindRequestsLocation.path}
         component={FindRequestsContainer}
@@ -40,10 +39,7 @@ const Routes = (): ReactElement => (
         path={OpenRequestsLocation.path}
         component={OpenRequestsContainer}
       />
-      <ProtectedRoute
-        path={ListMyPostsLocation.path}
-        component={TabbedPostsPage}
-      />
+      <ProtectedRoute path={MyPostsLocation.path} component={TabbedPostsPage} />
       <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>
   </Suspense>

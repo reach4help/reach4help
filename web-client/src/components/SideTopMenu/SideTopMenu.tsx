@@ -7,25 +7,19 @@ import {
 } from 'src/modules/create/constants';
 import {
   AcceptedRequestsLocation,
-  MyOffersLocation,
-  MyRequestsLocation,
+  MyOfferPostsLocation,
+  MyRequestPostsLocation,
   OpenRequestsLocation,
 } from 'src/modules/requests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-const SideMenuLink: React.FC<
-{key: string;
-title: string;
-path: string;
-onClick: () => void;}
-> = ({
-  key,
-  title,
-  path,
-  onClick,
-  ...other
-}) => (
+const SideMenuLink: React.FC<{
+  key: string;
+  title: string;
+  path: string;
+  onClick: () => void;
+}> = ({ key, title, path, onClick, ...other }) => (
   <>
     <Link to={path} onClick={onClick}>
       <Menu.Item key={key} {...other}>
@@ -33,60 +27,57 @@ onClick: () => void;}
       </Menu.Item>
     </Link>
   </>
-  );
+);
 
-const SideTopMenu: React.FC<{closeDrawer: () => void; isLoggedIn: boolean}> = ({
-  closeDrawer,
-  isLoggedIn,
-}) => (
+const SideTopMenu: React.FC<{
+  closeDrawer: () => void;
+  isLoggedIn: boolean;
+}> = ({ closeDrawer, isLoggedIn }) => (
   <SideTopMenuStyle>
-    <Menu
-        mode="inline"
-      >
-      { isLoggedIn && (
-      <>
-        <SideMenuLink
-          key="OpenRequests"
-          title="Open Requests"
-          path={OpenRequestsLocation.path}
-          onClick={closeDrawer}
-        />
-        <SideMenuLink
-          key="AcceptedRequests"
-          title="Accepted Requests"
-          path={AcceptedRequestsLocation.path}
-          onClick={closeDrawer}
-        />
-        <SideMenuLink
-          key="MyRequests"
-          title="My Requests"
-          path={MyRequestsLocation.path}
-          onClick={closeDrawer}
-        />
-        <SideMenuLink
-          key="MyOffers"
-          title="My Offers"
-          path={MyOffersLocation.path}
-          onClick={closeDrawer}
-        />
-
-      </>)
-}
+    <Menu mode="inline">
+      {isLoggedIn && (
+        <>
+          <SideMenuLink
+            key="OpenRequests"
+            title="Open Requests"
+            path={OpenRequestsLocation.path}
+            onClick={closeDrawer}
+          />
+          <SideMenuLink
+            key="AcceptedRequests"
+            title="Accepted Requests"
+            path={AcceptedRequestsLocation.path}
+            onClick={closeDrawer}
+          />
+          <SideMenuLink
+            key="MyRequests"
+            title="My Requests"
+            path={MyRequestPostsLocation.path}
+            onClick={closeDrawer}
+          />
+          <SideMenuLink
+            key="MyOffers"
+            title="My Offers"
+            path={MyOfferPostsLocation.path}
+            onClick={closeDrawer}
+          />
+        </>
+      )}
       <SideMenuLink
-          key="CreateRequest"
-          title="Create Request"
-          path={CreateRequestLocation.path}
-          onClick={closeDrawer}
-        />
+        key="CreateRequest"
+        title="Create Request"
+        path={CreateRequestLocation.path}
+        onClick={closeDrawer}
+      />
       <SideMenuLink
-          key="CreateOffer"
-          title="Create Offer - not implemented"
-          path={CreateOfferLocation.path}
-          onClick={closeDrawer}
-        />
+        key="CreateOffer"
+        title="Create Offer - not implemented"
+        path={`notimplemented-${CreateOfferLocation}` /* TODO: implement */}
+        onClick={closeDrawer}
+      />
     </Menu>
   </SideTopMenuStyle>
-  );
+);
 
 const SideTopMenuStyle = styled('div')`
   flex: auto;

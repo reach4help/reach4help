@@ -11,12 +11,12 @@ export enum PostTabsType {
 export const AcceptedRequestsLocation = new Location(`${postUrlRoot}/accepted`);
 export const FindRequestsLocation = new Location(`${postUrlRoot}/find`);
 export const OpenRequestsLocation = new Location(`${postUrlRoot}/open`);
-export const ListMyPostsLocation = new Location(`${postUrlRoot}/my/:postType`, {
+export const MyPostsLocation = new Location(`${postUrlRoot}/my/:postType`, {
   postType: Yup.string().required(),
 });
-export const MyOffersLocation = new Location(
+export const MyOfferPostsLocation = new Location(
   `${postUrlRoot}/my/${PostTabsType.offers.valueOf()}`,
 );
-export const MyRequestsLocation = new Location(
+export const MyRequestPostsLocation = new Location(
   `${postUrlRoot}/my/${PostTabsType.requests}`,
 );

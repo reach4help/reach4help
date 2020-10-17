@@ -43,7 +43,7 @@ const RoleInfoPage: React.FC = () => (
 );
 
 const CreateRequestLocationUrl = CreatePostLocation.toUrl({
-  type: CreatePostTypes.request,
+  createPostType: CreatePostTypes.request,
 });
 
 const Routes = (): ReactElement => {

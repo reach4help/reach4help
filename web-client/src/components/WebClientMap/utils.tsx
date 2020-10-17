@@ -20,7 +20,9 @@ export const getCoordsFromProfile = (profileState: ProfileState) => {
   const addresses = profileState?.privilegedInformation?.addresses;
   let addressToUse;
   if (addresses) {
-    addressToUse = addresses.default ? addresses.default : addresses[0];
+    addressToUse = addresses.default
+      ? addresses.default
+      : addresses[Object.keys(addresses)[0]];
   }
   return addressToUse
     ? { lat: addressToUse.coords.latitude, lng: addressToUse.coords.longitude }

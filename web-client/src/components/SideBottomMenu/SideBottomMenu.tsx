@@ -12,31 +12,28 @@ import styled from 'styled-components';
 
 import { SettingsLocation } from '../../modules/settings/constants';
 
-const SideBottomMenu: React.FC< {
+const SideBottomMenu: React.FC<{
   closeDrawer: () => void;
   isLoggedIn: boolean;
   logoutHandler: Function;
-}
-> = ({
-  closeDrawer,
-  isLoggedIn,
-  logoutHandler,
-}) => {
+}> = ({ closeDrawer, isLoggedIn, logoutHandler }) => {
   const { t } = useTranslation();
   const history = useHistory();
 
   return (
     <>
       <SideBottomMenuStyle>
-        { isLoggedIn && (
-        <SideBotomMenuItemStyle data-id="settings"
-          onClick={() => history.push(SettingsLocation.path)}
-        >
-          <SettingOutlined />
-          {t('menuDrawer.settings')}
-        </SideBotomMenuItemStyle>)}
+        {isLoggedIn && (
+          <SideBotomMenuItemStyle
+            data-id="settings"
+            onClick={() => history.push(SettingsLocation.path)}
+          >
+            <SettingOutlined />
+            {t('menuDrawer.settings')}
+          </SideBotomMenuItemStyle>
+        )}
         <SideBotomMenuItemStyle
-        data-id="contactus"
+          data-id="contactus"
           role="link"
           onClick={() => {
             closeDrawer();
@@ -46,27 +43,30 @@ const SideBottomMenu: React.FC< {
           <MailOutlined />
           {t('menuDrawer.contactUs')}
         </SideBotomMenuItemStyle>
-        { isLoggedIn && ( <SideBotomMenuItemStyle
-          data-id="logout"
-          role="link"
-          onClick={() => {
-            closeDrawer();
-            logoutHandler();
-          }}
-        >
-
-          <LogoutOutlined />
+        {isLoggedIn && (
+          <SideBotomMenuItemStyle
+            data-id="logout"
+            role="link"
+            onClick={() => {
+              closeDrawer();
+              logoutHandler();
+            }}
+          >
+            <LogoutOutlined />
             {t('menuDrawer.logout')}
-          </SideBotomMenuItemStyle>)}
-        { !isLoggedIn && ( <SideBotomMenuItemStyle
-          data-id="login-signup"
-          role="link"
-          onClick={() => {
-            history.push(LoginLocation.path);
-          }}
-        >
+          </SideBotomMenuItemStyle>
+        )}
+        {!isLoggedIn && (
+          <SideBotomMenuItemStyle
+            data-id="login-signup"
+            role="link"
+            onClick={() => {
+              history.push(LoginLocation.path);
+            }}
+          >
             {t('menuDrawer.login-signup')}
-          </SideBotomMenuItemStyle>)}
+          </SideBotomMenuItemStyle>
+        )}
       </SideBottomMenuStyle>
     </>
   );

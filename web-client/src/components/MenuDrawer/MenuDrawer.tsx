@@ -43,10 +43,7 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
         width="100%"
       >
         <SideDrawerProfile profileData={profileData} />
-        <SideTopMenu
-          closeDrawer={closeDrawer}
-          isLoggedIn={isLoggedIn}
-        />
+        <SideTopMenu closeDrawer={closeDrawer} isLoggedIn={isLoggedIn} />
         <SideBottomMenu
           logoutHandler={logoutHandler}
           isLoggedIn={isLoggedIn}
