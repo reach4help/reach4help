@@ -5,8 +5,8 @@ import { User } from 'src/models/users';
 import { CreateRequestLocation } from 'src/modules/create/constants';
 import {
   AcceptedRequestsLocation,
-  ListMyOffersLocation,
-  ListMyRequestLocation,
+  MyOffersLocation,
+  MyRequestsLocation,
   OpenRequestsLocation,
 } from 'src/modules/requests/constants';
 import { MenuItem } from 'src/types/module';
@@ -41,14 +41,14 @@ const menuItems: Array<MenuItem> = [
   {
     id: '2',
     title: 'My Requests',
-    location: ListMyRequestLocation,
+    location: MyRequestsLocation,
     showWhenLogggedOn: true,
     showWhenNotLogggedOn: false,
   },
   {
     id: '3',
     title: 'My Offers',
-    location: ListMyOffersLocation,
+    location: MyOffersLocation,
     showWhenLogggedOn: true,
     showWhenNotLogggedOn: false,
   },

@@ -14,9 +14,9 @@ export const OpenRequestsLocation = new Location(`${postUrlRoot}/open`);
 export const ListMyPostsLocation = new Location(`${postUrlRoot}/my/:postType`, {
   postType: Yup.string().required(),
 });
-export const ListMyOffersLocation = new Location(
+export const MyOffersLocation = new Location(
   `${postUrlRoot}/my/${PostTabsType.offers.valueOf()}`,
 );
-export const ListMyRequestLocation = new Location(
+export const MyRequestsLocation = new Location(
   `${postUrlRoot}/my/${PostTabsType.requests}`,
 );

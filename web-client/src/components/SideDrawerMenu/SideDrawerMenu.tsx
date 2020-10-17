@@ -1,83 +1,36 @@
 import { Menu } from 'antd';
 import React from 'react';
 import { Link, RouteProps } from 'react-router-dom';
-import { COLORS } from 'src/theme/colors';
-import styled, { keyframes } from 'styled-components';
-import { CreateRequestLocation } from 'src/modules/create/constants';
+import {
+  CreateOfferLocation,
+  CreateRequestLocation,
+} from 'src/modules/create/constants';
 import {
   AcceptedRequestsLocation,
-  ListMyOffersLocation,
-  ListMyRequestLocation,
+  MyOffersLocation,
+  MyRequestsLocation,
   OpenRequestsLocation,
 } from 'src/modules/requests/constants';
+import { COLORS } from 'src/theme/colors';
+import styled from 'styled-components';
 
-const SideDrawerMenuItem2: React.FC<SideDrawerMenuItemProps2> = ({
+const SideMenuLink: React.FC<SideTopMenuItemsProps> = ({
   key,
   title,
   path,
-  closeDrawer,
+  onClick,
   ...other
 }) => {
-const menuItem = (
+  const menuItem = (
     <Menu.Item key={key} {...other}>
-       {title}
+      {title}
     </Menu.Item>
-)
-return (
-  <>
-      <Link to={path} onClick={closeDrawer}>
-        {menuItem}
-      </Link>
-  </>
-);
-    }
-
-const SideDrawerMenuItem: React.FC<SideDrawerMenuItemProps> = ({
-  item,
-  closeDrawer,
-  ...other
-}) => {
-  let menuItem: React.ReactNode;
-  if (item.children) {
-    menuItem = (
-      <Menu.SubMenu
-        key={item.id}
-        title={
-          <>
-            {item.icon ? <item.icon /> : null}
-            {item.title}
-          </>
-        }
-        {...other}
-      >
-        {item.children.map((subItem: MenuItem) => (
-          <SideDrawerMenuItem
-            key={subItem.id}
-            item={subItem}
-            closeDrawer={closeDrawer}
-            {...other}
-          />
-        ))}
-      </Menu.SubMenu>
-    );
-  } else {
-    console.log('other',{...other},item.id)
-    menuItem = (
-      <Menu.Item key={item.id} {...other}>
-        {item.icon ? <item.icon /> : null}
-        {item.title}
-      </Menu.Item>
-    );
-  }
+  );
   return (
     <>
-      {item.location ? (
-        <Link to={{ pathname: item.location.path }} onClick={closeDrawer}>
-          {menuItem}
-        </Link>
-      ) : (
-        menuItem
-      )}
+      <Link to={path} onClick={onClick}>
+        {menuItem}
+      </Link>
     </>
   );
 };
@@ -98,30 +51,54 @@ const SideDrawerMenu: React.FC<SideDrawerMenuProps> = ({
     defaultSelectedKeys.push(`${Number(items[0].id) - 1}`);
   }
   return (
-    <SideDrawerMenuWrapper>
+    <SideTopMenuStyle>
       <Menu
         defaultOpenKeys={defaultOpenKeys}
         defaultSelectedKeys={defaultSelectedKeys}
         mode="inline"
       >
-        {items.map((item: MenuItem, index) => (
-          <SideDrawerMenuItem
-            key={index}
-            item={item}
-            closeDrawer={closeDrawer}
-          />
-        ))}
-        <SideDrawerMenuItem2 key="1" title="Open Requests" path={OpenRequestsLocation.path} closeDrawer={closeDrawer} />
-        <SideDrawerMenuItem2 key="2" title="Accepted Requests" path={OpenRequestsLocation.path} closeDrawer={closeDrawer} />
-        <SideDrawerMenuItem2 key="3" title="My Requests" path={OpenRequestsLocation.path} closeDrawer={closeDrawer} />
-        <SideDrawerMenuItem2 key="4" title="My Offers" path={OpenRequestsLocation.path} closeDrawer={closeDrawer} />
-
+        <SideMenuLink
+          key="OpenRequests"
+          title="Open Requests"
+          path={OpenRequestsLocation.path}
+          onClick={closeDrawer}
+        />
+        <SideMenuLink
+          key="AcceptedRequests"
+          title="Accepted Requests"
+          path={AcceptedRequestsLocation.path}
+          onClick={closeDrawer}
+        />
+        <SideMenuLink
+          key="MyRequests"
+          title="My Requests"
+          path={MyRequestsLocation.path}
+          onClick={closeDrawer}
+        />
+        <SideMenuLink
+          key="MyOffers"
+          title="My Offers"
+          path={MyOffersLocation.path}
+          onClick={closeDrawer}
+        />
+        <SideMenuLink
+          key="CreateRequest"
+          title="Create Request"
+          path={CreateRequestLocation.path}
+          onClick={closeDrawer}
+        />
+        <SideMenuLink
+          key="CreateOffer"
+          title="Create Offer - not implemented"
+          path={CreateOfferLocation.path}
+          onClick={closeDrawer}
+        />
       </Menu>
-    </SideDrawerMenuWrapper>
+    </SideTopMenuStyle>
   );
 };
 
-const SideDrawerMenuWrapper = styled('div')`
+const SideTopMenuStyle = styled('div')`
   flex: auto;
 
   .ant-menu {
@@ -174,15 +151,11 @@ export interface MenuItem {
   location?: { path: string };
 }
 
-interface SideDrawerMenuItemProps extends RouteProps {
-  item: MenuItem;
-  closeDrawer: () => void;
-}
-interface SideDrawerMenuItemProps2 extends RouteProps {
+interface SideTopMenuItemsProps extends RouteProps {
   key: string;
   title: string;
   path: string;
-  closeDrawer: () => void;
+  onClick: () => void;
 }
 interface SideDrawerMenuProps extends RouteProps {
   items: Array<MenuItem>;
