@@ -36,25 +36,11 @@ const SideMenuLink: React.FC<SideTopMenuItemsProps> = ({
 };
 
 const SideTopMenu: React.FC<SideTopMenuProps> = ({
-  items,
   closeDrawer,
 }) => {
-  const defaultOpenKeys: string[] = [];
-  const defaultSelectedKeys: string[] = [];
-  if (items.length === 1) {
-    if (items[0].children) {
-      defaultOpenKeys.push(`${Number(items[0].id) - 1}`);
-    } else {
-      defaultSelectedKeys.push(`${Number(items[0].id) - 1}`);
-    }
-  } else {
-    defaultSelectedKeys.push(`${Number(items[0].id) - 1}`);
-  }
   return (
     <SideTopMenuStyle>
       <Menu
-        defaultOpenKeys={defaultOpenKeys}
-        defaultSelectedKeys={defaultSelectedKeys}
         mode="inline"
       >
         <SideMenuLink
@@ -158,7 +144,6 @@ interface SideTopMenuItemsProps extends RouteProps {
   onClick: () => void;
 }
 interface SideTopMenuProps extends RouteProps {
-  items: Array<MenuItem>;
   closeDrawer: () => void;
 }
 
