@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Kontaktieren Sie uns",
       "logout": "Abmelden",
       "switchToCAV": "Zur Angebotsunterstützung wechseln",
