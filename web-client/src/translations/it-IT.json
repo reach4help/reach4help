@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Contattaci",
       "logout": "Esci",
       "switchToCAV": "Passa all'offerta di supporto",
