@@ -75,6 +75,11 @@ export const MiddleSection = styled(Flex)`
 export const ReasonsSection = styled(Container)`
   text-align: center;
   align-items: center;
+  margin-top: 400px;
+
+  h1 {
+    font-size: 54px;
+  }
 `;
 
 export const HelpInfoSection = styled(Container)``;
@@ -117,8 +122,9 @@ export const TextMiddleContainer = styled(Container)`
   width: 500px;
 `;
 
-export const ReasonsContainer = styled(Container)`
+export const ReasonsContainer = styled(Flex)`
   flex-direction: row;
+  width: 100%;
 `;
 
 export const ReasonsCardIconContainer = styled(Container)`
@@ -142,43 +148,6 @@ export const Link = styled.a`
   text-decoration: none;
   margin: 0px 15px;
   color: black;
-`;
-
-export const Dropdown = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 5px;
-  padding-right: 0;
-
-  ul {
-    list-style: none;
-    padding-left: 2px;
-    height: 25px;
-    overflow: hidden;
-    position: relative;
-    top: 5px;
-    width: 80px;
-    background: white;
-    border-radius: 5px;
-
-    &: hover {
-      position: relative;
-      top: 40px;
-      height: 95px;
-    }
-
-    li {
-      cursor: pointer;
-      border-radius: 5px;
-      padding: 4px;
-      margin-right: 2px;
-      &: hover {
-        color: white;
-        background: #ffcb52;
-      }
-    }
-  }
 `;
 
 export const TextTop = styled.div`
@@ -215,11 +184,13 @@ export const ReasonsCard = styled(Container)`
 
   h3 {
     font-weight: 700;
+    font-size: 24;
   }
 
   p {
     width: 250px;
     text-align: left;
+    font-size: 18px;
   }
 `;
 
