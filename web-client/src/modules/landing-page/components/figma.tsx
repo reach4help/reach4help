@@ -82,13 +82,25 @@ export const ReasonsSection = styled(Container)`
   }
 `;
 
-export const HelpInfoSection = styled(Container)``;
+export const HowToSection = styled(Container)`
+  background-color: rgba(255, 123, 2, 0.05);
+  height: 755px;
+  text-align: center;
+`;
 
 export const SponsorSection = styled(Container)``;
-
+export const HelpInfoSection = styled(Container)``;
 export const VolunteerInfoSection = styled(Container)``;
-export const AboutInfoSection = styled(Container)``;
-export const SocialLinksSection = styled(Flex)``;
+export const AboutInfoSection = styled(Container)`
+  background-color: rgba(255, 123, 2, 0.05);
+  height: 755px;
+  text-align: center;
+`;
+
+export const SocialLinksSection = styled(Flex)`
+  background: #811e78;
+`;
+
 export const LegalSection = styled(Flex)``;
 
 // ---------------------------------------------------------------------------------------------------- //
@@ -131,13 +143,16 @@ export const ReasonsCardIconContainer = styled(Container)`
   align-items: center;
   justify-content: center;
   background-color: #f9f9ff;
-  width: 50px;
-  height: 50px;
-  padding: 20px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   margin-bottom: 50px;
 `;
 
+// Danai work in progress
+export const HowToContainer = styled(Container)`
+  border: 1px solid hotpink;
+`;
 export const AboutTextContainer = styled(Container)``;
 
 // ---------------------------------------------------------------------------------------------------- //
@@ -184,7 +199,7 @@ export const ReasonsCard = styled(Container)`
 
   h3 {
     font-weight: 700;
-    font-size: 24;
+    font-size: 24px;
   }
 
   p {
@@ -283,3 +298,5 @@ export const PeopleTop = styled.img``;
 export const MockupImage = styled.img``;
 
 export const FooterLogo = styled.img``;
+
+export const HelpfulEngineeringLogo = styled.img``;

@@ -2,18 +2,22 @@ import React from 'react';
 
 import card from '../assets/card.svg';
 import check from '../assets/check.svg';
+import helpfulLogo from '../assets/helpfulLogo.svg';
 import logo from '../assets/logo.svg';
 import mockupImg from '../assets/mockups.svg';
 import peopleTop from '../assets/peopleTop.svg';
 import rectTop from '../assets/rectTop.svg';
 import shop from '../assets/shop.svg';
 import {
+  AboutInfoSection,
   Card,
   Check,
   Footer,
   FooterLine,
   FooterLogo,
   GetHelpBtn,
+  HelpfulEngineeringLogo,
+  HowToSection,
   MiddleSection,
   MockupImage,
   PeopleTop,
@@ -24,6 +28,7 @@ import {
   RectTop,
   Root,
   Shop,
+  SocialLinksSection,
   TextMiddle,
   TextMiddleContainer,
   TextTop,
@@ -100,6 +105,15 @@ const HomePage: React.FC = (): JSX.Element => (
         </ReasonsCard>
       </ReasonsContainer>
     </ReasonsSection>
+    <HowToSection>
+      <h1>How getting help works</h1>
+    </HowToSection>
+    <AboutInfoSection>
+      <h3>About</h3>
+    </AboutInfoSection>
+    <SocialLinksSection>
+      <HelpfulEngineeringLogo src={helpfulLogo} />
+    </SocialLinksSection>
     <Footer>
       <FooterLine />
       <FooterLogo src={logo} />
