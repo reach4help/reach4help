@@ -2,7 +2,7 @@
 
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
-import { MenuItem, Module } from 'src/types/module';
+import { Module } from 'src/types/module';
 
 import {
   AcceptedRequestsLocation,
@@ -11,25 +11,6 @@ import {
   postUrlRoot,
 } from './constants';
 import Routes from './routes';
-
-export const menuLinks: Array<MenuItem> = [
-  {
-    id: '1',
-    title: 'Find Requests',
-    children: [
-      {
-        id: '2',
-        title: 'Open',
-        location: OpenRequestsLocation,
-      },
-      {
-        id: '3',
-        title: 'Accepted',
-        location: AcceptedRequestsLocation,
-      },
-    ],
-  },
-];
 
 const requestsModule: Module = {
   path: `${postUrlRoot}`,

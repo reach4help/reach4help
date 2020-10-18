@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { ListMyPostsLocation, PostTabsType } from '../constants';
+import { MyPostsLocation, PostTabsType } from '../constants';
 import OfferPostsContainer from '../containers/OfferPostsContainer';
 import RequestPostsContainer from '../containers/RequestPostsContainer';
 
@@ -33,11 +33,11 @@ const TabbedPosts: React.FC = (): ReactElement => {
   const { t } = useTranslation();
 
   function onChange(activeKey: string) {
-    history.replace(ListMyPostsLocation.toUrl({ postType: activeKey }));
+    history.replace(MyPostsLocation.toUrl({ postType: activeKey }));
   }
 
   return (
-    <StyledTabs defaultActiveKey={postType} onChange={onChange}>
+    <StyledTabs activeKey={postType} onChange={onChange}>
       <StyledTabPane
         tab={t('modules.requests.containers.TabbedPostPage.requests_tab_label')}
         key={PostTabsType.requests.valueOf()}

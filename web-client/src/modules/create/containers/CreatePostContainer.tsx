@@ -18,10 +18,7 @@ import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
-import {
-  ListMyPostsLocation,
-  PostTabsType,
-} from 'src/modules/requests/constants';
+import { MyPostsLocation, PostTabsType } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -264,7 +261,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
             // because I could observe race conditions in cloud function
             setTimeout(() => {
               history.replace(
-                ListMyPostsLocation.toUrl({
+                MyPostsLocation.toUrl({
                   postType: PostTabsType.requests.valueOf(),
                 }),
               );
@@ -337,7 +334,7 @@ const MapContainer = styled.div`
 `;
 
 interface ICreatePostContainer {
-  type: CreatePostTypes;
+  createPostType: CreatePostTypes;
 }
 
 export default CreatePostContainer;

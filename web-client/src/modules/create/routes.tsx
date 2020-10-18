@@ -1,5 +1,6 @@
 import React, { lazy, ReactElement, Suspense } from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router-dom';
+import ProtectedRoute from 'src/pages/routes/ProtectedRoute';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import { CreatePostLocation, CreatePostTypes } from './constants';
@@ -11,13 +12,16 @@ const CreatePostContainer = lazy(() =>
 const CreatePostPage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const { type } = useParams() as Record<string, string>;
-  return <CreatePostContainer type={type as CreatePostTypes} />;
+  return <CreatePostContainer createPostType={type as CreatePostTypes} />;
 };
 
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
-      <Route path={CreatePostLocation.path} component={CreatePostPage} />
+      <ProtectedRoute
+        path={CreatePostLocation.path}
+        component={CreatePostPage}
+      />
       <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>
   </Suspense>
