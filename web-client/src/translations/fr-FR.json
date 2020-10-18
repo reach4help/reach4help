@@ -158,7 +158,8 @@
       "logout": "Se déconnecter",
       "switchToCAV": "Basculer vers le offrir de l'aide",
       "switchToPIN": "Basculer vers Chercher Pour L'aide",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
