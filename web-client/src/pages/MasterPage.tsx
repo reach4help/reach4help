@@ -67,13 +67,6 @@ const MasterPage = (): ReactElement => {
             <title>{titleFromPath()}</title>
           </Helmet>
           <DashboardLayout
-            menuItems={
-              routeModule.dynamicMenuLinks
-                ? routeModule.dynamicMenuLinks
-                : routeModule.menuItems
-                ? routeModule.menuItems
-                : []
-            }
             logoutHandler={() => dispatch(signOutCurrentUserAction())}
           >
             <Route path={routeModule.path} component={routeModule.component} />
