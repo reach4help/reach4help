@@ -3,7 +3,7 @@ import moment from 'moment';
 import { ProfileState } from 'src/ducks/profile/types';
 
 // default center
-const ANGKOR_WAT = {
+const DEFAULT_COORDS = {
   lat: 13.4124693,
   lng: 103.8667,
 };
@@ -17,21 +17,16 @@ export const metersToImperial = (meters: number) =>
   `${(meters * 0.000621371).toFixed(1)}mi`;
 
 export const getCoordsFromProfile = (profileState: ProfileState) => {
-  if (profileState?.privilegedInformation?.addresses) {
-    const addressToUse = profileState.privilegedInformation.addresses.default
-      ? profileState.privilegedInformation.addresses.default
-      : profileState.privilegedInformation.addresses[
-          Object.keys(profileState.privilegedInformation.addresses)[0]
-        ];
-    return {
-      lat: addressToUse.coords.latitude,
-      lng: addressToUse.coords.longitude,
-    };
+  const addresses = profileState?.privilegedInformation?.addresses;
+  let addressToUse;
+  if (addresses) {
+    addressToUse = addresses.default
+      ? addresses.default
+      : addresses[Object.keys(addresses)[0]];
   }
-  return {
-    lat: ANGKOR_WAT.lat,
-    lng: ANGKOR_WAT.lng,
-  };
+  return addressToUse
+    ? { lat: addressToUse.coords.latitude, lng: addressToUse.coords.longitude }
+    : DEFAULT_COORDS;
 };
 
 export const getStreetAddressFromProfile = (profileState: ProfileState) => {

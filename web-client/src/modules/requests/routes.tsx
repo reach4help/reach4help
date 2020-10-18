@@ -5,7 +5,7 @@ import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import {
   AcceptedRequestsLocation,
   FindRequestsLocation,
-  ListMyPostsLocation,
+  MyPostsLocation,
   OpenRequestsLocation,
 } from './constants';
 
@@ -41,8 +41,7 @@ const Routes = (): ReactElement => (
         component={OpenRequestsContainer}
         exact
       />
-      <Route path={ListMyPostsLocation.path} component={TabbedPostsPage} />
-
+      <Route path={MyPostsLocation.path} component={TabbedPostsPage} />
       <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>
   </Suspense>
