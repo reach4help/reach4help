@@ -158,7 +158,8 @@
       "logout": "Abmelden",
       "switchToCAV": "Zur Angebotsunterstützung wechseln",
       "switchToPIN": "Zur Suchhilfe wechseln",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
