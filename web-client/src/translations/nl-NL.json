@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Neem contact met ons op",
       "logout": "Uitloggen",
       "switchToCAV": "Overschakelen naar Offer Support",
