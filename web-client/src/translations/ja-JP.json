@@ -158,7 +158,8 @@
       "logout": "サインアウト",
       "switchToCAV": "提供サポートに切り替える",
       "switchToPIN": "探すヘルプに切り替える",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
