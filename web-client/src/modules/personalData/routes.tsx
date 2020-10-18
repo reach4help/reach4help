@@ -8,10 +8,7 @@ import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
-import {
-  CreatePostLocation,
-  CreatePostTypes,
-} from 'src/modules/create/constants';
+import { CreateRequestLocationUrl } from 'src/modules/create/constants';
 import { LoginLocation } from 'src/modules/login/constants';
 import { FindRequestsLocation } from 'src/modules/requests/constants';
 import { AppState } from 'src/store';
@@ -41,10 +38,6 @@ const RoleInfoPage: React.FC = () => (
     </CenteredCard>
   </GradientBackground>
 );
-
-const CreateRequestLocationUrl = CreatePostLocation.toUrl({
-  createPostType: CreatePostTypes.request,
-});
 
 const Routes = (): ReactElement => {
   const user = useSelector((state: AppState) => state.auth.user);

@@ -2,13 +2,13 @@ import { Menu } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  CreateOfferLocation,
-  CreateRequestLocation,
+  CreateOfferLocationUrl,
+  CreateRequestLocationUrl,
 } from 'src/modules/create/constants';
 import {
   AcceptedRequestsLocation,
-  MyOfferPostsLocation,
-  MyRequestPostsLocation,
+  MyOfferPostsLocationUrl,
+  MyRequestPostsLocationUrl,
   OpenRequestsLocation,
 } from 'src/modules/requests/constants';
 import { COLORS } from 'src/theme/colors';
@@ -52,13 +52,13 @@ const SideTopMenu: React.FC<{
           <SideMenuLink
             key="MyRequests"
             title="My Requests"
-            path={MyRequestPostsLocation.path}
+            path={MyRequestPostsLocationUrl}
             onClick={closeDrawer}
           />
           <SideMenuLink
             key="MyOffers"
             title="My Offers"
-            path={MyOfferPostsLocation.path}
+            path={MyOfferPostsLocationUrl}
             onClick={closeDrawer}
           />
         </>
@@ -66,15 +66,13 @@ const SideTopMenu: React.FC<{
       <SideMenuLink
         key="CreateRequest"
         title="Create Request"
-        path={CreateRequestLocation.path}
+        path={CreateRequestLocationUrl}
         onClick={closeDrawer}
       />
       <SideMenuLink
         key="CreateOffer"
         title="Create Offer - not implemented"
-        path={
-          `notimplemented:${CreateOfferLocation.path}` /* TODO: implement */
-        }
+        path={`notimplemented:${CreateOfferLocationUrl}` /* TODO: implement */}
         onClick={closeDrawer}
       />
     </Menu>
