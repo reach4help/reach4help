@@ -158,7 +158,8 @@
       "logout": "Sair",
       "switchToCAV": "Alternar para Suporte de Ofertas",
       "switchToPIN": "Trocar para Ajuda de Busca",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
