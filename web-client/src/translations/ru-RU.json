@@ -158,7 +158,8 @@
       "logout": "Выйти из учетной записи",
       "switchToCAV": "Переключиться на поддержку предложения",
       "switchToPIN": "Переключиться на помощь по поиску",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
