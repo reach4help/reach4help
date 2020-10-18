@@ -158,7 +158,8 @@
       "logout": "登出",
       "switchToCAV": "切换到提供支持",
       "switchToPIN": "切换到寻找帮助",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
