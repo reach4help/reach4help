@@ -158,7 +158,8 @@
       "logout": "Cerrar sesión",
       "switchToCAV": "Cambiar a Apoyar los Solcitudes",
       "switchToPIN": "Cambiar a Buscar Apoyo",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
