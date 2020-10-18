@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "聯絡我們",
       "logout": "登出",
       "switchToCAV": "切换到提供支持",
