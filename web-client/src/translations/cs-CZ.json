@@ -158,7 +158,8 @@
       "logout": "Odhlásit se",
       "switchToCAV": "Přepnout na podporu nabídky",
       "switchToPIN": "Přepnout na pomoc při hledání",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
