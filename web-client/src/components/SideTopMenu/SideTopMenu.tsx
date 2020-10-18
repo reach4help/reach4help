@@ -20,13 +20,11 @@ const SideMenuLink: React.FC<{
   path: string;
   onClick: () => void;
 }> = ({ key, title, path, onClick, ...other }) => (
-  <>
-    <Link to={path} onClick={onClick}>
-      <Menu.Item key={key} {...other}>
-        {title}
-      </Menu.Item>
-    </Link>
-  </>
+  <Link to={path} onClick={onClick}>
+    <Menu.Item key={key} {...other}>
+      {title}
+    </Menu.Item>
+  </Link>
 );
 
 const SideTopMenu: React.FC<{
@@ -36,32 +34,36 @@ const SideTopMenu: React.FC<{
   <SideTopMenuStyle>
     <Menu mode="inline">
       {isLoggedIn && (
-        <>
-          <SideMenuLink
-            key="OpenRequests"
-            title="Open Requests"
-            path={OpenRequestsLocation.path}
-            onClick={closeDrawer}
-          />
-          <SideMenuLink
-            key="AcceptedRequests"
-            title="Accepted Requests"
-            path={AcceptedRequestsLocation.path}
-            onClick={closeDrawer}
-          />
-          <SideMenuLink
-            key="MyRequests"
-            title="My Requests"
-            path={MyRequestPostsLocationUrl}
-            onClick={closeDrawer}
-          />
-          <SideMenuLink
-            key="MyOffers"
-            title="My Offers"
-            path={MyOfferPostsLocationUrl}
-            onClick={closeDrawer}
-          />
-        </>
+        <SideMenuLink
+          key="OpenRequests"
+          title="Open Requests"
+          path={OpenRequestsLocation.path}
+          onClick={closeDrawer}
+        />
+      )}
+      {isLoggedIn && (
+        <SideMenuLink
+          key="AcceptedRequests"
+          title="Accepted Requests"
+          path={AcceptedRequestsLocation.path}
+          onClick={closeDrawer}
+        />
+      )}
+      {isLoggedIn && (
+        <SideMenuLink
+          key="MyRequests"
+          title="My Requests"
+          path={MyRequestPostsLocationUrl}
+          onClick={closeDrawer}
+        />
+      )}
+      {isLoggedIn && (
+        <SideMenuLink
+          key="MyOffers"
+          title="My Offers"
+          path={MyOfferPostsLocationUrl}
+          onClick={closeDrawer}
+        />
       )}
       <SideMenuLink
         key="CreateRequest"

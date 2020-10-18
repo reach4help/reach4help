@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Напишите нам",
       "logout": "Выйти из учетной записи",
       "switchToCAV": "Переключиться на поддержку предложения",
