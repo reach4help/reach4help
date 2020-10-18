@@ -158,7 +158,8 @@
       "logout": "התנתקות",
       "switchToCAV": "החלף להצעת תמיכה",
       "switchToPIN": "החלף לבקשת עזרה",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
