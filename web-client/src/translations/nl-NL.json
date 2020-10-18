@@ -158,7 +158,8 @@
       "logout": "Uitloggen",
       "switchToCAV": "Overschakelen naar Offer Support",
       "switchToPIN": "Overschakelen naar zoeken Help",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
