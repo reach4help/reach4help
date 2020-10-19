@@ -8,8 +8,11 @@ import mockupImg from '../assets/mockups.svg';
 import peopleTop from '../assets/peopleTop.svg';
 import rectTop from '../assets/rectTop.svg';
 import shop from '../assets/shop.svg';
+import teamMeetingImg from '../assets/teamMeeting.svg';
 import {
+  AboutBtn,
   AboutInfoSection,
+  AboutTextContainer,
   Card,
   Check,
   Footer,
@@ -29,6 +32,7 @@ import {
   Root,
   Shop,
   SponsorSection,
+  TeamMeetingImage,
   TextMiddle,
   TextMiddleContainer,
   TextTop,
@@ -109,7 +113,13 @@ const HomePage: React.FC = (): JSX.Element => (
       <h1>How getting help works</h1>
     </HelpInfoSection>
     <AboutInfoSection>
-      <h3>About</h3>
+      <AboutTextContainer>
+        <h1>About</h1>
+        <h3>We’re a group of volunteers driven to unify help worldwide</h3>
+        <p>Meet the minds behind this initiative and join us! </p>
+        <AboutBtn>More About Us</AboutBtn>
+      </AboutTextContainer>
+      <TeamMeetingImage src={teamMeetingImg} />
     </AboutInfoSection>
     <SponsorSection>
       <HelpfulEngineeringLogo src={helpfulLogo} />

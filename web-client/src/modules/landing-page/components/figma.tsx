@@ -89,10 +89,9 @@ export const HelpInfoSection = styled(Container)`
 `;
 
 export const VolunteerInfoSection = styled(Container)``;
-export const AboutInfoSection = styled(Container)`
-  background-color: rgba(255, 123, 2, 0.05);
-  height: 755px;
-  text-align: center;
+export const AboutInfoSection = styled(Flex)`
+  height: 525px;
+  width: 100%;
 `;
 
 export const SponsorSection = styled(Flex)`
@@ -153,7 +152,21 @@ export const ReasonsCardIconContainer = styled(Container)`
 export const HowToContainer = styled(Container)`
   border: 1px solid hotpink;
 `;
-export const AboutTextContainer = styled(Container)``;
+export const AboutTextContainer = styled(Container)`
+  position: relative;
+  width: 540px;
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 54px;
+    font-weight: 500;
+  }
+  p {
+    size: 18px;
+  }
+`;
 
 // ---------------------------------------------------------------------------------------------------- //
 
@@ -264,7 +277,13 @@ export const VolunteerBtn = styled(Button)`
     color: black;
   }
 `;
-
+export const AboutBtn = styled(Button)`
+  color: #eb7100;
+  border: 2px solid #eb7100;
+  width: 175px;
+  background: none;
+  margin-left: 0;
+`;
 // ---------------------------------------------------------------------------------------------------- //
 
 // Image Components
@@ -300,3 +319,5 @@ export const MockupImage = styled.img``;
 export const FooterLogo = styled.img``;
 
 export const HelpfulEngineeringLogo = styled.img``;
+
+export const TeamMeetingImage = styled.img``;
