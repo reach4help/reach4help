@@ -82,14 +82,12 @@ export const ReasonsSection = styled(Container)`
   }
 `;
 
-export const HowToSection = styled(Container)`
+export const HelpInfoSection = styled(Container)`
   background-color: rgba(255, 123, 2, 0.05);
   height: 755px;
   text-align: center;
 `;
 
-export const SponsorSection = styled(Container)``;
-export const HelpInfoSection = styled(Container)``;
 export const VolunteerInfoSection = styled(Container)``;
 export const AboutInfoSection = styled(Container)`
   background-color: rgba(255, 123, 2, 0.05);
@@ -97,9 +95,11 @@ export const AboutInfoSection = styled(Container)`
   text-align: center;
 `;
 
-export const SocialLinksSection = styled(Flex)`
+export const SponsorSection = styled(Flex)`
   background: #811e78;
 `;
+
+export const SocialLinksSection = styled(Flex)``;
 
 export const LegalSection = styled(Flex)``;
 

@@ -17,7 +17,7 @@ import {
   FooterLogo,
   GetHelpBtn,
   HelpfulEngineeringLogo,
-  HowToSection,
+  HelpInfoSection,
   MiddleSection,
   MockupImage,
   PeopleTop,
@@ -28,7 +28,7 @@ import {
   RectTop,
   Root,
   Shop,
-  SocialLinksSection,
+  SponsorSection,
   TextMiddle,
   TextMiddleContainer,
   TextTop,
@@ -105,15 +105,15 @@ const HomePage: React.FC = (): JSX.Element => (
         </ReasonsCard>
       </ReasonsContainer>
     </ReasonsSection>
-    <HowToSection>
+    <HelpInfoSection>
       <h1>How getting help works</h1>
-    </HowToSection>
+    </HelpInfoSection>
     <AboutInfoSection>
       <h3>About</h3>
     </AboutInfoSection>
-    <SocialLinksSection>
+    <SponsorSection>
       <HelpfulEngineeringLogo src={helpfulLogo} />
-    </SocialLinksSection>
+    </SponsorSection>
     <Footer>
       <FooterLine />
       <FooterLogo src={logo} />
