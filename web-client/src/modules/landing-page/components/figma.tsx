@@ -86,16 +86,30 @@ export const HelpInfoSection = styled(Container)`
   background-color: rgba(255, 123, 2, 0.05);
   height: 755px;
   text-align: center;
+
+  h1 {
+    font-size: 54px;
+  }
 `;
 
-export const VolunteerInfoSection = styled(Container)``;
+export const VolunteerInfoSection = styled(Container)`
+  align-items: center;
+  padding: 50px;
+  background: rgba(129, 30, 120, 0.05);
+  h3 {
+    font-size: 54px;
+  }
+`;
+
 export const AboutInfoSection = styled(Flex)`
   height: 525px;
   width: 100%;
 `;
 
-export const SponsorSection = styled(Flex)`
+export const SponsorSection = styled(Container)`
   background: #811e78;
+  height: 473px;
+  width: 100%;
 `;
 
 export const SocialLinksSection = styled(Flex)``;
@@ -148,10 +162,11 @@ export const ReasonsCardIconContainer = styled(Container)`
   margin-bottom: 50px;
 `;
 
-// Danai work in progress
-export const HowToContainer = styled(Container)`
-  border: 1px solid hotpink;
+export const HelpInfoContainer = styled(Flex)`
+  align-items: flex-start;
+  margin-top: 50px;
 `;
+
 export const AboutTextContainer = styled(Container)`
   position: relative;
   width: 540px;
@@ -162,9 +177,49 @@ export const AboutTextContainer = styled(Container)`
   h3 {
     font-size: 54px;
     font-weight: 500;
+    line-height: 60px;
   }
   p {
     size: 18px;
+  }
+`;
+
+export const SponsorThankYou = styled(Flex)`
+  width: 1114px;
+  height: 88px;
+  margin-bottom: 30px;
+  align-self: center;
+
+  h3 {
+    font-family: Roboto;
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+  }
+`;
+
+export const SponsorLogoMiddle = styled(Flex)`
+  margin: 30px 20px;
+`;
+
+export const SponsorLogoBottom = styled(Flex)`
+  margin: 0px 30px;
+`;
+
+export const VolunteerInfoContainer = styled(Flex)`
+  align-items: flex-start;
+`;
+
+export const VolunteerInfoCardContainer = styled(Flex)`
+  height: 350px;
+  padding: 50px;
+  margin: 20px;
+  box-shadow: 0 0 5px gray;
+
+  h4 {
+    font-size: 20px;
+    margin: 0 50px;
   }
 `;
 
@@ -204,6 +259,89 @@ export const TextMiddle = styled.div`
   }
 `;
 
+export const HelpInfoLeft = styled.div`
+  width: 774px;
+  height: 493px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px 0px #000000 15%;
+
+  h3 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #eb7100;
+    padding: 14px 0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+`;
+
+export const HelpInfoLeftWrapper = styled(Flex)`
+  padding: 50px 30px;
+
+  div {
+    width: 30%;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    padding: 24px 0;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 400;
+  }
+`;
+
+export const HelpInfoRight = styled.div`
+  width: 323px;
+  height: 493px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px 0px #000000 15%;
+
+  h3 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #eb7100;
+    padding: 14px 0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  div {
+    padding: 50px 30px;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    padding: 24px 0;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 400;
+  }
+`;
+
+export const FooterLine = styled.div`
+  width: 80vw;
+  height: 1px;
+  margin-bottom: 30px;
+  background-color: #c4c4c4;
+`;
+
+// ---------------------------------------------------------------------------------------------------- //
+
+// Cards
+
 export const ReasonsCard = styled(Container)`
   margin: 65px 35px;
   height: 350px;
@@ -222,22 +360,23 @@ export const ReasonsCard = styled(Container)`
   }
 `;
 
-export const FooterLine = styled.div`
-  width: 80vw;
-  height: 1px;
-  margin-bottom: 30px;
-  background-color: #c4c4c4;
-`;
-
-// ---------------------------------------------------------------------------------------------------- //
-
-// Cards
-
 export const AttributesCard = styled(Container)``;
 
 export const HelpInfoCard = styled(Container)``;
 
-export const VolunteerInfoCard = styled(Container)``;
+export const VolunteerInfoCard = styled(Container)`
+  justify-content: flex-start;
+  height: 100%;
+  align-items: center;
+  h3 {
+    font-size: 20px;
+    margin: 10px;
+  }
+  p {
+    width: 200px;
+    text-align: center;
+  }
+`;
 
 // ---------------------------------------------------------------------------------------------------- //
 
@@ -280,7 +419,7 @@ export const VolunteerBtn = styled(Button)`
 export const AboutBtn = styled(Button)`
   color: #eb7100;
   border: 2px solid #eb7100;
-  width: 175px;
+  width: 130px;
   background: none;
   margin-left: 0;
 `;
@@ -316,8 +455,52 @@ export const PeopleTop = styled.img``;
 
 export const MockupImage = styled.img``;
 
+export const HelpInfoRequestImage = styled.img``;
+
+export const HelpInfoOfferImage = styled.img``;
+
+export const HelpInfoCoordinateImage = styled.img``;
+
+export const OfferHelpLogo = styled.img``;
+
+export const ChoseWhoToHelpLogo = styled.img`
+  margin-bottom: 10px;
+`;
+
+export const CoordinateHelpLogo = styled.img`
+  position: relative;
+  bottom: 10px;
+  margin-bottom: -10px;
+`;
+
 export const FooterLogo = styled.img``;
+
+export const TeamMeetingImage = styled.img``;
+
+// ---------------------------------------------------------------------------------------------------- //
+
+// Sponsor Logos
+
+export const AirtableLogo = styled.img``;
+
+export const AlgoliaLogo = styled.img``;
+
+export const CanvaLogo = styled.img``;
+
+export const DatadogLogo = styled.img``;
+
+export const FigmaLogo = styled.img``;
+
+export const GatsbyLogo = styled.img``;
+
+export const GoogleLogo = styled.img``;
 
 export const HelpfulEngineeringLogo = styled.img``;
 
-export const TeamMeetingImage = styled.img``;
+export const NetlifyLogo = styled.img``;
+
+export const SlackLogo = styled.img``;
+
+export const TwilioLogo = styled.img``;
+
+export const TypeformLogo = styled.img``;

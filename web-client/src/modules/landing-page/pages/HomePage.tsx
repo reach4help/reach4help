@@ -1,28 +1,63 @@
 import React from 'react';
 
+import airtableLogo from '../assets/airtableLogo.svg';
+import algoliaLogo from '../assets/algoliaLogo.svg';
+import canvaLogo from '../assets/canvaLogo.svg';
 import card from '../assets/card.svg';
 import check from '../assets/check.svg';
+import HelpInfoOffer from '../assets/chooseVolunteerOffer.svg';
+import chooseWhoToHelp from '../assets/chooseWhoToHelp.svg';
+import HelpInfoCoordinate from '../assets/coordinateGettingHelp.svg';
+import coordinateHelpLogo from '../assets/coordinateHelping.svg';
+import datadogLogo from '../assets/datadogLogo.svg';
+import figmaLogo from '../assets/figmaLogo.svg';
+import gatsbyLogo from '../assets/gatsbyLogo.svg';
+import googleLogo from '../assets/googleLogo.svg';
 import helpfulLogo from '../assets/helpfulLogo.svg';
 import logo from '../assets/logo.svg';
 import mockupImg from '../assets/mockups.svg';
+import netlifyLogo from '../assets/netlifyLogo.svg';
+import offerHelpLogo from '../assets/offerHelpLogo.svg';
 import peopleTop from '../assets/peopleTop.svg';
 import rectTop from '../assets/rectTop.svg';
+import HelpInfoRequest from '../assets/requestHelpLogo.svg';
 import shop from '../assets/shop.svg';
+import slackLogo from '../assets/slackLogo.svg';
 import teamMeetingImg from '../assets/teamMeeting.svg';
+import twilioLogo from '../assets/twilioLogo.svg';
+import typeFormLogo from '../assets/typeFormLogo.svg';
 import {
   AboutBtn,
   AboutInfoSection,
   AboutTextContainer,
+  AirtableLogo,
+  AlgoliaLogo,
+  CanvaLogo,
   Card,
   Check,
+  ChoseWhoToHelpLogo,
+  CoordinateHelpLogo,
+  DatadogLogo,
+  FigmaLogo,
   Footer,
   FooterLine,
   FooterLogo,
+  GatsbyLogo,
   GetHelpBtn,
+  GoogleLogo,
   HelpfulEngineeringLogo,
+  HelpInfoContainer,
+  HelpInfoCoordinateImage,
+  HelpInfoLeft,
+  HelpInfoLeftWrapper,
+  HelpInfoOfferImage,
+  HelpInfoRequestImage,
+  HelpInfoRight,
   HelpInfoSection,
   MiddleSection,
   MockupImage,
+  NetlifyLogo,
+  OfferHelpLogo,
   PeopleTop,
   ReasonsCard,
   ReasonsCardIconContainer,
@@ -31,14 +66,24 @@ import {
   RectTop,
   Root,
   Shop,
+  SlackLogo,
+  SponsorLogoBottom,
+  SponsorLogoMiddle,
   SponsorSection,
+  SponsorThankYou,
   TeamMeetingImage,
   TextMiddle,
   TextMiddleContainer,
   TextTop,
   TextTopContainer,
   TopSection,
+  TwilioLogo,
+  TypeformLogo,
   VolunteerBtn,
+  VolunteerInfoCard,
+  VolunteerInfoCardContainer,
+  VolunteerInfoContainer,
+  VolunteerInfoSection,
 } from '../components/figma';
 import Header from '../components/Header';
 
@@ -111,7 +156,77 @@ const HomePage: React.FC = (): JSX.Element => (
     </ReasonsSection>
     <HelpInfoSection>
       <h1>How getting help works</h1>
+      <HelpInfoContainer>
+        <HelpInfoLeft>
+          <h3>Step 1</h3>
+          <HelpInfoLeftWrapper>
+            <div>
+              <HelpInfoRequestImage src={HelpInfoRequest} />
+              <h4>Request Help</h4>
+              <p>
+                Let us know what you need and we’ll send your request to local
+                volunteers and organizations.
+              </p>
+            </div>
+            <div>
+              <h4>-OR-</h4>
+            </div>
+            <div>
+              <HelpInfoOfferImage src={HelpInfoOffer} />
+              <h4>Choose volunteer offer</h4>
+              <p>Pick an offer of help from volunteers in your area</p>
+            </div>
+          </HelpInfoLeftWrapper>
+        </HelpInfoLeft>
+        <HelpInfoRight>
+          <h3>Step 2</h3>
+          <div>
+            <HelpInfoCoordinateImage src={HelpInfoCoordinate} />
+            <h4>Coordinate getting help </h4>
+            <p>
+              A volunteer will reach out to you to schedule delievery of your
+              requested items.{' '}
+            </p>
+          </div>
+        </HelpInfoRight>
+      </HelpInfoContainer>
     </HelpInfoSection>
+
+    <VolunteerInfoSection>
+      <h3>How volunteering works</h3>
+      <VolunteerInfoContainer>
+        <VolunteerInfoCardContainer>
+          <VolunteerInfoCard>
+            <OfferHelpLogo src={offerHelpLogo} />
+            <h3>Offer Help</h3>
+            <p>
+              Let us know what you can help with, and we will connect you to
+              someone who needs it.
+            </p>
+          </VolunteerInfoCard>
+          <h4>-OR-</h4>
+          <VolunteerInfoCard>
+            <ChoseWhoToHelpLogo src={chooseWhoToHelp} />
+            <h3>Choose who to help</h3>
+            <p>
+              Select one or more people in need whose requests you can fulfill.
+            </p>
+          </VolunteerInfoCard>
+        </VolunteerInfoCardContainer>
+
+        <VolunteerInfoCardContainer>
+          <VolunteerInfoCard>
+            <CoordinateHelpLogo src={coordinateHelpLogo} />
+            <h3>Coordinate helping</h3>
+            <p>
+              Reach out and coordinate a pickup or delivery of the requested
+              items.
+            </p>
+          </VolunteerInfoCard>
+        </VolunteerInfoCardContainer>
+      </VolunteerInfoContainer>
+    </VolunteerInfoSection>
+
     <AboutInfoSection>
       <AboutTextContainer>
         <h1>About</h1>
@@ -122,7 +237,28 @@ const HomePage: React.FC = (): JSX.Element => (
       <TeamMeetingImage src={teamMeetingImg} />
     </AboutInfoSection>
     <SponsorSection>
-      <HelpfulEngineeringLogo src={helpfulLogo} />
+      <SponsorThankYou>
+        <h3>
+          We want to thank all the brands, companies, and community supporters
+          that have helped us on our mission.
+        </h3>
+      </SponsorThankYou>
+      <SponsorLogoMiddle>
+        <HelpfulEngineeringLogo src={helpfulLogo} />
+        <NetlifyLogo src={netlifyLogo} />
+        <GatsbyLogo src={gatsbyLogo} />
+        <AirtableLogo src={airtableLogo} />
+        <DatadogLogo src={datadogLogo} />
+        <SlackLogo src={slackLogo} />
+      </SponsorLogoMiddle>
+      <SponsorLogoBottom>
+        <FigmaLogo src={figmaLogo} />
+        <GoogleLogo src={googleLogo} />
+        <AlgoliaLogo src={algoliaLogo} />
+        <TwilioLogo src={twilioLogo} />
+        <TypeformLogo src={typeFormLogo} />
+        <CanvaLogo src={canvaLogo} />
+      </SponsorLogoBottom>
     </SponsorSection>
     <Footer>
       <FooterLine />
