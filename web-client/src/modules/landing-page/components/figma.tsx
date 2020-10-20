@@ -94,7 +94,7 @@ export const HelpInfoSection = styled(Container)`
 
 export const VolunteerInfoSection = styled(Container)`
   align-items: center;
-  padding: 50px;
+  padding: 40px;
   background: rgba(129, 30, 120, 0.05);
   h3 {
     font-size: 54px;
@@ -208,14 +208,35 @@ export const SponsorLogoBottom = styled(Flex)`
 `;
 
 export const VolunteerInfoContainer = styled(Flex)`
-  align-items: flex-start;
+  width: 100%;
 `;
 
-export const VolunteerInfoCardContainer = styled(Flex)`
-  height: 350px;
-  padding: 50px;
+export const VolunteerInfoCardContainer = styled(Container)`
+  height: 500px;
   margin: 20px;
   box-shadow: 0 0 5px gray;
+  overflow: hidden;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  background: white;
+
+  h2 {
+    background: #811e78;
+    font-weight: 700;
+    font-size: 30px;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+  }
 
   h4 {
     font-size: 20px;
@@ -354,8 +375,8 @@ export const ReasonsCard = styled(Container)`
   }
 
   p {
-    width: 250px;
-    text-align: left;
+    width: 320px;
+    text-align: center;
     font-size: 18px;
   }
 `;
@@ -373,7 +394,8 @@ export const VolunteerInfoCard = styled(Container)`
     margin: 10px;
   }
   p {
-    width: 200px;
+    font-size: 20px;
+    width: 300px;
     text-align: center;
   }
 `;

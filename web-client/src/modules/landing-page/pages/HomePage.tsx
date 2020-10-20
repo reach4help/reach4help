@@ -129,8 +129,8 @@ const HomePage: React.FC = (): JSX.Element => (
           </ReasonsCardIconContainer>
           <h3>One-stop Shop</h3>
           <p>
-            No need to spend hours searching. Our database of local volunteers
-            and organizations gets you your needs quickly.
+            Don’t waste hours searching. Get help fast with our database of
+            volunteers.
           </p>
         </ReasonsCard>
         <ReasonsCard>
@@ -148,8 +148,7 @@ const HomePage: React.FC = (): JSX.Element => (
           </ReasonsCardIconContainer>
           <h3>Completely Free</h3>
           <p>
-            No subscriptions or hidden fees. Our platform is free for
-            individuals in need and individual volunteers.
+            No subscriptions or hidden fees. You can browse and post for free.
           </p>
         </ReasonsCard>
       </ReasonsContainer>
@@ -196,33 +195,40 @@ const HomePage: React.FC = (): JSX.Element => (
       <h3>How volunteering works</h3>
       <VolunteerInfoContainer>
         <VolunteerInfoCardContainer>
-          <VolunteerInfoCard>
-            <OfferHelpLogo src={offerHelpLogo} />
-            <h3>Offer Help</h3>
-            <p>
-              Let us know what you can help with, and we will connect you to
-              someone who needs it.
-            </p>
-          </VolunteerInfoCard>
-          <h4>-OR-</h4>
-          <VolunteerInfoCard>
-            <ChoseWhoToHelpLogo src={chooseWhoToHelp} />
-            <h3>Choose who to help</h3>
-            <p>
-              Select one or more people in need whose requests you can fulfill.
-            </p>
-          </VolunteerInfoCard>
+          <h2>Step 1</h2>
+          <div>
+            <VolunteerInfoCard>
+              <OfferHelpLogo src={offerHelpLogo} />
+              <h3>Offer Help</h3>
+              <p>
+                Let us know what you can help with, and we will connect you to
+                someone who needs it.
+              </p>
+            </VolunteerInfoCard>
+            <h4>-OR-</h4>
+            <VolunteerInfoCard>
+              <ChoseWhoToHelpLogo src={chooseWhoToHelp} />
+              <h3>Choose who to help</h3>
+              <p>
+                Select one or more people in need whose requests you can
+                fulfill.
+              </p>
+            </VolunteerInfoCard>
+          </div>
         </VolunteerInfoCardContainer>
 
         <VolunteerInfoCardContainer>
-          <VolunteerInfoCard>
-            <CoordinateHelpLogo src={coordinateHelpLogo} />
-            <h3>Coordinate helping</h3>
-            <p>
-              Reach out and coordinate a pickup or delivery of the requested
-              items.
-            </p>
-          </VolunteerInfoCard>
+          <h2>Step 2</h2>
+          <div>
+            <VolunteerInfoCard>
+              <CoordinateHelpLogo src={coordinateHelpLogo} />
+              <h3>Coordinate helping</h3>
+              <p>
+                Reach out and coordinate a pickup or delivery of the requested
+                items.
+              </p>
+            </VolunteerInfoCard>
+          </div>
         </VolunteerInfoCardContainer>
       </VolunteerInfoContainer>
     </VolunteerInfoSection>
