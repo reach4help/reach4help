@@ -10,10 +10,15 @@ import chooseWhoToHelp from '../assets/chooseWhoToHelp.svg';
 import HelpInfoCoordinate from '../assets/coordinateGettingHelp.svg';
 import coordinateHelpLogo from '../assets/coordinateHelping.svg';
 import datadogLogo from '../assets/datadogLogo.svg';
+import emailIcon from '../assets/emailIcon.svg';
+import facebookIcon from '../assets/facebookIcon.svg';
 import figmaLogo from '../assets/figmaLogo.svg';
 import gatsbyLogo from '../assets/gatsbyLogo.svg';
+import githubIcon from '../assets/githubIcon.svg';
 import googleLogo from '../assets/googleLogo.svg';
 import helpfulLogo from '../assets/helpfulLogo.svg';
+import instagramIcon from '../assets/instagramIcon.svg';
+import linkedInIcon from '../assets/linkedInIcon.svg';
 import logo from '../assets/logo.svg';
 import mockupImg from '../assets/mockups.svg';
 import netlifyLogo from '../assets/netlifyLogo.svg';
@@ -25,6 +30,7 @@ import shop from '../assets/shop.svg';
 import slackLogo from '../assets/slackLogo.svg';
 import teamMeetingImg from '../assets/teamMeeting.svg';
 import twilioLogo from '../assets/twilioLogo.svg';
+import twitterIcon from '../assets/twitterIcon.svg';
 import typeFormLogo from '../assets/typeFormLogo.svg';
 import {
   AboutBtn,
@@ -36,29 +42,36 @@ import {
   Card,
   Check,
   ChoseWhoToHelpLogo,
+  CodeOfConduct,
   CoordinateHelpLogo,
   DatadogLogo,
+  EmailIcon,
+  FacebookIcon,
   FigmaLogo,
   Footer,
   FooterLine,
   FooterLogo,
   GatsbyLogo,
   GetHelpBtn,
+  GithubIcon,
   GoogleLogo,
   HelpfulEngineeringLogo,
+  HelpInfoCard,
+  HelpInfoCardContainer,
   HelpInfoContainer,
   HelpInfoCoordinateImage,
-  HelpInfoLeft,
-  HelpInfoLeftWrapper,
   HelpInfoOfferImage,
   HelpInfoRequestImage,
-  HelpInfoRight,
   HelpInfoSection,
+  InstagramIcon,
+  LegalSection,
+  LinkedInIcon,
   MiddleSection,
   MockupImage,
   NetlifyLogo,
   OfferHelpLogo,
   PeopleTop,
+  PrivacyPolicy,
   ReasonsCard,
   ReasonsCardIconContainer,
   ReasonsContainer,
@@ -67,17 +80,20 @@ import {
   Root,
   Shop,
   SlackLogo,
+  SocialLinksSection,
   SponsorLogoBottom,
   SponsorLogoMiddle,
   SponsorSection,
   SponsorThankYou,
   TeamMeetingImage,
+  TermsOfUse,
   TextMiddle,
   TextMiddleContainer,
   TextTop,
   TextTopContainer,
   TopSection,
   TwilioLogo,
+  TwitterIcon,
   TypeformLogo,
   VolunteerBtn,
   VolunteerInfoCard,
@@ -154,40 +170,41 @@ const HomePage: React.FC = (): JSX.Element => (
       </ReasonsContainer>
     </ReasonsSection>
     <HelpInfoSection>
-      <h1>How getting help works</h1>
+      <h3>How getting help works</h3>
       <HelpInfoContainer>
-        <HelpInfoLeft>
-          <h3>Step 1</h3>
-          <HelpInfoLeftWrapper>
-            <div>
+        <HelpInfoCardContainer>
+          <h2>Step 1</h2>
+          <div>
+            <HelpInfoCard>
               <HelpInfoRequestImage src={HelpInfoRequest} />
-              <h4>Request Help</h4>
+              <h3>Request Help</h3>
               <p>
                 Let us know what you need and we’ll send your request to local
                 volunteers and organizations.
               </p>
-            </div>
-            <div>
-              <h4>-OR-</h4>
-            </div>
-            <div>
+            </HelpInfoCard>
+            <h4>-OR-</h4>
+            <HelpInfoCard>
               <HelpInfoOfferImage src={HelpInfoOffer} />
-              <h4>Choose volunteer offer</h4>
+              <h3>Choose who to help</h3>
               <p>Pick an offer of help from volunteers in your area</p>
-            </div>
-          </HelpInfoLeftWrapper>
-        </HelpInfoLeft>
-        <HelpInfoRight>
-          <h3>Step 2</h3>
-          <div>
-            <HelpInfoCoordinateImage src={HelpInfoCoordinate} />
-            <h4>Coordinate getting help </h4>
-            <p>
-              A volunteer will reach out to you to schedule delievery of your
-              requested items.{' '}
-            </p>
+            </HelpInfoCard>
           </div>
-        </HelpInfoRight>
+        </HelpInfoCardContainer>
+
+        <HelpInfoCardContainer>
+          <h2>Step 2</h2>
+          <div>
+            <HelpInfoCard>
+              <HelpInfoCoordinateImage src={HelpInfoCoordinate} />
+              <h3>Coordinate getting help</h3>
+              <p>
+                A volunteer will reach out to you to schedule delievery of your
+                requested items.
+              </p>
+            </HelpInfoCard>
+          </div>
+        </HelpInfoCardContainer>
       </HelpInfoContainer>
     </HelpInfoSection>
 
@@ -267,6 +284,21 @@ const HomePage: React.FC = (): JSX.Element => (
       </SponsorLogoBottom>
     </SponsorSection>
     <Footer>
+      <SocialLinksSection>
+        <FacebookIcon src={facebookIcon} />
+        <GithubIcon src={githubIcon} />
+        <TwitterIcon src={twitterIcon} />
+        <LinkedInIcon src={linkedInIcon} />
+        <InstagramIcon src={instagramIcon} />
+        <EmailIcon src={emailIcon} />
+      </SocialLinksSection>
+      <LegalSection>
+        <CodeOfConduct>Code of Conduct</CodeOfConduct>
+        <span>|</span>
+        <PrivacyPolicy>Privacy Policy</PrivacyPolicy>
+        <span>|</span>
+        <TermsOfUse>Terms of Use</TermsOfUse>
+      </LegalSection>
       <FooterLine />
       <FooterLogo src={logo} />
     </Footer>

@@ -28,6 +28,78 @@ const ReasonsCardIcon = styled.img`
   height: 40px;
 `;
 
+const SocialMediaIcon = styled.img`
+  cursor: pointer;
+  border-radius: 4px;
+`;
+
+const LegalText = styled.div`
+  cursor: pointer;
+  &:hover {
+    color: #eb7100;
+  }
+`;
+
+const InfoSection = styled(Container)`
+  align-items: center;
+  padding: 40px;
+
+  h3 {
+    font-size: 54px;
+  }
+`;
+
+const InfoContainer = styled(Flex)`
+  width; 100%;
+`;
+
+const InfoCardContainer = styled(Container)`
+  height: 500px;
+  margin: 20px;
+  box-shadow: 0 0 5px gray;
+  overflow: hidden;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  background: white;
+
+  h2 {
+    font-weight: 700;
+    font-size: 30px;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+  }
+
+  h4 {
+    font-size: 20px;
+    margin: 0 50px;
+  }
+`;
+
+const InfoCard = styled(Container)`
+  justify-content: flex-start;
+  height: 100%;
+  align-items: center;
+  h3 {
+    font-size: 20px;
+    margin: 10px;
+  }
+  p {
+    font-size: 20px;
+    width: 300px;
+    text-align: center;
+  }
+`;
+
 // ---------------------------------------------------------------------------------------------------- //
 
 // Principal Components
@@ -82,23 +154,12 @@ export const ReasonsSection = styled(Container)`
   }
 `;
 
-export const HelpInfoSection = styled(Container)`
+export const HelpInfoSection = styled(InfoSection)`
   background-color: rgba(255, 123, 2, 0.05);
-  height: 755px;
-  text-align: center;
-
-  h1 {
-    font-size: 54px;
-  }
 `;
 
-export const VolunteerInfoSection = styled(Container)`
-  align-items: center;
-  padding: 40px;
+export const VolunteerInfoSection = styled(InfoSection)`
   background: rgba(129, 30, 120, 0.05);
-  h3 {
-    font-size: 54px;
-  }
 `;
 
 export const AboutInfoSection = styled(Flex)`
@@ -112,9 +173,15 @@ export const SponsorSection = styled(Container)`
   width: 100%;
 `;
 
-export const SocialLinksSection = styled(Flex)``;
+export const SocialLinksSection = styled(Flex)`
+  width: 450px;
+  padding-top: 90px;
+`;
 
-export const LegalSection = styled(Flex)``;
+export const LegalSection = styled(Flex)`
+  padding-top: 30px;
+  width: 350px;
+`;
 
 // ---------------------------------------------------------------------------------------------------- //
 
@@ -162,9 +229,12 @@ export const ReasonsCardIconContainer = styled(Container)`
   margin-bottom: 50px;
 `;
 
-export const HelpInfoContainer = styled(Flex)`
-  align-items: flex-start;
-  margin-top: 50px;
+export const HelpInfoContainer = styled(InfoContainer)``;
+
+export const HelpInfoCardContainer = styled(InfoCardContainer)`
+  h2 {
+    background-color: #eb7100;
+  }
 `;
 
 export const AboutTextContainer = styled(Container)`
@@ -187,11 +257,14 @@ export const AboutTextContainer = styled(Container)`
 export const SponsorThankYou = styled(Flex)`
   width: 1114px;
   height: 88px;
+  margin-top: -20px;
   margin-bottom: 30px;
   align-self: center;
 
   h3 {
     font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
     color: #ffffff;
     font-size: 30px;
     line-height: 36px;
@@ -200,47 +273,20 @@ export const SponsorThankYou = styled(Flex)`
 `;
 
 export const SponsorLogoMiddle = styled(Flex)`
-  margin: 30px 20px;
+  padding: 5px;
+  margin: 30px 0;
 `;
 
 export const SponsorLogoBottom = styled(Flex)`
-  margin: 0px 30px;
+  padding: 5px;
+  margin: 0px 166px;
 `;
 
-export const VolunteerInfoContainer = styled(Flex)`
-  width: 100%;
-`;
+export const VolunteerInfoContainer = styled(InfoContainer)``;
 
-export const VolunteerInfoCardContainer = styled(Container)`
-  height: 500px;
-  margin: 20px;
-  box-shadow: 0 0 5px gray;
-  overflow: hidden;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 8px;
-  background: white;
-
+export const VolunteerInfoCardContainer = styled(InfoCardContainer)`
   h2 {
     background: #811e78;
-    font-weight: 700;
-    font-size: 30px;
-    width: 100%;
-    padding: 20px 0;
-    text-align: center;
-    color: white;
-  }
-
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 20px;
-  }
-
-  h4 {
-    font-size: 20px;
-    margin: 0 50px;
   }
 `;
 
@@ -280,84 +326,17 @@ export const TextMiddle = styled.div`
   }
 `;
 
-export const HelpInfoLeft = styled.div`
-  width: 774px;
-  height: 493px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 0px 15px 0px #000000 15%;
-
-  h3 {
-    font-size: 30px;
-    font-weight: 700;
-    color: #ffffff;
-    background-color: #eb7100;
-    padding: 14px 0;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-`;
-
-export const HelpInfoLeftWrapper = styled(Flex)`
-  padding: 50px 30px;
-
-  div {
-    width: 30%;
-  }
-
-  h4 {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 28px;
-    padding: 24px 0;
-  }
-
-  p {
-    font-size: 18px;
-    font-weight: 400;
-  }
-`;
-
-export const HelpInfoRight = styled.div`
-  width: 323px;
-  height: 493px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 0px 15px 0px #000000 15%;
-
-  h3 {
-    font-size: 30px;
-    font-weight: 700;
-    color: #ffffff;
-    background-color: #eb7100;
-    padding: 14px 0;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-
-  div {
-    padding: 50px 30px;
-  }
-
-  h4 {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 28px;
-    padding: 24px 0;
-  }
-
-  p {
-    font-size: 18px;
-    font-weight: 400;
-  }
-`;
-
 export const FooterLine = styled.div`
   width: 80vw;
   height: 1px;
   margin-bottom: 30px;
+  margin-top: 60px;
   background-color: #c4c4c4;
 `;
+
+export const CodeOfConduct = styled(LegalText)``;
+export const PrivacyPolicy = styled(LegalText)``;
+export const TermsOfUse = styled(LegalText)``;
 
 // ---------------------------------------------------------------------------------------------------- //
 
@@ -383,22 +362,9 @@ export const ReasonsCard = styled(Container)`
 
 export const AttributesCard = styled(Container)``;
 
-export const HelpInfoCard = styled(Container)``;
+export const HelpInfoCard = styled(InfoCard)``;
 
-export const VolunteerInfoCard = styled(Container)`
-  justify-content: flex-start;
-  height: 100%;
-  align-items: center;
-  h3 {
-    font-size: 20px;
-    margin: 10px;
-  }
-  p {
-    font-size: 20px;
-    width: 300px;
-    text-align: center;
-  }
-`;
+export const VolunteerInfoCard = styled(InfoCard)``;
 
 // ---------------------------------------------------------------------------------------------------- //
 
@@ -526,3 +492,14 @@ export const SlackLogo = styled.img``;
 export const TwilioLogo = styled.img``;
 
 export const TypeformLogo = styled.img``;
+
+// ---------------------------------------------------------------------------------------------------- //
+
+// Social Media Icons
+
+export const FacebookIcon = styled(SocialMediaIcon)``;
+export const TwitterIcon = styled(SocialMediaIcon)``;
+export const InstagramIcon = styled(SocialMediaIcon)``;
+export const LinkedInIcon = styled(SocialMediaIcon)``;
+export const GithubIcon = styled(SocialMediaIcon)``;
+export const EmailIcon = styled(SocialMediaIcon)``;
