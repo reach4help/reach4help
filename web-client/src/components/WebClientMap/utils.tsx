@@ -23,10 +23,14 @@ export const getCoordsFromProfile = (profileState: ProfileState) => {
     addressToUse = addresses.default
       ? addresses.default
       : addresses[Object.keys(addresses)[0]];
+    if (addressToUse) {
+      return {
+        lat: addressToUse.coords.latitude,
+        lng: addressToUse.coords.longitude,
+      };
+    }
   }
-  return addressToUse
-    ? { lat: addressToUse.coords.latitude, lng: addressToUse.coords.longitude }
-    : DEFAULT_COORDS;
+  return DEFAULT_COORDS;
 };
 
 export const getStreetAddressFromProfile = (profileState: ProfileState) => {
