@@ -497,9 +497,44 @@ export const TypeformLogo = styled.img``;
 
 // Social Media Icons
 
-export const FacebookIcon = styled(SocialMediaIcon)``;
-export const TwitterIcon = styled(SocialMediaIcon)``;
-export const InstagramIcon = styled(SocialMediaIcon)``;
-export const LinkedInIcon = styled(SocialMediaIcon)``;
-export const GithubIcon = styled(SocialMediaIcon)``;
-export const EmailIcon = styled(SocialMediaIcon)``;
+export const EmailIcon = styled(SocialMediaIcon)`
+  &:hover {
+    filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
+      brightness(96%) contrast(99%);
+  }
+`;
+
+export const FacebookIcon = styled(SocialMediaIcon)`
+  &:hover {
+    filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
+      brightness(96%) contrast(99%);
+  }
+`;
+
+export const GithubIcon = styled(SocialMediaIcon)`
+  &:hover {
+    filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
+      brightness(96%) contrast(99%);
+  }
+`;
+
+export const InstagramIcon = styled(SocialMediaIcon)`
+  &:hover {
+    filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
+      brightness(96%) contrast(99%);
+  }
+`;
+
+export const LinkedInIcon = styled(SocialMediaIcon)`
+  &:hover {
+    filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
+      brightness(96%) contrast(99%);
+  }
+`;
+
+export const TwitterIcon = styled(SocialMediaIcon)`
+  &:hover {
+    filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
+      brightness(96%) contrast(99%);
+  }
+`;
