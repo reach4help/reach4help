@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Contact us",
       "logout": "Sign out",
       "switchToCAV": "Switch to Offering Support",

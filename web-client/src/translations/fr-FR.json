@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Contactez-nous",
       "logout": "Se déconnecter",
       "switchToCAV": "Basculer vers le offrir de l'aide",

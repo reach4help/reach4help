@@ -2,13 +2,13 @@ import { Menu } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  CreateOfferLocation,
-  CreateRequestLocation,
+  CreateOfferLocationUrl,
+  CreateRequestLocationUrl,
 } from 'src/modules/create/constants';
 import {
   AcceptedRequestsLocation,
-  MyOfferPostsLocation,
-  MyRequestPostsLocation,
+  MyOfferPostsLocationUrl,
+  MyRequestPostsLocationUrl,
   OpenRequestsLocation,
 } from 'src/modules/requests/constants';
 import { COLORS } from 'src/theme/colors';
@@ -20,13 +20,11 @@ const SideMenuLink: React.FC<{
   path: string;
   onClick: () => void;
 }> = ({ key, title, path, onClick, ...other }) => (
-  <>
-    <Link to={path} onClick={onClick}>
-      <Menu.Item key={key} {...other}>
-        {title}
-      </Menu.Item>
-    </Link>
-  </>
+  <Link to={path} onClick={onClick}>
+    <Menu.Item key={key} {...other}>
+      {title}
+    </Menu.Item>
+  </Link>
 );
 
 const SideTopMenu: React.FC<{
@@ -36,45 +34,47 @@ const SideTopMenu: React.FC<{
   <SideTopMenuStyle>
     <Menu mode="inline">
       {isLoggedIn && (
-        <>
-          <SideMenuLink
-            key="OpenRequests"
-            title="Open Requests"
-            path={OpenRequestsLocation.path}
-            onClick={closeDrawer}
-          />
-          <SideMenuLink
-            key="AcceptedRequests"
-            title="Accepted Requests"
-            path={AcceptedRequestsLocation.path}
-            onClick={closeDrawer}
-          />
-          <SideMenuLink
-            key="MyRequests"
-            title="My Requests"
-            path={MyRequestPostsLocation.path}
-            onClick={closeDrawer}
-          />
-          <SideMenuLink
-            key="MyOffers"
-            title="My Offers"
-            path={MyOfferPostsLocation.path}
-            onClick={closeDrawer}
-          />
-        </>
+        <SideMenuLink
+          key="OpenRequests"
+          title="Open Requests"
+          path={OpenRequestsLocation.path}
+          onClick={closeDrawer}
+        />
+      )}
+      {isLoggedIn && (
+        <SideMenuLink
+          key="AcceptedRequests"
+          title="Accepted Requests"
+          path={AcceptedRequestsLocation.path}
+          onClick={closeDrawer}
+        />
+      )}
+      {isLoggedIn && (
+        <SideMenuLink
+          key="MyRequests"
+          title="My Requests"
+          path={MyRequestPostsLocationUrl}
+          onClick={closeDrawer}
+        />
+      )}
+      {isLoggedIn && (
+        <SideMenuLink
+          key="MyOffers"
+          title="My Offers"
+          path={MyOfferPostsLocationUrl}
+          onClick={closeDrawer}
+        />
       )}
       <SideMenuLink
         key="CreateRequest"
         title="Create Request"
-        path={CreateRequestLocation.path}
+        path={CreateRequestLocationUrl}
         onClick={closeDrawer}
       />
       <SideMenuLink
         key="CreateOffer"
         title="Create Offer - not implemented"
-        path={
-          `notimplemented:${CreateOfferLocation.path}` /* TODO: implement */
-        }
+        path={`notimplemented:${CreateOfferLocationUrl}` /* TODO: implement */}
         onClick={closeDrawer}
       />
     </Menu>
