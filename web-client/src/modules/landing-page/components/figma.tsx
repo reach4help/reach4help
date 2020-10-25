@@ -1,3 +1,4 @@
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 // Generics
@@ -33,6 +34,7 @@ const SocialMediaIcon = styled.img`
   border-radius: 4px;
 `;
 
+// This is the color that was used for legalText prior to importing COLORS #eb7100;
 const LegalText = styled.div`
   cursor: pointer;
   &:hover {
@@ -61,7 +63,7 @@ const InfoCardContainer = styled(Container)`
   align-items: center;
   justify-content: space-between;
   border-radius: 8px;
-  background: white;
+  background: ${COLORS.white};
 
   h2 {
     font-weight: 700;
@@ -69,7 +71,7 @@ const InfoCardContainer = styled(Container)`
     width: 100%;
     padding: 20px 0;
     text-align: center;
-    color: white;
+    color: ${COLORS.white};
   }
 
   div {
@@ -112,7 +114,7 @@ export const Nav = styled.nav`
   height: 65px;
   position: fixed;
   top: 0;
-  background: white;
+  background: ${COLORS.white};
   z-index: 5;
 `;
 
@@ -154,6 +156,7 @@ export const ReasonsSection = styled(Container)`
   }
 `;
 
+// Should we add these colors to our colors.js file? current file doesn't have rgba colors
 export const HelpInfoSection = styled(InfoSection)`
   background-color: rgba(255, 123, 2, 0.05);
 `;
@@ -168,7 +171,7 @@ export const AboutInfoSection = styled(Flex)`
 `;
 
 export const SponsorSection = styled(Container)`
-  background: #811e78;
+  background: ${COLORS.primaryDark};
   height: 473px;
   width: 100%;
 `;
@@ -222,7 +225,7 @@ export const ReasonsContainer = styled(Flex)`
 export const ReasonsCardIconContainer = styled(Container)`
   align-items: center;
   justify-content: center;
-  background-color: #f9f9ff;
+  background-color: ${COLORS.reasonsIconBg};
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -297,7 +300,7 @@ export const VolunteerInfoCardContainer = styled(InfoCardContainer)`
 export const Link = styled.a`
   text-decoration: none;
   margin: 0px 15px;
-  color: black;
+  color: ${COLORS.black};
 `;
 
 export const TextTop = styled.div`
