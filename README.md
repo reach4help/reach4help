@@ -104,6 +104,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://ethanstrominger.com"><img src="https://avatars0.githubusercontent.com/u/32078396?v=4" width="100px;" alt=""/><br /><sub><b>Ethan-Strominger</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ethanstrominger" title="Code">💻</a> <a href="#ideas-ethanstrominger" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/TheRealAlexV"><img src="https://avatars3.githubusercontent.com/u/815793?v=4" width="100px;" alt=""/><br /><sub><b>Alex Vanino</b></sub></a><br /><a href="https://reach4help.org/privacy" title="Documentation">📖</a> <a href="https://github.com/checkuponme" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
