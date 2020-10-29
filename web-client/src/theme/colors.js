@@ -6,6 +6,7 @@ module.exports = {
     stepBackwardEnhanced: '#b35601',
     primary: '#a12596',
     primaryDark: '#811e78',
+    primaryOrange: '#eb7100',
     secondary: '#52c41a',
     secondaryHover: '#409913',
     secondaryLight: '#FFCB52',
