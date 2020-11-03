@@ -8,6 +8,8 @@ import Logo from 'src/assets/logo.svg';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
+import { LanguageSelector } from '../SideBottomMenu/LanguageSelector';
+
 const { Text } = Typography;
 
 const TopNavbar: React.FC<TopNavbarProps> = ({
@@ -39,6 +41,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
         <Link href="/404">Help Requests</Link>
         <Link href="/404">Volunteer Offers</Link>
         <Link href="/home/about">About Us</Link>
+        <LanguageSelector />
         <LoginButton>Login</LoginButton>
         <SignUpButton>Sign Up</SignUpButton>
       </LinkContainer>
