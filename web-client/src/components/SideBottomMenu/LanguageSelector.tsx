@@ -3,6 +3,7 @@ import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CONSTANTS from 'src/constants';
+import styled from 'styled-components';
 
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
@@ -21,9 +22,9 @@ export const LanguageSelector: React.FC = () => {
   };
 
   return (
-    <>
-      <GlobalOutlined />
-      <Select
+    <SelectorContainer>
+      <GlobalOutlinedIcon />
+      <SelectLanguage
         defaultValue={currentLanguage}
         showSearch
         style={{
@@ -46,8 +47,8 @@ export const LanguageSelector: React.FC = () => {
             {language.local}
           </Option>
         ))}
-      </Select>
-    </>
+      </SelectLanguage>
+    </SelectorContainer>
   );
 };
 
@@ -89,3 +90,29 @@ const allLanguages = [
     '2B': 'spa',
   },
 ];
+
+const SelectLanguage = styled(Select)`
+  max-width: 70px;
+  border: none;
+  position: relative;
+  bottom: 10px;
+
+  .ant-select-selector {
+    border: none !important;
+    display: flex;
+    align-items: center;
+  }
+
+  .ant-select-arrow {
+    color: black;
+  }
+`;
+
+const SelectorContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const GlobalOutlinedIcon = styled(GlobalOutlined)`
+  margin-right: 5px;
+`;
