@@ -38,7 +38,7 @@ const SocialMediaIcon = styled.img`
 const LegalText = styled.div`
   cursor: pointer;
   &:hover {
-    color: #eb7100;
+    color: ${COLORS.brandOrange};
   }
 `;
 
@@ -58,7 +58,7 @@ const InfoContainer = styled(Flex)`
 const InfoCardContainer = styled(Container)`
   height: 500px;
   margin: 20px;
-  box-shadow: 0 0 5px gray;
+  box-shadow: 0 0 5px ${COLORS.faded};
   overflow: hidden;
   align-items: center;
   justify-content: space-between;
@@ -158,11 +158,11 @@ export const ReasonsSection = styled(Container)`
 
 // Should we add these colors to our colors.js file? current file doesn't have rgba colors
 export const HelpInfoSection = styled(InfoSection)`
-  background-color: rgba(255, 123, 2, 0.05);
+  background-color: ${COLORS.gettingHelpBackground};
 `;
 
 export const VolunteerInfoSection = styled(InfoSection)`
-  background: rgba(129, 30, 120, 0.05);
+  background: ${COLORS.volunteeringBackground};
 `;
 
 export const AboutInfoSection = styled(Flex)`
@@ -236,7 +236,7 @@ export const HelpInfoContainer = styled(InfoContainer)``;
 
 export const HelpInfoCardContainer = styled(InfoCardContainer)`
   h2 {
-    background-color: #eb7100;
+    background-color: ${COLORS.brandOrange};
   }
 `;
 
@@ -268,7 +268,7 @@ export const SponsorThankYou = styled(Flex)`
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    color: #ffffff;
+    color: ${COLORS.white};
     font-size: 30px;
     line-height: 36px;
     text-align: center;
@@ -289,7 +289,7 @@ export const VolunteerInfoContainer = styled(InfoContainer)``;
 
 export const VolunteerInfoCardContainer = styled(InfoCardContainer)`
   h2 {
-    background: #811e78;
+    background: ${COLORS.primaryDark};
   }
 `;
 
@@ -306,12 +306,12 @@ export const Link = styled.a`
 export const TextTop = styled.div`
   h1 {
     font-size: 50px;
-    color: white;
+    color: ${COLORS.white};
     line-height: 60px;
   }
 
   p {
-    color: white;
+    color: ${COLORS.white};
     font-size: 18px;
     width: 400px;
   }
@@ -334,7 +334,7 @@ export const FooterLine = styled.div`
   height: 1px;
   margin-bottom: 30px;
   margin-top: 60px;
-  background-color: #c4c4c4;
+  background-color: ${COLORS.footerLine};
 `;
 
 export const CodeOfConduct = styled(LegalText)``;
@@ -380,36 +380,36 @@ export const LogInButton = styled(Button)`
   transition: all 0.3s ease;
 
   &:hover {
-    border: 1px solid #eb7100;
+    border: 1px solid ${COLORS.brandOrange};
   }
 `;
 
 export const SignUpButton = styled(Button)`
   border: none;
-  color: white;
-  background: #ff7b02;
+  color: ${COLORS.white};
+  background: ${COLORS.stepBackwardNormal};
 `;
 
 export const GetHelpBtn = styled(Button)`
-  color: white;
-  background: #ff7b02;
+  color: ${COLORS.white};
+  background: ${COLORS.stepBackwardNormal};
   border: none;
   margin-left: 0;
 `;
 
 export const VolunteerBtn = styled(Button)`
-  color: white;
+  color: ${COLORS.white};
   background: none;
-  border: 1px solid white;
+  border: 1px solid ${COLORS.white};
 
   &:hover {
-    background: white;
-    color: black;
+    background: ${COLORS.white};
+    color: ${COLORS.black};
   }
 `;
 export const AboutBtn = styled(Button)`
-  color: #eb7100;
-  border: 2px solid #eb7100;
+  color: ${COLORS.brandOrange};
+  border: 2px solid ${COLORS.brandOrange};
   width: 130px;
   background: none;
   margin-left: 0;
