@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
-import { ApplicationPreference } from 'src/models/users';
 import styled from 'styled-components';
 
 import { MyPostsLocation, PostTabsType } from '../constants';
@@ -40,12 +39,10 @@ const TabbedPosts: React.FC = (): ReactElement => {
 
   // TODO: how to disable this warning? get error when I try
   const onChange = (activeKey: string) => {
-    history.replace(MyPostsLocation.toUrl({ postType: activeKey }));
-
+    const url = MyPostsLocation.toUrl({ postType: activeKey });
+    history.replace(url);
     if (profileState.profile) {
-      profileState.profile.applicationPreference =
-        activeKey === PostTabsType.requests ?
-        ApplicationPreference.pin : ApplicationPreference.cav;
+      profileState.profile.url = url;
     }
   };
 

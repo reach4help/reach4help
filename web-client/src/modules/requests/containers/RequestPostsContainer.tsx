@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getAcceptedRequests,
   getOpenRequests,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
@@ -44,34 +43,23 @@ const OpenRequestsContainer: React.FC = () => {
       return requests.syncOpenRequestsState;
     },
   );
-  const pref = profileState.profile?.applicationPreference;
-  useEffect(() => {
-    if (profileState.profile?.applicationPreference === ApplicationPreference.pin) {
-      dispatch(resetSetRequestState());
-    }
-  }, [profileState.profile, pref, dispatch]);
+
+  const url = profileState.profile?.url;
 
   useEffect(() => {
-    if (profileState.profile && profileState.profile.applicationPreference) {
-      if (
-        profileState.profile.applicationPreference === ApplicationPreference.cav
-      ) {
-        dispatch(
-          getAcceptedRequests({
-            userType: profileState.profile.applicationPreference,
-            userRef: profileState.userRef,
-          }),
-        );
-      } else {
-        dispatch(
-          getOpenRequests({
-            userType: profileState.profile.applicationPreference,
-            userRef: profileState.userRef,
-          }),
-        );
-      }
+    dispatch(resetSetRequestState());
+  }, [url, dispatch]);
+
+  useEffect(() => {
+    if (profileState.profile?.applicationPreference) {
+      dispatch(
+        getOpenRequests({
+          userType: profileState.profile.applicationPreference,
+          userRef: profileState.userRef,
+        }),
+      );
     }
-  }, [profileState, pref, dispatch]);
+  }, [profileState, url, dispatch]);
 
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));

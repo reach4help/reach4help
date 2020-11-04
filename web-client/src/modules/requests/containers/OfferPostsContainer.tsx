@@ -34,9 +34,10 @@ const OfferPostsContainer: React.FC = () => {
       requests.syncAcceptedRequestsState,
   );
 
+  const url = profileState.profile?.url;
   useEffect(() => {
     dispatch(resetSetRequestState());
-  }, [dispatch]);
+  }, [url, dispatch]);
 
   useEffect(() => {
     if (profileState.profile && profileState.profile.applicationPreference) {
@@ -47,7 +48,7 @@ const OfferPostsContainer: React.FC = () => {
         }),
       );
     }
-  }, [profileState, dispatch]);
+  }, [url, profileState, dispatch]);
 
   const handleRequest: Function = id =>
     history.push(TimelineAcceptedViewLocation.toUrl({ requestId: id }));
