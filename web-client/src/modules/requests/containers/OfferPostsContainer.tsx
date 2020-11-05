@@ -7,15 +7,15 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { getOfferPosts, resetOfferPostState } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
-import { TimelineAcceptedViewLocation } from 'src/modules/timeline/constants';
+import { TimelineOfferPostViewLocation } from 'src/modules/timeline/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {
   InformationModal,
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
-import AcceptedRequestItem from '../components/AcceptedRequestItem';
 import Header from '../components/Header';
+import OfferPostItem from '../components/OfferPostItem';
 import RequestList from '../components/RequestList';
 import { PostTabsType } from '../constants';
 
@@ -27,7 +27,7 @@ const OfferPostsContainer: React.FC = () => {
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const acceptedRequestsWithOffersAndTimeline = useSelector(
+  const offerPostsWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: PostState }) => requests.syncOfferPostsState,
   );
 
@@ -52,11 +52,11 @@ const OfferPostsContainer: React.FC = () => {
   }, [isOfferTab, profileState, dispatch]);
 
   const handleRequest: Function = id =>
-    history.push(TimelineAcceptedViewLocation.toUrl({ requestId: id }));
+    history.push(TimelineOfferPostViewLocation.toUrl({ requestId: id }));
 
   if (
-    !acceptedRequestsWithOffersAndTimeline.data ||
-    acceptedRequestsWithOffersAndTimeline.loading
+    !offerPostsWithOffersAndTimeline.data ||
+    offerPostsWithOffersAndTimeline.loading
   ) {
     return <LoadingWrapper />;
   }
@@ -76,7 +76,7 @@ const OfferPostsContainer: React.FC = () => {
           'modules.requests.containers.AcceptedRequestContainer.accepted',
         )}
         numRequests={
-          Object.keys(acceptedRequestsWithOffersAndTimeline.data || {}).length
+          Object.keys(offerPostsWithOffersAndTimeline.data || {}).length
         }
         isCav={
           profileState.profile?.applicationPreference ===
@@ -85,13 +85,13 @@ const OfferPostsContainer: React.FC = () => {
         isAcceptedRequests
       />
       <RequestList
-        requests={acceptedRequestsWithOffersAndTimeline.data}
+        requests={offerPostsWithOffersAndTimeline.data}
         loading={
-          acceptedRequestsWithOffersAndTimeline &&
-          acceptedRequestsWithOffersAndTimeline.loading
+          offerPostsWithOffersAndTimeline &&
+          offerPostsWithOffersAndTimeline.loading
         }
         handleRequest={handleRequest}
-        RequestItem={AcceptedRequestItem}
+        RequestItem={OfferPostItem}
       />
       <InformationModal
         title={t('information_modal.AcceptedRequestsContainer.title')}

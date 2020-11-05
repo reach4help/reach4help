@@ -37,7 +37,7 @@ import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 import {
-  TimelineAcceptedViewLocation,
+  TimelineOfferPostViewLocation,
   TimelineViewLocation,
 } from '../../constants';
 
@@ -245,7 +245,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           profileState.profile.applicationPreference ===
             ApplicationPreference.pin
         ) {
-          history.replace(TimelineAcceptedViewLocation.toUrl({ requestId }));
+          history.replace(TimelineOfferPostViewLocation.toUrl({ requestId }));
         }
       }
     }

@@ -17,11 +17,11 @@ import {
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
 import Header from '../components/Header';
-import RequestItem from '../components/RequestItem';
 import RequestList from '../components/RequestList';
+import RequestPostItem from '../components/RequestPostItem';
 import { PostTabsType } from '../constants';
 
-const OpenRequestsContainer: React.FC = () => {
+const RequestPostsContainer: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -105,7 +105,7 @@ const OpenRequestsContainer: React.FC = () => {
           profileState.profile?.applicationPreference ===
           ApplicationPreference.pin
         }
-        RequestItem={RequestItem}
+        RequestItem={RequestPostItem}
         toCloseRequest={toCloseRequest}
       />
       <InformationModal
@@ -117,4 +117,4 @@ const OpenRequestsContainer: React.FC = () => {
   );
 };
 
-export default OpenRequestsContainer;
+export default RequestPostsContainer;
