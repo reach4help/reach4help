@@ -8,11 +8,11 @@ import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getAcceptedPosts,
   getArchivedRequests,
   getFinishedRequests,
+  getOfferPosts,
   getOngoingPosts,
-  getOpenPosts,
+  getRequestPosts,
   resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
@@ -161,7 +161,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           !requestsState.syncRequestPostsState.loading
         ) {
           dispatch(
-            getOpenPosts({
+            getRequestPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
               lat:
@@ -178,7 +178,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           !requestsState.syncOfferPostsState.loading
         ) {
           dispatch(
-            getAcceptedPosts({
+            getOfferPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
             }),

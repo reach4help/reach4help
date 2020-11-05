@@ -3,7 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getOpenPosts, resetSetRequestState } from 'src/ducks/requests/actions';
+import {
+  getRequestPosts,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/constants';
@@ -50,7 +53,7 @@ const OpenRequestsContainer: React.FC = () => {
   useEffect(() => {
     if (profileState.profile?.applicationPreference) {
       dispatch(
-        getOpenPosts({
+        getRequestPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
         }),

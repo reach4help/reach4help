@@ -8,11 +8,11 @@ import {
 import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 
-import { IgetOpenPosts } from './types';
+import { IgetRequestPosts } from './types';
 
-export const observeOpenPosts = (
+export const observeRequestPosts = (
   nextValue: Function,
-  payload: IgetOpenPosts,
+  payload: IgetRequestPosts,
 ): firebase.Unsubscribe => {
   let initialQuery = firestore
     .collection('requests')
@@ -51,7 +51,7 @@ export const setUserRequest = async ({
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
 
-export const getOpenPost = async ({ lat, lng }: IgetOpenPosts) =>
+export const getOpenPost = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
@@ -59,7 +59,7 @@ export const getOpenPost = async ({ lat, lng }: IgetOpenPosts) =>
     status: AbstractRequestStatus.pending,
   });
 
-export const getAcceptedPost = async ({ lat, lng }: IgetOpenPosts) =>
+export const getAcceptedPost = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
@@ -67,7 +67,7 @@ export const getAcceptedPost = async ({ lat, lng }: IgetOpenPosts) =>
     status: AbstractRequestStatus.accepted,
   });
 
-export const getOngoingPost = async ({ lat, lng }: IgetOpenPosts) =>
+export const getOngoingPost = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
@@ -75,7 +75,7 @@ export const getOngoingPost = async ({ lat, lng }: IgetOpenPosts) =>
     status: AbstractRequestStatus.ongoing,
   });
 
-export const getFinishedRequest = async ({ lat, lng }: IgetOpenPosts) =>
+export const getFinishedRequest = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
@@ -83,7 +83,7 @@ export const getFinishedRequest = async ({ lat, lng }: IgetOpenPosts) =>
     status: AbstractRequestStatus.finished,
   });
 
-export const getArchivedRequest = async ({ lat, lng }: IgetOpenPosts) =>
+export const getArchivedRequest = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,

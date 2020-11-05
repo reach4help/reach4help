@@ -100,7 +100,7 @@ export interface PostState {
   };
 }
 
-export interface IgetOpenPosts {
+export interface IgetRequestPosts {
   userRef?: firebase.firestore.DocumentReference<User>;
   lat?: number;
   lng?: number;

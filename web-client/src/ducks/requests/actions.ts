@@ -8,7 +8,7 @@ import {
   getFinishedRequest as getFinishedRequestFunc,
   getOngoingPost as getOngoingPostFunc,
   getOpenPost as getOpenPostFunc,
-  observeOpenPosts as observeOpenPostsFunc,
+  observeRequestPosts as observeRequestPostsFunc,
   setUserRequest,
 } from './functions';
 import {
@@ -18,21 +18,23 @@ import {
   GET_OFFER_POST,
   GET_ONGOING,
   GET_REQUEST_POST,
-  IgetOpenPosts,
+  IgetRequestPosts,
   OBSERVE_OPEN_POSTS,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
 } from './types';
 
-export const getOpenPosts = (payload: IgetOpenPosts) => (dispatch: Function) =>
+export const getRequestPosts = (payload: IgetRequestPosts) => (
+  dispatch: Function,
+) =>
   dispatch({
     type: GET_REQUEST_POST,
     firebase: getOpenPostFunc,
     payload,
   });
 
-export const getAcceptedPosts = (payload: IgetOpenPosts) => (
+export const getOfferPosts = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
@@ -41,7 +43,7 @@ export const getAcceptedPosts = (payload: IgetOpenPosts) => (
     payload,
   });
 
-export const getOngoingPosts = (payload: IgetOpenPosts) => (
+export const getOngoingPosts = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
@@ -50,7 +52,7 @@ export const getOngoingPosts = (payload: IgetOpenPosts) => (
     payload,
   });
 
-export const getFinishedRequests = (payload: IgetOpenPosts) => (
+export const getFinishedRequests = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
@@ -59,7 +61,7 @@ export const getFinishedRequests = (payload: IgetOpenPosts) => (
     payload,
   });
 
-export const getArchivedRequests = (payload: IgetOpenPosts) => (
+export const getArchivedRequests = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
@@ -68,13 +70,13 @@ export const getArchivedRequests = (payload: IgetOpenPosts) => (
     payload,
   });
 
-export const observeOpenPosts = (
+export const observeRequestPosts = (
   dispatch: Function,
-  payload: IgetOpenPosts,
+  payload: IgetRequestPosts,
 ): (() => void) => {
   dispatch({
     type: OBSERVE_OPEN_POSTS,
-    observer: observeOpenPostsFunc,
+    observer: observeRequestPostsFunc,
     payload,
   });
 

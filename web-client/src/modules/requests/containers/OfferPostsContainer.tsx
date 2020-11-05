@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 // TODO: reset - what is it used for
 import {
-  getAcceptedPosts,
+  getOfferPosts,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
@@ -41,7 +41,7 @@ const OfferPostsContainer: React.FC = () => {
   useEffect(() => {
     if (profileState.profile && profileState.profile.applicationPreference) {
       dispatch(
-        getAcceptedPosts({
+        getOfferPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
         }),

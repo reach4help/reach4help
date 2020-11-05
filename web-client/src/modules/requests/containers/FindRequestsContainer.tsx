@@ -17,7 +17,10 @@ import Map from 'src/components/WebClientMap/WebClientMap';
 import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getOpenPosts, resetSetRequestState } from 'src/ducks/requests/actions';
+import {
+  getRequestPosts,
+  resetSetRequestState,
+} from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
 import { Offer, OfferStatus } from 'src/models/offers';
@@ -138,7 +141,7 @@ const FindRequestsContainer: React.FC = () => {
             Object.keys(profileState.privilegedInformation.addresses)[0]
           ];
       dispatch(
-        getOpenPosts({
+        getRequestPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
           lat: addressToUse?.coords.latitude || 0,

@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getAcceptedPosts,
-  getOpenPosts,
+  getOfferPosts,
+  getRequestPosts,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
@@ -52,14 +52,14 @@ const OpenRequestsContainer: React.FC = () => {
         profileState.profile.applicationPreference === ApplicationPreference.cav
       ) {
         dispatch(
-          getAcceptedPosts({
+          getOfferPosts({
             userType: profileState.profile.applicationPreference,
             userRef: profileState.userRef,
           }),
         );
       } else {
         dispatch(
-          getOpenPosts({
+          getRequestPosts({
             userType: profileState.profile.applicationPreference,
             userRef: profileState.userRef,
           }),
