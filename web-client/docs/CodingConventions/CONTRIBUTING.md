@@ -18,38 +18,29 @@ We keep an open mind! Improving documentation, bug triaging, or writing tutorial
 
 We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it. 🤝
 
-# Getting Set Up
+## Make a fork of the repo to your local github or clone directly. Separate instructions for both are below.
 
-## First make a fork of the repo to your local github or clone directly. Separate instructions for both are below.
+### Method 1: Clone directly
 
-![Forking on Gitub](forkExample.png)
+- ask for permission to the github repository from Joseph.
+- clone using https://github.com/reach4help/reach4help.git
 
-## Select one of two methods for cloning
+### Method 2: Clone the fork to your local machine and set the remote upstream
 
-### Clone the fork to your local machine and set the remote upstream
+If you don't yet have access to github,  you will have to use this method.
 
 - https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork
 - \$ git remote add upstream https://github.com/reach4help/reach4help.git
 - Do \$ git remote -v to make sure you are correctly pointing to your fork and to the upstream branch
 
-### Clone directly
-
-- ask for permission to the github repository from Joseph.
-- clone using https://github.com/reach4help/reach4help.git
-
-
-# Getting started
-
-## Prerequisites
-
-### Install `node` and `yarn` if not already done
+## Install `node` and `yarn` if not already done
 
 - [Download Node Here](https://nodejs.org/en/download/ 'Download Node Here')
 - [Download Yarn Here](https://yarnpkg.com/lang/en/docs/install/ 'Download Yarn Here')
 
 #### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
 
-### Setting up the environment variables
+## Setting up the environment variables
 
 This Project uses Services that require API keys and environment variables such as Firebase and Google Maps API.
 The environment variables should be set up in a file named `.env` outside the `src` directory.
