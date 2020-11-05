@@ -3,56 +3,54 @@ import { IRequest, Request } from 'src/models/requests';
 /* TODO: why rename? */
 import {
   createUserRequest,
-  getAcceptedRequest as getAcceptedRequestFunc,
+  getAcceptedPost as getAcceptedPostFunc,
   getArchivedRequest as getArchivedRequestFunc,
   getFinishedRequest as getFinishedRequestFunc,
-  getOngoingRequest as getOngoingRequestFunc,
-  getOpenRequest as getOpenRequestFunc,
-  observeOpenRequests as observeOpenRequestsFunc,
+  getOngoingPost as getOngoingPostFunc,
+  getOpenPost as getOpenPostFunc,
+  observeOpenPosts as observeOpenPostsFunc,
   setUserRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
-  GET_ACCEPTED,
   GET_ARCHIVED,
   GET_FINISHED,
+  GET_OFFER_POST,
   GET_ONGOING,
-  GET_OPEN,
-  IgetOpenRequests,
-  OBSERVE_OPEN_REQUESTS,
+  GET_REQUEST_POST,
+  IgetOpenPosts,
+  OBSERVE_OPEN_POSTS,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
 } from './types';
 
-export const getOpenRequests = (payload: IgetOpenRequests) => (
-  dispatch: Function,
-) =>
+export const getOpenPosts = (payload: IgetOpenPosts) => (dispatch: Function) =>
   dispatch({
-    type: GET_OPEN,
-    firebase: getOpenRequestFunc,
+    type: GET_REQUEST_POST,
+    firebase: getOpenPostFunc,
     payload,
   });
 
-export const getAcceptedRequests = (payload: IgetOpenRequests) => (
+export const getAcceptedPosts = (payload: IgetOpenPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
-    type: GET_ACCEPTED,
-    firebase: getAcceptedRequestFunc,
+    type: GET_OFFER_POST,
+    firebase: getAcceptedPostFunc,
     payload,
   });
 
-export const getOngoingRequests = (payload: IgetOpenRequests) => (
+export const getOngoingPosts = (payload: IgetOpenPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
     type: GET_ONGOING,
-    firebase: getOngoingRequestFunc,
+    firebase: getOngoingPostFunc,
     payload,
   });
 
-export const getFinishedRequests = (payload: IgetOpenRequests) => (
+export const getFinishedRequests = (payload: IgetOpenPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
@@ -61,7 +59,7 @@ export const getFinishedRequests = (payload: IgetOpenRequests) => (
     payload,
   });
 
-export const getArchivedRequests = (payload: IgetOpenRequests) => (
+export const getArchivedRequests = (payload: IgetOpenPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
@@ -70,20 +68,20 @@ export const getArchivedRequests = (payload: IgetOpenRequests) => (
     payload,
   });
 
-export const observeOpenRequests = (
+export const observeOpenPosts = (
   dispatch: Function,
-  payload: IgetOpenRequests,
+  payload: IgetOpenPosts,
 ): (() => void) => {
   dispatch({
-    type: OBSERVE_OPEN_REQUESTS,
-    observer: observeOpenRequestsFunc,
+    type: OBSERVE_OPEN_POSTS,
+    observer: observeOpenPostsFunc,
     payload,
   });
 
   return () =>
     dispatch({
-      type: OBSERVE_OPEN_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_OPEN_REQUESTS,
+      type: OBSERVE_OPEN_POSTS.UNSUBSCRIBE,
+      observerName: OBSERVE_OPEN_POSTS,
     });
 };
 

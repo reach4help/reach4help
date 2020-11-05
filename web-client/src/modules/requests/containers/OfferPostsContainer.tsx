@@ -5,10 +5,10 @@ import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 // TODO: reset - what is it used for
 import {
-  getAcceptedRequests,
+  getAcceptedPosts,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineAcceptedViewLocation } from 'src/modules/timeline/constants';
 
@@ -30,8 +30,7 @@ const OfferPostsContainer: React.FC = () => {
   );
 
   const acceptedRequestsWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) =>
-      requests.syncAcceptedRequestsState,
+    ({ requests }: { requests: PostState }) => requests.syncOfferPostsState,
   );
 
   const url = profileState.profile?.url;
@@ -42,7 +41,7 @@ const OfferPostsContainer: React.FC = () => {
   useEffect(() => {
     if (profileState.profile && profileState.profile.applicationPreference) {
       dispatch(
-        getAcceptedRequests({
+        getAcceptedPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
         }),

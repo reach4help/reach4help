@@ -8,15 +8,15 @@ import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getAcceptedRequests,
+  getAcceptedPosts,
   getArchivedRequests,
   getFinishedRequests,
-  getOngoingRequests,
-  getOpenRequests,
+  getOngoingPosts,
+  getOpenPosts,
   resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { PostState } from 'src/ducks/requests/types';
 import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
@@ -66,7 +66,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   );
 
   const requestsState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests,
+    ({ requests }: { requests: PostState }) => requests,
   );
 
   const offersState = useSelector(
@@ -90,15 +90,15 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
   useEffect(() => {
     let requestTemp: RequestWithOffersAndTimeline | undefined =
-      requestsState.syncOpenRequestsState.data &&
-      requestsState.syncOpenRequestsState.data[requestId]
-        ? requestsState.syncOpenRequestsState.data[requestId]
+      requestsState.syncRequestPostsState.data &&
+      requestsState.syncRequestPostsState.data[requestId]
+        ? requestsState.syncRequestPostsState.data[requestId]
         : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.syncAcceptedRequestsState.data &&
-      requestsState.syncAcceptedRequestsState.data[requestId]
-        ? requestsState.syncAcceptedRequestsState.data[requestId]
+      (requestsState.syncOfferPostsState.data &&
+      requestsState.syncOfferPostsState.data[requestId]
+        ? requestsState.syncOfferPostsState.data[requestId]
         : undefined);
     requestTemp =
       requestTemp ||
@@ -157,11 +157,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         history.replace(TimelineViewLocation.toUrl({ requestId }));
       } else {
         if (
-          !requestsState.syncOpenRequestsState.data &&
-          !requestsState.syncOpenRequestsState.loading
+          !requestsState.syncRequestPostsState.data &&
+          !requestsState.syncRequestPostsState.loading
         ) {
           dispatch(
-            getOpenRequests({
+            getOpenPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
               lat:
@@ -174,11 +174,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           );
         }
         if (
-          !requestsState.syncAcceptedRequestsState.data &&
-          !requestsState.syncAcceptedRequestsState.loading
+          !requestsState.syncOfferPostsState.data &&
+          !requestsState.syncOfferPostsState.loading
         ) {
           dispatch(
-            getAcceptedRequests({
+            getAcceptedPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
             }),
@@ -189,7 +189,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           !requestsState.syncOngoingRequestsState.loading
         ) {
           dispatch(
-            getOngoingRequests({
+            getOngoingPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
             }),

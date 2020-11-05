@@ -3,11 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
-import {
-  getOpenRequests,
-  resetSetRequestState,
-} from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { getOpenPosts, resetSetRequestState } from 'src/ducks/requests/actions';
+import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
@@ -33,14 +30,14 @@ const OpenRequestsContainer: React.FC = () => {
   // console.log('after', profileState.url);
 
   const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) => {
+    ({ requests }: { requests: PostState }) => {
       if (
         profileState.profile?.applicationPreference ===
         ApplicationPreference.cav
       ) {
-        return requests.syncAcceptedRequestsState;
+        return requests.syncOfferPostsState;
       }
-      return requests.syncOpenRequestsState;
+      return requests.syncRequestPostsState;
     },
   );
 
@@ -53,7 +50,7 @@ const OpenRequestsContainer: React.FC = () => {
   useEffect(() => {
     if (profileState.profile?.applicationPreference) {
       dispatch(
-        getOpenRequests({
+        getOpenPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
         }),

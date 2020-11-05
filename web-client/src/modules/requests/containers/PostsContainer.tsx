@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getAcceptedRequests,
-  getOpenRequests,
+  getAcceptedPosts,
+  getOpenPosts,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
@@ -37,10 +37,8 @@ const PostsContainer: React.FC<PostsProps> = ({
   );
 
   const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) =>
-      isOffers
-        ? requests.syncAcceptedRequestsState
-        : requests.syncOpenRequestsState,
+    ({ requests }: { requests: PostState }) =>
+      isOffers ? requests.syncOfferPostsState : requests.syncRequestPostsState,
   );
 
   const instructions = [
@@ -69,14 +67,14 @@ const PostsContainer: React.FC<PostsProps> = ({
   useEffect(() => {
     if (isOffers) {
       dispatch(
-        getAcceptedRequests({
+        getAcceptedPosts({
           userType: ApplicationPreference.cav,
           userRef: profileState.userRef,
         }),
       );
     } else {
       dispatch(
-        getOpenRequests({
+        getOpenPosts({
           userType: ApplicationPreference.pin,
           userRef: profileState.userRef,
         }),
