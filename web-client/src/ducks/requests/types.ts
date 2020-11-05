@@ -9,16 +9,6 @@ export const { asyncType, observerType, syncType } = createActionTypeFactory(
 
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
-export const OBSERVE_OPEN_POSTS = observerType('OBSERVE_OPEN_POSTS');
-
-export const OBSERVE_ONGOING_POSTS = observerType('OBSERVE_ONGOING_POSTS');
-
-export const OBSERVE_COMPLETED_POSTS = observerType('OBSERVE_COMPLETED_POSTS');
-
-export const OBSERVE_CANCELLED_POSTS = observerType('OBSERVE_CANCELLED_POSTS');
-
-export const OBSERVE_REMOVED_POSTS = observerType('OBSERVE_REMOVED_POSTS');
-
 export const SET = asyncType('SET');
 export const RESET_SET = syncType('RESET_SET');
 export const RESET_REQUEST_POST = syncType('RESET_REQUEST_POST');

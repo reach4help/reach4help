@@ -1,4 +1,4 @@
-import { Request, RequestStatus } from 'src/models/requests';
+import { Request } from 'src/models/requests';
 import {
   IRequestWithOffersAndTimeline,
   RequestWithOffersAndTimeline,
@@ -9,11 +9,6 @@ import {
   CHANGE_MODAL,
   GET_OFFER_POST,
   GET_REQUEST_POST,
-  OBSERVE_CANCELLED_POSTS,
-  OBSERVE_COMPLETED_POSTS,
-  OBSERVE_ONGOING_POSTS,
-  OBSERVE_OPEN_POSTS,
-  OBSERVE_REMOVED_POSTS,
   PostState,
   RESET_OFFER_POST,
   RESET_REQUEST_POST,
@@ -55,29 +50,6 @@ const initialState: PostState = {
   removedRequests: initialPostsState,
   setAction: initialSetActionState,
   newRequestTemp: undefined,
-};
-
-const postStatusMapper = {
-  [RequestStatus.pending]: 'openRequests',
-  [RequestStatus.ongoing]: 'ongoingRequests',
-  [RequestStatus.completed]: 'completedRequests',
-  [RequestStatus.cancelled]: 'cancelledRequests',
-  [RequestStatus.removed]: 'removedRequests',
-};
-const updateRequestState = (state: PostState, payload) => {
-  state[
-    postStatusMapper[payload.requestStatus]
-  ].data = payload.snap.docs.reduce(
-    (acc, doc) => ({
-      ...acc,
-      [doc.id]: doc.data(),
-    }),
-    {},
-  );
-  state[postStatusMapper[payload.requestStatus]].loading = false;
-  state[
-    postStatusMapper[payload.requestStatus]
-  ].observerReceivedFirstUpdate = true;
 };
 
 export default createReducer<PostState>(
@@ -214,90 +186,6 @@ export default createReducer<PostState>(
         state.setAction.success = false;
       }
     },
-    [OBSERVE_OPEN_POSTS.SUBSCRIBE]: (state: PostState) => {
-      state.openRequests.loading = true;
-    },
-    [OBSERVE_OPEN_POSTS.UPDATED]: (
-      state: PostState,
-      {
-        payload,
-      }: {
-        payload: firebase.firestore.QuerySnapshot<Request>;
-      },
-    ) => {
-      state.openRequests.data = payload.docs.reduce(
-        (acc, doc) => ({
-          ...acc,
-          [doc.id]: doc.data(),
-        }),
-        {},
-      );
-      state.openRequests.loading = false;
-      state.openRequests.observerReceivedFirstUpdate = true;
-    },
-    [OBSERVE_OPEN_POSTS.ERROR]: (
-      state: PostState,
-      { payload }: { payload: Error },
-    ) => {
-      state.openRequests.error = payload;
-      state.openRequests.loading = false;
-    },
-    [OBSERVE_ONGOING_POSTS.SUBSCRIBE]: (state: PostState) => {
-      state.openRequests.loading = true;
-    },
-    [OBSERVE_ONGOING_POSTS.UPDATED]: (
-      state: PostState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
-    [OBSERVE_COMPLETED_POSTS.SUBSCRIBE]: (state: PostState) => {
-      state.completedRequests.loading = true;
-    },
-    [OBSERVE_COMPLETED_POSTS.UPDATED]: (
-      state: PostState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
-    [OBSERVE_CANCELLED_POSTS.SUBSCRIBE]: (state: PostState) => {
-      state.cancelledRequests.loading = true;
-    },
-    [OBSERVE_CANCELLED_POSTS.UPDATED]: (
-      state: PostState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
-    [OBSERVE_REMOVED_POSTS.SUBSCRIBE]: (state: PostState) => {
-      state.cancelledRequests.loading = true;
-    },
-    [OBSERVE_REMOVED_POSTS.UPDATED]: (
-      state: PostState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
   },
   initialState,
 );

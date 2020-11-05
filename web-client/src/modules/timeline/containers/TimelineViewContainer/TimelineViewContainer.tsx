@@ -97,24 +97,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       requestsState.syncOfferPostsState.data[requestId]
         ? requestsState.syncOfferPostsState.data[requestId]
         : undefined);
-    requestTemp =
-      requestTemp ||
-      (requestsState.syncOngoingRequestsState.data &&
-      requestsState.syncOngoingRequestsState.data[requestId]
-        ? requestsState.syncOngoingRequestsState.data[requestId]
-        : undefined);
-    requestTemp =
-      requestTemp ||
-      (requestsState.syncArchivedRequestsState.data &&
-      requestsState.syncArchivedRequestsState.data[requestId]
-        ? requestsState.syncArchivedRequestsState.data[requestId]
-        : undefined);
-    requestTemp =
-      requestTemp ||
-      (requestsState.syncFinishedRequestsState.data &&
-      requestsState.syncFinishedRequestsState.data[requestId]
-        ? requestsState.syncFinishedRequestsState.data[requestId]
-        : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
 

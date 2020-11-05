@@ -5,7 +5,6 @@ import {
   createUserRequest,
   getAcceptedPost as getAcceptedPostFunc,
   getOpenPost as getOpenPostFunc,
-  observeRequestPosts as observeRequestPostsFunc,
   setUserRequest,
 } from './functions';
 import {
@@ -13,7 +12,6 @@ import {
   GET_OFFER_POST,
   GET_REQUEST_POST,
   IgetRequestPosts,
-  OBSERVE_OPEN_POSTS,
   RESET_OFFER_POST,
   RESET_REQUEST_POST,
   RESET_SET,
@@ -38,23 +36,6 @@ export const getOfferPosts = (payload: IgetRequestPosts) => (
     firebase: getAcceptedPostFunc,
     payload,
   });
-
-export const observeRequestPosts = (
-  dispatch: Function,
-  payload: IgetRequestPosts,
-): (() => void) => {
-  dispatch({
-    type: OBSERVE_OPEN_POSTS,
-    observer: observeRequestPostsFunc,
-    payload,
-  });
-
-  return () =>
-    dispatch({
-      type: OBSERVE_OPEN_POSTS.UNSUBSCRIBE,
-      observerName: OBSERVE_OPEN_POSTS,
-    });
-};
 
 export const setRequest = (
   payload: IRequest,
