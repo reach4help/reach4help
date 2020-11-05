@@ -18,6 +18,8 @@ We keep an open mind! Improving documentation, bug triaging, or writing tutorial
 
 We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it. 🤝
 
+# Getting Set Up
+
 ## Make a fork of the repo to your local github or clone directly. Separate instructions for both are below.
 
 ### Method 1: Clone directly
