@@ -44,8 +44,9 @@ If you don't yet have access to github,  you will have to use this method.
 
 ## Setting up the environment variables
 
-Windows: copy .env.example .env
-Unix/Mac: cp .env.example .env
+Windows: `copy .env.example .env`
+
+Unix/Mac: `cp .env.example .env`
 
 ## Run the project
 
