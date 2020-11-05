@@ -171,14 +171,8 @@ export default createReducer<PostState>(
       state.setAction.success = false;
       state.syncRequestPostsState.data = undefined;
       state.syncRequestPostsState.loading = false;
-      state.syncOngoingRequestsState.data = undefined;
-      state.syncOngoingRequestsState.loading = false;
       state.syncOfferPostsState.data = undefined;
       state.syncOfferPostsState.loading = false;
-      state.syncFinishedRequestsState.data = undefined;
-      state.syncFinishedRequestsState.loading = false;
-      state.syncArchivedRequestsState.data = undefined;
-      state.syncArchivedRequestsState.loading = false;
     },
     [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
       state.setAction.modalState = payload;
