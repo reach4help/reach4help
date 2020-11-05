@@ -32,7 +32,7 @@ import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import RequestItem from '../components/RequestItem';
-import { OpenRequestsLocation } from '../constants';
+import { MyRequestPostsLocationUrl } from '../constants';
 
 const { TabPane } = Tabs;
 
@@ -119,7 +119,7 @@ const FindRequestsContainer: React.FC = () => {
         }, 100);
       } else if (setOfferState.success && setOfferState.success === 1) {
         setTimeout(() => {
-          history.push(OpenRequestsLocation.path);
+          history.push(MyRequestPostsLocationUrl);
         }, 150);
         dispatch(resetSetRequestState());
         dispatch(resetSetOfferState());

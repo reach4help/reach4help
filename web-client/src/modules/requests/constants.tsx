@@ -8,9 +8,7 @@ export enum PostTabsType {
   offers = 'offers',
 }
 
-export const AcceptedRequestsLocation = new Location(`${postUrlRoot}/accepted`);
 export const FindRequestsLocation = new Location(`${postUrlRoot}/find`);
-export const OpenRequestsLocation = new Location(`${postUrlRoot}/open`);
 export const MyPostsLocation = new Location(`${postUrlRoot}/my/:postType`, {
   postType: Yup.string().required(),
 });
