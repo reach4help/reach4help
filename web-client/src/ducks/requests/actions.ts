@@ -4,19 +4,13 @@ import { IRequest, Request } from 'src/models/requests';
 import {
   createUserRequest,
   getAcceptedPost as getAcceptedPostFunc,
-  getArchivedRequest as getArchivedRequestFunc,
-  getFinishedRequest as getFinishedRequestFunc,
-  getOngoingPost as getOngoingPostFunc,
   getOpenPost as getOpenPostFunc,
   observeRequestPosts as observeRequestPostsFunc,
   setUserRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
-  GET_ARCHIVED,
-  GET_FINISHED,
   GET_OFFER_POST,
-  GET_ONGOING,
   GET_REQUEST_POST,
   IgetRequestPosts,
   OBSERVE_OPEN_POSTS,
@@ -42,33 +36,6 @@ export const getOfferPosts = (payload: IgetRequestPosts) => (
   dispatch({
     type: GET_OFFER_POST,
     firebase: getAcceptedPostFunc,
-    payload,
-  });
-
-export const getOngoingPosts = (payload: IgetRequestPosts) => (
-  dispatch: Function,
-) =>
-  dispatch({
-    type: GET_ONGOING,
-    firebase: getOngoingPostFunc,
-    payload,
-  });
-
-export const getFinishedRequests = (payload: IgetRequestPosts) => (
-  dispatch: Function,
-) =>
-  dispatch({
-    type: GET_FINISHED,
-    firebase: getFinishedRequestFunc,
-    payload,
-  });
-
-export const getArchivedRequests = (payload: IgetRequestPosts) => (
-  dispatch: Function,
-) =>
-  dispatch({
-    type: GET_ARCHIVED,
-    firebase: getArchivedRequestFunc,
     payload,
   });
 

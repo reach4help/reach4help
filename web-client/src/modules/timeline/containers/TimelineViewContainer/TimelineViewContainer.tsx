@@ -8,10 +8,7 @@ import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getArchivedRequests,
-  getFinishedRequests,
   getOfferPosts,
-  getOngoingPosts,
   getRequestPosts,
   resetSetRequestState,
   setRequest as updateRequest,
@@ -181,39 +178,6 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
             getOfferPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
-            }),
-          );
-        }
-        if (
-          !requestsState.syncOngoingRequestsState.data &&
-          !requestsState.syncOngoingRequestsState.loading
-        ) {
-          dispatch(
-            getOngoingPosts({
-              userType: profileState.profile.applicationPreference,
-              userRef: profileState.userRef,
-            }),
-          );
-        }
-        if (
-          !requestsState.syncFinishedRequestsState.data &&
-          !requestsState.syncFinishedRequestsState.loading
-        ) {
-          dispatch(
-            getFinishedRequests({
-              userType: profileState.profile.applicationPreference,
-              userRef: profileState.userRef,
-            }),
-          );
-        }
-        if (
-          !requestsState.syncArchivedRequestsState.data &&
-          !requestsState.syncArchivedRequestsState.loading
-        ) {
-          dispatch(
-            getArchivedRequests({
-              userRef: profileState.userRef,
-              userType: profileState.profile.applicationPreference,
             }),
           );
         }

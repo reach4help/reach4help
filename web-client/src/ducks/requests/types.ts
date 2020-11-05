@@ -26,9 +26,6 @@ export const RESET_OFFER_POST = syncType('RESET_OFFER_POST');
 
 export const GET_REQUEST_POST = asyncType('GET_REQUEST_POST');
 export const GET_OFFER_POST = asyncType('GET_OFFER_POST');
-export const GET_ONGOING = asyncType('GET_ONGOING');
-export const GET_FINISHED = asyncType('GET_FINISHED');
-export const GET_ARCHIVED = asyncType('GET_ARCHIVED');
 
 export const UPDATE = asyncType('UPDATE');
 
