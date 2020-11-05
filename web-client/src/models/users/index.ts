@@ -55,7 +55,6 @@ export class User implements IUser {
     displayName: string | null = null,
     displayPicture: string | null = null,
     createdAt = firestore.Timestamp.now(),
-    url = '',
   ) {
     this._cavQuestionnaireRef = cavQuestionnaireRef;
     this._pinQuestionnaireRef = pinQuestionnaireRef;
@@ -69,7 +68,6 @@ export class User implements IUser {
     this._displayPicture = displayPicture;
     this._applicationPreference = applicationPreference;
     this._createdAt = createdAt;
-    this._url = url;
   }
 
   @IsObject()
@@ -196,18 +194,6 @@ export class User implements IUser {
 
   set displayName(value: string | null) {
     this._displayName = value;
-  }
-
-  @IsString()
-  @IsOptional()
-  private _url: string | null;
-
-  get url(): string | null {
-    return this._url;
-  }
-
-  set url(value: string | null) {
-    this._url = value;
   }
 
   @IsUrl()

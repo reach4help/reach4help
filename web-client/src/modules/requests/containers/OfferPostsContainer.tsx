@@ -4,10 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 // TODO: reset - what is it used for
-import {
-  getOfferPosts,
-  resetSetRequestState,
-} from 'src/ducks/requests/actions';
+import { getOfferPosts, resetOfferPostState } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineAcceptedViewLocation } from 'src/modules/timeline/constants';
@@ -20,6 +17,7 @@ import {
 import AcceptedRequestItem from '../components/AcceptedRequestItem';
 import Header from '../components/Header';
 import RequestList from '../components/RequestList';
+import { PostTabsType } from '../constants';
 
 const OfferPostsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -33,13 +31,17 @@ const OfferPostsContainer: React.FC = () => {
     ({ requests }: { requests: PostState }) => requests.syncOfferPostsState,
   );
 
-  const url = profileState.profile?.url;
-  useEffect(() => {
-    dispatch(resetSetRequestState());
-  }, [url, dispatch]);
+  const path = history.location.pathname;
+  const isOfferTab = path.includes(PostTabsType.offers);
 
   useEffect(() => {
-    if (profileState.profile && profileState.profile.applicationPreference) {
+    if (isOfferTab) {
+      dispatch(resetOfferPostState());
+    }
+  }, [isOfferTab, dispatch]);
+
+  useEffect(() => {
+    if (isOfferTab && profileState.profile?.applicationPreference) {
       dispatch(
         getOfferPosts({
           userType: profileState.profile.applicationPreference,
@@ -47,7 +49,7 @@ const OfferPostsContainer: React.FC = () => {
         }),
       );
     }
-  }, [url, profileState, dispatch]);
+  }, [isOfferTab, profileState, dispatch]);
 
   const handleRequest: Function = id =>
     history.push(TimelineAcceptedViewLocation.toUrl({ requestId: id }));

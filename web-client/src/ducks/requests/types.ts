@@ -21,6 +21,8 @@ export const OBSERVE_REMOVED_POSTS = observerType('OBSERVE_REMOVED_POSTS');
 
 export const SET = asyncType('SET');
 export const RESET_SET = syncType('RESET_SET');
+export const RESET_REQUEST_POST = syncType('RESET_REQUEST_POST');
+export const RESET_OFFER_POST = syncType('RESET_OFFER_POST');
 
 export const GET_REQUEST_POST = asyncType('GET_REQUEST_POST');
 export const GET_OFFER_POST = asyncType('GET_OFFER_POST');

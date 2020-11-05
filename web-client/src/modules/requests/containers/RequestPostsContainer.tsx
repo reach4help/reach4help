@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getRequestPosts,
-  resetSetRequestState,
+  resetRequestPostState,
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
@@ -19,6 +19,7 @@ import {
 import Header from '../components/Header';
 import RequestItem from '../components/RequestItem';
 import RequestList from '../components/RequestList';
+import { PostTabsType } from '../constants';
 
 const OpenRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
@@ -33,25 +34,20 @@ const OpenRequestsContainer: React.FC = () => {
   // console.log('after', profileState.url);
 
   const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: PostState }) => {
-      if (
-        profileState.profile?.applicationPreference ===
-        ApplicationPreference.cav
-      ) {
-        return requests.syncOfferPostsState;
-      }
-      return requests.syncRequestPostsState;
-    },
+    ({ requests }: { requests: PostState }) => requests.syncRequestPostsState,
   );
 
-  const url = profileState.profile?.url;
+  const path = history.location.pathname;
+  const isRequestTab = path.includes(PostTabsType.requests);
 
   useEffect(() => {
-    dispatch(resetSetRequestState());
-  }, [url, dispatch]);
+    if (isRequestTab) {
+      dispatch(resetRequestPostState());
+    }
+  }, [isRequestTab, dispatch]);
 
   useEffect(() => {
-    if (profileState.profile?.applicationPreference) {
+    if (isRequestTab && profileState.profile?.applicationPreference) {
       dispatch(
         getRequestPosts({
           userType: profileState.profile.applicationPreference,
@@ -59,7 +55,7 @@ const OpenRequestsContainer: React.FC = () => {
         }),
       );
     }
-  }, [profileState, url, dispatch]);
+  }, [profileState, isRequestTab, dispatch]);
 
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));

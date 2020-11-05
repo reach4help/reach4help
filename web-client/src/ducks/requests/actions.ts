@@ -20,6 +20,8 @@ import {
   GET_REQUEST_POST,
   IgetRequestPosts,
   OBSERVE_OPEN_POSTS,
+  RESET_OFFER_POST,
+  RESET_REQUEST_POST,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
@@ -113,6 +115,18 @@ export const setRequest = (
 export const resetSetRequestState = () => (dispatch: Function) =>
   dispatch({
     type: RESET_SET,
+    payload: true,
+  });
+
+export const resetRequestPostState = () => (dispatch: Function) =>
+  dispatch({
+    type: RESET_REQUEST_POST,
+    payload: true,
+  });
+
+export const resetOfferPostState = () => (dispatch: Function) =>
+  dispatch({
+    type: RESET_OFFER_POST,
     payload: true,
   });
 

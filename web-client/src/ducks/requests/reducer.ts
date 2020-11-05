@@ -18,6 +18,8 @@ import {
   OBSERVE_OPEN_POSTS,
   OBSERVE_REMOVED_POSTS,
   PostState,
+  RESET_OFFER_POST,
+  RESET_REQUEST_POST,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
@@ -293,6 +295,18 @@ export default createReducer<PostState>(
       },
     ) => {
       state.newRequestTemp = payload;
+    },
+    [RESET_OFFER_POST]: (state: PostState) => {
+      state.setAction.loading = false;
+      state.setAction.success = false;
+      state.syncOfferPostsState.data = undefined;
+      state.syncOfferPostsState.loading = false;
+    },
+    [RESET_REQUEST_POST]: (state: PostState) => {
+      state.setAction.loading = false;
+      state.setAction.success = false;
+      state.syncRequestPostsState.data = undefined;
+      state.syncRequestPostsState.loading = false;
     },
     [RESET_SET]: (state: PostState) => {
       state.setAction.loading = false;
