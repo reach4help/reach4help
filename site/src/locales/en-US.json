@@ -1,6 +1,13 @@
 {
   "common": {
     "Navigation": {
+      "Header": {
+        "language": "English",
+        "buttons": [
+          { "title": "Mutual Aid Map", "link": "https://map.reach4help.org" },
+          { "title": "Sign in", "link": "https://app.reach4help.org" }
+        ]
+      },
       "IndexPage": [
         { "title": "Home", "link": "/#home" },
         { "title": "Mission", "link": "/#mission" },

@@ -2,13 +2,32 @@ import React from "react"
 // import { graphql, useStaticQuery } from "gatsby"
 import { useTranslation } from "react-i18next"
 
-import MockupsImage from "src/assets/mockups.svg"
+import { graphql, useStaticQuery } from "gatsby"
+import Img from "gatsby-image"
+
 import Button from "src/components/button"
 import Socials from "src/components/socials"
 import { Wrapper, ButtonsWrapper } from "./style"
 
 function Home() {
   const { t } = useTranslation()
+  const data = useStaticQuery(
+    graphql`
+      query {
+        file(relativePath: { eq: "sections/home/image.png" }) {
+          childImageSharp {
+            fluid(maxWidth: 500, quality: 75) {
+              base64
+              aspectRatio
+              src
+              srcSet
+              sizes
+            }
+          }
+        }
+      }
+    `,
+  )
 
   return (
     <Wrapper id="home">
@@ -18,11 +37,7 @@ function Home() {
           <p>{t("Home.subheading")}</p>
         </div>
         <ButtonsWrapper>
-          <a
-            href="https://app.reach4help.org/"
-            target="__blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://app.reach4help.org/gethelp" rel="noopener">
             <Button
               backgroundColor="#ff7b02"
               textColor="white"
@@ -32,11 +47,7 @@ function Home() {
               {t("Home.buttons.0")}
             </Button>
           </a>
-          <a
-            href="http://map.reach4help.org/"
-            target="__blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://app.reach4help.org/volunteer" rel="noopener">
             <Button
               fontSize="1.05em"
               backgroundColor="transparent"
@@ -50,7 +61,11 @@ function Home() {
         </ButtonsWrapper>
         <Socials />
       </div>
-      <img className="image" src={MockupsImage} alt="R4H Screenshot" />
+      <Img
+        fluid={data.file.childImageSharp.fluid}
+        alt="R4H App"
+        className="image"
+      />
     </Wrapper>
   )
 }
