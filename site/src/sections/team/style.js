@@ -26,6 +26,7 @@ export const Wrapper = styled(SectionWrapper)`
     ${p => p.theme.breakpoints.medium} {
       top: 0;
       margin-top: 2em;
+      margin-left: 0;
       width: 60%;
     }
   }
