@@ -21,16 +21,18 @@ export const Wrapper = styled(SectionWrapper)`
     position: relative;
     width: 40%;
     min-width: 300px;
+    margin-left: 3em;
 
     ${p => p.theme.breakpoints.medium} {
       top: 0;
+      margin-top: 2em;
       width: 60%;
     }
   }
 `
 
 export const ContentWrapper = styled.div`
-  max-width: 35em;
+  max-width: 40em;
   display: flex;
   flex-direction: column;
   /* margin-bottom: 3em; */
