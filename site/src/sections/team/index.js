@@ -6,6 +6,29 @@ import { useTranslation } from "react-i18next"
 import Button from "src/components/button"
 import { Wrapper, ContentWrapper } from "./style"
 
+const people = [
+  {
+    title: "Director",
+    name: "Shayan Chowdhury",
+    contact: "mailto:shayan@reach4help.org",
+  },
+  {
+    title: "Technical Lead",
+    name: "Joseph Ashwin Kottapurath",
+    contact: "mailto:joseph@reach4help.org",
+  },
+  {
+    title: "Design Lead",
+    name: "Samantha Uebel",
+    contact: "mailto:samantha@reach4help.org",
+  },
+  {
+    title: "Marketing Lead",
+    name: "Yi Zhou",
+    contact: "mailto:yi@reach4help.org",
+  },
+]
+
 // TODO: Still need to finish up this section
 function Team() {
   const data = useStaticQuery(
@@ -35,8 +58,19 @@ function Team() {
           <h2>{t("Team.heading")}</h2>
           <p>{t("Team.description.0")}</p>
           <br />
+          <p>
+            <b>{t("Team.members.heading")}</b>
+            {people.map(person => (
+              <li key={person.id}>
+                <b>{person.title}: </b>
+                <a href={person.contact}>{person.name}</a>
+              </li>
+            ))}
+          </p>
+          <br />
           <p>{t("Team.description.1")}</p>
           <br />
+
           <h3>{t("Team.subheading")}</h3>
         </ContentWrapper>
         <a href="https://github.com/reach4help/reach4help/wiki#onboading-steps">
