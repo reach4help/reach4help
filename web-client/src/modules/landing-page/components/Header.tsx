@@ -1,12 +1,10 @@
 import React from 'react';
 
 import betaFlair from '../assets/beta_flair.svg';
-import langLogo from '../assets/langLogo.svg';
 import logo from '../assets/logo.svg';
 import {
   BetaFlair,
   ButtonContainer,
-  Dropdown,
   Link,
   LinkContainer,
   LogInButton,
@@ -29,15 +27,6 @@ const Header: React.FC = (): JSX.Element => (
       <Link href="/">FAQs</Link>
       <Link href="/">Mutual Aid Map</Link>
     </LinkContainer>
-
-    <Dropdown>
-      <Logo src={langLogo} height="25px" />
-      <ul>
-        <li>English</li>
-        <li>Portuguese</li>
-        <li>French</li>
-      </ul>
-    </Dropdown>
 
     <ButtonContainer>
       <LogInButton>Log In</LogInButton>
