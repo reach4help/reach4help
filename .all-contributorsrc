@@ -315,6 +315,16 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "TheRealAlexV",
+      "name": "Alex 'DeMiNe0' Vanino",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/815793?v=4",
+      "profile": "https://github.com/TheRealAlexV",
+      "contributions": [
+        "ideas",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
