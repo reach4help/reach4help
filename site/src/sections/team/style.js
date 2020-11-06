@@ -21,9 +21,11 @@ export const Wrapper = styled(SectionWrapper)`
     position: relative;
     width: 40%;
     min-width: 300px;
+    margin-left: 3em;
 
     ${p => p.theme.breakpoints.medium} {
       top: 0;
+      margin-top: 2em;
       width: 60%;
     }
   }
