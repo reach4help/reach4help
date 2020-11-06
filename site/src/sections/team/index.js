@@ -85,7 +85,7 @@ function Team() {
         </a>
       </div>
       <div className="imageWrapper">
-        <Img fluid={data.file.childImageSharp.fluid} alt="" />
+        <Img fluid={data.file.childImageSharp.fluid} alt="R4H Team" />
       </div>
     </Wrapper>
   )
