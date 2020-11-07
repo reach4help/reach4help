@@ -15,16 +15,17 @@ const Container = styled.div`
 // ----------------------------------------------- //
 
 export const TopSection = styled(Container)`
-  margin-top: 65px;
+  position: relative;
+  top: 65px;
   height: 320px;
   padding-bottom: 80px;
   background: linear-gradient(72.65deg, #f27979 6.01%, #7d00a3 72.34%);
 `;
 
 export const TopTextContainer = styled(Container)`
-  margin-top: 106px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+  position: relative;
+  top: 50px;
   text-align: center;
 `;
 
@@ -40,14 +41,16 @@ export const TopText = styled.div`
 // --------------------------------------- //
 
 export const MiddleSection = styled(Container)`
-  padding-top: 80px;
+  margin-top: 120px;
+  padding-top: 60px;
+  padding-left: auto;
+  padding-right: auto;
 `;
 
 export const MissionContainer = styled(Flex)`
-  padding-left: 74px;
-  padding-right: 132px;
   padding-top: 20px;
-  width: 50%;
+  padding-right: 132px;
+  width: 524px;
 `;
 
 export const MissionText = styled.div`
@@ -60,7 +63,4 @@ export const MissionText = styled.div`
   }
 `;
 
-export const SolvingImage = styled.img`
-  margin-left: auto;
-  margin-right: 71px;
-`;
+export const SolvingImage = styled.img``;
