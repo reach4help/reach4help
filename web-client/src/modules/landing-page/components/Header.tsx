@@ -22,7 +22,7 @@ const Header: React.FC = (): JSX.Element => (
     </LogoContainer>
 
     <LinkContainer>
-      <Link href="/about">About Us</Link>
+      <Link href="/home/about">About Us</Link>
       <Link href="/">Partners</Link>
       <Link href="/">FAQs</Link>
       <Link href="/">Mutual Aid Map</Link>
