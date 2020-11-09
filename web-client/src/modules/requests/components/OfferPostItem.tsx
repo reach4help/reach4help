@@ -7,7 +7,7 @@ import styled, { keyframes } from 'styled-components';
 import { COLORS } from '../../../theme/colors';
 import defaultUserPic from '../assets/role_pin.png';
 
-const RequestItem: React.FC<RequestItemProps> = ({
+const OfferPostItem: React.FC<RequestItemProps> = ({
   request,
   handleRequest,
   offers,
@@ -129,4 +129,4 @@ export interface RequestItemProps {
   offers: Record<string, Offer>;
 }
 
-export default RequestItem;
+export default OfferPostItem;
