@@ -8,20 +8,20 @@ import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getAcceptedRequests,
-  getArchivedRequests,
-  getFinishedRequests,
-  getOngoingRequests,
-  getOpenRequests,
+  getOfferPosts,
+  getRequestPosts,
   resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { PostState } from 'src/ducks/requests/types';
 import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
-import { ListMyPostsLocation } from 'src/modules/requests/constants';
+import {
+  MyOfferPostsLocationUrl,
+  MyRequestPostsLocationUrl,
+} from 'src/modules/requests/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
@@ -34,7 +34,7 @@ import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 import {
-  TimelineAcceptedViewLocation,
+  TimelineOfferPostViewLocation,
   TimelineViewLocation,
 } from '../../constants';
 
@@ -63,7 +63,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   );
 
   const requestsState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests,
+    ({ requests }: { requests: PostState }) => requests,
   );
 
   const offersState = useSelector(
@@ -87,33 +87,15 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
   useEffect(() => {
     let requestTemp: RequestWithOffersAndTimeline | undefined =
-      requestsState.syncOpenRequestsState.data &&
-      requestsState.syncOpenRequestsState.data[requestId]
-        ? requestsState.syncOpenRequestsState.data[requestId]
+      requestsState.syncRequestPostsState.data &&
+      requestsState.syncRequestPostsState.data[requestId]
+        ? requestsState.syncRequestPostsState.data[requestId]
         : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.syncAcceptedRequestsState.data &&
-      requestsState.syncAcceptedRequestsState.data[requestId]
-        ? requestsState.syncAcceptedRequestsState.data[requestId]
-        : undefined);
-    requestTemp =
-      requestTemp ||
-      (requestsState.syncOngoingRequestsState.data &&
-      requestsState.syncOngoingRequestsState.data[requestId]
-        ? requestsState.syncOngoingRequestsState.data[requestId]
-        : undefined);
-    requestTemp =
-      requestTemp ||
-      (requestsState.syncArchivedRequestsState.data &&
-      requestsState.syncArchivedRequestsState.data[requestId]
-        ? requestsState.syncArchivedRequestsState.data[requestId]
-        : undefined);
-    requestTemp =
-      requestTemp ||
-      (requestsState.syncFinishedRequestsState.data &&
-      requestsState.syncFinishedRequestsState.data[requestId]
-        ? requestsState.syncFinishedRequestsState.data[requestId]
+      (requestsState.syncOfferPostsState.data &&
+      requestsState.syncOfferPostsState.data[requestId]
+        ? requestsState.syncOfferPostsState.data[requestId]
         : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
@@ -124,11 +106,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
-      // ?? temporary until we refactor use of ApplicatonPreference
+      // TODO: change below when we replace use of ApplicatonPreference
       if (isCav) {
-        history.replace(ListMyPostsLocation.toUrl({ postType: 'offers' }));
+        history.replace(MyOfferPostsLocationUrl);
       } else {
-        history.replace(ListMyPostsLocation.toUrl({ postType: 'requests' }));
+        history.replace(MyRequestPostsLocationUrl);
       }
     }
   }, [
@@ -154,11 +136,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         history.replace(TimelineViewLocation.toUrl({ requestId }));
       } else {
         if (
-          !requestsState.syncOpenRequestsState.data &&
-          !requestsState.syncOpenRequestsState.loading
+          !requestsState.syncRequestPostsState.data &&
+          !requestsState.syncRequestPostsState.loading
         ) {
           dispatch(
-            getOpenRequests({
+            getRequestPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
               lat:
@@ -171,46 +153,13 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           );
         }
         if (
-          !requestsState.syncAcceptedRequestsState.data &&
-          !requestsState.syncAcceptedRequestsState.loading
+          !requestsState.syncOfferPostsState.data &&
+          !requestsState.syncOfferPostsState.loading
         ) {
           dispatch(
-            getAcceptedRequests({
+            getOfferPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
-            }),
-          );
-        }
-        if (
-          !requestsState.syncOngoingRequestsState.data &&
-          !requestsState.syncOngoingRequestsState.loading
-        ) {
-          dispatch(
-            getOngoingRequests({
-              userType: profileState.profile.applicationPreference,
-              userRef: profileState.userRef,
-            }),
-          );
-        }
-        if (
-          !requestsState.syncFinishedRequestsState.data &&
-          !requestsState.syncFinishedRequestsState.loading
-        ) {
-          dispatch(
-            getFinishedRequests({
-              userType: profileState.profile.applicationPreference,
-              userRef: profileState.userRef,
-            }),
-          );
-        }
-        if (
-          !requestsState.syncArchivedRequestsState.data &&
-          !requestsState.syncArchivedRequestsState.loading
-        ) {
-          dispatch(
-            getArchivedRequests({
-              userRef: profileState.userRef,
-              userType: profileState.profile.applicationPreference,
             }),
           );
         }
@@ -242,7 +191,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           profileState.profile.applicationPreference ===
             ApplicationPreference.pin
         ) {
-          history.replace(TimelineAcceptedViewLocation.toUrl({ requestId }));
+          history.replace(TimelineOfferPostViewLocation.toUrl({ requestId }));
         }
       }
     }

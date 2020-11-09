@@ -18,36 +18,69 @@ We keep an open mind! Improving documentation, bug triaging, or writing tutorial
 
 We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it. 🤝
 
-# Your First Contribution
+# Getting Set Up
 
-## First make a fork of the repo to your local github or clone directly. Separate instructions for both are below.
+## Make a fork of the repo to your local github or clone directly. Separate instructions for both are below.
 
-![Forking on Gitub](forkExample.png)
+### Method 1: Clone directly
 
-## Clone the fork to your local machine and set the remote upstream
+- ask for permission to the github repository from Joseph.
+- clone using https://github.com/reach4help/reach4help.git
+
+### Method 2: Clone the fork to your local machine and set the remote upstream
+
+If you don't yet have access to github,  you will have to use this method.
 
 - https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork
 - \$ git remote add upstream https://github.com/reach4help/reach4help.git
 - Do \$ git remote -v to make sure you are correctly pointing to your fork and to the upstream branch
 
-## Clone directly
+## Install `node` and `yarn` if not already done
 
-- ask for permission to the github repository from Joseph.
-- clone using https://github.com/reach4help/reach4help.git
+- [Download Node Here](https://nodejs.org/en/download/ 'Download Node Here')
+- [Download Yarn Here](https://yarnpkg.com/lang/en/docs/install/ 'Download Yarn Here')
+
+#### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
+
+## Setting up the environment variables
+
+Windows: `copy .env.example .env`
+
+Unix/Mac: `cp .env.example .env`
+
+## Run the project
+
+1 - Install dependencies automatically using yarn by typing:
+
+```
+yarn
+```
+
+2 - Run the `web-client` project in development mode.
+
+```
+cd ./web-client && yarn start
+```
+
+3 - The client is now available under [localhost:3000](http://localhost:3000)
+
+If you have problems because of API keys, see Troubleshooting at the end of this document.
+
+# Making your first contribution
 
 ## Creating a branch
 
 - All branches must be based off of upstream/development
 - Before you do any work you must:
-- - git fetch --all
-- - git checkout upstream/development
+- git fetch --all
+- git checkout upstream/development
 
 ## Naming a branch
 
 - The branch name must tell us
-- - The kind of issue it resolves
-- - The number of the issue on github
-- - A description of the issue.
+  - The kind of issue it resolves
+  - The number of the issue on github
+  - A description of the issue.
 
 ### Example
 
@@ -61,9 +94,9 @@ The branch for this is named
 ## Before you commit
 
 - Always fix your linting errors
-- - within the web-client directory (not the top directory!!!)
-- - Run yarn lint and fix the errors manually
-- - Ran yarn lint:fix and let the linter fix them for you
+  - within the web-client directory (not the top directory!!!)
+  - Run yarn lint and fix the errors manually
+  - Ran yarn lint:fix and let the linter fix them for you
 - Before you commit anything, always always always merge with upstream development
 - - git merge upstream/development
 
@@ -81,56 +114,6 @@ Here are a couple of friendly tutorials to help you get started: http://makeapul
 > Working on your first Pull Request? You can learn how from this _free_ series, [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
 
 At this point, you're ready to make your changes! Feel free to ask for help; everyone is a beginner at first :smile_cat:
-
-# Getting started
-
-## Prerequisites
-
-### You will need at least `node` and `yarn` installed.
-
-- [Download Node Here](https://nodejs.org/en/download/ 'Download Node Here')
-- [Download Yarn Here](https://yarnpkg.com/lang/en/docs/install/ 'Download Yarn Here')
-
-#### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
-
-### Setting up the environment variables
-
-This Project uses Services that require API keys and environment variables such as Firebase and Google Maps API.
-The environment variables should be set up in a file named `.env` outside the `src` directory.
-
-Unfortunately, we cannot provide the values for any of the keys that we use internally as it's linked to our billing account.
-We have however, included the keys for a starter project in [`.env.EXAMPLE`](https://github.com/reach4help/reach4help/blob/development/web-client/.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away.
-
-For development purposes, we have also stubbed the response from the Google Maps Geocoding API so you don't need to obtain a Google Maps API Key with a billing account associated with it. Note that this produces a fixed location response (which shouldn't hinder your development).
-
-We use the following data services in our stack and in the situation that we exceed the usage quotas of the starter project, please reach out to the core team or feel free to generate the credentials on your own:
-
-- [Firebase](https://firebase.google.com/)
-  - Enable sign-in through Facebook (with your own Facebook app that you can make [here](https://developers.facebook.com/))
-  - Enable sign-in through phone
-  - Enable Cloud Firestore
-  - Enable Cloud Messaging
-- [Google Maps API](https://developers.google.com/maps/documentation) (_optional: for dynamic geolocation_)
-  - [Get a Maps JavaScript API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
-  - [Get a Geocoding API Key](https://developers.google.com/maps/documentation/geocoding/get-api-key)
-
-**NOTE:** If you are using the test credentials we provided, we had to enable `https` on localhost development server to let the live Facebook app authenticate. You'll likely see a warning from your browser about the authenticity our self-signed SSL certificate but this shouldn't cause any problems until production. For now, you can bypass the warning and proceed to start development.
-
-## Run the project
-
-1 - Install dependencies
-
-```
-yarn
-```
-
-2 - Run the `web-client` project in development mode.
-
-```
-cd ./web-client && yarn start
-```
-
-3 - The client is now available under [localhost:3000](http://localhost:3000)
 
 # React version and Functional Components
 
@@ -192,3 +175,27 @@ In Addition to this, you must also refer to the guidelines on contributin
 # PULL Requests
 
 Opening pull requests should be done with enough information and screenshots for visual changes to facilitate the reviewers job. Its MANDATORY to add a link to the issue related
+
+# Troubleshooting
+## Troubleshooting if API keys not work
+
+This Project uses Services that require API keys and environment variables such as Firebase and Google Maps API.
+The environment variables should be set up in a file named `.env` outside the `src` directory.
+
+Unfortunately, we cannot provide the values for any of the keys that we use internally as it's linked to our billing account.
+We have however, included the keys for a starter project in [`.env.EXAMPLE`](https://github.com/reach4help/reach4help/blob/development/web-client/.env.EXAMPLE). For now, you can go ahead and rename this file to `.env` to get started on development right away.
+
+For development purposes, we have also stubbed the response from the Google Maps Geocoding API so you don't need to obtain a Google Maps API Key with a billing account associated with it. Note that this produces a fixed location response (which shouldn't hinder your development).
+
+We use the following data services in our stack.  The keys from .env.EXAMPLE should work, but if they don't, please reach out to the core team or feel free to generate the credentials on your own:
+
+- [Firebase](https://firebase.google.com/)
+  - Enable sign-in through Facebook (with your own Facebook app that you can make [here](https://developers.facebook.com/))
+  - Enable sign-in through phone
+  - Enable Cloud Firestore
+  - Enable Cloud Messaging
+- [Google Maps API](https://developers.google.com/maps/documentation) (_optional: for dynamic geolocation_)
+  - [Get a Maps JavaScript API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
+  - [Get a Geocoding API Key](https://developers.google.com/maps/documentation/geocoding/get-api-key)
+
+**NOTE:** If you are using the test credentials we provided, we had to enable `https` on localhost development server to let the live Facebook app authenticate. You'll likely see a warning from your browser about the authenticity our self-signed SSL certificate but this shouldn't cause any problems until production. For now, you can bypass the warning and proceed to start development.

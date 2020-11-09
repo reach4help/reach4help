@@ -28,6 +28,7 @@ const MasterPage = (): ReactElement => {
     const title = 'Reach4Help';
 
     switch (path) {
+      case '/about':
       case '/create':
       case '/login':
       case '/phone':
@@ -67,13 +68,6 @@ const MasterPage = (): ReactElement => {
             <title>{titleFromPath()}</title>
           </Helmet>
           <DashboardLayout
-            menuItems={
-              routeModule.dynamicMenuLinks
-                ? routeModule.dynamicMenuLinks
-                : routeModule.menuItems
-                ? routeModule.menuItems
-                : []
-            }
             logoutHandler={() => dispatch(signOutCurrentUserAction())}
           >
             <Route path={routeModule.path} component={routeModule.component} />

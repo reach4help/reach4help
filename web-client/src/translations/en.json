@@ -154,11 +154,13 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Contact us",
       "logout": "Sign out",
       "switchToCAV": "Switch to Offering Support",
       "switchToPIN": "Switch to Seeking Help",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",

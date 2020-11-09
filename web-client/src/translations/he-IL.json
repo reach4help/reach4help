@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "צרו קשר",
       "logout": "התנתקות",
       "switchToCAV": "החלף להצעת תמיכה",

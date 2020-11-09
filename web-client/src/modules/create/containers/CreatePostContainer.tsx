@@ -15,13 +15,10 @@ import {
 import Map from 'src/components/WebClientMap/WebClientMap';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { PostState } from 'src/ducks/requests/types';
 import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
-import {
-  ListMyPostsLocation,
-  PostTabsType,
-} from 'src/modules/requests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -105,11 +102,11 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
   );
 
   const newRequestState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.setAction,
+    ({ requests }: { requests: PostState }) => requests.setAction,
   );
 
   const newRequestTemp = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.newRequestTemp,
+    ({ requests }: { requests: PostState }) => requests.newRequestTemp,
   );
 
   const dispatch = useDispatch();
@@ -263,11 +260,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
             setShowConfirmationPage(false);
             // because I could observe race conditions in cloud function
             setTimeout(() => {
-              history.replace(
-                ListMyPostsLocation.toUrl({
-                  postType: PostTabsType.requests.valueOf(),
-                }),
-              );
+              history.replace(MyRequestPostsLocationUrl);
             }, 150);
             dispatch(resetSetRequestState());
           }}
@@ -337,7 +330,7 @@ const MapContainer = styled.div`
 `;
 
 interface ICreatePostContainer {
-  type: CreatePostTypes;
+  createPostType: CreatePostTypes;
 }
 
 export default CreatePostContainer;

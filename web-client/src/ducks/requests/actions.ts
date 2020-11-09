@@ -1,91 +1,41 @@
 import { IRequest, Request } from 'src/models/requests';
 
-/* why rename?? */
+/* TODO: why rename? */
 import {
   createUserRequest,
-  getAcceptedRequest as getAcceptedRequestFunc,
-  getArchivedRequest as getArchivedRequestFunc,
-  getFinishedRequest as getFinishedRequestFunc,
-  getOngoingRequest as getOngoingRequestFunc,
-  getOpenRequest as getOpenRequestFunc,
-  observeOpenRequests as observeOpenRequestsFunc,
+  getAcceptedPost as getAcceptedPostFunc,
+  getOpenPost as getOpenPostFunc,
   setUserRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
-  GET_ACCEPTED,
-  GET_ARCHIVED,
-  GET_FINISHED,
-  GET_ONGOING,
-  GET_OPEN,
-  IgetOpenRequests,
-  OBSERVE_OPEN_REQUESTS,
+  GET_OFFER_POST,
+  GET_REQUEST_POST,
+  IgetRequestPosts,
+  RESET_OFFER_POST,
+  RESET_REQUEST_POST,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
 } from './types';
 
-export const getOpenRequests = (payload: IgetOpenRequests) => (
+export const getRequestPosts = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
-    type: GET_OPEN,
-    firebase: getOpenRequestFunc,
+    type: GET_REQUEST_POST,
+    firebase: getOpenPostFunc,
     payload,
   });
 
-export const getAcceptedRequests = (payload: IgetOpenRequests) => (
+export const getOfferPosts = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
-    type: GET_ACCEPTED,
-    firebase: getAcceptedRequestFunc,
+    type: GET_OFFER_POST,
+    firebase: getAcceptedPostFunc,
     payload,
   });
-
-export const getOngoingRequests = (payload: IgetOpenRequests) => (
-  dispatch: Function,
-) =>
-  dispatch({
-    type: GET_ONGOING,
-    firebase: getOngoingRequestFunc,
-    payload,
-  });
-
-export const getFinishedRequests = (payload: IgetOpenRequests) => (
-  dispatch: Function,
-) =>
-  dispatch({
-    type: GET_FINISHED,
-    firebase: getFinishedRequestFunc,
-    payload,
-  });
-
-export const getArchivedRequests = (payload: IgetOpenRequests) => (
-  dispatch: Function,
-) =>
-  dispatch({
-    type: GET_ARCHIVED,
-    firebase: getArchivedRequestFunc,
-    payload,
-  });
-
-export const observeOpenRequests = (
-  dispatch: Function,
-  payload: IgetOpenRequests,
-): (() => void) => {
-  dispatch({
-    type: OBSERVE_OPEN_REQUESTS,
-    observer: observeOpenRequestsFunc,
-    payload,
-  });
-
-  return () =>
-    dispatch({
-      type: OBSERVE_OPEN_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_OPEN_REQUESTS,
-    });
-};
 
 export const setRequest = (
   payload: IRequest,
@@ -113,6 +63,18 @@ export const setRequest = (
 export const resetSetRequestState = () => (dispatch: Function) =>
   dispatch({
     type: RESET_SET,
+    payload: true,
+  });
+
+export const resetRequestPostState = () => (dispatch: Function) =>
+  dispatch({
+    type: RESET_REQUEST_POST,
+    payload: true,
+  });
+
+export const resetOfferPostState = () => (dispatch: Function) =>
+  dispatch({
+    type: RESET_OFFER_POST,
     payload: true,
   });
 

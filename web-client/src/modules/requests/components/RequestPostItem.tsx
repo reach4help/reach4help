@@ -11,7 +11,7 @@ import avgRating from '../assets/pinAverageRating.svg';
 import defaultUserPic from '../assets/role_pin.png';
 import warningSign from '../assets/warningExclamation.svg';
 
-const RequestItem: React.FC<RequestItemProps> = ({
+const RequestPostItem: React.FC<RequestItemProps> = ({
   request,
   handleRequest,
   isCavAndOpenRequest,
@@ -296,4 +296,4 @@ export interface RequestItemProps {
   isPinAndOpenRequest?: boolean;
 }
 
-export default RequestItem;
+export default RequestPostItem;

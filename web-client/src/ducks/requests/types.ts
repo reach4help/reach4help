@@ -1,4 +1,4 @@
-import { Request, RequestStatus } from 'src/models/requests';
+import { Request } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference, User } from 'src/models/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
@@ -9,44 +9,25 @@ export const { asyncType, observerType, syncType } = createActionTypeFactory(
 
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
-export const OBSERVE_OPEN_REQUESTS = observerType('OBSERVE_OPEN_REQUESTS');
-
-export const OBSERVE_ONGOING_REQUESTS = observerType(
-  'OBSERVE_ONGOING_REQUESTS',
-);
-
-export const OBSERVE_COMPLETED_REQUESTS = observerType(
-  'OBSERVE_COMPLETED_REQUESTS',
-);
-
-export const OBSERVE_CANCELLED_REQUESTS = observerType(
-  'OBSERVE_CANCELLED_REQUESTS',
-);
-
-export const OBSERVE_REMOVED_REQUESTS = observerType(
-  'OBSERVE_REMOVED_REQUESTS',
-);
-
 export const SET = asyncType('SET');
 export const RESET_SET = syncType('RESET_SET');
+export const RESET_REQUEST_POST = syncType('RESET_REQUEST_POST');
+export const RESET_OFFER_POST = syncType('RESET_OFFER_POST');
 
-export const GET_OPEN = asyncType('GET_OPEN');
-export const GET_ACCEPTED = asyncType('GET_ACCEPTED');
-export const GET_ONGOING = asyncType('GET_ONGOING');
-export const GET_FINISHED = asyncType('GET_FINISHED');
-export const GET_ARCHIVED = asyncType('GET_ARCHIVED');
+export const GET_REQUEST_POST = asyncType('GET_REQUEST_POST');
+export const GET_OFFER_POST = asyncType('GET_OFFER_POST');
 
 export const UPDATE = asyncType('UPDATE');
 
 export const SET_TEMP_REQUEST = syncType('SET_TEMP_REQUEST');
 
-export interface RequestState {
-  syncOpenRequestsState: {
+export interface PostState {
+  syncRequestPostsState: {
     loading: boolean;
     data?: Record<string, RequestWithOffersAndTimeline>;
     error?: Error;
   };
-  syncAcceptedRequestsState: {
+  syncOfferPostsState: {
     loading: boolean;
     data?: Record<string, RequestWithOffersAndTimeline>;
     error?: Error;
@@ -108,15 +89,9 @@ export interface RequestState {
   };
 }
 
-export interface IgetOpenRequests {
+export interface IgetRequestPosts {
   userRef?: firebase.firestore.DocumentReference<User>;
   lat?: number;
   lng?: number;
   userType: ApplicationPreference;
-}
-
-export interface IgetNonOpenRequests {
-  userRef: firebase.firestore.DocumentReference<User>;
-  userType: ApplicationPreference;
-  requestStatus: RequestStatus;
 }
