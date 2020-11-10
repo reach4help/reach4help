@@ -5,6 +5,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+.vscode
 
 # dependencies
 /node_modules
