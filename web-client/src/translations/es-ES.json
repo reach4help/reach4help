@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Póngase en contacto con nosotros",
       "logout": "Cerrar sesión",
       "switchToCAV": "Cambiar a Apoyar los Solcitudes",

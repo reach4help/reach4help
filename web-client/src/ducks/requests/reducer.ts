@@ -1,4 +1,4 @@
-import { Request, RequestStatus } from 'src/models/requests';
+import { Request } from 'src/models/requests';
 import {
   IRequestWithOffersAndTimeline,
   RequestWithOffersAndTimeline,
@@ -7,17 +7,11 @@ import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  GET_ACCEPTED,
-  GET_ARCHIVED,
-  GET_FINISHED,
-  GET_ONGOING,
-  GET_OPEN,
-  OBSERVE_CANCELLED_REQUESTS,
-  OBSERVE_COMPLETED_REQUESTS,
-  OBSERVE_ONGOING_REQUESTS,
-  OBSERVE_OPEN_REQUESTS,
-  OBSERVE_REMOVED_REQUESTS,
-  RequestState,
+  GET_OFFER_POST,
+  GET_REQUEST_POST,
+  PostState,
+  RESET_OFFER_POST,
+  RESET_REQUEST_POST,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
@@ -30,65 +24,42 @@ const initialSetActionState = {
   modalState: false,
 };
 
-const initialRequestsState = {
+const initialPostsState = {
   loading: false,
   observerReceivedFirstUpdate: false,
   data: undefined,
   error: undefined,
 };
 
-const initialSyncRequestsState = {
+const initialSyncPostsState = {
   loading: false,
   data: undefined,
   error: undefined,
 };
 
-const initialState: RequestState = {
-  syncOpenRequestsState: initialSyncRequestsState,
-  syncAcceptedRequestsState: initialSyncRequestsState,
-  syncOngoingRequestsState: initialSyncRequestsState,
-  syncArchivedRequestsState: initialSyncRequestsState,
-  syncFinishedRequestsState: initialSyncRequestsState,
-  openRequests: initialRequestsState,
-  ongoingRequests: initialRequestsState,
-  completedRequests: initialRequestsState,
-  cancelledRequests: initialRequestsState,
-  removedRequests: initialRequestsState,
+const initialState: PostState = {
+  syncRequestPostsState: initialSyncPostsState,
+  syncOfferPostsState: initialSyncPostsState,
+  syncOngoingRequestsState: initialSyncPostsState,
+  syncArchivedRequestsState: initialSyncPostsState,
+  syncFinishedRequestsState: initialSyncPostsState,
+  openRequests: initialPostsState,
+  ongoingRequests: initialPostsState,
+  completedRequests: initialPostsState,
+  cancelledRequests: initialPostsState,
+  removedRequests: initialPostsState,
   setAction: initialSetActionState,
   newRequestTemp: undefined,
 };
 
-const requestStatusMapper = {
-  [RequestStatus.pending]: 'openRequests',
-  [RequestStatus.ongoing]: 'ongoingRequests',
-  [RequestStatus.completed]: 'completedRequests',
-  [RequestStatus.cancelled]: 'cancelledRequests',
-  [RequestStatus.removed]: 'removedRequests',
-};
-const updateRequestState = (state: RequestState, payload) => {
-  state[
-    requestStatusMapper[payload.requestStatus]
-  ].data = payload.snap.docs.reduce(
-    (acc, doc) => ({
-      ...acc,
-      [doc.id]: doc.data(),
-    }),
-    {},
-  );
-  state[requestStatusMapper[payload.requestStatus]].loading = false;
-  state[
-    requestStatusMapper[payload.requestStatus]
-  ].observerReceivedFirstUpdate = true;
-};
-
-export default createReducer<RequestState>(
+export default createReducer<PostState>(
   {
-    [GET_OPEN.PENDING]: (state: RequestState) => {
-      state.syncOpenRequestsState.loading = true;
-      state.syncOpenRequestsState.data = undefined;
+    [GET_REQUEST_POST.PENDING]: (state: PostState) => {
+      state.syncRequestPostsState.loading = true;
+      state.syncRequestPostsState.data = undefined;
     },
-    [GET_OPEN.COMPLETED]: (
-      state: RequestState,
+    [GET_REQUEST_POST.COMPLETED]: (
+      state: PostState,
       {
         payload,
       }: {
@@ -100,8 +71,8 @@ export default createReducer<RequestState>(
         };
       },
     ) => {
-      state.syncOpenRequestsState.loading = false;
-      state.syncOpenRequestsState.error = undefined;
+      state.syncRequestPostsState.loading = false;
+      state.syncRequestPostsState.error = undefined;
       const mappedData = Object.keys(payload.data.data).reduce(
         (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
           ...acc,
@@ -109,22 +80,22 @@ export default createReducer<RequestState>(
         }),
         {},
       );
-      state.syncOpenRequestsState.data = mappedData;
+      state.syncRequestPostsState.data = mappedData;
     },
-    [GET_OPEN.REJECTED]: (
-      state: RequestState,
+    [GET_REQUEST_POST.REJECTED]: (
+      state: PostState,
       { payload }: { payload: Error },
     ) => {
-      state.syncOpenRequestsState.data = undefined;
-      state.syncOpenRequestsState.loading = false;
-      state.syncOpenRequestsState.error = payload;
+      state.syncRequestPostsState.data = undefined;
+      state.syncRequestPostsState.loading = false;
+      state.syncRequestPostsState.error = payload;
     },
-    [GET_ACCEPTED.PENDING]: (state: RequestState) => {
-      state.syncAcceptedRequestsState.loading = true;
-      state.syncAcceptedRequestsState.data = undefined;
+    [GET_OFFER_POST.PENDING]: (state: PostState) => {
+      state.syncOfferPostsState.loading = true;
+      state.syncOfferPostsState.data = undefined;
     },
-    [GET_ACCEPTED.COMPLETED]: (
-      state: RequestState,
+    [GET_OFFER_POST.COMPLETED]: (
+      state: PostState,
       {
         payload,
       }: {
@@ -136,11 +107,9 @@ export default createReducer<RequestState>(
         };
       },
     ) => {
-      state.syncAcceptedRequestsState.loading = false;
-      state.syncAcceptedRequestsState.error = undefined;
-      state.syncAcceptedRequestsState.data = Object.keys(
-        payload.data.data,
-      ).reduce(
+      state.syncOfferPostsState.loading = false;
+      state.syncOfferPostsState.error = undefined;
+      state.syncOfferPostsState.data = Object.keys(payload.data.data).reduce(
         (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
           ...acc,
           [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
@@ -148,143 +117,32 @@ export default createReducer<RequestState>(
         {},
       );
     },
-    [GET_ACCEPTED.REJECTED]: (
-      state: RequestState,
+    [GET_OFFER_POST.REJECTED]: (
+      state: PostState,
       { payload }: { payload: Error },
     ) => {
-      state.syncAcceptedRequestsState.data = undefined;
-      state.syncAcceptedRequestsState.loading = false;
-      state.syncAcceptedRequestsState.error = payload;
+      state.syncOfferPostsState.data = undefined;
+      state.syncOfferPostsState.loading = false;
+      state.syncOfferPostsState.error = payload;
     },
-    [GET_ARCHIVED.PENDING]: (state: RequestState) => {
-      state.syncArchivedRequestsState.loading = true;
-      state.syncArchivedRequestsState.data = undefined;
-    },
-    [GET_ARCHIVED.COMPLETED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          data: {
-            status: boolean;
-            data: Record<string, IRequestWithOffersAndTimeline>;
-          };
-        };
-      },
-    ) => {
-      state.syncArchivedRequestsState.loading = false;
-      state.syncArchivedRequestsState.error = undefined;
-      state.syncArchivedRequestsState.data = Object.keys(
-        payload.data.data,
-      ).reduce(
-        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
-          ...acc,
-          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
-        }),
-        {},
-      );
-    },
-    [GET_ARCHIVED.REJECTED]: (
-      state: RequestState,
-      { payload }: { payload: Error },
-    ) => {
-      state.syncArchivedRequestsState.data = undefined;
-      state.syncArchivedRequestsState.loading = false;
-      state.syncArchivedRequestsState.error = payload;
-    },
-    [GET_FINISHED.PENDING]: (state: RequestState) => {
-      state.syncFinishedRequestsState.loading = true;
-      state.syncFinishedRequestsState.data = undefined;
-    },
-    [GET_FINISHED.COMPLETED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          data: {
-            status: boolean;
-            data: Record<string, IRequestWithOffersAndTimeline>;
-          };
-        };
-      },
-    ) => {
-      state.syncFinishedRequestsState.loading = false;
-      state.syncFinishedRequestsState.error = undefined;
-      state.syncFinishedRequestsState.data = Object.keys(
-        payload.data.data,
-      ).reduce(
-        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
-          ...acc,
-          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
-        }),
-        {},
-      );
-    },
-    [GET_FINISHED.REJECTED]: (
-      state: RequestState,
-      { payload }: { payload: Error },
-    ) => {
-      state.syncFinishedRequestsState.data = undefined;
-      state.syncFinishedRequestsState.loading = false;
-      state.syncFinishedRequestsState.error = payload;
-    },
-    [GET_ONGOING.PENDING]: (state: RequestState) => {
-      state.syncOngoingRequestsState.loading = true;
-      state.syncOngoingRequestsState.data = undefined;
-    },
-    [GET_ONGOING.COMPLETED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          data: {
-            status: boolean;
-            data: Record<string, IRequestWithOffersAndTimeline>;
-          };
-        };
-      },
-    ) => {
-      state.syncOngoingRequestsState.loading = false;
-      state.syncOngoingRequestsState.error = undefined;
-      state.syncOngoingRequestsState.data = Object.keys(
-        payload.data.data,
-      ).reduce(
-        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
-          ...acc,
-          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
-        }),
-        {},
-      );
-    },
-    [GET_ONGOING.REJECTED]: (
-      state: RequestState,
-      { payload }: { payload: Error },
-    ) => {
-      state.syncOngoingRequestsState.data = undefined;
-      state.syncOngoingRequestsState.loading = false;
-      state.syncOngoingRequestsState.error = payload;
-    },
-    [SET.PENDING]: (state: RequestState) => {
+    [SET.PENDING]: (state: PostState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [SET.COMPLETED]: (state: RequestState) => {
+    [SET.COMPLETED]: (state: PostState) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
       state.newRequestTemp = undefined;
     },
-    [SET.REJECTED]: (state: RequestState, { payload }: { payload: Error }) => {
+    [SET.REJECTED]: (state: PostState, { payload }: { payload: Error }) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
       state.newRequestTemp = undefined;
     },
     [SET_TEMP_REQUEST]: (
-      state: RequestState,
+      state: PostState,
       {
         payload,
       }: {
@@ -296,113 +154,32 @@ export default createReducer<RequestState>(
     ) => {
       state.newRequestTemp = payload;
     },
-    [RESET_SET]: (state: RequestState) => {
+    [RESET_OFFER_POST]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncOpenRequestsState.data = undefined;
-      state.syncOpenRequestsState.loading = false;
-      state.syncOngoingRequestsState.data = undefined;
-      state.syncOngoingRequestsState.loading = false;
-      state.syncAcceptedRequestsState.data = undefined;
-      state.syncAcceptedRequestsState.loading = false;
-      state.syncFinishedRequestsState.data = undefined;
-      state.syncFinishedRequestsState.loading = false;
-      state.syncArchivedRequestsState.data = undefined;
-      state.syncArchivedRequestsState.loading = false;
+      state.syncOfferPostsState.data = undefined;
+      state.syncOfferPostsState.loading = false;
     },
-    [CHANGE_MODAL]: (
-      state: RequestState,
-      { payload }: { payload: boolean },
-    ) => {
+    [RESET_REQUEST_POST]: (state: PostState) => {
+      state.setAction.loading = false;
+      state.setAction.success = false;
+      state.syncRequestPostsState.data = undefined;
+      state.syncRequestPostsState.loading = false;
+    },
+    [RESET_SET]: (state: PostState) => {
+      state.setAction.loading = false;
+      state.setAction.success = false;
+      state.syncRequestPostsState.data = undefined;
+      state.syncRequestPostsState.loading = false;
+      state.syncOfferPostsState.data = undefined;
+      state.syncOfferPostsState.loading = false;
+    },
+    [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
       state.setAction.modalState = payload;
       if (!payload) {
         state.setAction.success = false;
       }
     },
-    [OBSERVE_OPEN_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.openRequests.loading = true;
-    },
-    [OBSERVE_OPEN_REQUESTS.UPDATED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: firebase.firestore.QuerySnapshot<Request>;
-      },
-    ) => {
-      state.openRequests.data = payload.docs.reduce(
-        (acc, doc) => ({
-          ...acc,
-          [doc.id]: doc.data(),
-        }),
-        {},
-      );
-      state.openRequests.loading = false;
-      state.openRequests.observerReceivedFirstUpdate = true;
-    },
-    [OBSERVE_OPEN_REQUESTS.ERROR]: (
-      state: RequestState,
-      { payload }: { payload: Error },
-    ) => {
-      state.openRequests.error = payload;
-      state.openRequests.loading = false;
-    },
-    [OBSERVE_ONGOING_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.openRequests.loading = true;
-    },
-    [OBSERVE_ONGOING_REQUESTS.UPDATED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
-    [OBSERVE_COMPLETED_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.completedRequests.loading = true;
-    },
-    [OBSERVE_COMPLETED_REQUESTS.UPDATED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
-    [OBSERVE_CANCELLED_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.cancelledRequests.loading = true;
-    },
-    [OBSERVE_CANCELLED_REQUESTS.UPDATED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
-    [OBSERVE_REMOVED_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.cancelledRequests.loading = true;
-    },
-    [OBSERVE_REMOVED_REQUESTS.UPDATED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestStatus: RequestStatus;
-          snap: firebase.firestore.QuerySnapshot<Request>;
-        };
-      },
-    ) => updateRequestState(state, payload),
   },
   initialState,
 );

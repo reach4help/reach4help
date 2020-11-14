@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Contacte-nos",
       "logout": "Sair",
       "switchToCAV": "Alternar para Suporte de Ofertas",

@@ -154,6 +154,7 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "お問い合わせ",
       "logout": "サインアウト",
       "switchToCAV": "提供サポートに切り替える",
