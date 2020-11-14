@@ -5,7 +5,7 @@ import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import { FindRequestsLocation, MyPostsLocation } from './constants';
 
 const FindRequestsContainer = lazy(() =>
-  import('./containers/FindRequestsContainer'),
+  import('./containers/FindRequestsAlgoliaContainer'),
 );
 
 const TabbedPostsPage = lazy(() => import('./pages/TabbedPostsPage'));
