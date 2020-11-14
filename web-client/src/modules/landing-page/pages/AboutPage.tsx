@@ -20,6 +20,7 @@ import {
   TeamTitle,
   TopSection,
 } from '../components/about';
+import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
 
 const dynamicColor = (teamName: string) => {

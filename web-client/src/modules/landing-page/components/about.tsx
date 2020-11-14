@@ -22,6 +22,14 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const Button = styled.button`
+  height: 35px;
+  width: 105px;
+  border-radius: 4px;
+  margin: 10px;
+  cursor: pointer;
+`;
+
 // ----------------------------------------------- //
 
 export const TopSection = styled(Container)`
