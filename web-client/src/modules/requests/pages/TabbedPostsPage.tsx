@@ -28,13 +28,16 @@ const StyledTabPane = styled(TabPane)`
 const TabbedPosts: React.FC = (): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const history = useHistory();
+
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const { postType } = useParams() as Record<string, string>;
   const { t } = useTranslation();
 
-  function onChange(activeKey: string) {
-    history.replace(MyPostsLocation.toUrl({ postType: activeKey }));
-  }
+  // TODO: how to disable this warning? get error when I try
+  const onChange = (activeKey: string) => {
+    const url = MyPostsLocation.toUrl({ postType: activeKey });
+    history.replace(url);
+  };
 
   return (
     <StyledTabs activeKey={postType} onChange={onChange}>

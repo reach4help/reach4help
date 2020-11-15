@@ -6,10 +6,8 @@ import {
   CreateRequestLocationUrl,
 } from 'src/modules/create/constants';
 import {
-  AcceptedRequestsLocation,
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
-  OpenRequestsLocation,
 } from 'src/modules/requests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
@@ -40,22 +38,6 @@ const SideTopMenu: React.FC<{
         onClick={closeDrawer}
       />
 
-      {isLoggedIn && (
-        <SideMenuLink
-          key="OpenRequests"
-          title="Open Requests"
-          path={OpenRequestsLocation.path}
-          onClick={closeDrawer}
-        />
-      )}
-      {isLoggedIn && (
-        <SideMenuLink
-          key="AcceptedRequests"
-          title="Accepted Requests"
-          path={AcceptedRequestsLocation.path}
-          onClick={closeDrawer}
-        />
-      )}
       {isLoggedIn && (
         <SideMenuLink
           key="MyRequests"
