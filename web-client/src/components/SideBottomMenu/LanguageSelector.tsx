@@ -103,6 +103,7 @@ const SelectLanguage = styled(Select)`
     align-items: center;
     font-size: 24px;
     font-weight: 700;
+<<<<<<< HEAD
 
     @media (min-width: 918px) {
       font-size: 16px;
@@ -110,6 +111,8 @@ const SelectLanguage = styled(Select)`
       top: 3px;
       right: 0.6px;
     }
+=======
+>>>>>>> e0eeaf94... improvement: progress on header redesign
   }
 
   .ant-select-arrow {
@@ -130,11 +133,15 @@ const SelectorContainer = styled.div`
   width: 115px;
   position: relative;
   left: 14%;
+<<<<<<< HEAD
   bottom: 20%;
 
   @media (min-width: 918px) {
     left: 7.5%;
   }
+=======
+  bottom: 9%;
+>>>>>>> e0eeaf94... improvement: progress on header redesign
 `;
 
 const GlobalOutlinedIcon = styled(GlobalOutlined)`
