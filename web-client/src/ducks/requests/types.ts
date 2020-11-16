@@ -11,42 +11,35 @@ export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
 export const SET = asyncType('SET');
 export const RESET_SET = syncType('RESET_SET');
-export const RESET_REQUEST_POST = syncType('RESET_REQUEST_POST');
-export const RESET_OFFER_POST = syncType('RESET_OFFER_POST');
+export const RESET_FIND_REQUEST_POSTS = syncType('RESET_FIND_REQUEST_POSTS');
+export const RESET_PIN_REQUEST_POSTS = syncType('RESET_PIN_REQUEST_POSTS');
+export const RESET_CAV_REQUEST_POSTS = syncType('RESET_CAV_REQUEST_POSTS');
 
-export const GET_REQUEST_POST = asyncType('GET_REQUEST_POST');
-export const GET_OFFER_POST = asyncType('GET_OFFER_POST');
+export const GET_FIND_REQUEST_POSTS = asyncType('GET_FIND_REQUEST_POSTS');
+export const GET_PIN_REQUEST_POSTS = asyncType('GET_PIN_REQUEST_POSTS');
+export const GET_CAV_REQUEST_POSTS = asyncType('GET_CAV_REQUEST_POSTS');
 
 export const UPDATE = asyncType('UPDATE');
 
 export const SET_TEMP_REQUEST = syncType('SET_TEMP_REQUEST');
 
 export interface PostState {
-  syncRequestPostsState: {
+  syncFindPostsState: {
     loading: boolean;
     data?: Record<string, RequestWithOffersAndTimeline>;
     error?: Error;
   };
-  syncOfferPostsState: {
+  syncPinRequestPostsState: {
     loading: boolean;
     data?: Record<string, RequestWithOffersAndTimeline>;
     error?: Error;
   };
-  syncOngoingRequestsState: {
+  syncCavRequestPostsState: {
     loading: boolean;
     data?: Record<string, RequestWithOffersAndTimeline>;
     error?: Error;
   };
-  syncFinishedRequestsState: {
-    loading: boolean;
-    data?: Record<string, RequestWithOffersAndTimeline>;
-    error?: Error;
-  };
-  syncArchivedRequestsState: {
-    loading: boolean;
-    data?: Record<string, RequestWithOffersAndTimeline>;
-    error?: Error;
-  };
+  // TODO: Do we need these?
   openRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;

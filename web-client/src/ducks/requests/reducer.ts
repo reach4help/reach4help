@@ -7,11 +7,13 @@ import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  GET_OFFER_POST,
-  GET_REQUEST_POST,
+  GET_CAV_REQUEST_POSTS,
+  GET_FIND_REQUEST_POSTS,
+  GET_PIN_REQUEST_POSTS,
   PostState,
-  RESET_OFFER_POST,
-  RESET_REQUEST_POST,
+  RESET_CAV_REQUEST_POSTS,
+  RESET_FIND_REQUEST_POSTS,
+  RESET_PIN_REQUEST_POSTS,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
@@ -38,11 +40,9 @@ const initialSyncPostsState = {
 };
 
 const initialState: PostState = {
-  syncRequestPostsState: initialSyncPostsState,
-  syncOfferPostsState: initialSyncPostsState,
-  syncOngoingRequestsState: initialSyncPostsState,
-  syncArchivedRequestsState: initialSyncPostsState,
-  syncFinishedRequestsState: initialSyncPostsState,
+  syncPinRequestPostsState: initialSyncPostsState,
+  syncCavRequestPostsState: initialSyncPostsState,
+  syncFindPostsState: initialSyncPostsState,
   openRequests: initialPostsState,
   ongoingRequests: initialPostsState,
   completedRequests: initialPostsState,
@@ -54,11 +54,11 @@ const initialState: PostState = {
 
 export default createReducer<PostState>(
   {
-    [GET_REQUEST_POST.PENDING]: (state: PostState) => {
-      state.syncRequestPostsState.loading = true;
-      state.syncRequestPostsState.data = undefined;
+    [GET_FIND_REQUEST_POSTS.PENDING]: (state: PostState) => {
+      state.syncFindPostsState.loading = true;
+      state.syncFindPostsState.data = undefined;
     },
-    [GET_REQUEST_POST.COMPLETED]: (
+    [GET_FIND_REQUEST_POSTS.COMPLETED]: (
       state: PostState,
       {
         payload,
@@ -71,8 +71,8 @@ export default createReducer<PostState>(
         };
       },
     ) => {
-      state.syncRequestPostsState.loading = false;
-      state.syncRequestPostsState.error = undefined;
+      state.syncPinRequestPostsState.loading = false;
+      state.syncPinRequestPostsState.error = undefined;
       const mappedData = Object.keys(payload.data.data).reduce(
         (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
           ...acc,
@@ -80,21 +80,21 @@ export default createReducer<PostState>(
         }),
         {},
       );
-      state.syncRequestPostsState.data = mappedData;
+      state.syncPinRequestPostsState.data = mappedData;
     },
-    [GET_REQUEST_POST.REJECTED]: (
+    [GET_FIND_REQUEST_POSTS.REJECTED]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {
-      state.syncRequestPostsState.data = undefined;
-      state.syncRequestPostsState.loading = false;
-      state.syncRequestPostsState.error = payload;
+      state.syncPinRequestPostsState.data = undefined;
+      state.syncPinRequestPostsState.loading = false;
+      state.syncPinRequestPostsState.error = payload;
     },
-    [GET_OFFER_POST.PENDING]: (state: PostState) => {
-      state.syncOfferPostsState.loading = true;
-      state.syncOfferPostsState.data = undefined;
+    [GET_PIN_REQUEST_POSTS.PENDING]: (state: PostState) => {
+      state.syncPinRequestPostsState.loading = true;
+      state.syncPinRequestPostsState.data = undefined;
     },
-    [GET_OFFER_POST.COMPLETED]: (
+    [GET_PIN_REQUEST_POSTS.COMPLETED]: (
       state: PostState,
       {
         payload,
@@ -107,9 +107,47 @@ export default createReducer<PostState>(
         };
       },
     ) => {
-      state.syncOfferPostsState.loading = false;
-      state.syncOfferPostsState.error = undefined;
-      state.syncOfferPostsState.data = Object.keys(payload.data.data).reduce(
+      state.syncPinRequestPostsState.loading = false;
+      state.syncPinRequestPostsState.error = undefined;
+      const mappedData = Object.keys(payload.data.data).reduce(
+        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+          ...acc,
+          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
+        }),
+        {},
+      );
+      state.syncPinRequestPostsState.data = mappedData;
+    },
+    [GET_PIN_REQUEST_POSTS.REJECTED]: (
+      state: PostState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncPinRequestPostsState.data = undefined;
+      state.syncPinRequestPostsState.loading = false;
+      state.syncPinRequestPostsState.error = payload;
+    },
+    [GET_CAV_REQUEST_POSTS.PENDING]: (state: PostState) => {
+      state.syncCavRequestPostsState.loading = true;
+      state.syncCavRequestPostsState.data = undefined;
+    },
+    [GET_CAV_REQUEST_POSTS.COMPLETED]: (
+      state: PostState,
+      {
+        payload,
+      }: {
+        payload: {
+          data: {
+            status: boolean;
+            data: Record<string, IRequestWithOffersAndTimeline>;
+          };
+        };
+      },
+    ) => {
+      state.syncCavRequestPostsState.loading = false;
+      state.syncCavRequestPostsState.error = undefined;
+      state.syncCavRequestPostsState.data = Object.keys(
+        payload.data.data,
+      ).reduce(
         (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
           ...acc,
           [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
@@ -117,13 +155,13 @@ export default createReducer<PostState>(
         {},
       );
     },
-    [GET_OFFER_POST.REJECTED]: (
+    [GET_CAV_REQUEST_POSTS.REJECTED]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {
-      state.syncOfferPostsState.data = undefined;
-      state.syncOfferPostsState.loading = false;
-      state.syncOfferPostsState.error = payload;
+      state.syncCavRequestPostsState.data = undefined;
+      state.syncCavRequestPostsState.loading = false;
+      state.syncCavRequestPostsState.error = payload;
     },
     [SET.PENDING]: (state: PostState) => {
       state.setAction.loading = true;
@@ -154,25 +192,31 @@ export default createReducer<PostState>(
     ) => {
       state.newRequestTemp = payload;
     },
-    [RESET_OFFER_POST]: (state: PostState) => {
+    [RESET_CAV_REQUEST_POSTS]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncOfferPostsState.data = undefined;
-      state.syncOfferPostsState.loading = false;
+      state.syncCavRequestPostsState.data = undefined;
+      state.syncCavRequestPostsState.loading = false;
     },
-    [RESET_REQUEST_POST]: (state: PostState) => {
+    [RESET_FIND_REQUEST_POSTS]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncRequestPostsState.data = undefined;
-      state.syncRequestPostsState.loading = false;
+      state.syncFindPostsState.data = undefined;
+      state.syncFindPostsState.loading = false;
+    },
+    [RESET_PIN_REQUEST_POSTS]: (state: PostState) => {
+      state.setAction.loading = false;
+      state.setAction.success = false;
+      state.syncPinRequestPostsState.data = undefined;
+      state.syncPinRequestPostsState.loading = false;
     },
     [RESET_SET]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncRequestPostsState.data = undefined;
-      state.syncRequestPostsState.loading = false;
-      state.syncOfferPostsState.data = undefined;
-      state.syncOfferPostsState.loading = false;
+      state.syncPinRequestPostsState.data = undefined;
+      state.syncPinRequestPostsState.loading = false;
+      state.syncCavRequestPostsState.data = undefined;
+      state.syncCavRequestPostsState.loading = false;
     },
     [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
       state.setAction.modalState = payload;

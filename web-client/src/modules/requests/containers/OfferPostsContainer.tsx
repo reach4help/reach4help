@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 // TODO: reset - what is it used for
-import { getOfferPosts, resetOfferPostState } from 'src/ducks/requests/actions';
+import {
+  getCavRequestPosts,
+  resetCavRequestPostsState,
+} from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
 import { TimelineOfferPostViewLocation } from 'src/modules/timeline/constants';
@@ -28,7 +31,8 @@ const OfferPostsContainer: React.FC = () => {
   );
 
   const offerPostsWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: PostState }) => requests.syncOfferPostsState,
+    ({ requests }: { requests: PostState }) =>
+      requests.syncCavRequestPostsState,
   );
 
   const path = history.location.pathname;
@@ -36,14 +40,14 @@ const OfferPostsContainer: React.FC = () => {
 
   useEffect(() => {
     if (isOfferTab) {
-      dispatch(resetOfferPostState());
+      dispatch(resetCavRequestPostsState());
     }
   }, [isOfferTab, dispatch]);
 
   useEffect(() => {
     if (isOfferTab && profileState.profile?.applicationPreference) {
       dispatch(
-        getOfferPosts({
+        getCavRequestPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
         }),

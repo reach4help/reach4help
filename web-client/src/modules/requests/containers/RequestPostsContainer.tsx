@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getRequestPosts,
-  resetRequestPostState,
+  getPinRequestPosts,
+  resetPinRequestPostsState,
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
@@ -34,7 +34,8 @@ const RequestPostsContainer: React.FC = () => {
   // console.log('after', profileState.url);
 
   const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: PostState }) => requests.syncRequestPostsState,
+    ({ requests }: { requests: PostState }) =>
+      requests.syncPinRequestPostsState,
   );
 
   const path = history.location.pathname;
@@ -42,14 +43,14 @@ const RequestPostsContainer: React.FC = () => {
 
   useEffect(() => {
     if (isRequestTab) {
-      dispatch(resetRequestPostState());
+      dispatch(resetPinRequestPostsState());
     }
   }, [isRequestTab, dispatch]);
 
   useEffect(() => {
     if (isRequestTab && profileState.profile?.applicationPreference) {
       dispatch(
-        getRequestPosts({
+        getPinRequestPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
         }),

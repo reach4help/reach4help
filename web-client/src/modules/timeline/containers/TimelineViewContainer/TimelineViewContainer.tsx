@@ -8,8 +8,8 @@ import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getOfferPosts,
-  getRequestPosts,
+  getCavRequestPosts,
+  getPinRequestPosts,
   resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
@@ -87,15 +87,15 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
 
   useEffect(() => {
     let requestTemp: RequestWithOffersAndTimeline | undefined =
-      requestsState.syncRequestPostsState.data &&
-      requestsState.syncRequestPostsState.data[requestId]
-        ? requestsState.syncRequestPostsState.data[requestId]
+      requestsState.syncPinRequestPostsState.data &&
+      requestsState.syncPinRequestPostsState.data[requestId]
+        ? requestsState.syncPinRequestPostsState.data[requestId]
         : undefined;
     requestTemp =
       requestTemp ||
-      (requestsState.syncOfferPostsState.data &&
-      requestsState.syncOfferPostsState.data[requestId]
-        ? requestsState.syncOfferPostsState.data[requestId]
+      (requestsState.syncCavRequestPostsState.data &&
+      requestsState.syncCavRequestPostsState.data[requestId]
+        ? requestsState.syncCavRequestPostsState.data[requestId]
         : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
@@ -136,11 +136,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         history.replace(TimelineViewLocation.toUrl({ requestId }));
       } else {
         if (
-          !requestsState.syncRequestPostsState.data &&
-          !requestsState.syncRequestPostsState.loading
+          !requestsState.syncPinRequestPostsState.data &&
+          !requestsState.syncPinRequestPostsState.loading
         ) {
           dispatch(
-            getRequestPosts({
+            getPinRequestPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
               lat:
@@ -153,11 +153,11 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           );
         }
         if (
-          !requestsState.syncOfferPostsState.data &&
-          !requestsState.syncOfferPostsState.loading
+          !requestsState.syncCavRequestPostsState.data &&
+          !requestsState.syncCavRequestPostsState.loading
         ) {
           dispatch(
-            getOfferPosts({
+            getCavRequestPosts({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
             }),

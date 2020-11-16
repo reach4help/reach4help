@@ -18,7 +18,7 @@ import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getRequestPosts,
+  getPinRequestPosts,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
@@ -66,7 +66,8 @@ const FindRequestsContainer: React.FC = () => {
   const [authModalIsVisible, setAuthModalIsVisible] = useState<boolean>(false);
 
   const pendingRequestsWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: PostState }) => requests.syncRequestPostsState,
+    ({ requests }: { requests: PostState }) =>
+      requests.syncPinRequestPostsState,
   );
 
   const setOfferState = useSelector(
@@ -141,7 +142,7 @@ const FindRequestsContainer: React.FC = () => {
             Object.keys(profileState.privilegedInformation.addresses)[0]
           ];
       dispatch(
-        getRequestPosts({
+        getPinRequestPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
           lat: addressToUse?.coords.latitude || 0,

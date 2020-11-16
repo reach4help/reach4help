@@ -51,20 +51,28 @@ export const setUserRequest = async ({
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
 
-export const getOpenPost = async ({ lat, lng }: IgetRequestPosts) =>
-  functions.httpsCallable('https-api-requests-getRequests')({
-    lat,
-    lng,
-    radius: 500,
-    status: AbstractRequestStatus.pending,
-  });
-
-export const getAcceptedPost = async ({ lat, lng }: IgetRequestPosts) =>
+export const getCavRequestPosts = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
     radius: 5,
     status: AbstractRequestStatus.accepted,
+  });
+
+export const getFindPosts = async ({ lat, lng }: IgetRequestPosts) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 5,
+    status: AbstractRequestStatus.pending,
+  });
+
+export const getPinReqestPosts = async ({ lat, lng }: IgetRequestPosts) =>
+  functions.httpsCallable('https-api-requests-getRequests')({
+    lat,
+    lng,
+    radius: 500,
+    status: AbstractRequestStatus.pending,
   });
 
 export const getOngoingPost = async ({ lat, lng }: IgetRequestPosts) =>
