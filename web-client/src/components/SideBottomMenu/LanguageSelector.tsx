@@ -92,15 +92,17 @@ const allLanguages = [
 ];
 
 const SelectLanguage = styled(Select)`
-  max-width: 70px;
+  max-width: 75px;
   border: none;
   position: relative;
-  bottom: 10px;
+  bottom: 15%;
 
   .ant-select-selector {
     border: none !important;
     display: flex;
     align-items: center;
+    font-size: 24px;
+    font-weight: 700;
   }
 
   .ant-select-arrow {
@@ -111,8 +113,15 @@ const SelectLanguage = styled(Select)`
 const SelectorContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  width: 115px;
+  position: relative;
+  left: 14%;
+  bottom: 9%;
 `;
 
 const GlobalOutlinedIcon = styled(GlobalOutlined)`
-  margin-right: 5px;
+  transform: scale(1.7);
+  position: relative;
+  right: -7px;
 `;

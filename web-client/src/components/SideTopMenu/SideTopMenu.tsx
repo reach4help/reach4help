@@ -1,16 +1,17 @@
 import { Menu } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  CreateOfferLocationUrl,
-  CreateRequestLocationUrl,
-} from 'src/modules/create/constants';
+import // CreateOfferLocationUrl,
+// CreateRequestLocationUrl,
+'src/modules/create/constants';
 import {
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
 } from 'src/modules/requests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
+
+import { LanguageSelector } from '../SideBottomMenu/LanguageSelector';
 
 const SideMenuLink: React.FC<{
   key: string;
@@ -19,9 +20,9 @@ const SideMenuLink: React.FC<{
   onClick: () => void;
 }> = ({ key, title, path, onClick, ...other }) => (
   <Link to={path} onClick={onClick}>
-    <Menu.Item key={key} {...other}>
+    <StyledMenuItem key={key} {...other}>
       {title}
-    </Menu.Item>
+    </StyledMenuItem>
   </Link>
 );
 
@@ -30,13 +31,34 @@ const SideTopMenu: React.FC<{
   isLoggedIn: boolean;
 }> = ({ closeDrawer, isLoggedIn }) => (
   <SideTopMenuStyle>
-    <Menu mode="inline">
+    <StyledMenu mode="inline">
       <SideMenuLink
         key="Home"
         title="Home"
         path="/home"
         onClick={closeDrawer}
       />
+
+      {// isLoggedIn
+      true && (
+        <SideMenuLink
+          key="HelpRequests"
+          title="Help Requests"
+          path={MyOfferPostsLocationUrl}
+          onClick={closeDrawer}
+        />
+        // new
+      )}
+
+      {// isLoggedIn
+      true && (
+        <SideMenuLink
+          key="VolunteerOffers"
+          title="Volunteer Offers"
+          path={MyOfferPostsLocationUrl}
+          onClick={closeDrawer}
+        /> // new
+      )}
 
       {isLoggedIn && (
         <SideMenuLink
@@ -54,7 +76,8 @@ const SideTopMenu: React.FC<{
           onClick={closeDrawer}
         />
       )}
-      <SideMenuLink
+
+      {/* <SideMenuLink
         key="CreateRequest"
         title="Create Request"
         path={CreateRequestLocationUrl}
@@ -63,15 +86,27 @@ const SideTopMenu: React.FC<{
       <SideMenuLink
         key="CreateOffer"
         title="Create Offer - not implemented"
-        path={`notimplemented:${CreateOfferLocationUrl}` /* TODO: implement */}
+        path={`notimplemented:${CreateOfferLocationUrl}`}  TODO: implement
+        onClick={closeDrawer}
+      /> */}
+
+      <SideMenuLink
+        key="AboutUs"
+        title="About Us"
+        path="/home/about"
         onClick={closeDrawer}
       />
-    </Menu>
+    </StyledMenu>
+
+    <LanguageSelector />
   </SideTopMenuStyle>
 );
 
 const SideTopMenuStyle = styled('div')`
   flex: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   .ant-menu {
     background: ${COLORS.white};
@@ -114,6 +149,22 @@ const SideTopMenuStyle = styled('div')`
       background: ${COLORS.link} !important;
     }
   }
+`;
+
+const StyledMenuItem = styled(Menu.Item)`
+  font-size: 24px;
+  font-weight: 700;
+  position: relative;
+  left: 10%;
+`;
+
+const StyledMenu = styled(Menu)`
+  flex: 0.55;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  bottom: 7%;
 `;
 
 export default SideTopMenu;
