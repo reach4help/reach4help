@@ -1,6 +1,6 @@
 import {
   LogoutOutlined,
-  MailOutlined,
+  // MailOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
 import React from 'react';
@@ -11,7 +11,6 @@ import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import { SettingsLocation } from '../../modules/settings/constants';
-import { LanguageSelector } from './LanguageSelector';
 
 const SideBottomMenu: React.FC<{
   closeDrawer: () => void;
@@ -24,9 +23,6 @@ const SideBottomMenu: React.FC<{
   return (
     <>
       <SideBottomMenuStyle>
-        <SideBotomMenuItemStyle>
-          <LanguageSelector />
-        </SideBotomMenuItemStyle>
         {isLoggedIn && (
           <SideBotomMenuItemStyle
             data-id="settings"
@@ -36,7 +32,7 @@ const SideBottomMenu: React.FC<{
             {t('menuDrawer.settings')}
           </SideBotomMenuItemStyle>
         )}
-        <SideBotomMenuItemStyle
+        {/* <SideBotomMenuItemStyle
           data-id="contactus"
           role="link"
           onClick={() => {
@@ -46,7 +42,7 @@ const SideBottomMenu: React.FC<{
         >
           <MailOutlined />
           {t('menuDrawer.contactUs')}
-        </SideBotomMenuItemStyle>
+        </SideBotomMenuItemStyle> */}
         {isLoggedIn && (
           <SideBotomMenuItemStyle
             data-id="logout"

@@ -132,11 +132,6 @@ const TopNavbarWrapper = styled.div`
   width: 100%;
   height: 64px;
   padding: 32px 0;
-  // background: radial-gradient(
-  //   50% 1712.04% at 50.13% 50%,
-  //   #811e78 22.4%,
-  //   #a12596 100%
-  // );
   background: white;
   z-index: 999;
 `;
