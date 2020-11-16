@@ -1,183 +1,133 @@
-# Contributing to web-client for Reach4Help
+# Contributing to Reach4Help
 
-🎉🚀🙌🏻 First off, thanks for taking the time to contribute! 🙌🏻🚀🎉
+🎉🚀🙌🏻 Thanks for taking the time to contribute! It's people like you that make Open Source so great. 🙌🏻🚀🎉
 
-> First off, thank you for considering contributing to this repository. It's people like you that make Open Source so great.
+### Please read our [**Code of Conduct**](CODE_OF_CONDUCT.md) before starting.
+Following these respects the time of everyone managing and developing this project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests. 
 
-### Please read our guidelines before you start.
+## Table of Contents
+- [Getting set up](#getting-set-up)
+- [Making your first contribution](#making-your-first-contribution)
+- [Coding Conventions](#coding-conventions)
+- [Code review process](#code-review-process)
+- [Tech Stack](#tech-stack)
+- [Troubleshooting](#troubleshooting)
 
-> Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
-
-### Contributions we are looking for.
-
-We keep an open mind! Improving documentation, bug triaging, or writing tutorials are all examples of helpful contributions that mean less work for you.
-
-# Ground Rules
-
-### Follow our Code of Conduct.
-
-We expect everyone to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it. 🤝
-
-# Getting Set Up
-
-## Make a fork of the repo to your local github or clone directly. Separate instructions for both are below.
-
+# Getting set up
 ### Method 1: Clone directly
+- Clone using https://github.com/reach4help/reach4help.git
+- Ask for permission to the repo from @ashwinkjoseph
 
-- ask for permission to the github repository from Joseph.
-- clone using https://github.com/reach4help/reach4help.git
-
-### Method 2: Clone the fork to your local machine and set the remote upstream
-
-If you don't yet have access to github,  you will have to use this method.
-
-- https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork
-- \$ git remote add upstream https://github.com/reach4help/reach4help.git
-- Do \$ git remote -v to make sure you are correctly pointing to your fork and to the upstream branch
+### Method 2: Clone your fork and set the remote upstream
+If you don't yet have access this repo,  you will have to use this method. 
+- Fork the repo and clone it to your local machine. 
+- Set the remote upstream: `git remote add upstream https://github.com/reach4help/reach4help.git`
+- Make sure you are correctly pointing to your fork and to the upstream branch: `git remote -v`
+- Check [GitHub's own docs](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork) for more info.   
 
 ## Install `node` and `yarn` if not already done
-
 - [Download Node Here](https://nodejs.org/en/download/ 'Download Node Here')
 - [Download Yarn Here](https://yarnpkg.com/lang/en/docs/install/ 'Download Yarn Here')
 
 #### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
 
 ## Setting up the environment variables
-
 Windows: `copy .env.example .env`
-
 Unix/Mac: `cp .env.example .env`
 
 ## Run the project
-
 1 - Install dependencies automatically using yarn by typing:
-
 ```
 yarn
 ```
 
 2 - Run the `web-client` project in development mode.
-
 ```
 cd ./web-client && yarn start
 ```
 
 3 - The client is now available under [localhost:3000](http://localhost:3000)
-
-If you have problems because of API keys, see Troubleshooting at the end of this document.
+If you have problems because of API keys, see [Troubleshooting](#Troubleshooting) at the end of this document.
 
 # Making your first contribution
-
 ## Creating a branch
-
 - All branches must be based off of upstream/development
 - Before you do any work you must:
-- git fetch --all
-- git checkout upstream/development
+  - `git fetch --all`
+  - `git checkout upstream/development`
 
 ## Naming a branch
-
 - The branch name must tell us
   - The kind of issue it resolves
   - The number of the issue on github
   - A description of the issue.
 
 ### Example
-
 ![Issue on Gitub](githubIssueExample.png)
 
 The branch for this is named
 
 - documentation/855-forking-pr-instructions
-- Note that I do not put "#" before the 855. This is because "#" is a special character in HTML so it's harder to type into a web browser address bar.
+- Note that "#" is not put before 855, as "#" is a special character in HTML.
 
 ## Before you commit
-
 - Always fix your linting errors
   - within the web-client directory (not the top directory!!!)
-  - Run yarn lint and fix the errors manually
-  - Ran yarn lint:fix and let the linter fix them for you
+  - Run `yarn lint` and fix the errors manually
+  - Ran `yarn lint:fix` and let the linter fix them for you
 - Before you commit anything, always always always merge with upstream development
-- - git merge upstream/development
+  - `git merge upstream/development`
 
 ## Commit and pull request
-
-- git commit -m "message"
-- git push
+- `git commit -m "message"`
+- `git push`
 - Git will give you instructions on how to push a new branch. Follow them.
-- - eg: git push --set-upstream origin documentation/855-forking-pr-instructions
-- Go to github and create a Pull Request against reach4help/development
+  - eg: `git push --set-upstream origin documentation/855-forking-pr-instructions`
+- Go to GitHub and create a Pull Request against reach4help/development
 - Assign people to review and approve your pull request
 
-Here are a couple of friendly tutorials to help you get started: http://makeapullrequest.com/ and http://www.firsttimersonly.com/
+Note: Opening pull requests should be done with enough information and screenshots for visual changes to facilitate the reviewers job. It's MANDATORY to add a link to the issue related. 
 
 > Working on your first Pull Request? You can learn how from this _free_ series, [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
 
-At this point, you're ready to make your changes! Feel free to ask for help; everyone is a beginner at first :smile_cat:
+Feel free to ask for help; everyone is a beginner at first :smile_cat: 
 
-# React version and Functional Components
+# Coding conventions
+## Naming, Declaring items and Where to declare items
+You must refer to this document for understanding the conventions followed in this project for naming and the order in which declarations have to be made.
+[web-client Coding Conventions](/web-client/docs/CodingConventions/NAMING_AND_DECLARATION_CONVENTIONS.md)
 
-### We are on the latest version of React.
+## Commit message conventions
+We follow the conventional commits guidelines. Check [here](https://www.conventionalcommits.org/en/v1.0.0/)
 
+## Code Style Enforced by Prettier
+Prettier guarantees the code style adopted and runs on commit, stick to this code style.
+[Prettier site for more information](https://prettier.io/ 'Prettier site for more information')
+
+# Code review process
+### For your contribution to get accepted after it’s been submitted.
+The core team looks at Pull Requests on a regular basis. After feedback has been given we expect responses within two weeks. After two weeks we may close the pull request if it isn't showing any activity.
+
+# Tech Stack
+- Development Platform: [ReactJS](https://reactjs.org)
+- Database: [Firestore](https://firebase.google.com/docs/firestore)
+- Authentication, Storage: [Firebase](https://firebase.google.com/)
+- Search: [Algolia](https://www.algolia.com/)
+
+## React, Typescript and Functional Components
+### We are on the [latest version of React](https://reactjs.org/versions).
 - We favour functional components and hooks to class components.
 - We also prefer multiple small components to a big one
 - We are leveraging `TypeScript`
 - We use `styled-components` for styling
 - We use Prettier and ESLint to maintain consistent code
 
-[Check here for latest version of React](https://reactjs.org/versions)
-
-# How to report a bug
-
-> If you find a security vulnerability, please contact us directly at `security@reach4help.org`. For any other non security-related issues, open an issue describing the problem.
-
-# How to suggest a feature or enhancement
-
-> Open an issue using with the suggestion you wish to give.
-
-# Code review process
-
-### For your contribution to get accepted after it’s been submitted.
-
-Your contribution will have to be Approved by a member of the Organization before being merged.
-
-> The core team looks at Pull Requests on a regular basis. After feedback has been given we expect responses within two weeks. After two weeks we may close the pull request if it isn't showing any activity.
-
-# Code, commit message and labeling conventions
-
-## Commit message conventions.
-
-We follow the conventional commits guidelines. Check [here](https://www.conventionalcommits.org/en/v1.0.0/)
-
-## Naming, Declaring items and Where to declare items
-
-You must refer to this document for understanding the conventions followed in this project for naming and the order in which declarations have to be made.
-[web-client Coding Conventions](/web-client/docs/CodingConventions/NAMING_AND_DECLARATION_CONVENTIONS.md)
-
 ## Application Breakdown (Modules, Pages, Routes, Ducks)
-
-### Module Pages Routes
-
-- This Documentation is still in the making
-
-### Ducks
-
-- This Documentation is still in the making
-
-## Code Style Enforced by Prettier
-
-Prettier guarantees the code style adopted and runs on commit, stick to this code style.
-
-<img height="42" width="42" src="https://prettier.io/icon.png" alt="Prettier">[ Prettier site for more information](https://prettier.io/ 'Prettier site for more information')
-
-In Addition to this, you must also refer to the guidelines on contributin
-
-# PULL Requests
-
-Opening pull requests should be done with enough information and screenshots for visual changes to facilitate the reviewers job. Its MANDATORY to add a link to the issue related
+### Module Pages Routes (WIP)
+### Ducks (WIP)
 
 # Troubleshooting
-## Troubleshooting if API keys not work
+## If API keys not work
 
 This Project uses Services that require API keys and environment variables such as Firebase and Google Maps API.
 The environment variables should be set up in a file named `.env` outside the `src` directory.
