@@ -8,7 +8,7 @@ import createReducer from 'src/store/utils/createReducer';
 import {
   CHANGE_MODAL,
   GET_CAV_REQUEST_POSTS,
-  GET_FIND_REQUEST_POSTS,
+  GET_FIND_REQUEST_POSTS as GET_FIND_POSTS,
   GET_PIN_REQUEST_POSTS,
   PostState,
   RESET_CAV_REQUEST_POSTS,
@@ -54,11 +54,11 @@ const initialState: PostState = {
 
 export default createReducer<PostState>(
   {
-    [GET_FIND_REQUEST_POSTS.PENDING]: (state: PostState) => {
+    [GET_FIND_POSTS.PENDING]: (state: PostState) => {
       state.syncFindPostsState.loading = true;
       state.syncFindPostsState.data = undefined;
     },
-    [GET_FIND_REQUEST_POSTS.COMPLETED]: (
+    [GET_FIND_POSTS.COMPLETED]: (
       state: PostState,
       {
         payload,
@@ -71,8 +71,8 @@ export default createReducer<PostState>(
         };
       },
     ) => {
-      state.syncPinRequestPostsState.loading = false;
-      state.syncPinRequestPostsState.error = undefined;
+      state.syncFindPostsState.loading = false;
+      state.syncFindPostsState.error = undefined;
       const mappedData = Object.keys(payload.data.data).reduce(
         (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
           ...acc,
@@ -80,15 +80,15 @@ export default createReducer<PostState>(
         }),
         {},
       );
-      state.syncPinRequestPostsState.data = mappedData;
+      state.syncFindPostsState.data = mappedData;
     },
-    [GET_FIND_REQUEST_POSTS.REJECTED]: (
+    [GET_FIND_POSTS.REJECTED]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {
-      state.syncPinRequestPostsState.data = undefined;
-      state.syncPinRequestPostsState.loading = false;
-      state.syncPinRequestPostsState.error = payload;
+      state.syncFindPostsState.data = undefined;
+      state.syncFindPostsState.loading = false;
+      state.syncFindPostsState.error = payload;
     },
     [GET_PIN_REQUEST_POSTS.PENDING]: (state: PostState) => {
       state.syncPinRequestPostsState.loading = true;

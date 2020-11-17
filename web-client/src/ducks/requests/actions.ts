@@ -11,7 +11,7 @@ import {
 import {
   CHANGE_MODAL,
   GET_CAV_REQUEST_POSTS,
-  GET_FIND_REQUEST_POSTS,
+  GET_FIND_REQUEST_POSTS as GET_FIND_POSTS,
   GET_PIN_REQUEST_POSTS,
   IgetRequestPosts,
   RESET_CAV_REQUEST_POSTS,
@@ -22,11 +22,11 @@ import {
   SET_TEMP_REQUEST,
 } from './types';
 
-export const getFindRequestPosts = (payload: IgetRequestPosts) => (
+export const getFindPosts = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
-    type: GET_FIND_REQUEST_POSTS,
+    type: GET_FIND_POSTS,
     firebase: getFindPostsFunc,
     payload,
   });

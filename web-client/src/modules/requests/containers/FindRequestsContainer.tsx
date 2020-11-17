@@ -17,10 +17,7 @@ import Map from 'src/components/WebClientMap/WebClientMap';
 import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import {
-  getPinRequestPosts,
-  resetSetRequestState,
-} from 'src/ducks/requests/actions';
+import { getFindPosts, resetSetRequestState } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
 import { Offer, OfferStatus } from 'src/models/offers';
@@ -66,8 +63,7 @@ const FindRequestsContainer: React.FC = () => {
   const [authModalIsVisible, setAuthModalIsVisible] = useState<boolean>(false);
 
   const pendingRequestsWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: PostState }) =>
-      requests.syncPinRequestPostsState,
+    ({ requests }: { requests: PostState }) => requests.syncFindPostsState,
   );
 
   const setOfferState = useSelector(
@@ -142,7 +138,7 @@ const FindRequestsContainer: React.FC = () => {
             Object.keys(profileState.privilegedInformation.addresses)[0]
           ];
       dispatch(
-        getPinRequestPosts({
+        getFindPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
           lat: addressToUse?.coords.latitude || 0,
