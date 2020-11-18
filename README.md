@@ -10,7 +10,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-34-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
@@ -108,6 +108,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/14ssharp"><img src="https://avatars0.githubusercontent.com/u/43449026?v=4" width="100px;" alt=""/><br /><sub><b>14ssharp</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=14ssharp" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/leadersheir"><img src="https://avatars2.githubusercontent.com/u/57336955?v=4" width="100px;" alt=""/><br /><sub><b>Warisul Imam</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=leadersheir" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Tapudp"><img src="https://avatars3.githubusercontent.com/u/8810813?v=4" width="100px;" alt=""/><br /><sub><b>Divyesh Parmar</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=Tapudp" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/alexjball"><img src="https://avatars3.githubusercontent.com/u/8595776?v=4" width="100px;" alt=""/><br /><sub><b>alexjball</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=alexjball" title="Code">💻</a></td>
   </tr>
 </table>
 
