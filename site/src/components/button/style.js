@@ -6,8 +6,8 @@ export const ButtonWrapper = styled.button`
   background: ${p =>
     p.backgroundColor || p.theme.colors[p.backgroundColor] || "white"};
 
-  border: none;
-  border-radius: 4px;
+  border: ${p => p.border || "none"};
+  border-radius: 3px;
   padding: 0.25em;
   font-weight: bold;
   transition: box-shadow 0.3s ease;
