@@ -67,14 +67,21 @@ export const getFindPosts = async ({ lat, lng }: IgetRequestPosts) =>
     status: AbstractRequestStatus.pending,
   });
 
-export const getPinReqestPosts = async ({ userRef }: IgetRequestPosts) => {
-  const retVal = (await firestore
-  .collection('requests')
-  // .where('pinUserRef', '==', userRef)
-  .withConverter(RequestFirestoreConverter)
-  .get()).docs;
-  return { data: { data: retVal, success: true } };
-}
+export const getPinReqestPosts = async () => {
+  let dataRequests;
+  await firestore
+    .collection('requests')
+    // .where('pinUserRef', '==', userRef)
+    .withConverter(RequestFirestoreConverter)
+    .get()
+    .then(snapshot => {
+      dataRequests = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+    });
+  return { data: { data: dataRequests, success: true } };
+};
 
 export const getOngoingPost = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({

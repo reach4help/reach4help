@@ -121,7 +121,6 @@ export class RequestWithOffersAndTimeline extends Request
   public static factory(
     data: IRequestWithOffersAndTimeline,
   ): RequestWithOffersAndTimeline {
-    console.log('factory', data);
     return new RequestWithOffersAndTimeline(
       db.doc(data.pinUserRef as any),
       User.factory(data.pinUserSnapshot),

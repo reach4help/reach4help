@@ -1,11 +1,11 @@
-import TimelineItem from 'antd/lib/timeline/TimelineItem';
-import { OfferStatus } from 'src/models/offers';
+// import TimelineItem from 'antd/lib/timeline/TimelineItem';
+// import { OfferStatus } from 'src/models/offers';
 import { IRequest, Request } from 'src/models/requests';
 import {
   IRequestWithOffersAndTimeline,
   RequestWithOffersAndTimeline,
 } from 'src/models/requests/RequestWithOffersAndTimeline';
-import { TimelineItemAction } from 'src/models/requests/timeline';
+// import { TimelineItemAction } from 'src/models/requests/timeline';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
@@ -102,31 +102,32 @@ export default createReducer<PostState>(
       {
         payload,
       }: {
-        payload:
-        {
+        payload: {
           data: {
             status: boolean;
-            data: Record<string, RequestWithOffersAndTimeline>;
+            data: Record<string, Request>;
           };
         };
       },
     ) => {
       state.syncPinRequestPostsState.loading = false;
       state.syncPinRequestPostsState.error = undefined;
-      console.log('*******xxxxxx', payload);
-      const requestsWithOffers: Record<string, RequestWithOffersAndTimeline> = {};
+      const requestsWithOffers: Record<
+        string,
+        RequestWithOffersAndTimeline
+      > = {};
       const requestData = payload.data.data;
-      const requestsArray = Object.keys(requestData).map( key => requestData[key]);
-      for (const doc of requestsArray) {
-        console.log('doc.id 1: ', doc.id, typeof(doc.id), doc);
+      const requestsArray = Object.keys(requestData).map(
+        key => requestData[key],
+      );
+      for (const request of requestsArray) {
         // console.log('doc.data: ', JSON.stringify(doc.data()));
-        const request = Request.factory(doc.data() as IRequest);
         // eslint-disable-next-line no-await-in-loop
         // const timeline = await getTimelineForRequest(doc.ref, userRef);
         // const mapping: Record<string, boolean> = {};
         // for (const timelineDoc of timeline) {
-          // console.log('timelinedoc being parsed: ', JSON.stringify(timelineDoc));
-          // console.log('timelineDoc.actorRef: ', timelineDoc.actorRef);
+        // console.log('timelinedoc being parsed: ', JSON.stringify(timelineDoc));
+        // console.log('timelineDoc.actorRef: ', timelineDoc.actorRef);
         //   const timelineInstance = TimelineItem.factory(timelineDoc);
         //   if (
         //     timelineInstance.action === TimelineItemAction.CREATE_OFFER &&
@@ -149,16 +150,14 @@ export default createReducer<PostState>(
         //   }
         // }
         // if (num === 0) {
-          requestsWithOffers[doc.id] = RequestWithOffersAndTimeline.factory({
-            ...(request.toObject() as IRequest),
-            offers: {},
-            timeline: {},
-          } as IRequestWithOffersAndTimeline);
+        requestsWithOffers[request.id] = RequestWithOffersAndTimeline.factory({
+          ...(request as IRequest),
+          offers: {},
+          timeline: {},
+        } as IRequestWithOffersAndTimeline);
         // }
       }
-      console.log('here');
       state.syncPinRequestPostsState.data = requestsWithOffers;
-      console.log('Got here');
     },
     [GET_PIN_REQUEST_POSTS.REJECTED]: (
       state: PostState,
