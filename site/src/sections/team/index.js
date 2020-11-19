@@ -8,7 +8,7 @@ import { Wrapper, ContentWrapper } from "./style"
 
 const people = [
   {
-    title: "Director",
+    title: "Executive Director",
     name: "Shayan Chowdhury",
     contact: "mailto:shayan@reach4help.org",
   },
