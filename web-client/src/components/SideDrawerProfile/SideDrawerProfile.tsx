@@ -13,7 +13,6 @@ const CasesCompletedIcon = <TeamOutlined />;
 
 const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
   profileData,
-  isCav,
 }) => (
   <SideDrawerProfileWrapper>
     <DisplayPhoto
@@ -23,11 +22,11 @@ const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
     <Content>
       <DisplayName>{profileData?.displayName}</DisplayName>
       <Details>
-        <Detail isCav={isCav}>
+        <Detail>
           {CasesCompletedIcon}
           {profileData?.casesCompleted}
         </Detail>
-        <Detail isCav={isCav}>
+        <Detail>
           {AverageRatingIcon}
           {profileData?.averageRating}
         </Detail>
@@ -62,18 +61,17 @@ const Details = styled.div`
   justify-content: flex-start;
 `;
 
-const Detail = styled('span')<{ isCav?: boolean }>`
+const Detail = styled('span')`
   color: inherit;
   font-size: 0.8rem;
   margin-right: 10px;
 
   svg {
-    color: ${props => (props.isCav ? COLORS.primary : COLORS.brandOrange)};
+    color: ${COLORS.primary};
   }
 `;
 interface SideDrawerProfileProps {
   profileData?: User;
-  isCav?: boolean;
 }
 
 export default SideDrawerProfile;

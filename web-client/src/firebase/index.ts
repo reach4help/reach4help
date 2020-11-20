@@ -25,5 +25,6 @@ export const firestore = firebase.firestore();
 export const functions = firebase.functions();
 export const analytics = firebase.analytics();
 export const performance = firebase.performance();
+export const storage = firebase.storage();
 
 export default firebase;

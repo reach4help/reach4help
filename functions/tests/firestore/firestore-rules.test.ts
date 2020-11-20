@@ -133,7 +133,7 @@ describe('users', () => {
     await firebase.assertFails(data.set({ fail: 'missing-keys' }));
     await firebase.assertSucceeds(
       data.set({
-        address: { a: 1 },
+        addresses: { default: { name: 'default' } },
         termsAccepted: firebase.firestore.FieldValue.serverTimestamp(),
         termsVersion: '1.0',
       }),

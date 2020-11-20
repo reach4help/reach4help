@@ -154,16 +154,20 @@
       }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Contact us",
       "logout": "Sign out",
       "switchToCAV": "Switch to Offering Support",
       "switchToPIN": "Switch to Seeking Help",
-      "settings": "Settings"
+      "settings": "Settings",
+      "login-signup": "Log in / Signup"
     },
     "settings": {
       "heading": "Settings",
+      "changeAvatar": "Change my avatar",
       "changeName": "Change my name",
       "deleteAccount": "Delete my account",
+      "changeAddresses": "Change saved addresses",
       "changeNameForm": {
         "full_name_error_message": "Please enter your name",
         "display_name_error_message": "Please enter your display name",
@@ -174,6 +178,16 @@
         "title": "Are you sure you want to delete your account",
         "body": "Closing your account means you will no longer be able to provide help or ask for help",
         "deleteAccount": "Delete my account"
+      },
+      "changeAddressForm": {
+        "deliveryAddress": "Delivery Address",
+        "nameOfAddress": "Name of Address",
+        "address": "Address",
+        "cancel": "Cancel",
+        "submit": "Save",
+        "next": "Next",
+        "back": "Back",
+        "saveChangesCheckbox": "Save Address"
       }
     },
     "phoneNumber": {
@@ -367,6 +381,11 @@
               "list_tab_label": "View List of Requests",
               "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
             }
+          },
+          "TabbedPostPage": {
+            "requests_tab_label": "My Requests",
+            "offers_tab_label": "My Offers",
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
           },
           "AcceptedRequestContainer": {
             "accepted": "Accepted"

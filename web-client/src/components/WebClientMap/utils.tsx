@@ -1,8 +1,9 @@
 import { firestore } from 'firebase';
 import moment from 'moment';
+import { ProfileState } from 'src/ducks/profile/types';
 
 // default center
-const ANGKOR_WAT = {
+const DEFAULT_COORDS = {
   lat: 13.4124693,
   lng: 103.8667,
 };
@@ -15,32 +16,28 @@ export const metersToKm = (meters: number) => `${(meters / 1000).toFixed(1)}km`;
 export const metersToImperial = (meters: number) =>
   `${(meters * 0.000621371).toFixed(1)}mi`;
 
-export const getCoordsFromProfile = profileState => {
-  if (
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address &&
-    profileState.privilegedInformation.address.coords
-  ) {
-    return {
-      lat: profileState.privilegedInformation.address.coords.latitude,
-      lng: profileState.privilegedInformation.address.coords.longitude,
-    };
+export const getCoordsFromProfile = (profileState: ProfileState) => {
+  const addresses = profileState?.privilegedInformation?.addresses;
+  let addressToUse;
+  if (addresses) {
+    addressToUse = addresses.default
+      ? addresses.default
+      : addresses[Object.keys(addresses)[0]];
+    if (addressToUse) {
+      return {
+        lat: addressToUse.coords.latitude,
+        lng: addressToUse.coords.longitude,
+      };
+    }
   }
-  return {
-    lat: ANGKOR_WAT.lat,
-    lng: ANGKOR_WAT.lng,
-  };
+  return DEFAULT_COORDS;
 };
 
-export const getStreetAddressFromProfile = profileState => {
-  if (
-    profileState &&
-    profileState.privilegedInformation &&
-    profileState.privilegedInformation.address
-  ) {
-    const { address } = profileState.privilegedInformation;
-    const { address1, address2, postalCode, city, state, country } = address;
+export const getStreetAddressFromProfile = (profileState: ProfileState) => {
+  if (profileState?.privilegedInformation?.addresses) {
+    const { addresses } = profileState.privilegedInformation;
+    const { address1, address2, postalCode, city, state, country } =
+      addresses.default || addresses[Object.keys(addresses || {})[0]] || {};
     const undefinedSafe = value => value || '';
     const formattedAddress = `${undefinedSafe(address1)} ${undefinedSafe(
       address2,

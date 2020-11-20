@@ -6,7 +6,6 @@ import { COLORS } from '../../theme/colors';
 
 const NotificationsHeader: React.FC<NotificationsHeaderProps> = ({
   numNotifications = 0,
-  isCav,
 }): React.ReactElement => {
   const { t } = useTranslation();
 
@@ -19,7 +18,7 @@ const NotificationsHeader: React.FC<NotificationsHeaderProps> = ({
   `;
 
   const Header2 = styled.h2`
-    background-color: ${isCav ? COLORS.primaryDark : COLORS.brandOrange};
+    background-color: ${COLORS.primaryDark};
     color: #ffffff;
     padding-left: 10px;
     padding-right: 10px;
@@ -45,7 +44,6 @@ const NotificationsHeader: React.FC<NotificationsHeaderProps> = ({
 
 interface NotificationsHeaderProps {
   numNotifications?: number;
-  isCav?: boolean;
 }
 
 export default NotificationsHeader;

@@ -1,33 +1,21 @@
-import {
-  LogoutOutlined,
-  MailOutlined,
-  SettingOutlined,
-  UserSwitchOutlined,
-} from '@ant-design/icons';
 import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 import { User } from 'src/models/users';
-import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import { SettingsLocation } from '../../modules/settings/pages/routes/SettingsRoute/constants';
 import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
-import SideDrawerMenu, { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
+import SideBottomMenu from '../SideBottomMenu/SideBottomMenu';
 import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
+import SideTopMenu from '../SideTopMenu/SideTopMenu';
 
-const MenuDrawer: React.FC<MenuDrawerProps> = ({
+const MenuDrawer: React.FC<IMenuDrawerProps> = ({
   visible,
   closeDrawer,
-  menuItems,
   profileData,
   logoutHandler,
-  isCav,
-  toggleApplicationPreference,
 }) => {
   const { t } = useTranslation();
-  const history = useHistory();
 
   const instructions = [
     t('information_modal.MenuDrawer.0'),
@@ -43,6 +31,10 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
     /* TODO:  get unique user id */
     userid: null,
   });
+  const isLoggedIn = !!(profileData && profileData.displayName);
+
+  // Closes SideDrawer if user switches from mobile view
+  window.onresize = closeDrawer;
 
   return (
     <>
@@ -53,50 +45,13 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
         visible={visible}
         width="100%"
       >
-        <SideDrawerProfile profileData={profileData} isCav={isCav} />
-        <SideDrawerMenu
-          items={menuItems || []}
+        <SideDrawerProfile profileData={profileData} />
+        <SideTopMenu closeDrawer={closeDrawer} isLoggedIn={isLoggedIn} />
+        <SideBottomMenu
+          logoutHandler={logoutHandler}
+          isLoggedIn={isLoggedIn}
           closeDrawer={closeDrawer}
-          isCav={isCav}
         />
-        <BottomLinks>
-          <BottomLinkItem onClick={() => history.push(SettingsLocation.path)}>
-            <SettingOutlined />
-            {t('menuDrawer.settings')}
-          </BottomLinkItem>
-          <BottomLinkItem
-            isCav={isCav}
-            role="link"
-            onClick={() => {
-              closeDrawer();
-              window.location.href = 'mailto:info@reach4help.org';
-            }}
-          >
-            <MailOutlined />
-            {t('menuDrawer.contactUs')}
-          </BottomLinkItem>
-          <BottomLinkItem
-            isCav={isCav}
-            role="link"
-            onClick={() => toggleApplicationPreference()}
-          >
-            <UserSwitchOutlined />
-            {`${
-              isCav ? t('menuDrawer.switchToPIN') : t('menuDrawer.switchToCAV')
-            }`}
-          </BottomLinkItem>
-          <BottomLinkItem
-            isCav={isCav}
-            role="link"
-            onClick={() => {
-              closeDrawer();
-              logoutHandler();
-            }}
-          >
-            <LogoutOutlined />
-            {t('menuDrawer.logout')}
-          </BottomLinkItem>
-        </BottomLinks>
       </SideDrawer>
       <InformationModal
         title={t('information_modal.MenuDrawer.title')}
@@ -121,39 +76,11 @@ const SideDrawer = styled(Drawer)`
   }
 `;
 
-const BottomLinkItem = styled('div')<{ isCav?: boolean }>`
-  color: inherit;
-  margin-bottom: 10px;
-  padding: 10px;
-  cursor: pointer;
-  svg {
-    margin-right: 10px;
-  }
-  &:hover,
-  &:focus,
-  &:active,
-  &:focus-within {
-    color: white;
-    font-weight: 700;
-    background-color: ${props =>
-      props.isCav ? COLORS.link : COLORS.brandOrange};
-  }
-`;
-const BottomLinks = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 15px;
-  color: inherit;
-`;
-
-interface MenuDrawerProps {
+interface IMenuDrawerProps {
   visible: boolean;
   closeDrawer: () => void;
-  menuItems?: Array<MenuItem>;
   profileData?: User;
   logoutHandler: Function;
-  isCav?: boolean;
-  toggleApplicationPreference: Function;
 }
 
 export default MenuDrawer;

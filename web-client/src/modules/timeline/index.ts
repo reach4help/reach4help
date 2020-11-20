@@ -1,10 +1,11 @@
 import { Module } from 'src/types/module';
 
-import ContentPage from './pages/ContentPage';
+import Routes from './routes';
 
-const requestModule: Module = {
+const timelineModule: Module = {
   path: '/timeline',
   protected: true,
-  component: ContentPage,
+  component: Routes,
 };
-export default requestModule;
+
+export default timelineModule;
