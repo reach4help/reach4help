@@ -9,7 +9,7 @@ import { triggerEventsWhenRequestIsCreated } from '../../../src/requests';
 import { ApplicationPreference, User } from '../../../src/models/users';
 import { Request, RequestStatus } from '../../../src/models/requests';
 import { removeObjectFromIndices } from '../../../src/algolia';
-import { IgetSearchKeyReturn, getSearchKey } from '../../../src/https/api/search/getSearchKeys';
+import { getSearchKey, IgetSearchKeyReturn } from '../../../src/https/api/search/getSearchKeys';
 
 const projectId = 'reach-4-help-test';
 
