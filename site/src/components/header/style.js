@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const DRAWER_HEIGHT_MOBILE = "70px"
+const DRAWER_HEIGHT_MOBILE = "100%"
 const PADDING_HORIZONTAL = "50px"
 
 export const HeaderWrapper = styled.header`
@@ -195,7 +195,7 @@ export const DrawerWrapper = styled.div`
   /* TODO: note to self - clean this up at some point PLEASE */
   ${p => p.theme.breakpoints.small} {
     width: 100%;
-    height: 315px;
+    height: 350px;
     /* max-height: 300px; */
     background: rgb(248, 248, 248);
     box-shadow: 1px 0 10px 4px rgba(0, 0, 0, 0.5);
