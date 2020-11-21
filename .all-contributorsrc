@@ -370,6 +370,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "danainanou",
+      "name": "Danai Nanou",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/22467291?v=4",
+      "profile": "https://www.linkedin.com/in/dnanou/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
