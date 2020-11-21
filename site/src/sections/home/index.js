@@ -2,54 +2,70 @@ import React from "react"
 // import { graphql, useStaticQuery } from "gatsby"
 import { useTranslation } from "react-i18next"
 
-import Logo from "src/assets/logo.svg"
+import { graphql, useStaticQuery } from "gatsby"
+import Img from "gatsby-image"
+
 import Button from "src/components/button"
 import Socials from "src/components/socials"
-import LogoType from "src/assets/logo-type"
-import {
-  Wrapper,
-  LogoWrapper,
-  // ContentWrapper,
-  ButtonsWrapper,
-} from "./style"
+import { Wrapper, ButtonsWrapper } from "./style"
 
 function Home() {
   const { t } = useTranslation()
+  const data = useStaticQuery(
+    graphql`
+      query {
+        file(relativePath: { eq: "sections/home/image.png" }) {
+          childImageSharp {
+            fluid(maxWidth: 500, quality: 75) {
+              base64
+              aspectRatio
+              src
+              srcSet
+              sizes
+            }
+          }
+        }
+      }
+    `,
+  )
 
   return (
     <Wrapper id="home">
-      <LogoWrapper>
-        <img src={Logo} alt="Reach4Help Logo" />
-        <LogoType className="logo-type" />
-      </LogoWrapper>
-      <h2>{t("Home.heading")}</h2>
-      <div style={{ maxWidth: "600px" }}>
-        <h3>{t("Home.subheading")}</h3>
+      <div className="main">
+        <h1>{t("Home.heading")}</h1>
+        <div style={{ maxWidth: "600px" }}>
+          <p>{t("Home.subheading")}</p>
+        </div>
+        <ButtonsWrapper>
+          <a href="https://app.reach4help.org/gethelp" rel="noopener">
+            <Button
+              backgroundColor="#ff7b02"
+              textColor="white"
+              outlineColor="white"
+              fontSize="1.05em"
+            >
+              {t("Home.buttons.0")}
+            </Button>
+          </a>
+          <a href="https://app.reach4help.org/volunteer" rel="noopener">
+            <Button
+              fontSize="1.05em"
+              backgroundColor="transparent"
+              textColor="white"
+              outlineColor="white"
+              border="2px solid white" // stupidity 100
+            >
+              {t("Home.buttons.1")}
+            </Button>
+          </a>
+        </ButtonsWrapper>
+        <Socials />
       </div>
-      <ButtonsWrapper>
-        <a
-          href="https://app.reach4help.org/"
-          target="__blank"
-          rel="noopener noreferrer"
-        >
-          <Button
-            backgroundColor="#ff7b02"
-            textColor="white"
-            outlineColor="white"
-            fontSize="1.05em"
-          >
-            {t("Home.buttons.1")}
-          </Button>
-        </a>
-        <a
-          href="http://map.reach4help.org/"
-          target="__blank"
-          rel="noopener noreferrer"
-        >
-          <Button fontSize="1.05em">{t("Home.buttons.0")}</Button>
-        </a>
-      </ButtonsWrapper>
-      <Socials />
+      <Img
+        fluid={data.file.childImageSharp.fluid}
+        alt="R4H App"
+        className="image"
+      />
     </Wrapper>
   )
 }

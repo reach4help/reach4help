@@ -9,6 +9,7 @@ export const SocialsWrapper = styled.div`
   bottom: 0; */
   display: flex;
   align-items: center;
+  justify-content: center;
 
   /* .social-icons {
         color: ${p => p.theme.colors.primaryDark1};
