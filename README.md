@@ -10,7 +10,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
@@ -105,6 +105,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://ethanstrominger.com"><img src="https://avatars0.githubusercontent.com/u/32078396?v=4" width="100px;" alt=""/><br /><sub><b>Ethan-Strominger</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ethanstrominger" title="Code">💻</a> <a href="#ideas-ethanstrominger" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/TheRealAlexV"><img src="https://avatars2.githubusercontent.com/u/815793?v=4" width="100px;" alt=""/><br /><sub><b>Alex 'DeMiNe0' Vanino</b></sub></a><br /><a href="#ideas-TheRealAlexV" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/commits?author=TheRealAlexV" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/14ssharp"><img src="https://avatars0.githubusercontent.com/u/43449026?v=4" width="100px;" alt=""/><br /><sub><b>14ssharp</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=14ssharp" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/leadersheir"><img src="https://avatars2.githubusercontent.com/u/57336955?v=4" width="100px;" alt=""/><br /><sub><b>Warisul Imam</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=leadersheir" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Tapudp"><img src="https://avatars3.githubusercontent.com/u/8810813?v=4" width="100px;" alt=""/><br /><sub><b>Divyesh Parmar</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=Tapudp" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/alexjball"><img src="https://avatars3.githubusercontent.com/u/8595776?v=4" width="100px;" alt=""/><br /><sub><b>alexjball</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=alexjball" title="Code">💻</a></td>
+    <td align="center"><a href="https://ansh-saini.github.io"><img src="https://avatars1.githubusercontent.com/u/32511936?v=4" width="100px;" alt=""/><br /><sub><b>Ansh Saini</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ansh-saini" title="Code">💻</a></td>
   </tr>
 </table>
 

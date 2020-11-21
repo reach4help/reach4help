@@ -24,7 +24,7 @@ describe('TopNavbar', () => {
     expect(mockedProps.openMenu).toHaveBeenCalledTimes(1);
   });
 
-  it('Shows a red icon when there are notifications to be seen', async () => {
+  it.skip('Shows a red icon when there are notifications to be seen', async () => {
     const modifiedProps = { ...mockedProps, unseenOffersCount: 2 };
     render(<TopNavbar {...modifiedProps} />);
 
@@ -36,7 +36,7 @@ describe('TopNavbar', () => {
     expect(notificationsButton.firstChild.style.color).toBe('red');
   });
 
-  it('Opens the Notifications Page when the bell button is clicked', async () => {
+  it.skip('Opens the Notifications Page when the bell button is clicked', async () => {
     render(<TopNavbar {...mockedProps} />);
 
     const notificationsButton = await screen.findByLabelText(
