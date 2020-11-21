@@ -56,17 +56,35 @@ const SideBottomMenu: React.FC<{
             {t('menuDrawer.logout')}
           </SideBotomMenuItemStyle>
         )}
-        {!isLoggedIn && (
+
+        <SideBotomMenuItemBtnStyle
+          data-id="login-signup"
+          role="link"
+          onClick={() => history.push(LoginLocation.path)}
+        >
+          <LogInButton>Login</LogInButton>
+        </SideBotomMenuItemBtnStyle>
+
+        <SideBotomMenuItemBtnStyle
+          data-id="login-signup"
+          role="link"
+          onClick={() => history.push(LoginLocation.path)}
+        >
+          <SignUpButton>Signup</SignUpButton>
+        </SideBotomMenuItemBtnStyle>
+
+        {/* {!isLoggedIn && (
           <SideBotomMenuItemStyle
             data-id="login-signup"
             role="link"
             onClick={() => {
               history.push(LoginLocation.path);
             }}
+            // Signup and Login both route to /login. Where to route the two buttons in design separately?
           >
             {t('menuDrawer.login-signup')}
           </SideBotomMenuItemStyle>
-        )}
+        )} */}
       </SideBottomMenuStyle>
     </>
   );
@@ -74,9 +92,11 @@ const SideBottomMenu: React.FC<{
 
 const SideBotomMenuItemStyle = styled('div')`
   color: inherit;
+  display: flex;
   margin-bottom: 10px;
   padding: 10px;
   cursor: pointer;
+
   svg {
     margin-right: 10px;
   }
@@ -94,6 +114,42 @@ const SideBottomMenuStyle = styled.div`
   flex-direction: column;
   margin: 15px;
   color: inherit;
+  flex: 0.35;
+  position: relative;
+  bottom: 5%;
+`;
+
+const Button = styled.button`
+  height: 35px;
+  width: 90vw;
+  border-radius: 4px;
+  margin: 10px;
+  cursor: pointer;
+  position: relative;
+  font-size: 18px;
+  font-weight: 500;
+`;
+
+const LogInButton = styled(Button)`
+  background: none;
+  border: 1px solid ${COLORS.stepBackwardNormal};
+  color: #eb7100;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border: 1px solid ${COLORS.brandOrange};
+  }
+`;
+
+const SideBotomMenuItemBtnStyle = styled(SideBotomMenuItemStyle)`
+  padding: 0;
+  margin: 0;
+`;
+
+const SignUpButton = styled(Button)`
+  border: none;
+  color: ${COLORS.white};
+  background: ${COLORS.stepBackwardNormal};
 `;
 
 export default SideBottomMenu;
