@@ -42,17 +42,25 @@ function Header({ navSections }) {
         <div className="actions">
           <Languages languages={LANGUAGES} onChange={onLanguageChange} />
           {/* Sign Up */}
+          <a href="https://map.reach4help.org/" rel="noopener">
+            <Button
+              backgroundColor="transparent"
+              border="2px solid #ff7b02"
+              textColor="#ff7b02"
+              outlineColor="white"
+              fontSize="0.95em"
+            >
+              {t("Navigation.Header.buttons.0.title")}
+            </Button>
+          </a>
           <a href="https://app.reach4help.org/" rel="noopener">
             <Button
-              onClick={() => {
-                window.location.href = "https://app.reach4help.org/"
-              }}
               backgroundColor="#ff7b02"
               textColor="white"
               outlineColor="white"
               fontSize="0.95em"
             >
-              {t("Home.buttons.1")}
+              {t("Navigation.Header.buttons.1.title")}
             </Button>
           </a>
         </div>
@@ -85,7 +93,18 @@ function Header({ navSections }) {
                   outlineColor="white"
                   fontSize="0.95em"
                 >
-                  {t("Home.buttons.1")}
+                  {t("Navigation.Header.buttons.1.title")}
+                </Button>
+              </a>
+              <a href="https://map.reach4help.org/" rel="noopener">
+                <Button
+                  backgroundColor="transparent"
+                  border="2px solid #ff7b02"
+                  textColor="#ff7b02"
+                  outlineColor="white"
+                  fontSize="0.95em"
+                >
+                  {t("Navigation.Header.buttons.0.title")}
                 </Button>
               </a>
 
