@@ -9,8 +9,8 @@ import { Offer, OfferStatus } from '../models/offers';
 const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
 const ALGOLIA_SEARCH_ONLY_KEY = functions.config().algolia.search_only_key;
-const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX = functions.config().algolia.unauthenticated_requests_index;
-const ALGOLIA_GENERALREQUESTS_INDEX = functions.config().algolia.general_requests_index;
+export const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX = functions.config().algolia.unauthenticated_requests_index;
+export const ALGOLIA_GENERALREQUESTS_INDEX = functions.config().algolia.general_requests_index;
 
 const adminClient = algolia(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
 
@@ -135,7 +135,7 @@ export const removeObjectFromIndices = async (objectId: string) => {
  *
  * @returns {string} The secured key restricted to the unauthenticated requests index
  */
-export const generateUnauthenticatedRequestsKey = () => {
+export const generateUnauthenticatedRequestsKey = (): string => {
   return adminClient.generateSecuredApiKey(
     ALGOLIA_SEARCH_ONLY_KEY, // A search key that you keep private
     {
@@ -151,7 +151,7 @@ export const generateUnauthenticatedRequestsKey = () => {
  *
  * @returns {string} The secured key restricted to the general requests index
  */
-export const generateGeneralRequestsKey = () => {
+export const generateGeneralRequestsKey = (): string => {
   return adminClient.generateSecuredApiKey(
     ALGOLIA_SEARCH_ONLY_KEY, // A search key that you keep private
     {

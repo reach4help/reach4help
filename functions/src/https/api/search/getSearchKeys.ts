@@ -1,15 +1,25 @@
 import * as functions from 'firebase-functions';
 
-import { generateGeneralRequestsKey, generateUnauthenticatedRequestsKey } from '../../../algolia';
+import {
+  ALGOLIA_GENERALREQUESTS_INDEX,
+  ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX,
+  generateGeneralRequestsKey,
+  generateUnauthenticatedRequestsKey,
+} from '../../../algolia';
 
-export const getSearchKey = functions.https.onCall((data, context) => {
-  const userId = context.auth?.uid;
-  if (userId) {
+export interface IgetSearchKeyReturn {
+  isAuthenticated: boolean;
+  searchKey: string;
+  indexName: string;
+}
+
+export const getSearchKey = functions.https.onCall(
+  (data, context): IgetSearchKeyReturn => {
+    const isAuthenticated = !!context.auth?.uid;
     return {
-      searchKey: generateGeneralRequestsKey(),
+      isAuthenticated,
+      searchKey: isAuthenticated ? generateGeneralRequestsKey() : generateUnauthenticatedRequestsKey(),
+      indexName: isAuthenticated ? ALGOLIA_GENERALREQUESTS_INDEX : ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX,
     };
-  }
-  return {
-    searchKey: generateUnauthenticatedRequestsKey(),
-  };
-});
+  },
+);
