@@ -31,6 +31,13 @@ const SideTopMenu: React.FC<{
 }> = ({ closeDrawer, isLoggedIn }) => (
   <SideTopMenuStyle>
     <Menu mode="inline">
+      <SideMenuLink
+        key="Home"
+        title="Home"
+        path="/home"
+        onClick={closeDrawer}
+      />
+
       {isLoggedIn && (
         <SideMenuLink
           key="MyRequests"
@@ -67,7 +74,7 @@ const SideTopMenuStyle = styled('div')`
   flex: auto;
 
   .ant-menu {
-    background: ${COLORS.backgroundLightGray};
+    background: ${COLORS.white};
     font-weight: bold;
 
     .ant-menu-item {
@@ -82,7 +89,8 @@ const SideTopMenuStyle = styled('div')`
       &:focus-within {
         color: white;
         font-weight: 700;
-        background-color: ${COLORS.link};
+        // background-color: ${COLORS.link};
+        color: ${COLORS.primaryOrange}
       }
     }
 
