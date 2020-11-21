@@ -9,7 +9,7 @@ import {
   LogoWrapper,
   StepWrapper,
 } from 'src/components/figma/';
-import TitleWithAddon from 'src/components/TitleWithAddon/TitleWithAddon';
+import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import CONSTANTS from 'src/constants';
 
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
@@ -44,9 +44,9 @@ const Step1SelectLanguage: React.FC<Step1SelectLanguageProps> = ({
           <H6Font>{t('login.steps.2_explanation.purpose')}</H6Font>
         </Explanation>
       </div>
-      <TitleWithAddon level={2} alignAddon="50%">
+      <TitleWithOrangeUnderline level={2} orangealignment="center">
         {' '}
-      </TitleWithAddon>
+      </TitleWithOrangeUnderline>
 
       <Select
         defaultValue={currentLanguage}
@@ -66,7 +66,7 @@ const Step1SelectLanguage: React.FC<Step1SelectLanguageProps> = ({
         {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */
         allLanguages.map(language => (
           <Option key={language['1']} value={language['1']}>
-            {language.name}
+            {language.local}
           </Option>
         ))}
       </Select>

@@ -1,10 +1,12 @@
 {
   "common": {
+    "or": "or",
     "i_understand": "Chápu.",
     "okay": "OK",
     "cancel": "Zrušit",
     "welcome": "Vítejte",
     "continue": "Pokračovat",
+    "back": "Back",
     "verify": "Ověřit",
     "spinner": "Načítáva se ...",
     "name": "Jméno",
@@ -90,15 +92,93 @@
       "sub_title": "Přehled registrace",
       "info": "Ahoj! Mnohokrát vám děkujeme za váš zájem pomoci vaší komunitě! Pro zajištění bezpečnosti našich uživatelů, pro ověření Vaší identity potřebujeme přihlášení přes Google nebo Facebook a pokud nastanou nějaké nesrovnalosti, kontaktujte vás.\n\nPo tomto kroku budete vyzváni k poskytnutí Vašeho telefonního čísla a k ověření pomocí kódu, který obdržíte prostřednictvím textu. Takto se s vámi lidé nabízející pomoc spojí! Kontaktní údaje jsou sdíleny s druhou osobou pouze tehdy, když jste schválili nabízející osobu. Při odeslání žádosti o pomoc není vaše přesná poloha sdílena (pouze první tři číslice vašeho poštovního směrovacího čísla).\nDěkujeme vám za vaši spolupráci při vytváření bezpečnějšího a užitečnějšího místa! Pokud máte jakékoliv dotazy, kontaktujte nás prosím na support@reach4help. rg.",
       "facebookButtonLabel": "Pokračovat pomocí Facebooku",
-      "googleButtonLabel": "Pokračovat pomocí účtu Google"
+      "googleButtonLabel": "Pokračovat pomocí účtu Google",
+      "sign_in": {
+        "title": "Login with email",
+        "password_label": "Password",
+        "password_error_message": "Please input your password"
+      },
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help!",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you’ll be able to connect with people to recieve and provide help to people in your area!",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "2_authentication": {
+          "email_signup": "Sign up with email",
+          "email_signin": "Continue with email",
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        },
+        "3_email_signin": {
+          "title": "Login with email",
+          "signin": "Login",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        },
+        "4_email_signup": {
+          "title": "Sign up with email",
+          "create_account": "Create Account",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        }
+      }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Kontaktujte nás",
       "logout": "Odhlásit se",
       "switchToCAV": "Přepnout na podporu nabídky",
-      "switchToPIN": "Přepnout na pomoc při hledání"
+      "switchToPIN": "Přepnout na pomoc při hledání",
+      "settings": "Settings"
+    },
+    "settings": {
+      "heading": "Settings",
+      "changeName": "Change my name",
+      "deleteAccount": "Delete my account",
+      "changeNameForm": {
+        "full_name_error_message": "Please enter your name",
+        "display_name_error_message": "Please enter your display name",
+        "cancel": "Cancel",
+        "submit": "Save"
+      },
+      "deleteAccountModal": {
+        "title": "Are you sure you want to delete your account",
+        "body": "Closing your account means you will no longer be able to provide help or ask for help",
+        "deleteAccount": "Delete my account"
+      }
     },
     "phoneNumber": {
+      "title": "Before you continue...",
       "select_instructions": "Vybrat z rozbalovacího seznamu níže",
       "input_instructions": "Zadejte svůj e-mail",
       "sub_title": "Pro přihlášení zadejte své telefonní číslo",
@@ -113,7 +193,11 @@
       "country_label": "Vaše země",
       "country_placeholder": "Vybrat zemi",
       "phone_label": "Vložte své telefonní číslo",
-      "bad_11_prefix": "Neplatné číslo: +11 je prefix země pro Bulharsko, nikoli Kanada nebo Spojené státy. Neuvádějte \"1\" jako svou hlavní číslici"
+      "bad_11_prefix": "Neplatné číslo: +11 je prefix země pro Bulharsko, nikoli Kanada nebo Spojené státy. Neuvádějte \"1\" jako svou hlavní číslici",
+      "popup_explanation": {
+        "main_question": "How is my phone number used?",
+        "main_answer": "Your number is shared only with the person you explicitly accept to help you so that you can communicate with each other to carry out the request."
+      }
     },
     "verificationCode": {
       "sub_title": "Právě jsme Vám zaslali potvrzovací kód. Zadejte jej prosím níže.",
@@ -177,7 +261,8 @@
       "_requests_finished": "Uzavřené požadavky",
       "_requests_new": "Nový požadavek",
       "_requests_ongoing": "Probíhající požadavky",
-      "_requests_open": "Otevřené požadavky"
+      "_requests_open": "Otevřené požadavky",
+      "_settings": "Settings"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} zavřel tento požadavek.",
@@ -277,6 +362,13 @@
         "bottom_warning": "Váš požadavek byl zobrazen několika dobrovolníky, ale nebyl přijat. Doporučujeme vám &ldquo;Uzavřít požadavek&rdquo; a vytvořit nový s jednodušším popisem.",
         "cannot_help": "Nemohu pomoci",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "Přijato"
           },

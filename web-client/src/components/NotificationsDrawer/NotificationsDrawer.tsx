@@ -16,7 +16,6 @@ const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
   offersState,
   unseenOffers,
   unseenOffersKeys,
-  isCav,
 }) => {
   const dispatch = useDispatch();
 
@@ -37,13 +36,9 @@ const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
       }}
       visible={visible}
       width="100%"
-      style={{ marginTop: '64px', height: 'calc(100vh - 128px)' }}
     >
-      <NotificationsHeader
-        isCav={isCav}
-        numNotifications={unseenOffers.length}
-      />
-      <NotificationsList isCav={isCav} unseenOffers={unseenOffers} />
+      <NotificationsHeader numNotifications={unseenOffers.length} />
+      <NotificationsList unseenOffers={unseenOffers} />
     </SideDrawer>
   );
 };
@@ -66,7 +61,6 @@ interface NotificationsDrawerProps {
   offersState: OffersState;
   unseenOffers: Offer[];
   unseenOffersKeys: string[];
-  isCav?: boolean;
 }
 
 export default NotificationsDrawer;

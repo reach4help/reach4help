@@ -1,10 +1,12 @@
 {
   "common": {
+    "or": "or",
     "i_understand": "Ich verstehe.",
     "okay": "OK",
     "cancel": "Abbrechen",
     "welcome": "Willkommen",
     "continue": "Weiter",
+    "back": "Back",
     "verify": "Überprüfen",
     "spinner": "Wird geladen ...",
     "name": "Name",
@@ -90,15 +92,93 @@
       "sub_title": "Anmeldung Übersicht",
       "info": "Hallo da! Vielen Dank für dein Interesse an der Hilfe für deine Community! Um die Sicherheit unserer Nutzer zu gewährleisten wir benötigen zur Zeit ein Login über Google oder Facebook, um Ihre Identität zu überprüfen und Sie zu kontaktieren, falls Abweichungen auftreten.\n\nNach diesem Schritt werden Sie aufgefordert, Ihre Telefonnummer anzugeben und sie durch einen Code zu verifizieren, den Sie per Text erhalten. So werden sich Menschen, die Hilfe anbieten, mit Ihnen in Verbindung setzen! Kontaktinformationen werden nur dann an die andere Person weitergegeben, wenn Sie der Person zugestimmt haben, die sie anbietet, um ihnen zu helfen. Wenn Sie eine Hilfeanfrage stellen, wird Ihre genaue Position nicht geteilt (nur die ersten drei Ziffern Ihrer Postleitzahl).\nVielen Dank für Ihre Zusammenarbeit, um unsere Welt sicherer und hilfreicher zu machen! Wenn Sie Fragen haben, kontaktieren Sie uns bitte unter support@reach4help. rg.",
       "facebookButtonLabel": "Über Facebook anmelden",
-      "googleButtonLabel": "Mit Google+ anmelden"
+      "googleButtonLabel": "Mit Google+ anmelden",
+      "sign_in": {
+        "title": "Login with email",
+        "password_label": "Password",
+        "password_error_message": "Please input your password"
+      },
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help!",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you’ll be able to connect with people to recieve and provide help to people in your area!",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "2_authentication": {
+          "email_signup": "Sign up with email",
+          "email_signin": "Continue with email",
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        },
+        "3_email_signin": {
+          "title": "Login with email",
+          "signin": "Login",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        },
+        "4_email_signup": {
+          "title": "Sign up with email",
+          "create_account": "Create Account",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        }
+      }
     },
     "menuDrawer": {
+      "changeLanguage": "Change Language",
       "contactUs": "Kontaktieren Sie uns",
       "logout": "Abmelden",
       "switchToCAV": "Zur Angebotsunterstützung wechseln",
-      "switchToPIN": "Zur Suchhilfe wechseln"
+      "switchToPIN": "Zur Suchhilfe wechseln",
+      "settings": "Settings"
+    },
+    "settings": {
+      "heading": "Settings",
+      "changeName": "Change my name",
+      "deleteAccount": "Delete my account",
+      "changeNameForm": {
+        "full_name_error_message": "Please enter your name",
+        "display_name_error_message": "Please enter your display name",
+        "cancel": "Cancel",
+        "submit": "Save"
+      },
+      "deleteAccountModal": {
+        "title": "Are you sure you want to delete your account",
+        "body": "Closing your account means you will no longer be able to provide help or ask for help",
+        "deleteAccount": "Delete my account"
+      }
     },
     "phoneNumber": {
+      "title": "Before you continue...",
       "select_instructions": "Aus der Dropdown-Liste auswählen",
       "input_instructions": "Fenster für Eingabe von DTMF-Ziffern öffnen.",
       "sub_title": "Geben Sie zunächst Ihre Telefonnummer ein:",
@@ -113,7 +193,11 @@
       "country_label": "Ihr Land",
       "country_placeholder": "Wählen Sie ein Land aus",
       "phone_label": "Geben Sie Ihre Telefonnummer ein.",
-      "bad_11_prefix": "Ungültige Nummer: +11 ist das Präfix für Bulgarien, nicht für Kanada oder die Vereinigten Staaten. Geben Sie nicht '1' als Ihre führende Ziffer ein"
+      "bad_11_prefix": "Ungültige Nummer: +11 ist das Präfix für Bulgarien, nicht für Kanada oder die Vereinigten Staaten. Geben Sie nicht '1' als Ihre führende Ziffer ein",
+      "popup_explanation": {
+        "main_question": "How is my phone number used?",
+        "main_answer": "Your number is shared only with the person you explicitly accept to help you so that you can communicate with each other to carry out the request."
+      }
     },
     "verificationCode": {
       "sub_title": "Wir haben Ihnen einen Bestätigungscode gesendet. Bitte geben Sie diesen unten ein.",
@@ -177,7 +261,8 @@
       "_requests_finished": "Abgeschlossene Anfragen",
       "_requests_new": "Neue Anfrage",
       "_requests_ongoing": "Laufende Anfragen",
-      "_requests_open": "Offene Anfragen"
+      "_requests_open": "Offene Anfragen",
+      "_settings": "Settings"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} hat diese Anfrage erstellt.",
@@ -277,6 +362,13 @@
         "bottom_warning": "Ihre Anfrage wurde von mehreren Freiwilligen eingesehen, wurde aber nicht angenommen. Wir schlagen vor, dass Sie &ldquo;Anfrage schließen&rdquo; und erstellen Sie eine neue mit einer einfacheren Beschreibung.",
         "cannot_help": "Kann nicht gesendet werden",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "Angenommen"
           },

@@ -154,7 +154,6 @@ export class TimelineItem implements ITimelineItem {
   }
 
   static factory(data: ITimelineItem): TimelineItem {
-    console.log('data: ', JSON.stringify(data));
     console.log('data.actorRef: ', data.actorRef);
     return new TimelineItem(
       data.actorRef,
