@@ -388,6 +388,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Cruebee",
+      "name": "Crue Jameson (Eric Gerlach)",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/60672128?v=4",
+      "profile": "http://cruejameson.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
