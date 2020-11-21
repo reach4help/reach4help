@@ -33,6 +33,9 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
   });
   const isLoggedIn = !!(profileData && profileData.displayName);
 
+  // Closes SideDrawer if user switches from mobile view
+  window.onresize = closeDrawer;
+
   return (
     <>
       <SideDrawer
