@@ -90,7 +90,7 @@ const Line = styled.div`
   width: 90%;
   position: relative;
   left: 5%;
-  bottom: 16%;
+  bottom: 7.5%;
 `;
 
 export default MenuDrawer;

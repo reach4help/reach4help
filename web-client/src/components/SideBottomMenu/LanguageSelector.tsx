@@ -31,7 +31,7 @@ export const LanguageSelector: React.FC = () => {
           margin: 'auto',
           marginTop: '20px',
           width: '100%',
-        }}
+        }} // TODO: Refactor this style based on the style of the styled component
         size="large"
         optionFilterProp="children"
         filterOption={(input, option) =>
@@ -103,10 +103,23 @@ const SelectLanguage = styled(Select)`
     align-items: center;
     font-size: 24px;
     font-weight: 700;
+
+    @media (min-width: 918px) {
+      font-size: 16px;
+      position: relative;
+      top: 3px;
+      right: 0.6px;
+    }
   }
 
   .ant-select-arrow {
     color: black;
+
+    @media (min-width: 918px) {
+      position: relative;
+      left: 32px;
+      bottom: 32px;
+    }
   }
 `;
 
@@ -117,7 +130,11 @@ const SelectorContainer = styled.div`
   width: 115px;
   position: relative;
   left: 14%;
-  bottom: 9%;
+  bottom: 20%;
+
+  @media (min-width: 918px) {
+    left: 7.5%;
+  }
 `;
 
 const GlobalOutlinedIcon = styled(GlobalOutlined)`

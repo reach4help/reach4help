@@ -1,9 +1,11 @@
+import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import // CreateOfferLocationUrl,
-// CreateRequestLocationUrl,
-'src/modules/create/constants';
+import {
+  CreateOfferLocationUrl,
+  CreateRequestLocationUrl,
+} from 'src/modules/create/constants';
 import {
   AcceptedRequestsLocation,
   MyOfferPostsLocationUrl,
@@ -31,100 +33,15 @@ const SideMenuLink: React.FC<{
 const SideTopMenu: React.FC<{
   closeDrawer: () => void;
   isLoggedIn: boolean;
-}> = ({ closeDrawer, isLoggedIn }) => (
-  <SideTopMenuStyle>
-    <StyledMenu mode="inline">
-      <SideMenuLink
-        key="Home"
-        title="Home"
-        path="/home"
-        onClick={closeDrawer}
-      />
+}> = ({ closeDrawer, isLoggedIn }) => {
+  const [createNewShowing, setCreateNewShowing] = useState(false);
 
-      {// isLoggedIn
-      true && (
-        <SideMenuLink
-          key="HelpRequests"
-          title="Help Requests"
-          path={MyOfferPostsLocationUrl}
-          onClick={closeDrawer}
-        />
-        // new
-      )}
-
-      {// isLoggedIn
-      true && (
-        <SideMenuLink
-          key="VolunteerOffers"
-          title="Volunteer Offers"
-          path={MyOfferPostsLocationUrl}
-          onClick={closeDrawer}
-        /> // new
-      )}
-
-      {isLoggedIn && (
-        <SideMenuLink
-          key="OpenRequests"
-          title="Open Requests"
-          path={OpenRequestsLocation.path}
-          onClick={closeDrawer}
-        />
-      )}
-      {isLoggedIn && (
-        <SideMenuLink
-          key="AcceptedRequests"
-          title="Accepted Requests"
-          path={AcceptedRequestsLocation.path}
-          onClick={closeDrawer}
-        />
-      )}
-      {isLoggedIn && (
-        <SideMenuLink
-          key="MyRequests"
-          title="My Requests"
-          path={MyRequestPostsLocationUrl}
-          onClick={closeDrawer}
-        />
-      )}
-      {isLoggedIn && (
-        <SideMenuLink
-          key="MyOffers"
-          title="My Offers"
-          path={MyOfferPostsLocationUrl}
-          onClick={closeDrawer}
-        />
-      )}
-
-      {/* <SideMenuLink
-        key="CreateRequest"
-        title="Create Request"
-        path={CreateRequestLocationUrl}
-        onClick={closeDrawer}
-      />
-      <SideMenuLink
-        key="CreateOffer"
-        title="Create Offer - not implemented"
-        path={`notimplemented:${CreateOfferLocationUrl}`}  TODO: implement
-        onClick={closeDrawer}
-      /> */}
-
-      <SideMenuLink
-        key="AboutUs"
-        title="About Us"
-        path="/home/about"
-        onClick={closeDrawer}
-      />
-    </StyledMenu>
-
-    <LanguageSelector />
-  </SideTopMenuStyle>
-);
-
-const SideTopMenuStyle = styled('div')`
-  flex: auto;
+  const SideTopMenuStyle = styled('div')`
+  // margin-top: 100px;
+  margin-top: ${!isLoggedIn ? '40px' : '100px'};
+  flex: .65;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
   .ant-menu {
     background: ${COLORS.white};
@@ -169,6 +86,165 @@ const SideTopMenuStyle = styled('div')`
   }
 `;
 
+  const StyledMenu = styled(Menu)`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
+    bottom: 5%;
+    transition: 1s ease all;
+  `;
+
+  const CreateNew = styled('div')`
+    position: relative;
+    left: 17%;
+    overflow: hidden;
+    height: 44%;
+    z-index: 2;
+    bottom: 5%;
+
+    h4 {
+      position: relative;
+      top: 20%;
+      font-size: 24px;
+      font-weight: 700;
+
+      svg {
+        position: relative;
+        top: 2.5px;
+      }
+    }
+  `;
+
+  const CreateNewMenu = createNewShowing
+    ? styled(StyledMenu)`
+        top: 20%;
+        bottom: 0%;
+      `
+    : styled(StyledMenu)`
+        bottom: 150%;
+      `;
+
+  const AboutSideMenuLink = createNewShowing
+    ? styled(SideMenuLink)`
+        bottom: 20%;
+      `
+    : styled(SideMenuLink)`
+        bottom: 225%;
+      `;
+
+  return (
+    <SideTopMenuStyle>
+      <StyledMenu mode="inline">
+        <SideMenuLink
+          key="Home"
+          title="Home"
+          path="/home"
+          onClick={closeDrawer}
+        />
+
+        {true && (
+          <SideMenuLink
+            key="HelpRequests"
+            title="Help Requests"
+            path={MyOfferPostsLocationUrl}
+            onClick={closeDrawer}
+          />
+        )}
+
+        {true && (
+          <SideMenuLink
+            key="VolunteerOffers"
+            title="Volunteer Offers"
+            path={MyOfferPostsLocationUrl}
+            onClick={closeDrawer}
+          />
+        )}
+
+        {isLoggedIn && (
+          <CreateNew
+            onClick={() => setCreateNewShowing(!createNewShowing)}
+            // render me conditionally (when the user's logged in)
+          >
+            <h4>
+              Create New
+              {!createNewShowing ? <CaretDownOutlined /> : <CaretUpOutlined />}
+            </h4>
+            <CreateNewMenu mode="inline">
+              <SideMenuLink
+                key="CreateRequest"
+                title="Create Request"
+                path={CreateRequestLocationUrl}
+                onClick={closeDrawer}
+              />
+              <SideMenuLink
+                key="CreateOffer"
+                title="Create Offer - not implemented"
+                path={CreateOfferLocationUrl}
+                onClick={closeDrawer}
+              />
+            </CreateNewMenu>
+          </CreateNew>
+        )}
+
+        {isLoggedIn && (
+          <SideMenuLink
+            key="OpenRequests"
+            title="Open Requests"
+            path={OpenRequestsLocation.path}
+            onClick={closeDrawer}
+          />
+        )}
+        {isLoggedIn && (
+          <SideMenuLink
+            key="AcceptedRequests"
+            title="Accepted Requests"
+            path={AcceptedRequestsLocation.path}
+            onClick={closeDrawer}
+          />
+        )}
+        {isLoggedIn && (
+          <SideMenuLink
+            key="MyRequests"
+            title="My Requests"
+            path={MyRequestPostsLocationUrl}
+            onClick={closeDrawer}
+          />
+        )}
+        {isLoggedIn && (
+          <SideMenuLink
+            key="MyOffers"
+            title="My Offers"
+            path={MyOfferPostsLocationUrl}
+            onClick={closeDrawer}
+          />
+        )}
+
+        {!isLoggedIn ? (
+          <SideMenuLink
+            key="AboutUs"
+            title="About Us"
+            path="/home/about"
+            onClick={closeDrawer}
+          />
+        ) : (
+          <AboutSideMenuLink
+            key="AboutUs"
+            title="About Us"
+            path="/home/about"
+            onClick={closeDrawer}
+          />
+        )}
+      </StyledMenu>
+
+      <LanguageSelectorContainer>
+        <LanguageSelector />
+      </LanguageSelectorContainer>
+    </SideTopMenuStyle>
+  );
+};
+
 const StyledMenuItem = styled(Menu.Item)`
   font-size: 24px;
   font-weight: 700;
@@ -176,13 +252,10 @@ const StyledMenuItem = styled(Menu.Item)`
   left: 10%;
 `;
 
-const StyledMenu = styled(Menu)`
-  flex: 0.55;
+const LanguageSelectorContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   position: relative;
-  bottom: 7%;
+  bottom: 10%;
 `;
 
 export default SideTopMenu;

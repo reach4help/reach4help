@@ -1,5 +1,6 @@
 import React from 'react';
 
+// import DashboardLayout from '../../../components/DashboardLayout/DashboardLayout';
 import airtableLogo from '../assets/airtableLogo.svg';
 import algoliaLogo from '../assets/algoliaLogo.svg';
 import canvaLogo from '../assets/canvaLogo.svg';
