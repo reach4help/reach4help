@@ -32,7 +32,7 @@ function Mission() {
   return (
     <Wrapper id="mission">
       <div className="imageWrapper">
-        <Img fluid={data.file.childImageSharp.fluid} alt="" />
+        <Img fluid={data.file.childImageSharp.fluid} alt="R4H Mission" />
       </div>
       <ContentWrapper>
         <h2>{t("Mission.heading")}</h2>
