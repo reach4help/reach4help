@@ -285,8 +285,20 @@ export class Request implements IRequest {
   }
 
   public static factory(data: IRequest): Request {
+    const user = new User (
+      'x', //username: string,
+      null, // applicationPreference: ApplicationPreference | null = ApplicationPreference.pin,
+      null, // pinQuestionnaireRef: firebase.firestore.DocumentReference<
+        //firebase.firestore.DocumentData
+      //> | null = null,
+      //cavQuestionnaireRef: firebase.firestore.DocumentReference<
+       // firebase.firestore.DocumentData
+      //> | null = null,
+    );
+    console.log('User', user, user.username, data.pinUserSnapshot, data.pinUserSnapshot.username);
     return new Request(
       data.pinUserRef,
+      user,
       User.factory(data.pinUserSnapshot),
       data.title,
       data.description,
@@ -294,7 +306,7 @@ export class Request implements IRequest {
       data.streetAddress,
       data.cavUserRef,
       // This field may be null
-      data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
+      user, //? User.factory(data.cavUserSnapshot) : null,
       data.status,
       data.createdAt,
       data.updatedAt,
@@ -303,6 +315,27 @@ export class Request implements IRequest {
       data.pinRatedAt,
       data.cavRatedAt,
     );
+  }
+
+  public static factoryFromUnderscore(data: IRequest): Request {
+    console.log('underscore', data);
+    const dataWithoutUnderscore = { ...data };
+    dataWithoutUnderscore.title = data._title;
+    dataWithoutUnderscore.description = data._description;
+    dataWithoutUnderscore.pinUserRef = data._pinUserRef;
+    dataWithoutUnderscore.pinUserSnapshot = data._pinUserSnapshot;
+    dataWithoutUnderscore.latLng = data._latLng;
+    dataWithoutUnderscore.streetAddress = data._streetAddress;
+    dataWithoutUnderscore.cavUserRef = data._cavUserRef;
+    dataWithoutUnderscore.cavUserSnapshot = data._cavUserSnapshot;
+    dataWithoutUnderscore.status = data._status;
+    dataWithoutUnderscore.createdAt = data._createdAt;
+    dataWithoutUnderscore.updatedAt = data._updatedAt;
+    dataWithoutUnderscore.pinRating = data._pinRating;
+    dataWithoutUnderscore.cavRating = data._cavRating;
+    dataWithoutUnderscore.pinRatedAt = data._pinRatedAt;
+    dataWithoutUnderscore.cavRatedAt = data._cavRatedAt;
+    return this.factory( dataWithoutUnderscore );
   }
 
   toObject(): object {

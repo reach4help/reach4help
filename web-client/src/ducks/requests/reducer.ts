@@ -120,7 +120,10 @@ export default createReducer<PostState>(
       const requestsArray = Object.keys(requestData).map(
         key => requestData[key],
       );
-      for (const request of requestsArray) {
+      for (const requestObj of requestsArray) {
+        console.log('bbbb2', requestObj);
+        const request = Request.factoryFromUnderscore(requestObj);
+        console.log('bbb ',request);
         // console.log('doc.data: ', JSON.stringify(doc.data()));
         // eslint-disable-next-line no-await-in-loop
         // const timeline = await getTimelineForRequest(doc.ref, userRef);

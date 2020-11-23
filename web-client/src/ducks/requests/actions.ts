@@ -31,15 +31,24 @@ export const getFindPosts = (payload: IgetRequestPosts) => (
     payload,
   });
 
+/**
+ * Selects request posts for specified user
+ * @param [IgetRequestPosts] payload - WHERE clause values
+ */
 export const getPinRequestPosts = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
+console.log('here');
   dispatch({
     type: GET_PIN_REQUEST_POSTS,
     firebase: getPinRequestPostsFunc,
     payload,
   });
 
+/**
+ * Selects request posts for which user has responded to offer help
+ * @param [IgetRequestPosts] payload - WHERE clause values
+ */
 export const getCavRequestPosts = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
