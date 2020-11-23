@@ -38,7 +38,6 @@ export const getFindPosts = (payload: IgetRequestPosts) => (
 export const getPinRequestPosts = (payload: IgetRequestPosts) => (
   dispatch: Function,
 ) =>
-console.log('here');
   dispatch({
     type: GET_PIN_REQUEST_POSTS,
     firebase: getPinRequestPostsFunc,

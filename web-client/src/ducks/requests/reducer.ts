@@ -153,11 +153,13 @@ export default createReducer<PostState>(
         //   }
         // }
         // if (num === 0) {
-        requestsWithOffers[request.id] = RequestWithOffersAndTimeline.factory({
-          ...(request as IRequest),
-          offers: {},
-          timeline: {},
-        } as IRequestWithOffersAndTimeline);
+        // TODO: Make it so id does not show with red underline (error)
+        requestsWithOffers[request.id] = request;
+        // RequestWithOffersAndTimeline.factory({
+        //   ...(request as IRequest),
+        //   offers: {},
+        //   timeline: {},
+        // } as IRequestWithOffersAndTimeline);
         // }
       }
       state.syncPinRequestPostsState.data = requestsWithOffers;
