@@ -29,9 +29,6 @@ const RequestPostsContainer: React.FC = () => {
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
-  // TODO: console.log('before', profileState.url);
-  // profileState.url = window.location.href;
-  // console.log('after', profileState.url);
 
   const requestWithOffersAndTimeline = useSelector(
     ({ requests }: { requests: PostState }) =>
@@ -62,7 +59,6 @@ const RequestPostsContainer: React.FC = () => {
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
   const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
-
   if (
     !requestWithOffersAndTimeline.data ||
     requestWithOffersAndTimeline.loading

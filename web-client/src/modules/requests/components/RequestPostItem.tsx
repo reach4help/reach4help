@@ -1,4 +1,4 @@
-import { Button, Col, Row } from 'antd';
+import { /* TODO: warning message Button, */ Col, Row } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
@@ -9,16 +9,75 @@ import styled, { keyframes } from 'styled-components';
 import { COLORS } from '../../../theme/colors';
 import avgRating from '../assets/pinAverageRating.svg';
 import defaultUserPic from '../assets/role_pin.png';
-import warningSign from '../assets/warningExclamation.svg';
+// import warningSign from '../assets/warningExclamation.svg';
+
+// TODO: getWarningMessage
+// export const getWarningMessage = (request: Request) =>
+// {
+//   let bottomWarningMessage;
+//   if (
+//     isPinAndOpenRequest &&
+//     !Object.keys(offers).length &&
+//     Date.now() - request.createdAt.toDate().getTime() > 1000 * 60 * 60 * 24 * 7
+//   ) {
+//     bottomWarningMessage = (
+//       <WarningMessage
+//         style={{
+//           background: '#FAFAFA',
+//         }}
+//       >
+//         {t('modules.requests.containers.no_reply')}
+//       </WarningMessage>
+//     );
+//   } else if (
+//     isPinAndOpenRequest &&
+//     toCloseRequest &&
+//     (Object.keys(offers).length >= 5 ||
+//       (Object.keys(offers).length < 5 &&
+//         Date.now() - request.createdAt.toDate().getTime() >
+//           1000 * 60 * 60 * 24 * 7))
+//   ) {
+//     bottomWarningMessage = (
+//       <WarningMessage
+//         style={{
+//           background: 'rgba(255, 203, 82, 0.1)',
+//         }}
+//       >
+//         <Row>
+//           <Col span={2}>
+//             <img
+//               src={warningSign}
+//               alt="Attention"
+//               style={{ animation: 'fadeIn 0.75s' }}
+//             />
+//           </Col>
+//           <Col span={22}>
+//             <p>{t('modules.requests. ')}</p>
+//           </Col>
+//         </Row>
+//         <Row>
+//           <Col span={12} offset={12}>
+//             <CloseButton
+//               onClick={() => toCloseRequest()}
+//               style={{ fontSize: '16px' }}
+//             >
+//               Close Request
+//             </CloseButton>
+//           </Col>
+//         </Row>
+//       </WarningMessage>
+//     );
+//   }
+// )
 
 const RequestPostItem: React.FC<RequestItemProps> = ({
   request,
   handleRequest,
   isCavAndOpenRequest,
-  isPinAndOpenRequest = false,
-  offers = {},
+  // isPinAndOpenRequest = false, TODO: needed?
+  // offers = {}, TODO: needed?
   hideUserPic,
-  toCloseRequest,
+  // toCloseRequest, TODO: needed?
   loading = false,
 }): React.ReactElement => {
   const { t } = useTranslation();
@@ -41,61 +100,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
     }
     return '';
   };
-
-  let bottomWarningMessage;
-  if (
-    isPinAndOpenRequest &&
-    !Object.keys(offers).length &&
-    Date.now() - request.createdAt.toDate().getTime() > 1000 * 60 * 60 * 24 * 7
-  ) {
-    bottomWarningMessage = (
-      <WarningMessage
-        style={{
-          background: '#FAFAFA',
-        }}
-      >
-        {t('modules.requests.containers.no_reply')}
-      </WarningMessage>
-    );
-  } else if (
-    isPinAndOpenRequest &&
-    toCloseRequest &&
-    (Object.keys(offers).length >= 5 ||
-      (Object.keys(offers).length < 5 &&
-        Date.now() - request.createdAt.toDate().getTime() >
-          1000 * 60 * 60 * 24 * 7))
-  ) {
-    bottomWarningMessage = (
-      <WarningMessage
-        style={{
-          background: 'rgba(255, 203, 82, 0.1)',
-        }}
-      >
-        <Row>
-          <Col span={2}>
-            <img
-              src={warningSign}
-              alt="Attention"
-              style={{ animation: 'fadeIn 0.75s' }}
-            />
-          </Col>
-          <Col span={22}>
-            <p>{t('modules.requests.bottom_warning')}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} offset={12}>
-            <CloseButton
-              onClick={() => toCloseRequest()}
-              style={{ fontSize: '16px' }}
-            >
-              Close Request
-            </CloseButton>
-          </Col>
-        </Row>
-      </WarningMessage>
-    );
-  }
 
   if (displayDetails) {
     return (
@@ -196,13 +200,13 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
               style={{
                 float: 'right',
               }}
-              src={request.pinUserSnapshot.displayPicture || defaultUserPic}
+              src={request.pinUserSnapshot?.displayPicture || defaultUserPic}
               alt={t('modules.requests.a11y_profile_pic')}
             />
           )}
         </div>
       </Item>
-      {bottomWarningMessage}
+      {/* TODO: {bottomWarningMessage} */}
     </>
   );
 };
@@ -253,13 +257,14 @@ const UserPic = styled.img`
   object-fit: cover;
 `;
 
-const CloseButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
+// TODO: Use when reimplement warning message
+// const CloseButton = styled(Button)`
+//   border-radius: 4px;
+//   width: 100%;
+//   overflow: hidden;
+//   white-space: nowrap;
+//   text-overflow: ellipsis;
+// `;
 
 const UserDetails = styled.div`
   display: inline-block;
@@ -272,18 +277,19 @@ const Icon = styled.img`
   margin-right: 5px;
 `;
 
-const WarningMessage = styled.div`
-  border: 1px solid ${COLORS.secondaryLight};
-  color: rgba(0, 0, 0, 0.65);
-  font-family: Roboto;
-  font-size: 12px;
-  line-height: 20px;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 15px;
-  padding: 12px;
-  border-radius: 2px;
-`;
+// TODO: WarningMessage
+// const WarningMessage = styled.div`
+//   border: 1px solid ${COLORS.secondaryLight};
+//   color: rgba(0, 0, 0, 0.65);
+//   font-family: Roboto;
+//   font-size: 12px;
+//   line-height: 20px;
+//   margin-left: 15px;
+//   margin-right: 15px;
+//   margin-bottom: 15px;
+//   padding: 12px;
+//   border-radius: 2px;
+// `;
 
 export interface RequestItemProps {
   request: Request;

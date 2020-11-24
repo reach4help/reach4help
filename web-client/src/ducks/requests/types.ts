@@ -31,7 +31,7 @@ export interface PostState {
   };
   syncPinRequestPostsState: {
     loading: boolean;
-    data?: Record<string, RequestWithOffersAndTimeline>;
+    data?: Record<string, Request>;
     error?: Error;
   };
   syncCavRequestPostsState: {

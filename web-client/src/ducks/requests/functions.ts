@@ -77,6 +77,7 @@ export const getPinReqestPosts = async () => {
     .then(snapshot => {
       dataRequests = snapshot.docs.map(doc => ({
         id: doc.id,
+        // TODO: Convert to request here?
         ...doc.data(),
       }));
     });

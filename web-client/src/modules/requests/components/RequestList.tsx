@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import { Offer } from 'src/models/offers';
-import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
+import { Request } from 'src/models/requests';
 
 const RequestList: React.FC<RequestListProps> = ({
   requests,
@@ -23,20 +23,19 @@ const RequestList: React.FC<RequestListProps> = ({
     if (requests) {
       const internalRequestList: React.ReactElement<any>[] = [];
       const internalRequestsRendered: Record<string, boolean> = {};
-
       for (const id in requests) {
         if (id && requests[id] && !requestsRendered[id]) {
           internalRequestsRendered[id] = true;
           internalRequestList.push(
             <RequestItem
               key={id}
-              request={requests[id].getRequest()}
+              request={requests[id]}
               handleRequest={(action?: boolean) =>
                 handleRequest && handleRequest(id, action)
               }
               isCavAndOpenRequest={isCavAndOpenRequest}
               isPinAndOpenRequest={isPinAndOpenRequest}
-              offers={requests[id].offers}
+              offers={undefined}
               toCloseRequest={(action?: boolean) =>
                 toCloseRequest && toCloseRequest(id, action)
               }
@@ -71,7 +70,7 @@ const RequestList: React.FC<RequestListProps> = ({
 };
 
 interface RequestListProps {
-  requests?: Record<string, RequestWithOffersAndTimeline>;
+  requests?: Record<string, Request>;
   loading: boolean;
   handleRequest?: Function;
   isCavAndOpenRequest?: boolean;
