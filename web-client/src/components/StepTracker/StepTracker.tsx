@@ -2,16 +2,6 @@ import React from 'react';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-const getStatus = (idx, current) => {
-  if (idx === current) {
-    return 'active';
-  }
-  if (idx > current) {
-    return 'waiting';
-  }
-  return 'finished';
-};
-
 const StepTracker: React.FC<IStepTracker> = ({
   stepTitles,
   currentStep,
@@ -145,6 +135,17 @@ const StepTracker: React.FC<IStepTracker> = ({
     stepsQty: number;
   }
 };
+
+const getStatus = (idx, current) => {
+  if (idx === current) {
+    return 'active';
+  }
+  if (idx > current) {
+    return 'waiting';
+  }
+  return 'finished';
+};
+
 export interface IStepTracker {
   stepTitles: string[];
   currentStep: number;
