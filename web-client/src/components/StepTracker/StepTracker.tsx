@@ -12,6 +12,16 @@ const StepTracker: React.FC<IStepTracker> = ({
     finished: '#cc9bc7',
   },
 }) => {
+  const getStatus = (idx, current) => {
+    if (idx === current) {
+      return 'active';
+    }
+    if (idx > current) {
+      return 'waiting';
+    }
+    return 'finished';
+  };
+
   const StepColumn = styled.div`
     display: flex;
     flex-direction: row;
@@ -134,16 +144,6 @@ const StepTracker: React.FC<IStepTracker> = ({
     status: 'active' | 'waiting' | 'finished';
     stepsQty: number;
   }
-};
-
-const getStatus = (idx, current) => {
-  if (idx === current) {
-    return 'active';
-  }
-  if (idx > current) {
-    return 'waiting';
-  }
-  return 'finished';
 };
 
 export interface IStepTracker {
