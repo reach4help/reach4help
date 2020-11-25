@@ -1,11 +1,11 @@
 import { IRequest, Request } from 'src/models/requests';
 
-/* TODO: why rename? */
+/* TODO: (es) why rename? */
 import {
   createUserRequest,
   getCavRequestPosts as getCavPostFunc,
   getFindPosts as getFindPostsFunc,
-  getPinReqestPosts as getPinRequestPostsFunc,
+  getMyPinReqestPosts as getMyPinRequestPostsFunc,
   setUserRequest,
 } from './functions';
 import {
@@ -14,6 +14,7 @@ import {
   GET_FIND_REQUEST_POSTS as GET_FIND_POSTS,
   GET_PIN_REQUEST_POSTS,
   IgetRequestPosts,
+  IMyPosts,
   RESET_CAV_REQUEST_POSTS,
   RESET_FIND_REQUEST_POSTS,
   RESET_PIN_REQUEST_POSTS,
@@ -35,12 +36,12 @@ export const getFindPosts = (payload: IgetRequestPosts) => (
  * Selects request posts for specified user
  * @param [IgetRequestPosts] payload - WHERE clause values
  */
-export const getPinRequestPosts = (payload: IgetRequestPosts) => (
+export const getMyPinRequestPosts = (payload: IMyPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
     type: GET_PIN_REQUEST_POSTS,
-    firebase: getPinRequestPostsFunc,
+    firebase: getMyPinRequestPostsFunc,
     payload,
   });
 

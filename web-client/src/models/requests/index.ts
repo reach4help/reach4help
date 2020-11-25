@@ -284,28 +284,6 @@ export class Request implements IRequest {
     this._cavRatedAt = value;
   }
 
-  // TODO: See if there are other options in calling code
-  // TODO: Rename data2 to dataWithoutUnderscore
-  // TODO: Move function
-  public static factoryFromUnderscore(data: IRequest) {
-    const data2 = { ...data };
-    data2.pinUserRef = data._pinUserRef;
-    data2.pinUserSnapshot = data._pinUserSnapshot;
-    data2.title = data._title;
-    data2.description = data._description;
-    data2.latLng = data._latLng;
-    data2.streetAddress = data._streetAddress;
-    data2.cavUserRef = data._cavUserRef;
-    data2.status = data._status;
-    data2.createdAt = data._createdAt;
-    data2.updatedAt = data._updatedAt;
-    data2.pinRating = data._pinRating;
-    data2.cavRating = data._cavRating;
-    data2.pinRatedAt = data._pinRatedAt;
-    data2.cavRatedAt = data._cavRatedAt;
-    return this.factory(data2);
-  }
-
   public static factory(data: IRequest): Request {
     return new Request(
       data.pinUserRef,
@@ -325,6 +303,26 @@ export class Request implements IRequest {
       data.pinRatedAt,
       data.cavRatedAt,
     );
+  }
+
+  // TODO: See if there are other options in calling code
+  public static factoryFromUnderscore(data: IRequest) {
+    const dataWithoutUnderscore = { ...data };
+    dataWithoutUnderscore.pinUserRef = data._pinUserRef;
+    dataWithoutUnderscore.pinUserSnapshot = data._pinUserSnapshot;
+    dataWithoutUnderscore.title = data._title;
+    dataWithoutUnderscore.description = data._description;
+    dataWithoutUnderscore.latLng = data._latLng;
+    dataWithoutUnderscore.streetAddress = data._streetAddress;
+    dataWithoutUnderscore.cavUserRef = data._cavUserRef;
+    dataWithoutUnderscore.status = data._status;
+    dataWithoutUnderscore.createdAt = data._createdAt;
+    dataWithoutUnderscore.updatedAt = data._updatedAt;
+    dataWithoutUnderscore.pinRating = data._pinRating;
+    dataWithoutUnderscore.cavRating = data._cavRating;
+    dataWithoutUnderscore.pinRatedAt = data._pinRatedAt;
+    dataWithoutUnderscore.cavRatedAt = data._cavRatedAt;
+    return this.factory(dataWithoutUnderscore);
   }
 
   toObject(): object {

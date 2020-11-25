@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
-// TODO: reset - what is it used for
 import {
   getCavRequestPosts,
   resetCavRequestPostsState,

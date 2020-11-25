@@ -39,7 +39,7 @@ export interface PostState {
     data?: Record<string, RequestWithOffersAndTimeline>;
     error?: Error;
   };
-  // TODO: Do we need these?
+  // TODO: (es) Do we need these?
   openRequests: {
     observerReceivedFirstUpdate: boolean;
     loading: boolean;
@@ -87,4 +87,9 @@ export interface IgetRequestPosts {
   lat?: number;
   lng?: number;
   userType: ApplicationPreference;
+}
+
+export interface IMyPosts {
+  userRef: firebase.firestore.DocumentReference<User>;
+  status?: string;
 }

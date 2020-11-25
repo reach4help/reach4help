@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getPinRequestPosts,
+  getMyPinRequestPosts,
   resetPinRequestPostsState,
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
@@ -21,7 +21,9 @@ import RequestList from '../components/RequestList';
 import RequestPostItem from '../components/RequestPostItem';
 import { PostTabsType } from '../constants';
 
-const RequestPostsContainer: React.FC = () => {
+const RequestPostsContainer: React.FC<{ status: string | null }> = ({
+  status,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -45,15 +47,15 @@ const RequestPostsContainer: React.FC = () => {
   }, [isRequestTab, dispatch]);
 
   useEffect(() => {
-    if (isRequestTab && profileState.profile?.applicationPreference) {
+    if (isRequestTab && profileState.userRef) {
       dispatch(
-        getPinRequestPosts({
-          userType: profileState.profile.applicationPreference,
+        getMyPinRequestPosts({
           userRef: profileState.userRef,
+          status: status == null ? undefined : status,
         }),
       );
     }
-  }, [profileState, isRequestTab, dispatch]);
+  }, [profileState, isRequestTab, dispatch, status]);
 
   const handleRequest: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));

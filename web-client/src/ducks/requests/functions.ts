@@ -8,7 +8,7 @@ import {
 import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 
-import { IgetRequestPosts } from './types';
+import { IgetRequestPosts, IMyPosts } from './types';
 
 export const observeRequestPosts = (
   nextValue: Function,
@@ -67,17 +67,22 @@ export const getFindPosts = async ({ lat, lng }: IgetRequestPosts) =>
     status: AbstractRequestStatus.pending,
   });
 
-export const getPinReqestPosts = async () => {
+export const getMyPinReqestPosts = async ({ userRef, status }: IMyPosts) => {
   let dataRequests;
-  await firestore
+  let initialQuery = firestore
     .collection('requests')
-    // .where('pinUserRef', '==', userRef)
+    .where('pinUserRef', '==', userRef);
+  if (status) {
+    initialQuery = initialQuery.where('status', '==', status);
+  }
+  // TODO: (es) coud I have dataRequests = await
+  await initialQuery
     .withConverter(RequestFirestoreConverter)
     .get()
     .then(snapshot => {
       dataRequests = snapshot.docs.map(doc => ({
         id: doc.id,
-        // TODO: Convert to request here?
+        // TODO:(es) Convert to request here?
         ...doc.data(),
       }));
     });

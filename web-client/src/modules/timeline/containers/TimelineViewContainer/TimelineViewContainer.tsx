@@ -9,7 +9,7 @@ import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
   getCavRequestPosts,
-  getPinRequestPosts,
+  // getMyPinRequestPosts, TODO: (es) Replace with getRequestTimeline
   resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
@@ -106,7 +106,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
-      // TODO: change below when we replace use of ApplicatonPreference
+      // TODO: (es) change below when we replace use of ApplicatonPreference
       if (isCav) {
         history.replace(MyOfferPostsLocationUrl);
       } else {
@@ -139,18 +139,19 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           !requestsState.syncPinRequestPostsState.data &&
           !requestsState.syncPinRequestPostsState.loading
         ) {
-          dispatch(
-            getPinRequestPosts({
-              userType: profileState.profile.applicationPreference,
-              userRef: profileState.userRef,
-              lat:
-                profileState.privilegedInformation?.addresses?.default.coords
-                  .latitude,
-              lng:
-                profileState.privilegedInformation?.addresses?.default.coords
-                  .longitude,
-            }),
-          );
+          // TODO: (es) reimplement this
+          // dispatch(
+          //   getMyPinRequestPosts({
+          //     userType: profileState.profile.applicationPreference,
+          //     userRef: profileState.userRef,
+          //     lat:
+          //       profileState.privilegedInformation?.addresses?.default.coords
+          //         .latitude,
+          //     lng:
+          //       profileState.privilegedInformation?.addresses?.default.coords
+          //         .longitude,
+          //   }),
+          // );
         }
         if (
           !requestsState.syncCavRequestPostsState.data &&

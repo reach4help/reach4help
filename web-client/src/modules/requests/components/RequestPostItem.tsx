@@ -1,4 +1,4 @@
-import { /* TODO: warning message Button, */ Col, Row } from 'antd';
+import { /* TODO:(es) warning message Button, */ Col, Row } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
@@ -9,9 +9,9 @@ import styled, { keyframes } from 'styled-components';
 import { COLORS } from '../../../theme/colors';
 import avgRating from '../assets/pinAverageRating.svg';
 import defaultUserPic from '../assets/role_pin.png';
+
 // import warningSign from '../assets/warningExclamation.svg';
 
-// TODO: getWarningMessage
 // export const getWarningMessage = (request: Request) =>
 // {
 //   let bottomWarningMessage;
@@ -74,10 +74,10 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
   request,
   handleRequest,
   isCavAndOpenRequest,
-  // isPinAndOpenRequest = false, TODO: needed?
-  // offers = {}, TODO: needed?
+  // isPinAndOpenRequest = false, TODO: (es) needed?
+  // offers = {}, TODO: (es) needed?
   hideUserPic,
-  // toCloseRequest, TODO: needed?
+  // toCloseRequest, TODO: (es) needed?
   loading = false,
 }): React.ReactElement => {
   const { t } = useTranslation();
@@ -206,7 +206,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
           )}
         </div>
       </Item>
-      {/* TODO: {bottomWarningMessage} */}
+      {/* TODO: (es) {bottomWarningMessage} */}
     </>
   );
 };
@@ -257,7 +257,7 @@ const UserPic = styled.img`
   object-fit: cover;
 `;
 
-// TODO: Use when reimplement warning message
+// TODO: (es) Use when reimplement warning message
 // const CloseButton = styled(Button)`
 //   border-radius: 4px;
 //   width: 100%;
@@ -277,7 +277,7 @@ const Icon = styled.img`
   margin-right: 5px;
 `;
 
-// TODO: WarningMessage
+// TODO: (es) WarningMessage
 // const WarningMessage = styled.div`
 //   border: 1px solid ${COLORS.secondaryLight};
 //   color: rgba(0, 0, 0, 0.65);
