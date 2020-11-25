@@ -2,16 +2,6 @@ import React from 'react';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-const getStatus = (idx, current) => {
-  if (idx === current) {
-    return 'active';
-  }
-  if (idx > current) {
-    return 'waiting';
-  }
-  return 'finished';
-};
-
 const StepTracker: React.FC<IStepTracker> = ({ stepTitles, currentStep }) => (
   <StepColumn>
     {stepTitles.map((title, idx) => (
@@ -25,6 +15,16 @@ const StepTracker: React.FC<IStepTracker> = ({ stepTitles, currentStep }) => (
     ))}
   </StepColumn>
 );
+
+const getStatus = (idx, current) => {
+  if (idx === current) {
+    return 'active';
+  }
+  if (idx > current) {
+    return 'waiting';
+  }
+  return 'finished';
+};
 
 const StepBox = ({ idx, current, stepsQty, title }) => {
   const status = getStatus(idx, current);
@@ -119,15 +119,15 @@ interface IStepBoxWrapper {
 }
 
 interface IStepTitle {
-  status: string;
+  status: 'active' | 'waiting' | 'finished';
 }
 
 interface IProgressDot {
-  status: string;
+  status: 'active' | 'waiting' | 'finished';
 }
 
 interface IProgressConnector {
-  status: string;
+  status: 'active' | 'waiting' | 'finished';
   stepsQty: number;
 }
 
