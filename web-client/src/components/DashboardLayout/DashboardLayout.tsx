@@ -1,56 +1,77 @@
 import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { observeOffers } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
-import { Offer, OfferStatus } from 'src/models/offers';
-import { User } from 'src/models/users';
+import { ProfileState } from 'src/ducks/profile/types';
+import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
-import { MenuItem } from '../SideDrawerMenu/SideDrawerMenu';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
-  menuItems,
-  profileData,
   children,
-  isCav,
-  offersState,
   logoutHandler,
-  toggleApplicationPreference,
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [notificationVisible, setNotificationVisible] = useState(false);
   const [unseenOffers, setUnseenOffers] = useState<Offer[]>([]);
   const [unseenOffersKeys, setUnseenOffersKeys] = useState<string[]>([]);
 
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
+  );
+  const offersState = useSelector(
+    ({ offers }: { offers: OffersState }) => offers,
+  );
+  const userProfile = profileState.profile;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (
+      profileState.profile &&
+      profileState.profile.applicationPreference &&
+      !offersState.data &&
+      !offersState.loading
+    ) {
+      observeOffers(dispatch, {
+        userType: profileState.profile.applicationPreference,
+        userRef: profileState.userRef,
+      });
+    }
+  }, [userProfile, profileState, offersState, dispatch]);
+
   useEffect(() => {
     const unseenOffersLocal: Offer[] = [];
     const unseenOffersKeysLocal: string[] = [];
     if (offersState.data) {
-      for (const offersKey in offersState.data) {
-        if (
-          offersState.data[offersKey] &&
-          !offersState.data[offersKey].seenAt &&
-          ((!isCav &&
-            (offersState.data[offersKey].status === OfferStatus.pending ||
-              offersState.data[offersKey].status ===
-                OfferStatus.cavDeclined)) ||
-            (isCav &&
-              (offersState.data[offersKey].status === OfferStatus.rejected ||
-                offersState.data[offersKey].status === OfferStatus.accepted)))
-        ) {
-          unseenOffersLocal.push(offersState.data[offersKey]);
-          unseenOffersKeysLocal.push(offersKey);
-        }
-      }
+      // TODO: Replace below with logic without user roles
+      // for (const offersKey in offersState.data) {
+      //   if (
+      //     offersState.data[offersKey] &&
+      //     !offersState.data[offersKey].seenAt &&
+      //     ((!isCav &&
+      //       (offersState.data[offersKey].status === OfferStatus.pending ||
+      //         offersState.data[offersKey].status ===
+      //           OfferStatus.cavDeclined)) ||
+      //       (isCav &&
+      //         (offersState.data[offersKey].status === OfferStatus.rejected ||
+      //           offersState.data[offersKey].status === OfferStatus.accepted)))
+      //   ) {
+      //     unseenOffersLocal.push(offersState.data[offersKey]);
+      //     unseenOffersKeysLocal.push(offersKey);
+      //   }
+      // }
       unseenOffersLocal.sort(
         (a, b) => b.updatedAt.toMillis() - a.updatedAt.toMillis(),
       );
       setUnseenOffers(unseenOffersLocal);
       setUnseenOffersKeys(unseenOffersKeysLocal);
     }
-  }, [offersState, setUnseenOffersKeys, setUnseenOffers, isCav]);
+  }, [offersState, setUnseenOffersKeys, setUnseenOffers]);
 
   return (
     <DashboardLayoutWrapper>
@@ -58,17 +79,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         visible={!menuVisible && !notificationVisible}
         openMenu={() => setMenuVisible(true)}
         openNotifications={() => setNotificationVisible(true)}
-        isCav={isCav}
         unseenOffersCount={unseenOffers.length}
       />
       <MenuDrawer
         visible={menuVisible}
         closeDrawer={() => setMenuVisible(false)}
-        menuItems={menuItems}
-        profileData={profileData}
+        profileData={userProfile}
         logoutHandler={logoutHandler}
-        isCav={isCav}
-        toggleApplicationPreference={toggleApplicationPreference}
       />
       <NotificationsDrawer
         visible={notificationVisible}
@@ -76,7 +93,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         unseenOffers={unseenOffers}
         unseenOffersKeys={unseenOffersKeys}
         closeDrawer={() => setNotificationVisible(false)}
-        isCav={isCav}
       />
       <DashboardContent>{children}</DashboardContent>
     </DashboardLayoutWrapper>
@@ -101,13 +117,8 @@ const DashboardContent = styled(Layout.Content)`
 `;
 
 interface DashboardLayoutProps {
-  menuItems?: Array<MenuItem>;
-  profileData?: User;
   children?: React.ReactNode;
-  isCav?: boolean;
   logoutHandler: Function;
-  offersState: OffersState;
-  toggleApplicationPreference: Function;
 }
 
 export default DashboardLayout;

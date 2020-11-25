@@ -6,6 +6,7 @@ import {
 } from 'src/models/users/privilegedInformation';
 
 import {
+  deleteUserAvatarData,
   deleteUserData as deleteUserDataFunc,
   getUserProfile as getUserProfileFunc,
   observePrivileged as observePrivilegedFunc,
@@ -13,8 +14,10 @@ import {
   setUserProfile as setUserProfileFunc,
   updateUserPrivilegedInformationData,
   updateUserProfileData,
+  uploadUserAvatarData,
 } from './functions';
 import {
+  DELETE_AVATAR,
   DELETE_ME,
   GET,
   IgetUserProfile,
@@ -23,6 +26,7 @@ import {
   SET,
   UPDATE,
   UPDATE_PRIVILEGED,
+  UPLOAD_AVATAR,
 } from './types';
 
 export const getUserProfile = (payload: IgetUserProfile) => (
@@ -70,8 +74,7 @@ export const observePrivileged = (
 };
 
 export const setUserProfile = (
-  address: IUserAddress,
-  addressFromGoogle: google.maps.GeocoderResult,
+  addresses: Record<string, IUserAddress>,
   termsAndPrivacyAccepted: Date,
   displayName: string,
   uid: string,
@@ -79,8 +82,7 @@ export const setUserProfile = (
   displayPic?: string | null,
 ) => (dispatch: Function) => {
   const privilegedPayload = PrivilegedUserInformation.factory({
-    addressFromGoogle,
-    address,
+    addresses,
     // eslint-disable-next-line import/no-named-as-default-member
     termsAccepted: firebase.firestore.Timestamp.fromDate(
       termsAndPrivacyAccepted,
@@ -139,4 +141,32 @@ export const deleteUserData = () => (dispatch: Function) =>
     type: DELETE_ME,
     payload: {},
     firebase: deleteUserDataFunc,
+  });
+
+export const uploadUserAvatar = (
+  userRef: firebase.firestore.DocumentReference<User>,
+  user: User,
+  file: File,
+) => (dispatch: Function) =>
+  dispatch({
+    type: UPLOAD_AVATAR,
+    payload: {
+      userRef,
+      userPayload: user,
+      filePayload: file,
+    },
+    firebase: uploadUserAvatarData,
+  });
+
+export const deleteUserAvatar = (
+  userRef: firebase.firestore.DocumentReference<User>,
+  user: User,
+) => (dispatch: Function) =>
+  dispatch({
+    type: DELETE_AVATAR,
+    payload: {
+      userRef,
+      userPayload: user,
+    },
+    firebase: deleteUserAvatarData,
   });

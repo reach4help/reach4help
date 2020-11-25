@@ -8,13 +8,14 @@
 [![Reach4Help released under the GPL license](https://img.shields.io/badge/license-GPL-blue.svg)](./LICENSE)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-38-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
 
-[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond. 
+[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond.
 
 ## How _You_ Can Contribute
 
@@ -32,7 +33,7 @@ A global interactive map visualizing over 10,000 volunteer organizations support
 
 ## [Official Website](site)
 
-Our website highlighting the project and our hardworking team of volunteers. **Check it out live [here](https://reach4help.org/)!** 
+Our website highlighting the project and our hardworking team of volunteers. **Check it out live [here](https://reach4help.org/)!**
 
 # Development
 
@@ -100,6 +101,20 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/CorporateInvesther"><img src="https://avatars3.githubusercontent.com/u/65609627?v=4" width="100px;" alt=""/><br /><sub><b>Esther Handy-Malouin</b></sub></a><br /><a href="#userTesting-CorporateInvesther" title="User Testing">📓</a></td>
     <td align="center"><a href="http://codingeric.com"><img src="https://avatars2.githubusercontent.com/u/15906981?v=4" width="100px;" alt=""/><br /><sub><b>milkrong</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=milkrong" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/gorostiaga"><img src="https://avatars1.githubusercontent.com/u/46466795?v=4" width="100px;" alt=""/><br /><sub><b>gorostiaga</b></sub></a><br /><a href="#projectManagement-gorostiaga" title="Project Management">📆</a> <a href="#ideas-gorostiaga" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://ethanstrominger.com"><img src="https://avatars0.githubusercontent.com/u/32078396?v=4" width="100px;" alt=""/><br /><sub><b>Ethan-Strominger</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ethanstrominger" title="Code">💻</a> <a href="#ideas-ethanstrominger" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/TheRealAlexV"><img src="https://avatars2.githubusercontent.com/u/815793?v=4" width="100px;" alt=""/><br /><sub><b>Alex 'DeMiNe0' Vanino</b></sub></a><br /><a href="#ideas-TheRealAlexV" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/reach4help/reach4help/commits?author=TheRealAlexV" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/14ssharp"><img src="https://avatars0.githubusercontent.com/u/43449026?v=4" width="100px;" alt=""/><br /><sub><b>14ssharp</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=14ssharp" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/leadersheir"><img src="https://avatars2.githubusercontent.com/u/57336955?v=4" width="100px;" alt=""/><br /><sub><b>Warisul Imam</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=leadersheir" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Tapudp"><img src="https://avatars3.githubusercontent.com/u/8810813?v=4" width="100px;" alt=""/><br /><sub><b>Divyesh Parmar</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=Tapudp" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/alexjball"><img src="https://avatars3.githubusercontent.com/u/8595776?v=4" width="100px;" alt=""/><br /><sub><b>alexjball</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=alexjball" title="Code">💻</a></td>
+    <td align="center"><a href="https://ansh-saini.github.io"><img src="https://avatars1.githubusercontent.com/u/32511936?v=4" width="100px;" alt=""/><br /><sub><b>Ansh Saini</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ansh-saini" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://www.linkedin.com/in/dnanou/"><img src="https://avatars2.githubusercontent.com/u/22467291?v=4" width="100px;" alt=""/><br /><sub><b>Danai Nanou</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=danainanou" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/HazalYoleri"><img src="https://avatars3.githubusercontent.com/u/39515623?v=4" width="100px;" alt=""/><br /><sub><b>Hazal Büşra Yoleri</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=HazalYoleri" title="Code">💻</a></td>
+    <td align="center"><a href="http://cruejameson.com"><img src="https://avatars1.githubusercontent.com/u/60672128?v=4" width="100px;" alt=""/><br /><sub><b>Crue Jameson (Eric Gerlach)</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=Cruebee" title="Code">💻</a></td>
   </tr>
 </table>
 

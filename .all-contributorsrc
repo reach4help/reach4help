@@ -305,6 +305,98 @@
         "projectManagement",
         "ideas"
       ]
+    },
+    {
+      "login": "ethanstrominger",
+      "name": "Ethan-Strominger",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/32078396?v=4",
+      "profile": "https://ethanstrominger.com",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "TheRealAlexV",
+      "name": "Alex 'DeMiNe0' Vanino",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/815793?v=4",
+      "profile": "https://github.com/TheRealAlexV",
+      "contributions": [
+        "ideas",
+        "doc"
+      ]
+    },
+    {
+      "login": "14ssharp",
+      "name": "14ssharp",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/43449026?v=4",
+      "profile": "https://github.com/14ssharp",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "leadersheir",
+      "name": "Warisul Imam",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/57336955?v=4",
+      "profile": "https://github.com/leadersheir",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Tapudp",
+      "name": "Divyesh Parmar",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8810813?v=4",
+      "profile": "https://github.com/Tapudp",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "alexjball",
+      "name": "alexjball",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8595776?v=4",
+      "profile": "https://github.com/alexjball",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ansh-saini",
+      "name": "Ansh Saini",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/32511936?v=4",
+      "profile": "https://ansh-saini.github.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "danainanou",
+      "name": "Danai Nanou",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/22467291?v=4",
+      "profile": "https://www.linkedin.com/in/dnanou/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "HazalYoleri",
+      "name": "Hazal Büşra Yoleri",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/39515623?v=4",
+      "profile": "https://github.com/HazalYoleri",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Cruebee",
+      "name": "Crue Jameson (Eric Gerlach)",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/60672128?v=4",
+      "profile": "http://cruejameson.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
