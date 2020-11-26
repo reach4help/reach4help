@@ -56,7 +56,6 @@ const StepTitle = styled('div')<IStepTitle>`
   position: relative;
   top: 50%;
   text-align: center;
-
   color: ${props =>
     props.status === 'active' ? COLORS.white : COLORS.lightPrimary}};
 `;
@@ -75,7 +74,6 @@ const ProgressDot = styled('span')<IProgressDot>`
   border-radius: 50%;
   position: absolute;
   bottom: 5px;
-
   background: ${props => {
     switch (props.status) {
       case 'active':
@@ -95,7 +93,6 @@ const ProgressConnector = styled('span')<IProgressConnector>`
   bottom: 10px;
   z-index: 100;
   height: 1px;
-
   width: ${props => `${(100 * (props.stepsQty - 1)) / props.stepsQty}%`};
   margin-left: ${props =>
     `-${(100 * (props.stepsQty - 1) + 100 / (props.stepsQty - 1)) /
