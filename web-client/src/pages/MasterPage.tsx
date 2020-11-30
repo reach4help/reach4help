@@ -28,6 +28,7 @@ const MasterPage = (): ReactElement => {
     const title = 'Reach4Help';
 
     switch (path) {
+      case '/about':
       case '/create':
       case '/login':
       case '/phone':

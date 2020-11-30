@@ -18,10 +18,10 @@ import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getOpenRequests,
+  getRequestPosts,
   resetSetRequestState,
 } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { PostState } from 'src/ducks/requests/types';
 import { firestore } from 'src/firebase';
 import { Offer, OfferStatus } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
@@ -31,8 +31,8 @@ import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import RequestItem from '../components/RequestItem';
-import { OpenRequestsLocation } from '../constants';
+import RequestItem from '../components/RequestPostItem';
+import { MyRequestPostsLocationUrl } from '../constants';
 
 const { TabPane } = Tabs;
 
@@ -66,8 +66,7 @@ const FindRequestsContainer: React.FC = () => {
   const [authModalIsVisible, setAuthModalIsVisible] = useState<boolean>(false);
 
   const pendingRequestsWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) =>
-      requests.syncOpenRequestsState,
+    ({ requests }: { requests: PostState }) => requests.syncRequestPostsState,
   );
 
   const setOfferState = useSelector(
@@ -120,7 +119,7 @@ const FindRequestsContainer: React.FC = () => {
         }, 100);
       } else if (setOfferState.success && setOfferState.success === 1) {
         setTimeout(() => {
-          history.push(OpenRequestsLocation.path);
+          history.push(MyRequestPostsLocationUrl);
         }, 150);
         dispatch(resetSetRequestState());
         dispatch(resetSetOfferState());
@@ -142,7 +141,7 @@ const FindRequestsContainer: React.FC = () => {
             Object.keys(profileState.privilegedInformation.addresses)[0]
           ];
       dispatch(
-        getOpenRequests({
+        getRequestPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
           lat: addressToUse?.coords.latitude || 0,

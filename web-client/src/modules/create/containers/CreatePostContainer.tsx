@@ -15,7 +15,7 @@ import {
 import Map from 'src/components/WebClientMap/WebClientMap';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { PostState } from 'src/ducks/requests/types';
 import { IRequest, Request } from 'src/models/requests';
 import { IUser } from 'src/models/users';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
@@ -102,11 +102,11 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
   );
 
   const newRequestState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.setAction,
+    ({ requests }: { requests: PostState }) => requests.setAction,
   );
 
   const newRequestTemp = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.newRequestTemp,
+    ({ requests }: { requests: PostState }) => requests.newRequestTemp,
   );
 
   const dispatch = useDispatch();
