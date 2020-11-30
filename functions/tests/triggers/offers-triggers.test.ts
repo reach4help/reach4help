@@ -14,7 +14,7 @@ const projectId = 'reach-4-help-test';
 
 const test = Test();
 
-const rules = fs.readFileSync(`${__dirname}/dummy.rules`, 'utf8');
+const rules = fs.readFileSync(`${__dirname}/../dummy.rules`, 'utf8');
 
 /**
  * Creates a new app with specified user authentication.
