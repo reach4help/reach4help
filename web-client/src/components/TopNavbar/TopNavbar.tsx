@@ -7,6 +7,16 @@ import {
 import { Typography } from 'antd';
 import React, { useState } from 'react';
 import Logo from 'src/assets/logo.svg';
+import {
+  CreateOfferLocationUrl,
+  CreateRequestLocationUrl,
+} from 'src/modules/create/constants';
+import {
+  AboutPageLocation,
+  HomePageLocation,
+} from 'src/modules/landing-page/constants';
+import { LoginLocation } from 'src/modules/login/constants';
+import { MyOfferPostsLocationUrl } from 'src/modules/requests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -24,7 +34,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
 
   const CreateNew = createNewShowing
     ? styled.div`
-        @media (max-width: 918px) {
+        @media (max-width: 1050px) {
           display: none;
         }
         position: relative;
@@ -58,7 +68,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
         }
       `
     : styled.div`
-        @media (max-width: 918px) {
+        @media (max-width: 1050px) {
           display: none;
         }
         position: relative;
@@ -116,9 +126,9 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
         )}
       </NavButton> */}
       <LinkContainer>
-        <LeftLink href="/home">Home</LeftLink>
-        <LeftLink href="/404">Help Requests</LeftLink>
-        <LeftLink href="/404">Volunteer Offers</LeftLink>
+        <LeftLink href={HomePageLocation.path}>Home</LeftLink>
+        <LeftLink href={MyOfferPostsLocationUrl}>Help Requests</LeftLink>
+        <LeftLink href={MyOfferPostsLocationUrl}>Volunteer Offers</LeftLink>
 
         {/* TODO: Conditionally render CreateNew when the user is logged in || issue: cannot access isLoggedIn */}
         <CreateNew onClick={() => setCreateNewShowing(!createNewShowing)}>
@@ -126,21 +136,21 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
             <h4>Create New</h4>
             {createNewShowing ? <CaretUpOutlined /> : <CaretDownOutlined />}
           </div>
-          <Link href="/home">Help Request</Link>
+          <Link href={CreateRequestLocationUrl}>Help Request</Link>
           <br />
-          <Link href="/home">Volunteer Offer</Link>
+          <Link href={CreateOfferLocationUrl}>Volunteer Offer</Link>
         </CreateNew>
-        <Link href="/home/about">About Us</Link>
+        <Link href={AboutPageLocation.path}>About Us</Link>
         <LanguageSelector />
 
         <LoginButton>
-          <BtnLink href="/login">Login</BtnLink>
+          <BtnLink href={LoginLocation.path}>Login</BtnLink>
         </LoginButton>
 
-        {/* TODO: Change hardcoded hrefs to constants */}
+        {/* TODO: Change hardcoded hrefs to constants || status: DONE */}
 
         <SignUpButton>
-          <BtnLink href="/login">Sign Up</BtnLink>
+          <BtnLink href={LoginLocation.path}>Sign Up</BtnLink>
         </SignUpButton>
       </LinkContainer>
     </TopNavbarWrapper>
@@ -153,18 +163,21 @@ const LinkContainer = styled.div`
   align-items: center;
   width: 80vw;
 
+  @media (max-width: 1050px) {
+    justify-content: flex-end;
+  }
+
   & > * {
     margin: 0 20px;
   }
 
-  @media (max-width: 918px) {
+  @media (max-width: 1050px) {
     & > * {
       display: none;
     }
     & > button:last-child {
       display: block;
       position: relative;
-      left: 13%;
     }
   }
 `;
@@ -235,7 +248,7 @@ const NavButton = styled('button')`
 `;
 
 const NavButtonMenu = styled(NavButton)`
-  @media (min-width: 918px) {
+  @media (min-width: 1050px) {
     display: none;
   }
 `;
@@ -257,7 +270,7 @@ const IconImg = styled.img`
   width: 32px;
   height: 32px;
 
-  @media (max-width: 918px) {
+  @media (max-width: 1050px) {
     display: none;
   }
 `;
@@ -267,7 +280,7 @@ const IconText = styled(Text)`
   color: ${COLORS.primaryDark};
   padding: 5px;
 
-  @media (max-width: 918px) {
+  @media (max-width: 1050px) {
     position: relative;
     right: 20%;
   }

@@ -104,7 +104,7 @@ const SelectLanguage = styled(Select)`
     font-size: 24px;
     font-weight: 700;
 
-    @media (min-width: 918px) {
+    @media (min-width: 1050px) {
       font-size: 16px;
       position: relative;
       top: 3px;
@@ -115,7 +115,7 @@ const SelectLanguage = styled(Select)`
   .ant-select-arrow {
     color: black;
 
-    @media (min-width: 918px) {
+    @media (min-width: 1050px) {
       position: relative;
       left: 32px;
       bottom: 32px;
@@ -132,7 +132,7 @@ const SelectorContainer = styled.div`
   left: 14%;
   bottom: 20%;
 
-  @media (min-width: 918px) {
+  @media (min-width: 1050px) {
     left: 7.5%;
   }
 `;
@@ -141,4 +141,5 @@ const GlobalOutlinedIcon = styled(GlobalOutlined)`
   transform: scale(1.7);
   position: relative;
   right: -7px;
+  z-index: 1;
 `;

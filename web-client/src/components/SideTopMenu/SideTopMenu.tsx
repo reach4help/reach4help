@@ -7,6 +7,10 @@ import {
   CreateRequestLocationUrl,
 } from 'src/modules/create/constants';
 import {
+  AboutPageLocation,
+  HomePageLocation,
+} from 'src/modules/landing-page/constants';
+import {
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
 } from 'src/modules/requests/constants';
@@ -138,7 +142,7 @@ const SideTopMenu: React.FC<{
         <SideMenuLink
           key="Home"
           title="Home"
-          path="/home"
+          path={HomePageLocation}
           onClick={closeDrawer}
         />
 
@@ -207,14 +211,14 @@ const SideTopMenu: React.FC<{
           <SideMenuLink
             key="AboutUs"
             title="About Us"
-            path="/home/about"
+            path={AboutPageLocation}
             onClick={closeDrawer}
           />
         ) : (
           <AboutSideMenuLink
             key="AboutUs"
             title="About Us"
-            path="/home/about"
+            path={AboutPageLocation}
             onClick={closeDrawer}
           />
         )}
