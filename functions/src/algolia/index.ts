@@ -1,70 +1,21 @@
 import * as functions from 'firebase-functions';
 import algolia from 'algoliasearch';
-import { firestore } from 'firebase-admin';
 
-import { IRequest, Request } from '../models/requests';
+import { Request } from '../models/requests';
 import { UnauthenticatedRequest } from '../models/UnauthenticatedRequests';
 import { GeneralRequest } from '../models/GeneralRequests';
-import { config } from '../config/config';
 import { Offer, OfferStatus } from '../models/offers';
-
-import DocumentSnapshot = firestore.DocumentSnapshot;
 
 const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
-const ALGOLIA_REQUESTS_INDEX = functions.config().algolia.requests_index;
-const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX =
-  config.get('env') === 'test' ? 'unauthenticatedRequests_test' : functions.config().algolia.unauthenticated_requests_index;
-const ALGOLIA_GENERALREQUESTS_INDEX = config.get('env') === 'test' ? 'generalRequests_test' : functions.config().algolia.general_requests_index;
+const ALGOLIA_SEARCH_ONLY_KEY = functions.config().algolia.search_only_key;
+export const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX = functions.config().algolia.unauthenticated_requests_index;
+export const ALGOLIA_GENERALREQUESTS_INDEX = functions.config().algolia.general_requests_index;
 
 const adminClient = algolia(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
 
-const requestsIndex = adminClient.initIndex(ALGOLIA_REQUESTS_INDEX);
 const unauthenticatedRequestsIndex = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
 const generalRequestsIndex = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
-
-/**
- * When records in the DB are updated, add/update the text index
- *
- * @param snap: the DocumentSnapshot being modified
- */
-export const indexRequest = (snap: DocumentSnapshot) => {
-  const data = snap.data();
-
-  if (data) {
-    const request = Request.factory(data as IRequest);
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const indexData: any = { ...request.toObject() };
-
-    // We have to make sure we use the same ID in Algolia
-    indexData.objectID = snap.id;
-
-    // Now re-do the geo-coding for Algolia
-    delete indexData.latLng;
-    indexData._geoloc = {
-      lat: request.latLng.latitude,
-      lng: request.latLng.longitude,
-    };
-
-    // Throw away the result since these are all void promises.
-    return requestsIndex.saveObject(indexData).then(() => {
-      return Promise.resolve();
-    });
-  }
-
-  return Promise.resolve();
-};
-
-/**
- * When records in the DB are deleted, delete them in the text index
- *
- * @param snap: the DocumentSnapshot being deleted
- */
-export const removeRequestFromIndex = (snap: DocumentSnapshot) => {
-  const objectID = snap.id;
-  return requestsIndex.deleteObject(objectID);
-};
 
 /**
  * When a request in the DB is updated,
@@ -174,4 +125,37 @@ export const removeObjectFromIndices = async (objectId: string) => {
         return Promise.resolve();
       }),
   ]);
+};
+
+/**
+ * Users who are visiting the app without logging in should be able to see posts on the map
+ * But they shouldn't be able to see the personal details of the posts.
+ * Information without personal details are stored in the unauthenticated requests index.
+ * This function generates a search key restricted to the unauthenticated requests index
+ *
+ * @returns {string} The secured key restricted to the unauthenticated requests index
+ */
+export const generateUnauthenticatedRequestsKey = (): string => {
+  return adminClient.generateSecuredApiKey(
+    ALGOLIA_SEARCH_ONLY_KEY, // A search key that you keep private
+    {
+      restrictIndices: ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX,
+    },
+  );
+};
+
+/**
+ * Users who are visiting the app after logging in should be able to see posts on the map
+ * More detailed information including participant list is stored in the general requests index.
+ * This function generates a search key restricted to the general requests index
+ *
+ * @returns {string} The secured key restricted to the general requests index
+ */
+export const generateGeneralRequestsKey = (): string => {
+  return adminClient.generateSecuredApiKey(
+    ALGOLIA_SEARCH_ONLY_KEY, // A search key that you keep private
+    {
+      restrictIndices: ALGOLIA_GENERALREQUESTS_INDEX,
+    },
+  );
 };
