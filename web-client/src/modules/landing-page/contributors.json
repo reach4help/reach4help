@@ -1,0 +1,285 @@
+{
+  "core": [
+    {
+      "name": "Shayan Chowdhury",
+      "title": "Executive Director, Co-founder",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/29135917?v=4",
+      "contact": "mailto:shayan@reach4help.org"
+    },
+    {
+      "name": "Joseph Ashwin Kottapurath",
+      "title": "Technical Lead",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/13694998?v=4",
+      "contact": "mailto:joseph@reach4help.org"
+    },
+    {
+      "name": "Samantha Uebel",
+      "title": "Design Lead",
+      "avatar_url": "",
+      "contact": "mailto:samantha@reach4help.org"
+    },
+    {
+      "name": "Yi Zhou",
+      "title": "Marketing Lead",
+      "avatar_url": "",
+      "contact": "mailto:yi@reach4help.org"
+    },
+    {
+      "name": "Despot Jakimovski",
+      "title": "Product Lead",
+      "avatar_url": "",
+      "contact": "mailto:despot.jakimovski@reach4help.org"
+    }
+  ],
+  "teams": [
+    {
+      "title": "Development",
+      "contributors": [
+        {
+          "name": "David Alecrim",
+          "avatar_url": "https://avatars2.githubusercontent.com/u/5495320?v=4",
+          "contact": "https://github.com/comoser"
+        },
+        {
+          "name": "Sam Lanning",
+          "title": "Co-founder, Former Technical Lead",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/3319932?v=4",
+          "contact": "https://sam.lanni.ng"
+        },
+        {
+          "name": "Pedro Filipe",
+          "title": "Co-founder, Former Developer",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
+          "contact": "https://github.com/puzzledbytheweb"
+        },
+        {
+          "name": "Luis Filipe",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/9373787?v=4",
+          "contact": "https://www.linkedin.com/in/luis-oliveira-tech/"
+        },
+        {
+          "name": "Dan Sabin",
+          "title": "Former Backend Lead",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/961844?v=4",
+          "contact": "http://freethinking.it"
+        },
+        {
+          "name": "João Marques",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/52417176?v=4",
+          "contact": "https://github.com/jpmarques66"
+        },
+        {
+          "name": "Rúben Gonçalves",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/24323690?v=4",
+          "contact": "https://github.com/rbgoncalves"
+        },
+        {
+          "name": "Wilson Rodrigues",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/5550776?v=4",
+          "contact": "https://github.com/wr46"
+        },
+        {
+          "name": "Nuno Alexandre",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/9502562?v=4",
+          "contact": "http://namadnuno.alojamento-gratis.com/"
+        },
+        {
+          "name": "Micael Rodrigues",
+          "avatar_url": "https://avatars3.githubusercontent.com/u/12500655?v=4",
+          "contact": "https://micaelr95.github.io/"
+        },
+        {
+          "name": "Mathieu Deous",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/393165?v=4",
+          "contact": "https://github.com/mdeous"
+        },
+        {
+          "name": "Burhan Tuerker",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/46192266?v=4",
+          "contact": "https://btuerker.com"
+        },
+        {
+          "name": "Dilpreet Johal",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/9207593?s=400",
+          "contact": "https://github.com/djohal"
+        },
+        {
+          "name": "Mitchell Verter",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/1453956?v=4",
+          "contact": "https://github.com/mcverter"
+        },
+        {
+          "name": "Winggo Tse",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/26425671?v=4",
+          "contact": "https://github.com/winggo"
+        },
+        {
+          "name": "Madhvi Sharma",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/5454024?v=4",
+          "contact": "https://github.com/sharmmad"
+        },
+        {
+          "name": "Sean Spade",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/43147936?v=4",
+          "contact": "https://github.com/skspade"
+        },
+        {
+          "name": "Thomas Huynh",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/16145617?v=4",
+          "contact": "https://github.com/thomas-t-huynh"
+        },
+        {
+          "name": "Juozas Gaigalas",
+          "avatar_url": "https://avatars3.githubusercontent.com/u/4100?v=4",
+          "contact": "https://github.com/juozasg"
+        },
+        {
+          "name": "Esther Handy-Malouin",
+          "title": "Former QA Lead from HermitQA",
+          "avatar_url": "https://avatars3.githubusercontent.com/u/65609627?v=4",
+          "contact": "https://github.com/CorporateInvesther"
+        },
+        {
+          "name": "Rongkai Liu",
+          "avatar_url": "https://avatars2.githubusercontent.com/u/15906981?v=4",
+          "contact": "http://codingeric.com"
+        },
+        {
+          "name": "Ethan Strominger",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/32078396?v=4",
+          "contact": "https://ethanstrominger.com"
+        },
+        {
+          "name": "Alex 'DeMiNe0' Vanino",
+          "avatar_url": "https://avatars2.githubusercontent.com/u/815793?v=4",
+          "contact": "https://github.com/TheRealAlexV"
+        },
+        {
+          "name": "Stephen Sharp",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/43449026?v=4",
+          "contact": "https://github.com/14ssharp"
+        },
+        {
+          "name": "Warisul Imam",
+          "avatar_url": "https://avatars2.githubusercontent.com/u/57336955?v=4",
+          "contact": "https://github.com/leadersheir"
+        },
+        {
+          "name": "Divyesh Parmar",
+          "avatar_url": "https://avatars3.githubusercontent.com/u/8810813?v=4",
+          "contact": "https://github.com/Tapudp"
+        },
+        {
+          "name": "Alex Ball",
+          "avatar_url": "https://avatars3.githubusercontent.com/u/8595776?v=4",
+          "contact": "https://github.com/alexjball"
+        },
+        {
+          "name": "Ansh Saini",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/32511936?v=4",
+          "contact": "https://ansh-saini.github.io"
+        },
+        {
+          "name": "Danai Nanou",
+          "avatar_url": "https://avatars2.githubusercontent.com/u/22467291?v=4",
+          "contact": "https://www.linkedin.com/in/dnanou/"
+        },
+        {
+          "name": "Hazal Büşra Yoleri",
+          "avatar_url": "https://avatars3.githubusercontent.com/u/39515623?v=4",
+          "contact": "https://github.com/HazalYoleri"
+        },
+        {
+          "name": "Crue Jameson (Eric Gerlach)",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/60672128?v=4",
+          "contact": "http://cruejameson.com"
+        }
+      ]
+    },
+    {
+      "title": "Design",
+      "contributors": [
+        {
+          "name": "Crystal Li",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Siva Krishna",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Zina Codita",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Mayra Vargas",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Rita Serra",
+          "title": "Former UI Co-lead",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/62537457?v=4",
+          "contact": "https://github.com/r13serra11"
+        },
+        {
+          "name": "Cinthya Jauregui",
+          "title": "Former UI Co-lead",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/40286823?v=4",
+          "contact": "https://github.com/cinthyaejh"
+        },
+        {
+          "name": "Telmo Dias",
+          "title": "Former UX Lead",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/30916?v=4",
+          "contact": "https://github.com/telmodias"
+        }
+      ]
+    },
+    {
+      "title": "Marketing",
+      "contributors": [
+        {
+          "name": "Jamie Dubow",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Anna Busch",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Patricia Miranda",
+          "title": "Former Marketing Lead",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/62437898?v=4",
+          "contact": "https://github.com/PatriciaMiranda"
+        }
+      ]
+    },
+    {
+      "title": "Product",
+      "contributors": [
+        {
+          "name": "Ken Harlan",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Javier Gorostiaga",
+          "avatar_url": "https://avatars1.githubusercontent.com/u/46466795?v=4",
+          "contact": "https://github.com/gorostiaga"
+        },
+        {
+          "name": "Iyshwarya",
+          "title": "",
+          "avatar_url": "",
+          "contact": ""
+        }
+      ]
+    }
+  ]
+}
