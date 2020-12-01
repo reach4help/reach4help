@@ -25,7 +25,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
 
   const [displayDetails, toggleDetails] = useState(false);
   const [actionPerformed, setActionPerformed] = useState(0); // 0 - Nothing, 1 - Accept, 2 - Reject
-  const [displayStatus, setStatus] = useState('Pending');
 
   const handleRequestClick = () => {
     if (isCavAndOpenRequest) {
@@ -149,7 +148,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
                 disabled={loading && actionPerformed !== 1}
                 onClick={() => {
                   setActionPerformed(1);
-                  setStatus('Ongoing');
                   handleRequest(true);
                 }}
               >
@@ -202,7 +200,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
               alt={t('modules.requests.a11y_profile_pic')}
             />
           )}
-          <Status>{displayStatus}</Status>
+          <Status>{request.status}</Status>
         </div>
       </Item>
       {bottomWarningMessage}
