@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { InformationModal, makeLocalStorageKey } from '../Modals/OneTimeModal';
 import SideBottomMenu from '../SideBottomMenu/SideBottomMenu';
-import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
+// import SideDrawerProfile from '../SideDrawerProfile/SideDrawerProfile';
 import SideTopMenu from '../SideTopMenu/SideTopMenu';
 
 const MenuDrawer: React.FC<IMenuDrawerProps> = ({
@@ -45,8 +45,9 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
         visible={visible}
         width="100%"
       >
-        <SideDrawerProfile profileData={profileData} />
+        {/* <SideDrawerProfile profileData={profileData} /> */}
         <SideTopMenu closeDrawer={closeDrawer} isLoggedIn={isLoggedIn} />
+        <Line />
         <SideBottomMenu
           logoutHandler={logoutHandler}
           isLoggedIn={isLoggedIn}
@@ -82,5 +83,14 @@ interface IMenuDrawerProps {
   profileData?: User;
   logoutHandler: Function;
 }
+
+const Line = styled.div`
+  background: #c4c4c4;
+  height: 1px;
+  width: 90%;
+  position: relative;
+  left: 5%;
+  bottom: 7.5%;
+`;
 
 export default MenuDrawer;
