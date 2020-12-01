@@ -8,7 +8,7 @@ import {
 import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { ApplicationPreference } from 'src/models/users';
 
-import { IgetRequestPosts, IMyPosts } from './types';
+import { IgetMyPosts, IgetRequestPosts } from './types';
 
 export const observeRequestPosts = (
   nextValue: Function,
@@ -51,7 +51,7 @@ export const setUserRequest = async ({
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
 
-export const getCavRequestPosts = async ({ lat, lng }: IgetRequestPosts) =>
+export const getMyCavRequestPosts = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
@@ -67,7 +67,7 @@ export const getFindPosts = async ({ lat, lng }: IgetRequestPosts) =>
     status: AbstractRequestStatus.pending,
   });
 
-export const getMyPinReqestPosts = async ({ userRef, status }: IMyPosts) => {
+export const getMyPinReqestPosts = async ({ userRef, status }: IgetMyPosts) => {
   let dataRequests;
   let initialQuery = firestore
     .collection('requests')

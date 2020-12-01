@@ -3,7 +3,7 @@ import { IRequest, Request } from 'src/models/requests';
 /* TODO: (es) why rename? */
 import {
   createUserRequest,
-  getCavRequestPosts as getCavPostFunc,
+  getMyCavRequestPosts as getCavPostFunc,
   getFindPosts as getFindPostsFunc,
   getMyPinReqestPosts as getMyPinRequestPostsFunc,
   setUserRequest,
@@ -11,10 +11,10 @@ import {
 import {
   CHANGE_MODAL,
   GET_CAV_REQUEST_POSTS,
-  GET_FIND_REQUEST_POSTS as GET_FIND_POSTS,
+  GET_FIND_POSTS,
   GET_PIN_REQUEST_POSTS,
+  IgetMyPosts,
   IgetRequestPosts,
-  IMyPosts,
   RESET_CAV_REQUEST_POSTS,
   RESET_FIND_REQUEST_POSTS,
   RESET_PIN_REQUEST_POSTS,
@@ -36,7 +36,7 @@ export const getFindPosts = (payload: IgetRequestPosts) => (
  * Selects request posts for specified user
  * @param [IgetRequestPosts] payload - WHERE clause values
  */
-export const getMyPinRequestPosts = (payload: IMyPosts) => (
+export const getMyPinRequestPosts = (payload: IgetMyPosts) => (
   dispatch: Function,
 ) =>
   dispatch({

@@ -15,7 +15,7 @@ export const RESET_FIND_REQUEST_POSTS = syncType('RESET_FIND_REQUEST_POSTS');
 export const RESET_PIN_REQUEST_POSTS = syncType('RESET_PIN_REQUEST_POSTS');
 export const RESET_CAV_REQUEST_POSTS = syncType('RESET_CAV_REQUEST_POSTS');
 
-export const GET_FIND_REQUEST_POSTS = asyncType('GET_FIND_REQUEST_POSTS');
+export const GET_FIND_POSTS = asyncType('GET_FIND_POSTS');
 export const GET_PIN_REQUEST_POSTS = asyncType('GET_PIN_REQUEST_POSTS');
 export const GET_CAV_REQUEST_POSTS = asyncType('GET_CAV_REQUEST_POSTS');
 
@@ -89,7 +89,7 @@ export interface IgetRequestPosts {
   userType: ApplicationPreference;
 }
 
-export interface IMyPosts {
+export interface IgetMyPosts {
   userRef: firebase.firestore.DocumentReference<User>;
   status?: string;
 }

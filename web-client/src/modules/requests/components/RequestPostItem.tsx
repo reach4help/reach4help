@@ -100,7 +100,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
     }
     return '';
   };
-
   if (displayDetails) {
     return (
       <Item>
@@ -163,7 +162,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
       </Item>
     );
   }
-
   return (
     <>
       <Item style={{ marginBottom: '0px' }}>

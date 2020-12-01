@@ -1,19 +1,19 @@
-import { observeTimelinesFunc } from './functions';
-import { IgetTimeline, OBSERVE_TIMELINE } from './types';
+import { DataReferenceType } from '../../types';
+import { getTimelinesForPost as getTimelinesForPostFunc } from './functions';
+import { GET_TIMELINES_FOR_POST, RESET_TIMELINES_FOR_POST } from './types';
 
-export const observeTimeline = (
-  dispatch: Function,
-  payload: IgetTimeline,
-): (() => void) => {
+export const getTimelinesForPost = (payload: {postRef: DataReferenceType}) => (
+    dispatch: Function,
+  ) =>
+    dispatch({
+      type: GET_TIMELINES_FOR_POST,
+      firebase: getTimelinesForPostFunc,
+      payload,
+    });
+
+export const resetPinRequestPostsState = () => (dispatch: Function) =>
   dispatch({
-    type: OBSERVE_TIMELINE,
-    observer: observeTimelinesFunc,
-    payload,
+    type: RESET_TIMELINES_FOR_POST,
+    payload: true,
   });
 
-  return () =>
-    dispatch({
-      type: OBSERVE_TIMELINE.UNSUBSCRIBE,
-      observerName: OBSERVE_TIMELINE,
-    });
-};

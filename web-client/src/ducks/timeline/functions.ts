@@ -1,15 +1,14 @@
 import { firestore } from 'src/firebase';
 import { TimelineItemFirestoreConverter } from 'src/models/requests/timeline';
+import { DataReferenceType } from 'src/types';
 
-import { IgetTimeline } from './types';
-
-export const observeTimelinesFunc = (
-  nextValue: Function,
-  payload: IgetTimeline,
-): firebase.Unsubscribe =>
+export const getTimelinesForPost = (
+    // nextValue: Function,
+  payload: { postRef: DataReferenceType},
+) => // firebase.Unsubscribe =>
   firestore
     .collection('requests')
-    .doc(payload.requestId)
+    .doc(payload.postRef.path)
     .collection('timeline')
-    .withConverter(TimelineItemFirestoreConverter)
-    .onSnapshot(snap => nextValue(snap));
+    .withConverter(TimelineItemFirestoreConverter);
+    // .onSnapshot(snap => nextValue(snap));
