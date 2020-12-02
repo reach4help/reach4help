@@ -13,7 +13,7 @@ import {
   GET_CAV_REQUEST_POSTS,
   GET_FIND_POSTS,
   GET_PIN_REQUEST_POSTS,
-  GET_REQUEST_WITH_OFFERS_AND_TIMELINES,
+  GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS,
   PostState,
   RESET_CAV_REQUEST_POSTS,
   RESET_FIND_REQUEST_POSTS,
@@ -95,11 +95,11 @@ export default createReducer<PostState>(
       state.syncFindPostsState.loading = false;
       state.syncFindPostsState.error = payload;
     },
-    [GET_REQUEST_WITH_OFFERS_AND_TIMELINES.PENDING]: (state: PostState) => {
+    [GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS.PENDING]: (state: PostState) => {
       state.syncPostWithOffersAndTimelinesState.loading = true;
       state.syncPostWithOffersAndTimelinesState.data = undefined;
     },
-    [GET_REQUEST_WITH_OFFERS_AND_TIMELINES.COMPLETED]: (
+    [GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS.COMPLETED]: (
       state: PostState,
       {
         payload,
@@ -119,7 +119,7 @@ export default createReducer<PostState>(
 
       state.syncPostWithOffersAndTimelinesState.data = requestWithOffersAndTimeline;
     },
-    [GET_REQUEST_WITH_OFFERS_AND_TIMELINES.REJECTED]: (
+    [GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS.REJECTED]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {

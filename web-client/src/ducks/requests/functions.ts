@@ -126,7 +126,7 @@ const getTimelineItemsForRequest = async (
   return timeline;
 };
 
-export const getRequestWithOffersAndTimelineItems = async (
+export const getPostWithOffersAndTimelineItems = async (
   requestRef: firebase.firestore.DocumentReference,
 ) => {
   const request = await getRequest(requestRef);

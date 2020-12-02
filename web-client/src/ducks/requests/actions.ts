@@ -6,7 +6,7 @@ import {
   getMyCavRequestPosts as getCavPostFunc,
   getFindPosts as getFindPostsFunc,
   getMyPinReqestPosts as getMyPinRequestPostsFunc,
-  getRequestWithOffersAndTimelineItems as getRequestWithOffersAndTimelineItemsFunc,
+  getPostWithOffersAndTimelineItems as getPostWithOffersAndTimelineItemsFunc,
   setUserRequest,
 } from './functions';
 import {
@@ -14,7 +14,7 @@ import {
   GET_CAV_REQUEST_POSTS,
   GET_FIND_POSTS,
   GET_PIN_REQUEST_POSTS,
-  GET_REQUEST_WITH_OFFERS_AND_TIMELINES,
+  GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS,
   IgetMyPosts,
   IgetRequestPosts,
   RESET_CAV_REQUEST_POSTS,
@@ -51,12 +51,12 @@ export const getMyPinRequestPosts = (payload: IgetMyPosts) => (
  * Selects request posts for specified user
  * @param [IgetRequestPosts] payload - WHERE clause values
  */
-export const getRequestWithOffersAndTimelineItems = (payload: IgetMyPosts) => (
+export const getPostWithOffersAndTimelineItems = (payload: IgetMyPosts) => (
   dispatch: Function,
 ) =>
   dispatch({
-    type: GET_REQUEST_WITH_OFFERS_AND_TIMELINES,
-    firebase: getRequestWithOffersAndTimelineItemsFunc,
+    type: GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS,
+    firebase: getPostWithOffersAndTimelineItemsFunc,
     payload,
   });
 
