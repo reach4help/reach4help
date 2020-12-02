@@ -245,7 +245,7 @@ const FindRequestsContainer: React.FC = () => {
         <RequestDetails>
           <RequestItem
             request={request}
-            handleRequest={
+            handleTimeline={
               onboarded
                 ? handleRequestForAcceptReject
                 : (action = true) => action && setAuthModalIsVisible(true)
@@ -326,7 +326,7 @@ const FindRequestsContainer: React.FC = () => {
                 <RequestDetailsListItem key={idx}>
                   <RequestItem
                     request={request}
-                    handleRequest={handleRequestForAcceptReject}
+                    handleTimeline={handleRequestForAcceptReject}
                     loading={setOfferState.loading}
                     isCavAndOpenRequest
                   />

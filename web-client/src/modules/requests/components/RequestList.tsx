@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import { Offer } from 'src/models/offers';
@@ -6,7 +7,7 @@ import { Request } from 'src/models/requests';
 const RequestList: React.FC<RequestListProps> = ({
   requests,
   loading,
-  handleRequest,
+  handleTimeline,
   isCavAndOpenRequest,
   isPinAndOpenRequest,
   RequestItem,
@@ -29,9 +30,10 @@ const RequestList: React.FC<RequestListProps> = ({
           internalRequestList.push(
             <RequestItem
               key={id}
+              requestId={id} // TODO: (es) Use key instead?  what is key used for?
               request={requests[id]}
               handleRequest={(action?: boolean) =>
-                handleRequest && handleRequest(id, action)
+                handleTimeline && handleTimeline(id, action)
               }
               isCavAndOpenRequest={isCavAndOpenRequest}
               isPinAndOpenRequest={isPinAndOpenRequest}
@@ -51,7 +53,7 @@ const RequestList: React.FC<RequestListProps> = ({
     }
   }, [
     requests,
-    handleRequest,
+    handleTimeline,
     isCavAndOpenRequest,
     isPinAndOpenRequest,
     cavDeclinedOffersGiven,
@@ -72,7 +74,7 @@ const RequestList: React.FC<RequestListProps> = ({
 interface RequestListProps {
   requests?: Record<string, Request>;
   loading: boolean;
-  handleRequest?: Function;
+  handleTimeline?: Function;
   isCavAndOpenRequest?: boolean;
   isPinAndOpenRequest?: boolean;
   RequestItem: React.FC<any>;

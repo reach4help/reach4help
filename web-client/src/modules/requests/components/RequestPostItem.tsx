@@ -72,7 +72,8 @@ import defaultUserPic from '../assets/role_pin.png';
 
 const RequestPostItem: React.FC<RequestItemProps> = ({
   request,
-  handleRequest,
+  requestId,
+  handleTimeline,
   isCavAndOpenRequest,
   // isPinAndOpenRequest = false, TODO: (es) needed?
   // offers = {}, TODO: (es) needed?
@@ -89,7 +90,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
     if (isCavAndOpenRequest) {
       toggleDetails(true);
     } else {
-      handleRequest();
+      handleTimeline(requestId);
     }
   };
 
@@ -132,6 +133,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
           >
             {request.description}
           </Paragraph>
+          {/* TODO: (es) What the heck does this do? */}
           <Row justify="space-between" gutter={16}>
             <Col>
               <StepBackButton
@@ -139,7 +141,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
                 disabled={loading && actionPerformed !== 2}
                 onClick={() => {
                   setActionPerformed(2);
-                  handleRequest(false);
+                  handleTimeline(requestId);
                 }}
               >
                 {t('modules.requests.cannot_help')}
@@ -151,7 +153,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
                 disabled={loading && actionPerformed !== 1}
                 onClick={() => {
                   setActionPerformed(1);
-                  handleRequest(true);
+                  handleTimeline(requestId);
                 }}
               >
                 Help {displayUserFirstname(request.pinUserSnapshot.displayName)}
@@ -291,7 +293,8 @@ const Icon = styled.img`
 
 export interface RequestItemProps {
   request: Request;
-  handleRequest: (action?: boolean) => void;
+  requestId: string;
+  handleTimeline: (requestId: string) => void;
   isCavAndOpenRequest: boolean;
   hideUserPic?: boolean;
   offers?: Record<string, Offer>;

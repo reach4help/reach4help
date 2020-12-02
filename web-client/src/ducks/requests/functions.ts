@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
 // import { string } from 'prop-types';
 import { firestore, functions } from 'src/firebase';
 import { IOffer, Offer } from 'src/models/offers';
@@ -63,19 +63,23 @@ export const getFindPosts = async ({ lat, lng }: IgetRequestPosts) =>
     status: AbstractRequestStatus.pending,
   });
 
-const getRequest = async (
-  requestRef: firebase.firestore.DocumentReference,
-): Promise<IRequest> => {
-  const request = Request.factory((await requestRef.get()).data() as IRequest);
+const getRequest = async (requestId: string): Promise<IRequest> => {
+  const request = Request.factory(
+    (
+      await firestore
+        .collection('requests')
+        .doc(requestId)
+        .get()
+    ).data() as IRequest,
+  );
   return request;
 };
 
-const getOffersForRequest = async (
-  requestRef: firebase.firestore.DocumentReference,
-) => {
-  const result = await requestRef
+const getOffersForRequest = async (requestId: string) => {
+  const result = await firestore
+    .collection('requests')
+    .doc(requestId)
     .collection('offers')
-    .where('requestRef', '==', requestRef)
     .get();
 
   const offers: Record<string, IOffer> = {};
@@ -104,9 +108,11 @@ const getOffersForRequest = async (
 };
 
 const getTimelineItemsForRequest = async (
-  requestRef: firebase.firestore.DocumentReference,
+  requestId: string,
 ): Promise<ITimelineItem[]> => {
-  const timelinesResult = await requestRef
+  const timelinesResult = await firestore
+    .collection('requests')
+    .doc(requestId)
     .collection('timeline')
     // TODO: (es)
     .where('action', 'in', [
@@ -126,13 +132,11 @@ const getTimelineItemsForRequest = async (
   return timeline;
 };
 
-export const getPostWithOffersAndTimelineItems = async (
-  requestRef: firebase.firestore.DocumentReference,
-) => {
-  const request = await getRequest(requestRef);
+export const getPostWithOffersAndTimelineItems = async (requestId: string) => {
+  const request = await getRequest(requestId);
   const results = await Promise.all([
-    getOffersForRequest(requestRef),
-    getTimelineItemsForRequest(requestRef),
+    getOffersForRequest(requestId),
+    getTimelineItemsForRequest(requestId),
   ]);
 
   const requestWithOffers = RequestWithOffersAndTimeline.factory({

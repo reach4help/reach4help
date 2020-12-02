@@ -8,11 +8,12 @@ import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getCavRequestPosts,
+  // getCavRequestPosts,
   // getMyPinRequestPosts, TODO: (es) Replace with getRequestTimeline
   resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
+import { getPostWithOffersAndTimelineItems } from 'src/ducks/requests/functions';
 import { PostState } from 'src/ducks/requests/types';
 import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
@@ -133,8 +134,8 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         history.replace(TimelineViewLocation.toUrl({ requestId }));
       } else {
         if (
-          !requestsState.syncMyPinRequestPostsState.data &&
-          !requestsState.syncMyPinRequestPostsState.loading
+          !requestsState.syncPostWithOffersAndTimelinesState.data &&
+          !requestsState.syncPostWithOffersAndTimelinesState.loading
         ) {
           // TODO: (es) reimplement this
           // dispatch(
@@ -151,15 +152,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           // );
         }
         if (
-          !requestsState.syncCavRequestPostsState.data &&
-          !requestsState.syncCavRequestPostsState.loading
+          !requestsState.syncPostWithOffersAndTimelinesState.data &&
+          !requestsState.syncPostWithOffersAndTimelinesState.loading
         ) {
-          dispatch(
-            getCavRequestPosts({
-              userType: profileState.profile.applicationPreference,
-              userRef: profileState.userRef,
-            }),
-          );
+          dispatch(getPostWithOffersAndTimelineItems(requestId));
         }
       }
     }

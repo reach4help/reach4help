@@ -26,7 +26,6 @@ const StyledTabPane = styled(TabPane)`
 `;
 
 const TabbedPosts: React.FC = (): ReactElement => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const history = useHistory();
   const location = useLocation();
   const searchString = location.search;

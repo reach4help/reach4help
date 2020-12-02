@@ -54,7 +54,7 @@ const OfferPostsContainer: React.FC = () => {
     }
   }, [isOfferTab, profileState, dispatch]);
 
-  const handleRequest: Function = id =>
+  const handleTimeline: Function = id =>
     history.push(TimelineOfferPostViewLocation.toUrl({ requestId: id }));
 
   if (
@@ -93,7 +93,7 @@ const OfferPostsContainer: React.FC = () => {
           offerPostsWithOffersAndTimeline &&
           offerPostsWithOffersAndTimeline.loading
         }
-        handleRequest={handleRequest}
+        handleTimeline={handleTimeline}
         RequestItem={OfferPostItem}
       />
       <InformationModal

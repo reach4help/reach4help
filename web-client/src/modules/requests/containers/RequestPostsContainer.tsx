@@ -57,7 +57,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
     }
   }, [profileState, isRequestTab, dispatch, status]);
 
-  const handleRequest: Function = id =>
+  const handleTimeline: Function = id =>
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
   const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
@@ -91,7 +91,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
       <RequestList
         requests={requestPostsList.data}
         loading={requestPostsList && requestPostsList.loading}
-        handleRequest={handleRequest}
+        handleTimeline={handleTimeline}
         isCavAndOpenRequest={false}
         isPinAndOpenRequest={
           profileState.profile?.applicationPreference ===
