@@ -2,7 +2,7 @@
 // import { OfferStatus } from 'src/models/offers';
 import { IRequest, Request } from 'src/models/requests';
 import {
-  IRequestWithOffersAndTimeline,
+  IRequestWithOffersAndTimelineItems,
   RequestWithOffersAndTimeline,
 } from 'src/models/requests/RequestWithOffersAndTimeline';
 // import { TimelineItemAction } from 'src/models/requests/timeline';
@@ -11,8 +11,9 @@ import createReducer from 'src/store/utils/createReducer';
 import {
   CHANGE_MODAL,
   GET_CAV_REQUEST_POSTS,
-  GET_FIND_REQUEST_POSTS as GET_FIND_POSTS,
+  GET_FIND_POSTS,
   GET_PIN_REQUEST_POSTS,
+  GET_REQUEST_WITH_OFFERS_AND_TIMELINES,
   PostState,
   RESET_CAV_REQUEST_POSTS,
   RESET_FIND_REQUEST_POSTS,
@@ -29,12 +30,12 @@ const initialSetActionState = {
   modalState: false,
 };
 
-const initialPostsState = {
-  loading: false,
-  observerReceivedFirstUpdate: false,
-  data: undefined,
-  error: undefined,
-};
+// TODO: (es) const initialPostsState = {
+//   loading: false,
+//   observerReceivedFirstUpdate: false,
+//   data: undefined,
+//   error: undefined,
+// };
 
 const initialSyncPostsState = {
   loading: false,
@@ -43,14 +44,15 @@ const initialSyncPostsState = {
 };
 
 const initialState: PostState = {
-  syncPinRequestPostsState: initialSyncPostsState,
+  syncMyPinRequestPostsState: initialSyncPostsState,
   syncCavRequestPostsState: initialSyncPostsState,
   syncFindPostsState: initialSyncPostsState,
-  openRequests: initialPostsState,
-  ongoingRequests: initialPostsState,
-  completedRequests: initialPostsState,
-  cancelledRequests: initialPostsState,
-  removedRequests: initialPostsState,
+  syncPostWithOffersAndTimelinesState: initialSyncPostsState,
+  // TODO: openRequests: initialPostsState,
+  // ongoingRequests: initialPostsState,
+  // completedRequests: initialPostsState,
+  // cancelledRequests: initialPostsState,
+  // removedRequests: initialPostsState,
   setAction: initialSetActionState,
   newRequestTemp: undefined,
 };
@@ -69,7 +71,7 @@ export default createReducer<PostState>(
         payload: {
           data: {
             status: boolean;
-            data: Record<string, IRequestWithOffersAndTimeline>;
+            data: Record<string, IRequestWithOffersAndTimelineItems>;
           };
         };
       },
@@ -93,9 +95,41 @@ export default createReducer<PostState>(
       state.syncFindPostsState.loading = false;
       state.syncFindPostsState.error = payload;
     },
+    [GET_REQUEST_WITH_OFFERS_AND_TIMELINES.PENDING]: (state: PostState) => {
+      state.syncPostWithOffersAndTimelinesState.loading = true;
+      state.syncPostWithOffersAndTimelinesState.data = undefined;
+    },
+    [GET_REQUEST_WITH_OFFERS_AND_TIMELINES.COMPLETED]: (
+      state: PostState,
+      {
+        payload,
+      }: {
+        payload: {
+          data: {
+            status: boolean;
+            data: RequestWithOffersAndTimeline;
+          };
+        };
+      },
+    ) => {
+      state.syncPostWithOffersAndTimelinesState.loading = false;
+      state.syncPostWithOffersAndTimelinesState.error = undefined;
+      const requestWithOffersAndTimeline: RequestWithOffersAndTimeline =
+        payload.data.data;
+
+      state.syncPostWithOffersAndTimelinesState.data = requestWithOffersAndTimeline;
+    },
+    [GET_REQUEST_WITH_OFFERS_AND_TIMELINES.REJECTED]: (
+      state: PostState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncMyPinRequestPostsState.data = undefined;
+      state.syncMyPinRequestPostsState.loading = false;
+      state.syncMyPinRequestPostsState.error = payload;
+    },
     [GET_PIN_REQUEST_POSTS.PENDING]: (state: PostState) => {
-      state.syncPinRequestPostsState.loading = true;
-      state.syncPinRequestPostsState.data = undefined;
+      state.syncPostWithOffersAndTimelinesState.loading = true;
+      state.syncPostWithOffersAndTimelinesState.data = undefined;
     },
     [GET_PIN_REQUEST_POSTS.COMPLETED]: (
       state: PostState,
@@ -105,13 +139,13 @@ export default createReducer<PostState>(
         payload: {
           data: {
             status: boolean;
-            data: Record<string, Request>;
+            data: Record<string, RequestWithOffersAndTimeline>;
           };
         };
       },
     ) => {
-      state.syncPinRequestPostsState.loading = false;
-      state.syncPinRequestPostsState.error = undefined;
+      state.syncPostWithOffersAndTimelinesState.loading = false;
+      state.syncPostWithOffersAndTimelinesState.error = undefined;
       const requests: Record<string, Request> = {};
       const requestData = payload.data.data;
       for (const key in requestData) {
@@ -121,15 +155,15 @@ export default createReducer<PostState>(
           requests[key] = Request.factoryFromUnderscore(r as IRequest);
         }
       }
-      state.syncPinRequestPostsState.data = requests;
+      state.syncMyPinRequestPostsState.data = requests;
     },
     [GET_PIN_REQUEST_POSTS.REJECTED]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {
-      state.syncPinRequestPostsState.data = undefined;
-      state.syncPinRequestPostsState.loading = false;
-      state.syncPinRequestPostsState.error = payload;
+      state.syncMyPinRequestPostsState.data = undefined;
+      state.syncMyPinRequestPostsState.loading = false;
+      state.syncMyPinRequestPostsState.error = payload;
     },
     [GET_CAV_REQUEST_POSTS.PENDING]: (state: PostState) => {
       state.syncCavRequestPostsState.loading = true;
@@ -143,7 +177,7 @@ export default createReducer<PostState>(
         payload: {
           data: {
             status: boolean;
-            data: Record<string, IRequestWithOffersAndTimeline>;
+            data: Record<string, IRequestWithOffersAndTimelineItems>;
           };
         };
       },
@@ -212,14 +246,14 @@ export default createReducer<PostState>(
     [RESET_PIN_REQUEST_POSTS]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncPinRequestPostsState.data = undefined;
-      state.syncPinRequestPostsState.loading = false;
+      state.syncMyPinRequestPostsState.data = undefined;
+      state.syncMyPinRequestPostsState.loading = false;
     },
     [RESET_SET]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncPinRequestPostsState.data = undefined;
-      state.syncPinRequestPostsState.loading = false;
+      state.syncMyPinRequestPostsState.data = undefined;
+      state.syncMyPinRequestPostsState.loading = false;
       state.syncCavRequestPostsState.data = undefined;
       state.syncCavRequestPostsState.loading = false;
     },

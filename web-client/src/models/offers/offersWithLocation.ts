@@ -44,7 +44,7 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       updatedAt,
       seenAt,
     );
-    this._address = address ;
+    this._address = address;
   }
 
   @IsArray()

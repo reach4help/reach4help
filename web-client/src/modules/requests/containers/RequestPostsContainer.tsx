@@ -32,9 +32,9 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
     ({ profile }: { profile: ProfileState }) => profile,
   );
 
-  const requestWithOffersAndTimeline = useSelector(
+  const requestPostsList = useSelector(
     ({ requests }: { requests: PostState }) =>
-      requests.syncPinRequestPostsState,
+      requests.syncMyPinRequestPostsState,
   );
 
   const path = history.location.pathname;
@@ -61,10 +61,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
     history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
   const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
-  if (
-    !requestWithOffersAndTimeline.data ||
-    requestWithOffersAndTimeline.loading
-  ) {
+  if (!requestPostsList.data || requestPostsList.loading) {
     return <LoadingWrapper />;
   }
 
@@ -84,9 +81,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
         requestsType={t(
           'modules.requests.containers.OpenRequestContainer.open',
         )}
-        numRequests={
-          Object.keys(requestWithOffersAndTimeline.data || {}).length
-        }
+        numRequests={Object.keys(requestPostsList.data || {}).length}
         isCav={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav
@@ -94,10 +89,8 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
         isAcceptedRequests={false}
       />
       <RequestList
-        requests={requestWithOffersAndTimeline.data}
-        loading={
-          requestWithOffersAndTimeline && requestWithOffersAndTimeline.loading
-        }
+        requests={requestPostsList.data}
+        loading={requestPostsList && requestPostsList.loading}
         handleRequest={handleRequest}
         isCavAndOpenRequest={false}
         isPinAndOpenRequest={

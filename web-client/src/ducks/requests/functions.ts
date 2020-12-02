@@ -1,31 +1,27 @@
 import firebase from 'firebase';
+// import { string } from 'prop-types';
 import { firestore, functions } from 'src/firebase';
+import { IOffer, Offer } from 'src/models/offers';
+// TODO: (es) import { IOfferWithLocation } from 'src/models/offers/offersWithLocation';
 import {
+  IRequest,
   Request,
   RequestFirestoreConverter,
-  RequestStatus,
+  // TODO: (es) RequestStatus,
 } from 'src/models/requests';
-import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
-import { ApplicationPreference } from 'src/models/users';
+import {
+  AbstractRequestStatus,
+  IRequestWithOffersAndTimelineItems,
+  RequestWithOffersAndTimeline,
+} from 'src/models/requests/RequestWithOffersAndTimeline';
+import {
+  ITimelineItem,
+  TimelineItemAction,
+  TimelineItemFirestoreConverter,
+} from 'src/models/requests/timeline';
+// TODO: (es) import { PrivilegedUserInformation, IPrivilegedUserInformation } from 'src/models/users/privilegedInformation';
 
 import { IgetMyPosts, IgetRequestPosts } from './types';
-
-export const observeRequestPosts = (
-  nextValue: Function,
-  payload: IgetRequestPosts,
-): firebase.Unsubscribe => {
-  let initialQuery = firestore
-    .collection('requests')
-    .where('status', '==', RequestStatus.pending);
-
-  if (payload.userType === ApplicationPreference.pin) {
-    initialQuery = initialQuery.where('pinUserRef', '==', payload.userRef);
-  }
-
-  return initialQuery
-    .withConverter(RequestFirestoreConverter)
-    .onSnapshot(snap => nextValue(snap));
-};
 
 export const createUserRequest = async ({
   requestPayload,
@@ -67,6 +63,87 @@ export const getFindPosts = async ({ lat, lng }: IgetRequestPosts) =>
     status: AbstractRequestStatus.pending,
   });
 
+const getRequest = async (
+  requestRef: firebase.firestore.DocumentReference,
+): Promise<IRequest> => {
+  const request = Request.factory((await requestRef.get()).data() as IRequest);
+  return request;
+};
+
+const getOffersForRequest = async (
+  requestRef: firebase.firestore.DocumentReference,
+) => {
+  const result = await requestRef
+    .collection('offers')
+    .where('requestRef', '==', requestRef)
+    .get();
+
+  const offers: Record<string, IOffer> = {};
+
+  for (const doc of result.docs) {
+    const offer = Offer.factory(doc.data() as IOffer);
+    // TODO: (es) const cavPrivilegedInfo =
+    //   offer.cavUserSnapshot.username === 'deleteduser'
+    //     ? null
+    //     : PrivilegedUserInformation.factory(
+    //         /* eslint-disable no-await-in-loop */
+    //         (
+    //           await offer.cavUserRef
+    //             .collection('privilegedInformation')
+    //             .doc(offer.cavUserRef.id)
+    //             .get()
+    //         ).data() as IPrivilegedUserInformation,
+    //       );
+
+    offers[doc.id] = {
+      ...offer.toObject(),
+      // address: cavPrivilegedInfo && cavPrivilegedInfo.addresses ? cavPrivilegedInfo.addresses.default : deletedAddress,
+    } as IOffer;
+  }
+  return offers;
+};
+
+const getTimelineItemsForRequest = async (
+  requestRef: firebase.firestore.DocumentReference,
+): Promise<ITimelineItem[]> => {
+  const timelinesResult = await requestRef
+    .collection('timeline')
+    // TODO: (es)
+    .where('action', 'in', [
+      TimelineItemAction.ACCEPT_OFFER,
+      TimelineItemAction.CREATE_REQUEST,
+      TimelineItemAction.CREATE_OFFER,
+      TimelineItemAction.CAV_DECLINED,
+      TimelineItemAction.REJECT_OFFER,
+      TimelineItemAction.REMOVE_REQUEST,
+    ])
+    .withConverter(TimelineItemFirestoreConverter)
+    .get();
+  const timeline: ITimelineItem[] = [];
+  for (const doc of timelinesResult.docs) {
+    timeline.push(doc.data() as ITimelineItem);
+  }
+  return timeline;
+};
+
+export const getRequestWithOffersAndTimelineItems = async (
+  requestRef: firebase.firestore.DocumentReference,
+) => {
+  const request = await getRequest(requestRef);
+  const results = await Promise.all([
+    getOffersForRequest(requestRef),
+    getTimelineItemsForRequest(requestRef),
+  ]);
+
+  const requestWithOffers = RequestWithOffersAndTimeline.factory({
+    ...(request.toObject() as IRequest),
+    offers: results[0],
+    timeline: results[1],
+  } as IRequestWithOffersAndTimelineItems);
+
+  return requestWithOffers;
+};
+
 export const getMyPinReqestPosts = async ({ userRef, status }: IgetMyPosts) => {
   let dataRequests;
   let initialQuery = firestore
@@ -88,27 +165,3 @@ export const getMyPinReqestPosts = async ({ userRef, status }: IgetMyPosts) => {
     });
   return { data: { data: dataRequests, success: true } };
 };
-
-export const getOngoingPost = async ({ lat, lng }: IgetRequestPosts) =>
-  functions.httpsCallable('https-api-requests-getRequests')({
-    lat,
-    lng,
-    radius: 5,
-    status: AbstractRequestStatus.ongoing,
-  });
-
-export const getFinishedRequest = async ({ lat, lng }: IgetRequestPosts) =>
-  functions.httpsCallable('https-api-requests-getRequests')({
-    lat,
-    lng,
-    radius: 5,
-    status: AbstractRequestStatus.finished,
-  });
-
-export const getArchivedRequest = async ({ lat, lng }: IgetRequestPosts) =>
-  functions.httpsCallable('https-api-requests-getRequests')({
-    lat,
-    lng,
-    radius: 5,
-    status: AbstractRequestStatus.archived,
-  });

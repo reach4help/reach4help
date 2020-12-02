@@ -6,7 +6,10 @@ export const { asyncType, observerType, syncType } = createActionTypeFactory(
 );
 
 export const GET_TIMELINES_FOR_POST = observerType('GET_TIMELINES_FOR_POST');
-export const RESET_TIMELINES_FOR_POST = observerType('RESET_TIMELINES_FOR_POST');
+export const OBSERVE_TIMELINE = observerType('OBSERVE_TIMELINE');
+export const RESET_TIMELINES_FOR_POST = observerType(
+  'RESET_TIMELINES_FOR_POST',
+);
 
 export interface TimelineState {
   observerReceivedFirstUpdate: boolean;
@@ -14,4 +17,3 @@ export interface TimelineState {
   data?: TimelineItem[];
   error?: Error;
 }
-

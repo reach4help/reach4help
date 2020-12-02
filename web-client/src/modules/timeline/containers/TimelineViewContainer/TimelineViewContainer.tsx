@@ -86,17 +86,14 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   }, [dispatch]);
 
   useEffect(() => {
-    let requestTemp: RequestWithOffersAndTimeline | undefined =
-      requestsState.syncPinRequestPostsState.data &&
-      requestsState.syncPinRequestPostsState.data[requestId]
-        ? requestsState.syncPinRequestPostsState.data[requestId]
-        : undefined;
-    requestTemp =
-      requestTemp ||
-      (requestsState.syncCavRequestPostsState.data &&
-      requestsState.syncCavRequestPostsState.data[requestId]
-        ? requestsState.syncCavRequestPostsState.data[requestId]
-        : undefined);
+    const requestTemp: RequestWithOffersAndTimeline | undefined =
+      requestsState.syncPostWithOffersAndTimelinesState.data;
+    // requestTemp =
+    //   requestTemp ||
+    //   (requestsState.syncCavRequestPostsState.data &&
+    //   requestsState.syncCavRequestPostsState.data[requestId]
+    //     ? requestsState.syncCavRequestPostsState.data[requestId]
+    //     : undefined);
     setRequest(requestTemp);
   }, [requestsState, requestId]);
 
@@ -136,8 +133,8 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         history.replace(TimelineViewLocation.toUrl({ requestId }));
       } else {
         if (
-          !requestsState.syncPinRequestPostsState.data &&
-          !requestsState.syncPinRequestPostsState.loading
+          !requestsState.syncMyPinRequestPostsState.data &&
+          !requestsState.syncMyPinRequestPostsState.loading
         ) {
           // TODO: (es) reimplement this
           // dispatch(

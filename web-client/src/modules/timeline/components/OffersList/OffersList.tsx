@@ -1,4 +1,4 @@
-// TODO: (es) error in haversine distance display. Distance should be given in KM and Miles 
+// TODO: (es) error in haversine distance display. Distance should be given in KM and Miles
 // TODO: (es) okay to get rid of distance which requires CAV address?
 import {
   EnvironmentOutlined,

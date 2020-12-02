@@ -17,6 +17,9 @@ export const RESET_CAV_REQUEST_POSTS = syncType('RESET_CAV_REQUEST_POSTS');
 
 export const GET_FIND_POSTS = asyncType('GET_FIND_POSTS');
 export const GET_PIN_REQUEST_POSTS = asyncType('GET_PIN_REQUEST_POSTS');
+export const GET_REQUEST_WITH_OFFERS_AND_TIMELINES = asyncType(
+  'GET_REQUEST_WITH_OFFERS_AND_TIMELINES',
+);
 export const GET_CAV_REQUEST_POSTS = asyncType('GET_CAV_REQUEST_POSTS');
 
 export const UPDATE = asyncType('UPDATE');
@@ -29,9 +32,14 @@ export interface PostState {
     data?: Record<string, RequestWithOffersAndTimeline>;
     error?: Error;
   };
-  syncPinRequestPostsState: {
+  syncMyPinRequestPostsState: {
     loading: boolean;
     data?: Record<string, Request>;
+    error?: Error;
+  };
+  syncPostWithOffersAndTimelinesState: {
+    loading: boolean;
+    data?: RequestWithOffersAndTimeline;
     error?: Error;
   };
   syncCavRequestPostsState: {
@@ -39,37 +47,37 @@ export interface PostState {
     data?: Record<string, RequestWithOffersAndTimeline>;
     error?: Error;
   };
-  // TODO: (es) Do we need these?
-  openRequests: {
-    observerReceivedFirstUpdate: boolean;
-    loading: boolean;
-    data?: Record<string, Request>;
-    error?: Error;
-  };
-  ongoingRequests: {
-    observerReceivedFirstUpdate: boolean;
-    loading: boolean;
-    data?: Record<string, Request>;
-    error?: Error;
-  };
-  removedRequests: {
-    observerReceivedFirstUpdate: boolean;
-    loading: boolean;
-    data?: Record<string, Request>;
-    error?: Error;
-  };
-  completedRequests: {
-    observerReceivedFirstUpdate: boolean;
-    loading: boolean;
-    data?: Record<string, Request>;
-    error?: Error;
-  };
-  cancelledRequests: {
-    observerReceivedFirstUpdate: boolean;
-    loading: boolean;
-    data?: Record<string, Request>;
-    error?: Error;
-  };
+  // // TODO: (es) Do we need these?
+  // openRequests: {
+  //   observerReceivedFirstUpdate: boolean;
+  //   loading: boolean;
+  //   data?: Record<string, Request>;
+  //   error?: Error;
+  // };
+  // ongoingRequests: {
+  //   observerReceivedFirstUpdate: boolean;
+  //   loading: boolean;
+  //   data?: Record<string, Request>;
+  //   error?: Error;
+  // };
+  // removedRequests: {
+  //   observerReceivedFirstUpdate: boolean;
+  //   loading: boolean;
+  //   data?: Record<string, Request>;
+  //   error?: Error;
+  // };
+  // completedRequests: {
+  //   observerReceivedFirstUpdate: boolean;
+  //   loading: boolean;
+  //   data?: Record<string, Request>;
+  //   error?: Error;
+  // };
+  // cancelledRequests: {
+  //   observerReceivedFirstUpdate: boolean;
+  //   loading: boolean;
+  //   data?: Record<string, Request>;
+  //   error?: Error;
+  // };
   setAction: {
     success: boolean;
     loading: boolean;
