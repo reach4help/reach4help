@@ -1,11 +1,12 @@
 import {
-  // BellFilled as NotificationsIcon,
   CaretDownOutlined,
   CaretUpOutlined,
+  BellFilled as NotificationsIcon,
   MenuOutlined as SideMenuIcon,
 } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Logo from 'src/assets/logo.svg';
 import {
   CreateOfferLocationUrl,
@@ -17,6 +18,7 @@ import {
 } from 'src/modules/landing-page/constants';
 import { LoginLocation } from 'src/modules/login/constants';
 import { MyOfferPostsLocationUrl } from 'src/modules/requests/constants';
+import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -31,6 +33,10 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
   visible = true,
 }) => {
   const [createNewShowing, setCreateNewShowing] = useState(false);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  const onboarded = useSelector((state: AppState) => state.auth.onboarded);
+  const isLoggedIn = useSelector((state: AppState) => !!state.auth.user?.email);
 
   const CreateNew = createNewShowing
     ? styled.div`
@@ -122,7 +128,6 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
           </IconText>
         </NavButton>
 
-        {/* TODO: Conditionally render the NotificationBell replacing signup button when isLoggedIn==true | issue: cannot access isLoggedIn */}
         {/* <NavButton aria-label="Notifications Button" onClick={openNotifications}>
         {unseenOffersCount > 0 ? (
           <NotificationsIcon style={{ color: 'red' }} />
@@ -148,15 +153,21 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
           <Link href={AboutPageLocation.path}>About Us</Link>
           <LanguageSelector />
 
-          <LoginButton>
-            <BtnLink href={LoginLocation.path}>Login</BtnLink>
-          </LoginButton>
+          {isLoggedIn ? (
+            <NotificationsIcon />
+          ) : (
+            <>
+              <LoginButton>
+                <BtnLink href={LoginLocation.path}>Login</BtnLink>
+              </LoginButton>
 
-          {/* TODO: Change hardcoded hrefs to constants || status: DONE */}
+              {/* TODO: Change hardcoded hrefs to constants || status: DONE */}
 
-          <SignUpButton>
-            <BtnLink href={LoginLocation.path}>Sign Up</BtnLink>
-          </SignUpButton>
+              <SignUpButton>
+                <BtnLink href={LoginLocation.path}>Sign Up</BtnLink>
+              </SignUpButton>
+            </>
+          )}
         </LinkContainer>
       </TopNavbarWrapper>
       <BetaFlairBottom>

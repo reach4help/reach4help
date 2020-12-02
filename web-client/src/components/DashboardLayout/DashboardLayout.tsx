@@ -99,7 +99,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   );
 };
 
-const DashboardLayoutWrapper = styled(Layout)`
+const DashboardLayoutWrapper = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
