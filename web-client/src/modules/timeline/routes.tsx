@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
 import {
-  TimelineAcceptedViewLocation,
+  TimelineOfferPostViewLocation,
   TimelineViewLocation,
 } from './constants';
 
@@ -28,7 +28,7 @@ const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
       <Route
-        path={TimelineAcceptedViewLocation.path}
+        path={TimelineOfferPostViewLocation.path}
         component={TimelineAcceptedViewPage}
         exact
       />

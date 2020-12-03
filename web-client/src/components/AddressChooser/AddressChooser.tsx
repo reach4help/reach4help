@@ -1,6 +1,7 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Checkbox, Col, Form, Input, Row, Select } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
+import throttle from 'lodash/throttle';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +16,7 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
   actionHandler,
   actionType,
   cancelHandler,
+  onChangeHandler,
   cancelType,
   isSettings = false,
   geocode,
@@ -36,7 +38,12 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
 
   const dispatch = useDispatch();
 
-  const formInitial = {
+  interface IAddressForm
+    extends Pick<IUserAddress, Exclude<keyof IUserAddress, 'coords'>> {
+    current?: string;
+  }
+
+  const formInitial: IAddressForm = {
     current: '',
     name: '',
     address1: '',
@@ -73,6 +80,9 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
         postalCode: chosenAddress.postalCode,
         country: chosenAddress.country,
       });
+      if (onChangeHandler) {
+        onChangeHandler(chosenAddress);
+      }
     }
   };
 
@@ -82,10 +92,7 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
     }
     const currentName = form.getFieldValue('current');
     if (currentName) {
-      const chosenAddress: Pick<
-        IUserAddress,
-        Exclude<keyof IUserAddress, 'coords'>
-      > = {
+      const chosenAddress: IAddressForm = {
         name: form.getFieldValue('name'),
         address1: form.getFieldValue('address1'),
         address2: form.getFieldValue('address2'),
@@ -125,9 +132,42 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
     setAddressChosen(false);
   };
 
+  const onFieldChange = async (
+    changedFields: Record<string, any>[],
+    allFields: Record<string, any>[],
+  ) => {
+    if (onChangeHandler) {
+      const fieldData: IAddressForm = allFields.reduce((acc, field) => {
+        if (!field.error) {
+          return {
+            ...acc,
+            [field.name]: field.value,
+          };
+        }
+        return {
+          ...acc,
+        };
+      }, {}) as IAddressForm;
+      try {
+        const changedAddressWithCoords = await geocode(fieldData);
+        onChangeHandler(changedAddressWithCoords);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('error occured while geocoding: ', error);
+      }
+    }
+  };
+
+  const throttledOnFieldChange = throttle(onFieldChange, 300);
+
   return (
     <>
-      <Form form={form} onFinish={handleFinish} initialValues={formInitial}>
+      <Form
+        form={form}
+        onFinish={handleFinish}
+        initialValues={formInitial}
+        onFieldsChange={throttledOnFieldChange}
+      >
         <Row gutter={[16, 6]}>
           <Col span={24}>
             <Form.Item
@@ -234,6 +274,7 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
 export const AddressChooser: React.FC<AddressChooserProps> = ({
   actionHandler,
   actionType,
+  onChangeHandler,
   cancelHandler,
   cancelType,
   isSettings = false,
@@ -242,6 +283,7 @@ export const AddressChooser: React.FC<AddressChooserProps> = ({
     otherProps={{
       actionHandler,
       actionType,
+      onChangeHandler,
       cancelHandler,
       cancelType,
       isSettings,
@@ -253,6 +295,7 @@ export const AddressChooser: React.FC<AddressChooserProps> = ({
 export interface AddressChooserProps {
   actionHandler: (address: IUserAddress) => void;
   actionType: 'submit' | 'next';
+  onChangeHandler?: (address: Partial<IUserAddress>) => void;
   cancelHandler: () => void;
   cancelType: 'cancel' | 'back';
   isSettings: boolean;

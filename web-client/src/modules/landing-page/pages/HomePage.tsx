@@ -1,5 +1,6 @@
 import React from 'react';
 
+// import DashboardLayout from '../../../components/DashboardLayout/DashboardLayout';
 import airtableLogo from '../assets/airtableLogo.svg';
 import algoliaLogo from '../assets/algoliaLogo.svg';
 import canvaLogo from '../assets/canvaLogo.svg';
@@ -101,11 +102,9 @@ import {
   VolunteerInfoContainer,
   VolunteerInfoSection,
 } from '../components/figma';
-import Header from '../components/Header';
 
 const HomePage: React.FC = (): JSX.Element => (
   <Root>
-    <Header />
     <RectTop src={rectTop} />
     <TopSection>
       <TextTopContainer>

@@ -11,6 +11,7 @@ function Button({
   onClick,
   children,
   fontSize,
+  border,
 }) {
   return (
     <ButtonWrapper
@@ -19,6 +20,7 @@ function Button({
       textColor={textColor}
       backgroundColor={backgroundColor}
       outlineColor={outlineColor}
+      border={border}
       fontSize={fontSize}
     >
       {children}
@@ -33,6 +35,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
   fontSize: PropTypes.string,
+  border: PropTypes.string,
 }
 
 export default Button

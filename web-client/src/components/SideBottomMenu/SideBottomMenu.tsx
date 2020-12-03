@@ -1,72 +1,28 @@
 import {
-  GlobalOutlined,
   LogoutOutlined,
-  MailOutlined,
+  // MailOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
-import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import CONSTANTS from 'src/constants';
 import { LoginLocation } from 'src/modules/login/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 import { SettingsLocation } from '../../modules/settings/constants';
 
-const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
-
-const { Option } = Select;
-
 const SideBottomMenu: React.FC<{
   closeDrawer: () => void;
   isLoggedIn: boolean;
   logoutHandler: Function;
 }> = ({ closeDrawer, isLoggedIn, logoutHandler }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const history = useHistory();
-
-  let { language: currentLanguage } = i18n;
-
-  currentLanguage = currentLanguage.substr(0, 2);
-
-  const setBrowserDefaultLanguage = val => {
-    localStorage.setItem(LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY, val);
-    i18n.changeLanguage(val);
-  };
 
   return (
     <>
       <SideBottomMenuStyle>
-        <SideBotomMenuItemStyle onClick={() => setBrowserDefaultLanguage}>
-          <GlobalOutlined />
-          {t('menuDrawer.changeLanguage')}
-          <Select
-            defaultValue={currentLanguage}
-            showSearch
-            style={{
-              margin: 'auto',
-              marginTop: '20px',
-              width: '100%',
-            }}
-            size="large"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option?.children?.toLowerCase().indexOf(input.toLowerCase()) >=
-              // eslint-disable-next-line react/jsx-indent
-              0
-            }
-            onChange={v => setBrowserDefaultLanguage(v.toString())}
-          >
-            {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */
-            allLanguages.map(language => (
-              <Option key={language['1']} value={language['1']}>
-                {language.local}
-              </Option>
-            ))}
-          </Select>
-        </SideBotomMenuItemStyle>
         {isLoggedIn && (
           <SideBotomMenuItemStyle
             data-id="settings"
@@ -76,7 +32,7 @@ const SideBottomMenu: React.FC<{
             {t('menuDrawer.settings')}
           </SideBotomMenuItemStyle>
         )}
-        <SideBotomMenuItemStyle
+        {/* <SideBotomMenuItemStyle
           data-id="contactus"
           role="link"
           onClick={() => {
@@ -86,7 +42,7 @@ const SideBottomMenu: React.FC<{
         >
           <MailOutlined />
           {t('menuDrawer.contactUs')}
-        </SideBotomMenuItemStyle>
+        </SideBotomMenuItemStyle> */}
         {isLoggedIn && (
           <SideBotomMenuItemStyle
             data-id="logout"
@@ -100,66 +56,47 @@ const SideBottomMenu: React.FC<{
             {t('menuDrawer.logout')}
           </SideBotomMenuItemStyle>
         )}
-        {!isLoggedIn && (
+
+        <SideBotomMenuItemBtnStyle
+          data-id="login-signup"
+          role="link"
+          onClick={() => history.push(LoginLocation.path)}
+        >
+          <LogInButton>Login</LogInButton>
+        </SideBotomMenuItemBtnStyle>
+
+        <SideBotomMenuItemBtnStyle
+          data-id="login-signup"
+          role="link"
+          onClick={() => history.push(LoginLocation.path)}
+        >
+          <SignUpButton>Signup</SignUpButton>
+        </SideBotomMenuItemBtnStyle>
+
+        {/* {!isLoggedIn && (
           <SideBotomMenuItemStyle
             data-id="login-signup"
             role="link"
             onClick={() => {
               history.push(LoginLocation.path);
             }}
+            // Signup and Login both route to /login. Where to route the two buttons in design separately?
           >
             {t('menuDrawer.login-signup')}
           </SideBotomMenuItemStyle>
-        )}
+        )} */}
       </SideBottomMenuStyle>
     </>
   );
 };
 
-const allLanguages = [
-  {
-    '1': 'en',
-    '2': 'eng',
-    '3': 'eng',
-    name: 'English',
-    local: 'English',
-    '2T': 'eng',
-    '2B': 'eng',
-  },
-  {
-    '1': 'fr',
-    '2': 'fra',
-    '3': 'fra',
-    name: 'French',
-    local: 'Français',
-    '2T': 'fra',
-    '2B': 'fre',
-  },
-  {
-    '1': 'pt',
-    '2': 'por',
-    '3': 'por',
-    name: 'Portuguese',
-    local: 'Português',
-    '2T': 'por',
-    '2B': 'por',
-  },
-  {
-    '1': 'es',
-    '2': 'spa',
-    '3': 'spa',
-    name: 'Spanish',
-    local: 'Español',
-    '2T': 'spa',
-    '2B': 'spa',
-  },
-];
-
 const SideBotomMenuItemStyle = styled('div')`
   color: inherit;
+  display: flex;
   margin-bottom: 10px;
   padding: 10px;
   cursor: pointer;
+
   svg {
     margin-right: 10px;
   }
@@ -177,6 +114,42 @@ const SideBottomMenuStyle = styled.div`
   flex-direction: column;
   margin: 15px;
   color: inherit;
+  flex: 0.35;
+  position: relative;
+  bottom: 5%;
+`;
+
+const Button = styled.button`
+  height: 35px;
+  width: 90vw;
+  border-radius: 4px;
+  margin: 10px;
+  cursor: pointer;
+  position: relative;
+  font-size: 18px;
+  font-weight: 500;
+`;
+
+const LogInButton = styled(Button)`
+  background: none;
+  border: 1px solid ${COLORS.stepBackwardNormal};
+  color: #eb7100;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border: 1px solid ${COLORS.brandOrange};
+  }
+`;
+
+const SideBotomMenuItemBtnStyle = styled(SideBotomMenuItemStyle)`
+  padding: 0;
+  margin: 0;
+`;
+
+const SignUpButton = styled(Button)`
+  border: none;
+  color: ${COLORS.white};
+  background: ${COLORS.stepBackwardNormal};
 `;
 
 export default SideBottomMenu;
