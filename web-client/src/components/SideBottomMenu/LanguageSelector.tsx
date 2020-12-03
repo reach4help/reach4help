@@ -2,7 +2,9 @@ import { GlobalOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import CONSTANTS from 'src/constants';
+import { AppState } from 'src/store';
 import styled from 'styled-components';
 
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
@@ -11,6 +13,7 @@ const { Option } = Select;
 
 export const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
+  const isLoggedIn = useSelector((state: AppState) => !!state.auth.user?.email);
 
   let { language: currentLanguage } = i18n;
 
@@ -20,6 +23,20 @@ export const LanguageSelector: React.FC = () => {
     localStorage.setItem(LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY, val);
     i18n.changeLanguage(val);
   };
+
+  const SelectorContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 115px;
+    position: relative;
+    bottom: 20%;
+    left: ${isLoggedIn ? '6%' : '10.5%'};
+
+    @media (max-width: 1050px) {
+      display: none;
+    }
+  `;
 
   return (
     <SelectorContainer>
@@ -104,7 +121,7 @@ const SelectLanguage = styled(Select)`
     font-size: 24px;
     font-weight: 700;
 
-    @media (min-width: 918px) {
+    @media (min-width: 1050px) {
       font-size: 16px;
       position: relative;
       top: 3px;
@@ -115,7 +132,7 @@ const SelectLanguage = styled(Select)`
   .ant-select-arrow {
     color: black;
 
-    @media (min-width: 918px) {
+    @media (min-width: 1050px) {
       position: relative;
       left: 32px;
       bottom: 32px;
@@ -123,22 +140,9 @@ const SelectLanguage = styled(Select)`
   }
 `;
 
-const SelectorContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 115px;
-  position: relative;
-  left: 14%;
-  bottom: 20%;
-
-  @media (min-width: 918px) {
-    left: 7.5%;
-  }
-`;
-
 const GlobalOutlinedIcon = styled(GlobalOutlined)`
   transform: scale(1.7);
   position: relative;
-  right: -7px;
+  right: -10px;
+  z-index: 1;
 `;

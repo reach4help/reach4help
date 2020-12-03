@@ -6,6 +6,8 @@ import Routes from './routes';
 const moduleDef: Module = {
   path: urlPrefix,
   component: Routes,
+  partiallyProtected: true,
+  layout: 'dashboard',
 };
 
 export default moduleDef;
