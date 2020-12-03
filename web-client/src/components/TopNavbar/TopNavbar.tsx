@@ -48,9 +48,8 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
         flex-direction: column;
         align-items: flex-start;
         left: 12.2%;
-        top: 40px;
+        top: 29px;
         width: 150px;
-        // height: 30px;
 
         background: white;
 
@@ -74,16 +73,15 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
         }
       `
     : styled.div`
+        // TODO: Test if this media query is redundant; remove if true;
         @media (max-width: 1050px) {
           display: none;
         }
+        display: ${!isLoggedIn ? 'none' : 'flex'};
         position: relative;
-        display: flex;
         flex-direction: column;
         align-items: flex-start;
         left: 12.2%;
-        // left: 8.2%;
-        // top: 40px;
         top: 3px;
         width: 150px;
         height: 30px;
@@ -113,6 +111,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
 
   return visible ? (
     <HeaderContainer>
+      {window.location.pathname === '/list/find' && <GhostMargin />}
       <BetaFlairTop>
         We&apos;re in beta testing mode -
         <BetaLink href={HomePageLocation.path}>give us feedback</BetaLink>
@@ -140,17 +139,21 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
           <LeftLink href={MyOfferPostsLocationUrl}>Help Requests</LeftLink>
           <LeftLink href={MyOfferPostsLocationUrl}>Volunteer Offers</LeftLink>
 
-          {/* TODO: Conditionally render CreateNew when the user is logged in || issue: cannot access isLoggedIn */}
+          {/* TODO: Conditionally render CreateNew when isLoggedIn==true || status: DONE */}
           <CreateNew onClick={() => setCreateNewShowing(!createNewShowing)}>
             <div>
               <h4>Create New</h4>
               {createNewShowing ? <CaretUpOutlined /> : <CaretDownOutlined />}
             </div>
             <Link href={CreateRequestLocationUrl}>Help Request</Link>
-            <br />
+            {/* <br /> */}
             <Link href={CreateOfferLocationUrl}>Volunteer Offer</Link>
           </CreateNew>
-          <Link href={AboutPageLocation.path}>About Us</Link>
+          {isLoggedIn ? (
+            <Link href={AboutPageLocation.path}>About Us</Link>
+          ) : (
+            <LeftLink href={AboutPageLocation.path}>About Us</LeftLink>
+          )}
           <LanguageSelector />
 
           {isLoggedIn ? (
@@ -181,6 +184,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
 const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const LinkContainer = styled.div`
@@ -291,7 +295,7 @@ const TopNavbarWrapper = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
-  width: 99%;
+  width: 100%;
   height: 64px;
   padding: 32px 0;
   background: white;
@@ -299,6 +303,7 @@ const TopNavbarWrapper = styled.div`
 
   @media (min-width: 1050px) {
     top: 30px;
+    width: 100%;
   }
 `;
 
@@ -307,6 +312,7 @@ const BetaFlairTop = styled.div`
     display: none;
   }
 
+  z-index: 5;
   height: 30px;
   width: 100%;
   background: #e3f2ff;
@@ -316,7 +322,17 @@ const BetaFlairTop = styled.div`
   padding-right: 20px;
   font-size: 18px;
   font-weight: 400;
-  margin-bottom: -10px;
+  position: fixed;
+  top: 0;
+`;
+
+// WARNING: THIS IS A TEMPORARY FIX (DOES NOT BREAK)
+// Suggestion: use sticky
+const GhostMargin = styled.div`
+  position: relative;
+  width: 100%;
+  width: 100px;
+  margin-bottom: 40px;
 `;
 
 const BetaFlairBottom = styled.div`
@@ -332,7 +348,7 @@ const BetaFlairBottom = styled.div`
   align-items: center;
   font-size: 16px;
   font-weight: 400;
-  z-index: 1;
+  z-index: 5;
   position: relative;
   top: 64px;
   margin-bottom: -10px;

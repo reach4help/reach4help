@@ -142,7 +142,7 @@ const SideTopMenu: React.FC<{
         <SideMenuLink
           key="Home"
           title="Home"
-          path={HomePageLocation}
+          path={HomePageLocation.path}
           onClick={closeDrawer}
         />
 
@@ -211,14 +211,14 @@ const SideTopMenu: React.FC<{
           <SideMenuLink
             key="AboutUs"
             title="About Us"
-            path={AboutPageLocation}
+            path={AboutPageLocation.path}
             onClick={closeDrawer}
           />
         ) : (
           <AboutSideMenuLink
             key="AboutUs"
             title="About Us"
-            path={AboutPageLocation}
+            path={AboutPageLocation.path}
             onClick={closeDrawer}
           />
         )}

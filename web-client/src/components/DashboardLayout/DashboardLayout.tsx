@@ -99,15 +99,28 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   );
 };
 
-const DashboardLayoutWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  overflow: auto;
-`;
+// WARNING: THIS IS A TEMPORARY FIX (CAN BREAK)!
+// suggestion: Try to make use of Layout instead of div and adapt to the Homepage
+const DashboardLayoutWrapper =
+  window.location.pathname === '/list/find'
+    ? styled(Layout)`
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        overflow: auto;
+      `
+    : styled.div`
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        overflow: auto;
+      `;
 
 const DashboardContent = styled(Layout.Content)`
   position: relative;
