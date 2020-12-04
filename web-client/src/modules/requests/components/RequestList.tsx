@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import { Offer } from 'src/models/offers';
-import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
+import { Request } from 'src/models/requests';
 
 const RequestList: React.FC<RequestListProps> = ({
   requests,
   loading,
-  handleRequest,
+  // TODO: (es) remove handleTimeline,
   isCavAndOpenRequest,
   isPinAndOpenRequest,
   RequestItem,
@@ -23,20 +24,18 @@ const RequestList: React.FC<RequestListProps> = ({
     if (requests) {
       const internalRequestList: React.ReactElement<any>[] = [];
       const internalRequestsRendered: Record<string, boolean> = {};
-
       for (const id in requests) {
         if (id && requests[id] && !requestsRendered[id]) {
           internalRequestsRendered[id] = true;
           internalRequestList.push(
             <RequestItem
               key={id}
-              request={requests[id].getRequest()}
-              handleRequest={(action?: boolean) =>
-                handleRequest && handleRequest(id, action)
-              }
+              // TODO: (es) remove requestId={id} // TODO: (es) Use key instead?  what is key used for?
+              request={requests[id]}
+              // TODO: (es) remove handleTimeline={handleTimeline}
               isCavAndOpenRequest={isCavAndOpenRequest}
               isPinAndOpenRequest={isPinAndOpenRequest}
-              offers={requests[id].offers}
+              offers={undefined}
               toCloseRequest={(action?: boolean) =>
                 toCloseRequest && toCloseRequest(id, action)
               }
@@ -52,7 +51,7 @@ const RequestList: React.FC<RequestListProps> = ({
     }
   }, [
     requests,
-    handleRequest,
+    // TODO: (es) remove handleTimeline,
     isCavAndOpenRequest,
     isPinAndOpenRequest,
     cavDeclinedOffersGiven,
@@ -71,9 +70,9 @@ const RequestList: React.FC<RequestListProps> = ({
 };
 
 interface RequestListProps {
-  requests?: Record<string, RequestWithOffersAndTimeline>;
+  requests?: Record<string, Request>;
   loading: boolean;
-  handleRequest?: Function;
+  // TODO: (es) remove handleTimeline?: Function;
   isCavAndOpenRequest?: boolean;
   isPinAndOpenRequest?: boolean;
   RequestItem: React.FC<any>;
