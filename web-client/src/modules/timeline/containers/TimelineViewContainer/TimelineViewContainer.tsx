@@ -13,8 +13,9 @@ import {
   resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
-import { getPostWithOffersAndTimelineItems } from 'src/ducks/requests/functions';
 import { PostState } from 'src/ducks/requests/types';
+import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
+import { firestore as firestore2 } from 'src/firebase';
 import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
@@ -35,14 +36,16 @@ import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 import {
-  TimelineOfferPostViewLocation,
+  // TimelineOfferPostViewLocation,
   TimelineViewLocation,
 } from '../../constants';
 
-const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
+const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> = ({
   requestId,
   accepted,
 }) => {
+  // TODO: (es) - big refactor - rename src/firestore to something else
+  const requestRef = firestore2.collection('requests').doc(requestId);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -96,7 +99,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     //     ? requestsState.syncCavRequestPostsState.data[requestId]
     //     : undefined);
     setRequest(requestTemp);
-  }, [requestsState, requestId]);
+  }, [requestsState]);
 
   useEffect(() => {
     if (
@@ -131,7 +134,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         accepted &&
         profileState.profile.applicationPreference === ApplicationPreference.cav
       ) {
-        history.replace(TimelineViewLocation.toUrl({ requestId }));
+        history.replace(TimelineViewLocation.toUrl({ requestRef }));
       } else {
         if (
           !requestsState.syncPostWithOffersAndTimelinesState.data &&
@@ -155,41 +158,42 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
           !requestsState.syncPostWithOffersAndTimelinesState.data &&
           !requestsState.syncPostWithOffersAndTimelinesState.loading
         ) {
-          dispatch(getPostWithOffersAndTimelineItems(requestId));
+          dispatch(getPostWithOffersAndTimelineItems(requestRef));
         }
       }
     }
-  }, [dispatch, profileState, history, requestId, accepted, requestsState]);
+  }, [dispatch, profileState, history, requestRef, accepted, requestsState]);
 
-  useEffect(() => {
-    if (
-      profileState.profile &&
-      profileState.profile.applicationPreference &&
-      profileState.userRef
-    ) {
-      if (request && request.status === RequestStatus.ongoing && accepted) {
-        history.replace(TimelineViewLocation.toUrl({ requestId }));
-      }
-      if (request && request.offers) {
-        let shouldRedirect = true;
-        for (const k in request.offers) {
-          if (request.offers[k].status === OfferStatus.pending) {
-            shouldRedirect = false;
-          }
-        }
-        if (shouldRedirect && accepted) {
-          history.replace(TimelineViewLocation.toUrl({ requestId }));
-        } else if (
-          !shouldRedirect &&
-          !accepted &&
-          profileState.profile.applicationPreference ===
-            ApplicationPreference.pin
-        ) {
-          history.replace(TimelineOfferPostViewLocation.toUrl({ requestId }));
-        }
-      }
-    }
-  }, [accepted, request, requestId, history, profileState]);
+  // TODO: (es) what? reimplement Figure out what this does
+  // useEffect(() => {
+    // if (
+    //   profileState.profile &&
+    //   profileState.profile.applicationPreference &&
+    //   profileState.userRef
+    // ) {
+    //   if (request && request.status === RequestStatus.ongoing && accepted) {
+    //     history.replace(TimelineViewLocation.toUrl({ requestId }));
+    //   }
+    //   if (request && request.offers) {
+    //     let shouldRedirect = true;
+    //     for (const k in request.offers) {
+    //       if (request.offers[k].status === OfferStatus.pending) {
+    //         shouldRedirect = false;
+    //       }
+    //     }
+    //     if (shouldRedirect && accepted) {
+    //       history.replace(TimelineViewLocation.toUrl({ requestId }));
+    //     } else if (
+    //       !shouldRedirect &&
+    //       !accepted &&
+    //       profileState.profile.applicationPreference ===
+    //         ApplicationPreference.pin
+    //     ) {
+    //       history.replace(TimelineOfferPostViewLocation.toUrl({ requestId }));
+    //     }
+    //   }
+    // }
+  // }, [accepted, request, requestId, history, profileState, ]);
 
   if (!(profileState.profile && request)) {
     return <LoadingWrapper />;
@@ -302,10 +306,5 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     </>
   );
 };
-
-interface TimelineViewContainerProps {
-  requestId: string;
-  accepted?: boolean;
-}
 
 export default TimelineViewContainer;

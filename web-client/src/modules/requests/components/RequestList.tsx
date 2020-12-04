@@ -7,7 +7,7 @@ import { Request } from 'src/models/requests';
 const RequestList: React.FC<RequestListProps> = ({
   requests,
   loading,
-  handleTimeline,
+  // TODO: (es) remove handleTimeline,
   isCavAndOpenRequest,
   isPinAndOpenRequest,
   RequestItem,
@@ -30,11 +30,9 @@ const RequestList: React.FC<RequestListProps> = ({
           internalRequestList.push(
             <RequestItem
               key={id}
-              requestId={id} // TODO: (es) Use key instead?  what is key used for?
+              // TODO: (es) remove requestId={id} // TODO: (es) Use key instead?  what is key used for?
               request={requests[id]}
-              handleRequest={(action?: boolean) =>
-                handleTimeline && handleTimeline(id, action)
-              }
+              // TODO: (es) remove handleTimeline={handleTimeline}
               isCavAndOpenRequest={isCavAndOpenRequest}
               isPinAndOpenRequest={isPinAndOpenRequest}
               offers={undefined}
@@ -53,7 +51,7 @@ const RequestList: React.FC<RequestListProps> = ({
     }
   }, [
     requests,
-    handleTimeline,
+    // TODO: (es) remove handleTimeline,
     isCavAndOpenRequest,
     isPinAndOpenRequest,
     cavDeclinedOffersGiven,
@@ -74,7 +72,7 @@ const RequestList: React.FC<RequestListProps> = ({
 interface RequestListProps {
   requests?: Record<string, Request>;
   loading: boolean;
-  handleTimeline?: Function;
+  // TODO: (es) remove handleTimeline?: Function;
   isCavAndOpenRequest?: boolean;
   isPinAndOpenRequest?: boolean;
   RequestItem: React.FC<any>;

@@ -1,9 +1,11 @@
 import { /* TODO:(es) warning message Button, */ Col, Row } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
+import { TimelineViewLocation } from 'src/modules/timeline/constants';
 import styled, { keyframes } from 'styled-components';
 
 import { COLORS } from '../../../theme/colors';
@@ -72,8 +74,8 @@ import defaultUserPic from '../assets/role_pin.png';
 
 const RequestPostItem: React.FC<RequestItemProps> = ({
   request,
-  requestId,
-  handleTimeline,
+  // TODO: (es) remove requestId,
+  // TODO: (es) remove handleTimeline,
   isCavAndOpenRequest,
   // isPinAndOpenRequest = false, TODO: (es) needed?
   // offers = {}, TODO: (es) needed?
@@ -85,12 +87,19 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
 
   const [displayDetails, toggleDetails] = useState(false);
   const [actionPerformed, setActionPerformed] = useState(0); // 0 - Nothing, 1 - Accept, 2 - Reject
+  const history = useHistory();
+
+  const handleTimeline = (requestId: string | undefined) => {
+    console.log('xxxx', requestId);
+    history.push(TimelineViewLocation.toUrl({ requestId }));
+  };
 
   const handleRequestClick = () => {
     if (isCavAndOpenRequest) {
       toggleDetails(true);
     } else {
-      handleTimeline(requestId);
+      console.log('xxxx',request, 'a',request.requestId,'b');
+      handleTimeline(request.requestId);
     }
   };
 
@@ -141,7 +150,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
                 disabled={loading && actionPerformed !== 2}
                 onClick={() => {
                   setActionPerformed(2);
-                  handleTimeline(requestId);
+                  handleTimeline(request.requestId);
                 }}
               >
                 {t('modules.requests.cannot_help')}
@@ -153,7 +162,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
                 disabled={loading && actionPerformed !== 1}
                 onClick={() => {
                   setActionPerformed(1);
-                  handleTimeline(requestId);
+                  handleTimeline(request.requestId);
                 }}
               >
                 Help {displayUserFirstname(request.pinUserSnapshot.displayName)}
@@ -293,8 +302,8 @@ const Icon = styled.img`
 
 export interface RequestItemProps {
   request: Request;
-  requestId: string;
-  handleTimeline: (requestId: string) => void;
+  // TODO: (es) remove requestId: string;
+  // TODO: (es) remove handleTimeline: Function;
   isCavAndOpenRequest: boolean;
   hideUserPic?: boolean;
   offers?: Record<string, Offer>;

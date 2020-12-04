@@ -12,8 +12,7 @@ import {
   CHANGE_MODAL,
   GET_CAV_REQUEST_POSTS,
   GET_FIND_POSTS,
-  GET_PIN_REQUEST_POSTS,
-  GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS,
+  GET_MY_PIN_REQUEST_POSTS,
   PostState,
   RESET_CAV_REQUEST_POSTS,
   RESET_FIND_REQUEST_POSTS,
@@ -95,43 +94,11 @@ export default createReducer<PostState>(
       state.syncFindPostsState.loading = false;
       state.syncFindPostsState.error = payload;
     },
-    [GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS.PENDING]: (state: PostState) => {
-      state.syncPostWithOffersAndTimelinesState.loading = true;
-      state.syncPostWithOffersAndTimelinesState.data = undefined;
-    },
-    [GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS.COMPLETED]: (
-      state: PostState,
-      {
-        payload,
-      }: {
-        payload: {
-          data: {
-            status: boolean;
-            data: RequestWithOffersAndTimeline;
-          };
-        };
-      },
-    ) => {
-      state.syncPostWithOffersAndTimelinesState.loading = false;
-      state.syncPostWithOffersAndTimelinesState.error = undefined;
-      const requestWithOffersAndTimeline: RequestWithOffersAndTimeline =
-        payload.data.data;
-
-      state.syncPostWithOffersAndTimelinesState.data = requestWithOffersAndTimeline;
-    },
-    [GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS.REJECTED]: (
-      state: PostState,
-      { payload }: { payload: Error },
-    ) => {
+    [GET_MY_PIN_REQUEST_POSTS.PENDING]: (state: PostState) => {
+      state.syncMyPinRequestPostsState.loading = true;
       state.syncMyPinRequestPostsState.data = undefined;
-      state.syncMyPinRequestPostsState.loading = false;
-      state.syncMyPinRequestPostsState.error = payload;
     },
-    [GET_PIN_REQUEST_POSTS.PENDING]: (state: PostState) => {
-      state.syncPostWithOffersAndTimelinesState.loading = true;
-      state.syncPostWithOffersAndTimelinesState.data = undefined;
-    },
-    [GET_PIN_REQUEST_POSTS.COMPLETED]: (
+    [GET_MY_PIN_REQUEST_POSTS.COMPLETED]: (
       state: PostState,
       {
         payload,
@@ -144,20 +111,22 @@ export default createReducer<PostState>(
         };
       },
     ) => {
-      state.syncPostWithOffersAndTimelinesState.loading = false;
-      state.syncPostWithOffersAndTimelinesState.error = undefined;
+      state.syncMyPinRequestPostsState.loading = false;
+      state.syncMyPinRequestPostsState.error = undefined;
       const requests: Record<string, Request> = {};
       const requestData = payload.data.data;
       for (const key in requestData) {
+
         // if (key) required by eslint guard-for-in rule
         if (key) {
           const r = requestData[key];
+          console.log('xxx rrrr', r);
           requests[key] = Request.factoryFromUnderscore(r as IRequest);
         }
       }
       state.syncMyPinRequestPostsState.data = requests;
     },
-    [GET_PIN_REQUEST_POSTS.REJECTED]: (
+    [GET_MY_PIN_REQUEST_POSTS.REJECTED]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {

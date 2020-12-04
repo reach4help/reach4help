@@ -16,10 +16,7 @@ export const RESET_PIN_REQUEST_POSTS = syncType('RESET_PIN_REQUEST_POSTS');
 export const RESET_CAV_REQUEST_POSTS = syncType('RESET_CAV_REQUEST_POSTS');
 
 export const GET_FIND_POSTS = asyncType('GET_FIND_POSTS');
-export const GET_PIN_REQUEST_POSTS = asyncType('GET_PIN_REQUEST_POSTS');
-export const GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS = asyncType(
-  'GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS',
-);
+export const GET_MY_PIN_REQUEST_POSTS = asyncType('GET_PIN_REQUEST_POSTS');
 export const GET_CAV_REQUEST_POSTS = asyncType('GET_CAV_REQUEST_POSTS');
 
 export const UPDATE = asyncType('UPDATE');
@@ -96,7 +93,6 @@ export interface IgetRequestPosts {
   lng?: number;
   userType: ApplicationPreference;
 }
-
 export interface IgetMyPosts {
   userRef: firebase.firestore.DocumentReference<User>;
   status?: string;

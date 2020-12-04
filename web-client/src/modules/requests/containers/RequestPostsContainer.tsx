@@ -9,7 +9,7 @@ import {
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
-import { TimelineViewLocation } from 'src/modules/timeline/constants';
+// TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {
@@ -57,8 +57,9 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
     }
   }, [profileState, isRequestTab, dispatch, status]);
 
-  const handleTimeline: Function = id =>
-    history.push(TimelineViewLocation.toUrl({ requestId: id }));
+  // TODO: (es) remove 
+  // const handleTimeline: Function = id =>
+  //   history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
   const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
   if (!requestPostsList.data || requestPostsList.loading) {
@@ -91,7 +92,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
       <RequestList
         requests={requestPostsList.data}
         loading={requestPostsList && requestPostsList.loading}
-        handleTimeline={handleTimeline}
+        // TODO: (es) remove handleTimeline={handleTimeline}
         isCavAndOpenRequest={false}
         isPinAndOpenRequest={
           profileState.profile?.applicationPreference ===
