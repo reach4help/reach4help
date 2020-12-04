@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getRequestPosts,
-  resetRequestPostState,
+  getMyPinRequestPosts,
+  resetPinRequestPostsState,
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
 import { ApplicationPreference } from 'src/models/users';
-import { TimelineViewLocation } from 'src/modules/timeline/constants';
+// TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {
@@ -21,7 +21,9 @@ import RequestList from '../components/RequestList';
 import RequestPostItem from '../components/RequestPostItem';
 import { PostTabsType } from '../constants';
 
-const RequestPostsContainer: React.FC = () => {
+const RequestPostsContainer: React.FC<{ status: string | null }> = ({
+  status,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -29,12 +31,10 @@ const RequestPostsContainer: React.FC = () => {
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
-  // TODO: console.log('before', profileState.url);
-  // profileState.url = window.location.href;
-  // console.log('after', profileState.url);
 
-  const requestWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: PostState }) => requests.syncRequestPostsState,
+  const requestPostsList = useSelector(
+    ({ requests }: { requests: PostState }) =>
+      requests.syncMyPinRequestPostsState,
   );
 
   const path = history.location.pathname;
@@ -42,30 +42,27 @@ const RequestPostsContainer: React.FC = () => {
 
   useEffect(() => {
     if (isRequestTab) {
-      dispatch(resetRequestPostState());
+      dispatch(resetPinRequestPostsState());
     }
   }, [isRequestTab, dispatch]);
 
   useEffect(() => {
-    if (isRequestTab && profileState.profile?.applicationPreference) {
+    if (isRequestTab && profileState.userRef) {
       dispatch(
-        getRequestPosts({
-          userType: profileState.profile.applicationPreference,
+        getMyPinRequestPosts({
           userRef: profileState.userRef,
+          status: status == null ? undefined : status,
         }),
       );
     }
-  }, [profileState, isRequestTab, dispatch]);
+  }, [profileState, isRequestTab, dispatch, status]);
 
-  const handleRequest: Function = id =>
-    history.push(TimelineViewLocation.toUrl({ requestId: id }));
+  // TODO: (es) remove 
+  // const handleTimeline: Function = id =>
+  //   history.push(TimelineViewLocation.toUrl({ requestId: id }));
 
   const toCloseRequest: Function = id => `Fill logic: Remove request ${id}`;
-
-  if (
-    !requestWithOffersAndTimeline.data ||
-    requestWithOffersAndTimeline.loading
-  ) {
+  if (!requestPostsList.data || requestPostsList.loading) {
     return <LoadingWrapper />;
   }
 
@@ -85,9 +82,7 @@ const RequestPostsContainer: React.FC = () => {
         requestsType={t(
           'modules.requests.containers.OpenRequestContainer.open',
         )}
-        numRequests={
-          Object.keys(requestWithOffersAndTimeline.data || {}).length
-        }
+        numRequests={Object.keys(requestPostsList.data || {}).length}
         isCav={
           profileState.profile?.applicationPreference ===
           ApplicationPreference.cav
@@ -95,11 +90,9 @@ const RequestPostsContainer: React.FC = () => {
         isAcceptedRequests={false}
       />
       <RequestList
-        requests={requestWithOffersAndTimeline.data}
-        loading={
-          requestWithOffersAndTimeline && requestWithOffersAndTimeline.loading
-        }
-        handleRequest={handleRequest}
+        requests={requestPostsList.data}
+        loading={requestPostsList && requestPostsList.loading}
+        // TODO: (es) remove handleTimeline={handleTimeline}
         isCavAndOpenRequest={false}
         isPinAndOpenRequest={
           profileState.profile?.applicationPreference ===

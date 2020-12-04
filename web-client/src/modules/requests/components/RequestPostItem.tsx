@@ -1,36 +1,105 @@
-import { Button, Col, Row } from 'antd';
+import { /* TODO:(es) warning message Button, */ Col, Row } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import { Offer } from 'src/models/offers';
 import { Request } from 'src/models/requests';
+import { TimelineViewLocation } from 'src/modules/timeline/constants';
 import styled, { keyframes } from 'styled-components';
 
 import { COLORS } from '../../../theme/colors';
 import avgRating from '../assets/pinAverageRating.svg';
 import defaultUserPic from '../assets/role_pin.png';
-import warningSign from '../assets/warningExclamation.svg';
+
+// import warningSign from '../assets/warningExclamation.svg';
+
+// export const getWarningMessage = (request: Request) =>
+// {
+//   let bottomWarningMessage;
+//   if (
+//     isPinAndOpenRequest &&
+//     !Object.keys(offers).length &&
+//     Date.now() - request.createdAt.toDate().getTime() > 1000 * 60 * 60 * 24 * 7
+//   ) {
+//     bottomWarningMessage = (
+//       <WarningMessage
+//         style={{
+//           background: '#FAFAFA',
+//         }}
+//       >
+//         {t('modules.requests.containers.no_reply')}
+//       </WarningMessage>
+//     );
+//   } else if (
+//     isPinAndOpenRequest &&
+//     toCloseRequest &&
+//     (Object.keys(offers).length >= 5 ||
+//       (Object.keys(offers).length < 5 &&
+//         Date.now() - request.createdAt.toDate().getTime() >
+//           1000 * 60 * 60 * 24 * 7))
+//   ) {
+//     bottomWarningMessage = (
+//       <WarningMessage
+//         style={{
+//           background: 'rgba(255, 203, 82, 0.1)',
+//         }}
+//       >
+//         <Row>
+//           <Col span={2}>
+//             <img
+//               src={warningSign}
+//               alt="Attention"
+//               style={{ animation: 'fadeIn 0.75s' }}
+//             />
+//           </Col>
+//           <Col span={22}>
+//             <p>{t('modules.requests. ')}</p>
+//           </Col>
+//         </Row>
+//         <Row>
+//           <Col span={12} offset={12}>
+//             <CloseButton
+//               onClick={() => toCloseRequest()}
+//               style={{ fontSize: '16px' }}
+//             >
+//               Close Request
+//             </CloseButton>
+//           </Col>
+//         </Row>
+//       </WarningMessage>
+//     );
+//   }
+// )
 
 const RequestPostItem: React.FC<RequestItemProps> = ({
   request,
-  handleRequest,
+  // TODO: (es) remove requestId,
+  // TODO: (es) remove handleTimeline,
   isCavAndOpenRequest,
-  isPinAndOpenRequest = false,
-  offers = {},
+  // isPinAndOpenRequest = false, TODO: (es) needed?
+  // offers = {}, TODO: (es) needed?
   hideUserPic,
-  toCloseRequest,
+  // toCloseRequest, TODO: (es) needed?
   loading = false,
 }): React.ReactElement => {
   const { t } = useTranslation();
 
   const [displayDetails, toggleDetails] = useState(false);
   const [actionPerformed, setActionPerformed] = useState(0); // 0 - Nothing, 1 - Accept, 2 - Reject
+  const history = useHistory();
+
+  const handleTimeline = (requestId: string | undefined) => {
+    console.log('xxxx', requestId);
+    history.push(TimelineViewLocation.toUrl({ requestId }));
+  };
 
   const handleRequestClick = () => {
     if (isCavAndOpenRequest) {
       toggleDetails(true);
     } else {
-      handleRequest();
+      console.log('xxxx',request, 'a',request.requestId,'b');
+      handleTimeline(request.requestId);
     }
   };
 
@@ -41,62 +110,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
     }
     return '';
   };
-
-  let bottomWarningMessage;
-  if (
-    isPinAndOpenRequest &&
-    !Object.keys(offers).length &&
-    Date.now() - request.createdAt.toDate().getTime() > 1000 * 60 * 60 * 24 * 7
-  ) {
-    bottomWarningMessage = (
-      <WarningMessage
-        style={{
-          background: '#FAFAFA',
-        }}
-      >
-        {t('modules.requests.containers.no_reply')}
-      </WarningMessage>
-    );
-  } else if (
-    isPinAndOpenRequest &&
-    toCloseRequest &&
-    (Object.keys(offers).length >= 5 ||
-      (Object.keys(offers).length < 5 &&
-        Date.now() - request.createdAt.toDate().getTime() >
-          1000 * 60 * 60 * 24 * 7))
-  ) {
-    bottomWarningMessage = (
-      <WarningMessage
-        style={{
-          background: 'rgba(255, 203, 82, 0.1)',
-        }}
-      >
-        <Row>
-          <Col span={2}>
-            <img
-              src={warningSign}
-              alt="Attention"
-              style={{ animation: 'fadeIn 0.75s' }}
-            />
-          </Col>
-          <Col span={22}>
-            <p>{t('modules.requests.bottom_warning')}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} offset={12}>
-            <CloseButton
-              onClick={() => toCloseRequest()}
-              style={{ fontSize: '16px' }}
-            >
-              Close Request
-            </CloseButton>
-          </Col>
-        </Row>
-      </WarningMessage>
-    );
-  }
-
   if (displayDetails) {
     return (
       <Item>
@@ -129,6 +142,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
           >
             {request.description}
           </Paragraph>
+          {/* TODO: (es) What the heck does this do? */}
           <Row justify="space-between" gutter={16}>
             <Col>
               <StepBackButton
@@ -136,7 +150,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
                 disabled={loading && actionPerformed !== 2}
                 onClick={() => {
                   setActionPerformed(2);
-                  handleRequest(false);
+                  handleTimeline(request.requestId);
                 }}
               >
                 {t('modules.requests.cannot_help')}
@@ -148,7 +162,7 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
                 disabled={loading && actionPerformed !== 1}
                 onClick={() => {
                   setActionPerformed(1);
-                  handleRequest(true);
+                  handleTimeline(request.requestId);
                 }}
               >
                 Help {displayUserFirstname(request.pinUserSnapshot.displayName)}
@@ -159,7 +173,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
       </Item>
     );
   }
-
   return (
     <>
       <Item style={{ marginBottom: '0px' }}>
@@ -196,13 +209,13 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
               style={{
                 float: 'right',
               }}
-              src={request.pinUserSnapshot.displayPicture || defaultUserPic}
+              src={request.pinUserSnapshot?.displayPicture || defaultUserPic}
               alt={t('modules.requests.a11y_profile_pic')}
             />
           )}
         </div>
       </Item>
-      {bottomWarningMessage}
+      {/* TODO: (es) {bottomWarningMessage} */}
     </>
   );
 };
@@ -253,13 +266,14 @@ const UserPic = styled.img`
   object-fit: cover;
 `;
 
-const CloseButton = styled(Button)`
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
+// TODO: (es) Use when reimplement warning message
+// const CloseButton = styled(Button)`
+//   border-radius: 4px;
+//   width: 100%;
+//   overflow: hidden;
+//   white-space: nowrap;
+//   text-overflow: ellipsis;
+// `;
 
 const UserDetails = styled.div`
   display: inline-block;
@@ -272,22 +286,24 @@ const Icon = styled.img`
   margin-right: 5px;
 `;
 
-const WarningMessage = styled.div`
-  border: 1px solid ${COLORS.secondaryLight};
-  color: rgba(0, 0, 0, 0.65);
-  font-family: Roboto;
-  font-size: 12px;
-  line-height: 20px;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 15px;
-  padding: 12px;
-  border-radius: 2px;
-`;
+// TODO: (es) WarningMessage
+// const WarningMessage = styled.div`
+//   border: 1px solid ${COLORS.secondaryLight};
+//   color: rgba(0, 0, 0, 0.65);
+//   font-family: Roboto;
+//   font-size: 12px;
+//   line-height: 20px;
+//   margin-left: 15px;
+//   margin-right: 15px;
+//   margin-bottom: 15px;
+//   padding: 12px;
+//   border-radius: 2px;
+// `;
 
 export interface RequestItemProps {
   request: Request;
-  handleRequest: (action?: boolean) => void;
+  // TODO: (es) remove requestId: string;
+  // TODO: (es) remove handleTimeline: Function;
   isCavAndOpenRequest: boolean;
   hideUserPic?: boolean;
   offers?: Record<string, Offer>;

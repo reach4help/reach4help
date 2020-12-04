@@ -1,4 +1,4 @@
-/* TODO:  Not a React file */
+/* TODO: (es) why is this comment here? Not a React file */
 
 import { Module } from 'src/types/module';
 

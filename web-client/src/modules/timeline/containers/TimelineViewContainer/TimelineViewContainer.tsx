@@ -8,12 +8,14 @@ import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import {
-  getOfferPosts,
-  getRequestPosts,
+  // getCavRequestPosts,
+  // getMyPinRequestPosts, TODO: (es) Replace with getRequestTimeline
   resetSetRequestState,
   setRequest as updateRequest,
 } from 'src/ducks/requests/actions';
 import { PostState } from 'src/ducks/requests/types';
+import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
+import { firestore as firestore2 } from 'src/firebase';
 import { IOffer, OfferStatus } from 'src/models/offers';
 import { IRequest, RequestStatus } from 'src/models/requests';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
@@ -34,14 +36,16 @@ import OffersList from '../../components/OffersList/OffersList';
 import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 import {
-  TimelineOfferPostViewLocation,
+  // TimelineOfferPostViewLocation,
   TimelineViewLocation,
 } from '../../constants';
 
-const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
+const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> = ({
   requestId,
   accepted,
 }) => {
+  // TODO: (es) - big refactor - rename src/firestore to something else
+  const requestRef = firestore2.collection('requests').doc(requestId);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -86,19 +90,16 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
   }, [dispatch]);
 
   useEffect(() => {
-    let requestTemp: RequestWithOffersAndTimeline | undefined =
-      requestsState.syncRequestPostsState.data &&
-      requestsState.syncRequestPostsState.data[requestId]
-        ? requestsState.syncRequestPostsState.data[requestId]
-        : undefined;
-    requestTemp =
-      requestTemp ||
-      (requestsState.syncOfferPostsState.data &&
-      requestsState.syncOfferPostsState.data[requestId]
-        ? requestsState.syncOfferPostsState.data[requestId]
-        : undefined);
+    const requestTemp: RequestWithOffersAndTimeline | undefined =
+      requestsState.syncPostWithOffersAndTimelinesState.data;
+    // requestTemp =
+    //   requestTemp ||
+    //   (requestsState.syncCavRequestPostsState.data &&
+    //   requestsState.syncCavRequestPostsState.data[requestId]
+    //     ? requestsState.syncCavRequestPostsState.data[requestId]
+    //     : undefined);
     setRequest(requestTemp);
-  }, [requestsState, requestId]);
+  }, [requestsState]);
 
   useEffect(() => {
     if (
@@ -106,7 +107,7 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
       (!offersState.setAction.loading && offersState.setAction.success)
     ) {
       dispatch(resetSetRequestState());
-      // TODO: change below when we replace use of ApplicatonPreference
+      // TODO: (es) change below when we replace use of ApplicatonPreference
       if (isCav) {
         history.replace(MyOfferPostsLocationUrl);
       } else {
@@ -133,69 +134,66 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
         accepted &&
         profileState.profile.applicationPreference === ApplicationPreference.cav
       ) {
-        history.replace(TimelineViewLocation.toUrl({ requestId }));
+        history.replace(TimelineViewLocation.toUrl({ requestRef }));
       } else {
         if (
-          !requestsState.syncRequestPostsState.data &&
-          !requestsState.syncRequestPostsState.loading
+          !requestsState.syncPostWithOffersAndTimelinesState.data &&
+          !requestsState.syncPostWithOffersAndTimelinesState.loading
         ) {
-          dispatch(
-            getRequestPosts({
-              userType: profileState.profile.applicationPreference,
-              userRef: profileState.userRef,
-              lat:
-                profileState.privilegedInformation?.addresses?.default.coords
-                  .latitude,
-              lng:
-                profileState.privilegedInformation?.addresses?.default.coords
-                  .longitude,
-            }),
-          );
+          // TODO: (es) reimplement this
+          // dispatch(
+          //   getMyPinRequestPosts({
+          //     userType: profileState.profile.applicationPreference,
+          //     userRef: profileState.userRef,
+          //     lat:
+          //       profileState.privilegedInformation?.addresses?.default.coords
+          //         .latitude,
+          //     lng:
+          //       profileState.privilegedInformation?.addresses?.default.coords
+          //         .longitude,
+          //   }),
+          // );
         }
         if (
-          !requestsState.syncOfferPostsState.data &&
-          !requestsState.syncOfferPostsState.loading
+          !requestsState.syncPostWithOffersAndTimelinesState.data &&
+          !requestsState.syncPostWithOffersAndTimelinesState.loading
         ) {
-          dispatch(
-            getOfferPosts({
-              userType: profileState.profile.applicationPreference,
-              userRef: profileState.userRef,
-            }),
-          );
+          dispatch(getPostWithOffersAndTimelineItems(requestRef));
         }
       }
     }
-  }, [dispatch, profileState, history, requestId, accepted, requestsState]);
+  }, [dispatch, profileState, history, requestRef, accepted, requestsState]);
 
-  useEffect(() => {
-    if (
-      profileState.profile &&
-      profileState.profile.applicationPreference &&
-      profileState.userRef
-    ) {
-      if (request && request.status === RequestStatus.ongoing && accepted) {
-        history.replace(TimelineViewLocation.toUrl({ requestId }));
-      }
-      if (request && request.offers) {
-        let shouldRedirect = true;
-        for (const k in request.offers) {
-          if (request.offers[k].status === OfferStatus.pending) {
-            shouldRedirect = false;
-          }
-        }
-        if (shouldRedirect && accepted) {
-          history.replace(TimelineViewLocation.toUrl({ requestId }));
-        } else if (
-          !shouldRedirect &&
-          !accepted &&
-          profileState.profile.applicationPreference ===
-            ApplicationPreference.pin
-        ) {
-          history.replace(TimelineOfferPostViewLocation.toUrl({ requestId }));
-        }
-      }
-    }
-  }, [accepted, request, requestId, history, profileState]);
+  // TODO: (es) what? reimplement Figure out what this does
+  // useEffect(() => {
+    // if (
+    //   profileState.profile &&
+    //   profileState.profile.applicationPreference &&
+    //   profileState.userRef
+    // ) {
+    //   if (request && request.status === RequestStatus.ongoing && accepted) {
+    //     history.replace(TimelineViewLocation.toUrl({ requestId }));
+    //   }
+    //   if (request && request.offers) {
+    //     let shouldRedirect = true;
+    //     for (const k in request.offers) {
+    //       if (request.offers[k].status === OfferStatus.pending) {
+    //         shouldRedirect = false;
+    //       }
+    //     }
+    //     if (shouldRedirect && accepted) {
+    //       history.replace(TimelineViewLocation.toUrl({ requestId }));
+    //     } else if (
+    //       !shouldRedirect &&
+    //       !accepted &&
+    //       profileState.profile.applicationPreference ===
+    //         ApplicationPreference.pin
+    //     ) {
+    //       history.replace(TimelineOfferPostViewLocation.toUrl({ requestId }));
+    //     }
+    //   }
+    // }
+  // }, [accepted, request, requestId, history, profileState, ]);
 
   if (!(profileState.profile && request)) {
     return <LoadingWrapper />;
@@ -308,10 +306,5 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
     </>
   );
 };
-
-interface TimelineViewContainerProps {
-  requestId: string;
-  accepted?: boolean;
-}
 
 export default TimelineViewContainer;
