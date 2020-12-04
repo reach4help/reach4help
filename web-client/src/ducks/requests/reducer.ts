@@ -1,17 +1,22 @@
-import { Request } from 'src/models/requests';
+// import TimelineItem from 'antd/lib/timeline/TimelineItem';
+// import { OfferStatus } from 'src/models/offers';
+import { IRequest, Request } from 'src/models/requests';
 import {
-  IRequestWithOffersAndTimeline,
+  IRequestWithOffersAndTimelineItems,
   RequestWithOffersAndTimeline,
 } from 'src/models/requests/RequestWithOffersAndTimeline';
+// import { TimelineItemAction } from 'src/models/requests/timeline';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  GET_OFFER_POST,
-  GET_REQUEST_POST,
+  GET_CAV_REQUEST_POSTS,
+  GET_FIND_POSTS,
+  GET_MY_PIN_REQUEST_POSTS,
   PostState,
-  RESET_OFFER_POST,
-  RESET_REQUEST_POST,
+  RESET_CAV_REQUEST_POSTS,
+  RESET_FIND_REQUEST_POSTS,
+  RESET_PIN_REQUEST_POSTS,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
@@ -24,12 +29,12 @@ const initialSetActionState = {
   modalState: false,
 };
 
-const initialPostsState = {
-  loading: false,
-  observerReceivedFirstUpdate: false,
-  data: undefined,
-  error: undefined,
-};
+// TODO: (es) const initialPostsState = {
+//   loading: false,
+//   observerReceivedFirstUpdate: false,
+//   data: undefined,
+//   error: undefined,
+// };
 
 const initialSyncPostsState = {
   loading: false,
@@ -38,27 +43,26 @@ const initialSyncPostsState = {
 };
 
 const initialState: PostState = {
-  syncRequestPostsState: initialSyncPostsState,
-  syncOfferPostsState: initialSyncPostsState,
-  syncOngoingRequestsState: initialSyncPostsState,
-  syncArchivedRequestsState: initialSyncPostsState,
-  syncFinishedRequestsState: initialSyncPostsState,
-  openRequests: initialPostsState,
-  ongoingRequests: initialPostsState,
-  completedRequests: initialPostsState,
-  cancelledRequests: initialPostsState,
-  removedRequests: initialPostsState,
+  syncMyPinRequestPostsState: initialSyncPostsState,
+  syncCavRequestPostsState: initialSyncPostsState,
+  syncFindPostsState: initialSyncPostsState,
+  syncPostWithOffersAndTimelinesState: initialSyncPostsState,
+  // TODO: openRequests: initialPostsState,
+  // ongoingRequests: initialPostsState,
+  // completedRequests: initialPostsState,
+  // cancelledRequests: initialPostsState,
+  // removedRequests: initialPostsState,
   setAction: initialSetActionState,
   newRequestTemp: undefined,
 };
 
 export default createReducer<PostState>(
   {
-    [GET_REQUEST_POST.PENDING]: (state: PostState) => {
-      state.syncRequestPostsState.loading = true;
-      state.syncRequestPostsState.data = undefined;
+    [GET_FIND_POSTS.PENDING]: (state: PostState) => {
+      state.syncFindPostsState.loading = true;
+      state.syncFindPostsState.data = undefined;
     },
-    [GET_REQUEST_POST.COMPLETED]: (
+    [GET_FIND_POSTS.COMPLETED]: (
       state: PostState,
       {
         payload,
@@ -66,13 +70,13 @@ export default createReducer<PostState>(
         payload: {
           data: {
             status: boolean;
-            data: Record<string, IRequestWithOffersAndTimeline>;
+            data: Record<string, IRequestWithOffersAndTimelineItems>;
           };
         };
       },
     ) => {
-      state.syncRequestPostsState.loading = false;
-      state.syncRequestPostsState.error = undefined;
+      state.syncFindPostsState.loading = false;
+      state.syncFindPostsState.error = undefined;
       const mappedData = Object.keys(payload.data.data).reduce(
         (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
           ...acc,
@@ -80,21 +84,21 @@ export default createReducer<PostState>(
         }),
         {},
       );
-      state.syncRequestPostsState.data = mappedData;
+      state.syncFindPostsState.data = mappedData;
     },
-    [GET_REQUEST_POST.REJECTED]: (
+    [GET_FIND_POSTS.REJECTED]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {
-      state.syncRequestPostsState.data = undefined;
-      state.syncRequestPostsState.loading = false;
-      state.syncRequestPostsState.error = payload;
+      state.syncFindPostsState.data = undefined;
+      state.syncFindPostsState.loading = false;
+      state.syncFindPostsState.error = payload;
     },
-    [GET_OFFER_POST.PENDING]: (state: PostState) => {
-      state.syncOfferPostsState.loading = true;
-      state.syncOfferPostsState.data = undefined;
+    [GET_MY_PIN_REQUEST_POSTS.PENDING]: (state: PostState) => {
+      state.syncMyPinRequestPostsState.loading = true;
+      state.syncMyPinRequestPostsState.data = undefined;
     },
-    [GET_OFFER_POST.COMPLETED]: (
+    [GET_MY_PIN_REQUEST_POSTS.COMPLETED]: (
       state: PostState,
       {
         payload,
@@ -102,14 +106,56 @@ export default createReducer<PostState>(
         payload: {
           data: {
             status: boolean;
-            data: Record<string, IRequestWithOffersAndTimeline>;
+            data: Record<string, RequestWithOffersAndTimeline>;
           };
         };
       },
     ) => {
-      state.syncOfferPostsState.loading = false;
-      state.syncOfferPostsState.error = undefined;
-      state.syncOfferPostsState.data = Object.keys(payload.data.data).reduce(
+      state.syncMyPinRequestPostsState.loading = false;
+      state.syncMyPinRequestPostsState.error = undefined;
+      const requests: Record<string, Request> = {};
+      const requestData = payload.data.data;
+      for (const key in requestData) {
+
+        // if (key) required by eslint guard-for-in rule
+        if (key) {
+          const r = requestData[key];
+          console.log('xxx rrrr', r);
+          requests[key] = Request.factoryFromUnderscore(r as IRequest);
+        }
+      }
+      state.syncMyPinRequestPostsState.data = requests;
+    },
+    [GET_MY_PIN_REQUEST_POSTS.REJECTED]: (
+      state: PostState,
+      { payload }: { payload: Error },
+    ) => {
+      state.syncMyPinRequestPostsState.data = undefined;
+      state.syncMyPinRequestPostsState.loading = false;
+      state.syncMyPinRequestPostsState.error = payload;
+    },
+    [GET_CAV_REQUEST_POSTS.PENDING]: (state: PostState) => {
+      state.syncCavRequestPostsState.loading = true;
+      state.syncCavRequestPostsState.data = undefined;
+    },
+    [GET_CAV_REQUEST_POSTS.COMPLETED]: (
+      state: PostState,
+      {
+        payload,
+      }: {
+        payload: {
+          data: {
+            status: boolean;
+            data: Record<string, IRequestWithOffersAndTimelineItems>;
+          };
+        };
+      },
+    ) => {
+      state.syncCavRequestPostsState.loading = false;
+      state.syncCavRequestPostsState.error = undefined;
+      state.syncCavRequestPostsState.data = Object.keys(
+        payload.data.data,
+      ).reduce(
         (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
           ...acc,
           [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
@@ -117,13 +163,13 @@ export default createReducer<PostState>(
         {},
       );
     },
-    [GET_OFFER_POST.REJECTED]: (
+    [GET_CAV_REQUEST_POSTS.REJECTED]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {
-      state.syncOfferPostsState.data = undefined;
-      state.syncOfferPostsState.loading = false;
-      state.syncOfferPostsState.error = payload;
+      state.syncCavRequestPostsState.data = undefined;
+      state.syncCavRequestPostsState.loading = false;
+      state.syncCavRequestPostsState.error = payload;
     },
     [SET.PENDING]: (state: PostState) => {
       state.setAction.loading = true;
@@ -154,25 +200,31 @@ export default createReducer<PostState>(
     ) => {
       state.newRequestTemp = payload;
     },
-    [RESET_OFFER_POST]: (state: PostState) => {
+    [RESET_CAV_REQUEST_POSTS]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncOfferPostsState.data = undefined;
-      state.syncOfferPostsState.loading = false;
+      state.syncCavRequestPostsState.data = undefined;
+      state.syncCavRequestPostsState.loading = false;
     },
-    [RESET_REQUEST_POST]: (state: PostState) => {
+    [RESET_FIND_REQUEST_POSTS]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncRequestPostsState.data = undefined;
-      state.syncRequestPostsState.loading = false;
+      state.syncFindPostsState.data = undefined;
+      state.syncFindPostsState.loading = false;
+    },
+    [RESET_PIN_REQUEST_POSTS]: (state: PostState) => {
+      state.setAction.loading = false;
+      state.setAction.success = false;
+      state.syncMyPinRequestPostsState.data = undefined;
+      state.syncMyPinRequestPostsState.loading = false;
     },
     [RESET_SET]: (state: PostState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
-      state.syncRequestPostsState.data = undefined;
-      state.syncRequestPostsState.loading = false;
-      state.syncOfferPostsState.data = undefined;
-      state.syncOfferPostsState.loading = false;
+      state.syncMyPinRequestPostsState.data = undefined;
+      state.syncMyPinRequestPostsState.loading = false;
+      state.syncCavRequestPostsState.data = undefined;
+      state.syncCavRequestPostsState.loading = false;
     },
     [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
       state.setAction.modalState = payload;

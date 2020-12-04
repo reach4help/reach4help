@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint no-underscore-dangle: 0 */
 import { IsArray, IsString } from 'class-validator';
 import { firestore } from 'firebase';
@@ -19,14 +20,14 @@ export enum AbstractRequestStatus {
   archived = 'archived',
 }
 
-export interface IRequestWithOffersAndTimeline extends IRequest {
+export interface IRequestWithOffersAndTimelineItems extends IRequest {
   offers: Record<string, IOfferWithLocation>;
   timeline: ITimelineItem[];
   contactNumber?: string | null;
 }
 
 export class RequestWithOffersAndTimeline extends Request
-  implements IRequestWithOffersAndTimeline {
+  implements IRequestWithOffersAndTimelineItems {
   constructor(
     pinUserRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
@@ -48,7 +49,7 @@ export class RequestWithOffersAndTimeline extends Request
     pinRatedAt: firebase.firestore.Timestamp | null = null,
     cavRatedAt: firebase.firestore.Timestamp | null = null,
     offers: Record<string, OfferWithLocation> = {},
-    timeline: TimelineItem[] = [],
+    timelineItems: TimelineItem[] = [],
     contactNumber: string | null = null,
   ) {
     super(
@@ -69,7 +70,7 @@ export class RequestWithOffersAndTimeline extends Request
       cavRatedAt,
     );
     this._offers = offers;
-    this._timeline = timeline;
+    this._timelineItems = timelineItems;
     this._contactNumber = contactNumber;
   }
 
@@ -100,18 +101,18 @@ export class RequestWithOffersAndTimeline extends Request
   }
 
   @IsArray()
-  private _timeline: TimelineItem[];
+  private _timelineItems: TimelineItem[];
 
   get timeline(): TimelineItem[] {
-    return this._timeline;
+    return this._timelineItems;
   }
 
   set timeline(timelineItems: TimelineItem[]) {
-    this._timeline = timelineItems;
+    this._timelineItems = timelineItems;
   }
 
   public addToTimeline(timelineItem: TimelineItem) {
-    this._timeline.push(timelineItem);
+    this._timelineItems.push(timelineItem);
   }
 
   public getRequest(): Request {
@@ -119,10 +120,18 @@ export class RequestWithOffersAndTimeline extends Request
   }
 
   public static factory(
-    data: IRequestWithOffersAndTimeline,
+    data: IRequestWithOffersAndTimelineItems,
   ): RequestWithOffersAndTimeline {
+    console.log('z3', data.pinUserRef);
+    console.log('z3a', data.requestId);
+    console.log('z3b', data.requestRef);
+    console.log('z3c', data.timeline);
     return new RequestWithOffersAndTimeline(
-      db.doc(data.pinUserRef as any),
+      // TODO: (es) This is old codeL
+      // db.doc(data.pinUserRef as any),      
+      // not working now, not sure how it originally worked
+      // as argument to doc has to be a string.  pinUserRef is what is needed
+      data.pinUserRef,
       User.factory(data.pinUserSnapshot),
       data.title,
       data.description,
@@ -131,7 +140,8 @@ export class RequestWithOffersAndTimeline extends Request
         (data.latLng as any)._longitude,
       ),
       data.streetAddress,
-      data.cavUserRef ? db.doc(data.cavUserRef as any) : null,
+      // TODO: (es) review remove: data.cavUserRef ? db.doc(data.cavUserRef as any) : null,
+      data.cavUserRef,
       // This field may be null
       data.cavUserSnapshot ? User.factory(data.cavUserSnapshot) : null,
       data.status,
@@ -261,7 +271,7 @@ export class RequestWithOffersAndTimeline extends Request
 export const RequestWithOffersFirestoreConverter: firebase.firestore.FirestoreDataConverter<RequestWithOffersAndTimeline> = {
   fromFirestore: (
     data: firebase.firestore.QueryDocumentSnapshot<
-      IRequestWithOffersAndTimeline
+      IRequestWithOffersAndTimelineItems
     >,
   ): RequestWithOffersAndTimeline =>
     RequestWithOffersAndTimeline.factory(data.data()),

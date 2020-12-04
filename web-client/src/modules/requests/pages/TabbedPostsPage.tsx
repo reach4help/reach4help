@@ -1,7 +1,7 @@
 import { Tabs } from 'antd';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { MyPostsLocation, PostTabsType } from '../constants';
@@ -29,14 +29,16 @@ const StyledTabPane = styled(TabPane)`
 `;
 
 const TabbedPosts: React.FC = (): ReactElement => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const history = useHistory();
+  const location = useLocation();
+  const searchString = location.search;
+  const searchParams = new URLSearchParams(searchString);
+  const status = searchParams.get('status');
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const { postType } = useParams() as Record<string, string>;
   const { t } = useTranslation();
 
-  // TODO: how to disable this warning? get error when I try
   const onChange = (activeKey: string) => {
     const url = MyPostsLocation.toUrl({ postType: activeKey });
     history.replace(url);
@@ -48,7 +50,7 @@ const TabbedPosts: React.FC = (): ReactElement => {
         tab={t('modules.requests.containers.TabbedPostPage.requests_tab_label')}
         key={PostTabsType.requests.valueOf()}
       >
-        <RequestPostsContainer />
+        <RequestPostsContainer status={status} />
       </StyledTabPane>
 
       <StyledTabPane
