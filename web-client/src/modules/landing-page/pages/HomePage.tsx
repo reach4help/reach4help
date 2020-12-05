@@ -102,11 +102,9 @@ import {
   VolunteerInfoContainer,
   VolunteerInfoSection,
 } from '../components/figma';
-import Header from '../components/Header';
 
 const HomePage: React.FC = (): JSX.Element => (
   <Root>
-    <Header />
     <RectTop src={rectTop} />
     <TopSection>
       <TextTopContainer>
