@@ -1,7 +1,6 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Checkbox, Col, Form, Input, Row, Select } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import throttle from 'lodash/throttle';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +24,7 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
   const [form] = useForm();
   const [addressChosen, setAddressChosen] = useState<boolean>(false);
   const [shouldSave, setShouldSave] = useState<boolean>(isSettings);
+  const [readOnly, setReadOnly] = useState<boolean>(!isSettings);
 
   const addresses = useSelector(
     (state: AppState) => state.profile.privilegedInformation?.addresses,
@@ -43,15 +43,31 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
     current?: string;
   }
 
-  const formInitial: IAddressForm = {
-    current: '',
-    name: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    country: '',
+  const formInitial = () => {
+    if (addresses) {
+      const firstAddressKey = Object.keys(addresses)[0];
+      const firstAddress = addresses[firstAddressKey];
+      return {
+        current: firstAddressKey,
+        name: firstAddress.name,
+        address1: firstAddress.address1,
+        address2: firstAddress.address2,
+        city: firstAddress.city,
+        state: firstAddress.state,
+        postalCode: firstAddress.postalCode,
+        country: firstAddress.country,
+      };
+    }
+    return {
+      current: '',
+      name: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      postalCode: '',
+      country: '',
+    };
   };
   const handleNameSelected = () => {
     if (!addresses) {
@@ -60,6 +76,9 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
     setAddressChosen(true);
     const currentName = form.getFieldValue('current');
     if (currentName === 'add') {
+      if (!isSettings) {
+        setReadOnly(false);
+      }
       form.setFieldsValue({
         name: '',
         address1: '',
@@ -70,6 +89,7 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
         country: '',
       });
     } else {
+      setReadOnly(!isSettings);
       const chosenAddress = addresses[currentName];
       form.setFieldsValue({
         name: chosenAddress.name || 'default',
@@ -131,7 +151,7 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
     form.resetFields();
     setAddressChosen(false);
   };
-
+  /*
   const onFieldChange = async (
     changedFields: Record<string, any>[],
     allFields: Record<string, any>[],
@@ -157,17 +177,81 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
       }
     }
   };
+*/
+  // const throttledOnFieldChange = throttle(onFieldChange, 300);
+  //         onFieldsChange={throttledOnFieldChange}
 
-  const throttledOnFieldChange = throttle(onFieldChange, 300);
+  if (!isSettings && addresses && onChangeHandler) {
+    const firstAddress = addresses[Object.keys(addresses)[0]];
+    onChangeHandler(firstAddress);
+  }
 
+  const AddressChangeForm = () => (
+    <>
+      <Row gutter={[16, 6]}>
+        <Col span={24}>
+          <Form.Item
+            name="address1"
+            label={t('settings.changeAddressForm.address')}
+          >
+            <Input placeholder={t('address1')} />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row gutter={[16, 6]}>
+        <Col span={24}>
+          <Form.Item name="address2">
+            <Input placeholder={t('address2')} />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={11}>
+          <Form.Item name="city">
+            <Input placeholder={t('city')} />
+          </Form.Item>
+        </Col>
+        <Col span={3} offset={1}>
+          <Form.Item name="state">
+            <Input placeholder={t('State')} />
+          </Form.Item>
+        </Col>
+        <Col span={5}>
+          <Form.Item name="postalCode">
+            <Input placeholder={t('code')} />
+          </Form.Item>
+        </Col>
+        <Col span={3} offset={1}>
+          <Form.Item name="country">
+            <Input placeholder={t('country')} />
+          </Form.Item>
+        </Col>
+      </Row>
+      {shouldSave && (
+        <Row gutter={[16, 6]}>
+          <Col span={24}>
+            <Form.Item
+              name="name"
+              required
+              label={t('settings.changeAddressForm.nameOfAddress')}
+            >
+              <Input id="nameofAddress" />
+            </Form.Item>
+          </Col>
+        </Row>
+      )}
+      {!isSettings && (
+        <Row gutter={[16, 6]}>
+          <Checkbox onChange={() => setShouldSave(true)}>
+            {t('settings.changeAddressForm.saveChangesCheckbox')}
+          </Checkbox>
+        </Row>
+      )}
+    </>
+  );
   return (
     <>
-      <Form
-        form={form}
-        onFinish={handleFinish}
-        initialValues={formInitial}
-        onFieldsChange={throttledOnFieldChange}
-      >
+      <Form form={form} onFinish={handleFinish} initialValues={formInitial()}>
         <Row gutter={[16, 6]}>
           <Col span={24}>
             <Form.Item
@@ -185,69 +269,13 @@ const AddressChooserComponent: React.FC<AddressChooserWrapped> = ({
             </Form.Item>
           </Col>
         </Row>
-        {addressChosen ? (
-          <>
-            <Row gutter={[16, 6]}>
-              <Col span={24}>
-                <Form.Item
-                  name="address1"
-                  label={t('settings.changeAddressForm.address')}
-                >
-                  <Input placeholder={t('address1')} />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={[16, 6]}>
-              <Col span={24}>
-                <Form.Item name="address2">
-                  <Input placeholder={t('address2')} />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={11}>
-                <Form.Item name="city">
-                  <Input placeholder={t('city')} />
-                </Form.Item>
-              </Col>
-              <Col span={3} offset={1}>
-                <Form.Item name="state">
-                  <Input placeholder={t('State')} />
-                </Form.Item>
-              </Col>
-              <Col span={5}>
-                <Form.Item name="postalCode">
-                  <Input placeholder={t('code')} />
-                </Form.Item>
-              </Col>
-              <Col span={3} offset={1}>
-                <Form.Item name="country">
-                  <Input placeholder={t('country')} />
-                </Form.Item>
-              </Col>
-            </Row>
-            {shouldSave && (
-              <Row gutter={[16, 6]}>
-                <Col span={24}>
-                  <Form.Item
-                    name="name"
-                    required
-                    label={t('settings.changeAddressForm.nameOfAddress')}
-                  >
-                    <Input id="nameofAddress" />
-                  </Form.Item>
-                </Col>
-              </Row>
-            )}
-            {!isSettings && (
-              <Row gutter={[16, 6]}>
-                <Checkbox onChange={() => setShouldSave(true)}>
-                  {t('settings.changeAddressForm.saveChangesCheckbox')}
-                </Checkbox>
-              </Row>
-            )}
-          </>
-        ) : null}
+        {readOnly ? (
+          <div>
+            <AddressDisplay postLocation={formInitial()} />{' '}
+          </div>
+        ) : (
+          addressChosen && <AddressChangeForm />
+        )}
         <Row>
           <Col span={11}>
             <MediumCancelButton onClick={() => cancelHandler()}>
@@ -290,6 +318,18 @@ export const AddressChooser: React.FC<AddressChooserProps> = ({
     }}
     Component={AddressChooserComponent}
   />
+);
+
+const AddressDisplay = ({ postLocation }) => (
+  <div>
+    <div>address 1{postLocation.address1}</div>
+    <div>{postLocation.address2}</div>
+    <div>
+      {postLocation.city}, {postLocation.state}
+    </div>
+    <div>{postLocation.country}</div>
+    <div>{postLocation.postalCode}</div>
+  </div>
 );
 
 export interface AddressChooserProps {
