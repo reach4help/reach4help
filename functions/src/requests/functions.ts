@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import * as moment from 'moment';
 
-import { indexGeneralRequests, indexUnauthenticatedRequest, removeRequestFromIndex } from '../algolia';
+import { indexGeneralRequests, indexUnauthenticatedRequest } from '../algolia';
 import { db, fieldIncrementer } from '../app';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { IUser, User } from '../models/users';
@@ -256,5 +256,3 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
         });
     });
 };
-
-export const deleteRequest = (snapshot: DocumentSnapshot) => removeRequestFromIndex(snapshot);

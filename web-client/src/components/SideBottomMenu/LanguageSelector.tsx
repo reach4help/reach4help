@@ -2,7 +2,10 @@ import { GlobalOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import CONSTANTS from 'src/constants';
+import { AppState } from 'src/store';
+import styled from 'styled-components';
 
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
 
@@ -10,6 +13,7 @@ const { Option } = Select;
 
 export const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
+  const isLoggedIn = useSelector((state: AppState) => !!state.auth.user?.email);
 
   let { language: currentLanguage } = i18n;
 
@@ -20,17 +24,31 @@ export const LanguageSelector: React.FC = () => {
     i18n.changeLanguage(val);
   };
 
+  const SelectorContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 115px;
+    position: relative;
+    bottom: 20%;
+    left: ${isLoggedIn ? '6%' : '10.5%'};
+
+    @media (max-width: 1050px) {
+      display: none;
+    }
+  `;
+
   return (
-    <>
-      <GlobalOutlined />
-      <Select
+    <SelectorContainer>
+      <GlobalOutlinedIcon />
+      <SelectLanguage
         defaultValue={currentLanguage}
         showSearch
         style={{
           margin: 'auto',
           marginTop: '20px',
           width: '100%',
-        }}
+        }} // TODO: Refactor this style based on the style of the styled component
         size="large"
         optionFilterProp="children"
         filterOption={(input, option) =>
@@ -46,8 +64,8 @@ export const LanguageSelector: React.FC = () => {
             {language.local}
           </Option>
         ))}
-      </Select>
-    </>
+      </SelectLanguage>
+    </SelectorContainer>
   );
 };
 
@@ -89,3 +107,42 @@ const allLanguages = [
     '2B': 'spa',
   },
 ];
+
+const SelectLanguage = styled(Select)`
+  max-width: 75px;
+  border: none;
+  position: relative;
+  bottom: 15%;
+
+  .ant-select-selector {
+    border: none !important;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+
+    @media (min-width: 1050px) {
+      font-size: 16px;
+      position: relative;
+      top: 3px;
+      right: 0.6px;
+    }
+  }
+
+  .ant-select-arrow {
+    color: black;
+
+    @media (min-width: 1050px) {
+      position: relative;
+      left: 32px;
+      bottom: 32px;
+    }
+  }
+`;
+
+const GlobalOutlinedIcon = styled(GlobalOutlined)`
+  transform: scale(1.7);
+  position: relative;
+  right: -10px;
+  z-index: 1;
+`;

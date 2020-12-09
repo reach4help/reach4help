@@ -10,7 +10,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-39-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
@@ -110,6 +110,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Tapudp"><img src="https://avatars3.githubusercontent.com/u/8810813?v=4" width="100px;" alt=""/><br /><sub><b>Divyesh Parmar</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=Tapudp" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/alexjball"><img src="https://avatars3.githubusercontent.com/u/8595776?v=4" width="100px;" alt=""/><br /><sub><b>alexjball</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=alexjball" title="Code">💻</a></td>
     <td align="center"><a href="https://ansh-saini.github.io"><img src="https://avatars1.githubusercontent.com/u/32511936?v=4" width="100px;" alt=""/><br /><sub><b>Ansh Saini</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ansh-saini" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://www.linkedin.com/in/dnanou/"><img src="https://avatars2.githubusercontent.com/u/22467291?v=4" width="100px;" alt=""/><br /><sub><b>Danai Nanou</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=danainanou" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/HazalYoleri"><img src="https://avatars3.githubusercontent.com/u/39515623?v=4" width="100px;" alt=""/><br /><sub><b>Hazal Büşra Yoleri</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=HazalYoleri" title="Code">💻</a></td>
+    <td align="center"><a href="http://cruejameson.com"><img src="https://avatars1.githubusercontent.com/u/60672128?v=4" width="100px;" alt=""/><br /><sub><b>Crue Jameson (Eric Gerlach)</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=Cruebee" title="Code">💻</a></td>
+    <td align="center"><a href="https://felixchin.com"><img src="https://avatars0.githubusercontent.com/u/51896195?v=4" width="100px;" alt=""/><br /><sub><b>Felix Chin</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=felix-chin" title="Code">💻</a></td>
   </tr>
 </table>
 
