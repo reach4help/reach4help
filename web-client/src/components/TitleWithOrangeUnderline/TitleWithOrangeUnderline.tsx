@@ -11,6 +11,7 @@ const TitleWithOrangeUnderline: React.FC<TitleWithAddonProps> = ({
   left,
   bottom,
   transform,
+  color,
 }): React.ReactElement => (
   <TitleWithOrangeUnderlineOuterDiv>
     <TitleWithOrangeUnderlineInnerDiv
@@ -19,6 +20,7 @@ const TitleWithOrangeUnderline: React.FC<TitleWithAddonProps> = ({
       left={left}
       bottom={bottom}
       transform={transform}
+      color={color}
     >
       {children}
     </TitleWithOrangeUnderlineInnerDiv>
@@ -52,7 +54,7 @@ const TitleWithOrangeUnderlineInnerDiv = styled(Typography.Title)`
     bottom: ${(props: TitleWithAddonProps) => props.bottom || 0};
     transform: ${(props: TitleWithAddonProps) =>
       props.transform || 'translate(-50%, 0)'};
-    background-color: ${COLORS.highlight};
+    background-color: ${props => props.color || COLORS.highlight};
   }
 `;
 
@@ -64,6 +66,7 @@ interface TitleWithAddonProps {
   left?: string;
   bottom?: string;
   transform?: string;
+  color?: string;
 }
 
 export default TitleWithOrangeUnderline;
