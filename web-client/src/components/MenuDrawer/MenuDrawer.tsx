@@ -64,6 +64,8 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
 };
 
 const SideDrawer = styled(Drawer)`
+  z-index: 10;
+
   .ant-drawer-body {
     padding: 0;
     display: flex;
