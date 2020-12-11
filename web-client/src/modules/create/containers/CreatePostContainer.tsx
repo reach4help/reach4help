@@ -7,6 +7,7 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { setRequest } from 'src/ducks/requests/actions';
 import { IRequest } from 'src/models/requests';
 import { IUser } from 'src/models/users';
+import { IUserAddress } from 'src/models/users/privilegedInformation';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
@@ -14,7 +15,6 @@ import { AppState } from 'src/store';
 import PostDetails from '../components/PostDetails';
 import PostMap from '../components/PostMap';
 import PostSummary from '../components/PostSummary';
-import { IUserAddress } from 'src/models/users/privilegedInformation';
 import { CreatePostTypes } from '../constants';
 
 const CreatePostContainer: React.FC = () => {
