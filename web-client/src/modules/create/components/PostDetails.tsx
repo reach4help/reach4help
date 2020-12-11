@@ -6,9 +6,6 @@ import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/Ti
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-/* TODO:  type clarification */
-export const REQUEST_TYPES = ['Deliveries', 'Other'];
-
 const PostDetails: React.FC<PostDetailsProps> = ({
   onNext,
   setPostDetails,
@@ -33,7 +30,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           }}
           initialValues={{
             title: postDetails.title,
-            type: postDetails.type || REQUEST_TYPES[0],
+            type: postDetails.type,
             body: postDetails.body,
             other: postDetails.other,
           }}
@@ -70,19 +67,6 @@ const PostDetails: React.FC<PostDetailsProps> = ({
               ]}
             >
               <Input />
-              {/* Rules for type are unclear
-              <Select
-                onChange={(value: string) => {
-                  setShowOtherField(value === 'Other');
-                }}
-              >
-                {REQUEST_TYPES.map(key => (
-                  <Option value={key} key={key}>
-                    {' '}
-                    {key}{' '}
-                  </Option>
-                ))}
-              </Select> */}
             </Form.Item>
             <FormItem
               name="body"
@@ -100,28 +84,34 @@ const PostDetails: React.FC<PostDetailsProps> = ({
               />
             </FormItem>
             <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
+          </div>
 
-            <div style={{ display: 'flex', marginTop: '150px' }}>
-              <Button
-                type="default"
-                block
-                onClick={handleCancel}
-                icon={<CloseOutlined />}
-                style={{ marginRight: '5px' }}
-              >
-                Cancel
-              </Button>
+          <div
+            style={{
+              display: 'flex',
+              position: 'relative',
+              marginBottom: '125px',
+            }}
+          >
+            <Button
+              type="default"
+              block
+              onClick={handleCancel}
+              icon={<CloseOutlined />}
+              style={{ marginRight: '5px', marginLeft: '5px' }}
+            >
+              Cancel
+            </Button>
 
-              <Button
-                type="primary"
-                block
-                icon={<ArrowRightOutlined />}
-                htmlType="submit"
-                style={{ marginLeft: '5px' }}
-              >
-                {t('newRequest.form.submit')}
-              </Button>
-            </div>
+            <Button
+              type="primary"
+              block
+              icon={<ArrowRightOutlined />}
+              htmlType="submit"
+              style={{ marginRight: '5px', marginLeft: '5px' }}
+            >
+              {t('newRequest.form.submit')}
+            </Button>
           </div>
         </NewRequestForm>
       </FormDiv>
@@ -133,13 +123,13 @@ const MainDiv = styled.div`
   flex-direction: column;
   align-items: left;
   padding: 16px;
-  background-color: #f8f8f8;
-  width: 100%;
+  justify-content: space-between;
   height: 100%;
 `;
 
 const FormDiv = styled.div`
   width: 90%;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -152,8 +142,21 @@ const CharacterLimitDiv = styled.div`
   margin-bottom: 24px;
 `;
 
+/* 
+style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%',
+          }}
+          
+*/
 const NewRequestForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
+  height: 100%;
   margin-top: 15px !important;
   margin-left: 15px;
   .ant-form-item-label {

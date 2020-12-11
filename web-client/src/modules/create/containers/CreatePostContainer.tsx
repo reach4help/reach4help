@@ -11,6 +11,7 @@ import { IUserAddress } from 'src/models/users/privilegedInformation';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
+import styled from 'styled-components';
 
 import PostDetails from '../components/PostDetails';
 import PostMap from '../components/PostMap';
@@ -30,7 +31,7 @@ const CreatePostContainer: React.FC = () => {
   );
   const onboarded = useSelector((state: AppState) => state.auth.onboarded);
 
-  const [stepNumber, setStepNumber] = useState(0);
+  const [stepNumber, setStepNumber] = useState(1);
   const [postDetails, setPostDetails] = useState<IPostDetails>({
     title: 'Deliveries',
     body: 'Please bring me supplies',
@@ -58,13 +59,14 @@ const CreatePostContainer: React.FC = () => {
     addresses && Object.keys(addresses).length > 0
       ? addresses[Object.keys(addresses)[0]]
       : {
+          name: '',
           address1: '',
           address2: '',
           city: '',
           state: '',
           postalCode: '',
           country: '',
-          coords: { latitude: 0, longitude: 0 },
+          coords: new firestore.GeoPoint(0, 0),
         },
   );
 
@@ -129,7 +131,7 @@ const CreatePostContainer: React.FC = () => {
   ];
 
   return (
-    <>
+    <CreatePostContainerWrapper>
       {onboarded ? (
         <>
           <StepTracker
@@ -141,9 +143,14 @@ const CreatePostContainer: React.FC = () => {
       ) : (
         <AuthenticationModal isVisible />
       )}
-    </>
+    </CreatePostContainerWrapper>
   );
 };
+
+const CreatePostContainerWrapper = styled.div`
+  height: 100%;
+  background-color: #f8f8f8;
+`;
 
 interface ICreatePostContainer {
   createPostType: CreatePostTypes;

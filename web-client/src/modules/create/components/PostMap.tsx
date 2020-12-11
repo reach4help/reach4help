@@ -1,11 +1,11 @@
 import { Button, Select } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
-
 import WebClientMap from '../../../components/WebClientMap/WebClientMap';
+import { NewAddressModal } from 'src/modules/create/components/NewAddressModal';
 
 const PostMap: React.FC<PostMapProps> = ({
   addresses,
@@ -15,8 +15,14 @@ const PostMap: React.FC<PostMapProps> = ({
   nextHandler,
   prevHandler,
 }) => {
+  const [showAddressChooser, setShowAddressChoser] = useState<boolean>(false);
   const handleChange = value => {
-    addresses && setPostLocation(addresses[value]);
+    if (value === 'add') {
+      setShowAddressChoser(true);
+    } else {
+      setShowAddressChoser(false);
+      addresses && setPostLocation(addresses[value]);
+    }
   };
 
   const { title } = postDetails;
@@ -28,13 +34,17 @@ const PostMap: React.FC<PostMapProps> = ({
   return (
     <div
       style={{
-        height: 'calc(100%)',
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'column',
-        backgroundColor: '#f8f8f8',
+        height: '100%',
       }}
     >
+      {showAddressChooser && (
+        <>
+          <NewAddressModal />
+        </>
+      )}
       {postLocation.coords && (
         <div style={{ height: '40%' }}>
           <WebClientMap
