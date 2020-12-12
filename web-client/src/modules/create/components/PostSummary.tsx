@@ -28,7 +28,6 @@ const PostSummary: React.FC<PostSummaryProps> = ({
             setTimeout(() => {
               history.replace(MyRequestPostsLocationUrl);
             }, 150);
-            submitRequest();
           }}
         />
       )}
