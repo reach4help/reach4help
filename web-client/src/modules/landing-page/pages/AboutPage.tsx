@@ -21,11 +21,9 @@ import {
 } from '../components/about';
 import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
-import Header from '../components/Header';
 
 const AboutPage: React.FC = (): JSX.Element => (
   <Root>
-    <Header />
     <TopSection>
       <TopTextContainer>
         <TopText>
