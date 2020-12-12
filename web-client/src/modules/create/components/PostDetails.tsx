@@ -7,33 +7,30 @@ import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const PostDetails: React.FC<PostDetailsProps> = ({
-  onNext,
   setPostDetails,
   postDetails,
-  handleCancel,
+  nextHandler: onNext,
+  prevHandler: handleCancel,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
+  const { title, type, body } = postDetails;
+
   return (
-    <MainDiv>
-      <FormDiv>
+    <PostDetailsWrapper>
+      <FormWrapper>
         <TitleWithOrangeUnderline level={2} color={COLORS.primaryDark}>
           Post Details
         </TitleWithOrangeUnderline>
-        <NewRequestForm
+        <DetailsForm
           layout="vertical"
           form={form}
           onFinish={values => {
             setPostDetails(values);
             onNext();
           }}
-          initialValues={{
-            title: postDetails.title,
-            type: postDetails.type,
-            body: postDetails.body,
-            other: postDetails.other,
-          }}
+          initialValues={{ title, type, body }}
         >
           <div
             style={{
@@ -113,12 +110,12 @@ const PostDetails: React.FC<PostDetailsProps> = ({
               {t('newRequest.form.submit')}
             </Button>
           </div>
-        </NewRequestForm>
-      </FormDiv>
-    </MainDiv>
+        </DetailsForm>
+      </FormWrapper>
+    </PostDetailsWrapper>
   );
 };
-const MainDiv = styled.div`
+const PostDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -127,7 +124,7 @@ const MainDiv = styled.div`
   height: 100%;
 `;
 
-const FormDiv = styled.div`
+const FormWrapper = styled.div`
   width: 90%;
   height: 100%;
   margin-left: auto;
@@ -137,21 +134,7 @@ const FormDiv = styled.div`
   align-items: left;
 `;
 
-const CharacterLimitDiv = styled.div`
-  font-size: 12px;
-  margin-bottom: 24px;
-`;
-
-/* 
-style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            height: '100%',
-          }}
-          
-*/
-const NewRequestForm = styled(Form)`
+const DetailsForm = styled(Form)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -172,11 +155,16 @@ const FormItem = styled(Form.Item)`
   margin-bottom: 0;
 `;
 
+const CharacterLimitDiv = styled.div`
+  font-size: 12px;
+  margin-bottom: 24px;
+`;
+
 interface PostDetailsProps {
-  onNext: () => void;
+  nextHandler: () => void;
   setPostDetails: (values: any) => void;
   postDetails: any;
-  handleCancel: () => void;
+  prevHandler: () => void;
 }
 
 export default PostDetails;

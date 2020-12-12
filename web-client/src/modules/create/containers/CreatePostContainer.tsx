@@ -16,60 +16,51 @@ import styled from 'styled-components';
 import PostDetails from '../components/PostDetails';
 import PostMap from '../components/PostMap';
 import PostSummary from '../components/PostSummary';
-import { CreatePostTypes } from '../constants';
 
 const CreatePostContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const cancelCreate = () => {
-    history.replace(MyRequestPostsLocationUrl);
+  const defaultUserAddress = {
+    name: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
+    coords: new firestore.GeoPoint(0, 0),
   };
 
   const phoneNumber = useSelector(
     (state: AppState) => state.auth.user?.phoneNumber,
   );
-  const onboarded = useSelector((state: AppState) => state.auth.onboarded);
 
-  const [stepNumber, setStepNumber] = useState(1);
+  const onboarded = useSelector((state: AppState) => state.auth.onboarded);
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
+  );
+  const addresses = useSelector(
+    (state: AppState) => state.profile.privilegedInformation?.addresses,
+  );
+
+  const [stepNumber, setStepNumber] = useState(0);
   const [postDetails, setPostDetails] = useState<IPostDetails>({
     title: 'Deliveries',
     body: 'Please bring me supplies',
     type: 'Deliveries',
   });
-
-  interface IPostDetails {
-    title: string;
-    body: string;
-    type: string;
-  }
-
-  const profileState = useSelector(
-    ({ profile }: { profile: ProfileState }) => profile,
+  const [postLocation, setPostLocation] = useState<IUserAddress>(
+    addresses && Object.keys(addresses).length > 0
+      ? addresses[Object.keys(addresses)[0]]
+      : defaultUserAddress,
   );
 
   const moveForwards = () => setStepNumber(stepNumber + 1);
   const moveBackwards = () => setStepNumber(stepNumber - 1);
-
-  const addresses = useSelector(
-    (state: AppState) => state.profile.privilegedInformation?.addresses,
-  );
-
-  const [postLocation, setPostLocation] = useState<IUserAddress>(
-    addresses && Object.keys(addresses).length > 0
-      ? addresses[Object.keys(addresses)[0]]
-      : {
-          name: '',
-          address1: '',
-          address2: '',
-          city: '',
-          state: '',
-          postalCode: '',
-          country: '',
-          coords: new firestore.GeoPoint(0, 0),
-        },
-  );
-
+  const cancelCreate = () => {
+    history.replace(MyRequestPostsLocationUrl);
+  };
   const submitPost = () => {
     const { title, body } = postDetails;
     const {
@@ -97,8 +88,8 @@ const CreatePostContainer: React.FC = () => {
       title: 'Details',
       component: (
         <PostDetails
-          onNext={moveForwards}
-          handleCancel={cancelCreate}
+          nextHandler={moveForwards}
+          prevHandler={cancelCreate}
           postDetails={postDetails}
           setPostDetails={setPostDetails}
         />
@@ -108,12 +99,12 @@ const CreatePostContainer: React.FC = () => {
       title: 'Map',
       component: (
         <PostMap
-          addresses={addresses}
-          postLocation={postLocation}
-          setPostLocation={setPostLocation}
           nextHandler={moveForwards}
           prevHandler={moveBackwards}
           postDetails={postDetails}
+          addresses={addresses}
+          postLocation={postLocation}
+          setPostLocation={setPostLocation}
         />
       ),
     },
@@ -121,7 +112,7 @@ const CreatePostContainer: React.FC = () => {
       title: 'Summary',
       component: (
         <PostSummary
-          onPrev={moveBackwards}
+          prevHandler={moveBackwards}
           postDetails={postDetails}
           postLocation={postLocation}
           submitRequest={submitPost}
@@ -152,8 +143,10 @@ const CreatePostContainerWrapper = styled.div`
   background-color: #f8f8f8;
 `;
 
-interface ICreatePostContainer {
-  createPostType: CreatePostTypes;
+interface IPostDetails {
+  title: string;
+  body: string;
+  type: string;
 }
 
 export default CreatePostContainer;
