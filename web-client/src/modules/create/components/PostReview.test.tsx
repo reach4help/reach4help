@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'src/testUtils/customRender';
 
-import PostReview from './PostReview';
+import PostReview from './PostDetails';
 
 describe('PostReview', () => {
   it('renders', () => {
