@@ -1,143 +1,158 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-
 import { Checkbox, Col, Form, Input, Modal, Row } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { MediumCancelButton, MediumSaveButton } from 'src/components/Buttons';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { GeocoderComponent } from 'src/components/Geocoder/Geocoder';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { updateUserPrivilegedInformation } from 'src/ducks/profile/actions';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { AppState } from 'src/store';
 
-const NewAddressForm: React.FC<NewAddressFormProps> = geocode => {
-  const form = useForm();
+const ModalForm: React.FC<ModalFormProps> = ({
+  geocode,
+  visible,
+  closeModal,
+  modalSuccess,
+}) => {
+  const [form] = useForm();
+  const dispatch = useDispatch();
 
-  console.log('geocode is ', geocode);
-  const cancelHandler = () => console.log('cancel');
+  const [shouldSave, setShouldSave] = useState<boolean>(false);
+
+  const addresses = useSelector(
+    (state: AppState) => state.profile.privilegedInformation?.addresses,
+  );
+  const privilegedInformation = useSelector(
+    (state: AppState) => state.profile.privilegedInformation,
+  );
+  const userId = useSelector((state: AppState) => state.auth.user?.uid);
+
   const handleFinish = () => {
     geocode({
-      name: '22 strawberry fields',
-      address1: '555 5th avenue',
-      address2: '',
-      city: 'New York',
-      state: 'New York',
-      postalCode: '10012',
-      country: 'United States',
-    });
-    console.log('finished');
+      name: form.getFieldValue('name'),
+      address1: form.getFieldValue('address1'),
+      address2: form.getFieldValue('address2'),
+      city: form.getFieldValue('city'),
+      state: form.getFieldValue('state'),
+      postalCode: form.getFieldValue('postalCode'),
+      country: form.getFieldValue('country'),
+    })
+      .then(geocodedResult => {
+        modalSuccess(geocodedResult);
+        if (shouldSave) {
+          if (privilegedInformation && userId) {
+            const addressesToSave = {
+              ...addresses,
+            };
+            addressesToSave[geocodedResult.name] = geocodedResult;
+            privilegedInformation.addresses = addressesToSave;
+            dispatch(
+              updateUserPrivilegedInformation(userId, privilegedInformation),
+            );
+          }
+        }
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('could not geocode', error);
+      });
   };
-  const [shouldSave, setShouldSave] = useState<boolean>(false);
+
   const { t } = useTranslation();
-  return (
-    <Form form={form[0]} onFinish={handleFinish}>
-      <>
-        <Row gutter={[16, 6]}>
-          <Col span={24}>
-            <Form.Item
-              name="address1"
-              label={t('settings.changeAddressForm.address')}
-            >
-              <Input placeholder={t('address1')} />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={[16, 6]}>
-          <Col span={24}>
-            <Form.Item name="address2">
-              <Input placeholder={t('address2')} />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={11}>
-            <Form.Item name="city">
-              <Input placeholder={t('city')} />
-            </Form.Item>
-          </Col>
-          <Col span={3} offset={1}>
-            <Form.Item name="state">
-              <Input placeholder={t('State')} />
-            </Form.Item>
-          </Col>
-          <Col span={5}>
-            <Form.Item name="postalCode">
-              <Input placeholder={t('code')} />
-            </Form.Item>
-          </Col>
-          <Col span={3} offset={1}>
-            <Form.Item name="country">
-              <Input placeholder={t('country')} />
-            </Form.Item>
-          </Col>
-        </Row>
-        {shouldSave && (
-          <Row gutter={[16, 6]}>
-            <Col span={24}>
-              <Form.Item
-                name="name"
-                required
-                label={t('settings.changeAddressForm.nameOfAddress')}
-              >
-                <Input id="nameofAddress" />
-              </Form.Item>
-            </Col>
-          </Row>
-        )}
-        <Row gutter={[16, 6]}>
-          <Checkbox onChange={() => setShouldSave(true)}>
-            {t('settings.changeAddressForm.saveChangesCheckbox')}
-          </Checkbox>
-        </Row>
-      </>
-      <Row>
-        <Col span={11}>
-          <MediumCancelButton onClick={() => cancelHandler()}>
-            <CloseOutlined />
-            {t('settings.changeAddressForm.cancel')}
-          </MediumCancelButton>
-        </Col>
-        <Col span={11} offset={2}>
-          <MediumSaveButton htmlType="submit">
-            <CheckOutlined />
-            {t('settings.changeAddressForm.next')}
-          </MediumSaveButton>
-        </Col>
-      </Row>
-    </Form>
-  );
-};
-
-interface NewAddressFormProps {
-  geocode: (
-    address: Pick<IUserAddress, Exclude<keyof IUserAddress, 'coords'>>,
-  ) => Promise<IUserAddress>;
-}
-
-export const NewAddressModal: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
   return (
     <Modal
       title="Basic Modal"
-      visible={isModalVisible}
-      onOk={handleOk}
-      onCancel={handleCancel}
+      visible={visible}
+      onOk={handleFinish}
+      onCancel={closeModal}
     >
-      <GeocoderComponent<NewAddressFormProps>
-        otherProps={{}}
-        Component={NewAddressForm}
-      />
+      <Form form={form} onFinish={handleFinish}>
+        <>
+          <Row gutter={[16, 6]}>
+            <Col span={24}>
+              <Form.Item
+                name="address1"
+                label={t('settings.changeAddressForm.address')}
+              >
+                <Input placeholder={t('address1')} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={[16, 6]}>
+            <Col span={24}>
+              <Form.Item name="address2">
+                <Input placeholder={t('address2')} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={11}>
+              <Form.Item name="city">
+                <Input placeholder={t('city')} />
+              </Form.Item>
+            </Col>
+            <Col span={3} offset={1}>
+              <Form.Item name="state">
+                <Input placeholder={t('State')} />
+              </Form.Item>
+            </Col>
+            <Col span={5}>
+              <Form.Item name="postalCode">
+                <Input placeholder={t('code')} />
+              </Form.Item>
+            </Col>
+            <Col span={3} offset={1}>
+              <Form.Item name="country">
+                <Input placeholder={t('country')} />
+              </Form.Item>
+            </Col>
+          </Row>
+          {shouldSave && (
+            <Row gutter={[16, 6]}>
+              <Col span={24}>
+                <Form.Item
+                  name="name"
+                  required
+                  label={t('settings.changeAddressForm.nameOfAddress')}
+                >
+                  <Input id="nameofAddress" />
+                </Form.Item>
+              </Col>
+            </Row>
+          )}
+          <Row gutter={[16, 6]}>
+            <Checkbox onChange={() => setShouldSave(true)}>
+              {t('settings.changeAddressForm.saveChangesCheckbox')}
+            </Checkbox>
+          </Row>
+        </>
+      </Form>
     </Modal>
   );
 };
+
+interface ModalFormProps {
+  geocode: (
+    address: Pick<IUserAddress, Exclude<keyof IUserAddress, 'coords'>>,
+  ) => Promise<IUserAddress>;
+  closeModal: () => void;
+  visible: boolean;
+  modalSuccess: (any) => void;
+}
+
+interface NewAddressModalProps {
+  visible: boolean;
+  closeModal: () => void;
+  modalSuccess: (any) => void;
+}
+
+export const NewAddressModal: React.FC<NewAddressModalProps> = ({
+  visible,
+  closeModal,
+  modalSuccess,
+}) => (
+  <GeocoderComponent<ModalFormProps>
+    otherProps={{ visible, closeModal, modalSuccess }}
+    Component={ModalForm}
+  />
+);

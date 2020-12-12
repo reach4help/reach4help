@@ -2,12 +2,13 @@ import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+import styled from 'styled-components';
 
 import WebClientMap from '../../../components/WebClientMap/WebClientMap';
 import PostConfirmation from './PostConfirmation';
 
 const PostSummary: React.FC<PostSummaryProps> = ({
-  onPrev,
+  prevHandler: onPrev,
   postDetails,
   postLocation,
   submitRequest,
@@ -32,14 +33,14 @@ const PostSummary: React.FC<PostSummaryProps> = ({
         />
       )}
       {coords && coords.latitude !== 0 && coords.longitude !== 0 && (
-        <div style={{ height: '450px' }}>
+        <MapWrapper>
           <WebClientMap
             destinations={[]}
             zoom={12}
-            height="450px"
+            height="35%"
             origin={{ lat: coords.latitude, lng: coords.longitude }}
           />
-        </div>
+        </MapWrapper>
       )}
       <h2>Details</h2>
       <div>
@@ -71,10 +72,13 @@ const PostSummary: React.FC<PostSummaryProps> = ({
   );
 };
 
+const MapWrapper = styled.div`
+  height: 35%;
+`;
 interface PostSummaryProps {
   postLocation: any;
   postDetails: any;
-  onPrev: () => void;
+  prevHandler: () => void;
   submitRequest: () => void;
 }
 

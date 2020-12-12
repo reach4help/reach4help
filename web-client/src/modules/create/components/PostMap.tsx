@@ -2,10 +2,11 @@ import { Button, Select } from 'antd';
 import React, { useState } from 'react';
 import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { NewAddressModal } from 'src/modules/create/components/NewAddressModal';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
+
 import WebClientMap from '../../../components/WebClientMap/WebClientMap';
-import { NewAddressModal } from 'src/modules/create/components/NewAddressModal';
 
 const PostMap: React.FC<PostMapProps> = ({
   addresses,
@@ -15,40 +16,30 @@ const PostMap: React.FC<PostMapProps> = ({
   nextHandler,
   prevHandler,
 }) => {
-  const [showAddressChooser, setShowAddressChoser] = useState<boolean>(false);
-  const handleChange = value => {
+  const [showAddressModal, setShowAddressModal] = useState<boolean>(false);
+  const modalSuccess = value => {
+    setPostLocation(value);
+    setShowAddressModal(false);
+  };
+  const closeModal = () => {
+    setShowAddressModal(false);
+  };
+
+  const handleNameChange = value => {
     if (value === 'add') {
-      setShowAddressChoser(true);
+      setShowAddressModal(true);
     } else {
-      setShowAddressChoser(false);
+      setShowAddressModal(false);
       addresses && setPostLocation(addresses[value]);
     }
   };
 
-  const { title } = postDetails;
-
-  const ChooserDiv = styled.div`
-    margin: 20px;
-  `;
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        height: '100%',
-      }}
-    >
-      {showAddressChooser && (
-        <>
-          <NewAddressModal />
-        </>
-      )}
+    <PostMapWrapper>
       {postLocation.coords && (
-        <div style={{ height: '40%' }}>
+        <div style={{ height: '35%' }}>
           <WebClientMap
-            height="40%"
+            height="35%"
             destinations={[]}
             zoom={12}
             canRelocate={false}
@@ -61,13 +52,13 @@ const PostMap: React.FC<PostMapProps> = ({
       )}
       <div>
         <TitleWithOrangeUnderline level={2} color={COLORS.primaryDark}>
-          Location for {title}
+          Location for {postDetails.title}
         </TitleWithOrangeUnderline>
         Choose an Address:
         <ChooserDiv>
           <Select
             style={{ width: 360 }}
-            onChange={handleChange}
+            onChange={handleNameChange}
             defaultValue={postLocation.name}
           >
             {Object.keys(addresses || {}).map(addresskey => (
@@ -80,37 +71,27 @@ const PostMap: React.FC<PostMapProps> = ({
         </ChooserDiv>
         <AddressDisplay location={postLocation} />
       </div>
-      <div
-        style={{
-          display: 'flex',
-          marginBottom: '150px',
-        }}
-      >
-        <Button
-          type="default"
-          block
-          onClick={prevHandler}
-          style={{ marginRight: '5px', flexGrow: 1 }}
-        >
+      <ButtonsDisplay>
+        <DisplayedButton type="default" block onClick={prevHandler}>
           Back
-        </Button>
+        </DisplayedButton>
 
-        <Button
-          type="primary"
-          block
-          style={{ marginLeft: '5px', flexGrow: 1 }}
-          onClick={nextHandler}
-        >
+        <DisplayedButton type="primary" block onClick={nextHandler}>
           Next
-        </Button>
-      </div>
-    </div>
+        </DisplayedButton>
+      </ButtonsDisplay>
+      <NewAddressModal
+        visible={showAddressModal}
+        closeModal={closeModal}
+        modalSuccess={modalSuccess}
+      />
+    </PostMapWrapper>
   );
 };
 
 const AddressDisplay = ({ location }) => (
   <div>
-    <div>address 1{location.address1}</div>
+    <div>{location.address1}</div>
     <div>{location.address2}</div>
     <div>
       {location.city}, {location.state}
@@ -119,6 +100,27 @@ const AddressDisplay = ({ location }) => (
     <div>{location.postalCode}</div>
   </div>
 );
+
+const PostMapWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const ButtonsDisplay = styled.div`
+  display: flex;
+  margin-bottom: 150px;
+`;
+
+const DisplayedButton = styled(Button)`
+  margin: 5px 0;
+  flex: 1 1 1;
+`;
+
+const ChooserDiv = styled.div`
+  margin: 20px;
+`;
 
 interface PostMapProps {
   addresses: Record<string, IUserAddress> | undefined;
