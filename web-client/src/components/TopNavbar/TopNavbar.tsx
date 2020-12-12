@@ -6,10 +6,12 @@ import {
 } from '@ant-design/icons';
 import { Dropdown, Menu } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogoType from 'src/assets/logo-type.svg';
 import Logo from 'src/assets/logo.svg';
+import { DEVICE_MAX } from 'src/constants/mediaQueries';
 import {
   CreateOfferLocationUrl,
   CreateRequestLocationUrl,
@@ -26,6 +28,13 @@ import styled from 'styled-components';
 
 import { LanguageSelector } from '../SideBottomMenu/LanguageSelector';
 
+interface TopNavbarProps {
+  toggleMenu: () => void;
+  toggleNotifications: () => void;
+  visible?: boolean;
+  unseenOffersCount: number;
+}
+
 const TopNavbar: React.FC<TopNavbarProps> = ({
   visible,
   toggleMenu,
@@ -35,14 +44,19 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const onboarded = useSelector((state: AppState) => state.auth.onboarded);
   const isLoggedIn = useSelector((state: AppState) => !!state.auth.user?.email);
+  const { t } = useTranslation();
 
   const createNewMenu = (
     <Menu>
       <Menu.Item key="0">
-        <StyledLink to={CreateRequestLocationUrl}>Help Request</StyledLink>
+        <StyledLink to={CreateRequestLocationUrl}>
+          {t('navbar.create_new.options.request')}
+        </StyledLink>
       </Menu.Item>
       <Menu.Item key="1">
-        <StyledLink to={CreateOfferLocationUrl}>Volunteer Offer</StyledLink>
+        <StyledLink to={CreateOfferLocationUrl}>
+          {t('navbar.create_new.options.offer')}
+        </StyledLink>
       </Menu.Item>
     </Menu>
   );
@@ -60,31 +74,37 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
         </HomeButton>
 
         <LinkContainer>
-          <StyledLink to={MyRequestPostsLocationUrl}>Help Requests</StyledLink>
-          <StyledLink to={MyOfferPostsLocationUrl}>Volunteer Offers</StyledLink>
+          <StyledLink to={MyRequestPostsLocationUrl}>
+            {t('navbar.my_requests')}
+          </StyledLink>
+          <StyledLink to={MyOfferPostsLocationUrl}>
+            {t('navbar.my_offers')}
+          </StyledLink>
 
           <Dropdown overlay={createNewMenu} trigger={['click']}>
             <StyledLink as="a">
-              Create New <CaretDownOutlined />
+              {t('navbar.create_new.title')} <CaretDownOutlined />
             </StyledLink>
           </Dropdown>
 
-          <StyledLink to={AboutPageLocation.path}>About Us</StyledLink>
+          <StyledLink to={AboutPageLocation.path}>
+            {t('navbar.about')}
+          </StyledLink>
 
           <LanguageSelector />
-          {!isLoggedIn ? (
+          {isLoggedIn ? (
             <NotificationsIcon />
           ) : (
             <>
               <LoginButton>
                 <StyledLinkButton to={LoginLocation.path}>
-                  Login
+                  {t('navbar.login')}
                 </StyledLinkButton>
               </LoginButton>
 
               <SignUpButton>
                 <StyledLinkButton to={LoginLocation.path}>
-                  Sign Up
+                  {t('navbar.sign_up')}
                 </StyledLinkButton>
               </SignUpButton>
             </>
@@ -106,21 +126,24 @@ const HeaderContainer = styled.header`
 
 const TopNavbarWrapper = styled.div`
   display: flex;
+  max-width: 1440px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin: 0 1em 0;
+  margin: 0 2em 0;
 
-  @media (max-width: 1050px) {
+  @media ${DEVICE_MAX.tablet} {
     justify-content: flex-start;
+    margin: 0 1em 0;
   }
 `;
 
 const SideMenuIcon = styled.div`
   font-size: 1.2rem;
   display: none;
+  margin-right: 1em;
 
-  @media (max-width: 1050px) {
+  @media ${DEVICE_MAX.tablet} {
     display: block;
   }
 `;
@@ -130,17 +153,15 @@ const HomeButton = styled(Link)`
   gap: 0.5em;
   justify-content: center;
   align-items: center;
-  padding: 0 1rem;
 `;
 
-const LinkContainer = styled.div`
+const LinkContainer = styled.nav`
   display: flex;
   gap: 20px;
   justify-content: space-evenly;
   align-items: center;
-  /* width: 60%; */
 
-  @media (max-width: 1050px) {
+  @media ${DEVICE_MAX.tablet} {
     display: none;
   }
 `;
@@ -166,23 +187,17 @@ const AuthButton = styled.button`
 
 const LoginButton = styled(AuthButton)`
   background: none;
-  color: black;
+  color: ${COLORS.primaryOrange};
 
   position: relative;
-  left: 3%;
-  &:hover {
-    border: 1px solid ${COLORS.primaryOrange};
+  border: 2px solid ${COLORS.primaryOrange};
   }
 `;
 
 const SignUpButton = styled(AuthButton)`
-  margin-left: 1em;
   background: ${COLORS.primaryOrange};
   border: none;
   color: white;
-  &:hover {
-    transform: scale(1.05);
-  }
 `;
 
 const StyledLinkButton = styled(Link)`
@@ -191,12 +206,5 @@ const StyledLinkButton = styled(Link)`
   font-weight: 500;
   font-size: 16px;
 `;
-
-interface TopNavbarProps {
-  toggleMenu: () => void;
-  toggleNotifications: () => void;
-  visible?: boolean;
-  unseenOffersCount: number;
-}
 
 export default TopNavbar;
