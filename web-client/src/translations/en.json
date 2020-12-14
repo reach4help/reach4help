@@ -22,6 +22,7 @@
     "country": "Country",
     "for": " for ",
     "navbar": {
+      "home": "Home",
       "my_requests": "My Requests",
       "my_offers": "My Offers",
       "create_new": {

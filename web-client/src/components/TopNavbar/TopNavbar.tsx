@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogoType from 'src/assets/logo-type.svg';
-import Logo from 'src/assets/logo.svg';
 import { DEVICE_MAX } from 'src/constants/mediaQueries';
 import {
   CreateOfferLocationUrl,
@@ -19,6 +18,7 @@ import {
 import { AboutPageLocation } from 'src/modules/landing-page/constants';
 import { LoginLocation } from 'src/modules/login/constants';
 import {
+  FindRequestsLocation,
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
 } from 'src/modules/requests/constants';
@@ -64,33 +64,39 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
   return (
     <HeaderContainer>
       <TopNavbarWrapper>
-        <SideMenuIcon onClick={toggleMenu}>
-          {visible ? <MenuOutlined /> : <CloseOutlined />}
-        </SideMenuIcon>
+        <LeftLinkContainer>
+          <SideMenuIcon onClick={toggleMenu}>
+            {visible ? <MenuOutlined /> : <CloseOutlined />}
+          </SideMenuIcon>
 
-        <HomeButton to="/">
-          <img src={Logo} alt="R4H Logo" style={{ height: '32px' }} />
-          <img src={LogoType} alt="Reach4Help" style={{ height: '20px' }} />
-        </HomeButton>
+          <HomeButton to="/">
+            <img src={LogoType} alt="Reach4Help" style={{ width: '155px' }} />
+          </HomeButton>
+
+          <LinkContainer>
+            <StyledLink to={FindRequestsLocation}>
+              {t('navbar.home')}
+            </StyledLink>
+            <StyledLink to={MyRequestPostsLocationUrl}>
+              {t('navbar.my_requests')}
+            </StyledLink>
+            <StyledLink to={MyOfferPostsLocationUrl}>
+              {t('navbar.my_offers')}
+            </StyledLink>
+
+            <Dropdown overlay={createNewMenu} trigger={['click']}>
+              <StyledLink as="a">
+                {t('navbar.create_new.title')} <CaretDownOutlined />
+              </StyledLink>
+            </Dropdown>
+
+            <StyledLink to={AboutPageLocation.path}>
+              {t('navbar.about')}
+            </StyledLink>
+          </LinkContainer>
+        </LeftLinkContainer>
 
         <LinkContainer>
-          <StyledLink to={MyRequestPostsLocationUrl}>
-            {t('navbar.my_requests')}
-          </StyledLink>
-          <StyledLink to={MyOfferPostsLocationUrl}>
-            {t('navbar.my_offers')}
-          </StyledLink>
-
-          <Dropdown overlay={createNewMenu} trigger={['click']}>
-            <StyledLink as="a">
-              {t('navbar.create_new.title')} <CaretDownOutlined />
-            </StyledLink>
-          </Dropdown>
-
-          <StyledLink to={AboutPageLocation.path}>
-            {t('navbar.about')}
-          </StyledLink>
-
           <LanguageSelector />
           {isLoggedIn ? (
             <NotificationsIcon />
@@ -119,6 +125,7 @@ const HeaderContainer = styled.header`
   background: white;
   position: fixed;
   display: flex;
+  justify-content: center;
   width: 100%;
   height: 64px;
   z-index: 20;
@@ -138,9 +145,19 @@ const TopNavbarWrapper = styled.div`
   }
 `;
 
+const LeftLinkContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3em;
+
+  @media ${DEVICE_MAX.tablet} {
+    gap: 0;
+  }
+`;
+
 const SideMenuIcon = styled.div`
-  font-size: 1.2rem;
   display: none;
+  font-size: 1.2rem;
   margin-right: 1em;
 
   @media ${DEVICE_MAX.tablet} {
