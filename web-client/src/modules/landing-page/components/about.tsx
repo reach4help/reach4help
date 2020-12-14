@@ -90,9 +90,8 @@ export const TeamText = styled.div`
 `;
 
 export const TeamImageContainer = styled(Container)`
-  width: 524 px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  width: 90%;
+  padding: 50px 0;
 `;
 
 export const JoinContainer = styled(Flex)`
@@ -121,7 +120,7 @@ export const ButtonContainer = styled(Container)`
 
 export const JoinButton = styled(Button)`
   color: #333333;
-  backgroud: white;
+  background: white;
   border: 2px solid #333333;
 
   &:hover {

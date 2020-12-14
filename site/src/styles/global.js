@@ -10,6 +10,5 @@ export default createGlobalStyle`
   body, html {
     font-family: ${p => p.theme.fonts.main};
     height: 100%;
-    /* overflow-x: hidden; */
   }
 `
