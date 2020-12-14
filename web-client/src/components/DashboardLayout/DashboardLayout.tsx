@@ -7,6 +7,7 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
+import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
 import TopNavbar from '../TopNavbar/TopNavbar';
@@ -95,6 +96,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         closeDrawer={() => setNotificationVisible(false)}
       />
       <DashboardContent>{children}</DashboardContent>
+      <BottomNavbar
+        visible={!menuVisible && !notificationVisible}
+        openMenu={() => setMenuVisible(true)}
+        openNotifications={() => setNotificationVisible(true)}
+        // isCav={isCav}
+        unseenOffersCount={unseenOffers.length}
+      />
     </DashboardLayoutWrapper>
   );
 };
