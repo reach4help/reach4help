@@ -1,5 +1,6 @@
 import { firestore } from 'firebase';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
@@ -20,6 +21,9 @@ import PostSummary from '../components/PostSummary';
 const CreatePostContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
+
+  const getTypes = () => [t('modules.create.defaults.postDetails.type')];
 
   const defaultUserAddress = {
     name: '',
@@ -46,10 +50,11 @@ const CreatePostContainer: React.FC = () => {
 
   const [stepNumber, setStepNumber] = useState(0);
   const [postDetails, setPostDetails] = useState<IPostDetails>({
-    title: 'Deliveries',
-    body: 'Please bring me supplies',
-    type: 'Deliveries',
+    title: t('modules.create.defaults.postDetails.title'),
+    body: t('modules.create.defaults.postDetails.body'),
+    type: getTypes()[0],
   });
+
   const [postLocation, setPostLocation] = useState<IUserAddress>(
     addresses && Object.keys(addresses).length > 0
       ? addresses[Object.keys(addresses)[0]]
@@ -75,6 +80,10 @@ const CreatePostContainer: React.FC = () => {
     const newPost = {
       title,
       description: body,
+      type:
+        postDetails.type === 'customType'
+          ? postDetails.customType
+          : postDetails.type,
       pinUserRef: profileState.userRef!,
       pinUserSnapshot: profileState.profile!.toObject() as IUser,
       streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
@@ -85,18 +94,19 @@ const CreatePostContainer: React.FC = () => {
 
   const postCreationSteps = [
     {
-      title: 'Details',
+      title: t('modules.create.stepTitles.details'),
       component: (
         <PostDetails
           nextHandler={moveForwards}
           prevHandler={cancelCreate}
+          postTypes={getTypes()}
           postDetails={postDetails}
           setPostDetails={setPostDetails}
         />
       ),
     },
     {
-      title: 'Map',
+      title: t('modules.create.stepTitles.map'),
       component: (
         <PostMap
           nextHandler={moveForwards}
@@ -109,7 +119,7 @@ const CreatePostContainer: React.FC = () => {
       ),
     },
     {
-      title: 'Summary',
+      title: t('modules.create.stepTitles.summary'),
       component: (
         <PostSummary
           prevHandler={moveBackwards}
@@ -129,7 +139,7 @@ const CreatePostContainer: React.FC = () => {
             currentStep={stepNumber}
             stepTitles={postCreationSteps.map(s => s.title)}
           />
-          {postCreationSteps[stepNumber].component}
+          <StepsWrapper>{postCreationSteps[stepNumber].component}</StepsWrapper>
         </>
       ) : (
         <AuthenticationModal isVisible />
@@ -137,6 +147,12 @@ const CreatePostContainer: React.FC = () => {
     </CreatePostContainerWrapper>
   );
 };
+
+const StepsWrapper = styled.div`
+  height: 100%;
+  width: 80%;
+  margin: 20px auto;
+`;
 
 const CreatePostContainerWrapper = styled.div`
   height: 100%;
@@ -147,6 +163,7 @@ interface IPostDetails {
   title: string;
   body: string;
   type: string;
+  customType?: string;
 }
 
 export default CreatePostContainer;

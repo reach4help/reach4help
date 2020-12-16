@@ -1,7 +1,8 @@
 import { Button, Select } from 'antd';
 import React, { useState } from 'react';
-import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { AddressDisplay } from 'src/modules/create/components/AddressDisplay';
 import { NewAddressModal } from 'src/modules/create/components/NewAddressModal';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
@@ -51,9 +52,9 @@ const PostMap: React.FC<PostMapProps> = ({
         </div>
       )}
       <div>
-        <TitleWithOrangeUnderline level={2} color={COLORS.primaryDark}>
+        <TitleWithUnderline level={2} color={COLORS.primaryDark}>
           Location for {postDetails.title}
-        </TitleWithOrangeUnderline>
+        </TitleWithUnderline>
         Choose an Address:
         <ChooserDiv>
           <Select
@@ -88,18 +89,6 @@ const PostMap: React.FC<PostMapProps> = ({
     </PostMapWrapper>
   );
 };
-
-const AddressDisplay = ({ location }) => (
-  <div>
-    <div>{location.address1}</div>
-    <div>{location.address2}</div>
-    <div>
-      {location.city}, {location.state}
-    </div>
-    <div>{location.country}</div>
-    <div>{location.postalCode}</div>
-  </div>
-);
 
 const PostMapWrapper = styled.div`
   display: flex;

@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import stayAtHomeLottieJson from 'src/assets/lotties/stay-at-home.json';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
-import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import styled from 'styled-components';
 
 import { COLORS } from '../../../theme/colors';
@@ -24,9 +24,9 @@ const RequestConfirmation: React.FC<RequestConfirmationProps> = ({
       footer={null}
     >
       <>
-        <TitleWithOrangeUnderline level={1} bottom="-16px">
+        <TitleWithUnderline level={1} bottom="-16px">
           {t('newRequestSuccess.title')}
-        </TitleWithOrangeUnderline>
+        </TitleWithUnderline>
         <SubtitleP>{t('newRequestSuccess.info')}</SubtitleP>
         <LoadingIndicator lottieJson={stayAtHomeLottieJson} />
         <Footer>

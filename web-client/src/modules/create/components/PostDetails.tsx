@@ -1,28 +1,37 @@
 import { ArrowRightOutlined, CloseOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
-import React from 'react';
+import { Button, Form, Input, Select } from 'antd';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const PostDetails: React.FC<PostDetailsProps> = ({
   setPostDetails,
   postDetails,
+  postTypes,
   nextHandler: onNext,
   prevHandler: handleCancel,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const [showCustomType, setShowCustomType] = useState(
+    postDetails.type === 'customType',
+  );
 
-  const { title, type, body } = postDetails;
+  const { title, type, body, customType } = postDetails;
 
+  const toggleCustomType = (value: string) => {
+    setShowCustomType(value === 'customType');
+  };
+
+  const { Option } = Select;
   return (
     <PostDetailsWrapper>
       <FormWrapper>
-        <TitleWithOrangeUnderline level={2} color={COLORS.primaryDark}>
-          Post Details
-        </TitleWithOrangeUnderline>
+        <TitleWithUnderline level={2} color={COLORS.primaryDark}>
+          {t('modules.create.postDetails.header')}
+        </TitleWithUnderline>
         <DetailsForm
           layout="vertical"
           form={form}
@@ -30,7 +39,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             setPostDetails(values);
             onNext();
           }}
-          initialValues={{ title, type, body }}
+          initialValues={{ title, type, body, customType }}
         >
           <div
             style={{
@@ -41,7 +50,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             }}
           >
             <Form.Item
-              label="Title"
+              label={t('modules.create.postDetails.titleLabel')}
               name="title"
               rules={[
                 {
@@ -54,7 +63,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             </Form.Item>
 
             <Form.Item
-              label={t('newRequest.form.type')}
+              label={t('modules.create.postDetails.typeLabel')}
               name="type"
               rules={[
                 {
@@ -63,8 +72,30 @@ const PostDetails: React.FC<PostDetailsProps> = ({
                 },
               ]}
             >
-              <Input />
+              <Select onChange={toggleCustomType}>
+                {[...postTypes, 'customType'].map(key => (
+                  <Option value={key} key={key}>
+                    {' '}
+                    {key === 'customType' ? 'other' : key}
+                  </Option>
+                ))}
+              </Select>
             </Form.Item>
+
+            {showCustomType && (
+              <Form.Item
+                name="customType"
+                rules={[
+                  {
+                    required: true,
+                    message: t('newRequest.form.other_error_message'),
+                  },
+                ]}
+              >
+                <Input placeholder={t('newRequest.form.other')} />
+              </Form.Item>
+            )}
+
             <FormItem
               name="body"
               label={t('newRequest.form.body')}
@@ -97,7 +128,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
               icon={<CloseOutlined />}
               style={{ marginRight: '5px', marginLeft: '5px' }}
             >
-              Cancel
+              {t('cancel')}
             </Button>
 
             <Button
@@ -107,7 +138,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
               htmlType="submit"
               style={{ marginRight: '5px', marginLeft: '5px' }}
             >
-              {t('newRequest.form.submit')}
+              {t('next')}
             </Button>
           </div>
         </DetailsForm>
@@ -163,6 +194,7 @@ const CharacterLimitDiv = styled.div`
 interface PostDetailsProps {
   nextHandler: () => void;
   setPostDetails: (values: any) => void;
+  postTypes: string[];
   postDetails: any;
   prevHandler: () => void;
 }

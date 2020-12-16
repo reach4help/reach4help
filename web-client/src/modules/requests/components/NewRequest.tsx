@@ -2,7 +2,7 @@ import { Button, Col, Form, Input, Row, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepForwardButton } from 'src/components/Buttons';
-import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import styled from 'styled-components';
 
 import SearchIcon from '../assets/search.svg';
@@ -68,9 +68,9 @@ const NewRequest: React.FC<NewRequestProps> = ({
   const FormContent = (
     <MainDiv>
       <FormDiv>
-        <TitleWithOrangeUnderline level={3} left="0%" transform="none">
+        <TitleWithUnderline level={3} left="0%" transform="none">
           {t('newRequest.title')}
-        </TitleWithOrangeUnderline>
+        </TitleWithUnderline>
 
         {/* There is a bug with types regarding onFinish - apparently an issue with @types and antd types
         https://github.com/ant-design/ant-design/pull/21067 - If it's not please fix *.* */}
