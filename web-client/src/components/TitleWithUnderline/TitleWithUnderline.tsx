@@ -4,18 +4,18 @@ import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
 
-const TitleWithOrangeUnderline: React.FC<TitleWithAddonProps> = ({
+const TitleWithUnderline: React.FC<TitleWithAddonProps> = ({
   children,
   level,
-  orangealignment,
+  alignment,
   left,
   bottom,
   transform,
   color,
 }): React.ReactElement => (
-  <TitleWithOrangeUnderlineOuterDiv>
-    <TitleWithOrangeUnderlineInnerDiv
-      orangealignment={orangealignment}
+  <TitleWithUnderlineOuterDiv>
+    <TitleWithUnderlineInnerDiv
+      alignment={alignment}
       level={level}
       left={left}
       bottom={bottom}
@@ -23,15 +23,15 @@ const TitleWithOrangeUnderline: React.FC<TitleWithAddonProps> = ({
       color={color}
     >
       {children}
-    </TitleWithOrangeUnderlineInnerDiv>
-  </TitleWithOrangeUnderlineOuterDiv>
+    </TitleWithUnderlineInnerDiv>
+  </TitleWithUnderlineOuterDiv>
 );
 
-const TitleWithOrangeUnderlineOuterDiv = styled.div`
+const TitleWithUnderlineOuterDiv = styled.div`
   position: relative;
 `;
 
-const TitleWithOrangeUnderlineInnerDiv = styled(Typography.Title)`
+const TitleWithUnderlineInnerDiv = styled(Typography.Title)`
   white-space: pre-line;
   text-align: ${(props: TitleWithAddonProps) => props.left || 'center'};
   :after {
@@ -40,7 +40,7 @@ const TitleWithOrangeUnderlineInnerDiv = styled(Typography.Title)`
     width: 40px;
     height: 6px;
     left: ${(props: TitleWithAddonProps) => {
-      switch (props.orangealignment) {
+      switch (props.alignment) {
         case 'left':
           return props.left || '12%';
         case 'right':
@@ -62,11 +62,11 @@ interface TitleWithAddonProps {
   children: React.ReactNode;
   level: 1 | 2 | 3 | 4;
   // REVIEW: I need help defining this type
-  orangealignment?: string;
+  alignment?: string;
   left?: string;
   bottom?: string;
   transform?: string;
   color?: string;
 }
 
-export default TitleWithOrangeUnderline;
+export default TitleWithUnderline;

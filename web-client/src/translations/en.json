@@ -3,6 +3,7 @@
     "or": "or",
     "i_understand": "I understand.",
     "okay": "Okay",
+    "next": "Next",
     "cancel": "Cancel",
     "welcome": "Welcome",
     "continue": "Continue",
@@ -364,6 +365,27 @@
           "PersonalDataFormContainer": {
             "address_error": "Sorry, We couldn't determine your actual address, please try again!",
             "missing_data": "Missing Data!"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Map",
+          "summary": "Summary"
+        },
+        "postDetails" : {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel":"Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
