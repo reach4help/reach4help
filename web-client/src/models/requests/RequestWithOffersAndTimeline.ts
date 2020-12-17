@@ -122,13 +122,9 @@ export class RequestWithOffersAndTimeline extends Request
   public static factory(
     data: IRequestWithOffersAndTimelineItems,
   ): RequestWithOffersAndTimeline {
-    console.log('z3', data.pinUserRef);
-    console.log('z3a', data.requestId);
-    console.log('z3b', data.requestRef);
-    console.log('z3c', data.timeline);
     return new RequestWithOffersAndTimeline(
       // TODO: (es) This is old codeL
-      // db.doc(data.pinUserRef as any),      
+      // db.doc(data.pinUserRef as any),
       // not working now, not sure how it originally worked
       // as argument to doc has to be a string.  pinUserRef is what is needed
       data.pinUserRef,

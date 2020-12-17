@@ -4,16 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
-import { ProfileState } from 'src/ducks/profile/types';
-import { setRequest } from 'src/ducks/requests/actions';
 import { IRequest } from 'src/models/requests';
-import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+import { resetSetRequestState, setRequest } from 'src/ducks/posts/actions';
+import { PostState } from 'src/ducks/posts/types';
+import { ProfileState } from 'src/ducks/profile/types';
+import { IPost, Post, PostStatus } from 'src/models/Post';
+import { IUser } from 'src/models/users';
+import { MyRequestPostsLocationUrl } from 'src/modules/MyPosts/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -58,19 +61,98 @@ const CreatePostContainer: React.FC = () => {
   const addresses = useSelector(
     (state: AppState) => state.profile.privilegedInformation?.addresses,
   );
-  const [postLocation, setPostLocation] = useState<IUserAddress>(
-    addresses && Object.keys(addresses).length > 0
-      ? addresses[Object.keys(addresses)[0]]
-      : defaultUserAddress,
+
+  const newPostState = useSelector(
+    ({ posts }: { posts: PostState }) => posts.setAction,
   );
 
-  /* NewAddressModal */
-  const [showNewAddressModal, setShowNewAddressModal] = useState<boolean>(
-    false,
+  const newPostTemp = useSelector(
+    ({ posts }: { posts: PostState }) => posts.newRequestTemp,
   );
-  const [geocodeFailed, setGeocodeFailed] = useState<boolean>(false);
-  const onGeocodeFail = () => {
-    setGeocodeFailed(true);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (
+      newPostTemp?.requestPayload &&
+      newPostTemp.requestPayload instanceof Post &&
+      !newPostTemp?.requestId &&
+      phoneNumber &&
+      !newPostState.loading &&
+      !newPostState.success
+    ) {
+      dispatch(
+        setRequest(
+          newPostTemp.requestPayload.toObject() as IPost,
+          undefined,
+          phoneNumber,
+        ),
+      );
+    }
+  }, [phoneNumber, newPostTemp, dispatch, newPostState]);
+
+  useEffect(() => {
+    if (newPostTemp && newPostTemp.requestPayload) {
+      setRequestInfo({
+        type:
+          newPostTemp.requestPayload.title === DELIVERIES
+            ? newPostTemp.requestPayload.title
+            : 'Other',
+        streetAddress: newPostTemp.requestPayload.streetAddress,
+        description: newPostTemp.requestPayload.description,
+        other: newPostTemp.requestPayload.title,
+      });
+      setShowReviewPage(true);
+    }
+  }, [newPostTemp]);
+
+  useEffect(() => {
+    if (newPostState.success) {
+      setShowConfirmationPage(true);
+    }
+  }, [newPostState, dispatch]);
+
+  const reviewRequestSubmitHandler = request => {
+    if (onboarded) {
+      const title = request.type === DELIVERIES ? request.type : request.other;
+
+      dispatch(
+        setRequest(
+          {
+            isResponse: false,
+            requestingHelp: true,
+            parentSnapshot: null,
+            parentRef: null,
+            status: PostStatus.open,
+            creatorGivenRating: 0,
+            parentCreatorGivenRating: 0,
+            updateSeenBy: [],
+            creatorRatedAt: null,
+            parentCreatorRatedAt: null,
+            positiveResponseCount: 0,
+            negativeResponseCount: 0,
+            title,
+            description: request.description,
+            creatorRef: profileState.userRef!,
+            streetAddress:
+              mapAddress ||
+              t(
+                'modules.requests.containers.NewRequestsContainer.address_error',
+              ),
+            creatorSnapshot: profileState.profile!.toObject() as IUser,
+            latLng: new firestore.GeoPoint(
+              currentLocation.lat,
+              currentLocation.lng,
+            ),
+          },
+          undefined,
+          phoneNumber,
+        ),
+      );
+      setIsSubmitting(true);
+    } else {
+      setAuthModalIsVisible(true);
+    }
   };
   const newAddressModalSuccess = value => {
     setPostLocation(value);

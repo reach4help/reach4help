@@ -7,9 +7,7 @@ import {
   RequestFirestoreConverter,
   // TODO: (es) RequestStatus,
 } from 'src/models/requests';
-import {
-  AbstractRequestStatus,
-} from 'src/models/requests/RequestWithOffersAndTimeline';
+import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
 // TODO: (es) import { PrivilegedUserInformation, IPrivilegedUserInformation } from 'src/models/users/privilegedInformation';
 
 import { IgetMyPosts, IgetRequestPosts } from './types';
@@ -63,19 +61,18 @@ export const getMyPinReqestPosts = async ({ userRef, status }: IgetMyPosts) => {
     initialQuery = initialQuery.where('status', '==', status);
   }
   // TODO: (es) coud I have dataRequests = await
-  await initialQuery
+  return initialQuery
     .withConverter(RequestFirestoreConverter)
     .get()
     .then(snapshot => {
       dataRequests = snapshot.docs.map(doc => {
         const docVal = {
-        id: doc.id,
-        _requestRef: doc.ref,
-        // TODO:(es) Convert to request here?
-        ...doc.data(),
-      };
-    return docVal;
-});
+          id: doc.id,
+          _requestRef: doc.ref,
+          // TODO:(es) Convert to request here?
+          ...doc.data(),
+        };
+        return docVal;
+      });
     });
-  return { data: { data: dataRequests, success: true } };
 };
