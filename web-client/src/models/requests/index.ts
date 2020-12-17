@@ -52,15 +52,6 @@ export interface IRequest extends firebase.firestore.DocumentData {
   updatedAt?: firebase.firestore.Timestamp;
 }
 
-// TODO: (es) remove if not needed
-// const getId = (requestRefPath: string | undefined) => {
-//   if (!requestRefPath) {
-//     return undefined;
-//   }
-//   const pathSegments = requestRefPath.split('/');
-//   return pathSegments[pathSegments.length - 1];
-// };
-
 export class Request implements IRequest {
   constructor(
     requestId: string | undefined,
@@ -84,15 +75,12 @@ export class Request implements IRequest {
     pinRatedAt: firebase.firestore.Timestamp | null = null,
     cavRatedAt: firebase.firestore.Timestamp | null = null,
   ) {
-
     // TODO: (es) figure out when requestRef is populated, when not
-    console.log('zz4');
     if (requestId) {
       this._requestRef = firestore()
-      .collection('requests')
-      .doc(requestId);
-      console.log('zz4a', this._requestRef);
-    };
+        .collection('requests')
+        .doc(requestId);
+    }
 
     this._requestId = requestId;
     this._cavUserRef = cavUserRef;
@@ -328,7 +316,6 @@ export class Request implements IRequest {
   }
 
   public static factory(data: IRequest): Request {
-    console.log('factoryx', data.pinUserSnapshot);
     return new Request(
       data.requestId ? data.requesId : data.id,
       data.pinUserRef,
@@ -348,29 +335,6 @@ export class Request implements IRequest {
       data.pinRatedAt,
       data.cavRatedAt,
     );
-  }
-
-  // TODO: See if there are other options to get rid of factoryFromUnderscore
-  // For some reason, the object being passed only has _ and is  not a true request
-  public static factoryFromUnderscore(dataWithoutUnderscore: IRequest) {
-    const dataWithUnderscore = { ...dataWithoutUnderscore };
-    dataWithUnderscore.id = dataWithoutUnderscore.id;
-    dataWithUnderscore.requestRef = dataWithoutUnderscore.requestRef ? dataWithoutUnderscore.requestRef : dataWithoutUnderscore._requestRef;
-    dataWithUnderscore.pinUserRef = dataWithoutUnderscore._pinUserRef;
-    dataWithUnderscore.pinUserSnapshot = dataWithoutUnderscore._pinUserSnapshot;
-    dataWithUnderscore.title = dataWithoutUnderscore._title;
-    dataWithUnderscore.description = dataWithoutUnderscore._description;
-    dataWithUnderscore.latLng = dataWithoutUnderscore._latLng;
-    dataWithUnderscore.streetAddress = dataWithoutUnderscore._streetAddress;
-    dataWithUnderscore.cavUserRef = dataWithoutUnderscore._cavUserRef;
-    dataWithUnderscore.status = dataWithoutUnderscore._status;
-    dataWithUnderscore.createdAt = dataWithoutUnderscore._createdAt;
-    dataWithUnderscore.updatedAt = dataWithoutUnderscore._updatedAt;
-    dataWithUnderscore.pinRating = dataWithoutUnderscore._pinRating;
-    dataWithUnderscore.cavRating = dataWithoutUnderscore._cavRating;
-    dataWithUnderscore.pinRatedAt = dataWithoutUnderscore._pinRatedAt;
-    dataWithUnderscore.cavRatedAt = dataWithoutUnderscore._cavRatedAt;
-    return this.factory(dataWithUnderscore);
   }
 
   toObject(): object {

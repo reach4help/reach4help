@@ -1,66 +1,51 @@
 /* eslint-disable no-console */
-import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
+import { PostState } from 'src/ducks/posts/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import {
-  // getCavRequestPosts,
-  // getMyPinRequestPosts, TODO: (es) Replace with getRequestTimeline
-  resetSetRequestState,
-  setRequest as updateRequest,
-} from 'src/ducks/requests/actions';
-import { PostState } from 'src/ducks/requests/types';
+import { resetSetRequestState } from 'src/ducks/requests/actions';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
 import { firestore as firestore2 } from 'src/firebase';
-import { IOffer, OfferStatus } from 'src/models/offers';
-import { IRequest, RequestStatus } from 'src/models/requests';
-import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
+import { Post } from 'src/models/Post';
 import { ApplicationPreference } from 'src/models/users';
 import {
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
-} from 'src/modules/requests/constants';
-import { AppState } from 'src/store';
+} from 'src/modules/MyPosts/constants';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import {
   InformationModal,
   makeLocalStorageKey,
 } from '../../../../components/Modals/OneTimeModal';
-import BottomPanel from '../../components/BottomPanel/BottomPanel';
-import OffersList from '../../components/OffersList/OffersList';
-import TimelineList from '../../components/TimelineList/TimelineList';
 import TopPanel from '../../components/TopPanel/TopPanel';
 import {
   // TimelineOfferPostViewLocation,
   TimelineViewLocation,
 } from '../../constants';
 
-const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> = ({
-  requestId,
-  accepted,
-}) => {
-  // TODO: (es) - big refactor - rename src/firestore to something else
+const TimelineViewContainer: React.FC<{
+  requestId: string;
+  accepted?: boolean;
+}> = ({ requestId, accepted }) => {
+  // TODO: (es) REMOVE REFERENCES TO DATABASE FROM CONTAINER
   const requestRef = firestore2.collection('requests').doc(requestId);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [request, setRequest] = useState<
-    RequestWithOffersAndTimeline | undefined
-  >(undefined);
+  const [request, setRequest] = useState<Post | undefined>(undefined);
 
-  const [shouldRedirectToFinished, setShouldRedirectToFinished] = useState<
-    boolean
-  >(false);
+  // const [shouldRedirectToFinished, setShouldRedirectToFinished] = useState<
+  //   boolean
+  // >(false);
 
-  const [shouldRedirectToArchived, setShouldRedirectToArchived] = useState<
-    boolean
-  >(false);
+  // const [shouldRedirectToArchived, setShouldRedirectToArchived] = useState<
+  //   boolean
+  // >(false);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -72,10 +57,6 @@ const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> 
 
   const offersState = useSelector(
     ({ offers }: { offers: OffersState }) => offers,
-  );
-
-  const phoneNumber = useSelector(
-    (state: AppState) => state.auth.user?.phoneNumber,
   );
 
   const isCav =
@@ -90,15 +71,11 @@ const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> 
   }, [dispatch]);
 
   useEffect(() => {
-    const requestTemp: RequestWithOffersAndTimeline | undefined =
-      requestsState.syncPostWithOffersAndTimelinesState.data;
-    // requestTemp =
-    //   requestTemp ||
-    //   (requestsState.syncCavRequestPostsState.data &&
-    //   requestsState.syncCavRequestPostsState.data[requestId]
-    //     ? requestsState.syncCavRequestPostsState.data[requestId]
-    //     : undefined);
-    setRequest(requestTemp);
+    if (requestsState.myRequests.data) {
+      const requestTemp: Post | undefined =
+        requestsState.myRequests.data[requestId];
+      setRequest(requestTemp);
+    }
   }, [requestsState]);
 
   useEffect(() => {
@@ -118,8 +95,8 @@ const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> 
     requestsState.setAction,
     offersState.setAction,
     dispatch,
-    shouldRedirectToFinished,
-    shouldRedirectToArchived,
+    // shouldRedirectToFinished,
+    // shouldRedirectToArchived,
     history,
     isCav,
   ]);
@@ -137,8 +114,8 @@ const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> 
         history.replace(TimelineViewLocation.toUrl({ requestRef }));
       } else {
         if (
-          !requestsState.syncPostWithOffersAndTimelinesState.data &&
-          !requestsState.syncPostWithOffersAndTimelinesState.loading
+          !requestsState.myRequests.data &&
+          !requestsState.myRequests.loading
         ) {
           // TODO: (es) reimplement this
           // dispatch(
@@ -155,8 +132,8 @@ const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> 
           // );
         }
         if (
-          !requestsState.syncPostWithOffersAndTimelinesState.data &&
-          !requestsState.syncPostWithOffersAndTimelinesState.loading
+          !requestsState.myRequests.data &&
+          !requestsState.myRequests.loading
         ) {
           dispatch(getPostWithOffersAndTimelineItems(requestRef));
         }
@@ -166,80 +143,80 @@ const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> 
 
   // TODO: (es) what? reimplement Figure out what this does
   // useEffect(() => {
-    // if (
-    //   profileState.profile &&
-    //   profileState.profile.applicationPreference &&
-    //   profileState.userRef
-    // ) {
-    //   if (request && request.status === RequestStatus.ongoing && accepted) {
-    //     history.replace(TimelineViewLocation.toUrl({ requestId }));
-    //   }
-    //   if (request && request.offers) {
-    //     let shouldRedirect = true;
-    //     for (const k in request.offers) {
-    //       if (request.offers[k].status === OfferStatus.pending) {
-    //         shouldRedirect = false;
-    //       }
-    //     }
-    //     if (shouldRedirect && accepted) {
-    //       history.replace(TimelineViewLocation.toUrl({ requestId }));
-    //     } else if (
-    //       !shouldRedirect &&
-    //       !accepted &&
-    //       profileState.profile.applicationPreference ===
-    //         ApplicationPreference.pin
-    //     ) {
-    //       history.replace(TimelineOfferPostViewLocation.toUrl({ requestId }));
-    //     }
-    //   }
-    // }
+  // if (
+  //   profileState.profile &&
+  //   profileState.profile.applicationPreference &&
+  //   profileState.userRef
+  // ) {
+  //   if (request && request.status === RequestStatus.ongoing && accepted) {
+  //     history.replace(TimelineViewLocation.toUrl({ requestId }));
+  //   }
+  //   if (request && request.offers) {
+  //     let shouldRedirect = true;
+  //     for (const k in request.offers) {
+  //       if (request.offers[k].status === OfferStatus.pending) {
+  //         shouldRedirect = false;
+  //       }
+  //     }
+  //     if (shouldRedirect && accepted) {
+  //       history.replace(TimelineViewLocation.toUrl({ requestId }));
+  //     } else if (
+  //       !shouldRedirect &&
+  //       !accepted &&
+  //       profileState.profile.applicationPreference ===
+  //         ApplicationPreference.pin
+  //     ) {
+  //       history.replace(TimelineOfferPostViewLocation.toUrl({ requestId }));
+  //     }
+  //   }
+  // }
   // }, [accepted, request, requestId, history, profileState, ]);
 
   if (!(profileState.profile && request)) {
     return <LoadingWrapper />;
   }
 
-  const handleRequest = ({
-    status,
-    pinRating,
-    cavRating,
-  }: {
-    status?: RequestStatus;
-    pinRating?: number;
-    cavRating?: number;
-  }) => {
-    if (request && (status || pinRating || cavRating)) {
-      const updated = request.getRequest();
-      status && (updated.status = status);
-      pinRating &&
-        (updated.pinRating = pinRating) &&
-        (updated.pinRatedAt = firestore.Timestamp.now());
-      cavRating &&
-        (updated.cavRating = cavRating) &&
-        (updated.cavRatedAt = firestore.Timestamp.now());
-      if (updated.status === RequestStatus.ongoing && updated.pinRatedAt) {
-        setShouldRedirectToFinished(true);
-      }
-      if (updated.status === RequestStatus.completed && updated.cavRatedAt) {
-        setShouldRedirectToArchived(true);
-      }
-      dispatch(
-        updateRequest(updated.toObject() as IRequest, requestId, phoneNumber),
-      );
-    }
-  };
+  // const handleRequest = ({
+  //   status,
+  //   pinRating,
+  //   cavRating,
+  // }: {
+  //   status?: PostStatus;
+  //   pinRating?: number;
+  //   cavRating?: number;
+  // }) => {
+  //   if (request && (status || pinRating || cavRating)) {
+  //     status && (request.status = status);
+  //     // TODO: LOGIC TO IDENTIFY IF CREATOR OR PARENT IS BEING RATED
+  //     // pinRating &&
+  //     //   (request.pinRating = pinRating) &&
+  //     //   (request.pinRatedAt = firestore.Timestamp.now());
+  //     // cavRating &&
+  //     //   (request.cavRating = cavRating) &&
+  //     //   (request.cavRatedAt = firestore.Timestamp.now());
+  //     // if (request.status === RequestStatus.ongoing && updated.pinRatedAt) {
+  //     //   setShouldRedirectToFinished(true);
+  //     // }
+  //     // if (updated.status === RequestStatus.completed && updated.cavRatedAt) {
+  //     //   setShouldRedirectToArchived(true);
+  //     // }
+  //     // dispatch(
+  //     //   updateRequest(updated.toObject() as IRequest, requestId, phoneNumber),
+  //     // );
+  //   }
+  // };
 
-  const handleOffer = (action: boolean, id: string) => {
-    const offer = request.offers[id].getOffer();
-    if (action === true) {
-      offer.status = OfferStatus.accepted;
-    }
-    if (action === false) {
-      offer.status = OfferStatus.rejected;
-    }
-    offer.seenAt = null;
-    dispatch(setOffer(offer.toObject() as IOffer, id, phoneNumber));
-  };
+  // const handleOffer = (action: boolean, id: string) => {
+  //   const offer = request.offers[id].getOffer();
+  //   if (action === true) {
+  //     offer.status = OfferStatus.accepted;
+  //   }
+  //   if (action === false) {
+  //     offer.status = OfferStatus.rejected;
+  //   }
+  //   offer.seenAt = null;
+  //   dispatch(setOffer(offer.toObject() as IOffer, id, phoneNumber));
+  // };
 
   const instructions = [
     t('information_modal.TimelineViewContainer.0'),
@@ -268,35 +245,35 @@ const TimelineViewContainer: React.FC<{ requestId: string; accepted?: boolean}> 
         user={
           profileState.profile.applicationPreference ===
           ApplicationPreference.cav
-            ? request.pinUserSnapshot
-            : request.cavUserSnapshot
-            ? request.cavUserSnapshot
+            ? request.parentSnapshot?.creatorSnapshot
+            : request.creatorSnapshot
+            ? request.creatorSnapshot
             : undefined
         }
       />
-      {accepted && (
+      {/* {accepted && (
         <OffersList
           loading={false}
           destinationCoords={request.latLng}
           offers={request.offers}
           handleOffer={handleOffer}
         />
-      )}
-      {!accepted && request.timeline && profileState.userRef && (
+      )} */}
+      {/* {!accepted && request.timeline && profileState.userRef && (
         <>
           <TimelineList
             items={request.timeline}
             currentUser={profileState.userRef}
           />
         </>
-      )}
+      )} */}
       <div style={{ position: 'fixed', bottom: '0', width: '100%' }}>
-        <BottomPanel
+        {/* <BottomPanel
           request={request}
           currentUser={profileState.profile}
           handleRequest={handleRequest}
           isCav={isCav}
-        />
+        /> */}
       </div>
       <InformationModal
         title={t('information_modal.TimelineViewContainer.title')}

@@ -3,7 +3,7 @@ import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOff
 import { ApplicationPreference, User } from 'src/models/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
-export const { asyncType, observerType, syncType } = createActionTypeFactory(
+const { asyncType, syncType } = createActionTypeFactory(
   'REQUESTS',
 );
 
@@ -23,7 +23,7 @@ export const UPDATE = asyncType('UPDATE');
 
 export const SET_TEMP_REQUEST = syncType('SET_TEMP_REQUEST');
 
-export interface PostState {
+export interface RequestState {
   syncFindPostsState: {
     loading: boolean;
     data?: Record<string, RequestWithOffersAndTimeline>;

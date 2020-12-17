@@ -1,4 +1,4 @@
-import { /* TODO:(es) warning message Button, */ Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -90,7 +90,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
   const history = useHistory();
 
   const handleTimeline = (requestId: string | undefined) => {
-    console.log('xxxx', requestId);
     history.push(TimelineViewLocation.toUrl({ requestId }));
   };
 
@@ -98,7 +97,6 @@ const RequestPostItem: React.FC<RequestItemProps> = ({
     if (isCavAndOpenRequest) {
       toggleDetails(true);
     } else {
-      console.log('xxxx',request, 'a',request.requestId,'b');
       handleTimeline(request.requestId);
     }
   };

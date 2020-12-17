@@ -1,6 +1,6 @@
 // import TimelineItem from 'antd/lib/timeline/TimelineItem';
 // import { OfferStatus } from 'src/models/offers';
-import { IRequest, Request } from 'src/models/requests';
+import { Request } from 'src/models/requests';
 import {
   IRequestWithOffersAndTimelineItems,
   RequestWithOffersAndTimeline,
@@ -13,7 +13,7 @@ import {
   GET_CAV_REQUEST_POSTS,
   GET_FIND_POSTS,
   GET_MY_PIN_REQUEST_POSTS,
-  PostState,
+  RequestState,
   RESET_CAV_REQUEST_POSTS,
   RESET_FIND_REQUEST_POSTS,
   RESET_PIN_REQUEST_POSTS,
@@ -42,7 +42,7 @@ const initialSyncPostsState = {
   error: undefined,
 };
 
-const initialState: PostState = {
+const initialState: RequestState = {
   syncMyPinRequestPostsState: initialSyncPostsState,
   syncCavRequestPostsState: initialSyncPostsState,
   syncFindPostsState: initialSyncPostsState,
@@ -56,14 +56,14 @@ const initialState: PostState = {
   newRequestTemp: undefined,
 };
 
-export default createReducer<PostState>(
+export default createReducer<RequestState>(
   {
-    [GET_FIND_POSTS.PENDING]: (state: PostState) => {
+    [GET_FIND_POSTS.PENDING]: (state: RequestState) => {
       state.syncFindPostsState.loading = true;
       state.syncFindPostsState.data = undefined;
     },
     [GET_FIND_POSTS.COMPLETED]: (
-      state: PostState,
+      state: RequestState,
       {
         payload,
       }: {
@@ -87,19 +87,19 @@ export default createReducer<PostState>(
       state.syncFindPostsState.data = mappedData;
     },
     [GET_FIND_POSTS.REJECTED]: (
-      state: PostState,
+      state: RequestState,
       { payload }: { payload: Error },
     ) => {
       state.syncFindPostsState.data = undefined;
       state.syncFindPostsState.loading = false;
       state.syncFindPostsState.error = payload;
     },
-    [GET_MY_PIN_REQUEST_POSTS.PENDING]: (state: PostState) => {
+    [GET_MY_PIN_REQUEST_POSTS.PENDING]: (state: RequestState) => {
       state.syncMyPinRequestPostsState.loading = true;
       state.syncMyPinRequestPostsState.data = undefined;
     },
     [GET_MY_PIN_REQUEST_POSTS.COMPLETED]: (
-      state: PostState,
+      state: RequestState,
       {
         payload,
       }: {
@@ -116,30 +116,28 @@ export default createReducer<PostState>(
       const requests: Record<string, Request> = {};
       const requestData = payload.data.data;
       for (const key in requestData) {
-
         // if (key) required by eslint guard-for-in rule
         if (key) {
           const r = requestData[key];
-          console.log('xxx rrrr', r);
-          requests[key] = Request.factoryFromUnderscore(r as IRequest);
+          requests[key] = r.getRequest();
         }
       }
       state.syncMyPinRequestPostsState.data = requests;
     },
     [GET_MY_PIN_REQUEST_POSTS.REJECTED]: (
-      state: PostState,
+      state: RequestState,
       { payload }: { payload: Error },
     ) => {
       state.syncMyPinRequestPostsState.data = undefined;
       state.syncMyPinRequestPostsState.loading = false;
       state.syncMyPinRequestPostsState.error = payload;
     },
-    [GET_CAV_REQUEST_POSTS.PENDING]: (state: PostState) => {
+    [GET_CAV_REQUEST_POSTS.PENDING]: (state: RequestState) => {
       state.syncCavRequestPostsState.loading = true;
       state.syncCavRequestPostsState.data = undefined;
     },
     [GET_CAV_REQUEST_POSTS.COMPLETED]: (
-      state: PostState,
+      state: RequestState,
       {
         payload,
       }: {
@@ -164,31 +162,31 @@ export default createReducer<PostState>(
       );
     },
     [GET_CAV_REQUEST_POSTS.REJECTED]: (
-      state: PostState,
+      state: RequestState,
       { payload }: { payload: Error },
     ) => {
       state.syncCavRequestPostsState.data = undefined;
       state.syncCavRequestPostsState.loading = false;
       state.syncCavRequestPostsState.error = payload;
     },
-    [SET.PENDING]: (state: PostState) => {
+    [SET.PENDING]: (state: RequestState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [SET.COMPLETED]: (state: PostState) => {
+    [SET.COMPLETED]: (state: RequestState) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
       state.newRequestTemp = undefined;
     },
-    [SET.REJECTED]: (state: PostState, { payload }: { payload: Error }) => {
+    [SET.REJECTED]: (state: RequestState, { payload }: { payload: Error }) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
       state.newRequestTemp = undefined;
     },
     [SET_TEMP_REQUEST]: (
-      state: PostState,
+      state: RequestState,
       {
         payload,
       }: {
@@ -200,25 +198,25 @@ export default createReducer<PostState>(
     ) => {
       state.newRequestTemp = payload;
     },
-    [RESET_CAV_REQUEST_POSTS]: (state: PostState) => {
+    [RESET_CAV_REQUEST_POSTS]: (state: RequestState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.syncCavRequestPostsState.data = undefined;
       state.syncCavRequestPostsState.loading = false;
     },
-    [RESET_FIND_REQUEST_POSTS]: (state: PostState) => {
+    [RESET_FIND_REQUEST_POSTS]: (state: RequestState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.syncFindPostsState.data = undefined;
       state.syncFindPostsState.loading = false;
     },
-    [RESET_PIN_REQUEST_POSTS]: (state: PostState) => {
+    [RESET_PIN_REQUEST_POSTS]: (state: RequestState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.syncMyPinRequestPostsState.data = undefined;
       state.syncMyPinRequestPostsState.loading = false;
     },
-    [RESET_SET]: (state: PostState) => {
+    [RESET_SET]: (state: RequestState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.syncMyPinRequestPostsState.data = undefined;
@@ -226,7 +224,10 @@ export default createReducer<PostState>(
       state.syncCavRequestPostsState.data = undefined;
       state.syncCavRequestPostsState.loading = false;
     },
-    [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
+    [CHANGE_MODAL]: (
+      state: RequestState,
+      { payload }: { payload: boolean },
+    ) => {
       state.setAction.modalState = payload;
       if (!payload) {
         state.setAction.success = false;

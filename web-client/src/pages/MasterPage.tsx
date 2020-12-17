@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import { postUrlRoot } from 'src/modules/requests/constants';
+import { RootUrl } from 'src/modules/MyPosts/constants';
 import { Module } from 'src/types/module';
 
 import modules from '../modules';
@@ -32,19 +32,19 @@ const MasterPage = (): ReactElement => {
       case '/create':
       case '/login':
       case '/phone':
-      case `${postUrlRoot}`:
+      case `${RootUrl}`:
       case '/personal-data':
       case '/timeline':
       case '/personal-data/role-info':
       case '/phone/entry':
       case '/phone/verify':
-      case `${postUrlRoot}/accepted`:
-      case `${postUrlRoot}/archived`:
-      case `${postUrlRoot}/find`:
-      case `${postUrlRoot}/finished`:
-      case `${postUrlRoot}/new`:
-      case `${postUrlRoot}/ongoing`:
-      case `${postUrlRoot}/open`:
+      case `${RootUrl}/accepted`:
+      case `${RootUrl}/archived`:
+      case `${RootUrl}/find`:
+      case `${RootUrl}/finished`:
+      case `${RootUrl}/new`:
+      case `${RootUrl}/ongoing`:
+      case `${RootUrl}/open`:
         return `${title}: `.concat(
           t(`routeSubtitles.${path.replace(/\//g, '_')}`),
         );
