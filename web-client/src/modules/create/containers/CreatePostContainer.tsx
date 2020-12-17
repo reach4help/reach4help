@@ -68,15 +68,13 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   const addresses = useSelector(
     (state: AppState) => state.profile.privilegedInformation?.addresses,
   );
-  const [postLocation, setPostLocation] = useState<IUserAddress>(
-    addresses && Object.keys(addresses).length > 0
-      ? addresses[Object.keys(addresses)[0]]
-      : defaultUserAddress,
+
+  const newPostState = useSelector(
+    ({ posts }: { posts: PostState }) => posts.setAction,
   );
 
-  /* NewAddressModal */
-  const [showNewAddressModal, setShowNewAddressModal] = useState<boolean>(
-    false,
+  const newPostTemp = useSelector(
+    ({ posts }: { posts: PostState }) => posts.newRequestTemp,
   );
   const [showLocationPopup, setShowLocationPopup] = useState<boolean>(false);
   const [geocodeFailed, setGeocodeFailed] = useState<boolean>(false);
