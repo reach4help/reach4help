@@ -13,12 +13,12 @@ import {
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
+import { resetSetRequestState, setRequest } from 'src/ducks/posts/actions';
+import { PostState } from 'src/ducks/posts/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { resetSetRequestState, setRequest } from 'src/ducks/requests/actions';
-import { PostState } from 'src/ducks/requests/types';
-import { IRequest, Request } from 'src/models/requests';
+import { IPost, Post, PostStatus } from 'src/models/Post';
 import { IUser } from 'src/models/users';
-import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/MyPosts/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -101,55 +101,55 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
     getCoordsFromProfile(profileState),
   );
 
-  const newRequestState = useSelector(
-    ({ requests }: { requests: PostState }) => requests.setAction,
+  const newPostState = useSelector(
+    ({ posts }: { posts: PostState }) => posts.setAction,
   );
 
-  const newRequestTemp = useSelector(
-    ({ requests }: { requests: PostState }) => requests.newRequestTemp,
+  const newPostTemp = useSelector(
+    ({ posts }: { posts: PostState }) => posts.newRequestTemp,
   );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (
-      newRequestTemp?.requestPayload &&
-      newRequestTemp.requestPayload instanceof Request &&
-      !newRequestTemp?.requestId &&
+      newPostTemp?.requestPayload &&
+      newPostTemp.requestPayload instanceof Post &&
+      !newPostTemp?.requestId &&
       phoneNumber &&
-      !newRequestState.loading &&
-      !newRequestState.success
+      !newPostState.loading &&
+      !newPostState.success
     ) {
       dispatch(
         setRequest(
-          newRequestTemp.requestPayload.toObject() as IRequest,
+          newPostTemp.requestPayload.toObject() as IPost,
           undefined,
           phoneNumber,
         ),
       );
     }
-  }, [phoneNumber, newRequestTemp, dispatch, newRequestState]);
+  }, [phoneNumber, newPostTemp, dispatch, newPostState]);
 
   useEffect(() => {
-    if (newRequestTemp && newRequestTemp.requestPayload) {
+    if (newPostTemp && newPostTemp.requestPayload) {
       setRequestInfo({
         type:
-          newRequestTemp.requestPayload.title === DELIVERIES
-            ? newRequestTemp.requestPayload.title
+          newPostTemp.requestPayload.title === DELIVERIES
+            ? newPostTemp.requestPayload.title
             : 'Other',
-        streetAddress: newRequestTemp.requestPayload.streetAddress,
-        description: newRequestTemp.requestPayload.description,
-        other: newRequestTemp.requestPayload.title,
+        streetAddress: newPostTemp.requestPayload.streetAddress,
+        description: newPostTemp.requestPayload.description,
+        other: newPostTemp.requestPayload.title,
       });
       setShowReviewPage(true);
     }
-  }, [newRequestTemp]);
+  }, [newPostTemp]);
 
   useEffect(() => {
-    if (newRequestState.success) {
+    if (newPostState.success) {
       setShowConfirmationPage(true);
     }
-  }, [newRequestState, dispatch]);
+  }, [newPostState, dispatch]);
 
   const reviewRequestSubmitHandler = request => {
     if (onboarded) {
@@ -158,15 +158,27 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = () => {
       dispatch(
         setRequest(
           {
+            isResponse: false,
+            requestingHelp: true,
+            parentSnapshot: null,
+            parentRef: null,
+            status: PostStatus.open,
+            creatorGivenRating: 0,
+            parentCreatorGivenRating: 0,
+            updateSeenBy: [],
+            creatorRatedAt: null,
+            parentCreatorRatedAt: null,
+            positiveResponseCount: 0,
+            negativeResponseCount: 0,
             title,
             description: request.description,
-            pinUserRef: profileState.userRef!,
+            creatorRef: profileState.userRef!,
             streetAddress:
               mapAddress ||
               t(
                 'modules.requests.containers.NewRequestsContainer.address_error',
               ),
-            pinUserSnapshot: profileState.profile!.toObject() as IUser,
+            creatorSnapshot: profileState.profile!.toObject() as IUser,
             latLng: new firestore.GeoPoint(
               currentLocation.lat,
               currentLocation.lng,

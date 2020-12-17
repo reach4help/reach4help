@@ -10,21 +10,12 @@ import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
-import PhoneIcon from 'src/assets/phone-icon.svg';
-import SMSIcon from 'src/assets/sms.svg';
-import { RequestStatus } from 'src/models/requests';
-import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
+import { Post, PostStatus } from 'src/models/Post';
 import { ApplicationPreference, User } from 'src/models/users/index';
 import { COLORS } from 'src/theme/colors';
 import styled, { css } from 'styled-components';
 
 const { Text } = Typography;
-
-interface TopPanelProps {
-  request: RequestWithOffersAndTimeline;
-  user?: User;
-  goBack: Function;
-}
 
 const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
   const [togglePanel, setTogglePanel] = useState(false);
@@ -43,7 +34,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
           />
         </div>
         <StatusButton type="button" className={userRequestStatus.toLowerCase()}>
-          {userRequestStatus === RequestStatus.pending
+          {userRequestStatus === PostStatus.pending
             ? t('timeline.open_status')
             : userRequestStatus}
         </StatusButton>
@@ -60,15 +51,15 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
         <UserDetails>
           <Detail>
             <DisplayName className={userRequestStatus}>
-              {userRequestStatus === RequestStatus.pending
+              {userRequestStatus === PostStatus.pending
                 ? t('timeline.cav_wait')
                 : user?.displayName}
             </DisplayName>
             {user?.applicationPreference === ApplicationPreference.cav &&
-            userRequestStatus !== RequestStatus.pending ? (
+            userRequestStatus !== PostStatus.pending ? (
               <Volunteer>{t('timeline.cav')}</Volunteer>
             ) : null}
-            {userRequestStatus === RequestStatus.pending ? null : (
+            {userRequestStatus === PostStatus.pending ? null : (
               <Info>
                 <InfoDetail>
                   <LikesIcon />
@@ -87,34 +78,38 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
               </Info>
             )}
           </Detail>
-          {userRequestStatus === RequestStatus.ongoing && isMobile && (
-            <a href={`sms:${request.contactNumber}`}>
-              <img
-                src={SMSIcon}
-                style={{
-                  paddingTop: '5px',
-                  height: '45px',
-                  width: '45px',
-                }}
-                alt={t('modules.navigation.components.TopPanel.a11y_sms_icon')}
-              />
-            </a>
+          {userRequestStatus === PostStatus.ongoing && isMobile && (
+            null
+            // TODO: Add logic to fetch number from cloud function separately
+            // <a href={`sms:${request.contactNumber}`}>
+            //   <img
+            //     src={SMSIcon}
+            //     style={{
+            //       paddingTop: '5px',
+            //       height: '45px',
+            //       width: '45px',
+            //     }}
+            //     alt={t('modules.navigation.components.TopPanel.a11y_sms_icon')}
+            //   />
+            // </a>
           )}
-          {userRequestStatus === RequestStatus.ongoing && (
-            <a style={{ color: 'white' }} href={`tel:${request.contactNumber}`}>
-              {!isMobile && (
-                <span style={{ paddingRight: '5px' }}>
-                  {' '}
-                  {request.contactNumber}{' '}
-                </span>
-              )}
-              <img
-                src={PhoneIcon}
-                alt={t(
-                  'modules.navigation.components.TopPanel.a11y_phone_icon',
-                )}
-              />
-            </a>
+          {userRequestStatus === PostStatus.ongoing && (
+            null
+            // TODO: Add logic to fetch number from cloud function separately
+            // <a style={{ color: 'white' }} href={`tel:${request.contactNumber}`}>
+            //   {!isMobile && (
+            //     <span style={{ paddingRight: '5px' }}>
+            //       {' '}
+            //       {request.contactNumber}{' '}
+            //     </span>
+            //   )}
+            //   <img
+            //     src={PhoneIcon}
+            //     alt={t(
+            //       'modules.navigation.components.TopPanel.a11y_phone_icon',
+            //     )}
+            //   />
+            // </a>
           )}
         </UserDetails>
       </UserRow>
@@ -355,8 +350,9 @@ const AddressInfo = styled.div`
 `;
 
 interface TopPanelProps {
-  request: RequestWithOffersAndTimeline;
+  request: Post;
   user?: User;
+  goBack: Function;
 }
 
 export default TopPanel;

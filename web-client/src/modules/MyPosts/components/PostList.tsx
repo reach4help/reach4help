@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
-import { Offer } from 'src/models/offers';
-import { Request } from 'src/models/requests';
+import { Post } from 'src/models/Post';
 
-const RequestList: React.FC<RequestListProps> = ({
-  requests,
+import PostItem from './PostItem';
+
+const PostList: React.FC<PostListProps> = ({
+  posts,
   loading,
   // TODO: (es) remove handleTimeline,
   isCavAndOpenRequest,
   isPinAndOpenRequest,
-  RequestItem,
-  cavDeclinedOffersGiven,
   hideUserPics,
   toCloseRequest,
 }): React.ReactElement => {
@@ -21,24 +19,18 @@ const RequestList: React.FC<RequestListProps> = ({
   >({});
 
   useEffect(() => {
-    if (requests) {
+    if (posts) {
       const internalRequestList: React.ReactElement<any>[] = [];
       const internalRequestsRendered: Record<string, boolean> = {};
-      for (const id in requests) {
-        if (id && requests[id] && !requestsRendered[id]) {
+      for (const id in posts) {
+        if (id && posts[id] && !requestsRendered[id]) {
           internalRequestsRendered[id] = true;
           internalRequestList.push(
-            <RequestItem
+            <PostItem
               key={id}
               // TODO: (es) remove requestId={id} // TODO: (es) Use key instead?  what is key used for?
-              request={requests[id]}
-              // TODO: (es) remove handleTimeline={handleTimeline}
-              isCavAndOpenRequest={isCavAndOpenRequest}
-              isPinAndOpenRequest={isPinAndOpenRequest}
-              offers={undefined}
-              toCloseRequest={(action?: boolean) =>
-                toCloseRequest && toCloseRequest(id, action)
-              }
+              post={posts[id]}
+              handleRequest={() => null}
             />,
           );
         }
@@ -50,11 +42,9 @@ const RequestList: React.FC<RequestListProps> = ({
       }
     }
   }, [
-    requests,
-    // TODO: (es) remove handleTimeline,
+    posts,
     isCavAndOpenRequest,
     isPinAndOpenRequest,
-    cavDeclinedOffersGiven,
     hideUserPics,
     requestsRendered,
     toCloseRequest,
@@ -69,17 +59,14 @@ const RequestList: React.FC<RequestListProps> = ({
   return <div>{requestList}</div>;
 };
 
-interface RequestListProps {
-  requests?: Record<string, Request>;
+interface PostListProps {
+  posts?: Record<string, Post>;
   loading: boolean;
   // TODO: (es) remove handleTimeline?: Function;
   isCavAndOpenRequest?: boolean;
   isPinAndOpenRequest?: boolean;
-  RequestItem: React.FC<any>;
-  pendingOffersGiven?: Record<string, Offer[]>;
-  cavDeclinedOffersGiven?: Record<string, Offer[]>;
   hideUserPics?: boolean;
   toCloseRequest?: Function;
 }
 
-export default RequestList;
+export default PostList;
