@@ -372,7 +372,7 @@
       "create": {
         "stepTitles": {
           "details": "Details",
-          "map": "Map",
+          "map": "Location",
           "summary": "Summary"
         },
         "postDetails": {

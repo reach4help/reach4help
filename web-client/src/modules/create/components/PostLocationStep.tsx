@@ -1,10 +1,13 @@
-import { Button, Select } from 'antd';
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { Select } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import {
   AddressDisplay,
   ButtonsDisplay,
+  DisplayButton,
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import { COLORS } from 'src/theme/colors';
@@ -19,6 +22,8 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
   nextHandler,
   prevHandler,
 }) => {
+  const { t } = useTranslation();
+
   const handleAddressChange = value => {
     if (value === 'add') {
       setShowNewAddressModal(true);
@@ -51,16 +56,26 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
           </Select>
         </ChooserDiv>
         <AddressDisplay location={postLocation} />
-        <ButtonsDisplay>
-          <DisplayedButton type="default" block onClick={prevHandler}>
-            Back
-          </DisplayedButton>
-
-          <DisplayedButton type="primary" block onClick={nextHandler}>
-            Next
-          </DisplayedButton>
-        </ButtonsDisplay>
       </LocationFormDiv>
+      <ButtonsDisplay>
+        <DisplayButton
+          type="default"
+          block
+          onClick={prevHandler}
+          icon={<ArrowLeftOutlined />}
+        >
+          {t('back')}
+        </DisplayButton>
+
+        <DisplayButton
+          type="primary"
+          block
+          icon={<ArrowRightOutlined />}
+          onClick={nextHandler}
+        >
+          {t('next')}
+        </DisplayButton>
+      </ButtonsDisplay>
     </PostLocationWrapper>
   );
 };
@@ -71,11 +86,6 @@ const LocationFormDiv = styled.div`
 `;
 const PostLocationWrapper = styled.div`
   height: 100%;
-`;
-
-const DisplayedButton = styled(Button)`
-  margin: 5px 0;
-  flex: 1 1 1;
 `;
 
 const ChooserDiv = styled.div`
