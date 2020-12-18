@@ -104,7 +104,7 @@ interface PostLocationStepProps {
   addresses: Record<string, IUserAddress> | undefined;
   postLocation: any;
   postDetails: any;
-  setShowNewAddressModal: (boolean) => void;
+  setShowNewAddressModal: (any) => void;
   setPostLocation: (any) => void;
   nextHandler: (any) => void;
   prevHandler: () => void;
