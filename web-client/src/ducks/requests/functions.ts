@@ -53,7 +53,6 @@ export const getFindPosts = async ({ lat, lng }: IgetRequestPosts) =>
   });
 
 export const getMyPinReqestPosts = async ({ userRef, status }: IgetMyPosts) => {
-  let dataRequests;
   let initialQuery = firestore
     .collection('requests')
     .where('pinUserRef', '==', userRef);
@@ -65,7 +64,7 @@ export const getMyPinReqestPosts = async ({ userRef, status }: IgetMyPosts) => {
     .withConverter(RequestFirestoreConverter)
     .get()
     .then(snapshot => {
-      dataRequests = snapshot.docs.map(doc => {
+      snapshot.docs.map(doc => {
         const docVal = {
           id: doc.id,
           _requestRef: doc.ref,

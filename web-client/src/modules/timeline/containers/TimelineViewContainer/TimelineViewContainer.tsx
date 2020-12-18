@@ -76,7 +76,7 @@ const TimelineViewContainer: React.FC<{
         requestsState.myRequests.data[requestId];
       setRequest(requestTemp);
     }
-  }, [requestsState]);
+  }, [requestsState, requestId]);
 
   useEffect(() => {
     if (
