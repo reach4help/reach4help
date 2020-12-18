@@ -234,6 +234,7 @@
         "search": "Search",
         "useMyLocation": "Use my location",
         "address_error_message": "Please enter your address.",
+        "title_error_message": "Please enter the title",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
         "body_error_message": "Please enter your description."
@@ -374,11 +375,11 @@
           "map": "Map",
           "summary": "Summary"
         },
-        "postDetails" : {
+        "postDetails": {
           "header": "Post Details",
           "titleLabel": "Title",
           "typeLabel": "Type",
-          "detailsLabel":"Enter details of what is needed"
+          "detailsLabel": "Enter details of what is needed"
         },
         "title": "Title",
         "defaults": {
