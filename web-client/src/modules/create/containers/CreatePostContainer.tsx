@@ -10,9 +10,9 @@ import { IRequest } from 'src/models/requests';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
-import PostDetails from 'src/modules/create/components/PostDetails';
-import PostMap from 'src/modules/create/components/PostMap';
-import PostSummary from 'src/modules/create/components/PostSummary';
+import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
+import PostLocationStep from 'src/modules/create/components/PostLocationStep';
+import PostSummary from 'src/modules/create/components/PostSummaryStep';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
@@ -116,7 +116,7 @@ const CreatePostContainer: React.FC = () => {
     {
       title: t('modules.create.stepTitles.details'),
       component: (
-        <PostDetails
+        <PostDetailsStep
           nextHandler={moveForwards}
           prevHandler={cancelCreate}
           postTypes={getTypes()}
@@ -128,7 +128,7 @@ const CreatePostContainer: React.FC = () => {
     {
       title: t('modules.create.stepTitles.map'),
       component: (
-        <PostMap
+        <PostLocationStep
           setShowNewAddressModal={setShowNewAddressModal}
           nextHandler={moveForwards}
           prevHandler={moveBackwards}
@@ -174,7 +174,7 @@ const CreatePostContainer: React.FC = () => {
 
 const StepsWrapper = styled.div`
   height: calc(100%-98px);
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 `;
 

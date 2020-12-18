@@ -1,17 +1,17 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import WebClientMap from 'src/components/WebClientMap/WebClientMap';
+import { AddressDisplay } from 'src/modules/create/components/DisplayElements';
+import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import styled from 'styled-components';
 
-import WebClientMap from '../../../components/WebClientMap/WebClientMap';
-import PostConfirmation from './PostConfirmation';
-
 const PostSummary: React.FC<PostSummaryProps> = ({
-  prevHandler: onPrev,
+  prevHandler,
   postDetails,
   postLocation,
-  submitRequest,
+  submitPost,
 }) => {
   const { coords } = postLocation;
   const [showConfirmationPage, setShowConfirmationPage] = useState(false);
@@ -23,11 +23,10 @@ const PostSummary: React.FC<PostSummaryProps> = ({
         <PostConfirmation
           showModal={showConfirmationPage}
           closeModal={() => {
-            setShowConfirmationPage(false);
-            // because I could observe race conditions in cloud function
-            setTimeout(() => {
+            submitPost().then(() => {
               history.replace(MyRequestPostsLocationUrl);
-            }, 150);
+            });
+            setShowConfirmationPage(false);
           }}
         />
       )}
@@ -49,20 +48,11 @@ const PostSummary: React.FC<PostSummaryProps> = ({
         <div> {postDetails.other}</div>
       </div>
       <h2>Location</h2>
-      <div>
-        <div>{postLocation.address1}</div>
-        <div>{postLocation.address2}</div>
-        <div>
-          {postLocation.city}, {postLocation.state}
-        </div>
-        <div>{postLocation.country}</div>
-        <div>{postLocation.postalCode}</div>
-      </div>
-      <Button onClick={onPrev}>Back</Button>{' '}
+      <AddressDisplay location={postLocation} />
+      <Button onClick={prevHandler}>Back</Button>{' '}
       <Button
         onClick={() => {
           setShowConfirmationPage(true);
-          submitRequest();
         }}
       >
         Submit
@@ -78,7 +68,7 @@ interface PostSummaryProps {
   postLocation: any;
   postDetails: any;
   prevHandler: () => void;
-  submitRequest: () => void;
+  submitPost: () => any;
 }
 
 export default PostSummary;
