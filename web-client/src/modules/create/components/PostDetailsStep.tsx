@@ -3,7 +3,7 @@ import { Button, Form, Input, Select } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
-import ButtonDisplay from 'src/modules/create/components/ButtonDisplay';
+import { ButtonsDisplay } from 'src/modules/create/components/DisplayElements';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -111,28 +111,28 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           </FormItem>
           <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
         </div>
-      </DetailsForm>
-      <ButtonDisplay>
-        <Button
-          type="default"
-          block
-          onClick={prevHandler}
-          icon={<CloseOutlined />}
-          style={{ marginRight: '5px', marginLeft: '5px' }}
-        >
-          {t('cancel')}
-        </Button>
+        <ButtonsDisplay>
+          <Button
+            type="default"
+            block
+            onClick={prevHandler}
+            icon={<CloseOutlined />}
+            style={{ marginRight: '5px', marginLeft: '5px' }}
+          >
+            {t('cancel')}
+          </Button>
 
-        <Button
-          type="primary"
-          block
-          icon={<ArrowRightOutlined />}
-          htmlType="submit"
-          style={{ marginRight: '5px', marginLeft: '5px' }}
-        >
-          {t('next')}
-        </Button>
-      </ButtonDisplay>
+          <Button
+            type="primary"
+            block
+            icon={<ArrowRightOutlined />}
+            htmlType="submit"
+            style={{ marginRight: '5px', marginLeft: '5px' }}
+          >
+            {t('next')}
+          </Button>
+        </ButtonsDisplay>
+      </DetailsForm>
     </PostDetailsWrapper>
   );
 };
@@ -146,13 +146,9 @@ const PostDetailsWrapper = styled.div`
 `;
 
 const DetailsForm = styled(Form)`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto !important;
   height: 100%;
-  margin-top: 15px !important;
-  margin-left: 15px;
   .ant-form-item-label {
     line-height: 14px;
   }

@@ -1,4 +1,4 @@
-import { Checkbox, Col, Form, Input, Modal, Row } from 'antd';
+import { Alert, Checkbox, Col, Form, Input, Modal, Row } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,8 @@ const ModalForm: React.FC<ModalFormProps> = ({
   visible,
   closeModal,
   modalSuccess,
+  geocodeFailed = false,
+  onGeocodeFail,
 }) => {
   const [form] = useForm();
   const dispatch = useDispatch();
@@ -53,6 +55,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
         }
       })
       .catch(error => {
+        onGeocodeFail();
         // eslint-disable-next-line no-console
         console.error('could not geocode', error);
       });
@@ -61,13 +64,21 @@ const ModalForm: React.FC<ModalFormProps> = ({
   const { t } = useTranslation();
   return (
     <Modal
-      title="Basic Modal"
+      title="Please Enter Your Address"
       visible={visible}
       onOk={handleFinish}
       onCancel={closeModal}
     >
       <Form form={form} onFinish={handleFinish}>
         <>
+          {geocodeFailed && (
+            <Alert
+              message="That address did not work"
+              description="Please try again"
+              type="error"
+              closable
+            />
+          )}
           <Row gutter={[16, 6]}>
             <Col span={24}>
               <Form.Item
@@ -138,21 +149,35 @@ interface ModalFormProps {
   closeModal: () => void;
   visible: boolean;
   modalSuccess: (any) => void;
+  geocodeFailed: boolean;
+  onGeocodeFail: () => void;
 }
+
+const NewAddressModal: React.FC<NewAddressModalProps> = ({
+  visible,
+  closeModal,
+  modalSuccess,
+  geocodeFailed = false,
+  onGeocodeFail,
+}) => (
+  <GeocoderComponent<ModalFormProps>
+    otherProps={{
+      visible,
+      closeModal,
+      modalSuccess,
+      geocodeFailed,
+      onGeocodeFail,
+    }}
+    Component={ModalForm}
+  />
+);
 
 interface NewAddressModalProps {
   visible: boolean;
   closeModal: () => void;
   modalSuccess: (any) => void;
+  geocodeFailed?: boolean;
+  onGeocodeFail: () => void;
 }
 
-export const NewAddressModal: React.FC<NewAddressModalProps> = ({
-  visible,
-  closeModal,
-  modalSuccess,
-}) => (
-  <GeocoderComponent<ModalFormProps>
-    otherProps={{ visible, closeModal, modalSuccess }}
-    Component={ModalForm}
-  />
-);
+export default NewAddressModal;

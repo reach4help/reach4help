@@ -1,46 +1,40 @@
 import { Button, Select } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
+import WebClientMap from 'src/components/WebClientMap/WebClientMap';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
-import { AddressDisplay } from 'src/modules/create/components/AddressDisplay';
-import { NewAddressModal } from 'src/modules/create/components/NewAddressModal';
+import {
+  AddressDisplay,
+  ButtonsDisplay,
+} from 'src/modules/create/components/DisplayElements';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
-
-import WebClientMap from '../../../components/WebClientMap/WebClientMap';
 
 const PostMap: React.FC<PostMapProps> = ({
   addresses,
   postLocation,
   postDetails,
   setPostLocation,
+  setShowNewAddressModal,
   nextHandler,
   prevHandler,
 }) => {
-  const [showAddressModal, setShowAddressModal] = useState<boolean>(false);
-  const modalSuccess = value => {
-    setPostLocation(value);
-    setShowAddressModal(false);
-  };
-  const closeModal = () => {
-    setShowAddressModal(false);
-  };
-
-  const handleNameChange = value => {
+  const mapHeight = '35%';
+  const handleAddressChange = value => {
     if (value === 'add') {
-      setShowAddressModal(true);
+      setShowNewAddressModal(true);
     } else {
-      setShowAddressModal(false);
+      setShowNewAddressModal(false);
       addresses && setPostLocation(addresses[value]);
     }
   };
 
   return (
     <PostMapWrapper>
-      {postLocation.coords && (
-        <div style={{ height: '35%' }}>
+      <div style={{ height: mapHeight }}>
+        {postLocation.coords && (
           <WebClientMap
-            height="35%"
+            height={mapHeight}
             destinations={[]}
             zoom={12}
             canRelocate={false}
@@ -49,9 +43,9 @@ const PostMap: React.FC<PostMapProps> = ({
               lng: postLocation.coords.longitude,
             }}
           />
-        </div>
-      )}
-      <div>
+        )}
+      </div>
+      <LocationFormDiv>
         <TitleWithUnderline level={2} color={COLORS.primaryDark}>
           Location for {postDetails.title}
         </TitleWithUnderline>
@@ -59,7 +53,7 @@ const PostMap: React.FC<PostMapProps> = ({
         <ChooserDiv>
           <Select
             style={{ width: 360 }}
-            onChange={handleNameChange}
+            onChange={handleAddressChange}
             defaultValue={postLocation.name}
           >
             {Object.keys(addresses || {}).map(addresskey => (
@@ -71,35 +65,23 @@ const PostMap: React.FC<PostMapProps> = ({
           </Select>
         </ChooserDiv>
         <AddressDisplay location={postLocation} />
-      </div>
-      <ButtonsDisplay>
-        <DisplayedButton type="default" block onClick={prevHandler}>
-          Back
-        </DisplayedButton>
+        <ButtonsDisplay>
+          <DisplayedButton type="default" block onClick={prevHandler}>
+            Back
+          </DisplayedButton>
 
-        <DisplayedButton type="primary" block onClick={nextHandler}>
-          Next
-        </DisplayedButton>
-      </ButtonsDisplay>
-      <NewAddressModal
-        visible={showAddressModal}
-        closeModal={closeModal}
-        modalSuccess={modalSuccess}
-      />
+          <DisplayedButton type="primary" block onClick={nextHandler}>
+            Next
+          </DisplayedButton>
+        </ButtonsDisplay>
+      </LocationFormDiv>
     </PostMapWrapper>
   );
 };
 
+const LocationFormDiv = styled.div``;
 const PostMapWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
   height: 100%;
-`;
-
-const ButtonsDisplay = styled.div`
-  display: flex;
-  margin-bottom: 150px;
 `;
 
 const DisplayedButton = styled(Button)`
@@ -115,6 +97,7 @@ interface PostMapProps {
   addresses: Record<string, IUserAddress> | undefined;
   postLocation: any;
   postDetails: any;
+  setShowNewAddressModal: (boolean) => void;
   setPostLocation: (any) => void;
   nextHandler: (any) => void;
   prevHandler: () => void;
