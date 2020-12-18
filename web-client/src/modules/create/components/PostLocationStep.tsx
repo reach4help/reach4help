@@ -6,6 +6,7 @@ import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnder
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import {
   AddressDisplay,
+  ButtonsContainer,
   ButtonsDisplay,
   DisplayButton,
   MapDisplay,
@@ -57,25 +58,27 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
         </ChooserDiv>
         <AddressDisplay location={postLocation} />
       </LocationFormDiv>
-      <ButtonsDisplay>
-        <DisplayButton
-          type="default"
-          block
-          onClick={prevHandler}
-          icon={<ArrowLeftOutlined />}
-        >
-          {t('back')}
-        </DisplayButton>
+      <ButtonsContainer>
+        <ButtonsDisplay>
+          <DisplayButton
+            type="default"
+            block
+            onClick={prevHandler}
+            icon={<ArrowLeftOutlined />}
+          >
+            {t('back')}
+          </DisplayButton>
 
-        <DisplayButton
-          type="primary"
-          block
-          icon={<ArrowRightOutlined />}
-          onClick={nextHandler}
-        >
-          {t('next')}
-        </DisplayButton>
-      </ButtonsDisplay>
+          <DisplayButton
+            type="primary"
+            block
+            icon={<ArrowRightOutlined />}
+            onClick={nextHandler}
+          >
+            {t('next')}
+          </DisplayButton>
+        </ButtonsDisplay>
+      </ButtonsContainer>
     </PostLocationWrapper>
   );
 };

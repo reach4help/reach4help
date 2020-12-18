@@ -43,12 +43,16 @@ export const ButtonsDisplay = ({ children }) => (
   <ButtonsDisplayDiv>{children}</ButtonsDisplayDiv>
 );
 
+export const ButtonsContainer = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`;
 export const DisplayButton = styled(Button)`
   flex: 1 1 1;
   margin: '5 0';
 `;
 
-export const ButtonsDisplayDiv = styled.div`
+const ButtonsDisplayDiv = styled.div`
   position: absolute;
   top: 90%;
 
