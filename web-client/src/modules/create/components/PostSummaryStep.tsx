@@ -4,13 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import {
   AddressDisplay,
-  ButtonsDisplayDiv,
+  ButtonsContainer,
+  ButtonsDisplay,
   DetailsDisplay,
   DisplayButton,
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const PostSummary: React.FC<PostSummaryProps> = ({
@@ -42,31 +44,36 @@ const PostSummary: React.FC<PostSummaryProps> = ({
       <MapDisplay coords={coords} />
       <DetailsDisplay details={postDetails} />
       <AddressDisplay location={postLocation} />
-      <ButtonsDisplayDiv>
-        <DisplayButton
-          type="default"
-          block
-          onClick={prevHandler}
-          icon={<ArrowLeftOutlined />}
-        >
-          {t('back')}
-        </DisplayButton>
+      <ButtonsContainer>
+        <ButtonsDisplay>
+          <DisplayButton
+            type="default"
+            block
+            onClick={prevHandler}
+            icon={<ArrowLeftOutlined />}
+          >
+            {t('back')}
+          </DisplayButton>
 
-        <DisplayButton
-          type="primary"
-          block
-          style={{ backgroundColor: 'green !important' }}
-          icon={<StarOutlined />}
-          onClick={handleSubmit}
-        >
-          {t('submit')}
-        </DisplayButton>
-      </ButtonsDisplayDiv>
+          <SubmitButton
+            type="primary"
+            block
+            icon={<StarOutlined />}
+            onClick={handleSubmit}
+          >
+            {t('submit')}
+          </SubmitButton>
+        </ButtonsDisplay>
+      </ButtonsContainer>
     </PostSummaryWrapper>
   );
 };
 
 const PostSummaryWrapper = styled.div``;
+
+const SubmitButton = styled(DisplayButton)`
+  background: ${COLORS.stepForwardNormal} !important;
+`;
 
 interface PostSummaryProps {
   postLocation: any;
