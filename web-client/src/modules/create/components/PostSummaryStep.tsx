@@ -1,8 +1,12 @@
-import { Button } from 'antd';
+import { ArrowLeftOutlined, StarOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import {
   AddressDisplay,
+  ButtonsDisplayDiv,
+  DetailsDisplay,
+  DisplayButton,
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
@@ -15,12 +19,15 @@ const PostSummary: React.FC<PostSummaryProps> = ({
   postLocation,
   submitPost,
 }) => {
+  const { t } = useTranslation();
   const { coords } = postLocation;
   const [showConfirmationPage, setShowConfirmationPage] = useState(false);
   const history = useHistory();
 
+  const handleSubmit = () => setShowConfirmationPage(true);
+
   return (
-    <>
+    <PostSummaryWrapper>
       {showConfirmationPage && (
         <PostConfirmation
           showModal={showConfirmationPage}
@@ -33,28 +40,33 @@ const PostSummary: React.FC<PostSummaryProps> = ({
         />
       )}
       <MapDisplay coords={coords} />
-      <DetailsDiv>
-        <h2>Details</h2>
-        <div> {postDetails.title} </div>
-        <div> {postDetails.type}</div>
-        <div> {postDetails.body} </div>
-        <div> {postDetails.other}</div>
-      </DetailsDiv>
-      <h2>Location</h2>
+      <DetailsDisplay details={postDetails} />
       <AddressDisplay location={postLocation} />
-      <Button onClick={prevHandler}>Back</Button>{' '}
-      <Button
-        onClick={() => {
-          setShowConfirmationPage(true);
-        }}
-      >
-        Submit
-      </Button>
-    </>
+      <ButtonsDisplayDiv>
+        <DisplayButton
+          type="default"
+          block
+          onClick={prevHandler}
+          icon={<ArrowLeftOutlined />}
+        >
+          {t('back')}
+        </DisplayButton>
+
+        <DisplayButton
+          type="primary"
+          block
+          style={{ backgroundColor: 'green !important' }}
+          icon={<StarOutlined />}
+          onClick={handleSubmit}
+        >
+          {t('submit')}
+        </DisplayButton>
+      </ButtonsDisplayDiv>
+    </PostSummaryWrapper>
   );
 };
 
-const DetailsDiv = styled.div``;
+const PostSummaryWrapper = styled.div``;
 
 interface PostSummaryProps {
   postLocation: any;

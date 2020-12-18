@@ -1,9 +1,12 @@
 import { ArrowRightOutlined, CloseOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select } from 'antd';
+import { Form, Input, Select } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
-import { ButtonsDisplay } from 'src/modules/create/components/DisplayElements';
+import {
+  ButtonsDisplay,
+  DisplayButton,
+} from 'src/modules/create/components/DisplayElements';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -112,25 +115,23 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
         </div>
         <ButtonsDisplay>
-          <Button
+          <DisplayButton
             type="default"
             block
             onClick={prevHandler}
             icon={<CloseOutlined />}
-            style={{ marginRight: '5px', marginLeft: '5px' }}
           >
             {t('cancel')}
-          </Button>
+          </DisplayButton>
 
-          <Button
+          <DisplayButton
             type="primary"
             block
             icon={<ArrowRightOutlined />}
             htmlType="submit"
-            style={{ marginRight: '5px', marginLeft: '5px' }}
           >
             {t('next')}
-          </Button>
+          </DisplayButton>
         </ButtonsDisplay>
       </DetailsForm>
     </PostDetailsWrapper>
