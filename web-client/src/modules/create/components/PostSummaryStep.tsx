@@ -1,8 +1,10 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import WebClientMap from 'src/components/WebClientMap/WebClientMap';
-import { AddressDisplay } from 'src/modules/create/components/DisplayElements';
+import {
+  AddressDisplay,
+  MapDisplay,
+} from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import styled from 'styled-components';
@@ -30,23 +32,14 @@ const PostSummary: React.FC<PostSummaryProps> = ({
           }}
         />
       )}
-      {coords && coords.latitude !== 0 && coords.longitude !== 0 && (
-        <MapWrapper>
-          <WebClientMap
-            destinations={[]}
-            zoom={12}
-            height="35%"
-            origin={{ lat: coords.latitude, lng: coords.longitude }}
-          />
-        </MapWrapper>
-      )}
-      <h2>Details</h2>
-      <div>
+      <MapDisplay coords={coords} />
+      <DetailsDiv>
+        <h2>Details</h2>
         <div> {postDetails.title} </div>
         <div> {postDetails.type}</div>
         <div> {postDetails.body} </div>
         <div> {postDetails.other}</div>
-      </div>
+      </DetailsDiv>
       <h2>Location</h2>
       <AddressDisplay location={postLocation} />
       <Button onClick={prevHandler}>Back</Button>{' '}
@@ -61,9 +54,8 @@ const PostSummary: React.FC<PostSummaryProps> = ({
   );
 };
 
-const MapWrapper = styled.div`
-  height: 35%;
-`;
+const DetailsDiv = styled.div``;
+
 interface PostSummaryProps {
   postLocation: any;
   postDetails: any;

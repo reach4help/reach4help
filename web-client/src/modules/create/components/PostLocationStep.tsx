@@ -1,11 +1,11 @@
 import { Button, Select } from 'antd';
 import React from 'react';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
-import WebClientMap from 'src/components/WebClientMap/WebClientMap';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import {
   AddressDisplay,
   ButtonsDisplay,
+  MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
@@ -19,7 +19,6 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
   nextHandler,
   prevHandler,
 }) => {
-  const mapHeight = '250px';
   const handleAddressChange = value => {
     if (value === 'add') {
       setShowNewAddressModal(true);
@@ -29,26 +28,9 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
     }
   };
 
-  const MapDiv = styled.div`
-    height: ${mapHeight};
-    margin-bottom: 20px;
-  `;
   return (
     <PostLocationWrapper>
-      <MapDiv>
-        {postLocation.coords && (
-          <WebClientMap
-            height={mapHeight}
-            destinations={[]}
-            zoom={12}
-            canRelocate={false}
-            origin={{
-              lat: postLocation.coords.latitude,
-              lng: postLocation.coords.longitude,
-            }}
-          />
-        )}
-      </MapDiv>
+      <MapDisplay coords={postLocation.coords} />
       <TitleWithUnderline level={3} color={COLORS.primaryDark}>
         Location for {postDetails.title}
       </TitleWithUnderline>
