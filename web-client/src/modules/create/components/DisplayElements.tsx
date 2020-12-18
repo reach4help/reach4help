@@ -1,4 +1,5 @@
 import React from 'react';
+import WebClientMap from 'src/components/WebClientMap/WebClientMap';
 import styled from 'styled-components';
 
 export const AddressDisplay = ({ location }) => (
@@ -28,3 +29,22 @@ const ButtonsDisplayDiv = styled.div`
   position: absolute;
   top: 90%;
 `;
+
+const mapHeight = '250px';
+const MapDiv = styled.div`
+  height: ${mapHeight};
+  margin-bottom: 20px;
+`;
+
+export const MapDisplay = ({ coords }) => (
+  <MapDiv>
+    {coords && (
+      <WebClientMap
+        destinations={[]}
+        zoom={12}
+        height={mapHeight}
+        origin={{ lat: coords.latitude, lng: coords.longitude }}
+      />
+    )}
+  </MapDiv>
+);
