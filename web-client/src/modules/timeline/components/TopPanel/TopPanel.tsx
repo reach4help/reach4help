@@ -78,7 +78,8 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
               </Info>
             )}
           </Detail>
-          {userRequestStatus === PostStatus.ongoing && isMobile && (
+          {userRequestStatus === PostStatus.ongoing &&
+            isMobile &&
             null
             // TODO: Add logic to fetch number from cloud function separately
             // <a href={`sms:${request.contactNumber}`}>
@@ -92,8 +93,8 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
             //     alt={t('modules.navigation.components.TopPanel.a11y_sms_icon')}
             //   />
             // </a>
-          )}
-          {userRequestStatus === PostStatus.ongoing && (
+          }
+          {userRequestStatus === PostStatus.ongoing &&
             null
             // TODO: Add logic to fetch number from cloud function separately
             // <a style={{ color: 'white' }} href={`tel:${request.contactNumber}`}>
@@ -110,7 +111,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
             //     )}
             //   />
             // </a>
-          )}
+          }
         </UserDetails>
       </UserRow>
       <RequestWrapper onClick={() => setTogglePanel(!togglePanel)}>

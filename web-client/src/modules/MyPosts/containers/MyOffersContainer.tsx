@@ -29,14 +29,11 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
     ({ posts }: { posts: PostState }) => posts.myOffers,
   );
 
-  useEffect(
-    () => {
-      if (profileState.userRef) {
-        observeMyOffers(dispatch, { status, userRef: profileState.userRef });
-      }
-    },
-    [dispatch, profileState.userRef, status],
-  );
+  useEffect(() => {
+    if (profileState.userRef) {
+      observeMyOffers(dispatch, { status, userRef: profileState.userRef });
+    }
+  }, [dispatch, profileState.userRef, status]);
 
   if (myOffers.loading) {
     return <LoadingWrapper />;
