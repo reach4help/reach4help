@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const AddressDisplay = ({ location }) => (
   <AddressDisplayWrapper>
-    <h2> Address </h2>
+    <b> Address </b>
     <div>{location.address1}</div>
     <div>{location.address2}</div>
     <div>
@@ -16,6 +16,7 @@ export const AddressDisplay = ({ location }) => (
 
 const AddressDisplayWrapper = styled.div`
   margin: 0 20;
+  font-family: serif;
 `;
 
 export const ButtonsDisplay = ({ children }) => (

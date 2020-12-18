@@ -10,7 +10,7 @@ import {
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-const PostMap: React.FC<PostMapProps> = ({
+const PostLocationStep: React.FC<PostLocationStepProps> = ({
   addresses,
   postLocation,
   postDetails,
@@ -19,7 +19,7 @@ const PostMap: React.FC<PostMapProps> = ({
   nextHandler,
   prevHandler,
 }) => {
-  const mapHeight = '35%';
+  const mapHeight = '250px';
   const handleAddressChange = value => {
     if (value === 'add') {
       setShowNewAddressModal(true);
@@ -29,9 +29,13 @@ const PostMap: React.FC<PostMapProps> = ({
     }
   };
 
+  const MapDiv = styled.div`
+    height: ${mapHeight};
+    margin-bottom: 20px;
+  `;
   return (
-    <PostMapWrapper>
-      <div style={{ height: mapHeight }}>
+    <PostLocationWrapper>
+      <MapDiv>
         {postLocation.coords && (
           <WebClientMap
             height={mapHeight}
@@ -44,12 +48,12 @@ const PostMap: React.FC<PostMapProps> = ({
             }}
           />
         )}
-      </div>
+      </MapDiv>
+      <TitleWithUnderline level={3} color={COLORS.primaryDark}>
+        Location for {postDetails.title}
+      </TitleWithUnderline>
       <LocationFormDiv>
-        <TitleWithUnderline level={2} color={COLORS.primaryDark}>
-          Location for {postDetails.title}
-        </TitleWithUnderline>
-        Choose an Address:
+        <b>Choose an Address:</b>
         <ChooserDiv>
           <Select
             style={{ width: 360 }}
@@ -75,12 +79,15 @@ const PostMap: React.FC<PostMapProps> = ({
           </DisplayedButton>
         </ButtonsDisplay>
       </LocationFormDiv>
-    </PostMapWrapper>
+    </PostLocationWrapper>
   );
 };
 
-const LocationFormDiv = styled.div``;
-const PostMapWrapper = styled.div`
+const LocationFormDiv = styled.div`
+  margin: 10px auto;
+  width: 80%;
+`;
+const PostLocationWrapper = styled.div`
   height: 100%;
 `;
 
@@ -90,10 +97,10 @@ const DisplayedButton = styled(Button)`
 `;
 
 const ChooserDiv = styled.div`
-  margin: 20px;
+  margin-bottom: 20px;
 `;
 
-interface PostMapProps {
+interface PostLocationStepProps {
   addresses: Record<string, IUserAddress> | undefined;
   postLocation: any;
   postDetails: any;
@@ -103,4 +110,4 @@ interface PostMapProps {
   prevHandler: () => void;
 }
 
-export default PostMap;
+export default PostLocationStep;
