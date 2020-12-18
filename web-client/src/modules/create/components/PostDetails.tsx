@@ -111,29 +111,28 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           </FormItem>
           <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
         </div>
-
-        <ButtonDisplay>
-          <Button
-            type="default"
-            block
-            onClick={prevHandler}
-            icon={<CloseOutlined />}
-            style={{ marginRight: '5px', marginLeft: '5px' }}
-          >
-            {t('cancel')}
-          </Button>
-
-          <Button
-            type="primary"
-            block
-            icon={<ArrowRightOutlined />}
-            htmlType="submit"
-            style={{ marginRight: '5px', marginLeft: '5px' }}
-          >
-            {t('next')}
-          </Button>
-        </ButtonDisplay>
       </DetailsForm>
+      <ButtonDisplay>
+        <Button
+          type="default"
+          block
+          onClick={prevHandler}
+          icon={<CloseOutlined />}
+          style={{ marginRight: '5px', marginLeft: '5px' }}
+        >
+          {t('cancel')}
+        </Button>
+
+        <Button
+          type="primary"
+          block
+          icon={<ArrowRightOutlined />}
+          htmlType="submit"
+          style={{ marginRight: '5px', marginLeft: '5px' }}
+        >
+          {t('next')}
+        </Button>
+      </ButtonDisplay>
     </PostDetailsWrapper>
   );
 };
