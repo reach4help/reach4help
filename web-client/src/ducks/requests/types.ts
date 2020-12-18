@@ -3,9 +3,7 @@ import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOff
 import { ApplicationPreference, User } from 'src/models/users';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
-const { asyncType, syncType } = createActionTypeFactory(
-  'REQUESTS',
-);
+const { asyncType, syncType } = createActionTypeFactory('REQUESTS');
 
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 

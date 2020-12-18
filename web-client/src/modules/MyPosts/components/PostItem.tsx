@@ -30,9 +30,7 @@ const PostItem: React.FC<PostItemProps> = ({
         >
           {t('modules.requests.AcceptedRequestItem.choose_volunteer')}
         </InnerText>
-        <div style={{ display: 'flex' }}>
-          {post.postiveResponseCount}
-        </div>
+        <div style={{ display: 'flex' }}>{post.postiveResponseCount}</div>
       </PostItemText>
     </Item>
   );

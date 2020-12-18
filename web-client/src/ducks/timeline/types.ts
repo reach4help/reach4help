@@ -5,7 +5,9 @@ export const { asyncType, observerType, syncType } = createActionTypeFactory(
   'TIMELINES',
 );
 
-export const GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS = asyncType('GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS');
+export const GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS = asyncType(
+  'GET_POST_WITH_OFFERS_AND_TIMELINE_ITEMS',
+);
 export const GET_TIMELINES_FOR_POST = observerType('GET_TIMELINES_FOR_POST');
 export const OBSERVE_TIMELINE = observerType('OBSERVE_TIMELINE');
 export const RESET_TIMELINES_FOR_POST = observerType(
