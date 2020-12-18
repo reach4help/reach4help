@@ -3,6 +3,7 @@ import { Button, Form, Input, Select } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
+import ButtonDisplay from 'src/modules/create/components/ButtonDisplay';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -10,48 +11,77 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   setPostDetails,
   postDetails,
   postTypes,
-  nextHandler: onNext,
-  prevHandler: handleCancel,
+  nextHandler,
+  prevHandler,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const [showCustomType, setShowCustomType] = useState(
-    postDetails.type === 'customType',
-  );
+  const { Option } = Select;
 
   const { title, type, body, customType } = postDetails;
-
+  const [showCustomType, setShowCustomType] = useState(type === 'customType');
   const toggleCustomType = (value: string) => {
     setShowCustomType(value === 'customType');
   };
 
-  const { Option } = Select;
   return (
     <PostDetailsWrapper>
-      <FormWrapper>
-        <TitleWithUnderline level={2} color={COLORS.primaryDark}>
-          {t('modules.create.postDetails.header')}
-        </TitleWithUnderline>
-        <DetailsForm
-          layout="vertical"
-          form={form}
-          onFinish={values => {
-            setPostDetails(values);
-            onNext();
+      <TitleWithUnderline level={2} color={COLORS.primaryDark}>
+        {t('modules.create.postDetails.header')}
+      </TitleWithUnderline>
+      <DetailsForm
+        layout="vertical"
+        form={form}
+        onFinish={values => {
+          setPostDetails(values);
+          nextHandler();
+        }}
+        initialValues={{ title, type, body, customType }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignContent: 'space-between',
           }}
-          initialValues={{ title, type, body, customType }}
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignContent: 'space-between',
-            }}
+          <Form.Item
+            label={t('modules.create.postDetails.titleLabel')}
+            name="title"
+            rules={[
+              {
+                required: true,
+                message: t('newRequest.form.title_error_message'),
+              },
+            ]}
           >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label={t('modules.create.postDetails.typeLabel')}
+            name="type"
+            rules={[
+              {
+                required: true,
+                message: t('newRequest.form.type_error_message'),
+              },
+            ]}
+          >
+            <Select onChange={toggleCustomType}>
+              {[...postTypes, 'customType'].map(key => (
+                <Option value={key} key={key}>
+                  {' '}
+                  {key === 'customType' ? 'other' : key}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          {showCustomType && (
             <Form.Item
-              label={t('modules.create.postDetails.titleLabel')}
-              name="title"
+              name="customType"
               rules={[
                 {
                   required: true,
@@ -59,90 +89,51 @@ const PostDetails: React.FC<PostDetailsProps> = ({
                 },
               ]}
             >
-              <Input />
+              <Input placeholder={t('newRequest.form.other')} />
             </Form.Item>
+          )}
 
-            <Form.Item
-              label={t('modules.create.postDetails.typeLabel')}
-              name="type"
-              rules={[
-                {
-                  required: true,
-                  message: t('newRequest.form.type_error_message'),
-                },
-              ]}
-            >
-              <Select onChange={toggleCustomType}>
-                {[...postTypes, 'customType'].map(key => (
-                  <Option value={key} key={key}>
-                    {' '}
-                    {key === 'customType' ? 'other' : key}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-
-            {showCustomType && (
-              <Form.Item
-                name="customType"
-                rules={[
-                  {
-                    required: true,
-                    message: t('newRequest.form.other_error_message'),
-                  },
-                ]}
-              >
-                <Input placeholder={t('newRequest.form.other')} />
-              </Form.Item>
-            )}
-
-            <FormItem
-              name="body"
-              label={t('newRequest.form.body')}
-              rules={[
-                {
-                  required: true,
-                  message: t('newRequest.form.body_error_message'),
-                },
-              ]}
-            >
-              <Input.TextArea
-                placeholder={t('newRequest.form.body')}
-                maxLength={500}
-              />
-            </FormItem>
-            <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              position: 'relative',
-              marginBottom: '125px',
-            }}
+          <FormItem
+            name="body"
+            label={t('newRequest.form.body')}
+            rules={[
+              {
+                required: true,
+                message: t('newRequest.form.body_error_message'),
+              },
+            ]}
           >
-            <Button
-              type="default"
-              block
-              onClick={handleCancel}
-              icon={<CloseOutlined />}
-              style={{ marginRight: '5px', marginLeft: '5px' }}
-            >
-              {t('cancel')}
-            </Button>
+            <Input.TextArea
+              placeholder={t('newRequest.form.body')}
+              maxLength={500}
+              autoSize={{ minRows: 6, maxRows: 8 }}
+            />
+          </FormItem>
+          <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
+        </div>
 
-            <Button
-              type="primary"
-              block
-              icon={<ArrowRightOutlined />}
-              htmlType="submit"
-              style={{ marginRight: '5px', marginLeft: '5px' }}
-            >
-              {t('next')}
-            </Button>
-          </div>
-        </DetailsForm>
-      </FormWrapper>
+        <ButtonDisplay>
+          <Button
+            type="default"
+            block
+            onClick={prevHandler}
+            icon={<CloseOutlined />}
+            style={{ marginRight: '5px', marginLeft: '5px' }}
+          >
+            {t('cancel')}
+          </Button>
+
+          <Button
+            type="primary"
+            block
+            icon={<ArrowRightOutlined />}
+            htmlType="submit"
+            style={{ marginRight: '5px', marginLeft: '5px' }}
+          >
+            {t('next')}
+          </Button>
+        </ButtonDisplay>
+      </DetailsForm>
     </PostDetailsWrapper>
   );
 };
@@ -153,16 +144,6 @@ const PostDetailsWrapper = styled.div`
   padding: 16px;
   justify-content: space-between;
   height: 100%;
-`;
-
-const FormWrapper = styled.div`
-  width: 90%;
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
 `;
 
 const DetailsForm = styled(Form)`
