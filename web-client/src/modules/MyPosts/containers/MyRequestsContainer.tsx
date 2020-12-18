@@ -28,12 +28,15 @@ const OfferPostsContainer: React.FC<{ status: string | null }> = ({
   );
 
   useEffect(
-    (): any =>
-      observeMyRequests(dispatch, {
-        status,
-        userRef: profileState.userRef!,
-      }),
-    [dispatch],
+    () => {
+      if (profileState.userRef) {
+        observeMyRequests(dispatch, {
+          status,
+          userRef: profileState.userRef,
+        });
+      }
+    },
+    [dispatch, status, profileState.userRef],
   );
 
   if (myRequests.loading) {
