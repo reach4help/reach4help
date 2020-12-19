@@ -36,7 +36,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
         layout="vertical"
         form={form}
         onFinish={values => {
-          setPostDetails(values);
+          setPostDetails({ ...values, type: values.customType || values.type });
           nextHandler();
         }}
         initialValues={{ title, type, body, customType }}
