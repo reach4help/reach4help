@@ -376,6 +376,12 @@
           "map": "Location",
           "summary": "Summary"
         },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
         "postDetails": {
           "header": "Post Details",
           "titleLabel": "Title",

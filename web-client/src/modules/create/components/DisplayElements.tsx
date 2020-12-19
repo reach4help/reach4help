@@ -4,25 +4,22 @@ import { useTranslation } from 'react-i18next';
 import WebClientMap from 'src/components/WebClientMap/WebClientMap';
 import styled from 'styled-components';
 
-const DetailsDisplayWrapper = styled.div``;
+const DetailsDisplayWrapper = styled.div`
+  margin: 20px 0;
+`;
 
-export const DetailsDisplay = ({ details }) => {
-  const { t } = useTranslation();
-  return (
-    <DetailsDisplayWrapper>
-      <h2>{t('modules.create.stepTitles.details')}</h2>
-      <div> {details.title} </div>
-      <div> {details.type}</div>
-      <div> {details.body} </div>
-      <div> {details.other}</div>
-    </DetailsDisplayWrapper>
-  );
-};
+export const DetailsDisplay = ({ details }) => (
+  <DetailsDisplayWrapper>
+    <h3> {details.title} </h3>
+    <div> {details.body} </div>
+  </DetailsDisplayWrapper>
+);
+
 export const AddressDisplay = ({ location }) => {
   const { t } = useTranslation();
   return (
     <AddressDisplayWrapper>
-      <b> {t('modules.create.stepTitles.map')} </b>
+      <h3> {t('modules.create.displayElements.address')} </h3>
       <div>{location.address1}</div>
       <div>{location.address2}</div>
       <div>
@@ -35,7 +32,7 @@ export const AddressDisplay = ({ location }) => {
 };
 
 const AddressDisplayWrapper = styled.div`
-  margin: 0 20;
+  margin: 20px 0;
   font-family: serif;
 `;
 

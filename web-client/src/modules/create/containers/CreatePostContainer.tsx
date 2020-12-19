@@ -106,6 +106,9 @@ const CreatePostContainer: React.FC = () => {
       streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
       latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
     };
+
+    // eslint-disable-next-line no-console
+    console.log('creating post', newPost, 'type', newPost.type);
     return dispatch(setRequest(newPost as IRequest, undefined, phoneNumber));
   };
   const cancelCreate = () => {
