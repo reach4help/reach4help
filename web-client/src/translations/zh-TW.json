@@ -23,6 +23,23 @@
     "State": "State / Province",
     "country": "Country",
     "for": " for ",
+    "navbar": {
+      "home": "Home",
+      "my_requests": "Requests",
+      "my_offers": "Offers",
+      "create_new": {
+        "title": "Create New",
+        "options": {
+          "request": "Help Request",
+          "offer": "Volunteer Offer"
+        }
+      },
+      "about": "About Us",
+      "login": "Login",
+      "sign_up": "Sign Up",
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
     "information_modal": {
       "instructions": "Instructions",
       "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
