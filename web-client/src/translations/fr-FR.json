@@ -1,8 +1,10 @@
 {
   "common": {
     "or": "or",
+    "submit": "Submit",
     "i_understand": "Je comprends.",
     "okay": "OK",
+    "next": "Next",
     "cancel": "Annuler",
     "welcome": "Bienvenue",
     "continue": "Continuer",
@@ -233,6 +235,7 @@
         "search": "Rechercher",
         "useMyLocation": "Identifier mon emplacement",
         "address_error_message": "Veuillez entrer votre adresse.",
+        "title_error_message": "Please enter the title",
         "type_error_message": "SVP préciser le type de requête.",
         "other_error_message": "SVP entrez les détails. ",
         "body_error_message": "Veuillez ajouter une description."
@@ -364,6 +367,33 @@
           "PersonalDataFormContainer": {
             "address_error": "Désolé, nous n'avons pas pu déterminer votre adresse. Veuillez réessayer!",
             "missing_data": "Données manquantes!"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Location",
+          "summary": "Summary"
+        },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
+        "postDetails": {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel": "Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
