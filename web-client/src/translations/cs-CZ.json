@@ -1,8 +1,10 @@
 {
   "common": {
     "or": "or",
+    "submit": "Submit",
     "i_understand": "Chápu.",
     "okay": "OK",
+    "next": "Next",
     "cancel": "Zrušit",
     "welcome": "Vítejte",
     "continue": "Pokračovat",
@@ -233,6 +235,7 @@
         "search": "Hledat",
         "useMyLocation": "Použijte moji polohu",
         "address_error_message": "Prosím, zadejte Vaši adresu.",
+        "title_error_message": "Please enter the title",
         "type_error_message": "Musíte vybrat typ.",
         "other_error_message": "Musíte zadat podrobnosti.",
         "body_error_message": "Zadejte prosím svůj popis."
@@ -364,6 +367,33 @@
           "PersonalDataFormContainer": {
             "address_error": "Omlouváme se, ale nemohli jsme zjistit vaši skutečnou adresu, zkuste to prosím znovu!",
             "missing_data": "Chybějící údaje"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Location",
+          "summary": "Summary"
+        },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
+        "postDetails": {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel": "Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
