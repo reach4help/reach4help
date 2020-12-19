@@ -23,6 +23,23 @@
     "State": "Comunidad Autónoma/Estado/Provincia",
     "country": "País",
     "for": " para ",
+    "navbar": {
+      "home": "Home",
+      "my_requests": "Requests",
+      "my_offers": "Offers",
+      "create_new": {
+        "title": "Create New",
+        "options": {
+          "request": "Help Request",
+          "offer": "Volunteer Offer"
+        }
+      },
+      "about": "About Us",
+      "login": "Login",
+      "sign_up": "Sign Up",
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
     "information_modal": {
       "instructions": "Instrucciones",
       "footer": "Si tiene alguna pregunta o necesita ayuda, no dude en enviarnos un correo electrónico a support@reach4help.org.",
