@@ -1,8 +1,10 @@
 {
   "common": {
     "or": "or",
+    "submit": "Submit",
     "i_understand": "אני מבינ.ה.",
     "okay": "אוקיי",
+    "next": "Next",
     "cancel": "בטל",
     "welcome": "ברוך.ה הבא.ה",
     "continue": "המשך",
@@ -233,6 +235,7 @@
         "search": "חיפוש",
         "useMyLocation": "השתמש במיקומי",
         "address_error_message": "נא להזין את כתובתך.",
+        "title_error_message": "Please enter the title",
         "type_error_message": "את.ה צריך.ה לבחור סוג.",
         "other_error_message": "את.ה צריך להזין פרטים.",
         "body_error_message": "אנא הזן.י תיאור."
@@ -364,6 +367,33 @@
           "PersonalDataFormContainer": {
             "address_error": "סליחה, לא הצלחנו לאתר את כתובתך, אנא נסה.י שוב!",
             "missing_data": "מידע חסר!"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Location",
+          "summary": "Summary"
+        },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
+        "postDetails": {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel": "Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
