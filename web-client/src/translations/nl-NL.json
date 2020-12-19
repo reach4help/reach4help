@@ -23,6 +23,23 @@
     "State": "Staat / Provincie",
     "country": "Land",
     "for": " voor ",
+    "navbar": {
+      "home": "Home",
+      "my_requests": "Requests",
+      "my_offers": "Offers",
+      "create_new": {
+        "title": "Create New",
+        "options": {
+          "request": "Help Request",
+          "offer": "Volunteer Offer"
+        }
+      },
+      "about": "About Us",
+      "login": "Login",
+      "sign_up": "Sign Up",
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
     "information_modal": {
       "instructions": "Instructies",
       "footer": "Als u vragen heeft of hulp nodig heeft, stuur ons dan een e-mail via support@reach4help.org.",
