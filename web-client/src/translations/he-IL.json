@@ -23,6 +23,23 @@
     "State": "מדינה \\ מחוז",
     "country": "ארץ",
     "for": "בשביל",
+    "navbar": {
+      "home": "Home",
+      "my_requests": "Requests",
+      "my_offers": "Offers",
+      "create_new": {
+        "title": "Create New",
+        "options": {
+          "request": "Help Request",
+          "offer": "Volunteer Offer"
+        }
+      },
+      "about": "About Us",
+      "login": "Login",
+      "sign_up": "Sign Up",
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
     "information_modal": {
       "instructions": "הוראות",
       "footer": "אם יש לך שאלות, או אם את.ה זקוקים לעזרה, אנא צרו עימנו קשר בכתובת האי-מייל: support@reach4help.org.",
