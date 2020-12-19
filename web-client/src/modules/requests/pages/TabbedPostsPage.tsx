@@ -17,6 +17,9 @@ const StyledTabs = styled(Tabs)`
   .ant-tabs-content-holder {
     display: flex;
   }
+  .ant-tabs-nav-wrap {
+    justify-content: center;
+  }
 `;
 
 const StyledTabPane = styled(TabPane)`
