@@ -10,7 +10,7 @@ describe('<TitleWithUnderline />', () => {
   xit('should render the underline to the left when the orangeUnderline=left', () => {
     renderer
       .create(
-        <TitleWithUnderline level={2} orangealignment="left">
+        <TitleWithUnderline level={2} alignment="left">
           Hello World
         </TitleWithUnderline>,
       )
@@ -20,7 +20,7 @@ describe('<TitleWithUnderline />', () => {
   xit('should render the underline to the right when the orangeUnderline=right', () => {
     renderer
       .create(
-        <TitleWithUnderline level={2} orangealignment="right">
+        <TitleWithUnderline level={2} alignment="right">
           Hello World
         </TitleWithUnderline>,
       )
@@ -30,7 +30,7 @@ describe('<TitleWithUnderline />', () => {
   xit('should render the underline to the center when the orangeUnderline=center', () => {
     renderer
       .create(
-        <TitleWithUnderline level={2} orangealignment="center">
+        <TitleWithUnderline level={2} alignment="center">
           Hello World
         </TitleWithUnderline>,
       )

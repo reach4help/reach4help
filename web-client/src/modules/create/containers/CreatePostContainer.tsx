@@ -12,7 +12,7 @@ import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
-import PostSummary from 'src/modules/create/components/PostSummaryStep';
+import PostSummaryStep from 'src/modules/create/components/PostSummaryStep';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
@@ -145,7 +145,7 @@ const CreatePostContainer: React.FC = () => {
     {
       title: t('modules.create.stepTitles.summary'),
       component: (
-        <PostSummary
+        <PostSummaryStep
           prevHandler={moveBackwards}
           postDetails={postDetails}
           postLocation={postLocation}
