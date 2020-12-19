@@ -23,6 +23,23 @@
     "State": "Штат / Область",
     "country": "Страна",
     "for": " для ",
+    "navbar": {
+      "home": "Home",
+      "my_requests": "Requests",
+      "my_offers": "Offers",
+      "create_new": {
+        "title": "Create New",
+        "options": {
+          "request": "Help Request",
+          "offer": "Volunteer Offer"
+        }
+      },
+      "about": "About Us",
+      "login": "Login",
+      "sign_up": "Sign Up",
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
     "information_modal": {
       "instructions": "Инструкции",
       "footer": "Если у вас есть вопросы или вам нужна помощь, пишите нам на support@reach4help.org.",
