@@ -23,6 +23,23 @@
     "State": "État / Province",
     "country": "Pays",
     "for": " pour ",
+    "navbar": {
+      "home": "Home",
+      "my_requests": "Requests",
+      "my_offers": "Offers",
+      "create_new": {
+        "title": "Create New",
+        "options": {
+          "request": "Help Request",
+          "offer": "Volunteer Offer"
+        }
+      },
+      "about": "About Us",
+      "login": "Login",
+      "sign_up": "Sign Up",
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
     "information_modal": {
       "instructions": "Instructions",
       "footer": "Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse support@crowdin.com",
