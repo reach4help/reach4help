@@ -1,8 +1,10 @@
 {
   "common": {
     "or": "or",
+    "submit": "Submit",
     "i_understand": "Ik begrijp het.",
     "okay": "OK",
+    "next": "Next",
     "cancel": "Afbreken",
     "welcome": "Welkom",
     "continue": "Doorgaan",
@@ -233,6 +235,7 @@
         "search": "Zoeken",
         "useMyLocation": "Gebruik Mijn Locatie",
         "address_error_message": "Waar woont u?",
+        "title_error_message": "Please enter the title",
         "type_error_message": "Je moet een bedrag selecteren.",
         "other_error_message": "U dient een titel in te vullen.",
         "body_error_message": "Gelieve een beschrijving in te voeren."
@@ -364,6 +367,33 @@
           "PersonalDataFormContainer": {
             "address_error": "Sorry, we konden je werkelijke adres niet bepalen, probeer het opnieuw!",
             "missing_data": "Missing data!"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Location",
+          "summary": "Summary"
+        },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
+        "postDetails": {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel": "Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
