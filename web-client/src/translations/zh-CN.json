@@ -23,6 +23,23 @@
     "State": "州 / 省",
     "country": "国家",
     "for": "为",
+    "navbar": {
+      "home": "Home",
+      "my_requests": "Requests",
+      "my_offers": "Offers",
+      "create_new": {
+        "title": "Create New",
+        "options": {
+          "request": "Help Request",
+          "offer": "Volunteer Offer"
+        }
+      },
+      "about": "About Us",
+      "login": "Login",
+      "sign_up": "Sign Up",
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
     "information_modal": {
       "instructions": "说明",
       "footer": "如果您有任何问题或需要援助，请随时发送电子邮件给我们 support@reach4help.org。",
