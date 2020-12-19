@@ -23,6 +23,23 @@
     "State": "Wojwództwo. \\/ Gmina",
     "country": "Kraj",
     "for": "dla",
+    "navbar": {
+      "home": "Home",
+      "my_requests": "Requests",
+      "my_offers": "Offers",
+      "create_new": {
+        "title": "Create New",
+        "options": {
+          "request": "Help Request",
+          "offer": "Volunteer Offer"
+        }
+      },
+      "about": "About Us",
+      "login": "Login",
+      "sign_up": "Sign Up",
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
     "information_modal": {
       "instructions": "Instrukcja",
       "footer": "Jeśli masz jakiekolwiek pytania lub potrzebujesz pomocy, skontaktuj się z nami support@crowdin.com",
