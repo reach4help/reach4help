@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { GeocoderComponent } from 'src/components/Geocoder/Geocoder';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import { updateUserPrivilegedInformation } from 'src/ducks/profile/actions';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import { AppState } from 'src/store';
@@ -30,14 +31,27 @@ const ModalForm: React.FC<ModalFormProps> = ({
   const userId = useSelector((state: AppState) => state.auth.user?.uid);
 
   const handleFinish = () => {
+    const {
+      name,
+      address1,
+      address2,
+      city,
+      state,
+      postalCode,
+      country,
+    } = form.getFieldsValue();
+    if (addresses && addresses[name]) {
+      alert('you have already used that name');
+      return;
+    }
     geocode({
-      name: form.getFieldValue('name'),
-      address1: form.getFieldValue('address1'),
-      address2: form.getFieldValue('address2'),
-      city: form.getFieldValue('city'),
-      state: form.getFieldValue('state'),
-      postalCode: form.getFieldValue('postalCode'),
-      country: form.getFieldValue('country'),
+      name,
+      address1,
+      address2,
+      city,
+      state,
+      postalCode,
+      country,
     })
       .then(geocodedResult => {
         modalSuccess(geocodedResult);
@@ -63,57 +77,55 @@ const ModalForm: React.FC<ModalFormProps> = ({
 
   const { t } = useTranslation();
   return (
-    <Modal
-      title="Please Enter Your Address"
-      visible={visible}
-      onOk={handleFinish}
-      onCancel={closeModal}
-    >
+    <Modal visible={visible} onOk={handleFinish} onCancel={closeModal}>
       <Form form={form} onFinish={handleFinish}>
         <>
           {geocodeFailed && (
             <Alert
-              message="That address did not work"
-              description="Please try again"
+              style={{ marginTop: '20px' }}
+              message="Address Error"
+              description="That location could not be found.  Please try again"
               type="error"
               closable
             />
           )}
+          <TitleWithUnderline level={3}>
+            {t('settings.changeAddressForm.address')}
+          </TitleWithUnderline>
           <Row gutter={[16, 6]}>
             <Col span={24}>
-              <Form.Item
-                name="address1"
-                label={t('settings.changeAddressForm.address')}
-              >
+              <Form.Item name="address1" label={t('address1')}>
                 <Input placeholder={t('address1')} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={[16, 6]}>
             <Col span={24}>
-              <Form.Item name="address2">
+              <Form.Item name="address2" label={t('address2')}>
                 <Input placeholder={t('address2')} />
               </Form.Item>
             </Col>
           </Row>
           <Row>
-            <Col span={11}>
-              <Form.Item name="city">
+            <Col span={12}>
+              <Form.Item name="city" label={t('city')}>
                 <Input placeholder={t('city')} />
               </Form.Item>
             </Col>
-            <Col span={3} offset={1}>
-              <Form.Item name="state">
+            <Col span={11} offset={1}>
+              <Form.Item name="state" label={t('State')}>
                 <Input placeholder={t('State')} />
               </Form.Item>
             </Col>
-            <Col span={5}>
-              <Form.Item name="postalCode">
+          </Row>
+          <Row>
+            <Col span={12}>
+              <Form.Item name="postalCode" label={t('code')}>
                 <Input placeholder={t('code')} />
               </Form.Item>
             </Col>
-            <Col span={3} offset={1}>
-              <Form.Item name="country">
+            <Col span={11} offset={1}>
+              <Form.Item name="country" label={t('country')}>
                 <Input placeholder={t('country')} />
               </Form.Item>
             </Col>
