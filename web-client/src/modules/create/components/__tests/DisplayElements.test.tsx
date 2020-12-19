@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'src/testUtils/customRender';
 
-import { AddressDisplay } from './DisplayElements';
+import { AddressDisplay } from '../DisplayElements';
 
 describe('AddressDisplay', () => {
   it('renders', () => {
