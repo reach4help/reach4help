@@ -78,39 +78,36 @@ const TopPanel: React.FC<TopPanelProps> = ({ request, user, goBack }) => {
               </Info>
             )}
           </Detail>
-          {userRequestStatus === PostStatus.ongoing &&
-            isMobile &&
-            null
-            // TODO: Add logic to fetch number from cloud function separately
-            // <a href={`sms:${request.contactNumber}`}>
-            //   <img
-            //     src={SMSIcon}
-            //     style={{
-            //       paddingTop: '5px',
-            //       height: '45px',
-            //       width: '45px',
-            //     }}
-            //     alt={t('modules.navigation.components.TopPanel.a11y_sms_icon')}
-            //   />
-            // </a>
+          {userRequestStatus === PostStatus.ongoing && isMobile && null
+          // TODO: Add logic to fetch number from cloud function separately
+          // <a href={`sms:${request.contactNumber}`}>
+          //   <img
+          //     src={SMSIcon}
+          //     style={{
+          //       paddingTop: '5px',
+          //       height: '45px',
+          //       width: '45px',
+          //     }}
+          //     alt={t('modules.navigation.components.TopPanel.a11y_sms_icon')}
+          //   />
+          // </a>
           }
-          {userRequestStatus === PostStatus.ongoing &&
-            null
-            // TODO: Add logic to fetch number from cloud function separately
-            // <a style={{ color: 'white' }} href={`tel:${request.contactNumber}`}>
-            //   {!isMobile && (
-            //     <span style={{ paddingRight: '5px' }}>
-            //       {' '}
-            //       {request.contactNumber}{' '}
-            //     </span>
-            //   )}
-            //   <img
-            //     src={PhoneIcon}
-            //     alt={t(
-            //       'modules.navigation.components.TopPanel.a11y_phone_icon',
-            //     )}
-            //   />
-            // </a>
+          {userRequestStatus === PostStatus.ongoing && null
+          // TODO: Add logic to fetch number from cloud function separately
+          // <a style={{ color: 'white' }} href={`tel:${request.contactNumber}`}>
+          //   {!isMobile && (
+          //     <span style={{ paddingRight: '5px' }}>
+          //       {' '}
+          //       {request.contactNumber}{' '}
+          //     </span>
+          //   )}
+          //   <img
+          //     src={PhoneIcon}
+          //     alt={t(
+          //       'modules.navigation.components.TopPanel.a11y_phone_icon',
+          //     )}
+          //   />
+          // </a>
           }
         </UserDetails>
       </UserRow>

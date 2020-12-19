@@ -1,5 +1,6 @@
 // import TimelineItem from 'antd/lib/timeline/TimelineItem';
 // import { OfferStatus } from 'src/models/offers';
+// TODO: (es) Move find to posts and get rid of this whole
 import { Request } from 'src/models/requests';
 import {
   IRequestWithOffersAndTimelineItems,
