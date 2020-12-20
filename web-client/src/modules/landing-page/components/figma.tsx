@@ -52,7 +52,7 @@ const InfoSection = styled(Container)`
 `;
 
 const InfoContainer = styled(Flex)`
-  width; 100%;
+  width: 100%;
 `;
 
 const InfoCardContainer = styled(Container)`
