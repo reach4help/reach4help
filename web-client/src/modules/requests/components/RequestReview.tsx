@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import styled from 'styled-components';
 
-import TitleWithOrangeUnderline from '../../../components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
+import TitleWithUnderline from '../../../components/TitleWithUnderline/TitleWithUnderline';
 
 const RequestReview: React.FC<RequestReviewProps> = ({
   isSubmitting,
@@ -15,14 +15,14 @@ const RequestReview: React.FC<RequestReviewProps> = ({
   const { t } = useTranslation();
   return (
     <MainDiv>
-      <TitleWithOrangeUnderline
+      <TitleWithUnderline
         orangealignment="left"
         level={3}
         left="0%"
         transform="none"
       >
         {t('newRequest.title')}
-      </TitleWithOrangeUnderline>
+      </TitleWithUnderline>
       <Title style={{ color: 'rgba(0, 0, 0, 1)', marginTop: '20px' }}>
         {t('requestReview.deliveryAddress')}
       </Title>
