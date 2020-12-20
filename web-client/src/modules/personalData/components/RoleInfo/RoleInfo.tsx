@@ -2,7 +2,7 @@ import { AlertTwoTone, HeartTwoTone } from '@ant-design/icons';
 import { Button, Col, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
+import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import { ApplicationPreference } from 'src/models/users';
 import styled from 'styled-components';
 
@@ -16,9 +16,9 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
   // i18n.changeLanguage('pt-PT');
   return (
     <Intro className="withContentPaddingDesktop">
-      <TitleWithUnderline level={2}>
+      <TitleWithOrangeUnderline level={2}>
         {t('roleinfo.sub_title')}
-      </TitleWithUnderline>
+      </TitleWithOrangeUnderline>
       <Manifesto>{t('roleinfo.manifesto')}</Manifesto>
       <RoleContainer>
         <Row gutter={12}>

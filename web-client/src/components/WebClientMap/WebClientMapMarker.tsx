@@ -9,7 +9,7 @@ import LargePurpleMarkerIcon from './assets/map-marker-purple-lg.png';
 export const OriginMarker: React.FC<OriginMarkerProps> = ({ isCav }) => {
   const { t } = useTranslation();
   return (
-    <div style={{ transform: 'translate(-50%, -100%)' }}>
+    <div>
       <img
         src={isCav ? LargePurpleMarkerIcon : LargeOrangeMarkerIcon}
         alt={t('components.web_client_map.a11y_my_location')}
@@ -25,10 +25,7 @@ export const DestinationMarker: React.FC<DestinationMarkerProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div
-      onClick={() => onClick(key)}
-      style={{ transform: 'translate(-50%, -100%)' }}
-    >
+    <div onClick={() => onClick(key)}>
       <img
         src={selected ? LargeOrangeMarkerIcon : SmallOrangeMarkerIcon}
         alt={t('components.web_client_map.a11y_my_location')}

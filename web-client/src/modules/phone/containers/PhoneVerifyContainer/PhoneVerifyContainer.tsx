@@ -2,7 +2,7 @@ import { Alert } from 'antd';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
+import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import { resetResendCode, verifyOTPPhone } from 'src/ducks/auth/phone/actions';
 import { AppState } from 'src/store';
 
@@ -39,11 +39,11 @@ const PhoneVerifyContainer: React.FC = () => {
   return (
     <IntroWrapper>
       {errorMessage && <Alert message={errorMessage} type="error" />}
-      <TitleWithUnderline level={3}>
+      <TitleWithOrangeUnderline level={3}>
         {`${t('welcome')}${
           user && user.displayName ? `, ${user.displayName}` : ''
         }`}
-      </TitleWithUnderline>
+      </TitleWithOrangeUnderline>
       <PhoneNumberVerifyForm
         loading={loading}
         resendCode={resendCode}

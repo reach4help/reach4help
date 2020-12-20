@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logoSmall from 'src/assets/logoSmall.png';
 import { FormWrapper, LogoWrapper, StepWrapper } from 'src/components/figma/';
-import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
+import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
 import styled from 'styled-components';
 
 const EmailSignIn: React.FC<EmailSignInProps> = ({
@@ -20,9 +20,13 @@ const EmailSignIn: React.FC<EmailSignInProps> = ({
         <img src={logoSmall} alt="logo" height="70px" width="70px" />
       </LogoWrapper>
       <TitleWrapper>
-        <TitleWithUnderline level={2} orangealignment="center" bottom="-10px">
+        <TitleWithOrangeUnderline
+          level={2}
+          orangealignment="center"
+          bottom="-10px"
+        >
           {t('login.sign_in.title')}
-        </TitleWithUnderline>
+        </TitleWithOrangeUnderline>
       </TitleWrapper>
       <FormWrapper>
         <Form

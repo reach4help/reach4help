@@ -33,8 +33,6 @@ const WebClientMap: React.FC<MapProps> = ({
   zoom = 11,
   isCav = true,
   forceRerender = false,
-  height,
-  canRelocate = true,
 }) => {
   const { t } = useTranslation();
 
@@ -189,7 +187,7 @@ const WebClientMap: React.FC<MapProps> = ({
   return !apiKey ? (
     <>{t('components_web_client_map.api_error')} Google Maps API key</>
   ) : (
-    <MapWrapper isCav={isCav} height={height}>
+    <MapWrapper isCav={isCav}>
       {mapMessage && <WebClientMapMessage message={mapMessage} />}
       <GoogleMapReact
         yesIWantToUseGoogleMapApiInternals
@@ -199,14 +197,12 @@ const WebClientMap: React.FC<MapProps> = ({
         defaultZoom={zoom}
         onGoogleApiLoaded={initGoogleMapServices}
       >
-        {canRelocate && (
-          <CustomMapControlPortal
-            map={googleMap || null}
-            controlPosition={googleMapS?.ControlPosition.LEFT_TOP}
-          >
-            <MyLocationControl onClick={locateMe} />
-          </CustomMapControlPortal>
-        )}
+        <CustomMapControlPortal
+          map={googleMap || null}
+          controlPosition={googleMapS?.ControlPosition.LEFT_TOP}
+        >
+          <MyLocationControl onClick={locateMe} />
+        </CustomMapControlPortal>
         <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
         {destinations.map(r => (
           <DestinationMarker
@@ -227,9 +223,9 @@ Because the FindRequest map (CAV map) appears within a tab,
 we have to make room for tab buttons
 We are currently adjusting the top css but there is probably a better solution.
 */
-const MapWrapper = styled.div<{ isCav?: boolean; height?: string }>`
+const MapWrapper = styled.div<{ isCav?: boolean }>`
   left: 0;
-  height: ${props => (props.height ? props.height : '100%')};
+  height: 100%;
   width: 100%;
   position: absolute;
 `;
@@ -255,7 +251,5 @@ interface MapProps {
   startGeocode?: boolean;
   startLocateMe?: boolean;
   forceRerender?: boolean;
-  height?: string;
-  canRelocate?: boolean;
 }
 export default WebClientMap;

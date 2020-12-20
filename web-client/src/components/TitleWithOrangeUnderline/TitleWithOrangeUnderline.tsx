@@ -4,34 +4,32 @@ import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
 
-const TitleWithUnderline: React.FC<TitleWithAddonProps> = ({
+const TitleWithOrangeUnderline: React.FC<TitleWithAddonProps> = ({
   children,
   level,
-  alignment,
+  orangealignment,
   left,
   bottom,
   transform,
-  color,
 }): React.ReactElement => (
-  <TitleWithUnderlineOuterDiv>
-    <TitleWithUnderlineInnerDiv
-      alignment={alignment}
+  <TitleWithOrangeUnderlineOuterDiv>
+    <TitleWithOrangeUnderlineInnerDiv
+      orangealignment={orangealignment}
       level={level}
       left={left}
       bottom={bottom}
       transform={transform}
-      color={color}
     >
       {children}
-    </TitleWithUnderlineInnerDiv>
-  </TitleWithUnderlineOuterDiv>
+    </TitleWithOrangeUnderlineInnerDiv>
+  </TitleWithOrangeUnderlineOuterDiv>
 );
 
-const TitleWithUnderlineOuterDiv = styled.div`
+const TitleWithOrangeUnderlineOuterDiv = styled.div`
   position: relative;
 `;
 
-const TitleWithUnderlineInnerDiv = styled(Typography.Title)`
+const TitleWithOrangeUnderlineInnerDiv = styled(Typography.Title)`
   white-space: pre-line;
   text-align: ${(props: TitleWithAddonProps) => props.left || 'center'};
   :after {
@@ -40,7 +38,7 @@ const TitleWithUnderlineInnerDiv = styled(Typography.Title)`
     width: 40px;
     height: 6px;
     left: ${(props: TitleWithAddonProps) => {
-      switch (props.alignment) {
+      switch (props.orangealignment) {
         case 'left':
           return props.left || '12%';
         case 'right':
@@ -54,7 +52,7 @@ const TitleWithUnderlineInnerDiv = styled(Typography.Title)`
     bottom: ${(props: TitleWithAddonProps) => props.bottom || 0};
     transform: ${(props: TitleWithAddonProps) =>
       props.transform || 'translate(-50%, 0)'};
-    background-color: ${props => props.color || COLORS.highlight};
+    background-color: ${COLORS.highlight};
   }
 `;
 
@@ -62,11 +60,10 @@ interface TitleWithAddonProps {
   children: React.ReactNode;
   level: 1 | 2 | 3 | 4;
   // REVIEW: I need help defining this type
-  alignment?: string;
+  orangealignment?: string;
   left?: string;
   bottom?: string;
   transform?: string;
-  color?: string;
 }
 
-export default TitleWithUnderline;
+export default TitleWithOrangeUnderline;

@@ -46,7 +46,7 @@ export const setRequest = (
     ...payload,
   });
 
-  return dispatch({
+  dispatch({
     type: phoneNumber ? SET : SET_TEMP_REQUEST,
     payload: {
       requestPayload,

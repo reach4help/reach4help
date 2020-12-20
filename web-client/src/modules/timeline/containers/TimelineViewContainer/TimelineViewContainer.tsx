@@ -144,10 +144,10 @@ const TimelineViewContainer: React.FC<TimelineViewContainerProps> = ({
               userType: profileState.profile.applicationPreference,
               userRef: profileState.userRef,
               lat:
-                profileState.privilegedInformation?.addresses?.default?.coords
+                profileState.privilegedInformation?.addresses?.default.coords
                   .latitude,
               lng:
-                profileState.privilegedInformation?.addresses?.default?.coords
+                profileState.privilegedInformation?.addresses?.default.coords
                   .longitude,
             }),
           );
