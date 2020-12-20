@@ -15,12 +15,7 @@ const RequestReview: React.FC<RequestReviewProps> = ({
   const { t } = useTranslation();
   return (
     <MainDiv>
-      <TitleWithUnderline
-        orangealignment="left"
-        level={3}
-        left="0%"
-        transform="none"
-      >
+      <TitleWithUnderline alignment="left" level={3} left="0%" transform="none">
         {t('newRequest.title')}
       </TitleWithUnderline>
       <Title style={{ color: 'rgba(0, 0, 0, 1)', marginTop: '20px' }}>

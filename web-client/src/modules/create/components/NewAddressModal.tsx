@@ -1,4 +1,4 @@
-import { Alert, Checkbox, Col, Form, Input, Modal, Row } from 'antd';
+import { Alert, Col, Form, Input, Modal, Row } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -130,24 +130,30 @@ const ModalForm: React.FC<ModalFormProps> = ({
               </Form.Item>
             </Col>
           </Row>
-          {shouldSave && (
-            <Row gutter={[16, 6]}>
-              <Col span={24}>
-                <Form.Item
-                  name="name"
-                  required
-                  label={t('settings.changeAddressForm.nameOfAddress')}
-                >
-                  <Input id="nameofAddress" />
-                </Form.Item>
-              </Col>
-            </Row>
-          )}
-          <Row gutter={[16, 6]}>
-            <Checkbox onChange={() => setShouldSave(true)}>
-              {t('settings.changeAddressForm.saveChangesCheckbox')}
-            </Checkbox>
-          </Row>
+          <div>
+            <input
+              onClick={e => setShouldSave(e.target.checked)}
+              type="checkbox"
+            />
+            &nbsp;
+            {shouldSave
+              ? t('settings.changeAddressForm.dontSaveChangesCheckbox')
+              : t('settings.changeAddressForm.saveChangesCheckbox')}
+            &nbsp;
+            {shouldSave && (
+              <Row gutter={[16, 6]}>
+                <Col span={24}>
+                  <Form.Item
+                    name="name"
+                    required
+                    label={t('settings.changeAddressForm.nameOfAddress')}
+                  >
+                    <Input id="nameofAddress" />
+                  </Form.Item>
+                </Col>
+              </Row>
+            )}
+          </div>
         </>
       </Form>
     </Modal>
