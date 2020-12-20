@@ -15,10 +15,16 @@ import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
+import { CreatePostTypes } from 'src/modules/create/constants';
+
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
-const CreatePostContainer: React.FC = () => {
+const CreatePostContainer: React.FC<ICreatePostContainer> = ({
+  createPostType,
+}) => {
+  console.log('create post type', createPostType);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const { t } = useTranslation();
@@ -193,4 +199,7 @@ interface IPostDetails {
   customType?: string;
 }
 
+interface ICreatePostContainer {
+  createPostType: CreatePostTypes;
+}
 export default CreatePostContainer;
