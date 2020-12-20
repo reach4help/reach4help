@@ -2,7 +2,7 @@ import { Alert, Typography } from 'antd';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/TitleWithOrangeUnderline';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import { triggerLoginWithPhone } from 'src/ducks/auth/phone/actions';
 import firebase from 'src/firebase';
 import { AppState } from 'src/store';
@@ -50,9 +50,9 @@ const PhoneEntryContainer: React.FC = () => {
       <ErrorMessage>
         {errorMessage && <Alert message={errorMessage} type="error" />}
       </ErrorMessage>
-      <TitleWithOrangeUnderline level={3} orangealignment="center">
+      <TitleWithUnderline level={3} orangealignment="center">
         {t('phoneNumber.title')}
-      </TitleWithOrangeUnderline>
+      </TitleWithUnderline>
       <PhoneNumberEntryForm
         loading={loading}
         reset={error instanceof Error}
