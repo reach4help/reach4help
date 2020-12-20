@@ -1,8 +1,10 @@
 {
   "common": {
     "or": "or",
+    "submit": "Submit",
     "i_understand": "Я понимаю.",
     "okay": "Окей",
+    "next": "Next",
     "cancel": "Отменить",
     "welcome": "Добро пожаловать",
     "continue": "Продолжить",
@@ -204,7 +206,8 @@
         "submit": "Save",
         "next": "Next",
         "back": "Back",
-        "saveChangesCheckbox": "Save Address"
+        "saveChangesCheckbox": "Save Address",
+        "dontSaveChangesCheckbox": "Don't Save Address"
       }
     },
     "phoneNumber": {
@@ -250,6 +253,7 @@
         "search": "Поиск",
         "useMyLocation": "Найти меня на карте",
         "address_error_message": "Пожалуйста, введите Ваш адрес.",
+        "title_error_message": "Please enter the title",
         "type_error_message": "Вы должны указать сумму.",
         "other_error_message": "Введите название.",
         "body_error_message": "Пожалуйста, введите описание проблемы."
@@ -381,6 +385,33 @@
           "PersonalDataFormContainer": {
             "address_error": "К сожалению, мы не смогли определить ваш фактический адрес, попробуйте еще раз!",
             "missing_data": "Отсутствующие данные!"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Location",
+          "summary": "Summary"
+        },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
+        "postDetails": {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel": "Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
