@@ -6,7 +6,7 @@ import TitleWithOrangeUnderline from 'src/components/TitleWithOrangeUnderline/Ti
 import styled from 'styled-components';
 
 import SearchIcon from '../assets/search.svg';
-import { RequestInput } from './RequestReview';
+import { RequestInput } from './PostReview';
 
 const { Option } = Select;
 
