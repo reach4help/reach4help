@@ -17,11 +17,11 @@ import styled from 'styled-components';
 const PostLocationStep: React.FC<PostLocationStepProps> = ({
   addresses,
   postLocation,
-  postDetails,
   setPostLocation,
   setShowNewAddressModal,
   nextHandler,
   prevHandler,
+  postTypePrefix,
 }) => {
   const { t } = useTranslation();
 
@@ -38,7 +38,7 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
     <PostLocationWrapper>
       <MapDisplay coords={postLocation.coords} />
       <TitleWithUnderline level={3} color={COLORS.primaryDark}>
-        Location for {postDetails.title}
+        {postTypePrefix} {t('modules.create.stepTitles.map')}
       </TitleWithUnderline>
       <LocationFormDiv>
         <b>Choose an Address:</b>
@@ -98,11 +98,11 @@ const ChooserDiv = styled.div`
 interface PostLocationStepProps {
   addresses: Record<string, IUserAddress> | undefined;
   postLocation: any;
-  postDetails: any;
   setShowNewAddressModal: (any) => void;
   setPostLocation: (any) => void;
   nextHandler: (any) => void;
   prevHandler: () => void;
+  postTypePrefix: string;
 }
 
 export default PostLocationStep;
