@@ -39,9 +39,9 @@ const CreatePostContainer: React.FC = () => {
   /* PostDetails */
   const getTypes = () => [t('modules.create.defaults.postDetails.type')];
   const [postDetails, setPostDetails] = useState<IPostDetails>({
-    title: t('modules.create.defaults.postDetails.title'),
-    body: t('modules.create.defaults.postDetails.body'),
-    type: getTypes()[0],
+    title: '',
+    body: '',
+    type: '',
   });
 
   /* PostLocation */

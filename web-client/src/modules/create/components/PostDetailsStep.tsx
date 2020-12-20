@@ -59,7 +59,9 @@ const PostDetails: React.FC<PostDetailsProps> = ({
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={t('modules.create.defaults.postDetails.title')}
+            />
           </Form.Item>
 
           <Form.Item
@@ -107,7 +109,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             ]}
           >
             <Input.TextArea
-              placeholder={t('newRequest.form.body')}
+              placeholder={t('modules.create.defaults.postDetails.body')}
               maxLength={500}
               autoSize={{ minRows: 6, maxRows: 8 }}
             />
