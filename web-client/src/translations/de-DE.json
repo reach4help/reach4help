@@ -1,8 +1,10 @@
 {
   "common": {
     "or": "or",
+    "submit": "Submit",
     "i_understand": "Ich verstehe.",
     "okay": "OK",
+    "next": "Next",
     "cancel": "Abbrechen",
     "welcome": "Willkommen",
     "continue": "Weiter",
@@ -204,7 +206,8 @@
         "submit": "Save",
         "next": "Next",
         "back": "Back",
-        "saveChangesCheckbox": "Save Address"
+        "saveChangesCheckbox": "Save Address",
+        "dontSaveChangesCheckbox": "Don't Save Address"
       }
     },
     "phoneNumber": {
@@ -250,6 +253,7 @@
         "search": "Suchen",
         "useMyLocation": "Meinen Standort verwenden",
         "address_error_message": "Bitte geben Sie Ihre Adresse ein.",
+        "title_error_message": "Please enter the title",
         "type_error_message": "Sie müssen einen Typ auswählen.",
         "other_error_message": "Sie müssen etwas eingeben.",
         "body_error_message": "Bitte geben Sie Ihre Beschreibung ein."
@@ -381,6 +385,33 @@
           "PersonalDataFormContainer": {
             "address_error": "Entschuldigung, wir konnten Ihre eigentliche Adresse nicht ermitteln, bitte versuchen Sie es erneut!",
             "missing_data": "Es fehlen noch Daten"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Location",
+          "summary": "Summary"
+        },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
+        "postDetails": {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel": "Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
