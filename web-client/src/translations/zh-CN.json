@@ -1,8 +1,10 @@
 {
   "common": {
     "or": "or",
+    "submit": "Submit",
     "i_understand": "我明白了。",
     "okay": "好",
+    "next": "Next",
     "cancel": "取消",
     "welcome": "欢迎使用",
     "continue": "继续",
@@ -204,7 +206,8 @@
         "submit": "Save",
         "next": "Next",
         "back": "Back",
-        "saveChangesCheckbox": "Save Address"
+        "saveChangesCheckbox": "Save Address",
+        "dontSaveChangesCheckbox": "Don't Save Address"
       }
     },
     "phoneNumber": {
@@ -250,6 +253,7 @@
         "search": "搜索​​​​",
         "useMyLocation": "更新我的位置：",
         "address_error_message": "请输入您的地址。",
+        "title_error_message": "Please enter the title",
         "type_error_message": "您需要选择一种语言。",
         "other_error_message": "您需要输入标题。",
         "body_error_message": "请输入问题描述。"
@@ -381,6 +385,33 @@
           "PersonalDataFormContainer": {
             "address_error": "抱歉，我们无法确定您的实际地址，请重试！",
             "missing_data": "缺失数据"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Location",
+          "summary": "Summary"
+        },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
+        "postDetails": {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel": "Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
