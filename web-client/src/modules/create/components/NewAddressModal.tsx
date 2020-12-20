@@ -1,4 +1,4 @@
-import { Alert, Checkbox, Col, Form, Input, Modal, Row } from 'antd';
+import { Alert, Col, Form, Input, Modal, Row } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -144,9 +144,13 @@ const ModalForm: React.FC<ModalFormProps> = ({
             </Row>
           )}
           <Row gutter={[16, 6]}>
-            <Checkbox onChange={() => setShouldSave(true)}>
-              {t('settings.changeAddressForm.saveChangesCheckbox')}
-            </Checkbox>
+            <input
+              type="checkbox"
+              onChange={e => {
+                e.target.checked && setShouldSave(true);
+              }}
+            />{' '}
+            {t('settings.changeAddressForm.saveChangesCheckbox')}
           </Row>
         </>
       </Form>
