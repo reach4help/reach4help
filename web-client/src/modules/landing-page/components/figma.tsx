@@ -49,10 +49,24 @@ const InfoSection = styled(Container)`
   h3 {
     font-size: 54px;
   }
+
+  @media (max-width: 380px) {
+    padding: 58px 16px;
+
+    h3 {
+      font-size: 38px;
+      line-height: 46px;
+      text-align: center;
+    }
+  }
 `;
 
 const InfoContainer = styled(Flex)`
   width: 100%;
+
+  @media (max-width: 380px) {
+    flex-direction: column;
+  }
 `;
 
 const InfoCardContainer = styled(Container)`
@@ -85,16 +99,32 @@ const InfoCardContainer = styled(Container)`
     font-size: 20px;
     margin: 0 50px;
   }
+
+
+  @media (max-width: 380px) {
+    height: 100%;
+    width: 100%;
+
+    div {
+      flex-direction: column;
+
+      h4 {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+    }
 `;
 
 const InfoCard = styled(Container)`
   justify-content: flex-start;
   height: 100%;
   align-items: center;
+
   h3 {
     font-size: 20px;
     margin: 10px;
   }
+
   p {
     font-size: 20px;
     width: 300px;
@@ -137,6 +167,7 @@ export const TopSection = styled(Flex)`
   width: 100%;
   margin-top: 65px;
   padding-top: 70px;
+
   @media (max-width: 380px) {
     height: 500px;
     margin-top: 0;
@@ -149,6 +180,7 @@ export const MiddleSection = styled(Flex)`
   position: relative;
   top: 250px;
   margin-bottom: 250px;
+
   @media (max-width: 380px) {
     flex-direction: column;
     top: 80px;
@@ -160,12 +192,13 @@ export const ReasonsSection = styled(Container)`
   text-align: center;
   align-items: center;
   margin-top: 400px;
-  @media (max-width: 380px) {
-    display: none;
-  }
 
   h1 {
     font-size: 54px;
+  }
+
+  @media (max-width: 380px) {
+    display: none;
   }
 `;
 
@@ -222,6 +255,7 @@ export const TextTopContainer = styled(Container)`
   position: relative;
   top: 40px;
   width: 500px;
+
   @media (max-width: 380px) {
     width: 340px;
   }
@@ -239,6 +273,7 @@ export const TextMiddleContainer = styled(Container)`
   position: relative;
   top: 40px;
   width: 500px;
+
   @media (max-width: 380px) {
     width: 340px;
   }
@@ -335,17 +370,21 @@ export const TextTop = styled.div`
     font-size: 50px;
     color: ${COLORS.white};
     line-height: 60px;
-    @media (max-width: 380px) {
-      font-size: 38px;
-      line-height: 46px;
-    }
   }
 
   p {
     color: ${COLORS.white};
     font-size: 18px;
     width: 400px;
-    @media (max-width: 380px) {
+  }
+
+  @media (max-width: 380px) {
+    h1 {
+      font-size: 38px;
+      line-height: 46px;
+    }
+
+    p {
       width: 290px;
     }
   }
@@ -355,16 +394,20 @@ export const TextMiddle = styled.div`
   h1 {
     font-size: 50px;
     line-height: 60px;
-    @media (max-width: 380px) {
-      font-size: 38px;
-      line-height: 46px;
-    }
   }
 
   p {
     font-size: 18px;
     width: 400px;
-    @media (max-width: 380px) {
+  }
+
+  @media (max-width: 380px) {
+    h1 {
+      font-size: 38px;
+      line-height: 46px;
+    }
+
+    p {
       width: 320px;
     }
   }
@@ -475,6 +518,7 @@ export const RectTop = styled.img`
   top: 0;
   z-index: -5;
   width: 100%;
+
   @media (max-width: 380px) {
     top: -5.2%;
     left: -12%;
