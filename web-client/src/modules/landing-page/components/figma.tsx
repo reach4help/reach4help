@@ -17,8 +17,8 @@ const Flex = styled.div`
 `;
 
 const Button = styled.button`
-  height: 35px;
-  width: 105px;
+  height: 44px;
+  width: 160px;
   border-radius: 4px;
   margin: 10px;
   cursor: pointer;
@@ -137,6 +137,11 @@ export const TopSection = styled(Flex)`
   width: 100%;
   margin-top: 65px;
   padding-top: 70px;
+  @media (max-width: 380px) {
+    height: 500px;
+    margin-top: 0;
+    padding-top: 0;
+  }
 `;
 
 export const MiddleSection = styled(Flex)`
@@ -144,12 +149,20 @@ export const MiddleSection = styled(Flex)`
   position: relative;
   top: 250px;
   margin-bottom: 250px;
+  @media (max-width: 380px) {
+    flex-direction: column;
+    top: 80px;
+    margin-bottom: 200px;
+  }
 `;
 
 export const ReasonsSection = styled(Container)`
   text-align: center;
   align-items: center;
   margin-top: 400px;
+  @media (max-width: 380px) {
+    display: none;
+  }
 
   h1 {
     font-size: 54px;
@@ -209,12 +222,26 @@ export const TextTopContainer = styled(Container)`
   position: relative;
   top: 40px;
   width: 500px;
+  @media (max-width: 380px) {
+    width: 340px;
+  }
+`;
+
+export const TextTopBtnContainer = styled.div`
+  @media (max-width: 380px) {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 `;
 
 export const TextMiddleContainer = styled(Container)`
   position: relative;
   top: 40px;
   width: 500px;
+  @media (max-width: 380px) {
+    width: 340px;
+  }
 `;
 
 export const ReasonsContainer = styled(Flex)`
@@ -308,12 +335,19 @@ export const TextTop = styled.div`
     font-size: 50px;
     color: ${COLORS.white};
     line-height: 60px;
+    @media (max-width: 380px) {
+      font-size: 38px;
+      line-height: 46px;
+    }
   }
 
   p {
     color: ${COLORS.white};
     font-size: 18px;
     width: 400px;
+    @media (max-width: 380px) {
+      width: 290px;
+    }
   }
 `;
 
@@ -321,11 +355,18 @@ export const TextMiddle = styled.div`
   h1 {
     font-size: 50px;
     line-height: 60px;
+    @media (max-width: 380px) {
+      font-size: 38px;
+      line-height: 46px;
+    }
   }
 
   p {
     font-size: 18px;
     width: 400px;
+    @media (max-width: 380px) {
+      width: 320px;
+    }
   }
 `;
 
@@ -434,6 +475,11 @@ export const RectTop = styled.img`
   top: 0;
   z-index: -5;
   width: 100%;
+  @media (max-width: 380px) {
+    top: -5.2%;
+    left: -12%;
+    width: 270%;
+  }
 `;
 
 export const Shop = styled(ReasonsCardIcon)``;
@@ -442,9 +488,17 @@ export const Check = styled(ReasonsCardIcon)``;
 
 export const Card = styled(ReasonsCardIcon)``;
 
-export const PeopleTop = styled.img``;
+export const PeopleTop = styled.img`
+  @media (max-width: 380px) {
+    display: none;
+  }
+`;
 
-export const MockupImage = styled.img``;
+export const MockupImage = styled.img`
+  @media (max-width: 380px) {
+    width: 98%;
+  }
+`;
 
 export const HelpInfoRequestImage = styled.img``;
 

@@ -91,6 +91,7 @@ import {
   TextMiddle,
   TextMiddleContainer,
   TextTop,
+  TextTopBtnContainer,
   TextTopContainer,
   TopSection,
   TwilioLogo,
@@ -115,10 +116,10 @@ const HomePage: React.FC = (): JSX.Element => (
             need it the most.
           </p>
         </TextTop>
-        <div>
+        <TextTopBtnContainer>
           <GetHelpBtn>Get Help</GetHelpBtn>
           <VolunteerBtn>Volunteer</VolunteerBtn>
-        </div>
+        </TextTopBtnContainer>
       </TextTopContainer>
 
       <PeopleTop src={peopleTop} />
