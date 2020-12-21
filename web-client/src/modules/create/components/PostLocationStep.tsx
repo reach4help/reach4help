@@ -37,7 +37,7 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
   return (
     <PostLocationWrapper>
       <MapDisplay coords={postLocation.coords} />
-      <TitleWithUnderline level={3} color={COLORS.primaryDark}>
+      <TitleWithUnderline level={2} color={COLORS.primaryDark}>
         {postTypePrefix} {t('modules.create.stepTitles.map')}
       </TitleWithUnderline>
       <LocationFormDiv>
