@@ -33,6 +33,39 @@
   ],
   "teams": [
     {
+      "title": "Core",
+      "contributors": [{
+        "name": "Shayan Chowdhury",
+        "title": "Executive Director, Co-founder",
+        "avatar_url": "https://avatars3.githubusercontent.com/u/29135917?v=4",
+        "contact": "mailto:shayan@reach4help.org"
+      },
+      {
+        "name": "Joseph Ashwin Kottapurath",
+        "title": "Technical Lead",
+        "avatar_url": "https://avatars2.githubusercontent.com/u/13694998?v=4",
+        "contact": "mailto:joseph@reach4help.org"
+      },
+      {
+        "name": "Samantha Uebel",
+        "title": "Design Lead",
+        "avatar_url": "",
+        "contact": "mailto:samantha@reach4help.org"
+      },
+      {
+        "name": "Yi Zhou",
+        "title": "Marketing Lead",
+        "avatar_url": "",
+        "contact": "mailto:yi@reach4help.org"
+      },
+      {
+        "name": "Despot Jakimovski",
+        "title": "Product Lead",
+        "avatar_url": "",
+        "contact": "mailto:despot.jakimovski@reach4help.org"
+      }]
+    },
+    {
       "title": "Development",
       "contributors": [
         {

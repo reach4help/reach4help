@@ -1,10 +1,11 @@
 import React from 'react';
+import teams from 'src/modules/landing-page/contributors.json';
 
 import logo from '../assets/logo.svg';
 import problemSolve from '../assets/problem_solving.svg';
 import {
   ButtonContainer,
-  ContributorImage,
+  // ContributorImage,
   JoinButton,
   JoinContainer,
   JoinText,
@@ -19,8 +20,24 @@ import {
   TopText,
   TopTextContainer,
 } from '../components/about';
-import * as contributors from '../components/contributors';
+// import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
+
+const fetchingteams = () => {
+  // console.log(teams);
+  const data = teams;
+  // let core = teams.core
+  // let departments = teams.teams
+  // debugger
+  return data.teams.map(t => (
+    // let color
+
+    // if t.title =
+    <TeamImageContainer key={t.title}>
+      <h2>{t.title}</h2>
+    </TeamImageContainer>
+  ));
+};
 
 const AboutPage: React.FC = (): JSX.Element => (
   <Root>
@@ -69,7 +86,8 @@ const AboutPage: React.FC = (): JSX.Element => (
         </TeamText>
       </TeamContainer>
     </MiddleSection>
-    <TeamImageContainer>
+    {fetchingteams()}
+    {/* <TeamImageContainer>
       <h1>Development</h1>
       <ContributorImage src={contributors.AlexVanino.imgSrc} />
       <ContributorImage src={contributors.BurhanTuerker.imgSrc} />
@@ -109,7 +127,7 @@ const AboutPage: React.FC = (): JSX.Element => (
       <ContributorImage src={contributors.WinggoTse.imgSrc} />
       <ContributorImage src={contributors.SamLanning.imgSrc} />
       <ContributorImage src={contributors.DavidAlecrim.imgSrc} />
-    </TeamImageContainer>{' '}
+    </TeamImageContainer>{' '} */}
     <br />
     <MiddleSection>
       <JoinContainer>

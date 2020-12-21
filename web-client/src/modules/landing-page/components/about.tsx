@@ -92,6 +92,7 @@ export const TeamText = styled.div`
 export const TeamImageContainer = styled(Container)`
   width: 90%;
   padding: 50px 0;
+  overflow-x: scroll;
 `;
 
 export const JoinContainer = styled(Flex)`
