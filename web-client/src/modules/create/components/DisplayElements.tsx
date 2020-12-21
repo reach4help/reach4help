@@ -41,7 +41,6 @@ export const AddressDisplay = ({ location }) => {
 
 const AddressDisplayWrapper = styled.div`
   margin: 20px 0;
-  font-family: serif;
 `;
 
 export const ButtonsDisplay = ({ children }) => (
