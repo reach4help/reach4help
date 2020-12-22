@@ -657,7 +657,7 @@ export const TeamMeetingImage = styled.img`
 
 export const AirtableLogo = styled.img`
   @media (max-width: 380px) {
-    flex-basis: 50%;
+    flex-basis: 40%;
   }
 `;
 
@@ -675,19 +675,15 @@ export const CanvaLogo = styled.img`
 
 export const DatadogLogo = styled.img`
   @media (max-width: 380px) {
-    flex-basis: 50%;
+    flex-basis: 40%;
   }
 `;
 
-export const FigmaLogo = styled.img`
-  @media (max-width: 380px) {
-    flex-basis: 25%;
-  }
-`;
+export const FigmaLogo = styled.img``;
 
 export const GatsbyLogo = styled.img`
   @media (max-width: 380px) {
-    flex-basis: 50%;
+    flex-basis: 40%;
   }
 `;
 
@@ -699,19 +695,19 @@ export const GoogleLogo = styled.img`
 
 export const HelpfulEngineeringLogo = styled.img`
   @media (max-width: 380px) {
-    flex-basis: 50%;
+    flex-basis: 40%;
   }
 `;
 
 export const NetlifyLogo = styled.img`
   @media (max-width: 380px) {
-    flex-basis: 50%;
+    flex-basis: 40%;
   }
 `;
 
 export const SlackLogo = styled.img`
   @media (max-width: 380px) {
-    flex-basis: 50%;
+    flex-basis: 40%;
   }
 `;
 
