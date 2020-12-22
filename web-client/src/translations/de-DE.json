@@ -23,6 +23,8 @@
     "State": "Bundesland / Kanton",
     "country": "Staat",
     "for": " für ",
+    "Offer": "Offer",
+    "Request": "Request",
     "navbar": {
       "home": "Home",
       "my_requests": "Requests",
