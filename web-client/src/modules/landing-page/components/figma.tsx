@@ -54,7 +54,7 @@ const InfoSection = styled(Container)`
     padding: 58px 16px;
 
     h3 {
-      font-size: 38px;
+      font-size: 28px;
       line-height: 46px;
     }
   }
@@ -182,8 +182,8 @@ export const MiddleSection = styled(Flex)`
 
   @media (max-width: 380px) {
     flex-direction: column;
-    top: 80px;
-    margin-bottom: 165px;
+    top: 10px;
+    margin-bottom: 100px;
   }
 `;
 
@@ -197,7 +197,15 @@ export const ReasonsSection = styled(Container)`
   }
 
   @media (max-width: 380px) {
-    display: none;
+    align-items: start;
+    margin-top: 0;
+    margin-bottom: 25px;
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 60px;
+      margin-left: 10px;
+    }
   }
 `;
 
@@ -266,6 +274,7 @@ export const TextTopContainer = styled(Container)`
   width: 500px;
 
   @media (max-width: 380px) {
+    top: 20px;
     width: 340px;
   }
 `;
@@ -291,6 +300,10 @@ export const TextMiddleContainer = styled(Container)`
 export const ReasonsContainer = styled(Flex)`
   flex-direction: row;
   width: 100%;
+
+  @media (max-width: 380px) {
+    flex-direction: column;
+  }
 `;
 
 export const ReasonsCardIconContainer = styled(Container)`
@@ -438,7 +451,7 @@ export const TextTop = styled.div`
 
   @media (max-width: 380px) {
     h1 {
-      font-size: 38px;
+      font-size: 36px;
       line-height: 46px;
     }
 
@@ -461,7 +474,7 @@ export const TextMiddle = styled.div`
 
   @media (max-width: 380px) {
     h1 {
-      font-size: 38px;
+      font-size: 28px;
       line-height: 46px;
     }
 
@@ -502,6 +515,11 @@ export const ReasonsCard = styled(Container)`
     width: 320px;
     text-align: center;
     font-size: 18px;
+  }
+
+  @media (max-width: 380px) {
+    margin: 20px 0;
+    height: 256px;
   }
 `;
 
@@ -582,7 +600,7 @@ export const RectTop = styled.img`
   width: 100%;
 
   @media (max-width: 380px) {
-    top: -5.2%;
+    top: -250px;
     left: -12%;
     width: 270%;
   }
