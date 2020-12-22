@@ -23,6 +23,8 @@
     "State": "Kraj / Provincie",
     "country": "Země",
     "for": " pro ",
+    "Offer": "Offer",
+    "Request": "Request",
     "navbar": {
       "home": "Home",
       "my_requests": "Requests",
