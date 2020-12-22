@@ -23,6 +23,8 @@
     "State": "Comunidad Autónoma/Estado/Provincia",
     "country": "País",
     "for": " para ",
+    "Offer": "Offer",
+    "Request": "Request",
     "navbar": {
       "home": "Home",
       "my_requests": "Requests",
