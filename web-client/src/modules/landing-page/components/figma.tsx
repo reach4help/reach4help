@@ -149,6 +149,7 @@ export const Nav = styled.nav`
 
 export const Root = styled.div`
   width: 100%;
+  padding-bottom: 64px;
 `;
 
 export const Footer = styled(Container)`
@@ -242,6 +243,12 @@ export const SponsorSection = styled(Container)`
 export const SocialLinksSection = styled(Flex)`
   width: 450px;
   padding-top: 90px;
+
+  @media (max-width: 380px) {
+    width: 250px;
+    padding-top: 38px;
+    flex-wrap: wrap;
+  }
 `;
 
 export const LegalSection = styled(Flex)`
@@ -600,7 +607,7 @@ export const RectTop = styled.img`
   width: 100%;
 
   @media (max-width: 380px) {
-    top: -250px;
+    top: -300px;
     left: -12%;
     width: 270%;
   }
@@ -658,12 +665,14 @@ export const TeamMeetingImage = styled.img`
 export const AirtableLogo = styled.img`
   @media (max-width: 380px) {
     flex-basis: 40%;
+    margin-bottom: 25px;
   }
 `;
 
 export const AlgoliaLogo = styled.img`
   @media (max-width: 380px) {
     flex-basis: 25%;
+    margin-bottom: 15px;
   }
 `;
 
@@ -676,38 +685,48 @@ export const CanvaLogo = styled.img`
 export const DatadogLogo = styled.img`
   @media (max-width: 380px) {
     flex-basis: 40%;
+    margin-bottom: 10px;
   }
 `;
 
-export const FigmaLogo = styled.img``;
+export const FigmaLogo = styled.img`
+  @media (max-width: 380px) {
+    margin-bottom: 15px;
+  }
+`;
 
 export const GatsbyLogo = styled.img`
   @media (max-width: 380px) {
     flex-basis: 40%;
+    margin-bottom: 25px;
   }
 `;
 
 export const GoogleLogo = styled.img`
   @media (max-width: 380px) {
     flex-basis: 25%;
+    margin-bottom: 15px;
   }
 `;
 
 export const HelpfulEngineeringLogo = styled.img`
   @media (max-width: 380px) {
     flex-basis: 40%;
+    margin-bottom: 25px;
   }
 `;
 
 export const NetlifyLogo = styled.img`
   @media (max-width: 380px) {
     flex-basis: 40%;
+    margin-bottom: 25px;
   }
 `;
 
 export const SlackLogo = styled.img`
   @media (max-width: 380px) {
     flex-basis: 40%;
+    margin-bottom: 10px;
   }
 `;
 
@@ -732,12 +751,22 @@ export const EmailIcon = styled(SocialMediaIcon)`
     filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
       brightness(96%) contrast(99%);
   }
+
+  @media (max-width: 380px) {
+    flex-basis: 33%;
+    margin-bottom: 30px;
+  }
 `;
 
 export const FacebookIcon = styled(SocialMediaIcon)`
   &:hover {
     filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
       brightness(96%) contrast(99%);
+  }
+
+  @media (max-width: 380px) {
+    flex-basis: 33%;
+    margin-bottom: 30px;
   }
 `;
 
@@ -746,12 +775,22 @@ export const GithubIcon = styled(SocialMediaIcon)`
     filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
       brightness(96%) contrast(99%);
   }
+
+  @media (max-width: 380px) {
+    flex-basis: 33%;
+    margin-bottom: 30px;
+  }
 `;
 
 export const InstagramIcon = styled(SocialMediaIcon)`
   &:hover {
     filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
       brightness(96%) contrast(99%);
+  }
+
+  @media (max-width: 380px) {
+    flex-basis: 33%;
+    margin-bottom: 30px;
   }
 `;
 
@@ -760,11 +799,21 @@ export const LinkedInIcon = styled(SocialMediaIcon)`
     filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
       brightness(96%) contrast(99%);
   }
+
+  @media (max-width: 380px) {
+    flex-basis: 33%;
+    margin-bottom: 30px;
+  }
 `;
 
 export const TwitterIcon = styled(SocialMediaIcon)`
   &:hover {
     filter: invert(43%) sepia(97%) saturate(1408%) hue-rotate(3deg)
       brightness(96%) contrast(99%);
+  }
+
+  @media (max-width: 380px) {
+    flex-basis: 33%;
+    margin-bottom: 30px;
   }
 `;
