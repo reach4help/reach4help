@@ -23,6 +23,8 @@
     "State": "Stato / Provincia",
     "country": "Paese",
     "for": " for ",
+    "Offer": "Offer",
+    "Request": "Request",
     "navbar": {
       "home": "Home",
       "my_requests": "Requests",
