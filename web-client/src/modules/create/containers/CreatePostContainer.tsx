@@ -13,15 +13,22 @@ import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
+import { CreatePostTypes } from 'src/modules/create/constants';
 import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
-const CreatePostContainer: React.FC = () => {
+const CreatePostContainer: React.FC<ICreatePostContainer> = ({
+  createPostType,
+}) => {
+  const { t } = useTranslation();
+
+  const IS_OFFER_POST = createPostType === CreatePostTypes.offer;
+  const POST_TYPE_PREFIX = IS_OFFER_POST ? t('Offer') : t('Request');
+
   const dispatch = useDispatch();
   const history = useHistory();
-  const { t } = useTranslation();
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -109,7 +116,10 @@ const CreatePostContainer: React.FC = () => {
 
     // eslint-disable-next-line no-console
     console.log('creating post', newPost, 'type', newPost.type);
-    return dispatch(setRequest(newPost as IRequest, undefined, phoneNumber));
+    return IS_OFFER_POST
+      ? /* TODO:  change to dispatch(setOffer) */
+        dispatch(setRequest(newPost as IRequest, undefined, phoneNumber))
+      : dispatch(setRequest(newPost as IRequest, undefined, phoneNumber));
   };
   const cancelCreate = () => {
     history.replace(MyRequestPostsLocationUrl);
@@ -117,7 +127,7 @@ const CreatePostContainer: React.FC = () => {
 
   const postCreationSteps = [
     {
-      title: t('modules.create.stepTitles.details'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.details')}`,
       component: (
         <PostDetailsStep
           nextHandler={moveForwards}
@@ -125,31 +135,33 @@ const CreatePostContainer: React.FC = () => {
           postTypes={getTypes()}
           postDetails={postDetails}
           setPostDetails={setPostDetails}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
     {
-      title: t('modules.create.stepTitles.map'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.map')}`,
       component: (
         <PostLocationStep
           setShowNewAddressModal={setShowNewAddressModal}
           nextHandler={moveForwards}
           prevHandler={moveBackwards}
-          postDetails={postDetails}
           addresses={addresses}
           postLocation={postLocation}
           setPostLocation={setPostLocation}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
     {
-      title: t('modules.create.stepTitles.summary'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.summary')}`,
       component: (
         <PostSummary
           prevHandler={moveBackwards}
           postDetails={postDetails}
           postLocation={postLocation}
           submitPost={submitPost}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
@@ -193,4 +205,7 @@ interface IPostDetails {
   customType?: string;
 }
 
+interface ICreatePostContainer {
+  createPostType: CreatePostTypes;
+}
 export default CreatePostContainer;
