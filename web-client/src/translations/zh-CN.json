@@ -23,6 +23,8 @@
     "State": "州 / 省",
     "country": "国家",
     "for": "为",
+    "Offer": "Offer",
+    "Request": "Request",
     "navbar": {
       "home": "Home",
       "my_requests": "Requests",
