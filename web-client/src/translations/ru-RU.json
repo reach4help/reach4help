@@ -23,6 +23,8 @@
     "State": "Штат / Область",
     "country": "Страна",
     "for": " для ",
+    "Offer": "Offer",
+    "Request": "Request",
     "navbar": {
       "home": "Home",
       "my_requests": "Requests",
