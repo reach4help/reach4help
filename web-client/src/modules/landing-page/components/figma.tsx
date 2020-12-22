@@ -56,7 +56,6 @@ const InfoSection = styled(Container)`
     h3 {
       font-size: 38px;
       line-height: 46px;
-      text-align: center;
     }
   }
 `;
@@ -110,7 +109,7 @@ const InfoCardContainer = styled(Container)`
 
       h4 {
         margin-top: 40px;
-        margin-bottom: 40px;
+        margin-bottom: 60px;
       }
     }
 `;
@@ -184,7 +183,7 @@ export const MiddleSection = styled(Flex)`
   @media (max-width: 380px) {
     flex-direction: column;
     top: 80px;
-    margin-bottom: 200px;
+    margin-bottom: 165px;
   }
 `;
 
@@ -211,15 +210,25 @@ export const VolunteerInfoSection = styled(InfoSection)`
   background: ${COLORS.volunteeringBackground};
 `;
 
-export const AboutInfoSection = styled(Flex)`
+export const AboutInfoSection = styled(InfoSection)`
   height: 525px;
   width: 100%;
+  flex-direction: column;
+
+  @media (max-width: 380px) {
+    height: 100%;
+  }
 `;
 
 export const SponsorSection = styled(Container)`
   background: ${COLORS.primaryDark};
   height: 473px;
   width: 100%;
+
+  @media (max-width: 380px) {
+    height: 100%;
+    padding: 58px 0;
+  }
 `;
 
 export const SocialLinksSection = styled(Flex)`
@@ -302,20 +311,41 @@ export const HelpInfoCardContainer = styled(InfoCardContainer)`
   }
 `;
 
+export const AboutInfoSectionContainer = styled(Flex)`
+  @media (max-width: 380px) {
+    flex-direction: column-reverse;
+  }
+`;
+
 export const AboutTextContainer = styled(Container)`
   position: relative;
   width: 540px;
+
   h1 {
     font-size: 30px;
     font-weight: 700;
   }
+
   h3 {
-    font-size: 54px;
     font-weight: 500;
     line-height: 60px;
   }
+
   p {
     size: 18px;
+  }
+
+  @media (max-width: 380px) {
+    width: 340px;
+
+    h3 {
+      line-height: 46px;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+    }
   }
 `;
 
@@ -335,16 +365,44 @@ export const SponsorThankYou = styled(Flex)`
     line-height: 36px;
     text-align: center;
   }
+
+  h3:last-child {
+    display: none;
+  }
+
+  @media (max-width: 380px) {
+    margin-bottom: 0;
+
+    h3:first-child {
+      display: none;
+    }
+
+    h3:last-child {
+      display: block;
+    }
+  }
 `;
 
 export const SponsorLogoMiddle = styled(Flex)`
   padding: 5px;
   margin: 30px 0;
+
+  @media (max-width: 380px) {
+    flex-wrap: wrap;
+    padding: 0 5px;
+    margin: 0;
+  }
 `;
 
 export const SponsorLogoBottom = styled(Flex)`
   padding: 5px;
   margin: 0px 166px;
+
+  @media (max-width: 380px) {
+    flex-wrap: wrap;
+    padding: 0 5px;
+    margin: 0;
+  }
 `;
 
 export const VolunteerInfoContainer = styled(InfoContainer)``;
@@ -497,6 +555,10 @@ export const AboutBtn = styled(Button)`
   width: 130px;
   background: none;
   margin-left: 0;
+
+  @media (max-width: 380px) {
+    text-align: center;
+  }
 `;
 // ---------------------------------------------------------------------------------------------------- //
 
@@ -564,35 +626,88 @@ export const CoordinateHelpLogo = styled.img`
 
 export const FooterLogo = styled.img``;
 
-export const TeamMeetingImage = styled.img``;
+export const TeamMeetingImage = styled.img`
+  @media (max-width: 380px) {
+    width: 98%;
+    margin-bottom: 20px;
+  }
+`;
 
 // ---------------------------------------------------------------------------------------------------- //
 
 // Sponsor Logos
 
-export const AirtableLogo = styled.img``;
+export const AirtableLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 50%;
+  }
+`;
 
-export const AlgoliaLogo = styled.img``;
+export const AlgoliaLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 25%;
+  }
+`;
 
-export const CanvaLogo = styled.img``;
+export const CanvaLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 25%;
+  }
+`;
 
-export const DatadogLogo = styled.img``;
+export const DatadogLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 50%;
+  }
+`;
 
-export const FigmaLogo = styled.img``;
+export const FigmaLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 25%;
+  }
+`;
 
-export const GatsbyLogo = styled.img``;
+export const GatsbyLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 50%;
+  }
+`;
 
-export const GoogleLogo = styled.img``;
+export const GoogleLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 25%;
+  }
+`;
 
-export const HelpfulEngineeringLogo = styled.img``;
+export const HelpfulEngineeringLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 50%;
+  }
+`;
 
-export const NetlifyLogo = styled.img``;
+export const NetlifyLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 50%;
+  }
+`;
 
-export const SlackLogo = styled.img``;
+export const SlackLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 50%;
+  }
+`;
 
-export const TwilioLogo = styled.img``;
+export const TwilioLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 25%;
+  }
+`;
 
-export const TypeformLogo = styled.img``;
+export const TypeformLogo = styled.img`
+  @media (max-width: 380px) {
+    flex-basis: 25%;
+  }
+`;
 
 // ---------------------------------------------------------------------------------------------------- //
 

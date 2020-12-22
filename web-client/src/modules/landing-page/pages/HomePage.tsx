@@ -36,6 +36,7 @@ import typeFormLogo from '../assets/typeFormLogo.svg';
 import {
   AboutBtn,
   AboutInfoSection,
+  AboutInfoSectionContainer,
   AboutTextContainer,
   AirtableLogo,
   AlgoliaLogo,
@@ -251,13 +252,17 @@ const HomePage: React.FC = (): JSX.Element => (
     </VolunteerInfoSection>
 
     <AboutInfoSection>
-      <AboutTextContainer>
-        <h1>About</h1>
-        <h3>We’re a group of volunteers driven to unify help worldwide</h3>
-        <p>Meet the minds behind this initiative and join us! </p>
-        <AboutBtn>More About Us</AboutBtn>
-      </AboutTextContainer>
-      <TeamMeetingImage src={teamMeetingImg} />
+      <AboutInfoSectionContainer>
+        <AboutTextContainer>
+          <h1>About</h1>
+          <h3>We’re a group of volunteers driven to unify help worldwide</h3>
+          <p>Meet the minds behind this initiative and join us! </p>
+          <div>
+            <AboutBtn>More About Us</AboutBtn>
+          </div>
+        </AboutTextContainer>
+        <TeamMeetingImage src={teamMeetingImg} />
+      </AboutInfoSectionContainer>
     </AboutInfoSection>
     <SponsorSection>
       <SponsorThankYou>
@@ -265,6 +270,7 @@ const HomePage: React.FC = (): JSX.Element => (
           We want to thank all the brands, companies, and community supporters
           that have helped us on our mission.
         </h3>
+        <h3>Our Partners</h3>
       </SponsorThankYou>
       <SponsorLogoMiddle>
         <HelpfulEngineeringLogo src={helpfulLogo} />
