@@ -15,6 +15,9 @@ import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
 import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
+import { CreatePostTypes } from 'src/modules/create/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+>>>>>>> fa8e394e... feat: chg two files for creating posts
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -111,6 +114,25 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         isResponse: false,
         requestingHelp: !IS_OFFER_POST,
         sourcePublicPostId: null,
+    const newPost = {
+      title,
+      description: body,
+      type:
+        postDetails.type === 'customType'
+          ? postDetails.customType
+          : postDetails.type,
+      pinUserRef: profileState.userRef!,
+      pinUserSnapshot: profileState.profile!.toObject() as IUser,
+      streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
+      latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
+    };
+
+    // eslint-disable-next-line no-console
+    console.log('creating post', newPost, 'type', newPost.type);
+    return IS_OFFER_POST
+      ? /* TODO:  change to dispatch(setOffer) */
+        dispatch(setRequest(newPost as IRequest, undefined, phoneNumber))
+      : dispatch(setRequest(newPost as IRequest, undefined, phoneNumber));
         status: PostStatus.pending,
         creatorGivenRating: 0,
         parentCreatorGivenRating: 0,
@@ -132,6 +154,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         ? dispatch(dispatchCreatePublicOffer(newPost2))
         : dispatch(dispatchCreatePublicRequest(newPost2));
     }
+>>>>>>> fa8e394e... feat: chg two files for creating posts
   };
 
   const cancelCreate = () => {
