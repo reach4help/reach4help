@@ -62,6 +62,7 @@ import {
   HelpInfoCardContainer,
   HelpInfoContainer,
   HelpInfoCoordinateImage,
+  HelpInfoHeadingContainer,
   HelpInfoOfferImage,
   HelpInfoRequestImage,
   HelpInfoSection,
@@ -77,6 +78,7 @@ import {
   ReasonsCard,
   ReasonsCardIconContainer,
   ReasonsContainer,
+  ReasonsHeadingContainer,
   ReasonsSection,
   RectTop,
   Root,
@@ -102,6 +104,7 @@ import {
   VolunteerInfoCard,
   VolunteerInfoCardContainer,
   VolunteerInfoContainer,
+  VolunteerInfoHeadingContainer,
   VolunteerInfoSection,
 } from '../components/figma';
 
@@ -138,7 +141,9 @@ const HomePage: React.FC = (): JSX.Element => (
       </TextMiddleContainer>
     </MiddleSection>
     <ReasonsSection>
-      <h1>Why use Reach4Help</h1>
+      <ReasonsHeadingContainer>
+        <h1>Why use Reach4Help</h1>
+      </ReasonsHeadingContainer>
       <ReasonsContainer>
         <ReasonsCard>
           <ReasonsCardIconContainer>
@@ -171,7 +176,9 @@ const HomePage: React.FC = (): JSX.Element => (
       </ReasonsContainer>
     </ReasonsSection>
     <HelpInfoSection>
-      <h3>How getting help works</h3>
+      <HelpInfoHeadingContainer>
+        <h3>How getting help works</h3>
+      </HelpInfoHeadingContainer>
       <HelpInfoContainer>
         <HelpInfoCardContainer>
           <h2>Step 1</h2>
@@ -210,7 +217,9 @@ const HomePage: React.FC = (): JSX.Element => (
     </HelpInfoSection>
 
     <VolunteerInfoSection>
-      <h3>How volunteering works</h3>
+      <VolunteerInfoHeadingContainer>
+        <h3>How volunteering works</h3>
+      </VolunteerInfoHeadingContainer>
       <VolunteerInfoContainer>
         <VolunteerInfoCardContainer>
           <h2>Step 1</h2>
