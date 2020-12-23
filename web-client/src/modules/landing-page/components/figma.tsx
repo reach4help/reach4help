@@ -1,3 +1,4 @@
+import { MEDIA_QUERIES } from 'src/constants/mediaQueries';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -50,7 +51,7 @@ const InfoSection = styled(Container)`
     font-size: 54px;
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     padding: 58px 16px 38px;
     text-align: left;
     h3 {
@@ -63,7 +64,7 @@ const InfoSection = styled(Container)`
 const InfoContainer = styled(Flex)`
   width: 100%;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-direction: column;
   }
 `;
@@ -100,7 +101,7 @@ const InfoCardContainer = styled(Container)`
   }
 
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     height: 100%;
     width: 100%;
 
@@ -149,10 +150,6 @@ export const Nav = styled.nav`
 
 export const Root = styled.div`
   width: 100%;
-
-  @media (max-width: 430px) {
-    padding-bottom: 64px;
-  }
 `;
 
 export const Footer = styled(Container)`
@@ -171,8 +168,8 @@ export const TopSection = styled(Flex)`
   margin-top: 65px;
   padding-top: 70px;
 
-  @media (max-width: 430px) {
-    height: 500px;
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    height: 400px;
     margin-top: 0;
     padding-top: 0;
     padding-left: 16px;
@@ -186,7 +183,7 @@ export const MiddleSection = styled(Flex)`
   top: 250px;
   margin-bottom: 250px;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-direction: column;
     top: 10px;
     margin-bottom: 100px;
@@ -204,7 +201,7 @@ export const ReasonsSection = styled(Container)`
     font-size: 54px;
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     margin-top: 0;
     margin-bottom: 25px;
     padding-left: 16px;
@@ -226,7 +223,7 @@ export const AboutInfoSection = styled(InfoSection)`
   width: 100%;
   flex-direction: column;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     height: 100%;
   }
 `;
@@ -236,7 +233,7 @@ export const SponsorSection = styled(Container)`
   height: 473px;
   width: 100%;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     height: 100%;
     padding: 58px 0;
   }
@@ -246,7 +243,7 @@ export const SocialLinksSection = styled(Flex)`
   width: 450px;
   padding-top: 90px;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     width: 250px;
     padding-top: 38px;
     flex-wrap: wrap;
@@ -282,14 +279,14 @@ export const TextTopContainer = styled(Container)`
   top: 40px;
   width: 500px;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     top: 20px;
     width: 100%;
   }
 `;
 
 export const TextTopBtnContainer = styled.div`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -301,7 +298,7 @@ export const TextMiddleContainer = styled(Container)`
   top: 40px;
   width: 500px;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     width: 100%;
   }
 `;
@@ -311,7 +308,7 @@ export const ReasonsHeadingContainer = styled(Flex)`
     font-size: 54px;
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     justify-content: start;
     width: 100%;
     margin-bottom: 24px;
@@ -326,7 +323,7 @@ export const ReasonsContainer = styled(Flex)`
   flex-direction: row;
   width: 100%;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-direction: column;
   }
 `;
@@ -350,21 +347,21 @@ export const HelpInfoCardContainer = styled(InfoCardContainer)`
 `;
 
 export const HelpInfoHeadingContainer = styled(Flex)`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     justify-content: start;
     width: 100%;
   }
 `;
 
 export const VolunteerInfoHeadingContainer = styled(Flex)`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     justify-content: start;
     width: 100%;
   }
 `;
 
 export const AboutInfoSectionContainer = styled(Flex)`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-direction: column-reverse;
   }
 `;
@@ -387,7 +384,7 @@ export const AboutTextContainer = styled(Container)`
     size: 18px;
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     width: 100%;
 
     h3 {
@@ -422,7 +419,7 @@ export const SponsorThankYou = styled(Flex)`
     display: none;
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     margin-bottom: 0;
 
     h3:first-child {
@@ -439,7 +436,7 @@ export const SponsorLogoMiddle = styled(Flex)`
   padding: 5px;
   margin: 30px 0;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-wrap: wrap;
     padding: 0 5px;
     margin: 0;
@@ -450,7 +447,7 @@ export const SponsorLogoBottom = styled(Flex)`
   padding: 5px;
   margin: 0px 166px;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-wrap: wrap;
     padding: 0 5px;
     margin: 0;
@@ -488,7 +485,7 @@ export const TextTop = styled.div`
     width: 400px;
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     h1 {
       font-size: 36px;
       line-height: 46px;
@@ -511,7 +508,7 @@ export const TextMiddle = styled.div`
     width: 400px;
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     h1 {
       font-size: 28px;
       line-height: 46px;
@@ -556,7 +553,7 @@ export const ReasonsCard = styled(Container)`
     font-size: 18px;
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     margin: 20px 0;
     height: 256px;
   }
@@ -595,7 +592,7 @@ export const GetHelpBtn = styled(Button)`
   border: none;
   margin-left: 0;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     margin: 0 9px 0 0;
     flex-grow: 1;
   }
@@ -611,7 +608,7 @@ export const VolunteerBtn = styled(Button)`
     color: ${COLORS.black};
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     margin: 0;
     flex-grow: 1;
   }
@@ -644,7 +641,7 @@ export const RectTop = styled.img`
   z-index: -5;
   width: 100%;
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     top: -300px;
     left: -12%;
     width: 270%;
@@ -658,13 +655,13 @@ export const Check = styled(ReasonsCardIcon)``;
 export const Card = styled(ReasonsCardIcon)``;
 
 export const PeopleTop = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     display: none;
   }
 `;
 
 export const MockupImage = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     width: 100%;
   }
 `;
@@ -690,7 +687,7 @@ export const CoordinateHelpLogo = styled.img`
 export const FooterLogo = styled.img``;
 
 export const TeamMeetingImage = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     width: 100%;
     margin-bottom: 20px;
   }
@@ -701,81 +698,81 @@ export const TeamMeetingImage = styled.img`
 // Sponsor Logos
 
 export const AirtableLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 40%;
     margin-bottom: 25px;
   }
 `;
 
 export const AlgoliaLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 30%;
     margin-bottom: 15px;
   }
 `;
 
 export const CanvaLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 30%;
   }
 `;
 
 export const DatadogLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 40%;
     margin-bottom: 10px;
   }
 `;
 
 export const FigmaLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     margin-bottom: 15px;
   }
 `;
 
 export const GatsbyLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 40%;
     margin-bottom: 25px;
   }
 `;
 
 export const GoogleLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 30%;
     margin-bottom: 15px;
   }
 `;
 
 export const HelpfulEngineeringLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 40%;
     margin-bottom: 25px;
   }
 `;
 
 export const NetlifyLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 40%;
     margin-bottom: 25px;
   }
 `;
 
 export const SlackLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 40%;
     margin-bottom: 10px;
   }
 `;
 
 export const TwilioLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 30%;
   }
 `;
 
 export const TypeformLogo = styled.img`
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 30%;
   }
 `;
@@ -790,7 +787,7 @@ export const EmailIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -802,7 +799,7 @@ export const FacebookIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -814,7 +811,7 @@ export const GithubIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -826,7 +823,7 @@ export const InstagramIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -838,7 +835,7 @@ export const LinkedInIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -850,7 +847,7 @@ export const TwitterIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
