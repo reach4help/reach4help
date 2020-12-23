@@ -18,10 +18,16 @@ import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
-const CreatePostContainer: React.FC = () => {
+const CreatePostContainer: React.FC<ICreatePostContainer> = ({
+  createPostType,
+}) => {
+  const { t } = useTranslation();
+
+  const IS_OFFER_POST = createPostType === CreatePostTypes.offer;
+  const POST_TYPE_PREFIX = IS_OFFER_POST ? t('Offer') : t('Request');
+
   const dispatch = useDispatch();
   const history = useHistory();
-  const { t } = useTranslation();
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -126,7 +132,7 @@ const CreatePostContainer: React.FC = () => {
 
   const postCreationSteps = [
     {
-      title: t('modules.create.stepTitles.details'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.details')}`,
       component: (
         <PostDetailsStep
           nextHandler={moveForwards}
@@ -134,31 +140,33 @@ const CreatePostContainer: React.FC = () => {
           postTypes={getTypes()}
           postDetails={postDetails}
           setPostDetails={setPostDetails}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
     {
-      title: t('modules.create.stepTitles.map'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.map')}`,
       component: (
         <PostLocationStep
           setShowNewAddressModal={setShowNewAddressModal}
           nextHandler={moveForwards}
           prevHandler={moveBackwards}
-          postDetails={postDetails}
           addresses={addresses}
           postLocation={postLocation}
           setPostLocation={setPostLocation}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
     {
-      title: t('modules.create.stepTitles.summary'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.summary')}`,
       component: (
         <PostSummary
           prevHandler={moveBackwards}
           postDetails={postDetails}
           postLocation={postLocation}
           submitPost={submitPost}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
@@ -202,4 +210,7 @@ interface IPostDetails {
   customType?: string;
 }
 
+interface ICreatePostContainer {
+  createPostType: CreatePostTypes;
+}
 export default CreatePostContainer;

@@ -11,6 +11,7 @@ import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
 import TopNavbar from '../TopNavbar/TopNavbar';
+import { DEVICE_MAX } from 'src/constants/mediaQueries';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
@@ -111,9 +112,13 @@ const DashboardLayoutWrapper = styled.div``;
 
 const DashboardContent = styled(Layout.Content)`
   position: relative;
-  top: 64px;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  padding-top: 64px;
+
+  @media ${DEVICE_MAX.tablet} {
+    padding-bottom: 64px;
+  }
+  /* overflow-x: hidden;
+  overflow-y: hidden; */
 `;
 
 interface DashboardLayoutProps {
