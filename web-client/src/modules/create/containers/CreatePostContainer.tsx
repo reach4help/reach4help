@@ -18,6 +18,8 @@ import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
+import { CreatePostTypes } from '../constants';
+
 const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   createPostType,
 }) => {
