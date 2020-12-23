@@ -254,7 +254,7 @@ export class RequestWithOffersAndTimeline extends Request
       offers: Object.keys(this.offers).reduce(
         (acc: Record<string, IOfferWithLocation>, key: string) => ({
           ...acc,
-          [key]: this.offers[key].toObject() as IOfferWithLocation,
+          [key]: this.offers[key].toObject(),
         }),
         {},
       ),
