@@ -1,4 +1,4 @@
-import { IRequest, Request } from 'src/models/requests';
+import { IPost, Post } from 'src/models/Post';
 
 /* TODO: (es) why rename? */
 import {
@@ -59,11 +59,11 @@ export const getCavRequestPosts = (payload: IgetRequestPosts) => (
   });
 
 export const setRequest = (
-  payload: IRequest,
+  payload: IPost,
   requestId?: string,
   phoneNumber?: string | null,
 ) => (dispatch: Function) => {
-  const requestPayload = Request.factory({
+  const requestPayload = Post.factory({
     ...payload,
   });
 
