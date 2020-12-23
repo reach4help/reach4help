@@ -691,7 +691,7 @@ export const FooterLogo = styled.img``;
 
 export const TeamMeetingImage = styled.img`
   @media (max-width: 430px) {
-    width: 98%;
+    width: 100%;
     margin-bottom: 20px;
   }
 `;
