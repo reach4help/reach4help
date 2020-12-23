@@ -189,7 +189,7 @@ export class Post implements IPost {
   set title(value: string) {
     this._title = value;
   }
-  
+
   @IsInt()
   @IsNotEmpty()
   private _positiveResponseCount: number;
