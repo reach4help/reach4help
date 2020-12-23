@@ -10,8 +10,10 @@ const CreatePostContainer = lazy(() =>
 
 const CreatePostPage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const { type } = useParams() as Record<string, string>;
-  return <CreatePostContainer createPostType={type as CreatePostTypes} />;
+  const { createPostType } = useParams() as Record<string, string>;
+  return (
+    <CreatePostContainer createPostType={createPostType as CreatePostTypes} />
+  );
 };
 
 const Routes = (): ReactElement => (

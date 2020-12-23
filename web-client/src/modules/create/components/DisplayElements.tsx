@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import WebClientMap from 'src/components/WebClientMap/WebClientMap';
@@ -8,32 +8,39 @@ const DetailsDisplayWrapper = styled.div`
   margin: 20px 0;
 `;
 
-export const DetailsDisplay = ({ details }) => (
-  <DetailsDisplayWrapper>
-    <h3> {details.title} </h3>
-    <div> {details.body} </div>
-  </DetailsDisplayWrapper>
-);
+export const DetailsDisplay = ({ details }) => {
+  const { Paragraph, Title } = Typography;
+  return (
+    <DetailsDisplayWrapper>
+      <Title level={3}> {details.title} </Title>
+      <Paragraph> {details.body} </Paragraph>
+    </DetailsDisplayWrapper>
+  );
+};
 
 export const AddressDisplay = ({ location }) => {
   const { t } = useTranslation();
+  const { Title } = Typography;
+
   return (
     <AddressDisplayWrapper>
-      <h3> {t('modules.create.displayElements.address')} </h3>
-      <div>{location.address1}</div>
-      <div>{location.address2}</div>
-      <div>
-        {location.city}, {location.state}
-      </div>
-      <div>{location.country}</div>
-      <div>{location.postalCode}</div>
+      <Title level={3}>{t('modules.create.displayElements.address')} </Title>
+      <address>
+        {location.address1}
+        <br />
+        {location.address2}
+        <br />
+        {location.city}, {location.state} <br />
+        {location.country}
+        <br />
+        {location.postalCode}
+      </address>
     </AddressDisplayWrapper>
   );
 };
 
 const AddressDisplayWrapper = styled.div`
   margin: 20px 0;
-  font-family: serif;
 `;
 
 export const ButtonsDisplay = ({ children }) => (
