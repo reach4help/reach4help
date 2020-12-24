@@ -18,7 +18,7 @@ export const createUserRequest = async ({
   requestPayload: Request;
 }) =>
   firestore
-    .collection('requests')
+    .collection('posts')
     .doc()
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
