@@ -30,12 +30,8 @@ export enum PostStatus {
 export interface IPost extends firebase.firestore.DocumentData {
   isResponse: boolean;
   parentSnapshot: IPost | null;
-  parentRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
-  creatorRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >;
+  parentRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | null;
+  creatorRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
   creatorSnapshot: IUser;
   title: string;
   description: string;
@@ -46,9 +42,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   parentCreatorGivenRating: number | null;
   creatorRatedAt: firebase.firestore.Timestamp | null;
   parentCreatorRatedAt: firebase.firestore.Timestamp | null;
-  updateSeenBy: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >[];
+  updateSeenBy: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>[];
   positiveResponseCount: number;
   negativeResponseCount: number;
   createdAt?: firebase.firestore.Timestamp;
@@ -59,12 +53,8 @@ export class Post implements IPost {
   constructor(
     isResponse = false,
     parentSnapshot: Post | null = null,
-    parentRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null = null,
-    creatorRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    >,
+    parentRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | null = null,
+    creatorRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>,
     creatorSnapshot: User,
     title: string,
     description: string,
@@ -75,9 +65,7 @@ export class Post implements IPost {
     parentCreatorGivenRating: number | null = null,
     creatorRatedAt: firebase.firestore.Timestamp | null = null,
     parentCreatorRatedAt: firebase.firestore.Timestamp | null = null,
-    updateSeenBy: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    >[] = [],
+    updateSeenBy: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>[] = [],
     positiveResponseCount = 0,
     negativeResponseCount = 0,
     createdAt = firestore.Timestamp.now(),
@@ -118,21 +106,13 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _parentRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
+  private _parentRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | null;
 
-  get parentRef(): firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null {
+  get parentRef(): firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | null {
     return this._parentRef;
   }
 
-  set parentRef(
-    parentRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null,
-  ) {
+  set parentRef(parentRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | null) {
     this._parentRef = parentRef;
   }
 
@@ -149,21 +129,13 @@ export class Post implements IPost {
   }
 
   @IsNotEmptyObject()
-  private _creatorRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >;
+  private _creatorRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
 
-  get creatorRef(): firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > {
+  get creatorRef(): firebase.firestore.DocumentReference<firebase.firestore.DocumentData> {
     return this._creatorRef;
   }
 
-  set creatorRef(
-    creatorRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    >,
-  ) {
+  set creatorRef(creatorRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>) {
     this._creatorRef = creatorRef;
   }
 
@@ -260,21 +232,13 @@ export class Post implements IPost {
   }
 
   @IsArray()
-  private _updateSeenBy: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >[];
+  private _updateSeenBy: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>[];
 
-  get updateSeenBy(): firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >[] {
+  get updateSeenBy(): firebase.firestore.DocumentReference<firebase.firestore.DocumentData>[] {
     return this._updateSeenBy;
   }
 
-  set updateSeenBy(
-    updateSeenBy: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    >[],
-  ) {
+  set updateSeenBy(updateSeenBy: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>[]) {
     this._updateSeenBy = updateSeenBy;
   }
 
@@ -354,18 +318,14 @@ export class Post implements IPost {
     return this._parentCreatorRatedAt;
   }
 
-  set parentCreatorRatedAt(
-    parentCreatorRatedAt: firebase.firestore.Timestamp | null,
-  ) {
+  set parentCreatorRatedAt(parentCreatorRatedAt: firebase.firestore.Timestamp | null) {
     this._parentCreatorRatedAt = parentCreatorRatedAt;
   }
 
   public static factory(data: IPost): Post {
     return new Post(
       data.isResponse,
-      data.parentSnapshot
-        ? Post.factory(data.parentSnapshot)
-        : data.parentSnapshot,
+      data.parentSnapshot ? Post.factory(data.parentSnapshot) : data.parentSnapshot,
       data.parentRef,
       data.creatorRef,
       User.factory(data.creatorSnapshot),
@@ -412,9 +372,6 @@ export class Post implements IPost {
 }
 
 export const PostFirestoreConverter: firebase.firestore.FirestoreDataConverter<Post> = {
-  fromFirestore: (
-    data: firebase.firestore.QueryDocumentSnapshot<IPost>,
-  ): Post => Post.factory(data.data()),
-  toFirestore: (modelObject: Post): firebase.firestore.DocumentData =>
-    modelObject.toObject(),
+  fromFirestore: (data: firebase.firestore.QueryDocumentSnapshot<IPost>): Post => Post.factory(data.data()),
+  toFirestore: (modelObject: Post): firebase.firestore.DocumentData => modelObject.toObject(),
 };
