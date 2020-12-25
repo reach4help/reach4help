@@ -1,8 +1,10 @@
 {
   "common": {
     "or": "or",
+    "submit": "Submit",
     "i_understand": "I understand.",
     "okay": "Okay",
+    "next": "Next",
     "cancel": "Cancel",
     "welcome": "Welcome",
     "continue": "Continue",
@@ -21,6 +23,8 @@
     "State": "State / Province",
     "country": "Country",
     "for": " for ",
+    "Offer": "Offer",
+    "Request": "Request",
     "navbar": {
       "home": "Home",
       "my_requests": "Requests",
@@ -201,7 +205,8 @@
         "submit": "Save",
         "next": "Next",
         "back": "Back",
-        "saveChangesCheckbox": "Save Address"
+        "saveChangesCheckbox": "Save Address",
+        "dontSaveChangesCheckbox": "Don't Save Address"
       }
     },
     "phoneNumber": {
@@ -247,6 +252,7 @@
         "search": "Search",
         "useMyLocation": "Use my location",
         "address_error_message": "Please enter your address.",
+        "title_error_message": "Please enter the title",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
         "body_error_message": "Please enter your description."
@@ -378,6 +384,33 @@
           "PersonalDataFormContainer": {
             "address_error": "Sorry, We couldn't determine your actual address, please try again!",
             "missing_data": "Missing Data!"
+          }
+        }
+      },
+      "create": {
+        "stepTitles": {
+          "details": "Details",
+          "map": "Location",
+          "summary": "Summary"
+        },
+        "displayElements": {
+          "address": "Address"
+        },
+        "postSummary": {
+          "confirmation": "Confirmation"
+        },
+        "postDetails": {
+          "header": "Post Details",
+          "titleLabel": "Title",
+          "typeLabel": "Type",
+          "detailsLabel": "Enter details of what is needed"
+        },
+        "title": "Title",
+        "defaults": {
+          "postDetails": {
+            "title": "I need something",
+            "type": "Deliveries",
+            "body": "Please bring me supplies"
           }
         }
       },
