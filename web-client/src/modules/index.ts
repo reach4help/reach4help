@@ -3,7 +3,7 @@ import { Module } from 'src/types/module';
 import Create from './create';
 import LandingPage from './landing-page';
 import Login from './login';
-import Posts from './MyPosts';
+import Posts from './postsTabsPage';
 import PersonalData from './personalData';
 import Phone from './phone';
 import Settings from './settings';

@@ -1,4 +1,4 @@
-import { IPost, Post } from 'src/models/Post';
+import { IPost, Post } from 'src/models/posts';
 
 /* TODO: (es) why rename? */
 import {

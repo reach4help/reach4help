@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Post } from 'src/models/Post';
+import { Post } from 'src/models/posts';
 import styled from 'styled-components';
 
 import { COLORS } from '../../../theme/colors';
 
-const PostItem: React.FC<PostItemProps> = ({
+const PostItem: React.FC<{ post: Post; handleRequest: (action?: boolean) => void}> = ({
   post,
   handleRequest,
 }): React.ReactElement => {
@@ -62,10 +62,5 @@ const InnerText = styled.p`
   margin-bottom: 3px;
   font-family: Roboto, sans-serif;
 `;
-
-export interface PostItemProps {
-  post: Post;
-  handleRequest: (action?: boolean) => void;
-}
 
 export default PostItem;
