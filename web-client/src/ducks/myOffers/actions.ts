@@ -3,7 +3,7 @@ import { User } from 'src/models/users';
 
 import {
   createGeneralRequest,
-  observeAllMyRequests as observeAllMyRequestsFunc,
+  observeMyOffers as observeMyOffersFunc,
   setGeneralRequest,
 } from './functions';
 import {
@@ -14,7 +14,7 @@ import {
   SET_TEMP_OFFER,
 } from './types';
 
-export const observeAllMyOffers = (
+export const observeMyOffers = (
   dispatch: Function,
   {
     status,
@@ -26,7 +26,7 @@ export const observeAllMyOffers = (
 ): Function => {
   dispatch({
     type: OBSERVE_ALL_MY_OFFERS,
-    observer: observeAllMyRequestsFunc,
+    observer: observeMyOffersFunc,
     payload: {
       requestingHelp: true,
       status,
