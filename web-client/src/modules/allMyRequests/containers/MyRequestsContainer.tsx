@@ -14,7 +14,7 @@ import {
 import Header from '../components/Header';
 import PostList from '../components/PostList';
 
-const OfferPostsContainer: React.FC<{ status: string | null }> = ({
+const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
 }) => {
   const { t } = useTranslation();
@@ -75,4 +75,4 @@ const OfferPostsContainer: React.FC<{ status: string | null }> = ({
   );
 };
 
-export default OfferPostsContainer;
+export default RequestPostsContainer;

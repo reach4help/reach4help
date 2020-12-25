@@ -22,7 +22,7 @@ export const setPost = async ({
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 
-export const observeAllMyPosts = (
+export const observeFindRequests = (
   nextValue: Function,
   {
     requestingHelp,

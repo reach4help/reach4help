@@ -14,13 +14,7 @@ export const UPDATE = asyncType('UPDATE');
 
 export const SET_TEMP_OFFER = syncType('SET_TEMP_OFFER');
 
-export interface PostState {
-  myRequests: {
-    loading: boolean;
-    data?: Record<string, Post>;
-    observerReceivedFirstUpdate: boolean;
-    error?: Error;
-  };
+export interface OfferState {
   myOffers: {
     loading: boolean;
     data?: Record<string, Post>;
@@ -33,8 +27,8 @@ export interface PostState {
     modalState: boolean;
     error?: Error;
   };
-  newRequestTemp?: {
-    requestPayload: Post;
-    requestId: string;
+  newOfferTemp?: {
+    offerPayload: Post;
+    offerId: string;
   };
 }

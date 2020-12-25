@@ -1,238 +1,71 @@
-// import TimelineItem from 'antd/lib/timeline/TimelineItem';
-// import { OfferStatus } from 'src/models/offers';
-// TODO: (es) Move find to posts and get rid of this whole
-import { Request } from 'src/models/requests';
-import {
-  IRequestWithOffersAndTimelineItems,
-  RequestWithOffersAndTimeline,
-} from 'src/models/requests/RequestWithOffersAndTimeline';
-// import { TimelineItemAction } from 'src/models/requests/timeline';
+import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
-  CHANGE_MODAL,
-  GET_CAV_REQUEST_POSTS,
-  GET_FIND_POSTS,
-  GET_MY_PIN_REQUEST_POSTS,
-  RequestState,
-  RESET_CAV_REQUEST_POSTS,
-  RESET_FIND_REQUEST_POSTS,
-  RESET_PIN_REQUEST_POSTS,
-  RESET_SET,
-  SET,
-  SET_TEMP_REQUEST,
+  FindRequestState,
+  OBSERVE_ALL_FIND_REQUESTS,
 } from './types';
 
-const initialSetActionState = {
-  loading: false,
-  success: false,
-  error: undefined,
-  modalState: false,
+const initialState: FindRequestState = {
+  myFindPosts: {
+    loading: false,
+    data: undefined,
+    observerReceivedFirstUpdate: false,
+    error: undefined,
+  },
 };
 
-// TODO: (es) const initialPostsState = {
-//   loading: false,
-//   observerReceivedFirstUpdate: false,
-//   data: undefined,
-//   error: undefined,
-// };
-
-const initialSyncPostsState = {
-  loading: false,
-  data: undefined,
-  error: undefined,
-};
-
-const initialState: RequestState = {
-  syncMyPinRequestPostsState: initialSyncPostsState,
-  syncCavRequestPostsState: initialSyncPostsState,
-  syncFindPostsState: initialSyncPostsState,
-  syncPostWithOffersAndTimelinesState: initialSyncPostsState,
-  // TODO: openRequests: initialPostsState,
-  // ongoingRequests: initialPostsState,
-  // completedRequests: initialPostsState,
-  // cancelledRequests: initialPostsState,
-  // removedRequests: initialPostsState,
-  setAction: initialSetActionState,
-  newRequestTemp: undefined,
-};
-
-export default createReducer<RequestState>(
+export default createReducer<FindRequestState>(
   {
-    [GET_FIND_POSTS.PENDING]: (state: RequestState) => {
-      state.syncFindPostsState.loading = true;
-      state.syncFindPostsState.data = undefined;
+    [OBSERVE_ALL_FIND_REQUESTS.SUBSCRIBE]: (state: FindRequestState) => {
+      state.myFindPosts.loading = true;
     },
-    [GET_FIND_POSTS.COMPLETED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          data: {
-            status: boolean;
-            data: Record<string, IRequestWithOffersAndTimelineItems>;
-          };
-        };
-      },
+    [OBSERVE_ALL_FIND_REQUESTS.UPDATED]: (
+      state: FindRequestState,
+      { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
-      state.syncFindPostsState.loading = false;
-      state.syncFindPostsState.error = undefined;
-      const mappedData = Object.keys(payload.data.data).reduce(
-        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+      state.myFindPosts.loading = false;
+      state.myFindPosts.observerReceivedFirstUpdate = true;
+      state.myFindPosts.data = payload.docs.reduce(
+        (acc, obj) => ({
           ...acc,
-          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
+          [obj.id]: obj.data(),
         }),
         {},
       );
-      state.syncFindPostsState.data = mappedData;
+      state.myFindPosts.error = undefined;
     },
-    [GET_FIND_POSTS.REJECTED]: (
-      state: RequestState,
+    [OBSERVE_ALL_FIND_REQUESTS.ERROR]: (
+      state: FindRequestState,
       { payload }: { payload: Error },
     ) => {
-      state.syncFindPostsState.data = undefined;
-      state.syncFindPostsState.loading = false;
-      state.syncFindPostsState.error = payload;
+      state.myFindPosts.loading = false;
+      state.myFindPosts.error = payload;
     },
-    [GET_MY_PIN_REQUEST_POSTS.PENDING]: (state: RequestState) => {
-      state.syncMyPinRequestPostsState.loading = true;
-      state.syncMyPinRequestPostsState.data = undefined;
+    [OBSERVE_ALL_FIND_REQUESTS.SUBSCRIBE]: (state: FindRequestState) => {
+      state.myFindPosts.loading = true;
     },
-    [GET_MY_PIN_REQUEST_POSTS.COMPLETED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          data: {
-            status: boolean;
-            data: Record<string, RequestWithOffersAndTimeline>;
-          };
-        };
-      },
+    [OBSERVE_ALL_FIND_REQUESTS.UPDATED]: (
+      state: FindRequestState,
+      { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
-      state.syncMyPinRequestPostsState.loading = false;
-      state.syncMyPinRequestPostsState.error = undefined;
-      const requests: Record<string, Request> = {};
-      const requestData = payload.data.data;
-      for (const key in requestData) {
-        // if (key) required by eslint guard-for-in rule
-        if (key) {
-          const r = requestData[key];
-          requests[key] = r.getRequest();
-        }
-      }
-      state.syncMyPinRequestPostsState.data = requests;
-    },
-    [GET_MY_PIN_REQUEST_POSTS.REJECTED]: (
-      state: RequestState,
-      { payload }: { payload: Error },
-    ) => {
-      state.syncMyPinRequestPostsState.data = undefined;
-      state.syncMyPinRequestPostsState.loading = false;
-      state.syncMyPinRequestPostsState.error = payload;
-    },
-    [GET_CAV_REQUEST_POSTS.PENDING]: (state: RequestState) => {
-      state.syncCavRequestPostsState.loading = true;
-      state.syncCavRequestPostsState.data = undefined;
-    },
-    [GET_CAV_REQUEST_POSTS.COMPLETED]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          data: {
-            status: boolean;
-            data: Record<string, IRequestWithOffersAndTimelineItems>;
-          };
-        };
-      },
-    ) => {
-      state.syncCavRequestPostsState.loading = false;
-      state.syncCavRequestPostsState.error = undefined;
-      state.syncCavRequestPostsState.data = Object.keys(
-        payload.data.data,
-      ).reduce(
-        (acc: Record<string, RequestWithOffersAndTimeline>, key: string) => ({
+      state.myFindPosts.loading = false;
+      state.myFindPosts.observerReceivedFirstUpdate = true;
+      state.myFindPosts.data = payload.docs.reduce(
+        (acc, obj) => ({
           ...acc,
-          [key]: RequestWithOffersAndTimeline.factory(payload.data.data[key]),
+          [obj.id]: obj.data(),
         }),
         {},
       );
+      state.myFindPosts.error = undefined;
     },
-    [GET_CAV_REQUEST_POSTS.REJECTED]: (
-      state: RequestState,
+    [OBSERVE_ALL_FIND_REQUESTS.ERROR]: (
+      state: FindRequestState,
       { payload }: { payload: Error },
     ) => {
-      state.syncCavRequestPostsState.data = undefined;
-      state.syncCavRequestPostsState.loading = false;
-      state.syncCavRequestPostsState.error = payload;
-    },
-    [SET.PENDING]: (state: RequestState) => {
-      state.setAction.loading = true;
-      state.setAction.error = undefined;
-    },
-    [SET.COMPLETED]: (state: RequestState) => {
-      state.setAction.error = undefined;
-      state.setAction.loading = false;
-      state.setAction.success = true;
-      state.newRequestTemp = undefined;
-    },
-    [SET.REJECTED]: (state: RequestState, { payload }: { payload: Error }) => {
-      state.setAction.loading = false;
-      state.setAction.error = payload;
-      state.setAction.success = false;
-      state.newRequestTemp = undefined;
-    },
-    [SET_TEMP_REQUEST]: (
-      state: RequestState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestPayload: Request;
-          requestId: string;
-        };
-      },
-    ) => {
-      state.newRequestTemp = payload;
-    },
-    [RESET_CAV_REQUEST_POSTS]: (state: RequestState) => {
-      state.setAction.loading = false;
-      state.setAction.success = false;
-      state.syncCavRequestPostsState.data = undefined;
-      state.syncCavRequestPostsState.loading = false;
-    },
-    [RESET_FIND_REQUEST_POSTS]: (state: RequestState) => {
-      state.setAction.loading = false;
-      state.setAction.success = false;
-      state.syncFindPostsState.data = undefined;
-      state.syncFindPostsState.loading = false;
-    },
-    [RESET_PIN_REQUEST_POSTS]: (state: RequestState) => {
-      state.setAction.loading = false;
-      state.setAction.success = false;
-      state.syncMyPinRequestPostsState.data = undefined;
-      state.syncMyPinRequestPostsState.loading = false;
-    },
-    [RESET_SET]: (state: RequestState) => {
-      state.setAction.loading = false;
-      state.setAction.success = false;
-      state.syncMyPinRequestPostsState.data = undefined;
-      state.syncMyPinRequestPostsState.loading = false;
-      state.syncCavRequestPostsState.data = undefined;
-      state.syncCavRequestPostsState.loading = false;
-    },
-    [CHANGE_MODAL]: (
-      state: RequestState,
-      { payload }: { payload: boolean },
-    ) => {
-      state.setAction.modalState = payload;
-      if (!payload) {
-        state.setAction.success = false;
-      }
+      state.myFindPosts.loading = false;
+      state.myFindPosts.error = payload;
     },
   },
   initialState,

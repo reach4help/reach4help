@@ -1,107 +1,42 @@
-import { IPost, Post } from 'src/models/posts';
-
-/* TODO: (es) why rename? */
 import {
-  createUserRequest,
-  getMyCavRequestPosts as getCavPostFunc,
-  getFindPosts as getFindPostsFunc,
-  getMyPinReqestPosts as getMyPinRequestPostsFunc,
-  setUserRequest,
+  observeFindRequests as observeFindRequestsFunc,
 } from './functions';
 import {
   CHANGE_MODAL,
-  GET_CAV_REQUEST_POSTS,
-  GET_FIND_POSTS,
-  GET_MY_PIN_REQUEST_POSTS,
-  IgetMyPosts,
-  IgetRequestPosts,
-  RESET_CAV_REQUEST_POSTS,
-  RESET_FIND_REQUEST_POSTS,
-  RESET_PIN_REQUEST_POSTS,
+  OBSERVE_ALL_FIND_REQUESTS,
   RESET_SET,
-  SET,
-  SET_TEMP_REQUEST,
 } from './types';
 
-export const getFindPosts = (payload: IgetRequestPosts) => (
+export const observeFindRequests = (
   dispatch: Function,
-) =>
+  {
+    lat,
+    lng,
+  }: {
+    lat?: number;
+    lng?: number;
+  },
+): Function => {
   dispatch({
-    type: GET_FIND_POSTS,
-    firebase: getFindPostsFunc,
-    payload,
-  });
-
-/**
- * Selects request posts for specified user
- * @param [IgetRequestPosts] payload - WHERE clause values
- */
-export const getMyPinRequestPosts = (payload: IgetMyPosts) => (
-  dispatch: Function,
-) =>
-  dispatch({
-    type: GET_MY_PIN_REQUEST_POSTS,
-    firebase: getMyPinRequestPostsFunc,
-    payload,
-  });
-
-/**
- * Selects request posts for which user has responded to offer help
- * @param [IgetRequestPosts] payload - WHERE clause values
- */
-export const getCavRequestPosts = (payload: IgetRequestPosts) => (
-  dispatch: Function,
-) =>
-  dispatch({
-    type: GET_CAV_REQUEST_POSTS,
-    firebase: getCavPostFunc,
-    payload,
-  });
-
-export const setRequest = (
-  payload: IPost,
-  requestId?: string,
-  phoneNumber?: string | null,
-) => (dispatch: Function) => {
-  const requestPayload = Post.factory({
-    ...payload,
-  });
-
-  return dispatch({
-    type: phoneNumber ? SET : SET_TEMP_REQUEST,
+    type: OBSERVE_ALL_FIND_REQUESTS,
+    observer: observeFindRequestsFunc,
     payload: {
-      requestPayload,
-      requestId,
+      requestingHelp: true,
+      lat,
+      lng,
     },
-    firebase: phoneNumber
-      ? requestId
-        ? setUserRequest
-        : createUserRequest
-      : null,
   });
+
+  return () =>
+    dispatch({
+      type: OBSERVE_ALL_FIND_REQUESTS.UNSUBSCRIBE,
+      observerName: OBSERVE_ALL_FIND_REQUESTS,
+    });
 };
 
 export const resetSetRequestState = () => (dispatch: Function) =>
   dispatch({
     type: RESET_SET,
-    payload: true,
-  });
-
-export const resetCavRequestPostsState = () => (dispatch: Function) =>
-  dispatch({
-    type: RESET_CAV_REQUEST_POSTS,
-    payload: true,
-  });
-
-export const resetFindRequestPostsState = () => (dispatch: Function) =>
-  dispatch({
-    type: RESET_FIND_REQUEST_POSTS,
-    payload: true,
-  });
-
-export const resetPinRequestPostsState = () => (dispatch: Function) =>
-  dispatch({
-    type: RESET_PIN_REQUEST_POSTS,
     payload: true,
   });
 
