@@ -1,22 +1,20 @@
-import { firestore } from 'firebase';
-import { IPost, Post } from 'src/models/Post';
+import { IPost, Post } from 'src/models/posts';
 import { User } from 'src/models/users';
 
 import {
-  createUserPost,
-  observeMyPostsAndResponses,
-  setUserPost,
+  createGeneralRequest,
+  observeAllMyRequests as observeAllMyRequestsFunc,
+  setGeneralRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
-  OBSERVE_MY_OFFERS,
-  OBSERVE_MY_REQUESTS,
+  OBSERVE_ALL_MY_REQUESTS,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
 } from './types';
 
-export const observeMyRequests = (
+export const observeAllMyRequests = (
   dispatch: Function,
   {
     status,
@@ -27,8 +25,8 @@ export const observeMyRequests = (
   },
 ): Function => {
   dispatch({
-    type: OBSERVE_MY_REQUESTS,
-    observer: observeMyPostsAndResponses,
+    type: OBSERVE_ALL_MY_REQUESTS,
+    observer: observeAllMyRequestsFunc,
     payload: {
       requestingHelp: true,
       status,
@@ -38,35 +36,8 @@ export const observeMyRequests = (
 
   return () =>
     dispatch({
-      type: OBSERVE_MY_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_MY_REQUESTS,
-    });
-};
-
-export const observeMyOffers = (
-  dispatch: Function,
-  {
-    status,
-    userRef,
-  }: {
-    status: string | null;
-    userRef: firebase.firestore.DocumentReference<User>;
-  },
-): Function => {
-  dispatch({
-    type: OBSERVE_MY_OFFERS,
-    observer: observeMyPostsAndResponses,
-    payload: {
-      requestingHelp: false,
-      status,
-      userRef,
-    },
-  });
-
-  return () =>
-    dispatch({
-      type: OBSERVE_MY_OFFERS.UNSUBSCRIBE,
-      observerName: OBSERVE_MY_OFFERS,
+      type: OBSERVE_ALL_MY_REQUESTS.UNSUBSCRIBE,
+      observerName: OBSERVE_ALL_MY_REQUESTS,
     });
 };
 
@@ -85,7 +56,7 @@ export const setRequest = (
       postPayload,
       postId,
     },
-    firebase: phoneNumber ? (postId ? setUserPost : createUserPost) : null,
+    firebase: phoneNumber ? (postId ? setGeneralRequest : createGeneralRequest) : null,
   });
 };
 

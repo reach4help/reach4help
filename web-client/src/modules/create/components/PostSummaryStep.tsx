@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
+import { MyRequestPostsLocationUrl } from 'src/modules/allMyRequests/constants';
 import {
   AddressDisplay,
   ButtonsContainer,
@@ -12,7 +13,6 @@ import {
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
-import { MyRequestPostsLocationUrl } from 'src/modules/MyPosts/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 

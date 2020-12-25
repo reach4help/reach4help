@@ -8,7 +8,7 @@ const FindRequestsContainer = lazy(() =>
   import('./containers/FindRequestsContainer'),
 );
 
-const MyPostsTabs = lazy(() => import('./pages/MyPostsTabsPage'));
+const MyPostsTabs = lazy(() => import('src/modules/postsTabsPage/pages/MyPostsTabsPage'));
 
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>

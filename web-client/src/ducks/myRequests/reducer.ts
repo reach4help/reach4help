@@ -1,10 +1,9 @@
-import { Post } from 'src/models/Post';
+import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  OBSERVE_MY_OFFERS,
-  OBSERVE_MY_REQUESTS,
+  OBSERVE_ALL_MY_REQUESTS,
   PostState,
   RESET_SET,
   SET,
@@ -37,12 +36,12 @@ const initialState: PostState = {
 
 export default createReducer<PostState>(
   {
-    [OBSERVE_MY_REQUESTS.SUBSCRIBE]: (state: PostState) => {
+    [OBSERVE_ALL_MY_REQUESTS.SUBSCRIBE]: (state: PostState) => {
       state.myRequests.loading = true;
     },
-    [OBSERVE_MY_REQUESTS.UPDATED]: (
+    [OBSERVE_ALL_MY_REQUESTS.UPDATED]: (
       state: PostState,
-      { payload }: { payload: firebase.firestore.QuerySnapshot<Request> },
+      { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
       state.myRequests.loading = false;
       state.myRequests.observerReceivedFirstUpdate = true;
@@ -55,37 +54,12 @@ export default createReducer<PostState>(
       );
       state.myRequests.error = undefined;
     },
-    [OBSERVE_MY_REQUESTS.ERROR]: (
+    [OBSERVE_ALL_MY_REQUESTS.ERROR]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {
       state.myRequests.loading = false;
       state.myRequests.error = payload;
-    },
-    [OBSERVE_MY_OFFERS.SUBSCRIBE]: (state: PostState) => {
-      state.myOffers.loading = true;
-    },
-    [OBSERVE_MY_OFFERS.UPDATED]: (
-      state: PostState,
-      { payload }: { payload: firebase.firestore.QuerySnapshot<Request> },
-    ) => {
-      state.myOffers.loading = false;
-      state.myOffers.observerReceivedFirstUpdate = true;
-      state.myOffers.data = payload.docs.reduce(
-        (acc, obj) => ({
-          ...acc,
-          [obj.id]: obj.data(),
-        }),
-        {},
-      );
-      state.myOffers.error = undefined;
-    },
-    [OBSERVE_MY_OFFERS.ERROR]: (
-      state: PostState,
-      { payload }: { payload: Error },
-    ) => {
-      state.myOffers.loading = false;
-      state.myOffers.error = payload;
     },
     [SET.PENDING]: (state: PostState) => {
       state.setAction.loading = true;

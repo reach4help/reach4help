@@ -1,8 +1,8 @@
 import auth from './auth/reducer';
-import offers from './offers/reducer';
-import posts from './posts/reducer';
+import requests from './findRequests/reducer';
+import posts from './myRequests/reducer';
 import profile from './profile/reducer';
-import requests from './requests/reducer';
+import offers from './specificOffers/reducer';
 import timeline from './timeline/reducer';
 
 export default {
