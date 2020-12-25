@@ -10,14 +10,12 @@ import { dispatchCreatePublicRequest } from 'src/ducks/PublicRequests/actions';
 import { IPost, Post, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { MyRequestPostsLocationUrl } from 'src/modules/allMyRequests/constants';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
-import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
-import { CreatePostTypes } from 'src/modules/create/constants';
-import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
->>>>>>> fa8e394e... feat: chg two files for creating posts
+
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -154,7 +152,6 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         ? dispatch(dispatchCreatePublicOffer(newPost2))
         : dispatch(dispatchCreatePublicRequest(newPost2));
     }
->>>>>>> fa8e394e... feat: chg two files for creating posts
   };
 
   const cancelCreate = () => {
