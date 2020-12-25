@@ -1,3 +1,4 @@
+import { MEDIA_QUERIES } from 'src/constants/mediaQueries';
 import styled from 'styled-components';
 
 const Flex = styled.div`
@@ -28,6 +29,11 @@ export const TopSection = styled(Container)`
   height: 320px;
   padding-bottom: 80px;
   background: linear-gradient(152.35deg, #f27979 6.01%, #7d00a3 72.34%);
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    top: 0;
+    padding-bottom: 0;
+  }
 `;
 
 export const TopTextContainer = styled(Container)`
@@ -35,6 +41,10 @@ export const TopTextContainer = styled(Container)`
   position: relative;
   top: 50px;
   text-align: center;
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    top: 0;
+  }
 `;
 
 export const TopText = styled.div`
@@ -43,6 +53,14 @@ export const TopText = styled.div`
     font-size: 50px;
     font-family: Roboto;
     font-weight: 500;
+  }
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    h1 {
+      font-size: 36px;
+      line-height: 46px;
+      margin-bottom: 0;
+    }
   }
 `;
 
@@ -53,12 +71,25 @@ export const MiddleSection = styled(Container)`
   padding-top: 60px;
   padding-left: auto;
   padding-right: auto;
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-left: 16px;
+    padding-right: 16px;
+    flex-direction: column-reverse;
+  }
 `;
 
 export const MissionContainer = styled(Flex)`
   padding-top: 20px;
   padding-right: 132px;
   width: 524px;
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    padding-right: 0;
+    width: 100%;
+  }
 `;
 
 export const MissionText = styled.div`
@@ -66,8 +97,17 @@ export const MissionText = styled.div`
     color: 00034a;
     font-size: 44px;
   }
+
   p {
     font-size: 18px;
+  }
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    width: 340px;
+
+    h1 {
+      font-size: 36px;
+    }
   }
 `;
 
@@ -76,22 +116,42 @@ export const TeamContainer = styled(Flex)`
   margin-left: auto;
   margin-right: auto;
   width: 762px;
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    padding-top: 0;
+    width: 100%;
+  }
 `;
 
 export const TeamText = styled.div`
   text-align: center;
+
   h1 {
     color: 0034a;
     font-size: 44px;
   }
+
   p {
     font-size: 20px;
+  }
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    width: 340px;
+
+    h1 {
+      font-size: 36px;
+    }
   }
 `;
 
 export const TeamImageContainer = styled(Container)`
   width: 90%;
   padding: 50px 0;
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    padding: 0;
+    flex-wrap: wrap;
+  }
 `;
 
 export const JoinContainer = styled(Flex)`
@@ -99,6 +159,11 @@ export const JoinContainer = styled(Flex)`
   margin-left: auto;
   margin-right: auto;
   width: 762px;
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    padding-top: 0;
+    width: 340px;
+  }
 `;
 
 export const JoinText = styled.div`
@@ -129,11 +194,21 @@ export const JoinButton = styled(Button)`
   }
 `;
 
-export const SolvingImage = styled.img``;
+export const SolvingImage = styled.img`
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    width: 100%;
+  }
+`;
 export const ContributorImage = styled.img`
   border-radius: 50%;
   width: 100px;
   height: 100px;
   margin-left: 50px;
   margin-right: 50px;
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    flex-basis: 30%;
+    margin-left: 0;
+    margin-right: 0;
+  }
 `;
