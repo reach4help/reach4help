@@ -1,15 +1,7 @@
 import { Layout } from 'antd';
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { DEVICE_MAX } from 'src/constants/mediaQueries';
-=======
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { DEVICE_MAX } from 'src/constants/mediaQueries';
-import { observeOffers } from 'src/ducks/offers/actions';
-import { OffersState } from 'src/ducks/offers/types';
->>>>>>> 4672aafc... feat: added missing import statement
 import { ProfileState } from 'src/ducks/profile/types';
 import styled from 'styled-components';
 
