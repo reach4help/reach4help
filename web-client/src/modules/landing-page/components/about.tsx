@@ -73,8 +73,8 @@ export const MiddleSection = styled(Container)`
   padding-right: auto;
 
   @media (max-width: ${MEDIA_QUERIES.mobileL}) {
-    margin-top: 30px;
-    padding-top: 30px;
+    margin-top: 20px;
+    padding-top: 20px;
     padding-left: 16px;
     padding-right: 16px;
     flex-direction: column-reverse;
@@ -141,6 +141,11 @@ export const TeamText = styled.div`
     h1 {
       font-size: 36px;
     }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 50px;
+    }
   }
 `;
 
@@ -149,7 +154,8 @@ export const TeamImageContainer = styled(Container)`
   padding: 50px 0;
 
   @media (max-width: ${MEDIA_QUERIES.mobileL}) {
-    padding: 0;
+    width: 100%;
+    padding: 5px 0;
     flex-wrap: wrap;
   }
 `;
@@ -168,11 +174,23 @@ export const JoinContainer = styled(Flex)`
 
 export const JoinText = styled.div`
   text-align: center;
+
   h3 {
     font-size: 30px;
   }
+
   p {
     font-size: 20px;
+  }
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    h3 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 18px;
+    }
   }
 `;
 
@@ -181,6 +199,10 @@ export const ButtonContainer = styled(Container)`
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    margin-bottom: 0;
+  }
 `;
 
 export const JoinButton = styled(Button)`
@@ -207,8 +229,9 @@ export const ContributorImage = styled.img`
   margin-right: 50px;
 
   @media (max-width: ${MEDIA_QUERIES.mobileL}) {
-    flex-basis: 30%;
-    margin-left: 0;
-    margin-right: 0;
+    width: 42px;
+    height: 42px;
+    margin-left: 1px;
+    margin-right: 1px;
   }
 `;
