@@ -18,7 +18,7 @@ import {
   AlgFindRequestsLocation,
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
-} from 'src/modules/MyPosts/constants';
+} from 'src/modules/allMyRequests/constants';
 import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
