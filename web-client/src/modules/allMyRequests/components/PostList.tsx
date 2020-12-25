@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
-import { Post } from 'src/models/Post';
+import { Post } from 'src/models/posts';
 
 import PostItem from './PostItem';
 

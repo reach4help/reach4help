@@ -5,20 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
 import { ProfileState } from 'src/ducks/profile/types';
-import { setRequest } from 'src/ducks/requests/actions';
-import { IPost, PostStatus } from 'src/models/Post';
+import { setRequest } from 'src/ducks/findRequests/actions';
+import { IPost, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { MyRequestPostsLocationUrl } from 'src/modules/allMyRequests/constants';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
-<<<<<<< HEAD
-import { CreatePostTypes } from 'src/modules/create/constants';
-import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
-=======
 import { MyRequestPostsLocationUrl } from 'src/modules/MyPosts/constants';
->>>>>>> 33535ef4... feat: chg two files for creating posts
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -107,27 +103,6 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
       country,
       coords,
     } = postLocation;
-<<<<<<< HEAD
-    const newPost = {
-      title,
-      description: body,
-      type:
-        postDetails.type === 'customType'
-          ? postDetails.customType
-          : postDetails.type,
-      pinUserRef: profileState.userRef!,
-      pinUserSnapshot: profileState.profile!.toObject() as IUser,
-      streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
-      latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
-    };
-
-    // eslint-disable-next-line no-console
-    console.log('creating post', newPost, 'type', newPost.type);
-    return IS_OFFER_POST
-      ? /* TODO:  change to dispatch(setOffer) */
-        dispatch(setRequest(newPost as IRequest, undefined, phoneNumber))
-      : dispatch(setRequest(newPost as IRequest, undefined, phoneNumber));
-=======
     if (profileState.profile) {
       const newPost = {
         isResponse: false,
@@ -152,7 +127,6 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
       };
       return dispatch(setRequest(newPost as IPost, undefined, phoneNumber));
     }
->>>>>>> 33535ef4... feat: chg two files for creating posts
   };
 
   const cancelCreate = () => {

@@ -21,12 +21,12 @@ import {
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
-import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
-import { OffersState } from 'src/ducks/offers/types';
-// TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
+import { getFindPosts, resetSetRequestState } from 'src/ducks/findRequests/actions';
+import { RequestState } from 'src/ducks/findRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getFindPosts, resetSetRequestState } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { resetSetOfferState, setOffer } from 'src/ducks/specificOffers/actions';
+import { OffersState } from 'src/ducks/specificOffers/types';
+// TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
 // TODO: (es) import { firestore } from 'src/firebase';
 import { Offer /* , OfferStatus */ } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
@@ -35,7 +35,7 @@ import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import RequestItem from '../components/RequestPostItem';
+import RequestItem from '../components/RefactorRequestPostItem';
 import { MyRequestPostsLocationUrl } from '../constants';
 
 const { TabPane } = Tabs;

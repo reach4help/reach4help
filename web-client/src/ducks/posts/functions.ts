@@ -1,15 +1,15 @@
 import { firestore } from 'src/firebase';
-import { Post, PostFirestoreConverter, PostStatus } from 'src/models/Post';
+import { Post, PostFirestoreConverter, PostStatus } from 'src/models/posts';
 import { User } from 'src/models/users';
 
-export const createUserPost = async ({ postPayload }: { postPayload: Post }) =>
+export const createPost = async ({ postPayload }: { postPayload: Post }) =>
   firestore
     .collection('posts')
     .doc()
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 
-export const setUserPost = async ({
+export const setPost = async ({
   postPayload,
   postId,
 }: {
@@ -22,7 +22,7 @@ export const setUserPost = async ({
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 
-export const observeMyPostsAndResponses = (
+export const observeAllMyPosts = (
   nextValue: Function,
   {
     requestingHelp,
@@ -30,8 +30,8 @@ export const observeMyPostsAndResponses = (
     userRef,
   }: {
     requestingHelp: boolean;
-    status: string | null;
-    userRef: firebase.firestore.DocumentReference<User>;
+    status?: string | null;
+    userRef?: firebase.firestore.DocumentReference<User>;
   },
 ): firebase.Unsubscribe => {
   let queryWithoutStatusFilter = firestore
