@@ -1,6 +1,7 @@
 import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DEVICE_MAX } from 'src/constants/mediaQueries';
 import { observeOffers } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
@@ -11,7 +12,6 @@ import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
 import TopNavbar from '../TopNavbar/TopNavbar';
-import { DEVICE_MAX } from 'src/constants/mediaQueries';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
