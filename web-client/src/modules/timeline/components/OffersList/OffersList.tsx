@@ -1,5 +1,5 @@
-/* TODO:  error in haversine distance display. Distance should be given in KM and Miles */
-
+// TODO: (es) error in haversine distance display. Distance should be given in KM and Miles
+// TODO: (es) okay to get rid of distance which requires CAV address?
 import {
   EnvironmentOutlined,
   HeartOutlined,
@@ -10,7 +10,7 @@ import { Button } from 'antd';
 import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { haversineDistance } from 'src/components/WebClientMap/utils';
+// import { haversineDistance } from 'src/components/WebClientMap/utils';
 import { OfferStatus } from 'src/models/offers';
 import { OfferWithLocation as Offer } from 'src/models/offers/offersWithLocation';
 import styled from 'styled-components';
@@ -18,7 +18,7 @@ import styled from 'styled-components';
 const OfferItem: React.FC<OfferItemProps> = ({
   offer,
   handleOffer,
-  destinationCoords,
+  // destinationCoords,
 }): React.ReactElement => {
   const { t } = useTranslation();
   return (
@@ -47,8 +47,8 @@ const OfferItem: React.FC<OfferItemProps> = ({
           <EnvironmentOutlined />
         </IconContainer>
         <TextIcon>
-          {haversineDistance(offer.address.coords, destinationCoords)}{' '}
-          {t('modules.timeline.components.OffersList.miles')}
+          {/* TODO: (es) okay to eliminate? {haversineDistance(offer.address?.coords, destinationCoords)}{' '}
+          {t('modules.timeline.components.OffersList.miles')} */}
         </TextIcon>
       </IconsBlock>
       <ButtonsContainer>
