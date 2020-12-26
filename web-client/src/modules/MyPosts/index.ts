@@ -1,12 +1,10 @@
-/* TODO:  Not a React file */
-
 import { Module } from 'src/types/module';
 
-import { postUrlRoot } from './constants';
+import { RootUrl } from './constants';
 import Routes from './routes';
 
 const requestsModule: Module = {
-  path: `${postUrlRoot}`,
+  path: `${RootUrl}`,
   partiallyProtected: true,
   layout: 'dashboard',
   component: Routes,
