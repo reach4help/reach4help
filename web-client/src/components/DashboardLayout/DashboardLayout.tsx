@@ -1,12 +1,14 @@
 import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DEVICE_MAX } from 'src/constants/mediaQueries';
 import { observeOffers } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
+import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
 import TopNavbar from '../TopNavbar/TopNavbar';
@@ -77,8 +79,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     <DashboardLayoutWrapper>
       <TopNavbar
         visible={!menuVisible && !notificationVisible}
-        openMenu={() => setMenuVisible(true)}
-        openNotifications={() => setNotificationVisible(true)}
+        toggleMenu={() => setMenuVisible(!menuVisible)}
+        toggleNotifications={() => setNotificationVisible(!notificationVisible)}
         unseenOffersCount={unseenOffers.length}
       />
       <MenuDrawer
@@ -95,38 +97,28 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         closeDrawer={() => setNotificationVisible(false)}
       />
       <DashboardContent>{children}</DashboardContent>
+      <BottomNavbar
+        visible={!menuVisible && !notificationVisible}
+        openMenu={() => setMenuVisible(true)}
+        openNotifications={() => setNotificationVisible(true)}
+        // isCav={isCav}
+        unseenOffersCount={unseenOffers.length}
+      />
     </DashboardLayoutWrapper>
   );
 };
 
-// WARNING: THIS IS A TEMPORARY FIX (CAN BREAK)!
-// suggestion: Try to make use of Layout instead of div and adapt to the Homepage
-const DashboardLayoutWrapper =
-  window.location.pathname === '/list/find'
-    ? styled(Layout)`
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        overflow: auto;
-      `
-    : styled.div`
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        overflow: auto;
-      `;
+const DashboardLayoutWrapper = styled.div``;
 
 const DashboardContent = styled(Layout.Content)`
   position: relative;
-  top: 64px;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  padding-top: 64px;
+
+  @media ${DEVICE_MAX.tablet} {
+    padding-bottom: 64px;
+  }
+  /* overflow-x: hidden;
+  overflow-y: hidden; */
 `;
 
 interface DashboardLayoutProps {
