@@ -6,7 +6,7 @@ export const getSearchKey = async ({
   authenticated,
 }: IgetSearchKey): Promise<IgetSearchKeyResult> =>
   functions
-    .httpsCallable('https-api-requests-getSearchKey')({
+    .httpsCallable('https-api-getSearchKey')({
       authenticated,
     })
     .then(({ data }) => data);

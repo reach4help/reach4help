@@ -6,7 +6,7 @@ import { UnauthenticatedRequest } from '../models/UnauthenticatedRequests';
 import { GeneralRequest } from '../models/GeneralRequests';
 import { Offer, OfferStatus } from '../models/offers';
 
-const ALGOLIA_ID = functions.config().algolia.id;
+export const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
 const ALGOLIA_SEARCH_ONLY_KEY = functions.config().algolia.search_only_key;
 export const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX = functions.config().algolia.unauthenticated_requests_index;
