@@ -1,6 +1,6 @@
 import { User } from 'src/models/users';
 
-import { observeFindRequests as observeFindRequestsFunc } from '../posts/functions';
+import { observePosts as observeFindRequestsFunc } from '../posts/functions';
 
 export const observeFindRequests = (
   nextValue: Function,

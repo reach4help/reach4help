@@ -1,7 +1,7 @@
 import { Post } from 'src/models/posts';
 import { User } from 'src/models/users';
 
-import { createPost, observeFindRequests, setPost } from '../posts/functions';
+import { createPost, observePosts, setPost } from '../posts/functions';
 
 export const createGeneralRequest = async ({
   postPayload,
@@ -26,4 +26,4 @@ export const observeAllMyRequests = (
     status: string | null;
     userRef: firebase.firestore.DocumentReference<User>;
   },
-) => observeFindRequests(nextValue, { requestingHelp: true, status, userRef });
+) => observePosts(nextValue, { requestingHelp: true, status, userRef });
