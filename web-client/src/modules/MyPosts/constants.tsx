@@ -19,3 +19,10 @@ export const MyOfferPostsLocationUrl = MyPostsLocation.toUrl({
 export const MyRequestPostsLocationUrl = MyPostsLocation.toUrl({
   postType: PostTabTypes.requests,
 });
+
+export const Algolia = {
+  appId: process.env.REACT_APP_TEMP_ALGOLIA_APP_ID ?? '',
+  tempSearchKey: process.env.REACT_APP_TEMP_ALGOLIA_SEARCH_KEY ?? '',
+  tempAuthIndexName: 'generalRequests_dev',
+  tempUnauthIndexName: 'unauthenticatedReqeusts_dev',
+};

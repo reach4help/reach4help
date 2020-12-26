@@ -20,6 +20,7 @@ export interface IgetSearchKey {
 
 export interface IgetSearchKeyResult {
   isAuthenticated: boolean;
+  appId: string;
   searchKey: string;
   indexName: string;
 }
