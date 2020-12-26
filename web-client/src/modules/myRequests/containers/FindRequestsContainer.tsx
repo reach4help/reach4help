@@ -1,10 +1,3 @@
-// import React from 'react';
-
-// const FindRequestsContainer: React.FC = () => (
-//   <>
-//     <p>TO BE REIMPLEMENTED</p>
-//   </>
-// );
 import { List, Tabs } from 'antd';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
@@ -393,5 +386,6 @@ interface MapRequestProps {
   center: Coords;
   id: string;
 }
+>>>>>>> 8b4d57c7... feat: refactor
 
 export default FindRequestsContainer;
