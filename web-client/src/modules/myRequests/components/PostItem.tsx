@@ -5,10 +5,10 @@ import styled from 'styled-components';
 
 import { COLORS } from '../../../theme/colors';
 
-const PostItem: React.FC<{ post: Post; handleRequest: (action?: boolean) => void}> = ({
-  post,
-  handleRequest,
-}): React.ReactElement => {
+const PostItem: React.FC<{
+  post: Post;
+  handleRequest: (action?: boolean) => void;
+}> = ({ post, handleRequest }): React.ReactElement => {
   const { t } = useTranslation();
   const handleRequestClick = () => {
     handleRequest();

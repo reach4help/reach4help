@@ -1,6 +1,6 @@
 // import React from 'react';
 
-// const FindOffersContainer: React.FC = () => (
+// const FindRequestsContainer: React.FC = () => (
 //   <>
 //     <p>TO BE REIMPLEMENTED</p>
 //   </>
@@ -21,12 +21,15 @@ import {
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
-import { observeFindRequests } from 'src/ducks/findRequests/actions';
+import {
+  observeFindRequests,
+  resetSetRequestState,
+} from 'src/ducks/findRequests/actions';
 import { FindRequestState } from 'src/ducks/findRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { resetSetOfferState, setOffer } from 'src/ducks/specificOffers/actions';
 import { OffersState } from 'src/ducks/specificOffers/types';
-// TODO: (es) Change OfferState to PostState import { PostState } from 'src/ducks/posts/types';
+// TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
 // TODO: (es) import { firestore } from 'src/firebase';
 import { Offer /* , OfferStatus */ } from 'src/models/offers';
 import { Post } from 'src/models/posts';
@@ -35,17 +38,17 @@ import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import RequestItem from '../components/RefactorOfferPostItem';
-import { MyOfferPostsLocationUrl } from '../constants';
+import PostItem from '../components/PostItem';
+import { MyRequestPostsLocationUrl } from '../constants';
 
 const { TabPane } = Tabs;
 
-const FindOffersContainer: React.FC = () => {
+const FindRequestsContainer: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [expandedOfferId, setExpandedOfferId] = useState<
+  const [expandedRequestId, setExpandedRequestId] = useState<
     string | undefined
   >(undefined);
 
@@ -61,18 +64,16 @@ const FindOffersContainer: React.FC = () => {
     getCoordsFromProfile(profileState),
   );
 
-  const [offersListData, setOffersListData] = useState<
-    Post[]
-  >([]);
+  const [requestsListData, setRequestsListData] = useState<Post[]>([]);
 
-  const [offersGeoData, setoffersGeoData] = useState<MapOfferProps[]>([]);
+  const [requestsGeoData, setrequestsGeoData] = useState<MapRequestProps[]>([]);
   // TODO: (es) Check if this is still needed
   const [authModalIsVisible /* , setAuthModalIsVisible */] = useState<boolean>(
     false,
   );
 
-  const pendingOffersWithOffersAndTimeline = useSelector(
-    ({ offers }: { offers: FindRequestState }) => offers.myFindPosts,
+  const pendingRequests = useSelector(
+    ({ requests }: { requests: FindRequestState }) => requests.myFindPosts,
   );
 
   const setOfferState = useSelector(
@@ -108,26 +109,26 @@ const FindOffersContainer: React.FC = () => {
      * We needed to ensure that stale data is not present whenever someone returns to this page from somewhere else
      * So we chose to reset the redux state whenever this page is loaded
      * However, when an offer was rejected, this page was remounted and due to state changes, this effect was invoked multiple times
-     * This caused unpredictable behaviour such as multiple calls to the get sync open offers API
+     * This caused unpredictable behaviour such as multiple calls to the get sync open requests API
      * which led to invalid data as the data wasn't updated in the backend fully
      * This check therefore enables us to ensure that the action to set the offer is completed before we reset it
-     * We can identify that the offer made was for helping with the offer by looking at the value of success.
+     * We can identify that the offer made was for helping with the request by looking at the value of success.
      * The value of success is 1 if the offer was made to help and 2 if the CAV declined
      *
-     * This useEffect also handles the case when an offer to help is made for a offer
+     * This useEffect also handles the case when an offer to help is made for a request
      * This logic was in another useEffect earlier but has been moved here as it made more sense to be here
      *
      */
     if (!setOfferState.loading) {
       if (!setOfferState.success || setOfferState.success === 2) {
         setTimeout(() => {
-          dispatch(resetSetOfferState());
+          dispatch(resetSetRequestState());
         }, 100);
       } else if (setOfferState.success && setOfferState.success === 1) {
         setTimeout(() => {
-          history.push(MyOfferPostsLocationUrl);
+          history.push(MyRequestPostsLocationUrl);
         }, 150);
-        dispatch(resetSetOfferState());
+        dispatch(resetSetRequestState());
         dispatch(resetSetOfferState());
       }
     }
@@ -137,8 +138,8 @@ const FindOffersContainer: React.FC = () => {
     if (
       profileState.profile &&
       profileState.profile.applicationPreference &&
-      !pendingOffersWithOffersAndTimeline.data &&
-      !pendingOffersWithOffersAndTimeline.loading
+      !pendingRequests.data &&
+      !pendingRequests.loading
     ) {
       const addressToUse = profileState.privilegedInformation?.addresses
         ?.default
@@ -146,48 +147,40 @@ const FindOffersContainer: React.FC = () => {
         : profileState.privilegedInformation?.addresses[
             Object.keys(profileState.privilegedInformation.addresses)[0]
           ];
-        observeFindRequests(dispatch, {
-          lat: addressToUse?.coords.latitude || 0,
-          lng: addressToUse?.coords.longitude || 0,
-        });
+      observeFindRequests(dispatch, {
+        lat: addressToUse?.coords.latitude || 0,
+        lng: addressToUse?.coords.longitude || 0,
+      });
     }
-  }, [
-    profileState,
-    dispatch,
-    pendingOffersWithOffersAndTimeline,
-    setOfferState,
-  ]);
+  }, [profileState, dispatch, pendingRequests, setOfferState]);
 
   useEffect(() => {
     if (onboarded) {
-      if (
-        pendingOffersWithOffersAndTimeline &&
-        pendingOffersWithOffersAndTimeline.data
-      ) {
-        const offersData = pendingOffersWithOffersAndTimeline.data;
-        if (offersData) {
+      if (pendingRequests && pendingRequests.data) {
+        const requestsData = pendingRequests.data;
+        if (requestsData) {
           /* TODO:  Should be reduce */
-          const keys = Object.keys(offersData);
+          const keys = Object.keys(requestsData);
           const values: Post[] = [];
           for (let i = 0; i < keys.length; i++) {
-            if (offersData[keys[i]]) {
-              values.push(offersData[keys[i]]);
+            if (requestsData[keys[i]]) {
+              values.push(requestsData[keys[i]]);
             }
           }
 
-          setOffersListData(values);
-          setoffersGeoData(
-            Object.keys(offersData).reduce(
-              (acc: MapOfferProps[], curr: string) =>
-                !offersData[curr]
+          setRequestsListData(values);
+          setrequestsGeoData(
+            Object.keys(requestsData).reduce(
+              (acc: MapRequestProps[], curr: string) =>
+                !requestsData[curr]
                   ? acc
                   : [
                       ...acc,
                       {
                         id: curr,
                         center: {
-                          lat: offersData[curr].latLng.latitude,
-                          lng: offersData[curr].latLng.longitude,
+                          lat: requestsData[curr].latLng.latitude,
+                          lng: requestsData[curr].latLng.longitude,
                         },
                       },
                     ],
@@ -197,20 +190,20 @@ const FindOffersContainer: React.FC = () => {
         }
       }
     } else {
-      setoffersGeoData([]);
+      setrequestsGeoData([]);
     }
-  }, [pendingOffersWithOffersAndTimeline, onboarded]);
+  }, [pendingRequests, onboarded]);
 
-  const onOfferHandler = (id: string) => {
-    setExpandedOfferId(id);
+  const onRequestHandler = (id: string) => {
+    setExpandedRequestId(id);
   };
 
   // TODO: (es) Figure out what this does
-  // const handleOfferForAcceptReject = (action?: boolean) => {
+  // const handleRequestForAcceptReject = (action?: boolean) => {
   //   if (
-  //     expandedOfferId &&
-  //     pendingOffersWithOffersAndTimeline &&
-  //     pendingOffersWithOffersAndTimeline.data &&
+  //     expandedRequestId &&
+  //     pendingRequests &&
+  //     pendingRequests.data &&
   //     profileState.userRef &&
   //     profileState.profile &&
   //     profileState.profile.applicationPreference === ApplicationPreference.cav
@@ -220,15 +213,15 @@ const FindOffersContainer: React.FC = () => {
   //         {
   //           cavUserRef: profileState.userRef,
   //           pinUserRef:
-  //             pendingOffersWithOffersAndTimeline.data[expandedOfferId]
+  //             pendingRequests.data[expandedRequestId]
   //               .pinUserRef,
-  //           offerRef: firestore.collection('offers').doc(expandedOfferId),
+  //           requestRef: firestore.collection('requests').doc(expandedRequestId),
   //           cavUserSnapshot: profileState.profile,
-  //           offerSnapshot: pendingOffersWithOffersAndTimeline.data[
-  //             expandedOfferId
-  //           ].getOffer(),
+  //           requestSnapshot: pendingRequests.data[
+  //             expandedRequestId
+  //           ].getRequest(),
   //           message: t(
-  //             'modules.offers.containers.FindOffersContainer.want_to_help',
+  //             'modules.requests.containers.FindRequestsContainer.want_to_help',
   //           ),
   //           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
   //         },
@@ -239,6 +232,27 @@ const FindOffersContainer: React.FC = () => {
   //   }
   // };
 
+  const maybeRequestDetails = () => {
+    if (expandedRequestId && pendingRequests && pendingRequests.data) {
+      const request = pendingRequests.data[expandedRequestId];
+      return request ? (
+        <RequestDetails>
+          <PostItem
+            post={request}
+            // TODO: (es) Figure out what this does
+            // handleTimeline={
+            //   onboarded
+            //     ? handleRequestForAcceptReject
+            //     : (action = true) => action && setAuthModalIsVisible(true)
+            // }
+            handleRequest={() => true}
+          />
+        </RequestDetails>
+      ) : null;
+    }
+    return null;
+  };
+
   const setGeocodedLocation = ({ address, latLng }) => {
     setBannerMessage(address);
     setCurrentLocation(latLng);
@@ -248,23 +262,22 @@ const FindOffersContainer: React.FC = () => {
     phoneNumber &&
     profileState.privilegedInformation &&
     profileState.privilegedInformation.addresses &&
-    (!pendingOffersWithOffersAndTimeline.data ||
-      pendingOffersWithOffersAndTimeline.loading)
+    (!pendingRequests.data || pendingRequests.loading)
   ) {
     return <LoadingWrapper />;
   }
 
   const instructions = [
-    t('information_modal.FindOffersContainer.0'),
-    t('information_modal.FindOffersContainer.1'),
-    t('information_modal.FindOffersContainer.2'),
-    t('information_modal.FindOffersContainer.3'),
-    t('information_modal.FindOffersContainer.4'),
-    t('information_modal.FindOffersContainer.5'),
-    t('information_modal.FindOffersContainer.6'),
+    t('information_modal.FindRequestsContainer.0'),
+    t('information_modal.FindRequestsContainer.1'),
+    t('information_modal.FindRequestsContainer.2'),
+    t('information_modal.FindRequestsContainer.3'),
+    t('information_modal.FindRequestsContainer.4'),
+    t('information_modal.FindRequestsContainer.5'),
+    t('information_modal.FindRequestsContainer.6'),
   ];
   const instructionModalLocalStorageKey = makeLocalStorageKey({
-    prefix: 'reach4help.modalSeen.FindOffersContainer',
+    prefix: 'reach4help.modalSeen.FindRequestsContainer',
     userid: profileState.uid,
   });
 
@@ -273,7 +286,7 @@ const FindOffersContainer: React.FC = () => {
       <StyledTabs defaultActiveKey="map">
         <StyledTabPane
           tab={t(
-            'modules.offers.containers.FoundOffersContainer.FoundOffersContainer.map_tab_label',
+            'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.map_tab_label',
           )}
           key="map"
         >
@@ -282,49 +295,48 @@ const FindOffersContainer: React.FC = () => {
           >
             <Map
               isCav
-              destinations={offersGeoData}
+              destinations={requestsGeoData}
               origin={currentLocation}
-              onDestinationClickedHandler={id => onOfferHandler(id)}
+              onDestinationClickedHandler={id => onRequestHandler(id)}
               onGeocode={setGeocodedLocation}
               bannerMessage={bannerMessage}
               forceRerender
             />
           </div>
-          {maybeOfferDetails()}
+          {maybeRequestDetails()}
         </StyledTabPane>
         <StyledTabPane
           tab={t(
-            'modules.offers.containers.FoundOffersContainer.FoundOffersContainer.list_tab_label',
+            'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.list_tab_label',
           )}
           key="list"
           style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
         >
           {' '}
-          {offersListData && offersListData.length ? (
+          {requestsListData && requestsListData.length ? (
             <List>
-              {offersListData.map((offer, idx) => (
-                <OfferDetailsListItem key={idx}>
-                  <RequestItem
-                    offer={offer}
+              {requestsListData.map((request, idx) => (
+                <RequestDetailsListItem key={idx}>
+                  <PostItem
+                    post={request}
                     // TODO: (es) figure out what this does
-                    // handleTimeline={handleOfferForAcceptReject}
-                    loading={setOfferState.loading}
-                    isCavAndOpenOffer
+                    // handleTimeline={handleRequestForAcceptReject}
+                    handleRequest={() => true}
                   />
-                </OfferDetailsListItem>
+                </RequestDetailsListItem>
               ))}
             </List>
           ) : (
-            <NoOffersDiv>
+            <NoRequestsDiv>
               {t(
-                'modules.offers.containers.FoundOffersContainer.FoundOffersContainer.no_offers',
+                'modules.requests.containers.FoundRequestsContainer.FoundRequestsContainer.no_requests',
               )}
-            </NoOffersDiv>
+            </NoRequestsDiv>
           )}
         </StyledTabPane>
       </StyledTabs>
       <InformationModal
-        title={t('information_modal.FindOffersContainer.title')}
+        title={t('information_modal.FindRequestsContainer.title')}
         localStorageKey={instructionModalLocalStorageKey}
         instructions={instructions}
       />
@@ -333,7 +345,7 @@ const FindOffersContainer: React.FC = () => {
   );
 };
 
-const NoOffersDiv = styled.div`
+const NoRequestsDiv = styled.div`
   font-size: 28px;
   background: white;
   width: 50%;
@@ -355,14 +367,14 @@ const StyledTabPane = styled(TabPane)`
   flex-grow: 1;
 `;
 
-const OfferDetails = styled.div`
+const RequestDetails = styled.div`
   position: fixed;
   bottom: 0px;
   width: 100%;
   background: white;
 `;
 
-const OfferDetailsListItem = styled(List.Item)`
+const RequestDetailsListItem = styled(List.Item)`
   bottom: 64px;
   width: 100%;
   background: white;
@@ -375,9 +387,9 @@ const OfferDetailsListItem = styled(List.Item)`
   border: 2px solid ${COLORS.brandOrange};
 `;
 
-interface MapOfferProps {
+interface MapRequestProps {
   center: Coords;
   id: string;
 }
 
-export default FindOffersContainer;
+export default FindRequestsContainer;

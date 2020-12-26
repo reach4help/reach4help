@@ -9,12 +9,15 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { IPost, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
-import { MyRequestPostsLocationUrl } from 'src/modules/allMyRequests/constants';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
+<<<<<<< HEAD
 import { MyRequestPostsLocationUrl } from 'src/modules/MyPosts/constants';
+=======
+import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
+>>>>>>> ee60bb11... feat: refactor
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';

@@ -1,10 +1,7 @@
 import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
-import {
-  FindRequestState,
-  OBSERVE_ALL_FIND_REQUESTS,
-} from './types';
+import { FindRequestState, OBSERVE_ALL_FIND_REQUESTS } from './types';
 
 const initialState: FindRequestState = {
   myFindPosts: {
