@@ -7,11 +7,11 @@ import styled, { keyframes } from 'styled-components';
 import { COLORS } from '../../../theme/colors';
 import defaultUserPic from '../assets/role_pin.png';
 
-const OfferPostItem: React.FC<RequestItemProps> = ({
-  request,
-  handleRequest,
-  offers,
-}): React.ReactElement => {
+const OfferPostItem: React.FC<{
+  request: Request;
+  handleRequest: (action?: boolean) => void;
+  offers: Record<string, Offer>;
+}> = ({ request, handleRequest, offers }): React.ReactElement => {
   const { t } = useTranslation();
   const handleRequestClick = () => {
     handleRequest();
@@ -122,11 +122,5 @@ const UserPic = styled.img`
   animation: ${fadeIn} 0.75s;
   object-fit: cover;
 `;
-
-export interface RequestItemProps {
-  request: Request;
-  handleRequest: (action?: boolean) => void;
-  offers: Record<string, Offer>;
-}
 
 export default OfferPostItem;
