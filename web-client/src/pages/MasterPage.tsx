@@ -11,7 +11,7 @@ import {
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
 import { RootUrl } from 'src/modules/post/constants';
-import { Module } from 'src/types/module';
+ggimport { Module } from 'src/types/module';
 
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
