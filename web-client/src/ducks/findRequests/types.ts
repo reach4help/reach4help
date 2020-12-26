@@ -8,7 +8,9 @@ export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 export const SET = asyncType('SET');
 export const RESET_SET = syncType('RESET_SET');
 
-export const OBSERVE_ALL_FIND_REQUESTS = observerType('OBSERVE_ALL_FIND_REQUESTS');
+export const OBSERVE_ALL_FIND_REQUESTS = observerType(
+  'OBSERVE_ALL_FIND_REQUESTS',
+);
 
 export const UPDATE = asyncType('UPDATE');
 

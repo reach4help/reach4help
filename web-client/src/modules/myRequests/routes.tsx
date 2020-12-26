@@ -8,7 +8,9 @@ const FindRequestsContainer = lazy(() =>
   import('./containers/FindRequestsAlgoliaContainer'),
 );
 
-const MyPostsTabs = lazy(() => import('src/modules/postsTabsPage/pages/MyPostsTabsPage'));
+const MyPostsTabs = lazy(() =>
+  import('src/modules/postsTabsPage/pages/MyPostsTabsPage'),
+);
 
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
