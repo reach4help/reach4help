@@ -1,12 +1,12 @@
 import { Tabs } from 'antd';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { MyPostsLocation, PostTabsType } from '../constants';
-import OfferPostsContainer from '../containers/OfferPostsContainer';
-import RequestPostsContainer from '../containers/RequestPostsContainer';
+import { MyPostsLocation, PostTabTypes } from '../constants';
+import MyOffersContainer from '../containers/MyOffersContainer';
+import MyRequestsContainer from '../containers/MyRequestsContainer';
 
 const { TabPane } = Tabs;
 
@@ -28,15 +28,17 @@ const StyledTabPane = styled(TabPane)`
   flex-grow: 1;
 `;
 
-const TabbedPosts: React.FC = (): ReactElement => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+const MyPostsTabsPage: React.FC = (): ReactElement => {
   const history = useHistory();
+  const location = useLocation();
+  const searchString = location.search;
+  const searchParams = new URLSearchParams(searchString);
+  const status = searchParams.get('status');
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const { postType } = useParams() as Record<string, string>;
   const { t } = useTranslation();
 
-  // TODO: how to disable this warning? get error when I try
   const onChange = (activeKey: string) => {
     const url = MyPostsLocation.toUrl({ postType: activeKey });
     history.replace(url);
@@ -46,18 +48,18 @@ const TabbedPosts: React.FC = (): ReactElement => {
     <StyledTabs activeKey={postType} onChange={onChange}>
       <StyledTabPane
         tab={t('modules.requests.containers.TabbedPostPage.requests_tab_label')}
-        key={PostTabsType.requests.valueOf()}
+        key={PostTabTypes.requests.valueOf()}
       >
-        <RequestPostsContainer />
+        <MyRequestsContainer status={status} />
       </StyledTabPane>
 
       <StyledTabPane
         tab={t('modules.requests.containers.TabbedPostPage.offers_tab_label')}
-        key={PostTabsType.offers.valueOf()}
+        key={PostTabTypes.offers.valueOf()}
       >
-        <OfferPostsContainer />
+        <MyOffersContainer status={status} />
       </StyledTabPane>
     </StyledTabs>
   );
 };
-export default TabbedPosts;
+export default MyPostsTabsPage;

@@ -8,7 +8,7 @@ const FindRequestsContainer = lazy(() =>
   import('./containers/FindRequestsContainer'),
 );
 
-const TabbedPostsPage = lazy(() => import('./pages/TabbedPostsPage'));
+const MyPostsTabs = lazy(() => import('./pages/MyPostsTabsPage'));
 
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
@@ -18,7 +18,7 @@ const Routes = (): ReactElement => (
         component={FindRequestsContainer}
         exact
       />
-      <Route path={MyPostsLocation.path} component={TabbedPostsPage} />
+      <Route path={MyPostsLocation.path} component={MyPostsTabs} />
       <Route path="*" render={() => <Redirect to="/404" />} />
     </Switch>
   </Suspense>
