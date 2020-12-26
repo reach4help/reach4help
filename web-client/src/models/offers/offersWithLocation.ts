@@ -9,7 +9,7 @@ import { IUserAddress } from '../users/privilegedInformation';
 import { IOffer, Offer, OfferStatus } from './index';
 
 export interface IOfferWithLocation extends IOffer {
-  address: IUserAddress;
+  address?: IUserAddress | undefined;
 }
 
 export class OfferWithLocation extends Offer implements IOfferWithLocation {
@@ -27,7 +27,7 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
     requestSnapshot: Request | null,
     message: string,
     status: OfferStatus,
-    address: IUserAddress,
+    address?: IUserAddress,
     createdAt?: firebase.firestore.Timestamp,
     updatedAt?: firebase.firestore.Timestamp,
     seenAt?: firebase.firestore.Timestamp | null,
@@ -48,13 +48,13 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
   }
 
   @IsArray()
-  private _address: IUserAddress;
+  private _address: IUserAddress | undefined;
 
-  get address(): IUserAddress {
+  get address(): IUserAddress | undefined {
     return this._address;
   }
 
-  set address(address: IUserAddress) {
+  set address(address: IUserAddress | undefined) {
     this._address = address;
   }
 
@@ -93,15 +93,16 @@ export class OfferWithLocation extends Offer implements IOfferWithLocation {
       }),
       data.message,
       data.status,
-      {
-        ...data.address,
-        coords: data.address.coords
-          ? new firestore.GeoPoint(
-              (data.address.coords as any)._latitude,
-              (data.address.coords as any)._longitude,
-            )
-          : data.address.coords,
-      },
+      undefined,
+      // {
+      //   ...data.address,
+      //   coords: data.address.coords
+      //     ? new firestore.GeoPoint(
+      //         (data.address.coords as any)._latitude,
+      //         (data.address.coords as any)._longitude,
+      //       )
+      //     : data.address.coords,
+      // },
       data.createdAt
         ? new firestore.Timestamp(
             (data.createdAt as any)._seconds,

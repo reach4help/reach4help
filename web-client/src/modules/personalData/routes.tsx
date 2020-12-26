@@ -10,7 +10,7 @@ import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
 import { CreateRequestLocationUrl } from 'src/modules/create/constants';
 import { LoginLocation } from 'src/modules/login/constants';
-import { FindRequestsLocation } from 'src/modules/requests/constants';
+import { FindRequestsLocation } from 'src/modules/MyPosts/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';

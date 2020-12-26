@@ -70,7 +70,6 @@ const AboutPage: React.FC = (): JSX.Element => (
       </TeamContainer>
     </MiddleSection>
     <TeamImageContainer>
-      <h1>Development</h1>
       <ContributorImage src={contributors.AlexVanino.imgSrc} />
       <ContributorImage src={contributors.BurhanTuerker.imgSrc} />
       <ContributorImage src={contributors.Cinthyaejh.imgSrc} />

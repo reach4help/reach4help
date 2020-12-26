@@ -1,31 +1,16 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
+// import { string } from 'prop-types';
 import { firestore, functions } from 'src/firebase';
+// TODO: (es) import { IOfferWithLocation } from 'src/models/offers/offersWithLocation';
 import {
   Request,
   RequestFirestoreConverter,
-  RequestStatus,
+  // TODO: (es) RequestStatus,
 } from 'src/models/requests';
 import { AbstractRequestStatus } from 'src/models/requests/RequestWithOffersAndTimeline';
-import { ApplicationPreference } from 'src/models/users';
+// TODO: (es) import { PrivilegedUserInformation, IPrivilegedUserInformation } from 'src/models/users/privilegedInformation';
 
-import { IgetRequestPosts } from './types';
-
-export const observeRequestPosts = (
-  nextValue: Function,
-  payload: IgetRequestPosts,
-): firebase.Unsubscribe => {
-  let initialQuery = firestore
-    .collection('requests')
-    .where('status', '==', RequestStatus.pending);
-
-  if (payload.userType === ApplicationPreference.pin) {
-    initialQuery = initialQuery.where('pinUserRef', '==', payload.userRef);
-  }
-
-  return initialQuery
-    .withConverter(RequestFirestoreConverter)
-    .onSnapshot(snap => nextValue(snap));
-};
+import { IgetMyPosts, IgetRequestPosts } from './types';
 
 export const createUserRequest = async ({
   requestPayload,
@@ -33,7 +18,7 @@ export const createUserRequest = async ({
   requestPayload: Request;
 }) =>
   firestore
-    .collection('requests')
+    .collection('posts')
     .doc()
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
@@ -51,15 +36,7 @@ export const setUserRequest = async ({
     .withConverter(RequestFirestoreConverter)
     .set(requestPayload);
 
-export const getOpenPost = async ({ lat, lng }: IgetRequestPosts) =>
-  functions.httpsCallable('https-api-requests-getRequests')({
-    lat,
-    lng,
-    radius: 500,
-    status: AbstractRequestStatus.pending,
-  });
-
-export const getAcceptedPost = async ({ lat, lng }: IgetRequestPosts) =>
+export const getMyCavRequestPosts = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
@@ -67,26 +44,34 @@ export const getAcceptedPost = async ({ lat, lng }: IgetRequestPosts) =>
     status: AbstractRequestStatus.accepted,
   });
 
-export const getOngoingPost = async ({ lat, lng }: IgetRequestPosts) =>
+export const getFindPosts = async ({ lat, lng }: IgetRequestPosts) =>
   functions.httpsCallable('https-api-requests-getRequests')({
     lat,
     lng,
     radius: 5,
-    status: AbstractRequestStatus.ongoing,
+    status: AbstractRequestStatus.pending,
   });
 
-export const getFinishedRequest = async ({ lat, lng }: IgetRequestPosts) =>
-  functions.httpsCallable('https-api-requests-getRequests')({
-    lat,
-    lng,
-    radius: 5,
-    status: AbstractRequestStatus.finished,
-  });
-
-export const getArchivedRequest = async ({ lat, lng }: IgetRequestPosts) =>
-  functions.httpsCallable('https-api-requests-getRequests')({
-    lat,
-    lng,
-    radius: 5,
-    status: AbstractRequestStatus.archived,
-  });
+export const getMyPinReqestPosts = async ({ userRef, status }: IgetMyPosts) => {
+  let initialQuery = firestore
+    .collection('requests')
+    .where('pinUserRef', '==', userRef);
+  if (status) {
+    initialQuery = initialQuery.where('status', '==', status);
+  }
+  // TODO: (es) coud I have dataRequests = await
+  return initialQuery
+    .withConverter(RequestFirestoreConverter)
+    .get()
+    .then(snapshot => {
+      snapshot.docs.map(doc => {
+        const docVal = {
+          id: doc.id,
+          _requestRef: doc.ref,
+          // TODO:(es) Convert to request here?
+          ...doc.data(),
+        };
+        return docVal;
+      });
+    });
+};
