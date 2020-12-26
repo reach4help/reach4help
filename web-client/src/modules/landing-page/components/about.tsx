@@ -89,8 +89,16 @@ export const TeamText = styled.div`
   }
 `;
 
+export const TeamTitle = styled.div`
+  text-align: center;
+  h2 {
+    color: 0034a;
+    font-size: 34px;
+  }
+`;
+
 export const TeamImageContainer = styled(Container)`
-  width: 90%;
+  width: 100%;
   padding: 50px 0;
   overflow-x: scroll;
 `;

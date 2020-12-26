@@ -5,7 +5,7 @@ import logo from '../assets/logo.svg';
 import problemSolve from '../assets/problem_solving.svg';
 import {
   ButtonContainer,
-  // ContributorImage,
+  ContributorImage,
   JoinButton,
   JoinContainer,
   JoinText,
@@ -16,6 +16,7 @@ import {
   TeamContainer,
   TeamImageContainer,
   TeamText,
+  TeamTitle,
   TopSection,
   TopText,
   TopTextContainer,
@@ -23,18 +24,36 @@ import {
 // import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
 
-const fetchingteams = () => {
-  // console.log(teams);
-  const data = teams;
-  // let core = teams.core
-  // let departments = teams.teams
-  // debugger
-  return data.teams.map(t => (
-    // let color
+const dynamicColor = (teamName: string) => {
+  let color = '#f0ebff';
 
-    // if t.title =
-    <TeamImageContainer key={t.title}>
-      <h2>{t.title}</h2>
+  if (teamName === 'Core') {
+    color = '#f0ebff';
+  } else if (teamName === 'Development') {
+    color = '#ddf1f0';
+  } else if (teamName === 'Design') {
+    color = '#fff8e7';
+  } else if (teamName === 'Marketing') {
+    color = '#ffebff';
+  }
+
+  return color;
+};
+
+const fetchingteams = () => {
+  const data = teams;
+
+  return data.teams.map(t => (
+    <TeamImageContainer
+      key={t.title}
+      style={{ backgroundColor: dynamicColor(t.title) }}
+    >
+      <TeamTitle>
+        <h2>{`${t.title} Team`}</h2>{' '}
+      </TeamTitle>
+      {t.contributors.map(c => (
+        <ContributorImage key={c.name} src={c.avatar_url} />
+      ))}
     </TeamImageContainer>
   ));
 };
