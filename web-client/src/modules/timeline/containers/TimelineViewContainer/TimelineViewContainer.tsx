@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { OffersState } from 'src/ducks/specificOffers/types';
+import { resetSetRequestState } from 'src/ducks/findRequests/actions';
 import { PostState } from 'src/ducks/myRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { resetSetRequestState } from 'src/ducks/findRequests/actions';
+import { OffersState } from 'src/ducks/specificOffers/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
 import { firestore as firestore2 } from 'src/firebase';
 import { Post } from 'src/models/posts';
@@ -14,7 +14,7 @@ import { ApplicationPreference } from 'src/models/users';
 import {
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
-} from 'src/modules/allMyRequests/constants';
+} from 'src/modules/myRequests/constants';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import {

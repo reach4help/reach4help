@@ -1,11 +1,5 @@
-import {
-  observeFindRequests as observeFindRequestsFunc,
-} from './functions';
-import {
-  CHANGE_MODAL,
-  OBSERVE_ALL_FIND_REQUESTS,
-  RESET_SET,
-} from './types';
+import { observeFindRequests as observeFindRequestsFunc } from './functions';
+import { CHANGE_MODAL, OBSERVE_ALL_FIND_REQUESTS, RESET_SET } from './types';
 
 export const observeFindRequests = (
   dispatch: Function,

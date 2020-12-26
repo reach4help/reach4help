@@ -11,4 +11,5 @@ export const observeFindRequests = (
     status: string | null;
     userRef: firebase.firestore.DocumentReference<User>;
   },
-) => observeFindRequestsFunc (nextValue, { requestingHelp: true, status, userRef });
+) =>
+  observeFindRequestsFunc(nextValue, { requestingHelp: true, status, userRef });

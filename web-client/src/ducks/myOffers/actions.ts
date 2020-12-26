@@ -56,7 +56,11 @@ export const setRequest = (
       postPayload,
       postId,
     },
-    firebase: phoneNumber ? (postId ? setGeneralRequest : createGeneralRequest) : null,
+    firebase: phoneNumber
+      ? postId
+        ? setGeneralRequest
+        : createGeneralRequest
+      : null,
   });
 };
 

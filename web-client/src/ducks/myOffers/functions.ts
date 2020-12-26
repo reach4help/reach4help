@@ -3,8 +3,11 @@ import { User } from 'src/models/users';
 
 import { createPost, observeFindRequests, setPost } from '../posts/functions';
 
-export const createGeneralRequest = async ({ postPayload }: { postPayload: Post }) =>
-  createPost ( { postPayload } );
+export const createGeneralRequest = async ({
+  postPayload,
+}: {
+  postPayload: Post;
+}) => createPost({ postPayload });
 
 export const setGeneralRequest = async ({
   postPayload,
@@ -12,7 +15,7 @@ export const setGeneralRequest = async ({
 }: {
   postPayload: Post;
   postId: string;
-}) => setPost ({ postPayload, postId });
+}) => setPost({ postPayload, postId });
 
 export const observeMyOffers = (
   nextValue: Function,
@@ -23,4 +26,4 @@ export const observeMyOffers = (
     status: string | null;
     userRef: firebase.firestore.DocumentReference<User>;
   },
-) => observeFindRequests (nextValue, { requestingHelp: true, status, userRef });
+) => observeFindRequests(nextValue, { requestingHelp: true, status, userRef });
