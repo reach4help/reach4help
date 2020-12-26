@@ -3,9 +3,9 @@ import { Module } from 'src/types/module';
 import Create from './create';
 import LandingPage from './landing-page';
 import Login from './login';
+import Posts from './MyPosts';
 import PersonalData from './personalData';
 import Phone from './phone';
-import Requests from './requests';
 import Settings from './settings';
 import Timeline from './timeline';
 
@@ -15,7 +15,7 @@ const modules: Record<string, Module> = {
   Login,
   Phone,
   PersonalData,
-  Requests,
+  Posts,
   Settings,
   Timeline,
 };

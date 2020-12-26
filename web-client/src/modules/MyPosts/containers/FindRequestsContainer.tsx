@@ -1,3 +1,10 @@
+// import React from 'react';
+
+// const FindRequestsContainer: React.FC = () => (
+//   <>
+//     <p>TO BE REIMPLEMENTED</p>
+//   </>
+// );
 import { List, Tabs } from 'antd';
 import { Coords } from 'google-map-react';
 import React, { useEffect, useState } from 'react';
@@ -16,16 +23,13 @@ import {
 import Map from 'src/components/WebClientMap/WebClientMap';
 import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
+// TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import {
-  getRequestPosts,
-  resetSetRequestState,
-} from 'src/ducks/requests/actions';
-import { PostState } from 'src/ducks/requests/types';
-import { firestore } from 'src/firebase';
-import { Offer, OfferStatus } from 'src/models/offers';
+import { getFindPosts, resetSetRequestState } from 'src/ducks/requests/actions';
+import { RequestState } from 'src/ducks/requests/types';
+// TODO: (es) import { firestore } from 'src/firebase';
+import { Offer /* , OfferStatus */ } from 'src/models/offers';
 import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
-import { ApplicationPreference } from 'src/models/users';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
@@ -62,11 +66,13 @@ const FindRequestsContainer: React.FC = () => {
   >([]);
 
   const [requestsGeoData, setrequestsGeoData] = useState<MapRequestProps[]>([]);
-
-  const [authModalIsVisible, setAuthModalIsVisible] = useState<boolean>(false);
+  // TODO: (es) Check if this is still needed
+  const [authModalIsVisible /* , setAuthModalIsVisible */] = useState<boolean>(
+    false,
+  );
 
   const pendingRequestsWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: PostState }) => requests.syncRequestPostsState,
+    ({ requests }: { requests: RequestState }) => requests.syncFindPostsState,
   );
 
   const setOfferState = useSelector(
@@ -141,7 +147,7 @@ const FindRequestsContainer: React.FC = () => {
             Object.keys(profileState.privilegedInformation.addresses)[0]
           ];
       dispatch(
-        getRequestPosts({
+        getFindPosts({
           userType: profileState.profile.applicationPreference,
           userRef: profileState.userRef,
           lat: addressToUse?.coords.latitude || 0,
@@ -203,38 +209,39 @@ const FindRequestsContainer: React.FC = () => {
     setExpandedRequestId(id);
   };
 
-  const handleRequestForAcceptReject = (action?: boolean) => {
-    if (
-      expandedRequestId &&
-      pendingRequestsWithOffersAndTimeline &&
-      pendingRequestsWithOffersAndTimeline.data &&
-      profileState.userRef &&
-      profileState.profile &&
-      profileState.profile.applicationPreference === ApplicationPreference.cav
-    ) {
-      dispatch(
-        setOffer(
-          {
-            cavUserRef: profileState.userRef,
-            pinUserRef:
-              pendingRequestsWithOffersAndTimeline.data[expandedRequestId]
-                .pinUserRef,
-            requestRef: firestore.collection('requests').doc(expandedRequestId),
-            cavUserSnapshot: profileState.profile,
-            requestSnapshot: pendingRequestsWithOffersAndTimeline.data[
-              expandedRequestId
-            ].getRequest(),
-            message: t(
-              'modules.requests.containers.FindRequestsContainer.want_to_help',
-            ),
-            status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
-          },
-          undefined,
-          phoneNumber,
-        ),
-      );
-    }
-  };
+  // TODO: (es) Figure out what this does
+  // const handleRequestForAcceptReject = (action?: boolean) => {
+  //   if (
+  //     expandedRequestId &&
+  //     pendingRequestsWithOffersAndTimeline &&
+  //     pendingRequestsWithOffersAndTimeline.data &&
+  //     profileState.userRef &&
+  //     profileState.profile &&
+  //     profileState.profile.applicationPreference === ApplicationPreference.cav
+  //   ) {
+  //     dispatch(
+  //       setOffer(
+  //         {
+  //           cavUserRef: profileState.userRef,
+  //           pinUserRef:
+  //             pendingRequestsWithOffersAndTimeline.data[expandedRequestId]
+  //               .pinUserRef,
+  //           requestRef: firestore.collection('requests').doc(expandedRequestId),
+  //           cavUserSnapshot: profileState.profile,
+  //           requestSnapshot: pendingRequestsWithOffersAndTimeline.data[
+  //             expandedRequestId
+  //           ].getRequest(),
+  //           message: t(
+  //             'modules.requests.containers.FindRequestsContainer.want_to_help',
+  //           ),
+  //           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
+  //         },
+  //         undefined,
+  //         phoneNumber,
+  //       ),
+  //     );
+  //   }
+  // };
 
   const maybeRequestDetails = () => {
     if (
@@ -248,11 +255,12 @@ const FindRequestsContainer: React.FC = () => {
         <RequestDetails>
           <RequestItem
             request={request}
-            handleRequest={
-              onboarded
-                ? handleRequestForAcceptReject
-                : (action = true) => action && setAuthModalIsVisible(true)
-            }
+            // TODO: (es) Figure out what this does
+            // handleTimeline={
+            //   onboarded
+            //     ? handleRequestForAcceptReject
+            //     : (action = true) => action && setAuthModalIsVisible(true)
+            // }
             loading={setOfferState.loading}
             isCavAndOpenRequest
           />
@@ -329,7 +337,8 @@ const FindRequestsContainer: React.FC = () => {
                 <RequestDetailsListItem key={idx}>
                   <RequestItem
                     request={request}
-                    handleRequest={handleRequestForAcceptReject}
+                    // TODO: (es) figure out what this does
+                    // handleTimeline={handleRequestForAcceptReject}
                     loading={setOfferState.loading}
                     isCavAndOpenRequest
                   />

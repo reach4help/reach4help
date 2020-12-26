@@ -1,21 +1,21 @@
 import Location from 'react-app-location';
 import * as Yup from 'yup';
 
-export const postUrlRoot = '/list';
+export const RootUrl = '/list/my';
 
-export enum PostTabsType {
+export enum PostTabTypes {
   requests = 'requests',
   offers = 'offers',
 }
 
-export const FindRequestsLocation = new Location(`${postUrlRoot}/find`);
-export const MyPostsLocation = new Location(`${postUrlRoot}/my/:postType`, {
+export const FindRequestsLocation = new Location(`${RootUrl}/find`);
+export const MyPostsLocation = new Location(`${RootUrl}/:postType`, {
   postType: Yup.string().required(),
 });
 
 export const MyOfferPostsLocationUrl = MyPostsLocation.toUrl({
-  postType: PostTabsType.offers,
+  postType: PostTabTypes.offers,
 });
 export const MyRequestPostsLocationUrl = MyPostsLocation.toUrl({
-  postType: PostTabsType.requests,
+  postType: PostTabTypes.requests,
 });
