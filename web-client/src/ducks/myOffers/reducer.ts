@@ -3,7 +3,7 @@ import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  OBSERVE_ALL_MY_OFFERS,
+  OBSERVE_MY_OFFERS,
   OfferState,
   RESET_SET,
   SET,
@@ -30,10 +30,10 @@ const initialState: OfferState = {
 
 export default createReducer<OfferState>(
   {
-    [OBSERVE_ALL_MY_OFFERS.SUBSCRIBE]: (state: OfferState) => {
+    [OBSERVE_MY_OFFERS.SUBSCRIBE]: (state: OfferState) => {
       state.myOffers.loading = true;
     },
-    [OBSERVE_ALL_MY_OFFERS.UPDATED]: (
+    [OBSERVE_MY_OFFERS.UPDATED]: (
       state: OfferState,
       { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
@@ -48,17 +48,17 @@ export default createReducer<OfferState>(
       );
       state.myOffers.error = undefined;
     },
-    [OBSERVE_ALL_MY_OFFERS.ERROR]: (
+    [OBSERVE_MY_OFFERS.ERROR]: (
       state: OfferState,
       { payload }: { payload: Error },
     ) => {
       state.myOffers.loading = false;
       state.myOffers.error = payload;
     },
-    [OBSERVE_ALL_MY_OFFERS.SUBSCRIBE]: (state: OfferState) => {
+    [OBSERVE_MY_OFFERS.SUBSCRIBE]: (state: OfferState) => {
       state.myOffers.loading = true;
     },
-    [OBSERVE_ALL_MY_OFFERS.UPDATED]: (
+    [OBSERVE_MY_OFFERS.UPDATED]: (
       state: OfferState,
       { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
@@ -73,7 +73,7 @@ export default createReducer<OfferState>(
       );
       state.myOffers.error = undefined;
     },
-    [OBSERVE_ALL_MY_OFFERS.ERROR]: (
+    [OBSERVE_MY_OFFERS.ERROR]: (
       state: OfferState,
       { payload }: { payload: Error },
     ) => {

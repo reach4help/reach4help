@@ -3,18 +3,18 @@ import { User } from 'src/models/users';
 
 import {
   createGeneralRequest,
-  observeAllMyRequests as observeAllMyRequestsFunc,
+  observeMyRequests as observeMyRequestsFunc,
   setGeneralRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
-  OBSERVE_ALL_MY_REQUESTS,
+  OBSERVE_MY_REQUESTS,
   RESET_SET,
   SET,
   SET_TEMP_REQUEST,
 } from './types';
 
-export const observeAllMyRequests = (
+export const observeMyRequests = (
   dispatch: Function,
   {
     status,
@@ -25,8 +25,8 @@ export const observeAllMyRequests = (
   },
 ): Function => {
   dispatch({
-    type: OBSERVE_ALL_MY_REQUESTS,
-    observer: observeAllMyRequestsFunc,
+    type: OBSERVE_MY_REQUESTS,
+    observer: observeMyRequestsFunc,
     payload: {
       requestingHelp: true,
       status,
@@ -36,8 +36,8 @@ export const observeAllMyRequests = (
 
   return () =>
     dispatch({
-      type: OBSERVE_ALL_MY_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_ALL_MY_REQUESTS,
+      type: OBSERVE_MY_REQUESTS.UNSUBSCRIBE,
+      observerName: OBSERVE_MY_REQUESTS,
     });
 };
 
@@ -50,7 +50,7 @@ export const setRequest = (
     ...payload,
   });
 
-  dispatch({
+  return dispatch({
     type: phoneNumber ? SET : SET_TEMP_REQUEST,
     payload: {
       postPayload,

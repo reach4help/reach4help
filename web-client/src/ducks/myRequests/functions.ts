@@ -17,7 +17,7 @@ export const setGeneralRequest = async ({
   postId: string;
 }) => setPost({ postPayload, postId });
 
-export const observeAllMyRequests = (
+export const observeMyRequests = (
   nextValue: Function,
   {
     status,

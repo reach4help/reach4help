@@ -8,7 +8,7 @@ import {
 } from './functions';
 import {
   CHANGE_MODAL,
-  OBSERVE_ALL_MY_OFFERS,
+  OBSERVE_MY_OFFERS,
   RESET_SET,
   SET,
   SET_TEMP_OFFER,
@@ -25,7 +25,7 @@ export const observeMyOffers = (
   },
 ): Function => {
   dispatch({
-    type: OBSERVE_ALL_MY_OFFERS,
+    type: OBSERVE_MY_OFFERS,
     observer: observeMyOffersFunc,
     payload: {
       requestingHelp: true,
@@ -36,8 +36,8 @@ export const observeMyOffers = (
 
   return () =>
     dispatch({
-      type: OBSERVE_ALL_MY_OFFERS.UNSUBSCRIBE,
-      observerName: OBSERVE_ALL_MY_OFFERS,
+      type: OBSERVE_MY_OFFERS.UNSUBSCRIBE,
+      observerName: OBSERVE_MY_OFFERS,
     });
 };
 
