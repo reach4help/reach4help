@@ -44,7 +44,9 @@ export const observePosts = (
     radius?: number;
   },
 ): firebase.Unsubscribe => {
-  let filter = firestore.collection('posts').where('status', '==', 'status'); // TODO: (es) figure out how to eliminate
+  let filter = firestore
+    .collection('posts')
+    .where('isResponse', 'in', [true, false]); // TODO: (es) figure out how to eliminate
 
   if (userRef) {
     filter = filter.where('creatorRef', '==', userRef);

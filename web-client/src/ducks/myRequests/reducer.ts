@@ -3,7 +3,7 @@ import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  OBSERVE_ALL_MY_REQUESTS,
+  OBSERVE_MY_REQUESTS,
   PostState,
   RESET_SET,
   SET,
@@ -36,10 +36,10 @@ const initialState: PostState = {
 
 export default createReducer<PostState>(
   {
-    [OBSERVE_ALL_MY_REQUESTS.SUBSCRIBE]: (state: PostState) => {
+    [OBSERVE_MY_REQUESTS.SUBSCRIBE]: (state: PostState) => {
       state.myRequests.loading = true;
     },
-    [OBSERVE_ALL_MY_REQUESTS.UPDATED]: (
+    [OBSERVE_MY_REQUESTS.UPDATED]: (
       state: PostState,
       { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
@@ -54,7 +54,7 @@ export default createReducer<PostState>(
       );
       state.myRequests.error = undefined;
     },
-    [OBSERVE_ALL_MY_REQUESTS.ERROR]: (
+    [OBSERVE_MY_REQUESTS.ERROR]: (
       state: PostState,
       { payload }: { payload: Error },
     ) => {
