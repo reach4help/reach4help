@@ -32,7 +32,11 @@ const FindRequestsContainer: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!searchKeyState.loading) {
+    if (
+      !searchKeyState.loading &&
+      !searchKeyState.data &&
+      !searchKeyState.error
+    ) {
       if (onboarded) {
         dispatch(getAuthenticatedSearchKey());
       } else {
@@ -56,11 +60,8 @@ const FindRequestsContainer: React.FC = () => {
       indexName={searchKeyState.data.indexName}
       searchClient={searchClient}
     >
-      <div style={{ height: 500 }}>
-        <GoogleMapsLoader
-          // endpoint="https://maps.googleapis.com/maps/api/js?v3.40"
-          apiKey={process.env.REACT_APP_GMAPS_API_KEY}
-        >
+      <div style={{ height: '100vh' }}>
+        <GoogleMapsLoader apiKey={process.env.REACT_APP_GMAPS_API_KEY}>
           {google => (
             <GeoSearch
               enableRefineOnMapMove={false}
