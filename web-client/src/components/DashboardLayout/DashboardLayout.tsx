@@ -117,8 +117,8 @@ const DashboardContent = styled(Layout.Content)`
   @media ${DEVICE_MAX.tablet} {
     padding-bottom: 64px;
   }
-  /* overflow-x: hidden;
-  overflow-y: hidden; */
+  overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 interface DashboardLayoutProps {
