@@ -7,17 +7,13 @@ import {
   ContributorImage,
   JoinButton,
   JoinContainer,
-  JoinText,
   MiddleSection,
   MissionContainer,
   MissionText,
   SolvingImage,
   TeamContainer,
   TeamImageContainer,
-  TeamText,
   TopSection,
-  TopText,
-  TopTextContainer,
 } from '../components/about';
 import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
@@ -25,14 +21,9 @@ import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
 const AboutPage: React.FC = (): JSX.Element => (
   <Root>
     <TopSection>
-      <TopTextContainer>
-        <TopText>
-          <h1>
-            We&#39;re a group of volunteers <br /> driven to unify help
-            worldwide
-          </h1>
-        </TopText>
-      </TopTextContainer>
+      <h1>
+        We&#39;re a group of volunteers <br /> driven to unify help worldwide
+      </h1>
     </TopSection>
     <MiddleSection>
       <MissionContainer>
@@ -54,19 +45,16 @@ const AboutPage: React.FC = (): JSX.Element => (
           </p>
         </MissionText>
       </MissionContainer>
-      <SolvingImage src={problemSolve} /> <br />
+      <SolvingImage src={problemSolve} />
     </MiddleSection>
     <MiddleSection>
       <TeamContainer>
-        <TeamText>
-          <h1> Meet Our Team </h1>
-          <br />
-          <p>
-            Hailing from LA to Morocco to Portugal to Bangladesh, we’re an
-            international collective of volunteers from all walks of life,
-            united to ensure that everyone, everywhere can Reach4Help.
-          </p>
-        </TeamText>
+        <h1>Meet Our Team</h1>
+        <p>
+          Hailing from LA to Morocco to Portugal to Bangladesh, we’re an
+          international collective of volunteers from all walks of life, united
+          to ensure that everyone, everywhere can Reach4Help.
+        </p>
       </TeamContainer>
     </MiddleSection>
     <TeamImageContainer>
@@ -112,15 +100,12 @@ const AboutPage: React.FC = (): JSX.Element => (
     <br />
     <MiddleSection>
       <JoinContainer>
-        <JoinText>
-          <h3>Interested in joining us?</h3> <br />
-          <p>
-            We’re looking for volunteer ReactJS developers, marketing/PR
-            strategists and UI/UX designers to help ramp up our efforts fighting
-            the US West Coast wildfires and the incoming second wave of
-            COVID-19.
-          </p>
-        </JoinText>
+        <h3>Interested in joining us?</h3> <br />
+        <p>
+          We’re looking for volunteer ReactJS developers, marketing/PR
+          strategists and UI/UX designers to help ramp up our efforts fighting
+          the US West Coast wildfires and the incoming second wave of COVID-19.
+        </p>
       </JoinContainer>{' '}
       <br />
     </MiddleSection>

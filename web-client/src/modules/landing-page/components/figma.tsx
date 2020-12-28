@@ -51,7 +51,7 @@ const InfoSection = styled(Container)`
     font-size: 54px;
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     padding: 58px 16px 38px;
     text-align: left;
     h3 {
@@ -64,7 +64,7 @@ const InfoSection = styled(Container)`
 const InfoContainer = styled(Flex)`
   width: 100%;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-direction: column;
   }
 `;
@@ -100,8 +100,7 @@ const InfoCardContainer = styled(Container)`
     margin: 0 50px;
   }
 
-
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     height: 100%;
     width: 100%;
 
@@ -113,6 +112,7 @@ const InfoCardContainer = styled(Container)`
         margin-bottom: 60px;
       }
     }
+  }
 `;
 
 const InfoCard = styled(Container)`
@@ -149,6 +149,10 @@ export const Nav = styled.nav`
 `;
 
 export const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 `;
 
@@ -165,10 +169,10 @@ export const Footer = styled(Container)`
 export const TopSection = styled(Flex)`
   height: 525px;
   width: 100%;
-  margin-top: 65px;
-  padding-top: 70px;
+  margin-top: 70px;
+  margin-bottom: 150px;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     height: 400px;
     margin-top: 0;
     padding-top: 0;
@@ -180,10 +184,9 @@ export const TopSection = styled(Flex)`
 export const MiddleSection = styled(Flex)`
   width: 100%;
   position: relative;
-  top: 250px;
   margin-bottom: 250px;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-direction: column;
     top: 10px;
     margin-bottom: 100px;
@@ -201,7 +204,7 @@ export const ReasonsSection = styled(Container)`
     font-size: 54px;
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     margin-top: 0;
     margin-bottom: 25px;
     padding-left: 16px;
@@ -223,7 +226,7 @@ export const AboutInfoSection = styled(InfoSection)`
   width: 100%;
   flex-direction: column;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     height: 100%;
   }
 `;
@@ -233,7 +236,7 @@ export const SponsorSection = styled(Container)`
   height: 473px;
   width: 100%;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     height: 100%;
     padding: 58px 0;
   }
@@ -243,7 +246,7 @@ export const SocialLinksSection = styled(Flex)`
   width: 450px;
   padding-top: 90px;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     width: 250px;
     padding-top: 38px;
     flex-wrap: wrap;
@@ -279,14 +282,14 @@ export const TextTopContainer = styled(Container)`
   top: 40px;
   width: 500px;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     top: 20px;
     width: 100%;
   }
 `;
 
 export const TextTopBtnContainer = styled.div`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -298,7 +301,7 @@ export const TextMiddleContainer = styled(Container)`
   top: 40px;
   width: 500px;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     width: 100%;
   }
 `;
@@ -308,7 +311,7 @@ export const ReasonsHeadingContainer = styled(Flex)`
     font-size: 54px;
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     justify-content: start;
     width: 100%;
     margin-bottom: 24px;
@@ -323,7 +326,7 @@ export const ReasonsContainer = styled(Flex)`
   flex-direction: row;
   width: 100%;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-direction: column;
   }
 `;
@@ -347,21 +350,21 @@ export const HelpInfoCardContainer = styled(InfoCardContainer)`
 `;
 
 export const HelpInfoHeadingContainer = styled(Flex)`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     justify-content: start;
     width: 100%;
   }
 `;
 
 export const VolunteerInfoHeadingContainer = styled(Flex)`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     justify-content: start;
     width: 100%;
   }
 `;
 
 export const AboutInfoSectionContainer = styled(Flex)`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-direction: column-reverse;
   }
 `;
@@ -384,7 +387,7 @@ export const AboutTextContainer = styled(Container)`
     size: 18px;
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     width: 100%;
 
     h3 {
@@ -419,7 +422,7 @@ export const SponsorThankYou = styled(Flex)`
     display: none;
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     margin-bottom: 0;
 
     h3:first-child {
@@ -436,7 +439,7 @@ export const SponsorLogoMiddle = styled(Flex)`
   padding: 5px;
   margin: 30px 0;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-wrap: wrap;
     padding: 0 5px;
     margin: 0;
@@ -447,7 +450,7 @@ export const SponsorLogoBottom = styled(Flex)`
   padding: 5px;
   margin: 0px 166px;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-wrap: wrap;
     padding: 0 5px;
     margin: 0;
@@ -485,7 +488,7 @@ export const TextTop = styled.div`
     width: 400px;
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     h1 {
       font-size: 36px;
       line-height: 46px;
@@ -508,7 +511,7 @@ export const TextMiddle = styled.div`
     width: 400px;
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     h1 {
       font-size: 28px;
       line-height: 46px;
@@ -553,7 +556,7 @@ export const ReasonsCard = styled(Container)`
     font-size: 18px;
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     margin: 20px 0;
     height: 256px;
   }
@@ -592,7 +595,7 @@ export const GetHelpBtn = styled(Button)`
   border: none;
   margin-left: 0;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     margin: 0 9px 0 0;
     flex-grow: 1;
   }
@@ -608,7 +611,7 @@ export const VolunteerBtn = styled(Button)`
     color: ${COLORS.black};
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     margin: 0;
     flex-grow: 1;
   }
@@ -641,7 +644,7 @@ export const RectTop = styled.img`
   z-index: -5;
   width: 100%;
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     top: -300px;
     left: -12%;
     width: 270%;
@@ -655,13 +658,13 @@ export const Check = styled(ReasonsCardIcon)``;
 export const Card = styled(ReasonsCardIcon)``;
 
 export const PeopleTop = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     display: none;
   }
 `;
 
 export const MockupImage = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     width: 100%;
   }
 `;
@@ -687,7 +690,7 @@ export const CoordinateHelpLogo = styled.img`
 export const FooterLogo = styled.img``;
 
 export const TeamMeetingImage = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     width: 100%;
     margin-bottom: 20px;
   }
@@ -698,81 +701,81 @@ export const TeamMeetingImage = styled.img`
 // Sponsor Logos
 
 export const AirtableLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 40%;
     margin-bottom: 25px;
   }
 `;
 
 export const AlgoliaLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 30%;
     margin-bottom: 15px;
   }
 `;
 
 export const CanvaLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 30%;
   }
 `;
 
 export const DatadogLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 40%;
     margin-bottom: 10px;
   }
 `;
 
 export const FigmaLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     margin-bottom: 15px;
   }
 `;
 
 export const GatsbyLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 40%;
     margin-bottom: 25px;
   }
 `;
 
 export const GoogleLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 30%;
     margin-bottom: 15px;
   }
 `;
 
 export const HelpfulEngineeringLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 40%;
     margin-bottom: 25px;
   }
 `;
 
 export const NetlifyLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 40%;
     margin-bottom: 25px;
   }
 `;
 
 export const SlackLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 40%;
     margin-bottom: 10px;
   }
 `;
 
 export const TwilioLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 30%;
   }
 `;
 
 export const TypeformLogo = styled.img`
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 30%;
   }
 `;
@@ -787,7 +790,7 @@ export const EmailIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -799,7 +802,7 @@ export const FacebookIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -811,7 +814,7 @@ export const GithubIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -823,7 +826,7 @@ export const InstagramIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -835,7 +838,7 @@ export const LinkedInIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
@@ -847,7 +850,7 @@ export const TwitterIcon = styled(SocialMediaIcon)`
       brightness(96%) contrast(99%);
   }
 
-  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-basis: 33%;
     margin-bottom: 30px;
   }
