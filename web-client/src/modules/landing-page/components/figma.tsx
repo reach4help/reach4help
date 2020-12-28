@@ -209,6 +209,28 @@ export const ReasonsSection = styled(Container)`
   }
 `;
 
+export const WorldMapSection = styled(Container)`
+  width: 90%;
+  margin: auto;
+  h2 {
+    text-align: center;
+    font-size: 40px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  @media (max-width: ${MEDIA_QUERIES.tablet}) {
+    width: 100%;
+    h2 {
+      font-size: 28px;
+    }
+  }
+  @media (max-width: ${MEDIA_QUERIES.mobileL}) {
+    h2 {
+      font-size: 20px;
+    }
+  }
+`;
 // Should we add these colors to our colors.js file? current file doesn't have rgba colors
 export const HelpInfoSection = styled(InfoSection)`
   background-color: ${COLORS.gettingHelpBackground};
