@@ -106,7 +106,9 @@ import {
   VolunteerInfoContainer,
   VolunteerInfoHeadingContainer,
   VolunteerInfoSection,
+  WorldMapSection,
 } from '../components/figma';
+import WorldMap from '../components/WorldMap';
 
 const HomePage: React.FC = (): JSX.Element => (
   <Root>
@@ -175,6 +177,15 @@ const HomePage: React.FC = (): JSX.Element => (
         </ReasonsCard>
       </ReasonsContainer>
     </ReasonsSection>
+
+    <WorldMapSection>
+      <h2>
+        <span>We are already helping</span>
+        <span>600+ people across 30 countries!</span>
+      </h2>
+      <WorldMap />
+    </WorldMapSection>
+
     <HelpInfoSection>
       <HelpInfoHeadingContainer>
         <h3>How getting help works</h3>
@@ -273,6 +284,7 @@ const HomePage: React.FC = (): JSX.Element => (
         <TeamMeetingImage src={teamMeetingImg} />
       </AboutInfoSectionContainer>
     </AboutInfoSection>
+
     <SponsorSection>
       <SponsorThankYou>
         <h3>
