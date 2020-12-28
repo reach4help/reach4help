@@ -1,15 +1,13 @@
-import { firestore } from 'firebase';
-import { IPost, Post } from 'src/models/Post';
+import { IPost, Post } from 'src/models/posts';
 import { User } from 'src/models/users';
 
 import {
-  createUserPost,
-  observeMyPostsAndResponses,
-  setUserPost,
+  createGeneralRequest,
+  observeMyRequests as observeMyRequestsFunc,
+  setGeneralRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
-  OBSERVE_MY_OFFERS,
   OBSERVE_MY_REQUESTS,
   RESET_SET,
   SET,
@@ -28,7 +26,7 @@ export const observeMyRequests = (
 ): Function => {
   dispatch({
     type: OBSERVE_MY_REQUESTS,
-    observer: observeMyPostsAndResponses,
+    observer: observeMyRequestsFunc,
     payload: {
       requestingHelp: true,
       status,
@@ -43,33 +41,6 @@ export const observeMyRequests = (
     });
 };
 
-export const observeMyOffers = (
-  dispatch: Function,
-  {
-    status,
-    userRef,
-  }: {
-    status: string | null;
-    userRef: firebase.firestore.DocumentReference<User>;
-  },
-): Function => {
-  dispatch({
-    type: OBSERVE_MY_OFFERS,
-    observer: observeMyPostsAndResponses,
-    payload: {
-      requestingHelp: false,
-      status,
-      userRef,
-    },
-  });
-
-  return () =>
-    dispatch({
-      type: OBSERVE_MY_OFFERS.UNSUBSCRIBE,
-      observerName: OBSERVE_MY_OFFERS,
-    });
-};
-
 export const setRequest = (
   payload: IPost,
   postId?: string,
@@ -79,13 +50,17 @@ export const setRequest = (
     ...payload,
   });
 
-  dispatch({
+  return dispatch({
     type: phoneNumber ? SET : SET_TEMP_REQUEST,
     payload: {
       postPayload,
       postId,
     },
-    firebase: phoneNumber ? (postId ? setUserPost : createUserPost) : null,
+    firebase: phoneNumber
+      ? postId
+        ? setGeneralRequest
+        : createGeneralRequest
+      : null,
   });
 };
 
