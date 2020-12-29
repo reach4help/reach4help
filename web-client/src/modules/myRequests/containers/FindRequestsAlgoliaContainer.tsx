@@ -1,64 +1,69 @@
 import algoliasearch from 'algoliasearch/lite';
 import React from 'react';
-import { connectHits, Hits, InstantSearch } from 'react-instantsearch-dom';
+import { InstantSearch } from 'react-instantsearch-dom';
 import {
   Control,
   GeoSearch,
   GoogleMapsLoader,
   Marker,
 } from 'react-instantsearch-dom-maps';
-import styled from 'styled-components';
+import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
+import { useSearchKey } from 'src/ducks/search/operations';
 
-import { Algolia } from '../constants';
+// const Debug = connectHits(({ hits }) => (
+//   <ul>
+//     {hits.map((hit, i) => (
+//       <li key={i}>{JSON.stringify(hit._geoloc)}</li>
+//     ))}
+//   </ul>
+// ));
 
-const searchClient = algoliasearch(Algolia.appId, Algolia.tempSearchKey);
+const FindRequestsContainer: React.FC = () => {
+  const searchKey = useSearchKey();
 
-// const searchClient = algoliasearch(
-//   'latency',
-//   '6be0576ff61c053d5f9a3225e2a90f76',
-// );
+  if (!searchKey) {
+    return <LoadingWrapper />;
+  }
 
-const Debug = connectHits(({ hits }) => (
-  <ul>
-    {hits.map((hit, i) => (
-      <li key={i}>{JSON.stringify(hit._geoloc)}</li>
-    ))}
-  </ul>
-));
+  const searchClient = algoliasearch(searchKey.appId, searchKey.searchKey);
 
-const FindRequestsContainer: React.FC = () => (
-  <InstantSearch
-    // indexName="airports"
-    indexName={Algolia.tempAuthIndexName}
-    searchClient={searchClient}
-  >
-    <div style={{ height: 500 }}>
-      <GoogleMapsLoader
-        // endpoint="https://maps.googleapis.com/maps/api/js?v3.40"
-        apiKey={process.env.REACT_APP_GMAPS_API_KEY}
-      >
-        {google => (
-          <GeoSearch
-            enableRefineOnMapMove={false}
-            google={google}
-            mapTypeId={google.maps.MapTypeId.ROADMAP}
-            initialPosition={{ lat: 42.3684331, lng: -71.0373524 }}
-            initialZoom={8}
-          >
-            {({ hits }) => (
-              <div>
-                <Control />
-                {hits.map(hit => (
-                  <Marker key={hit.objectID} hit={hit} />
-                ))}
-              </div>
-            )}
-          </GeoSearch>
-        )}
-      </GoogleMapsLoader>
-    </div>
-    <Debug />
-  </InstantSearch>
-);
+  // Based on
+  // https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/geo-search/react/
+  // Data retrieval and UI component are tightly coupled
+  return (
+    <InstantSearch
+      // indexName="airports"
+      indexName={searchKey.indexName}
+      searchClient={searchClient}
+    >
+      <div style={{ height: 500 }}>
+        <GoogleMapsLoader
+          // endpoint="https://maps.googleapis.com/maps/api/js?v3.40"
+          apiKey={process.env.REACT_APP_GMAPS_API_KEY}
+        >
+          {google => (
+            <GeoSearch
+              enableRefineOnMapMove={false}
+              google={google}
+              mapTypeId={google.maps.MapTypeId.ROADMAP}
+              initialPosition={{ lat: 42.3684331, lng: -71.0373524 }}
+              initialZoom={8}
+            >
+              {({ hits }) => (
+                <div>
+                  <Control />
+                  {hits.map(hit => (
+                    <Marker key={hit.objectID} hit={hit} />
+                  ))}
+                </div>
+              )}
+            </GeoSearch>
+          )}
+        </GoogleMapsLoader>
+      </div>
+      {/* <Debug /> */}
+    </InstantSearch>
+  );
+};
 
 export default FindRequestsContainer;
