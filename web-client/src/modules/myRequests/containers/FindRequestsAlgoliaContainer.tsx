@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { InstantSearch } from 'react-instantsearch-dom';
 import {
   Control,
@@ -7,13 +7,8 @@ import {
   GoogleMapsLoader,
   Marker,
 } from 'react-instantsearch-dom-maps';
-import { useDispatch, useSelector } from 'react-redux';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
-import {
-  getAuthenticatedSearchKey,
-  getUnauthenticatedSearchKey,
-} from 'src/ducks/search/actions';
-import { AppState } from 'src/store';
+import { useSearchKey } from 'src/ducks/search/operations';
 
 // const Debug = connectHits(({ hits }) => (
 //   <ul>
@@ -24,36 +19,21 @@ import { AppState } from 'src/store';
 // ));
 
 const FindRequestsContainer: React.FC = () => {
-  const dispatch = useDispatch();
+  const searchKey = useSearchKey();
 
-  const onboarded = useSelector((state: AppState) => state.auth.onboarded);
-  const searchKeyState = useSelector(
-    (state: AppState) => state.search.getSearchKey,
-  );
-
-  useEffect(() => {
-    if (!searchKeyState.loading) {
-      if (onboarded) {
-        dispatch(getAuthenticatedSearchKey());
-      } else {
-        dispatch(getUnauthenticatedSearchKey());
-      }
-    }
-  }, [dispatch, onboarded, searchKeyState.loading]);
-
-  if (!searchKeyState.data || searchKeyState.loading) {
+  if (!searchKey) {
     return <LoadingWrapper />;
   }
 
-  const searchClient = algoliasearch(
-    searchKeyState.data.appId,
-    searchKeyState.data.searchKey,
-  );
+  const searchClient = algoliasearch(searchKey.appId, searchKey.searchKey);
 
+  // Based on
+  // https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/geo-search/react/
+  // Data retrieval and UI component are tightly coupled
   return (
     <InstantSearch
       // indexName="airports"
-      indexName={searchKeyState.data.indexName}
+      indexName={searchKey.indexName}
       searchClient={searchClient}
     >
       <div style={{ height: 500 }}>

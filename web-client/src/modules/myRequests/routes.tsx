@@ -9,6 +9,10 @@ const AlgFindRequestsContainer = lazy(() =>
   import('./containers/FindRequestsAlgoliaContainer'),
 );
 
+const FindRequestsContainer = lazy(() =>
+  import('./containers/FindRequestsContainer'),
+);
+
 const MyPostsTabs = lazy(() =>
   import('src/modules/postsTabsPage/pages/MyPostsTabsPage'),
 );
@@ -16,6 +20,12 @@ const MyPostsTabs = lazy(() =>
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>
     <Switch>
+      {/* TODO: (es) Decide on algolia or non algolia */}
+      <Route
+        path={AlgFindRequestsLocation.path}
+        component={AlgFindRequestsContainer}
+        exact
+      />
       <Route
         path={AlgFindRequestsLocation.path}
         component={AlgFindRequestsContainer}
