@@ -29,15 +29,10 @@ export const MyPostsLocation = new Location(
 export const MyOfferPostsLocationUrl = MyPostsLocation.toUrl({
   postType: PostTabTypes.offers,
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> 8b4d57c7... feat: refactor
 export const MyRequestPostsLocationUrl = MyPostsLocation.toUrl({
   postType: PostTabTypes.requests,
 });
 
-<<<<<<< HEAD
 export const MyOfferPostsStatusAllUrl = MyPostsLocation.toUrl({
   postType: PostTabTypes.offers,
   status: PostStatusType.all,
@@ -76,8 +71,6 @@ export const MyRequestPostsStatusClosedUrl = MyPostsLocation.toUrl({
   status: PostStatusType.closed,
 });
 
-=======
->>>>>>> 8b4d57c7... feat: refactor
 export const Algolia = {
   appId: process.env.REACT_APP_TEMP_ALGOLIA_APP_ID ?? '',
   tempSearchKey: process.env.REACT_APP_TEMP_ALGOLIA_SEARCH_KEY ?? '',
