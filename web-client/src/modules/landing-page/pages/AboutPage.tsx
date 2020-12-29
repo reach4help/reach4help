@@ -14,6 +14,7 @@ import {
   SolvingImage,
   TeamContainer,
   TeamImageContainer,
+  TeamTitle,
   TopSection,
 } from '../components/about';
 // import * as contributors from '../components/contributors';
