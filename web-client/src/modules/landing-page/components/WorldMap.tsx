@@ -82,7 +82,16 @@ const WorldMap = () => {
         geographyConfig={{
           highlightFillColor: geo => geo.fillColor || '#DDD',
           popupTemplate: (geography, data) =>
+<<<<<<< HEAD
             `<div style="${hoverInfoStyle}">
+=======
+            `<link
+              rel="stylesheet"
+              type="text/css"
+              href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css"
+            />
+            <div style="${hoverInfoStyle}">
+>>>>>>> 65dbc801... style: minor styling changes and code cleaning
               <span><b>${geography.properties.name}</b></span> 
               <span>${
                 data
