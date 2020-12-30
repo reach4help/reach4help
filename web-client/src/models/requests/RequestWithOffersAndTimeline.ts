@@ -53,6 +53,7 @@ export class RequestWithOffersAndTimeline extends Request
     contactNumber: string | null = null,
   ) {
     super(
+      '????', // TODO: (es) This needs to be rewritten
       pinUserRef,
       pinUserSnapshot,
       title,

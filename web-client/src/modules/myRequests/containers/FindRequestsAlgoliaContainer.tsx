@@ -10,6 +10,7 @@ import {
 } from 'react-instantsearch-dom-maps';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import { useSearchKey } from 'src/ducks/search/operations';
+import { sendCreateXSpecificOfferFromRequest } from 'src/ducks/xSpecificOffers/actions';
 
 // const Debug = connectHits(({ hits }) => (
 //   <ul>
@@ -23,29 +24,10 @@ const PostInfoDisplay = ({ post }) => {
   const { userSnapshot, description, title } = post;
   const { displayName, displayPicture } = userSnapshot;
   const onClickHandler = () => {
-    alert('this should create a specific offer');
+    console.log('a');
+    sendCreateXSpecificOfferFromRequest(post);
+    // alert('this should create a specific offer');
   };
-  //     dispatch(
-  //       setOffer(
-  //         {
-  //           cavUserRef: profileState.userRef,
-  //           pinUserRef:
-  //             pendingRequests.data[expandedRequestId]
-  //               .pinUserRef,
-  //           requestRef: firestore.collection('requests').doc(expandedRequestId),
-  //           cavUserSnapshot: profileState.profile,
-  //           requestSnapshot: pendingRequests.data[
-  //             expandedRequestId
-  //           ].getRequest(),
-  //           message: t(
-  //             'modules.requests.containers.FindRequestsContainer.want_to_help',
-  //           ),
-  //           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
-  //         },
-  //         undefined,
-  //         phoneNumber,
-  //       ),
-  //     );
 
   return (
     <div>
