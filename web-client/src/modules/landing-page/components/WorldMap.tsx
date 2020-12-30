@@ -3,9 +3,9 @@ import React from 'react';
 import Datamap from 'react-datamaps';
 
 const hoverInfoStyle = `
-    color:#fff;
+    color:black;
     text-align:center;
-    background-color:#9b60a5;
+    background-color:white;
     padding:10px;
     display:flex;
     flex-direction:column;
@@ -54,7 +54,7 @@ const WorldMap = () => {
     ['VNM', 1],
   ];
 
-  const onlyUsers = usersByCountry.map(obj => obj[1]);
+  const onlyUsers: number[] = usersByCountry.map(obj => obj[1] as number);
 
   const minNumOfUsers = Math.min(...onlyUsers);
   const maxNumOfUsers = Math.max(...onlyUsers);
@@ -66,7 +66,7 @@ const WorldMap = () => {
 
   // populate the dataset with the number of users and the corresponding color
   const dataset = {};
-  usersByCountry.forEach(function(item) {
+  usersByCountry.forEach(item => {
     dataset[item[0]] = {
       numOfUsers: item[1],
       fillColor: paletteScale(item[1]),
@@ -77,20 +77,20 @@ const WorldMap = () => {
     <section>
       <Datamap
         responsive
-        fills={{ defaultFill: '#FFFD75' }}
+        fills={{ defaultFill: '#DDD' }}
         data={dataset}
         geographyConfig={{
-          highlightFillColor(geo) {
-            return geo.fillColor || '#FFFD75';
-          },
-          popupTemplate: (geography, data) => `<div style="${hoverInfoStyle}">
-                               <span>${geography.properties.name}</span> 
-                               <span>${
-                                 data
-                                   ? `Users: ${data.numOfUsers}`
-                                   : 'No users yet'
-                               }</span>
-                            </div>`,
+          highlightFillColor: geo => geo.fillColor || '#DDD',
+          popupTemplate: (geography, data) =>
+            `<div style="${hoverInfoStyle}">
+              <span><b>${geography.properties.name}</b></span> 
+              <span>${
+                data
+                  ? `Users: ${data.numOfUsers}`
+                  : 'No users yet <br/> (maybe you?)'
+              }
+              </span>
+          </div>`,
         }}
       />
     </section>
