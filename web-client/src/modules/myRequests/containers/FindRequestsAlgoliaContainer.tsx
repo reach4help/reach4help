@@ -9,7 +9,7 @@ import {
 } from 'react-instantsearch-dom-maps';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import { useSearchKey } from 'src/ducks/search/operations';
-import PostInfo from 'src/modules/myRequests/components/PostInfo';
+import { sendCreateXSpecificOfferFromRequest } from 'src/ducks/xSpecificOffers/actions';
 
 // const Debug = connectHits(({ hits }) => (
 //   <ul>
@@ -18,6 +18,29 @@ import PostInfo from 'src/modules/myRequests/components/PostInfo';
 //     ))}
 //   </ul>
 // ));
+
+const PostInfoDisplay = ({ post }) => {
+  const { userSnapshot, description, title } = post;
+  const { displayName, displayPicture } = userSnapshot;
+  const onClickHandler = () => {
+    console.log('a');
+    sendCreateXSpecificOfferFromRequest(post);
+    // alert('this should create a specific offer');
+  };
+
+  return (
+    <div>
+      <div style={{ display: 'flex', zIndex: 100 }}>
+        <h2> {displayName}</h2>
+        <img src={displayPicture} alt={displayName} />
+      </div>
+      <hr />
+      <h3>{title}</h3>
+      <p>{description}</p>
+      <Button onClick={onClickHandler}>Offer help</Button>
+    </div>
+  );
+};
 
 const FindRequestsContainer: React.FC = () => {
   const searchKey = useSearchKey();
