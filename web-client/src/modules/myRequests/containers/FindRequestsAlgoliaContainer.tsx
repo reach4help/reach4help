@@ -8,7 +8,9 @@ import {
   GoogleMapsLoader,
   Marker,
 } from 'react-instantsearch-dom-maps';
+import { useDispatch, useSelector } from 'react-redux';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
+import { ProfileState } from 'src/ducks/profile/types';
 import { useSearchKey } from 'src/ducks/search/operations';
 import { sendCreateXSpecificOfferFromRequest } from 'src/ducks/xSpecificOffers/actions';
 
@@ -21,13 +23,15 @@ import { sendCreateXSpecificOfferFromRequest } from 'src/ducks/xSpecificOffers/a
 // ));
 
 const PostInfoDisplay = ({ post }) => {
+  const dispatch = useDispatch();
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
+  );
+  const [currentPost] = useState(post);
   const { userSnapshot, description, title } = post;
   const { displayName, displayPicture } = userSnapshot;
-  const onClickHandler = () => {
-    console.log('a');
-    sendCreateXSpecificOfferFromRequest(post);
-    // alert('this should create a specific offer');
-  };
+  const onClickHandler = () =>
+    dispatch(sendCreateXSpecificOfferFromRequest(currentPost, profileState));
 
   return (
     <div>

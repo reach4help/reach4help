@@ -6,7 +6,6 @@ export interface IXSpecificOffer extends IPost {
   dummy?: string;
 }
 
-export class XSpecificOffer extends Post {
-}
+export class XSpecificOffer extends Post {}
 
 export const XSpecificOfferFirestoreConverter: firebase.firestore.FirestoreDataConverter<XSpecificOffer> = PostFirestoreConverter;
