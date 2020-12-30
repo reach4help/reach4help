@@ -12,7 +12,7 @@ import {
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
-import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 

@@ -2,9 +2,9 @@ import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DEVICE_MAX } from 'src/constants/mediaQueries';
-import { observeOffers } from 'src/ducks/offers/actions';
-import { OffersState } from 'src/ducks/offers/types';
 import { ProfileState } from 'src/ducks/profile/types';
+import { observeOffers } from 'src/ducks/specificOffers/actions';
+import { OffersState } from 'src/ducks/specificOffers/types';
 import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
@@ -117,8 +117,8 @@ const DashboardContent = styled(Layout.Content)`
   @media ${DEVICE_MAX.tablet} {
     padding-bottom: 64px;
   }
-  /* overflow-x: hidden;
-  overflow-y: hidden; */
+  overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 interface DashboardLayoutProps {
