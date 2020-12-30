@@ -9,4 +9,3 @@ export interface IXGeneralRequest extends IPost {
 export class XGeneralRequest extends Post {}
 
 export const XGeneralRequestFirestoreConverter: firebase.firestore.FirestoreDataConverter<XGeneralRequest> = PostFirestoreConverter;
-
