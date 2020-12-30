@@ -184,7 +184,7 @@ export const TopSection = styled(Flex)`
 export const MiddleSection = styled(Flex)`
   width: 100%;
   position: relative;
-  margin-bottom: 250px;
+  margin-bottom: 100px;
 
   @media (max-width: ${MEDIA_QUERIES.tablet}) {
     flex-direction: column;
@@ -198,14 +198,13 @@ export const MiddleSection = styled(Flex)`
 export const ReasonsSection = styled(Container)`
   text-align: center;
   align-items: center;
-  margin-top: 400px;
+  margin-bottom: 25px;
 
   h1 {
     font-size: 54px;
   }
 
   @media (max-width: ${MEDIA_QUERIES.tablet}) {
-    margin-top: 0;
     margin-bottom: 25px;
     padding-left: 16px;
     padding-right: 16px;
@@ -215,13 +214,16 @@ export const ReasonsSection = styled(Container)`
 export const WorldMapSection = styled(Container)`
   width: 90%;
   margin: auto;
+
   h2 {
     text-align: center;
     font-size: 40px;
     margin: auto;
+    margin-bottom: -40px;
     display: flex;
     flex-direction: column;
   }
+
   @media (max-width: ${MEDIA_QUERIES.tablet}) {
     width: 100%;
     h2 {
@@ -336,7 +338,6 @@ export const ReasonsHeadingContainer = styled(Flex)`
   @media (max-width: ${MEDIA_QUERIES.tablet}) {
     justify-content: start;
     width: 100%;
-    margin-bottom: 24px;
 
     h1 {
       font-size: 28px;
@@ -360,7 +361,6 @@ export const ReasonsCardIconContainer = styled(Container)`
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  margin-bottom: 50px;
 `;
 
 export const HelpInfoContainer = styled(InfoContainer)``;
@@ -562,8 +562,8 @@ export const TermsOfUse = styled(LegalText)``;
 // Cards
 
 export const ReasonsCard = styled(Container)`
-  margin: 65px 35px;
-  height: 350px;
+  margin: 35px;
+  /* height: 350px; */
   justify-content: flex-start;
   align-items: center;
 
@@ -580,7 +580,7 @@ export const ReasonsCard = styled(Container)`
 
   @media (max-width: ${MEDIA_QUERIES.tablet}) {
     margin: 20px 0;
-    height: 256px;
+    /* height: 256px; */
   }
 `;
 
@@ -686,6 +686,7 @@ export const PeopleTop = styled.img`
 `;
 
 export const MockupImage = styled.img`
+  max-height: 600px;
   @media (max-width: ${MEDIA_QUERIES.tablet}) {
     width: 100%;
   }
