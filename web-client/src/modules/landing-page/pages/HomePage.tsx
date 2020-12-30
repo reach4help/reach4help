@@ -180,8 +180,8 @@ const HomePage: React.FC = (): JSX.Element => (
 
     <WorldMapSection>
       <h2>
-        <span>We are already helping</span>
-        <span>600+ people across 30 countries!</span>
+        <span>We&apos;re already helping</span>
+        <span>600+ people across 38 countries!</span>
       </h2>
       <WorldMap />
     </WorldMapSection>
