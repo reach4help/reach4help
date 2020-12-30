@@ -32,7 +32,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   isResponse: boolean;
   requestingHelp: boolean;
   parentSnapshot: IPost | null;
-  parentRef: firebase.firestore.DocumentReference<
+  partnerRefId: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
   creatorRef: firebase.firestore.DocumentReference<
@@ -106,6 +106,7 @@ export class Post implements IPost {
     this._updateSeenBy = updateSeenBy;
     this._positiveResponseCount = positiveResponseCount;
     this._negativeResponseCount = negativeResponseCount;
+    this._geoloc = undefined;
   }
 
   @Allow()
@@ -138,13 +139,13 @@ export class Post implements IPost {
     firebase.firestore.DocumentData
   > | null;
 
-  get parentRef(): firebase.firestore.DocumentReference<
+  get partnerRefId(): firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null {
     return this._parentRef;
   }
 
-  set parentRef(
+  set partnerRefId(
     parentRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     > | null,
@@ -262,6 +263,14 @@ export class Post implements IPost {
 
   set latLng(value: firebase.firestore.GeoPoint) {
     this._latLng = value;
+  }
+
+  @IsOptional()
+  @IsObject()
+  public _geoloc: firebase.firestore.GeoPoint | undefined;
+
+  get geoloc(): firebase.firestore.GeoPoint | undefined {
+    return this._geoloc;
   }
 
   @IsEnum(PostStatus)
@@ -383,7 +392,7 @@ export class Post implements IPost {
       data.parentSnapshot
         ? Post.factory(data.parentSnapshot)
         : data.parentSnapshot,
-      data.parentRef,
+      data.partnerRefId,
       data.creatorRef,
       User.factory(data.creatorSnapshot),
       data.title,
@@ -408,7 +417,7 @@ export class Post implements IPost {
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
       parentSnapshot: this.parentSnapshot?.toObject() || null,
-      parentRef: this.parentRef || null,
+      parentRef: this.partnerRefId || null,
       creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,
