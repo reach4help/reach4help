@@ -1,17 +1,26 @@
 import { isDefined } from 'class-validator';
 import { firestore as firestore2 } from 'firebase';
 import { firestore } from 'src/firebase';
-import { Post, PostFirestoreConverter, PostStatus } from 'src/models/posts';
+import {
+  IPost,
+  Post,
+  PostFirestoreConverter,
+  PostStatus,
+} from 'src/models/posts';
 import { User } from 'src/models/users';
 
 const RADIUS = 5; // In Miles
 
-export const createPost = async ({ postPayload }: { postPayload: Post }) =>
-  firestore
+export const createPost = async ({ postPayload }: { postPayload: Post }) => {
+  const tempPost = { ...postPayload } as IPost;
+  tempPost.createdAt = firestore2.Timestamp.now();
+  tempPost.postId = new Date().getTime().toString();
+  return firestore
     .collection('posts')
     .doc()
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
+};
 
 export const setPost = async ({
   postPayload,
