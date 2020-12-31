@@ -30,7 +30,7 @@ export enum PostStatus {
 }
 
 export interface IPost extends firebase.firestore.DocumentData {
-  postId: IdType;
+  postId: IdType | null;
   isResponse: boolean;
   requestingHelp: boolean;
   sourcePostId?: string | null;
@@ -41,7 +41,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   title: string;
   description: string;
   streetAddress: string;
-  geoloc: firebase.firestore.GeoPoint | undefined;
+  geoloc?: firebase.firestore.GeoPoint | undefined;
   latLng: firebase.firestore.GeoPoint;
   status: PostStatus;
   creatorGivenRating: number | null;
