@@ -28,7 +28,6 @@ export const observeMyOffers = (
     type: OBSERVE_MY_OFFERS,
     observer: observeMyOffersFunc,
     payload: {
-      requestingHelp: true,
       status,
       userRef,
     },

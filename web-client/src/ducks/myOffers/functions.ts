@@ -26,4 +26,4 @@ export const observeMyOffers = (
     status: string | null;
     userRef: firebase.firestore.DocumentReference<User>;
   },
-) => observePosts(nextValue, { requestingHelp: true, status, userRef });
+) => observePosts(nextValue, { requestingHelp: false, status, userRef });

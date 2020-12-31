@@ -1,6 +1,7 @@
 import auth from './auth/reducer';
-import requests from './findRequests/reducer';
-import posts from './myRequests/reducer';
+import findRequestReducer from './findRequests/reducer';
+import myOfferReducer from './myOffers/reducer';
+import myRequestReducer from './myRequests/reducer';
 import profile from './profile/reducer';
 import search from './search/reducer';
 import offers from './specificOffers/reducer';
@@ -10,8 +11,9 @@ export default {
   auth,
   offers,
   profile,
-  posts,
-  requests,
+  myOfferReducer,
+  myRequestReducer,
+  findRequestReducer,
   timeline,
   search,
 };
