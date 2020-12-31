@@ -26,7 +26,7 @@ export const createXSpecificOfferFromRequest = async ({
     generalRequestWithUser,
   );
 
-  xspecificOffer.partnerRefId = null; // TODO: (es) Needs to be reference of general request, need to add that to the model
+  xspecificOffer.sourcePostId = null; // TODO: (es) Needs to be reference of general request, need to add that to the model
   xspecificOffer.requestingHelp = false;
   if (creatorProfileState?.userRef && creatorProfileState.profile) {
     xspecificOffer.creatorRef = creatorProfileState.userRef;
@@ -36,9 +36,9 @@ export const createXSpecificOfferFromRequest = async ({
   xspecificOffer.isResponse = true;
   // TODO: (es) Have to fix this, should not have to use _geoLoc - latLng should be defined
   // When fix this, also fix Post model to get rid of geoloc
-  if (!xspecificOffer.latLng && generalRequest?._geoloc) {
+  if (!xspecificOffer.latLng && generalRequest?.geoloc) {
     // eslint-disable-next-line no-underscore-dangle
-    xspecificOffer.latLng = generalRequest._geoloc;
+    xspecificOffer.latLng = generalRequest.geoloc;
   }
 
   const w = await firestore

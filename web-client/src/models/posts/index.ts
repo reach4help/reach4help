@@ -15,6 +15,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { firestore } from 'firebase';
+import { IdType } from 'src/types';
 
 import { IUser, User } from '../users';
 
@@ -29,12 +30,10 @@ export enum PostStatus {
 }
 
 export interface IPost extends firebase.firestore.DocumentData {
+  postId: IdType;
   isResponse: boolean;
   requestingHelp: boolean;
-  parentSnapshot: IPost | null;
-  partnerRefId: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
+  sourcePostId?: string | null;
   creatorRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   >;
@@ -42,6 +41,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   title: string;
   description: string;
   streetAddress: string;
+  geoloc: firebase.firestore.GeoPoint | undefined;
   latLng: firebase.firestore.GeoPoint;
   status: PostStatus;
   creatorGivenRating: number | null;
@@ -59,12 +59,11 @@ export interface IPost extends firebase.firestore.DocumentData {
 
 export class Post implements IPost {
   constructor(
+    /* TODO: (es) define keyType and change this to a keyType */
+    id: IdType,
     isResponse = false,
     requestingHelp = false,
-    parentSnapshot: Post | null = null,
-    parentRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null = null,
+    sourcePostId: IdType | null = null,
     creatorRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     >,
@@ -86,10 +85,10 @@ export class Post implements IPost {
     createdAt = firestore.Timestamp.now(),
     updatedAt = firestore.Timestamp.now(),
   ) {
+    this._id = id;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
-    this._parentRef = parentRef;
-    this._parentSnapshot = parentSnapshot;
+    this._sourcePostId = sourcePostId;
     this._creatorRef = creatorRef;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
@@ -106,7 +105,14 @@ export class Post implements IPost {
     this._updateSeenBy = updateSeenBy;
     this._positiveResponseCount = positiveResponseCount;
     this._negativeResponseCount = negativeResponseCount;
-    this._geoloc = undefined;
+  }
+
+  @IsString()
+  @IsNotEmpty()
+  private _id: string;
+
+  get postId(): string {
+    return this._id;
   }
 
   @Allow()
@@ -135,34 +141,14 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _parentRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
+  private _sourcePostId: IdType | null;
 
-  get partnerRefId(): firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null {
-    return this._parentRef;
+  get sourcePostId(): IdType | null {
+    return this._sourcePostId;
   }
 
-  set partnerRefId(
-    parentRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null,
-  ) {
-    this._parentRef = parentRef;
-  }
-
-  @ValidateNested()
-  @IsOptional()
-  private _parentSnapshot: Post | null;
-
-  get parentSnapshot(): Post | null {
-    return this._parentSnapshot;
-  }
-
-  set parentSnapshot(parentSnapshot: Post | null) {
-    this._parentSnapshot = parentSnapshot;
+  set sourcePostId(sourcePostId: IdType | null) {
+    this._sourcePostId = sourcePostId;
   }
 
   @IsNotEmptyObject()
@@ -267,7 +253,7 @@ export class Post implements IPost {
 
   @IsOptional()
   @IsObject()
-  public _geoloc: firebase.firestore.GeoPoint | undefined;
+  private _geoloc: firebase.firestore.GeoPoint | undefined;
 
   get geoloc(): firebase.firestore.GeoPoint | undefined {
     return this._geoloc;
@@ -386,13 +372,12 @@ export class Post implements IPost {
   }
 
   public static factory(data: IPost): Post {
+    const id = data.postId || new Date().getTime().toString();
     return new Post(
+      id,
       data.isResponse,
       data.requestingHelp,
-      data.parentSnapshot
-        ? Post.factory(data.parentSnapshot)
-        : data.parentSnapshot,
-      data.partnerRefId,
+      data.sourcePostId,
       data.creatorRef,
       User.factory(data.creatorSnapshot),
       data.title,
@@ -416,8 +401,7 @@ export class Post implements IPost {
     return {
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
-      parentSnapshot: this.parentSnapshot?.toObject() || null,
-      parentRef: this.partnerRefId || null,
+      parentRef: this.sourcePostId || null,
       creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,
