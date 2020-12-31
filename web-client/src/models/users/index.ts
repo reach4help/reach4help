@@ -37,7 +37,6 @@ export interface IUser extends firebase.firestore.DocumentData {
   createdAt?: firebase.firestore.Timestamp;
 }
 
-export type UserRefType = firebase.firestore.DocumentReference<User>;
 export class User implements IUser {
   constructor(
     username: string,
