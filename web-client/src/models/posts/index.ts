@@ -60,7 +60,7 @@ export interface IPost extends firebase.firestore.DocumentData {
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
-    id: IdType,
+    postId: IdType,
     isResponse = false,
     requestingHelp = false,
     sourcePostId: IdType | null = null,
@@ -85,7 +85,7 @@ export class Post implements IPost {
     createdAt = firestore.Timestamp.now(),
     updatedAt = firestore.Timestamp.now(),
   ) {
-    this._id = id;
+    this._postId = postId;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
     this._sourcePostId = sourcePostId;
@@ -109,10 +109,10 @@ export class Post implements IPost {
 
   @IsString()
   @IsNotEmpty()
-  private _id: string;
+  private _postId: string;
 
   get postId(): string {
-    return this._id;
+    return this._postId;
   }
 
   @Allow()
@@ -253,7 +253,7 @@ export class Post implements IPost {
 
   @IsOptional()
   @IsObject()
-  private _geoloc: firebase.firestore.GeoPoint | undefined;
+  public _geoloc: firebase.firestore.GeoPoint | undefined;
 
   get geoloc(): firebase.firestore.GeoPoint | undefined {
     return this._geoloc;

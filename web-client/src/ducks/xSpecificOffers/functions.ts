@@ -36,9 +36,10 @@ export const createXSpecificOfferFromRequest = async ({
   xspecificOffer.isResponse = true;
   // TODO: (es) Have to fix this, should not have to use _geoLoc - latLng should be defined
   // When fix this, also fix Post model to get rid of geoloc
-  if (!xspecificOffer.latLng && generalRequest?.geoloc) {
+  // eslint-disable-next-line no-underscore-dangle
+  if (!xspecificOffer.latLng && generalRequest?._geoloc) {
     // eslint-disable-next-line no-underscore-dangle
-    xspecificOffer.latLng = generalRequest.geoloc;
+    xspecificOffer.latLng = generalRequest._geoloc;
   }
 
   const w = await firestore
