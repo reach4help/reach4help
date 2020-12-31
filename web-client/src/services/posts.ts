@@ -1,7 +1,12 @@
 import { isDefined } from 'class-validator';
 import { firestore as firestore2 } from 'firebase';
 import { firestore } from 'src/firebase';
-import { Post, PostFirestoreConverter, PostStatus } from 'src/models/posts';
+import {
+  IPost,
+  Post,
+  PostFirestoreConverter,
+  PostStatus,
+} from 'src/models/posts';
 import { User } from 'src/models/users';
 
 const RADIUS = 5; // In Miles
