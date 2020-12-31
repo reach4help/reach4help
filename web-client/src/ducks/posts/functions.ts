@@ -12,12 +12,13 @@ import { User } from 'src/models/users';
 const RADIUS = 5; // In Miles
 
 export const createPost = async ({ postPayload }: { postPayload: Post }) => {
-  const tempPost = { ...postPayload } as IPost;
+  // TODO: (es) Remove unknown once geoloc issue gets resolved
+  const tempPost = ({ ...postPayload } as unknown) as IPost;
   tempPost.createdAt = firestore2.Timestamp.now();
-  tempPost.postId = new Date().getTime().toString();
+  tempPost.postId = `P-${new Date().getTime().toString()}`;
   return firestore
     .collection('posts')
-    .doc()
+    .doc(tempPost.postId)
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 };

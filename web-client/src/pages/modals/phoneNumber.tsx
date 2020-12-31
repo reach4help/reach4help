@@ -22,7 +22,7 @@ const PhoneNumberModal: React.FC = () => {
   const profile = useSelector((state: AppState) => state.profile.profile);
 
   const newRequest = useSelector(
-    (state: AppState) => state.requests.newRequestTemp,
+    (state: AppState) => state.myRequestReducer.newRequestTemp,
   );
 
   const newOffer = useSelector((state: AppState) => state.offers.newOfferTemp);
