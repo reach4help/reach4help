@@ -106,8 +106,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
       const newPost = {
         isResponse: false,
         requestingHelp: true,
-        parentSnapshot: null,
-        parentRefId: null,
+        sourcePostId: null,
         status: PostStatus.pending,
         creatorGivenRating: 0,
         parentCreatorGivenRating: 0,

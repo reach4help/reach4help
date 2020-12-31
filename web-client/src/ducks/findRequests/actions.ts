@@ -15,12 +15,10 @@ export const observeFindRequests = (
     type: OBSERVE_ALL_FIND_REQUESTS,
     observer: observeFindRequestsFunc,
     payload: {
-      requestingHelp: true,
       lat,
       lng,
     },
   });
-
   return () =>
     dispatch({
       type: OBSERVE_ALL_FIND_REQUESTS.UNSUBSCRIBE,

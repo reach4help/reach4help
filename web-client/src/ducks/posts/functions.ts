@@ -82,8 +82,7 @@ export const observePosts = (
       .where('latLng', '>=', lesserGeopoint)
       .where('latLng', '<=', greateGeopoint);
   }
-
-  if (status !== null) {
+  if (status) {
     const statusArray: string[] = [];
     if (status === 'Open' || status === 'Active') {
       statusArray.push(PostStatus.ongoing);

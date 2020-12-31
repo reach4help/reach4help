@@ -26,7 +26,8 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   );
 
   const myOffers = useSelector(
-    ({ posts }: { posts: PostState }) => posts.myOffers,
+    ({ myOfferReducer }: { myOfferReducer: PostState }) =>
+      myOfferReducer.myOffers,
   );
 
   useEffect(() => {

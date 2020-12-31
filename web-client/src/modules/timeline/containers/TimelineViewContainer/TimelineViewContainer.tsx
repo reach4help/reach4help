@@ -243,12 +243,14 @@ const TimelineViewContainer: React.FC<{
           }, 100);
         }}
         user={
-          profileState.profile.applicationPreference ===
-          ApplicationPreference.cav
-            ? request.parentSnapshot?.creatorSnapshot
-            : request.creatorSnapshot
-            ? request.creatorSnapshot
-            : undefined
+          request.creatorSnapshot
+          // TODO: (es) Figure out what this does
+          // profileState.profile.applicationPreference ===
+          //   ApplicationPreference.cav
+          //   ? request.parentSnapshot?.creatorSnapshot
+          //   : request.creatorSnapshot
+          //     ? request.creatorSnapshot
+          //     : undefined
         }
       />
       {/* {accepted && (

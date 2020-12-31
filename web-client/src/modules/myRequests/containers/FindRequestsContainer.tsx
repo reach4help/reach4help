@@ -73,7 +73,8 @@ const FindRequestsContainer: React.FC = () => {
   );
 
   const pendingRequests = useSelector(
-    ({ requests }: { requests: FindRequestState }) => requests.myFindPosts,
+    ({ findRequestReducer }: { findRequestReducer: FindRequestState }) =>
+      findRequestReducer.myFindPosts,
   );
 
   const setOfferState = useSelector(
@@ -303,6 +304,7 @@ const FindRequestsContainer: React.FC = () => {
               forceRerender
             />
           </div>
+          <p>This is a map</p>
           {maybeRequestDetails()}
         </StyledTabPane>
         <StyledTabPane
