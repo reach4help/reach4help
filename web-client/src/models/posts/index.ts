@@ -42,6 +42,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   title: string;
   description: string;
   streetAddress: string;
+  geoloc: firebase.firestore.GeoPoint | undefined;
   latLng: firebase.firestore.GeoPoint;
   status: PostStatus;
   creatorGivenRating: number | null;
@@ -344,6 +345,7 @@ export class Post implements IPost {
   }
 
   public static factory(data: IPost): Post {
+    const id = data.postId || new Date().getTime().toString();
     return new Post(
       data.postId,
       data.isResponse,

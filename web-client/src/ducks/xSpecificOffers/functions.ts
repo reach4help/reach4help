@@ -39,7 +39,7 @@ export const createXSpecificOfferFromRequest = async ({
   // eslint-disable-next-line no-underscore-dangle
   if (!xspecificOffer.latLng && generalRequest?._geoloc) {
     // eslint-disable-next-line no-underscore-dangle
-    xspecificOffer.latLng = generalRequest._geoloc;
+    xspecificOffer.latLng = generalRequest.geoloc;
   }
 
   const w = await firestore
