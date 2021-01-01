@@ -24,4 +24,6 @@ export interface XSpecificOffersState {
   };
 }
 
-export const CREATE_XSPECIFIC_OFFER = asyncType('CREATE_XSPECIFIC_OFFER');
+export const OBSERVE_CREATE_XSPECIFIC_OFFER = asyncType(
+  'OBSERVE_CREATE_XSPECIFIC_OFFER',
+);

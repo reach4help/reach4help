@@ -1,20 +1,34 @@
 import { IPost, Post } from 'src/models/posts';
 import { User } from 'src/models/users';
+import { XGeneralRequest } from 'src/models/xGeneralOffers';
 
 import {
   createGeneralRequest,
-  observeMyRequests as observeMyRequestsFunc,
-  setGeneralRequest,
+  getMyRequests,
+  updateGeneralRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
-  OBSERVE_MY_REQUESTS,
-  RESET_SET,
-  SET,
-  SET_TEMP_REQUEST,
+  OBSERVE_CREATE_GENERAL_REQUEST,
+  OBSERVE_GET_MY_REQUESTS,
+  OBSERVE_UPDATE_GENERAL_REQUEST,
+  RESET_UPDATE_GENERAL_REQUEST,
+  UPDATE_TEMP_REQUEST,
 } from './types';
 
-export const observeMyRequests = (
+export const observeCreateGeneralRequest = (
+  payload: XGeneralRequest,
+  // profileState: ProfileState,
+) => (dispatch: Function) =>
+  dispatch({
+    type: OBSERVE_CREATE_GENERAL_REQUEST,
+    payload: {
+      generalRequest: payload /* , creatorProfileState: profileState */,
+    },
+    firebase: createGeneralRequest,
+  });
+
+export const observeGetMyRequests = (
   dispatch: Function,
   {
     status,
@@ -25,8 +39,8 @@ export const observeMyRequests = (
   },
 ): Function => {
   dispatch({
-    type: OBSERVE_MY_REQUESTS,
-    observer: observeMyRequestsFunc,
+    type: OBSERVE_GET_MY_REQUESTS,
+    observer: getMyRequests,
     payload: {
       requestingHelp: true,
       status,
@@ -36,12 +50,12 @@ export const observeMyRequests = (
 
   return () =>
     dispatch({
-      type: OBSERVE_MY_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_MY_REQUESTS,
+      type: OBSERVE_GET_MY_REQUESTS.UNSUBSCRIBE,
+      observerName: OBSERVE_GET_MY_REQUESTS,
     });
 };
 
-export const setRequest = (
+export const updateRequest = (
   payload: IPost,
   postId?: string,
   phoneNumber?: string | null,
@@ -51,14 +65,14 @@ export const setRequest = (
   });
 
   return dispatch({
-    type: phoneNumber ? SET : SET_TEMP_REQUEST,
+    type: phoneNumber ? OBSERVE_UPDATE_GENERAL_REQUEST : UPDATE_TEMP_REQUEST,
     payload: {
       postPayload,
       postId,
     },
     firebase: phoneNumber
       ? postId
-        ? setGeneralRequest
+        ? updateGeneralRequest
         : createGeneralRequest
       : null,
   });
@@ -66,7 +80,7 @@ export const setRequest = (
 
 export const resetSetRequestState = () => (dispatch: Function) =>
   dispatch({
-    type: RESET_SET,
+    type: RESET_UPDATE_GENERAL_REQUEST,
     payload: true,
   });
 

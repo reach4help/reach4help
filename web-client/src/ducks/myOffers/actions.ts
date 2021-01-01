@@ -4,7 +4,7 @@ import { User } from 'src/models/users';
 import {
   createGeneralRequest,
   observeMyOffers as observeMyOffersFunc,
-  setGeneralRequest,
+  updateGeneralRequest,
 } from './functions';
 import {
   CHANGE_MODAL,
@@ -14,7 +14,7 @@ import {
   SET_TEMP_OFFER,
 } from './types';
 
-export const observeMyOffers = (
+export const observeGetMyOffers = (
   dispatch: Function,
   {
     status,
@@ -40,7 +40,7 @@ export const observeMyOffers = (
     });
 };
 
-export const setRequest = (
+export const sendUpdateGeneralRequest = (
   payload: IPost,
   postId?: string,
   phoneNumber?: string | null,
@@ -57,7 +57,7 @@ export const setRequest = (
     },
     firebase: phoneNumber
       ? postId
-        ? setGeneralRequest
+        ? updateGeneralRequest
         : createGeneralRequest
       : null,
   });

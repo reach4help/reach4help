@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
-import { setRequest } from 'src/ducks/myRequests/actions';
+import { updateRequest } from 'src/ducks/myRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { IPost, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
@@ -124,7 +124,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
         creatorSnapshot: profileState.profile.toObject() as IUser,
       };
-      return dispatch(setRequest(newPost as IPost, undefined, phoneNumber));
+      return dispatch(updateRequest(newPost as IPost, undefined, phoneNumber));
     }
   };
 

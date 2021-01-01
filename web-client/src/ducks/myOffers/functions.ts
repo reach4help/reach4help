@@ -1,7 +1,7 @@
 import { Post } from 'src/models/posts';
 import { User } from 'src/models/users';
 
-import { createPost, observePosts, setPost } from '../posts/functions';
+import { createPost, observePosts, updatePost } from '../posts/functions';
 
 export const createGeneralRequest = async ({
   postPayload,
@@ -9,13 +9,13 @@ export const createGeneralRequest = async ({
   postPayload: Post;
 }) => createPost({ postPayload });
 
-export const setGeneralRequest = async ({
+export const updateGeneralRequest = async ({
   postPayload,
   postId,
 }: {
   postPayload: Post;
   postId: string;
-}) => setPost({ postPayload, postId });
+}) => updatePost({ postPayload, postId });
 
 export const observeMyOffers = (
   nextValue: Function,
