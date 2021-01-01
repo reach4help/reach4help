@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { observeMyOffers } from 'src/ducks/myOffers/actions';
+import { observeGetMyOffers } from 'src/ducks/myOffers/actions';
 import { PostState } from 'src/ducks/myRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
@@ -32,7 +32,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
 
   useEffect(() => {
     if (profileState.userRef) {
-      observeMyOffers(dispatch, { status, userRef: profileState.userRef });
+      observeGetMyOffers(dispatch, { status, userRef: profileState.userRef });
     }
   }, [dispatch, profileState.userRef, status]);
 

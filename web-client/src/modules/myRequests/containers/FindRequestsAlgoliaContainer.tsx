@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import { ProfileState } from 'src/ducks/profile/types';
 import { useSearchKey } from 'src/ducks/search/operations';
-import { sendCreateXSpecificOfferFromRequest } from 'src/ducks/xSpecificOffers/actions';
+import { observeCreateXSpecificOfferFromRequest } from 'src/ducks/xSpecificOffers/actions';
 
 // const Debug = connectHits(({ hits }) => (
 //   <ul>
@@ -30,7 +30,7 @@ const PostInfoDisplay = ({ post }) => {
   const { userSnapshot, description, title } = post;
   const { displayName, displayPicture } = userSnapshot;
   const onClickHandler = () =>
-    dispatch(sendCreateXSpecificOfferFromRequest(currentPost, profileState));
+    dispatch(observeCreateXSpecificOfferFromRequest(currentPost, profileState));
 
   return (
     <div>

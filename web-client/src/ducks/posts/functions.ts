@@ -23,7 +23,7 @@ export const createPost = async ({ postPayload }: { postPayload: Post }) => {
     .set(postPayload);
 };
 
-export const setPost = async ({
+export const updatePost = async ({
   postPayload,
   postId,
 }: {

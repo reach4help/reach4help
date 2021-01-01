@@ -1,6 +1,6 @@
 import createReducer from 'src/store/utils/createReducer';
 
-import { CREATE_XSPECIFIC_OFFER, XSpecificOffersState } from './types';
+import { OBSERVE_CREATE_XSPECIFIC_OFFER, XSpecificOffersState } from './types';
 
 const initialSetActionState = {
   loading: false,
@@ -20,11 +20,11 @@ const initialState: XSpecificOffersState = {
 
 export default createReducer<XSpecificOffersState>(
   {
-    [CREATE_XSPECIFIC_OFFER.PENDING]: (state: XSpecificOffersState) => {
+    [OBSERVE_CREATE_XSPECIFIC_OFFER.PENDING]: (state: XSpecificOffersState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [CREATE_XSPECIFIC_OFFER.COMPLETED]: (
+    [OBSERVE_CREATE_XSPECIFIC_OFFER.COMPLETED]: (
       state: XSpecificOffersState,
       { payload }: { payload: true },
     ) => {
@@ -32,7 +32,7 @@ export default createReducer<XSpecificOffersState>(
       state.setAction.loading = false;
       state.setAction.success = payload;
     },
-    [CREATE_XSPECIFIC_OFFER.REJECTED]: (
+    [OBSERVE_CREATE_XSPECIFIC_OFFER.REJECTED]: (
       state: XSpecificOffersState,
       { payload }: { payload: Error },
     ) => {
