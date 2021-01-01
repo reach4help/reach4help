@@ -1,6 +1,7 @@
 import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
+import { XSpecificOffersState } from '../xSpecificOffers/types';
 import {
   CHANGE_MODAL,
   DISPATCH_CREATE_PUBLIC_REQUEST,
