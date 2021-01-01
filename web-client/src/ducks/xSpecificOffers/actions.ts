@@ -2,16 +2,14 @@ import { XGeneralRequest } from 'src/models/xGeneralOffers';
 
 import { ProfileState } from '../profile/types';
 import { createXSpecificOfferFromRequest } from './functions';
-import { CREATE_XSPECIFIC_OFFER } from './types';
+import { OBSERVE_CREATE_XSPECIFIC_OFFER } from './types';
 
-export const sendCreateXSpecificOfferFromRequest = (
+export const observeCreateXSpecificOfferFromRequest = (
   payload: XGeneralRequest,
   profileState: ProfileState,
-) => (dispatch: Function) => {
-  const w = dispatch({
-    type: CREATE_XSPECIFIC_OFFER,
+) => (dispatch: Function) =>
+  dispatch({
+    type: OBSERVE_CREATE_XSPECIFIC_OFFER,
     payload: { generalRequest: payload, creatorProfileState: profileState },
     firebase: createXSpecificOfferFromRequest,
   });
-  return w;
-};

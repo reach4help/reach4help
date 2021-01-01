@@ -5,15 +5,20 @@ const { asyncType, observerType, syncType } = createActionTypeFactory('POSTS');
 
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
-export const SET = asyncType('SET');
-export const RESET_SET = syncType('RESET_SET');
+export const OBSERVE_CREATE_GENERAL_REQUEST = asyncType(
+  'OBSERVE_CREATE_GENERAL_REQUEST',
+);
+export const OBSERVE_UPDATE_GENERAL_REQUEST = asyncType(
+  'UPDATE_GENERAL_REQUEST',
+);
+export const RESET_UPDATE_GENERAL_REQUEST = syncType(
+  'RESET_UPDATE_GENERAL_REQUEST',
+);
 
-export const OBSERVE_MY_REQUESTS = observerType('OBSERVE_MY_REQUESTS');
-export const OBSERVE_MY_OFFERS = observerType('OBSERVE_MY_OFFERS');
+export const OBSERVE_GET_MY_REQUESTS = observerType('OBSERVE_GET_MY_REQUESTS');
+export const OBSERVE_GET_MY_OFFERS = observerType('OBSERVE_MY_OFFERS');
 
-export const UPDATE = asyncType('UPDATE');
-
-export const SET_TEMP_REQUEST = syncType('SET_TEMP_REQUEST');
+export const UPDATE_TEMP_REQUEST = syncType('SET_TEMP_REQUEST');
 
 export interface PostState {
   myRequests: {
