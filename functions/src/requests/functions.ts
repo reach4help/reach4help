@@ -3,7 +3,6 @@ import * as admin from 'firebase-admin';
 import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 import * as moment from 'moment';
 
-import { indexGeneralRequests, indexUnauthenticatedRequest } from '../algolia';
 import { db, fieldIncrementer } from '../app';
 import { IRequest, Request, RequestStatus } from '../models/requests';
 import { IUser, User } from '../models/users';
@@ -173,10 +172,6 @@ export const createRequest = (snapshot: DocumentSnapshot, context: EventContext)
     .then(() => {
       return Promise.all([queueCreateTriggers(snapshot), queueTimelineItemTriggers(snapshot as DocumentSnapshot<Request>, 'request')]);
     })
-    .then(() => {
-      const request = Request.factory(snapshot.data() as IRequest);
-      return Promise.all([indexUnauthenticatedRequest(request, snapshot.ref.path), indexGeneralRequests(request, snapshot.ref.path)]);
-    })
     .catch(errors => {
       if (errors && Array.isArray(errors)) {
         console.error('Invalid Request Found: ');
@@ -219,21 +214,11 @@ export const updateRequest = (change: Change<DocumentSnapshot>, context: EventCo
       ) {
         return;
       }
-      const updatedRequest = Request.factory(change.after.data() as IRequest);
-      return (
-        Promise.all([
-          queueStatusUpdateTriggers(change),
-          queueRatingUpdatedTriggers(change),
-          queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
-        ])
-          // Wait to ensure that other triggers don't fail to prevent stale data from being indexed in algolia
-          .then(() =>
-            Promise.all([
-              indexUnauthenticatedRequest(updatedRequest, change.after.ref.path),
-              indexGeneralRequests(updatedRequest, change.after.ref.path),
-            ]),
-          )
-      );
+      return Promise.all([
+        queueStatusUpdateTriggers(change),
+        queueRatingUpdatedTriggers(change),
+        queueTimelineItemTriggers(change.before as DocumentSnapshot<Request>, 'request', change.after as DocumentSnapshot<Request>),
+      ]);
     })
     .catch(e => {
       console.error('Invalid Request Found: ', e);

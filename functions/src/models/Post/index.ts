@@ -13,7 +13,7 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { firestore } from 'firebase';
+import * as firebase from 'firebase';
 
 import { IUser, User } from '../users';
 
@@ -21,6 +21,7 @@ export enum PostStatus {
   pending = 'pending',
   ongoing = 'ongoing',
   completed = 'completed',
+  declined = 'declined',
   closed = 'closed',
   open = 'open',
   active = 'active',
@@ -29,6 +30,7 @@ export enum PostStatus {
 
 export interface IPost extends firebase.firestore.DocumentData {
   isResponse: boolean;
+  requestingHelp: boolean;
   parentSnapshot: IPost | null;
   parentRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | null;
   creatorRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
@@ -45,6 +47,8 @@ export interface IPost extends firebase.firestore.DocumentData {
   updateSeenBy: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>[];
   positiveResponseCount: number;
   negativeResponseCount: number;
+  firstOfferMade: firebase.firestore.Timestamp | null;
+  firstRejectionMade: firebase.firestore.Timestamp | null;
   createdAt?: firebase.firestore.Timestamp;
   updatedAt?: firebase.firestore.Timestamp;
 }
@@ -52,6 +56,7 @@ export interface IPost extends firebase.firestore.DocumentData {
 export class Post implements IPost {
   constructor(
     isResponse = false,
+    requestingHelp: boolean,
     parentSnapshot: Post | null = null,
     parentRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | null = null,
     creatorRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>,
@@ -68,10 +73,13 @@ export class Post implements IPost {
     updateSeenBy: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>[] = [],
     positiveResponseCount = 0,
     negativeResponseCount = 0,
-    createdAt = firestore.Timestamp.now(),
-    updatedAt = firestore.Timestamp.now(),
+    firstOfferMade: firebase.firestore.Timestamp | null = null,
+    firstRejectionMade: firebase.firestore.Timestamp | null = null,
+    createdAt = firebase.firestore.Timestamp.now(),
+    updatedAt = firebase.firestore.Timestamp.now(),
   ) {
     this._isResponse = isResponse;
+    this._requestingHelp = requestingHelp;
     this._parentRef = parentRef;
     this._parentSnapshot = parentSnapshot;
     this._creatorRef = creatorRef;
@@ -90,6 +98,8 @@ export class Post implements IPost {
     this._updateSeenBy = updateSeenBy;
     this._positiveResponseCount = positiveResponseCount;
     this._negativeResponseCount = negativeResponseCount;
+    this._firstOfferMade = firstOfferMade;
+    this._firstRejectionMade = firstRejectionMade;
   }
 
   @Allow()
@@ -102,6 +112,17 @@ export class Post implements IPost {
 
   set isResponse(isResponse: boolean) {
     this._isResponse = isResponse;
+  }
+
+  @Allow()
+  private _requestingHelp: boolean;
+
+  get requestingHelp(): boolean {
+    return this._requestingHelp;
+  }
+
+  set requestingHelp(requestingHelp: boolean) {
+    this._requestingHelp = requestingHelp;
   }
 
   @Allow()
@@ -187,7 +208,6 @@ export class Post implements IPost {
   }
 
   @IsString()
-  @IsNotEmpty()
   private _description: string;
 
   get description(): string {
@@ -322,9 +342,34 @@ export class Post implements IPost {
     this._parentCreatorRatedAt = parentCreatorRatedAt;
   }
 
+  @Allow()
+  @IsOptional()
+  private _firstOfferMade: firebase.firestore.Timestamp | null;
+
+  get firstOfferMade(): firebase.firestore.Timestamp | null {
+    return this._firstOfferMade;
+  }
+
+  set firstOfferMade(firstOfferMade: firebase.firestore.Timestamp | null) {
+    this._firstOfferMade = firstOfferMade;
+  }
+
+  @Allow()
+  @IsOptional()
+  private _firstRejectionMade: firebase.firestore.Timestamp | null;
+
+  get firstRejectionMade(): firebase.firestore.Timestamp | null {
+    return this._firstRejectionMade;
+  }
+
+  set firstRejectionMade(firstRejectionMade: firebase.firestore.Timestamp | null) {
+    this._firstRejectionMade = firstRejectionMade;
+  }
+
   public static factory(data: IPost): Post {
     return new Post(
       data.isResponse,
+      data.requestingHelp,
       data.parentSnapshot ? Post.factory(data.parentSnapshot) : data.parentSnapshot,
       data.parentRef,
       data.creatorRef,
@@ -341,6 +386,8 @@ export class Post implements IPost {
       data.updateSeenBy,
       data.positiveResponseCount,
       data.negativeResponseCount,
+      data.firstOfferMade,
+      data.firstRejectionMade,
       data.createdAt,
       data.updatedAt,
     );
@@ -349,6 +396,7 @@ export class Post implements IPost {
   toObject(): object {
     return {
       isResponse: this.isResponse,
+      requestingHelp: this.requestingHelp,
       parentSnapshot: this.parentSnapshot?.toObject(),
       parentRef: this.parentRef,
       creatorRef: this.creatorRef,
@@ -365,6 +413,8 @@ export class Post implements IPost {
       updateSeenBy: this.updateSeenBy,
       postiveResponseCount: this.postiveResponseCount,
       negativeResponseCount: this.negativeResponseCount,
+      firstOfferMade: this.firstOfferMade,
+      firstRejectionMade: this.firstRejectionMade,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

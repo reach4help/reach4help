@@ -121,7 +121,6 @@ export class Post implements IPost {
   }
 
   @Allow()
-  @IsOptional()
   private _requestingHelp: boolean;
 
   get requestingHelp(): boolean {
@@ -231,7 +230,6 @@ export class Post implements IPost {
   }
 
   @IsString()
-  @IsNotEmpty()
   private _description: string;
 
   get description(): string {

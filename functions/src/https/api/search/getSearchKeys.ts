@@ -1,9 +1,9 @@
 import * as functions from 'firebase-functions';
 
 import {
-  ALGOLIA_GENERALREQUESTS_INDEX,
+  ALGOLIA_GENERALPOSTS_INDEX,
   ALGOLIA_ID,
-  ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX,
+  ALGOLIA_UNAUTHENTICATEDPOSTS_INDEX,
   generateGeneralRequestsKey,
   generateUnauthenticatedRequestsKey,
 } from '../../../algolia';
@@ -24,7 +24,7 @@ export const getSearchKey = functions.https.onCall(
       isAuthenticated,
       appId: ALGOLIA_ID,
       searchKey: isAuthenticated ? generateGeneralRequestsKey() : generateUnauthenticatedRequestsKey(),
-      indexName: isAuthenticated ? ALGOLIA_GENERALREQUESTS_INDEX : ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX,
+      indexName: isAuthenticated ? ALGOLIA_GENERALPOSTS_INDEX : ALGOLIA_UNAUTHENTICATEDPOSTS_INDEX,
     };
   },
 );

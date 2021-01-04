@@ -1,3 +1,4 @@
+import { validateOrReject } from 'class-validator';
 import { IPost, Post } from 'src/models/Post';
 
 /* TODO: (es) why rename? */
@@ -62,10 +63,12 @@ export const setRequest = (
   payload: IPost,
   requestId?: string,
   phoneNumber?: string | null,
-) => (dispatch: Function) => {
+) => async (dispatch: Function) => {
   const requestPayload = Post.factory({
     ...payload,
   });
+
+  await validateOrReject(requestPayload);
 
   return dispatch({
     type: phoneNumber ? SET : SET_TEMP_REQUEST,

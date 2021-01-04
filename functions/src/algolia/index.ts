@@ -1,21 +1,20 @@
 import * as functions from 'firebase-functions';
 import algolia from 'algoliasearch';
 
-import { Request } from '../models/requests';
-import { UnauthenticatedRequest } from '../models/UnauthenticatedRequests';
-import { GeneralRequest } from '../models/GeneralRequests';
-import { Offer, OfferStatus } from '../models/offers';
+import { Post, PostStatus } from '../models/Post';
+import { UnauthenticatedPost } from '../models/UnauthenticatedPost';
+import { GeneralPost } from '../models/GeneralPost';
 
 export const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
 const ALGOLIA_SEARCH_ONLY_KEY = functions.config().algolia.search_only_key;
-export const ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX = functions.config().algolia.unauthenticated_requests_index;
-export const ALGOLIA_GENERALREQUESTS_INDEX = functions.config().algolia.general_requests_index;
+export const ALGOLIA_UNAUTHENTICATEDPOSTS_INDEX = functions.config().algolia.unauthenticated_posts_index;
+export const ALGOLIA_GENERALPOSTS_INDEX = functions.config().algolia.general_posts_index;
 
 const adminClient = algolia(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
 
-const unauthenticatedRequestsIndex = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
-const generalRequestsIndex = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
+const unauthenticatedPostsIndex = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDPOSTS_INDEX);
+const generalPostsIndex = adminClient.initIndex(ALGOLIA_GENERALPOSTS_INDEX);
 
 /**
  * When a request in the DB is updated,
@@ -25,11 +24,11 @@ const generalRequestsIndex = adminClient.initIndex(ALGOLIA_GENERALREQUESTS_INDEX
  * @param request: The instance of Request class for the request which is being updated
  * @param path: The path of the request in firestore db
  */
-export const indexUnauthenticatedRequest = async (request: Request, path: string) => {
-  const algoliaDoc = (await UnauthenticatedRequest.fromRequest(request, path)).toAlgolia();
+export const indexUnauthenticatedPost = async (post: Post, path: string) => {
+  const algoliaDoc = (await UnauthenticatedPost.fromPost(post, path)).toAlgolia();
 
   // Throw away the result since these are all void promises.
-  return unauthenticatedRequestsIndex
+  return unauthenticatedPostsIndex
     .saveObject(algoliaDoc)
     .wait()
     .then(() => {
@@ -38,18 +37,18 @@ export const indexUnauthenticatedRequest = async (request: Request, path: string
 };
 
 /**
- * When a request in the DB is updated,
+ * When a post in the DB is updated,
  * add/update the details of the request in the index along with searchable geodata and filterable participant list
  * This Index is for people who are authenitcated to be able to search with geodata and filter with participant list
  *
- * @param request: The instance of Request class for the request which is being updated
+ * @param post: The instance of Post class for the post which is being updated
  * @param path: The path of the request in firestore db
  */
-export const indexGeneralRequests = async (request: Request, path: string) => {
-  const algoliaDoc = (await GeneralRequest.fromRequest(request, path)).toAlgolia();
+export const indexGeneralPost = async (post: Post, path: string) => {
+  const algoliaDoc = (await GeneralPost.fromPost(post, path)).toAlgolia();
 
   // Throw away the result since these are all void promises.
-  return generalRequestsIndex
+  return generalPostsIndex
     .saveObject(algoliaDoc)
     .wait()
     .then(() => {
@@ -62,29 +61,32 @@ export const indexGeneralRequests = async (request: Request, path: string) => {
  * Associate the details of the offer in the request currently stored in the the index
  * This is so that a participant is reflected in the participant list to be filterable from the next query
  *
- * @param offer: The instance of Offer class for the offer which is created
+ * @param response: The instance of Post class with isResponse as true
  */
-export const reflectOfferInRequest = async (offer: Offer) => {
-  const algoliaObjectId = GeneralRequest.getObjectId(offer.requestRef.path);
+export const reflectResponseInPost = async (response: Post) => {
+  const algoliaObjectId = GeneralPost.getObjectId(response.parentRef!.path);
 
-  const algoliaUpdateDoc = {
-    [offer.status === OfferStatus.pending ? 'participants' : 'rejected']: {
+  const algoliaUpdateDoc: Record<string, any> = {
+    [response.status === PostStatus.pending ? 'participants' : 'rejected']: {
       _operation: 'AddUnique',
-      value: GeneralRequest.getParticipantId(offer.cavUserRef.path),
+      value: GeneralPost.getParticipantId(response.creatorRef.path),
     },
-    [offer.status === OfferStatus.pending ? 'offerCount' : 'rejectionCount']: {
+    [response.status === PostStatus.pending ? 'offerCount' : 'rejectionCount']: {
       _operation: 'Increment',
       value: 1,
     },
-    [offer.status === OfferStatus.pending ? 'lastOfferMade' : 'lastRejectionMade']: offer.createdAt.toDate(),
     objectID: algoliaObjectId,
   };
 
-  if (offer.requestSnapshot && (offer.requestSnapshot.offerCount > 0 || offer.requestSnapshot.rejectionCount > 0)) {
-    algoliaUpdateDoc[offer.status === OfferStatus.pending ? 'firstOfferMade' : 'firstRejectionMade'] = offer.createdAt.toDate();
+  if (response.parentSnapshot && response.status === PostStatus.pending && !response.parentSnapshot.firstOfferMade) {
+    algoliaUpdateDoc.firstOfferMade = response.createdAt.toDate();
   }
 
-  return generalRequestsIndex
+  if (response.parentSnapshot && response.status === PostStatus.declined && !response.parentSnapshot.firstRejectionMade) {
+    algoliaUpdateDoc.firstRejectionMade = response.createdAt.toDate();
+  }
+
+  return generalPostsIndex
     .partialUpdateObject(algoliaUpdateDoc, {
       createIfNotExists: false,
     })
@@ -100,7 +102,7 @@ export const reflectOfferInRequest = async (offer: Offer) => {
  * @param authenitcated: Defaults to false, is the request from authenticated user or not
  */
 export const retrieveObjectFromIndex = async (objectId: string, authenticated = false) => {
-  const index = authenticated ? generalRequestsIndex : unauthenticatedRequestsIndex;
+  const index = authenticated ? generalPostsIndex : unauthenticatedPostsIndex;
   return index.getObject(objectId);
 };
 
@@ -112,13 +114,13 @@ export const retrieveObjectFromIndex = async (objectId: string, authenticated = 
  */
 export const removeObjectFromIndices = async (objectId: string) => {
   return Promise.all([
-    generalRequestsIndex
+    generalPostsIndex
       .deleteObject(objectId)
       .wait()
       .then(() => {
         return Promise.resolve();
       }),
-    unauthenticatedRequestsIndex
+    unauthenticatedPostsIndex
       .deleteObject(objectId)
       .wait()
       .then(() => {
@@ -139,7 +141,7 @@ export const generateUnauthenticatedRequestsKey = (): string => {
   return adminClient.generateSecuredApiKey(
     ALGOLIA_SEARCH_ONLY_KEY, // A search key that you keep private
     {
-      restrictIndices: ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX,
+      restrictIndices: ALGOLIA_UNAUTHENTICATEDPOSTS_INDEX,
     },
   );
 };
@@ -155,7 +157,7 @@ export const generateGeneralRequestsKey = (): string => {
   return adminClient.generateSecuredApiKey(
     ALGOLIA_SEARCH_ONLY_KEY, // A search key that you keep private
     {
-      restrictIndices: ALGOLIA_GENERALREQUESTS_INDEX,
+      restrictIndices: ALGOLIA_GENERALPOSTS_INDEX,
     },
   );
 };

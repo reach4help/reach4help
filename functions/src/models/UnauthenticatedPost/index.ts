@@ -1,9 +1,9 @@
 import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
+import { Allow, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import { firestore } from 'firebase-admin';
 
 import { db } from '../../app';
-import { Request } from '../requests';
+import { Post } from '../Post';
 
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
@@ -21,9 +21,10 @@ interface ILatLngObject {
   longitude: number;
 }
 
-export interface IUnauthenticatedRequest {
-  requestRef: string;
-  userSnapshot: IStrippedUser;
+export interface IUnauthenticatedPost {
+  postRef: string;
+  requestingHelp: boolean;
+  creatorSnapshot: IStrippedUser;
   title: string;
   description: string;
   latLng: ILatLngObject;
@@ -31,18 +32,20 @@ export interface IUnauthenticatedRequest {
   updatedAt?: Date;
 }
 
-export class UnauthenticatedRequest implements IUnauthenticatedRequest {
+export class UnauthenticatedPost implements IUnauthenticatedPost {
   constructor(
-    requestRef: string,
-    userSnapshot: IStrippedUser,
+    postRef: string,
+    requestingHelp: boolean,
+    creatorSnapshot: IStrippedUser,
     title: string,
     description: string,
     latLng: ILatLngObject,
     createdAt = new Date(),
     updatedAt = new Date(),
   ) {
-    this._requestRef = requestRef;
-    this._userSnapshot = userSnapshot;
+    this._postRef = postRef;
+    this._requestingHelp = requestingHelp;
+    this._creatorSnapshot = creatorSnapshot;
     this._title = title;
     this._description = description;
     this._latLng = latLng;
@@ -51,25 +54,36 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
   }
 
   @ValidateNested()
-  private _requestRef: string;
+  private _postRef: string;
 
-  get requestRef(): string {
-    return this._requestRef;
+  get postRef(): string {
+    return this._postRef;
   }
 
-  set requestRef(value: string) {
-    this._requestRef = value;
+  set postRef(value: string) {
+    this._postRef = value;
+  }
+
+  @Allow()
+  private _requestingHelp: boolean;
+
+  get requestingHelp(): boolean {
+    return this._requestingHelp;
+  }
+
+  set requestingHelp(requestingHelp: boolean) {
+    this._requestingHelp = requestingHelp;
   }
 
   @IsObject()
-  private _userSnapshot: IStrippedUser;
+  private _creatorSnapshot: IStrippedUser;
 
-  get userSnapshot(): IStrippedUser {
-    return this._userSnapshot;
+  get creatorSnapshot(): IStrippedUser {
+    return this._creatorSnapshot;
   }
 
-  set pinUserSnapshot(value: IStrippedUser) {
-    this._userSnapshot = value;
+  set creatorSnapshot(value: IStrippedUser) {
+    this._creatorSnapshot = value;
   }
 
   @IsString()
@@ -134,13 +148,14 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
     this._updatedAt = value;
   }
 
-  public static async fromRequest(data: Request, path: string): Promise<UnauthenticatedRequest> {
+  public static async fromPost(data: Post, path: string): Promise<UnauthenticatedPost> {
     return Promise.resolve(
-      new UnauthenticatedRequest(
+      new UnauthenticatedPost(
         path,
+        data.requestingHelp,
         {
-          displayName: data.pinUserSnapshot.displayName || '',
-          displayPicture: data.pinUserSnapshot.displayPicture,
+          displayName: data.creatorSnapshot.displayName || '',
+          displayPicture: data.creatorSnapshot.displayPicture,
         },
         data.title,
         data.description,
@@ -154,9 +169,10 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
     );
   }
 
-  public static fromFirestore(data: DocumentData): UnauthenticatedRequest {
-    return new UnauthenticatedRequest(
-      (data.requestRef as DocumentReference).path,
+  public static fromFirestore(data: DocumentData): UnauthenticatedPost {
+    return new UnauthenticatedPost(
+      (data.postRef as DocumentReference).path,
+      data.requestingHelp,
       data.userSnapshot,
       data.title,
       data.description,
@@ -169,9 +185,10 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
     );
   }
 
-  public static fromAlgolia(data: Record<string, any>): UnauthenticatedRequest {
-    return new UnauthenticatedRequest(
-      data.requestRef,
+  public static fromAlgolia(data: Record<string, any>): UnauthenticatedPost {
+    return new UnauthenticatedPost(
+      data.postRef,
+      data.requestingHelp,
       data.pinUserSnapshot,
       data.title,
       data.description,
@@ -181,14 +198,24 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
     );
   }
 
-  public static fromObject(data: IUnauthenticatedRequest): UnauthenticatedRequest {
-    return new UnauthenticatedRequest(data.requestRef, data.userSnapshot, data.title, data.description, data.latLng, data.createdAt, data.updatedAt);
+  public static fromObject(data: IUnauthenticatedPost): UnauthenticatedPost {
+    return new UnauthenticatedPost(
+      data.postRef,
+      data.requestingHelp,
+      data.creatorSnapshot,
+      data.title,
+      data.description,
+      data.latLng,
+      data.createdAt,
+      data.updatedAt,
+    );
   }
 
-  toObject(): IUnauthenticatedRequest {
+  toObject(): IUnauthenticatedPost {
     return {
-      requestRef: this.requestRef,
-      userSnapshot: this.userSnapshot,
+      postRef: this.postRef,
+      requestingHelp: this.requestingHelp,
+      creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
       latLng: this.latLng,
@@ -199,8 +226,9 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
 
   toFirestore(): DocumentData {
     return {
-      requestRef: db.doc(this.requestRef),
-      userSnapshot: this.userSnapshot,
+      postRef: db.doc(this.postRef),
+      requestingHelp: this.requestingHelp,
+      creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
       latLng: new GeoPoint(this.latLng.latitude, this.latLng.longitude),
@@ -211,9 +239,10 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
 
   toAlgolia(): object {
     return {
-      requestRef: this.requestRef,
-      objectID: db.doc(this.requestRef).id,
-      userSnapshot: this.userSnapshot,
+      postRef: this.postRef,
+      requestingHelp: this.requestingHelp,
+      objectID: db.doc(this.postRef).id,
+      creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
       _geoloc: {
@@ -226,11 +255,11 @@ export class UnauthenticatedRequest implements IUnauthenticatedRequest {
   }
 }
 
-export const UnauthenticatedRequestFirestoreConverter: FirestoreDataConverter<UnauthenticatedRequest> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IUnauthenticatedRequest>): UnauthenticatedRequest => {
-    return UnauthenticatedRequest.fromFirestore(data.data());
+export const UnauthenticatedPostFirestoreConverter: FirestoreDataConverter<UnauthenticatedPost> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IUnauthenticatedPost>): UnauthenticatedPost => {
+    return UnauthenticatedPost.fromFirestore(data.data());
   },
-  toFirestore: (modelObject: UnauthenticatedRequest): DocumentData => {
+  toFirestore: (modelObject: UnauthenticatedPost): DocumentData => {
     return modelObject.toFirestore();
   },
 };
