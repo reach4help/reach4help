@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Flex = styled.div`
-  display: flex;
+  display: flexbox;
   align-items: space-evenly;
 `;
 
@@ -90,17 +90,22 @@ export const TeamText = styled.div`
 `;
 
 export const TeamTitle = styled.div`
-  text-align: center;
+  text-align: left;
+  padding-left: 25px;
   h2 {
-    color: 0034a;
-    font-size: 34px;
+    color: #00034a;
+    font-size: 20px;
+    font-weight: bold;
   }
 `;
 
 export const TeamImageContainer = styled(Container)`
-  width: 100%;
-  padding: 50px 0;
-  overflow-x: scroll;
+  padding: 30px 0;
+  width: 100 vh;
+  overflow-x: auto;
+  @media (max-with: 500px) {
+    width: 100vh;
+  }
 `;
 
 export const JoinContainer = styled(Flex)`
@@ -141,8 +146,19 @@ export const JoinButton = styled(Button)`
 export const SolvingImage = styled.img``;
 export const ContributorImage = styled.img`
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  margin-left: 50px;
-  margin-right: 50px;
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  @media (max-with: 500px) {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  @media (max-with: 1300px) {
+    width: 50px;
+    height: 50px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
 `;

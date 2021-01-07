@@ -1,3 +1,4 @@
+// import { Divider } from 'antd';
 import React from 'react';
 import teams from 'src/modules/landing-page/contributors.json';
 
@@ -44,17 +45,20 @@ const fetchingteams = () => {
   const data = teams;
 
   return data.teams.map(t => (
-    <TeamImageContainer
-      key={t.title}
-      style={{ backgroundColor: dynamicColor(t.title) }}
-    >
+    <div key={t.title} style={{ backgroundColor: dynamicColor(t.title) }}>
       <TeamTitle>
-        <h2>{`${t.title} Team`}</h2>{' '}
+        <h2>{`${t.title.toUpperCase()} TEAM`}</h2>{' '}
       </TeamTitle>
-      {t.contributors.map(c => (
-        <ContributorImage key={c.name} src={c.avatar_url} />
-      ))}
-    </TeamImageContainer>
+
+      <TeamImageContainer>
+        {t.contributors.map(c => (
+          // eslint-disable-next-line jsx-a11y/control-has-associated-label
+          <a key={c.name} href={c.contact} title={`${`${c.name}, ${c.title}`}`}>
+            <ContributorImage key={c.name} src={c.avatar_url} />
+          </a>
+        ))}
+      </TeamImageContainer>
+    </div>
   ));
 };
 
