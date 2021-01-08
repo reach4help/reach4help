@@ -1,6 +1,6 @@
 import { IPost, Post } from 'src/models/posts';
 import { User } from 'src/models/users';
-import { XGeneralRequest } from 'src/models/xGeneralOffers';
+import { XGeneralRequest } from 'src/models/xGeneralRequests';
 
 import {
   createGeneralRequest,
