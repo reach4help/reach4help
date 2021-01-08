@@ -12,7 +12,7 @@ import {
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
-import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -21,6 +21,7 @@ const PostSummary: React.FC<PostSummaryProps> = ({
   postDetails,
   postLocation,
   submitPost,
+  postTypePrefix,
 }) => {
   const { t } = useTranslation();
   const { coords } = postLocation;
@@ -33,7 +34,7 @@ const PostSummary: React.FC<PostSummaryProps> = ({
     <>
       <MapDisplay coords={coords} />
       <TitleWithUnderline level={2} color={COLORS.primaryDark}>
-        {t('modules.create.postSummary.confirmation')}{' '}
+        {postTypePrefix} {t('modules.create.postSummary.confirmation')}{' '}
       </TitleWithUnderline>
       <PostSummaryWrapper>
         <DetailsDisplay details={postDetails} />
@@ -89,6 +90,7 @@ interface PostSummaryProps {
   postDetails: any;
   prevHandler: () => void;
   submitPost: () => any;
+  postTypePrefix: string;
 }
 
 export default PostSummary;

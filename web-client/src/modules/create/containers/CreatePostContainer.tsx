@@ -4,24 +4,32 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
+import { setRequest } from 'src/ducks/myRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { setRequest } from 'src/ducks/requests/actions';
-import { IRequest } from 'src/models/requests';
+import { IPost, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
-import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
-const CreatePostContainer: React.FC = () => {
+import { CreatePostTypes } from '../constants';
+
+const CreatePostContainer: React.FC<ICreatePostContainer> = ({
+  createPostType,
+}) => {
+  const { t } = useTranslation();
+
+  const IS_OFFER_POST = createPostType === CreatePostTypes.offer;
+  const POST_TYPE_PREFIX = IS_OFFER_POST ? t('Offer') : t('Request');
+
   const dispatch = useDispatch();
   const history = useHistory();
-  const { t } = useTranslation();
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -94,30 +102,39 @@ const CreatePostContainer: React.FC = () => {
       country,
       coords,
     } = postLocation;
-    const newPost = {
-      title,
-      description: body,
-      type:
-        postDetails.type === 'customType'
-          ? postDetails.customType
-          : postDetails.type,
-      pinUserRef: profileState.userRef!,
-      pinUserSnapshot: profileState.profile!.toObject() as IUser,
-      streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
-      latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
-    };
-
-    // eslint-disable-next-line no-console
-    console.log('creating post', newPost, 'type', newPost.type);
-    return dispatch(setRequest(newPost as IRequest, undefined, phoneNumber));
+    if (profileState.profile) {
+      const newPost = {
+        isResponse: false,
+        requestingHelp: true,
+        parentSnapshot: null,
+        parentRef: null,
+        status: PostStatus.pending,
+        creatorGivenRating: 0,
+        parentCreatorGivenRating: 0,
+        updateSeenBy: [],
+        creatorRatedAt: null,
+        parentCreatorRatedAt: null,
+        positiveResponseCount: 0,
+        negativeResponseCount: 0,
+        title,
+        body,
+        description: '', // request.description,
+        creatorRef: profileState.userRef,
+        streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
+        latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
+        creatorSnapshot: profileState.profile.toObject() as IUser,
+      };
+      return dispatch(setRequest(newPost as IPost, undefined, phoneNumber));
+    }
   };
+
   const cancelCreate = () => {
     history.replace(MyRequestPostsLocationUrl);
   };
 
   const postCreationSteps = [
     {
-      title: t('modules.create.stepTitles.details'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.details')}`,
       component: (
         <PostDetailsStep
           nextHandler={moveForwards}
@@ -125,31 +142,33 @@ const CreatePostContainer: React.FC = () => {
           postTypes={getTypes()}
           postDetails={postDetails}
           setPostDetails={setPostDetails}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
     {
-      title: t('modules.create.stepTitles.map'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.map')}`,
       component: (
         <PostLocationStep
           setShowNewAddressModal={setShowNewAddressModal}
           nextHandler={moveForwards}
           prevHandler={moveBackwards}
-          postDetails={postDetails}
           addresses={addresses}
           postLocation={postLocation}
           setPostLocation={setPostLocation}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
     {
-      title: t('modules.create.stepTitles.summary'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.summary')}`,
       component: (
         <PostSummary
           prevHandler={moveBackwards}
           postDetails={postDetails}
           postLocation={postLocation}
           submitPost={submitPost}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
@@ -193,4 +212,7 @@ interface IPostDetails {
   customType?: string;
 }
 
+interface ICreatePostContainer {
+  createPostType: CreatePostTypes;
+}
 export default CreatePostContainer;

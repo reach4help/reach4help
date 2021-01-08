@@ -16,6 +16,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   postTypes,
   nextHandler,
   prevHandler,
+  postTypePrefix,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -30,7 +31,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   return (
     <PostDetailsWrapper>
       <TitleWithUnderline level={2} color={COLORS.primaryDark}>
-        {t('modules.create.postDetails.header')}
+        {postTypePrefix} {t('modules.create.stepTitles.details')}
       </TitleWithUnderline>
       <DetailsForm
         layout="vertical"
@@ -176,6 +177,7 @@ interface PostDetailsProps {
   postTypes: string[];
   postDetails: any;
   prevHandler: () => void;
+  postTypePrefix: string;
 }
 
 export default PostDetails;

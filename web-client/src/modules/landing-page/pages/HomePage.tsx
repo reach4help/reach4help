@@ -36,6 +36,7 @@ import typeFormLogo from '../assets/typeFormLogo.svg';
 import {
   AboutBtn,
   AboutInfoSection,
+  AboutInfoSectionContainer,
   AboutTextContainer,
   AirtableLogo,
   AlgoliaLogo,
@@ -61,6 +62,7 @@ import {
   HelpInfoCardContainer,
   HelpInfoContainer,
   HelpInfoCoordinateImage,
+  HelpInfoHeadingContainer,
   HelpInfoOfferImage,
   HelpInfoRequestImage,
   HelpInfoSection,
@@ -76,6 +78,7 @@ import {
   ReasonsCard,
   ReasonsCardIconContainer,
   ReasonsContainer,
+  ReasonsHeadingContainer,
   ReasonsSection,
   RectTop,
   Root,
@@ -91,6 +94,7 @@ import {
   TextMiddle,
   TextMiddleContainer,
   TextTop,
+  TextTopBtnContainer,
   TextTopContainer,
   TopSection,
   TwilioLogo,
@@ -100,8 +104,11 @@ import {
   VolunteerInfoCard,
   VolunteerInfoCardContainer,
   VolunteerInfoContainer,
+  VolunteerInfoHeadingContainer,
   VolunteerInfoSection,
+  WorldMapSection,
 } from '../components/figma';
+import WorldMap from '../components/WorldMap';
 
 const HomePage: React.FC = (): JSX.Element => (
   <Root>
@@ -115,10 +122,10 @@ const HomePage: React.FC = (): JSX.Element => (
             need it the most.
           </p>
         </TextTop>
-        <div>
+        <TextTopBtnContainer>
           <GetHelpBtn>Get Help</GetHelpBtn>
           <VolunteerBtn>Volunteer</VolunteerBtn>
-        </div>
+        </TextTopBtnContainer>
       </TextTopContainer>
 
       <PeopleTop src={peopleTop} />
@@ -136,7 +143,9 @@ const HomePage: React.FC = (): JSX.Element => (
       </TextMiddleContainer>
     </MiddleSection>
     <ReasonsSection>
-      <h1>Why use Reach4Help</h1>
+      <ReasonsHeadingContainer>
+        <h1>Why use Reach4Help</h1>
+      </ReasonsHeadingContainer>
       <ReasonsContainer>
         <ReasonsCard>
           <ReasonsCardIconContainer>
@@ -168,8 +177,19 @@ const HomePage: React.FC = (): JSX.Element => (
         </ReasonsCard>
       </ReasonsContainer>
     </ReasonsSection>
+
+    <WorldMapSection>
+      <h2>
+        <span>We&apos;re already helping</span>
+        <span>600+ people across 38 countries!</span>
+      </h2>
+      <WorldMap />
+    </WorldMapSection>
+
     <HelpInfoSection>
-      <h3>How getting help works</h3>
+      <HelpInfoHeadingContainer>
+        <h3>How getting help works</h3>
+      </HelpInfoHeadingContainer>
       <HelpInfoContainer>
         <HelpInfoCardContainer>
           <h2>Step 1</h2>
@@ -208,7 +228,9 @@ const HomePage: React.FC = (): JSX.Element => (
     </HelpInfoSection>
 
     <VolunteerInfoSection>
-      <h3>How volunteering works</h3>
+      <VolunteerInfoHeadingContainer>
+        <h3>How volunteering works</h3>
+      </VolunteerInfoHeadingContainer>
       <VolunteerInfoContainer>
         <VolunteerInfoCardContainer>
           <h2>Step 1</h2>
@@ -250,20 +272,26 @@ const HomePage: React.FC = (): JSX.Element => (
     </VolunteerInfoSection>
 
     <AboutInfoSection>
-      <AboutTextContainer>
-        <h1>About</h1>
-        <h3>We’re a group of volunteers driven to unify help worldwide</h3>
-        <p>Meet the minds behind this initiative and join us! </p>
-        <AboutBtn>More About Us</AboutBtn>
-      </AboutTextContainer>
-      <TeamMeetingImage src={teamMeetingImg} />
+      <AboutInfoSectionContainer>
+        <AboutTextContainer>
+          <h1>About</h1>
+          <h3>We’re a group of volunteers driven to unify help worldwide</h3>
+          <p>Meet the minds behind this initiative and join us! </p>
+          <div>
+            <AboutBtn>More About Us</AboutBtn>
+          </div>
+        </AboutTextContainer>
+        <TeamMeetingImage src={teamMeetingImg} />
+      </AboutInfoSectionContainer>
     </AboutInfoSection>
+
     <SponsorSection>
       <SponsorThankYou>
         <h3>
           We want to thank all the brands, companies, and community supporters
           that have helped us on our mission.
         </h3>
+        <h3>Our Partners</h3>
       </SponsorThankYou>
       <SponsorLogoMiddle>
         <HelpfulEngineeringLogo src={helpfulLogo} />
