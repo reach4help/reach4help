@@ -123,6 +123,12 @@ export const TeamImageContainer = styled(Container)`
   }
 `;
 
+export const TeamImageContainer = styled(Container)`
+  padding: 30px 0;
+  width: 100 vh;
+  overflow-x: auto;
+`;
+
 export const JoinContainer = styled(TeamContainer)`
   margin: auto;
 

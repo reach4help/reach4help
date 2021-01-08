@@ -20,7 +20,7 @@ import {
   TeamTitle,
   TopSection,
 } from '../components/about';
-import * as contributors from '../components/contributors';
+// import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
 
 const dynamicColor = (teamName: string) => {
@@ -127,49 +127,9 @@ const AboutPage: React.FC = (): JSX.Element => (
         </p>
       </TeamContainer>
     </MiddleSection>
+
     {fetchingteams()}
-    {/* <TeamImageContainer>
-      <h1>Development</h1>
-      <ContributorImage src={contributors.AlexVanino.imgSrc} />
-      <ContributorImage src={contributors.BurhanTuerker.imgSrc} />
-      <ContributorImage src={contributors.Cinthyaejh.imgSrc} />
-      <ContributorImage src={contributors.DanSabin.imgSrc} />
-      <ContributorImage src={contributors.DilpreetJohal.imgSrc} />
-      <ContributorImage src={contributors.EstherMalouin.imgSrc} />
-      <ContributorImage src={contributors.EthanStrominger.imgSrc} />
-      <ContributorImage src={contributors.StephenSharp.imgSrc} />
-    </TeamImageContainer>{' '}
-    <br />
-    <TeamImageContainer>
-      <ContributorImage src={contributors.Gorostiaga.imgSrc} />
-      <ContributorImage src={contributors.JoaoMarques.imgSrc} />
-      <ContributorImage src={contributors.JosephKottapurath.imgSrc} />
-      <ContributorImage src={contributors.JuozasGaigalas.imgSrc} />
-      <ContributorImage src={contributors.LuisFilipe.imgSrc} />
-      <ContributorImage src={contributors.MicaelRodrigues.imgSrc} />
-      <ContributorImage src={contributors.MitchellVerter.imgSrc} />
-    </TeamImageContainer>{' '}
-    <br />
-    <TeamImageContainer>
-      <ContributorImage src={contributors.NunoAlexandre.imgSrc} />
-      <ContributorImage src={contributors.PatriciaMiranda.imgSrc} />
-      <ContributorImage src={contributors.PedroFilipe.imgSrc} />
-      <ContributorImage src={contributors.RitaSerra.imgSrc} />
-      <ContributorImage src={contributors.RubenGoncalves.imgSrc} />
-      <ContributorImage src={contributors.Sharmmad.imgSrc} />
-      <ContributorImage src={contributors.ShayanChowdhury.imgSrc} />
-      <ContributorImage src={contributors.Skspade.imgSrc} />
-    </TeamImageContainer>{' '}
-    <br />
-    <TeamImageContainer>
-      <ContributorImage src={contributors.TelmoDias.imgSrc} />
-      <ContributorImage src={contributors.ThomasHuynh.imgSrc} />
-      <ContributorImage src={contributors.WilsonRodrigues.imgSrc} />
-      <ContributorImage src={contributors.WinggoTse.imgSrc} />
-      <ContributorImage src={contributors.SamLanning.imgSrc} />
-      <ContributorImage src={contributors.DavidAlecrim.imgSrc} />
-    </TeamImageContainer>{' '} */}
-    <br />
+
     <MiddleSection>
       <JoinContainer>
         <h3>Interested in joining us?</h3> <br />
