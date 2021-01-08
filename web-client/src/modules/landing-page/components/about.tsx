@@ -90,12 +90,20 @@ export const TeamContainer = styled(Container)`
   }
 `;
 
-export const TeamImageContainer = styled(Container)`
-  margin: 10px;
-
-  @media (max-width: ${MEDIA_QUERIES.tablet}) {
-    flex-wrap: wrap;
+export const TeamTitle = styled.div`
+  text-align: left;
+  padding-left: 25px;
+  h2 {
+    color: #00034a;
+    font-size: 20px;
+    font-weight: bold;
   }
+`;
+
+export const TeamImageContainer = styled(Container)`
+  padding: 30px 0;
+  width: 100 vh;
+  overflow-x: auto;
 `;
 
 export const JoinContainer = styled(TeamContainer)`
@@ -143,6 +151,20 @@ export const SolvingImage = styled.img`
 `;
 export const ContributorImage = styled.img`
   border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  @media (max-with: 500px) {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  @media (max-with: 1300px) {
+    width: 50px;
+    height: 50px;
+    margin-left: 15px;
+    margin-right: 15px;
   width: 100px;
   height: 100px;
   margin-left: 50px;
