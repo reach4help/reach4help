@@ -1,6 +1,6 @@
 import { firestore } from 'src/firebase';
 import { User } from 'src/models/users';
-import { XGeneralRequest } from 'src/models/xGeneralOffers';
+import { XGeneralRequest } from 'src/models/xGeneralRequests';
 import {
   XSpecificOffer,
   XSpecificOfferFirestoreConverter,
@@ -18,8 +18,8 @@ export const createXSpecificOfferFromRequest = async ({
   const creatorSnapshot = creatorProfileState.profile;
   const creatorRef = creatorProfileState.userRef;
   const generalRequestWithUser = { ...generalRequest } as XGeneralRequest;
-  generalRequestWithUser.creatorRef =
-    creatorRef || generalRequestWithUser.creatorRef;
+  generalRequestWithUser.creatorId =
+    creatorRef || generalRequestWithUser.creatorId;
   generalRequestWithUser.creatorSnapshot =
     creatorSnapshot || generalRequestWithUser.creatorSnapshot;
   const xspecificOffer: XSpecificOffer = XSpecificOffer.factory(
@@ -29,7 +29,7 @@ export const createXSpecificOfferFromRequest = async ({
   xspecificOffer.sourcePostId = null; // TODO: (es) Needs to be reference of general request, need to add that to the model
   xspecificOffer.requestingHelp = false;
   if (creatorProfileState?.userRef && creatorProfileState.profile) {
-    xspecificOffer.creatorRef = creatorProfileState.userRef;
+    xspecificOffer.creatorId = creatorProfileState.userRef;
     xspecificOffer.creatorSnapshot = User.factory(creatorProfileState.profile);
   }
 

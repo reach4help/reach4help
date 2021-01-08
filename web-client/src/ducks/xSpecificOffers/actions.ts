@@ -1,4 +1,4 @@
-import { XGeneralRequest } from 'src/models/xGeneralOffers';
+import { XGeneralRequest } from 'src/models/xGeneralRequests';
 
 import { ProfileState } from '../profile/types';
 import { createXSpecificOfferFromRequest } from './functions';
