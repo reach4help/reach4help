@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
-import { Post, PostStatus } from 'src/models/Post';
+import { Post, PostStatus } from 'src/models/posts';
 import { ApplicationPreference, User } from 'src/models/users/index';
 import { COLORS } from 'src/theme/colors';
 import styled, { css } from 'styled-components';

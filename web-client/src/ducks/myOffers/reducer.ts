@@ -1,14 +1,13 @@
-import { Post } from 'src/models/Post';
+import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
   OBSERVE_MY_OFFERS,
-  OBSERVE_MY_REQUESTS,
-  PostState,
+  OfferState,
   RESET_SET,
   SET,
-  SET_TEMP_REQUEST,
+  SET_TEMP_OFFER,
 } from './types';
 
 const initialSetActionState = {
@@ -18,56 +17,25 @@ const initialSetActionState = {
   modalState: false,
 };
 
-const initialState: PostState = {
+const initialState: OfferState = {
   setAction: initialSetActionState,
-  myRequests: {
-    loading: false,
-    data: undefined,
-    observerReceivedFirstUpdate: false,
-    error: undefined,
-  },
   myOffers: {
     loading: false,
     data: undefined,
     observerReceivedFirstUpdate: false,
     error: undefined,
   },
-  newRequestTemp: undefined,
+  newOfferTemp: undefined,
 };
 
-export default createReducer<PostState>(
+export default createReducer<OfferState>(
   {
-    [OBSERVE_MY_REQUESTS.SUBSCRIBE]: (state: PostState) => {
-      state.myRequests.loading = true;
-    },
-    [OBSERVE_MY_REQUESTS.UPDATED]: (
-      state: PostState,
-      { payload }: { payload: firebase.firestore.QuerySnapshot<Request> },
-    ) => {
-      state.myRequests.loading = false;
-      state.myRequests.observerReceivedFirstUpdate = true;
-      state.myRequests.data = payload.docs.reduce(
-        (acc, obj) => ({
-          ...acc,
-          [obj.id]: obj.data(),
-        }),
-        {},
-      );
-      state.myRequests.error = undefined;
-    },
-    [OBSERVE_MY_REQUESTS.ERROR]: (
-      state: PostState,
-      { payload }: { payload: Error },
-    ) => {
-      state.myRequests.loading = false;
-      state.myRequests.error = payload;
-    },
-    [OBSERVE_MY_OFFERS.SUBSCRIBE]: (state: PostState) => {
+    [OBSERVE_MY_OFFERS.SUBSCRIBE]: (state: OfferState) => {
       state.myOffers.loading = true;
     },
     [OBSERVE_MY_OFFERS.UPDATED]: (
-      state: PostState,
-      { payload }: { payload: firebase.firestore.QuerySnapshot<Request> },
+      state: OfferState,
+      { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
       state.myOffers.loading = false;
       state.myOffers.observerReceivedFirstUpdate = true;
@@ -81,47 +49,72 @@ export default createReducer<PostState>(
       state.myOffers.error = undefined;
     },
     [OBSERVE_MY_OFFERS.ERROR]: (
-      state: PostState,
+      state: OfferState,
       { payload }: { payload: Error },
     ) => {
       state.myOffers.loading = false;
       state.myOffers.error = payload;
     },
-    [SET.PENDING]: (state: PostState) => {
+    [OBSERVE_MY_OFFERS.SUBSCRIBE]: (state: OfferState) => {
+      state.myOffers.loading = true;
+    },
+    [OBSERVE_MY_OFFERS.UPDATED]: (
+      state: OfferState,
+      { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
+    ) => {
+      state.myOffers.loading = false;
+      state.myOffers.observerReceivedFirstUpdate = true;
+      state.myOffers.data = payload.docs.reduce(
+        (acc, obj) => ({
+          ...acc,
+          [obj.id]: obj.data(),
+        }),
+        {},
+      );
+      state.myOffers.error = undefined;
+    },
+    [OBSERVE_MY_OFFERS.ERROR]: (
+      state: OfferState,
+      { payload }: { payload: Error },
+    ) => {
+      state.myOffers.loading = false;
+      state.myOffers.error = payload;
+    },
+    [SET.PENDING]: (state: OfferState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [SET.COMPLETED]: (state: PostState) => {
+    [SET.COMPLETED]: (state: OfferState) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
-      state.newRequestTemp = undefined;
+      state.newOfferTemp = undefined;
     },
-    [SET.REJECTED]: (state: PostState, { payload }: { payload: Error }) => {
+    [SET.REJECTED]: (state: OfferState, { payload }: { payload: Error }) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
-      state.newRequestTemp = undefined;
+      state.newOfferTemp = undefined;
     },
-    [SET_TEMP_REQUEST]: (
-      state: PostState,
+    [SET_TEMP_OFFER]: (
+      state: OfferState,
       {
         payload,
       }: {
         payload: {
-          requestPayload: Post;
-          requestId: string;
+          offerPayload: Post;
+          offerId: string;
         };
       },
     ) => {
-      state.newRequestTemp = payload;
+      state.newOfferTemp = payload;
     },
-    [RESET_SET]: (state: PostState) => {
+    [RESET_SET]: (state: OfferState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.setAction.error = undefined;
     },
-    [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
+    [CHANGE_MODAL]: (state: OfferState, { payload }: { payload: boolean }) => {
       state.setAction.modalState = payload;
       if (!payload) {
         state.setAction.success = false;

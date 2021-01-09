@@ -6,12 +6,12 @@ import styled from 'styled-components';
 
 import TitleWithUnderline from '../../../components/TitleWithUnderline/TitleWithUnderline';
 
-const RequestReview: React.FC<RequestReviewProps> = ({
-  isSubmitting,
-  request,
-  saveRequest,
-  goBack,
-}): React.ReactElement => {
+const RequestReview: React.FC<{
+  isSubmitting: boolean;
+  request: RequestInput;
+  saveRequest: Function;
+  goBack: Function;
+}> = ({ isSubmitting, request, saveRequest, goBack }): React.ReactElement => {
   const { t } = useTranslation();
   return (
     <MainDiv>
@@ -81,13 +81,6 @@ export interface RequestInput {
   other: string;
   description: string;
   streetAddress: string;
-}
-
-export interface RequestReviewProps {
-  isSubmitting: boolean;
-  request: RequestInput;
-  saveRequest: Function;
-  goBack: Function;
 }
 
 export default RequestReview;

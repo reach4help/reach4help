@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { MyPostsLocation, PostTabTypes } from '../constants';
-import MyOffersContainer from '../containers/MyOffersContainer';
-import MyRequestsContainer from '../containers/MyRequestsContainer';
+import { MyPostsLocation, PostTabTypes } from '../../myRequests/constants';
+import MyOffersContainer from '../../myRequests/containers/MyOffersContainer';
+import MyRequestsContainer from '../../myRequests/containers/MyRequestsContainer';
 
 const { TabPane } = Tabs;
 

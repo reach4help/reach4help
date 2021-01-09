@@ -21,21 +21,24 @@ import {
   getStreetAddressFromProfile,
 } from 'src/components/WebClientMap/utils';
 import Map from 'src/components/WebClientMap/WebClientMap';
-import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
-import { OffersState } from 'src/ducks/offers/types';
-// TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
+import {
+  observeFindRequests,
+  resetSetRequestState,
+} from 'src/ducks/findRequests/actions';
+import { FindRequestState } from 'src/ducks/findRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getFindPosts, resetSetRequestState } from 'src/ducks/requests/actions';
-import { RequestState } from 'src/ducks/requests/types';
+import { resetSetOfferState, setOffer } from 'src/ducks/specificOffers/actions';
+import { OffersState } from 'src/ducks/specificOffers/types';
+// TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
 // TODO: (es) import { firestore } from 'src/firebase';
 import { Offer /* , OfferStatus */ } from 'src/models/offers';
-import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
+import { Post } from 'src/models/posts';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import RequestItem from '../components/RequestPostItem';
+import PostItem from '../components/PostItem';
 import { MyRequestPostsLocationUrl } from '../constants';
 
 const { TabPane } = Tabs;
@@ -61,9 +64,7 @@ const FindRequestsContainer: React.FC = () => {
     getCoordsFromProfile(profileState),
   );
 
-  const [requestsListData, setRequestsListData] = useState<
-    RequestWithOffersAndTimeline[]
-  >([]);
+  const [requestsListData, setRequestsListData] = useState<Post[]>([]);
 
   const [requestsGeoData, setrequestsGeoData] = useState<MapRequestProps[]>([]);
   // TODO: (es) Check if this is still needed
@@ -71,8 +72,8 @@ const FindRequestsContainer: React.FC = () => {
     false,
   );
 
-  const pendingRequestsWithOffersAndTimeline = useSelector(
-    ({ requests }: { requests: RequestState }) => requests.syncFindPostsState,
+  const pendingRequests = useSelector(
+    ({ requests }: { requests: FindRequestState }) => requests.myFindPosts,
   );
 
   const setOfferState = useSelector(
@@ -137,8 +138,8 @@ const FindRequestsContainer: React.FC = () => {
     if (
       profileState.profile &&
       profileState.profile.applicationPreference &&
-      !pendingRequestsWithOffersAndTimeline.data &&
-      !pendingRequestsWithOffersAndTimeline.loading
+      !pendingRequests.data &&
+      !pendingRequests.loading
     ) {
       const addressToUse = profileState.privilegedInformation?.addresses
         ?.default
@@ -146,33 +147,21 @@ const FindRequestsContainer: React.FC = () => {
         : profileState.privilegedInformation?.addresses[
             Object.keys(profileState.privilegedInformation.addresses)[0]
           ];
-      dispatch(
-        getFindPosts({
-          userType: profileState.profile.applicationPreference,
-          userRef: profileState.userRef,
-          lat: addressToUse?.coords.latitude || 0,
-          lng: addressToUse?.coords.longitude || 0,
-        }),
-      );
+      observeFindRequests(dispatch, {
+        lat: addressToUse?.coords.latitude || 0,
+        lng: addressToUse?.coords.longitude || 0,
+      });
     }
-  }, [
-    profileState,
-    dispatch,
-    pendingRequestsWithOffersAndTimeline,
-    setOfferState,
-  ]);
+  }, [profileState, dispatch, pendingRequests, setOfferState]);
 
   useEffect(() => {
     if (onboarded) {
-      if (
-        pendingRequestsWithOffersAndTimeline &&
-        pendingRequestsWithOffersAndTimeline.data
-      ) {
-        const requestsData = pendingRequestsWithOffersAndTimeline.data;
+      if (pendingRequests && pendingRequests.data) {
+        const requestsData = pendingRequests.data;
         if (requestsData) {
           /* TODO:  Should be reduce */
           const keys = Object.keys(requestsData);
-          const values: RequestWithOffersAndTimeline[] = [];
+          const values: Post[] = [];
           for (let i = 0; i < keys.length; i++) {
             if (requestsData[keys[i]]) {
               values.push(requestsData[keys[i]]);
@@ -203,7 +192,7 @@ const FindRequestsContainer: React.FC = () => {
     } else {
       setrequestsGeoData([]);
     }
-  }, [pendingRequestsWithOffersAndTimeline, onboarded]);
+  }, [pendingRequests, onboarded]);
 
   const onRequestHandler = (id: string) => {
     setExpandedRequestId(id);
@@ -213,8 +202,8 @@ const FindRequestsContainer: React.FC = () => {
   // const handleRequestForAcceptReject = (action?: boolean) => {
   //   if (
   //     expandedRequestId &&
-  //     pendingRequestsWithOffersAndTimeline &&
-  //     pendingRequestsWithOffersAndTimeline.data &&
+  //     pendingRequests &&
+  //     pendingRequests.data &&
   //     profileState.userRef &&
   //     profileState.profile &&
   //     profileState.profile.applicationPreference === ApplicationPreference.cav
@@ -224,11 +213,11 @@ const FindRequestsContainer: React.FC = () => {
   //         {
   //           cavUserRef: profileState.userRef,
   //           pinUserRef:
-  //             pendingRequestsWithOffersAndTimeline.data[expandedRequestId]
+  //             pendingRequests.data[expandedRequestId]
   //               .pinUserRef,
   //           requestRef: firestore.collection('requests').doc(expandedRequestId),
   //           cavUserSnapshot: profileState.profile,
-  //           requestSnapshot: pendingRequestsWithOffersAndTimeline.data[
+  //           requestSnapshot: pendingRequests.data[
   //             expandedRequestId
   //           ].getRequest(),
   //           message: t(
@@ -244,25 +233,19 @@ const FindRequestsContainer: React.FC = () => {
   // };
 
   const maybeRequestDetails = () => {
-    if (
-      expandedRequestId &&
-      pendingRequestsWithOffersAndTimeline &&
-      pendingRequestsWithOffersAndTimeline.data
-    ) {
-      const request =
-        pendingRequestsWithOffersAndTimeline.data[expandedRequestId];
+    if (expandedRequestId && pendingRequests && pendingRequests.data) {
+      const request = pendingRequests.data[expandedRequestId];
       return request ? (
         <RequestDetails>
-          <RequestItem
-            request={request}
+          <PostItem
+            post={request}
             // TODO: (es) Figure out what this does
             // handleTimeline={
             //   onboarded
             //     ? handleRequestForAcceptReject
             //     : (action = true) => action && setAuthModalIsVisible(true)
             // }
-            loading={setOfferState.loading}
-            isCavAndOpenRequest
+            handleRequest={() => true}
           />
         </RequestDetails>
       ) : null;
@@ -279,8 +262,7 @@ const FindRequestsContainer: React.FC = () => {
     phoneNumber &&
     profileState.privilegedInformation &&
     profileState.privilegedInformation.addresses &&
-    (!pendingRequestsWithOffersAndTimeline.data ||
-      pendingRequestsWithOffersAndTimeline.loading)
+    (!pendingRequests.data || pendingRequests.loading)
   ) {
     return <LoadingWrapper />;
   }
@@ -335,12 +317,11 @@ const FindRequestsContainer: React.FC = () => {
             <List>
               {requestsListData.map((request, idx) => (
                 <RequestDetailsListItem key={idx}>
-                  <RequestItem
-                    request={request}
+                  <PostItem
+                    post={request}
                     // TODO: (es) figure out what this does
                     // handleTimeline={handleRequestForAcceptReject}
-                    loading={setOfferState.loading}
-                    isCavAndOpenRequest
+                    handleRequest={() => true}
                   />
                 </RequestDetailsListItem>
               ))}
