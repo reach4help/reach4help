@@ -10,7 +10,6 @@ import {
   setUserRequest,
 } from './functions';
 import {
-  CHANGE_MODAL,
   GET_CAV_REQUEST_POSTS,
   GET_FIND_POSTS,
   GET_MY_PIN_REQUEST_POSTS,
@@ -19,7 +18,6 @@ import {
   RESET_CAV_REQUEST_POSTS,
   RESET_FIND_REQUEST_POSTS,
   RESET_PIN_REQUEST_POSTS,
-  RESET_SET,
   SET,
   SET_TEMP_REQUEST,
 } from './types';
@@ -84,12 +82,6 @@ export const setRequest = (
   });
 };
 
-export const resetSetRequestState = () => (dispatch: Function) =>
-  dispatch({
-    type: RESET_SET,
-    payload: true,
-  });
-
 export const resetCavRequestPostsState = () => (dispatch: Function) =>
   dispatch({
     type: RESET_CAV_REQUEST_POSTS,
@@ -106,10 +98,4 @@ export const resetPinRequestPostsState = () => (dispatch: Function) =>
   dispatch({
     type: RESET_PIN_REQUEST_POSTS,
     payload: true,
-  });
-
-export const changeModal = state => (dispatch: Function) =>
-  dispatch({
-    type: CHANGE_MODAL,
-    payload: state,
   });

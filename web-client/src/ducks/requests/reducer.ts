@@ -10,7 +10,6 @@ import {
 import createReducer from 'src/store/utils/createReducer';
 
 import {
-  CHANGE_MODAL,
   GET_CAV_REQUEST_POSTS,
   GET_FIND_POSTS,
   GET_MY_PIN_REQUEST_POSTS,
@@ -18,7 +17,6 @@ import {
   RESET_CAV_REQUEST_POSTS,
   RESET_FIND_REQUEST_POSTS,
   RESET_PIN_REQUEST_POSTS,
-  RESET_SET,
   SET,
   SET_TEMP_REQUEST,
 } from './types';
@@ -216,23 +214,6 @@ export default createReducer<RequestState>(
       state.setAction.success = false;
       state.syncMyPinRequestPostsState.data = undefined;
       state.syncMyPinRequestPostsState.loading = false;
-    },
-    [RESET_SET]: (state: RequestState) => {
-      state.setAction.loading = false;
-      state.setAction.success = false;
-      state.syncMyPinRequestPostsState.data = undefined;
-      state.syncMyPinRequestPostsState.loading = false;
-      state.syncCavRequestPostsState.data = undefined;
-      state.syncCavRequestPostsState.loading = false;
-    },
-    [CHANGE_MODAL]: (
-      state: RequestState,
-      { payload }: { payload: boolean },
-    ) => {
-      state.setAction.modalState = payload;
-      if (!payload) {
-        state.setAction.success = false;
-      }
     },
   },
   initialState,

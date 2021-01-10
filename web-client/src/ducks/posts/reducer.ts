@@ -1,25 +1,8 @@
-import { Post } from 'src/models/Post';
 import createReducer from 'src/store/utils/createReducer';
 
-import {
-  CHANGE_MODAL,
-  OBSERVE_MY_OFFERS,
-  OBSERVE_MY_REQUESTS,
-  PostState,
-  RESET_SET,
-  SET,
-  SET_TEMP_REQUEST,
-} from './types';
-
-const initialSetActionState = {
-  loading: false,
-  success: false,
-  error: undefined,
-  modalState: false,
-};
+import { OBSERVE_MY_OFFERS, OBSERVE_MY_REQUESTS, PostState } from './types';
 
 const initialState: PostState = {
-  setAction: initialSetActionState,
   myRequests: {
     loading: false,
     data: undefined,
@@ -32,7 +15,6 @@ const initialState: PostState = {
     observerReceivedFirstUpdate: false,
     error: undefined,
   },
-  newRequestTemp: undefined,
 };
 
 export default createReducer<PostState>(
@@ -86,46 +68,6 @@ export default createReducer<PostState>(
     ) => {
       state.myOffers.loading = false;
       state.myOffers.error = payload;
-    },
-    [SET.PENDING]: (state: PostState) => {
-      state.setAction.loading = true;
-      state.setAction.error = undefined;
-    },
-    [SET.COMPLETED]: (state: PostState) => {
-      state.setAction.error = undefined;
-      state.setAction.loading = false;
-      state.setAction.success = true;
-      state.newRequestTemp = undefined;
-    },
-    [SET.REJECTED]: (state: PostState, { payload }: { payload: Error }) => {
-      state.setAction.loading = false;
-      state.setAction.error = payload;
-      state.setAction.success = false;
-      state.newRequestTemp = undefined;
-    },
-    [SET_TEMP_REQUEST]: (
-      state: PostState,
-      {
-        payload,
-      }: {
-        payload: {
-          requestPayload: Post;
-          requestId: string;
-        };
-      },
-    ) => {
-      state.newRequestTemp = payload;
-    },
-    [RESET_SET]: (state: PostState) => {
-      state.setAction.loading = false;
-      state.setAction.success = false;
-      state.setAction.error = undefined;
-    },
-    [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
-      state.setAction.modalState = payload;
-      if (!payload) {
-        state.setAction.success = false;
-      }
     },
   },
   initialState,

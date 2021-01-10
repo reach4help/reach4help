@@ -25,7 +25,7 @@ import { resetSetOfferState, setOffer } from 'src/ducks/offers/actions';
 import { OffersState } from 'src/ducks/offers/types';
 // TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { getFindPosts, resetSetRequestState } from 'src/ducks/requests/actions';
+import { getFindPosts } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
 // TODO: (es) import { firestore } from 'src/firebase';
 import { Offer /* , OfferStatus */ } from 'src/models/offers';
@@ -119,15 +119,10 @@ const FindRequestsContainer: React.FC = () => {
      *
      */
     if (!setOfferState.loading) {
-      if (!setOfferState.success || setOfferState.success === 2) {
-        setTimeout(() => {
-          dispatch(resetSetRequestState());
-        }, 100);
-      } else if (setOfferState.success && setOfferState.success === 1) {
+      if (setOfferState.success && setOfferState.success === 1) {
         setTimeout(() => {
           history.push(MyRequestPostsLocationUrl);
         }, 150);
-        dispatch(resetSetRequestState());
         dispatch(resetSetOfferState());
       }
     }

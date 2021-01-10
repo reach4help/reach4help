@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import { OffersState } from 'src/ducks/offers/types';
 import { PostState } from 'src/ducks/posts/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { resetSetRequestState } from 'src/ducks/requests/actions';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
 import { firestore as firestore2 } from 'src/firebase';
 import { Post } from 'src/models/Post';
@@ -67,10 +66,6 @@ const TimelineViewContainer: React.FC<{
   });
 
   useEffect(() => {
-    dispatch(resetSetRequestState());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (requestsState.myRequests.data) {
       const requestTemp: Post | undefined =
         requestsState.myRequests.data[requestId];
@@ -79,11 +74,7 @@ const TimelineViewContainer: React.FC<{
   }, [requestsState, requestId]);
 
   useEffect(() => {
-    if (
-      (!requestsState.setAction.loading && requestsState.setAction.success) ||
-      (!offersState.setAction.loading && offersState.setAction.success)
-    ) {
-      dispatch(resetSetRequestState());
+    if (!offersState.setAction.loading && offersState.setAction.success) {
       // TODO: (es) change below when we replace use of ApplicatonPreference
       if (isCav) {
         history.replace(MyOfferPostsLocationUrl);
@@ -92,7 +83,6 @@ const TimelineViewContainer: React.FC<{
       }
     }
   }, [
-    requestsState.setAction,
     offersState.setAction,
     dispatch,
     // shouldRedirectToFinished,
@@ -237,7 +227,6 @@ const TimelineViewContainer: React.FC<{
       <TopPanel
         request={request}
         goBack={() => {
-          dispatch(resetSetRequestState());
           setTimeout(() => {
             history.goBack();
           }, 100);

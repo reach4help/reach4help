@@ -5,10 +5,7 @@ import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 const { asyncType, syncType } = createActionTypeFactory('REQUESTS');
 
-export const CHANGE_MODAL = syncType('CHANGE_MODAL');
-
 export const SET = asyncType('SET');
-export const RESET_SET = syncType('RESET_SET');
 export const RESET_FIND_REQUEST_POSTS = syncType('RESET_FIND_REQUEST_POSTS');
 export const RESET_PIN_REQUEST_POSTS = syncType('RESET_PIN_REQUEST_POSTS');
 export const RESET_CAV_REQUEST_POSTS = syncType('RESET_CAV_REQUEST_POSTS');

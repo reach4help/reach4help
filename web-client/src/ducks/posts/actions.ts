@@ -1,4 +1,3 @@
-import { firestore } from 'firebase';
 import { IPost, Post } from 'src/models/Post';
 import { User } from 'src/models/users';
 
@@ -7,14 +6,7 @@ import {
   observeMyPostsAndResponses,
   setUserPost,
 } from './functions';
-import {
-  CHANGE_MODAL,
-  OBSERVE_MY_OFFERS,
-  OBSERVE_MY_REQUESTS,
-  RESET_SET,
-  SET,
-  SET_TEMP_REQUEST,
-} from './types';
+import { OBSERVE_MY_OFFERS, OBSERVE_MY_REQUESTS } from './types';
 
 export const observeMyRequests = (
   dispatch: Function,
@@ -70,33 +62,17 @@ export const observeMyOffers = (
     });
 };
 
-export const setRequest = (
-  payload: IPost,
-  postId?: string,
-  phoneNumber?: string | null,
-) => (dispatch: Function) => {
+export const setRequest = (payload: IPost, postId?: string) => {
   const postPayload = Post.factory({
     ...payload,
   });
 
-  dispatch({
-    type: phoneNumber ? SET : SET_TEMP_REQUEST,
-    payload: {
+  if (postId) {
+    return setUserPost({
       postPayload,
       postId,
-    },
-    firebase: phoneNumber ? (postId ? setUserPost : createUserPost) : null,
-  });
+    });
+  }
+
+  return createUserPost({ postPayload });
 };
-
-export const resetSetRequestState = () => (dispatch: Function) =>
-  dispatch({
-    type: RESET_SET,
-    payload: true,
-  });
-
-export const changeModal = state => (dispatch: Function) =>
-  dispatch({
-    type: CHANGE_MODAL,
-    payload: state,
-  });
