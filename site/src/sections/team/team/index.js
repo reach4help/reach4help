@@ -34,7 +34,7 @@ function Team() {
   const data = useStaticQuery(
     graphql`
       {
-        file(relativePath: { eq: "sections/team/image.png" }) {
+        file(relativePath: { eq: "sections/team/team/image.png" }) {
           childImageSharp {
             fluid(maxWidth: 500, quality: 75) {
               base64

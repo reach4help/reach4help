@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
 import { useTranslation } from "react-i18next"
@@ -14,11 +13,13 @@ import Button from "../button"
 
 import Languages from "../languages"
 
-function Header({ navSections }) {
+function Header() {
   // I changed to drawerClose because I think there is a bug in the way the CSS is being handled in the menu that shows when we click the Hamburger and this is more semantic
   // In this case, in this file (without looking to the CSS)
   const [drawerClose, setDrawerClose] = useState(true)
   const { i18n, t } = useTranslation()
+
+  const navSections = t("Navigation.IndexPage", { returnObjects: true })
 
   const drawerToggler = () => {
     setDrawerClose(!drawerClose)
@@ -119,15 +120,6 @@ function Header({ navSections }) {
       />
     </HeaderWrapper>
   )
-}
-
-Header.propTypes = {
-  navSections: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      link: PropTypes.string,
-    }),
-  ),
 }
 
 export default Header

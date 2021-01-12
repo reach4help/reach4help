@@ -14,7 +14,7 @@ function Mission() {
         markdownRemark(frontmatter: { title: { eq: "Mission" } }) {
           html
         }
-        file(relativePath: { eq: "sections/mission/image.png" }) {
+        file(relativePath: { eq: "sections/mission/mission/image.png" }) {
           childImageSharp {
             fluid(maxWidth: 500, quality: 75) {
               base64

@@ -12,6 +12,10 @@ export const HeaderWrapper = styled.header`
     text-decoration: none;
   }
 
+  p {
+    font-size: 16px;
+  }
+
   .actions {
     margin: 0 -20px;
     display: flex;
@@ -65,7 +69,7 @@ export const TopWrapper = styled.div`
     align-items: center;
 
     img {
-      width: 40px;
+      width: 30px;
     }
 
     .logo-type {
@@ -170,23 +174,12 @@ export const DrawerWrapper = styled.div`
       .active {
         color: white;
 
-        ${p => p.theme.breakpoints.small} {
-          color: ${props => props.theme.colors.accent};
-          p {
-            opacity: 1;
-          }
+        p {
+          opacity: 1;
         }
 
-        ::after {
-          position: relative;
-          left: 50%;
-          margin-top: 7px;
-          margin-left: -10px;
-          display: block;
-          content: "";
-          width: 20px;
-          height: 5px;
-          background-color: ${p => p.theme.colors.secondary};
+        ${p => p.theme.breakpoints.small} {
+          color: ${props => props.theme.colors.accent};
         }
       }
     }

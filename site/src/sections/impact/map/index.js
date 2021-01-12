@@ -14,7 +14,7 @@ function Home() {
   const data = useStaticQuery(
     graphql`
       query {
-        file(relativePath: { eq: "sections/home/image.png" }) {
+        file(relativePath: { eq: "sections/impact/map/image.png" }) {
           childImageSharp {
             fluid(maxWidth: 500, quality: 75) {
               base64

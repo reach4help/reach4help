@@ -9,14 +9,10 @@
         ]
       },
       "IndexPage": [
-        { "title": "Home", "link": "/#home" },
-        { "title": "Mission", "link": "/#mission" },
-        { "title": "Team", "link": "/#team" },
-        { "title": "Partners", "link": "/#partners" }
-      ],
-      "PrivacyPage": [
         { "title": "Home", "link": "/" },
-        { "title": "Map", "link": "https://map.reach4help.org" }
+        { "title": "Mission", "link": "/mission" },
+        { "title": "Impact", "link": "/impact" },
+        { "title": "Team", "link": "/team" }
       ]
     },
     "Home": {
@@ -29,6 +25,23 @@
       ],
       "buttons": ["Get Help", "Volunteer"]
     },
+    "Reasons": {
+      "heading": "Why Use Reach4Help",
+      "items": [
+        {
+          "title": "One-Stop Shop",
+          "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
+        },
+        {
+          "title": "Easily Available",
+          "description": "Use our app on the go from any mobile device, tablet, or desktop."
+        },
+        {
+          "title": "Completely Free",
+          "description": "No subscriptions or hidden fees. You can browse and post for free."
+        }
+      ]
+    },
     "Mission": {
       "heading": "Our Mission",
       "description": [
@@ -37,8 +50,8 @@
       ]
     },
     "Partners": {
-      "heading": "Partners",
-      "subheading": "We want to thank all the brands, companies, and community supporters that are helping us on our mission!"
+      "heading": "Supporters",
+      "subheading": "We want to thank all the brands, companies, and nonprofits supporting us on our mission!"
     },
     "Team": {
       "heading": "Team",
