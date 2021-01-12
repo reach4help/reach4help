@@ -7,12 +7,8 @@ import Header from "src/components/header"
 import Footer from "src/components/footer"
 
 // sections
-import Home from "src/sections/home/home"
-import Reasons from "src/sections/home/reasons"
-import GetHelpInfo from "src/sections/home/getHelpInfo"
-import GiveHelpInfo from "src/sections/home/giveHelpInfo"
-import AboutInfo from "src/sections/home/aboutInfo"
-import Partners from "src/sections/home/partners"
+import Home from "src/sections/impact/map"
+import Partners from "src/sections/impact/partners"
 
 function HomePage() {
   return (
@@ -21,10 +17,6 @@ function HomePage() {
       <Header />
       <div className="sections">
         <Home />
-        <Reasons />
-        <GetHelpInfo />
-        <GiveHelpInfo />
-        <AboutInfo />
       </div>
       <div className="extendedFooter">
         <Partners />

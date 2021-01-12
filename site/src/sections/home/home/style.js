@@ -13,14 +13,6 @@ export const Wrapper = styled(SectionWrapper)`
     padding: 4em 40px;
   }
 
-  ${p => p.theme.breakpoints.medium} {
-    padding: 2em 40px;
-  }
-
-  ${p => p.theme.breakpoints.medium} {
-    padding: 2em 20px;
-  }
-
   ${p => p.theme.breakpoints.small} {
     flex-direction: row-reverse;
   }
