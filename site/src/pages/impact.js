@@ -7,16 +7,16 @@ import Header from "src/components/header"
 import Footer from "src/components/footer"
 
 // sections
-import Home from "src/sections/impact/map"
+import WorldMap from "src/sections/impact/map"
 import Partners from "src/sections/impact/partners"
 
-function HomePage() {
+function ImpactPage() {
   return (
     <Layout>
       <SEO />
       <Header />
       <div className="sections">
-        <Home />
+        <WorldMap />
       </div>
       <div className="extendedFooter">
         <Partners />
@@ -26,4 +26,4 @@ function HomePage() {
   )
 }
 
-export default HomePage
+export default ImpactPage

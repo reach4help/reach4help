@@ -7,12 +7,12 @@ import Header from "src/components/header"
 import Footer from "src/components/footer"
 
 // sections
-import Home from "src/sections/home/home"
+import Hero from "src/sections/home/hero"
 import Reasons from "src/sections/home/reasons"
 import GetHelpInfo from "src/sections/home/getHelpInfo"
 import GiveHelpInfo from "src/sections/home/giveHelpInfo"
 import AboutInfo from "src/sections/home/aboutInfo"
-import Partners from "src/sections/home/partners"
+import Supporters from "src/sections/home/supporters"
 
 function HomePage() {
   return (
@@ -20,14 +20,14 @@ function HomePage() {
       <SEO />
       <Header />
       <div className="sections">
-        <Home />
+        <Hero />
         <Reasons />
         <GetHelpInfo />
         <GiveHelpInfo />
         <AboutInfo />
       </div>
       <div className="extendedFooter">
-        <Partners />
+        <Supporters />
         <Footer transparent />
       </div>
     </Layout>

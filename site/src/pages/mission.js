@@ -9,7 +9,7 @@ import Footer from "src/components/footer"
 // sections
 import Mission from "src/sections/mission/mission"
 
-function HomePage() {
+function MissionPage() {
   return (
     <Layout>
       <SEO />
@@ -22,4 +22,4 @@ function HomePage() {
   )
 }
 
-export default HomePage
+export default MissionPage

@@ -2,13 +2,8 @@ import styled from "styled-components"
 import { SectionWrapper } from "src/components/sectionLayout/style"
 
 export const Wrapper = styled(SectionWrapper)`
-  ${p => p.theme.breakpoints.extraLarge} {
-    margin-top: -4em;
-  }
-
   ${p => p.theme.breakpoints.medium} {
     flex-wrap: wrap;
-    margin-top: -1px;
   }
 
   .button {
