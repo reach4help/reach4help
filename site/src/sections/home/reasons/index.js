@@ -1,5 +1,4 @@
 import React from "react"
-import { useTranslation } from "react-i18next"
 
 import shop from "src/assets/reasons/shop.svg"
 import check from "src/assets/reasons/check.svg"

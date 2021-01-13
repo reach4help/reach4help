@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "gatsby"
-import { useTranslation } from "react-i18next"
 
 import Button from "src/components/button"
 import teamMeetingImg from "src/assets/aboutInfo/teamMeeting.svg"
