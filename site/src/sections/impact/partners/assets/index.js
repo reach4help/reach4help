@@ -14,7 +14,7 @@ export default [
   },
   {
     name: "Mutual Aid Hub",
-    logo: require("./mutual-aid-hub.jpg"),
+    logo: require("./mutual-aid-hub.JPG"),
     link: "https://www.mutualaidhub.org/",
   },
   {
@@ -24,7 +24,7 @@ export default [
   },
   {
     name: "Town Hall Project",
-    logo: require("./twon-hall-project.jpg"),
+    logo: require("./twon-hall-project.JPG"),
     link: "https://townhallproject.com/",
   },
   {
@@ -34,7 +34,7 @@ export default [
   },
   {
     name: "AIESEC",
-    logo: require("./aiesec.jpg"),
+    logo: require("./aiesec.JPG"),
     link: "http://aiesec.pt/",
   },
   {
