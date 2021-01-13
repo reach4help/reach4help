@@ -9,9 +9,6 @@ import { InfoSection, InfoContainer, InfoCard } from "../getHelpInfo/style"
 import { Wrapper, VolunteerInfoCardContainer } from "./style"
 
 function GiveHelpInfo() {
-  const { t } = useTranslation()
-  // Use above for fetching translated strings instead of hardcoding English
-
   return (
     <Wrapper>
       <InfoSection>
