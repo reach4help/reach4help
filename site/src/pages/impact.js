@@ -7,7 +7,7 @@ import Header from "src/components/header"
 import Footer from "src/components/footer"
 
 // sections
-import WorldMap from "src/sections/impact/map"
+import WorldMapSection from "src/sections/impact/map"
 import Partners from "src/sections/impact/partners"
 
 function ImpactPage() {
@@ -16,7 +16,7 @@ function ImpactPage() {
       <SEO />
       <Header />
       <div className="sections">
-        <WorldMap />
+        <WorldMapSection />
       </div>
       <div className="extendedFooter">
         <Partners />
