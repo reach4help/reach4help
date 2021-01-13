@@ -11,7 +11,6 @@ export const Wrapper = styled(SectionWrapper)`
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* margin-bottom: 3em; */
 
   p {
     line-height: 1.5em;
@@ -36,6 +35,10 @@ export const LogosWrapper = styled.div`
     padding-right: 2em;
     opacity: 0.8;
     transition: opacity 0.3s ease;
+    margin-bottom: 5px;
+    width: 10rem;
+    max-width: 10rem;
+    max-height: 3rem;
 
     :hover {
       opacity: 1;
