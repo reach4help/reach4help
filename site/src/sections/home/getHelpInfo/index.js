@@ -1,5 +1,4 @@
 import React from "react"
-import { useTranslation } from "react-i18next"
 
 import HelpInfoRequest from "src/assets/getHelpInfo/requestHelpLogo.svg"
 import HelpInfoOffer from "src/assets/getHelpInfo/chooseVolunteerOffer.svg"
