@@ -14,9 +14,6 @@ import {
 } from "./style"
 
 function Mission() {
-  const { t } = useTranslation()
-  // Use above for fetching translated strings instead of hardcoding English
-
   return (
     <Wrapper>
       <ReasonsSection>

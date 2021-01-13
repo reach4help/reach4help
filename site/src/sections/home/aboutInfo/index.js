@@ -7,9 +7,6 @@ import teamMeetingImg from "src/assets/aboutInfo/teamMeeting.svg"
 import { Wrapper, ContentWrapper } from "./style"
 
 function Team() {
-  const { t } = useTranslation()
-  // Use above for fetching translated strings instead of hardcoding English
-
   return (
     <Wrapper id="team">
       <div className="textWrapper">
