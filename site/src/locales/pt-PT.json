@@ -1,26 +1,67 @@
 {
   "common": {
     "Navigation": {
+      "Header": {
+        "language": "English",
+        "buttons": [
+          {
+            "title": "Mutual Aid Map",
+            "link": "https://map.reach4help.org"
+          },
+          {
+            "title": "Sign in",
+            "link": "https://app.reach4help.org"
+          }
+        ]
+      },
       "IndexPage": [
-        { "title": "Início", "link": "/#home" },
-        { "title": "Missão", "link": "/#mission" },
-        { "title": "Equipa", "link": "/#team" },
-        { "title": "Parceiros", "link": "/#partners" }
-      ],
-      "PrivacyPage": [
-        { "title": "Início", "link": "/" },
-        { "title": "Mapa", "link": "https://map.reach4help.org" }
+        {
+          "title": "Início",
+          "link": "/#home"
+        },
+        {
+          "title": "Missão",
+          "link": "/#mission"
+        },
+        {
+          "title": "Equipa",
+          "link": "/#team"
+        },
+        {
+          "title": "Parceiros",
+          "link": "/#partners"
+        }
       ]
     },
     "Home": {
       "heading": "Ligamos pessoas que precisam de ajuda a quem pode ajudar.",
-      "subheading": "",
+      "subheading": "We connect you with local volunteers and help organizations when you need it most.",
       "description": [
         "O nosso mapa contém uma lista crescente de organizações e projetos de ajuda.",
         "Usa o mapa para encontrares e te juntares a esforços de Ajuda Mútua perto de ti, ou criares o teu",
         "Se representas uma organização de ajuda mútua, adiciona informação ao mapa para que outros vos possam encontrar."
       ],
-      "buttons": ["Mapa de Ajuda Mútua", "Registo para o BETA"]
+      "buttons": [
+        "Mapa de Ajuda Mútua",
+        "Registo para o BETA"
+      ]
+    },
+    "Reasons": {
+      "heading": "Why Use Reach4Help",
+      "items": [
+        {
+          "title": "One-Stop Shop",
+          "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
+        },
+        {
+          "title": "Easily Available",
+          "description": "Use our app on the go from any mobile device, tablet, or desktop."
+        },
+        {
+          "title": "Completely Free",
+          "description": "No subscriptions or hidden fees. You can browse and post for free."
+        }
+      ]
     },
     "Mission": {
       "heading": "A Nossa Missão",
@@ -29,21 +70,30 @@
         "O <strong>NOSSO OBJETIVO</strong> é permitir que aqueles que necessitam de ajuda que a recebam e que organizações e grupos parceiros ajudem de forma mais eficiente, ao mobilizarem os seus voluntários com a ajuda do nosso sistema."
       ]
     },
-    "Team": {
-      "heading": "Equipa",
-      "subheading": "Estamos à procura de mais pessoas para se juntarem às nossas equipas, se te quiseres juntar.",
-      "description": [
-        "Somos parte da Helpful Engineering, um coletivo de voluntários que se juntaram para arranjar soluções durante a Pandemia da COVID-19, sem qualquer fim comercial."
-      ],
-      "buttons": ["Tu és a ajuda de proximidade. Junta-te a nós!"]
-    },
     "Partners": {
       "heading": "Parceiros",
       "subheading": "Queremos agradecer a todos as marcas, empresas e comunidades que nos ajudaram na nossa missão"
     },
+    "Team": {
+      "heading": "Equipa",
+      "subheading": "",
+      "description": [
+        "Somos parte da Helpful Engineering, um coletivo de voluntários que se juntaram para arranjar soluções durante a Pandemia da COVID-19, sem qualquer fim comercial.",
+        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
+      ],
+      "members": {
+        "heading": "Key Contacts"
+      },
+      "buttons": [
+        "Tu és a ajuda de proximidade. Junta-te a nós!"
+      ]
+    },
     "Footer": {
       "sections": [
-        { "title": "Política de Privacidade", "link": "/privacidade" },
+        {
+          "title": "Política de Privacidade",
+          "link": "/privacidade"
+        },
         {
           "title": "Código de Conduta",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
