@@ -39,7 +39,11 @@
     },
     "WorldMap": {
       "headingFirstLine": "Já estamos ajudando",
-      "headingSecondLine": "600+ pessoas em 38 países!"
+      "headingSecondLine": "600+ pessoas em 38 países!",
+      "hoverInfo": {
+        "users": "Usuário: ",
+        "noUsers": "Nenhum usuário ainda <br/> (talvez você?)"
+      }
     },
     "Partners": {
       "heading": "Parceiros",
