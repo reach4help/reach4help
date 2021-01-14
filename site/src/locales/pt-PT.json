@@ -1,62 +1,112 @@
 {
   "common": {
     "Navigation": {
+      "Header": {
+        "language": "English",
+        "buttons": [
+          {
+            "title": "Mutual Aid Map",
+            "link": "https://map.reach4help.org"
+          },
+          {
+            "title": "Sign in",
+            "link": "https://app.reach4help.org"
+          }
+        ]
+      },
       "IndexPage": [
-        { "title": "Início", "link": "/#home" },
-        { "title": "Missão", "link": "/#mission" },
-        { "title": "Equipa", "link": "/#team" },
-        { "title": "Parceiros", "link": "/#partners" }
-      ],
-      "PrivacyPage": [
-        { "title": "Início", "link": "/" },
-        { "title": "Mapa", "link": "https://map.reach4help.org" }
+        {
+          "title": "Home",
+          "link": "/"
+        },
+        {
+          "title": "Mission",
+          "link": "/mission"
+        },
+        {
+          "title": "Impact",
+          "link": "/impact"
+        },
+        {
+          "title": "Team",
+          "link": "/team"
+        }
       ]
     },
     "Home": {
-      "heading": "Ligamos pessoas que precisam de ajuda a quem pode ajudar.",
-      "subheading": "",
+      "heading": "Conecting people in need with people who can help",
+      "subheading": "We connect you with local volunteers and help organizations when you need it most.",
       "description": [
-        "O nosso mapa contém uma lista crescente de organizações e projetos de ajuda.",
-        "Usa o mapa para encontrares e te juntares a esforços de Ajuda Mútua perto de ti, ou criares o teu",
-        "Se representas uma organização de ajuda mútua, adiciona informação ao mapa para que outros vos possam encontrar."
+        "Our map houses a growing list of aid organizations and pandemic care projects.",
+        "Use the map to find and join mutual aid efforts near you or create your own.",
+        "If you are an aid organization, add your information to the map so others can find you."
       ],
-      "buttons": ["Mapa de Ajuda Mútua", "Registo para o BETA"]
-    },
-    "Mission": {
-      "heading": "A Nossa Missão",
-      "description": [
-        "O Reach4Help é um projeto de código aberto totalmente gerido por voluntários que procura encontrar soluções para problemas como o acesso fácil a bens, medicamentos ou simplesmente passear o cão daqueles que não o conseguem fazer em determinado momento",
-        "O <strong>NOSSO OBJETIVO</strong> é permitir que aqueles que necessitam de ajuda que a recebam e que organizações e grupos parceiros ajudem de forma mais eficiente, ao mobilizarem os seus voluntários com a ajuda do nosso sistema."
+      "buttons": [
+        "Get Help",
+        "Volunteer"
       ]
     },
-    "Team": {
-      "heading": "Equipa",
-      "subheading": "Estamos à procura de mais pessoas para se juntarem às nossas equipas, se te quiseres juntar.",
+    "Reasons": {
+      "heading": "Why Use Reach4Help",
+      "items": [
+        {
+          "title": "One-Stop Shop",
+          "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
+        },
+        {
+          "title": "Easily Available",
+          "description": "Use our app on the go from any mobile device, tablet, or desktop."
+        },
+        {
+          "title": "Completely Free",
+          "description": "No subscriptions or hidden fees. You can browse and post for free."
+        }
+      ]
+    },
+    "Mission": {
+      "heading": "Our Mission",
       "description": [
-        "Somos parte da Helpful Engineering, um coletivo de voluntários que se juntaram para arranjar soluções durante a Pandemia da COVID-19, sem qualquer fim comercial."
-      ],
-      "buttons": ["Tu és a ajuda de proximidade. Junta-te a nós!"]
+        "We're a nonprofit unifying access to volunteer help worldwide. Through technology, we’re providing quick and easy access to help and resources in your area with local organizations like AIESEC in Portugal, the House of Good Deeds in NYC and more.",
+        "With over 300 volunteers in 25 countries and 6 continents, we're connecting communities in need to food banks, charity events, and day-to-day services worldwide. Together, we're building a network of help to keep us stronger and more connected through COVID-19 and beyond."
+      ]
     },
     "Partners": {
-      "heading": "Parceiros",
-      "subheading": "Queremos agradecer a todos as marcas, empresas e comunidades que nos ajudaram na nossa missão"
+      "heading": "Supporters",
+      "subheading": "We want to thank all the brands, companies, and nonprofits supporting us on our mission!"
+    },
+    "Team": {
+      "heading": "Team",
+      "subheading": "",
+      "description": [
+        "Hailing from LA to Morocco to Portugal to Bangladesh, we’re an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
+        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
+      ],
+      "members": {
+        "heading": "Key Contacts"
+      },
+      "buttons": [
+        "Join us on our mission!"
+      ]
     },
     "Footer": {
       "sections": [
-        { "title": "Política de Privacidade", "link": "/privacidade" },
         {
-          "title": "Código de Conduta",
+          "title": "Privacy Policy",
+          "link": "/privacy"
+        },
+        {
+          "title": "Code of Conduct",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
         }
       ]
     },
     "404": {
-      "heading": "404 Não Encontrado",
+      "heading": "404 Not Found",
       "description": [
-        "Encontraste uma falha na matriz...",
-        "Ou andas só a explorar!"
+        "You've found a glitch in the matrix...",
+        "Or you're just clowning around. 🤡"
       ],
-      "linkBackToHome": "Volta para o início"
+      "linkBackToHome": "Go back home"
     }
   }
 }
