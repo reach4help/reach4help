@@ -1,26 +1,67 @@
 {
   "common": {
     "Navigation": {
+      "Header": {
+        "language": "English",
+        "buttons": [
+          {
+            "title": "Mutual Aid Map",
+            "link": "https://map.reach4help.org"
+          },
+          {
+            "title": "Sign in",
+            "link": "https://app.reach4help.org"
+          }
+        ]
+      },
       "IndexPage": [
-        { "title": "Accueil", "link": "/#home" },
-        { "title": "Mission", "link": "/#mission" },
-        { "title": "Équipe", "link": "/#team" },
-        { "title": "Partenaires", "link": "/#partners" }
-      ],
-      "PrivacyPage": [
-        { "title": "Accueil", "link": "/" },
-        { "title": "Carte", "link": "https://map.reach4help.org" }
+        {
+          "title": "Accueil",
+          "link": "/#home"
+        },
+        {
+          "title": "Mission",
+          "link": "/#mission"
+        },
+        {
+          "title": "Équipe",
+          "link": "/#team"
+        },
+        {
+          "title": "Partenaires",
+          "link": "/#partners"
+        }
       ]
     },
     "Home": {
       "heading": "Nous connectons les personnes dans le besoin aux personnes qui peuvent aider.",
-      "subheading": "",
+      "subheading": "We connect you with local volunteers and help organizations when you need it most.",
       "description": [
         "Notre carte contient une liste croissante d'organisations d'aide et de projets de soins en cas de pandémie.",
         "Utilisez la carte pour trouver et rejoindre les efforts d'entraide près de chez vous ou créez le vôtre.",
         "Si vous êtes une organisation d'aide, ajoutez vos informations à la carte pour que d'autres puissent vous trouver."
       ],
-      "buttons": ["Carte d'entraide", "Inscription BETA"]
+      "buttons": [
+        "Carte d'entraide",
+        "Inscription BETA"
+      ]
+    },
+    "Reasons": {
+      "heading": "Why Use Reach4Help",
+      "items": [
+        {
+          "title": "One-Stop Shop",
+          "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
+        },
+        {
+          "title": "Easily Available",
+          "description": "Use our app on the go from any mobile device, tablet, or desktop."
+        },
+        {
+          "title": "Completely Free",
+          "description": "No subscriptions or hidden fees. You can browse and post for free."
+        }
+      ]
     },
     "Mission": {
       "heading": "Notre Mission",
@@ -35,15 +76,24 @@
     },
     "Team": {
       "heading": "Équipe",
-      "subheading": "Nous recherchons plus de personnes pour rejoindre nos équipes, si vous souhaitez vous joindre.",
+      "subheading": "",
       "description": [
-        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial."
+        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial.",
+        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
       ],
-      "buttons": ["Vous êtes l'aide à côté. Rejoignez-nous!"]
+      "members": {
+        "heading": "Key Contacts"
+      },
+      "buttons": [
+        "Vous êtes l'aide à côté. Rejoignez-nous!"
+      ]
     },
     "Footer": {
       "sections": [
-        { "title": "Politique de Confidentialité", "link": "/confidentialite" },
+        {
+          "title": "Politique de Confidentialité",
+          "link": "/confidentialite"
+        },
         {
           "title": "Code de conduite",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
