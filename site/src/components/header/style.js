@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const DRAWER_HEIGHT_MOBILE = "70px"
+const DRAWER_HEIGHT_MOBILE = "100%"
 const PADDING_HORIZONTAL = "50px"
 
 export const HeaderWrapper = styled.header`
@@ -10,6 +10,10 @@ export const HeaderWrapper = styled.header`
 
   a:hover {
     text-decoration: none;
+  }
+
+  p {
+    font-size: 16px;
   }
 
   .actions {
@@ -65,7 +69,7 @@ export const TopWrapper = styled.div`
     align-items: center;
 
     img {
-      width: 40px;
+      width: 30px;
     }
 
     .logo-type {
@@ -170,23 +174,12 @@ export const DrawerWrapper = styled.div`
       .active {
         color: white;
 
-        ${p => p.theme.breakpoints.small} {
-          color: ${props => props.theme.colors.accent};
-          p {
-            opacity: 1;
-          }
+        p {
+          opacity: 1;
         }
 
-        ::after {
-          position: relative;
-          left: 50%;
-          margin-top: 7px;
-          margin-left: -10px;
-          display: block;
-          content: "";
-          width: 20px;
-          height: 5px;
-          background-color: ${p => p.theme.colors.secondary};
+        ${p => p.theme.breakpoints.small} {
+          color: ${props => props.theme.colors.accent};
         }
       }
     }
@@ -195,7 +188,7 @@ export const DrawerWrapper = styled.div`
   /* TODO: note to self - clean this up at some point PLEASE */
   ${p => p.theme.breakpoints.small} {
     width: 100%;
-    height: 315px;
+    height: 350px;
     /* max-height: 300px; */
     background: rgb(248, 248, 248);
     box-shadow: 1px 0 10px 4px rgba(0, 0, 0, 0.5);

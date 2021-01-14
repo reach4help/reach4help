@@ -3,23 +3,46 @@ import { SectionWrapper } from "src/components/sectionLayout/style"
 import Button from "src/components/button"
 
 export const Wrapper = styled(SectionWrapper)`
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   text-align: center;
   color: white;
+  justify-content: space-around;
 
   ${p => p.theme.breakpoints.extraLarge} {
     padding: 4em 40px;
   }
 
-  ${p => p.theme.breakpoints.medium} {
-    padding: 2em 40px;
+  ${p => p.theme.breakpoints.small} {
+    flex-direction: row-reverse;
   }
 
-  h2 {
-    margin-bottom: 1em;
+  background: linear-gradient(259.14deg, #f27979 2.64%, #7d00a3 97.36%);
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    text-align: left;
+
+    ${p => p.theme.breakpoints.small} {
+      width: 90%;
+    }
+
+    h1 {
+      margin-bottom: 0.5em;
+    }
   }
 
-  background: linear-gradient(139.14deg, #f27979 2.64%, #7d00a3 97.36%);
+  .image {
+    ${p => p.theme.breakpoints.small} {
+      margin-top: 1em;
+      width: 100%;
+    }
+
+    width: 45%;
+    margin-left: 20px;
+  }
 `
 
 export const ContentWrapper = styled.div`
@@ -82,24 +105,23 @@ export const LogoWrapper = styled.div`
 
 export const ButtonsWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  margin: 1em;
+  justify-content: space-evenly;
+  margin: 2em 0;
   height: 50px;
-  width: 90%;
-  margin-bottom: 2em;
+  /* width: 80%; */
 
-  ${p => p.theme.breakpoints.small} {
-    flex-wrap: wrap;
-    height: 100px;
-  }
+  a {
+    width: 45%;
 
-  .button {
-    height: 75%;
-    width: 320px;
-    margin: 5px;
+    button {
+      height: 75%;
+      width: 100%;
 
-    ${p => p.theme.breakpoints.small} {
-      flex-basis: 100%;
+      margin: 0 5px;
+
+      ${p => p.theme.breakpoints.small} {
+        flex-basis: 100%;
+      }
     }
   }
 `

@@ -1,19 +1,28 @@
 import React from "react"
-import PropTypes from "prop-types"
+import { graphql, useStaticQuery } from "gatsby"
 import { Wrapper, ContentWrapper } from "./style"
 
-function Privacy({ html }) {
+function Privacy() {
+  const data = useStaticQuery(
+    graphql`
+      {
+        markdownRemark(frontmatter: { title: { eq: "Privacy" } }) {
+          html
+        }
+      }
+    `,
+  )
+
   return (
     <Wrapper id="privacy">
       <div>
-        <ContentWrapper dangerouslySetInnerHTML={{ __html: html }} />
+        <ContentWrapper
+          dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
+        />
       </div>
+      {/* <img src={photo} alt="" /> */}
     </Wrapper>
   )
-}
-
-Privacy.propTypes = {
-  html: PropTypes.string.isRequired,
 }
 
 export default Privacy
