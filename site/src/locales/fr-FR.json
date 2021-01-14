@@ -31,6 +31,16 @@
           "title": "Partenaires",
           "link": "/#partners"
         }
+      ],
+      "PrivacyPage": [
+        {
+          "title": "Accueil",
+          "link": "/"
+        },
+        {
+          "title": "Carte",
+          "link": "https://map.reach4help.org"
+        }
       ]
     },
     "Home": {
@@ -44,23 +54,6 @@
       "buttons": [
         "Carte d'entraide",
         "Inscription BETA"
-      ]
-    },
-    "Reasons": {
-      "heading": "Why Use Reach4Help",
-      "items": [
-        {
-          "title": "One-Stop Shop",
-          "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
-        },
-        {
-          "title": "Easily Available",
-          "description": "Use our app on the go from any mobile device, tablet, or desktop."
-        },
-        {
-          "title": "Completely Free",
-          "description": "No subscriptions or hidden fees. You can browse and post for free."
-        }
       ]
     },
     "Mission": {
