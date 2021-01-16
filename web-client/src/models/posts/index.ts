@@ -28,12 +28,15 @@ export enum PostStatus {
   removed = 'removed',
 }
 
+type FirebaseRefType = firebase.firestore.DocumentReference<
+  firebase.firestore.DocumentData
+>;
 export interface IPost extends firebase.firestore.DocumentData {
-  postId: string | null;
-  isResponse: boolean;
-  requestingHelp: boolean;
-  sourcePostId?: string | null;
-  creatorId: string;
+  postRef: FirebaseRefType;
+  isResponse?: boolean;
+  requestingHelp?: boolean;
+  sourcePosttRef?: FirebaseRefType | null;
+  creatorRef: FirebaseRefType;
   creatorSnapshot: IUser;
   title: string;
   description: string;
@@ -43,23 +46,22 @@ export interface IPost extends firebase.firestore.DocumentData {
   status: PostStatus;
   creatorGivenRating: number | null;
   parentCreatorGivenRating: number | null;
-  creatorRatedAt: Date | null;
-  parentCreatorRatedAt: Date | null;
-  updateSeenBy: string[];
+  creatorRatedAt: firebase.firestore.Timestamp | null;
+  parentCreatorRatedAt: firebase.firestore.Timestamp | null;
   positiveResponseCount: number;
   negativeResponseCount: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: firebase.firestore.Timestamp;
+  updatedAt?: firebase.firestore.Timestamp;
 }
 
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
-    postId: string,
+    postRef: FirebaseRefType,
     isResponse = false,
     requestingHelp = false,
-    sourcePostId: string | null = null,
-    creatorId: string,
+    sourcePostId: FirebaseRefType | null = null,
+    creatorRef: FirebaseRefType,
     creatorSnapshot: User,
     title: string,
     description: string,
@@ -68,19 +70,19 @@ export class Post implements IPost {
     status: PostStatus = PostStatus.open,
     creatorGivenRating: number | null = null,
     parentCreatorGivenRating: number | null = null,
-    creatorRatedAt: Date | null = null,
-    parentCreatorRatedAt: Date | null = null,
-    updateSeenBy: string[] = [],
+    creatorRatedAt: firebase.firestore.Timestamp | null = null,
+    parentCreatorRatedAt: firebase.firestore.Timestamp | null = null,
+    updateSeenBy: FirebaseRefType[] = [],
     positiveResponseCount = 0,
     negativeResponseCount = 0,
     createdAt = firestore.Timestamp.now(),
     updatedAt = firestore.Timestamp.now(),
   ) {
-    this._postId = postId;
+    this._postRef = postRef;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
     this._sourcePostId = sourcePostId;
-    this._creatorId = creatorId;
+    this._creatorRef = creatorRef;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
     this._description = description;
@@ -98,12 +100,11 @@ export class Post implements IPost {
     this._negativeResponseCount = negativeResponseCount;
   }
 
-  @IsString()
-  @IsNotEmpty()
-  private _postId: string;
+  @IsObject()
+  private _postRef: FirebaseRefType;
 
-  get postId(): string {
-    return this._postId;
+  get postRef(): FirebaseRefType {
+    return this._postRef;
   }
 
   @Allow()
@@ -132,25 +133,25 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _sourcePostId: string | null;
+  private _sourcePostId: FirebaseRefType | null;
 
-  get sourcePostId(): string | null {
+  get sourcePostId(): FirebaseRefType | null {
     return this._sourcePostId;
   }
 
-  set sourcePostId(sourcePostId: string | null) {
+  set sourcePostId(sourcePostId: FirebaseRefType | null) {
     this._sourcePostId = sourcePostId;
   }
 
   @IsNotEmptyObject()
-  private _creatorId: string;
+  private _creatorRef: FirebaseRefType;
 
-  get creatorId(): string {
-    return this._creatorId;
+  get creatorRef(): FirebaseRefType {
+    return this._creatorRef;
   }
 
-  set creatorId(creatorId: string) {
-    this._creatorId = creatorId;
+  set creatorRef(creatorRef: FirebaseRefType) {
+    this._creatorRef = creatorRef;
   }
 
   @ValidateNested()
@@ -236,7 +237,7 @@ export class Post implements IPost {
 
   @IsOptional()
   @IsObject()
-  public _geoloc: firebase.firestore.GeoPoint | undefined;
+  private _geoloc: firebase.firestore.GeoPoint | undefined;
 
   get geoloc(): firebase.firestore.GeoPoint | undefined {
     return this._geoloc;
@@ -254,13 +255,13 @@ export class Post implements IPost {
   }
 
   @IsArray()
-  private _updateSeenBy: string[];
+  private _updateSeenBy: FirebaseRefType[];
 
-  get updateSeenBy(): string[] {
+  get updateSeenBy(): FirebaseRefType[] {
     return this._updateSeenBy;
   }
 
-  set updateSeenBy(updateSeenBy: string[]) {
+  set updateSeenBy(updateSeenBy: FirebaseRefType[]) {
     this._updateSeenBy = updateSeenBy;
   }
 
@@ -268,13 +269,13 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
-  private _createdAt: Date;
+  private _createdAt: firebase.firestore.Timestamp;
 
-  get createdAt(): Date {
+  get createdAt(): firebase.firestore.Timestamp {
     return this._createdAt;
   }
 
-  set createdAt(value: Date) {
+  set createdAt(value: firebase.firestore.Timestamp) {
     this._createdAt = value;
   }
 
@@ -282,13 +283,13 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
-  private _updatedAt: Date;
+  private _updatedAt: firebase.firestore.Timestamp;
 
-  get updatedAt(): Date {
+  get updatedAt(): firebase.firestore.Timestamp {
     return this._updatedAt;
   }
 
-  set updatedAt(value: Date) {
+  set updatedAt(value: firebase.firestore.Timestamp) {
     this._updatedAt = value;
   }
 
@@ -322,25 +323,27 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _creatorRatedAt: Date | null;
+  private _creatorRatedAt: firebase.firestore.Timestamp | null;
 
-  get creatorRatedAt(): Date | null {
+  get creatorRatedAt(): firebase.firestore.Timestamp | null {
     return this._creatorRatedAt;
   }
 
-  set creatorRatedAt(creatorRatedAt: Date | null) {
+  set creatorRatedAt(creatorRatedAt: firebase.firestore.Timestamp | null) {
     this._creatorRatedAt = creatorRatedAt;
   }
 
   @Allow()
   @IsOptional()
-  private _parentCreatorRatedAt: Date | null;
+  private _parentCreatorRatedAt: firebase.firestore.Timestamp | null;
 
-  get parentCreatorRatedAt(): Date | null {
+  get parentCreatorRatedAt(): firebase.firestore.Timestamp | null {
     return this._parentCreatorRatedAt;
   }
 
-  set parentCreatorRatedAt(parentCreatorRatedAt: Date | null) {
+  set parentCreatorRatedAt(
+    parentCreatorRatedAt: firebase.firestore.Timestamp | null,
+  ) {
     this._parentCreatorRatedAt = parentCreatorRatedAt;
   }
 
@@ -351,7 +354,7 @@ export class Post implements IPost {
       data.isResponse,
       data.requestingHelp,
       data.sourcePostId,
-      data.creatorId,
+      data.creatorRef,
       User.factory(data.creatorSnapshot),
       data.title,
       data.description,
@@ -375,7 +378,7 @@ export class Post implements IPost {
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
       parentRef: this.sourcePostId || null,
-      creatorId: this.creatorId,
+      creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,
       description: this.description,
