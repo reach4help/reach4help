@@ -70,6 +70,14 @@
         "With over 300 volunteers in 25 countries and 6 continents, we're connecting communities in need to food banks, charity events, and day-to-day services worldwide. Together, we're building a network of help to keep us stronger and more connected through COVID-19 and beyond."
       ]
     },
+    "WorldMap": {
+      "headingFirstLine": "We're already helping",
+      "headingSecondLine": "600+ people across 38 countries!",
+      "hoverInfo": {
+        "users": "Users: ",
+        "noUsers": "No users yet <br/> (maybe you?)"
+      }
+    },
     "Partners": {
       "heading": "Supporters",
       "subheading": "We want to thank all the brands, companies, and nonprofits supporting us on our mission!"
