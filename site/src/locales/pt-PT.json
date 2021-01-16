@@ -70,6 +70,14 @@
         "O <strong>NOSSO OBJETIVO</strong> é permitir que aqueles que necessitam de ajuda que a recebam e que organizações e grupos parceiros ajudem de forma mais eficiente, ao mobilizarem os seus voluntários com a ajuda do nosso sistema."
       ]
     },
+    "WorldMap": {
+      "headingFirstLine": "We're already helping",
+      "headingSecondLine": "600+ people across 38 countries!",
+      "hoverInfo": {
+        "users": "Users: ",
+        "noUsers": "No users yet <br/> (maybe you?)"
+      }
+    },
     "Partners": {
       "heading": "Parceiros",
       "subheading": "Queremos agradecer a todos as marcas, empresas e comunidades que nos ajudaram na nossa missão"
