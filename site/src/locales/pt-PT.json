@@ -37,6 +37,14 @@
       ],
       "buttons": ["Tu és a ajuda de proximidade. Junta-te a nós!"]
     },
+    "WorldMap": {
+      "headingFirstLine": "Já estamos ajudando",
+      "headingSecondLine": "600+ pessoas em 38 países!",
+      "hoverInfo": {
+        "users": "Usuário: ",
+        "noUsers": "Nenhum usuário ainda <br/> (talvez você?)"
+      }
+    },
     "Partners": {
       "heading": "Parceiros",
       "subheading": "Queremos agradecer a todos as marcas, empresas e comunidades que nos ajudaram na nossa missão"

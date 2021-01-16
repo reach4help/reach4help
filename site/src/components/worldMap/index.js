@@ -1,5 +1,6 @@
 import * as d3 from "d3"
 import React from "react"
+import { useTranslation } from "react-i18next"
 import Datamap from "react-datamaps"
 
 const hoverInfoStyle = `
@@ -73,6 +74,7 @@ const WorldMap = () => {
     }
   })
 
+  const { t } = useTranslation()
   return (
     <section>
       <Datamap
@@ -86,8 +88,8 @@ const WorldMap = () => {
               <span><b>${geography.properties.name}</b></span> 
               <span>${
                 data
-                  ? `Users: ${data.numOfUsers}`
-                  : "No users yet <br/> (maybe you?)"
+                  ? `${t("WorldMap.hoverInfo.users")}${data.numOfUsers}`
+                  : `${t("WorldMap.hoverInfo.noUsers")}`
               }
               </span>
           </div>`,
