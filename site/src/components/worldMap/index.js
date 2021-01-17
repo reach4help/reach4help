@@ -88,8 +88,10 @@ const WorldMap = () => {
               <span><b>${geography.properties.name}</b></span> 
               <span>${
                 data
-                  ? `${t("WorldMap.hoverInfo.users")}${data.numOfUsers}`
-                  : `${t("WorldMap.hoverInfo.noUsers")}`
+                  ? `${t("ImpactPage.WorldMapSection.hoverInfo.users")}${
+                      data.numOfUsers
+                    }`
+                  : `${t("ImpactPage.WorldMapSection.hoverInfo.noUsers")}`
               }
               </span>
           </div>`,
