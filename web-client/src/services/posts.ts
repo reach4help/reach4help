@@ -1,12 +1,7 @@
 import { isDefined } from 'class-validator';
 import { firestore as firestore2 } from 'firebase';
 import { firestore } from 'src/firebase';
-import {
-  IPost,
-  Post,
-  PostFirestoreConverter,
-  PostStatus,
-} from 'src/models/posts';
+import { Post, PostFirestoreConverter, PostStatus } from 'src/models/posts';
 import { User } from 'src/models/users';
 
 const RADIUS = 5; // In Miles
@@ -21,7 +16,7 @@ export const createPost = async (postPayload: Post) => {
   tempPost.postId = `P-${new Date().getTime().toString()}`;
   return firestore
     .collection('posts')
-    .doc(tempPost.postId)
+    .doc()
     .withConverter(PostFirestoreConverter)
     .set(tempPost);
 };
