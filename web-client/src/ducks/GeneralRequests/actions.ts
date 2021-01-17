@@ -1,32 +1,26 @@
 import { IPost, Post } from 'src/models/posts';
 import { User } from 'src/models/users';
-import { XGeneralRequest } from 'src/models/xGeneralRequests';
 
-import {
-  createGeneralRequest,
-  getMyRequests,
-  updateGeneralRequest,
-} from './functions';
+import { createPost } from '../posts/functions';
+import { getMyRequests } from './functions';
 import {
   CHANGE_MODAL,
   OBSERVE_CREATE_GENERAL_REQUEST,
   OBSERVE_GET_MY_REQUESTS,
-  OBSERVE_UPDATE_GENERAL_REQUEST,
   RESET_UPDATE_GENERAL_REQUEST,
-  UPDATE_TEMP_REQUEST,
 } from './types';
 
-export const observeCreateGeneralRequest = (
-  payload: XGeneralRequest,
+export const dispatchCreateGeneralRequest = (
+  payload: IPost,
   // profileState: ProfileState,
-) => (dispatch: Function) =>
-  dispatch({
+) => (dispatch: Function) => {
+  const postPayload = Post.factory(payload);
+  return dispatch({
     type: OBSERVE_CREATE_GENERAL_REQUEST,
-    payload: {
-      generalRequest: payload /* , creatorProfileState: profileState */,
-    },
-    firebase: createGeneralRequest,
+    payload: { postPayload },
+    firebase: createPost,
   });
+};
 
 export const observeGetMyRequests = (
   dispatch: Function,
@@ -55,28 +49,29 @@ export const observeGetMyRequests = (
     });
 };
 
-export const updateRequest = (
-  payload: IPost,
-  postId?: string,
-  phoneNumber?: string | null,
-) => (dispatch: Function) => {
-  const postPayload = Post.factory({
-    ...payload,
-  });
+// TOD: (es) Remove
+// export const updateRequest = (
+//   payload: IPost,
+//   postId?: string,
+//   phoneNumber?: string | null,
+// ) => (dispatch: Function) => {
+//   const postPayload = Post.factory({
+//     ...payload,
+//   });
 
-  return dispatch({
-    type: phoneNumber ? OBSERVE_UPDATE_GENERAL_REQUEST : UPDATE_TEMP_REQUEST,
-    payload: {
-      postPayload,
-      postId,
-    },
-    firebase: phoneNumber
-      ? postId
-        ? updateGeneralRequest
-        : createGeneralRequest
-      : null,
-  });
-};
+//   return dispatch({
+//     type: phoneNumber ? OBSERVE_UPDATE_GENERAL_REQUEST : UPDATE_TEMP_REQUEST,
+//     payload: {
+//       postPayload,
+//       postId,
+//     },
+//     firebase: phoneNumber
+//       ? postId
+//         ? updateGeneralRequest
+//         : createGeneralRequest
+//       : null,
+//   });
+// };
 
 export const resetSetRequestState = () => (dispatch: Function) =>
   dispatch({
