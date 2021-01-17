@@ -29,16 +29,15 @@ export enum PostStatus {
 }
 
 export interface IPost extends firebase.firestore.DocumentData {
-  postId: string | null;
+  postRef: firebaseRefType | null;
   isResponse: boolean;
   requestingHelp: boolean;
-  sourcePostId?: string | null;
-  creatorId: string;
+  sourcePostRef: firebaseRefType | null;
+  creatorRef: firebaseRefType | null;
   creatorSnapshot: IUser;
   title: string;
   description: string;
   streetAddress: string;
-  geoloc?: firebase.firestore.GeoPoint | undefined;
   latLng: firebase.firestore.GeoPoint;
   status: PostStatus;
   creatorGivenRating: number | null;
@@ -48,18 +47,21 @@ export interface IPost extends firebase.firestore.DocumentData {
   updateSeenBy: string[];
   positiveResponseCount: number;
   negativeResponseCount: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: Date | null;
+  updatedAt?: Date | null;
 }
 
+type firebaseRefType = firebase.firestore.DocumentReference<
+  firebase.firestore.DocumentData
+>;
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
-    postId: string,
+    postRef: firebaseRefType | null,
     isResponse = false,
     requestingHelp = false,
-    sourcePostId: string | null = null,
-    creatorId: string,
+    sourcePostRef: firebaseRefType | null = null,
+    creatorRef: firebaseRefType | null,
     creatorSnapshot: User,
     title: string,
     description: string,
@@ -73,14 +75,14 @@ export class Post implements IPost {
     updateSeenBy: string[] = [],
     positiveResponseCount = 0,
     negativeResponseCount = 0,
-    createdAt = firestore.Timestamp.now(),
-    updatedAt = firestore.Timestamp.now(),
+    createdAt?: Date | null,
+    updatedAt?: Date | null,
   ) {
-    this._postId = postId;
+    this._postRef = postRef;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
-    this._sourcePostId = sourcePostId;
-    this._creatorId = creatorId;
+    this._sourcePostRef = sourcePostRef;
+    this._creatorRef = creatorRef;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
     this._description = description;
@@ -100,10 +102,14 @@ export class Post implements IPost {
 
   @IsString()
   @IsNotEmpty()
-  private _postId: string;
+  private _postRef: firebaseRefType | null;
 
-  get postId(): string {
-    return this._postId;
+  set postRef(postRef: firebaseRefType | null) {
+    this._postRef = postRef;
+  }
+
+  get postRef(): firebaseRefType | null {
+    return this._postRef;
   }
 
   @Allow()
@@ -132,25 +138,25 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _sourcePostId: string | null;
+  private _sourcePostRef: firebaseRefType | null;
 
-  get sourcePostId(): string | null {
-    return this._sourcePostId;
+  get sourcePostRef(): firebaseRefType | null {
+    return this._sourcePostRef;
   }
 
-  set sourcePostId(sourcePostId: string | null) {
-    this._sourcePostId = sourcePostId;
+  set sourcePostRef(sourcePostRef: firebaseRefType | null) {
+    this._sourcePostRef = sourcePostRef;
   }
 
   @IsNotEmptyObject()
-  private _creatorId: string;
+  private _creatorRef: firebaseRefType | null;
 
-  get creatorId(): string {
-    return this._creatorId;
+  get creatorRef(): firebaseRefType | null {
+    return this._creatorRef;
   }
 
-  set creatorId(creatorId: string) {
-    this._creatorId = creatorId;
+  set creatorRef(creatorRef: firebaseRefType | null) {
+    this._creatorRef = creatorRef;
   }
 
   @ValidateNested()
@@ -234,14 +240,6 @@ export class Post implements IPost {
     this._latLng = value;
   }
 
-  @IsOptional()
-  @IsObject()
-  public _geoloc: firebase.firestore.GeoPoint | undefined;
-
-  get geoloc(): firebase.firestore.GeoPoint | undefined {
-    return this._geoloc;
-  }
-
   @IsEnum(PostStatus)
   private _status: PostStatus;
 
@@ -268,13 +266,13 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
-  private _createdAt: Date;
+  private _createdAt: Date | null | undefined;
 
-  get createdAt(): Date {
+  get createdAt(): Date | null | undefined {
     return this._createdAt;
   }
 
-  set createdAt(value: Date) {
+  set createdAt(value: Date | null | undefined) {
     this._createdAt = value;
   }
 
@@ -282,13 +280,13 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
-  private _updatedAt: Date;
+  private _updatedAt: Date | null | undefined;
 
-  get updatedAt(): Date {
+  get updatedAt(): Date | null | undefined {
     return this._updatedAt;
   }
 
-  set updatedAt(value: Date) {
+  set updatedAt(value: Date | null | undefined) {
     this._updatedAt = value;
   }
 
@@ -345,13 +343,12 @@ export class Post implements IPost {
   }
 
   public static factory(data: IPost): Post {
-    const id = data.postId || new Date().getTime().toString();
     return new Post(
-      id,
+      data.postRef,
       data.isResponse,
       data.requestingHelp,
-      data.sourcePostId,
-      data.creatorId,
+      data.sourcepostRef,
+      data.creatorRef,
       User.factory(data.creatorSnapshot),
       data.title,
       data.description,
@@ -374,8 +371,8 @@ export class Post implements IPost {
     return {
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
-      parentRef: this.sourcePostId || null,
-      creatorId: this.creatorId,
+      parentRef: this.sourcePostRef || null,
+      creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,
       description: this.description,
@@ -389,8 +386,8 @@ export class Post implements IPost {
       updateSeenBy: this.updateSeenBy,
       postiveResponseCount: this.positiveResponseCount,
       negativeResponseCount: this.negativeResponseCount,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
+      createdAt: this.createdAt || null,
+      updatedAt: this.updatedAt || null,
     };
   }
 }
