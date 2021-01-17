@@ -33,7 +33,7 @@ type firebaseRefType = firebase.firestore.DocumentReference<
 
 type firebaseTimestampType = firebase.firestore.Timestamp;
 export interface IPost extends firebase.firestore.DocumentData {
-  postId: string | null;
+  postRef: firebaseRefType | null;
   isResponse: boolean;
   requestingHelp: boolean;
   sourcePublicPostId: string | null;
@@ -42,7 +42,6 @@ export interface IPost extends firebase.firestore.DocumentData {
   title: string;
   description: string;
   streetAddress: string;
-  geoloc?: firebase.firestore.GeoPoint | undefined;
   latLng: firebase.firestore.GeoPoint;
   status: PostStatus;
   creatorGivenRating: number | null;
@@ -56,6 +55,9 @@ export interface IPost extends firebase.firestore.DocumentData {
   updatedAt?: firebaseTimestampType | null;
 }
 
+type firebaseRefType = firebase.firestore.DocumentReference<
+  firebase.firestore.DocumentData
+>;
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
@@ -80,7 +82,7 @@ export class Post implements IPost {
     createdAt?: firebaseTimestampType | null,
     updatedAt?: firebaseTimestampType | null,
   ) {
-    this._postId = postId;
+    this._postRef = postRef;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
     this._sourcePublicPostId = sourcePublicPostId;
@@ -345,7 +347,6 @@ export class Post implements IPost {
   }
 
   public static factory(data: IPost): Post {
-    const id = data.postId || new Date().getTime().toString();
     return new Post(
       data.postId,
       data.isResponse,
