@@ -3,11 +3,8 @@ import { User } from 'src/models/users';
 
 import { createPost, observePosts, updatePost } from '../posts/functions';
 
-export const createGeneralRequest = async ({
-  postPayload,
-}: {
-  postPayload: Post;
-}) => createPost({ postPayload });
+export const createGeneralRequest = async ({ payload }: { payload: Post }) =>
+  createPost(payload);
 
 export const updateGeneralRequest = async ({
   postPayload,

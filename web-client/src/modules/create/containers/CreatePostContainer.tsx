@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
-import { updateRequest } from 'src/ducks/myRequests/actions';
+import { dispatchCreateGeneralRequest } from 'src/ducks/GeneralRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { IPost, PostStatus } from 'src/models/posts';
+import { IPost, Post, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
@@ -34,9 +34,9 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
-  const phoneNumber = useSelector(
-    (state: AppState) => state.auth.user?.phoneNumber,
-  );
+  // TODO: (es) Remove const phoneNumber = useSelector(
+  //   (state: AppState) => state.auth.user?.phoneNumber,
+  // );
   const onboarded = useSelector((state: AppState) => state.auth.onboarded);
 
   /* steps */
@@ -123,8 +123,11 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
         latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
         creatorSnapshot: profileState.profile.toObject() as IUser,
-      };
-      return dispatch(updateRequest(newPost as IPost, undefined, phoneNumber));
+        // TODO: (es) Why do I get an error if I change "as IPost" to "Post"
+      } as IPost;
+      const newPost2 = { ...newPost } as Post;
+
+      return dispatch(dispatchCreateGeneralRequest(newPost2));
     }
   };
 

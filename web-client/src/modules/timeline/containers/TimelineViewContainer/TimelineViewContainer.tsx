@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { resetSetRequestState } from 'src/ducks/findRequests/actions';
-import { PostState } from 'src/ducks/myRequests/types';
+import { PostState } from 'src/ducks/GeneralRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { OffersState } from 'src/ducks/specificOffers/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';

@@ -1,24 +1,18 @@
 import { isDefined } from 'class-validator';
 import { firestore as firestore2 } from 'firebase';
 import { firestore } from 'src/firebase';
-import {
-  IPost,
-  Post,
-  PostFirestoreConverter,
-  PostStatus,
-} from 'src/models/posts';
+import { Post, PostFirestoreConverter, PostStatus } from 'src/models/posts';
 import { User } from 'src/models/users';
 
 const RADIUS = 5; // In Miles
 
-export const createPost = async ({ postPayload }: { postPayload: Post }) => {
-  // TODO: (es) Remove unknown once geoloc issue gets resolved
-  const tempPost = ({ ...postPayload } as unknown) as IPost;
-  tempPost.createdAt = firestore2.Timestamp.now();
-  tempPost.postId = `P-${new Date().getTime().toString()}`;
+export const createPost = async (postPayload: Post) => {
+  const tempPost = { ...postPayload } as Post;
+  tempPost.createdAt = new Date();
+  // TODO: (es) tempPost.postId = `P-${new Date().getTime().toString()}`;
   return firestore
     .collection('posts')
-    .doc(tempPost.postId)
+    .doc()
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 };
