@@ -7,7 +7,7 @@ export const createGeneralRequest = async ({
   postPayload,
 }: {
   postPayload: Post;
-}) => createPost({ postPayload });
+}) => createPost(postPayload);
 
 export const updateGeneralRequest = async ({
   postPayload,
