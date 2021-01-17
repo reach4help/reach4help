@@ -8,9 +8,9 @@ function Supporters() {
   return (
     <Wrapper id="partners">
       <ContentWrapper>
-        <h2>{t("Partners.heading")}</h2>
+        <h2>{t("HomePage.SupportersSection.heading")}</h2>
         <br />
-        <h3>{t("Partners.subheading")}</h3>
+        <h3>{t("HomePage.SupportersSection.subheading")}</h3>
       </ContentWrapper>
       <LogosWrapper>
         {Logos.map(logo => (
