@@ -35,11 +35,11 @@ function Mission() {
         <Img fluid={data.file.childImageSharp.fluid} alt="R4H Mission" />
       </div>
       <ContentWrapper>
-        <h2>{t("Mission.heading")}</h2>
-        <p>{t("Mission.description.0")}</p>
+        <h2>{t("MissionPage.heading")}</h2>
+        <p>{t("MissionPage.description.0")}</p>
         <br />
         <Trans transSupportBasicHtmlNodes>
-          <p>{t("Mission.description.1")}</p>
+          <p>{t("MissionPage.description.1")}</p>
         </Trans>
       </ContentWrapper>
     </Wrapper>
