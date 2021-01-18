@@ -24,7 +24,7 @@ export const createPost = async (postPayload: Post) => {
 export const updatePost = async (postPayload: Post, postId: string) =>
   firestore
     .collection('posts')
-    .doc(postId)
+    .doc(postRef.path)
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 
@@ -69,7 +69,6 @@ export const getPosts = (
   if (isDefined(sourcePublicPostId)) {
     filter = filter.where('sourcePublicPostId', '==', sourcePublicPostId);
   }
-
   if (lat && lng) {
     const r = radius || RADIUS;
     const unitLat = 0.0144927536231884;
