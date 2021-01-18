@@ -31,7 +31,6 @@ export const getPosts = (
   nextValue: Function,
   {
     requestingHelp,
-    offeringHelp,
     status,
     userRef,
     lat,
@@ -39,7 +38,6 @@ export const getPosts = (
     radius,
   }: {
     requestingHelp?: boolean;
-    offeringHelp?: boolean;
     status?: string | null;
     userRef?: firebase.firestore.DocumentReference<User>;
     lat?: number;
@@ -57,10 +55,6 @@ export const getPosts = (
 
   if (isDefined(requestingHelp)) {
     filter = filter.where('requestingHelp', '==', requestingHelp);
-  }
-
-  if (isDefined(offeringHelp)) {
-    filter = filter.where('requestingHelp', '==', !offeringHelp);
   }
 
   if (lat && lng) {
