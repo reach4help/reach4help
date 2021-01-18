@@ -16,7 +16,7 @@ export const createPost = async (postPayload: Post) => {
   tempPost.postId = `P-${new Date().getTime().toString()}`;
   return firestore
     .collection('posts')
-    .doc()
+    .doc(tempPost.postId)
     .withConverter(PostFirestoreConverter)
     .set(tempPost);
 };
@@ -24,7 +24,7 @@ export const createPost = async (postPayload: Post) => {
 export const updatePost = async (postPayload: Post, postId: string) =>
   firestore
     .collection('posts')
-    .doc(postRef.path)
+    .doc(postId)
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 

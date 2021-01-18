@@ -33,7 +33,7 @@ type firebaseRefType = firebase.firestore.DocumentReference<
 
 type firebaseTimestampType = firebase.firestore.Timestamp;
 export interface IPost extends firebase.firestore.DocumentData {
-  postRef: firebaseRefType | null;
+  postId: string | null;
   isResponse: boolean;
   requestingHelp: boolean;
   sourcePublicPostId: string | null;
@@ -82,7 +82,7 @@ export class Post implements IPost {
     createdAt?: firebaseTimestampType | null,
     updatedAt?: firebaseTimestampType | null,
   ) {
-    this._postRef = postRef;
+    this._postId = postId;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
     this._sourcePublicPostId = sourcePublicPostId;
