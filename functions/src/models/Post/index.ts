@@ -27,7 +27,13 @@ export enum PostStatus {
   removed = 'removed',
 }
 
+<<<<<<< HEAD
 type firebaseRefType = firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+=======
+type firebaseRefType = firebase.firestore.DocumentReference<
+  firebase.firestore.DocumentData
+>;
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
 
 type firebaseTimestampType = firebase.firestore.Timestamp;
 export interface IPost extends firebase.firestore.DocumentData {
@@ -49,6 +55,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   creatorGivenRating: number | null;
   parentCreatorGivenRating: number | null;
 <<<<<<< HEAD
+<<<<<<< HEAD
   creatorRatedAt: firebaseTimestampType | null;
   parentCreatorRatedAt: firebaseTimestampType | null;
   updateSeenBy: string[];
@@ -65,11 +72,17 @@ export interface IPost extends firebase.firestore.DocumentData {
   createdAt?: Date | null;
   updatedAt?: Date | null;
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+  creatorRatedAt: firebaseTimestampType | null;
+  parentCreatorRatedAt: firebaseTimestampType | null;
+  updateSeenBy: string[];
+  positiveResponseCount: number;
+  negativeResponseCount: number;
+  createdAt?: firebaseTimestampType | null;
+  updatedAt?: firebaseTimestampType | null;
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
 }
 
-type firebaseRefType = firebase.firestore.DocumentReference<
-  firebase.firestore.DocumentData
->;
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
@@ -91,6 +104,7 @@ export class Post implements IPost {
     creatorGivenRating: number | null = null,
     parentCreatorGivenRating: number | null = null,
 <<<<<<< HEAD
+<<<<<<< HEAD
     creatorRatedAt: firebaseTimestampType | null = null,
     parentCreatorRatedAt: firebaseTimestampType | null = null,
     updateSeenBy: string[] = [],
@@ -107,6 +121,15 @@ export class Post implements IPost {
     createdAt?: Date | null,
     updatedAt?: Date | null,
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+    creatorRatedAt: firebaseTimestampType | null = null,
+    parentCreatorRatedAt: firebaseTimestampType | null = null,
+    updateSeenBy: string[] = [],
+    positiveResponseCount = 0,
+    negativeResponseCount = 0,
+    createdAt?: firebaseTimestampType | null,
+    updatedAt?: firebaseTimestampType | null,
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
   ) {
     this._postId = postId;
     this._isResponse = isResponse;
@@ -312,6 +335,7 @@ export class Post implements IPost {
      */
   @IsObject()
 <<<<<<< HEAD
+<<<<<<< HEAD
   private _createdAt: firebaseTimestampType | null | undefined;
 
   get createdAt(): firebaseTimestampType | null | undefined {
@@ -321,13 +345,20 @@ export class Post implements IPost {
   set createdAt(value: firebaseTimestampType | null | undefined) {
 =======
   private _createdAt: Date | null | undefined;
+=======
+  private _createdAt: firebaseTimestampType | null | undefined;
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
 
-  get createdAt(): Date | null | undefined {
+  get createdAt(): firebaseTimestampType | null | undefined {
     return this._createdAt;
   }
 
+<<<<<<< HEAD
   set createdAt(value: Date | null | undefined) {
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+  set createdAt(value: firebaseTimestampType | null | undefined) {
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
     this._createdAt = value;
   }
 
@@ -335,6 +366,7 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
+<<<<<<< HEAD
 <<<<<<< HEAD
   private _updatedAt: firebaseTimestampType | null | undefined;
 
@@ -345,13 +377,20 @@ export class Post implements IPost {
   set updatedAt(value: firebaseTimestampType | null | undefined) {
 =======
   private _updatedAt: Date | null | undefined;
+=======
+  private _updatedAt: firebaseTimestampType | null | undefined;
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
 
-  get updatedAt(): Date | null | undefined {
+  get updatedAt(): firebaseTimestampType | null | undefined {
     return this._updatedAt;
   }
 
+<<<<<<< HEAD
   set updatedAt(value: Date | null | undefined) {
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+  set updatedAt(value: firebaseTimestampType | null | undefined) {
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
     this._updatedAt = value;
   }
 
@@ -386,6 +425,7 @@ export class Post implements IPost {
   @Allow()
   @IsOptional()
 <<<<<<< HEAD
+<<<<<<< HEAD
   private _creatorRatedAt: firebaseTimestampType | null;
 
   get creatorRatedAt(): firebaseTimestampType | null {
@@ -395,18 +435,26 @@ export class Post implements IPost {
   set creatorRatedAt(creatorRatedAt: firebaseTimestampType | null) {
 =======
   private _creatorRatedAt: Date | null;
+=======
+  private _creatorRatedAt: firebaseTimestampType | null;
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
 
-  get creatorRatedAt(): Date | null {
+  get creatorRatedAt(): firebaseTimestampType | null {
     return this._creatorRatedAt;
   }
 
+<<<<<<< HEAD
   set creatorRatedAt(creatorRatedAt: Date | null) {
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+  set creatorRatedAt(creatorRatedAt: firebaseTimestampType | null) {
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
     this._creatorRatedAt = creatorRatedAt;
   }
 
   @Allow()
   @IsOptional()
+<<<<<<< HEAD
 <<<<<<< HEAD
   private _parentCreatorRatedAt: firebaseTimestampType | null;
 
@@ -417,13 +465,20 @@ export class Post implements IPost {
   set parentCreatorRatedAt(parentCreatorRatedAt: firebaseTimestampType | null) {
 =======
   private _parentCreatorRatedAt: Date | null;
+=======
+  private _parentCreatorRatedAt: firebaseTimestampType | null;
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
 
-  get parentCreatorRatedAt(): Date | null {
+  get parentCreatorRatedAt(): firebaseTimestampType | null {
     return this._parentCreatorRatedAt;
   }
 
+<<<<<<< HEAD
   set parentCreatorRatedAt(parentCreatorRatedAt: Date | null) {
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+  set parentCreatorRatedAt(parentCreatorRatedAt: firebaseTimestampType | null) {
+>>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
     this._parentCreatorRatedAt = parentCreatorRatedAt;
   }
 
