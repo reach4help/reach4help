@@ -55,9 +55,6 @@ export interface IPost extends firebase.firestore.DocumentData {
   updatedAt?: firebaseTimestampType | null;
 }
 
-type firebaseRefType = firebase.firestore.DocumentReference<
-  firebase.firestore.DocumentData
->;
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
