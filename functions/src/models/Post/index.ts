@@ -27,16 +27,14 @@ export enum PostStatus {
   removed = 'removed',
 }
 
-type firebaseRefType = firebase.firestore.DocumentReference<
-  firebase.firestore.DocumentData
->;
+type firebaseRefType = firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
 
 type firebaseTimestampType = firebase.firestore.Timestamp;
 export interface IPost extends firebase.firestore.DocumentData {
   postId: string | null;
   isResponse: boolean;
   requestingHelp: boolean;
-  sourcePostId: string | null;
+  sourcePublicPostId: string | null;
   creatorRef: firebaseRefType | null;
   creatorSnapshot: IUser;
   title: string;
@@ -61,7 +59,7 @@ export class Post implements IPost {
     postId: string | null,
     isResponse = false,
     requestingHelp = false,
-    sourcePostId: string | null = null,
+    sourcePublicPostId: string | null = null,
     creatorRef: firebaseRefType | null,
     creatorSnapshot: User,
     title: string,
@@ -82,7 +80,7 @@ export class Post implements IPost {
     this._postId = postId;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
-    this._sourcePostId = sourcePostId;
+    this._sourcePublicPostId = sourcePublicPostId;
     this._creatorRef = creatorRef;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
@@ -139,14 +137,14 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _sourcePostId: string | null;
+  private _sourcePublicPostId: string | null;
 
-  get sourcePostId(): string | null {
-    return this._sourcePostId;
+  get sourcePublicPostId(): string | null {
+    return this._sourcePublicPostId;
   }
 
-  set sourcePostId(sourcePostId: string | null) {
-    this._sourcePostId = sourcePostId;
+  set sourcePublicPostId(sourcePublicPostId: string | null) {
+    this._sourcePublicPostId = sourcePublicPostId;
   }
 
   @IsNotEmptyObject()
@@ -348,7 +346,7 @@ export class Post implements IPost {
       data.postId,
       data.isResponse,
       data.requestingHelp,
-      data.sourcePostId,
+      data.sourcePublicPostId,
       data.creatorRef,
       User.factory(data.creatorSnapshot),
       data.title,
@@ -373,7 +371,7 @@ export class Post implements IPost {
       postId: this.postId,
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
-      sourcePostId: this.sourcePostId || null,
+      sourcePublicPostId: this.sourcePublicPostId || null,
       creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,
@@ -395,9 +393,6 @@ export class Post implements IPost {
 }
 
 export const PostFirestoreConverter: firebase.firestore.FirestoreDataConverter<Post> = {
-  fromFirestore: (
-    data: firebase.firestore.QueryDocumentSnapshot<IPost>,
-  ): Post => Post.factory(data.data()),
-  toFirestore: (modelObject: Post): firebase.firestore.DocumentData =>
-    modelObject.toObject(),
+  fromFirestore: (data: firebase.firestore.QueryDocumentSnapshot<IPost>): Post => Post.factory(data.data()),
+  toFirestore: (modelObject: Post): firebase.firestore.DocumentData => modelObject.toObject(),
 };
