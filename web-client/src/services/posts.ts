@@ -11,7 +11,8 @@ type firebaseRefType = firebase.firestore.DocumentReference<
 
 export const createPost = async (postPayload: Post) => {
   const tempPost = Post.factory(postPayload);
-  tempPost.createdAt = new Date();
+  tempPost.createdAt = firestore2.Timestamp.fromDate(new Date());
+  tempPost.updatedAt = tempPost.createdAt;
   tempPost.postId = `P-${new Date().getTime().toString()}`;
   return firestore
     .collection('posts')

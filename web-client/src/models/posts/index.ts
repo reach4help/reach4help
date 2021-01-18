@@ -27,6 +27,11 @@ export enum PostStatus {
   removed = 'removed',
 }
 
+type firebaseRefType = firebase.firestore.DocumentReference<
+  firebase.firestore.DocumentData
+>;
+
+type firebaseTimestampType = firebase.firestore.Timestamp;
 export interface IPost extends firebase.firestore.DocumentData {
   postId: string | null;
   isResponse: boolean;
@@ -41,18 +46,15 @@ export interface IPost extends firebase.firestore.DocumentData {
   status: PostStatus;
   creatorGivenRating: number | null;
   parentCreatorGivenRating: number | null;
-  creatorRatedAt: Date | null;
-  parentCreatorRatedAt: Date | null;
+  creatorRatedAt: firebaseTimestampType | null;
+  parentCreatorRatedAt: firebaseTimestampType | null;
   updateSeenBy: string[];
   positiveResponseCount: number;
   negativeResponseCount: number;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
+  createdAt?: firebaseTimestampType | null;
+  updatedAt?: firebaseTimestampType | null;
 }
 
-type firebaseRefType = firebase.firestore.DocumentReference<
-  firebase.firestore.DocumentData
->;
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
@@ -69,13 +71,13 @@ export class Post implements IPost {
     status: PostStatus = PostStatus.open,
     creatorGivenRating: number | null = null,
     parentCreatorGivenRating: number | null = null,
-    creatorRatedAt: Date | null = null,
-    parentCreatorRatedAt: Date | null = null,
+    creatorRatedAt: firebaseTimestampType | null = null,
+    parentCreatorRatedAt: firebaseTimestampType | null = null,
     updateSeenBy: string[] = [],
     positiveResponseCount = 0,
     negativeResponseCount = 0,
-    createdAt?: Date | null,
-    updatedAt?: Date | null,
+    createdAt?: firebaseTimestampType | null,
+    updatedAt?: firebaseTimestampType | null,
   ) {
     this._postId = postId;
     this._isResponse = isResponse;
@@ -265,13 +267,13 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
-  private _createdAt: Date | null | undefined;
+  private _createdAt: firebaseTimestampType | null | undefined;
 
-  get createdAt(): Date | null | undefined {
+  get createdAt(): firebaseTimestampType | null | undefined {
     return this._createdAt;
   }
 
-  set createdAt(value: Date | null | undefined) {
+  set createdAt(value: firebaseTimestampType | null | undefined) {
     this._createdAt = value;
   }
 
@@ -279,13 +281,13 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
-  private _updatedAt: Date | null | undefined;
+  private _updatedAt: firebaseTimestampType | null | undefined;
 
-  get updatedAt(): Date | null | undefined {
+  get updatedAt(): firebaseTimestampType | null | undefined {
     return this._updatedAt;
   }
 
-  set updatedAt(value: Date | null | undefined) {
+  set updatedAt(value: firebaseTimestampType | null | undefined) {
     this._updatedAt = value;
   }
 
@@ -319,25 +321,25 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _creatorRatedAt: Date | null;
+  private _creatorRatedAt: firebaseTimestampType | null;
 
-  get creatorRatedAt(): Date | null {
+  get creatorRatedAt(): firebaseTimestampType | null {
     return this._creatorRatedAt;
   }
 
-  set creatorRatedAt(creatorRatedAt: Date | null) {
+  set creatorRatedAt(creatorRatedAt: firebaseTimestampType | null) {
     this._creatorRatedAt = creatorRatedAt;
   }
 
   @Allow()
   @IsOptional()
-  private _parentCreatorRatedAt: Date | null;
+  private _parentCreatorRatedAt: firebaseTimestampType | null;
 
-  get parentCreatorRatedAt(): Date | null {
+  get parentCreatorRatedAt(): firebaseTimestampType | null {
     return this._parentCreatorRatedAt;
   }
 
-  set parentCreatorRatedAt(parentCreatorRatedAt: Date | null) {
+  set parentCreatorRatedAt(parentCreatorRatedAt: firebaseTimestampType | null) {
     this._parentCreatorRatedAt = parentCreatorRatedAt;
   }
 
