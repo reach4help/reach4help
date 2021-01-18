@@ -34,7 +34,11 @@ export interface IPost extends firebase.firestore.DocumentData {
   postId: string | null;
   isResponse: boolean;
   requestingHelp: boolean;
+<<<<<<< HEAD
   sourcePublicPostId: string | null;
+=======
+  sourcePostId: string | null;
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
   creatorRef: firebaseRefType | null;
   creatorSnapshot: IUser;
   title: string;
@@ -44,6 +48,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   status: PostStatus;
   creatorGivenRating: number | null;
   parentCreatorGivenRating: number | null;
+<<<<<<< HEAD
   creatorRatedAt: firebaseTimestampType | null;
   parentCreatorRatedAt: firebaseTimestampType | null;
   updateSeenBy: string[];
@@ -51,15 +56,31 @@ export interface IPost extends firebase.firestore.DocumentData {
   negativeResponseCount: number;
   createdAt?: firebaseTimestampType | null;
   updatedAt?: firebaseTimestampType | null;
+=======
+  creatorRatedAt: Date | null;
+  parentCreatorRatedAt: Date | null;
+  updateSeenBy: string[];
+  positiveResponseCount: number;
+  negativeResponseCount: number;
+  createdAt?: Date | null;
+  updatedAt?: Date | null;
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
 }
 
+type firebaseRefType = firebase.firestore.DocumentReference<
+  firebase.firestore.DocumentData
+>;
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
     postId: string | null,
     isResponse = false,
     requestingHelp = false,
+<<<<<<< HEAD
     sourcePublicPostId: string | null = null,
+=======
+    sourcePostId: string | null = null,
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
     creatorRef: firebaseRefType | null,
     creatorSnapshot: User,
     title: string,
@@ -69,6 +90,7 @@ export class Post implements IPost {
     status: PostStatus = PostStatus.open,
     creatorGivenRating: number | null = null,
     parentCreatorGivenRating: number | null = null,
+<<<<<<< HEAD
     creatorRatedAt: firebaseTimestampType | null = null,
     parentCreatorRatedAt: firebaseTimestampType | null = null,
     updateSeenBy: string[] = [],
@@ -76,11 +98,24 @@ export class Post implements IPost {
     negativeResponseCount = 0,
     createdAt?: firebaseTimestampType | null,
     updatedAt?: firebaseTimestampType | null,
+=======
+    creatorRatedAt: Date | null = null,
+    parentCreatorRatedAt: Date | null = null,
+    updateSeenBy: string[] = [],
+    positiveResponseCount = 0,
+    negativeResponseCount = 0,
+    createdAt?: Date | null,
+    updatedAt?: Date | null,
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
   ) {
     this._postId = postId;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
+<<<<<<< HEAD
     this._sourcePublicPostId = sourcePublicPostId;
+=======
+    this._sourcePostId = sourcePostId;
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
     this._creatorRef = creatorRef;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
@@ -137,6 +172,7 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
+<<<<<<< HEAD
   private _sourcePublicPostId: string | null;
 
   get sourcePublicPostId(): string | null {
@@ -145,6 +181,16 @@ export class Post implements IPost {
 
   set sourcePublicPostId(sourcePublicPostId: string | null) {
     this._sourcePublicPostId = sourcePublicPostId;
+=======
+  private _sourcePostId: string | null;
+
+  get sourcePostId(): string | null {
+    return this._sourcePostId;
+  }
+
+  set sourcePostId(sourcePostId: string | null) {
+    this._sourcePostId = sourcePostId;
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
   }
 
   @IsNotEmptyObject()
@@ -265,6 +311,7 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
+<<<<<<< HEAD
   private _createdAt: firebaseTimestampType | null | undefined;
 
   get createdAt(): firebaseTimestampType | null | undefined {
@@ -272,6 +319,15 @@ export class Post implements IPost {
   }
 
   set createdAt(value: firebaseTimestampType | null | undefined) {
+=======
+  private _createdAt: Date | null | undefined;
+
+  get createdAt(): Date | null | undefined {
+    return this._createdAt;
+  }
+
+  set createdAt(value: Date | null | undefined) {
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
     this._createdAt = value;
   }
 
@@ -279,6 +335,7 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
+<<<<<<< HEAD
   private _updatedAt: firebaseTimestampType | null | undefined;
 
   get updatedAt(): firebaseTimestampType | null | undefined {
@@ -286,6 +343,15 @@ export class Post implements IPost {
   }
 
   set updatedAt(value: firebaseTimestampType | null | undefined) {
+=======
+  private _updatedAt: Date | null | undefined;
+
+  get updatedAt(): Date | null | undefined {
+    return this._updatedAt;
+  }
+
+  set updatedAt(value: Date | null | undefined) {
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
     this._updatedAt = value;
   }
 
@@ -319,6 +385,7 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
+<<<<<<< HEAD
   private _creatorRatedAt: firebaseTimestampType | null;
 
   get creatorRatedAt(): firebaseTimestampType | null {
@@ -326,11 +393,21 @@ export class Post implements IPost {
   }
 
   set creatorRatedAt(creatorRatedAt: firebaseTimestampType | null) {
+=======
+  private _creatorRatedAt: Date | null;
+
+  get creatorRatedAt(): Date | null {
+    return this._creatorRatedAt;
+  }
+
+  set creatorRatedAt(creatorRatedAt: Date | null) {
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
     this._creatorRatedAt = creatorRatedAt;
   }
 
   @Allow()
   @IsOptional()
+<<<<<<< HEAD
   private _parentCreatorRatedAt: firebaseTimestampType | null;
 
   get parentCreatorRatedAt(): firebaseTimestampType | null {
@@ -338,6 +415,15 @@ export class Post implements IPost {
   }
 
   set parentCreatorRatedAt(parentCreatorRatedAt: firebaseTimestampType | null) {
+=======
+  private _parentCreatorRatedAt: Date | null;
+
+  get parentCreatorRatedAt(): Date | null {
+    return this._parentCreatorRatedAt;
+  }
+
+  set parentCreatorRatedAt(parentCreatorRatedAt: Date | null) {
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
     this._parentCreatorRatedAt = parentCreatorRatedAt;
   }
 
@@ -346,7 +432,11 @@ export class Post implements IPost {
       data.postId,
       data.isResponse,
       data.requestingHelp,
+<<<<<<< HEAD
       data.sourcePublicPostId,
+=======
+      data.sourcePostId,
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
       data.creatorRef,
       User.factory(data.creatorSnapshot),
       data.title,
@@ -371,7 +461,11 @@ export class Post implements IPost {
       postId: this.postId,
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
+<<<<<<< HEAD
       sourcePublicPostId: this.sourcePublicPostId || null,
+=======
+      sourcePostId: this.sourcePostId || null,
+>>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
       creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,
@@ -393,6 +487,9 @@ export class Post implements IPost {
 }
 
 export const PostFirestoreConverter: firebase.firestore.FirestoreDataConverter<Post> = {
-  fromFirestore: (data: firebase.firestore.QueryDocumentSnapshot<IPost>): Post => Post.factory(data.data()),
-  toFirestore: (modelObject: Post): firebase.firestore.DocumentData => modelObject.toObject(),
+  fromFirestore: (
+    data: firebase.firestore.QueryDocumentSnapshot<IPost>,
+  ): Post => Post.factory(data.data()),
+  toFirestore: (modelObject: Post): firebase.firestore.DocumentData =>
+    modelObject.toObject(),
 };
