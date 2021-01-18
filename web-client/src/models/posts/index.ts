@@ -14,7 +14,6 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { firestore } from 'firebase';
 
 import { IUser, User } from '../users';
 
@@ -29,10 +28,10 @@ export enum PostStatus {
 }
 
 export interface IPost extends firebase.firestore.DocumentData {
-  postRef: firebaseRefType | null;
+  postId: string | null;
   isResponse: boolean;
   requestingHelp: boolean;
-  sourcePostRef: firebaseRefType | null;
+  sourcePostId: string | null;
   creatorRef: firebaseRefType | null;
   creatorSnapshot: IUser;
   title: string;
@@ -57,10 +56,10 @@ type firebaseRefType = firebase.firestore.DocumentReference<
 export class Post implements IPost {
   constructor(
     /* TODO: (es) define keyType and change this to a keyType */
-    postRef: firebaseRefType | null,
+    postId: string | null,
     isResponse = false,
     requestingHelp = false,
-    sourcePostRef: firebaseRefType | null = null,
+    sourcePostId: string | null = null,
     creatorRef: firebaseRefType | null,
     creatorSnapshot: User,
     title: string,
@@ -78,10 +77,10 @@ export class Post implements IPost {
     createdAt?: Date | null,
     updatedAt?: Date | null,
   ) {
-    this._postRef = postRef;
+    this._postId = postId;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
-    this._sourcePostRef = sourcePostRef;
+    this._sourcePostId = sourcePostId;
     this._creatorRef = creatorRef;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
@@ -102,14 +101,14 @@ export class Post implements IPost {
 
   @IsString()
   @IsNotEmpty()
-  private _postRef: firebaseRefType | null;
+  private _postId: string | null;
 
-  set postRef(postRef: firebaseRefType | null) {
-    this._postRef = postRef;
+  set postId(postId: string | null) {
+    this._postId = postId;
   }
 
-  get postRef(): firebaseRefType | null {
-    return this._postRef;
+  get postId(): string | null {
+    return this._postId;
   }
 
   @Allow()
@@ -138,14 +137,14 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _sourcePostRef: firebaseRefType | null;
+  private _sourcePostId: string | null;
 
-  get sourcePostRef(): firebaseRefType | null {
-    return this._sourcePostRef;
+  get sourcePostId(): string | null {
+    return this._sourcePostId;
   }
 
-  set sourcePostRef(sourcePostRef: firebaseRefType | null) {
-    this._sourcePostRef = sourcePostRef;
+  set sourcePostId(sourcePostId: string | null) {
+    this._sourcePostId = sourcePostId;
   }
 
   @IsNotEmptyObject()
@@ -344,10 +343,10 @@ export class Post implements IPost {
 
   public static factory(data: IPost): Post {
     return new Post(
-      data.postRef,
+      data.postId,
       data.isResponse,
       data.requestingHelp,
-      data.sourcepostRef,
+      data.sourcePostId,
       data.creatorRef,
       User.factory(data.creatorSnapshot),
       data.title,
@@ -369,9 +368,10 @@ export class Post implements IPost {
 
   toObject(): object {
     return {
+      postId: this.postId,
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
-      parentRef: this.sourcePostRef || null,
+      sourcePostId: this.sourcePostId || null,
       creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,

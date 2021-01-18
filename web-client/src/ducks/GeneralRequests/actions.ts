@@ -1,8 +1,7 @@
 import { IPost, Post } from 'src/models/posts';
 import { User } from 'src/models/users';
-import { createPost } from 'src/services/posts';
+import { createPost, getPosts } from 'src/services/posts';
 
-import { getPosts } from '../posts/functions';
 import {
   CHANGE_MODAL,
   DISPATCH_CREATE_GENERAL_REQUEST,

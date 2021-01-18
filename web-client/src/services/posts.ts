@@ -12,18 +12,18 @@ type firebaseRefType = firebase.firestore.DocumentReference<
 export const createPost = async (postPayload: Post) => {
   const tempPost = Post.factory(postPayload);
   tempPost.createdAt = new Date();
-  // TODO: (es) tempPost.postId = `P-${new Date().getTime().toString()}`;
+  tempPost.postId = `P-${new Date().getTime().toString()}`;
   return firestore
     .collection('posts')
-    .doc()
+    .doc(tempPost.postId)
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 };
 
-export const updatePost = async (postPayload: Post, postRef: firebaseRefType) =>
+export const updatePost = async (postPayload: Post, postId: string) =>
   firestore
     .collection('posts')
-    .doc(postRef.path)
+    .doc(postId)
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 
@@ -31,6 +31,7 @@ export const getPosts = (
   nextValue: Function,
   {
     requestingHelp,
+    offeringHelp,
     status,
     userRef,
     lat,
@@ -38,6 +39,7 @@ export const getPosts = (
     radius,
   }: {
     requestingHelp?: boolean;
+    offeringHelp?: boolean;
     status?: string | null;
     userRef?: firebase.firestore.DocumentReference<User>;
     lat?: number;
@@ -55,6 +57,10 @@ export const getPosts = (
 
   if (isDefined(requestingHelp)) {
     filter = filter.where('requestingHelp', '==', requestingHelp);
+  }
+
+  if (isDefined(offeringHelp)) {
+    filter = filter.where('requestingHelp', '==', !offeringHelp);
   }
 
   if (lat && lng) {
