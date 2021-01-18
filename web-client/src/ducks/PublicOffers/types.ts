@@ -5,13 +5,11 @@ const { asyncType, observerType, syncType } = createActionTypeFactory('POSTS');
 
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
-export const DISPATCH_CREATE_GENERAL_OFFER = asyncType(
-  'DISPATCH_CREATE_GENERAL_OFFER',
+export const DISPATCH_CREATE_PUBLIC_OFFER = asyncType(
+  'DISPATCH_CREATE_PUBLIC_OFFER',
 );
-export const OBSERVE_UPDATE_GENERAL_OFFER = asyncType('UPDATE_GENERAL_OFFER');
-export const RESET_UPDATE_GENERAL_OFFER = syncType(
-  'RESET_UPDATE_GENERAL_OFFER',
-);
+export const OBSERVE_UPDATE_PUBLIC_OFFER = asyncType('UPDATE_PUBLIC_OFFER');
+export const RESET_UPDATE_PUBLIC_OFFER = syncType('RESET_UPDATE_PUBLIC_OFFER');
 
 export const OBSERVE_GET_MY_OFFERS = observerType('OBSERVE_MY_OFFERS');
 
