@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { resetSetRequestState } from 'src/ducks/findRequests/actions';
-import { PostState } from 'src/ducks/GeneralRequests/types';
+import { RequestState } from 'src/ducks/GeneralRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { OffersState } from 'src/ducks/specificOffers/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
@@ -52,7 +52,7 @@ const TimelineViewContainer: React.FC<{
   );
 
   const requestsState = useSelector(
-    ({ requests }: { requests: PostState }) => requests,
+    ({ requests }: { requests: RequestState }) => requests,
   );
 
   const offersState = useSelector(

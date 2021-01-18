@@ -1,4 +1,4 @@
-import { observePosts as observeFindRequestsFunc } from '../posts/functions';
+import { getPosts as observeFindRequestsFunc } from 'src/services/posts';
 
 export const observeFindRequests = (
   nextValue: Function,
