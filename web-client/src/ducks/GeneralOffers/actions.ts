@@ -5,25 +5,25 @@ import { createPost } from 'src/services/posts';
 import { getPosts } from '../posts/functions';
 import {
   CHANGE_MODAL,
-  DISPATCH_CREATE_GENERAL_REQUEST,
-  OBSERVE_GET_MY_REQUESTS,
-  RESET_UPDATE_GENERAL_REQUEST,
+  DISPATCH_CREATE_GENERAL_OFFER,
+  OBSERVE_GET_MY_OFFERS,
+  RESET_UPDATE_GENERAL_OFFER,
 } from './types';
 
-export const dispatchCreateGeneralRequest = (
+export const dispatchCreateGeneralOffer = (
   payload: IPost,
   // profileState: ProfileState,
 ) => (dispatch: Function) => {
   const postPayload = Post.factory(payload);
 
   return dispatch({
-    type: DISPATCH_CREATE_GENERAL_REQUEST,
+    type: DISPATCH_CREATE_GENERAL_OFFER,
     payload: postPayload,
     firebase: createPost,
   });
 };
 
-export const observeGetMyRequests = (
+export const observeGetMyOffers = (
   dispatch: Function,
   {
     status,
@@ -34,10 +34,10 @@ export const observeGetMyRequests = (
   },
 ): Function => {
   dispatch({
-    type: OBSERVE_GET_MY_REQUESTS,
+    type: OBSERVE_GET_MY_OFFERS,
     observer: getPosts,
     payload: {
-      requestingHelp: true,
+      offeringHelp: true,
       status,
       userRef,
     },
@@ -45,13 +45,13 @@ export const observeGetMyRequests = (
 
   return () =>
     dispatch({
-      type: OBSERVE_GET_MY_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_GET_MY_REQUESTS,
+      type: OBSERVE_GET_MY_OFFERS.UNSUBSCRIBE,
+      observerName: OBSERVE_GET_MY_OFFERS,
     });
 };
 
 // TOD: (es) Remove
-// export const updateRequest = (
+// export const updateOffer = (
 //   payload: IPost,
 //   postId?: string,
 //   phoneNumber?: string | null,
@@ -61,22 +61,22 @@ export const observeGetMyRequests = (
 //   });
 
 //   return dispatch({
-//     type: phoneNumber ? OBSERVE_UPDATE_GENERAL_REQUEST : UPDATE_TEMP_REQUEST,
+//     type: phoneNumber ? OBSERVE_UPDATE_GENERAL_OFFER : UPDATE_TEMP_OFFER,
 //     payload: {
 //       postPayload,
 //       postId,
 //     },
 //     firebase: phoneNumber
 //       ? postId
-//         ? updateGeneralRequest
-//         : createGeneralRequest
+//         ? updateGeneralOffer
+//         : createGeneralOffer
 //       : null,
 //   });
 // };
 
-export const resetSetRequestState = () => (dispatch: Function) =>
+export const resetSetOfferState = () => (dispatch: Function) =>
   dispatch({
-    type: RESET_UPDATE_GENERAL_REQUEST,
+    type: RESET_UPDATE_GENERAL_OFFER,
     payload: true,
   });
 

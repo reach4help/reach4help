@@ -1,13 +1,12 @@
 import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
-import { XSpecificOffersState } from '../xSpecificOffers/types';
 import {
   CHANGE_MODAL,
-  OBSERVE_CREATE_GENERAL_REQUEST,
+  DISPATCH_CREATE_GENERAL_REQUEST,
   OBSERVE_GET_MY_REQUESTS,
   OBSERVE_UPDATE_GENERAL_REQUEST,
-  PostState,
+  RequestState,
   RESET_UPDATE_GENERAL_REQUEST,
   UPDATE_TEMP_REQUEST,
 } from './types';
@@ -19,15 +18,9 @@ const initialSetActionState = {
   modalState: false,
 };
 
-const initialState: PostState = {
+const initialState: RequestState = {
   setAction: initialSetActionState,
   myRequests: {
-    loading: false,
-    data: undefined,
-    observerReceivedFirstUpdate: false,
-    error: undefined,
-  },
-  myOffers: {
     loading: false,
     data: undefined,
     observerReceivedFirstUpdate: false,
@@ -36,33 +29,33 @@ const initialState: PostState = {
   newRequestTemp: undefined,
 };
 
-export default createReducer<PostState>(
+export default createReducer<RequestState>(
   {
-    [OBSERVE_CREATE_GENERAL_REQUEST.PENDING]: (state: PostState) => {
+    [DISPATCH_CREATE_GENERAL_REQUEST.PENDING]: (state: RequestState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [OBSERVE_CREATE_GENERAL_REQUEST.COMPLETED]: (
-      state: PostState,
+    [DISPATCH_CREATE_GENERAL_REQUEST.COMPLETED]: (
+      state: RequestState,
       // { payload }: { payload: true },
     ) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
     },
-    [OBSERVE_CREATE_GENERAL_REQUEST.REJECTED]: (
-      state: XSpecificOffersState,
+    [DISPATCH_CREATE_GENERAL_REQUEST.REJECTED]: (
+      state: RequestState,
       { payload }: { payload: Error },
     ) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = undefined;
     },
-    [OBSERVE_GET_MY_REQUESTS.SUBSCRIBE]: (state: PostState) => {
+    [OBSERVE_GET_MY_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
       state.myRequests.loading = true;
     },
     [OBSERVE_GET_MY_REQUESTS.UPDATED]: (
-      state: PostState,
+      state: RequestState,
       { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
       state.myRequests.loading = false;
@@ -77,24 +70,24 @@ export default createReducer<PostState>(
       state.myRequests.error = undefined;
     },
     [OBSERVE_GET_MY_REQUESTS.ERROR]: (
-      state: PostState,
+      state: RequestState,
       { payload }: { payload: Error },
     ) => {
       state.myRequests.loading = false;
       state.myRequests.error = payload;
     },
-    [OBSERVE_UPDATE_GENERAL_REQUEST.PENDING]: (state: PostState) => {
+    [OBSERVE_UPDATE_GENERAL_REQUEST.PENDING]: (state: RequestState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [OBSERVE_UPDATE_GENERAL_REQUEST.COMPLETED]: (state: PostState) => {
+    [OBSERVE_UPDATE_GENERAL_REQUEST.COMPLETED]: (state: RequestState) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
       state.newRequestTemp = undefined;
     },
     [OBSERVE_UPDATE_GENERAL_REQUEST.REJECTED]: (
-      state: PostState,
+      state: RequestState,
       { payload }: { payload: Error },
     ) => {
       state.setAction.loading = false;
@@ -103,7 +96,7 @@ export default createReducer<PostState>(
       state.newRequestTemp = undefined;
     },
     [UPDATE_TEMP_REQUEST]: (
-      state: PostState,
+      state: RequestState,
       {
         payload,
       }: {
@@ -115,12 +108,15 @@ export default createReducer<PostState>(
     ) => {
       state.newRequestTemp = payload;
     },
-    [RESET_UPDATE_GENERAL_REQUEST]: (state: PostState) => {
+    [RESET_UPDATE_GENERAL_REQUEST]: (state: RequestState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.setAction.error = undefined;
     },
-    [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
+    [CHANGE_MODAL]: (
+      state: RequestState,
+      { payload }: { payload: boolean },
+    ) => {
       state.setAction.modalState = payload;
       if (!payload) {
         state.setAction.success = false;
