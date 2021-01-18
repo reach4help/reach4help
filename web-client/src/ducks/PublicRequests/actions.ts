@@ -4,19 +4,19 @@ import { createPost, getPosts } from 'src/services/posts';
 
 import {
   CHANGE_MODAL,
-  DISPATCH_CREATE_GENERAL_REQUEST,
+  DISPATCH_CREATE_PUBLIC_REQUEST,
   OBSERVE_GET_MY_REQUESTS,
-  RESET_UPDATE_GENERAL_REQUEST,
+  RESET_UPDATE_PUBLIC_REQUEST,
 } from './types';
 
-export const dispatchCreateGeneralRequest = (
+export const dispatchCreatePublicRequest = (
   payload: IPost,
   // profileState: ProfileState,
 ) => (dispatch: Function) => {
   const postPayload = Post.factory(payload);
 
   return dispatch({
-    type: DISPATCH_CREATE_GENERAL_REQUEST,
+    type: DISPATCH_CREATE_PUBLIC_REQUEST,
     payload: postPayload,
     firebase: createPost,
   });
@@ -60,22 +60,22 @@ export const observeGetMyRequests = (
 //   });
 
 //   return dispatch({
-//     type: phoneNumber ? OBSERVE_UPDATE_GENERAL_REQUEST : UPDATE_TEMP_REQUEST,
+//     type: phoneNumber ? OBSERVE_UPDATE_PUBLIC_REQUEST : UPDATE_TEMP_REQUEST,
 //     payload: {
 //       postPayload,
 //       postId,
 //     },
 //     firebase: phoneNumber
 //       ? postId
-//         ? updateGeneralRequest
-//         : createGeneralRequest
+//         ? updatePublicRequest
+//         : createPublicRequest
 //       : null,
 //   });
 // };
 
 export const resetSetRequestState = () => (dispatch: Function) =>
   dispatch({
-    type: RESET_UPDATE_GENERAL_REQUEST,
+    type: RESET_UPDATE_PUBLIC_REQUEST,
     payload: true,
   });
 

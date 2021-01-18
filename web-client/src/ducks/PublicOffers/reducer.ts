@@ -3,12 +3,12 @@ import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  DISPATCH_CREATE_GENERAL_REQUEST,
-  OBSERVE_GET_MY_REQUESTS,
-  OBSERVE_UPDATE_GENERAL_REQUEST,
-  RequestState,
-  RESET_UPDATE_GENERAL_REQUEST,
-  UPDATE_TEMP_REQUEST,
+  DISPATCH_CREATE_PUBLIC_OFFER,
+  OBSERVE_GET_MY_OFFERS,
+  OBSERVE_UPDATE_PUBLIC_OFFER,
+  OfferState,
+  RESET_UPDATE_PUBLIC_OFFER,
+  UPDATE_TEMP_OFFER,
 } from './types';
 
 const initialSetActionState = {
@@ -18,105 +18,102 @@ const initialSetActionState = {
   modalState: false,
 };
 
-const initialState: RequestState = {
+const initialState: OfferState = {
   setAction: initialSetActionState,
-  myRequests: {
+  myOffers: {
     loading: false,
     data: undefined,
     observerReceivedFirstUpdate: false,
     error: undefined,
   },
-  newRequestTemp: undefined,
+  newOfferTemp: undefined,
 };
 
-export default createReducer<RequestState>(
+export default createReducer<OfferState>(
   {
-    [DISPATCH_CREATE_GENERAL_REQUEST.PENDING]: (state: RequestState) => {
+    [DISPATCH_CREATE_PUBLIC_OFFER.PENDING]: (state: OfferState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [DISPATCH_CREATE_GENERAL_REQUEST.COMPLETED]: (
-      state: RequestState,
+    [DISPATCH_CREATE_PUBLIC_OFFER.COMPLETED]: (
+      state: OfferState,
       // { payload }: { payload: true },
     ) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
     },
-    [DISPATCH_CREATE_GENERAL_REQUEST.REJECTED]: (
-      state: RequestState,
+    [DISPATCH_CREATE_PUBLIC_OFFER.REJECTED]: (
+      state: OfferState,
       { payload }: { payload: Error },
     ) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = undefined;
     },
-    [OBSERVE_GET_MY_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
-      state.myRequests.loading = true;
+    [OBSERVE_GET_MY_OFFERS.SUBSCRIBE]: (state: OfferState) => {
+      state.myOffers.loading = true;
     },
-    [OBSERVE_GET_MY_REQUESTS.UPDATED]: (
-      state: RequestState,
+    [OBSERVE_GET_MY_OFFERS.UPDATED]: (
+      state: OfferState,
       { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
-      state.myRequests.loading = false;
-      state.myRequests.observerReceivedFirstUpdate = true;
-      state.myRequests.data = payload.docs.reduce(
+      state.myOffers.loading = false;
+      state.myOffers.observerReceivedFirstUpdate = true;
+      state.myOffers.data = payload.docs.reduce(
         (acc, obj) => ({
           ...acc,
           [obj.id]: obj.data(),
         }),
         {},
       );
-      state.myRequests.error = undefined;
+      state.myOffers.error = undefined;
     },
-    [OBSERVE_GET_MY_REQUESTS.ERROR]: (
-      state: RequestState,
+    [OBSERVE_GET_MY_OFFERS.ERROR]: (
+      state: OfferState,
       { payload }: { payload: Error },
     ) => {
-      state.myRequests.loading = false;
-      state.myRequests.error = payload;
+      state.myOffers.loading = false;
+      state.myOffers.error = payload;
     },
-    [OBSERVE_UPDATE_GENERAL_REQUEST.PENDING]: (state: RequestState) => {
+    [OBSERVE_UPDATE_PUBLIC_OFFER.PENDING]: (state: OfferState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [OBSERVE_UPDATE_GENERAL_REQUEST.COMPLETED]: (state: RequestState) => {
+    [OBSERVE_UPDATE_PUBLIC_OFFER.COMPLETED]: (state: OfferState) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
-      state.newRequestTemp = undefined;
+      state.newOfferTemp = undefined;
     },
-    [OBSERVE_UPDATE_GENERAL_REQUEST.REJECTED]: (
-      state: RequestState,
+    [OBSERVE_UPDATE_PUBLIC_OFFER.REJECTED]: (
+      state: OfferState,
       { payload }: { payload: Error },
     ) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
-      state.newRequestTemp = undefined;
+      state.newOfferTemp = undefined;
     },
-    [UPDATE_TEMP_REQUEST]: (
-      state: RequestState,
+    [UPDATE_TEMP_OFFER]: (
+      state: OfferState,
       {
         payload,
       }: {
         payload: {
-          requestPayload: Post;
-          requestId: string;
+          offerPayload: Post;
+          offerId: string;
         };
       },
     ) => {
-      state.newRequestTemp = payload;
+      state.newOfferTemp = payload;
     },
-    [RESET_UPDATE_GENERAL_REQUEST]: (state: RequestState) => {
+    [RESET_UPDATE_PUBLIC_OFFER]: (state: OfferState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.setAction.error = undefined;
     },
-    [CHANGE_MODAL]: (
-      state: RequestState,
-      { payload }: { payload: boolean },
-    ) => {
+    [CHANGE_MODAL]: (state: OfferState, { payload }: { payload: boolean }) => {
       state.setAction.modalState = payload;
       if (!payload) {
         state.setAction.success = false;

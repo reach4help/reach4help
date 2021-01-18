@@ -4,19 +4,19 @@ import { createPost, getPosts } from 'src/services/posts';
 
 import {
   CHANGE_MODAL,
-  DISPATCH_CREATE_GENERAL_OFFER,
+  DISPATCH_CREATE_PUBLIC_OFFER,
   OBSERVE_GET_MY_OFFERS,
-  RESET_UPDATE_GENERAL_OFFER,
+  RESET_UPDATE_PUBLIC_OFFER,
 } from './types';
 
-export const dispatchCreateGeneralOffer = (
+export const dispatchCreatePublicOffer = (
   payload: IPost,
   // profileState: ProfileState,
 ) => (dispatch: Function) => {
   const postPayload = Post.factory(payload);
 
   return dispatch({
-    type: DISPATCH_CREATE_GENERAL_OFFER,
+    type: DISPATCH_CREATE_PUBLIC_OFFER,
     payload: postPayload,
     firebase: createPost,
   });
@@ -60,22 +60,22 @@ export const observeGetMyOffers = (
 //   });
 
 //   return dispatch({
-//     type: phoneNumber ? OBSERVE_UPDATE_GENERAL_OFFER : UPDATE_TEMP_OFFER,
+//     type: phoneNumber ? OBSERVE_UPDATE_PUBLIC_OFFER : UPDATE_TEMP_OFFER,
 //     payload: {
 //       postPayload,
 //       postId,
 //     },
 //     firebase: phoneNumber
 //       ? postId
-//         ? updateGeneralOffer
-//         : createGeneralOffer
+//         ? updatePublicOffer
+//         : createPublicOffer
 //       : null,
 //   });
 // };
 
 export const resetSetOfferState = () => (dispatch: Function) =>
   dispatch({
-    type: RESET_UPDATE_GENERAL_OFFER,
+    type: RESET_UPDATE_PUBLIC_OFFER,
     payload: true,
   });
 

@@ -5,14 +5,12 @@ const { asyncType, observerType, syncType } = createActionTypeFactory('POSTS');
 
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
-export const DISPATCH_CREATE_GENERAL_REQUEST = asyncType(
-  'DISPATCH_CREATE_GENERAL_REQUEST',
+export const DISPATCH_CREATE_PUBLIC_REQUEST = asyncType(
+  'DISPATCH_CREATE_PUBLIC_REQUEST',
 );
-export const OBSERVE_UPDATE_GENERAL_REQUEST = asyncType(
-  'UPDATE_GENERAL_REQUEST',
-);
-export const RESET_UPDATE_GENERAL_REQUEST = syncType(
-  'RESET_UPDATE_GENERAL_REQUEST',
+export const OBSERVE_UPDATE_PUBLIC_REQUEST = asyncType('UPDATE_PUBLIC_REQUEST');
+export const RESET_UPDATE_PUBLIC_REQUEST = syncType(
+  'RESET_UPDATE_PUBLIC_REQUEST',
 );
 
 export const OBSERVE_GET_MY_REQUESTS = observerType('OBSERVE_GET_MY_REQUESTS');
