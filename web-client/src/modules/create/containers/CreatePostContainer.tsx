@@ -105,10 +105,10 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
     } = postLocation;
     if (profileState.profile) {
       const newPost = {
-        postRef: null,
+        postId: null,
         isResponse: false,
         requestingHelp: !IS_OFFER_POST,
-        sourcePostRef: null,
+        sourcePostId: null,
         status: PostStatus.pending,
         creatorGivenRating: 0,
         parentCreatorGivenRating: 0,
