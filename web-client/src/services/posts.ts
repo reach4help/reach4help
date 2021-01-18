@@ -18,7 +18,7 @@ export const createPost = async (postPayload: Post) => {
     .collection('posts')
     .doc(tempPost.postId)
     .withConverter(PostFirestoreConverter)
-    .set(postPayload);
+    .set(tempPost);
 };
 
 export const updatePost = async (postPayload: Post, postId: string) =>
@@ -31,6 +31,7 @@ export const updatePost = async (postPayload: Post, postId: string) =>
 export const getPosts = (
   nextValue: Function,
   {
+    sourcePublicPostId,
     requestingHelp,
     offeringHelp,
     status,
@@ -39,6 +40,7 @@ export const getPosts = (
     lng,
     radius,
   }: {
+    sourcePublicPostId?: string;
     requestingHelp?: boolean;
     offeringHelp?: boolean;
     status?: string | null;
@@ -62,6 +64,10 @@ export const getPosts = (
 
   if (isDefined(offeringHelp)) {
     filter = filter.where('requestingHelp', '==', !offeringHelp);
+  }
+
+  if (isDefined(sourcePublicPostId)) {
+    filter = filter.where('sourcePublicPostId', '==', sourcePublicPostId);
   }
 
   if (lat && lng) {
