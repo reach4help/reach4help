@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
-import { dispatchCreateGeneralOffer } from 'src/ducks/GeneralOffers/actions';
-import { dispatchCreateGeneralRequest } from 'src/ducks/GeneralRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
+import { dispatchCreatePublicOffer } from 'src/ducks/PublicOffers/actions';
+import { dispatchCreatePublicRequest } from 'src/ducks/PublicRequests/actions';
 import { IPost, Post, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
@@ -128,8 +128,8 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
       } as IPost;
       const newPost2 = Post.factory(newPost);
       return IS_OFFER_POST
-        ? dispatch(dispatchCreateGeneralOffer(newPost2))
-        : dispatch(dispatchCreateGeneralRequest(newPost2));
+        ? dispatch(dispatchCreatePublicOffer(newPost2))
+        : dispatch(dispatchCreatePublicRequest(newPost2));
     }
   };
 
