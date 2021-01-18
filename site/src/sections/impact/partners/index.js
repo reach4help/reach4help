@@ -8,9 +8,9 @@ function Partners() {
   return (
     <Wrapper id="partners">
       <ContentWrapper>
-        <h2>{t("Partners.heading")}</h2>
+        <h2>{t("ImpactPage.PartnersSection.heading")}</h2>
         <br />
-        <h3>{t("Partners.subheading")}</h3>
+        <h3>{t("ImpactPage.PartnersSection.subheading")}</h3>
       </ContentWrapper>
       <LogosWrapper>
         {Logos.map(logo => (

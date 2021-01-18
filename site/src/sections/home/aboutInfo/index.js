@@ -1,18 +1,20 @@
 import React from "react"
 import { Link } from "gatsby"
+import { useTranslation } from "react-i18next"
 
 import Button from "src/components/button"
 import teamMeetingImg from "src/assets/aboutInfo/teamMeeting.svg"
 import { Wrapper, ContentWrapper } from "./style"
 
 function Team() {
+  const { t } = useTranslation()
   return (
     <Wrapper id="team">
       <div className="textWrapper">
         <ContentWrapper>
-          <h1>About</h1>
-          <h2>We’re a group of volunteers driven to unify help worldwide</h2>
-          <p>Meet the minds behind this initiative and join us!</p>
+          <h1>{t("HomePage.AboutSection.heading")}</h1>
+          <h2>{t("HomePage.AboutSection.subheading")}</h2>
+          <p>{t("HomePage.AboutSection.paragraph")}</p>
         </ContentWrapper>
 
         <Link to="/team">
@@ -22,7 +24,7 @@ function Team() {
             outlineColor="#7d00a3"
             fontSize="1em"
           >
-            More About Us
+            {t("HomePage.AboutSection.buttons.0")}
           </Button>
         </Link>
       </div>

@@ -55,11 +55,11 @@ function Team() {
     <Wrapper id="team">
       <div>
         <ContentWrapper>
-          <h2>{t("Team.heading")}</h2>
-          <p>{t("Team.description.0")}</p>
+          <h2>{t("TeamPage.heading")}</h2>
+          <p>{t("TeamPage.description.0")}</p>
           <br />
           <p>
-            <b>{t("Team.members.heading")}</b>
+            <b>{t("TeamPage.members.heading")}</b>
             {people.map(person => (
               <li key={person.id}>
                 <b>{person.title}: </b>
@@ -68,10 +68,10 @@ function Team() {
             ))}
           </p>
           <br />
-          <p>{t("Team.description.1")}</p>
+          <p>{t("TeamPage.description.1")}</p>
           <br />
 
-          <h3>{t("Team.subheading")}</h3>
+          <h3>{t("TeamPage.subheading")}</h3>
         </ContentWrapper>
         <a href="https://github.com/reach4help/reach4help/wiki#onboading-steps">
           <Button
@@ -80,7 +80,7 @@ function Team() {
             outlineColor="#7d00a3"
             fontSize="1em"
           >
-            {t("Team.buttons.0")}
+            {t("TeamPage.buttons.0")}
           </Button>
         </a>
       </div>

@@ -32,9 +32,9 @@ function Home() {
   return (
     <Wrapper id="home">
       <div className="main">
-        <h1>{t("Home.heading")}</h1>
+        <h1>{t("HomePage.HeroSection.heading")}</h1>
         <div style={{ maxWidth: "600px" }}>
-          <p>{t("Home.subheading")}</p>
+          <p>{t("HomePage.HeroSection.subheading")}</p>
         </div>
         <ButtonsWrapper>
           <a href="https://app.reach4help.org/gethelp" rel="noopener">
@@ -44,7 +44,7 @@ function Home() {
               outlineColor="white"
               fontSize="1.05em"
             >
-              {t("Home.buttons.0")}
+              {t("HomePage.HeroSection.buttons.0")}
             </Button>
           </a>
           <a href="https://app.reach4help.org/volunteer" rel="noopener">
@@ -55,7 +55,7 @@ function Home() {
               outlineColor="white"
               border="2px solid white" // stupidity 100
             >
-              {t("Home.buttons.1")}
+              {t("HomePage.HeroSection.buttons.1")}
             </Button>
           </a>
         </ButtonsWrapper>

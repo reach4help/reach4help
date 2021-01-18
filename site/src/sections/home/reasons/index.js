@@ -1,4 +1,5 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 
 import shop from "src/assets/reasons/shop.svg"
 import check from "src/assets/reasons/check.svg"
@@ -13,38 +14,33 @@ import {
 } from "./style"
 
 function Mission() {
+  const { t } = useTranslation()
+
   return (
     <Wrapper>
       <ReasonsSection>
-        <h1>Why use Reach4Help</h1>
+        <h1>{t("HomePage.ReasonsSection.heading")}</h1>
         <ReasonsContainer>
           <ReasonsCard>
             <ReasonsCardIconContainer>
               <img alt="Shop" src={shop} />
             </ReasonsCardIconContainer>
-            <h3>One-stop Shop</h3>
-            <p>
-              Don’t waste hours searching. Get help fast with our database of
-              volunteers.
-            </p>
+            <h3>{t("HomePage.ReasonsSection.items.0.title")}</h3>
+            <p>{t("HomePage.ReasonsSection.items.0.description")}</p>
           </ReasonsCard>
           <ReasonsCard>
             <ReasonsCardIconContainer>
               <img alt="Check" src={check} />
             </ReasonsCardIconContainer>
-            <h3>Easily Available</h3>
-            <p>
-              Use our app on the go from any mobile device, tablet, or desktop.
-            </p>
+            <h3>{t("HomePage.ReasonsSection.items.1.title")}</h3>
+            <p>{t("HomePage.ReasonsSection.items.1.description")}</p>
           </ReasonsCard>
           <ReasonsCard>
             <ReasonsCardIconContainer>
               <img alt="Card" src={card} />
             </ReasonsCardIconContainer>
-            <h3>Completely Free</h3>
-            <p>
-              No subscriptions or hidden fees. You can browse and post for free.
-            </p>
+            <h3>{t("HomePage.ReasonsSection.items.2.title")}</h3>
+            <p>{t("HomePage.ReasonsSection.items.2.description")}</p>
           </ReasonsCard>
         </ReasonsContainer>
       </ReasonsSection>
