@@ -28,12 +28,16 @@ export enum PostStatus {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 type firebaseRefType = firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
 =======
 type firebaseRefType = firebase.firestore.DocumentReference<
   firebase.firestore.DocumentData
 >;
 >>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
+=======
+type firebaseRefType = firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+>>>>>>> 9f64c91f... feat: implenent create private offer and request
 
 type firebaseTimestampType = firebase.firestore.Timestamp;
 export interface IPost extends firebase.firestore.DocumentData {
@@ -41,10 +45,14 @@ export interface IPost extends firebase.firestore.DocumentData {
   isResponse: boolean;
   requestingHelp: boolean;
 <<<<<<< HEAD
+<<<<<<< HEAD
   sourcePublicPostId: string | null;
 =======
   sourcePostId: string | null;
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+  sourcePublicPostId: string | null;
+>>>>>>> 9f64c91f... feat: implenent create private offer and request
   creatorRef: firebaseRefType | null;
   creatorSnapshot: IUser;
   title: string;
@@ -90,10 +98,14 @@ export class Post implements IPost {
     isResponse = false,
     requestingHelp = false,
 <<<<<<< HEAD
+<<<<<<< HEAD
     sourcePublicPostId: string | null = null,
 =======
     sourcePostId: string | null = null,
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+    sourcePublicPostId: string | null = null,
+>>>>>>> 9f64c91f... feat: implenent create private offer and request
     creatorRef: firebaseRefType | null,
     creatorSnapshot: User,
     title: string,
@@ -135,10 +147,14 @@ export class Post implements IPost {
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
 <<<<<<< HEAD
+<<<<<<< HEAD
     this._sourcePublicPostId = sourcePublicPostId;
 =======
     this._sourcePostId = sourcePostId;
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+    this._sourcePublicPostId = sourcePublicPostId;
+>>>>>>> 9f64c91f... feat: implenent create private offer and request
     this._creatorRef = creatorRef;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
@@ -196,6 +212,7 @@ export class Post implements IPost {
   @Allow()
   @IsOptional()
 <<<<<<< HEAD
+<<<<<<< HEAD
   private _sourcePublicPostId: string | null;
 
   get sourcePublicPostId(): string | null {
@@ -206,14 +223,22 @@ export class Post implements IPost {
     this._sourcePublicPostId = sourcePublicPostId;
 =======
   private _sourcePostId: string | null;
+=======
+  private _sourcePublicPostId: string | null;
+>>>>>>> 9f64c91f... feat: implenent create private offer and request
 
-  get sourcePostId(): string | null {
-    return this._sourcePostId;
+  get sourcePublicPostId(): string | null {
+    return this._sourcePublicPostId;
   }
 
+<<<<<<< HEAD
   set sourcePostId(sourcePostId: string | null) {
     this._sourcePostId = sourcePostId;
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+  set sourcePublicPostId(sourcePublicPostId: string | null) {
+    this._sourcePublicPostId = sourcePublicPostId;
+>>>>>>> 9f64c91f... feat: implenent create private offer and request
   }
 
   @IsNotEmptyObject()
@@ -488,10 +513,14 @@ export class Post implements IPost {
       data.isResponse,
       data.requestingHelp,
 <<<<<<< HEAD
+<<<<<<< HEAD
       data.sourcePublicPostId,
 =======
       data.sourcePostId,
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+      data.sourcePublicPostId,
+>>>>>>> 9f64c91f... feat: implenent create private offer and request
       data.creatorRef,
       User.factory(data.creatorSnapshot),
       data.title,
@@ -517,10 +546,14 @@ export class Post implements IPost {
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
 <<<<<<< HEAD
+<<<<<<< HEAD
       sourcePublicPostId: this.sourcePublicPostId || null,
 =======
       sourcePostId: this.sourcePostId || null,
 >>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
+=======
+      sourcePublicPostId: this.sourcePublicPostId || null,
+>>>>>>> 9f64c91f... feat: implenent create private offer and request
       creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,
@@ -542,9 +575,6 @@ export class Post implements IPost {
 }
 
 export const PostFirestoreConverter: firebase.firestore.FirestoreDataConverter<Post> = {
-  fromFirestore: (
-    data: firebase.firestore.QueryDocumentSnapshot<IPost>,
-  ): Post => Post.factory(data.data()),
-  toFirestore: (modelObject: Post): firebase.firestore.DocumentData =>
-    modelObject.toObject(),
+  fromFirestore: (data: firebase.firestore.QueryDocumentSnapshot<IPost>): Post => Post.factory(data.data()),
+  toFirestore: (modelObject: Post): firebase.firestore.DocumentData => modelObject.toObject(),
 };
