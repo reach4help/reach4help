@@ -37,7 +37,7 @@ export const AddressDisplay = ({ location, prefix }) => {
 
   return (
     <AddressDisplayWrapper>
-      <SectionLabel>
+      <SectionLabel role="heading">
         {prefix} {t('modules.create.stepTitles.map')}{' '}
       </SectionLabel>
       <Address>
@@ -91,7 +91,6 @@ export const MapDisplay = ({ coords }) => (
       <WebClientMap
         destinations={[]}
         zoom={17}
-        width="80%"
         height={mapHeight}
         origin={{ lat: coords.latitude, lng: coords.longitude }}
         canRelocate={false}
