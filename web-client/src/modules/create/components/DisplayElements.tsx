@@ -9,23 +9,38 @@ const DetailsDisplayWrapper = styled.div`
 `;
 
 export const DetailsDisplay = ({ details }) => {
-  const { Paragraph, Title } = Typography;
+  const { Paragraph } = Typography;
   return (
     <DetailsDisplayWrapper>
-      <Title level={3}> {details.title} </Title>
+      <SectionLabel> {details.title} </SectionLabel>
       <Paragraph> {details.body} </Paragraph>
     </DetailsDisplayWrapper>
   );
 };
 
-export const AddressDisplay = ({ location }) => {
+const SectionLabel = styled.h1`
+  font: Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+`;
+
+const Address = styled.address`
+  margin-left: 5px;
+  line-height: 22px;
+  font: Roboto, sans-serif;
+  font-size: 14px;
+`;
+
+export const AddressDisplay = ({ location, prefix }) => {
   const { t } = useTranslation();
-  const { Title } = Typography;
 
   return (
     <AddressDisplayWrapper>
-      <Title level={3}>{t('modules.create.displayElements.address')} </Title>
-      <address>
+      <SectionLabel>
+        {prefix} {t('modules.create.stepTitles.map')}{' '}
+      </SectionLabel>
+      <Address>
         {location.address1}
         <br />
         {location.address2}
@@ -34,7 +49,7 @@ export const AddressDisplay = ({ location }) => {
         {location.country}
         <br />
         {location.postalCode}
-      </address>
+      </Address>
     </AddressDisplayWrapper>
   );
 };
@@ -75,7 +90,8 @@ export const MapDisplay = ({ coords }) => (
     {coords && (
       <WebClientMap
         destinations={[]}
-        zoom={12}
+        zoom={17}
+        width="80%"
         height={mapHeight}
         origin={{ lat: coords.latitude, lng: coords.longitude }}
         canRelocate={false}

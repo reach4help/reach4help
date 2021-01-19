@@ -7,7 +7,7 @@ import apiKey from './apiKey';
 import CustomMapControlPortal from './CustomMapControlPortal';
 import MyLocationControl from './MyLocationControl';
 import { metersToImperial, metersToKm, secondsToTimestring } from './utils';
-import { DestinationMarker, OriginMarker } from './WebClientMapMarker';
+import { DestinationMarker, SmallOrangeMarker } from './WebClientMapMarker';
 import WebClientMapMessage from './WebClientMapMessage';
 
 const createMapOptions = maps => ({
@@ -207,7 +207,7 @@ const WebClientMap: React.FC<MapProps> = ({
             <MyLocationControl onClick={locateMe} />
           </CustomMapControlPortal>
         )}
-        <OriginMarker lat={origin.lat} lng={origin.lng} isCav={isCav} />
+        <SmallOrangeMarker lat={origin.lat} lng={origin.lng} />
         {destinations.map(r => (
           <DestinationMarker
             key={r.id}
