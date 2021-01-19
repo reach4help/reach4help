@@ -2,12 +2,10 @@ import { ArrowRightOutlined, CloseOutlined } from '@ant-design/icons';
 import { Form, Input, Select } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import {
   ButtonsDisplay,
   DisplayButton,
 } from 'src/modules/create/components/DisplayElements';
-import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const PostDetails: React.FC<PostDetailsProps> = ({
@@ -16,7 +14,6 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   postTypes,
   nextHandler,
   prevHandler,
-  postTypePrefix,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -30,9 +27,6 @@ const PostDetails: React.FC<PostDetailsProps> = ({
 
   return (
     <PostDetailsWrapper>
-      <TitleWithUnderline level={2} color={COLORS.primaryDark}>
-        {postTypePrefix} {t('modules.create.stepTitles.details')}
-      </TitleWithUnderline>
       <DetailsForm
         layout="vertical"
         form={form}
