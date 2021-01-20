@@ -2,7 +2,6 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import {
   AddressDisplay,
@@ -11,7 +10,6 @@ import {
   DisplayButton,
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
-import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const PostLocationStep: React.FC<PostLocationStepProps> = ({
@@ -37,14 +35,10 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
   return (
     <PostLocationWrapper>
       <MapDisplay coords={postLocation.coords} />
-      <TitleWithUnderline level={2} color={COLORS.primaryDark}>
-        {postTypePrefix} {t('modules.create.stepTitles.map')}
-      </TitleWithUnderline>
-      <LocationFormDiv>
-        <b>Choose an Address:</b>
+      <LocationForm>
         <ChooserDiv>
           <Select
-            style={{ width: 360 }}
+            style={{ width: '99%', margin: 'auto' }}
             onChange={handleAddressChange}
             defaultValue={postLocation.name}
           >
@@ -56,8 +50,8 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
             <Select.Option value="add">Add a new one</Select.Option>
           </Select>
         </ChooserDiv>
-        <AddressDisplay location={postLocation} />
-      </LocationFormDiv>
+        <AddressDisplay prefix={postTypePrefix} location={postLocation} />
+      </LocationForm>
       <ButtonsContainer>
         <ButtonsDisplay>
           <DisplayButton
@@ -83,12 +77,13 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
   );
 };
 
-const LocationFormDiv = styled.div`
+const LocationForm = styled.form`
   margin: 10px auto;
   width: 80%;
 `;
 const PostLocationWrapper = styled.div`
   height: 100%;
+  padding-left: 25px;
 `;
 
 const ChooserDiv = styled.div`
