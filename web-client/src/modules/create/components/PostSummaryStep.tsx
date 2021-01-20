@@ -28,8 +28,14 @@ const PostSummary: React.FC<PostSummaryProps> = ({
   const history = useHistory();
 
   const handleSubmit = () => {
-    submitPost();
-    setShowConfirmationPage(true);
+    submitPost()
+      .then(() => {
+        setShowConfirmationPage(true);
+      })
+      .catch(() => {
+        // eslint-disable-next-line no-console
+        console.error('Could not submit new Post');
+      });
   };
 
   return (
