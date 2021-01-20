@@ -20,8 +20,8 @@ import { useSearchKey } from 'src/ducks/search/operations';
 // ));
 
 const PostInfoDisplay = ({ post }) => {
-  const { userSnapshot, description, title } = post;
-  const { displayName, displayPicture } = userSnapshot;
+  const { creatorSnapshot, description, title } = post;
+  const { displayName, displayPicture } = creatorSnapshot;
   const onClickHandler = () => {
     alert('this should create a specific offer');
   };
