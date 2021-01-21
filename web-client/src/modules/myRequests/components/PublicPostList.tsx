@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import { Post } from 'src/models/posts';
 
-import PostItem from './PostItem';
+import PostItem from './PublicPostItem';
 
 const PostList: React.FC<PostListProps> = ({
   posts,
   loading,
-  // TODO: (es) remove handleTimeline,
+  // TODO: (es) remove isVariables,
   isCavAndOpenRequest,
   isPinAndOpenRequest,
   hideUserPics,
