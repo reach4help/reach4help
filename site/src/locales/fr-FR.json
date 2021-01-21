@@ -1,37 +1,16 @@
 {
   "common": {
     "Navigation": {
-      "Header": {
-        "language": "English",
-        "buttons": [
-          {
-            "title": "Mutual Aid Map",
-            "link": "https://map.reach4help.org"
-          },
-          {
-            "title": "Sign in",
-            "link": "https://app.reach4help.org"
-          }
-        ]
+      "buttons": {
+        "map": "Mutual Aid Map",
+        "signIn": "Sign in"
       },
-      "IndexPage": [
-        {
-          "title": "Accueil",
-          "link": "/#home"
-        },
-        {
-          "title": "Mission",
-          "link": "/#mission"
-        },
-        {
-          "title": "Équipe",
-          "link": "/#team"
-        },
-        {
-          "title": "Partenaires",
-          "link": "/#partners"
-        }
-      ]
+      "pages": {
+        "home": "Home",
+        "mission": "Mission",
+        "impact": "Impact",
+        "team": "Team"
+      }
     },
     "HomePage": {
       "HeroSection": {
