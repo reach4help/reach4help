@@ -32,7 +32,6 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   useEffect(() => {
     if (profileState.userRef) {
       observeGetMyOffers(dispatch, { status, userRef: profileState.userRef });
-      myOffers.observerReceivedFirstUpdate = false;
     }
   }, [dispatch, profileState.userRef, status]);
 
