@@ -13,7 +13,7 @@ import {
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
 import Header from '../components/Header';
-import RequestList from '../components/PostList';
+import PublicPostsList from '../components/PublicPostList';
 
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
@@ -32,7 +32,6 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   useEffect(() => {
     if (profileState.userRef) {
       observeGetMyOffers(dispatch, { status, userRef: profileState.userRef });
-      myOffers.observerReceivedFirstUpdate = false;
     }
   }, [dispatch, profileState.userRef, status]);
 
@@ -63,7 +62,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
         }
         isAcceptedRequests={false}
       />
-      <RequestList
+      <PublicPostsList
         posts={myOffers.data}
         loading={myOffers && myOffers.loading}
       />

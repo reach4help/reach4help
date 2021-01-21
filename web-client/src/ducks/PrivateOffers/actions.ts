@@ -16,6 +16,7 @@ export const dispatchCreatePrivateOfferFromRequest = (
   const postPayload = Post.factory(payload);
   postPayload.requestingHelp = !payload.requestingHelp;
   postPayload.sourcePublicPostId = payload.postId;
+  postPayload.isResponse = true;
   return dispatch({
     type: DISPATCH_CREATE_PRIVATE_OFFER,
     payload: postPayload,
