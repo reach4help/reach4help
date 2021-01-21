@@ -13,6 +13,10 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   /* margin-bottom: 3em; */
 
+  h2 {
+    font-size: 30px;
+  }
+
   p {
     line-height: 1.5em;
     font-size: 1.1em;
@@ -21,6 +25,7 @@ export const ContentWrapper = styled.div`
 `
 
 export const LogosWrapper = styled.div`
+  gap: 1em 2em;
   padding: 1.5em 3em;
   padding-bottom: 0;
   display: flex;
@@ -29,20 +34,17 @@ export const LogosWrapper = styled.div`
   flex-wrap: wrap;
 
   ${p => p.theme.breakpoints.small} {
-    padding-right: 2em;
+    gap: 0.5em;
   }
 
   img {
-    padding-right: 2em;
+    filter: grayscale();
     opacity: 0.8;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, filter 0.3s ease;
 
     :hover {
       opacity: 1;
-    }
-
-    ${p => p.theme.breakpoints.small} {
-      padding-bottom: 0.5em;
+      filter: none;
     }
   }
 `

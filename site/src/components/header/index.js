@@ -34,8 +34,6 @@ function Header() {
     { title: t("Navigation.pages.team"), link: "/team" },
   ]
 
-  const navSections = t("Navigation.IndexPage", { returnObjects: true })
-
   const drawerToggler = () => {
     setDrawerClose(!drawerClose)
   }
@@ -98,21 +96,10 @@ function Header() {
                 </Link>
               </li>
             ))}
+
+            {/* Displays on mobile */}
             <ActionsLi show={drawerClose}>
-              <a href="https://app.reach4help.org/" rel="noopener">
-                <Button
-                  onClick={() => {
-                    window.location.href = "https://app.reach4help.org/"
-                  }}
-                  backgroundColor="#ff7b02"
-                  textColor="white"
-                  outlineColor="white"
-                  fontSize="0.95em"
-                >
-                  {t("Navigation.Header.buttons.1.title")}
-                </Button>
-              </a>
-              <a href="https://map.reach4help.org/" rel="noopener">
+              <a href={buttonLinks[0].link} rel="noopener">
                 <Button
                   backgroundColor="transparent"
                   border="2px solid #ff7b02"
@@ -120,7 +107,17 @@ function Header() {
                   outlineColor="white"
                   fontSize="0.95em"
                 >
-                  {t("Navigation.Header.buttons.0.title")}
+                  {buttonLinks[0].title}
+                </Button>
+              </a>
+              <a href={buttonLinks[1].link} rel="noopener">
+                <Button
+                  backgroundColor="#ff7b02"
+                  textColor="white"
+                  outlineColor="white"
+                  fontSize="0.95em"
+                >
+                  {buttonLinks[1].title}
                 </Button>
               </a>
 
