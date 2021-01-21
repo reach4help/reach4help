@@ -21,21 +21,24 @@
           "Utilisez la carte pour trouver et rejoindre les efforts d'entraide près de chez vous ou créez le vôtre.",
           "Si vous êtes une organisation d'aide, ajoutez vos informations à la carte pour que d'autres puissent vous trouver."
         ],
-        "buttons": ["Obtenir de l'aide", "Bénévole"]
+        "buttons": [
+          "Obtenir de l'aide",
+          "Bénévole"
+        ]
       },
       "ReasonsSection": {
-        "heading": "Why Use Reach4Help",
+        "heading": "Pourquoi utiliser Reach4Help",
         "items": [
           {
-            "title": "One-Stop Shop",
+            "title": "Guichet Unique",
             "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
           },
           {
-            "title": "Easily Available",
+            "title": "Facilement Disponible",
             "description": "Use our app on the go from any mobile device, tablet, or desktop."
           },
           {
-            "title": "Completely Free",
+            "title": "Entièrement Gratuit",
             "description": "No subscriptions or hidden fees. You can browse and post for free."
           }
         ]
@@ -44,14 +47,14 @@
         "heading": "How Getting Help Works",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "Étape 1",
             "items": [
               {
-                "title": "Request Help",
+                "title": "Demander de l'aide",
                 "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
               },
               {
-                "or": "OR"
+                "or": "OU"
               },
               {
                 "title": "Choose Volunteer Offer",
@@ -60,7 +63,7 @@
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "Étape 2",
             "items": [
               {
                 "title": "Coordinate Getting Help",
@@ -74,14 +77,14 @@
         "heading": "How Volunteering Works",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "Étape 1",
             "items": [
               {
                 "title": "Offer Help",
                 "description": "Let us know what you can help with, and we'll connect you to someone who needs it."
               },
               {
-                "or": "OR"
+                "or": "OU"
               },
               {
                 "title": "Choose Who to Help",
@@ -104,14 +107,15 @@
         "heading": "About",
         "subheading": "We’re a group of volunteers driven to unify help worldwide",
         "paragraph": "Meet the minds behind this initiative and join us!",
-        "buttons": ["More About Us"]
+        "buttons": [
+          "More About Us"
+        ]
       },
       "SupportersSection": {
         "heading": "Supporters",
         "subheading": "We want to thank all the brands, companies, and nonprofits supporting us on our mission!"
       }
     },
-
     "MissionPage": {
       "heading": "Notre Mission",
       "description": [
@@ -121,7 +125,10 @@
     },
     "ImpactPage": {
       "WorldMapSection": {
-        "heading": ["Nous aidons déjà", "600+ personnes dans 38 pays!"],
+        "heading": [
+          "Nous aidons déjà",
+          "600+ personnes dans 38 pays!"
+        ],
         "hoverInfo": {
           "users": "Utilisateurs: ",
           "noUsers": "Pas encore d'utilisateurs <br/> (peut-être vous?)"
@@ -134,18 +141,24 @@
     },
     "TeamPage": {
       "heading": "Équipe",
-      "subheading": "Nous recherchons plus de personnes pour rejoindre nos équipes, si vous souhaitez vous joindre.",
+      "subheading": "",
       "description": [
-        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial."
+        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial.",
+        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
       ],
-      "buttons": ["Vous êtes l'aide à côté. Rejoignez-nous!"],
       "members": {
         "heading": "Contacts principaux"
-      }
+      },
+      "buttons": [
+        "Vous êtes l'aide à côté. Rejoignez-nous!"
+      ]
     },
     "Footer": {
       "sections": [
-        { "title": "Politique de Confidentialité", "link": "/confidentialite" },
+        {
+          "title": "Politique de Confidentialité",
+          "link": "/confidentialite"
+        },
         {
           "title": "Code de conduite",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
