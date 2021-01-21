@@ -24,7 +24,7 @@ export default [
   },
   {
     name: "Town Hall Project",
-    logo: require("./twon-hall-project.jpg"),
+    logo: require("./town-hall-project.jpg"),
     link: "https://townhallproject.com/",
   },
   {
