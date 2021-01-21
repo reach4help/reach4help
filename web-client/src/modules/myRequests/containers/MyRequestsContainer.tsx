@@ -12,7 +12,7 @@ import {
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
 import Header from '../components/Header';
-import PostList from '../components/PostList';
+import PostList from '../components/PublicPostList';
 
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
