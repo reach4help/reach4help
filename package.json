@@ -30,7 +30,8 @@
     }
   },
   "resolutions": {
-    "@babel/preset-env": "^7.8.7"
+    "@babel/preset-env": "^7.8.7",
+    "**/gatsby/webpack-dev-server": "3.11.0"
   },
   "dependencies": {
     "cross-env": "^7.0.2",

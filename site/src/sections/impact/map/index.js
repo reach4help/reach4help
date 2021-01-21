@@ -1,18 +1,26 @@
+/* eslint-disable global-require */
 import React from "react"
 import { useTranslation } from "react-i18next"
 
-import WorldMap from "src/components/worldMap"
 import { WorldMapWrapper } from "./style"
 
 function WorldMapSection() {
   const { t } = useTranslation()
+
+  // Conditionally importing WorldMap if window exists
+  // to not conflict with Gatsby's server side rendering
+  let WorldMap
+  if (typeof window !== `undefined`) {
+    WorldMap = require("../../../components/worldMap/index.js").default
+  }
+
   return (
     <WorldMapWrapper>
       <h2>
-        <span>{t("WorldMap.headingFirstLine")}</span>
-        <span>{t("WorldMap.headingSecondLine")}</span>
+        <span>{t("ImpactPage.WorldMapSection.heading.0")}</span>
+        <span>{t("ImpactPage.WorldMapSection.heading.1")}</span>
       </h2>
-      <WorldMap />
+      {WorldMap && <WorldMap />}
     </WorldMapWrapper>
   )
 }
