@@ -1,5 +1,4 @@
 import algoliasearch from 'algoliasearch/lite';
-import { Button } from 'antd';
 import React, { useState } from 'react';
 import { InstantSearch } from 'react-instantsearch-dom';
 import {
@@ -10,6 +9,7 @@ import {
 } from 'react-instantsearch-dom-maps';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import { useSearchKey } from 'src/ducks/search/operations';
+import PostInfo from 'src/modules/myRequests/components/PostInfo';
 
 // const Debug = connectHits(({ hits }) => (
 //   <ul>
@@ -18,48 +18,6 @@ import { useSearchKey } from 'src/ducks/search/operations';
 //     ))}
 //   </ul>
 // ));
-
-const PostInfoDisplay = ({ post }) => {
-  const { creatorSnapshot, description, title } = post;
-  const { displayName, displayPicture } = creatorSnapshot;
-  const onClickHandler = () => {
-    alert('this should create a specific offer');
-  };
-  //     dispatch(
-  //       setOffer(
-  //         {
-  //           cavUserRef: profileState.userRef,
-  //           pinUserRef:
-  //             pendingRequests.data[expandedRequestId]
-  //               .pinUserRef,
-  //           requestRef: firestore.collection('requests').doc(expandedRequestId),
-  //           cavUserSnapshot: profileState.profile,
-  //           requestSnapshot: pendingRequests.data[
-  //             expandedRequestId
-  //           ].getRequest(),
-  //           message: t(
-  //             'modules.requests.containers.FindRequestsContainer.want_to_help',
-  //           ),
-  //           status: action ? OfferStatus.pending : OfferStatus.cavDeclined,
-  //         },
-  //         undefined,
-  //         phoneNumber,
-  //       ),
-  //     );
-
-  return (
-    <div>
-      <div style={{ display: 'flex', zIndex: 100 }}>
-        <h2> {displayName}</h2>
-        <img src={displayPicture} alt={displayName} />
-      </div>
-      <hr />
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <Button onClick={onClickHandler}>Offer help</Button>
-    </div>
-  );
-};
 
 const FindRequestsContainer: React.FC = () => {
   const searchKey = useSearchKey();
@@ -115,7 +73,7 @@ const FindRequestsContainer: React.FC = () => {
         </div>
         {/* <Debug /> */}
       </InstantSearch>
-      {selectedMarker && <PostInfoDisplay post={selectedMarker} />}
+      {selectedMarker && <PostInfo post={selectedMarker} />}
     </div>
   );
 };
