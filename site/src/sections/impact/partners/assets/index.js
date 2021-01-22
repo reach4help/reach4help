@@ -19,13 +19,18 @@ export default [
   },
   {
     name: "Mutual Aid.Wiki",
-    logo: require("./mutual-aid-wiki.svg"),
+    logo: require("./mutual-aid-wiki.png"),
     link: "https://mutualaid.wiki/",
   },
   {
     name: "Town Hall Project",
-    logo: require("./town-hall-project.jpg"),
+    logo: require("./town-hall-project.png"),
     link: "https://townhallproject.com/",
+  },
+  {
+    name: "Mutual Aid.World",
+    logo: require("./mutual-aid-world.png"),
+    link: "https://mutualaid.world/",
   },
   {
     name: "PCR Testing",
