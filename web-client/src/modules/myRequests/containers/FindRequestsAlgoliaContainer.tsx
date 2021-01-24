@@ -1,4 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
+import { Button } from 'antd';
 import React, { useState } from 'react';
 import { InstantSearch } from 'react-instantsearch-dom';
 import {
@@ -100,7 +101,7 @@ const FindRequestsContainer: React.FC = () => {
         </div>
         {/* <Debug /> */}
       </InstantSearch>
-      {selectedMarker && <PostInfo post={selectedMarker} />}
+      {selectedMarker && <PostInfoDisplay post={selectedMarker} />}
     </div>
   );
 };
