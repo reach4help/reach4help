@@ -27,9 +27,7 @@ export enum PostStatus {
   removed = 'removed',
 }
 
-type firebaseRefType = firebase.firestore.DocumentReference<
-  firebase.firestore.DocumentData
->;
+type firebaseRefType = firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
 
 type firebaseTimestampType = firebase.firestore.Timestamp;
 export interface IPost extends firebase.firestore.DocumentData {
@@ -395,9 +393,6 @@ export class Post implements IPost {
 }
 
 export const PostFirestoreConverter: firebase.firestore.FirestoreDataConverter<Post> = {
-  fromFirestore: (
-    data: firebase.firestore.QueryDocumentSnapshot<IPost>,
-  ): Post => Post.factory(data.data()),
-  toFirestore: (modelObject: Post): firebase.firestore.DocumentData =>
-    modelObject.toObject(),
+  fromFirestore: (data: firebase.firestore.QueryDocumentSnapshot<IPost>): Post => Post.factory(data.data()),
+  toFirestore: (modelObject: Post): firebase.firestore.DocumentData => modelObject.toObject(),
 };
