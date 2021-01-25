@@ -5,14 +5,17 @@ const { asyncType, observerType, syncType } = createActionTypeFactory('POSTS');
 
 export const CHANGE_MODAL = syncType('CHANGE_MODAL');
 
-export const SET = asyncType('SET');
-export const RESET_SET = syncType('RESET_SET');
+export const DISPATCH_CREATE_PRIVATE_OFFER = asyncType(
+  'DISPATCH_CREATE_PRIVATE_OFFER',
+);
+export const OBSERVE_UPDATE_PRIVATE_OFFER = asyncType('UPDATE_PRIVATE_OFFER');
+export const RESET_UPDATE_PRIVATE_OFFER = syncType(
+  'RESET_UPDATE_PRIVATE_OFFER',
+);
 
-export const OBSERVE_MY_OFFERS = observerType('OBSERVE_MY_OFFERS');
+export const OBSERVE_GET_MY_OFFERS = observerType('OBSERVE_MY_OFFERS');
 
-export const UPDATE = asyncType('UPDATE');
-
-export const SET_TEMP_OFFER = syncType('SET_TEMP_OFFER');
+export const UPDATE_TEMP_OFFER = syncType('SET_TEMP_OFFER');
 
 export interface OfferState {
   myOffers: {
@@ -22,7 +25,7 @@ export interface OfferState {
     error?: Error;
   };
   setAction: {
-    success: boolean;
+    success?: boolean;
     loading: boolean;
     modalState: boolean;
     error?: Error;

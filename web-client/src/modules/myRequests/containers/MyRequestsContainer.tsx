@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { observeMyRequests } from 'src/ducks/myRequests/actions';
-import { PostState } from 'src/ducks/myRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
+import { observeGetMyRequests } from 'src/ducks/PublicRequests/actions';
+import { RequestState } from 'src/ducks/PublicRequests/types';
 import { ApplicationPreference } from 'src/models/users';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
@@ -12,7 +12,7 @@ import {
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
 import Header from '../components/Header';
-import PostList from '../components/PostList';
+import PostList from '../components/PublicPostList';
 
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
@@ -24,12 +24,13 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   );
 
   const myRequests = useSelector(
-    ({ posts }: { posts: PostState }) => posts.myRequests,
+    ({ myRequestReducer }: { myRequestReducer: RequestState }) =>
+      myRequestReducer.myRequests,
   );
 
   useEffect(() => {
     if (profileState.userRef) {
-      observeMyRequests(dispatch, {
+      observeGetMyRequests(dispatch, {
         status,
         userRef: profileState.userRef,
       });

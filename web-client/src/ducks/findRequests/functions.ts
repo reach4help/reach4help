@@ -1,15 +1,12 @@
-import { User } from 'src/models/users';
-
-import { observePosts as observeFindRequestsFunc } from '../posts/functions';
+import { getPosts as observeFindRequestsFunc } from 'src/services/posts';
 
 export const observeFindRequests = (
   nextValue: Function,
   {
-    status,
-    userRef,
+    lat,
+    lng,
   }: {
-    status: string | null;
-    userRef: firebase.firestore.DocumentReference<User>;
+    lat: number;
+    lng: number;
   },
-) =>
-  observeFindRequestsFunc(nextValue, { requestingHelp: true, status, userRef });
+) => observeFindRequestsFunc(nextValue, { requestingHelp: true, lat, lng });
