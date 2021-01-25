@@ -51,7 +51,7 @@
             "items": [
               {
                 "title": "Demander de l'aide",
-                "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
+                "description": "Faites-nous savoir ce dont vous avez besoin et nous enverrons votre demande aux bénévoles et aux organisations locales."
               },
               {
                 "or": "OU"
@@ -81,14 +81,14 @@
             "items": [
               {
                 "title": "Offrir de l'aide",
-                "description": "Let us know what you can help with, and we'll connect you to someone who needs it."
+                "description": "Faites-nous savoir ce que vous pouvez aider et nous vous contacterons à quelqu'un qui en a besoin."
               },
               {
                 "or": "OU"
               },
               {
-                "title": "Choose Who to Help",
-                "description": "Select one or more people in need whose requests you can fulfill."
+                "title": "Choisir qui aider",
+                "description": "Sélectionnez une ou plusieurs personnes dans le besoin dont vous pouvez répondre aux demandes."
               }
             ]
           },
