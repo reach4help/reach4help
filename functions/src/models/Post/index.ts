@@ -168,14 +168,14 @@ export class Post implements IPost {
   }
 
   @ValidateNested()
-  private _creatorSnapshot: User;
+  private _userSnapshot: User;
 
-  get creatorSnapshot(): User {
-    return this._creatorSnapshot;
+  get userSnapshot(): User {
+    return this._userSnapshot;
   }
 
-  set creatorSnapshot(creatorSnapshot: User) {
-    this._creatorSnapshot = creatorSnapshot;
+  set userSnapshot(userSnapshot: User) {
+    this._userSnapshot = userSnapshot;
   }
 
   @IsString()
