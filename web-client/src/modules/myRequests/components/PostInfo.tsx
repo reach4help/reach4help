@@ -6,8 +6,8 @@ const { Title, Text } = Typography;
 const { Meta } = Card;
 
 const PostInfo = ({ post }) => {
-  const { creatorSnapshot, description, title } = post;
-  const { displayName, displayPicture } = creatorSnapshot;
+  const { userSnapshot, description, title } = post;
+  const { displayName, displayPicture } = userSnapshot;
   const onClickHandler = () => {
     alert('this should create a specific offer');
   };

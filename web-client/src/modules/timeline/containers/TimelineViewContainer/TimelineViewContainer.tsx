@@ -243,13 +243,13 @@ const TimelineViewContainer: React.FC<{
           }, 100);
         }}
         user={
-          request.creatorSnapshot
+          request.userSnapshot
           // TODO: (es) Figure out what this does
           // profileState.profile.applicationPreference ===
           //   ApplicationPreference.cav
-          //   ? request.parentSnapshot?.creatorSnapshot
-          //   : request.creatorSnapshot
-          //     ? request.creatorSnapshot
+          //   ? request.parentSnapshot?.userSnapshot
+          //   : request.userSnapshot
+          //     ? request.userSnapshot
           //     : undefined
         }
       />

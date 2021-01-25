@@ -27,34 +27,18 @@ export enum PostStatus {
   removed = 'removed',
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-type firebaseRefType = firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
-=======
 type firebaseRefType = firebase.firestore.DocumentReference<
   firebase.firestore.DocumentData
 >;
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
-=======
-type firebaseRefType = firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
->>>>>>> 9f64c91f... feat: implenent create private offer and request
 
 type firebaseTimestampType = firebase.firestore.Timestamp;
 export interface IPost extends firebase.firestore.DocumentData {
   postId: string | null;
   isResponse: boolean;
   requestingHelp: boolean;
-<<<<<<< HEAD
-<<<<<<< HEAD
   sourcePublicPostId: string | null;
-=======
-  sourcePostId: string | null;
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-  sourcePublicPostId: string | null;
->>>>>>> 9f64c91f... feat: implenent create private offer and request
-  creatorRef: firebaseRefType | null;
-  creatorSnapshot: IUser;
+  userRef: firebaseRefType | null;
+  userSnapshot: IUser;
   title: string;
   description: string;
   streetAddress: string;
@@ -62,8 +46,6 @@ export interface IPost extends firebase.firestore.DocumentData {
   status: PostStatus;
   creatorGivenRating: number | null;
   parentCreatorGivenRating: number | null;
-<<<<<<< HEAD
-<<<<<<< HEAD
   creatorRatedAt: firebaseTimestampType | null;
   parentCreatorRatedAt: firebaseTimestampType | null;
   updateSeenBy: string[];
@@ -71,24 +53,6 @@ export interface IPost extends firebase.firestore.DocumentData {
   negativeResponseCount: number;
   createdAt?: firebaseTimestampType | null;
   updatedAt?: firebaseTimestampType | null;
-=======
-  creatorRatedAt: Date | null;
-  parentCreatorRatedAt: Date | null;
-  updateSeenBy: string[];
-  positiveResponseCount: number;
-  negativeResponseCount: number;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-  creatorRatedAt: firebaseTimestampType | null;
-  parentCreatorRatedAt: firebaseTimestampType | null;
-  updateSeenBy: string[];
-  positiveResponseCount: number;
-  negativeResponseCount: number;
-  createdAt?: firebaseTimestampType | null;
-  updatedAt?: firebaseTimestampType | null;
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
 }
 
 export class Post implements IPost {
@@ -97,17 +61,9 @@ export class Post implements IPost {
     postId: string | null,
     isResponse = false,
     requestingHelp = false,
-<<<<<<< HEAD
-<<<<<<< HEAD
     sourcePublicPostId: string | null = null,
-=======
-    sourcePostId: string | null = null,
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-    sourcePublicPostId: string | null = null,
->>>>>>> 9f64c91f... feat: implenent create private offer and request
-    creatorRef: firebaseRefType | null,
-    creatorSnapshot: User,
+    userRef: firebaseRefType | null,
+    userSnapshot: User,
     title: string,
     description: string,
     streetAddress: string,
@@ -115,8 +71,6 @@ export class Post implements IPost {
     status: PostStatus = PostStatus.open,
     creatorGivenRating: number | null = null,
     parentCreatorGivenRating: number | null = null,
-<<<<<<< HEAD
-<<<<<<< HEAD
     creatorRatedAt: firebaseTimestampType | null = null,
     parentCreatorRatedAt: firebaseTimestampType | null = null,
     updateSeenBy: string[] = [],
@@ -124,39 +78,13 @@ export class Post implements IPost {
     negativeResponseCount = 0,
     createdAt?: firebaseTimestampType | null,
     updatedAt?: firebaseTimestampType | null,
-=======
-    creatorRatedAt: Date | null = null,
-    parentCreatorRatedAt: Date | null = null,
-    updateSeenBy: string[] = [],
-    positiveResponseCount = 0,
-    negativeResponseCount = 0,
-    createdAt?: Date | null,
-    updatedAt?: Date | null,
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-    creatorRatedAt: firebaseTimestampType | null = null,
-    parentCreatorRatedAt: firebaseTimestampType | null = null,
-    updateSeenBy: string[] = [],
-    positiveResponseCount = 0,
-    negativeResponseCount = 0,
-    createdAt?: firebaseTimestampType | null,
-    updatedAt?: firebaseTimestampType | null,
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
   ) {
     this._postId = postId;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
-<<<<<<< HEAD
-<<<<<<< HEAD
     this._sourcePublicPostId = sourcePublicPostId;
-=======
-    this._sourcePostId = sourcePostId;
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-    this._sourcePublicPostId = sourcePublicPostId;
->>>>>>> 9f64c91f... feat: implenent create private offer and request
-    this._creatorRef = creatorRef;
-    this._creatorSnapshot = creatorSnapshot;
+    this._userRef = userRef;
+    this._userSnapshot = userSnapshot;
     this._title = title;
     this._description = description;
     this._latLng = latLng;
@@ -211,8 +139,6 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-<<<<<<< HEAD
-<<<<<<< HEAD
   private _sourcePublicPostId: string | null;
 
   get sourcePublicPostId(): string | null {
@@ -221,46 +147,28 @@ export class Post implements IPost {
 
   set sourcePublicPostId(sourcePublicPostId: string | null) {
     this._sourcePublicPostId = sourcePublicPostId;
-=======
-  private _sourcePostId: string | null;
-=======
-  private _sourcePublicPostId: string | null;
->>>>>>> 9f64c91f... feat: implenent create private offer and request
-
-  get sourcePublicPostId(): string | null {
-    return this._sourcePublicPostId;
-  }
-
-<<<<<<< HEAD
-  set sourcePostId(sourcePostId: string | null) {
-    this._sourcePostId = sourcePostId;
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-  set sourcePublicPostId(sourcePublicPostId: string | null) {
-    this._sourcePublicPostId = sourcePublicPostId;
->>>>>>> 9f64c91f... feat: implenent create private offer and request
   }
 
   @IsNotEmptyObject()
-  private _creatorRef: firebaseRefType | null;
+  private _userRef: firebaseRefType | null;
 
-  get creatorRef(): firebaseRefType | null {
-    return this._creatorRef;
+  get userRef(): firebaseRefType | null {
+    return this._userRef;
   }
 
-  set creatorRef(creatorRef: firebaseRefType | null) {
-    this._creatorRef = creatorRef;
+  set userRef(userRef: firebaseRefType | null) {
+    this._userRef = userRef;
   }
 
   @ValidateNested()
-  private _creatorSnapshot: User;
+  private _userSnapshot: User;
 
-  get creatorSnapshot(): User {
-    return this._creatorSnapshot;
+  get userSnapshot(): User {
+    return this._userSnapshot;
   }
 
-  set creatorSnapshot(creatorSnapshot: User) {
-    this._creatorSnapshot = creatorSnapshot;
+  set userSnapshot(userSnapshot: User) {
+    this._userSnapshot = userSnapshot;
   }
 
   @IsString()
@@ -359,8 +267,6 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
-<<<<<<< HEAD
-<<<<<<< HEAD
   private _createdAt: firebaseTimestampType | null | undefined;
 
   get createdAt(): firebaseTimestampType | null | undefined {
@@ -368,22 +274,6 @@ export class Post implements IPost {
   }
 
   set createdAt(value: firebaseTimestampType | null | undefined) {
-=======
-  private _createdAt: Date | null | undefined;
-=======
-  private _createdAt: firebaseTimestampType | null | undefined;
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
-
-  get createdAt(): firebaseTimestampType | null | undefined {
-    return this._createdAt;
-  }
-
-<<<<<<< HEAD
-  set createdAt(value: Date | null | undefined) {
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-  set createdAt(value: firebaseTimestampType | null | undefined) {
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
     this._createdAt = value;
   }
 
@@ -391,8 +281,6 @@ export class Post implements IPost {
        https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
      */
   @IsObject()
-<<<<<<< HEAD
-<<<<<<< HEAD
   private _updatedAt: firebaseTimestampType | null | undefined;
 
   get updatedAt(): firebaseTimestampType | null | undefined {
@@ -400,22 +288,6 @@ export class Post implements IPost {
   }
 
   set updatedAt(value: firebaseTimestampType | null | undefined) {
-=======
-  private _updatedAt: Date | null | undefined;
-=======
-  private _updatedAt: firebaseTimestampType | null | undefined;
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
-
-  get updatedAt(): firebaseTimestampType | null | undefined {
-    return this._updatedAt;
-  }
-
-<<<<<<< HEAD
-  set updatedAt(value: Date | null | undefined) {
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-  set updatedAt(value: firebaseTimestampType | null | undefined) {
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
     this._updatedAt = value;
   }
 
@@ -449,8 +321,6 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-<<<<<<< HEAD
-<<<<<<< HEAD
   private _creatorRatedAt: firebaseTimestampType | null;
 
   get creatorRatedAt(): firebaseTimestampType | null {
@@ -458,29 +328,11 @@ export class Post implements IPost {
   }
 
   set creatorRatedAt(creatorRatedAt: firebaseTimestampType | null) {
-=======
-  private _creatorRatedAt: Date | null;
-=======
-  private _creatorRatedAt: firebaseTimestampType | null;
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
-
-  get creatorRatedAt(): firebaseTimestampType | null {
-    return this._creatorRatedAt;
-  }
-
-<<<<<<< HEAD
-  set creatorRatedAt(creatorRatedAt: Date | null) {
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-  set creatorRatedAt(creatorRatedAt: firebaseTimestampType | null) {
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
     this._creatorRatedAt = creatorRatedAt;
   }
 
   @Allow()
   @IsOptional()
-<<<<<<< HEAD
-<<<<<<< HEAD
   private _parentCreatorRatedAt: firebaseTimestampType | null;
 
   get parentCreatorRatedAt(): firebaseTimestampType | null {
@@ -488,22 +340,6 @@ export class Post implements IPost {
   }
 
   set parentCreatorRatedAt(parentCreatorRatedAt: firebaseTimestampType | null) {
-=======
-  private _parentCreatorRatedAt: Date | null;
-=======
-  private _parentCreatorRatedAt: firebaseTimestampType | null;
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
-
-  get parentCreatorRatedAt(): firebaseTimestampType | null {
-    return this._parentCreatorRatedAt;
-  }
-
-<<<<<<< HEAD
-  set parentCreatorRatedAt(parentCreatorRatedAt: Date | null) {
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-  set parentCreatorRatedAt(parentCreatorRatedAt: firebaseTimestampType | null) {
->>>>>>> 5c93e7c0... feat: chg Date to firestoreTimestampType
     this._parentCreatorRatedAt = parentCreatorRatedAt;
   }
 
@@ -512,17 +348,9 @@ export class Post implements IPost {
       data.postId,
       data.isResponse,
       data.requestingHelp,
-<<<<<<< HEAD
-<<<<<<< HEAD
       data.sourcePublicPostId,
-=======
-      data.sourcePostId,
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-      data.sourcePublicPostId,
->>>>>>> 9f64c91f... feat: implenent create private offer and request
-      data.creatorRef,
-      User.factory(data.creatorSnapshot),
+      data.userRef,
+      User.factory(data.userSnapshot),
       data.title,
       data.description,
       data.streetAddress,
@@ -545,17 +373,9 @@ export class Post implements IPost {
       postId: this.postId,
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
-<<<<<<< HEAD
-<<<<<<< HEAD
       sourcePublicPostId: this.sourcePublicPostId || null,
-=======
-      sourcePostId: this.sourcePostId || null,
->>>>>>> 5454bcc4... feat: change postRef,sourcePostRef to postid,sourcepostid so don't have to convert
-=======
-      sourcePublicPostId: this.sourcePublicPostId || null,
->>>>>>> 9f64c91f... feat: implenent create private offer and request
-      creatorRef: this.creatorRef,
-      creatorSnapshot: this.creatorSnapshot.toObject(),
+      userRef: this.userRef,
+      userSnapshot: this.userSnapshot.toObject(),
       title: this.title,
       description: this.description,
       streetAddress: this.streetAddress,
@@ -575,6 +395,9 @@ export class Post implements IPost {
 }
 
 export const PostFirestoreConverter: firebase.firestore.FirestoreDataConverter<Post> = {
-  fromFirestore: (data: firebase.firestore.QueryDocumentSnapshot<IPost>): Post => Post.factory(data.data()),
-  toFirestore: (modelObject: Post): firebase.firestore.DocumentData => modelObject.toObject(),
+  fromFirestore: (
+    data: firebase.firestore.QueryDocumentSnapshot<IPost>,
+  ): Post => Post.factory(data.data()),
+  toFirestore: (modelObject: Post): firebase.firestore.DocumentData =>
+    modelObject.toObject(),
 };

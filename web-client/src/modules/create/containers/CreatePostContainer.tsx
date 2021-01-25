@@ -118,11 +118,12 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         positiveResponseCount: 0,
         negativeResponseCount: 0,
         title,
-        description,
-        creatorRef: profileState.userRef,
+        body,
+        description: '', // request.description,
+        userRef: profileState.userRef,
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
         latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
-        creatorSnapshot: profileState.profile.toObject() as IUser,
+        userSnapshot: profileState.profile.toObject() as IUser,
         // TODO: (es) Why do I get an error if I change "as IPost" to "Post"
       } as IPost;
       const newPost2 = Post.factory(newPost);
