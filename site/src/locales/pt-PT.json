@@ -27,43 +27,43 @@
         ]
       },
       "ReasonsSection": {
-        "heading": "Why Use Reach4Help",
+        "heading": "Por que Usar Reach4Help",
         "items": [
           {
-            "title": "One-Stop Shop",
-            "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
+            "title": "Loja de uma parada",
+            "description": "Não desperdice horas pesquisando. Obtenha ajuda rápida com nossa base de dados de voluntários."
           },
           {
-            "title": "Easily Available",
-            "description": "Use our app on the go from any mobile device, tablet, or desktop."
+            "title": "Disponível Facilmente",
+            "description": "Use nosso aplicativo em qualquer dispositivo móvel, tablet ou desktop."
           },
           {
-            "title": "Completely Free",
-            "description": "No subscriptions or hidden fees. You can browse and post for free."
+            "title": "Completamente Grátis",
+            "description": "Sem assinaturas ou taxas ocultas. Você pode navegar e publicar gratuitamente."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "How Getting Help Works",
+        "heading": "Como Obter Ajuda funciona",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "Passo 1",
             "items": [
               {
-                "title": "Request Help",
-                "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
+                "title": "Pedir Ajuda",
+                "description": "Conte-nos o que você precisa e enviaremos seu pedido para voluntários e organizações locais."
               },
               {
-                "or": "OR"
+                "or": "OU"
               },
               {
-                "title": "Choose Volunteer Offer",
-                "description": "Pick an offer of help from volunteers in your area."
+                "title": "Escolher Oferta de Voluntário",
+                "description": "Escolha uma oferta de ajuda de voluntários em sua região."
               }
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "Passo 2",
             "items": [
               {
                 "title": "Coordinate Getting Help",
