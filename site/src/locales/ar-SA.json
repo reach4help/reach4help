@@ -57,37 +57,37 @@
                 "or": "أو"
               },
               {
-                "title": "Choose Volunteer Offer",
-                "description": "Pick an offer of help from volunteers in your area."
+                "title": "اختر عرض من متطوع",
+                "description": "اختر عرضًا للمساعدة من المتطوعين في منطقتك."
               }
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "الخطوة 2",
             "items": [
               {
                 "title": "Coordinate Getting Help",
-                "description": "A volunteer will reach out to you to schedule delivery of your requested items."
+                "description": "سيتواصل متطوع معك لتحديد ميعاد لاستلام طلبك."
               }
             ]
           }
         }
       },
       "VolunteeringSection": {
-        "heading": "How Volunteering Works",
+        "heading": "كيفية يعمل التطوع",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "الخطوة 1",
             "items": [
               {
-                "title": "Offer Help",
-                "description": "Let us know what you can help with, and we'll connect you to someone who needs it."
+                "title": "اعرض مساعدة",
+                "description": "اخبرنا بما تستطيع أن تساعد به، وسوف نوصلك بمن يحتاج تلك المساعدة."
               },
               {
-                "or": "OR"
+                "or": "أو"
               },
               {
-                "title": "Choose Who to Help",
+                "title": "اختر من تساعد",
                 "description": "Select one or more people in need whose requests you can fulfill."
               }
             ]
