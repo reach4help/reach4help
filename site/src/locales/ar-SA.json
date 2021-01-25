@@ -34,27 +34,27 @@
             "description": "لا تضيع ساعات في البحث. احصل على المساعدة أسرع من خلال قاعدة بيانات ضخمة من المتطوعين."
           },
           {
-            "title": "Easily Available",
-            "description": "Use our app on the go from any mobile device, tablet, or desktop."
+            "title": "متاح بسهولة",
+            "description": "استخدم تطبيقنا بسهولة من أي موبايل أو تابلت أو كمبيوتر."
           },
           {
-            "title": "Completely Free",
-            "description": "No subscriptions or hidden fees. You can browse and post for free."
+            "title": "مجاني تماما",
+            "description": "لا توجد أي اشتراكات أو رسوم مخفية. يمكنك التصفح والنشر مجانًا."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "How Getting Help Works",
+        "heading": "كيفية الحصول على المساعدة",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "الخطوة 1",
             "items": [
               {
-                "title": "Request Help",
-                "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
+                "title": "اطلب مساعدة",
+                "description": "اخبرنا بما تحتاجه وسوف نرسل طلبك إلى متطوعين أو منظمات مساعدة قريبة منك."
               },
               {
-                "or": "OR"
+                "or": "أو"
               },
               {
                 "title": "Choose Volunteer Offer",
