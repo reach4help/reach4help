@@ -1,4 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
+import { Button } from 'antd';
 import React, { useState } from 'react';
 import { InstantSearch } from 'react-instantsearch-dom';
 import {
@@ -7,9 +8,11 @@ import {
   GoogleMapsLoader,
   Marker,
 } from 'react-instantsearch-dom-maps';
+import { useDispatch, useSelector } from 'react-redux';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
+import { ProfileState } from 'src/ducks/profile/types';
 import { useSearchKey } from 'src/ducks/search/operations';
-import PostInfo from 'src/modules/myRequests/components/PostInfo';
+import { observeCreateXSpecificOfferFromRequest } from 'src/ducks/xSpecificOffers/actions';
 
 // const Debug = connectHits(({ hits }) => (
 //   <ul>
@@ -18,6 +21,31 @@ import PostInfo from 'src/modules/myRequests/components/PostInfo';
 //     ))}
 //   </ul>
 // ));
+
+const PostInfoDisplay = ({ post }) => {
+  const dispatch = useDispatch();
+  const profileState = useSelector(
+    ({ profile }: { profile: ProfileState }) => profile,
+  );
+  const [currentPost] = useState(post);
+  const { userSnapshot, description, title } = post;
+  const { displayName, displayPicture } = userSnapshot;
+  const onClickHandler = () =>
+    dispatch(observeCreateXSpecificOfferFromRequest(currentPost, profileState));
+
+  return (
+    <div>
+      <div style={{ display: 'flex', zIndex: 100 }}>
+        <h2> {displayName}</h2>
+        <img src={displayPicture} alt={displayName} />
+      </div>
+      <hr />
+      <h3>{title}</h3>
+      <p>{description}</p>
+      <Button onClick={onClickHandler}>Offer help</Button>
+    </div>
+  );
+};
 
 const FindRequestsContainer: React.FC = () => {
   const searchKey = useSearchKey();
@@ -73,7 +101,7 @@ const FindRequestsContainer: React.FC = () => {
         </div>
         {/* <Debug /> */}
       </InstantSearch>
-      {selectedMarker && <PostInfo post={selectedMarker} />}
+      {selectedMarker && <PostInfoDisplay post={selectedMarker} />}
     </div>
   );
 };

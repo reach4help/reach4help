@@ -1,5 +1,9 @@
+import { Button } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { dispatchCreatePrivateOfferFromRequest } from 'src/ducks/PrivateOffers/actions';
+import { dispatchCreatePrivateRequestFromOffer } from 'src/ducks/PrivateRequests/actions';
 import { Post } from 'src/models/posts';
 import styled from 'styled-components';
 
@@ -10,9 +14,15 @@ const PostItem: React.FC<{
   handleRequest: (action?: boolean) => void;
 }> = ({ post, handleRequest }): React.ReactElement => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const handleRequestClick = () => {
     handleRequest();
   };
+  const createPrivatePost = () =>
+    post.requestingHelp
+      ? dispatch(dispatchCreatePrivateOfferFromRequest(post))
+      : dispatch(dispatchCreatePrivateRequestFromOffer(post));
+  const privatePostTypeText = post.requestingHelp ? 'Offer' : 'Request';
 
   return (
     <Item onClick={handleRequestClick}>
@@ -30,6 +40,9 @@ const PostItem: React.FC<{
         >
           {t('modules.requests.AcceptedRequestItem.choose_volunteer')}
         </InnerText>
+        <Button
+          onClick={createPrivatePost}
+        >{`Create ${privatePostTypeText}`}</Button>
         <div style={{ display: 'flex' }}>{post.postiveResponseCount}</div>
       </PostItemText>
     </Item>

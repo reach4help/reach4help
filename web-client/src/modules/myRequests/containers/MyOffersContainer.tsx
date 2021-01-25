@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { observeMyOffers } from 'src/ducks/myOffers/actions';
-import { PostState } from 'src/ducks/myRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
+import { observeGetMyOffers } from 'src/ducks/PublicOffers/actions';
+import { OfferState } from 'src/ducks/PublicOffers/types';
 import { ApplicationPreference } from 'src/models/users';
 // TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
@@ -13,7 +13,7 @@ import {
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
 import Header from '../components/Header';
-import RequestList from '../components/PostList';
+import PublicPostsList from '../components/PublicPostList';
 
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
@@ -26,12 +26,12 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   );
 
   const myOffers = useSelector(
-    ({ posts }: { posts: PostState }) => posts.myOffers,
+    ({ myOfferReducer }: { myOfferReducer: OfferState }) =>
+      myOfferReducer.myOffers,
   );
-
   useEffect(() => {
     if (profileState.userRef) {
-      observeMyOffers(dispatch, { status, userRef: profileState.userRef });
+      observeGetMyOffers(dispatch, { status, userRef: profileState.userRef });
     }
   }, [dispatch, profileState.userRef, status]);
 
@@ -62,7 +62,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
         }
         isAcceptedRequests={false}
       />
-      <RequestList
+      <PublicPostsList
         posts={myOffers.data}
         loading={myOffers && myOffers.loading}
       />

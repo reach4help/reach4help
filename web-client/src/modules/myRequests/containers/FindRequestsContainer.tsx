@@ -38,7 +38,7 @@ import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import PostItem from '../components/PostItem';
+import PostItem from '../components/PublicPostItem';
 import { MyRequestPostsLocationUrl } from '../constants';
 
 const { TabPane } = Tabs;
@@ -73,7 +73,8 @@ const FindRequestsContainer: React.FC = () => {
   );
 
   const pendingRequests = useSelector(
-    ({ requests }: { requests: FindRequestState }) => requests.myFindPosts,
+    ({ findRequestReducer }: { findRequestReducer: FindRequestState }) =>
+      findRequestReducer.myFindPosts,
   );
 
   const setOfferState = useSelector(
@@ -303,6 +304,7 @@ const FindRequestsContainer: React.FC = () => {
               forceRerender
             />
           </div>
+          <p>This is a map</p>
           {maybeRequestDetails()}
         </StyledTabPane>
         <StyledTabPane
