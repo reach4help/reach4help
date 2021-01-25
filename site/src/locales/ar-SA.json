@@ -7,14 +7,14 @@
       },
       "pages": {
         "home": "الرئيسية",
-        "mission": "Mission",
-        "impact": "Impact",
-        "team": "Team"
+        "mission": "الرسالة",
+        "impact": "الأثر",
+        "team": "الفريق"
       }
     },
     "HomePage": {
       "HeroSection": {
-        "heading": "Conecting people in need with people who can help",
+        "heading": "توصيل الناس المحتاجة مساعدة لناس تقدر تساعدهم",
         "subheading": "We connect you with local volunteers and help organizations when you need it most.",
         "description": [
           "Our map houses a growing list of aid organizations and pandemic care projects.",
