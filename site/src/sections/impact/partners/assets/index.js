@@ -13,6 +13,11 @@ export default [
     link: "https://scholar.harvard.edu/cvt/erevna",
   },
   {
+    name: "The Programming Foundation",
+    logo: require("./tpf.svg"),
+    link: "https://www.theprogrammingfoundation.org/",
+  },
+  {
     name: "Mutual Aid Hub",
     logo: require("./mutual-aid-hub.png"),
     link: "https://www.mutualaidhub.org/",

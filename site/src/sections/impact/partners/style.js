@@ -13,5 +13,6 @@ export const ContentWrapper = styled(SupportersContentWrapper)``
 export const LogosWrapper = styled(SupportersLogoWrapper)`
   img {
     max-width: 15rem;
+    max-height: 5rem;
   }
 `
