@@ -88,12 +88,12 @@
               },
               {
                 "title": "اختر من تساعد",
-                "description": "Select one or more people in need whose requests you can fulfill."
+                "description": "اختر شخصًا أو أكثر ممن يمكنك مساعدتهم."
               }
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "الخطوة 2",
             "items": [
               {
                 "title": "Coordinate Helping",
@@ -104,17 +104,17 @@
         }
       },
       "AboutSection": {
-        "heading": "About",
-        "subheading": "We’re a group of volunteers driven to unify help worldwide",
-        "paragraph": "Meet the minds behind this initiative and join us!",
+        "heading": "عنّا",
+        "subheading": "نحن فريق من المتطوعين هدفنا توحيد المساعدة في كل أنحاء العالم",
+        "paragraph": "التقى بالعقول التي وراء هذه المبادرة وانضم إلينا!",
         "buttons": [
-          "More About Us"
+          "المزيد عنّا"
         ]
       },
       "SupportersSection": {
-        "heading": "Supporters",
+        "heading": "الداعمون",
         "subheading": [
-          "We want to thank all the brands, companies, and nonprofits supporting us on our mission!",
+          "نود أن نشكر جميع العلامات التجارية والشركات غير الربحية التي تدعمنا في مهمتنا!",
           "In January 2021, Google for Nonprofits granted us $10,000 a month for outreach!"
         ]
       }
