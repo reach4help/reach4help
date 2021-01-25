@@ -37,8 +37,8 @@ export interface IPost extends firebase.firestore.DocumentData {
   isResponse: boolean;
   requestingHelp: boolean;
   sourcePublicPostId: string | null;
-  creatorRef: firebaseRefType | null;
-  creatorSnapshot: IUser;
+  userRef: firebaseRefType | null;
+  userSnapshot: IUser;
   title: string;
   description: string;
   streetAddress: string;
@@ -62,8 +62,8 @@ export class Post implements IPost {
     isResponse = false,
     requestingHelp = false,
     sourcePublicPostId: string | null = null,
-    creatorRef: firebaseRefType | null,
-    creatorSnapshot: User,
+    userRef: firebaseRefType | null,
+    userSnapshot: User,
     title: string,
     description: string,
     streetAddress: string,
@@ -83,8 +83,8 @@ export class Post implements IPost {
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
     this._sourcePublicPostId = sourcePublicPostId;
-    this._creatorRef = creatorRef;
-    this._creatorSnapshot = creatorSnapshot;
+    this._userRef = userRef;
+    this._userSnapshot = userSnapshot;
     this._title = title;
     this._description = description;
     this._latLng = latLng;
@@ -150,25 +150,25 @@ export class Post implements IPost {
   }
 
   @IsNotEmptyObject()
-  private _creatorRef: firebaseRefType | null;
+  private _userRef: firebaseRefType | null;
 
-  get creatorRef(): firebaseRefType | null {
-    return this._creatorRef;
+  get userRef(): firebaseRefType | null {
+    return this._userRef;
   }
 
-  set creatorRef(creatorRef: firebaseRefType | null) {
-    this._creatorRef = creatorRef;
+  set userRef(userRef: firebaseRefType | null) {
+    this._userRef = userRef;
   }
 
   @ValidateNested()
-  private _creatorSnapshot: User;
+  private _userSnapshot: User;
 
-  get creatorSnapshot(): User {
-    return this._creatorSnapshot;
+  get userSnapshot(): User {
+    return this._userSnapshot;
   }
 
-  set creatorSnapshot(creatorSnapshot: User) {
-    this._creatorSnapshot = creatorSnapshot;
+  set userSnapshot(userSnapshot: User) {
+    this._userSnapshot = userSnapshot;
   }
 
   @IsString()
@@ -349,8 +349,8 @@ export class Post implements IPost {
       data.isResponse,
       data.requestingHelp,
       data.sourcePublicPostId,
-      data.creatorRef,
-      User.factory(data.creatorSnapshot),
+      data.userRef,
+      User.factory(data.userSnapshot),
       data.title,
       data.description,
       data.streetAddress,
@@ -374,8 +374,8 @@ export class Post implements IPost {
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
       sourcePublicPostId: this.sourcePublicPostId || null,
-      creatorRef: this.creatorRef,
-      creatorSnapshot: this.creatorSnapshot.toObject(),
+      userRef: this.userRef,
+      userSnapshot: this.userSnapshot.toObject(),
       title: this.title,
       description: this.description,
       streetAddress: this.streetAddress,

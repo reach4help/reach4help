@@ -55,7 +55,7 @@ export const getPosts = (
     .where('isResponse', 'in', [true, false]); // TODO: (es) figure out how to eliminate
 
   if (userRef) {
-    filter = filter.where('creatorRef', '==', userRef);
+    filter = filter.where('userRef', '==', userRef);
   }
 
   if (isDefined(requestingHelp)) {
