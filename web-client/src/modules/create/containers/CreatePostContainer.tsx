@@ -48,7 +48,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   const getTypes = () => [t('modules.create.defaults.postDetails.type')];
   const [postDetails, setPostDetails] = useState<IPostDetails>({
     title: '',
-    body: '',
+    description: '',
     type: '',
   });
 
@@ -92,7 +92,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
 
   /* CreatePost */
   const submitPost = () => {
-    const { title, body } = postDetails;
+    const { title, description } = postDetails;
     const {
       address1,
       address2,
@@ -117,8 +117,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         positiveResponseCount: 0,
         negativeResponseCount: 0,
         title,
-        body,
-        description: '', // request.description,
+        description,
         creatorRef: profileState.userRef,
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
         latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
@@ -207,7 +206,7 @@ const CreatePostContainerWrapper = styled.div`
 
 interface IPostDetails {
   title: string;
-  body: string;
+  description: string;
   type: string;
   customType?: string;
 }
