@@ -13,19 +13,29 @@ export default [
     link: "https://scholar.harvard.edu/cvt/erevna",
   },
   {
+    name: "The Programming Foundation",
+    logo: require("./tpf.svg"),
+    link: "https://www.theprogrammingfoundation.org/",
+  },
+  {
     name: "Mutual Aid Hub",
     logo: require("./mutual-aid-hub.png"),
     link: "https://www.mutualaidhub.org/",
   },
   {
     name: "Mutual Aid.Wiki",
-    logo: require("./mutual-aid-wiki.svg"),
+    logo: require("./mutual-aid-wiki.png"),
     link: "https://mutualaid.wiki/",
   },
   {
     name: "Town Hall Project",
-    logo: require("./town-hall-project.jpg"),
+    logo: require("./town-hall-project.png"),
     link: "https://townhallproject.com/",
+  },
+  {
+    name: "Mutual Aid.World",
+    logo: require("./mutual-aid-world.png"),
+    link: "https://mutualaid.world/",
   },
   {
     name: "PCR Testing",

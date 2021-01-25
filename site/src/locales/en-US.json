@@ -108,7 +108,10 @@
       },
       "SupportersSection": {
         "heading": "Supporters",
-        "subheading": "We want to thank all the brands, companies, and nonprofits supporting us on our mission!"
+        "subheading": [
+          "We want to thank all the brands, companies, and nonprofits supporting us on our mission!",
+          "In January 2021, Google for Nonprofits granted us $10,000 a month for outreach!"
+        ]
       }
     },
     "MissionPage": {

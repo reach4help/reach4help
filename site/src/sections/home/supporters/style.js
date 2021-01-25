@@ -43,8 +43,8 @@ export const LogosWrapper = styled.div`
     transition: opacity 0.3s ease, filter 0.3s ease;
 
     :hover {
-      opacity: 1;
       filter: none;
+      opacity: 1;
     }
   }
 `
