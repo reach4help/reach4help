@@ -129,52 +129,52 @@
     "ImpactPage": {
       "WorldMapSection": {
         "heading": [
-          "We're already helping",
-          "600+ people across 38 countries!"
+          "لقد قمنا بالفعل بمساعدة",
+          "600+ شخص في أكثر من 38 دولة!"
         ],
         "hoverInfo": {
-          "users": "Users: ",
-          "noUsers": "No users yet <br/> (maybe you?)"
+          "users": "المستخدمون: ",
+          "noUsers": "لا يوجد مستخدمون بعد <br/> (ربما أنت؟)"
         }
       },
       "PartnersSection": {
-        "heading": "Partners",
+        "heading": "الشركاء",
         "subheading": "We're fortunate to partner with these nonprofits and volunteer organizations to build out a network of volunteer helpers across the world!"
       }
     },
     "TeamPage": {
-      "heading": "Team",
+      "heading": "الفريق",
       "subheading": "",
       "description": [
         "Hailing from LA to Morocco to Portugal to Bangladesh, we’re an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
         "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
       ],
       "members": {
-        "heading": "Key Contacts"
+        "heading": "جهات الاتصال الرئيسية"
       },
       "buttons": [
-        "Join us on our mission!"
+        "انضم إلينا في مهمتنا!"
       ]
     },
     "Footer": {
       "sections": [
         {
-          "title": "Privacy Policy",
-          "link": "/privacy"
+          "title": "سياسة الخصوصية",
+          "link": "الخصوصية"
         },
         {
-          "title": "Code of Conduct",
+          "title": "قواعد السلوك",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
         }
       ]
     },
     "404": {
-      "heading": "404 Not Found",
+      "heading": "لم يتم العثور على الصفحة 404",
       "description": [
         "You've found a glitch in the matrix...",
         "Or you're just clowning around. 🤡"
       ],
-      "linkBackToHome": "Go back home"
+      "linkBackToHome": "الذهاب إلى الرئيسية"
     }
   }
 }
