@@ -14,7 +14,7 @@
     },
     "HomePage": {
       "HeroSection": {
-        "heading": "Connecting people in need with people who can help",
+        "heading": "توصيل الناس المحتاجة مساعدة لناس تقدر تساعدهم",
         "subheading": "نحن نوصلك بمتطوعين ومنظمات مساعدة قريبة منك عندما تكون في أمس الحاجة إليها.",
         "description": [
           "تضم خريطتنا قائمة متزايدة من منظمات الإغاثة ومشاريع رعاية الأوبئة.",
@@ -27,7 +27,7 @@
         ]
       },
       "ReasonsSection": {
-        "heading": "Why Use Reach4Help",
+        "heading": "لماذا تستخدم \"اطلب المساعدة\"",
         "items": [
           {
             "title": "نقطة خدمات شاملة",
@@ -97,7 +97,7 @@
             "items": [
               {
                 "title": "نسق تقديم المساعدة",
-                "description": "Reach out and coordinate a pickup or delivery of the requested items."
+                "description": "تواصل ونسق عملية تسليم أو استلام الأشياء المطلوبة."
               }
             ]
           }
