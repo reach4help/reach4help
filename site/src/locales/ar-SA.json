@@ -139,7 +139,7 @@
       },
       "PartnersSection": {
         "heading": "الشركاء",
-        "subheading": "We're fortunate to partner with these nonprofits and volunteer organizations to build out a network of volunteer helpers across the world!"
+        "subheading": "نحن محظوظون للشراكة مع هذه المنظمات غير الربحية والمنظمات التطوعية لبناء شبكة من المتطوعين لتقديم المساعدة لمن يحتاج في جميع أنحاء العالم!"
       }
     },
     "TeamPage": {
@@ -164,7 +164,7 @@
         },
         {
           "title": "قواعد السلوك",
-          "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
+          "link": "القواعد السلوكية على Github:\nhttps://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
         }
       ]
     },
