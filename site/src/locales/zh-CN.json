@@ -2,14 +2,14 @@
   "common": {
     "Navigation": {
       "buttons": {
-        "map": "Mutual Aid Map",
-        "signIn": "Sign in"
+        "map": "互助地图",
+        "signIn": "登录"
       },
       "pages": {
-        "home": "Home",
-        "mission": "Mission",
-        "impact": "Impact",
-        "team": "Team"
+        "home": "主页",
+        "mission": "使命",
+        "impact": "影响力",
+        "team": "我们的团队"
       }
     },
     "HomePage": {
@@ -22,8 +22,8 @@
           "If you are an aid organization, add your information to the map so others can find you."
         ],
         "buttons": [
-          "Get Help",
-          "Volunteer"
+          "获得帮助",
+          "志愿者"
         ]
       },
       "ReasonsSection": {
@@ -47,14 +47,14 @@
         "heading": "How Getting Help Works",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "第一步",
             "items": [
               {
-                "title": "Request Help",
+                "title": "请求帮助",
                 "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
               },
               {
-                "or": "OR"
+                "or": "或"
               },
               {
                 "title": "Choose Volunteer Offer",
@@ -63,7 +63,7 @@
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "第二步",
             "items": [
               {
                 "title": "Coordinate Getting Help",
@@ -77,14 +77,14 @@
         "heading": "How Volunteering Works",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "第一步",
             "items": [
               {
                 "title": "Offer Help",
                 "description": "Let us know what you can help with, and we'll connect you to someone who needs it."
               },
               {
-                "or": "OR"
+                "or": "或"
               },
               {
                 "title": "Choose Who to Help",
@@ -93,7 +93,7 @@
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "第二步",
             "items": [
               {
                 "title": "Coordinate Helping",
