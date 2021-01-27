@@ -405,6 +405,11 @@
           "typeLabel": "Type",
           "detailsLabel": "Enter details of what is needed"
         },
+        "postLocation": {
+          "add": "Add a new one",
+          "public": "Do you show my location publicly?",
+          "publicText": "Your location will only be shared with the volunteer you accept to help you. All users are also not allowed to save your location unless you explicitly say otherwise."
+        },
         "title": "Title",
         "defaults": {
           "postDetails": {
