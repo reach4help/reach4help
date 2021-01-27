@@ -17,6 +17,7 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
   postLocation,
   setPostLocation,
   setShowNewAddressModal,
+  setShowLocationPopup,
   nextHandler,
   prevHandler,
   postTypePrefix,
@@ -47,12 +48,17 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
                 {addresskey}
               </Select.Option>
             ))}
-            <Select.Option value="add">Add a new one</Select.Option>
+            <Select.Option value="add">
+              {t('modules.create.postLocation.add')}
+            </Select.Option>
           </Select>
         </ChooserDiv>
         <AddressDisplay prefix={postTypePrefix} location={postLocation} />
       </LocationForm>
       <ButtonsContainer>
+        <DisplayButton type="default" block onClick={setShowLocationPopup}>
+          {t('modules.create.postLocation.public')}
+        </DisplayButton>
         <ButtonsDisplay>
           <DisplayButton
             type="default"
@@ -94,6 +100,7 @@ interface PostLocationStepProps {
   addresses: Record<string, IUserAddress> | undefined;
   postLocation: any;
   setShowNewAddressModal: (any) => void;
+  setShowLocationPopup: (any) => void;
   setPostLocation: (any) => void;
   nextHandler: (any) => void;
   prevHandler: () => void;

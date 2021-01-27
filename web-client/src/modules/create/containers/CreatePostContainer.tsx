@@ -19,6 +19,7 @@ import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
+import LocationPopup from '../components/LocationPopup';
 import { CreatePostTypes } from '../constants';
 
 const CreatePostContainer: React.FC<ICreatePostContainer> = ({
@@ -77,6 +78,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   const [showNewAddressModal, setShowNewAddressModal] = useState<boolean>(
     false,
   );
+  const [showLocationPopup, setShowLocationPopup] = useState<boolean>(false);
   const [geocodeFailed, setGeocodeFailed] = useState<boolean>(false);
   const onGeocodeFail = () => {
     setGeocodeFailed(true);
@@ -155,6 +157,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
       component: (
         <PostLocationStep
           setShowNewAddressModal={setShowNewAddressModal}
+          setShowLocationPopup={setShowLocationPopup}
           nextHandler={moveForwards}
           prevHandler={moveBackwards}
           addresses={addresses}
@@ -193,6 +196,10 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         modalSuccess={newAddressModalSuccess}
         onGeocodeFail={onGeocodeFail}
         geocodeFailed={geocodeFailed}
+      />
+      <LocationPopup
+        visible={showLocationPopup}
+        closeModal={() => setShowLocationPopup(false)}
       />
     </CreatePostContainerWrapper>
   );
