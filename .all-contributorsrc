@@ -415,6 +415,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jansepke",
+      "name": "Jan Sepke",
+      "avatar_url": "https://avatars.githubusercontent.com/u/625043?v=4",
+      "profile": "https://github.com/jansepke",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
