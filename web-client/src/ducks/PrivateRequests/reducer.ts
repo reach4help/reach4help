@@ -3,11 +3,12 @@ import createReducer from 'src/store/utils/createReducer';
 
 import {
   CHANGE_MODAL,
-  OBSERVE_MY_REQUESTS,
-  PostState,
-  RESET_SET,
-  SET,
-  SET_TEMP_REQUEST,
+  DISPATCH_CREATE_PRIVATE_REQUEST,
+  OBSERVE_GET_MY_REQUESTS,
+  OBSERVE_UPDATE_PRIVATE_REQUEST,
+  RequestState,
+  RESET_UPDATE_PRIVATE_REQUEST,
+  UPDATE_TEMP_REQUEST,
 } from './types';
 
 const initialSetActionState = {
@@ -17,15 +18,9 @@ const initialSetActionState = {
   modalState: false,
 };
 
-const initialState: PostState = {
+const initialState: RequestState = {
   setAction: initialSetActionState,
   myRequests: {
-    loading: false,
-    data: undefined,
-    observerReceivedFirstUpdate: false,
-    error: undefined,
-  },
-  myOffers: {
     loading: false,
     data: undefined,
     observerReceivedFirstUpdate: false,
@@ -34,13 +29,33 @@ const initialState: PostState = {
   newRequestTemp: undefined,
 };
 
-export default createReducer<PostState>(
+export default createReducer<RequestState>(
   {
-    [OBSERVE_MY_REQUESTS.SUBSCRIBE]: (state: PostState) => {
+    [DISPATCH_CREATE_PRIVATE_REQUEST.PENDING]: (state: RequestState) => {
+      state.setAction.loading = true;
+      state.setAction.error = undefined;
+    },
+    [DISPATCH_CREATE_PRIVATE_REQUEST.COMPLETED]: (
+      state: RequestState,
+      // { payload }: { payload: true },
+    ) => {
+      state.setAction.error = undefined;
+      state.setAction.loading = false;
+      state.setAction.success = true;
+    },
+    [DISPATCH_CREATE_PRIVATE_REQUEST.REJECTED]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
+      state.setAction.loading = false;
+      state.setAction.error = payload;
+      state.setAction.success = undefined;
+    },
+    [OBSERVE_GET_MY_REQUESTS.SUBSCRIBE]: (state: RequestState) => {
       state.myRequests.loading = true;
     },
-    [OBSERVE_MY_REQUESTS.UPDATED]: (
-      state: PostState,
+    [OBSERVE_GET_MY_REQUESTS.UPDATED]: (
+      state: RequestState,
       { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
       state.myRequests.loading = false;
@@ -54,48 +69,54 @@ export default createReducer<PostState>(
       );
       state.myRequests.error = undefined;
     },
-    [OBSERVE_MY_REQUESTS.ERROR]: (
-      state: PostState,
+    [OBSERVE_GET_MY_REQUESTS.ERROR]: (
+      state: RequestState,
       { payload }: { payload: Error },
     ) => {
       state.myRequests.loading = false;
       state.myRequests.error = payload;
     },
-    [SET.PENDING]: (state: PostState) => {
+    [OBSERVE_UPDATE_PRIVATE_REQUEST.PENDING]: (state: RequestState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [SET.COMPLETED]: (state: PostState) => {
+    [OBSERVE_UPDATE_PRIVATE_REQUEST.COMPLETED]: (state: RequestState) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
       state.newRequestTemp = undefined;
     },
-    [SET.REJECTED]: (state: PostState, { payload }: { payload: Error }) => {
+    [OBSERVE_UPDATE_PRIVATE_REQUEST.REJECTED]: (
+      state: RequestState,
+      { payload }: { payload: Error },
+    ) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
       state.newRequestTemp = undefined;
     },
-    [SET_TEMP_REQUEST]: (
-      state: PostState,
+    [UPDATE_TEMP_REQUEST]: (
+      state: RequestState,
       {
         payload,
       }: {
         payload: {
-          requestPayload: Post;
-          requestId: string;
+          offerPayload: Post;
+          offerId: string;
         };
       },
     ) => {
       state.newRequestTemp = payload;
     },
-    [RESET_SET]: (state: PostState) => {
+    [RESET_UPDATE_PRIVATE_REQUEST]: (state: RequestState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.setAction.error = undefined;
     },
-    [CHANGE_MODAL]: (state: PostState, { payload }: { payload: boolean }) => {
+    [CHANGE_MODAL]: (
+      state: RequestState,
+      { payload }: { payload: boolean },
+    ) => {
       state.setAction.modalState = payload;
       if (!payload) {
         state.setAction.success = false;

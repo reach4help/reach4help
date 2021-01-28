@@ -13,7 +13,7 @@ export const DetailsDisplay = ({ details }) => {
   return (
     <DetailsDisplayWrapper>
       <SectionLabel> {details.title} </SectionLabel>
-      <Paragraph> {details.body} </Paragraph>
+      <Paragraph> {details.description} </Paragraph>
     </DetailsDisplayWrapper>
   );
 };

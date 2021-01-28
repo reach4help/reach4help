@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import {
+  InformationModal,
+  makeLocalStorageKey,
+} from 'src/components/Modals/OneTimeModal';
 import { resetSetRequestState } from 'src/ducks/findRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { RequestState } from 'src/ducks/PublicRequests/types';
@@ -15,37 +19,19 @@ import {
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
 } from 'src/modules/myRequests/constants';
+import TopPanel from 'src/modules/timeline/components/TopPanel/TopPanel';
 
-import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
-import {
-  InformationModal,
-  makeLocalStorageKey,
-} from '../../../../components/Modals/OneTimeModal';
-import TopPanel from '../../components/TopPanel/TopPanel';
-import {
-  // TimelineOfferPostViewLocation,
-  TimelineViewLocation,
-} from '../../constants';
+import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 
-const TimelineViewContainer: React.FC<{
-  requestId: string;
-  accepted?: boolean;
-}> = ({ requestId, accepted }) => {
-  // TODO: (es) REMOVE REFERENCES TO DATABASE FROM CONTAINER
+const PrivatePostsForPostContainer: React.FC<{
+  postId: string;
+}> = ({ postId: requestId }) => {
   const requestRef = firestore2.collection('requests').doc(requestId);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [request, setRequest] = useState<Post | undefined>(undefined);
-
-  // const [shouldRedirectToFinished, setShouldRedirectToFinished] = useState<
-  //   boolean
-  // >(false);
-
-  // const [shouldRedirectToArchived, setShouldRedirectToArchived] = useState<
-  //   boolean
-  // >(false);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -107,39 +93,11 @@ const TimelineViewContainer: React.FC<{
       profileState.profile.applicationPreference &&
       profileState.userRef
     ) {
-      if (
-        accepted &&
-        profileState.profile.applicationPreference === ApplicationPreference.cav
-      ) {
-        history.replace(TimelineViewLocation.toUrl({ requestRef }));
-      } else {
-        if (
-          !requestsState.myRequests.data &&
-          !requestsState.myRequests.loading
-        ) {
-          // TODO: (es) reimplement this
-          // dispatch(
-          //   getMyPinRequestPosts({
-          //     userType: profileState.profile.applicationPreference,
-          //     userRef: profileState.userRef,
-          //     lat:
-          //       profileState.privilegedInformation?.addresses?.default.coords
-          //         .latitude,
-          //     lng:
-          //       profileState.privilegedInformation?.addresses?.default.coords
-          //         .longitude,
-          //   }),
-          // );
-        }
-        if (
-          !requestsState.myRequests.data &&
-          !requestsState.myRequests.loading
-        ) {
-          dispatch(getPostWithOffersAndTimelineItems(requestRef));
-        }
+      if (!requestsState.myRequests.data && !requestsState.myRequests.loading) {
+        dispatch(getPostWithOffersAndTimelineItems(requestRef));
       }
     }
-  }, [dispatch, profileState, history, requestRef, accepted, requestsState]);
+  }, [dispatch, profileState, history, requestRef, requestsState]);
 
   // TODO: (es) what? reimplement Figure out what this does
   // useEffect(() => {
@@ -286,4 +244,4 @@ const TimelineViewContainer: React.FC<{
   );
 };
 
-export default TimelineViewContainer;
+export default PrivatePostsForPostContainer;

@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
-import { setRequest } from 'src/ducks/myRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { IPost, PostStatus } from 'src/models/posts';
+import { dispatchCreatePublicOffer } from 'src/ducks/PublicOffers/actions';
+import { dispatchCreatePublicRequest } from 'src/ducks/PublicRequests/actions';
+import { IPost, Post, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
@@ -34,9 +35,9 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
-  const phoneNumber = useSelector(
-    (state: AppState) => state.auth.user?.phoneNumber,
-  );
+  // TODO: (es) Remove const phoneNumber = useSelector(
+  //   (state: AppState) => state.auth.user?.phoneNumber,
+  // );
   const onboarded = useSelector((state: AppState) => state.auth.onboarded);
 
   /* steps */
@@ -48,7 +49,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   const getTypes = () => [t('modules.create.defaults.postDetails.type')];
   const [postDetails, setPostDetails] = useState<IPostDetails>({
     title: '',
-    body: '',
+    description: '',
     type: '',
   });
 
@@ -92,7 +93,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
 
   /* CreatePost */
   const submitPost = () => {
-    const { title, body } = postDetails;
+    const { title, description } = postDetails;
     const {
       address1,
       address2,
@@ -104,10 +105,10 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
     } = postLocation;
     if (profileState.profile) {
       const newPost = {
+        postId: null,
         isResponse: false,
-        requestingHelp: true,
-        parentSnapshot: null,
-        parentRef: null,
+        requestingHelp: !IS_OFFER_POST,
+        sourcePublicPostId: null,
         status: PostStatus.pending,
         creatorGivenRating: 0,
         parentCreatorGivenRating: 0,
@@ -117,14 +118,17 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         positiveResponseCount: 0,
         negativeResponseCount: 0,
         title,
-        body,
-        description: '', // request.description,
-        creatorRef: profileState.userRef,
+        description,
+        userRef: profileState.userRef,
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
         latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
-        creatorSnapshot: profileState.profile.toObject() as IUser,
-      };
-      return dispatch(setRequest(newPost as IPost, undefined, phoneNumber));
+        userSnapshot: profileState.profile.toObject() as IUser,
+        // TODO: (es) Why do I get an error if I change "as IPost" to "Post"
+      } as IPost;
+      const newPost2 = Post.factory(newPost);
+      return IS_OFFER_POST
+        ? dispatch(dispatchCreatePublicOffer(newPost2))
+        : dispatch(dispatchCreatePublicRequest(newPost2));
     }
   };
 
@@ -207,7 +211,7 @@ const CreatePostContainerWrapper = styled.div`
 
 interface IPostDetails {
   title: string;
-  body: string;
+  description: string;
   type: string;
   customType?: string;
 }

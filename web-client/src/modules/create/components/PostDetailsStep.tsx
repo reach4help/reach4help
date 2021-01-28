@@ -19,7 +19,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   const [form] = Form.useForm();
   const { Option } = Select;
 
-  const { title, type, body, customType } = postDetails;
+  const { title, type, description, customType } = postDetails;
   const [showCustomType, setShowCustomType] = useState(type === 'customType');
   const toggleCustomType = (value: string) => {
     setShowCustomType(value === 'customType');
@@ -34,7 +34,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           setPostDetails({ ...values, type: values.customType || values.type });
           nextHandler();
         }}
-        initialValues={{ title, type, body, customType }}
+        initialValues={{ title, type, description, customType }}
       >
         <div
           style={{
@@ -94,7 +94,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           )}
 
           <FormItem
-            name="body"
+            name="description"
             label={t('newRequest.form.body')}
             rules={[
               {
@@ -137,7 +137,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
 const PostDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: flex-start;
   padding: 16px;
   justify-content: space-between;
   height: 100%;

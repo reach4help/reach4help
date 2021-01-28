@@ -31,9 +31,9 @@ If you don't yet have access this repo,  you will have to use this method.
 
 #### In this repo we favour `yarn` over `npm` as the "official" package manager since we also leverage `yarn workspaces` as the manager for our `monorepo`
 
-## Setting up the environment variables
-Windows: `copy .env.example .env`
-Unix/Mac: `cp .env.example .env`
+## Setting up the environment variables (in web-client folder)
+Windows: `copy .env.EXAMPLE .env`
+Unix/Mac: `cp .env.EXAMPLE .env`
 
 ## Run the project
 1 - Install dependencies automatically using yarn by typing:
@@ -63,7 +63,7 @@ If you have problems because of API keys, see [Troubleshooting](#Troubleshooting
   - A description of the issue.
 
 ### Example
-![Issue on Gitub](githubIssueExample.png)
+![Issue on Gitub](web-client/docs/CodingConventions/githubIssueExample.png)
 
 The branch for this is named
 
