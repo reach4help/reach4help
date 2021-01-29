@@ -2,10 +2,10 @@ import { ArrowLeftOutlined, StarOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import {
   AddressDisplay,
   ButtonsContainer,
-  ButtonsDisplay,
   DetailsDisplay,
   DisplayButton,
   MapDisplay,
@@ -41,30 +41,29 @@ const PostSummary: React.FC<PostSummaryProps> = ({
   return (
     <>
       <MapDisplay coords={coords} />
-      <PostSummaryWrapper>
-        <DetailsDisplay details={postDetails} />
-        <AddressDisplay prefix={postTypePrefix} location={postLocation} />
-      </PostSummaryWrapper>
+      <TitleWithUnderline level={2}>
+        {postTypePrefix} {t('modules.create.stepTitles.summary')}
+      </TitleWithUnderline>
+      <DetailsDisplay details={postDetails} />
+      <AddressDisplay prefix={postTypePrefix} location={postLocation} />
       <ButtonsContainer>
-        <ButtonsDisplay>
-          <DisplayButton
-            type="default"
-            block
-            onClick={prevHandler}
-            icon={<ArrowLeftOutlined />}
-          >
-            {t('back')}
-          </DisplayButton>
+        <DisplayButton
+          type="default"
+          block
+          onClick={prevHandler}
+          icon={<ArrowLeftOutlined />}
+        >
+          {t('back')}
+        </DisplayButton>
 
-          <SubmitButton
-            type="primary"
-            block
-            icon={<StarOutlined />}
-            onClick={handleSubmit}
-          >
-            {t('submit')}
-          </SubmitButton>
-        </ButtonsDisplay>
+        <SubmitButton
+          type="primary"
+          block
+          icon={<StarOutlined />}
+          onClick={handleSubmit}
+        >
+          {t('submit')}
+        </SubmitButton>
       </ButtonsContainer>
       {showConfirmationPage && (
         <PostConfirmation
@@ -78,11 +77,6 @@ const PostSummary: React.FC<PostSummaryProps> = ({
     </>
   );
 };
-
-const PostSummaryWrapper = styled.div`
-  margin: 10px auto;
-  width: 80%;
-`;
 
 const SubmitButton = styled(DisplayButton)`
   background: ${COLORS.stepForwardNormal} !important;
