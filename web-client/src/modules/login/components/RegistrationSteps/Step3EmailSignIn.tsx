@@ -20,7 +20,7 @@ const EmailSignIn: React.FC<EmailSignInProps> = ({
         <img src={logoSmall} alt="logo" height="70px" width="70px" />
       </LogoWrapper>
       <TitleWrapper>
-        <TitleWithUnderline level={2} alignment="center" bottom="-10px">
+        <TitleWithUnderline level={2}>
           {t('login.sign_in.title')}
         </TitleWithUnderline>
       </TitleWrapper>
