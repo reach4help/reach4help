@@ -18,7 +18,6 @@ import {
   TeamTitle,
   TopSection,
 } from '../components/about';
-// import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
 
 const dynamicColor = (teamName: string) => {
@@ -41,7 +40,15 @@ const fetchingteams = () => {
   const data = teams;
 
   return data.teams.map(t => (
-    <div key={t.title} style={{ backgroundColor: dynamicColor(t.title), display: 'flex', width: '100%', justifyContent: 'center' }}>
+    <div
+      key={t.title}
+      style={{
+        backgroundColor: dynamicColor(t.title),
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'center',
+      }}
+    >
       <TeamTitle>
         <h2>{`${t.title.toUpperCase()} TEAM`}</h2>{' '}
       </TeamTitle>
