@@ -41,7 +41,7 @@ const fetchingteams = () => {
   const data = teams;
 
   return data.teams.map(t => (
-    <div key={t.title} style={{ backgroundColor: dynamicColor(t.title) }}>
+    <div key={t.title} style={{ backgroundColor: dynamicColor(t.title), display: 'flex', width: '100%', justifyContent: 'center' }}>
       <TeamTitle>
         <h2>{`${t.title.toUpperCase()} TEAM`}</h2>{' '}
       </TeamTitle>
@@ -51,6 +51,7 @@ const fetchingteams = () => {
           // eslint-disable-next-line jsx-a11y/control-has-associated-label
           <a key={c.name} href={c.contact} title={`${`${c.name}, ${c.title}`}`}>
             <ContributorImage key={c.name} src={c.avatar_url} />
+            <em>{`${c.name}`} </em>
           </a>
         ))}
       </TeamImageContainer>
