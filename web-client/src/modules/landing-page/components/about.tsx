@@ -2,7 +2,7 @@ import { MEDIA_QUERIES } from 'src/constants/mediaQueries';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  display: flex;
+  display: flex-wrap;
   flex-direction: row;
   align-items: space-evenly;
   justify-content: center;
@@ -91,8 +91,9 @@ export const TeamContainer = styled(Container)`
 `;
 
 export const TeamTitle = styled.div`
+  display: block;
   text-align: left;
-  padding-left: 25px;
+  padding: 25px;
   h2 {
     color: #00034a;
     font-size: 20px;
@@ -102,8 +103,6 @@ export const TeamTitle = styled.div`
 
 export const TeamImageContainer = styled(Container)`
   padding: 30px 0;
-  width: 100 vh;
-  overflow-x: auto;
 `;
 
 export const JoinContainer = styled(TeamContainer)`
