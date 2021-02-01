@@ -10,7 +10,7 @@ module.exports = {
     primary: "#f27979",
     primaryDark: "#f27979",
 
-    secondary: "#7d00a3",
+    secondary: "#811e78",
     secondaryDark: "#250031",
 
     accent: "#ff7b02",
@@ -31,7 +31,7 @@ module.exports = {
     extraLarge: "@media only screen and (max-width: 1440px)", // desktop
   },
   measurements: {
-    headerHeight: 70, // px
+    headerHeight: 50, // px
     drawerHeight: 40, // px
   },
   zIndices: {
