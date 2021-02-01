@@ -1,12 +1,14 @@
+/* eslint-disable no-return-assign */
 // import { Divider } from 'antd';
+import { Card } from 'antd';
 import React from 'react';
 import teams from 'src/modules/landing-page/contributors.json';
 
+import defaultProfilePic from '../assets/default_profile.png';
 import logo from '../assets/logo.svg';
 import problemSolve from '../assets/problem_solving.svg';
 import {
   ButtonContainer,
-  ContributorImage,
   JoinButton,
   JoinContainer,
   MiddleSection,
@@ -39,12 +41,13 @@ const dynamicColor = (teamName: string) => {
 const fetchingteams = () => {
   const data = teams;
 
+  const { Meta } = Card;
+
   return data.teams.map(t => (
     <div
       key={t.title}
       style={{
         backgroundColor: dynamicColor(t.title),
-        display: 'flex',
         width: '100%',
         justifyContent: 'center',
       }}
@@ -56,10 +59,28 @@ const fetchingteams = () => {
       <TeamImageContainer>
         {t.contributors.map(c => (
           // eslint-disable-next-line jsx-a11y/control-has-associated-label
-          <a key={c.name} href={c.contact} title={`${`${c.name}, ${c.title}`}`}>
-            <ContributorImage key={c.name} src={c.avatar_url} />
-            <em>{`${c.name}`} </em>
-          </a>
+          // <div key={c.name}>
+          //   <ContributorImage key={c.name} src={c.avatar_url} />
+          //   <a href={c.contact} title={`${`${c.name}, ${c.title}`}`}>
+          //     <em>{`${c.name}`} </em>
+          //   </a>
+          // </div>
+          <Card
+            key={c.name}
+            // hoverable
+            style={{ width: 200 }}
+            cover={
+              <img
+                src={c.avatar_url}
+                alt={defaultProfilePic}
+                // eslint-disable-next-line no-param-reassign
+                onError={e => (e.target.src = defaultProfilePic)}
+              />
+            }
+          >
+            <Meta title={c.name} description={c.title} />
+            <a href={c.contact}>Contact</a>
+          </Card>
         ))}
       </TeamImageContainer>
     </div>
