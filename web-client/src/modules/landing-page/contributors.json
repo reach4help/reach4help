@@ -1,44 +1,48 @@
 {
-  "core": [
-    {
-      "name": "Shayan Chowdhury",
-      "title": "Executive Director, Co-founder",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/29135917?v=4",
-      "contact": "mailto:shayan@reach4help.org"
-    },
-    {
-      "name": "Joseph Ashwin Kottapurath",
-      "title": "Technical Lead",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/13694998?v=4",
-      "contact": "mailto:joseph@reach4help.org"
-    },
-    {
-      "name": "Samantha Uebel",
-      "title": "Design Lead",
-      "avatar_url": "",
-      "contact": "mailto:samantha@reach4help.org"
-    },
-    {
-      "name": "Yi Zhou",
-      "title": "Marketing Lead",
-      "avatar_url": "",
-      "contact": "mailto:yi@reach4help.org"
-    },
-    {
-      "name": "Despot Jakimovski",
-      "title": "Product Lead",
-      "avatar_url": "",
-      "contact": "mailto:despot.jakimovski@reach4help.org"
-    }
-  ],
   "teams": [
+    {
+      "title": "Core",
+      "contributors": [
+        {
+          "name": "Shayan Chowdhury",
+          "title": "Executive Director, Co-founder",
+          "avatar_url": "https://media-exp1.licdn.com/dms/image/C4E03AQEX1ZVPx2eTMQ/profile-displayphoto-shrink_400_400/0/1561697097993?e=1617840000&v=beta&t=6QM80LQA_sx1vOp4eUymNnphxjftGg3M9PPtYHSPEcA",
+          "contact": "mailto:shayan@reach4help.org"
+        },
+        {
+          "name": "Joseph Ashwin Kottapurath",
+          "title": "Technical Lead",
+          "avatar_url": "https://avatars2.githubusercontent.com/u/13694998?v=4",
+          "contact": "mailto:joseph@reach4help.org"
+        },
+        {
+          "name": "Ethan Strominger",
+          "title": "Lead Frontend Developer",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/32078396?v=4",
+          "contact": "https://ethanstrominger.com"
+        },
+        {
+          "name": "Zina Codita",
+          "title": "Design Lead",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Yi Zhou",
+          "title": "Marketing Lead",
+          "avatar_url": "https://media-exp1.licdn.com/dms/image/C4D03AQEn1HT8Qfl37Q/profile-displayphoto-shrink_400_400/0/1590615324269?e=1617840000&v=beta&t=93vnAeu3mXU5j8QBdHGNPLfsyroIy03jZ0l2rnrqv0E",
+          "contact": "mailto:yi@reach4help.org"
+        }
+      ]
+    },
     {
       "title": "Development",
       "contributors": [
         {
-          "name": "David Alecrim",
-          "avatar_url": "https://avatars2.githubusercontent.com/u/5495320?v=4",
-          "contact": "https://github.com/comoser"
+          "name": "Pedro Filipe",
+          "title": "Co-founder, Former Developer",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
+          "contact": "https://github.com/puzzledbytheweb"
         },
         {
           "name": "Sam Lanning",
@@ -47,26 +51,25 @@
           "contact": "https://sam.lanni.ng"
         },
         {
-          "name": "Pedro Filipe",
-          "title": "Co-founder, Former Developer",
-          "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
-          "contact": "https://github.com/puzzledbytheweb"
-        },
-        {
-          "name": "Luis Filipe",
-          "avatar_url": "https://avatars0.githubusercontent.com/u/9373787?v=4",
-          "contact": "https://www.linkedin.com/in/luis-oliveira-tech/"
-        },
-        {
           "name": "Dan Sabin",
           "title": "Former Backend Lead",
           "avatar_url": "https://avatars0.githubusercontent.com/u/961844?v=4",
           "contact": "http://freethinking.it"
         },
         {
+          "name": "David Alecrim",
+          "avatar_url": "https://avatars2.githubusercontent.com/u/5495320?v=4",
+          "contact": "https://github.com/comoser"
+        },
+        {
           "name": "João Marques",
           "avatar_url": "https://avatars1.githubusercontent.com/u/52417176?v=4",
           "contact": "https://github.com/jpmarques66"
+        },
+        {
+          "name": "Luis Filipe",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/9373787?v=4",
+          "contact": "https://www.linkedin.com/in/luis-oliveira-tech/"
         },
         {
           "name": "Rúben Gonçalves",
@@ -145,11 +148,6 @@
           "contact": "http://codingeric.com"
         },
         {
-          "name": "Ethan Strominger",
-          "avatar_url": "https://avatars0.githubusercontent.com/u/32078396?v=4",
-          "contact": "https://ethanstrominger.com"
-        },
-        {
           "name": "Alex 'DeMiNe0' Vanino",
           "avatar_url": "https://avatars2.githubusercontent.com/u/815793?v=4",
           "contact": "https://github.com/TheRealAlexV"
@@ -200,17 +198,18 @@
       "title": "Design",
       "contributors": [
         {
+          "name": "Samantha Uebel",
+          "title": "Former Design Lead",
+          "avatar_url": "",
+          "contact": "mailto:samantha@reach4help.org"
+        },
+        {
           "name": "Crystal Li",
           "avatar_url": "",
           "contact": ""
         },
         {
           "name": "Siva Krishna",
-          "avatar_url": "",
-          "contact": ""
-        },
-        {
-          "name": "Zina Codita",
           "avatar_url": "",
           "contact": ""
         },
@@ -263,6 +262,12 @@
     {
       "title": "Product",
       "contributors": [
+        {
+          "name": "Despot Jakimovski",
+          "title": "Former Product Lead",
+          "avatar_url": "",
+          "contact": "mailto:despot.jakimovski@reach4help.org"
+        },
         {
           "name": "Ken Harlan",
           "avatar_url": "",
