@@ -39,6 +39,26 @@
       "title": "Development",
       "contributors": [
         {
+          "name": "Mitchell Verter",
+          "avatar_url": "https://avatars0.githubusercontent.com/u/1453956?v=4",
+          "contact": "https://github.com/mcverter"
+        },
+        {
+          "name": "Alex Ball",
+          "avatar_url": "https://avatars3.githubusercontent.com/u/8595776?v=4",
+          "contact": "https://github.com/alexjball"
+        },
+        {
+          "name": "Warisul Imam",
+          "avatar_url": "https://avatars2.githubusercontent.com/u/57336955?v=4",
+          "contact": "https://github.com/leadersheir"
+        },
+        {
+          "name": "Daniel Lima",
+          "avatar_url": "https://avatars.githubusercontent.com/u/43587144?v=4",
+          "contact": "https://github.com/Danieleclima"
+        },
+        {
           "name": "Pedro Filipe",
           "title": "Co-founder, Former Developer",
           "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
@@ -67,49 +87,9 @@
           "contact": "https://github.com/jpmarques66"
         },
         {
-          "name": "Luis Filipe",
-          "avatar_url": "https://avatars0.githubusercontent.com/u/9373787?v=4",
-          "contact": "https://www.linkedin.com/in/luis-oliveira-tech/"
-        },
-        {
-          "name": "Rúben Gonçalves",
-          "avatar_url": "https://avatars1.githubusercontent.com/u/24323690?v=4",
-          "contact": "https://github.com/rbgoncalves"
-        },
-        {
-          "name": "Wilson Rodrigues",
-          "avatar_url": "https://avatars0.githubusercontent.com/u/5550776?v=4",
-          "contact": "https://github.com/wr46"
-        },
-        {
-          "name": "Nuno Alexandre",
-          "avatar_url": "https://avatars1.githubusercontent.com/u/9502562?v=4",
-          "contact": "http://namadnuno.alojamento-gratis.com/"
-        },
-        {
-          "name": "Micael Rodrigues",
-          "avatar_url": "https://avatars3.githubusercontent.com/u/12500655?v=4",
-          "contact": "https://micaelr95.github.io/"
-        },
-        {
           "name": "Mathieu Deous",
           "avatar_url": "https://avatars1.githubusercontent.com/u/393165?v=4",
           "contact": "https://github.com/mdeous"
-        },
-        {
-          "name": "Burhan Tuerker",
-          "avatar_url": "https://avatars0.githubusercontent.com/u/46192266?v=4",
-          "contact": "https://btuerker.com"
-        },
-        {
-          "name": "Dilpreet Johal",
-          "avatar_url": "https://avatars1.githubusercontent.com/u/9207593?s=400",
-          "contact": "https://github.com/djohal"
-        },
-        {
-          "name": "Mitchell Verter",
-          "avatar_url": "https://avatars0.githubusercontent.com/u/1453956?v=4",
-          "contact": "https://github.com/mcverter"
         },
         {
           "name": "Winggo Tse",
@@ -158,19 +138,9 @@
           "contact": "https://github.com/14ssharp"
         },
         {
-          "name": "Warisul Imam",
-          "avatar_url": "https://avatars2.githubusercontent.com/u/57336955?v=4",
-          "contact": "https://github.com/leadersheir"
-        },
-        {
           "name": "Divyesh Parmar",
           "avatar_url": "https://avatars3.githubusercontent.com/u/8810813?v=4",
           "contact": "https://github.com/Tapudp"
-        },
-        {
-          "name": "Alex Ball",
-          "avatar_url": "https://avatars3.githubusercontent.com/u/8595776?v=4",
-          "contact": "https://github.com/alexjball"
         },
         {
           "name": "Ansh Saini",
@@ -243,6 +213,11 @@
       "contributors": [
         {
           "name": "Jamie Dubow",
+          "avatar_url": "",
+          "contact": ""
+        },
+        {
+          "name": "Shafaat Razin",
           "avatar_url": "",
           "contact": ""
         },

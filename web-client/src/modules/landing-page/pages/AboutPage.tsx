@@ -2,7 +2,7 @@
 // import { Divider } from 'antd';
 import { Card } from 'antd';
 import React from 'react';
-import teams from 'src/modules/landing-page/contributors.json';
+import teams from 'src/modules/landing-page/teams.json';
 
 import defaultProfilePic from '../assets/default_profile.png';
 import logo from '../assets/logo.svg';
