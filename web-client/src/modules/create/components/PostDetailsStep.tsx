@@ -2,8 +2,9 @@ import { ArrowRightOutlined, CloseOutlined } from '@ant-design/icons';
 import { Form, Input, Select } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import {
-  ButtonsDisplay,
+  ButtonsContainer,
   DisplayButton,
 } from 'src/modules/create/components/DisplayElements';
 import styled from 'styled-components';
@@ -14,6 +15,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   postTypes,
   nextHandler,
   prevHandler,
+  postTypePrefix,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -26,8 +28,11 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   };
 
   return (
-    <PostDetailsWrapper>
-      <DetailsForm
+    <>
+      <TitleWithUnderline level={2}>
+        {postTypePrefix} {t('modules.create.stepTitles.details')}
+      </TitleWithUnderline>
+      <Form
         layout="vertical"
         form={form}
         onFinish={values => {
@@ -36,14 +41,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
         }}
         initialValues={{ title, type, description, customType }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignContent: 'space-between',
-          }}
-        >
+        <FormElements>
           <Form.Item
             label={t('modules.create.postDetails.titleLabel')}
             name="title"
@@ -93,7 +91,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             </Form.Item>
           )}
 
-          <FormItem
+          <FormItemWithAddon
             name="description"
             label={t('newRequest.form.body')}
             rules={[
@@ -108,10 +106,10 @@ const PostDetails: React.FC<PostDetailsProps> = ({
               maxLength={500}
               autoSize={{ minRows: 6, maxRows: 8 }}
             />
-          </FormItem>
+          </FormItemWithAddon>
           <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
-        </div>
-        <ButtonsDisplay>
+        </FormElements>
+        <ButtonsContainer>
           <DisplayButton
             type="default"
             block
@@ -129,24 +127,18 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           >
             {t('next')}
           </DisplayButton>
-        </ButtonsDisplay>
-      </DetailsForm>
-    </PostDetailsWrapper>
+        </ButtonsContainer>
+      </Form>
+    </>
   );
 };
-const PostDetailsWrapper = styled.div`
+
+const FormElements = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 16px;
   justify-content: space-between;
-  height: 100%;
-`;
+  align-content: space-between;
 
-const DetailsForm = styled(Form)`
-  width: 80%;
-  margin: 0 auto !important;
-  height: 100%;
   .ant-form-item-label {
     line-height: 14px;
   }
@@ -156,13 +148,12 @@ const DetailsForm = styled(Form)`
   }
 `;
 
-const FormItem = styled(Form.Item)`
-  margin-bottom: 0;
+const FormItemWithAddon = styled(Form.Item)`
+  margin-bottom: 5px !important;
 `;
 
 const CharacterLimitDiv = styled.div`
   font-size: 12px;
-  margin-bottom: 24px;
 `;
 
 interface PostDetailsProps {

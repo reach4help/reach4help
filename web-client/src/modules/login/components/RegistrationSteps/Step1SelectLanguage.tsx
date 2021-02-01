@@ -44,9 +44,7 @@ const Step1SelectLanguage: React.FC<Step1SelectLanguageProps> = ({
           <H6Font>{t('login.steps.2_explanation.purpose')}</H6Font>
         </Explanation>
       </div>
-      <TitleWithUnderline level={2} alignment="center">
-        {' '}
-      </TitleWithUnderline>
+      <TitleWithUnderline level={2}> </TitleWithUnderline>
 
       <Select
         defaultValue={currentLanguage}

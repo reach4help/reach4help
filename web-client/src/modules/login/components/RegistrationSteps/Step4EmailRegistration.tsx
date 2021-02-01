@@ -20,7 +20,7 @@ const Step4EmailRegistration: React.FC<Step4EmailRegistrationProps> = ({
         <img src={logoSmall} alt="logo" height="70px" width="70px" />
       </LogoWrapper>
       <TitleWrapper>
-        <TitleWithUnderline level={2} alignment="center" bottom="-10px">
+        <TitleWithUnderline level={2}>
           {t('login.steps.4_email_signup.title')}
         </TitleWithUnderline>
       </TitleWrapper>

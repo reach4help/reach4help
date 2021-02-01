@@ -50,7 +50,7 @@ const PhoneEntryContainer: React.FC = () => {
       <ErrorMessage>
         {errorMessage && <Alert message={errorMessage} type="error" />}
       </ErrorMessage>
-      <TitleWithUnderline level={3} alignment="center">
+      <TitleWithUnderline level={3}>
         {t('phoneNumber.title')}
       </TitleWithUnderline>
       <PhoneNumberEntryForm
