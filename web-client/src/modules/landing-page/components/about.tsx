@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  /* flex-wrap: wrap; */
   align-items: space-evenly;
   justify-content: center;
   max-width: ${MEDIA_QUERIES.laptopL};
@@ -72,12 +72,13 @@ export const MiddleSection = styled(Container)`
 `;
 
 export const MissionContainer = styled(Container)`
-  padding-top: 20px;
+  margin: 0;
 `;
 
 export const MissionText = styled.div``;
 
 export const TeamContainer = styled(Container)`
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -90,17 +91,32 @@ export const TeamContainer = styled(Container)`
   }
 `;
 
-export const TeamImageContainer = styled(Container)`
-  margin: 10px;
+export const TeamTitle = styled.div`
+  display: block;
+  text-align: center;
+  padding: 25px;
+  h2 {
+    color: #00034a;
+    font-size: 28px;
+    font-weight: bold;
+  }
+`;
 
-  @media (max-width: ${MEDIA_QUERIES.tablet}) {
-    flex-wrap: wrap;
+export const TeamImageContainer = styled(Container)`
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+
+  .ant-card {
+    min-width: 0%;
   }
 `;
 
 export const JoinContainer = styled(TeamContainer)`
-  margin: 0;
-  margin-top: 20px;
+  margin: auto;
 
   h3 {
     font-size: 30px;
@@ -139,19 +155,5 @@ export const JoinButton = styled(Button)`
 export const SolvingImage = styled.img`
   @media (max-width: ${MEDIA_QUERIES.tablet}) {
     width: 100%;
-  }
-`;
-export const ContributorImage = styled.img`
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  margin-left: 50px;
-  margin-right: 50px;
-
-  @media (max-width: ${MEDIA_QUERIES.tablet}) {
-    width: 42px;
-    height: 42px;
-    margin-left: 1px;
-    margin-right: 1px;
   }
 `;

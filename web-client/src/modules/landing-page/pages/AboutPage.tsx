@@ -1,10 +1,14 @@
+/* eslint-disable no-return-assign */
+// import { Divider } from 'antd';
+import { Card } from 'antd';
 import React from 'react';
+import teams from 'src/modules/landing-page/teams.json';
 
+import defaultProfilePic from '../assets/default_profile.png';
 import logo from '../assets/logo.svg';
 import problemSolve from '../assets/problem_solving.svg';
 import {
   ButtonContainer,
-  ContributorImage,
   JoinButton,
   JoinContainer,
   MiddleSection,
@@ -13,10 +17,75 @@ import {
   SolvingImage,
   TeamContainer,
   TeamImageContainer,
+  TeamTitle,
   TopSection,
 } from '../components/about';
-import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
+
+const dynamicColor = (teamName: string) => {
+  let color = '#f0ebff';
+
+  if (teamName === 'Core') {
+    color = '#f0ebff';
+  } else if (teamName === 'Development') {
+    color = '#ddf1f0';
+  } else if (teamName === 'Design') {
+    color = '#fff8e7';
+  } else if (teamName === 'Marketing') {
+    color = '#ffebff';
+  }
+
+  return color;
+};
+
+const fetchingteams = () => {
+  const data = teams;
+
+  const { Meta } = Card;
+
+  return data.teams.map(t => (
+    <div
+      key={t.title}
+      style={{
+        backgroundColor: dynamicColor(t.title),
+        width: '100%',
+        justifyContent: 'center',
+      }}
+    >
+      <TeamTitle>
+        <h2>{`${t.title.toUpperCase()} TEAM`}</h2>{' '}
+      </TeamTitle>
+
+      <TeamImageContainer>
+        {t.contributors.map(c => (
+          // eslint-disable-next-line jsx-a11y/control-has-associated-label
+          // <div key={c.name}>
+          //   <ContributorImage key={c.name} src={c.avatar_url} />
+          //   <a href={c.contact} title={`${`${c.name}, ${c.title}`}`}>
+          //     <em>{`${c.name}`} </em>
+          //   </a>
+          // </div>
+          <Card
+            key={c.name}
+            // hoverable
+            style={{ width: 200 }}
+            cover={
+              <img
+                src={c.avatar_url}
+                alt={defaultProfilePic}
+                // eslint-disable-next-line no-param-reassign
+                onError={e => (e.target.src = defaultProfilePic)}
+              />
+            }
+          >
+            <Meta title={c.name} description={c.title} />
+            <a href={c.contact}>Contact</a>
+          </Card>
+        ))}
+      </TeamImageContainer>
+    </div>
+  ));
+};
 
 const AboutPage: React.FC = (): JSX.Element => (
   <Root>
@@ -57,7 +126,9 @@ const AboutPage: React.FC = (): JSX.Element => (
         </p>
       </TeamContainer>
     </MiddleSection>
-    <TeamImageContainer>
+    {fetchingteams()}
+    {/* <TeamImageContainer>
+      <h1>Development</h1>
       <ContributorImage src={contributors.AlexVanino.imgSrc} />
       <ContributorImage src={contributors.BurhanTuerker.imgSrc} />
       <ContributorImage src={contributors.Cinthyaejh.imgSrc} />
@@ -96,7 +167,7 @@ const AboutPage: React.FC = (): JSX.Element => (
       <ContributorImage src={contributors.WinggoTse.imgSrc} />
       <ContributorImage src={contributors.SamLanning.imgSrc} />
       <ContributorImage src={contributors.DavidAlecrim.imgSrc} />
-    </TeamImageContainer>{' '}
+    </TeamImageContainer>{' '} */}
     <br />
     <MiddleSection>
       <JoinContainer>
