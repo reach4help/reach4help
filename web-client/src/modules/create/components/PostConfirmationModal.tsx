@@ -23,7 +23,7 @@ const RequestConfirmation: React.FC<RequestConfirmationProps> = ({
       footer={null}
     >
       <>
-        <TitleWithUnderline level={1} bottom="-16px">
+        <TitleWithUnderline level={1}>
           {t('newRequestSuccess.title')}
         </TitleWithUnderline>
         <SubtitleP>{t('newRequestSuccess.info')}</SubtitleP>

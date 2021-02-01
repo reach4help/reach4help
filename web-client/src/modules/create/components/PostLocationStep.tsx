@@ -2,11 +2,11 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import {
   AddressDisplay,
   ButtonsContainer,
-  ButtonsDisplay,
   DisplayButton,
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
@@ -34,9 +34,12 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
   };
 
   return (
-    <PostLocationWrapper>
+    <>
       <MapDisplay coords={postLocation.coords} />
-      <LocationForm>
+      <TitleWithUnderline level={2}>
+        {postTypePrefix} {t('modules.create.stepTitles.map')}
+      </TitleWithUnderline>
+      <form>
         <ChooserDiv>
           <Select
             style={{ width: '99%', margin: 'auto' }}
@@ -54,43 +57,32 @@ const PostLocationStep: React.FC<PostLocationStepProps> = ({
           </Select>
         </ChooserDiv>
         <AddressDisplay prefix={postTypePrefix} location={postLocation} />
-      </LocationForm>
+      </form>
+      <DisplayButton type="default" block onClick={setShowLocationPopup}>
+        {t('modules.create.postLocation.public')}
+      </DisplayButton>
       <ButtonsContainer>
-        <DisplayButton type="default" block onClick={setShowLocationPopup}>
-          {t('modules.create.postLocation.public')}
+        <DisplayButton
+          type="default"
+          block
+          onClick={prevHandler}
+          icon={<ArrowLeftOutlined />}
+        >
+          {t('back')}
         </DisplayButton>
-        <ButtonsDisplay>
-          <DisplayButton
-            type="default"
-            block
-            onClick={prevHandler}
-            icon={<ArrowLeftOutlined />}
-          >
-            {t('back')}
-          </DisplayButton>
 
-          <DisplayButton
-            type="primary"
-            block
-            icon={<ArrowRightOutlined />}
-            onClick={nextHandler}
-          >
-            {t('next')}
-          </DisplayButton>
-        </ButtonsDisplay>
+        <DisplayButton
+          type="primary"
+          block
+          icon={<ArrowRightOutlined />}
+          onClick={nextHandler}
+        >
+          {t('next')}
+        </DisplayButton>
       </ButtonsContainer>
-    </PostLocationWrapper>
+    </>
   );
 };
-
-const LocationForm = styled.form`
-  margin: 10px auto;
-  width: 80%;
-`;
-const PostLocationWrapper = styled.div`
-  height: 100%;
-  padding-left: 25px;
-`;
 
 const ChooserDiv = styled.div`
   margin-bottom: 20px;

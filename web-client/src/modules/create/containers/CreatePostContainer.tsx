@@ -206,9 +206,10 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
 };
 
 const StepsWrapper = styled.div`
-  height: calc(100%-98px);
-  width: 100%;
-  margin: 0 auto;
+  height: calc(100% - 98px - 62px - 10px);
+  margin: 10px auto;
+  width: 80%;
+  overflow: scroll;
 `;
 
 const CreatePostContainerWrapper = styled.div`
