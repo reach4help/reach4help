@@ -1,78 +1,57 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import Img from "gatsby-image"
 import { useTranslation } from "react-i18next"
 
 import Button from "src/components/button"
-import { Wrapper, ContentWrapper } from "./style"
+import teams from "../teams.json"
 
-const people = [
-  {
-    title: "Executive Director",
-    name: "Shayan Chowdhury",
-    contact: "mailto:shayan@reach4help.org",
-  },
-  {
-    title: "Technical Lead",
-    name: "Joseph Ashwin Kottapurath",
-    contact: "mailto:joseph@reach4help.org",
-  },
-  {
-    title: "Design Lead",
-    name: "Samantha Uebel",
-    contact: "mailto:samantha@reach4help.org",
-  },
-  {
-    title: "Marketing Lead",
-    name: "Yi Zhou",
-    contact: "mailto:yi@reach4help.org",
-  },
-]
+import defaultProfilePic from "./default_profile.png"
 
-// TODO: Still need to finish up this section
+import { Wrapper, ContentWrapper, TeamContainer } from "./style"
+
 function Team() {
-  const data = useStaticQuery(
-    graphql`
-      {
-        file(relativePath: { eq: "sections/team/team/image.png" }) {
-          childImageSharp {
-            fluid(maxWidth: 500, quality: 75) {
-              base64
-              aspectRatio
-              src
-              srcSet
-              sizes
-            }
-          }
-        }
-      }
-    `,
-  )
+  const sectionColors = {
+    Core: "#f0ebff",
+    Development: "#ddf1f0",
+    Design: "#fff8e7",
+    Marketing: "#ffebff",
+    Product: "#fdebde",
+  }
 
   const { t } = useTranslation()
 
   return (
     <Wrapper id="team">
-      <div>
-        <ContentWrapper>
-          <h2>{t("TeamPage.heading")}</h2>
-          <p>{t("TeamPage.description.0")}</p>
-          <br />
-          <p>
-            <b>{t("TeamPage.members.heading")}</b>
-            {people.map(person => (
-              <li key={person.id}>
-                <b>{person.title}: </b>
-                <a href={person.contact}>{person.name}</a>
-              </li>
-            ))}
-          </p>
-          <br />
-          <p>{t("TeamPage.description.1")}</p>
-          <br />
+      <ContentWrapper>
+        <h1>{t("TeamPage.heading")}</h1>
+        <p>{t("TeamPage.description.0")}</p>
+      </ContentWrapper>
 
-          <h3>{t("TeamPage.subheading")}</h3>
-        </ContentWrapper>
+      {/* For every member in each team */}
+      {teams.map(team => (
+        <TeamContainer color={sectionColors[team.title]} key={team.id}>
+          <h2>{team.title} Team</h2>
+          <div className="members">
+            {team.members.map(member => (
+              <a className="member" key={member.id} href={member.contact}>
+                <img
+                  src={member.avatar_url}
+                  alt={member.name}
+                  // eslint-disable-next-line no-return-assign
+                  onError={e => (e.target.src = defaultProfilePic)}
+                />
+                <h3>
+                  <b>{member.name}</b>
+                </h3>
+                <p>{member.title}</p>
+              </a>
+            ))}
+          </div>
+        </TeamContainer>
+      ))}
+
+      <ContentWrapper>
+        <h1>{t("TeamPage.join")}</h1>
+        <p>{t("TeamPage.description.1")}</p>
         <a href="https://github.com/reach4help/reach4help/wiki#onboading-steps">
           <Button
             textColor="white"
@@ -83,10 +62,7 @@ function Team() {
             {t("TeamPage.buttons.0")}
           </Button>
         </a>
-      </div>
-      <div className="imageWrapper">
-        <Img fluid={data.file.childImageSharp.fluid} alt="R4H Team" />
-      </div>
+      </ContentWrapper>
     </Wrapper>
   )
 }

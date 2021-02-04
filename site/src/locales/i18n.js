@@ -5,6 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector"
 import en from "./en-US.json"
 import pt from "./pt-PT.json"
 import fr from "./fr-FR.json"
+import ar from "./af-ZA.json"
 
 i18n
   .use(LanguageDetector)
@@ -15,6 +16,7 @@ i18n
       en,
       pt,
       fr,
+      ar,
     },
     ns: ["common"],
     defaultNS: "common",
@@ -31,4 +33,5 @@ export const LANGUAGES = [
   { value: "en", label: "English" },
   { value: "pt-PT", label: "Português" },
   { value: "fr-FR", label: "Français" },
+  { value: "ar-SA", label: "اَلْعَرَبِيَّةُ" },
 ]
