@@ -20,6 +20,17 @@ export const Wrapper = styled(SectionWrapper)`
   }
 `
 
+export const TopSection = styled.div`
+  background: linear-gradient(152.35deg, #f27979 6.01%, #7d00a3 72.34%);
+  padding: 50px;
+  width: 100%;
+
+  text-align: center;
+  vertical-align: middle;
+
+  color: white;
+`
+
 export const ContentWrapper = styled.div`
   max-width: 40em;
   display: flex;
