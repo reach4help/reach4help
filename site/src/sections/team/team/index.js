@@ -1,5 +1,4 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
 import { useTranslation } from "react-i18next"
 
 import Button from "src/components/button"
@@ -17,24 +16,6 @@ function Team() {
     Marketing: "#ffebff",
     Product: "#fdebde",
   }
-
-  const data = useStaticQuery(
-    graphql`
-      {
-        file(relativePath: { eq: "sections/team/team/image.png" }) {
-          childImageSharp {
-            fluid(maxWidth: 500, quality: 75) {
-              base64
-              aspectRatio
-              src
-              srcSet
-              sizes
-            }
-          }
-        }
-      }
-    `,
-  )
 
   const { t } = useTranslation()
 
@@ -82,10 +63,6 @@ function Team() {
           </Button>
         </a>
       </ContentWrapper>
-
-      {/* <div className="imageWrapper">
-        <Img fluid={data.file.childImageSharp.fluid} alt="R4H Team" />
-      </div> */}
     </Wrapper>
   )
 }
