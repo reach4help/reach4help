@@ -143,15 +143,13 @@
       }
     },
     "TeamPage": {
-      "heading": "Team",
+      "heading": "Meet Our Team",
       "subheading": "",
       "description": [
         "Hailing from LA to Morocco to Portugal to Bangladesh, we’re an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
         "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
       ],
-      "members": {
-        "heading": "Key Contacts"
-      },
+      "join": "Interested in joining us?",
       "buttons": [
         "Join us on our mission!"
       ]
