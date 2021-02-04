@@ -143,15 +143,13 @@
       }
     },
     "TeamPage": {
-      "heading": "Équipe",
+      "heading": "Meet Our Team",
       "subheading": "",
       "description": [
         "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial.",
         "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
       ],
-      "members": {
-        "heading": "Contacts principaux"
-      },
+      "join": "Interested in joining us?",
       "buttons": [
         "Vous êtes l'aide à côté. Rejoignez-nous!"
       ]
