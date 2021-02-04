@@ -15,7 +15,7 @@
     "HomePage": {
       "HeroSection": {
         "heading": "Conectando pessoas necessitadas com pessoas que podem ajudar",
-        "subheading": "Colocamos você em contato com voluntários locais e ajudamos organizações quando você mais precisa.",
+        "subheading": "Conectamos você com voluntários locais e organizações de ajuda quando você mais precisa.",
         "description": [
           "O nosso mapa contém uma lista crescente de organizações e projetos de ajuda.",
           "Usa o mapa para encontrares e te juntares a esforços de Ajuda Mútua perto de ti, ou criares o teu",
@@ -27,93 +27,96 @@
         ]
       },
       "ReasonsSection": {
-        "heading": "Why Use Reach4Help",
+        "heading": "Por que Usar Reach4Help",
         "items": [
           {
-            "title": "One-Stop Shop",
-            "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
+            "title": "Loja de uma parada",
+            "description": "Não desperdice horas pesquisando. Obtenha ajuda rápida com nossa base de dados de voluntários."
           },
           {
-            "title": "Easily Available",
-            "description": "Use our app on the go from any mobile device, tablet, or desktop."
+            "title": "Disponível Facilmente",
+            "description": "Use nosso aplicativo em qualquer dispositivo móvel, tablet ou desktop."
           },
           {
-            "title": "Completely Free",
-            "description": "No subscriptions or hidden fees. You can browse and post for free."
+            "title": "Completamente Grátis",
+            "description": "Sem assinaturas ou taxas ocultas. Você pode navegar e publicar gratuitamente."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "How Getting Help Works",
+        "heading": "Como Obter Ajuda funciona",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "Passo 1",
             "items": [
               {
-                "title": "Request Help",
-                "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
+                "title": "Pedir Ajuda",
+                "description": "Conte-nos o que você precisa e enviaremos seu pedido para voluntários e organizações locais."
               },
               {
-                "or": "OR"
+                "or": "OU"
               },
               {
-                "title": "Choose Volunteer Offer",
-                "description": "Pick an offer of help from volunteers in your area."
+                "title": "Escolher Oferta de Voluntário",
+                "description": "Escolha uma oferta de ajuda de voluntários em sua região."
               }
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "Passo 2",
             "items": [
               {
-                "title": "Coordinate Getting Help",
-                "description": "A volunteer will reach out to you to schedule delivery of your requested items."
+                "title": "Obter ajuda de coordenada",
+                "description": "Um voluntário entrará em contato com você para agendar a entrega de seus itens solicitados."
               }
             ]
           }
         }
       },
       "VolunteeringSection": {
-        "heading": "How Volunteering Works",
+        "heading": "Como funciona o Voluntário",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "Passo 1",
             "items": [
               {
-                "title": "Offer Help",
-                "description": "Let us know what you can help with, and we'll connect you to someone who needs it."
+                "title": "Ajuda da Oferta",
+                "description": "Conte-nos com o que você pode ajudar, e vamos conectá-lo a alguém que precise."
               },
               {
-                "or": "OR"
+                "or": "OU"
               },
               {
-                "title": "Choose Who to Help",
-                "description": "Select one or more people in need whose requests you can fulfill."
+                "title": "Escolher quem ajudar",
+                "description": "Selecione uma ou mais pessoas necessitadas cujos pedidos você pode atender."
               }
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "Passo 2",
             "items": [
               {
-                "title": "Coordinate Helping",
-                "description": "Reach out and coordinate a pickup or delivery of the requested items."
+                "title": "Ajuda da Coordenada",
+                "description": "Alcance e coordene uma retirada ou entrega dos itens solicitados."
               }
             ]
           }
         }
       },
       "AboutSection": {
-        "heading": "About",
-        "subheading": "We’re a group of volunteers driven to unify help worldwide",
-        "paragraph": "Meet the minds behind this initiative and join us!",
+        "heading": "Sobre",
+        "subheading": "Somos um grupo de voluntários impulsionados a unificar a ajuda no mundo",
+        "paragraph": "Conheça as mentes por trás desta iniciativa e junte-se a nós!",
         "buttons": [
-          "More About Us"
+          "Mais Sobre Nós"
         ]
       },
       "SupportersSection": {
-        "heading": "Supporters",
-        "subheading": "We want to thank all the brands, companies, and nonprofits supporting us on our mission!"
+        "heading": "Os Apoiadores",
+        "subheading": [
+          "Queremos agradecer a todas as marcas, empresas e lucros que nos apoiam na nossa missão!",
+          "Em janeiro de 2021, o Google para Nonprofits nos concedeu US$10.000 por mês por outreacho!"
+        ]
       }
     },
     "MissionPage": {
