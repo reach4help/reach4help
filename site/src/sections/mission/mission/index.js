@@ -4,7 +4,7 @@ import { useTranslation, Trans } from "react-i18next"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 
-import { Wrapper, ContentWrapper } from "./style"
+import { Wrapper, TopSection, ContentWrapper } from "./style"
 
 function Mission() {
   const { t } = useTranslation()
@@ -30,19 +30,26 @@ function Mission() {
   )
 
   return (
-    <Wrapper id="mission">
-      <div className="imageWrapper">
-        <Img fluid={data.file.childImageSharp.fluid} alt="R4H Mission" />
-      </div>
-      <ContentWrapper>
-        <h2>{t("MissionPage.heading")}</h2>
-        <p>{t("MissionPage.description.0")}</p>
-        <br />
-        <Trans transSupportBasicHtmlNodes>
-          <p>{t("MissionPage.description.1")}</p>
-        </Trans>
-      </ContentWrapper>
-    </Wrapper>
+    <>
+      <TopSection>
+        <h1>
+          We&#39;re a group of volunteers <br /> driven to unify help worldwide
+        </h1>
+      </TopSection>
+      <Wrapper id="mission">
+        <div className="imageWrapper">
+          <Img fluid={data.file.childImageSharp.fluid} alt="R4H Mission" />
+        </div>
+        <ContentWrapper>
+          <h2>{t("MissionPage.heading")}</h2>
+          <p>{t("MissionPage.description.0")}</p>
+          <br />
+          <Trans transSupportBasicHtmlNodes>
+            <p>{t("MissionPage.description.1")}</p>
+          </Trans>
+        </ContentWrapper>
+      </Wrapper>
+    </>
   )
 }
 

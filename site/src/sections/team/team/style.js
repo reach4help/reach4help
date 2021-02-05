@@ -1,13 +1,19 @@
 import styled from "styled-components"
 import { SectionWrapper } from "src/components/sectionLayout/style"
 
-export const Wrapper = styled(SectionWrapper)`
-  ${p => p.theme.breakpoints.medium} {
-    flex-wrap: wrap;
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+
+  p {
+    line-height: 1.5em;
   }
 
   .button {
-    margin-top: 2em;
+    margin-top: 1em;
     width: 100%;
     padding: 10px;
   }
@@ -27,32 +33,62 @@ export const Wrapper = styled(SectionWrapper)`
   }
 `
 
-export const ContentWrapper = styled.div`
+export const ContentWrapper = styled(SectionWrapper)`
   max-width: 40em;
   display: flex;
   flex-direction: column;
-  /* margin-bottom: 3em; */
+  text-align: center;
+
+  h1 {
+    margin-bottom: 0.5em;
+    color: #00034a;
+  }
+`
+
+export const TeamContainer = styled.div`
+  background-color: ${p => p.color};
+  padding: 20px;
+  width: 100%;
 
   h2 {
-    margin-bottom: 0.75em;
-    color: ${p => p.theme.colors.accent};
+    font-size: 28px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
 
-    ::after {
-      margin-top: 7px;
-      margin-left: 2px;
-      display: block;
-      content: "";
-      width: 20px;
-      height: 5px;
-      background-color: ${p => p.theme.colors.secondary};
+  .members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5em;
+
+    ${p => p.theme.breakpoints.medium} {
+      gap: 1em;
     }
-  }
 
-  h3 {
-    color: ${p => p.theme.colors.accent};
-  }
+    .member {
+      text-decoration: none;
+      color: black;
+      width: 175px;
+      img {
+        width: 175px;
+        border-radius: 4px;
+      }
 
-  p {
-    line-height: 1.5em;
+      transition: box-shadow 0.3s ease;
+      :hover {
+        box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      background-color: white;
+      border: 1px;
+      padding-bottom: 5px;
+      border-radius: 4px;
+
+      h3,
+      p {
+        padding: 5px 10px;
+      }
+    }
   }
 `
