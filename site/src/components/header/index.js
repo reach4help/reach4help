@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
 import { useTranslation } from "react-i18next"
@@ -14,11 +13,26 @@ import Button from "../button"
 
 import Languages from "../languages"
 
-function Header({ navSections }) {
+function Header() {
   // I changed to drawerClose because I think there is a bug in the way the CSS is being handled in the menu that shows when we click the Hamburger and this is more semantic
   // In this case, in this file (without looking to the CSS)
   const [drawerClose, setDrawerClose] = useState(true)
   const { i18n, t } = useTranslation()
+
+  const buttonLinks = [
+    { title: t("Navigation.buttons.map"), link: "https://map.reach4help.org" },
+    {
+      title: t("Navigation.buttons.signIn"),
+      link: "https://app.reach4help.org",
+    },
+  ]
+
+  const navLinks = [
+    { title: t("Navigation.pages.home"), link: "/" },
+    { title: t("Navigation.pages.mission"), link: "/mission" },
+    { title: t("Navigation.pages.impact"), link: "/impact" },
+    { title: t("Navigation.pages.team"), link: "/team" },
+  ]
 
   const drawerToggler = () => {
     setDrawerClose(!drawerClose)
@@ -42,7 +56,7 @@ function Header({ navSections }) {
         <div className="actions">
           <Languages languages={LANGUAGES} onChange={onLanguageChange} />
           {/* Sign Up */}
-          <a href="https://map.reach4help.org/" rel="noopener">
+          <a href={buttonLinks[0].link} rel="noopener">
             <Button
               backgroundColor="transparent"
               border="2px solid #ff7b02"
@@ -50,17 +64,17 @@ function Header({ navSections }) {
               outlineColor="white"
               fontSize="0.95em"
             >
-              {t("Navigation.Header.buttons.0.title")}
+              {buttonLinks[0].title}
             </Button>
           </a>
-          <a href="https://app.reach4help.org/" rel="noopener">
+          <a href={buttonLinks[1].link} rel="noopener">
             <Button
               backgroundColor="#ff7b02"
               textColor="white"
               outlineColor="white"
               fontSize="0.95em"
             >
-              {t("Navigation.Header.buttons.1.title")}
+              {buttonLinks[1].title}
             </Button>
           </a>
         </div>
@@ -71,32 +85,21 @@ function Header({ navSections }) {
       <DrawerWrapper show={drawerClose}>
         <nav>
           <ul>
-            {navSections.map(section => (
-              <li key={section.id}>
+            {navLinks.map(linkItem => (
+              <li key={linkItem.id}>
                 <Link
-                  to={section.link}
+                  to={linkItem.link}
                   onClick={() => setDrawerClose(true)}
                   activeClassName="active"
                 >
-                  <p>{section.title}</p>
+                  <p>{linkItem.title}</p>
                 </Link>
               </li>
             ))}
+
+            {/* Displays on mobile */}
             <ActionsLi show={drawerClose}>
-              <a href="https://app.reach4help.org/" rel="noopener">
-                <Button
-                  onClick={() => {
-                    window.location.href = "https://app.reach4help.org/"
-                  }}
-                  backgroundColor="#ff7b02"
-                  textColor="white"
-                  outlineColor="white"
-                  fontSize="0.95em"
-                >
-                  {t("Navigation.Header.buttons.1.title")}
-                </Button>
-              </a>
-              <a href="https://map.reach4help.org/" rel="noopener">
+              <a href={buttonLinks[0].link} rel="noopener">
                 <Button
                   backgroundColor="transparent"
                   border="2px solid #ff7b02"
@@ -104,7 +107,17 @@ function Header({ navSections }) {
                   outlineColor="white"
                   fontSize="0.95em"
                 >
-                  {t("Navigation.Header.buttons.0.title")}
+                  {buttonLinks[0].title}
+                </Button>
+              </a>
+              <a href={buttonLinks[1].link} rel="noopener">
+                <Button
+                  backgroundColor="#ff7b02"
+                  textColor="white"
+                  outlineColor="white"
+                  fontSize="0.95em"
+                >
+                  {buttonLinks[1].title}
                 </Button>
               </a>
 
@@ -119,15 +132,6 @@ function Header({ navSections }) {
       />
     </HeaderWrapper>
   )
-}
-
-Header.propTypes = {
-  navSections: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      link: PropTypes.string,
-    }),
-  ),
 }
 
 export default Header

@@ -3,3 +3,5 @@ files:
     translation: /map/src/i18n/langs/%locale%.json
   - source: /web-client/src/translations/en.json
     translation: /web-client/src/translations/%locale%.json
+  - source: /site/src/locales/en-US.json
+    translation: /site/src/locales/%locale%.json
