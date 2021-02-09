@@ -9,8 +9,8 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-import { IRequest, Request } from '../requests';
 import { IUser, User } from '../users';
+import { IRequest, Request } from '../xrequests';
 
 export enum OfferStatus {
   pending = 'pending',

@@ -3,9 +3,9 @@ import { IsArray } from 'class-validator';
 import { firestore } from 'firebase';
 import { firestore as db } from 'src/firebase';
 
-import { IRequest, Request } from '../requests';
 import { User } from '../users';
 import { IUserAddress } from '../users/privilegedInformation';
+import { IRequest, Request } from '../xrequests';
 import { IOffer, Offer, OfferStatus } from './index';
 
 export interface IOfferWithLocation extends IOffer {

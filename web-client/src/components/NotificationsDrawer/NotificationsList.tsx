@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Offer } from 'src/models/offers';
+import { Offer } from 'src/models/xoffers';
 import styled from 'styled-components';
 
 import Notification from './Notification';

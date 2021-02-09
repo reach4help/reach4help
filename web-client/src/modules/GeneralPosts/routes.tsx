@@ -14,7 +14,7 @@ const AlgFindRequestsContainer = lazy(() =>
 );
 
 const FindRequestsContainer = lazy(() =>
-  import('./containers/FindRequestsContainer'),
+  import('./containers/xFindRequestsContainer'),
 );
 
 const MyPostsTabs = lazy(() =>

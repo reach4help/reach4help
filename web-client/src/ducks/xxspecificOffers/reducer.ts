@@ -1,4 +1,4 @@
-import { Offer } from 'src/models/offers';
+import { Offer } from 'src/models/xoffers';
 import createReducer from 'src/store/utils/createReducer';
 
 import {

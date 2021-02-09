@@ -7,13 +7,13 @@ import {
   CreateRequestLocationUrl,
 } from 'src/modules/create/constants';
 import {
+  MyOfferPostsLocationUrl,
+  MyRequestPostsLocationUrl,
+} from 'src/modules/GeneralPosts/constants';
+import {
   AboutPageLocation,
   HomePageLocation,
 } from 'src/modules/landing-page/constants';
-import {
-  MyOfferPostsLocationUrl,
-  MyRequestPostsLocationUrl,
-} from 'src/modules/myRequests/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 

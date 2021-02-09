@@ -4,11 +4,11 @@ import { IsArray, IsString } from 'class-validator';
 import { firestore } from 'firebase';
 import { firestore as db } from 'src/firebase';
 
+import { User } from '../users';
 import {
   IOfferWithLocation,
   OfferWithLocation,
-} from '../offers/offersWithLocation';
-import { User } from '../users';
+} from '../xoffers/offersWithLocation';
 import { IRequest, Request, RequestStatus } from './index';
 import { ITimelineItem, TimelineItem } from './timeline';
 

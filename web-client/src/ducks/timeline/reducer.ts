@@ -1,4 +1,4 @@
-import { TimelineItem } from 'src/models/requests/timeline';
+import { TimelineItem } from 'src/models/xrequests/timeline';
 import createReducer from 'src/store/utils/createReducer';
 
 import { OBSERVE_TIMELINE, TimelineState } from './types';

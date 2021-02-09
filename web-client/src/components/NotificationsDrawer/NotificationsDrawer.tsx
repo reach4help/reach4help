@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setOffer } from 'src/ducks/xxspecificOffers/actions';
 import { OffersState } from 'src/ducks/xxspecificOffers/types';
-import { Offer } from 'src/models/offers';
+import { Offer } from 'src/models/xoffers';
 import styled from 'styled-components';
 
 import NotificationsHeader from './NotificationsHeader';

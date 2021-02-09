@@ -34,8 +34,8 @@ import {
 import { OffersState } from 'src/ducks/xxspecificOffers/types';
 // TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
 // TODO: (es) import { firestore } from 'src/firebase';
-import { Offer /* , OfferStatus */ } from 'src/models/offers';
 import { Post } from 'src/models/posts';
+import { Offer /* , OfferStatus */ } from 'src/models/xoffers';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';

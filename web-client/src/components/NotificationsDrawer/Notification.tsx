@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { OfferStatus } from 'src/models/offers';
-import { Request } from 'src/models/requests';
 import { User } from 'src/models/users';
+import { OfferStatus } from 'src/models/xoffers';
+import { Request } from 'src/models/xrequests';
 import { TimelineViewLocation } from 'src/modules/timeline/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';

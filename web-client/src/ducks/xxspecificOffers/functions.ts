@@ -1,6 +1,10 @@
 import { firestore } from 'src/firebase';
-import { Offer, OfferFirestoreConverter, OfferStatus } from 'src/models/offers';
 import { ApplicationPreference } from 'src/models/users';
+import {
+  Offer,
+  OfferFirestoreConverter,
+  OfferStatus,
+} from 'src/models/xoffers';
 
 import { IgetOffers, IgetRequestOffers } from './types';
 

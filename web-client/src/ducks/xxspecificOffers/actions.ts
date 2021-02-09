@@ -1,5 +1,5 @@
 import { firestore } from 'firebase';
-import { IOffer, Offer, OfferStatus } from 'src/models/offers';
+import { IOffer, Offer, OfferStatus } from 'src/models/xoffers';
 
 import {
   createUserOffer,

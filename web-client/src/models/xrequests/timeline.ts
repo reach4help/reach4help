@@ -8,8 +8,8 @@ import {
 } from 'class-validator';
 import firebase, { firestore } from 'firebase';
 
-import { IOffer, Offer } from '../offers';
 import { IUser, User } from '../users';
+import { IOffer, Offer } from '../xoffers';
 import { IRequest, Request } from './index';
 
 export enum TimelineItemAction {

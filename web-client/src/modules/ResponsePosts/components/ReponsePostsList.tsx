@@ -11,8 +11,8 @@ import { firestore } from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { haversineDistance } from 'src/components/WebClientMap/utils';
-import { OfferStatus } from 'src/models/offers';
-import { OfferWithLocation as Offer } from 'src/models/offers/offersWithLocation';
+import { OfferStatus } from 'src/models/xoffers';
+import { OfferWithLocation as Offer } from 'src/models/xoffers/offersWithLocation';
 import styled from 'styled-components';
 
 const ResponsePostItem: React.FC<OfferItemProps> = ({

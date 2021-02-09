@@ -1,5 +1,5 @@
-import { Offer } from 'src/models/offers';
 import { ApplicationPreference, User } from 'src/models/users';
+import { Offer } from 'src/models/xoffers';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 export const { asyncType, observerType, syncType } = createActionTypeFactory(

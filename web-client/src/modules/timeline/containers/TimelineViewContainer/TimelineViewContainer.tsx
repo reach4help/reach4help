@@ -14,7 +14,7 @@ import { ApplicationPreference } from 'src/models/users';
 import {
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
-} from 'src/modules/myRequests/constants';
+} from 'src/modules/GeneralPosts/constants';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import {
