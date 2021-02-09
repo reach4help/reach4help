@@ -4,25 +4,25 @@ import { createPost, getPosts } from 'src/services/posts';
 
 import {
   CHANGE_MODAL,
-  DISPATCH_CREATE_PUBLIC_OFFER,
-  OBSERVE_GET_MY_OFFERS,
-  RESET_UPDATE_PUBLIC_OFFER,
+  DISPATCH_CREATE_PUBLIC_REQUEST,
+  OBSERVE_GET_MY_REQUESTS,
+  RESET_UPDATE_PUBLIC_REQUEST,
 } from './types';
 
-export const dispatchCreatePublicOffer = (
+export const dispatchCreateGeneralRequest = (
   payload: IPost,
   // profileState: ProfileState,
 ) => (dispatch: Function) => {
   const postPayload = Post.factory(payload);
 
   return dispatch({
-    type: DISPATCH_CREATE_PUBLIC_OFFER,
+    type: DISPATCH_CREATE_PUBLIC_REQUEST,
     payload: postPayload,
     firebase: createPost,
   });
 };
 
-export const observeGetMyOffers = (
+export const observeGetMyRequests = (
   dispatch: Function,
   {
     status,
@@ -33,10 +33,10 @@ export const observeGetMyOffers = (
   },
 ): Function => {
   dispatch({
-    type: OBSERVE_GET_MY_OFFERS,
+    type: OBSERVE_GET_MY_REQUESTS,
     observer: getPosts,
     payload: {
-      offeringHelp: true,
+      requestingHelp: true,
       status,
       userRef,
     },
@@ -44,13 +44,13 @@ export const observeGetMyOffers = (
 
   return () =>
     dispatch({
-      type: OBSERVE_GET_MY_OFFERS.UNSUBSCRIBE,
-      observerName: OBSERVE_GET_MY_OFFERS,
+      type: OBSERVE_GET_MY_REQUESTS.UNSUBSCRIBE,
+      observerName: OBSERVE_GET_MY_REQUESTS,
     });
 };
 
 // TOD: (es) Remove
-// export const updateOffer = (
+// export const updateRequest = (
 //   payload: IPost,
 //   postId?: string,
 //   phoneNumber?: string | null,
@@ -60,22 +60,22 @@ export const observeGetMyOffers = (
 //   });
 
 //   return dispatch({
-//     type: phoneNumber ? OBSERVE_UPDATE_PUBLIC_OFFER : UPDATE_TEMP_OFFER,
+//     type: phoneNumber ? OBSERVE_UPDATE_PUBLIC_REQUEST : UPDATE_TEMP_REQUEST,
 //     payload: {
 //       postPayload,
 //       postId,
 //     },
 //     firebase: phoneNumber
 //       ? postId
-//         ? updatePublicOffer
-//         : createPublicOffer
+//         ? updateGeneralRequest
+//         : createGeneralRequest
 //       : null,
 //   });
 // };
 
-export const resetSetOfferState = () => (dispatch: Function) =>
+export const resetSetRequestState = () => (dispatch: Function) =>
   dispatch({
-    type: RESET_UPDATE_PUBLIC_OFFER,
+    type: RESET_UPDATE_PUBLIC_REQUEST,
     payload: true,
   });
 

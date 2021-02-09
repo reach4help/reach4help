@@ -31,7 +31,7 @@ export const updatePost = async (postPayload: Post, postId: string) =>
 export const getPosts = (
   nextValue: Function,
   {
-    sourcePublicPostId,
+    sourceGeneralPostId,
     requestingHelp,
     offeringHelp,
     status,
@@ -40,7 +40,7 @@ export const getPosts = (
     lng,
     radius,
   }: {
-    sourcePublicPostId?: string;
+    sourceGeneralPostId?: string;
     requestingHelp?: boolean;
     offeringHelp?: boolean;
     status?: string | null;
@@ -66,8 +66,8 @@ export const getPosts = (
     filter = filter.where('requestingHelp', '==', !offeringHelp);
   }
 
-  if (isDefined(sourcePublicPostId)) {
-    filter = filter.where('sourcePublicPostId', '==', sourcePublicPostId);
+  if (isDefined(sourceGeneralPostId)) {
+    filter = filter.where('sourceGeneralPostId', '==', sourceGeneralPostId);
   }
   if (lat && lng) {
     const r = radius || RADIUS;

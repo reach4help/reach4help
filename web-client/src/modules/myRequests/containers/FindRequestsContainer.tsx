@@ -41,7 +41,7 @@ import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import PostItem from '../components/PublicPostItem';
+import PostItem from '../components/GeneralPostItem';
 import { MyRequestPostsLocationUrl } from '../constants';
 
 const { TabPane } = Tabs;

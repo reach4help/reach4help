@@ -36,7 +36,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   postId: string | null;
   isResponse: boolean;
   requestingHelp: boolean;
-  sourcePublicPostId: string | null;
+  sourceGeneralPostId: string | null;
   userRef: firebaseRefType | null;
   userSnapshot: IUser;
   title: string;
@@ -61,7 +61,7 @@ export class Post implements IPost {
     postId: string | null,
     isResponse = false,
     requestingHelp = false,
-    sourcePublicPostId: string | null = null,
+    sourceGeneralPostId: string | null = null,
     userRef: firebaseRefType | null,
     userSnapshot: User,
     title: string,
@@ -82,7 +82,7 @@ export class Post implements IPost {
     this._postId = postId;
     this._isResponse = isResponse;
     this._requestingHelp = requestingHelp;
-    this._sourcePublicPostId = sourcePublicPostId;
+    this._sourceGeneralPostId = sourceGeneralPostId;
     this._userRef = userRef;
     this._userSnapshot = userSnapshot;
     this._title = title;
@@ -139,14 +139,14 @@ export class Post implements IPost {
 
   @Allow()
   @IsOptional()
-  private _sourcePublicPostId: string | null;
+  private _sourceGeneralPostId: string | null;
 
-  get sourcePublicPostId(): string | null {
-    return this._sourcePublicPostId;
+  get sourceGeneralPostId(): string | null {
+    return this._sourceGeneralPostId;
   }
 
-  set sourcePublicPostId(sourcePublicPostId: string | null) {
-    this._sourcePublicPostId = sourcePublicPostId;
+  set sourceGeneralPostId(sourceGeneralPostId: string | null) {
+    this._sourceGeneralPostId = sourceGeneralPostId;
   }
 
   @IsNotEmptyObject()
@@ -348,7 +348,7 @@ export class Post implements IPost {
       data.postId,
       data.isResponse,
       data.requestingHelp,
-      data.sourcePublicPostId,
+      data.sourceGeneralPostId,
       data.userRef,
       User.factory(data.userSnapshot),
       data.title,
@@ -373,7 +373,7 @@ export class Post implements IPost {
       postId: this.postId,
       isResponse: this.isResponse,
       requestingHelp: this.requestingHelp,
-      sourcePublicPostId: this.sourcePublicPostId || null,
+      sourceGeneralPostId: this.sourceGeneralPostId || null,
       userRef: this.userRef,
       userSnapshot: this.userSnapshot.toObject(),
       title: this.title,

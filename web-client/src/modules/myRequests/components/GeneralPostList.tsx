@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import { Post } from 'src/models/posts';
 
-import PostItem from './PublicPostItem';
+import PostItem from './GeneralPostItem';
 
 const PostList: React.FC<PostListProps> = ({
   posts,

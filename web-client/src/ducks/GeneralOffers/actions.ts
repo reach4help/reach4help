@@ -4,25 +4,25 @@ import { createPost, getPosts } from 'src/services/posts';
 
 import {
   CHANGE_MODAL,
-  DISPATCH_CREATE_PUBLIC_REQUEST,
-  OBSERVE_GET_MY_REQUESTS,
-  RESET_UPDATE_PUBLIC_REQUEST,
+  DISPATCH_CREATE_PUBLIC_OFFER,
+  OBSERVE_GET_MY_OFFERS,
+  RESET_UPDATE_PUBLIC_OFFER,
 } from './types';
 
-export const dispatchCreatePublicRequest = (
+export const dispatchCreateGeneralOffer = (
   payload: IPost,
   // profileState: ProfileState,
 ) => (dispatch: Function) => {
   const postPayload = Post.factory(payload);
 
   return dispatch({
-    type: DISPATCH_CREATE_PUBLIC_REQUEST,
+    type: DISPATCH_CREATE_PUBLIC_OFFER,
     payload: postPayload,
     firebase: createPost,
   });
 };
 
-export const observeGetMyRequests = (
+export const observeGetMyOffers = (
   dispatch: Function,
   {
     status,
@@ -33,10 +33,10 @@ export const observeGetMyRequests = (
   },
 ): Function => {
   dispatch({
-    type: OBSERVE_GET_MY_REQUESTS,
+    type: OBSERVE_GET_MY_OFFERS,
     observer: getPosts,
     payload: {
-      requestingHelp: true,
+      offeringHelp: true,
       status,
       userRef,
     },
@@ -44,13 +44,13 @@ export const observeGetMyRequests = (
 
   return () =>
     dispatch({
-      type: OBSERVE_GET_MY_REQUESTS.UNSUBSCRIBE,
-      observerName: OBSERVE_GET_MY_REQUESTS,
+      type: OBSERVE_GET_MY_OFFERS.UNSUBSCRIBE,
+      observerName: OBSERVE_GET_MY_OFFERS,
     });
 };
 
 // TOD: (es) Remove
-// export const updateRequest = (
+// export const updateOffer = (
 //   payload: IPost,
 //   postId?: string,
 //   phoneNumber?: string | null,
@@ -60,22 +60,22 @@ export const observeGetMyRequests = (
 //   });
 
 //   return dispatch({
-//     type: phoneNumber ? OBSERVE_UPDATE_PUBLIC_REQUEST : UPDATE_TEMP_REQUEST,
+//     type: phoneNumber ? OBSERVE_UPDATE_PUBLIC_OFFER : UPDATE_TEMP_OFFER,
 //     payload: {
 //       postPayload,
 //       postId,
 //     },
 //     firebase: phoneNumber
 //       ? postId
-//         ? updatePublicRequest
-//         : createPublicRequest
+//         ? updateGeneralOffer
+//         : createGeneralOffer
 //       : null,
 //   });
 // };
 
-export const resetSetRequestState = () => (dispatch: Function) =>
+export const resetSetOfferState = () => (dispatch: Function) =>
   dispatch({
-    type: RESET_UPDATE_PUBLIC_REQUEST,
+    type: RESET_UPDATE_PUBLIC_OFFER,
     payload: true,
   });
 

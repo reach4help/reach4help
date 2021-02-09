@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { observeGetMyOffers } from 'src/ducks/GeneralOffers/actions';
+import { OfferState } from 'src/ducks/GeneralOffers/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { observeGetMyOffers } from 'src/ducks/PublicOffers/actions';
-import { OfferState } from 'src/ducks/PublicOffers/types';
 import { ApplicationPreference } from 'src/models/users';
 // TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
@@ -12,8 +12,8 @@ import {
   InformationModal,
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
+import GeneralPostsList from '../components/GeneralPostList';
 import Header from '../components/Header';
-import PublicPostsList from '../components/PublicPostList';
 
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
@@ -62,7 +62,7 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
         }
         isAcceptedRequests={false}
       />
-      <PublicPostsList
+      <GeneralPostsList
         posts={myOffers.data}
         loading={myOffers && myOffers.loading}
       />

@@ -8,8 +8,8 @@ import {
   makeLocalStorageKey,
 } from 'src/components/Modals/OneTimeModal';
 import { resetSetRequestState } from 'src/ducks/findRequests/actions';
+import { RequestState } from 'src/ducks/GeneralRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { RequestState } from 'src/ducks/PublicRequests/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
 import { OffersState } from 'src/ducks/xxspecificOffers/types';
 import { firestore as firestore2 } from 'src/firebase';

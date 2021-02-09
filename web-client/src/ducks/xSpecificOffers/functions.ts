@@ -25,7 +25,7 @@ export const createXSpecificOfferFromRequest = async ({
     generalRequestWithUser,
   );
 
-  xspecificOffer.sourcePublicPostId = null; // TODO: (es) Needs to be reference of general request, need to add that to the model
+  xspecificOffer.sourceGeneralPostId = null; // TODO: (es) Needs to be reference of general request, need to add that to the model
   xspecificOffer.requestingHelp = false;
   if (creatorProfileState?.userRef && creatorProfileState.profile) {
     xspecificOffer.userRef = creatorProfileState.userRef;
