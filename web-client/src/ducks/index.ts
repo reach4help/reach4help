@@ -4,8 +4,8 @@ import profile from './profile/reducer';
 import myOfferReducer from './PublicOffers/reducer';
 import myRequestReducer from './PublicRequests/reducer';
 import search from './search/reducer';
-import offers from './specificOffers/reducer';
 import timeline from './timeline/reducer';
+import offers from './xxspecificOffers/reducer';
 
 export default {
   auth,

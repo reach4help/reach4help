@@ -27,8 +27,11 @@ import {
 } from 'src/ducks/findRequests/actions';
 import { FindRequestState } from 'src/ducks/findRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { resetSetOfferState, setOffer } from 'src/ducks/specificOffers/actions';
-import { OffersState } from 'src/ducks/specificOffers/types';
+import {
+  resetSetOfferState,
+  setOffer,
+} from 'src/ducks/xxspecificOffers/actions';
+import { OffersState } from 'src/ducks/xxspecificOffers/types';
 // TODO: (es) Change RequestState to PostState import { PostState } from 'src/ducks/posts/types';
 // TODO: (es) import { firestore } from 'src/firebase';
 import { Offer /* , OfferStatus */ } from 'src/models/offers';

@@ -10,8 +10,8 @@ import {
 import { resetSetRequestState } from 'src/ducks/findRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { RequestState } from 'src/ducks/PublicRequests/types';
-import { OffersState } from 'src/ducks/specificOffers/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
+import { OffersState } from 'src/ducks/xxspecificOffers/types';
 import { firestore as firestore2 } from 'src/firebase';
 import { Post } from 'src/models/posts';
 import { ApplicationPreference } from 'src/models/users';
