@@ -9,7 +9,7 @@ export enum PostTabTypes {
 }
 
 // TODO: (es) Pick between these two methods
-export const PrivatePostsForPostLocation = new Location(
+export const ResponsePostsForPostLocation = new Location(
   `${RootUrl}/:postType/:id`,
   {
     postType: Yup.string().required(),
@@ -17,13 +17,13 @@ export const PrivatePostsForPostLocation = new Location(
   },
 );
 
-export const PrivateOfferPostsForPostLocationUrl = PrivatePostsForPostLocation.toUrl(
+export const ResponseOfferPostsForPostLocationUrl = ResponsePostsForPostLocation.toUrl(
   {
     postType: PostTabTypes.offers,
   },
 );
 
-export const PrivateRequestPostsForPostLocationUrl = PrivatePostsForPostLocation.toUrl(
+export const ResponseRequestPostsForPostLocationUrl = ResponsePostsForPostLocation.toUrl(
   {
     postType: PostTabTypes.requests,
   },

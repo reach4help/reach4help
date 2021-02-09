@@ -23,7 +23,7 @@ import TopPanel from 'src/modules/timeline/components/TopPanel/TopPanel';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 
-const PrivatePostsForPostContainer: React.FC<{
+const ResponsePostsForPostContainer: React.FC<{
   postId: string;
 }> = ({ postId: requestId }) => {
   const requestRef = firestore2.collection('requests').doc(requestId);
@@ -244,4 +244,4 @@ const PrivatePostsForPostContainer: React.FC<{
   );
 };
 
-export default PrivatePostsForPostContainer;
+export default ResponsePostsForPostContainer;

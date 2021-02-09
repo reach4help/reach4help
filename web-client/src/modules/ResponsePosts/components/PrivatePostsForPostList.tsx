@@ -15,7 +15,7 @@ import { OfferStatus } from 'src/models/offers';
 import { OfferWithLocation as Offer } from 'src/models/offers/offersWithLocation';
 import styled from 'styled-components';
 
-const PrivatePostItem: React.FC<OfferItemProps> = ({
+const ResponsePostItem: React.FC<OfferItemProps> = ({
   offer,
   handleOffer,
   // destinationCoords,
@@ -65,7 +65,7 @@ const PrivatePostItem: React.FC<OfferItemProps> = ({
   );
 };
 
-const PrivatePostsForPostList: React.FC<OffersListProps> = ({
+const ResponsePostsForPostList: React.FC<OffersListProps> = ({
   offers,
   handleOffer,
   destinationCoords,
@@ -82,7 +82,7 @@ const PrivatePostsForPostList: React.FC<OffersListProps> = ({
             offers[offerKey] && isValidStatus(offers[offerKey].status),
         )
         .map(filteredKey => (
-          <PrivatePostItem
+          <ResponsePostItem
             key={filteredKey}
             handleOffer={(action: boolean) => handleOffer(action, filteredKey)}
             offer={offers[filteredKey]}
@@ -201,4 +201,4 @@ interface OfferItemProps {
   destinationCoords: firestore.GeoPoint;
 }
 
-export default PrivatePostsForPostList;
+export default ResponsePostsForPostList;

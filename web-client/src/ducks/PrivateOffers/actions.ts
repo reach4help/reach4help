@@ -9,7 +9,7 @@ import {
   RESET_UPDATE_PRIVATE_OFFER,
 } from './types';
 
-export const dispatchCreatePrivateOfferFromRequest = (
+export const dispatchCreateResponseOfferFromRequest = (
   payload: IPost,
   // profileState: ProfileState,
 ) => (dispatch: Function) => {
@@ -24,7 +24,7 @@ export const dispatchCreatePrivateOfferFromRequest = (
   });
 };
 
-export const observeGetPrivateRequestForOffer = (
+export const observeGetResponseRequestForOffer = (
   dispatch: Function,
   {
     status,
@@ -69,8 +69,8 @@ export const observeGetPrivateRequestForOffer = (
 //     },
 //     firebase: phoneNumber
 //       ? postId
-//         ? updatePrivateOffer
-//         : createPrivateOffer
+//         ? updateResponseOffer
+//         : createResponseOffer
 //       : null,
 //   });
 // };

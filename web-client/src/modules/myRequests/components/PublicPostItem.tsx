@@ -2,8 +2,8 @@ import { Button } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { dispatchCreatePrivateOfferFromRequest } from 'src/ducks/PrivateOffers/actions';
-import { dispatchCreatePrivateRequestFromOffer } from 'src/ducks/PrivateRequests/actions';
+import { dispatchCreateResponseOfferFromRequest } from 'src/ducks/ResponseOffers/actions';
+import { dispatchCreateResponseRequestFromOffer } from 'src/ducks/ResponseRequests/actions';
 import { Post } from 'src/models/posts';
 import styled from 'styled-components';
 
@@ -18,10 +18,10 @@ const PostItem: React.FC<{
   const handleRequestClick = () => {
     handleRequest();
   };
-  const createPrivatePost = () =>
+  const createResponsePost = () =>
     post.requestingHelp
-      ? dispatch(dispatchCreatePrivateOfferFromRequest(post))
-      : dispatch(dispatchCreatePrivateRequestFromOffer(post));
+      ? dispatch(dispatchCreateResponseOfferFromRequest(post))
+      : dispatch(dispatchCreateResponseRequestFromOffer(post));
   const privatePostTypeText = post.requestingHelp ? 'Offer' : 'Request';
 
   return (
@@ -41,7 +41,7 @@ const PostItem: React.FC<{
           {t('modules.requests.AcceptedRequestItem.choose_volunteer')}
         </InnerText>
         <Button
-          onClick={createPrivatePost}
+          onClick={createResponsePost}
         >{`Create ${privatePostTypeText}`}</Button>
         <div style={{ display: 'flex' }}>{post.postiveResponseCount}</div>
       </PostItemText>
