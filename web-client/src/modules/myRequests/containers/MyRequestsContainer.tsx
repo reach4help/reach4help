@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProfileState } from 'src/ducks/profile/types';
-import { observeGetMyRequests } from 'src/ducks/PublicRequests/actions';
-import { RequestState } from 'src/ducks/PublicRequests/types';
+import { observeGetMyRequests } from 'src/ducks/MyRequests/actions';
+import { RequestState } from 'src/ducks/MyRequests/types';
 import { ApplicationPreference } from 'src/models/users';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';

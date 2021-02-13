@@ -1,6 +1,5 @@
 import { functions } from 'src/firebase';
-
-import { IgetSearchKey, IgetSearchKeyResult } from './types';
+import { IgetSearchKey, IgetSearchKeyResult } from 'src/ducks/search/types';
 
 export const getSearchKey = async ({
   authenticated,

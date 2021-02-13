@@ -1,12 +1,10 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { resetSetRequestState } from 'src/ducks/findRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { RequestState } from 'src/ducks/PublicRequests/types';
-import { OffersState } from 'src/ducks/specificOffers/types';
+import { MyRequestsState } from 'src/ducks/MyRequests/types';
+import { MyOffersState } from 'src/ducks/MyOffers/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
 import { firestore as firestore2 } from 'src/firebase';
 import { Post } from 'src/models/posts';
@@ -52,7 +50,7 @@ const TimelineViewContainer: React.FC<{
   );
 
   const requestsState = useSelector(
-    ({ requests }: { requests: RequestState }) => requests,
+    ({ requests }: { requests: MyRequestsState }) => requests,
   );
 
   const offersState = useSelector(
