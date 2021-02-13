@@ -1,4 +1,4 @@
-import { TimelineItem } from 'src/models/requests/timeline';
+import { TimelineItem } from 'src/models/xrequests/timeline';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 export const { asyncType, observerType, syncType } = createActionTypeFactory(

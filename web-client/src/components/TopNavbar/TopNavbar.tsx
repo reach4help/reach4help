@@ -15,13 +15,13 @@ import {
   CreateOfferLocationUrl,
   CreateRequestLocationUrl,
 } from 'src/modules/create/constants';
-import { AboutPageLocation } from 'src/modules/landing-page/constants';
-import { LoginLocation } from 'src/modules/login/constants';
 import {
   FindRequestsLocation,
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
-} from 'src/modules/myRequests/constants';
+} from 'src/modules/GeneralPosts/constants';
+import { AboutPageLocation } from 'src/modules/landing-page/constants';
+import { LoginLocation } from 'src/modules/login/constants';
 import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';

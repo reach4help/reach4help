@@ -8,9 +8,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepBackButton, StepForwardButton } from 'src/components/Buttons';
 import StarRadioGroup from 'src/components/StarRadioGroup/StarRadioGroup';
-import { RequestStatus } from 'src/models/requests';
-import { RequestWithOffersAndTimeline } from 'src/models/requests/RequestWithOffersAndTimeline';
 import { User } from 'src/models/users';
+import { RequestStatus } from 'src/models/xrequests';
+import { RequestWithOffersAndTimeline } from 'src/models/xrequests/RequestWithOffersAndTimeline';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 

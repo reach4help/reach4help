@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DEVICE_MAX } from 'src/constants/mediaQueries';
 import { ProfileState } from 'src/ducks/profile/types';
-import { observeOffers } from 'src/ducks/specificOffers/actions';
-import { OffersState } from 'src/ducks/specificOffers/types';
-import { Offer } from 'src/models/offers';
+import { observeOffers } from 'src/ducks/xxspecificOffers/actions';
+import { OffersState } from 'src/ducks/xxspecificOffers/types';
+import { Offer } from 'src/models/xoffers';
 import styled from 'styled-components';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';

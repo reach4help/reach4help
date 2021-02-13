@@ -1,8 +1,8 @@
 import { firestore } from 'src/firebase';
 // eslint-disable-next-line no-unused-vars
-import { RequestRefType } from 'src/models/requests';
+import { RequestRefType } from 'src/models/xrequests';
 // eslint-disable-next-line no-unused-vars
-import { TimelineItemFirestoreConverter } from 'src/models/requests/timeline';
+import { TimelineItemFirestoreConverter } from 'src/models/xrequests/timeline';
 
 // const getRequest = async (requestRef: RequestRefType) => {
 //   return requestRef

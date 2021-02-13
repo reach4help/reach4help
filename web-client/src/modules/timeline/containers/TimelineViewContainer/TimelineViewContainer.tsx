@@ -4,17 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { resetSetRequestState } from 'src/ducks/findRequests/actions';
-import { PostState } from 'src/ducks/myRequests/types';
+import { RequestState } from 'src/ducks/GeneralRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { OffersState } from 'src/ducks/specificOffers/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
+import { OffersState } from 'src/ducks/xxspecificOffers/types';
 import { firestore as firestore2 } from 'src/firebase';
 import { Post } from 'src/models/posts';
 import { ApplicationPreference } from 'src/models/users';
 import {
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
-} from 'src/modules/myRequests/constants';
+} from 'src/modules/GeneralPosts/constants';
 
 import LoadingWrapper from '../../../../components/LoadingComponent/LoadingComponent';
 import {
@@ -52,7 +52,7 @@ const TimelineViewContainer: React.FC<{
   );
 
   const requestsState = useSelector(
-    ({ requests }: { requests: PostState }) => requests,
+    ({ requests }: { requests: RequestState }) => requests,
   );
 
   const offersState = useSelector(
@@ -243,12 +243,14 @@ const TimelineViewContainer: React.FC<{
           }, 100);
         }}
         user={
-          profileState.profile.applicationPreference ===
-          ApplicationPreference.cav
-            ? request.parentSnapshot?.creatorSnapshot
-            : request.creatorSnapshot
-            ? request.creatorSnapshot
-            : undefined
+          request.userSnapshot
+          // TODO: (es) Figure out what this does
+          // profileState.profile.applicationPreference ===
+          //   ApplicationPreference.cav
+          //   ? request.parentSnapshot?.userSnapshot
+          //   : request.userSnapshot
+          //     ? request.userSnapshot
+          //     : undefined
         }
       />
       {/* {accepted && (

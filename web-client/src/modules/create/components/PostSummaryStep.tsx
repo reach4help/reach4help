@@ -2,7 +2,6 @@ import { ArrowLeftOutlined, StarOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import {
   AddressDisplay,
   ButtonsContainer,
@@ -12,7 +11,7 @@ import {
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
-import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/GeneralPosts/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -28,17 +27,23 @@ const PostSummary: React.FC<PostSummaryProps> = ({
   const [showConfirmationPage, setShowConfirmationPage] = useState(false);
   const history = useHistory();
 
-  const handleSubmit = () => setShowConfirmationPage(true);
+  const handleSubmit = () => {
+    submitPost()
+      .then(() => {
+        setShowConfirmationPage(true);
+      })
+      .catch(() => {
+        // eslint-disable-next-line no-console
+        console.error('Could not submit new Post');
+      });
+  };
 
   return (
     <>
       <MapDisplay coords={coords} />
-      <TitleWithUnderline level={2} color={COLORS.primaryDark}>
-        {postTypePrefix} {t('modules.create.postSummary.confirmation')}{' '}
-      </TitleWithUnderline>
       <PostSummaryWrapper>
         <DetailsDisplay details={postDetails} />
-        <AddressDisplay location={postLocation} />
+        <AddressDisplay prefix={postTypePrefix} location={postLocation} />
       </PostSummaryWrapper>
       <ButtonsContainer>
         <ButtonsDisplay>
@@ -65,10 +70,8 @@ const PostSummary: React.FC<PostSummaryProps> = ({
         <PostConfirmation
           showModal={showConfirmationPage}
           closeModal={() => {
-            submitPost().then(() => {
-              history.replace(MyRequestPostsLocationUrl);
-            });
             setShowConfirmationPage(false);
+            history.replace(MyRequestPostsLocationUrl);
           }}
         />
       )}
