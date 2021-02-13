@@ -2,23 +2,20 @@ import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
 import {
-  CHANGE_MODAL,
-  DISPATCH_CREATE_PRIVATE_OFFER,
-  OBSERVE_GET_MY_OFFERS,
-  OBSERVE_UPDATE_PRIVATE_OFFER,
-  OfferState,
-  RESET_UPDATE_PRIVATE_OFFER,
-  UPDATE_TEMP_OFFER,
+  CREATE,
+  OBSERVE,
+  UPDATE,
+  MyOffersState,
+  RESET_UPDATE,
 } from './types';
 
 const initialSetActionState = {
   loading: false,
   success: false,
   error: undefined,
-  modalState: false,
 };
 
-const initialState: OfferState = {
+const initialState: MyOffersState = {
   setAction: initialSetActionState,
   myOffers: {
     loading: false,
@@ -26,36 +23,35 @@ const initialState: OfferState = {
     observerReceivedFirstUpdate: false,
     error: undefined,
   },
-  newOfferTemp: undefined,
 };
 
-export default createReducer<OfferState>(
+export default createReducer<MyOffersState>(
   {
-    [DISPATCH_CREATE_PRIVATE_OFFER.PENDING]: (state: OfferState) => {
+    [CREATE.PENDING]: (state: MyOffersState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [DISPATCH_CREATE_PRIVATE_OFFER.COMPLETED]: (
-      state: OfferState,
+    [CREATE.COMPLETED]: (
+      state: MyOffersState,
       // { payload }: { payload: true },
     ) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
     },
-    [DISPATCH_CREATE_PRIVATE_OFFER.REJECTED]: (
-      state: OfferState,
+    [CREATE.REJECTED]: (
+      state: MyOffersState,
       { payload }: { payload: Error },
     ) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = undefined;
     },
-    [OBSERVE_GET_MY_OFFERS.SUBSCRIBE]: (state: OfferState) => {
+    [OBSERVE.SUBSCRIBE]: (state: MyOffersState) => {
       state.myOffers.loading = true;
     },
-    [OBSERVE_GET_MY_OFFERS.UPDATED]: (
-      state: OfferState,
+    [OBSERVE.UPDATED]: (
+      state: MyOffersState,
       { payload }: { payload: firebase.firestore.QuerySnapshot<Post> },
     ) => {
       state.myOffers.loading = false;
@@ -69,55 +65,34 @@ export default createReducer<OfferState>(
       );
       state.myOffers.error = undefined;
     },
-    [OBSERVE_GET_MY_OFFERS.ERROR]: (
-      state: OfferState,
+    [OBSERVE.ERROR]: (
+      state: MyOffersState,
       { payload }: { payload: Error },
     ) => {
       state.myOffers.loading = false;
       state.myOffers.error = payload;
     },
-    [OBSERVE_UPDATE_PRIVATE_OFFER.PENDING]: (state: OfferState) => {
+    [UPDATE.PENDING]: (state: MyOffersState) => {
       state.setAction.loading = true;
       state.setAction.error = undefined;
     },
-    [OBSERVE_UPDATE_PRIVATE_OFFER.COMPLETED]: (state: OfferState) => {
+    [UPDATE.COMPLETED]: (state: MyOffersState) => {
       state.setAction.error = undefined;
       state.setAction.loading = false;
       state.setAction.success = true;
-      state.newOfferTemp = undefined;
     },
-    [OBSERVE_UPDATE_PRIVATE_OFFER.REJECTED]: (
-      state: OfferState,
+    [UPDATE.REJECTED]: (
+      state: MyOffersState,
       { payload }: { payload: Error },
     ) => {
       state.setAction.loading = false;
       state.setAction.error = payload;
       state.setAction.success = false;
-      state.newOfferTemp = undefined;
     },
-    [UPDATE_TEMP_OFFER]: (
-      state: OfferState,
-      {
-        payload,
-      }: {
-        payload: {
-          offerPayload: Post;
-          offerId: string;
-        };
-      },
-    ) => {
-      state.newOfferTemp = payload;
-    },
-    [RESET_UPDATE_PRIVATE_OFFER]: (state: OfferState) => {
+    [RESET_UPDATE]: (state: MyOffersState) => {
       state.setAction.loading = false;
       state.setAction.success = false;
       state.setAction.error = undefined;
-    },
-    [CHANGE_MODAL]: (state: OfferState, { payload }: { payload: boolean }) => {
-      state.setAction.modalState = payload;
-      if (!payload) {
-        state.setAction.success = false;
-      }
     },
   },
   initialState,

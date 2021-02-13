@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
 import { ProfileState } from 'src/ducks/profile/types';
-import { dispatchCreatePublicOffer } from 'src/ducks/PublicOffers/actions';
-import { dispatchCreatePublicRequest } from 'src/ducks/PublicRequests/actions';
-import { IPost, Post, PostStatus } from 'src/models/posts';
+import { createOffer } from 'src/ducks/MyOffers/actions';
+import { createRequest } from 'src/ducks/MyRequests/actions';
+import { IPost, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
@@ -145,12 +145,10 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
         latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
         userSnapshot: profileState.profile.toObject() as IUser,
-        // TODO: (es) Why do I get an error if I change "as IPost" to "Post"
       } as IPost;
-      const newPost2 = Post.factory(newPost);
       return IS_OFFER_POST
-        ? dispatch(dispatchCreatePublicOffer(newPost2))
-        : dispatch(dispatchCreatePublicRequest(newPost2));
+        ? dispatch(createOffer(newPost))
+        : dispatch(createRequest(newPost));
     }
   };
 

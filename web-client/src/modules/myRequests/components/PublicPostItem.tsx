@@ -2,8 +2,8 @@ import { Button } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { dispatchCreatePrivateOfferFromRequest } from 'src/ducks/PrivateOffers/actions';
-import { dispatchCreatePrivateRequestFromOffer } from 'src/ducks/PrivateRequests/actions';
+import { dispatchCreatePrivateOfferFromRequest } from 'src/ducks/ResponseOffers/actions';
+import { dispatchCreatePrivateRequestFromOffer } from 'src/ducks/ResponseRequests/actions';
 import { Post } from 'src/models/posts';
 import styled from 'styled-components';
 
