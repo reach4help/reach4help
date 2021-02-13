@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProfileState } from 'src/ducks/profile/types';
-import { observeGetMyOffers } from 'src/ducks/PublicOffers/actions';
-import { OfferState } from 'src/ducks/PublicOffers/types';
+import { observeGetMyOffers } from 'src/ducks/MyOffers/actions';
+import { OfferState } from 'src/ducks/MyOffers/types';
 import { ApplicationPreference } from 'src/models/users';
 // TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
