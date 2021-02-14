@@ -70,9 +70,11 @@ export const TeamContainer = styled.div`
       text-decoration: none;
       color: black;
       width: 175px;
+
       img {
         width: 175px;
-        border-radius: 4px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
       }
 
       transition: box-shadow 0.3s ease;
@@ -88,6 +90,18 @@ export const TeamContainer = styled.div`
       h3,
       p {
         padding: 5px 10px;
+      }
+
+      .flags {
+        display: flex;
+        justify-content: center;
+
+        img {
+          border-radius: 0px;
+          margin: 5px;
+          height: 25px;
+          width: auto;
+        }
       }
     }
   }

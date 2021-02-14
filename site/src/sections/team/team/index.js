@@ -1,5 +1,7 @@
+/* eslint-disable no-return-assign */
 import React from "react"
 import { useTranslation } from "react-i18next"
+import Flag from "react-world-flags"
 
 import Button from "src/components/button"
 import teams from "../teams.json"
@@ -7,6 +9,7 @@ import teams from "../teams.json"
 import defaultProfilePic from "./default_profile.png"
 
 import { Wrapper, ContentWrapper, TeamContainer } from "./style"
+import CountryCodeMap from "./countryCodeMap.json"
 
 function Team() {
   const sectionColors = {
@@ -30,35 +33,40 @@ function Team() {
       {teams.map(team => (
         <TeamContainer color={sectionColors[team.title]} key={team.id}>
           <h2>{team.title} Team</h2>
+          {/* TODO SHAYAN: don't be lazy and split these up into components */}
           <div className="members">
             {team.members.map(member => (
               <a className="member" key={member.id} href={member.contact}>
                 <img
                   src={member.avatar_url}
                   alt={member.name}
-                  // eslint-disable-next-line no-return-assign
                   onError={e => (e.target.src = defaultProfilePic)}
                 />
                 <h3>
                   <b>{member.name}</b>
                 </h3>
                 <p>{member.title}</p>
+                {/* TODO: Uncomment after confirming everyone's countries */}
+                {/* <div className="flags">
+                  {member.countries?.map(country => (
+                    <Flag
+                      key={country.id}
+                      code={country}
+                      title={CountryCodeMap[country]}
+                    />
+                  ))}
+                </div> */}
               </a>
             ))}
           </div>
         </TeamContainer>
       ))}
 
-      <ContentWrapper>
+      <ContentWrapper style={{ maxWidth: "45em" }}>
         <h1>{t("TeamPage.join")}</h1>
         <p>{t("TeamPage.description.1")}</p>
         <a href="https://github.com/reach4help/reach4help/wiki#onboading-steps">
-          <Button
-            textColor="white"
-            backgroundColor="#ff7b02"
-            outlineColor="#7d00a3"
-            fontSize="1em"
-          >
+          <Button textColor="white" backgroundColor="#ff7b02" fontSize="1em">
             {t("TeamPage.buttons.0")}
           </Button>
         </a>
