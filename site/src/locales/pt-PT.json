@@ -114,16 +114,16 @@
       "SupportersSection": {
         "heading": "Os Apoiadores",
         "subheading": [
-          "Thank you to all the companies supporting us on our mission!",
-          "In January 2021, Google for Nonprofits granted us $120,000 this year for outreach!"
+          "Obrigado a todas as empresas que nos apoiam na nossa missão!",
+          "Em janeiro de 2021, o Google para Nonprofits nos concedeu Us$120.000 deste ano por outreach!"
         ]
       }
     },
     "MissionPage": {
-      "topHeading": "We're a group of volunteers driven to unify help worldwide",
+      "topHeading": "Somos um grupo de voluntários impulsionados a unificar a ajuda no mundo",
       "heading": "A Nossa Missão",
       "description": [
-        "We're a nonprofit democratizing access to volunteer help worldwide. Through technology, we’re providing quick and easy access to help and resources in your area with local organizations like AIESEC in Portugal, the House of Good Deeds in NYC and more.",
+        "Somos uma organização sem fins lucrativos que democratiza o acesso à ajuda voluntária em todo o mundo. Por meio da tecnologia, estamos fornecendo acesso rápido e fácil para ajuda e recursos em sua área com organizações locais como AIESEC em Portugal, a House of Good Deeds em NYC e muito mais.",
         "O <strong>NOSSO OBJETIVO</strong> é permitir que aqueles que necessitam de ajuda que a recebam e que organizações e grupos parceiros ajudem de forma mais eficiente, ao mobilizarem os seus voluntários com a ajuda do nosso sistema."
       ]
     },
@@ -140,7 +140,7 @@
       },
       "PartnersSection": {
         "heading": "Partenaires",
-        "subheading": "Thank you to our volunteer and nonprofit partner organizations helping us build out a network of helpers across the world!"
+        "subheading": "Obrigado aos nossos voluntários e organizações parceiras sem fins lucrativos nos ajudando a construir uma rede de ajudantes em todo o mundo!"
       }
     },
     "TeamPage": {
