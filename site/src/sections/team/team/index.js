@@ -1,7 +1,6 @@
 /* eslint-disable no-return-assign */
 import React from "react"
 import { useTranslation } from "react-i18next"
-import Flag from "react-world-flags"
 
 import Button from "src/components/button"
 import teams from "../teams.json"
@@ -9,7 +8,7 @@ import teams from "../teams.json"
 import defaultProfilePic from "./default_profile.png"
 
 import { Wrapper, ContentWrapper, TeamContainer } from "./style"
-import CountryCodeMap from "./countryCodeMap.json"
+// import CountryCodeMap from "./countryCodeMap.json"
 
 function Team() {
   const sectionColors = {
