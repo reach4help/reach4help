@@ -114,15 +114,16 @@
       "SupportersSection": {
         "heading": "الداعمون",
         "subheading": [
-          "نود أن نشكر جميع العلامات التجارية والشركات غير الربحية التي تدعمنا في مهمتنا!",
-          "في يناير عام 2021، منحتنا شركة غوغل للمنظمات غير الربحية 10,000 دولارًا شهريًا للتواصل!"
+          "Thank you to all the companies supporting us on our mission!",
+          "In January 2021, Google for Nonprofits granted us $120,000 this year for outreach!"
         ]
       }
     },
     "MissionPage": {
+      "topHeading": "We're a group of volunteers driven to unify help worldwide",
       "heading": "رسالتنا",
       "description": [
-        "نحن منظمة غير ربحية تهدف لتوحيد الوصول إلى المساعدات التطوعية في جميع أنحاء العالم. نستخدم التكنولوجيا لتيسير عملية الوصول إلى مصادر المساعدة من خلال منظمات محلية قريبة من منطقتك، مثل منظمة AIESEC في البرتغال و منظمة the House of Good Deeds في نيويورك وغيرها.",
+        "We're a nonprofit democratizing access to volunteer help worldwide. Through technology, we’re providing quick and easy access to help and resources in your area with local organizations like AIESEC in Portugal, the House of Good Deeds in NYC and more.",
         "بمساعدة أكثر من 300 متطوع في 25 دولة و 6 قارات، نقوم بتوصيل المجتماعات المحتاجة إلى بنوك الطعام والفعاليات الخيرية والخدمات اليومية في كل أنحاء العالم. معا، نبني شبكة لتوفير المساعدة حتى نبقى أقوى وأكثر ترابطًا في مواجهة وباء كوفيد-19 وغيره."
       ]
     },
@@ -139,7 +140,7 @@
       },
       "PartnersSection": {
         "heading": "الشركاء",
-        "subheading": "نحن محظوظون للشراكة مع هذه المنظمات غير الربحية والمنظمات التطوعية لبناء شبكة من المتطوعين لتقديم المساعدة لمن يحتاج في جميع أنحاء العالم!"
+        "subheading": "Thank you to our volunteer and nonprofit partner organizations helping us build out a network of helpers across the world!"
       }
     },
     "TeamPage": {
@@ -147,7 +148,7 @@
       "subheading": "",
       "description": [
         "من لوس أنجلوس إلى المغرب، إلى البرتغال وبنغلاديش، تجمعنا نحن فرقة من المتطوعين من كل أنحاء العالم وتوحدنا لضمان وصول كل الناس إلى المساعدة.",
-        "نحن نبحث عن متطوعين من مطوري ReactJS ومسئولي علاقات عامة وتسويق ومصصمي UI/UX للمساعدة في تكثيف جهودنا في مكافحة الحرائق قي الساحل الغربي من الولايات المتحدة ومواجهة الموجة الثانية من وباء كوفيد-19."
+        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
       "join": "هل ترغب في الانضمام إلينا؟",
       "buttons": [
