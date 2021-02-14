@@ -11,6 +11,7 @@ export default createGlobalStyle`
     font-family: ${p => p.theme.fonts.main};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent; /* transparent with keyword */
   }
 
   h1 {
@@ -35,6 +36,5 @@ export default createGlobalStyle`
     ${p => p.theme.breakpoints.medium} {
       font-size: 16px;
     }
-
   }
 `

@@ -15,11 +15,6 @@ export const ButtonWrapper = styled.button`
 
   :hover {
     outline: none;
-    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),
-      0 0 0 3px
-        ${p =>
-          p.outlineColor ||
-          p.theme.colors[p.outlineColor] ||
-          p.theme.colors.accent};
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
   }
 `
