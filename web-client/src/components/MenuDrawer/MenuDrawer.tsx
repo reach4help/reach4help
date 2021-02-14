@@ -35,7 +35,6 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
 
   // Closes SideDrawer if user switches from mobile view
   window.onresize = closeDrawer;
-
   return (
     <>
       <SideDrawer
