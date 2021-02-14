@@ -32,9 +32,8 @@ function Mission() {
   return (
     <>
       <TopSection>
-        <h1>
-          We&#39;re a group of volunteers <br /> driven to unify help worldwide
-        </h1>
+        {/* 200 IQ NAMING RIGHT HERE */}
+        <h1>{t("MissionPage.topHeading")}</h1>
       </TopSection>
       <Wrapper id="mission">
         <div className="imageWrapper">

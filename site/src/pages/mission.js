@@ -8,6 +8,7 @@ import Footer from "src/components/footer"
 
 // sections
 import Mission from "src/sections/mission/mission"
+import Supporters from "src/sections/mission/supporters"
 
 function MissionPage() {
   return (
@@ -17,7 +18,10 @@ function MissionPage() {
       <div className="sections">
         <Mission />
       </div>
-      <Footer />
+      <div className="extendedFooter">
+        <Supporters />
+        <Footer transparent />
+      </div>
     </Layout>
   )
 }

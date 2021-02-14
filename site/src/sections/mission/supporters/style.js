@@ -15,6 +15,11 @@ export const ContentWrapper = styled.div`
 
   h2 {
     font-size: 30px;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    max-width: 900px;
   }
 
   p {
