@@ -15,7 +15,6 @@ module.exports = {
       resolve: "gatsby-plugin-manifest",
       options: manifestConfig,
     },
-    "gatsby-plugin-offline",
     {
       resolve: "gatsby-source-filesystem",
       options: { name: "src", path: `${__dirname}/src/` },

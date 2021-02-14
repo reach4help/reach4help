@@ -18,12 +18,7 @@ function Team() {
         </ContentWrapper>
 
         <Link to="/team">
-          <Button
-            textColor="white"
-            backgroundColor="#ff7b02"
-            outlineColor="#7d00a3"
-            fontSize="1em"
-          >
+          <Button backgroundColor="#ff7b02" textColor="white" fontSize="0.95em">
             {t("HomePage.AboutSection.buttons.0")}
           </Button>
         </Link>

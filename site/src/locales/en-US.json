@@ -109,15 +109,16 @@
       "SupportersSection": {
         "heading": "Supporters",
         "subheading": [
-          "We want to thank all the brands, companies, and nonprofits supporting us on our mission!",
-          "In January 2021, Google for Nonprofits granted us $10,000 a month for outreach!"
+          "Thank you to all the companies supporting us on our mission!",
+          "In January 2021, Google for Nonprofits granted us $120,000 this year for outreach!"
         ]
       }
     },
     "MissionPage": {
+      "topHeading": "We're a group of volunteers driven to unify help worldwide",
       "heading": "Our Mission",
       "description": [
-        "We're a nonprofit unifying access to volunteer help worldwide. Through technology, we’re providing quick and easy access to help and resources in your area with local organizations like AIESEC in Portugal, the House of Good Deeds in NYC and more.",
+        "We're a nonprofit democratizing access to volunteer help worldwide. Through technology, we’re providing quick and easy access to help and resources in your area with local organizations like AIESEC in Portugal, the House of Good Deeds in NYC and more.",
         "With over 300 volunteers in 25 countries and 6 continents, we're connecting communities in need to food banks, charity events, and day-to-day services worldwide. Together, we're building a network of help to keep us stronger and more connected through COVID-19 and beyond."
       ]
     },
@@ -134,7 +135,7 @@
       },
       "PartnersSection": {
         "heading": "Partners",
-        "subheading": "We're fortunate to partner with these nonprofits and volunteer organizations to build out a network of volunteer helpers across the world!"
+        "subheading": "Thank you to our volunteer and nonprofit partner organizations helping us build out a network of helpers across the world!"
       }
     },
     "TeamPage": {
@@ -142,7 +143,7 @@
       "subheading": "",
       "description": [
         "Hailing from LA to Morocco to Portugal to Bangladesh, we’re an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
-        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
+        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
       "join": "Interested in joining us?",
       "buttons": ["Join us on our mission!"]

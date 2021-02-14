@@ -12,7 +12,6 @@ import Reasons from "src/sections/home/reasons"
 import GetHelpInfo from "src/sections/home/getHelpInfo"
 import GiveHelpInfo from "src/sections/home/giveHelpInfo"
 import AboutInfo from "src/sections/home/aboutInfo"
-import Supporters from "src/sections/home/supporters"
 
 function HomePage() {
   return (
@@ -26,10 +25,7 @@ function HomePage() {
         <GiveHelpInfo />
         <AboutInfo />
       </div>
-      <div className="extendedFooter">
-        <Supporters />
-        <Footer transparent />
-      </div>
+      <Footer />
     </Layout>
   )
 }

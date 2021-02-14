@@ -9,7 +9,6 @@ function Supporters() {
     <Wrapper id="partners">
       <ContentWrapper>
         <h2>{t("HomePage.SupportersSection.heading")}</h2>
-        <br />
         <h3>{t("HomePage.SupportersSection.subheading.0")}</h3>
         <h3>{t("HomePage.SupportersSection.subheading.1")}</h3>
       </ContentWrapper>

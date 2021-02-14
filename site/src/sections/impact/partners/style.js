@@ -4,7 +4,7 @@ import {
   Wrapper as SupportersWrapper,
   ContentWrapper as SupportersContentWrapper,
   LogosWrapper as SupportersLogoWrapper,
-} from "../../home/supporters/style"
+} from "src/sections/mission/supporters/style"
 
 export const Wrapper = styled(SupportersWrapper)``
 
