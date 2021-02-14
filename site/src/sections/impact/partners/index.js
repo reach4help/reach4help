@@ -9,7 +9,6 @@ function Partners() {
     <Wrapper id="partners">
       <ContentWrapper>
         <h2>{t("ImpactPage.PartnersSection.heading")}</h2>
-        <br />
         <h3>{t("ImpactPage.PartnersSection.subheading")}</h3>
       </ContentWrapper>
       <LogosWrapper>

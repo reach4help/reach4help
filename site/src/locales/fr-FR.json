@@ -114,15 +114,16 @@
       "SupportersSection": {
         "heading": "Les supporters",
         "subheading": [
-          "Nous tenons à remercier toutes les marques, les entreprises et les organismes sans but lucratif qui nous soutiennent dans notre mission !",
-          "En janvier 2021, Google pour les Nonprofits nous a accordé 10 000 $ par mois pour les activités de proximité!"
+          "Merci à toutes les entreprises qui nous soutiennent dans notre mission !",
+          "En janvier 2021, Google pour les Nonprofits nous a accordé 120 000 $ cette année pour les activités de proximité!"
         ]
       }
     },
     "MissionPage": {
+      "topHeading": "Nous sommes un groupe de bénévoles motivés pour unifier l'aide dans le monde entier",
       "heading": "Notre Mission",
       "description": [
-        "Reach4Help est un projet ouvert entièrement géré par des bénévoles qui vise à résoudre des problèmes tels que fournir un accès plus facile à l'épicerie, aux médicaments ou une simple aide pour promener les chiens pour ceux qui ne peuvent pas le faire pour le moment.",
+        "Nous sommes un organisme à but non lucratif qui démocratise l'accès à l'aide bénévole dans le monde entier. Grâce à la technologie, nous fournissons un accès rapide et facile à l'aide et aux ressources dans votre région avec des organisations locales comme AIESEC au Portugal, la Maison des bonnes actions à NYC et plus encore.",
         "<strong>NOTRE OBJECTIF</strong> est de permettre à ceux qui en ont besoin de recevoir de l'aide, et aux groupes et organisations partenaires d'aider plus efficacement, en mobilisant leurs bénévoles avec l'aide de notre propre système."
       ]
     },
@@ -139,7 +140,7 @@
       },
       "PartnersSection": {
         "heading": "Partenaires",
-        "subheading": "We're fortunate to partner with these nonprofits and volunteer organizations to build out a network of volunteer helpers across the world!"
+        "subheading": "Merci à nos organisations bénévoles et partenaires à but non lucratif qui nous aident à construire un réseau d’aides à travers le monde!"
       }
     },
     "TeamPage": {
@@ -147,7 +148,7 @@
       "subheading": "",
       "description": [
         "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial.",
-        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
+        "Nous recherchons des développeurs volontaires ReactJS, des stratèges en marketing et relations publiques et des concepteurs d'interface UI/UX pour aider à accroître nos efforts en soutenant les communautés dans le besoin par le biais de la COVID-19 et des crises futures à venir."
       ],
       "join": "Intéressé à nous rejoindre?",
       "buttons": [

@@ -163,7 +163,8 @@ export const DrawerWrapper = styled.div`
           font-size: 1.1rem;
 
           p {
-            opacity: 0.5;
+            font-size: 1.1rem;
+            opacity: 0.7;
           }
           :hover {
             color: ${props => props.theme.colors.accent};
@@ -188,7 +189,7 @@ export const DrawerWrapper = styled.div`
   /* TODO: note to self - clean this up at some point PLEASE */
   ${p => p.theme.breakpoints.small} {
     width: 100%;
-    height: 350px;
+    height: 400px;
     /* max-height: 300px; */
     background: rgb(248, 248, 248);
     box-shadow: 1px 0 10px 4px rgba(0, 0, 0, 0.5);

@@ -1,28 +1,35 @@
 import styled from "styled-components"
 
 export const WorldMapWrapper = styled.div`
-  width: 95%;
+  width: 100%;
   margin: auto;
+  margin-bottom: -90px;
+
   h2 {
     text-align: center;
     font-size: 40px;
     margin: auto;
-    margin-bottom: -40px;
+    margin-bottom: -85px;
     display: flex;
     flex-direction: column;
-    padding-top: 25px;
+    padding-top: 15px;
   }
+
   ${p => p.theme.breakpoints.medium} {
-    width: 100%;
+    margin-bottom: -60px;
+
     h2 {
       font-size: 28px;
+      margin-bottom: -50px;
     }
   }
+
   ${p => p.theme.breakpoints.small} {
-    width: 100%;
+    margin-bottom: -30px;
+
     h2 {
       font-size: 20px;
-      margin-bottom: -10px;
+      margin-bottom: -20px;
     }
   }
 `

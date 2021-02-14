@@ -61,7 +61,6 @@ function Header() {
               backgroundColor="transparent"
               border="2px solid #ff7b02"
               textColor="#ff7b02"
-              outlineColor="white"
               fontSize="0.95em"
             >
               {buttonLinks[0].title}
@@ -71,7 +70,6 @@ function Header() {
             <Button
               backgroundColor="#ff7b02"
               textColor="white"
-              outlineColor="white"
               fontSize="0.95em"
             >
               {buttonLinks[1].title}
@@ -104,7 +102,6 @@ function Header() {
                   backgroundColor="transparent"
                   border="2px solid #ff7b02"
                   textColor="#ff7b02"
-                  outlineColor="white"
                   fontSize="0.95em"
                 >
                   {buttonLinks[0].title}
@@ -114,7 +111,6 @@ function Header() {
                 <Button
                   backgroundColor="#ff7b02"
                   textColor="white"
-                  outlineColor="white"
                   fontSize="0.95em"
                 >
                   {buttonLinks[1].title}

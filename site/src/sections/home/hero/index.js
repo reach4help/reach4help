@@ -41,19 +41,17 @@ function Home() {
             <Button
               backgroundColor="#ff7b02"
               textColor="white"
-              outlineColor="white"
-              fontSize="1.05em"
+              fontSize="0.95em"
             >
               {t("HomePage.HeroSection.buttons.0")}
             </Button>
           </a>
           <a href="https://app.reach4help.org/volunteer" rel="noopener">
             <Button
-              fontSize="1.05em"
               backgroundColor="transparent"
+              border="2px solid white"
               textColor="white"
-              outlineColor="white"
-              border="2px solid white" // stupidity 100
+              fontSize="0.95em"
             >
               {t("HomePage.HeroSection.buttons.1")}
             </Button>
