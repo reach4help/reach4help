@@ -114,15 +114,16 @@
       "SupportersSection": {
         "heading": "Os Apoiadores",
         "subheading": [
-          "Queremos agradecer a todas as marcas, empresas e lucros que nos apoiam na nossa missão!",
-          "Em janeiro de 2021, o Google para Nonprofits nos concedeu US$10.000 por mês por outreacho!"
+          "Thank you to all the companies supporting us on our mission!",
+          "In January 2021, Google for Nonprofits granted us $120,000 this year for outreach!"
         ]
       }
     },
     "MissionPage": {
+      "topHeading": "We're a group of volunteers driven to unify help worldwide",
       "heading": "A Nossa Missão",
       "description": [
-        "O Reach4Help é um projeto de código aberto totalmente gerido por voluntários que procura encontrar soluções para problemas como o acesso fácil a bens, medicamentos ou simplesmente passear o cão daqueles que não o conseguem fazer em determinado momento",
+        "We're a nonprofit democratizing access to volunteer help worldwide. Through technology, we’re providing quick and easy access to help and resources in your area with local organizations like AIESEC in Portugal, the House of Good Deeds in NYC and more.",
         "O <strong>NOSSO OBJETIVO</strong> é permitir que aqueles que necessitam de ajuda que a recebam e que organizações e grupos parceiros ajudem de forma mais eficiente, ao mobilizarem os seus voluntários com a ajuda do nosso sistema."
       ]
     },
@@ -139,7 +140,7 @@
       },
       "PartnersSection": {
         "heading": "Partenaires",
-        "subheading": "We're fortunate to partner with these nonprofits and volunteer organizations to build out a network of volunteer helpers across the world!"
+        "subheading": "Thank you to our volunteer and nonprofit partner organizations helping us build out a network of helpers across the world!"
       }
     },
     "TeamPage": {
@@ -147,7 +148,7 @@
       "subheading": "",
       "description": [
         "Somos parte da Helpful Engineering, um coletivo de voluntários que se juntaram para arranjar soluções durante a Pandemia da COVID-19, sem qualquer fim comercial.",
-        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
+        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
       "join": "Interessou-se em nos juntar?",
       "buttons": [
