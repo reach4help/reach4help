@@ -1,6 +1,6 @@
 import React from "react"
 
-import Logos from "./assets"
+import Logos from "./socials"
 
 import { SocialsWrapper } from "./style"
 
@@ -18,7 +18,7 @@ function Socials() {
             target="__blank"
             rel="noopener noreferrer"
           >
-            <LogoIcon />
+            <LogoIcon size={28} />
           </a>
         )
       })}

@@ -7,8 +7,34 @@ export default createGlobalStyle`
       padding: 0;
   }
 
-  body, html {
+  body {
     font-family: ${p => p.theme.fonts.main};
-    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent; /* transparent with keyword */
+  }
+
+  h1 {
+    font-size: 42px;
+
+    ${p => p.theme.breakpoints.medium} {
+      font-size: 28px;
+    }
+  }
+
+  h3 {
+    font-size: 24px;
+
+    ${p => p.theme.breakpoints.medium} {
+      font-size: 18px;
+    }
+  }
+
+  p {
+    font-size: 18px;
+
+    ${p => p.theme.breakpoints.medium} {
+      font-size: 16px;
+    }
   }
 `

@@ -12,6 +12,10 @@ export const HeaderWrapper = styled.header`
     text-decoration: none;
   }
 
+  p {
+    font-size: 16px;
+  }
+
   .actions {
     margin: 0 -20px;
     display: flex;
@@ -65,7 +69,7 @@ export const TopWrapper = styled.div`
     align-items: center;
 
     img {
-      width: 40px;
+      width: 30px;
     }
 
     .logo-type {
@@ -159,7 +163,8 @@ export const DrawerWrapper = styled.div`
           font-size: 1.1rem;
 
           p {
-            opacity: 0.5;
+            font-size: 1.1rem;
+            opacity: 0.7;
           }
           :hover {
             color: ${props => props.theme.colors.accent};
@@ -170,23 +175,12 @@ export const DrawerWrapper = styled.div`
       .active {
         color: white;
 
-        ${p => p.theme.breakpoints.small} {
-          color: ${props => props.theme.colors.accent};
-          p {
-            opacity: 1;
-          }
+        p {
+          opacity: 1;
         }
 
-        ::after {
-          position: relative;
-          left: 50%;
-          margin-top: 7px;
-          margin-left: -10px;
-          display: block;
-          content: "";
-          width: 20px;
-          height: 5px;
-          background-color: ${p => p.theme.colors.secondary};
+        ${p => p.theme.breakpoints.small} {
+          color: ${props => props.theme.colors.accent};
         }
       }
     }
@@ -195,7 +189,7 @@ export const DrawerWrapper = styled.div`
   /* TODO: note to self - clean this up at some point PLEASE */
   ${p => p.theme.breakpoints.small} {
     width: 100%;
-    height: 350px;
+    height: 400px;
     /* max-height: 300px; */
     background: rgb(248, 248, 248);
     box-shadow: 1px 0 10px 4px rgba(0, 0, 0, 0.5);
