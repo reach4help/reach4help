@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Offer } from 'src/models/offers';
+import { Post } from 'src/models/posts';
 import styled from 'styled-components';
 
 import Notification from './Notification';
@@ -16,10 +16,10 @@ const NotificationsList: React.FC<NotificationsList> = ({
         unseenOffers.map((item, index) => (
           <Notification
             key={index}
-            cavUser={item.cavUserSnapshot}
+            cavUser={item.creatorSnapshot}
             offerStatus={item.status}
-            offerRequest={item.requestSnapshot}
-            requestRef={item.requestRef}
+            offerRequest={item.parentSnapshot}
+            requestRef={item.parentRef!}
             updatedAt={item.updatedAt.toDate()}
           />
         ))}
@@ -40,7 +40,7 @@ const NotificationListWrapper = styled.div`
 `;
 
 interface NotificationsList {
-  unseenOffers: Offer[];
+  unseenOffers: Post[];
 }
 
 export default NotificationsList;

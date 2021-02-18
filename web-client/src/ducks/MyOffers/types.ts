@@ -1,11 +1,11 @@
 import { Post } from 'src/models/posts';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
-const { asyncType, observerType, syncType } = createActionTypeFactory('MY_OFFERS');
-
-export const CREATE = asyncType(
-  'CREATE',
+const { asyncType, observerType, syncType } = createActionTypeFactory(
+  'MY_OFFERS',
 );
+
+export const CREATE = asyncType('CREATE');
 export const UPDATE = asyncType('UPDATE');
 export const RESET_UPDATE = syncType('RESET_UPDATE');
 

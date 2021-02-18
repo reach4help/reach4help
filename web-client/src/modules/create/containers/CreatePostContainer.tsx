@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
-import { ProfileState } from 'src/ducks/profile/types';
 import { createOffer } from 'src/ducks/MyOffers/actions';
 import { createRequest } from 'src/ducks/MyRequests/actions';
+import { ProfileState } from 'src/ducks/profile/types';
 import { IPost, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
@@ -107,24 +107,26 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
     } = postLocation;
     if (profileState.profile) {
       const newPost = {
-        postId: null,
         isResponse: false,
         requestingHelp: !IS_OFFER_POST,
-        sourcePublicPostId: null,
+        parentSnapshot: null,
+        parentRef: null,
         status: PostStatus.pending,
-        creatorGivenRating: 0,
-        parentCreatorGivenRating: 0,
+        creatorGivenRating: null,
+        parentCreatorGivenRating: null,
         updateSeenBy: [],
         creatorRatedAt: null,
         parentCreatorRatedAt: null,
         positiveResponseCount: 0,
         negativeResponseCount: 0,
+        firstRejectionMade: null,
+        firstOfferMade: null,
         title,
         description,
-        userRef: profileState.userRef,
+        creatorRef: profileState.userRef,
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
         latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
-        userSnapshot: profileState.profile.toObject() as IUser,
+        creatorSnapshot: profileState.profile.toObject() as IUser,
       } as IPost;
       return IS_OFFER_POST
         ? dispatch(createOffer(newPost))

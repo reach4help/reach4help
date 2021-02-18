@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { observeMyRequests } from 'src/ducks/MyRequests/actions';
+import { MyRequestsState } from 'src/ducks/MyRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { observeGetMyRequests } from 'src/ducks/MyRequests/actions';
-import { RequestState } from 'src/ducks/MyRequests/types';
 import { ApplicationPreference } from 'src/models/users';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
@@ -24,13 +24,13 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   );
 
   const myRequests = useSelector(
-    ({ myRequestReducer }: { myRequestReducer: RequestState }) =>
+    ({ myRequestReducer }: { myRequestReducer: MyRequestsState }) =>
       myRequestReducer.myRequests,
   );
 
   useEffect(() => {
     if (profileState.userRef) {
-      observeGetMyRequests(dispatch, {
+      observeMyRequests(dispatch, {
         status,
         userRef: profileState.userRef,
       });

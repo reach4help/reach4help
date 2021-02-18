@@ -1,8 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { OfferStatus } from 'src/models/offers';
-import { Request } from 'src/models/requests';
+import { Post, PostStatus } from 'src/models/posts';
 import { User } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/constants';
 import { COLORS } from 'src/theme/colors';
@@ -18,7 +17,7 @@ const Notification: React.FC<NotificationProps> = ({
   const { t } = useTranslation();
   const history = useHistory();
   const visualizeNotification = () => {
-    if (offerStatus === OfferStatus.accepted) {
+    if (offerStatus === PostStatus.ongoing) {
       // if (isCav) {
       //   return (
       //     <RequestNotification>
@@ -50,40 +49,7 @@ const Notification: React.FC<NotificationProps> = ({
         </RequestNotification>
       );
     }
-    if (offerStatus === OfferStatus.rejected) {
-      // if (isCav) {
-      //   return (
-      //     <RequestNotification>
-      //       {offerRequest?.pinUserSnapshot.displayName ||
-      //         offerRequest?.pinUserSnapshot.username ||
-      //         `${t('components.notification.request_author')} ${t(
-      //           'components.notification.already_helped',
-      //         )}`}
-      //       {offerRequest?.title ? (
-      //         <RequestTitle>{offerRequest.title}</RequestTitle>
-      //       ) : (
-      //         t('components.notification.a_request')
-      //       )}
-      //       .
-      //     </RequestNotification>
-      //   );
-      // }
-      // TODO: Find a better solution
-      return (
-        <RequestNotification>
-          {t('components.notification.pin_rejected')}
-          {cavUser.displayName || cavUser.username}
-          {t('for')}
-          {offerRequest?.title ? (
-            <RequestTitle>{offerRequest.title}</RequestTitle>
-          ) : (
-            t('components.notification.your_task')
-          )}
-          .
-        </RequestNotification>
-      );
-    }
-    if (offerStatus === OfferStatus.pending) {
+    if (offerStatus === PostStatus.pending) {
       // if (isCav) {
       //   return (
       //     <RequestNotification>
@@ -111,7 +77,7 @@ const Notification: React.FC<NotificationProps> = ({
         </RequestNotification>
       );
     }
-    if (offerStatus === OfferStatus.cavDeclined) {
+    if (offerStatus === PostStatus.declined) {
       // if (isCav) {
       //   return (
       //     <RequestNotification>
@@ -194,8 +160,8 @@ const RequestTitle = styled.span`
 
 interface NotificationProps {
   cavUser: User;
-  offerStatus: OfferStatus;
-  offerRequest: Request | null;
+  offerStatus: PostStatus;
+  offerRequest: Post | null;
   requestRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   >;
