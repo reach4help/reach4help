@@ -40,34 +40,32 @@ const SideTopMenu: React.FC<{
   const { t } = useTranslation();
 
   const SideTopMenuStyle = styled('div')`
-  margin-top: 100px;
+  margin-top: 5rem;
   // margin-top: ${!isLoggedIn ? '40px' : '100px'};
-  flex: .5;
+  // flex: .65;
   display: flex;
   flex-direction: column;
   margin-left: 2rem;
 
   .ant-menu {
+
     background: ${COLORS.white};
     font-weight: bold;
 
     .ant-menu-item {
-      margin: 0;
-
+      margin: 1rem 0 1rem 1rem;
+      color: #000;
       &:after {
         display: none;
       }
-      &:hover,
-      &:focus,
-      &:active,
-      &:focus-within {
-        color: white;
-        font-weight: 700;
-        // background-color: ${COLORS.link};
-        color: ${COLORS.primaryOrange}
+      &:hover{
+        color: #7f7f7f;
       }
-    }
+      &:active{
+        color: #EB7100;
+      }
 
+    }
     .ant-menu-submenu {
       .ant-menu-submenu-title {
         font-size: 24px;
@@ -194,9 +192,13 @@ const StyledLink = styled(Link)`
 `;
 
 const LanguageSelectorContainer = styled.div`
-  font-size: 24px;
-  font-weight: 700;
-  margin-left: 0.8rem;
+  display: flex;
+  position: relative;
+  // bottom: 10%;
+  margin-left: 4rem;
+  & {
+    color: green;
+  }
 `;
 
 export default SideTopMenu;
