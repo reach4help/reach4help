@@ -4,9 +4,8 @@ import { firestore } from 'firebase-admin';
 
 import { db } from '../../app';
 
-import { IOffer, Offer, OfferStatus } from '../offers';
-import { Request, RequestStatus } from '../requests';
-import { IUnauthenticatedRequest, UnauthenticatedRequest } from '../UnauthenticatedRequests';
+import { IPost, Post, PostStatus } from '../Post';
+import { IUnauthenticatedPost, UnauthenticatedPost } from '../UnauthenticatedPost';
 
 import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
@@ -20,49 +19,47 @@ interface IUserGeneral {
   rating: number | null;
 }
 
-export interface IGeneralRequest extends IUnauthenticatedRequest {
-  userRef: string;
-  userSnapshot: IUserGeneral;
-  status: RequestStatus;
+export interface IGeneralPost extends IUnauthenticatedPost {
+  creatorRef: string;
+  creatorSnapshot: IUserGeneral;
+  status: PostStatus;
   streetAddress: string;
   participants: string[];
   rejected: string[];
   offerCount: number;
   rejectionCount: number;
   firstOfferMade: Date | null;
-  lastOfferMade: Date | null;
   firstRejectionMade: Date | null;
-  lastRejectionMade: Date | null;
   seenBy: string[];
 }
 
-export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRequest {
+export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   constructor(
-    requestRef: string,
-    userSnapshot: IUserGeneral,
+    postRef: string,
+    requestingHelp: boolean,
+    creatorSnapshot: IUserGeneral,
     title: string,
     description: string,
-    latLng: IGeneralRequest['latLng'],
-    userRef: string,
-    status: RequestStatus,
+    latLng: IGeneralPost['latLng'],
+    creatorRef: string,
+    status: PostStatus,
     streetAddress: string,
     participants: string[] = [],
     rejected: string[] = [],
     offerCount = 0,
     rejectionCount = 0,
     firstOfferMade: Date | null = null,
-    lastOfferMade: Date | null = null,
     firstRejectionMade: Date | null = null,
-    lastRejectionMade: Date | null = null,
     seenBy: string[] = [],
     createdAt?: Date,
     updatedAt?: Date,
   ) {
     super(
-      requestRef,
+      postRef,
+      requestingHelp,
       {
-        displayName: userSnapshot.displayName,
-        displayPicture: userSnapshot.displayPicture,
+        displayName: creatorSnapshot.displayName,
+        displayPicture: creatorSnapshot.displayPicture,
       },
       title,
       description,
@@ -70,8 +67,8 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       createdAt,
       updatedAt,
     );
-    this._userSnapshotGeneral = userSnapshot;
-    this._userRef = userRef;
+    this._creatorSnapshotGeneral = creatorSnapshot;
+    this._creatorRef = creatorRef;
     this._status = status;
     this._streetAddress = streetAddress;
     this._participants = participants;
@@ -79,32 +76,30 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     this._offerCount = offerCount;
     this._rejectionCount = rejectionCount;
     this._firstOfferMade = firstOfferMade;
-    this._lastOfferMade = lastOfferMade;
     this._firstRejectionMade = firstRejectionMade;
-    this._lastRejectionMade = lastRejectionMade;
     this._seenBy = seenBy;
   }
 
   @IsObject()
-  private _userSnapshotGeneral: IUserGeneral;
+  private _creatorSnapshotGeneral: IUserGeneral;
 
-  get userSnapshot(): IUserGeneral {
-    return this._userSnapshotGeneral;
+  get creatorSnapshot(): IUserGeneral {
+    return this._creatorSnapshotGeneral;
   }
 
-  set userSnapshot(userSnapshot: IUserGeneral) {
-    this._userSnapshotGeneral = userSnapshot;
+  set creatorSnapshot(creatorSnapshot: IUserGeneral) {
+    this._creatorSnapshotGeneral = creatorSnapshot;
   }
 
   @IsString()
-  private _userRef: string;
+  private _creatorRef: string;
 
-  get userRef(): string {
-    return this._userRef;
+  get creatorRef(): string {
+    return this._creatorRef;
   }
 
-  set userRef(userRef: string) {
-    this._userRef = userRef;
+  set creatorRef(creatorRef: string) {
+    this._creatorRef = creatorRef;
   }
 
   @IsArray()
@@ -149,14 +144,14 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     this._rejected.splice(this._rejected.indexOf(rejection), 1);
   }
 
-  @IsEnum(RequestStatus)
-  private _status: RequestStatus;
+  @IsEnum(PostStatus)
+  private _status: PostStatus;
 
-  get status(): RequestStatus {
+  get status(): PostStatus {
     return this._status;
   }
 
-  set status(status: RequestStatus) {
+  set status(status: PostStatus) {
     this._status = status;
   }
 
@@ -196,18 +191,6 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
   @IsDate()
   @IsOptional()
-  private _lastOfferMade: Date | null;
-
-  get lastOfferMade(): Date | null {
-    return this._lastOfferMade;
-  }
-
-  set lastOfferMade(lastOfferMade: Date | null) {
-    this._lastOfferMade = lastOfferMade;
-  }
-
-  @IsDate()
-  @IsOptional()
   private _firstRejectionMade: Date | null;
 
   get firstRejectionMade(): Date | null {
@@ -216,18 +199,6 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
   set firstRejectionMade(firstRejectionMade: Date | null) {
     this._firstRejectionMade = firstRejectionMade;
-  }
-
-  @IsDate()
-  @IsOptional()
-  private _lastRejectionMade: Date | null;
-
-  get lastRejectionMade(): Date | null {
-    return this._lastRejectionMade;
-  }
-
-  set lastRejectionMade(lastRejectionMade: Date | null) {
-    this._lastRejectionMade = lastRejectionMade;
   }
 
   @IsObject()
@@ -252,51 +223,32 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
     this._streetAddress = streetAddress;
   }
 
-  public static async fromRequest(data: Request, path: string): Promise<GeneralRequest> {
-    const offersData = await db
-      .collection('offers')
-      .where('requestRef', '==', db.doc(path))
+  public static async fromPost(data: Post, path: string): Promise<GeneralPost> {
+    const responsesData = await db
+      .collection('posts')
+      .where('parentRef', '==', db.doc(path))
       .get();
 
-    const participants = [data.pinUserRef.id];
+    const participants = [data.creatorRef.id];
+    const seenBy = data.updateSeenBy.map(user => user.id);
     const rejected = [];
-    let offerCount = 0;
-    let rejectionCount = 0;
-    let firstOfferMade: Date | null = null;
-    let lastOfferMade: Date | null = null;
-    let firstRejectionMade: Date | null = null;
-    let lastRejectionMade: Date | null = null;
-    const seenBy = [data.pinUserRef.id];
 
-    for (const doc of offersData.docs) {
-      const offer = Offer.factory(doc.data() as IOffer);
-      if (offer.status === OfferStatus.cavDeclined) {
-        rejectionCount += 1;
-        rejected.push(offer.cavUserRef.id);
-        if (!firstRejectionMade || (firstRejectionMade && offer.createdAt.toDate() < firstRejectionMade)) {
-          firstRejectionMade = offer.createdAt.toDate();
-        }
-        if (!lastRejectionMade || (lastRejectionMade && offer.createdAt.toDate() > lastRejectionMade)) {
-          lastRejectionMade = offer.createdAt.toDate();
-        }
+    for (const doc of responsesData.docs) {
+      const response = Post.factory(doc.data() as IPost);
+      if (response.status === PostStatus.declined) {
+        rejected.push(response.creatorRef.id);
       } else {
-        offerCount += 1;
-        participants.push(offer.cavUserRef.id);
-        if (!firstOfferMade || (firstOfferMade && offer.createdAt.toDate() < firstOfferMade)) {
-          firstOfferMade = offer.createdAt.toDate();
-        }
-        if (!lastOfferMade || (lastOfferMade && offer.createdAt.toDate() > lastOfferMade)) {
-          lastOfferMade = offer.createdAt.toDate();
-        }
+        participants.push(response.creatorRef.id);
       }
     }
 
-    return new GeneralRequest(
+    return new GeneralPost(
       path,
+      data.requestingHelp,
       {
-        displayName: data.pinUserSnapshot.displayName || '',
-        displayPicture: data.pinUserSnapshot.displayPicture,
-        rating: data.pinUserSnapshot.pinRatingsReceived / data.pinUserSnapshot.requestsMade,
+        displayName: data.creatorSnapshot.displayName || '',
+        displayPicture: data.creatorSnapshot.displayPicture,
+        rating: data.creatorSnapshot.pinRatingsReceived / data.creatorSnapshot.requestsMade,
       },
       data.title,
       data.description,
@@ -304,26 +256,25 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
         latitude: data.latLng.latitude,
         longitude: data.latLng.longitude,
       },
-      data.pinUserRef.path,
+      data.creatorRef.path,
       data.status,
       data.streetAddress,
       participants,
       rejected,
-      offerCount,
-      rejectionCount,
-      firstOfferMade,
-      lastOfferMade,
-      firstRejectionMade,
-      lastRejectionMade,
+      data.positiveResponseCount,
+      data.negativeResponseCount,
+      data.firstOfferMade?.toDate(),
+      data.firstRejectionMade?.toDate(),
       seenBy,
       data.createdAt.toDate(),
       data.updatedAt.toDate(),
     );
   }
 
-  public static fromFirestore(data: DocumentData): GeneralRequest {
-    return new GeneralRequest(
+  public static fromFirestore(data: DocumentData): GeneralPost {
+    return new GeneralPost(
       (data.requestRef as DocumentReference).path,
+      data.requestingHelp,
       data.userSnapshot,
       data.title,
       data.description,
@@ -339,23 +290,22 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.offerCount,
       data.rejectionCount,
       (data.firstOfferMade as Timestamp).toDate(),
-      (data.lastOfferMade as Timestamp).toDate(),
       (data.firstRejectionMade as Timestamp).toDate(),
-      (data.lastRejectionMade as Timestamp).toDate(),
       data.seenBy,
       (data.createdAt as Timestamp).toDate(),
       (data.updatedAt as Timestamp).toDate(),
     );
   }
 
-  public static fromAlgolia(data: Record<string, any>): GeneralRequest {
-    return new GeneralRequest(
-      data.requestRef,
-      data.userSnapshot,
+  public static fromAlgolia(data: Record<string, any>): GeneralPost {
+    return new GeneralPost(
+      data.postRef,
+      data.requestingHelp,
+      data.creatorSnapshot,
       data.title,
       data.description,
       { latitude: data._geoloc.lat, longitude: data._geoloc.lng },
-      data.userRef,
+      data.creatorRef,
       data.status,
       data.streetAddress,
       data.participants,
@@ -363,31 +313,30 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.offerCount,
       data.rejectionCount,
       data.firstOfferMade,
-      data.lastOfferMade,
       data.firstRejectionMade,
-      data.lastRejectionMade,
       data.seenBy,
       data.createdAt,
       data.updatedAt,
     );
   }
 
-  public static getObjectId(requestPath: string): string {
-    return db.doc(requestPath).id;
+  public static getObjectId(postPath: string): string {
+    return db.doc(postPath).id;
   }
 
   public static getParticipantId(userPath: string): string {
     return db.doc(userPath).id;
   }
 
-  public static fromObject(data: IGeneralRequest): GeneralRequest {
-    return new GeneralRequest(
-      data.requestRef,
-      data.userSnapshot,
+  public static fromObject(data: IGeneralPost): GeneralPost {
+    return new GeneralPost(
+      data.postRef,
+      data.requestingHelp,
+      data.creatorSnapshot,
       data.title,
       data.description,
       data.latLng,
-      data.userRef,
+      data.creatorRef,
       data.status,
       data.streetAddress,
       data.participants,
@@ -395,23 +344,22 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       data.offerCount,
       data.rejectionCount,
       data.firstOfferMade,
-      data.lastOfferMade,
       data.firstRejectionMade,
-      data.lastRejectionMade,
       data.seenBy,
       data.createdAt,
       data.updatedAt,
     );
   }
 
-  toObject(): IGeneralRequest {
+  toObject(): IGeneralPost {
     return {
-      requestRef: this.requestRef,
-      userSnapshot: this.userSnapshot,
+      postRef: this.postRef,
+      requestingHelp: this.requestingHelp,
+      creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
       latLng: this.latLng,
-      userRef: this.userRef,
+      creatorRef: this.creatorRef,
       status: this.status,
       streetAddress: this.streetAddress,
       participants: this.participants,
@@ -419,9 +367,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
       firstOfferMade: this.firstOfferMade,
-      lastOfferMade: this.lastOfferMade,
       firstRejectionMade: this.firstRejectionMade,
-      lastRejectionMade: this.lastRejectionMade,
       seenBy: this.seenBy,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
@@ -430,12 +376,13 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
   toFirestore(): DocumentData {
     return {
-      requestRef: db.doc(this.requestRef),
-      userSnapshot: this.userSnapshot,
+      postRef: db.doc(this.postRef),
+      requestingHelp: this.requestingHelp,
+      creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
       latLng: new GeoPoint(this.latLng.latitude, this.latLng.longitude),
-      userRef: db.doc(this.userRef),
+      creatorRef: db.doc(this.creatorRef),
       status: this.status,
       streetAddress: this.streetAddress,
       participants: this.participants,
@@ -443,9 +390,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
       firstOfferMade: this.firstOfferMade ? Timestamp.fromDate(this.firstOfferMade) : null,
-      lastOfferMade: this.lastOfferMade ? Timestamp.fromDate(this.lastOfferMade) : null,
       firstRejectionMade: this.firstRejectionMade ? Timestamp.fromDate(this.firstRejectionMade) : null,
-      lastRejectionMade: this.lastRejectionMade ? Timestamp.fromDate(this.lastRejectionMade) : null,
       seenBy: this.seenBy,
       createdAt: Timestamp.fromDate(this.createdAt),
       updatedAt: Timestamp.fromDate(this.updatedAt),
@@ -454,16 +399,17 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
 
   toAlgolia(): object {
     return {
-      requestRef: this.requestRef,
-      objectID: db.doc(this.requestRef).id,
-      userSnapshot: this.userSnapshot,
+      postRef: this.postRef,
+      requestingHelp: this.requestingHelp,
+      objectID: db.doc(this.postRef).id,
+      creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
       _geoloc: {
         lat: this.latLng.latitude,
         lng: this.latLng.longitude,
       },
-      userRef: this.userRef,
+      creatorRef: this.creatorRef,
       status: this.status,
       streetAddress: this.streetAddress,
       participants: this.participants,
@@ -471,9 +417,7 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
       offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
       firstOfferMade: this.firstOfferMade,
-      lastOfferMade: this.lastOfferMade,
       firstRejectionMade: this.firstRejectionMade,
-      lastRejectionMade: this.lastRejectionMade,
       seenBy: this.seenBy,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
@@ -481,11 +425,11 @@ export class GeneralRequest extends UnauthenticatedRequest implements IGeneralRe
   }
 }
 
-export const RequestWithOffersFirestoreConverter: FirestoreDataConverter<GeneralRequest> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IGeneralRequest>): GeneralRequest => {
-    return GeneralRequest.fromFirestore(data.data());
+export const GeneralPostFirestoreConverter: FirestoreDataConverter<GeneralPost> = {
+  fromFirestore: (data: QueryDocumentSnapshot<IGeneralPost>): GeneralPost => {
+    return GeneralPost.fromFirestore(data.data());
   },
-  toFirestore: (modelObject: GeneralRequest): DocumentData => {
+  toFirestore: (modelObject: GeneralPost): DocumentData => {
     return modelObject.toFirestore();
   },
 };
