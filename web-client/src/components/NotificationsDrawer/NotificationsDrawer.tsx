@@ -1,10 +1,5 @@
 import { Drawer } from 'antd';
-import { firestore } from 'firebase';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setOffer } from 'src/ducks/specificOffers/actions';
-import { OffersState } from 'src/ducks/specificOffers/types';
-import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
 import NotificationsHeader from './NotificationsHeader';
@@ -13,35 +8,20 @@ import NotificationsList from './NotificationsList';
 const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
   visible,
   closeDrawer,
-  offersState,
-  unseenOffers,
-  unseenOffersKeys,
-}) => {
-  const dispatch = useDispatch();
-
-  return (
-    <SideDrawer
-      placement="right"
-      onClose={() => {
-        if (visible) {
-          for (const key of unseenOffersKeys) {
-            if (offersState.data && offersState.data[key]) {
-              const offer = offersState.data[key];
-              offer.seenAt = firestore.Timestamp.now();
-              dispatch(setOffer(offer, key, 'notificationsshouldnttrigger'));
-            }
-          }
-        }
-        closeDrawer();
-      }}
-      visible={visible}
-      width="100%"
-    >
-      <NotificationsHeader numNotifications={unseenOffers.length} />
-      <NotificationsList unseenOffers={unseenOffers} />
-    </SideDrawer>
-  );
-};
+}) => (
+  <SideDrawer
+    placement="right"
+    onClose={() => {
+      // TODO: Logic to be handled in getstream service
+      closeDrawer();
+    }}
+    visible={visible}
+    width="100%"
+  >
+    <NotificationsHeader numNotifications={0} />
+    <NotificationsList unseenOffers={[]} />
+  </SideDrawer>
+);
 
 const SideDrawer = styled(Drawer)`
   .ant-drawer-body {
@@ -58,9 +38,6 @@ const SideDrawer = styled(Drawer)`
 interface NotificationsDrawerProps {
   visible: boolean;
   closeDrawer: () => void;
-  offersState: OffersState;
-  unseenOffers: Offer[];
-  unseenOffersKeys: string[];
 }
 
 export default NotificationsDrawer;

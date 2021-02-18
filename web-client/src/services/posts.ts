@@ -8,10 +8,10 @@ export const createPost = async (postPayload: Post) => {
   const tempPost = Post.factory(postPayload);
   tempPost.createdAt = firestore2.Timestamp.fromDate(new Date());
   tempPost.updatedAt = tempPost.createdAt;
-  tempPost.postId = `P-${new Date().getTime().toString()}`;
+  const postId = `P-${new Date().getTime().toString()}`;
   return firestore
     .collection('posts')
-    .doc(tempPost.postId)
+    .doc(postId)
     .withConverter(PostFirestoreConverter)
     .set(tempPost);
 };
@@ -37,12 +37,12 @@ export const observePosts = (
     userRef?: firebase.firestore.DocumentReference<User>;
   },
 ): firebase.Unsubscribe => {
-  let filter = firestore
-    .collection('posts')
-    .where('isResponse', 'in', [true, false]); // TODO: (es) figure out how to eliminate
+  let filter: firebase.firestore.Query<firestore2.DocumentData> = firestore.collection(
+    'posts',
+  );
 
   if (userRef) {
-    filter = filter.where('userRef', '==', userRef);
+    filter = filter.where('creatorRef', '==', userRef);
   }
 
   if (isDefined(requestingHelp)) {

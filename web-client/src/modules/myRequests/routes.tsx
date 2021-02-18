@@ -2,19 +2,14 @@ import React, { lazy, ReactElement, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
-import {
-  AlgFindRequestsLocation,
-  MyPostsLocation,
-} from './constants';
+import { AlgFindRequestsLocation, MyPostsLocation } from './constants';
 
 // TODO: (es) Choose between Alg and NonAlg container
 const AlgFindRequestsContainer = lazy(() =>
   import('./containers/FindRequestsAlgoliaContainer'),
 );
 
-const MyPostsTabs = lazy(() =>
-  import('./pages/MyPostsTabsPage'),
-);
+const MyPostsTabs = lazy(() => import('./pages/MyPostsTabsPage'));
 
 const Routes = (): ReactElement => (
   <Suspense fallback={<LoadingWrapper />}>

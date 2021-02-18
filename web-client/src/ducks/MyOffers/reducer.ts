@@ -1,13 +1,7 @@
 import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
-import {
-  CREATE,
-  OBSERVE,
-  UPDATE,
-  MyOffersState,
-  RESET_UPDATE,
-} from './types';
+import { CREATE, MyOffersState, OBSERVE, RESET_UPDATE, UPDATE } from './types';
 
 const initialSetActionState = {
   loading: false,

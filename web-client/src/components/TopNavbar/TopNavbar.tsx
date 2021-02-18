@@ -18,7 +18,7 @@ import {
 import { AboutPageLocation } from 'src/modules/landing-page/constants';
 import { LoginLocation } from 'src/modules/login/constants';
 import {
-  FindRequestsLocation,
+  AlgFindRequestsLocation,
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
 } from 'src/modules/myRequests/constants';
@@ -74,7 +74,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
           </HomeButton>
 
           <LinkContainer>
-            <StyledLink to={FindRequestsLocation}>
+            <StyledLink to={AlgFindRequestsLocation}>
               {t('navbar.home')}
             </StyledLink>
             <StyledLink to={MyRequestPostsLocationUrl}>

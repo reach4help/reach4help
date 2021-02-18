@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ProfileState } from 'src/ducks/profile/types';
-import { MyRequestsState } from 'src/ducks/MyRequests/types';
 import { MyOffersState } from 'src/ducks/MyOffers/types';
+import { MyRequestsState } from 'src/ducks/MyRequests/types';
+import { ProfileState } from 'src/ducks/profile/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
 import { firestore as firestore2 } from 'src/firebase';
 import { Post } from 'src/models/posts';
@@ -54,7 +54,7 @@ const TimelineViewContainer: React.FC<{
   );
 
   const offersState = useSelector(
-    ({ offers }: { offers: OffersState }) => offers,
+    ({ offers }: { offers: MyOffersState }) => offers,
   );
 
   const isCav =
