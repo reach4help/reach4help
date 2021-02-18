@@ -9,5 +9,6 @@ import * as markers from './markers';
 export * from './users';
 export * from './requests';
 export * from './offers';
+export * from './posts';
 
 export { https, markers };
