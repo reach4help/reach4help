@@ -2,13 +2,9 @@ import { IPost, Post } from 'src/models/posts';
 import { User } from 'src/models/users';
 import { createPost, observePosts } from 'src/services/posts';
 
-import {
-  OBSERVE,
-} from './types';
+import { OBSERVE } from './types';
 
-export const createRequest = (
-  payload: IPost,
-) => {
+export const createRequest = (payload: IPost) => {
   const postPayload = Post.factory(payload);
   return createPost(postPayload);
 };

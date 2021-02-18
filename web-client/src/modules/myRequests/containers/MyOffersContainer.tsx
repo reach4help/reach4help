@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { observeMyOffers } from 'src/ducks/MyOffers/actions';
+import { MyOffersState } from 'src/ducks/MyOffers/types';
 import { ProfileState } from 'src/ducks/profile/types';
-import { observeGetMyOffers } from 'src/ducks/MyOffers/actions';
-import { OfferState } from 'src/ducks/MyOffers/types';
 import { ApplicationPreference } from 'src/models/users';
 // TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
@@ -26,12 +26,12 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   );
 
   const myOffers = useSelector(
-    ({ myOfferReducer }: { myOfferReducer: OfferState }) =>
+    ({ myOfferReducer }: { myOfferReducer: MyOffersState }) =>
       myOfferReducer.myOffers,
   );
   useEffect(() => {
     if (profileState.userRef) {
-      observeGetMyOffers(dispatch, { status, userRef: profileState.userRef });
+      observeMyOffers(dispatch, { status, userRef: profileState.userRef });
     }
   }, [dispatch, profileState.userRef, status]);
 

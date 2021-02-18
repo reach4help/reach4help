@@ -1,11 +1,8 @@
 import { Layout } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { DEVICE_MAX } from 'src/constants/mediaQueries';
 import { ProfileState } from 'src/ducks/profile/types';
-import { observeOffers } from 'src/ducks/specificOffers/actions';
-import { OffersState } from 'src/ducks/specificOffers/types';
-import { Offer } from 'src/models/offers';
 import styled from 'styled-components';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
@@ -19,61 +16,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [notificationVisible, setNotificationVisible] = useState(false);
-  const [unseenOffers, setUnseenOffers] = useState<Offer[]>([]);
-  const [unseenOffersKeys, setUnseenOffersKeys] = useState<string[]>([]);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
-  const offersState = useSelector(
-    ({ offers }: { offers: OffersState }) => offers,
-  );
   const userProfile = profileState.profile;
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (
-      profileState.profile &&
-      profileState.profile.applicationPreference &&
-      !offersState.data &&
-      !offersState.loading
-    ) {
-      observeOffers(dispatch, {
-        userType: profileState.profile.applicationPreference,
-        userRef: profileState.userRef,
-      });
-    }
-  }, [userProfile, profileState, offersState, dispatch]);
-
-  useEffect(() => {
-    const unseenOffersLocal: Offer[] = [];
-    const unseenOffersKeysLocal: string[] = [];
-    if (offersState.data) {
-      // TODO: Replace below with logic without user roles
-      // for (const offersKey in offersState.data) {
-      //   if (
-      //     offersState.data[offersKey] &&
-      //     !offersState.data[offersKey].seenAt &&
-      //     ((!isCav &&
-      //       (offersState.data[offersKey].status === OfferStatus.pending ||
-      //         offersState.data[offersKey].status ===
-      //           OfferStatus.cavDeclined)) ||
-      //       (isCav &&
-      //         (offersState.data[offersKey].status === OfferStatus.rejected ||
-      //           offersState.data[offersKey].status === OfferStatus.accepted)))
-      //   ) {
-      //     unseenOffersLocal.push(offersState.data[offersKey]);
-      //     unseenOffersKeysLocal.push(offersKey);
-      //   }
-      // }
-      unseenOffersLocal.sort(
-        (a, b) => b.updatedAt.toMillis() - a.updatedAt.toMillis(),
-      );
-      setUnseenOffers(unseenOffersLocal);
-      setUnseenOffersKeys(unseenOffersKeysLocal);
-    }
-  }, [offersState, setUnseenOffersKeys, setUnseenOffers]);
 
   return (
     <DashboardLayoutWrapper>
@@ -81,7 +28,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         visible={!menuVisible && !notificationVisible}
         toggleMenu={() => setMenuVisible(!menuVisible)}
         toggleNotifications={() => setNotificationVisible(!notificationVisible)}
-        unseenOffersCount={unseenOffers.length}
+        unseenOffersCount={0}
       />
       <MenuDrawer
         visible={menuVisible}
@@ -89,11 +36,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         profileData={userProfile}
         logoutHandler={logoutHandler}
       />
+      {/* TODO: Replace with getstream */}
       <NotificationsDrawer
         visible={notificationVisible}
-        offersState={offersState}
-        unseenOffers={unseenOffers}
-        unseenOffersKeys={unseenOffersKeys}
         closeDrawer={() => setNotificationVisible(false)}
       />
       <DashboardContent>{children}</DashboardContent>
@@ -102,7 +47,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         openMenu={() => setMenuVisible(true)}
         openNotifications={() => setNotificationVisible(true)}
         // isCav={isCav}
-        unseenOffersCount={unseenOffers.length}
+        unseenOffersCount={0}
       />
     </DashboardLayoutWrapper>
   );

@@ -1,17 +1,7 @@
 import { Post } from 'src/models/posts';
 import createReducer from 'src/store/utils/createReducer';
 
-import {
-  OBSERVE,
-  MyRequestsState,
-} from './types';
-
-const initialSetActionState = {
-  loading: false,
-  success: false,
-  error: undefined,
-  modalState: false,
-};
+import { MyRequestsState, OBSERVE } from './types';
 
 const initialState: MyRequestsState = {
   myRequests: {
