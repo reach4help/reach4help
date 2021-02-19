@@ -1,6 +1,6 @@
 [
   {
-    "title": "Core",
+    "title": "Management",
     "members": [
       {
         "name": "Shayan Chowdhury",
@@ -36,6 +36,20 @@
         "avatar_url": "https://media-exp1.licdn.com/dms/image/C4D03AQEn1HT8Qfl37Q/profile-displayphoto-shrink_400_400/0/1590615324269?e=1617840000&v=beta&t=93vnAeu3mXU5j8QBdHGNPLfsyroIy03jZ0l2rnrqv0E",
         "contact": "mailto:yi@reach4help.org",
         "countries": ["CA"]
+      },
+      {
+        "name": "Pedro Filipe",
+        "title": "Co-founder",
+        "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
+        "contact": "https://github.com/puzzledbytheweb",
+        "countries": ["PT"]
+      },
+      {
+        "name": "Sam Lanning",
+        "title": "Co-founder",
+        "avatar_url": "https://avatars0.githubusercontent.com/u/3319932?v=4",
+        "contact": "https://sam.lanni.ng",
+        "countries": ["GB"]
       }
     ]
   },
@@ -43,22 +57,7 @@
     "title": "Development",
     "members": [
       {
-        "name": "Pedro Filipe",
-        "title": "Co-founder & Former Developer",
-        "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
-        "contact": "https://github.com/puzzledbytheweb",
-        "countries": ["PT"]
-      },
-      {
-        "name": "Sam Lanning",
-        "title": "Co-founder & Former Technical Lead",
-        "avatar_url": "https://avatars0.githubusercontent.com/u/3319932?v=4",
-        "contact": "https://sam.lanni.ng",
-        "countries": ["GB"]
-      },
-      {
         "name": "Dan Sabin",
-        "title": "Former Backend Lead",
         "avatar_url": "https://avatars0.githubusercontent.com/u/961844?v=4",
         "contact": "http://freethinking.it",
         "countries": ["US"]
@@ -100,7 +99,6 @@
       },
       {
         "name": "João Marques",
-        "title": "Former Frontend Lead",
         "avatar_url": "https://avatars1.githubusercontent.com/u/52417176?v=4",
         "contact": "https://github.com/jpmarques66",
         "countries": ["PT"]
@@ -114,7 +112,8 @@
       {
         "name": "Winggo Tse",
         "avatar_url": "https://avatars1.githubusercontent.com/u/26425671?v=4",
-        "contact": "https://github.com/winggo"
+        "contact": "https://github.com/winggo",
+        "countries": ["US"]
       },
       {
         "name": "Madhvi Sharma",
@@ -139,7 +138,6 @@
       },
       {
         "name": "Esther Handy-Malouin",
-        "title": "Former QA Lead from HermitQA",
         "avatar_url": "https://avatars3.githubusercontent.com/u/65609627?v=4",
         "contact": "https://github.com/CorporateInvesther",
         "countries": ["CA"]
@@ -195,56 +193,47 @@
     "members": [
       {
         "name": "Brian Dang",
-        "title": "Org Dashboard Design Lead",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01GT6M6GGJ-17ec6940a306-512",
         "contact": "https://briandang.co/",
         "countries": ["CA", "VN"]
       },
       {
         "name": "Crystal Li",
-        "title": "UI Design System Lead",
         "avatar_url": "",
         "contact": ""
       },
       {
         "name": "Siva Krishna",
-        "title": "UI Designer",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U019QLQU61L-97ee6ecfda56-512",
         "contact": ""
       },
       {
         "name": "Samantha Uebel",
-        "title": "Former Design Lead",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U019GRKMCH1-b09e1ad189bd-512",
         "contact": "https://www.linkedin.com/in/samantha-uebel-uxdesigner/"
       },
       {
         "name": "Shaina Danzinger",
-        "title": "UX Designer & Researcher",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01FGNACPD0-a8f3d2c29428-512",
         "contact": ""
       },
       {
         "name": "Mayra Vargas",
-        "title": "Former UX Designer",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01DXHXCTV4-2f624eac4081-512",
         "contact": ""
       },
       {
         "name": "Rita Serra",
-        "title": "Former UI Co-lead",
         "avatar_url": "https://avatars1.githubusercontent.com/u/62537457?v=4",
         "contact": "https://github.com/r13serra11"
       },
       {
         "name": "Cinthya Jauregui",
-        "title": "Former UI Co-lead",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U010LS54HD4-d62810bce698-512",
         "contact": "https://github.com/cinthyaejh"
       },
       {
         "name": "Telmo Dias",
-        "title": "Former UX Lead",
         "avatar_url": "https://avatars1.githubusercontent.com/u/30916?v=4",
         "contact": "https://github.com/telmodias"
       }
@@ -255,13 +244,11 @@
     "members": [
       {
         "name": "Jamie Dubow",
-        "title": "Social Media Lead",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01AGS6RA2D-19f552e32170-512",
         "contact": ""
       },
       {
         "name": "Shafaat Razin",
-        "title": "Social Media Intern",
         "avatar_url": "",
         "contact": ""
       },
@@ -272,7 +259,6 @@
       },
       {
         "name": "Patricia Miranda",
-        "title": "Former Marketing Lead",
         "avatar_url": "https://avatars1.githubusercontent.com/u/62437898?v=4",
         "contact": "https://github.com/PatriciaMiranda"
       }
@@ -283,25 +269,21 @@
     "members": [
       {
         "name": "Despot Jakimovski",
-        "title": "Former Product Lead",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01DF0XUN94-a133244be06c-512",
         "contact": "mailto:despot.jakimovski@reach4help.org"
       },
       {
         "name": "Ken Harlan",
-        "title": "",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U017DHDPQTD-0956a4e11952-512",
         "contact": "https://www.linkedin.com/in/kenharlan07/"
       },
       {
         "name": "Javier Gorostiaga",
-        "title": "",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U017SD87G81-4dd55b7d1a9f-512",
         "contact": "https://github.com/gorostiaga"
       },
       {
         "name": "Iyshwarya",
-        "title": "",
         "avatar_url": "",
         "contact": ""
       }

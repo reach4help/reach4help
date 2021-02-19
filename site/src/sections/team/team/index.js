@@ -12,7 +12,7 @@ import { Wrapper, ContentWrapper, TeamContainer } from "./style"
 
 function Team() {
   const sectionColors = {
-    Core: "#f0ebff",
+    Management: "#f0ebff",
     Development: "#ddf1f0",
     Design: "#fff8e7",
     Marketing: "#ffebff",
