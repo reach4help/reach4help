@@ -247,7 +247,7 @@ describe('offer creation triggers', () => {
 describe('offer creation trigger effects on algolia authenticated index', () => {
   const { db } = authedApp({ uid: cavUserId });
 
-  it('should not assosciate with invalid offer', async () => {
+  it.skip('should not assosciate with invalid offer', async () => {
     // create record of user to make request and user to make offer
     await Promise.all([
       db
@@ -332,7 +332,7 @@ describe('offer creation trigger effects on algolia authenticated index', () => 
     );
   });
 
-  it('should associate with valid offer', async () => {
+  it.skip('should associate with valid offer', async () => {
     // create record of user to make request and user to make offer
     await Promise.all([
       db

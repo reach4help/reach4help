@@ -151,7 +151,7 @@ describe('request creation triggers', () => {
   });
 });
 
-describe('request creation effects on algolia unauthenticated request', () => {
+describe.skip('request creation effects on algolia unauthenticated request', () => {
   const { db } = authedApp({ uid: pinUserId });
 
   it('should not add invalid data', async () => {
@@ -248,7 +248,7 @@ describe('request creation effects on algolia unauthenticated request', () => {
   });
 });
 
-describe('request creation effects on algolia authenticated request', () => {
+describe.skip('request creation effects on algolia authenticated request', () => {
   const { db } = authedApp({ uid: pinUserId });
 
   it('should not add invalid data', async () => {

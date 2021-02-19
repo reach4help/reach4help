@@ -22,5 +22,6 @@ module.exports = {
   ],
   rules: {
     // see ../.eslintrc-ts.js
+    'no-underscore-dangle': 'off',
   },
 };

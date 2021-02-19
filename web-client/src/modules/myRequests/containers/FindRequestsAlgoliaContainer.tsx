@@ -8,36 +8,25 @@ import {
   GoogleMapsLoader,
   Marker,
 } from 'react-instantsearch-dom-maps';
-import { useDispatch, useSelector } from 'react-redux';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
-import { ProfileState } from 'src/ducks/profile/types';
 import { useSearchKey } from 'src/ducks/search/operations';
-import { observeCreateXSpecificOfferFromRequest } from 'src/ducks/xSpecificOffers/actions';
+import { GeneralPost } from 'src/models/GeneralPost';
 
-// const Debug = connectHits(({ hits }) => (
-//   <ul>
-//     {hits.map((hit, i) => (
-//       <li key={i}>{JSON.stringify(hit._geoloc)}</li>
-//     ))}
-//   </ul>
-// ));
-
-const PostInfoDisplay = ({ post }) => {
-  const dispatch = useDispatch();
-  const profileState = useSelector(
-    ({ profile }: { profile: ProfileState }) => profile,
-  );
-  const [currentPost] = useState(post);
-  const { userSnapshot, description, title } = post;
-  const { displayName, displayPicture } = userSnapshot;
-  const onClickHandler = () =>
-    dispatch(observeCreateXSpecificOfferFromRequest(currentPost, profileState));
+const PostInfoDisplay = ({ post }: { post: GeneralPost }) => {
+  const {
+    creatorSnapshot: { displayName, displayPicture },
+    description,
+    title,
+  } = post;
+  const onClickHandler = () => {
+    // to call createReponseOffer from src/ducks/MyOffers/actions and set loading screen until promise is fulfilled
+  };
 
   return (
     <div>
       <div style={{ display: 'flex', zIndex: 100 }}>
         <h2> {displayName}</h2>
-        <img src={displayPicture} alt={displayName} />
+        <img src={displayPicture || ''} alt={displayName} />
       </div>
       <hr />
       <h3>{title}</h3>
@@ -49,7 +38,7 @@ const PostInfoDisplay = ({ post }) => {
 
 const FindRequestsContainer: React.FC = () => {
   const searchKey = useSearchKey();
-  const [selectedMarker, setSelectedMarker] = useState();
+  const [selectedMarker, setSelectedMarker] = useState<GeneralPost>();
 
   if (!searchKey) {
     return <LoadingWrapper />;
@@ -89,7 +78,7 @@ const FindRequestsContainer: React.FC = () => {
                         key={hit.objectID}
                         hit={hit}
                         onClick={() => {
-                          setSelectedMarker(hit);
+                          setSelectedMarker(GeneralPost.fromAlgolia(hit));
                         }}
                       />
                     ))}

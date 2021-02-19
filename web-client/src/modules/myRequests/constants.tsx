@@ -10,7 +10,6 @@ export enum PostTabTypes {
 
 // TODO: (es) Pick between these two methods
 export const AlgFindRequestsLocation = new Location(`${RootUrl}/find`);
-export const FindRequestsLocation = new Location(`${RootUrl}/otherfind`);
 export const MyPostsLocation = new Location(`${RootUrl}/my/:postType`, {
   postType: Yup.string().required(),
 });
