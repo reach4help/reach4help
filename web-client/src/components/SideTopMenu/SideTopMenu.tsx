@@ -40,55 +40,51 @@ const SideTopMenu: React.FC<{
   const { t } = useTranslation();
 
   const SideTopMenuStyle = styled('div')`
-  margin-top: 5rem;
-  // margin-top: ${!isLoggedIn ? '40px' : '100px'};
-  // flex: .65;
-  display: flex;
-  flex-direction: column;
-  margin-left: 2rem;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
 
-  .ant-menu {
+    .ant-menu {
+      background: ${COLORS.white};
+      font-weight: bold;
 
-    background: ${COLORS.white};
-    font-weight: bold;
-
-    .ant-menu-item {
-      margin: 1rem 0 1rem 1rem;
-      color: #000;
-      &:after {
-        display: none;
+      .ant-menu-item {
+        margin: 1rem 0 1rem 1rem;
+        color: #000;
+        &:after {
+          display: none;
+        }
+        &:hover {
+          color: #7f7f7f;
+        }
+        &:active {
+          color: #eb7100;
+        }
       }
-      &:hover{
-        color: #7f7f7f;
-      }
-      &:active{
-        color: #EB7100;
+      .ant-menu-submenu {
+        .ant-menu-submenu-title {
+          font-size: 24px;
+          font-weight: 700;
+          margin: 0;
+          color: inherit;
+        }
+        .ant-menu-sub {
+          background-color: inherit;
+        }
       }
 
-    }
-    .ant-menu-submenu {
-      .ant-menu-submenu-title {
-        font-size: 24px;
-        font-weight: 700;
-        margin: 0;
+      a,
+      .ant-menu-item-only-child {
         color: inherit;
       }
-      .ant-menu-sub {
-        background-color: inherit;
+
+      a .ant-menu-item-selected {
+        color: white;
+        background: ${COLORS.link} !important;
       }
     }
-
-    a,
-    .ant-menu-item-only-child {
-      color: inherit;
-    }
-
-    a .ant-menu-item-selected {
-      color: white;
-      background: ${COLORS.link} !important;
-    }
-  }
-`;
+  `;
 
   const StyledMenu = styled(Menu)`
     flex: 1;
@@ -122,7 +118,7 @@ const SideTopMenu: React.FC<{
           onClick={closeDrawer}
         />
 
-        <SubMenu title="Create New">
+        <StyledSubMenu title="Create New">
           <Menu.Item>
             <StyledLink to={CreateRequestLocationUrl}>
               {t('navbar.create_new.options.request')}
@@ -133,7 +129,7 @@ const SideTopMenu: React.FC<{
               {t('navbar.create_new.options.offer')}
             </StyledLink>
           </Menu.Item>
-        </SubMenu>
+        </StyledSubMenu>
 
         {isLoggedIn && (
           <SideMenuLink
@@ -143,6 +139,7 @@ const SideTopMenu: React.FC<{
             onClick={closeDrawer}
           />
         )}
+
         {isLoggedIn && (
           <SideMenuLink
             key="MyOffers"
@@ -175,6 +172,13 @@ const SideTopMenu: React.FC<{
   );
 };
 
+const StyledSubMenu = styled(SubMenu)`
+  position: relative;
+  width: 200px;
+  position: relative;
+  left: 17px;
+`;
+
 const StyledMenuItem = styled(Menu.Item)`
   font-size: 24px;
   font-weight: 700;
@@ -194,7 +198,6 @@ const StyledLink = styled(Link)`
 const LanguageSelectorContainer = styled.div`
   display: flex;
   position: relative;
-  // bottom: 10%;
   margin-left: 4rem;
   & {
     color: green;

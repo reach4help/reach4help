@@ -72,19 +72,6 @@ const SideBottomMenu: React.FC<{
         >
           <SignUpButton>Signup</SignUpButton>
         </SideBotomMenuItemBtnStyle>
-
-        {/* {!isLoggedIn && (
-          <SideBotomMenuItemStyle
-            data-id="login-signup"
-            role="link"
-            onClick={() => {
-              history.push(LoginLocation.path);
-            }}
-            // Signup and Login both route to /login. Where to route the two buttons in design separately?
-          >
-            {t('menuDrawer.login-signup')}
-          </SideBotomMenuItemStyle>
-        )} */}
       </SideBottomMenuStyle>
     </>
   );
