@@ -50,7 +50,6 @@ const SideTopMenu: React.FC<{
       font-weight: bold;
 
       .ant-menu-item {
-        margin: 1rem 0 1rem 1rem;
         color: #000;
         &:after {
           display: none;
@@ -64,9 +63,9 @@ const SideTopMenu: React.FC<{
       }
       .ant-menu-submenu {
         .ant-menu-submenu-title {
+          width: 200px;
           font-size: 24px;
           font-weight: 700;
-          margin: 0;
           color: inherit;
         }
         .ant-menu-sub {
@@ -118,7 +117,7 @@ const SideTopMenu: React.FC<{
           onClick={closeDrawer}
         />
 
-        <StyledSubMenu title="Create New">
+        <SubMenu title="Create New">
           <Menu.Item>
             <StyledLink to={CreateRequestLocationUrl}>
               {t('navbar.create_new.options.request')}
@@ -129,7 +128,7 @@ const SideTopMenu: React.FC<{
               {t('navbar.create_new.options.offer')}
             </StyledLink>
           </Menu.Item>
-        </StyledSubMenu>
+        </SubMenu>
 
         {isLoggedIn && (
           <SideMenuLink
@@ -171,13 +170,6 @@ const SideTopMenu: React.FC<{
     </SideTopMenuStyle>
   );
 };
-
-const StyledSubMenu = styled(SubMenu)`
-  position: relative;
-  width: 200px;
-  position: relative;
-  left: 17px;
-`;
 
 const StyledMenuItem = styled(Menu.Item)`
   font-size: 24px;
