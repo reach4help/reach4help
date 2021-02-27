@@ -32,17 +32,7 @@ const SideBottomMenu: React.FC<{
             {t('menuDrawer.settings')}
           </SideBotomMenuItemStyle>
         )}
-        {/* <SideBotomMenuItemStyle
-          data-id="contactus"
-          role="link"
-          onClick={() => {
-            closeDrawer();
-            window.location.href = 'mailto:info@reach4help.org';
-          }}
-        >
-          <MailOutlined />
-          {t('menuDrawer.contactUs')}
-        </SideBotomMenuItemStyle> */}
+
         {isLoggedIn && (
           <SideBotomMenuItemStyle
             data-id="logout"
@@ -56,21 +46,19 @@ const SideBottomMenu: React.FC<{
             {t('menuDrawer.logout')}
           </SideBotomMenuItemStyle>
         )}
-
         <SideBotomMenuItemBtnStyle
           data-id="login-signup"
           role="link"
           onClick={() => history.push(LoginLocation.path)}
         >
-          <LogInButton>Login</LogInButton>
+          {!isLoggedIn && <LogInButton>Login</LogInButton>}
         </SideBotomMenuItemBtnStyle>
-
         <SideBotomMenuItemBtnStyle
           data-id="login-signup"
           role="link"
           onClick={() => history.push(LoginLocation.path)}
         >
-          <SignUpButton>Signup</SignUpButton>
+          {!isLoggedIn && <SignUpButton>Signup</SignUpButton>}
         </SideBotomMenuItemBtnStyle>
       </SideBottomMenuStyle>
     </>
