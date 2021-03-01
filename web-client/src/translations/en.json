@@ -437,7 +437,8 @@
           "TabbedPostPage": {
             "requests_tab_label": "My Requests",
             "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
+            "filterBy":"Filter By"
           },
           "AcceptedRequestContainer": {
             "accepted": "Accepted"
@@ -445,8 +446,8 @@
           "FindRequestsContainer": {
             "want_to_help": "I want to help!"
           },
-          "FinishedRequestsContainer": {
-            "finished": "Finished"
+          "ClosedRequestsContainer": {
+            "closed": "Closed"
           },
           "NewRequestsContainer": {
             "address_error": "Unable to find address",
@@ -457,6 +458,10 @@
           },
           "OpenRequestContainer": {
             "open": "Open"
+          },
+          "AllRequestsContainer":{
+            "requests": "All Requests",
+            "offers":"All Offers"
           },
           "no_reply": "No one has replied to your request."
         }
