@@ -15,6 +15,8 @@ import {
 import Header from '../components/Header';
 import RequestList from '../components/PostList';
 
+// TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
+
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
 }) => {
@@ -51,16 +53,12 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
 
   return (
     <>
-      <Header
-        requestsType={t(
-          'modules.requests.containers.OpenRequestContainer.open',
-        )}
-        numRequests={Object.keys(myOffers.data || {}).length}
-        isCav={
-          profileState.profile?.applicationPreference ===
-          ApplicationPreference.cav
-        }
-        isAcceptedRequests={false}
+      <FilterByDropDownMenu
+        type="offers"
+        allPath={MyOfferPostsStatusAllUrl}
+        openPath={MyOfferPostsStatusOpenUrl}
+        onGoingPath={MyOfferPostsStatusOnGoingUrl}
+        closedPath={MyOfferPostsStatusClosedUrl}
       />
       <RequestList
         posts={myOffers.data}

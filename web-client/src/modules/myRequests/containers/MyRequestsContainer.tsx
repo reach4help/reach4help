@@ -51,16 +51,12 @@ const OfferPostsContainer: React.FC<{ status: string | null }> = ({
 
   return (
     <>
-      <Header
-        requestsType={t(
-          'modules.requests.containers.AcceptedRequestContainer.accepted',
-        )}
-        numRequests={Object.keys(myRequests.data || {}).length}
-        isCav={
-          profileState.profile?.applicationPreference ===
-          ApplicationPreference.cav
-        }
-        isAcceptedRequests
+      <FilterByDropDownMenu
+        type="requests"
+        allPath={MyRequestPostsStatusAllUrl}
+        openPath={MyRequestPostsStatusOpenUrl}
+        onGoingPath={MyRequestPostsStatusOnGoingUrl}
+        closedPath={MyRequestPostsStatusClosedUrl}
       />
       <PostList
         posts={myRequests.data}
