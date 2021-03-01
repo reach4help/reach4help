@@ -4,14 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProfileState } from 'src/ducks/profile/types';
 import { observeGetMyRequests } from 'src/ducks/PublicRequests/actions';
 import { RequestState } from 'src/ducks/PublicRequests/types';
-import { ApplicationPreference } from 'src/models/users';
+import {
+  MyRequestPostsStatusAllUrl,
+  MyRequestPostsStatusClosedUrl,
+  MyRequestPostsStatusOnGoingUrl,
+  MyRequestPostsStatusOpenUrl,
+} from 'src/modules/myRequests/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {
   InformationModal,
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
-import Header from '../components/Header';
+import FilterByDropDownMenu from '../components/FilterByDropDownMenu';
 import PostList from '../components/PublicPostList';
 
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
@@ -52,16 +57,12 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
 
   return (
     <>
-      <Header
-        requestsType={t(
-          'modules.requests.containers.AcceptedRequestContainer.accepted',
-        )}
-        numRequests={Object.keys(myRequests.data || {}).length}
-        isCav={
-          profileState.profile?.applicationPreference ===
-          ApplicationPreference.cav
-        }
-        isAcceptedRequests
+      <FilterByDropDownMenu
+        type="requests"
+        allPath={MyRequestPostsStatusAllUrl}
+        openPath={MyRequestPostsStatusOpenUrl}
+        onGoingPath={MyRequestPostsStatusOnGoingUrl}
+        closedPath={MyRequestPostsStatusClosedUrl}
       />
       <PostList
         posts={myRequests.data}
