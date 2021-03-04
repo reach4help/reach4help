@@ -13,7 +13,7 @@ import {
 import {
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
-} from 'src/modules/myRequests/constants';
+} from 'src/modules/requestAndOfferPosts/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 

@@ -97,6 +97,7 @@ const getTimelineForRequest = async (requestRef: firestore.DocumentReference, us
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/require-await
 const getRequestsWithinDistance = async (lat: number, lng: number, radius: number, status: RequestStatus) => {
   // ~1 mile of lat and lon in degrees
   const unitLat = 0.0144927536231884;

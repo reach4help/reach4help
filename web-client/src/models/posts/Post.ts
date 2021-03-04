@@ -1,5 +1,3 @@
-/* eslint no-underscore-dangle: 0 */
-// TODO: (ES) changing to force format, remove
 import {
   Allow,
   IsArray,
@@ -16,49 +14,9 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-import { IUser, User } from '../users';
-
-export enum PostStatus {
-  pending = 'pending',
-  ongoing = 'ongoing',
-  completed = 'completed',
-  declined = 'declined',
-  closed = 'closed',
-  open = 'open',
-  active = 'active',
-  removed = 'removed',
-}
-
-export interface IPost extends firebase.firestore.DocumentData {
-  isResponse: boolean;
-  requestingHelp: boolean;
-  parentSnapshot: IPost | null;
-  parentRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
-  creatorRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >;
-  creatorSnapshot: IUser;
-  title: string;
-  description: string;
-  streetAddress: string;
-  latLng: firebase.firestore.GeoPoint;
-  status: PostStatus;
-  creatorGivenRating: number | null;
-  parentCreatorGivenRating: number | null;
-  creatorRatedAt: firebase.firestore.Timestamp | null;
-  parentCreatorRatedAt: firebase.firestore.Timestamp | null;
-  updateSeenBy: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >[];
-  positiveResponseCount: number;
-  negativeResponseCount: number;
-  firstOfferMade: firebase.firestore.Timestamp | null;
-  firstRejectionMade: firebase.firestore.Timestamp | null;
-  createdAt?: firebase.firestore.Timestamp;
-  updatedAt?: firebase.firestore.Timestamp;
-}
+import { User } from '../users';
+import { IPost } from './IPost';
+import { PostStatus } from './PostStatus';
 
 export class Post implements IPost {
   constructor(
@@ -463,11 +421,3 @@ export class Post implements IPost {
     };
   }
 }
-
-export const PostFirestoreConverter: firebase.firestore.FirestoreDataConverter<Post> = {
-  fromFirestore: (
-    data: firebase.firestore.QueryDocumentSnapshot<IPost>,
-  ): Post => Post.factory(data.data()),
-  toFirestore: (modelObject: Post): firebase.firestore.DocumentData =>
-    modelObject.toObject(),
-};

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Post } from 'src/models/posts';
+import { Post } from "src/models/Post";
 import styled from 'styled-components';
 
 import Notification from './Notification';

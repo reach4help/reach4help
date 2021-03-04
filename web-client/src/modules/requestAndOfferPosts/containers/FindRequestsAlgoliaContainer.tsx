@@ -10,7 +10,7 @@ import {
 } from 'react-instantsearch-dom-maps';
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import { useSearchKey } from 'src/ducks/search/operations';
-import { GeneralPost } from 'src/models/GeneralPost';
+import { GeneralPost } from "src/models/GeneralPost";
 
 const PostInfoDisplay = ({ post }: { post: GeneralPost }) => {
   const {
