@@ -20,12 +20,14 @@ export const isService = (service?: string): service is Service =>
 export const MARKER_TYPE_STRINGS = [
   'mutual-aid-group',
   'org',
+  'vaccine',
   'financial',
   'information',
   'other',
 ] as const;
 
 export type MarkerType =
+  // TODO: merge mutual-aid-group with org
   | {
       /**
        * The main datapoints we're interested in
@@ -38,6 +40,12 @@ export type MarkerType =
        */
       type: 'org';
       services: Service[];
+    }
+  | {
+      /**
+       * Verified vaccine administration sites
+       */
+      type: 'vaccine';
     }
   | {
       /**
