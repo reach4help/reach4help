@@ -3,33 +3,15 @@ import {
   IsNotEmpty,
   IsObject,
   IsString,
-  ValidateNested,
+  ValidateNested
 } from 'class-validator';
 import { firestore } from 'firebase';
 import { firestore as db } from 'src/firebase';
+import { Post } from "../Post";
+import { ILatLngObject } from './ILatLngObject';
+import { IStrippedUser } from '../users/IStrippedUser';
+import { IUnauthenticatedPost } from './IUnauthenticatedPost';
 
-import { Post } from '../posts';
-
-interface IStrippedUser {
-  displayName: string;
-  displayPicture: string | null;
-}
-
-interface ILatLngObject {
-  latitude: number;
-  longitude: number;
-}
-
-export interface IUnauthenticatedPost {
-  postRef: string;
-  requestingHelp: boolean;
-  creatorSnapshot: IStrippedUser;
-  title: string;
-  description: string;
-  latLng: ILatLngObject;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
 
 export class UnauthenticatedPost implements IUnauthenticatedPost {
   constructor(
@@ -40,7 +22,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     description: string,
     latLng: ILatLngObject,
     createdAt = new Date(),
-    updatedAt = new Date(),
+    updatedAt = new Date()
   ) {
     this._postRef = postRef;
     this._requestingHelp = requestingHelp;
@@ -149,7 +131,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
 
   public static async fromPost(
     data: Post,
-    path: string,
+    path: string
   ): Promise<UnauthenticatedPost> {
     return Promise.resolve(
       new UnauthenticatedPost(
@@ -166,13 +148,13 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
           longitude: data.latLng.longitude,
         },
         data.createdAt.toDate(),
-        data.updatedAt.toDate(),
-      ),
+        data.updatedAt.toDate()
+      )
     );
   }
 
   public static fromFirestore(
-    data: firebase.firestore.DocumentData,
+    data: firebase.firestore.DocumentData
   ): UnauthenticatedPost {
     return new UnauthenticatedPost(
       (data.postRef as firebase.firestore.DocumentReference).path,
@@ -185,7 +167,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
         longitude: (data.latLng as firebase.firestore.GeoPoint).longitude,
       },
       data.createdAt.toDate(),
-      data.updatedAt.toDate(),
+      data.updatedAt.toDate()
     );
   }
 
@@ -198,7 +180,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
       data.description,
       { latitude: data._geoloc.lat, longitude: data._geoloc.lng },
       data.createdAt,
-      data.updatedAt,
+      data.updatedAt
     );
   }
 
@@ -211,7 +193,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
       data.description,
       data.latLng,
       data.createdAt,
-      data.updatedAt,
+      data.updatedAt
     );
   }
 
@@ -237,7 +219,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
       description: this.description,
       latLng: new firestore.GeoPoint(
         this.latLng.latitude,
-        this.latLng.longitude,
+        this.latLng.longitude
       ),
       createdAt: firestore.Timestamp.fromDate(this.createdAt),
       updatedAt: firestore.Timestamp.fromDate(this.updatedAt),
@@ -261,12 +243,3 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     };
   }
 }
-
-export const UnauthenticatedPostFirestoreConverter: firebase.firestore.FirestoreDataConverter<UnauthenticatedPost> = {
-  fromFirestore: (
-    data: firebase.firestore.QueryDocumentSnapshot<IUnauthenticatedPost>,
-  ): UnauthenticatedPost => UnauthenticatedPost.fromFirestore(data.data()),
-  toFirestore: (
-    modelObject: UnauthenticatedPost,
-  ): firebase.firestore.DocumentData => modelObject.toFirestore(),
-};

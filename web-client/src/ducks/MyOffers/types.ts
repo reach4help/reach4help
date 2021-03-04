@@ -1,4 +1,4 @@
-import { Post } from 'src/models/posts';
+import { Post } from "src/models/Post";
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 const { asyncType, observerType, syncType } = createActionTypeFactory(

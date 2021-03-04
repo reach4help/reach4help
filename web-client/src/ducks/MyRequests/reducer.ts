@@ -1,4 +1,4 @@
-import { Post } from 'src/models/posts';
+import { Post } from "src/models/Post";
 import createReducer from 'src/store/utils/createReducer';
 
 import { MyRequestsState, OBSERVE } from './types';
