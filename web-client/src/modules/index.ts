@@ -3,9 +3,9 @@ import { Module } from 'src/types/module';
 import Create from './create';
 import LandingPage from './landing-page';
 import Login from './login';
-import Posts from './myRequests';
 import PersonalData from './personalData';
 import Phone from './phone';
+import Posts from './requestAndOfferPosts';
 import Settings from './settings';
 
 const modules: Record<string, Module> = {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { Post, PostStatus } from 'src/models/posts';
+import { Post } from "src/models/Post";
+import { PostStatus } from "src/models/PostStatus";
 import { User } from 'src/models/users';
 import { TimelineViewLocation } from 'src/modules/timeline/constants';
 import { COLORS } from 'src/theme/colors';

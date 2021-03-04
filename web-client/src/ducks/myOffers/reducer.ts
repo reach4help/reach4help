@@ -1,4 +1,4 @@
-import { Post } from 'src/models/posts';
+import { Post } from 'src/models/posts/Post';
 import createReducer from 'src/store/utils/createReducer';
 
 import { CREATE, MyOffersState, OBSERVE, RESET_UPDATE, UPDATE } from './types';

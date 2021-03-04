@@ -1,7 +1,9 @@
 import { isDefined } from 'class-validator';
 import { firestore as firestore2 } from 'firebase';
 import { firestore } from 'src/firebase';
-import { Post, PostFirestoreConverter, PostStatus } from 'src/models/posts';
+import { PostFirestoreConverter } from "src/models/PostFirestoreConverter";
+import { Post } from "src/models/Post";
+import { PostStatus } from "src/models/PostStatus";
 import { User } from 'src/models/users';
 
 export const createPost = async (postPayload: Post) => {

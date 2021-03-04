@@ -1,5 +1,6 @@
 import { firestore } from 'src/firebase';
-import { IPost, Post } from 'src/models/posts';
+import { Post } from "src/models/Post";
+import { IPost } from "src/models/IPost";
 import { User } from 'src/models/users';
 import { createPost, observePosts } from 'src/services/posts';
 
