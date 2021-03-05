@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 import BottomNavbar from '../BottomNavbar/BottomNavbar';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
-import NotificationsDrawer from '../NotificationsDrawer/NotificationsDrawer';
 import TopNavbar from '../TopNavbar/TopNavbar';
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
@@ -15,7 +14,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   logoutHandler,
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
-  const [notificationVisible, setNotificationVisible] = useState(false);
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -25,9 +23,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   return (
     <DashboardLayoutWrapper>
       <TopNavbar
-        visible={!menuVisible && !notificationVisible}
+        visible={!menuVisible}
         toggleMenu={() => setMenuVisible(!menuVisible)}
-        toggleNotifications={() => setNotificationVisible(!notificationVisible)}
         unseenOffersCount={0}
       />
       <MenuDrawer
@@ -37,16 +34,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         logoutHandler={logoutHandler}
       />
       {/* TODO: Replace with getstream */}
-      <NotificationsDrawer
-        visible={notificationVisible}
-        closeDrawer={() => setNotificationVisible(false)}
-      />
+
       <DashboardContent>{children}</DashboardContent>
       <BottomNavbar
-        visible={!menuVisible && !notificationVisible}
+        visible={!menuVisible}
         openMenu={() => setMenuVisible(true)}
-        openNotifications={() => setNotificationVisible(true)}
-        // isCav={isCav}
         unseenOffersCount={0}
       />
     </DashboardLayoutWrapper>

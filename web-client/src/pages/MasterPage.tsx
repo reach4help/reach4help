@@ -34,7 +34,6 @@ const MasterPage = (): ReactElement => {
       case '/phone':
       case `${RootUrl}`:
       case '/personal-data':
-      case '/timeline':
       case '/personal-data/role-info':
       case '/phone/entry':
       case '/phone/verify':
@@ -48,15 +47,8 @@ const MasterPage = (): ReactElement => {
         return `${title}: `.concat(
           t(`routeSubtitles.${path.replace(/\//g, '_')}`),
         );
-
-      /* TODO  Not currently working for timeline routes
-            "/timeline/accepted/:requestId",
-            "/timeline/:requestId"
-        */
       default:
-        return path.startsWith('/timeline')
-          ? `${title}: Request Timeline`
-          : title;
+        return title;
     }
   };
 

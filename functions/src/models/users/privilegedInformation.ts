@@ -23,7 +23,6 @@ export interface IPrivilegedUserInformation extends DocumentData {
   termsVersion: string;
   privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   privacyVersion: string;
-  sendNotifications: Timestamp | null; // acts as a timestamp of when and as a boolean: if accepted it exists.
 }
 
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
@@ -33,14 +32,12 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     privacyVersion: string,
     termsAccepted: Timestamp,
     termsVersion: string,
-    sendNotifications: Timestamp | null,
   ) {
     this._addresses = addresses;
     this._privacyAccepted = privacyAccepted;
     this._privacyVersion = privacyVersion;
     this._termsAccepted = termsAccepted;
     this._termsVersion = termsVersion;
-    this._sendNotifications = sendNotifications;
   }
 
   @IsObject()
@@ -98,18 +95,6 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     this._termsVersion = value;
   }
 
-  @IsObject()
-  @IsOptional()
-  private _sendNotifications: Timestamp | null;
-
-  get sendNotifications(): Timestamp | null {
-    return this._sendNotifications;
-  }
-
-  set sendNotifications(value: Timestamp | null) {
-    this._sendNotifications = value;
-  }
-
   static factory = (data: IPrivilegedUserInformation): PrivilegedUserInformation =>
     new PrivilegedUserInformation(
       data.addresses && !((data.addresses as unknown) as IUserAddress).coords ? data.addresses : { default: data.address as IUserAddress },
@@ -117,7 +102,6 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
       data.privacyVersion,
       data.termsAccepted,
       data.termsVersion,
-      data.sendNotifications,
     );
 
   toObject(): object {
@@ -127,7 +111,6 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,
       termsVersion: this.termsVersion,
-      sendNotifications: this.sendNotifications,
     };
   }
 }

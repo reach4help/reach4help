@@ -62,7 +62,6 @@ const PostList: React.FC<PostListProps> = ({
 interface PostListProps {
   posts?: Record<string, Post>;
   loading: boolean;
-  // TODO: (es) remove handleTimeline?: Function;
   isCavAndOpenRequest?: boolean;
   isPinAndOpenRequest?: boolean;
   hideUserPics?: boolean;
