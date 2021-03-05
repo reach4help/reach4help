@@ -5,7 +5,6 @@ import { observeMyOffers } from 'src/ducks/MyOffers/actions';
 import { MyOffersState } from 'src/ducks/MyOffers/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { ApplicationPreference } from 'src/models/users';
-// TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {

@@ -2,12 +2,10 @@ import {
   CaretDownOutlined,
   CloseOutlined,
   MenuOutlined,
-  BellFilled as NotificationsIcon,
 } from '@ant-design/icons';
 import { Dropdown, Menu } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogoType from 'src/assets/logo-type.svg';
 import { DEVICE_MAX } from 'src/constants/mediaQueries';
@@ -16,34 +14,21 @@ import {
   CreateRequestLocationUrl,
 } from 'src/modules/create/constants';
 import { AboutPageLocation } from 'src/modules/landing-page/constants';
-import { LoginLocation } from 'src/modules/login/constants';
 import {
   AlgFindRequestsLocation,
   MyOfferPostsLocationUrl,
   MyRequestPostsLocationUrl,
 } from 'src/modules/requestAndOfferPosts/constants';
-import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-import { LanguageSelector } from '../SideBottomMenu/LanguageSelector';
-
 interface TopNavbarProps {
   toggleMenu: () => void;
-  toggleNotifications: () => void;
   visible?: boolean;
   unseenOffersCount: number;
 }
 
-const TopNavbar: React.FC<TopNavbarProps> = ({
-  visible,
-  toggleMenu,
-  // openNotifications,
-  // unseenOffersCount,
-}) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  const onboarded = useSelector((state: AppState) => state.auth.onboarded);
-  const isLoggedIn = useSelector((state: AppState) => !!state.auth.user?.email);
+const TopNavbar: React.FC<TopNavbarProps> = ({ visible, toggleMenu }) => {
   const { t } = useTranslation();
 
   const createNewMenu = (
@@ -95,27 +80,6 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
             </StyledLink>
           </LinkContainer>
         </LeftLinkContainer>
-
-        <LinkContainer>
-          <LanguageSelector />
-          {isLoggedIn ? (
-            <NotificationsIcon />
-          ) : (
-            <>
-              <LoginButton>
-                <StyledLinkButton to={LoginLocation.path}>
-                  {t('navbar.login')}
-                </StyledLinkButton>
-              </LoginButton>
-
-              <SignUpButton>
-                <StyledLinkButton to={LoginLocation.path}>
-                  {t('navbar.sign_up')}
-                </StyledLinkButton>
-              </SignUpButton>
-            </>
-          )}
-        </LinkContainer>
       </TopNavbarWrapper>
     </HeaderContainer>
   );
@@ -193,35 +157,6 @@ const StyledLink = styled(Link)`
   :hover {
     color: ${COLORS.primaryOrange};
   }
-`;
-
-const AuthButton = styled.button`
-  border: none;
-  width: 85px;
-  height: 35px;
-  border-radius: 4px;
-`;
-
-const LoginButton = styled(AuthButton)`
-  background: none;
-  color: ${COLORS.primaryOrange};
-
-  position: relative;
-  border: 2px solid ${COLORS.primaryOrange};
-  }
-`;
-
-const SignUpButton = styled(AuthButton)`
-  background: ${COLORS.primaryOrange};
-  border: none;
-  color: white;
-`;
-
-const StyledLinkButton = styled(Link)`
-  color: inherit;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 16px;
 `;
 
 export default TopNavbar;
