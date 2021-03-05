@@ -1,4 +1,3 @@
-
 export enum PostStatus {
   pending = 'pending',
   ongoing = 'ongoing',
@@ -7,5 +6,5 @@ export enum PostStatus {
   closed = 'closed',
   open = 'open',
   active = 'active',
-  removed = 'removed'
+  removed = 'removed',
 }
