@@ -43,7 +43,8 @@
     "screen": {
       "title": "添加信息到此地图",
       "information": {
-        "acceptedInformation": "目前，我们只是提供关于提供援助和援助的组织或公司、区域特有的财政援助倡议和互助团体的信息。 我们不接受关于此时提供援助的个人的信息。",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "请填写下面的表单以开始添加信息，我们会在这之后询问您的位置和详细联系方式。",
         "form": {
           "type": "项目/组/组织/倡议类型",
@@ -93,7 +94,7 @@
         "loading": "正在提交信息到地图...",
         "error": "保存信息时出错",
         "success": "提交成功",
-        "successExtra": "在地图上显示您的信息之前，它需要由我们团队中的志愿者审查。 希望能在几天内做到这一点。"
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "相互援助小组",
     "org": "组织 / 公司",
+    "vaccine": "Vaccination Sites",
     "financial": "金融",
     "information": "信息",
     "other": "其它"
