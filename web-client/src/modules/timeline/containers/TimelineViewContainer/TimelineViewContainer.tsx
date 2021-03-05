@@ -6,7 +6,7 @@ import { MyOffersState } from 'src/ducks/MyOffers/types';
 import { MyRequestsState } from 'src/ducks/MyRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
-import { firebaseFirestore as firestore2 } from 'src/firebaseConfig';
+import { firebaseFirestore } from 'src/firebaseConfig';
 import { Post } from 'src/models/posts/Post';
 import { ApplicationPreference } from 'src/models/users';
 import {
@@ -30,7 +30,7 @@ const TimelineViewContainer: React.FC<{
   accepted?: boolean;
 }> = ({ requestId, accepted }) => {
   // TODO: (es) REMOVE REFERENCES TO DATABASE FROM CONTAINER
-  const requestRef = firestore2.collection('requests').doc(requestId);
+  const requestRef = firebaseFirestore.collection('requests').doc(requestId);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
