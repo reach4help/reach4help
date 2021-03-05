@@ -4,6 +4,7 @@ import { FieldPath } from '@google-cloud/firestore';
 import { db } from '../../../app';
 
 import { MARKER_COLLECTION_ID, MarkerInfo, SerializableMarkerInfo } from '../../../models/markers';
+import { genDataFiles } from '../../../pubsub/schedule/generate-data-files';
 
 /* eslint-disable max-len */
 const LICENSES = {
@@ -65,3 +66,19 @@ export const data = functions.https.onRequest(async (_req, res) => {
   res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600');
   res.status(200).send(JSON.stringify(result));
 });
+
+export const triggerGenerateDataFiles = functions
+  .runWith({
+    memory: '512MB',
+    timeoutSeconds: 540,
+  })
+  .https.onRequest((_req, res) => {
+    genDataFiles()
+      .then(() => {
+        return res.status(200);
+      })
+      .catch(err => {
+        console.error(err);
+        return res.status(500).json(err);
+      });
+  });
