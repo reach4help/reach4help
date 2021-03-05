@@ -1,5 +1,5 @@
 import { isDefined } from 'class-validator';
-import { firestore as firestore2 } from 'firebase';
+import { firestore as firestoreNamespace } from 'firebase';
 import { firebaseFirestore } from 'src/firebaseConfig';
 import { Post } from 'src/models/posts/Post';
 import { PostFirestoreConverter } from 'src/models/posts/PostFirestoreConverter';
@@ -8,7 +8,7 @@ import { User } from 'src/models/users';
 
 export const createPost = async (postPayload: Post) => {
   const tempPost = Post.factory(postPayload);
-  tempPost.createdAt = firestore2.Timestamp.fromDate(new Date());
+  tempPost.createdAt = firestoreNamespace.Timestamp.fromDate(new Date());
   tempPost.updatedAt = tempPost.createdAt;
   const postId = `P-${new Date().getTime().toString()}`;
   return firebaseFirestore
@@ -39,7 +39,7 @@ export const observePosts = (
     userRef?: firebase.firestore.DocumentReference<User>;
   },
 ): firebase.Unsubscribe => {
-  let filter: firebase.firestore.Query<firestore2.DocumentData> = firebaseFirestore.collection(
+  let filter: firebase.firestore.Query<firestoreNamespace.DocumentData> = firebaseFirestore.collection(
     'posts',
   );
 
