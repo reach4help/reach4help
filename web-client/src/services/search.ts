@@ -1,11 +1,11 @@
 import { IgetSearchKey, IgetSearchKeyResult } from 'src/ducks/search/types';
-import { functions } from 'src/firebase';
+import { firebaseFunctions } from 'src/firebaseConfig';
 
 export const getSearchKey = async ({
   authenticated,
 }: IgetSearchKey): Promise<IgetSearchKeyResult> =>
-  functions
-    .httpsCallable('https-api-requests-getSearchKey')({
+  firebaseFunctions
+    .httpsCallable('https-api-getSearchKey')({
       authenticated,
     })
     .then(({ data }) => data);

@@ -3,7 +3,7 @@ import PhoneNumberValidator from 'awesome-phonenumber';
 import { allCountries } from 'country-telephone-data';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import firebase from 'src/firebase';
+import firebase from 'src/firebaseConfig';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 import useForceUpdate from 'use-force-update';

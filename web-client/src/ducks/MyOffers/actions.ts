@@ -1,4 +1,3 @@
-import { firestore } from 'src/firebase';
 import { IPost } from 'src/models/posts/IPost';
 import { Post } from 'src/models/posts/Post';
 import { User } from 'src/models/users';

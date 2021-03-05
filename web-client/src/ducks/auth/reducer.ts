@@ -1,4 +1,4 @@
-import firebase, { firebaseAuth } from 'src/firebase';
+import firebase, { firebaseAuth } from 'src/firebaseConfig';
 import createReducer from 'src/store/utils/createReducer';
 
 import emailReducer from './email/reducer';

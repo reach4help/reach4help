@@ -1,6 +1,6 @@
 import { isDefined } from 'class-validator';
 import { firestore as firestore2 } from 'firebase';
-import { firestore } from 'src/firebase';
+import { firebaseFirestore } from 'src/firebaseConfig';
 import { Post } from 'src/models/posts/Post';
 import { PostFirestoreConverter } from 'src/models/posts/PostFirestoreConverter';
 import { PostStatus } from 'src/models/posts/PostStatus';
@@ -11,7 +11,7 @@ export const createPost = async (postPayload: Post) => {
   tempPost.createdAt = firestore2.Timestamp.fromDate(new Date());
   tempPost.updatedAt = tempPost.createdAt;
   const postId = `P-${new Date().getTime().toString()}`;
-  return firestore
+  return firebaseFirestore
     .collection('posts')
     .doc(postId)
     .withConverter(PostFirestoreConverter)
@@ -19,7 +19,7 @@ export const createPost = async (postPayload: Post) => {
 };
 
 export const updatePost = async (postPayload: Post, postId: string) =>
-  firestore
+  firebaseFirestore
     .collection('posts')
     .doc(postId)
     .withConverter(PostFirestoreConverter)
@@ -39,7 +39,7 @@ export const observePosts = (
     userRef?: firebase.firestore.DocumentReference<User>;
   },
 ): firebase.Unsubscribe => {
-  let filter: firebase.firestore.Query<firestore2.DocumentData> = firestore.collection(
+  let filter: firebase.firestore.Query<firestore2.DocumentData> = firebaseFirestore.collection(
     'posts',
   );
 

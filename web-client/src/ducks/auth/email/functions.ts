@@ -1,4 +1,4 @@
-import { firebaseAuth } from 'src/firebase';
+import { firebaseAuth } from 'src/firebaseConfig';
 
 import { EmailAndPasswordPayload } from '../types';
 

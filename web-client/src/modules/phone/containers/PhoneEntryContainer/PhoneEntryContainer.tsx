@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import { triggerLoginWithPhone } from 'src/ducks/auth/phone/actions';
-import firebase from 'src/firebase';
+import firebase from 'src/firebaseConfig';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 

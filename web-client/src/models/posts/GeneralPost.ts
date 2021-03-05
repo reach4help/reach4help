@@ -8,7 +8,7 @@ import {
   IsString,
 } from 'class-validator';
 import { firestore } from 'firebase';
-import { firestore as db } from 'src/firebase';
+import { firebaseFirestore as db } from 'src/firebaseConfig';
 
 import { IUserGeneral } from '../users/IUserGeneral';
 import { IGeneralPost } from './IGeneralPost';

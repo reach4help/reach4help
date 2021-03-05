@@ -1,5 +1,9 @@
 import { firestore as Firestore } from 'firebase';
-import { firestore, functions, storage } from 'src/firebase';
+import {
+  firebaseFirestore,
+  firebaseFunctions,
+  firebaseStorage,
+} from 'src/firebaseConfig';
 import { User, UserFirestoreConverter } from 'src/models/users';
 import {
   PrivilegedUserInformation,
@@ -12,12 +16,12 @@ export const getUserProfile = (
   payload: IgetUserProfile,
 ): Promise<[Firestore.DocumentSnapshot, Firestore.DocumentSnapshot]> =>
   Promise.all([
-    firestore
+    firebaseFirestore
       .collection('users')
       .doc(payload.uid)
       .withConverter(UserFirestoreConverter)
       .get(),
-    firestore
+    firebaseFirestore
       .collection('users')
       .doc(payload.uid)
       .collection('privilegedInformation')
@@ -30,7 +34,7 @@ export const observePrivileged = (
   nextValue: Function,
   payload: IgetUserProfile,
 ): firebase.Unsubscribe =>
-  firestore
+  firebaseFirestore
     .collection('users')
     .doc(payload.uid)
     .collection('privilegedInformation')
@@ -42,7 +46,7 @@ export const observeProfile = (
   nextValue: Function,
   payload: IgetUserProfile,
 ): firebase.Unsubscribe =>
-  firestore
+  firebaseFirestore
     .collection('users')
     .doc(payload.uid)
     .withConverter(UserFirestoreConverter)
@@ -57,12 +61,12 @@ export const setUserProfile = async ({
   userPayload: User;
   privilegedPayload: PrivilegedUserInformation;
 }) => {
-  await firestore
+  await firebaseFirestore
     .collection('users')
     .doc(uid)
     .withConverter(UserFirestoreConverter)
     .set(userPayload);
-  return firestore
+  return firebaseFirestore
     .collection('users')
     .doc(uid)
     .collection('privilegedInformation')
@@ -78,7 +82,7 @@ export const updateUserProfileData = async ({
   uid: string;
   userPayload: User;
 }) =>
-  firestore
+  firebaseFirestore
     .collection('users')
     .doc(uid)
     .withConverter(UserFirestoreConverter)
@@ -91,7 +95,7 @@ export const updateUserPrivilegedInformationData = async ({
   uid: string;
   dataPayload: PrivilegedUserInformation;
 }) =>
-  firestore
+  firebaseFirestore
     .collection('users')
     .doc(uid)
     .collection('privilegedInformation')
@@ -100,7 +104,7 @@ export const updateUserPrivilegedInformationData = async ({
     .set(dataPayload);
 
 export const deleteUserData = async () =>
-  functions.httpsCallable('https-api-users-deleteUserData')();
+  firebaseFunctions.httpsCallable('https-api-users-deleteUserData')();
 
 export const uploadUserAvatarData = async ({
   userRef,
@@ -111,7 +115,7 @@ export const uploadUserAvatarData = async ({
   userPayload: User;
   filePayload: File;
 }) => {
-  const storageRef = storage.ref();
+  const storageRef = firebaseStorage.ref();
   const date = Date.now();
   const fileExt = filePayload.type.split('/')[1];
   const snapshot = await storageRef
@@ -132,7 +136,7 @@ export const deleteUserAvatarData = async ({
 }) => {
   const newUserWithoutAvatar = User.factory(userPayload);
   if (userPayload.displayPicture) {
-    const fileRef = storage
+    const fileRef = firebaseStorage
       .ref()
       .storage.refFromURL(userPayload.displayPicture);
     fileRef.getDownloadURL().then(() => {
