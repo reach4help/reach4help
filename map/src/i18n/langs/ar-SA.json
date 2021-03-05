@@ -43,7 +43,8 @@
     "screen": {
       "title": "إضافة معلومات إلى هذه الخريطة",
       "information": {
-        "acceptedInformation": "في الوقت الحاضر، لا نقدم سوى معلومات عن المنظمات و الجمعيات التي تقدم المساعدةو المعاونة المشتركة، ومبادرات المساهمة المالية الخاصة بالمنطقة.\n لا تقبل حاليا معلومات عن الأفراد الذين يقدمون المساعدة في الوقت الراهن.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "المرجو ملء النموذج أدناه لبدء إضافة المعلومات.\n في المرحاة التالية: معلومات تحديد الموقع وتفاصيل الاتصال.",
         "form": {
           "type": "نوع المشروع/المجموعة/المنظمة/المبادرة",
@@ -93,7 +94,7 @@
         "loading": "إرسال المعلومات إلى الخريطة...",
         "error": "خطأ في إضافة معلومات",
         "success": "تم إرسال معلوماتك بنجاح.",
-        "successExtra": "قبل إضافة معلوماتكم على الخريطة، سيتم مراجعتها من طرف متطوع من Reach4Help."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "مجموعة المساعدة المشتركة",
     "org": "منظمة / شركة",
+    "vaccine": "Vaccination Sites",
     "financial": "الأمور المالية",
     "information": "معلومات",
     "other": "أخرى"
