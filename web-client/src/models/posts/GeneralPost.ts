@@ -5,17 +5,17 @@ import {
   IsNumber,
   IsObject,
   IsOptional,
-  IsString
+  IsString,
 } from 'class-validator';
 import { firestore } from 'firebase';
 import { firestore as db } from 'src/firebase';
-import { Post } from "../Post";
-import { IPost } from "../IPost";
-import { PostStatus } from "../PostStatus";
-import { UnauthenticatedPost } from "../UnauthenticatedPost";
-import { IGeneralPost } from './IGeneralPost';
-import { IUserGeneral } from "../users/IUserGeneral";
 
+import { IUserGeneral } from '../users/IUserGeneral';
+import { IGeneralPost } from './IGeneralPost';
+import { IPost } from './IPost';
+import { Post } from './Post';
+import { PostStatus } from './PostStatus';
+import { UnauthenticatedPost } from './UnauthenticatedPost';
 
 export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   constructor(
@@ -36,7 +36,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
     firstRejectionMade: Date | null = null,
     seenBy: string[] = [],
     createdAt?: Date,
-    updatedAt?: Date
+    updatedAt?: Date,
   ) {
     super(
       postRef,
@@ -49,7 +49,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       description,
       latLng,
       createdAt,
-      updatedAt
+      updatedAt,
     );
     this._creatorSnapshotGeneral = creatorSnapshot;
     this._creatorRef = creatorRef;
@@ -232,7 +232,8 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       {
         displayName: data.creatorSnapshot.displayName || '',
         displayPicture: data.creatorSnapshot.displayPicture,
-        rating: data.creatorSnapshot.pinRatingsReceived /
+        rating:
+          data.creatorSnapshot.pinRatingsReceived /
           data.creatorSnapshot.requestsMade,
       },
       data.title,
@@ -252,12 +253,12 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.firstRejectionMade?.toDate(),
       seenBy,
       data.createdAt.toDate(),
-      data.updatedAt.toDate()
+      data.updatedAt.toDate(),
     );
   }
 
   public static fromFirestore(
-    data: firebase.firestore.DocumentData
+    data: firebase.firestore.DocumentData,
   ): GeneralPost {
     return new GeneralPost(
       (data.requestRef as firebase.firestore.DocumentReference).path,
@@ -280,7 +281,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       (data.firstRejectionMade as firebase.firestore.Timestamp).toDate(),
       data.seenBy,
       (data.createdAt as firebase.firestore.Timestamp).toDate(),
-      (data.updatedAt as firebase.firestore.Timestamp).toDate()
+      (data.updatedAt as firebase.firestore.Timestamp).toDate(),
     );
   }
 
@@ -303,7 +304,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.firstRejectionMade,
       data.seenBy,
       data.createdAt,
-      data.updatedAt
+      data.updatedAt,
     );
   }
 
@@ -334,7 +335,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.firstRejectionMade,
       data.seenBy,
       data.createdAt,
-      data.updatedAt
+      data.updatedAt,
     );
   }
 
@@ -370,7 +371,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       description: this.description,
       latLng: new firestore.GeoPoint(
         this.latLng.latitude,
-        this.latLng.longitude
+        this.latLng.longitude,
       ),
       creatorRef: db.doc(this.creatorRef),
       status: this.status,

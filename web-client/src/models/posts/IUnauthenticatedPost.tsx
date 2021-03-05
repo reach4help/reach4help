@@ -1,6 +1,5 @@
-import { ILatLngObject } from './ILatLngObject';
 import { IStrippedUser } from '../users/IStrippedUser';
-
+import { ILatLngObject } from './ILatLngObject';
 
 export interface IUnauthenticatedPost {
   postRef: string;
