@@ -896,6 +896,19 @@ class AddInstructions extends React.Component<Props, State> {
                       s.addInformation.screen.information.acceptedInformation,
                   )}
                 </p>
+                <p className="muted">
+                  {t(
+                    lang,
+                    s => s.addInformation.screen.information.moreInformation,
+                    {
+                      contactEmail: key => (
+                        <a key={key} href="mailto:support@reach4help.org">
+                          support@reach4help.org
+                        </a>
+                      ),
+                    },
+                  )}
+                </p>
                 <p>{t(lang, s => s.addInformation.screen.information.intro)}</p>
                 <form onSubmit={this.completeInformation}>
                   {this.validatedInput(FORM_INPUT_NAMES.type, valid => (
