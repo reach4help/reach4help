@@ -43,7 +43,8 @@
     "screen": {
       "title": "Přidat informace do této mapy",
       "information": {
-        "acceptedInformation": "V současné době poskytujeme informace pouze o organizacích nebo společnostech, které poskytují pomoc a pomoc, o regionálních iniciativách finanční pomoci a skupinách vzájemné pomoci. V tuto chvíli nepřijímáme informace o jednotlivcích, kteří nabízejí pomoc.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Vyplňte prosím níže uvedený formulář, abyste začali přidávat informace, poté Vás požádáme o umístění a kontaktní údaje.",
         "form": {
           "type": "Typ projektu / skupiny / organizace / iniciativy",
@@ -93,7 +94,7 @@
         "loading": "Odesílání informací na mapu...",
         "error": "Při ukládání informací došlo k chybě",
         "success": "Vaše informace byly úspěšně odeslány.",
-        "successExtra": "Než učiníme Vaše informace viditelnými na mapě, bude třeba, aby je dobrovolník v našem týmu přezkoumal. To by se snad mělo uskutečnit během několika dní."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Skupina vzájemné podpory",
     "org": "Organizace / společnost",
+    "vaccine": "Vaccination Sites",
     "financial": "Finanční prostředky",
     "information": "Informace",
     "other": "Ostatní"
