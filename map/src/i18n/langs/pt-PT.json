@@ -43,7 +43,8 @@
     "screen": {
       "title": "Adicionar informações a este mapa",
       "information": {
-        "acceptedInformation": "Neste momento, estamos apenas a prestar informações sobre organizações ou empresas que prestam auxílio e assistência, iniciativas de assistência financeira especializadas em regiões e grupos de auxílio mútuo. Não estamos a aceitar informações sobre os indivíduos que prestam ajuda neste momento.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Por favor, preencha o formulário abaixo para começar a adicionar informações, pediremos a localização e detalhes de contacto depois disso.",
         "form": {
           "type": "Tipo de projeto / grupo / organização / iniciativa",
@@ -93,7 +94,7 @@
         "loading": "Enviando informações para o mapa...",
         "error": "Erro ao guardar informações",
         "success": "Informações enviadas com sucesso.",
-        "successExtra": "Antes de tornarmos as suas informações visíveis no mapa, elas precisam de ser revistas por um voluntário na nossa equipa. Esperamos que isso aconteça dentro de alguns dias."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Organização de Solidariedade",
     "org": "Organização / Empresa",
+    "vaccine": "Vaccination Sites",
     "financial": "Financeiro",
     "information": "Informação",
     "other": "Outros"
