@@ -1,4 +1,4 @@
-import { firestore } from 'src/firebase';
+import { firebaseFirestore } from 'src/firebaseConfig';
 // eslint-disable-next-line no-unused-vars
 import { RequestRefType } from 'src/models/requests';
 // eslint-disable-next-line no-unused-vars
@@ -84,7 +84,7 @@ export const getTimelinesForPost = (
   // nextValue: Function,
   payload: { postId: string }, // TODO: (es) firebase.Unsubscribe =>
 ) =>
-  firestore
+  firebaseFirestore
     .collection('requests')
     .doc(payload.postId)
     .collection('timeline')

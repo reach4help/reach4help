@@ -22,10 +22,10 @@ const config = {
 firebase.initializeApp(config);
 
 export const firebaseAuth = firebase.auth();
-export const firestore = firebase.firestore();
-export const functions = firebase.functions();
-export const analytics = firebase.analytics();
-export const performance = firebase.performance();
-export const storage = firebase.storage();
+export const firebaseFirestore = firebase.firestore();
+export const firebaseFunctions = firebase.functions();
+export const firebaseAnalytics = firebase.analytics();
+export const firebasePerformance = firebase.performance();
+export const firebaseStorage = firebase.storage();
 
 export default firebase;

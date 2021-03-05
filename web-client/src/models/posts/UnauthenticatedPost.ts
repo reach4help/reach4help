@@ -6,7 +6,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { firestore } from 'firebase';
-import { firestore as db } from 'src/firebase';
+import { firebaseFirestore as db } from 'src/firebaseConfig';
 
 import { IStrippedUser } from '../users/IStrippedUser';
 import { ILatLngObject } from './ILatLngObject';

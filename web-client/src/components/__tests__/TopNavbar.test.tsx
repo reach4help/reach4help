@@ -11,6 +11,8 @@ const mockedProps = {
   isCav: true,
   unseenOffersCount: 0,
   visible: true,
+  toggleMenu: jest.fn(),
+  toggleNotifications: jest.fn(),
 };
 
 describe('TopNavbar', () => {

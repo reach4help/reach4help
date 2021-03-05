@@ -1,5 +1,5 @@
-import { Post } from "src/models/Post";
-import { IPost } from "src/models/IPost";
+import { IPost } from 'src/models/posts/IPost';
+import { Post } from 'src/models/posts/Post';
 import { User } from 'src/models/users';
 import { createPost, observePosts } from 'src/services/posts';
 

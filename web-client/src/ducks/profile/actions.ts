@@ -1,4 +1,4 @@
-import firebase from 'src/firebase';
+import firebase from 'src/firebaseConfig';
 import { User } from 'src/models/users';
 import {
   IUserAddress,
