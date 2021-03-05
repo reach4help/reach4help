@@ -1,4 +1,4 @@
-import { Post } from "src/models/Post";
+import { Post } from 'src/models/posts/Post';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 const { observerType } = createActionTypeFactory('MY_REQUESTS');

@@ -7,7 +7,7 @@ import { MyRequestsState } from 'src/ducks/MyRequests/types';
 import { ProfileState } from 'src/ducks/profile/types';
 import { getPostWithOffersAndTimelineItems } from 'src/ducks/timeline/functions';
 import { firestore as firestore2 } from 'src/firebase';
-import { Post } from "src/models/Post";
+import { Post } from 'src/models/posts/Post';
 import { ApplicationPreference } from 'src/models/users';
 import {
   MyOfferPostsLocationUrl,

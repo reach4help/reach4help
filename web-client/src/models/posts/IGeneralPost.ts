@@ -1,7 +1,6 @@
-import { PostStatus } from "../PostStatus";
-import { IUnauthenticatedPost } from "../IUnauthenticatedPost";
-import { IUserGeneral } from "../users/IUserGeneral";
-
+import { IUserGeneral } from '../users/IUserGeneral';
+import { IUnauthenticatedPost } from './IUnauthenticatedPost';
+import { PostStatus } from './PostStatus';
 
 export interface IGeneralPost extends IUnauthenticatedPost {
   creatorRef: string;

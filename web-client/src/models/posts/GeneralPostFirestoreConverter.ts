@@ -5,5 +5,6 @@ export const GeneralPostFirestoreConverter: firebase.firestore.FirestoreDataConv
   fromFirestore: (
     data: firebase.firestore.QueryDocumentSnapshot<IGeneralPost>,
   ): GeneralPost => GeneralPost.fromFirestore(data.data()),
-  toFirestore: (modelObject: GeneralPost): firebase.firestore.DocumentData => modelObject.toFirestore(),
+  toFirestore: (modelObject: GeneralPost): firebase.firestore.DocumentData =>
+    modelObject.toFirestore(),
 };
