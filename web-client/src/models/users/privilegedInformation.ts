@@ -15,7 +15,6 @@ export interface IUserAddress {
 export interface IPrivilegedUserInformation
   extends firebase.firestore.DocumentData {
   addresses: Record<string, IUserAddress>;
-  sendNotifications?: firebase.firestore.Timestamp | null;
   termsAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
   privacyAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
@@ -29,10 +28,8 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     privacyVersion: string,
     termsAccepted: firebase.firestore.Timestamp,
     termsVersion: string,
-    sendNotificatoins: firebase.firestore.Timestamp | null = null,
   ) {
     this._addresses = addresses;
-    this._sendNotifications = sendNotificatoins;
     this._privacyAccepted = privacyAccepted;
     this._privacyVersion = privacyVersion;
     this._termsAccepted = termsAccepted;
@@ -48,17 +45,6 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   set addresses(value: Record<string, IUserAddress>) {
     this._addresses = value;
-  }
-
-  @IsObject()
-  private _sendNotifications: firebase.firestore.Timestamp | null;
-
-  get sendNotifications(): firebase.firestore.Timestamp | null {
-    return this._sendNotifications;
-  }
-
-  set sendNotifications(value: firebase.firestore.Timestamp | null) {
-    this._sendNotifications = value;
   }
 
   @IsObject()
@@ -118,7 +104,6 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
       data.privacyVersion,
       data.termsAccepted,
       data.termsVersion,
-      data.sendNotifications,
     );
 
   toObject(): object {
@@ -134,7 +119,6 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
         }),
         {},
       ),
-      sendNotifications: this.sendNotifications,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,

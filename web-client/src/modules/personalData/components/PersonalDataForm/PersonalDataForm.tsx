@@ -32,9 +32,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
     string | undefined | null
   >(undefined);
   const [acceptToUsePhoto, setAcceptToUsePhoto] = useState<boolean>(true);
-  const [allowSendNotifications, setAllowSendNotifications] = useState<boolean>(
-    false,
-  );
+
   const [
     termsAndPrivacyAccepted,
     setTermsAndPrivacyAccepted,
@@ -87,7 +85,6 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       displayPic,
       termsAndPrivacyAccepted,
       address: {},
-      sendNotificatoins: allowSendNotifications ? new Date() : null,
     };
     handleFormSubmit(newPersonalInfo);
   };
@@ -177,18 +174,6 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             >
               {t(
                 'modules.personal-data.components.PersonalDataForm.accept_to_use_profile_pic',
-              )}
-            </Checkbox>
-          </Form.Item>
-          <Form.Item name="useSendNotifications">
-            <Checkbox
-              checked={allowSendNotifications}
-              onChange={({ target }) =>
-                setAllowSendNotifications(target.checked)
-              }
-            >
-              {t(
-                'modules.personal-data.components.PersonalDataForm.allow_send_notifications',
               )}
             </Checkbox>
           </Form.Item>
@@ -292,7 +277,6 @@ export interface IPersonalData {
   displayPic?: string | null;
   termsAndPrivacyAccepted?: Date;
   address: IUserAddress;
-  sendNotificatoins: firebase.firestore.Timestamp | null;
 }
 
 // TODO: Instructions modal text needs to be completed and eventually
