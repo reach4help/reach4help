@@ -43,6 +43,9 @@ export const MARKER_TYPES = {
   org: {
     color: COLORS.blue,
   },
+  vaccine: {
+    color: COLORS.red,
+  },
   financial: {
     color: COLORS.green,
   },

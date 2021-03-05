@@ -15,14 +15,16 @@ export const generateDataFiles = functions
     memory: '512MB',
     timeoutSeconds: 540,
   })
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  // TODO: to reduce the time it takes for a marker to appear after it has been
-  // added (or had its visibility changed), create a more regular job that will
-  // modify the existing cached json file with the most recent changes and push
-  // it back. And have a "refresh" job run e.g. once a day to completely
-  // regenerate the json from a fresh query.
-  .pubsub.schedule('every 2 hours')
-  .onRun(async () => {
+  .firestore.document(`${MARKER_COLLECTION_ID}/{markerId}`)
+  .onWrite(async () => {
+    // // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    // // TODO: to reduce the time it takes for a marker to appear after it has been
+    // // added (or had its visibility changed), create a more regular job that will
+    // // modify the existing cached json file with the most recent changes and push
+    // // it back. And have a "refresh" job run e.g. once a day to completely
+    // // regenerate the json from a fresh query.
+    // .pubsub.schedule('every 2 hours')
+    // .onRun(async () => {
     const results: {
       visible: SerializableMarkerInfo[];
       hidden: SerializableMarkerInfo[];

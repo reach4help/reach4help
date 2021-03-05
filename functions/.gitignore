@@ -8,3 +8,5 @@ node_modules/
 .firebase-debug.log
 
 **/*.log
+
+.runtimeconfig.json
