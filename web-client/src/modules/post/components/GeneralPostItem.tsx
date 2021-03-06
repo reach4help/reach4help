@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Post } from 'src/models/posts/Post';
 import styled from 'styled-components';
 
@@ -9,7 +8,6 @@ const PostItem: React.FC<{
   post: Post;
   handleRequest: (action?: boolean) => void;
 }> = ({ post, handleRequest }): React.ReactElement => {
-  const { t } = useTranslation();
   const handleRequestClick = () => {
     handleRequest();
   };
@@ -20,15 +18,6 @@ const PostItem: React.FC<{
         <Title style={{ color: 'rgba(0, 0, 0, 0.65)' }}>{post.title}</Title>
         <InnerText style={{ marginBottom: '20px' }}>
           {post.description}
-        </InnerText>
-        <InnerText
-          style={{
-            color: 'rgba(0, 0, 0, 0.45)',
-            fontSize: '12px',
-            marginBottom: '10px',
-          }}
-        >
-          {t('modules.requests.AcceptedRequestItem.choose_volunteer')}
         </InnerText>
         <div style={{ display: 'flex' }}>{post.postiveResponseCount}</div>
       </PostItemText>

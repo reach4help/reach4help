@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { observeMyRequests } from 'src/ducks/MyRequests/actions';
 import { MyRequestsState } from 'src/ducks/MyRequests/types';
@@ -24,7 +23,6 @@ import PostList from '../components/PublicPostList';
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
 }) => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
@@ -48,15 +46,6 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
     return <LoadingWrapper />;
   }
 
-  const instructions = [
-    t('information_modal.AcceptedRequestsContainer.0'),
-    t('information_modal.AcceptedRequestsContainer.1'),
-  ];
-  const instructionModalLocalStorageKey = makeLocalStorageKey({
-    prefix: 'reach4help.modalSeen.AcceptedRequestsContainer',
-    userid: profileState.uid,
-  });
-
   return (
     <>
       <FilterByDropDownMenu
@@ -69,11 +58,6 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
       <PostList
         posts={myRequests.data}
         loading={myRequests && myRequests.loading}
-      />
-      <InformationModal
-        title={t('information_modal.AcceptedRequestsContainer.title')}
-        localStorageKey={instructionModalLocalStorageKey}
-        instructions={instructions}
       />
     </>
   );
