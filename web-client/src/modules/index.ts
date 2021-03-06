@@ -5,7 +5,7 @@ import LandingPage from './landing-page';
 import Login from './login';
 import PersonalData from './personalData';
 import Phone from './phone';
-import Posts from './requestAndOfferPosts';
+import Posts from './post';
 import Settings from './settings';
 
 const modules: Record<string, Module> = {

@@ -6,7 +6,6 @@ import { COLORS } from '../../../theme/colors';
 const Header: React.FC<HeaderProps> = ({
   requestsType,
   numRequests,
-  isCav,
 }): React.ReactElement => {
   const { t } = useTranslation();
 
@@ -33,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({
         </h1>
         <h2
           style={{
-            backgroundColor: isCav ? COLORS.primaryDark : COLORS.brandOrange,
+            backgroundColor: COLORS.brandOrange,
             color: '#FFFFFF',
             paddingLeft: '10px',
             paddingRight: '10px',
@@ -50,10 +49,7 @@ const Header: React.FC<HeaderProps> = ({
 };
 
 interface HeaderProps {
-  requestsType: string;
   numRequests?: number;
-  isCav: boolean;
-  isAcceptedRequests?: boolean;
 }
 
 export default Header;

@@ -10,7 +10,6 @@ import styled from 'styled-components';
 
 interface BottomNavbarProps {
   openMenu: () => void;
-  isCav?: boolean;
   visible?: boolean;
   unseenOffersCount: number;
 }

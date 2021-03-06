@@ -7,7 +7,6 @@ import TopNavbar from '../TopNavbar/TopNavbar';
 
 const mockedProps = {
   openMenu: jest.fn(),
-  isCav: true,
   unseenOffersCount: 0,
   visible: true,
   toggleMenu: jest.fn(),

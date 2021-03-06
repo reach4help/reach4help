@@ -1,37 +1,19 @@
 /* eslint no-underscore-dangle: 0 */
 import {
-  IsEnum,
   IsInt,
   IsNotEmpty,
-  IsNumber,
   IsObject,
   IsOptional,
   IsString,
   IsUrl,
-  Max,
   Min,
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-export enum ApplicationPreference {
-  pin = 'pin',
-  cav = 'cav',
-}
-
 export interface IUser extends firebase.firestore.DocumentData {
   username: string;
-  applicationPreference?: ApplicationPreference | null;
-  cavQuestionnaireRef?: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
-  pinQuestionnaireRef?: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
-  averageRating?: number | null;
   casesCompleted?: number;
   requestsMade?: number;
-  pinRatingsReceived?: number;
-  cavRatingsReceived?: number;
   displayName?: string | null;
   displayPicture?: string | null;
   createdAt?: firebase.firestore.Timestamp;
@@ -40,88 +22,18 @@ export interface IUser extends firebase.firestore.DocumentData {
 export class User implements IUser {
   constructor(
     username: string,
-    applicationPreference: ApplicationPreference | null = ApplicationPreference.pin,
-    pinQuestionnaireRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null = null,
-    cavQuestionnaireRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null = null,
     casesCompleted = 0,
     requestsMade = 0,
-    pinRatingsReceived = 0,
-    cavRatingsReceived = 0,
-    averageRating: number | null = 1,
     displayName: string | null = null,
     displayPicture: string | null = null,
     createdAt = firestore.Timestamp.now(),
   ) {
-    this._cavQuestionnaireRef = cavQuestionnaireRef;
-    this._pinQuestionnaireRef = pinQuestionnaireRef;
-    this._averageRating = averageRating;
     this._casesCompleted = casesCompleted;
     this._requestsMade = requestsMade;
-    this._pinRatingsReceived = pinRatingsReceived;
-    this._cavRatingsReceived = cavRatingsReceived;
     this._username = username;
     this._displayName = displayName;
     this._displayPicture = displayPicture;
-    this._applicationPreference = applicationPreference;
     this._createdAt = createdAt;
-  }
-
-  @IsObject()
-  @IsOptional()
-  private _cavQuestionnaireRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
-
-  get cavQuestionnaireRef(): firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null {
-    return this._cavQuestionnaireRef;
-  }
-
-  set cavQuestionnaireRef(
-    value: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null,
-  ) {
-    this._cavQuestionnaireRef = value;
-  }
-
-  @IsObject()
-  @IsOptional()
-  private _pinQuestionnaireRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
-
-  get pinQuestionnaireRef(): firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null {
-    return this._pinQuestionnaireRef;
-  }
-
-  set pinQuestionnaireRef(
-    value: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null,
-  ) {
-    this._pinQuestionnaireRef = value;
-  }
-
-  @IsNumber()
-  @Min(1)
-  @Max(5)
-  @IsOptional()
-  private _averageRating: number | null;
-
-  get averageRating(): number | null {
-    return this._averageRating;
-  }
-
-  set averageRating(value: number | null) {
-    this._averageRating = value;
   }
 
   @IsInt()
@@ -146,30 +58,6 @@ export class User implements IUser {
 
   set requestsMade(value: number) {
     this._requestsMade = value;
-  }
-
-  @IsInt()
-  @Min(0)
-  private _pinRatingsReceived: number;
-
-  get pinRatingsReceived(): number {
-    return this._pinRatingsReceived;
-  }
-
-  set pinRatingsReceived(value: number) {
-    this._pinRatingsReceived = value;
-  }
-
-  @IsInt()
-  @Min(0)
-  private _cavRatingsReceived: number;
-
-  get cavRatingsReceived(): number {
-    return this._cavRatingsReceived;
-  }
-
-  set cavRatingsReceived(value: number) {
-    this._cavRatingsReceived = value;
   }
 
   @IsString()
@@ -208,17 +96,6 @@ export class User implements IUser {
     this._displayPicture = value;
   }
 
-  @IsEnum(ApplicationPreference)
-  private _applicationPreference: ApplicationPreference | undefined | null;
-
-  get applicationPreference(): ApplicationPreference | undefined | null {
-    return this._applicationPreference;
-  }
-
-  set applicationPreference(value: ApplicationPreference | undefined | null) {
-    this._applicationPreference = value;
-  }
-
   /* TODO: When we reach greater than 500 offers per request created per second:
      https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
    */
@@ -236,31 +113,19 @@ export class User implements IUser {
   static factory = (data: IUser): User =>
     new User(
       data.username,
-      data.applicationPreference,
-      data.pinQuestionnaireRef,
-      data.cavQuestionnaireRef,
       data.casesCompleted,
       data.requestsMade,
-      data.pinRatingsReceived,
-      data.cavRatingsReceived,
-      data.averageRating,
       data.displayName,
       data.displayPicture,
       data.createdAt,
     );
 
   toObject = (): object => ({
-    cavQuestionnaireRef: this.cavQuestionnaireRef || null,
-    pinQuestionnaireRef: this.pinQuestionnaireRef || null,
     username: this.username,
     casesCompleted: this.casesCompleted,
     requestsMade: this.requestsMade,
-    pinRatingsReceived: this.pinRatingsReceived,
-    cavRatingsReceived: this.cavRatingsReceived,
-    averageRating: this.averageRating,
     displayName: this.displayName,
     displayPicture: this.displayPicture,
-    applicationPreference: this.applicationPreference,
     createdAt: this.createdAt,
   });
 }
