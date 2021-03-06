@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react';
 import LoadingIndicator from 'src/components/LoadingIndicator/LoadingIndicator';
 import { Post } from 'src/models/posts/Post';
 
-import PostItem from './PublicPostItem';
+import PostItem from './GeneralPostItem';
 
 const PostList: React.FC<PostListProps> = ({
   posts,
   loading,
-  // TODO: (es) remove isVariables,
-  isCavAndOpenRequest,
-  isPinAndOpenRequest,
   hideUserPics,
   toCloseRequest,
 }): React.ReactElement => {
@@ -41,15 +38,7 @@ const PostList: React.FC<PostListProps> = ({
         setRequestList(internalRequestList);
       }
     }
-  }, [
-    posts,
-    isCavAndOpenRequest,
-    isPinAndOpenRequest,
-    hideUserPics,
-    requestsRendered,
-    toCloseRequest,
-    setRequestList,
-  ]);
+  }, [posts, hideUserPics, requestsRendered, toCloseRequest, setRequestList]);
 
   // issue with indefinite loading, needs fix
   if (loading) {
@@ -62,8 +51,6 @@ const PostList: React.FC<PostListProps> = ({
 interface PostListProps {
   posts?: Record<string, Post>;
   loading: boolean;
-  isCavAndOpenRequest?: boolean;
-  isPinAndOpenRequest?: boolean;
   hideUserPics?: boolean;
   toCloseRequest?: Function;
 }

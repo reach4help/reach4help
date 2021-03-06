@@ -31,7 +31,6 @@ const WebClientMap: React.FC<MapProps> = ({
   startLocateMe,
   bannerMessage = '',
   zoom = 11,
-  isCav = true,
   forceRerender = false,
   height,
   canRelocate = true,
@@ -189,7 +188,7 @@ const WebClientMap: React.FC<MapProps> = ({
   return !apiKey ? (
     <>{t('components_web_client_map.api_error')} Google Maps API key</>
   ) : (
-    <MapWrapper isCav={isCav} height={height}>
+    <MapWrapper height={height}>
       {mapMessage && <WebClientMapMessage message={mapMessage} />}
       <GoogleMapReact
         yesIWantToUseGoogleMapApiInternals
@@ -222,12 +221,7 @@ const WebClientMap: React.FC<MapProps> = ({
   );
 };
 
-/* TODO:  find better css solution.
-Because the FindRequest map (CAV map) appears within a tab, 
-we have to make room for tab buttons
-We are currently adjusting the top css but there is probably a better solution.
-*/
-const MapWrapper = styled.div<{ isCav?: boolean; height?: string }>`
+const MapWrapper = styled.div<{ height?: string }>`
   left: 0;
   height: ${props => (props.height ? props.height : '100%')};
   width: 100%;
@@ -250,7 +244,6 @@ interface MapProps {
   onGeocode?: ({ address: string, latLng: Coords }) => void;
   onDestinationClickedHandler?: (id: string) => void;
   zoom?: number;
-  isCav?: boolean;
   bannerMessage?: string;
   startGeocode?: boolean;
   startLocateMe?: boolean;

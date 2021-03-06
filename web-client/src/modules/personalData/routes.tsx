@@ -7,34 +7,21 @@ import GradientBackground from 'src/components/GradientBackground/GradientBackgr
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { ApplicationPreference } from 'src/models/users';
-import { CreateRequestLocationUrl } from 'src/modules/create/constants';
 import { LoginLocation } from 'src/modules/login/constants';
-import { AlgFindRequestsLocation } from 'src/modules/requestAndOfferPosts/constants';
+import { AlgFindRequestsLocation } from 'src/modules/post/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
-import { PersonalDataLocation, RoleInfoLocation } from './constants';
+import { PersonalDataLocation } from './constants';
 
 const PersonalDataFormContainer = lazy(() =>
   import('./containers/PersonalDataFormContainer/PersonalDataFormContainer'),
-);
-const RoleInfoContainer = lazy(() =>
-  import('./containers/RoleInfoContainer/RoleInfoContainer'),
 );
 
 const PersonalDataPage: React.FC = () => (
   <GradientBackground>
     <CenteredCard>
       <PersonalDataFormContainer />
-    </CenteredCard>
-  </GradientBackground>
-);
-
-const RoleInfoPage: React.FC = () => (
-  <GradientBackground>
-    <CenteredCard>
-      <RoleInfoContainer />
     </CenteredCard>
   </GradientBackground>
 );
@@ -91,38 +78,13 @@ const Routes = (): ReactElement => {
     profileState.profile &&
     profileState.profile.displayName
   ) {
-    if (
-      profileState.profile.applicationPreference === ApplicationPreference.pin
-    ) {
-      return (
-        <Redirect
-          to={{
-            pathname: redirectBack || CreateRequestLocationUrl,
-          }}
-        />
-      );
-    }
-    if (
-      profileState.profile.applicationPreference === ApplicationPreference.cav
-    ) {
-      return (
-        <Redirect
-          to={{
-            pathname: redirectBack || AlgFindRequestsLocation.path,
-          }}
-        />
-      );
-    }
-    if (location.pathname !== RoleInfoLocation.path) {
-      return (
-        <Redirect
-          to={{
-            pathname: RoleInfoLocation.path,
-            state: { redirectBack: redirectBack || '/' },
-          }}
-        />
-      );
-    }
+    return (
+      <Redirect
+        to={{
+          pathname: redirectBack || AlgFindRequestsLocation.path,
+        }}
+      />
+    );
   }
 
   return (
@@ -133,7 +95,6 @@ const Routes = (): ReactElement => {
           component={PersonalDataPage}
           exact
         />
-        <Route path={RoleInfoLocation.path} component={RoleInfoPage} exact />
         <Route path="*" render={() => <Redirect to="/404" />} />
       </Switch>
     </Suspense>

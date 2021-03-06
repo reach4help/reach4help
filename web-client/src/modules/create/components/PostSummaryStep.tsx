@@ -11,7 +11,7 @@ import {
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
-import { MyRequestPostsLocationUrl } from 'src/modules/requestAndOfferPosts/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/post/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
