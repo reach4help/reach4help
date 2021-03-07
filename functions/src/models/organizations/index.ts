@@ -48,9 +48,6 @@ export class Organization implements IOrganization {
     this._types = value;
   }
 
-  /* TODO: When we reach greater than 500 offers per request created per second:
-     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
-   */
   @IsObject()
   private _createdAt: Timestamp;
 

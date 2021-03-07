@@ -5,9 +5,7 @@ import * as functions from 'firebase-functions';
 import * as fs from 'fs';
 import { v4 as uuid } from 'uuid';
 
-import { triggerEventsWhenRequestIsCreated } from '../../../src/requests';
-import { ApplicationPreference, User } from '../../../src/models/users';
-import { Request, RequestStatus } from '../../../src/models/requests';
+import { triggerEventsWhenPostIsCreated } from '../../../src/posts';
 import { removeObjectFromIndices } from '../../../src/algolia';
 import { getSearchKey, IgetSearchKeyReturn } from '../../../src/https/api/search/getSearchKeys';
 
@@ -40,11 +38,10 @@ const pinUserId = uuid();
 const pinUser = User.factory({
   displayPicture: null,
   displayName: 'newtestuser',
-  applicationPreference: ApplicationPreference.pin,
   username: 'newtestuser',
 });
 
-const requestId = uuid();
+const postId = uuid();
 
 beforeAll(async () => {
   // To allow reads and writes from authed db
@@ -63,7 +60,7 @@ beforeEach(async () => {
 
 afterEach(async () => {
   // Don't keep adding data into test indices, use it temporarily
-  await removeObjectFromIndices(requestId);
+  await removeObjectFromIndices(postId);
 });
 
 // TODO: Rewrite tests using posts
@@ -72,49 +69,49 @@ describe.skip('Unauthenticated users to find posts', () => {
   const { db } = authedApp({ uid: pinUserId });
 
   it('should allow searching unauthenticated posts index using restricted key', async () => {
-    // create record of user who makes request
+    // create record of user who makes post
     await db
       .collection('users')
       .doc(pinUserId)
       .set(pinUser.toObject());
 
-    // declare a requestRef to which writes should be made to simplify access later
-    const requestRef = db.collection('requests').doc(requestId);
+    // declare a postRef to which writes should be made to simplify access later
+    const postRef = db.collection('posts').doc(postId);
 
-    // create a properly filled and acceptable request object
+    // create a properly filled and acceptable post object
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
-      description: 'new request description',
+      description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
-      streetAddress: 'new request street address',
-      offerCount: 0,
+      streetAddress: 'new post street address',
+      responseCount: 0,
       rejectionCount: 0,
-      firstOfferMade: null,
+      firstResponseMade: null,
       firstRejectionMade: null,
-      lastOfferMade: null,
+      lastResponseMade: null,
       lastRejectionMade: null,
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
     });
 
-    await requestRef.set(newRequest.toObject());
-    const snap = await requestRef.get();
-    // Execute the trigger on the request object on firestore
-    await test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+    await postRef.set(newRequest.toObject());
+    const snap = await postRef.get();
+    // Execute the trigger on the post object on firestore
+    await test.wrap(triggerEventsWhenPostIsCreated)(snap, {
       params: {
         userId: pinUserId,
-        requestId: requestRef.id,
+        postId: postRef.id,
       },
     });
     const newSearchKey: IgetSearchKeyReturn = getSearchKeyWrapped(undefined);
-    console.log('search key being used for unauthenticated requests: ', newSearchKey.searchKey);
-    console.log('index being used for unauthenticated requests: ', ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
+    console.log('search key being used for unauthenticated posts: ', newSearchKey.searchKey);
+    console.log('index being used for unauthenticated posts: ', ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
     const client = algoliasearch(ALGOLIA_ID, newSearchKey.searchKey);
     const index = client.initIndex(ALGOLIA_UNAUTHENTICATEDREQUESTS_INDEX);
-    const { hits } = await index.search('new request');
+    const { hits } = await index.search('new post');
     expect(hits.length).toBeTruthy();
   });
 });
@@ -123,41 +120,41 @@ describe.skip('Authenticated users to find posts', () => {
   const { db } = authedApp({ uid: pinUserId });
 
   it('should allow searching general posts index using restricted key', async () => {
-    // create record of user who creates request
+    // create record of user who creates post
     await db
       .collection('users')
       .doc(pinUserId)
       .set(pinUser.toObject());
 
-    // declare a requestRef to which writes should be made to simplify access later
-    const requestRef = db.collection('requests').doc(requestId);
+    // declare a postRef to which writes should be made to simplify access later
+    const postRef = db.collection('posts').doc(postId);
 
-    // create a properly filled and acceptable request object
+    // create a properly filled and acceptable post object
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
-      description: 'new request description',
+      description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
-      streetAddress: 'new request street address',
-      offerCount: 0,
+      streetAddress: 'new post street address',
+      responseCount: 0,
       rejectionCount: 0,
-      firstOfferMade: null,
+      firstResponseMade: null,
       firstRejectionMade: null,
-      lastOfferMade: null,
+      lastResponseMade: null,
       lastRejectionMade: null,
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
     });
 
-    await requestRef.set(newRequest.toObject());
-    const snap = await requestRef.get();
-    // Execute the trigger on the request object on firestore
+    await postRef.set(newRequest.toObject());
+    const snap = await postRef.get();
+    // Execute the trigger on the post object on firestore
     await test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
       params: {
         userId: pinUserId,
-        requestId: requestRef.id,
+        postId: postRef.id,
       },
     });
     const newSearchKey: IgetSearchKeyReturn = getSearchKeyWrapped(undefined, {
@@ -165,11 +162,11 @@ describe.skip('Authenticated users to find posts', () => {
         uid: pinUserId,
       },
     });
-    console.log('search key being used for authenticated requests: ', newSearchKey.searchKey);
-    console.log('index being used for authenticated requests: ', ALGOLIA_GENERALREQUESTS_INDEX);
+    console.log('search key being used for authenticated posts: ', newSearchKey.searchKey);
+    console.log('index being used for authenticated posts: ', ALGOLIA_GENERALREQUESTS_INDEX);
     const client = algoliasearch(ALGOLIA_ID, newSearchKey.searchKey);
     const index = client.initIndex(ALGOLIA_GENERALREQUESTS_INDEX);
-    const { hits } = await index.search('new request');
+    const { hits } = await index.search('new post');
     expect(hits.length).toBeTruthy();
   });
 });

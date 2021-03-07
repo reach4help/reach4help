@@ -28,12 +28,12 @@ export const updatePost = async (postPayload: Post, postId: string) =>
 export const observePosts = (
   nextValue: Function,
   {
-    requestingHelp,
+    isRequest,
     offeringHelp,
     status,
     userRef,
   }: {
-    requestingHelp?: boolean;
+    isRequest?: boolean;
     offeringHelp?: boolean;
     status?: string;
     userRef?: firebase.firestore.DocumentReference<User>;
@@ -47,12 +47,12 @@ export const observePosts = (
     filter = filter.where('creatorRef', '==', userRef);
   }
 
-  if (isDefined(requestingHelp)) {
-    filter = filter.where('requestingHelp', '==', requestingHelp);
+  if (isDefined(isRequest)) {
+    filter = filter.where('isRequest', '==', isRequest);
   }
 
   if (isDefined(offeringHelp)) {
-    filter = filter.where('requestingHelp', '==', !offeringHelp);
+    filter = filter.where('isRequest', '==', !offeringHelp);
   }
 
   if (status) {

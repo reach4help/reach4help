@@ -3,7 +3,7 @@ import { ILatLngObject } from './ILatLngObject';
 
 export interface IUnauthenticatedPost {
   postRef: string;
-  requestingHelp: boolean;
+  isRequest: boolean;
   creatorSnapshot: IStrippedUser;
   title: string;
   description: string;

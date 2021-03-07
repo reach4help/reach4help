@@ -110,7 +110,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
     if (profileState.profile) {
       const newPost = {
         isResponse: false,
-        requestingHelp: !IS_OFFER_POST,
+    requestingHelp: !IS_OFFER_POST,
         sourcePublicPostId: null,
     const newPost = {
       title,
@@ -140,7 +140,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         positiveResponseCount: 0,
         negativeResponseCount: 0,
         firstRejectionMade: null,
-        firstOfferMade: null,
+        firstResponseMade: null,
         title,
         description,
         creatorRef: profileState.userRef,

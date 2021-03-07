@@ -41,7 +41,7 @@ export type MarkerType =
     }
   | {
       /**
-       * A fundraising effort that can be donated to, or have requests made of it
+       * A fundraising effort that can be donated to, or have posts made of it
        */
       type: 'financial';
     }

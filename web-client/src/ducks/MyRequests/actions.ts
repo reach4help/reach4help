@@ -24,7 +24,7 @@ export const observeMyRequests = (
     type: OBSERVE,
     observer: observePosts,
     payload: {
-      requestingHelp: true,
+      isRequest: true,
       status,
       userRef,
     },
