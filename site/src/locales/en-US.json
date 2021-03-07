@@ -124,10 +124,7 @@
     },
     "ImpactPage": {
       "WorldMapSection": {
-        "heading": [
-          "We're already helping",
-          "600+ people across 38 countries!"
-        ],
+        "heading": ["We're helping people", "across 38 countries!"],
         "hoverInfo": {
           "users": "Users: ",
           "noUsers": "No users yet <br/> (maybe you?)"
