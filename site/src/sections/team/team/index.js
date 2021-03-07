@@ -34,19 +34,18 @@ function Team() {
           <h2>{team.title} Team</h2>
           {/* TODO SHAYAN: don't be lazy and split these up into components */}
           <div className="members">
-            {team.members.map(member => (
-              <a className="member" key={member.id} href={member.contact}>
-                <img
-                  src={member.avatar_url}
-                  alt={member.name}
-                  onError={e => (e.target.src = defaultProfilePic)}
-                />
-                <h3>
-                  <b>{member.name}</b>
-                </h3>
-                <p>{member.title}</p>
-                {/* TODO: Uncomment after confirming everyone's countries */}
-                {/* <div className="flags">
+            {team.members.map(member => {
+              const avatarURL = member.avatar_url || defaultProfilePic
+              // if the fetched avatar url is undefined, then set a default one
+              return (
+                <a className="member" key={member.id} href={member.contact}>
+                  <img src={avatarURL} alt={member.name} />
+                  <h3>
+                    <b>{member.name}</b>
+                  </h3>
+                  <p>{member.title}</p>
+                  {/* TODO: Uncomment after confirming everyone's countries */}
+                  {/* <div className="flags">
                   {member.countries?.map(country => (
                     <Flag
                       key={country.id}
@@ -55,8 +54,9 @@ function Team() {
                     />
                   ))}
                 </div> */}
-              </a>
-            ))}
+                </a>
+              )
+            })}
           </div>
         </TeamContainer>
       ))}
