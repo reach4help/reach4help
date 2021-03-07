@@ -13,7 +13,7 @@ export const getNearbyVolunteers = functions.https.onCall(async (data, context) 
     const userRef = db.collection('users').doc(userId);
     const user = User.factory((await userRef.get()).data() as IUser);
 
-    if (user && user.applicationPreference) {
+    if (user) {
       // ~1 mile of lat and lon in degrees
       const unitLat = 0.0144927536231884;
       const unitLng = 0.0181818181818182;

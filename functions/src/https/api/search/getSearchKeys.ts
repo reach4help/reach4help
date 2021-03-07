@@ -4,8 +4,8 @@ import {
   ALGOLIA_GENERALPOSTS_INDEX,
   ALGOLIA_ID,
   ALGOLIA_UNAUTHENTICATEDPOSTS_INDEX,
-  generateGeneralRequestsKey,
-  generateUnauthenticatedRequestsKey,
+  generateGeneralPostsKey,
+  generateUnauthenticatedPostsKey,
 } from '../../../algolia';
 
 export interface IgetSearchKeyReturn {
@@ -19,7 +19,8 @@ export const getSearchKey = functions.https.onCall(
     const isAuthenticated = !!context.auth?.uid;
     return {
       isAuthenticated,
-      searchKey: isAuthenticated ? generateGeneralRequestsKey() : generateUnauthenticatedRequestsKey(),
+      appId: ALGOLIA_ID,
+      searchKey: isAuthenticated ? generateGeneralPostsKey() : generateUnauthenticatedPostsKey(),
       indexName: isAuthenticated ? ALGOLIA_GENERALPOSTS_INDEX : ALGOLIA_UNAUTHENTICATEDPOSTS_INDEX,
     };
   },

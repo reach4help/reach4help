@@ -3,12 +3,8 @@ import * as Test from 'firebase-functions-test';
 import * as fs from 'fs';
 import { v4 as uuid } from 'uuid';
 
-import { triggerEventsWhenOfferIsCreated } from '../../src/offers';
-import { Offer, OfferStatus } from '../../src/models/offers';
-import { Request, RequestStatus } from '../../src/models/requests';
-import { ApplicationPreference, User } from '../../src/models/users';
 import { removeObjectFromIndices, retrieveObjectFromIndex } from '../../src/algolia';
-import { triggerEventsWhenRequestIsCreated } from '../../src/requests';
+import { triggerEventsWhenRequestIsCreated } from '../../src/posts';
 
 const projectId = 'reach-4-help-test';
 
@@ -34,7 +30,6 @@ const pinUserId = uuid();
 const pinUser = User.factory({
   displayPicture: null,
   displayName: 'newtestuser',
-  applicationPreference: ApplicationPreference.pin,
   username: 'newtestuser',
 });
 
@@ -43,12 +38,11 @@ const cavUserId = uuid();
 const cavUser = User.factory({
   displayPicture: null,
   displayName: 'newTestCavUser',
-  applicationPreference: ApplicationPreference.cav,
   username: 'newTestCavUser',
 });
 
-const requestId = uuid();
-const offerId = uuid();
+const postId = uuid();
+const postId = uuid();
 
 beforeAll(async () => {
   await firebase.loadFirestoreRules({ projectId, rules });
@@ -64,15 +58,15 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  await removeObjectFromIndices(requestId);
+  await removeObjectFromIndices(postId);
 });
 
-describe('offer creation triggers', () => {
+describe('post creation triggers', () => {
   // create separate instances for CAV and PIN
   const { db } = authedApp({ uid: cavUserId });
 
   it('should not keep invalid data', async () => {
-    // create record of user to make request and user to make offer
+    // create record of user to make post and user to make post
     await Promise.all([
       db
         .collection('users')
@@ -84,61 +78,61 @@ describe('offer creation triggers', () => {
         .set(cavUser.toObject()),
     ]);
 
-    // create a valid request instane, we are testing offers so no need for invalid request
+    // create a valid post instane, we are testing posts so no need for invalid post
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
-      description: 'new request description',
+      description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
-      streetAddress: 'new request street address',
-      offerCount: 0,
+      streetAddress: 'new post street address',
+      responseCount: 0,
       rejectionCount: 0,
-      firstOfferMade: null,
+      firstResponseMade: null,
       firstRejectionMade: null,
-      lastOfferMade: null,
+      lastResponseMade: null,
       lastRejectionMade: null,
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
     });
 
-    // declare references to request and offer for easier access later
-    const requestRef = db.collection('requests').doc(requestId);
-    const offerRef = db.collection('offers').doc(offerId);
+    // declare references to post and post for easier access later
+    const postRef = db.collection('posts').doc(postId);
+    const postRef = db.collection('posts').doc(postId);
 
     return (
-      requestRef
+      postRef
         .set(newRequest.toObject())
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return requestRef.get();
+            return postRef.get();
           },
         )
         .then(snap => {
-          // We need to execute request triggers to put data into algolia
+          // We need to execute post triggers to put data into algolia
           return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
             params: {
               userId: pinUserId,
-              requestId: requestRef.id,
+              postId: postRef.id,
             },
           });
         })
-        .then((): Promise<void> => offerRef.set({ displayName: 'sgsdg', cavUserSnapshot: cavUser.toObject(), pinUserSnapshot: pinUser.toObject() }))
+        .then((): Promise<void> => postRef.set({ displayName: 'sgsdg', cavUserSnapshot: cavUser.toObject(), pinUserSnapshot: pinUser.toObject() }))
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-        .then((): Promise<firebase.firestore.DocumentSnapshot> => offerRef.get())
+        .then((): Promise<firebase.firestore.DocumentSnapshot> => postRef.get())
         .then(snap => {
-          // execute offer triggers
+          // execute post triggers
           return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
             params: {
               userId: cavUserId,
-              offerId,
+              postId,
             },
           });
         })
         .then(() => {
-          return offerRef.get();
+          return postRef.get();
         })
         .then(snapAfter => {
           expect(snapAfter.exists).toBeFalsy();
@@ -147,7 +141,7 @@ describe('offer creation triggers', () => {
   });
 
   it('should keep valid data', async () => {
-    // create record of user to make request and user to make offer
+    // create record of user to make post and user to make post
     await Promise.all([
       db
         .collection('users')
@@ -159,45 +153,45 @@ describe('offer creation triggers', () => {
         .set(cavUser.toObject()),
     ]);
 
-    // create a valid request instane, we are testing offers so no need for invalid request
+    // create a valid post instane, we are testing posts so no need for invalid post
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
-      description: 'new request description',
+      description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
-      streetAddress: 'new request street address',
-      offerCount: 0,
+      streetAddress: 'new post street address',
+      responseCount: 0,
       rejectionCount: 0,
-      firstOfferMade: null,
+      firstResponseMade: null,
       firstRejectionMade: null,
-      lastOfferMade: null,
+      lastResponseMade: null,
       lastRejectionMade: null,
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
     });
 
-    // declare references to request and offer for easier access later
-    const requestRef = db.collection('requests').doc(requestId);
-    const offerRef = db.collection('offers').doc(offerId);
+    // declare references to post and post for easier access later
+    const postRef = db.collection('posts').doc(postId);
+    const postRef = db.collection('posts').doc(postId);
 
     return (
-      requestRef
+      postRef
         .set(newRequest.toObject())
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return requestRef.get();
+            return postRef.get();
           },
         )
         .then(snap => {
-          // We need to execute request triggers to put data into algolia
-          console.log('triggering request');
+          // We need to execute post triggers to put data into algolia
+          console.log('triggering post');
           return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
             params: {
               userId: pinUserId,
-              requestId: requestRef.id,
+              postId: postRef.id,
             },
           });
         })
@@ -207,34 +201,34 @@ describe('offer creation triggers', () => {
               cavUserRef: db.collection('users').doc(cavUserId) as any,
               cavUserSnapshot: cavUser,
               pinUserRef: db.collection('users').doc(pinUserId) as any,
-              requestRef: db.collection('requests').doc(requestId) as any,
-              requestSnapshot: newRequest,
+              postRef: db.collection('posts').doc(postId) as any,
+              postSnapshot: newRequest,
               message: 'I want to help',
               status: OfferStatus.pending,
               createdAt: firebase.firestore.Timestamp.now(),
               updatedAt: firebase.firestore.Timestamp.now(),
             });
-            return offerRef.set(newOffer.toObject());
+            return postRef.set(newOffer.toObject());
           },
         )
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return offerRef.get();
+            return postRef.get();
           },
         )
         .then(snap => {
-          // execute offer triggers
-          console.log('executin offer trigger');
+          // execute post triggers
+          console.log('executin post trigger');
           return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
             params: {
               userId: cavUserId,
-              offerId,
+              postId,
             },
           });
         })
         .then(() => {
-          return offerRef.get();
+          return postRef.get();
         })
         .then(snapAfter => {
           console.log('snapAfter.exists: ', snapAfter.exists);
@@ -244,11 +238,11 @@ describe('offer creation triggers', () => {
   });
 });
 
-describe('offer creation trigger effects on algolia authenticated index', () => {
+describe('post creation trigger effects on algolia authenticated index', () => {
   const { db } = authedApp({ uid: cavUserId });
 
-  it.skip('should not assosciate with invalid offer', async () => {
-    // create record of user to make request and user to make offer
+  it.skip('should not assosciate with invalid post', async () => {
+    // create record of user to make post and user to make post
     await Promise.all([
       db
         .collection('users')
@@ -260,80 +254,80 @@ describe('offer creation trigger effects on algolia authenticated index', () => 
         .set(cavUser.toObject()),
     ]);
 
-    // create a valid request instane, we are testing offers so no need for invalid request
+    // create a valid post instane, we are testing posts so no need for invalid post
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
-      description: 'new request description',
+      description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
-      streetAddress: 'new request street address',
-      offerCount: 0,
+      streetAddress: 'new post street address',
+      responseCount: 0,
       rejectionCount: 0,
-      firstOfferMade: null,
+      firstResponseMade: null,
       firstRejectionMade: null,
-      lastOfferMade: null,
+      lastResponseMade: null,
       lastRejectionMade: null,
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
     });
 
-    // declare references to request and offer for easier access later
-    const requestRef = db.collection('requests').doc(requestId);
-    const offerRef = db.collection('offers').doc(offerId);
+    // declare references to post and post for easier access later
+    const postRef = db.collection('posts').doc(postId);
+    const postRef = db.collection('posts').doc(postId);
 
     return (
-      requestRef
+      postRef
         .set(newRequest.toObject())
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return requestRef.get();
+            return postRef.get();
           },
         )
         .then(snap => {
-          // We need to execute request triggers to put data into algolia
+          // We need to execute post triggers to put data into algolia
           return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
             params: {
               userId: pinUserId,
-              requestId: requestRef.id,
+              postId: postRef.id,
             },
           });
         })
         .then(
           (): Promise<void> =>
-            offerRef.set({
+            postRef.set({
               displayName: 'sgsdg',
               cavUserSnapshot: cavUser.toObject(),
               pinUserSnapshot: pinUser.toObject(),
-              requestRef: requestRef.id,
+              postRef: postRef.id,
             }),
         )
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
-        .then((): Promise<firebase.firestore.DocumentSnapshot> => offerRef.get())
+        .then((): Promise<firebase.firestore.DocumentSnapshot> => postRef.get())
         .then(snap => {
-          // execute offer triggers
+          // execute post triggers
           return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
             params: {
               userId: cavUserId,
-              offerId,
+              postId,
             },
           });
         })
         .then(() => {
-          return retrieveObjectFromIndex(requestRef.id, true);
+          return retrieveObjectFromIndex(postRef.id, true);
         })
         .then((snapAfter: any) => {
-          // the cav shouldn't be added to the participant list when the offer is invalid
+          // the cav shouldn't be added to the participant list when the post is invalid
           // by default, the participatn list will have the pin so the length should be 1
           expect(snapAfter.participants.length).toBe(1);
         })
     );
   });
 
-  it.skip('should associate with valid offer', async () => {
-    // create record of user to make request and user to make offer
+  it.skip('should associate with valid post', async () => {
+    // create record of user to make post and user to make post
     await Promise.all([
       db
         .collection('users')
@@ -345,44 +339,44 @@ describe('offer creation trigger effects on algolia authenticated index', () => 
         .set(cavUser.toObject()),
     ]);
 
-    // create a valid request instane, we are testing offers so no need for invalid request
+    // create a valid post instane, we are testing posts so no need for invalid post
     const newRequest = Request.factory({
       pinUserRef: db.collection('users').doc(pinUserId) as any,
       pinUserSnapshot: pinUser,
       title: 'new reqeust',
-      description: 'new request description',
+      description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
-      streetAddress: 'new request street address',
-      offerCount: 0,
+      streetAddress: 'new post street address',
+      responseCount: 0,
       rejectionCount: 0,
-      firstOfferMade: null,
+      firstResponseMade: null,
       firstRejectionMade: null,
-      lastOfferMade: null,
+      lastResponseMade: null,
       lastRejectionMade: null,
       status: RequestStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
     });
 
-    // declare references to request and offer for easier access later
-    const requestRef = db.collection('requests').doc(requestId);
-    const offerRef = db.collection('offers').doc(offerId);
+    // declare references to post and post for easier access later
+    const postRef = db.collection('posts').doc(postId);
+    const postRef = db.collection('posts').doc(postId);
 
     return (
-      requestRef
+      postRef
         .set(newRequest.toObject())
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return requestRef.get();
+            return postRef.get();
           },
         )
         .then(snap => {
-          // We need to execute request triggers to put data into algolia
+          // We need to execute post triggers to put data into algolia
           return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
             params: {
               userId: pinUserId,
-              requestId: requestRef.id,
+              postId: postRef.id,
             },
           });
         })
@@ -392,33 +386,33 @@ describe('offer creation trigger effects on algolia authenticated index', () => 
               cavUserRef: db.collection('users').doc(cavUserId) as any,
               cavUserSnapshot: cavUser,
               pinUserRef: db.collection('users').doc(pinUserId) as any,
-              requestRef: requestRef as any,
-              requestSnapshot: newRequest,
+              postRef: postRef as any,
+              postSnapshot: newRequest,
               message: 'I want to help',
               status: OfferStatus.pending,
               createdAt: firebase.firestore.Timestamp.now(),
               updatedAt: firebase.firestore.Timestamp.now(),
             });
-            return offerRef.set(newOffer.toObject());
+            return postRef.set(newOffer.toObject());
           },
         )
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return offerRef.get();
+            return postRef.get();
           },
         )
         .then(snap => {
-          // execute offer triggers
+          // execute post triggers
           return test.wrap(triggerEventsWhenOfferIsCreated)(snap, {
             params: {
               userId: cavUserId,
-              offerId,
+              postId,
             },
           });
         })
         .then(() => {
-          return retrieveObjectFromIndex(requestRef.id, true);
+          return retrieveObjectFromIndex(postRef.id, true);
         })
         .then((snapAfter: any) => {
           // the participant list should include both the pin and the cav

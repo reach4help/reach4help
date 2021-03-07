@@ -11,7 +11,7 @@ export interface IGeneralPost extends IUnauthenticatedPost {
   rejected: string[];
   offerCount: number;
   rejectionCount: number;
-  firstOfferMade: Date | null;
+  firstResponseMade: Date | null;
   firstRejectionMade: Date | null;
   seenBy: string[];
 }

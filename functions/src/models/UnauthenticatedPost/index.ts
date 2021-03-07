@@ -23,7 +23,7 @@ interface ILatLngObject {
 
 export interface IUnauthenticatedPost {
   postRef: string;
-  requestingHelp: boolean;
+  isR equest: boolean;
   creatorSnapshot: IStrippedUser;
   title: string;
   description: string;
@@ -35,7 +35,7 @@ export interface IUnauthenticatedPost {
 export class UnauthenticatedPost implements IUnauthenticatedPost {
   constructor(
     postRef: string,
-    requestingHelp: boolean,
+    isR equest: boolean,
     creatorSnapshot: IStrippedUser,
     title: string,
     description: string,
@@ -44,7 +44,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     updatedAt = new Date(),
   ) {
     this._postRef = postRef;
-    this._requestingHelp = requestingHelp;
+    this._isR equest = isR equest;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
     this._description = description;
@@ -65,14 +65,14 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   }
 
   @Allow()
-  private _requestingHelp: boolean;
+  private _isR equest: boolean;
 
-  get requestingHelp(): boolean {
-    return this._requestingHelp;
+  get isR equest(): boolean {
+    return this._isR equest;
   }
 
-  set requestingHelp(requestingHelp: boolean) {
-    this._requestingHelp = requestingHelp;
+  set isR equest(isR equest: boolean) {
+    this._isR equest = isR equest;
   }
 
   @IsObject()
@@ -120,9 +120,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     this._latLng = value;
   }
 
-  /* TODO: When we reach greater than 500 requests created per second:
-     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
-   */
+
   @IsObject()
   private _createdAt: Date;
 
@@ -134,9 +132,6 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     this._createdAt = value;
   }
 
-  /* TODO: When we reach greater than 500 requests updated per second:
-     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
-   */
   @IsObject()
   private _updatedAt: Date;
 
@@ -152,7 +147,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     return Promise.resolve(
       new UnauthenticatedPost(
         path,
-        data.requestingHelp,
+        data.isR equest,
         {
           displayName: data.creatorSnapshot.displayName || '',
           displayPicture: data.creatorSnapshot.displayPicture,
@@ -172,7 +167,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   public static fromFirestore(data: DocumentData): UnauthenticatedPost {
     return new UnauthenticatedPost(
       (data.postRef as DocumentReference).path,
-      data.requestingHelp,
+      data.isR equest,
       data.userSnapshot,
       data.title,
       data.description,
@@ -188,7 +183,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   public static fromAlgolia(data: Record<string, any>): UnauthenticatedPost {
     return new UnauthenticatedPost(
       data.postRef,
-      data.requestingHelp,
+      data.isR equest,
       data.pinUserSnapshot,
       data.title,
       data.description,
@@ -201,7 +196,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   public static fromObject(data: IUnauthenticatedPost): UnauthenticatedPost {
     return new UnauthenticatedPost(
       data.postRef,
-      data.requestingHelp,
+      data.isR equest,
       data.creatorSnapshot,
       data.title,
       data.description,
@@ -214,7 +209,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toObject(): IUnauthenticatedPost {
     return {
       postRef: this.postRef,
-      requestingHelp: this.requestingHelp,
+      isR equest: this.isR equest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -227,7 +222,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toFirestore(): DocumentData {
     return {
       postRef: db.doc(this.postRef),
-      requestingHelp: this.requestingHelp,
+      isR equest: this.isR equest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -240,7 +235,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toAlgolia(): object {
     return {
       postRef: this.postRef,
-      requestingHelp: this.requestingHelp,
+      isR equest: this.isR equest,
       objectID: db.doc(this.postRef).id,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,

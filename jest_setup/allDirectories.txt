@@ -42,7 +42,6 @@
 /web-client/src/firebase
 /web-client/src/http
 /web-client/src/models
-/web-client/src/models/offers
 /web-client/src/models/organizations
 /web-client/src/models/questionnaires
 /web-client/src/models/requests
