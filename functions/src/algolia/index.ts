@@ -17,12 +17,12 @@ const unauthenticatedPostsIndex = adminClient.initIndex(ALGOLIA_UNAUTHENTICATEDP
 const generalPostsIndex = adminClient.initIndex(ALGOLIA_GENERALPOSTS_INDEX);
 
 /**
- * When a request in the DB is updated,
- * add/update the details of the request in the index after hiding personal details
+ * When a post in the DB is updated,
+ * add/update the details of the post in the index after hiding personal details
  * This Index is for people who aren't authenitcated to be able to see stripped down versions of it
  *
- * @param request: The instance of Request class for the request which is being updated
- * @param path: The path of the request in firestore db
+ * @param request: The instance of Request class for the post which is being updated
+ * @param path: The path of the post in firestore db
  */
 export const indexUnauthenticatedPost = async (post: Post, path: string) => {
   const algoliaDoc = (await UnauthenticatedPost.fromPost(post, path)).toAlgolia();
@@ -38,11 +38,11 @@ export const indexUnauthenticatedPost = async (post: Post, path: string) => {
 
 /**
  * When a post in the DB is updated,
- * add/update the details of the request in the index along with searchable geodata and filterable participant list
+ * add/update the details of the post in the index along with searchable geodata and filterable participant list
  * This Index is for people who are authenitcated to be able to search with geodata and filter with participant list
  *
  * @param post: The instance of Post class for the post which is being updated
- * @param path: The path of the request in firestore db
+ * @param path: The path of the post in firestore db
  */
 export const indexGeneralPost = async (post: Post, path: string) => {
   const algoliaDoc = (await GeneralPost.fromPost(post, path)).toAlgolia();
@@ -57,8 +57,8 @@ export const indexGeneralPost = async (post: Post, path: string) => {
 };
 
 /**
- * When an offer is made against a request in the DB,
- * Associate the details of the offer in the request currently stored in the the index
+ * When a response is made against a post in the DB,
+ * Associate the details of the response in the post currently stored in the the index
  * This is so that a participant is reflected in the participant list to be filterable from the next query
  *
  * @param response: The instance of Post class with isResponse as true
@@ -71,15 +71,15 @@ export const reflectResponseInPost = async (response: Post) => {
       _operation: 'AddUnique',
       value: GeneralPost.getParticipantId(response.creatorRef.path),
     },
-    [response.status === PostStatus.pending ? 'offerCount' : 'rejectionCount']: {
+    [response.status === PostStatus.pending ? 'responseCount' : 'rejectionCount']: {
       _operation: 'Increment',
       value: 1,
     },
     objectID: algoliaObjectId,
   };
 
-  if (response.parentSnapshot && response.status === PostStatus.pending && !response.parentSnapshot.firstOfferMade) {
-    algoliaUpdateDoc.firstOfferMade = response.createdAt.toDate();
+  if (response.parentSnapshot && response.status === PostStatus.pending && !response.parentSnapshot.firstResponseMade) {
+    algoliaUpdateDoc.firstResponseMade = response.createdAt.toDate();
   }
 
   if (response.parentSnapshot && response.status === PostStatus.declined && !response.parentSnapshot.firstRejectionMade) {
@@ -96,10 +96,10 @@ export const reflectResponseInPost = async (response: Post) => {
 
 /**
  * To retrieve a single object based on the provided objectID from algolia index
- * The Algolia Index is decided based on whether the request is to be authenticated or not
+ * The Algolia Index is decided based on whether the post is to be authenticated or not
  *
  * @param objectId: The objectId of the object to retrieve from the index
- * @param authenitcated: Defaults to false, is the request from authenticated user or not
+ * @param authenitcated: Defaults to false, is the post from authenticated user or not
  */
 export const retrieveObjectFromIndex = async (objectId: string, authenticated = false) => {
   const index = authenticated ? generalPostsIndex : unauthenticatedPostsIndex;
@@ -132,12 +132,12 @@ export const removeObjectFromIndices = async (objectId: string) => {
 /**
  * Users who are visiting the app without logging in should be able to see posts on the map
  * But they shouldn't be able to see the personal details of the posts.
- * Information without personal details are stored in the unauthenticated requests index.
- * This function generates a search key restricted to the unauthenticated requests index
+ * Information without personal details are stored in the unauthenticated posts index.
+ * This function generates a search key restricted to the unauthenticated posts index
  *
- * @returns {string} The secured key restricted to the unauthenticated requests index
+ * @returns {string} The secured key restricted to the unauthenticated posts index
  */
-export const generateUnauthenticatedRequestsKey = (): string => {
+export const generateUnauthenticatedPostsKey = (): string => {
   return adminClient.generateSecuredApiKey(
     ALGOLIA_SEARCH_ONLY_KEY, // A search key that you keep private
     {
@@ -148,12 +148,12 @@ export const generateUnauthenticatedRequestsKey = (): string => {
 
 /**
  * Users who are visiting the app after logging in should be able to see posts on the map
- * More detailed information including participant list is stored in the general requests index.
- * This function generates a search key restricted to the general requests index
+ * More detailed information including participant list is stored in the general posts index.
+ * This function generates a search key restricted to the general posts index
  *
- * @returns {string} The secured key restricted to the general requests index
+ * @returns {string} The secured key restricted to the general posts index
  */
-export const generateGeneralRequestsKey = (): string => {
+export const generateGeneralPostsKey = (): string => {
   return adminClient.generateSecuredApiKey(
     ALGOLIA_SEARCH_ONLY_KEY, // A search key that you keep private
     {

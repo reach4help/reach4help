@@ -3,8 +3,8 @@ import { firestore } from 'firebase-admin';
 import * as Test from 'firebase-functions-test';
 
 import { deleteUserData as deleteUserDataFunc } from '../../../src/https/api/users';
-import { Offer, OfferFirestoreConverter, OfferStatus } from '../../../src/models/offers';
-import { Request, RequestFirestoreConverter, RequestStatus } from '../../../src/models/requests';
+import { Offer, OfferFirestoreConverter, OfferStatus } from '../../../src/models/posts';
+import { Request, RequestFirestoreConverter, RequestStatus } from '../../../src/models/posts';
 import { User, UserFirestoreConverter } from '../../../src/models/users';
 
 const projectId = 'reach-4-help-test';
@@ -74,14 +74,14 @@ describe('deleteUserData: new user', () => {
   });
 });
 
-describe('deleteUserData: user with request', () => {
+describe('deleteUserData: user with post', () => {
   const ref = db.collection('users').doc(userId);
   const userRef = ref.withConverter(UserFirestoreConverter);
   const privilegedRef = ref.collection('privilegedInformation');
-  const requestRef = db.collection('requests').doc(userId);
+  const postRef = db.collection('posts').doc(userId);
 
   beforeEach(async () => {
-    // create a request for new user before each test within this block
+    // create a post for new user before each test within this block
     const testUser = User.factory({
       username: 'new user',
       displayName: 'newUser',
@@ -94,14 +94,14 @@ describe('deleteUserData: user with request', () => {
       description: 'Please help with groceries',
       latLng: new firestore.GeoPoint(10, -122),
       streetAddress: '123 Main St.',
-      offerCount: 0,
+      responseCount: 0,
       rejectionCount: 0,
-      firstOfferMade: null,
+      firstResponseMade: null,
       firstRejectionMade: null,
-      lastOfferMade: null,
+      lastResponseMade: null,
       lastRejectionMade: null,
     });
-    await requestRef.withConverter(RequestFirestoreConverter).set(testRequest);
+    await postRef.withConverter(RequestFirestoreConverter).set(testRequest);
   });
 
   it('all personal data should be deleted', async () => {
@@ -117,29 +117,29 @@ describe('deleteUserData: user with request', () => {
     expect(afterSnap?.username).toBe('deleteduser');
   });
 
-  it('request should be updated to deleted state', async () => {
+  it('post should be updated to deleted state', async () => {
     await deleteUserData(undefined, {
       auth: {
         uid: userId,
       },
     });
 
-    const requestSnap = (await requestRef.withConverter(RequestFirestoreConverter).get()).data();
-    expect(requestSnap?.pinUserSnapshot.username).toBe('deleteduser');
-    expect(requestSnap?.pinUserSnapshot.displayName).toBe('Deleted User');
-    expect(requestSnap?.pinUserSnapshot.displayPicture).toBeNull();
-    expect(requestSnap?.status).toBe(RequestStatus.removed);
-    expect(requestSnap?.latLng).toBe(JSON.stringify(new firestore.GeoPoint(0, 0)));
-    expect(requestSnap?.streetAddress).toBe(deletedAddress);
+    const postSnap = (await postRef.withConverter(RequestFirestoreConverter).get()).data();
+    expect(postSnap?.pinUserSnapshot.username).toBe('deleteduser');
+    expect(postSnap?.pinUserSnapshot.displayName).toBe('Deleted User');
+    expect(postSnap?.pinUserSnapshot.displayPicture).toBeNull();
+    expect(postSnap?.status).toBe(RequestStatus.removed);
+    expect(postSnap?.latLng).toBe(JSON.stringify(new firestore.GeoPoint(0, 0)));
+    expect(postSnap?.streetAddress).toBe(deletedAddress);
   });
 
-  describe('deleteUserData: user with request and offer', () => {
+  describe('deleteUserData: user with post and post', () => {
     const ref2 = db.collection('users').doc(userId2);
-    const offerRef = db.collection('offers').doc(userId);
-    const requestRef2 = db.collection('requests').doc(userId2);
+    const postRef = db.collection('posts').doc(userId);
+    const postRef2 = db.collection('posts').doc(userId2);
 
     beforeEach(async () => {
-      // create an offer for new user before each test within this block
+      // create an post for new user before each test within this block
       const cavUser = User.factory({
         username: 'new user',
         displayName: 'newUser',
@@ -161,25 +161,25 @@ describe('deleteUserData: user with request', () => {
         description: 'Please help with groceries',
         latLng: new firestore.GeoPoint(10, -122),
         streetAddress: '123 Main St.',
-        offerCount: 0,
+        responseCount: 0,
         rejectionCount: 0,
-        firstOfferMade: null,
+        firstResponseMade: null,
         firstRejectionMade: null,
-        lastOfferMade: null,
+        lastResponseMade: null,
         lastRejectionMade: null,
         status: RequestStatus.pending,
       });
-      await requestRef2.withConverter(RequestFirestoreConverter).set(testRequest);
+      await postRef2.withConverter(RequestFirestoreConverter).set(testRequest);
       const testOfferUnaccepted = Offer.factory({
         cavUserRef: ref as any,
         pinUserRef: ref2 as any,
-        requestRef: requestRef2 as any,
+        postRef: postRef2 as any,
         cavUserSnapshot: cavUser,
-        requestSnapshot: testRequest,
+        postSnapshot: testRequest,
         message: 'Willing to help!',
         status: OfferStatus.pending,
       });
-      await offerRef.withConverter(OfferFirestoreConverter).set(testOfferUnaccepted);
+      await postRef.withConverter(OfferFirestoreConverter).set(testOfferUnaccepted);
     });
 
     it('personal data should be deleted', async () => {
@@ -195,19 +195,19 @@ describe('deleteUserData: user with request', () => {
       expect(afterSnap?.username).toBe('deleteduser');
     });
 
-    it('unaccepted offer should be deleted', async () => {
+    it('unaccepted post should be deleted', async () => {
       await deleteUserData(undefined, {
         auth: {
           uid: userId,
         },
       });
-      const offerSnapUnaccepted = (await offerRef.withConverter(OfferFirestoreConverter).get()).data();
-      expect(offerSnapUnaccepted).toBe(undefined);
+      const postSnapUnaccepted = (await postRef.withConverter(OfferFirestoreConverter).get()).data();
+      expect(postSnapUnaccepted).toBe(undefined);
     });
 
-    it('accepted offer should be updated', async () => {
-      // update unaccepted offer to accepted
-      await offerRef.update({
+    it('accepted post should be updated', async () => {
+      // update unaccepted post to accepted
+      await postRef.update({
         status: OfferStatus.accepted,
       });
 
@@ -217,10 +217,10 @@ describe('deleteUserData: user with request', () => {
         },
       });
 
-      const offerSnapAccepted = (await offerRef.withConverter(OfferFirestoreConverter).get()).data();
-      expect(offerSnapAccepted?.cavUserSnapshot.displayPicture).toBeNull();
-      expect(offerSnapAccepted?.cavUserSnapshot.displayName).toBe('Deleted User');
-      expect(offerSnapAccepted?.cavUserSnapshot.username).toBe('deleteduser');
+      const postSnapAccepted = (await postRef.withConverter(OfferFirestoreConverter).get()).data();
+      expect(postSnapAccepted?.cavUserSnapshot.displayPicture).toBeNull();
+      expect(postSnapAccepted?.cavUserSnapshot.displayName).toBe('Deleted User');
+      expect(postSnapAccepted?.cavUserSnapshot.username).toBe('deleteduser');
     });
   });
 });

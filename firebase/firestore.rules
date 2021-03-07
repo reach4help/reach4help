@@ -57,7 +57,7 @@ function isNotSameCAVPIN(data) {
 
 function verifyUserDataComplete(data) {
    return data.casesCompleted >= 0 &&
-          data.requestsMade >= 0 &&
+          data.postsMade >= 0 &&
           data.cavRatingsReceived >= 0 &&
           data.pinRatingsReceived >= 0 &&
           ('username' in data) &&
@@ -114,7 +114,7 @@ function verifyHelpRequestDataComplete(data) {
 function verifyOfferDataComplete(data) {
    return ('cavUserRef' in data) &&
           ('pinUserRef' in data) &&
-          ('requestRef' in data) &&
+          ('postRef' in data) &&
           ('cavUserSnapshot' in data) &&
           ('message' in data) &&
           ('status' in data) &&

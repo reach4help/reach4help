@@ -2,10 +2,7 @@ import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
 import { auth, db } from '../../../app';
-import { IRequest, Request, RequestFirestoreConverter, RequestStatus } from '../../../models/requests';
 import { IUser, User } from '../../../models/users';
-import { ITimelineItem, TimelineItem, TimelineItemAction } from '../../../models/requests/timeline';
-import { IOffer, Offer, OfferFirestoreConverter, OfferStatus } from '../../../models/offers';
 
 const deleteQueryBatch = async (query: firestore.Query, resolve: Function) => {
   const querySnapshot = await query.get();
@@ -86,15 +83,12 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     deletedUser.displayPicture = null;
     deletedUser.displayName = 'Deleted User';
     deletedUser.username = 'deleteduser';
-    deletedUser.cavQuestionnaireRef = null;
-    deletedUser.pinQuestionnaireRef = null;
-    console.log('about to begin user timelines');
-    await deleteUserTimelines(userRef, deletedUser);
-    console.log('passed user timelines');
-    await deletePinUserRequests(userRef, deletedUser);
-    console.log('passed pin user requests');
-    await deleteCavUserOffersAndRequests(userRef, deletedUser);
-    console.log('passed cav user offers and requests');
+
+    // ** TODO: (es) delete posts instead
+    // await deletePinUserRequests(userRef, deletedUser);
+    // console.log('passed pin user requests');
+    // await deleteCavUserOffersAndRequests(userRef, deletedUser);
+    // console.log('passed cav user responses and posts');
 
     // delete the user from auth itself.
     await deleteUserPrivilegedInformation(userRef);

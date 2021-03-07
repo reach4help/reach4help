@@ -13,7 +13,7 @@ import { firestore } from 'firebase';
 export interface IUser extends firebase.firestore.DocumentData {
   username: string;
   casesCompleted?: number;
-  requestsMade?: number;
+  postsMade?: number;
   displayName?: string | null;
   displayPicture?: string | null;
   createdAt?: firebase.firestore.Timestamp;
@@ -23,13 +23,13 @@ export class User implements IUser {
   constructor(
     username: string,
     casesCompleted = 0,
-    requestsMade = 0,
+    postsMade = 0,
     displayName: string | null = null,
     displayPicture: string | null = null,
     createdAt = firestore.Timestamp.now(),
   ) {
     this._casesCompleted = casesCompleted;
-    this._requestsMade = requestsMade;
+    this._postsMade = postsMade;
     this._username = username;
     this._displayName = displayName;
     this._displayPicture = displayPicture;
@@ -50,14 +50,14 @@ export class User implements IUser {
 
   @IsInt()
   @Min(0)
-  private _requestsMade: number;
+  private _postsMade: number;
 
-  get requestsMade(): number {
-    return this._requestsMade;
+  get postsMade(): number {
+    return this._postsMade;
   }
 
-  set requestsMade(value: number) {
-    this._requestsMade = value;
+  set postsMade(value: number) {
+    this._postsMade = value;
   }
 
   @IsString()
@@ -114,7 +114,7 @@ export class User implements IUser {
     new User(
       data.username,
       data.casesCompleted,
-      data.requestsMade,
+      data.postsMade,
       data.displayName,
       data.displayPicture,
       data.createdAt,
@@ -123,7 +123,7 @@ export class User implements IUser {
   toObject = (): object => ({
     username: this.username,
     casesCompleted: this.casesCompleted,
-    requestsMade: this.requestsMade,
+    postsMade: this.postsMade,
     displayName: this.displayName,
     displayPicture: this.displayPicture,
     createdAt: this.createdAt,

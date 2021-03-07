@@ -16,7 +16,7 @@ import { Post } from './Post';
 export class UnauthenticatedPost implements IUnauthenticatedPost {
   constructor(
     postRef: string,
-    requestingHelp: boolean,
+    isRequest: boolean,
     creatorSnapshot: IStrippedUser,
     title: string,
     description: string,
@@ -25,7 +25,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     updatedAt = new Date(),
   ) {
     this._postRef = postRef;
-    this._requestingHelp = requestingHelp;
+    this._isRequest = isRequest;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
     this._description = description;
@@ -46,14 +46,14 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   }
 
   @Allow()
-  private _requestingHelp: boolean;
+  private _isRequest: boolean;
 
-  get requestingHelp(): boolean {
-    return this._requestingHelp;
+  get isRequest(): boolean {
+    return this._isRequest;
   }
 
-  set requestingHelp(requestingHelp: boolean) {
-    this._requestingHelp = requestingHelp;
+  set isRequest(isRequest: boolean) {
+    this._isRequest = isRequest;
   }
 
   @IsObject()
@@ -136,7 +136,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     return Promise.resolve(
       new UnauthenticatedPost(
         path,
-        data.requestingHelp,
+        data.isRequest,
         {
           displayName: data.creatorSnapshot.displayName || '',
           displayPicture: data.creatorSnapshot.displayPicture,
@@ -158,7 +158,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   ): UnauthenticatedPost {
     return new UnauthenticatedPost(
       (data.postRef as firebase.firestore.DocumentReference).path,
-      data.requestingHelp,
+      data.isRequest,
       data.userSnapshot,
       data.title,
       data.description,
@@ -174,7 +174,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   public static fromAlgolia(data: Record<string, any>): UnauthenticatedPost {
     return new UnauthenticatedPost(
       data.postRef,
-      data.requestingHelp,
+      data.isRequest,
       data.pinUserSnapshot,
       data.title,
       data.description,
@@ -187,7 +187,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   public static fromObject(data: IUnauthenticatedPost): UnauthenticatedPost {
     return new UnauthenticatedPost(
       data.postRef,
-      data.requestingHelp,
+      data.isRequest,
       data.creatorSnapshot,
       data.title,
       data.description,
@@ -200,7 +200,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toObject(): IUnauthenticatedPost {
     return {
       postRef: this.postRef,
-      requestingHelp: this.requestingHelp,
+      isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -213,7 +213,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toFirestore(): firebase.firestore.DocumentData {
     return {
       postRef: db.doc(this.postRef),
-      requestingHelp: this.requestingHelp,
+      isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -229,7 +229,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toAlgolia(): object {
     return {
       postRef: this.postRef,
-      requestingHelp: this.requestingHelp,
+      isRequest: this.isRequest,
       objectID: db.doc(this.postRef).id,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,

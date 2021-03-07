@@ -3,7 +3,7 @@ import { PostStatus } from './PostStatus';
 
 export interface IPost extends firebase.firestore.DocumentData {
   isResponse: boolean;
-  requestingHelp: boolean;
+  isRequest: boolean;
   parentSnapshot: IPost | null;
   parentRef: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
@@ -26,7 +26,7 @@ export interface IPost extends firebase.firestore.DocumentData {
   >[];
   positiveResponseCount: number;
   negativeResponseCount: number;
-  firstOfferMade: firebase.firestore.Timestamp | null;
+  firstResponseMade: firebase.firestore.Timestamp | null;
   firstRejectionMade: firebase.firestore.Timestamp | null;
   createdAt?: firebase.firestore.Timestamp;
   updatedAt?: firebase.firestore.Timestamp;

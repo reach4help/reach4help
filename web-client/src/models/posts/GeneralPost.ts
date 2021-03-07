@@ -20,7 +20,7 @@ import { UnauthenticatedPost } from './UnauthenticatedPost';
 export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   constructor(
     postRef: string,
-    requestingHelp: boolean,
+    isRequest: boolean,
     creatorSnapshot: IUserGeneral,
     title: string,
     description: string,
@@ -32,7 +32,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
     rejected: string[] = [],
     offerCount = 0,
     rejectionCount = 0,
-    firstOfferMade: Date | null = null,
+    firstResponseMade: Date | null = null,
     firstRejectionMade: Date | null = null,
     seenBy: string[] = [],
     createdAt?: Date,
@@ -40,7 +40,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   ) {
     super(
       postRef,
-      requestingHelp,
+      isRequest,
       {
         displayName: creatorSnapshot.displayName,
         displayPicture: creatorSnapshot.displayPicture,
@@ -59,7 +59,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
     this._rejected = rejected;
     this._offerCount = offerCount;
     this._rejectionCount = rejectionCount;
-    this._firstOfferMade = firstOfferMade;
+    this._firstResponseMade = firstResponseMade;
     this._firstRejectionMade = firstRejectionMade;
     this._seenBy = seenBy;
   }
@@ -163,14 +163,14 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
 
   @IsDate()
   @IsOptional()
-  private _firstOfferMade: Date | null;
+  private _firstResponseMade: Date | null;
 
-  get firstOfferMade(): Date | null {
-    return this._firstOfferMade;
+  get firstResponseMade(): Date | null {
+    return this._firstResponseMade;
   }
 
-  set firstOfferMade(firstOfferMade: Date | null) {
-    this._firstOfferMade = firstOfferMade;
+  set firstResponseMade(firstResponseMade: Date | null) {
+    this._firstResponseMade = firstResponseMade;
   }
 
   @IsDate()
@@ -228,13 +228,13 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
 
     return new GeneralPost(
       path,
-      data.requestingHelp,
+      data.isRequest,
       {
         displayName: data.creatorSnapshot.displayName || '',
         displayPicture: data.creatorSnapshot.displayPicture,
         rating:
           data.creatorSnapshot.pinRatingsReceived /
-          data.creatorSnapshot.requestsMade,
+          data.creatorSnapshot.postsMade,
       },
       data.title,
       data.description,
@@ -249,7 +249,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       rejected,
       data.positiveResponseCount,
       data.negativeResponseCount,
-      data.firstOfferMade?.toDate(),
+      data.firstResponseMade?.toDate(),
       data.firstRejectionMade?.toDate(),
       seenBy,
       data.createdAt.toDate(),
@@ -261,8 +261,8 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
     data: firebase.firestore.DocumentData,
   ): GeneralPost {
     return new GeneralPost(
-      (data.requestRef as firebase.firestore.DocumentReference).path,
-      data.requestingHelp,
+      (data.postRef as firebase.firestore.DocumentReference).path,
+      data.isRequest,
       data.userSnapshot,
       data.title,
       data.description,
@@ -277,7 +277,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.rejected,
       data.offerCount,
       data.rejectionCount,
-      (data.firstOfferMade as firebase.firestore.Timestamp).toDate(),
+      (data.firstResponseMade as firebase.firestore.Timestamp).toDate(),
       (data.firstRejectionMade as firebase.firestore.Timestamp).toDate(),
       data.seenBy,
       (data.createdAt as firebase.firestore.Timestamp).toDate(),
@@ -288,7 +288,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   public static fromAlgolia(data: Record<string, any>): GeneralPost {
     return new GeneralPost(
       data.postRef,
-      data.requestingHelp,
+      data.isRequest,
       data.creatorSnapshot,
       data.title,
       data.description,
@@ -300,7 +300,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.rejected,
       data.offerCount,
       data.rejectionCount,
-      data.firstOfferMade,
+      data.firstResponseMade,
       data.firstRejectionMade,
       data.seenBy,
       data.createdAt,
@@ -319,7 +319,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   public static fromObject(data: IGeneralPost): GeneralPost {
     return new GeneralPost(
       data.postRef,
-      data.requestingHelp,
+      data.isRequest,
       data.creatorSnapshot,
       data.title,
       data.description,
@@ -331,7 +331,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.rejected,
       data.offerCount,
       data.rejectionCount,
-      data.firstOfferMade,
+      data.firstResponseMade,
       data.firstRejectionMade,
       data.seenBy,
       data.createdAt,
@@ -342,7 +342,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   toObject(): IGeneralPost {
     return {
       postRef: this.postRef,
-      requestingHelp: this.requestingHelp,
+      isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -354,7 +354,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       rejected: this.rejected,
       offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
-      firstOfferMade: this.firstOfferMade,
+      firstResponseMade: this.firstResponseMade,
       firstRejectionMade: this.firstRejectionMade,
       seenBy: this.seenBy,
       createdAt: this.createdAt,
@@ -365,7 +365,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   toFirestore(): firebase.firestore.DocumentData {
     return {
       postRef: db.doc(this.postRef),
-      requestingHelp: this.requestingHelp,
+      isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -380,8 +380,8 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       rejected: this.rejected,
       offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
-      firstOfferMade: this.firstOfferMade
-        ? firestore.Timestamp.fromDate(this.firstOfferMade)
+      firstResponseMade: this.firstResponseMade
+        ? firestore.Timestamp.fromDate(this.firstResponseMade)
         : null,
       firstRejectionMade: this.firstRejectionMade
         ? firestore.Timestamp.fromDate(this.firstRejectionMade)
@@ -395,7 +395,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   toAlgolia(): object {
     return {
       postRef: this.postRef,
-      requestingHelp: this.requestingHelp,
+      isRequest: this.isRequest,
       objectID: db.doc(this.postRef).id,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
@@ -411,7 +411,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       rejected: this.rejected,
       offerCount: this.offerCount,
       rejectionCount: this.rejectionCount,
-      firstOfferMade: this.firstOfferMade,
+      firstResponseMade: this.firstResponseMade,
       firstRejectionMade: this.firstRejectionMade,
       seenBy: this.seenBy,
       createdAt: this.createdAt,
