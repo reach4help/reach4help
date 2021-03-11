@@ -84,9 +84,12 @@ const allLanguages = [
 
 const SelectLanguage = styled(Select)`
   margin-top: 4px;
-  color: black;
+  color: #000;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
+  position: relative;
+  left: -50px;
+  font-weight: 700;
 
   .ant-select-selector {
     border: none !important;
