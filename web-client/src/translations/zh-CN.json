@@ -440,7 +440,8 @@
           "TabbedPostPage": {
             "requests_tab_label": "My Requests",
             "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
+            "filterBy": "Filter By"
           },
           "AcceptedRequestContainer": {
             "accepted": "已接受"
@@ -448,8 +449,8 @@
           "FindRequestsContainer": {
             "want_to_help": "我们乐于提供帮助。"
           },
-          "FinishedRequestsContainer": {
-            "finished": "清理完成"
+          "ClosedRequestsContainer": {
+            "closed": "Closed"
           },
           "NewRequestsContainer": {
             "address_error": "无法找到订单。",
@@ -460,6 +461,10 @@
           },
           "OpenRequestContainer": {
             "open": "打开"
+          },
+          "AllRequestsContainer": {
+            "requests": "All Requests",
+            "offers": "All Offers"
           },
           "no_reply": "没有人回复您的请求。"
         }
