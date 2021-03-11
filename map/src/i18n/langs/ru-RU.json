@@ -43,7 +43,8 @@
     "screen": {
       "title": "Добавить информацию на карту",
       "information": {
-        "acceptedInformation": "На данный момент мы размещаем информацию только об организациях или компаниях, оказывающих помощь и помощь, региональных инициативах по оказанию финансовой помощи и группах взаимопомощи. В настоящее время мы не принимаем информацию о физических лицах, предлагающих помощь.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Пожалуйста, заполните приведенную ниже форму, чтобы начать добавлять информацию, после этого мы попросим вас указать местоположение и контактную информацию.",
         "form": {
           "type": "Тип проекта/группы / организация/инициатива",
@@ -93,7 +94,7 @@
         "loading": "Отправка информации на карту...",
         "error": "Error updating information.",
         "success": "Ваша информация успешно отправлена!",
-        "successExtra": "Прежде чем мы сделаем вашу информацию видимой на карте, она должна быть рассмотрена добровольцем в нашей команде. Надеемся, что это будет сделано в течение нескольких дней."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Группа взаимопомощи",
     "org": "Организация / Компания",
+    "vaccine": "Vaccination Sites",
     "financial": "Финансирование",
     "information": "Информация",
     "other": "Другое"

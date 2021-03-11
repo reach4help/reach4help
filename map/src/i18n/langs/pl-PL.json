@@ -43,7 +43,8 @@
     "screen": {
       "title": "Dodaj informacje do tej mapy",
       "information": {
-        "acceptedInformation": "Obecnie przedstawiamy jedynie informacje o organizacjach lub przedsiębiorstwach udzielających pomocy i pomocy, regionalnych specjalnych inicjatywach pomocy finansowej oraz grupach wzajemnej pomocy. Obecnie nie akceptujemy informacji o osobach oferujących pomoc.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Proszę wypełnić poniższy formularz, aby zacząć dodawać informacje, poprosimy Cię o lokalizację i dane kontaktowe po tym terminie.",
         "form": {
           "type": "Rodzaj projektu / grupa / organizacja / inicjatywa",
@@ -93,7 +94,7 @@
         "loading": "Przesyłanie informacji do mapy...",
         "error": "Błąd podczas zapisywania informacji",
         "success": "Twoja prośba została pomyślnie wysłana.",
-        "successExtra": "Zanim Twoje informacje staną się widoczne na mapie, wolontariusz musi je przejrzeć w naszej drużynie. Należy mieć nadzieję, że nastąpi to w ciągu kilku dni."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Grupa ds. wzajemnej pomocy",
     "org": "Organizacja / Firma",
+    "vaccine": "Vaccination Sites",
     "financial": "Finanse",
     "information": "Informacje",
     "other": "Inne"

@@ -43,7 +43,8 @@
     "screen": {
       "title": "Add information to this map",
       "information": {
-        "acceptedInformation": "At the moment, we are only putting information about organizations or companies providing aid and assistance, region-specifric financial assistance initiatives, and mutual aid groups. We are not accepting information about individuals offering aid at this time.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
         "form": {
           "type": "Type of project / group / organization / initiative",
@@ -93,7 +94,7 @@
         "loading": "Submitting information to map...",
         "error": "Error adding information",
         "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Mutual Aid Group",
     "org": "Organization / Company",
+    "vaccine": "Vaccination Sites",
     "financial": "Financial",
     "information": "Information",
     "other": "Other"
