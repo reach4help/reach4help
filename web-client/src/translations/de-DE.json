@@ -440,7 +440,8 @@
           "TabbedPostPage": {
             "requests_tab_label": "My Requests",
             "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
+            "filterBy": "Filter By"
           },
           "AcceptedRequestContainer": {
             "accepted": "Angenommen"
@@ -448,8 +449,8 @@
           "FindRequestsContainer": {
             "want_to_help": "Willst du mithelfen?"
           },
-          "FinishedRequestsContainer": {
-            "finished": "Fertig"
+          "ClosedRequestsContainer": {
+            "closed": "Closed"
           },
           "NewRequestsContainer": {
             "address_error": "Diese Adresse konnte nicht gefunden werden",
@@ -460,6 +461,10 @@
           },
           "OpenRequestContainer": {
             "open": "Offen"
+          },
+          "AllRequestsContainer": {
+            "requests": "All Requests",
+            "offers": "All Offers"
           },
           "no_reply": "Jemand hat auf deinen Kommentar geantwortet."
         }
