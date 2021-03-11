@@ -440,7 +440,8 @@
           "TabbedPostPage": {
             "requests_tab_label": "My Requests",
             "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
+            "filterBy": "Filter By"
           },
           "AcceptedRequestContainer": {
             "accepted": "Aceptado"
@@ -448,8 +449,8 @@
           "FindRequestsContainer": {
             "want_to_help": "¡Quiero apoyar!"
           },
-          "FinishedRequestsContainer": {
-            "finished": "Concluido."
+          "ClosedRequestsContainer": {
+            "closed": "Closed"
           },
           "NewRequestsContainer": {
             "address_error": "No se puede localizar la dirección",
@@ -460,6 +461,10 @@
           },
           "OpenRequestContainer": {
             "open": "Abierto"
+          },
+          "AllRequestsContainer": {
+            "requests": "All Requests",
+            "offers": "All Offers"
           },
           "no_reply": "Nadie ha respondido a su solicitud."
         }
