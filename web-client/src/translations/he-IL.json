@@ -440,7 +440,8 @@
           "TabbedPostPage": {
             "requests_tab_label": "My Requests",
             "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
+            "filterBy": "Filter By"
           },
           "AcceptedRequestContainer": {
             "accepted": "התקבל"
@@ -448,8 +449,8 @@
           "FindRequestsContainer": {
             "want_to_help": "אני רוצה לעזור!"
           },
-          "FinishedRequestsContainer": {
-            "finished": "הושלם"
+          "ClosedRequestsContainer": {
+            "closed": "Closed"
           },
           "NewRequestsContainer": {
             "address_error": "לא ניתן לאתר כתובת",
@@ -460,6 +461,10 @@
           },
           "OpenRequestContainer": {
             "open": "פתיחה"
+          },
+          "AllRequestsContainer": {
+            "requests": "All Requests",
+            "offers": "All Offers"
           },
           "no_reply": "אף-אחד לא ענה לבקשתך."
         }
