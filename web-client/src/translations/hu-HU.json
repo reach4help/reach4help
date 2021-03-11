@@ -48,51 +48,51 @@
       "a11y_logo": "Reach for Help logó",
       "OpenRequestsContainer": {
         "title": "Még mindig segítségre van szükségem ...",
-        "0": "Your requests are out there but no one has yet volunteered to help",
-        "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
+        "0": "Kérései nyilvánosak, de még senki sem jelentkezett önként",
+        "1": "Értesítéseket is kap, amelyek tájékoztatják Önt kérelmei állapotáról.",
+        "2": " Ha bármilyen kérdése vagy problémája van ezzel kapcsolatban, írjon nekünk bizalommal a support@reach4help.org e-mail címre!"
       },
       "AcceptedRequestsContainer": {
-        "title": "Someone has offered to help!",
-        "0": "Someone has offered to help you out.",
-        "1": "Get in touch with them by phone to work out the details."
+        "title": "Van, aki szívesen segítene Önnek!",
+        "0": "Valaki felajánlotta, hogy segítséget nyújt Önnek.",
+        "1": "Vegye fel vele a kapcsolatot telefonon a részletek kidolgozásához."
       },
       "OngoingRequestsContainer": {
         "title": "Matched with a Volunteer!",
         "0": "You matched with someone who is taking care of your request."
       },
       "FinishedRequestsContainer": {
-        "title": "All Done!",
-        "0": "You and the volunteer agree that everything is done."
+        "title": "Kész!",
+        "0": "Egységesen megegyeztek abban, hogy a kérelem teljesült."
       },
       "ArchivedRequestsContainer": {
         "title": "You decided not to do it",
         "0": "You changed your mind and deleted your request."
       },
       "TimelineViewContainer": {
-        "title": "View each step of your request",
-        "0": "A request is created.",
-        "1": "Someone offers help.",
-        "2": "The offer is accepted or rejected.",
-        "3": "The request is completed.",
-        "4": "The request is closed.",
-        "5": "The request was removed.",
-        "6": "Volunteers and People In Need rate each other."
+        "title": "Tekintse meg kérelmének minden lépését",
+        "0": "Kérelem létrehozva.",
+        "1": "Valaki segítséget kínál.",
+        "2": "A segítségnyújtás elfogadásra vagy elutasításra kerül.",
+        "3": "A kérelem beteljesül.",
+        "4": "A kérelem lezárul.",
+        "5": "A kérelem eltávolításra kerül.",
+        "6": "Az önkéntesek és a rászoruló emberek értékelhetik egymást."
       },
       "MenuDrawer": {
         "title": "Using the Bottom Buttons",
         "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Open: Requests that still need a volunteer",
-        "2": "Accepted: Someone has offered to help you out.",
-        "3": "Ongoing: A volunteer is working on your request now.",
-        "4": "Finished: The volunteer has completed the request.",
-        "5": "Archived: Requests you deleted.",
-        "6": "Press the Left Bell to see your notifications"
+        "1": "Nyílt: Önkéntesre váró kérelmek",
+        "2": "Elfogadott: Valaki felajánlotta, hogy segít.",
+        "3": "Folyamatban: Egy önkéntes jelenleg az Ön kérelmén dolgozik.",
+        "4": "Teljesítve: Az önkéntes teljesítette a kérést.",
+        "5": "Archivált: Az Ön által törölt kérelmek.",
+        "6": "Nyomja meg a jobb oldali harangot az értesítések megtekintéséhez"
       },
       "FindRequestsContainer": {
-        "title": "Welcome to Reach4Help!",
-        "0": "Thank you for joining Reach4Help!",
-        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
+        "title": "Üdvözöljük a Reach4Help-nél!",
+        "0": "Köszönjük, hogy csatlakozott a Reach4Help-hez!",
+        "1": "Önkéntesként segíthet a környéken élő embereknek, ha válaszol a segítségkéréseikre.",
         "2": "Use this map to search for people in need.",
         "3": "Click on an orange marker to view that person's request and decide whether to accept it",
         "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
