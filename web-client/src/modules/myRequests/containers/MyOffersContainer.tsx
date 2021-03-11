@@ -4,16 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProfileState } from 'src/ducks/profile/types';
 import { observeGetMyOffers } from 'src/ducks/PublicOffers/actions';
 import { OfferState } from 'src/ducks/PublicOffers/types';
-import { ApplicationPreference } from 'src/models/users';
-// TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
+import {
+  MyOfferPostsStatusAllUrl,
+  MyOfferPostsStatusClosedUrl,
+  MyOfferPostsStatusOnGoingUrl,
+  MyOfferPostsStatusOpenUrl,
+} from 'src/modules/myRequests/constants';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';
 import {
   InformationModal,
   makeLocalStorageKey,
 } from '../../../components/Modals/OneTimeModal';
-import Header from '../components/Header';
+import FilterByDropDownMenu from '../components/FilterByDropDownMenu';
 import PublicPostsList from '../components/PublicPostList';
+
+// TODO: (es) remove import { TimelineViewLocation } from 'src/modules/timeline/constants';
 
 const RequestPostsContainer: React.FC<{ status: string | null }> = ({
   status,
@@ -51,16 +57,12 @@ const RequestPostsContainer: React.FC<{ status: string | null }> = ({
 
   return (
     <>
-      <Header
-        requestsType={t(
-          'modules.requests.containers.OpenRequestContainer.open',
-        )}
-        numRequests={Object.keys(myOffers.data || {}).length}
-        isCav={
-          profileState.profile?.applicationPreference ===
-          ApplicationPreference.cav
-        }
-        isAcceptedRequests={false}
+      <FilterByDropDownMenu
+        type="offers"
+        allPath={MyOfferPostsStatusAllUrl}
+        openPath={MyOfferPostsStatusOpenUrl}
+        onGoingPath={MyOfferPostsStatusOnGoingUrl}
+        closedPath={MyOfferPostsStatusClosedUrl}
       />
       <PublicPostsList
         posts={myOffers.data}
