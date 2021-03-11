@@ -3,7 +3,7 @@
   "inFrameLink": "A térképről / információ hozzáadása",
   "aboutScreen": {
     "intro": "Hisszük, hogy a szolidaritás az egyének legjobbjait hozza ki.",
-    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "info": "A térkép célja, hogy bemutassa a világ kölcsönös járvány-elhárítási projektjeit, és hogy arra ösztönözze az embereket, hogy csatlakozzanak helyi projektekhez, vagy akár létrehozzák saját szervezetüket.",
     "warning": "Megjegyzés: Minden projekt önálló és saját szervezésű; sokan nyilvános táblázatokban osztják meg az információkat, ezért vigyázzon olyan privát információk megadásakor, amelyeket nem szeretne megosztani másokkal.",
     "project": "Ez a térkép a {reach4Help}, egy önkéntesek által vezetett projekt része. Nyílt forráskódú, így {githubSource}. Bármely kérdéssel kapcsolatba léphet velünk a {email} címen.",
     "githubSourceLabel": "megtalálható a GitHub-on",
@@ -65,12 +65,12 @@
       },
       "contactInfo": {
         "header": "A(z) {name} elérhetőségi adatai",
-        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
+        "info": "Már majdnem kész! Kérjük, írja le, az emberek hogyan vehetik fel a kapcsolatot a(z) {name} szervezettel. Ha vannak önkéntes-jelentkezési vagy segélykérési elérhetőségek, azokat adja meg!",
         "deleteInfo": "Eltávolítás",
         "addInfo": {
           "general": "Általános elérhetőség hozzáadása",
-          "volunteers": "Add contact information for volunteers",
-          "getHelp": "Add contact information for people that need help"
+          "volunteers": "Önkéntes-jelentkezési elérhetőség",
+          "getHelp": "Segélykérési elérhetőség"
         },
         "sections": {
           "general": "Általános elérhetőség",
@@ -100,36 +100,36 @@
       "missingType": "Kérjük, válassza ki a projekt / csoport / szervezet típusát",
       "missingServices": "Kérjük, jelölje ki a szervezet által nyújtott összes szolgáltatást (legalább 1 szükséges)",
       "missingTitle": "Kérjük, adja meg a projekt / csoport / szervezet nevét",
-      "missingLocationName": "Please enter a description of the area served",
-      "markerRequired": "Please click on the map to enter the service area before continuing.",
-      "noContactDetails": "Please enter contact details for at least one category",
-      "emptyContactSection": "Please enter some contact information for {section} or delete it",
-      "urlMissingLabel": "A URL for {section} is missing a Name",
-      "urlMissingURL": "A URL entry for {section} is missing the URL",
-      "dataError": "There was a problem with the information you submitted, please go back and try again",
-      "submitError": "There was a problem submitting your information: {error}. Please try again later",
-      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
+      "missingLocationName": "Kérjük, írja le a kiszolgált területet",
+      "markerRequired": "Kérjük, helyezze el a térképen a kiszolgálási területet, mielőtt folytatná.",
+      "noContactDetails": "Kérjük, adjon meg elérhetőséget legalább egy kategóriában",
+      "emptyContactSection": "Kérjük, adjon meg {section} információt, vagy távolítsa el azt",
+      "urlMissingLabel": "A(z) {section} URL-nél nincs megadva név",
+      "urlMissingURL": "A(z) {section} URL bejegyzésnél hiányzik az URL",
+      "dataError": "Probléma merült fel az Ön által beküldött információkkal kapcsolatban. Kérjük, térjen vissza, és próbálja újra",
+      "submitError": "Hiba történt az adatok elküldése során: {error}. Kérjük, próbálja újra később",
+      "mutualAidGroupsNotAccepted": "Kérjük, a {link} oldalon adja meg az új kölcsönös segítségnyújtási csoportokra vonatkozó információkat."
     }
   },
   "buttons": {
-    "fullScreen": "Fullscreen",
-    "exitFullScreen": "Exit Fullscreen"
+    "fullScreen": "Teljes képernyő",
+    "exitFullScreen": "Kilépés a teljes képernyőből"
   },
-  "loading": "Loading...",
-  "filterBy": "Filter by:",
+  "loading": "Betöltés...",
+  "filterBy": "Szűrés:",
   "services": {
-    "any": "Any",
-    "food": "Food",
-    "medicine": "Medicine",
-    "supplies": "Other Supplies",
-    "mobility": "Mobility",
-    "shelter": "Shelter",
-    "support": "Support",
-    "information": "Information",
-    "network": "Network",
-    "manufacturing": "Manufactoring",
-    "financial": "Financial",
-    "other": "Other"
+    "any": "Bármely",
+    "food": "Élelmiszer",
+    "medicine": "Gyógyszerek",
+    "supplies": "Egyéb ellátmány",
+    "mobility": "Mobilitás",
+    "shelter": "Menedék",
+    "support": "Támogatás",
+    "information": "Információnyújtás",
+    "network": "Hálózat",
+    "manufacturing": "Gyártás",
+    "financial": "Pénzügy",
+    "other": "Egyéb"
   },
   "serviceDescriptions": {
     "food": null,
