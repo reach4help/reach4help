@@ -440,7 +440,8 @@
           "TabbedPostPage": {
             "requests_tab_label": "My Requests",
             "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
+            "filterBy": "Filter By"
           },
           "AcceptedRequestContainer": {
             "accepted": "Принятые"
@@ -448,8 +449,8 @@
           "FindRequestsContainer": {
             "want_to_help": "Я хочу Продать"
           },
-          "FinishedRequestsContainer": {
-            "finished": "Готово"
+          "ClosedRequestsContainer": {
+            "closed": "Closed"
           },
           "NewRequestsContainer": {
             "address_error": "Не удалось найти адрес",
@@ -460,6 +461,10 @@
           },
           "OpenRequestContainer": {
             "open": "Открыть"
+          },
+          "AllRequestsContainer": {
+            "requests": "All Requests",
+            "offers": "All Offers"
           },
           "no_reply": "Никто не ответил на ваш запрос."
         }
