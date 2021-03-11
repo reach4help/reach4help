@@ -440,7 +440,8 @@
           "TabbedPostPage": {
             "requests_tab_label": "My Requests",
             "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
+            "filterBy": "Filter By"
           },
           "AcceptedRequestContainer": {
             "accepted": "Aangenomen"
@@ -448,8 +449,8 @@
           "FindRequestsContainer": {
             "want_to_help": "Wilt u helpen?"
           },
-          "FinishedRequestsContainer": {
-            "finished": "Beëindigd"
+          "ClosedRequestsContainer": {
+            "closed": "Closed"
           },
           "NewRequestsContainer": {
             "address_error": "Kan adres niet vinden",
@@ -460,6 +461,10 @@
           },
           "OpenRequestContainer": {
             "open": "Open"
+          },
+          "AllRequestsContainer": {
+            "requests": "All Requests",
+            "offers": "All Offers"
           },
           "no_reply": "Iemand heeft gereageerd op uw reactie."
         }
