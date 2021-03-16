@@ -1,10 +1,10 @@
 import { isDefined } from 'class-validator';
 import { firestore as firestoreNamespace } from 'firebase';
 import { firebaseFirestore } from 'src/firebaseConfig';
+import { GenericPostStatus } from 'src/models/posts/GenericPostStatus';
 import { Post } from 'src/models/posts/Post';
 import { PostFirestoreConverter } from 'src/models/posts/PostFirestoreConverter';
-import { PostStatus } from 'src/models/posts/PostStatus';
-import { User } from 'src/models/users';
+import { User } from 'src/models/User';
 
 export const createPost = async (postPayload: Post) => {
   const tempPost = Post.factory(postPayload);
@@ -58,15 +58,15 @@ export const observePosts = (
   if (status) {
     const statusArray: string[] = [];
     if (status === 'Open' || status === 'Active') {
-      statusArray.push(PostStatus.ongoing);
-      statusArray.push(PostStatus.pending);
-      statusArray.push(PostStatus.open);
-      statusArray.push(PostStatus.active);
+      statusArray.push(GenericPostStatus.ongoing);
+      statusArray.push(GenericPostStatus.pending);
+      statusArray.push(GenericPostStatus.open);
+      statusArray.push(GenericPostStatus.active);
     }
     if (status === 'Closed') {
-      statusArray.push(PostStatus.completed);
-      statusArray.push(PostStatus.closed);
-      statusArray.push(PostStatus.removed);
+      statusArray.push(GenericPostStatus.completed);
+      statusArray.push(GenericPostStatus.closed);
+      statusArray.push(GenericPostStatus.removed);
     }
     filter = filter.where('status', 'in', statusArray);
   }

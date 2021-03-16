@@ -1,11 +1,11 @@
 import { IUser } from '../users/IUser';
-import { GenericPostStatus } from './GenericPostStatus';
 import { IPost } from './IPost';
+import { ResponsePostStatus } from './ResponsePostStatus';
 
-export interface IGeneralPost extends IPost {
+export interface IResponsePost extends IPost {
   creatorRef: string;
   creatorSnapshot: IUser;
-  genericStatus: GenericPostStatus;
+  responseStatus: ResponsePostStatus;
   streetAddress: string;
   participants: string[];
   rejected: string[];

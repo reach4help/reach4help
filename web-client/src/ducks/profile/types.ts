@@ -1,4 +1,4 @@
-import { User } from 'src/models/users';
+import { User } from 'src/models/User';
 import { PrivilegedUserInformation } from 'src/models/users/privilegedInformation';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 

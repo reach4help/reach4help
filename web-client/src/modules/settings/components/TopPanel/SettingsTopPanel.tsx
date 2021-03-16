@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import NavBackIcon from 'src/assets/nav-back-icon.svg';
 import { MediumSaveButton } from 'src/components/Buttons';
-import { User } from 'src/models/users/index';
+import { User } from 'src/models/users/User';
 import styled from 'styled-components';
 
 import {

@@ -1,19 +1,35 @@
-import { IsEnum, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsObject, IsString } from 'class-validator';
 import { firestore } from 'firebase';
 import { firebaseFirestore as db } from 'src/firebaseConfig';
+import { GenericPostStatus } from 'src/models/posts/GenericPostStatus';
+import { IGeneralPost } from 'src/models/posts/IGeneralPost';
+import { IResponsePost } from 'src/models/posts/IResponsePost';
+import { Post } from 'src/models/posts/Post';
+import { ResponsePostStatus } from 'src/models/posts/ResponsePostStatus';
+import { IUser } from 'src/models/users/IUser';
 
-import { GenericPostStatus } from './GenericPostStatus';
-import { IGeneralPost } from './IGeneralPost';
-import { IResponsePost } from './IResponsePost';
-import { Post } from './Post';
-import { ResponsePostStatus } from './ResponsePostStatus';
+export class ResponsePost extends Post implements IResponsePost {
+  _responseStatus: ResponsePostStatus;
 
-export class GeneralPost extends Post implements IGeneralPost {
-  constructor(generalPost: IGeneralPost) {
-    super(generalPost);
-    this._creatorRef = generalPost.creatorRef;
-    this._streetAddress = generalPost.streetAddress;
-    this._genericPostStatus = generalPost.genericStatus;
+  postRef: any;
+
+  constructor(responsePost: IResponsePost) {
+    super(responsePost);
+    this._creatorSnapshotGeneral = responsePost.creatorSnapshot;
+    this._creatorRef = responsePost.creatorRef;
+    this._responseStatus = responsePost.responseStatus;
+    this._streetAddress = responsePost.streetAddress;
+  }
+
+  @IsObject()
+  private _creatorSnapshotGeneral: IUser;
+
+  get creatorSnapshot(): IUser {
+    return this._creatorSnapshotGeneral;
+  }
+
+  set creatorSnapshot(creatorSnapshot: IUser) {
+    this._creatorSnapshotGeneral = creatorSnapshot;
   }
 
   @IsString()
@@ -27,15 +43,57 @@ export class GeneralPost extends Post implements IGeneralPost {
     this._creatorRef = creatorRef;
   }
 
+  @IsArray()
+  private _participants: string[];
+
+  get participants(): string[] {
+    return this._participants;
+  }
+
+  set participants(participants: string[]) {
+    this._participants = participants;
+  }
+
+  public addParticipants(participant: string) {
+    if (!this._participants.includes(participant)) {
+      this._participants.push(participant);
+    }
+  }
+
+  public removeParticipant(participant: string) {
+    this._participants.splice(this._participants.indexOf(participant), 1);
+  }
+
+  @IsArray()
+  private _rejected: string[];
+
+  get rejected(): string[] {
+    return this._rejected;
+  }
+
+  set rejected(rejected: string[]) {
+    this._rejected = rejected;
+  }
+
+  public addRejection(rejection: string) {
+    if (!this._rejected.includes(rejection)) {
+      this._rejected.push(rejection);
+    }
+  }
+
+  public removeRejection(rejection: string) {
+    this._rejected.splice(this._rejected.indexOf(rejection), 1);
+  }
+
   @IsEnum(GenericPostStatus)
-  private _genericPostStatus: GenericPostStatus;
+  private _status: GenericPostStatus;
 
   get genericStatus(): GenericPostStatus {
-    return this._genericPostStatus;
+    return this._status;
   }
 
   set genericStatus(status: GenericPostStatus) {
-    this._genericPostStatus = status;
+    this._status = status;
   }
 
   @IsString()

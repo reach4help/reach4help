@@ -76,11 +76,7 @@ export const updatePost = (change: Change<DocumentSnapshot>, context: EventConte
         postAfter &&
         // No need to execute update trigger if the user's account was deleted
         ((postBefore?.status === postAfter?.status &&
-          (postAfter?.creatorSnapshot.displayName === 'Deleted User' ||
-            postAfter?.parentSnapshot?.creatorSnapshot?.displayName === 'Deleted User')) ||
-          // No need to execute update trigger if the response count and last response or rejection count and last rejection is being updated
-          postBefore.positiveResponseCount < postAfter.postiveResponseCount ||
-          postBefore.negativeResponseCount < postAfter.negativeResponseCount)
+          (postAfter?.creatorSnapshot.displayName === 'Deleted User')))
       ) {
         return;
       }

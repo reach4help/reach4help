@@ -1,4 +1,3 @@
-/* eslint no-underscore-dangle: 0 */
 import {
   IsInt,
   IsNotEmpty,
@@ -10,14 +9,7 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-export interface IUser extends firebase.firestore.DocumentData {
-  username: string;
-  casesCompleted?: number;
-  postsMade?: number;
-  displayName?: string | null;
-  displayPicture?: string | null;
-  createdAt?: firebase.firestore.Timestamp;
-}
+import { IUser } from './IUser';
 
 export class User implements IUser {
   constructor(
@@ -129,11 +121,3 @@ export class User implements IUser {
     createdAt: this.createdAt,
   });
 }
-
-export const UserFirestoreConverter: firebase.firestore.FirestoreDataConverter<User> = {
-  fromFirestore: (
-    data: firebase.firestore.QueryDocumentSnapshot<IUser>,
-  ): User => User.factory(data.data()),
-  toFirestore: (modelObject: User): firebase.firestore.DocumentData =>
-    modelObject.toObject(),
-};
