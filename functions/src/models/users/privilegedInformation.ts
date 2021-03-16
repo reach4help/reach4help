@@ -1,10 +1,5 @@
-import { firestore } from 'firebase';
-import { IsObject, IsOptional, IsString } from 'class-validator';
-
-import { FirestoreDataConverter } from '@google-cloud/firestore';
-import Timestamp = firestore.Timestamp;
-import DocumentData = firestore.DocumentData;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
+/* eslint no-underscore-dangle: 0 */
+import { IsObject, IsString } from 'class-validator';
 
 export interface IUserAddress {
   name: string;
@@ -14,23 +9,24 @@ export interface IUserAddress {
   city?: string;
   state?: string;
   country?: string;
-  coords?: firebase.firestore.GeoPoint;
+  coords: firebase.firestore.GeoPoint;
 }
 
-export interface IPrivilegedUserInformation extends DocumentData {
+export interface IPrivilegedUserInformation
+  extends firebase.firestore.DocumentData {
   addresses: Record<string, IUserAddress>;
-  termsAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
+  termsAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   termsVersion: string;
-  privacyAccepted: Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
+  privacyAccepted: firebase.firestore.Timestamp; // acts as a timestamp of when and as a boolean: if accepted it exists.
   privacyVersion: string;
 }
 
 export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   constructor(
     addresses: Record<string, IUserAddress>,
-    privacyAccepted: Timestamp,
+    privacyAccepted: firebase.firestore.Timestamp,
     privacyVersion: string,
-    termsAccepted: Timestamp,
+    termsAccepted: firebase.firestore.Timestamp,
     termsVersion: string,
   ) {
     this._addresses = addresses;
@@ -52,13 +48,13 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _privacyAccepted: Timestamp;
+  private _privacyAccepted: firebase.firestore.Timestamp;
 
-  get privacyAccepted(): Timestamp {
+  get privacyAccepted(): firebase.firestore.Timestamp {
     return this._privacyAccepted;
   }
 
-  set privacyAccepted(value: Timestamp) {
+  set privacyAccepted(value: firebase.firestore.Timestamp) {
     this._privacyAccepted = value;
   }
 
@@ -74,13 +70,13 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 
   @IsObject()
-  private _termsAccepted: Timestamp;
+  private _termsAccepted: firebase.firestore.Timestamp;
 
-  get termsAccepted(): Timestamp {
+  get termsAccepted(): firebase.firestore.Timestamp {
     return this._termsAccepted;
   }
 
-  set termsAccepted(value: Timestamp) {
+  set termsAccepted(value: firebase.firestore.Timestamp) {
     this._termsAccepted = value;
   }
 
@@ -95,9 +91,15 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
     this._termsVersion = value;
   }
 
-  static factory = (data: IPrivilegedUserInformation): PrivilegedUserInformation =>
+  static factory = (
+    data: IPrivilegedUserInformation,
+  ): PrivilegedUserInformation =>
     new PrivilegedUserInformation(
-      data.addresses && !((data.addresses as unknown) as IUserAddress).coords ? data.addresses : { default: data.address as IUserAddress },
+      data.addresses && !((data.addresses as unknown) as IUserAddress).coords
+        ? data.addresses
+        : data.address
+        ? { default: data.address as IUserAddress }
+        : {},
       data.privacyAccepted,
       data.privacyVersion,
       data.termsAccepted,
@@ -106,7 +108,17 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   toObject(): object {
     return {
-      addresses: this.addresses,
+      addresses: Object.values(this.addresses).reduce(
+        (accum, address) => ({
+          ...accum,
+          [address.name]: Object.keys(address).reduce(
+            (acc, key) =>
+              address[key] ? { ...acc, [key]: address[key] } : acc,
+            {},
+          ),
+        }),
+        {},
+      ),
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,
@@ -115,9 +127,14 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
   }
 }
 
-export const PrivilegedUserInformationFirestoreConverter: FirestoreDataConverter<PrivilegedUserInformation> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IPrivilegedUserInformation>): PrivilegedUserInformation => {
-    return PrivilegedUserInformation.factory(data.data());
-  },
-  toFirestore: (modelObject: PrivilegedUserInformation): DocumentData => modelObject.toObject(),
+export const PrivilegedUserInformationFirestoreConverter: firebase.firestore.FirestoreDataConverter<PrivilegedUserInformation> = {
+  fromFirestore: (
+    data: firebase.firestore.QueryDocumentSnapshot<
+      firebase.firestore.DocumentData
+    >,
+  ): PrivilegedUserInformation =>
+    PrivilegedUserInformation.factory(data.data() as any),
+  toFirestore: (
+    modelObject: PrivilegedUserInformation,
+  ): firebase.firestore.DocumentData => modelObject.toObject(),
 };

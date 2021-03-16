@@ -7,9 +7,9 @@ import StepTracker from 'src/components/StepTracker/StepTracker';
 import { createOffer } from 'src/ducks/MyOffers/actions';
 import { createRequest } from 'src/ducks/MyRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
+import { IUser } from 'src/models/IUser';
+import { GenericPostStatus } from 'src/models/posts/GenericPostStatus';
 import { IPost } from 'src/models/posts/IPost';
-import { PostStatus } from 'src/models/posts/PostStatus';
-import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
@@ -110,18 +110,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
       const newPost = {
         isResponse: false,
         isRequest: !IS_OFFER_POST,
-        parentSnapshot: null,
-        parentRef: null,
-        status: PostStatus.pending,
-        creatorGivenRating: null,
-        parentCreatorGivenRating: null,
-        updateSeenBy: [],
-        creatorRatedAt: null,
-        parentCreatorRatedAt: null,
-        positiveResponseCount: 0,
-        negativeResponseCount: 0,
-        firstRejectionMade: null,
-        firstResponseMade: null,
+        status: GenericPostStatus.pending,
         title,
         description,
         creatorRef: profileState.userRef,

@@ -3,7 +3,7 @@ import words from 'lodash/words';
 import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { DEVICE_MIN } from 'src/constants/mediaQueries';
-import { User } from 'src/models/users';
+import { User } from 'src/models/User';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';

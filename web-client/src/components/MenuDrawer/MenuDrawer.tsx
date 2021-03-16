@@ -1,6 +1,6 @@
 import { Drawer } from 'antd';
 import React from 'react';
-import { User } from 'src/models/users';
+import { User } from 'src/models/User';
 import styled from 'styled-components';
 
 import SideBottomMenu from '../SideBottomMenu/SideBottomMenu';

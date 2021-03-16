@@ -58,8 +58,6 @@ function isNotSameCAVPIN(data) {
 function verifyUserDataComplete(data) {
    return data.casesCompleted >= 0 &&
           data.postsMade >= 0 &&
-          data.cavRatingsReceived >= 0 &&
-          data.pinRatingsReceived >= 0 &&
           ('username' in data) &&
           ('createdAt' in data) &&
           data.createdAt is timestamp
@@ -83,10 +81,6 @@ function verifyHelpRequestAttributesForStatus(status, data) {
            (
              (status == 'completed') &&
              ('cavUserRef' in data) &&
-             ('pinRating' in data) &&
-             ('cavRating' in data) &&
-             ('pinRatedAt' in data) &&
-             ('cavRatedAt' in data)
            ) ||
            true // for other statuses we don't have extra requirements
 }

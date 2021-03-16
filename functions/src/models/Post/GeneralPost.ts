@@ -1,61 +1,38 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsArray, IsDate, IsEnum, IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
-import { firestore } from 'firebase-admin';
+import {
+  IsArray,
+  IsEnum,
+  IsObject,
+  IsString,
+} from 'class-validator';
+import { firestore } from 'firebase';
+import { firebaseFirestore as db } from 'src/firebaseConfig';
 
-import { db } from '../../app';
-
-import { IPost, Post, PostStatus } from '../Post';
-import { IUnauthenticatedPost, UnauthenticatedPost } from '../UnauthenticatedPost';
-
-import GeoPoint = firestore.GeoPoint;
-import Timestamp = firestore.Timestamp;
-import DocumentData = firestore.DocumentData;
-import DocumentReference = firestore.DocumentReference;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
-
-interface IUserGeneral {
-  displayName: string;
-  displayPicture: string | null;
-}
-
-export interface IGeneralPost extends IUnauthenticatedPost {
-  creatorRef: string;
-  creatorSnapshot: IUserGeneral;
-  status: PostStatus;
-  streetAddress: string;
-  participants: string[];
-  rejected: string[];
-  responseCount: number;
-  rejectionCount: number;
-  firstResponseMade: Date | null;
-  firstRejectionMade: Date | null;
-  seenBy: string[];
-}
+import { IUserGeneral } from '../users/IUserGeneral';
+import { IGeneralPost } from './IGeneralPost';
+import { IPost } from './IPost';
+import { Post } from './Post';
+import { GenericPostStatus } from './GenericPostStatus';
+import { UnauthenticatedPost } from './UnauthenticatedPost';
 
 export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   constructor(
     postRef: string,
-    isR equest: boolean,
+    isRequest: boolean,
     creatorSnapshot: IUserGeneral,
     title: string,
     description: string,
     latLng: IGeneralPost['latLng'],
     creatorRef: string,
-    status: PostStatus,
+    status: GenericPostStatus,
     streetAddress: string,
     participants: string[] = [],
     rejected: string[] = [],
-    responseCount = 0,
-    rejectionCount = 0,
-    firstResponseMade: Date | null = null,
-    firstRejectionMade: Date | null = null,
-    seenBy: string[] = [],
     createdAt?: Date,
     updatedAt?: Date,
   ) {
     super(
       postRef,
-      isR equest,
+      isRequest,
       {
         displayName: creatorSnapshot.displayName,
         displayPicture: creatorSnapshot.displayPicture,
@@ -72,11 +49,6 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
     this._streetAddress = streetAddress;
     this._participants = participants;
     this._rejected = rejected;
-    this._responseCount = responseCount;
-    this._rejectionCount = rejectionCount;
-    this._firstResponseMade = firstResponseMade;
-    this._firstRejectionMade = firstRejectionMade;
-    this._seenBy = seenBy;
   }
 
   @IsObject()
@@ -143,72 +115,15 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
     this._rejected.splice(this._rejected.indexOf(rejection), 1);
   }
 
-  @IsEnum(PostStatus)
-  private _status: PostStatus;
+  @IsEnum(GenericPostStatus)
+  private _status: GenericPostStatus;
 
-  get status(): PostStatus {
+  get status(): GenericPostStatus {
     return this._status;
   }
 
-  set status(status: PostStatus) {
+  set status(status: GenericPostStatus) {
     this._status = status;
-  }
-
-  @IsNumber()
-  private _responseCount: number;
-
-  get responseCount(): number {
-    return this._responseCount;
-  }
-
-  set responseCount(responseCount: number) {
-    this._responseCount = responseCount;
-  }
-
-  @IsNumber()
-  private _rejectionCount: number;
-
-  get rejectionCount(): number {
-    return this._rejectionCount;
-  }
-
-  set rejectionCount(rejectionCount: number) {
-    this._rejectionCount = rejectionCount;
-  }
-
-  @IsDate()
-  @IsOptional()
-  private _firstResponseMade: Date | null;
-
-  get firstResponseMade(): Date | null {
-    return this._firstResponseMade;
-  }
-
-  set firstResponseMade(firstResponseMade: Date | null) {
-    this._firstResponseMade = firstResponseMade;
-  }
-
-  @IsDate()
-  @IsOptional()
-  private _firstRejectionMade: Date | null;
-
-  get firstRejectionMade(): Date | null {
-    return this._firstRejectionMade;
-  }
-
-  set firstRejectionMade(firstRejectionMade: Date | null) {
-    this._firstRejectionMade = firstRejectionMade;
-  }
-
-  @IsObject()
-  private _seenBy: string[];
-
-  get seenBy(): string[] {
-    return this._seenBy;
-  }
-
-  set seenBy(seenBy: string[]) {
-    this._seenBy = seenBy;
   }
 
   @IsString()
@@ -229,12 +144,11 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       .get();
 
     const participants = [data.creatorRef.id];
-    const seenBy = data.updateSeenBy.map(user => user.id);
-    const rejected = [];
+    const rejected: string[] = [];
 
     for (const doc of responsesData.docs) {
       const response = Post.factory(doc.data() as IPost);
-      if (response.status === PostStatus.declined) {
+      if (response.status === GenericPostStatus.declined) {
         rejected.push(response.creatorRef.id);
       } else {
         participants.push(response.creatorRef.id);
@@ -243,7 +157,8 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
 
     return new GeneralPost(
       path,
-      data.isR equest,
+      data.isRequest,
+      data.isResponse,
       {
         displayName: data.creatorSnapshot.displayName || '',
         displayPicture: data.creatorSnapshot.displayPicture,
@@ -259,46 +174,38 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.streetAddress,
       participants,
       rejected,
-      data.positiveResponseCount,
-      data.negativeResponseCount,
-      data.firstResponseMade?.toDate(),
-      data.firstRejectionMade?.toDate(),
-      seenBy,
       data.createdAt.toDate(),
       data.updatedAt.toDate(),
     );
   }
 
-  public static fromFirestore(data: DocumentData): GeneralPost {
+  public static fromFirestore(
+    data: firebase.firestore.DocumentData,
+  ): GeneralPost {
     return new GeneralPost(
-      (data.postRef as DocumentReference).path,
-      data.isR equest,
+      (data.postRef as firebase.firestore.DocumentReference).path,
+      data.isRequest,
       data.userSnapshot,
       data.title,
       data.description,
       {
-        latitude: (data.latLng as GeoPoint).latitude,
-        longitude: (data.latLng as GeoPoint).longitude,
+        latitude: (data.latLng as firebase.firestore.GeoPoint).latitude,
+        longitude: (data.latLng as firebase.firestore.GeoPoint).longitude,
       },
-      (data.userRef as DocumentReference).path,
+      (data.userRef as firebase.firestore.DocumentReference).path,
       data.status,
       data.streetAddress,
       data.participants,
       data.rejected,
-      data.responseCount,
-      data.rejectionCount,
-      (data.firstResponseMade as Timestamp).toDate(),
-      (data.firstRejectionMade as Timestamp).toDate(),
-      data.seenBy,
-      (data.createdAt as Timestamp).toDate(),
-      (data.updatedAt as Timestamp).toDate(),
+      (data.createdAt as firebase.firestore.Timestamp).toDate(),
+      (data.updatedAt as firebase.firestore.Timestamp).toDate(),
     );
   }
 
   public static fromAlgolia(data: Record<string, any>): GeneralPost {
     return new GeneralPost(
       data.postRef,
-      data.isR equest,
+      data.isRequest,
       data.creatorSnapshot,
       data.title,
       data.description,
@@ -308,11 +215,6 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.streetAddress,
       data.participants,
       data.rejected,
-      data.responseCount,
-      data.rejectionCount,
-      data.firstResponseMade,
-      data.firstRejectionMade,
-      data.seenBy,
       data.createdAt,
       data.updatedAt,
     );
@@ -329,7 +231,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   public static fromObject(data: IGeneralPost): GeneralPost {
     return new GeneralPost(
       data.postRef,
-      data.isR equest,
+      data.isRequest,
       data.creatorSnapshot,
       data.title,
       data.description,
@@ -339,11 +241,6 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       data.streetAddress,
       data.participants,
       data.rejected,
-      data.responseCount,
-      data.rejectionCount,
-      data.firstResponseMade,
-      data.firstRejectionMade,
-      data.seenBy,
       data.createdAt,
       data.updatedAt,
     );
@@ -352,7 +249,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   toObject(): IGeneralPost {
     return {
       postRef: this.postRef,
-      isR equest: this.isR equest,
+      isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -362,43 +259,36 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       streetAddress: this.streetAddress,
       participants: this.participants,
       rejected: this.rejected,
-      responseCount: this.responseCount,
-      rejectionCount: this.rejectionCount,
-      firstResponseMade: this.firstResponseMade,
-      firstRejectionMade: this.firstRejectionMade,
-      seenBy: this.seenBy,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
   }
 
-  toFirestore(): DocumentData {
+  toFirestore(): firebase.firestore.DocumentData {
     return {
       postRef: db.doc(this.postRef),
-      isR equest: this.isR equest,
+      isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
-      latLng: new GeoPoint(this.latLng.latitude, this.latLng.longitude),
+      latLng: new firestore.GeoPoint(
+        this.latLng.latitude,
+        this.latLng.longitude,
+      ),
       creatorRef: db.doc(this.creatorRef),
       status: this.status,
       streetAddress: this.streetAddress,
       participants: this.participants,
       rejected: this.rejected,
-      responseCount: this.responseCount,
-      rejectionCount: this.rejectionCount,
-      firstResponseMade: this.firstResponseMade ? Timestamp.fromDate(this.firstResponseMade) : null,
-      firstRejectionMade: this.firstRejectionMade ? Timestamp.fromDate(this.firstRejectionMade) : null,
-      seenBy: this.seenBy,
-      createdAt: Timestamp.fromDate(this.createdAt),
-      updatedAt: Timestamp.fromDate(this.updatedAt),
+      createdAt: firestore.Timestamp.fromDate(this.createdAt),
+      updatedAt: firestore.Timestamp.fromDate(this.updatedAt),
     };
   }
 
   toAlgolia(): object {
     return {
       postRef: this.postRef,
-      isR equest: this.isR equest,
+      isRequest: this.isRequest,
       objectID: db.doc(this.postRef).id,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
@@ -412,22 +302,8 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
       streetAddress: this.streetAddress,
       participants: this.participants,
       rejected: this.rejected,
-      responseCount: this.responseCount,
-      rejectionCount: this.rejectionCount,
-      firstResponseMade: this.firstResponseMade,
-      firstRejectionMade: this.firstRejectionMade,
-      seenBy: this.seenBy,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
   }
 }
-
-export const GeneralPostFirestoreConverter: FirestoreDataConverter<GeneralPost> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IGeneralPost>): GeneralPost => {
-    return GeneralPost.fromFirestore(data.data());
-  },
-  toFirestore: (modelObject: GeneralPost): DocumentData => {
-    return modelObject.toFirestore();
-  },
-};
