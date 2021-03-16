@@ -24,6 +24,7 @@ const deleteQueryBatch = async (query: firestore.Query, resolve: Function) => {
   });
 };
 
+// eslint-disable-next-line no-unused-vars
 const updateQueryBatch = async (query: firestore.Query, resolve: Function, updatedFields: {}) => {
   const querySnapshot = await query.get();
   const batchSize = querySnapshot.size;
@@ -49,22 +50,6 @@ const deleteUserPrivilegedInformation = async (userRef: firestore.DocumentRefere
   return new Promise((resolve, reject) => {
     try {
       deleteQueryBatch(userPrivilegedInfoQuery, resolve);
-    } catch {
-      reject();
-    }
-  });
-};
-
-const deleteUserTimelines = async (userRef: firestore.DocumentReference, deletedUser: User) => {
-  const userTimelinesQuery = db
-    .collectionGroup('timeline')
-    .where('actorRef', '==', userRef)
-    .limit(500);
-  return new Promise((resolve, reject) => {
-    try {
-      updateQueryBatch(userTimelinesQuery, resolve, {
-        actorSnapshot: deletedUser.toObject(),
-      });
     } catch {
       reject();
     }

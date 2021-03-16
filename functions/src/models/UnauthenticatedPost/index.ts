@@ -23,7 +23,7 @@ interface ILatLngObject {
 
 export interface IUnauthenticatedPost {
   postRef: string;
-  isR equest: boolean;
+  isRequest: boolean;
   creatorSnapshot: IStrippedUser;
   title: string;
   description: string;
@@ -35,7 +35,7 @@ export interface IUnauthenticatedPost {
 export class UnauthenticatedPost implements IUnauthenticatedPost {
   constructor(
     postRef: string,
-    isR equest: boolean,
+    isRequest: boolean,
     creatorSnapshot: IStrippedUser,
     title: string,
     description: string,
@@ -44,7 +44,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     updatedAt = new Date(),
   ) {
     this._postRef = postRef;
-    this._isR equest = isR equest;
+    this._isRequest = isRequest;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
     this._description = description;
@@ -65,14 +65,14 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   }
 
   @Allow()
-  private _isR equest: boolean;
+  private _isRequest: boolean;
 
-  get isR equest(): boolean {
-    return this._isR equest;
+  get isRequest(): boolean {
+    return this._isRequest;
   }
 
-  set isR equest(isR equest: boolean) {
-    this._isR equest = isR equest;
+  set isRequest(isRequest: boolean) {
+    this._isRequest = isRequest;
   }
 
   @IsObject()
@@ -120,7 +120,6 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     this._latLng = value;
   }
 
-
   @IsObject()
   private _createdAt: Date;
 
@@ -147,7 +146,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     return Promise.resolve(
       new UnauthenticatedPost(
         path,
-        data.isR equest,
+        data.isRequest,
         {
           displayName: data.creatorSnapshot.displayName || '',
           displayPicture: data.creatorSnapshot.displayPicture,
@@ -167,7 +166,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   public static fromFirestore(data: DocumentData): UnauthenticatedPost {
     return new UnauthenticatedPost(
       (data.postRef as DocumentReference).path,
-      data.isR equest,
+      data.isRequest,
       data.userSnapshot,
       data.title,
       data.description,
@@ -183,7 +182,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   public static fromAlgolia(data: Record<string, any>): UnauthenticatedPost {
     return new UnauthenticatedPost(
       data.postRef,
-      data.isR equest,
+      data.isRequest,
       data.pinUserSnapshot,
       data.title,
       data.description,
@@ -196,7 +195,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   public static fromObject(data: IUnauthenticatedPost): UnauthenticatedPost {
     return new UnauthenticatedPost(
       data.postRef,
-      data.isR equest,
+      data.isRequest,
       data.creatorSnapshot,
       data.title,
       data.description,
@@ -209,7 +208,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toObject(): IUnauthenticatedPost {
     return {
       postRef: this.postRef,
-      isR equest: this.isR equest,
+      isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -222,7 +221,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toFirestore(): DocumentData {
     return {
       postRef: db.doc(this.postRef),
-      isR equest: this.isR equest,
+      isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
@@ -235,7 +234,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   toAlgolia(): object {
     return {
       postRef: this.postRef,
-      isR equest: this.isR equest,
+      isRequest: this.isRequest,
       objectID: db.doc(this.postRef).id,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,

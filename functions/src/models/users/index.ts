@@ -1,18 +1,22 @@
-import { FirestoreDataConverter } from '@google-cloud/firestore';
-import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, IsUrl, Max, Min } from 'class-validator';
+/* eslint no-underscore-dangle: 0 */
+import {
+  IsInt,
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+  IsString,
+  IsUrl,
+  Min,
+} from 'class-validator';
 import { firestore } from 'firebase';
-import DocumentData = firestore.DocumentData;
-import DocumentReference = firestore.DocumentReference;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
-import Timestamp = firestore.Timestamp;
 
-export interface IUser extends DocumentData {
+export interface IUser extends firebase.firestore.DocumentData {
   username: string;
   casesCompleted?: number;
   postsMade?: number;
   displayName?: string | null;
   displayPicture?: string | null;
-  createdAt?: Timestamp;
+  createdAt?: firebase.firestore.Timestamp;
 }
 
 export class User implements IUser {
@@ -22,7 +26,7 @@ export class User implements IUser {
     postsMade = 0,
     displayName: string | null = null,
     displayPicture: string | null = null,
-    createdAt = Timestamp.now(),
+    createdAt = firestore.Timestamp.now(),
   ) {
     this._casesCompleted = casesCompleted;
     this._postsMade = postsMade;
@@ -30,44 +34,6 @@ export class User implements IUser {
     this._displayName = displayName;
     this._displayPicture = displayPicture;
     this._createdAt = createdAt;
-  }
-
-  @IsObject()
-  @IsOptional()
-  private _cavQuestionnaireRef: DocumentReference<DocumentData> | null;
-
-  get cavQuestionnaireRef(): DocumentReference<DocumentData> | null {
-    return this._cavQuestionnaireRef;
-  }
-
-  set cavQuestionnaireRef(value: DocumentReference<DocumentData> | null) {
-    this._cavQuestionnaireRef = value;
-  }
-
-  @IsObject()
-  @IsOptional()
-  private _pinQuestionnaireRef: DocumentReference<DocumentData> | null;
-
-  get pinQuestionnaireRef(): DocumentReference<DocumentData> | null {
-    return this._pinQuestionnaireRef;
-  }
-
-  set pinQuestionnaireRef(value: DocumentReference<DocumentData> | null) {
-    this._pinQuestionnaireRef = value;
-  }
-
-  @IsNumber()
-  @Min(1)
-  @Max(5)
-  @IsOptional()
-  private _averageRating: number | null;
-
-  get averageRating(): number | null {
-    return this._averageRating;
-  }
-
-  set averageRating(value: number | null) {
-    this._averageRating = value;
   }
 
   @IsInt()
@@ -130,38 +96,44 @@ export class User implements IUser {
     this._displayPicture = value;
   }
 
+  /* TODO: When we reach greater than 500 offers per request created per second:
+     https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
+   */
   @IsObject()
-  private _createdAt: Timestamp;
+  private _createdAt: firebase.firestore.Timestamp;
 
-  get createdAt(): Timestamp {
+  get createdAt(): firebase.firestore.Timestamp {
     return this._createdAt;
   }
 
-  set createdAt(value: Timestamp) {
+  set createdAt(value: firebase.firestore.Timestamp) {
     this._createdAt = value;
   }
 
   static factory = (data: IUser): User =>
-    new User(data.username, data.casesCompleted, data.postsMade, data.displayName, data.displayPicture, data.createdAt);
+    new User(
+      data.username,
+      data.casesCompleted,
+      data.postsMade,
+      data.displayName,
+      data.displayPicture,
+      data.createdAt,
+    );
 
-  toObject(): object {
-    return {
-      username: this.username,
-      casesCompleted: this.casesCompleted,
-      postsMade: this.postsMade,
-      averageRating: this.averageRating,
-      displayName: this.displayName,
-      displayPicture: this.displayPicture,
-      createdAt: this.createdAt,
-    };
-  }
+  toObject = (): object => ({
+    username: this.username,
+    casesCompleted: this.casesCompleted,
+    postsMade: this.postsMade,
+    displayName: this.displayName,
+    displayPicture: this.displayPicture,
+    createdAt: this.createdAt,
+  });
 }
 
-export const UserFirestoreConverter: FirestoreDataConverter<User> = {
-  fromFirestore: (data: QueryDocumentSnapshot<IUser>): User => {
-    return User.factory(data.data());
-  },
-  toFirestore: (modelObject: User): DocumentData => {
-    return modelObject.toObject();
-  },
+export const UserFirestoreConverter: firebase.firestore.FirestoreDataConverter<User> = {
+  fromFirestore: (
+    data: firebase.firestore.QueryDocumentSnapshot<IUser>,
+  ): User => User.factory(data.data()),
+  toFirestore: (modelObject: User): firebase.firestore.DocumentData =>
+    modelObject.toObject(),
 };

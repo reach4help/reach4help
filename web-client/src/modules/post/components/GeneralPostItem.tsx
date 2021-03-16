@@ -19,7 +19,6 @@ const PostItem: React.FC<{
         <InnerText style={{ marginBottom: '20px' }}>
           {post.description}
         </InnerText>
-        <div style={{ display: 'flex' }}>{post.postiveResponseCount}</div>
       </PostItemText>
     </Item>
   );

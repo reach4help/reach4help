@@ -1,5 +1,5 @@
 import firebase from 'src/firebaseConfig';
-import { User } from 'src/models/users';
+import { User } from 'src/models/User';
 import {
   IUserAddress,
   PrivilegedUserInformation,

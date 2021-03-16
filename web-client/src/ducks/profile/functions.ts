@@ -4,7 +4,8 @@ import {
   firebaseFunctions,
   firebaseStorage,
 } from 'src/firebaseConfig';
-import { User, UserFirestoreConverter } from 'src/models/users';
+import { User } from 'src/models/User';
+import { UserFirestoreConverter } from 'src/models/UserFirestoreConverter';
 import {
   PrivilegedUserInformation,
   PrivilegedUserInformationFirestoreConverter,

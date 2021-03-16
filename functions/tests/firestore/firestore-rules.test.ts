@@ -2,9 +2,7 @@ import * as firebase from '@firebase/testing';
 import * as fs from 'fs';
 
 import { User, UserFirestoreConverter } from '../../src/models/users';
-import { Post, PostFirestoreConverter } from '../../src/models/posts';
-import * as firebaseApp from 'firebase-admin';
-import GeoPoint = firebaseApp.firestore.GeoPoint;
+import { PostFirestoreConverter } from '../../src/models/Post';
 
 const projectId = 'reach-4-help-test';
 
@@ -175,65 +173,6 @@ describe('posts', () => {
           }),
         ),
     );
-    const postSnapshot = Post.factory({
-      pinUserRef: db.collection('users').doc('pin-1') as any,
-      pinUserSnapshot: { username: 'pin-1' },
-      title: 'I need help!',
-      description: 'Please help with groceries',
-      latLng: new GeoPoint(10, -122),
-      streetAddress: '123 Main St.',
-      responseCount: 0,
-      rejectionCount: 0,
-      firstResponseMade: null,
-      firstRejectionMade: null,
-      lastResponseMade: null,
-      lastRejectionMade: null,
-    });
-    await firebase.assertSucceeds(
-      db
-        .collection('posts')
-        .doc('post-1')
-        .withConverter(OfferFirestoreConverter)
-        .set(
-          Offer.factory({
-            cavUserRef: db.collection('users').doc('cav-1') as any,
-            pinUserRef: db.collection('users').doc('pin-1') as any,
-            postRef: db.collection('posts').doc('post-1') as any,
-            postSnapshot,
-            cavUserSnapshot: {
-              averageRating: 1,
-              casesCompleted: 0,
-              postsMade: 0,
-              username: 'cav-1',
-            },
-            message: 'I can help!',
-            status: OfferStatus.pending,
-          }),
-        ),
-    );
-
-    await firebase.assertSucceeds(
-      db
-        .collection('posts')
-        .doc('post-2')
-        .withConverter(OfferFirestoreConverter)
-        .set(
-          Offer.factory({
-            cavUserRef: db.collection('users').doc('cav-2') as any,
-            pinUserRef: db.collection('users').doc('pin-1') as any,
-            postRef: db.collection('posts').doc('post-1') as any,
-            postSnapshot,
-            cavUserSnapshot: {
-              averageRating: 1,
-              casesCompleted: 0,
-              postsMade: 0,
-              username: 'cav-2',
-            },
-            message: 'I can help!!',
-            status: OfferStatus.pending,
-          }),
-        ),
-    );
   };
 
   it('require users to log in before listing posts', async () => {
@@ -259,69 +198,11 @@ describe('posts', () => {
 
     // Read from DB authed as PIN1, filter by PIN1 - SUCCESS
     const dbPin1 = authedApp({ uid: 'pin-1', pin: true });
-    const pin1Ref = dbPin1.collection('users').doc('pin-1');
     const post1RefAsPin1 = dbPin1.collection('posts').doc('post-1');
 
     await firebase.assertSucceeds(
-      dbPin1
-        .collection('posts')
-        .where('pinUserRef', '==', pin1Ref)
-        .withConverter(OfferFirestoreConverter)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.docs
-            .map(value => value.data())
-            .forEach(post => {
-              expect(post.pinUserRef.id).toBe('pin-1');
-            });
-        }),
-    );
-    await firebase.assertSucceeds(
       post1RefAsPin1
-        .withConverter(OfferFirestoreConverter)
-        .get()
-        .then(doc => {
-          expect(doc.exists).toBeTruthy();
-        }),
-    );
-  });
-
-  it('only cavs can list posts that belong to them', async () => {
-    await createData();
-
-    // Read from DB authed as CAV3, but filter by CAV1 - ERROR
-    const dbCav3 = authedApp({ uid: 'cav-3', cav: true });
-    const cav1RefAsCav3 = dbCav3.collection('users').doc('cav-1');
-    const post1RefAsCav3 = dbCav3.collection('posts').doc('post-1');
-    await firebase.assertFails(
-      dbCav3
-        .collection('posts')
-        .where('cavUserRef', '==', cav1RefAsCav3)
-        .get(),
-    );
-    await firebase.assertFails(post1RefAsCav3.get());
-
-    // Read from DB authed as CAV1, filter by CAV1 - SUCCESS
-    const dbCav1 = authedApp({ uid: 'cav-1', cav: true });
-    const cav1Ref = dbCav1.collection('users').doc('cav-1');
-    const post1RefAsCav1 = dbCav1.collection('posts').doc('post-1');
-    await firebase.assertSucceeds(
-      dbCav1
-        .collection('posts')
-        .where('cavUserRef', '==', cav1Ref)
-        .withConverter(OfferFirestoreConverter)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.docs
-            .map(value => value.data())
-            .forEach(post => {
-              expect(post.cavUserRef.id).toBe('cav-1');
-            });
-        }),
-    );
-    await firebase.assertSucceeds(
-      post1RefAsCav1
-        .withConverter(OfferFirestoreConverter)
+        .withConverter(PostFirestoreConverter)
         .get()
         .then(doc => {
           expect(doc.exists).toBeTruthy();

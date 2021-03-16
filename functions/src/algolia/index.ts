@@ -1,9 +1,10 @@
 import * as functions from 'firebase-functions';
 import algolia from 'algoliasearch';
 
-import { Post, PostStatus } from '../models/Post';
+import { Post } from '../models/Post/Post';
+import { GenericPostStatus } from '../models/Post/GenericPostStatus';
 import { UnauthenticatedPost } from '../models/UnauthenticatedPost';
-import { GeneralPost } from '../models/GeneralPost';
+import { GeneralPost } from '../models/Post/GeneralPost';
 
 export const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
@@ -67,24 +68,12 @@ export const reflectResponseInPost = async (response: Post) => {
   const algoliaObjectId = GeneralPost.getObjectId(response.parentRef!.path);
 
   const algoliaUpdateDoc: Record<string, any> = {
-    [response.status === PostStatus.pending ? 'participants' : 'rejected']: {
+    [response.status === GenericPostStatus.pending ? 'participants' : 'rejected']: {
       _operation: 'AddUnique',
       value: GeneralPost.getParticipantId(response.creatorRef.path),
     },
-    [response.status === PostStatus.pending ? 'responseCount' : 'rejectionCount']: {
-      _operation: 'Increment',
-      value: 1,
-    },
     objectID: algoliaObjectId,
   };
-
-  if (response.parentSnapshot && response.status === PostStatus.pending && !response.parentSnapshot.firstResponseMade) {
-    algoliaUpdateDoc.firstResponseMade = response.createdAt.toDate();
-  }
-
-  if (response.parentSnapshot && response.status === PostStatus.declined && !response.parentSnapshot.firstRejectionMade) {
-    algoliaUpdateDoc.firstRejectionMade = response.createdAt.toDate();
-  }
 
   return generalPostsIndex
     .partialUpdateObject(algoliaUpdateDoc, {

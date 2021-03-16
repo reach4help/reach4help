@@ -1,14 +1,13 @@
-import { StarOutlined, TeamOutlined } from '@ant-design/icons';
+import { TeamOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React from 'react';
-import { User } from 'src/models/users';
+import { User } from 'src/models/User';
 import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
 
 const { Text } = Typography;
 
-const AverageRatingIcon = <StarOutlined />;
 const CasesCompletedIcon = <TeamOutlined />;
 
 const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
@@ -26,10 +25,7 @@ const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
           {CasesCompletedIcon}
           {profileData?.casesCompleted}
         </Detail>
-        <Detail>
-          {AverageRatingIcon}
-          {profileData?.averageRating}
-        </Detail>
+        <Detail />
       </Details>
     </Content>
   </SideDrawerProfileWrapper>
