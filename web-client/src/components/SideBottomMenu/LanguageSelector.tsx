@@ -3,6 +3,7 @@ import { Select } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CONSTANTS from 'src/constants';
+import { DEVICE_MAX } from 'src/constants/mediaQueries';
 import styled from 'styled-components';
 
 const { LANGUAGE_PREFERENCE_LOCALSTORAGE_KEY } = CONSTANTS;
@@ -86,7 +87,6 @@ const SelectLanguage = styled(Select)`
   margin-top: 4px;
   color: #000;
   font-weight: bold;
-  font-size: 24px;
   position: relative;
   left: -50px;
   font-weight: 700;
@@ -97,5 +97,9 @@ const SelectLanguage = styled(Select)`
 
   .ant-select-arrow {
     color: black;
+  }
+
+  @media ${DEVICE_MAX.tablet} {
+    font-size: 24px;
   }
 `;
