@@ -1,8 +1,8 @@
 import { firestore } from 'firebase';
 import { firebaseFirestore as db } from 'src/firebaseConfig';
-import { User } from 'src/models/User';
-import { UserFirestoreConverter } from 'src/models/UserFirestoreConverter';
 import { PrivilegedUserInformation } from 'src/models/users/privilegedInformation';
+import { User } from 'src/models/users/User';
+import { UserFirestoreConverter } from 'src/models/users/UserFirestoreConverter';
 import createReducer from 'src/store/utils/createReducer';
 
 import {

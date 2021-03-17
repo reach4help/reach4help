@@ -7,7 +7,7 @@ const { Meta } = Card;
 
 const PostInfo = ({ post }) => {
   const { userSnapshot, description, title } = post;
-  const { displayName, displayPicture } = userSnapshot;
+  const { displayNickname, displayPicture } = userSnapshot;
   const onClickHandler = () => {
     alert('this should create a specific offer');
   };
@@ -15,8 +15,8 @@ const PostInfo = ({ post }) => {
   return (
     <Card>
       <Meta
-        avatar={<Avatar src={displayPicture} alt={displayName} size={64} />}
-        title={displayName}
+        avatar={<Avatar src={displayPicture} alt={displayNickname} size={64} />}
+        title={displayNickname}
         description={
           <Space>
             <HomeOutlined />

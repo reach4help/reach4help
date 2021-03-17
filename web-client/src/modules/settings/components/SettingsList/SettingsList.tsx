@@ -103,7 +103,7 @@ const SettingsList: React.FC<SettingsProps> = ({
                   changeNameHandler={changeNameSubmitHandler}
                   cancelHandler={() => setCollapseActiveKey([])}
                   initialValues={{
-                    displayName: initialValues.displayName,
+                    displayNickname: initialValues.displayNickname,
                     username: initialValues.username,
                   }}
                 />
@@ -155,7 +155,7 @@ interface SettingsProps {
   changeNameSubmitHandler: Function;
   deleteAccountClickHandler: Function;
   initialValues: {
-    displayName: string | null;
+    displayNickname: string | null;
     username: string | null;
   };
 }
