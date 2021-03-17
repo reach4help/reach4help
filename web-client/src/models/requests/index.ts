@@ -24,7 +24,13 @@ export enum RequestStatus {
   removed = 'removed',
 }
 
+export type RequestRefType = firebase.firestore.DocumentReference<
+  firebase.firestore.DocumentData
+>;
+
 export interface IRequest extends firebase.firestore.DocumentData {
+  requestRef?: RequestRefType | undefined;
+  requestId?: string; // last part of the requestRef path
   cavUserRef?: firebase.firestore.DocumentReference<
     firebase.firestore.DocumentData
   > | null;
@@ -48,6 +54,7 @@ export interface IRequest extends firebase.firestore.DocumentData {
 
 export class Request implements IRequest {
   constructor(
+    requestId: string | undefined,
     pinUserRef: firebase.firestore.DocumentReference<
       firebase.firestore.DocumentData
     >,
@@ -68,6 +75,14 @@ export class Request implements IRequest {
     pinRatedAt: firebase.firestore.Timestamp | null = null,
     cavRatedAt: firebase.firestore.Timestamp | null = null,
   ) {
+    // TODO: (es) figure out when requestRef is populated, when not
+    if (requestId) {
+      this._requestRef = firestore()
+        .collection('requests')
+        .doc(requestId);
+    }
+
+    this._requestId = requestId;
     this._cavUserRef = cavUserRef;
     this._pinUserRef = pinUserRef;
     this._pinUserSnapshot = pinUserSnapshot;
@@ -83,6 +98,22 @@ export class Request implements IRequest {
     this._cavRating = cavRating;
     this._pinRatedAt = pinRatedAt;
     this._cavRatedAt = cavRatedAt;
+  }
+
+  @Allow()
+  @IsOptional()
+  private _requestId: string | undefined;
+
+  get requestId(): string | undefined {
+    return this._requestId;
+  }
+
+  @Allow()
+  @IsOptional()
+  private _requestRef: RequestRefType | undefined;
+
+  get requestRef(): RequestRefType | undefined {
+    return this._requestRef;
   }
 
   @Allow()
@@ -286,6 +317,7 @@ export class Request implements IRequest {
 
   public static factory(data: IRequest): Request {
     return new Request(
+      data.requestId ? data.requesId : data.id,
       data.pinUserRef,
       User.factory(data.pinUserSnapshot),
       data.title,
@@ -307,6 +339,8 @@ export class Request implements IRequest {
 
   toObject(): object {
     return {
+      requestId: this.requestId,
+      requestRef: this.requestRef,
       cavUserRef: this.cavUserRef,
       cavUserSnapshot: this.cavUserSnapshot
         ? this.cavUserSnapshot.toObject()

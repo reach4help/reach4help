@@ -1,38 +1,98 @@
+/* eslint-disable no-return-assign */
+// import { Divider } from 'antd';
+import { Card } from 'antd';
 import React from 'react';
+import teams from 'src/modules/landing-page/teams.json';
 
+import defaultProfilePic from '../assets/default_profile.png';
 import logo from '../assets/logo.svg';
 import problemSolve from '../assets/problem_solving.svg';
 import {
   ButtonContainer,
-  ContributorImage,
   JoinButton,
   JoinContainer,
-  JoinText,
   MiddleSection,
   MissionContainer,
   MissionText,
   SolvingImage,
   TeamContainer,
   TeamImageContainer,
-  TeamText,
+  TeamTitle,
   TopSection,
-  TopText,
-  TopTextContainer,
 } from '../components/about';
-import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
+
+const dynamicColor = (teamName: string) => {
+  let color = '#f0ebff';
+
+  if (teamName === 'Core') {
+    color = '#f0ebff';
+  } else if (teamName === 'Development') {
+    color = '#ddf1f0';
+  } else if (teamName === 'Design') {
+    color = '#fff8e7';
+  } else if (teamName === 'Marketing') {
+    color = '#ffebff';
+  }
+
+  return color;
+};
+
+const fetchingteams = () => {
+  const data = teams;
+
+  const { Meta } = Card;
+
+  return data.teams.map(t => (
+    <div
+      key={t.title}
+      style={{
+        backgroundColor: dynamicColor(t.title),
+        width: '100%',
+        justifyContent: 'center',
+      }}
+    >
+      <TeamTitle>
+        <h2>{`${t.title.toUpperCase()} TEAM`}</h2>{' '}
+      </TeamTitle>
+
+      <TeamImageContainer>
+        {t.contributors.map(c => (
+          // eslint-disable-next-line jsx-a11y/control-has-associated-label
+          // <div key={c.name}>
+          //   <ContributorImage key={c.name} src={c.avatar_url} />
+          //   <a href={c.contact} title={`${`${c.name}, ${c.title}`}`}>
+          //     <em>{`${c.name}`} </em>
+          //   </a>
+          // </div>
+          <Card
+            key={c.name}
+            // hoverable
+            style={{ width: 200 }}
+            cover={
+              <img
+                src={c.avatar_url}
+                alt={defaultProfilePic}
+                // eslint-disable-next-line no-param-reassign
+                onError={e => (e.target.src = defaultProfilePic)}
+              />
+            }
+          >
+            <Meta title={c.name} description={c.title} />
+            <a href={c.contact}>Contact</a>
+          </Card>
+        ))}
+      </TeamImageContainer>
+    </div>
+  ));
+};
 
 const AboutPage: React.FC = (): JSX.Element => (
   <Root>
     <TopSection>
-      <TopTextContainer>
-        <TopText>
-          <h1>
-            We&#39;re a group of volunteers <br /> driven to unify help
-            worldwide
-          </h1>
-        </TopText>
-      </TopTextContainer>
+      <h1>
+        We&#39;re a group of volunteers <br /> driven to unify help worldwide
+      </h1>
     </TopSection>
     <MiddleSection>
       <MissionContainer>
@@ -54,22 +114,20 @@ const AboutPage: React.FC = (): JSX.Element => (
           </p>
         </MissionText>
       </MissionContainer>
-      <SolvingImage src={problemSolve} /> <br />
+      <SolvingImage src={problemSolve} />
     </MiddleSection>
     <MiddleSection>
       <TeamContainer>
-        <TeamText>
-          <h1> Meet Our Team </h1>
-          <br />
-          <p>
-            Hailing from LA to Morocco to Portugal to Bangladesh, we’re an
-            international collective of volunteers from all walks of life,
-            united to ensure that everyone, everywhere can Reach4Help.
-          </p>
-        </TeamText>
+        <h1>Meet Our Team</h1>
+        <p>
+          Hailing from LA to Morocco to Portugal to Bangladesh, we’re an
+          international collective of volunteers from all walks of life, united
+          to ensure that everyone, everywhere can Reach4Help.
+        </p>
       </TeamContainer>
     </MiddleSection>
-    <TeamImageContainer>
+    {fetchingteams()}
+    {/* <TeamImageContainer>
       <h1>Development</h1>
       <ContributorImage src={contributors.AlexVanino.imgSrc} />
       <ContributorImage src={contributors.BurhanTuerker.imgSrc} />
@@ -109,19 +167,16 @@ const AboutPage: React.FC = (): JSX.Element => (
       <ContributorImage src={contributors.WinggoTse.imgSrc} />
       <ContributorImage src={contributors.SamLanning.imgSrc} />
       <ContributorImage src={contributors.DavidAlecrim.imgSrc} />
-    </TeamImageContainer>{' '}
+    </TeamImageContainer>{' '} */}
     <br />
     <MiddleSection>
       <JoinContainer>
-        <JoinText>
-          <h3>Interested in joining us?</h3> <br />
-          <p>
-            We’re looking for volunteer ReactJS developers, marketing/PR
-            strategists and UI/UX designers to help ramp up our efforts fighting
-            the US West Coast wildfires and the incoming second wave of
-            COVID-19.
-          </p>
-        </JoinText>
+        <h3>Interested in joining us?</h3> <br />
+        <p>
+          We’re looking for volunteer ReactJS developers, marketing/PR
+          strategists and UI/UX designers to help ramp up our efforts fighting
+          the US West Coast wildfires and the incoming second wave of COVID-19.
+        </p>
       </JoinContainer>{' '}
       <br />
     </MiddleSection>

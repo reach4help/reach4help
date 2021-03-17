@@ -4,10 +4,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TitleWithUnderline from 'src/components/TitleWithUnderline/TitleWithUnderline';
 import {
-  ButtonsDisplay,
+  ButtonsContainer,
   DisplayButton,
 } from 'src/modules/create/components/DisplayElements';
-import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
 const PostDetails: React.FC<PostDetailsProps> = ({
@@ -16,39 +15,33 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   postTypes,
   nextHandler,
   prevHandler,
+  postTypePrefix,
 }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const { Option } = Select;
 
-  const { title, type, body, customType } = postDetails;
+  const { title, type, description, customType } = postDetails;
   const [showCustomType, setShowCustomType] = useState(type === 'customType');
   const toggleCustomType = (value: string) => {
     setShowCustomType(value === 'customType');
   };
 
   return (
-    <PostDetailsWrapper>
-      <TitleWithUnderline level={2} color={COLORS.primaryDark}>
-        {t('modules.create.postDetails.header')}
+    <>
+      <TitleWithUnderline level={2}>
+        {postTypePrefix} {t('modules.create.stepTitles.details')}
       </TitleWithUnderline>
-      <DetailsForm
+      <Form
         layout="vertical"
         form={form}
         onFinish={values => {
           setPostDetails({ ...values, type: values.customType || values.type });
           nextHandler();
         }}
-        initialValues={{ title, type, body, customType }}
+        initialValues={{ title, type, description, customType }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignContent: 'space-between',
-          }}
-        >
+        <FormElements>
           <Form.Item
             label={t('modules.create.postDetails.titleLabel')}
             name="title"
@@ -98,8 +91,8 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             </Form.Item>
           )}
 
-          <FormItem
-            name="body"
+          <FormItemWithAddon
+            name="description"
             label={t('newRequest.form.body')}
             rules={[
               {
@@ -113,10 +106,10 @@ const PostDetails: React.FC<PostDetailsProps> = ({
               maxLength={500}
               autoSize={{ minRows: 6, maxRows: 8 }}
             />
-          </FormItem>
+          </FormItemWithAddon>
           <CharacterLimitDiv>500 Character Limit</CharacterLimitDiv>
-        </div>
-        <ButtonsDisplay>
+        </FormElements>
+        <ButtonsContainer>
           <DisplayButton
             type="default"
             block
@@ -134,24 +127,18 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           >
             {t('next')}
           </DisplayButton>
-        </ButtonsDisplay>
-      </DetailsForm>
-    </PostDetailsWrapper>
+        </ButtonsContainer>
+      </Form>
+    </>
   );
 };
-const PostDetailsWrapper = styled.div`
+
+const FormElements = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: left;
-  padding: 16px;
   justify-content: space-between;
-  height: 100%;
-`;
+  align-content: space-between;
 
-const DetailsForm = styled(Form)`
-  width: 80%;
-  margin: 0 auto !important;
-  height: 100%;
   .ant-form-item-label {
     line-height: 14px;
   }
@@ -161,13 +148,12 @@ const DetailsForm = styled(Form)`
   }
 `;
 
-const FormItem = styled(Form.Item)`
-  margin-bottom: 0;
+const FormItemWithAddon = styled(Form.Item)`
+  margin-bottom: 5px !important;
 `;
 
 const CharacterLimitDiv = styled.div`
   font-size: 12px;
-  margin-bottom: 24px;
 `;
 
 interface PostDetailsProps {
@@ -176,6 +162,7 @@ interface PostDetailsProps {
   postTypes: string[];
   postDetails: any;
   prevHandler: () => void;
+  postTypePrefix: string;
 }
 
 export default PostDetails;

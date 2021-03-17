@@ -16,9 +16,9 @@ describe('AddressDisplay', () => {
       },
     };
 
-    const htmlElement = render(<AddressDisplay {...mockedProps} />).getByText(
-      'Address',
-    );
+    const htmlElement = render(
+      <AddressDisplay prefix="Offer" {...mockedProps} />,
+    ).getByRole('heading');
 
     expect(htmlElement).toBeInTheDocument();
   });

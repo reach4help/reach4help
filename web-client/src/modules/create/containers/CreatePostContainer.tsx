@@ -5,30 +5,40 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
 import { ProfileState } from 'src/ducks/profile/types';
-import { setRequest } from 'src/ducks/requests/actions';
-import { IRequest } from 'src/models/requests';
+import { dispatchCreatePublicOffer } from 'src/ducks/PublicOffers/actions';
+import { dispatchCreatePublicRequest } from 'src/ducks/PublicRequests/actions';
+import { IPost, Post, PostStatus } from 'src/models/posts';
 import { IUser } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
-import { MyRequestPostsLocationUrl } from 'src/modules/requests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
 
-const CreatePostContainer: React.FC = () => {
+import LocationPopup from '../components/LocationPopup';
+import { CreatePostTypes } from '../constants';
+
+const CreatePostContainer: React.FC<ICreatePostContainer> = ({
+  createPostType,
+}) => {
+  const { t } = useTranslation();
+
+  const IS_OFFER_POST = createPostType === CreatePostTypes.offer;
+  const POST_TYPE_PREFIX = IS_OFFER_POST ? t('Offer') : t('Request');
+
   const dispatch = useDispatch();
   const history = useHistory();
-  const { t } = useTranslation();
 
   const profileState = useSelector(
     ({ profile }: { profile: ProfileState }) => profile,
   );
-  const phoneNumber = useSelector(
-    (state: AppState) => state.auth.user?.phoneNumber,
-  );
+  // TODO: (es) Remove const phoneNumber = useSelector(
+  //   (state: AppState) => state.auth.user?.phoneNumber,
+  // );
   const onboarded = useSelector((state: AppState) => state.auth.onboarded);
 
   /* steps */
@@ -40,7 +50,7 @@ const CreatePostContainer: React.FC = () => {
   const getTypes = () => [t('modules.create.defaults.postDetails.type')];
   const [postDetails, setPostDetails] = useState<IPostDetails>({
     title: '',
-    body: '',
+    description: '',
     type: '',
   });
 
@@ -68,6 +78,7 @@ const CreatePostContainer: React.FC = () => {
   const [showNewAddressModal, setShowNewAddressModal] = useState<boolean>(
     false,
   );
+  const [showLocationPopup, setShowLocationPopup] = useState<boolean>(false);
   const [geocodeFailed, setGeocodeFailed] = useState<boolean>(false);
   const onGeocodeFail = () => {
     setGeocodeFailed(true);
@@ -84,7 +95,7 @@ const CreatePostContainer: React.FC = () => {
 
   /* CreatePost */
   const submitPost = () => {
-    const { title, body } = postDetails;
+    const { title, description } = postDetails;
     const {
       address1,
       address2,
@@ -94,30 +105,42 @@ const CreatePostContainer: React.FC = () => {
       country,
       coords,
     } = postLocation;
-    const newPost = {
-      title,
-      description: body,
-      type:
-        postDetails.type === 'customType'
-          ? postDetails.customType
-          : postDetails.type,
-      pinUserRef: profileState.userRef!,
-      pinUserSnapshot: profileState.profile!.toObject() as IUser,
-      streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
-      latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
-    };
-
-    // eslint-disable-next-line no-console
-    console.log('creating post', newPost, 'type', newPost.type);
-    return dispatch(setRequest(newPost as IRequest, undefined, phoneNumber));
+    if (profileState.profile) {
+      const newPost = {
+        postId: null,
+        isResponse: false,
+        requestingHelp: !IS_OFFER_POST,
+        sourcePublicPostId: null,
+        status: PostStatus.pending,
+        creatorGivenRating: 0,
+        parentCreatorGivenRating: 0,
+        updateSeenBy: [],
+        creatorRatedAt: null,
+        parentCreatorRatedAt: null,
+        positiveResponseCount: 0,
+        negativeResponseCount: 0,
+        title,
+        description,
+        userRef: profileState.userRef,
+        streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
+        latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
+        userSnapshot: profileState.profile.toObject() as IUser,
+        // TODO: (es) Why do I get an error if I change "as IPost" to "Post"
+      } as IPost;
+      const newPost2 = Post.factory(newPost);
+      return IS_OFFER_POST
+        ? dispatch(dispatchCreatePublicOffer(newPost2))
+        : dispatch(dispatchCreatePublicRequest(newPost2));
+    }
   };
+
   const cancelCreate = () => {
     history.replace(MyRequestPostsLocationUrl);
   };
 
   const postCreationSteps = [
     {
-      title: t('modules.create.stepTitles.details'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.details')}`,
       component: (
         <PostDetailsStep
           nextHandler={moveForwards}
@@ -125,31 +148,34 @@ const CreatePostContainer: React.FC = () => {
           postTypes={getTypes()}
           postDetails={postDetails}
           setPostDetails={setPostDetails}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
     {
-      title: t('modules.create.stepTitles.map'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.map')}`,
       component: (
         <PostLocationStep
           setShowNewAddressModal={setShowNewAddressModal}
+          setShowLocationPopup={setShowLocationPopup}
           nextHandler={moveForwards}
           prevHandler={moveBackwards}
-          postDetails={postDetails}
           addresses={addresses}
           postLocation={postLocation}
           setPostLocation={setPostLocation}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
     {
-      title: t('modules.create.stepTitles.summary'),
+      title: `${POST_TYPE_PREFIX} ${t('modules.create.stepTitles.summary')}`,
       component: (
         <PostSummary
           prevHandler={moveBackwards}
           postDetails={postDetails}
           postLocation={postLocation}
           submitPost={submitPost}
+          postTypePrefix={POST_TYPE_PREFIX}
         />
       ),
     },
@@ -171,14 +197,19 @@ const CreatePostContainer: React.FC = () => {
         onGeocodeFail={onGeocodeFail}
         geocodeFailed={geocodeFailed}
       />
+      <LocationPopup
+        visible={showLocationPopup}
+        closeModal={() => setShowLocationPopup(false)}
+      />
     </CreatePostContainerWrapper>
   );
 };
 
 const StepsWrapper = styled.div`
-  height: calc(100%-98px);
-  width: 100%;
-  margin: 0 auto;
+  height: calc(100% - 98px - 62px - 10px);
+  margin: 10px auto;
+  width: 80%;
+  overflow: scroll;
 `;
 
 const CreatePostContainerWrapper = styled.div`
@@ -188,9 +219,12 @@ const CreatePostContainerWrapper = styled.div`
 
 interface IPostDetails {
   title: string;
-  body: string;
+  description: string;
   type: string;
   customType?: string;
 }
 
+interface ICreatePostContainer {
+  createPostType: CreatePostTypes;
+}
 export default CreatePostContainer;
