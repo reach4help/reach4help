@@ -15,9 +15,13 @@ import { GenericPostStatus } from './GenericPostStatus';
 import { IPost } from './IPost';
 
 export class Post implements IPost {
-  responseStatus: any;
+  postRef: string;
+
+  genericStatus: GenericPostStatus;
 
   constructor(post: IPost) {
+    this.postRef = post.postRef;
+    this.genericStatus = post.genericStatus;
     this._isResponse = post.isResponse;
     this._isRequest = post.isRequest;
     this._parentRef = post.parentRef;
