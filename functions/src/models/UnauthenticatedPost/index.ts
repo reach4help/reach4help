@@ -3,7 +3,7 @@ import { Allow, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-val
 import { firestore } from 'firebase-admin';
 
 import { db } from '../../app';
-import { Post } from '../Post';
+import { Post } from '../Post/Post';
 
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
@@ -13,7 +13,7 @@ import Timestamp = firestore.Timestamp;
 
 interface IStrippedUser {
   displayName: string;
-  displayPicture: string | null;
+  displayPicture?: string | null;
 }
 
 interface ILatLngObject {
@@ -148,7 +148,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
         path,
         data.isRequest,
         {
-          displayName: data.creatorSnapshot.displayName || '',
+          displayName: data.creatorSnapshot.displayNickname || '',
           displayPicture: data.creatorSnapshot.displayPicture,
         },
         data.title,
