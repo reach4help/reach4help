@@ -1,4 +1,4 @@
 export interface IStrippedUser {
-  displayName: string;
-  displayPicture: string | null;
+  displayNickname: string;
+  displayPicture?: string | null;
 }

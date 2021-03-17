@@ -1,4 +1,4 @@
-import { IsEnum, IsString } from 'class-validator';
+import { IsEnum } from 'class-validator';
 import { firestore } from 'firebase';
 import { firebaseFirestore as db } from 'src/firebaseConfig';
 
@@ -63,10 +63,8 @@ export class GeneralPost extends Post implements IGeneralPost {
       creatorRef: db.doc(this.creatorRef),
       status: this.genericStatus,
       streetAddress: this.streetAddress,
-      participants: this.participants,
-      rejected: this.rejected,
-      createdAt: firestore.Timestamp.fromDate(this.createdAt),
-      updatedAt: firestore.Timestamp.fromDate(this.updatedAt),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
     };
   }
 
@@ -85,8 +83,6 @@ export class GeneralPost extends Post implements IGeneralPost {
       creatorRef: this.creatorRef,
       status: this.genericStatus,
       streetAddress: this.streetAddress,
-      participants: this.participants,
-      rejected: this.rejected,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
