@@ -1,223 +1,36 @@
-import {
-  IsArray,
-  IsEnum,
-  IsObject,
-  IsString,
-} from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
 import { firestore } from 'firebase';
 import { firebaseFirestore as db } from 'src/firebaseConfig';
 
-import { IUserGeneral } from '../users/IUserGeneral';
-import { IGeneralPost } from './IGeneralPost';
-import { IPost } from './IPost';
-import { Post } from './Post';
 import { GenericPostStatus } from './GenericPostStatus';
-import { UnauthenticatedPost } from './UnauthenticatedPost';
+import { IGeneralPost } from './IGeneralPost';
+import { Post } from './Post';
 
-export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
-  constructor(
-    postRef: string,
-    isRequest: boolean,
-    creatorSnapshot: IUserGeneral,
-    title: string,
-    description: string,
-    latLng: IGeneralPost['latLng'],
-    creatorRef: string,
-    status: GenericPostStatus,
-    streetAddress: string,
-    participants: string[] = [],
-    rejected: string[] = [],
-    createdAt?: Date,
-    updatedAt?: Date,
-  ) {
-    super(
-      postRef,
-      isRequest,
-      {
-        displayName: creatorSnapshot.displayName,
-        displayPicture: creatorSnapshot.displayPicture,
-      },
-      title,
-      description,
-      latLng,
-      createdAt,
-      updatedAt,
-    );
-    this._creatorSnapshotGeneral = creatorSnapshot;
-    this._creatorRef = creatorRef;
-    this._status = status;
-    this._streetAddress = streetAddress;
-    this._participants = participants;
-    this._rejected = rejected;
-  }
-
-  @IsObject()
-  private _creatorSnapshotGeneral: IUserGeneral;
-
-  get creatorSnapshot(): IUserGeneral {
-    return this._creatorSnapshotGeneral;
-  }
-
-  set creatorSnapshot(creatorSnapshot: IUserGeneral) {
-    this._creatorSnapshotGeneral = creatorSnapshot;
-  }
-
-  @IsString()
-  private _creatorRef: string;
-
-  get creatorRef(): string {
-    return this._creatorRef;
-  }
-
-  set creatorRef(creatorRef: string) {
-    this._creatorRef = creatorRef;
-  }
-
-  @IsArray()
-  private _participants: string[];
-
-  get participants(): string[] {
-    return this._participants;
-  }
-
-  set participants(participants: string[]) {
-    this._participants = participants;
-  }
-
-  public addParticipants(participant: string) {
-    if (!this._participants.includes(participant)) {
-      this._participants.push(participant);
-    }
-  }
-
-  public removeParticipant(participant: string) {
-    this._participants.splice(this._participants.indexOf(participant), 1);
-  }
-
-  @IsArray()
-  private _rejected: string[];
-
-  get rejected(): string[] {
-    return this._rejected;
-  }
-
-  set rejected(rejected: string[]) {
-    this._rejected = rejected;
-  }
-
-  public addRejection(rejection: string) {
-    if (!this._rejected.includes(rejection)) {
-      this._rejected.push(rejection);
-    }
-  }
-
-  public removeRejection(rejection: string) {
-    this._rejected.splice(this._rejected.indexOf(rejection), 1);
+export class GeneralPost extends Post implements IGeneralPost {
+  constructor(generalPost: IGeneralPost) {
+    super(generalPost);
+    this._genericPostStatus = generalPost.genericStatus;
   }
 
   @IsEnum(GenericPostStatus)
-  private _status: GenericPostStatus;
+  private _genericPostStatus: GenericPostStatus;
 
-  get status(): GenericPostStatus {
-    return this._status;
+  get genericStatus(): GenericPostStatus {
+    return this._genericPostStatus;
   }
 
-  set status(status: GenericPostStatus) {
-    this._status = status;
-  }
-
-  @IsString()
-  private _streetAddress: string;
-
-  get streetAddress(): string {
-    return this._streetAddress;
-  }
-
-  set streetAddress(streetAddress: string) {
-    this._streetAddress = streetAddress;
-  }
-
-  public static async fromPost(data: Post, path: string): Promise<GeneralPost> {
-    const responsesData = await db
-      .collection('posts')
-      .where('parentRef', '==', db.doc(path))
-      .get();
-
-    const participants = [data.creatorRef.id];
-    const rejected: string[] = [];
-
-    for (const doc of responsesData.docs) {
-      const response = Post.factory(doc.data() as IPost);
-      if (response.status === GenericPostStatus.declined) {
-        rejected.push(response.creatorRef.id);
-      } else {
-        participants.push(response.creatorRef.id);
-      }
-    }
-
-    return new GeneralPost(
-      path,
-      data.isRequest,
-      data.isResponse,
-      {
-        displayName: data.creatorSnapshot.displayName || '',
-        displayPicture: data.creatorSnapshot.displayPicture,
-      },
-      data.title,
-      data.description,
-      {
-        latitude: data.latLng.latitude,
-        longitude: data.latLng.longitude,
-      },
-      data.creatorRef.path,
-      data.status,
-      data.streetAddress,
-      participants,
-      rejected,
-      data.createdAt.toDate(),
-      data.updatedAt.toDate(),
-    );
+  set genericStatus(status: GenericPostStatus) {
+    this._genericPostStatus = status;
   }
 
   public static fromFirestore(
     data: firebase.firestore.DocumentData,
   ): GeneralPost {
-    return new GeneralPost(
-      (data.postRef as firebase.firestore.DocumentReference).path,
-      data.isRequest,
-      data.userSnapshot,
-      data.title,
-      data.description,
-      {
-        latitude: (data.latLng as firebase.firestore.GeoPoint).latitude,
-        longitude: (data.latLng as firebase.firestore.GeoPoint).longitude,
-      },
-      (data.userRef as firebase.firestore.DocumentReference).path,
-      data.status,
-      data.streetAddress,
-      data.participants,
-      data.rejected,
-      (data.createdAt as firebase.firestore.Timestamp).toDate(),
-      (data.updatedAt as firebase.firestore.Timestamp).toDate(),
-    );
+    return new GeneralPost(data as IGeneralPost);
   }
 
   public static fromAlgolia(data: Record<string, any>): GeneralPost {
-    return new GeneralPost(
-      data.postRef,
-      data.isRequest,
-      data.creatorSnapshot,
-      data.title,
-      data.description,
-      { latitude: data._geoloc.lat, longitude: data._geoloc.lng },
-      data.creatorRef,
-      data.status,
-      data.streetAddress,
-      data.participants,
-      data.rejected,
-      data.createdAt,
-      data.updatedAt,
-    );
+    return new GeneralPost(data as GeneralPost);
   }
 
   public static getObjectId(postPath: string): string {
@@ -229,39 +42,11 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
   }
 
   public static fromObject(data: IGeneralPost): GeneralPost {
-    return new GeneralPost(
-      data.postRef,
-      data.isRequest,
-      data.creatorSnapshot,
-      data.title,
-      data.description,
-      data.latLng,
-      data.creatorRef,
-      data.status,
-      data.streetAddress,
-      data.participants,
-      data.rejected,
-      data.createdAt,
-      data.updatedAt,
-    );
+    return new GeneralPost(data);
   }
 
   toObject(): IGeneralPost {
-    return {
-      postRef: this.postRef,
-      isRequest: this.isRequest,
-      creatorSnapshot: this.creatorSnapshot,
-      title: this.title,
-      description: this.description,
-      latLng: this.latLng,
-      creatorRef: this.creatorRef,
-      status: this.status,
-      streetAddress: this.streetAddress,
-      participants: this.participants,
-      rejected: this.rejected,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
-    };
+    return { ...this };
   }
 
   toFirestore(): firebase.firestore.DocumentData {
@@ -276,7 +61,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
         this.latLng.longitude,
       ),
       creatorRef: db.doc(this.creatorRef),
-      status: this.status,
+      status: this.genericStatus,
       streetAddress: this.streetAddress,
       participants: this.participants,
       rejected: this.rejected,
@@ -298,7 +83,7 @@ export class GeneralPost extends UnauthenticatedPost implements IGeneralPost {
         lng: this.latLng.longitude,
       },
       creatorRef: this.creatorRef,
-      status: this.status,
+      status: this.genericStatus,
       streetAddress: this.streetAddress,
       participants: this.participants,
       rejected: this.rejected,

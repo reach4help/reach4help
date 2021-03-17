@@ -68,7 +68,7 @@ const SettingsTopPanel: React.FC<SettingsTopPanel> = ({ user, goBack }) => {
           <ChangeAvatar displayPicture={user && user.displayPicture} />
         </Modal>
         <SettingsTopPanelDisplayName>
-          {user?.displayName}
+          {user?.displayNickname}
         </SettingsTopPanelDisplayName>
       </SettingsTopPanelUserRow>
     </SettingsTopPanelWrapper>

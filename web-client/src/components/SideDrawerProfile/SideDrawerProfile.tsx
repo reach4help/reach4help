@@ -1,7 +1,7 @@
 import { TeamOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React from 'react';
-import { User } from 'src/models/User';
+import { User } from 'src/models/users/User';
 import styled from 'styled-components';
 
 import { COLORS } from '../../theme/colors';
@@ -19,7 +19,7 @@ const SideDrawerProfile: React.FC<SideDrawerProfileProps> = ({
       style={{ objectFit: 'cover' }}
     />
     <Content>
-      <DisplayName>{profileData?.displayName}</DisplayName>
+      <DisplayName>{profileData?.displayNickname}</DisplayName>
       <Details>
         <Detail>
           {CasesCompletedIcon}

@@ -1,6 +1,6 @@
 import { Drawer } from 'antd';
 import React from 'react';
-import { User } from 'src/models/User';
+import { User } from 'src/models/users/User';
 import styled from 'styled-components';
 
 import SideBottomMenu from '../SideBottomMenu/SideBottomMenu';
@@ -13,7 +13,7 @@ const MenuDrawer: React.FC<IMenuDrawerProps> = ({
   profileData,
   logoutHandler,
 }) => {
-  const isLoggedIn = !!(profileData && profileData.displayName);
+  const isLoggedIn = !!(profileData && profileData.displayNickname);
 
   // Closes SideDrawer if user switches from mobile view
   window.onresize = closeDrawer;

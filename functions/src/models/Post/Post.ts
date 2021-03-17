@@ -1,6 +1,5 @@
 import {
   Allow,
-  IsArray,
   IsEnum,
   IsNotEmpty,
   IsNotEmptyObject,
@@ -11,39 +10,26 @@ import {
 } from 'class-validator';
 import { firestore } from 'firebase';
 
-import { User } from '../users';
-import { IPost } from './IPost';
+import { User } from '../users/User';
 import { GenericPostStatus } from './GenericPostStatus';
+import { IPost } from './IPost';
 
 export class Post implements IPost {
-  constructor(
-    isResponse = false,
-    isRequest = false,
-    parentRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null = null,
-    creatorRef: string,
-    creatorSnapshot: User,
-    title: string,
-    description: string,
-    streetAddress: string,
-    latLng: firebase.firestore.GeoPoint,
-    status: GenericPostStatus = GenericPostStatus.open,
-    createdAt = firestore.Timestamp.now(),
-    updatedAt = firestore.Timestamp.now(),
-  ) {
-    this._isResponse = isResponse;
-    this._isRequest = isRequest;
-    this._parentRef = parentRef;
-    this._creatorRef = creatorRef;
-    this._creatorSnapshot = creatorSnapshot;
-    this._title = title;
-    this._description = description;
-    this._latLng = latLng;
-    this._streetAddress = streetAddress;
-    this._status = status;
-    this._createdAt = createdAt;
-    this._updatedAt = updatedAt;
+  responseStatus: any;
+
+  constructor(post: IPost) {
+    this._isResponse = post.isResponse;
+    this._isRequest = post.isRequest;
+    this._parentRef = post.parentRef;
+    this._creatorRef = post.creatorRef;
+    this._creatorSnapshot = post.creatorSnapshot;
+    this._title = post.title;
+    this._description = post.description;
+    this._latLng = post.latLng;
+    this._streetAddress = post.streetAddress;
+    this._genericStatus = post.genericStatus;
+    this._createdAt = firestore.Timestamp.now();
+    this._updatedAt = firestore.Timestamp.now();
   }
 
   @Allow()
@@ -96,9 +82,7 @@ export class Post implements IPost {
     return this._creatorRef;
   }
 
-  set creatorRef(
-    creatorRef: string,
-  ) {
+  set creatorRef(creatorRef: string) {
     this._creatorRef = creatorRef;
   }
 
@@ -159,33 +143,14 @@ export class Post implements IPost {
   }
 
   @IsEnum(GenericPostStatus)
-  private _status: GenericPostStatus;
+  private _genericStatus: GenericPostStatus;
 
   get status(): GenericPostStatus {
-    return this._status;
+    return this._genericStatus;
   }
 
   set status(status: GenericPostStatus) {
-    this._status = status;
-  }
-
-  @IsArray()
-  private _updateSeenBy: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >[];
-
-  get updateSeenBy(): firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  >[] {
-    return this._updateSeenBy;
-  }
-
-  set updateSeenBy(
-    updateSeenBy: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    >[],
-  ) {
-    this._updateSeenBy = updateSeenBy;
+    this._genericStatus = status;
   }
 
   /* TODO: When we reach greater than 500 requests created per second:
@@ -217,20 +182,7 @@ export class Post implements IPost {
   }
 
   public static factory(data: IPost): Post {
-    return new Post(
-      data.isResponse,
-      data.isRequest,
-      data.parentRef,
-      data.creatorRef,
-      User.factory(data.creatorSnapshot),
-      data.title,
-      data.description,
-      data.streetAddress,
-      data.latLng,
-      data.status,
-      data.createdAt,
-      data.updatedAt,
-    );
+    return new Post(data);
   }
 
   toObject(): object {

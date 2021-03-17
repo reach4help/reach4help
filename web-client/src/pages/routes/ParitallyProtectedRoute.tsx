@@ -48,7 +48,11 @@ const PartiallyProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
       if (!statusDetected) {
         setStatusDetected(true);
       }
-      if (user?.uid && user.phoneNumber && profileState.profile?.displayName) {
+      if (
+        user?.uid &&
+        user.phoneNumber &&
+        profileState.profile?.displayNickname
+      ) {
         return setOnboarded(dispatch, true);
       }
       return setOnboarded(dispatch, false);

@@ -41,7 +41,7 @@ const PhoneVerifyContainer: React.FC = () => {
       {errorMessage && <Alert message={errorMessage} type="error" />}
       <TitleWithUnderline level={3}>
         {`${t('welcome')}${
-          user && user.displayName ? `, ${user.displayName}` : ''
+          user && user.displayNickname ? `, ${user.displayNickname}` : ''
         }`}
       </TitleWithUnderline>
       <PhoneNumberVerifyForm

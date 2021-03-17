@@ -1,7 +1,8 @@
-import { IUser } from '../users';
+import { IUser } from '../users/IUser';
 import { GenericPostStatus } from './GenericPostStatus';
 
 export interface IPost extends firebase.firestore.DocumentData {
+  postRef: string;
   isResponse: boolean;
   isRequest: boolean;
   creatorSnapshot: IUser;
