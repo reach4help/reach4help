@@ -18,7 +18,7 @@ export const ChangeName: React.FC<ChangeNameProps> = ({
 
   const handleCancelHandler = (): void => {
     form.setFieldsValue({
-      displayName: initialValues.displayName,
+      displayNickname: initialValues.displayNickname,
       username: initialValues.username,
     });
     cancelHandler();
@@ -26,7 +26,7 @@ export const ChangeName: React.FC<ChangeNameProps> = ({
 
   useEffect(() => {
     form.setFieldsValue({
-      displayName: initialValues.displayName,
+      displayNickname: initialValues.displayNickname,
       username: initialValues.username,
     });
   }, [form, initialValues]);
@@ -37,13 +37,13 @@ export const ChangeName: React.FC<ChangeNameProps> = ({
         layout="vertical"
         form={form}
         onFinish={values => {
-          changeNameHandler(values.displayName, values.username);
+          changeNameHandler(values.displayNickname, values.username);
         }}
       >
         <Row gutter={12}>
           <Col span={24} md={12}>
             <Form.Item
-              name="displayName"
+              name="displayNickname"
               rules={[
                 {
                   required: true,
@@ -102,7 +102,7 @@ interface ChangeNameProps {
   changeNameHandler: Function;
   cancelHandler: () => void;
   initialValues: {
-    displayName: string | null;
+    displayNickname: string | null;
     username: string | null;
   };
 }

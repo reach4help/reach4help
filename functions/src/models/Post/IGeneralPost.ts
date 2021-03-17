@@ -1,12 +1,10 @@
-import { IUserGeneral } from '../users/IUserGeneral';
-import { IUnauthenticatedPost } from './IUnauthenticatedPost';
+import { IUser } from '../users/IUser';
 import { GenericPostStatus } from './GenericPostStatus';
+import { IPost } from './IPost';
 
-export interface IGeneralPost extends IUnauthenticatedPost {
+export interface IGeneralPost extends IPost {
   creatorRef: string;
-  creatorSnapshot: IUserGeneral;
-  status: GenericPostStatus;
+  creatorSnapshot: IUser;
+  genericStatus: GenericPostStatus;
   streetAddress: string;
-  participants: string[];
-  rejected: string[];
 }

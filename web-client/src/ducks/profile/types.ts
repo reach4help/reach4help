@@ -1,5 +1,5 @@
-import { User } from 'src/models/User';
 import { PrivilegedUserInformation } from 'src/models/users/privilegedInformation';
+import { User } from 'src/models/users/User';
 import createActionTypeFactory from 'src/store/utils/createActionTypeFactory';
 
 export const { asyncType, observerType } = createActionTypeFactory('PROFILE');

@@ -4,7 +4,7 @@ import { firebaseFirestore } from 'src/firebaseConfig';
 import { GenericPostStatus } from 'src/models/posts/GenericPostStatus';
 import { Post } from 'src/models/posts/Post';
 import { PostFirestoreConverter } from 'src/models/posts/PostFirestoreConverter';
-import { User } from 'src/models/User';
+import { User } from 'src/models/users/User';
 
 export const createPost = async (postPayload: Post) => {
   const tempPost = Post.factory(postPayload);

@@ -14,7 +14,7 @@ import { GeneralPost } from 'src/models/posts/GeneralPost';
 
 const PostInfoDisplay = ({ post }: { post: GeneralPost }) => {
   const {
-    creatorSnapshot: { displayName, displayPicture },
+    creatorSnapshot: { displayNickname, displayPicture },
     description,
     title,
   } = post;
@@ -25,8 +25,8 @@ const PostInfoDisplay = ({ post }: { post: GeneralPost }) => {
   return (
     <div>
       <div style={{ display: 'flex', zIndex: 100 }}>
-        <h2> {displayName}</h2>
-        <img src={displayPicture || ''} alt={displayName} />
+        <h2> {displayNickname}</h2>
+        <img src={displayPicture || ''} alt={displayNickname} />
       </div>
       <hr />
       <h3>{title}</h3>

@@ -4,12 +4,12 @@ import {
   firebaseFunctions,
   firebaseStorage,
 } from 'src/firebaseConfig';
-import { User } from 'src/models/User';
-import { UserFirestoreConverter } from 'src/models/UserFirestoreConverter';
 import {
   PrivilegedUserInformation,
   PrivilegedUserInformationFirestoreConverter,
 } from 'src/models/users/privilegedInformation';
+import { User } from 'src/models/users/User';
+import { UserFirestoreConverter } from 'src/models/users/UserFirestoreConverter';
 
 import { IgetUserProfile } from './types';
 

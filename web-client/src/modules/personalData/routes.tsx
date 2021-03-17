@@ -76,7 +76,7 @@ const Routes = (): ReactElement => {
   if (
     profileState &&
     profileState.profile &&
-    profileState.profile.displayName
+    profileState.profile.displayNickname
   ) {
     return (
       <Redirect
