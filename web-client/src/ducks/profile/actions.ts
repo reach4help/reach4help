@@ -93,6 +93,7 @@ export const setUserProfile = (
     ),
     privacyVersion: '1.0',
   });
+
   const userPayload = User.factory({
     username: displayNickname,
     displayNickname,
