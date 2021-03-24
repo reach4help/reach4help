@@ -22,7 +22,7 @@ beforeEach(async () => {
   await firebase.clearFirestoreData({ projectId });
   const testUser = User.factory({
     username: 'new user',
-    displayName: 'newUser',
+    displayNickname: 'newUser',
     displayPicture: 'me.png',
   });
   const testPrivilegedInfo = {
@@ -82,7 +82,7 @@ describe('deleteUserData: user with post', () => {
     // create a post for new user before each test within this block
     const testUser = User.factory({
       username: 'new user',
-      displayName: 'newUser',
+      displayNickname: 'newUser',
       displayPicture: 'me.png',
     });
     const testRequest = Post.factory({

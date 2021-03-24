@@ -189,6 +189,33 @@ export class Post implements IPost {
     return new Post(data);
   }
 
+  public static async fromPost(data: Post, path: string): Promise<Post> {
+    console.log(path);
+    return Promise.resolve(new Post(data));
+  };
+
+  public static getObjectId(postPath: string): string {
+    const lastSlashPos = postPath.lastIndexOf('/');
+    return postPath.substring(lastSlashPos + 1);
+  }
+
+  toAlgolia(): object {
+    return {
+      postRef: this.postRef,
+      isRequest: this.isRequest,
+      objectID: Post.getObjectId(this.postRef),
+      creatorSnapshot: this.creatorSnapshot,
+      title: this.title,
+      description: this.description,
+      _geoloc: {
+        lat: this.latLng.latitude,
+        lng: this.latLng.longitude,
+      },
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
+  }
+
   toObject(): object {
     return {
       isResponse: this.isResponse,
