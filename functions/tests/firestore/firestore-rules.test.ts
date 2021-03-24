@@ -1,9 +1,10 @@
 import * as firebase from '@firebase/testing';
 import * as fs from 'fs';
 
-import { User, UserFirestoreConverter } from '../../src/models/users';
-import { PostFirestoreConverter } from '../../src/models/Post';
-
+import { User } from '../../src/models/users/User';
+import { UserFirestoreConverter} from '../../src/models/users/UserFirestoreConverter';
+import { PostFirestoreConverter } from '../../src/models/posts/PostFirestoreConverter';
+  
 const projectId = 'reach-4-help-test';
 
 const rules = fs.readFileSync(`${__dirname}/../../../firebase/firestore.rules`, 'utf8');
