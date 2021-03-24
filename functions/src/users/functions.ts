@@ -3,7 +3,8 @@ import { EventContext } from 'firebase-functions/lib/cloud-functions';
 import * as admin from 'firebase-admin';
 
 import { auth, db } from '../app';
-import { IUser, User } from '../models/users';
+import { IUser } from '../models/users/IUser';
+import { User } from '../models/users/User';
 
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 

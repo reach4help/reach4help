@@ -30,7 +30,7 @@ const pinUserId = uuid();
 
 const pinUser = User.factory({
   displayPicture: null,
-  displayName: 'newtestuser',
+  displayNickname: 'newtestuser',
   username: 'newtestuser',
 });
 
@@ -70,7 +70,7 @@ describe('post creation triggers', () => {
     const postRef = db.collection('posts').doc(postId);
 
     return postRef
-      .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
+      .set({ displayNickname: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
       .then(
         (): Promise<firebase.firestore.DocumentSnapshot> => {
           return postRef.get();
@@ -165,7 +165,7 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
 
     return (
       postRef
-        .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
+        .set({ displayNickname: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
             return postRef.get();
@@ -256,7 +256,7 @@ describe.skip('post creation effects on algolia authenticated post', () => {
 
     return (
       postRef
-        .set({ displayName: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
+        .set({ displayNickname: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
             return postRef.get();

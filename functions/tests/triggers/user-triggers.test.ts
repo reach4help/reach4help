@@ -31,7 +31,7 @@ describe('user triggers', () => {
     const userRef = db.collection('users').doc('user1');
 
     return userRef
-      .set({ displayName: 'fsdfs' })
+      .set({ displayNickname: 'fsdfs' })
       .then(
         (): Promise<firebase.firestore.DocumentSnapshot> => {
           return userRef.get();

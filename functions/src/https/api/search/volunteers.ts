@@ -2,7 +2,8 @@ import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
 import { db } from '../../../app';
-import { IUser, User } from '../../../models/users';
+import { IUser } from '../../../models/users/IUser';
+import { User } from '../../../models/users/User';
 import { IPrivilegedUserInformation, PrivilegedUserInformation } from '../../../models/users/privilegedInformation';
 
 export const getNearbyVolunteers = functions.https.onCall(async (data, context) => {

@@ -63,7 +63,7 @@ export class ResponsePost extends Post implements IResponsePost {
         this.latLng.latitude,
         this.latLng.longitude,
       ),
-      creatorRef: db.doc(this.creatorRef),
+      creatorRef: this.creatorRef,
       status: this.responseStatus,
       streetAddress: this.streetAddress,
       createdAt: this.createdAt,

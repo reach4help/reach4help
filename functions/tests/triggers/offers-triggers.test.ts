@@ -29,7 +29,7 @@ const pinUserId = uuid();
 
 const pinUser = User.factory({
   displayPicture: null,
-  displayName: 'newtestuser',
+  displayNickname: 'newtestuser',
   username: 'newtestuser',
 });
 
@@ -37,7 +37,7 @@ const cavUserId = uuid();
 
 const cavUser = User.factory({
   displayPicture: null,
-  displayName: 'newTestCavUser',
+  displayNickname: 'newTestCavUser',
   username: 'newTestCavUser',
 });
 
@@ -113,7 +113,9 @@ describe('post creation triggers', () => {
             },
           });
         })
-        .then((): Promise<void> => postRef.set({ displayName: 'sgsdg', cavUserSnapshot: cavUser.toObject(), pinUserSnapshot: pinUser.toObject() }))
+        .then(
+          (): Promise<void> => postRef.set({ displayNickname: 'sgsdg', cavUserSnapshot: cavUser.toObject(), pinUserSnapshot: pinUser.toObject() }),
+        )
         // .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)))
         .then((): Promise<firebase.firestore.DocumentSnapshot> => postRef.get())
         .then(snap => {
@@ -280,7 +282,7 @@ describe('post creation trigger effects on algolia authenticated index', () => {
         .then(
           (): Promise<void> =>
             postRef.set({
-              displayName: 'sgsdg',
+              displayNickname: 'sgsdg',
               cavUserSnapshot: cavUser.toObject(),
               pinUserSnapshot: pinUser.toObject(),
               postRef: postRef.id,

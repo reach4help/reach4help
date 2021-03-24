@@ -37,7 +37,7 @@ const pinUserId = uuid();
 
 const pinUser = User.factory({
   displayPicture: null,
-  displayName: 'newtestuser',
+  displayNickname: 'newtestuser',
   username: 'newtestuser',
 });
 

@@ -8,7 +8,7 @@ describe('user validation', () => {
       casesCompleted: 0,
       postsMade: 0,
       username: 'TestUser',
-      displayName: null,
+      displayNickname: null,
       displayPicture: null,
     });
 
@@ -26,7 +26,7 @@ describe('user validation', () => {
       casesCompleted: 0,
       postsMade: -1,
       username: 'TestUser',
-      displayName: null,
+      displayNickname: null,
       displayPicture: null,
     });
 
