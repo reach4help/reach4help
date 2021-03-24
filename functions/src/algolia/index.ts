@@ -1,10 +1,10 @@
 import * as functions from 'firebase-functions';
 import algolia from 'algoliasearch';
 
-import { Post } from '../models/Post/Post';
-import { GenericPostStatus } from '../models/Post/GenericPostStatus';
+import { Post } from '../models/posts/Post';
+import { GenericPostStatus } from '../models/posts/GenericPostStatus';
 import { UnauthenticatedPost } from '../models/UnauthenticatedPost';
-import { GeneralPost } from '../models/Post/GeneralPost';
+import { GeneralPost } from '../models/posts/GeneralPost';
 
 const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
@@ -70,7 +70,7 @@ export const reflectResponseInPost = async (response: Post) => {
   const algoliaUpdateDoc: Record<string, any> = {
     [response.status === GenericPostStatus.pending ? 'participants' : 'rejected']: {
       _operation: 'AddUnique',
-      value: GeneralPost.getParticipantId(response.creatorRef.path),
+      value: GeneralPost.getObjectId(response.creatorRef),
     },
     objectID: algoliaObjectId,
   };

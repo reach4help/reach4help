@@ -108,17 +108,7 @@ export class PrivilegedUserInformation implements IPrivilegedUserInformation {
 
   toObject(): object {
     return {
-      addresses: Object.values(this.addresses).reduce(
-        (accum, address) => ({
-          ...accum,
-          [address.name]: Object.keys(address).reduce(
-            (acc, key) =>
-              address[key] ? { ...acc, [key]: address[key] } : acc,
-            {},
-          ),
-        }),
-        {},
-      ),
+      addresses: this.addresses,
       privacyAccepted: this.privacyAccepted,
       privacyVersion: this.privacyVersion,
       termsAccepted: this.termsAccepted,

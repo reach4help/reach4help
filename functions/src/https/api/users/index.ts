@@ -2,7 +2,8 @@ import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 
 import { auth, db } from '../../../app';
-import { IUser, User } from '../../../models/users';
+import { IUser } from '../../../models/users/IUser';
+import { User } from '../../../models/users/User';
 
 const deleteQueryBatch = async (query: firestore.Query, resolve: Function) => {
   const querySnapshot = await query.get();
@@ -66,7 +67,7 @@ export const deleteUserData = functions.https.onCall(async (data, context) => {
     const userRef = db.collection('users').doc(userId);
     const deletedUser = User.factory((await userRef.get()).data() as IUser);
     deletedUser.displayPicture = null;
-    deletedUser.displayName = 'Deleted User';
+    deletedUser.displayNickname = 'Deleted User';
     deletedUser.username = 'deleteduser';
 
     // ** TODO: (es) delete posts instead

@@ -3,23 +3,15 @@ import { Allow, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-val
 import { firestore } from 'firebase-admin';
 
 import { db } from '../../app';
-import { Post } from '../Post/Post';
+import { Post } from '../posts/Post';
+import { IStrippedUser } from '../users/IStrippedUser';
+import { ILatLngObject } from '../posts/ILatLngObject';
 
 import DocumentData = firestore.DocumentData;
 import DocumentReference = firestore.DocumentReference;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
-
-interface IStrippedUser {
-  displayName: string;
-  displayPicture?: string | null;
-}
-
-interface ILatLngObject {
-  latitude: number;
-  longitude: number;
-}
 
 export interface IUnauthenticatedPost {
   postRef: string;
@@ -148,7 +140,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
         path,
         data.isRequest,
         {
-          displayName: data.creatorSnapshot.displayNickname || '',
+          displayNickname: data.creatorSnapshot.displayNickname || '',
           displayPicture: data.creatorSnapshot.displayPicture,
         },
         data.title,

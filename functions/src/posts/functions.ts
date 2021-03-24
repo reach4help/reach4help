@@ -4,7 +4,8 @@ import { Change, EventContext } from 'firebase-functions/lib/cloud-functions';
 
 import { indexGeneralPost, indexUnauthenticatedPost, reflectResponseInPost } from '../algolia';
 import { db } from '../app';
-import { IPost, Post } from '../models/Post';
+import { IPost } from '../models/posts/IPost';
+import { Post } from '../models/posts/Post';
 import DocumentSnapshot = admin.firestore.DocumentSnapshot;
 
 // TODO: ** (es) what is poiont of below?
@@ -76,7 +77,7 @@ export const updatePost = (change: Change<DocumentSnapshot>, context: EventConte
         postAfter &&
         // No need to execute update trigger if the user's account was deleted
         ((postBefore?.status === postAfter?.status &&
-          (postAfter?.creatorSnapshot.displayName === 'Deleted User')))
+          (postAfter?.creatorSnapshot.displayNickname === 'Deleted User')))
       ) {
         return;
       }

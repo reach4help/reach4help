@@ -4,4 +4,4 @@ import { onCreate } from './functions';
 
 export const triggerEventsWhenUserIsCreated = functions.firestore.document('users/{userId}').onCreate(onCreate);
 
-export * from './privilegedInformation';
+export * from '../models/users/privilegedInformation';
