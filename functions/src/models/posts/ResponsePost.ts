@@ -1,4 +1,5 @@
 import { firestore } from 'firebase';
+
 // import { firebaseFirestore as db } from 'src/firebaseConfig';
 import { IResponsePost } from './IResponsePost';
 import { Post } from './Post';

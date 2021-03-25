@@ -7,12 +7,11 @@ export interface IPost extends firebase.firestore.DocumentData {
   isRequest: boolean;
   creatorRef: string;
   creatorSnapshot: IUser;
-  genericStatus: GenericPostStatus;
+  postStatus: GenericPostStatus;
   title: string;
   description: string;
   streetAddress: string;
   latLng: firebase.firestore.GeoPoint;
-  status: GenericPostStatus;
   createdAt?: firebase.firestore.Timestamp;
   updatedAt?: firebase.firestore.Timestamp;
 }
