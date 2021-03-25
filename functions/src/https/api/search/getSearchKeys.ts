@@ -10,6 +10,7 @@ import {
 
 export interface IgetSearchKeyReturn {
   isAuthenticated: boolean;
+  appId: string;
   searchKey: string;
   indexName: string;
 }

@@ -6,7 +6,7 @@ import { GenericPostStatus } from '../models/posts/GenericPostStatus';
 import { UnauthenticatedPost } from '../models/UnauthenticatedPost';
 import { GeneralPost } from '../models/posts/GeneralPost';
 
-const ALGOLIA_ID = functions.config().algolia.id;
+export const ALGOLIA_ID = functions.config().algolia.id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
 const ALGOLIA_SEARCH_ONLY_KEY = functions.config().algolia.search_only_key;
 export const ALGOLIA_UNAUTHENTICATEDPOSTS_INDEX = functions.config().algolia.unauthenticated_posts_index;
