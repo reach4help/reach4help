@@ -3,9 +3,9 @@ import * as Test from 'firebase-functions-test';
 import * as fs from 'fs';
 import { v4 as uuid } from 'uuid';
 
-import { triggerEventsWhenRequestIsCreated } from '../../src/posts';
+import { triggerEventsWhenPostIsCreated } from '../../src/posts';
 import { removeObjectFromIndices, retrieveObjectFromIndex } from '../../src/algolia';
-import { User } from '../../src/models/users';
+import { User } from '../../src/models/users/User';
 
 const projectId = 'reach-4-help-test';
 
@@ -78,7 +78,7 @@ describe('post creation triggers', () => {
       )
       .then(snap => {
         // Execute the trigger on the post object on firestore
-        return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+        return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
           params: {
             userId: pinUserId,
             postId: postRef.id,
@@ -133,7 +133,7 @@ describe('post creation triggers', () => {
   //     .then(snap => {
   //       // Execute the trigger on the post object on firestore
   //       console.log('executing post triggers');
-  //       return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+  //       return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
   //         params: {
   //           userId: pinUserId,
   //           postId: postRef.id,
@@ -173,7 +173,7 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
         )
         .then(snap => {
           // Execute the trigger on the post object on firestore
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+          return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
               postId: postRef.id,
@@ -223,7 +223,7 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
         )
         .then(snap => {
           // Execute the trigger on the post object on firestore
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+          return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
               postId: postRef.id,
@@ -264,7 +264,7 @@ describe.skip('post creation effects on algolia authenticated post', () => {
         )
         .then(snap => {
           // Execute the trigger on the post object on firestore
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+          return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
               postId: postRef.id,
@@ -320,7 +320,7 @@ describe.skip('post creation effects on algolia authenticated post', () => {
         )
         .then(snap => {
           // Execute the trigger on the post object on firestore
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+          return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
               postId: postRef.id,

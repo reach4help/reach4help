@@ -76,8 +76,7 @@ export const updatePost = (change: Change<DocumentSnapshot>, context: EventConte
         postBefore &&
         postAfter &&
         // No need to execute update trigger if the user's account was deleted
-        ((postBefore?.status === postAfter?.status &&
-          (postAfter?.creatorSnapshot.displayNickname === 'Deleted User')))
+        postBefore?.postStatus === postAfter?.postStatus && postAfter?.creatorSnapshot.displayNickname === 'Deleted User'
       ) {
         return;
       }

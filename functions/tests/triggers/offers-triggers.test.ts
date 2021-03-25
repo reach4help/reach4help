@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import { v4 as uuid } from 'uuid';
 
 import { removeObjectFromIndices, retrieveObjectFromIndex } from '../../src/algolia';
-import { triggerEventsWhenRequestIsCreated } from '../../src/posts';
+import { triggerEventsWhenPostIsCreated } from '../../src/posts';
 
 const projectId = 'reach-4-help-test';
 
@@ -106,7 +106,7 @@ describe('post creation triggers', () => {
         )
         .then(snap => {
           // We need to execute post triggers to put data into algolia
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+          return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
               postId: postRef.id,
@@ -178,7 +178,7 @@ describe('post creation triggers', () => {
         .then(snap => {
           // We need to execute post triggers to put data into algolia
           console.log('triggering post');
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+          return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
               postId: postRef.id,
@@ -272,7 +272,7 @@ describe('post creation trigger effects on algolia authenticated index', () => {
         )
         .then(snap => {
           // We need to execute post triggers to put data into algolia
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+          return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
               postId: postRef.id,
@@ -351,7 +351,7 @@ describe('post creation trigger effects on algolia authenticated index', () => {
         )
         .then(snap => {
           // We need to execute post triggers to put data into algolia
-          return test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+          return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
               postId: postRef.id,

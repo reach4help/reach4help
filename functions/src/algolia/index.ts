@@ -65,10 +65,10 @@ export const indexGeneralPost = async (post: Post, path: string) => {
  * @param response: The instance of Post class with isResponse as true
  */
 export const reflectResponseInPost = async (response: Post) => {
-  const algoliaObjectId = GeneralPost.getObjectId(response.parentRef!.path);
+  const algoliaObjectId = GeneralPost.getObjectId(response.parentRef);
 
   const algoliaUpdateDoc: Record<string, any> = {
-    [response.status === GenericPostStatus.pending ? 'participants' : 'rejected']: {
+    [response.postStatus === GenericPostStatus.pending ? 'participants' : 'rejected']: {
       _operation: 'AddUnique',
       value: GeneralPost.getObjectId(response.creatorRef),
     },

@@ -1,198 +1,61 @@
-import {
-  Allow,
-  IsEnum,
-  IsNotEmpty,
-  IsNotEmptyObject,
-  IsObject,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-import { firestore } from 'firebase';
+import { IUser } from '../users/IUser';
 
-import { User } from '../users/User';
 import { GenericPostStatus } from './GenericPostStatus';
 import { IPost } from './IPost';
+import firebase = require('firebase');
 
 export class Post implements IPost {
   postRef: string;
 
-  genericStatus: GenericPostStatus;
+  postStatus: GenericPostStatus;
+
+  isResponse: boolean;
+
+  isRequest: boolean;
+
+  parentRef: string;
+
+  creatorRef: string;
+
+  creatorSnapshot: IUser;
+
+  title: string;
+
+  description: string;
+
+  latLng: firebase.firestore.GeoPoint;
+
+  streetAddress: string;
+
+  createdAt?: firebase.firestore.Timestamp | undefined;
+
+  updatedAt?: firebase.firestore.Timestamp | undefined;
 
   constructor(post: IPost) {
     this.postRef = post.postRef;
-    this.genericStatus = post.genericStatus;
-    this._isResponse = post.isResponse;
-    this._isRequest = post.isRequest;
-    this._parentRef = post.parentRef;
-    this._creatorRef = post.creatorRef;
-    this._creatorSnapshot = post.creatorSnapshot;
-    this._title = post.title;
-    this._description = post.description;
-    this._latLng = post.latLng;
-    this._streetAddress = post.streetAddress;
-    this._genericStatus = post.genericStatus;
-    this._createdAt = firestore.Timestamp.now();
-    this._updatedAt = firestore.Timestamp.now();
-  }
-
-  @Allow()
-  @IsOptional()
-  private _isResponse: boolean;
-
-  get isResponse(): boolean {
-    return this._isResponse;
-  }
-
-  set isResponse(isResponse: boolean) {
-    this._isResponse = isResponse;
-  }
-
-  @Allow()
-  private _isRequest: boolean;
-
-  get isRequest(): boolean {
-    return this._isRequest;
-  }
-
-  set isRequest(isRequest: boolean) {
-    this._isRequest = isRequest;
-  }
-
-  @Allow()
-  @IsOptional()
-  private _parentRef: firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null;
-
-  get parentRef(): firebase.firestore.DocumentReference<
-    firebase.firestore.DocumentData
-  > | null {
-    return this._parentRef;
-  }
-
-  set parentRef(
-    parentRef: firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    > | null,
-  ) {
-    this._parentRef = parentRef;
-  }
-
-  @IsNotEmptyObject()
-  private _creatorRef: string;
-
-  get creatorRef(): string {
-    return this._creatorRef;
-  }
-
-  set creatorRef(creatorRef: string) {
-    this._creatorRef = creatorRef;
-  }
-
-  @ValidateNested()
-  private _creatorSnapshot: User;
-
-  get creatorSnapshot(): User {
-    return this._creatorSnapshot;
-  }
-
-  set creatorSnapshot(creatorSnapshot: User) {
-    this._creatorSnapshot = creatorSnapshot;
-  }
-
-  @IsString()
-  @IsNotEmpty()
-  private _title: string;
-
-  get title(): string {
-    return this._title;
-  }
-
-  set title(value: string) {
-    this._title = value;
-  }
-
-  @IsString()
-  private _description: string;
-
-  get description(): string {
-    return this._description;
-  }
-
-  set description(value: string) {
-    this._description = value;
-  }
-
-  @IsString()
-  private _streetAddress: string;
-
-  get streetAddress(): string {
-    return this._streetAddress;
-  }
-
-  set streetAddress(value: string) {
-    this._streetAddress = value;
-  }
-
-  @IsObject()
-  private _latLng: firebase.firestore.GeoPoint;
-
-  get latLng(): firebase.firestore.GeoPoint {
-    return this._latLng;
-  }
-
-  set latLng(value: firebase.firestore.GeoPoint) {
-    this._latLng = value;
-  }
-
-  @IsEnum(GenericPostStatus)
-  private _genericStatus: GenericPostStatus;
-
-  get status(): GenericPostStatus {
-    return this._genericStatus;
-  }
-
-  set status(status: GenericPostStatus) {
-    this._genericStatus = status;
-  }
-
-  /* TODO: When we reach greater than 500 requests created per second:
-       https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
-     */
-  @IsObject()
-  private _createdAt: firebase.firestore.Timestamp;
-
-  get createdAt(): firebase.firestore.Timestamp {
-    return this._createdAt;
-  }
-
-  set createdAt(value: firebase.firestore.Timestamp) {
-    this._createdAt = value;
-  }
-
-  /* TODO: When we reach greater than 500 requests updated per second:
-       https://firebase.google.com/docs/firestore/solutions/shard-timestamp#sharding_a_timestamp_field
-     */
-  @IsObject()
-  private _updatedAt: firebase.firestore.Timestamp;
-
-  get updatedAt(): firebase.firestore.Timestamp {
-    return this._updatedAt;
-  }
-
-  set updatedAt(value: firebase.firestore.Timestamp) {
-    this._updatedAt = value;
+    this.postStatus = post.postStatus;
+    this.isResponse = post.isResponse;
+    this.isRequest = post.isRequest;
+    this.parentRef = post.parentRef;
+    this.creatorRef = post.creatorRef;
+    this.creatorSnapshot = post.creatorSnapshot;
+    this.title = post.title;
+    this.description = post.description;
+    this.latLng = post.latLng;
+    this.streetAddress = post.streetAddress;
+    this.postStatus = post.postStatus;
+    // this._createdAt = firebase.firestore.Timestamp.now();
+    // this._updatedAt = firebase.firestore.Timestamp.now();
   }
 
   public static factory(data: IPost): Post {
     return new Post(data);
   }
 
-  public static async fromPost(data: Post, path: string): Promise<Post> {
+  public static async fromPost(data: IPost, path: string): Promise<Post> {
     console.log(path);
     return Promise.resolve(new Post(data));
-  };
+  }
 
   public static getObjectId(postPath: string): string {
     const lastSlashPos = postPath.lastIndexOf('/');
@@ -227,7 +90,7 @@ export class Post implements IPost {
       description: this.description,
       streetAddress: this.streetAddress,
       latLng: this.latLng,
-      status: this.status,
+      postStatus: this.postStatus,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

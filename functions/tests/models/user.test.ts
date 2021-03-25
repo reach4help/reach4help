@@ -1,6 +1,6 @@
 import { validateOrReject } from 'class-validator';
 
-import { User } from '../../src/models/users';
+import { User } from '../../src/models/users/User';
 
 describe('user validation', () => {
   it('fails when you pass it negative average ', () => {

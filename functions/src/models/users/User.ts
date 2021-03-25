@@ -2,7 +2,7 @@ import { firestore } from 'firebase';
 
 import { IUser } from './IUser';
 
-// TODO: [REFACTOR] Remove IUser 
+// TODO: [REFACTOR] Remove IUser
 export class User implements IUser {
   casesCompleted: number;
 
@@ -34,14 +34,7 @@ export class User implements IUser {
   }
 
   static factory = (data: IUser): User =>
-    new User(
-      data.username,
-      data.casesCompleted,
-      data.postsMade,
-      data.displayNickname,
-      data.displayPicture,
-      data.createdAt,
-    );
+    new User(data.username, data.casesCompleted, data.postsMade, data.displayNickname, data.displayPicture, data.createdAt);
 
   toObject = (): object => ({
     username: this.username,

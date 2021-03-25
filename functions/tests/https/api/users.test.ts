@@ -3,8 +3,12 @@ import { firestore } from 'firebase-admin';
 import * as Test from 'firebase-functions-test';
 
 import { deleteUserData as deleteUserDataFunc } from '../../../src/https/api/users';
-import { GenericPostStatus, Post, PostFirestoreConverter } from '../../../src/models/Post';
-import { User, UserFirestoreConverter } from '../../../src/models/users';
+import { GenericPostStatus } from '../../../src/models/posts/GenericPostStatus';
+import { Post } from '../../../src/models/posts/Post';
+import { PostFirestoreConverter } from '../../../src/models/posts/PostFirestoreConverter';
+
+import { User } from '../../../src/models/users/User';
+import { UserFirestoreConverter } from '../../../src/models/users/UserFirestoreConverter';
 
 const projectId = 'reach-4-help-test';
 
