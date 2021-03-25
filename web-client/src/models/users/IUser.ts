@@ -5,5 +5,5 @@ export interface IUser extends firebase.firestore.DocumentData {
   displayNickname?: string | null;
   displayPicture?: string | null;
   createdAt?: firebase.firestore.Timestamp;
-  toObject?: () => object;
+  toObject: () => object;
 }

@@ -1,8 +1,6 @@
 import { IUser } from '../users/IUser';
-
 import { GenericPostStatus } from './GenericPostStatus';
 import { IPost } from './IPost';
-import firebase = require('firebase');
 
 export class Post implements IPost {
   postRef: string;
@@ -52,9 +50,9 @@ export class Post implements IPost {
     return new Post(data);
   }
 
+  // TODO: Get rid of path
   public static async fromPost(data: IPost, path: string): Promise<Post> {
-    console.log(path);
-    return Promise.resolve(new Post(data));
+    return path ? Promise.resolve(new Post(data)) : new Post(data);
   }
 
   public static getObjectId(postPath: string): string {
