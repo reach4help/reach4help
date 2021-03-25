@@ -40,15 +40,9 @@ const SideTopMenu: React.FC<{
   const { t } = useTranslation();
 
   const SideTopMenuStyle = styled('div')`
-<<<<<<< HEAD
   margin-top: 5rem;
   // margin-top: ${!isLoggedIn ? '40px' : '100px'};
   // flex: .65;
-=======
-  margin-top: 100px;
-  // margin-top: ${!isLoggedIn ? '40px' : '100px'};
-  flex: .5;
->>>>>>> 2a55c2d1... made create new in side menu appaer to non logged users
   display: flex;
   flex-direction: column;
   margin-left: 2rem;
@@ -198,7 +192,6 @@ const StyledLink = styled(Link)`
 `;
 
 const LanguageSelectorContainer = styled.div`
-<<<<<<< HEAD
   display: flex;
   position: relative;
   // bottom: 10%;
@@ -206,11 +199,6 @@ const LanguageSelectorContainer = styled.div`
   & {
     color: green;
   }
-=======
-  font-size: 24px;
-  font-weight: 700;
-  margin-left: 0.8rem;
->>>>>>> 2a55c2d1... made create new in side menu appaer to non logged users
 `;
 
 export default SideTopMenu;
