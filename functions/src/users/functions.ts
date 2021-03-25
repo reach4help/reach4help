@@ -31,14 +31,13 @@ export const setIsUserCav = (userId: string, status: boolean): Promise<void> => 
 };
 
 export const onCreate = (snapshot: DocumentSnapshot, context: EventContext) => {
-  return validateUser(snapshot.data() as IUser)
-    .catch(() => {
-      return db
-        .collection('users')
-        .doc(context.params.userId)
-        .delete()
-        .catch(() => {
-          return Promise.resolve();
-        });
-    });
+  return validateUser(snapshot.data() as IUser).catch(() => {
+    return db
+      .collection('users')
+      .doc(context.params.userId)
+      .delete()
+      .catch(() => {
+        return Promise.resolve();
+      });
+  });
 };

@@ -139,7 +139,7 @@ describe.skip('Authenticated users to find posts', () => {
     await postRef.set(newRequest.toObject());
     const snap = await postRef.get();
     // Execute the trigger on the post object on firestore
-    await test.wrap(triggerEventsWhenRequestIsCreated)(snap, {
+    await test.wrap(triggerEventsWhenPostIsCreated)(snap, {
       params: {
         userId: pinUserId,
         postId: postRef.id,
