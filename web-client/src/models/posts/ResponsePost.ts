@@ -1,6 +1,6 @@
 import { firestore } from 'firebase';
-import { firebaseFirestore as db } from 'src/firebaseConfig';
 
+// import { firebaseFirestore as db } from 'src/firebaseConfig';
 import { IResponsePost } from './IResponsePost';
 import { Post } from './Post';
 import { ResponsePostStatus } from './ResponsePostStatus';
@@ -23,14 +23,6 @@ export class ResponsePost extends Post implements IResponsePost {
 
   public static fromAlgolia(data: Record<string, any>): ResponsePost {
     return new ResponsePost(data as IResponsePost);
-  }
-
-  public static getObjectId(postPath: string): string {
-    return db.doc(postPath).id;
-  }
-
-  public static getObjectId(userPath: string): string {
-    return db.doc(userPath).id;
   }
 
   public static fromObject(data: IResponsePost): ResponsePost {
