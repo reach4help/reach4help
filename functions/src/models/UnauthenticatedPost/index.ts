@@ -149,8 +149,8 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
           latitude: data.latLng.latitude,
           longitude: data.latLng.longitude,
         },
-        data.createdAt.toDate(),
-        data.updatedAt.toDate(),
+        data.createdAt?.toDate(),
+        data.updatedAt?.toDate(),
       ),
     );
   }

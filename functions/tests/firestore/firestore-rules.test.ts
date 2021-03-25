@@ -2,9 +2,9 @@ import * as firebase from '@firebase/testing';
 import * as fs from 'fs';
 
 import { User } from '../../src/models/users/User';
-import { UserFirestoreConverter} from '../../src/models/users/UserFirestoreConverter';
+import { UserFirestoreConverter } from '../../src/models/users/UserFirestoreConverter';
 import { PostFirestoreConverter } from '../../src/models/posts/PostFirestoreConverter';
-  
+
 const projectId = 'reach-4-help-test';
 
 const rules = fs.readFileSync(`${__dirname}/../../../firebase/firestore.rules`, 'utf8');
@@ -224,44 +224,9 @@ describe('posts', () => {
 });
 
 describe('posts', () => {
-  const createData = async () => {
-    const db = adminApp();
-
-    const user = User.factory({ username: 'pin-1' });
-    const userRef = db.collection('users').doc('pin-1');
-    await firebase.assertSucceeds(userRef.withConverter(UserFirestoreConverter).set(user));
-  };
-
   it('require users to log in before listing posts', async () => {
     const db = authedApp();
     const posts = db.collection('posts');
     await firebase.assertFails(posts.get());
-  });
-
-  it('only pins and cavs can see posts', async () => {
-    await createData();
-    const dbCav1 = authedApp({ uid: 'cav-1', cav: true });
-    const dbPin2 = authedApp({ uid: 'pin-2', pin: true });
-    // const dbUser = authedApp({ uid: 'user-1' });
-
-    await firebase.assertSucceeds(
-      dbCav1
-        .collection('posts')
-        .withConverter(PostFirestoreConverter)
-        .get(),
-    );
-    await firebase.assertSucceeds(
-      dbPin2
-        .collection('posts')
-        .withConverter(PostFirestoreConverter)
-        .get(),
-    );
-    // TODO: Re-enable once we finish the feature in the frontend for refreshing token
-    // await firebase.assertFails(
-    //   dbUser
-    //     .collection('posts')
-    //     .withConverter(RequestFirestoreConverter)
-    //     .get(),
-    // );
   });
 });
