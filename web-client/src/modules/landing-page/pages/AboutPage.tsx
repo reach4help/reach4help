@@ -129,7 +129,6 @@ const AboutPage: React.FC = (): JSX.Element => (
     </MiddleSection>
 
     {fetchingteams()}
-
     <MiddleSection>
       <JoinContainer>
         <h3>Interested in joining us?</h3> <br />
