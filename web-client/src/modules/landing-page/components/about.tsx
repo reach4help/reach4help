@@ -22,14 +22,6 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Button = styled.button`
-  height: 35px;
-  width: 105px;
-  border-radius: 4px;
-  margin: 10px;
-  cursor: pointer;
-`;
-
 // ----------------------------------------------- //
 
 export const TopSection = styled(Container)`
@@ -121,12 +113,6 @@ export const TeamImageContainer = styled(Container)`
   .ant-card {
     min-width: 0%;
   }
-`;
-
-export const TeamImageContainer = styled(Container)`
-  padding: 30px 0;
-  width: 100 vh;
-  overflow-x: auto;
 `;
 
 export const JoinContainer = styled(TeamContainer)`

@@ -20,7 +20,6 @@ import {
   TeamTitle,
   TopSection,
 } from '../components/about';
-// import * as contributors from '../components/contributors';
 import { Footer, FooterLine, FooterLogo, Root } from '../components/figma';
 
 const dynamicColor = (teamName: string) => {
@@ -127,8 +126,8 @@ const AboutPage: React.FC = (): JSX.Element => (
         </p>
       </TeamContainer>
     </MiddleSection>
-
     {fetchingteams()}
+    <br />
     <MiddleSection>
       <JoinContainer>
         <h3>Interested in joining us?</h3> <br />

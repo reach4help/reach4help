@@ -44,7 +44,7 @@ export const observePosts = (
   );
 
   if (userRef) {
-    filter = filter.where('userRef', '==', userRef);
+    filter = filter.where('creatorRef', '==', userRef);
   }
 
   if (isDefined(isRequest)) {
