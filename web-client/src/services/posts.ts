@@ -1,7 +1,6 @@
 import { isDefined } from 'class-validator';
 import { firestore as firestoreNamespace } from 'firebase';
 import { firebaseFirestore } from 'src/firebaseConfig';
-import { GenericPostStatus } from 'src/models/posts/GenericPostStatus';
 import { Post } from 'src/models/posts/Post';
 import { PostFirestoreConverter } from 'src/models/posts/PostFirestoreConverter';
 import { User } from 'src/models/users/User';
@@ -56,19 +55,7 @@ export const observePosts = (
   }
 
   if (status) {
-    const statusArray: string[] = [];
-    if (status === 'Open' || status === 'Active') {
-      statusArray.push(GenericPostStatus.ongoing);
-      statusArray.push(GenericPostStatus.pending);
-      statusArray.push(GenericPostStatus.open);
-      statusArray.push(GenericPostStatus.active);
-    }
-    if (status === 'Closed') {
-      statusArray.push(GenericPostStatus.completed);
-      statusArray.push(GenericPostStatus.closed);
-      statusArray.push(GenericPostStatus.removed);
-    }
-    filter = filter.where('status', 'in', statusArray);
+    filter = filter.where('status', '==', status);
   }
 
   return filter
