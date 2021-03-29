@@ -1,4 +1,4 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 
 import { IUser } from './IUser';
 
@@ -6,7 +6,7 @@ import { IUser } from './IUser';
 export class User implements IUser {
   casesCompleted: number;
 
-  createdAt: firestore.Timestamp;
+  createdAt: firebase.firestore.Timestamp;
 
   displayNickname: string | null;
 
@@ -22,7 +22,7 @@ export class User implements IUser {
     postsMade = 0,
     displayNickname: string | null = null,
     displayPicture: string | null = null,
-    createdAt = firestore.Timestamp.now(),
+    createdAt = firebase.firestore.Timestamp.now(),
   ) {
     this.postsMade = postsMade;
     this.username = username;

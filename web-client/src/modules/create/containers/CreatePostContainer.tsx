@@ -1,4 +1,4 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,9 +7,9 @@ import StepTracker from 'src/components/StepTracker/StepTracker';
 import { createOffer } from 'src/ducks/MyOffers/actions';
 import { createRequest } from 'src/ducks/MyRequests/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { IUser } from 'src/models/IUser';
 import { GenericPostStatus } from 'src/models/posts/GenericPostStatus';
 import { IPost } from 'src/models/posts/IPost';
+import { IUser } from 'src/models/users/IUser';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
@@ -64,7 +64,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
     state: '',
     postalCode: '',
     country: '',
-    coords: new firestore.GeoPoint(0, 0),
+    coords: new firebase.firestore.GeoPoint(0, 0),
   };
   const addresses = useSelector(
     (state: AppState) => state.profile.privilegedInformation?.addresses,

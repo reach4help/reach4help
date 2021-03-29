@@ -1,4 +1,4 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 import { firebaseFirestore as db } from 'src/firebaseConfig';
 import { PrivilegedUserInformation } from 'src/models/users/privilegedInformation';
 import { User } from 'src/models/users/User';

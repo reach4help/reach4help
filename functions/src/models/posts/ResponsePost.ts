@@ -1,4 +1,4 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 
 // import { firebaseFirestore as db } from 'src/firebaseConfig';
 import { IResponsePost } from './IResponsePost';
@@ -38,7 +38,7 @@ export class ResponsePost extends Post implements IResponsePost {
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
-      latLng: new firestore.GeoPoint(this.latLng.latitude, this.latLng.longitude),
+      latLng: new firebase.firestore.GeoPoint(this.latLng.latitude, this.latLng.longitude),
       creatorRef: this.creatorRef,
       status: this.responseStatus,
       streetAddress: this.streetAddress,

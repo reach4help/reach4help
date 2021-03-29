@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import { IUser } from './IUser';
 import { User } from './User';
 

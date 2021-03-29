@@ -1,5 +1,5 @@
 import { isDefined } from 'class-validator';
-import { firestore as firestoreNamespace } from 'firebase';
+import firebase from 'firebase/app';
 import { firebaseFirestore } from 'src/firebaseConfig';
 import { Post } from 'src/models/posts/Post';
 import { PostFirestoreConverter } from 'src/models/posts/PostFirestoreConverter';
@@ -7,7 +7,7 @@ import { User } from 'src/models/users/User';
 
 export const createPost = async (postPayload: Post) => {
   const tempPost = Post.factory(postPayload);
-  tempPost.createdAt = firestoreNamespace.Timestamp.fromDate(new Date());
+  tempPost.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
   tempPost.updatedAt = tempPost.createdAt;
   const postId = `P-${new Date().getTime().toString()}`;
   return firebaseFirestore

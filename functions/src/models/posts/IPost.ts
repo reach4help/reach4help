@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import { IUser } from '../users/IUser';
 import { GenericPostStatus } from './GenericPostStatus';
 

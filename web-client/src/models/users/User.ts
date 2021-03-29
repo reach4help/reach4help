@@ -1,11 +1,11 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 
 import { IUser } from './IUser';
 
 export class User implements IUser {
   casesCompleted: number;
 
-  createdAt: firestore.Timestamp;
+  createdAt: firebase.firestore.Timestamp;
 
   displayNickname?: string | null;
 

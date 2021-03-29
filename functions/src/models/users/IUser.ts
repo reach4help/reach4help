@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 export interface IUser extends firebase.firestore.DocumentData {
   username: string;
   casesCompleted: number;

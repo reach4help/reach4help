@@ -1,4 +1,4 @@
-import { firestore as FirestoreNamespace } from 'firebase';
+import firebase from 'firebase/app';
 import {
   firebaseFirestore,
   firebaseFunctions,
@@ -16,8 +16,8 @@ import { IgetUserProfile } from './types';
 export const getUserProfile = (
   payload: IgetUserProfile,
 ): Promise<[
-  FirestoreNamespace.DocumentSnapshot,
-  FirestoreNamespace.DocumentSnapshot,
+  firebase.firestore.DocumentSnapshot,
+  firebase.firestore.DocumentSnapshot,
 ]> =>
   Promise.all([
     firebaseFirestore
@@ -115,7 +115,7 @@ export const uploadUserAvatarData = async ({
   userPayload,
   filePayload,
 }: {
-  userRef: FirestoreNamespace.DocumentReference<User>;
+  userRef: firebase.firestore.DocumentReference<User>;
   userPayload: User;
   filePayload: File;
 }) => {
@@ -131,11 +131,11 @@ export const uploadUserAvatarData = async ({
   return userRef.set(newUserWithAvatar);
 };
 
-export const deleteUserAvatarData = async ({
+export const deleteUserAvatarData = ({
   userRef,
   userPayload,
 }: {
-  userRef: FirestoreNamespace.DocumentReference<User>;
+  userRef: firebase.firestore.DocumentReference<User>;
   userPayload: User;
 }) => {
   const newUserWithoutAvatar = User.factory(userPayload);

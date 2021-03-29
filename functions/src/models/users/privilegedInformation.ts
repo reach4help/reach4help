@@ -1,4 +1,5 @@
 /* eslint no-underscore-dangle: 0 */
+import firebase from 'firebase/app';
 export interface IUserAddress {
   name: string;
   address1?: string;

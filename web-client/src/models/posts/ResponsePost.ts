@@ -1,4 +1,4 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 
 // import { firebaseFirestore as db } from 'src/firebaseConfig';
 import { IResponsePost } from './IResponsePost';
