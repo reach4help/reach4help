@@ -18,10 +18,13 @@ const config = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  useEmulator: process.env.USE_EMULATOR,
 };
 
 firebase.initializeApp(config);
-if (process.env.USE_EMULATOR === 'Y') {
+console.log('debug 2', config.useEmulator, config.apiKey);
+if (config.useEmulator === 'Y') {
+  console.log('Using emulator');
   firebase.functions().useEmulator('host', 5001);
 }
 
