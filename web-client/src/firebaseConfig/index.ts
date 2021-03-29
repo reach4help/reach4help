@@ -21,6 +21,9 @@ const config = {
 };
 
 firebase.initializeApp(config);
+if (process.env.USE_EMULATOR === 'Y') {
+  firebase.functions().useEmulator('host', 5001);
+}
 
 export const firebaseAuth = firebase.auth();
 export const firebaseFirestore = firebase.firestore();
