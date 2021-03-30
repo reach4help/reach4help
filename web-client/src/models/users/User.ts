@@ -21,7 +21,7 @@ export class User implements IUser {
     postsMade = 0,
     displayNickname: string | null = null,
     displayPicture?: string | null = null,
-    createdAt = firestore.Timestamp.now(),
+    createdAt = firebase.firestore.Timestamp.now(),
   ) {
     this.postsMade = postsMade;
     this.username = username;

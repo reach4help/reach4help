@@ -40,7 +40,7 @@ export class ResponsePost extends Post implements IResponsePost {
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,
-      latLng: new firestore.GeoPoint(
+      latLng: new firebase.firestore.GeoPoint(
         this.latLng.latitude,
         this.latLng.longitude,
       ),

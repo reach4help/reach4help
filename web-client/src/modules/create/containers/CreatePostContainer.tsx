@@ -110,12 +110,12 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
       const newPost = {
         isResponse: false,
         isRequest: !IS_OFFER_POST,
-        status: GenericPostStatus.pending,
+        postStatus: GenericPostStatus.pending,
         title,
         description,
         creatorRef: profileState.userRef,
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
-        latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
+        latLng: new firebase.firestore.GeoPoint(coords.latitude, coords.longitude),
         creatorSnapshot: profileState.profile.toObject() as IUser,
       } as IPost;
       return IS_OFFER_POST

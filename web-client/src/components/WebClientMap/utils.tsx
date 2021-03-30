@@ -1,4 +1,4 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 import moment from 'moment';
 import { ProfileState } from 'src/ducks/profile/types';
 
@@ -50,8 +50,8 @@ export const getStreetAddressFromProfile = (profileState: ProfileState) => {
 };
 
 export const haversineDistance = (
-  latLng1: firestore.GeoPoint,
-  latLng2: firestore.GeoPoint,
+  latLng1: firebase.firestore.GeoPoint,
+  latLng2: firebase.firestore.GeoPoint,
 ): number => {
   const lon1 = latLng1.longitude;
   const lon2 = latLng2.longitude;
