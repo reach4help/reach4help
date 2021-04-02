@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable import/no-duplicates */
 
 import firebase from 'firebase/app';
@@ -9,23 +10,26 @@ import 'firebase/analytics';
 import 'firebase/performance';
 import 'firebase/storage';
 
-const config = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-  useEmulator: process.env.REACT_APP_FIREBASE_USE_EMULATOR,
-};
-
-firebase.initializeApp(config);
-console.log('debug 2', config.useEmulator, config.apiKey);
-if (config.useEmulator === 'Y') {
-  console.log('Using emulator');
-  firebase.functions().useEmulator('host', 5001);
+const useEmulator = process.env.REACT_APP_FIREBASE_USE_EMULAtoR;
+if (useEmulator && useEmulator == 'Y') {
+  if (firebase.apps.length === 0) {
+    firebase.auth().useEmulator('http://localhost:9099/');
+    firebase.firestore().useEmulator('localhost', 8080);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
+} else {
+  const config = {
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  };
+  firebase.initializeApp(config);
 }
 
 export const firebaseAuth = firebase.auth();

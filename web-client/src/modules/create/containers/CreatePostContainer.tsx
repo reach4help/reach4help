@@ -115,7 +115,10 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         description,
         creatorRef: profileState.userRef,
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
-        latLng: new firebase.firestore.GeoPoint(coords.latitude, coords.longitude),
+        latLng: new firebase.firestore.GeoPoint(
+          coords.latitude,
+          coords.longitude,
+        ),
         creatorSnapshot: profileState.profile.toObject() as IUser,
       } as IPost;
       return IS_OFFER_POST
