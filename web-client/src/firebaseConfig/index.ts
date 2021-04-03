@@ -10,9 +10,14 @@ import 'firebase/analytics';
 import 'firebase/performance';
 import 'firebase/storage';
 
-const useEmulator = process.env.REACT_APP_FIREBASE_USE_EMULAtoR;
+const useEmulator = process.env.REACT_APP_FIREBASE_USE_EMULATOR;
 if (useEmulator && useEmulator == 'Y') {
   if (firebase.apps.length === 0) {
+    firebase.initializeApp({
+      appId: 'app',
+      projectId: 'fake',
+      apiKey: 'fake-emulator-api',
+    });
     firebase.auth().useEmulator('http://localhost:9099/');
     firebase.firestore().useEmulator('localhost', 8080);
   } else {
