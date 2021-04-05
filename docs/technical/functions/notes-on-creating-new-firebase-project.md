@@ -1,0 +1,13 @@
+Steps tried so far:
+- firebase console
+    - Add through console.firebase.google.com
+    - Enable billing
+- modify .firebasesrc
+    - add to projects 
+    - copy configs for one of the projects
+- termintal
+    - firebase use --add
+        - enter project name and alias
+    - firebase functions:config:clone --from reach4help-dev
+    - firebase deploy --only functions
+    - firebase deploy --only firestore
