@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
 import { createOffer } from 'src/ducks/MyOffers/actions';
@@ -31,7 +31,6 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   const IS_OFFER_POST = createPostType === CreatePostTypes.offer;
   const POST_TYPE_PREFIX = IS_OFFER_POST ? t('Offer') : t('Request');
 
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const profileState = useSelector(
@@ -95,7 +94,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   };
 
   /* CreatePost */
-  const submitPost = () => {
+  const submitPost = async () => {
     const { title, description } = postDetails;
     const {
       address1,
@@ -121,9 +120,12 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         ),
         creatorSnapshot: profileState.profile.toObject() as IUser,
       } as IPost;
-      return IS_OFFER_POST
-        ? dispatch(createOffer(newPost))
-        : dispatch(createRequest(newPost));
+      console.log('debug 4');
+      const success = IS_OFFER_POST
+        ? await createOffer(newPost)
+        : await createRequest(newPost);
+      console.log('success', success);
+      return success;
     }
   };
 

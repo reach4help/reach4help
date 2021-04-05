@@ -1,4 +1,7 @@
+import firebase from 'firebase/app';
+
 import { IUser } from '../users/IUser';
+import { User } from '../users/User';
 import { GenericPostStatus } from './GenericPostStatus';
 import { IPost } from './IPost';
 
@@ -10,8 +13,6 @@ export class Post implements IPost {
   isResponse: boolean;
 
   isRequest: boolean;
-
-  parentRef: string;
 
   creatorRef: string;
 
@@ -34,9 +35,8 @@ export class Post implements IPost {
     this.postStatus = post.postStatus;
     this.isResponse = post.isResponse;
     this.isRequest = post.isRequest;
-    this.parentRef = post.parentRef;
     this.creatorRef = post.creatorRef;
-    this.creatorSnapshot = post.creatorSnapshot;
+    this.creatorSnapshot = User.factory(post.creatorSnapshot);
     this.title = post.title;
     this.description = post.description;
     this.latLng = post.latLng;
@@ -81,7 +81,6 @@ export class Post implements IPost {
     return {
       isResponse: this.isResponse,
       isRequest: this.isRequest,
-      parentRef: this.parentRef || null,
       creatorRef: this.creatorRef,
       creatorSnapshot: this.creatorSnapshot.toObject(),
       title: this.title,

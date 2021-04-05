@@ -1,3 +1,5 @@
+import firebase from 'firebase/app';
+
 import { IPost } from './IPost';
 import { Post } from './Post';
 

@@ -32,9 +32,9 @@ const PostSummary: React.FC<PostSummaryProps> = ({
       .then(() => {
         setShowConfirmationPage(true);
       })
-      .catch(() => {
+      .catch(err => {
         // eslint-disable-next-line no-console
-        console.error('Could not submit new Post');
+        console.error(`Could not submit new Post ${err}`);
       });
   };
 

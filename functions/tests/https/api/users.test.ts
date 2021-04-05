@@ -71,7 +71,7 @@ describe('deleteUserData: new user', () => {
     const afterSnap = (await userRef.get()).data();
     expect((await privilegedRef.get()).docs).toHaveLength(0);
     expect(afterSnap?.displayPicture).toBeNull();
-    expect(afterSnap?.displayName).toBe('Deleted User');
+    expect(afterSnap?.displayNickname).toBe('Deleted User');
     expect(afterSnap?.username).toBe('deleteduser');
   });
 });
@@ -92,7 +92,6 @@ describe('deleteUserData: user with post', () => {
     const testRequest = Post.factory({
       isResponse: false,
       isRequest: false,
-      parentRef: null,
       creatorRef: postRef,
       creatorSnapshot: testUser,
       title: 'I need help!',

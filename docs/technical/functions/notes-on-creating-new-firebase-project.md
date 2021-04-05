@@ -1,4 +1,7 @@
 Steps tried so far:
+
+For functions and firestore:
+
 - firebase console
     - Add through console.firebase.google.com
     - Enable billing
@@ -11,3 +14,20 @@ Steps tried so far:
     - firebase functions:config:clone --from reach4help-dev
     - firebase deploy --only functions
     - firebase deploy --only firestore
+
+For local web app:
+- firebase console
+    - Add app
+        - Select project
+        - Gear Icon => Project Settings
+        - Add App
+- .env file
+    - copy API key
+        - console.google.com
+        - credentials
+        - replace in .env
+    - copy app id
+        - console.firebase.google.com
+        - Gear Icon => Project Settings
+        - replace in .env
+    - change reach4help-dev to reach4help-try-out-change

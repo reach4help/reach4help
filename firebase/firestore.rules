@@ -80,7 +80,7 @@ function verifyHelpRequestAttributesForStatus(status, data) {
            ) ||
            (
              (status == 'completed') &&
-             ('cavUserRef' in data) &&
+             ('cavUserRef' in data) 
            ) ||
            true // for other statuses we don't have extra requirements
 }
@@ -167,6 +167,13 @@ service cloud.firestore {
       allow read: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
       // Only CAVs can submit offers (as themselves) | issue - pin needs to accespt TODO: need more complicated logic for ensuring correct CAV and PIN
       allow write: if verifyOfferDataComplete(request.resource.data);
+    }
+
+    match /posts/{offerID} {
+      // Only the PIN or CAV of the request can read the offers
+      allow read: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
+      // Only CAVs can submit offers (as themselves) | issue - pin needs to accespt TODO: need more complicated logic for ensuring correct CAV and PIN
+      allow write: if true || verifyOfferDataComplete(request.resource.data);
     }
 
     match /requests/{reqID} {

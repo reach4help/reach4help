@@ -10,11 +10,12 @@ export const createPost = async (postPayload: Post) => {
   tempPost.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
   tempPost.updatedAt = tempPost.createdAt;
   const postId = `P-${new Date().getTime().toString()}`;
-  return firebaseFirestore
+  const success = await firebaseFirestore
     .collection('posts')
     .doc(postId)
     .withConverter(PostFirestoreConverter)
     .set(tempPost);
+  return success;
 };
 
 export const updatePost = async (postPayload: Post, postId: string) =>
@@ -38,7 +39,7 @@ export const observePosts = (
     userRef?: firebase.firestore.DocumentReference<User>;
   },
 ): firebase.Unsubscribe => {
-  let filter: firebase.firestore.Query<firestoreNamespace.DocumentData> = firebaseFirestore.collection(
+  let filter: firebase.firestore.Query<firebase.firestore.DocumentData> = firebaseFirestore.collection(
     'posts',
   );
 

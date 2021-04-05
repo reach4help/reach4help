@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 import { triggerEventsWhenPostIsCreated } from '../../src/posts';
 import { removeObjectFromIndices, retrieveObjectFromIndex } from '../../src/algolia';
 import { User } from '../../src/models/users/User';
+import { GenericPostStatus } from '../../src/models/posts/GenericPostStatus';
 
 const projectId = 'reach-4-help-test';
 
@@ -208,7 +209,7 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
       description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
       streetAddress: 'new post street address',
-      status: RequestStatus.pending,
+      status: GenericPostStatus.pending,
       createdAt: firebase.firestore.Timestamp.now(),
       updatedAt: firebase.firestore.Timestamp.now(),
     });
