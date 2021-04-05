@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import { IPost } from 'src/models/posts/IPost';
 import { Post } from 'src/models/posts/Post';
 import { User } from 'src/models/users/User';

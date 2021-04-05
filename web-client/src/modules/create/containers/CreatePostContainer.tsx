@@ -120,11 +120,9 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
         ),
         creatorSnapshot: profileState.profile.toObject() as IUser,
       } as IPost;
-      console.log('debug 4');
       const success = IS_OFFER_POST
         ? await createOffer(newPost)
         : await createRequest(newPost);
-      console.log('success', success);
       return success;
     }
   };
