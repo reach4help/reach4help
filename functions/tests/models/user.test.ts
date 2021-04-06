@@ -5,8 +5,6 @@ import { User } from '../../src/models/users/User';
 describe('user validation', () => {
   it('fails when you pass it negative average ', () => {
     const user = User.factory({
-      casesCompleted: 0,
-      postsMade: 0,
       username: 'TestUser',
       displayNickname: null,
       displayPicture: null,

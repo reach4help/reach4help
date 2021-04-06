@@ -1,15 +1,17 @@
 import firebase from 'firebase/app';
 
+import { INewUserParams } from './INewUserParams';
 import { IUser } from './IUser';
 
+// TODO: [REFACTOR] Remove IUser
 export class User implements IUser {
   casesCompleted: number;
 
   createdAt: firebase.firestore.Timestamp;
 
-  displayNickname?: string | null;
+  displayNickname: string | null;
 
-  displayPicture?: string | null;
+  displayPicture: string | null;
 
   postsMade: number;
 
@@ -17,30 +19,19 @@ export class User implements IUser {
 
   constructor(
     username: string,
-    casesCompleted = 0,
-    postsMade = 0,
     displayNickname: string | null = null,
-    displayPicture?: string | null = null,
-    createdAt = firebase.firestore.Timestamp.now(),
+    displayPicture: string | null = null,
   ) {
-    this.postsMade = postsMade;
     this.username = username;
     this.displayNickname = displayNickname;
     this.displayPicture = displayPicture;
-    this.createdAt = createdAt;
-    this.casesCompleted = casesCompleted;
-    this.postsMade = postsMade;
+    this.createdAt = firebase.firestore.Timestamp.now();
+    this.casesCompleted = 0;
+    this.postsMade = 0;
   }
 
-  static factory = (data: IUser): User =>
-    new User(
-      data.username,
-      data.casesCompleted,
-      data.postsMade,
-      data.displayNickname,
-      data.displayPicture,
-      data.createdAt,
-    );
+  static factory = (data: INewUserParams): User =>
+    new User(data.username, data.displayNickname, data.displayPicture);
 
   toObject = (): object => ({
     username: this.username,

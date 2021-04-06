@@ -14,7 +14,7 @@ import GeoPoint = firestore.GeoPoint;
 import Timestamp = firestore.Timestamp;
 
 export interface IUnauthenticatedPost {
-  postRef: string;
+  postUuid: string;
   isRequest: boolean;
   creatorSnapshot: IStrippedUser;
   title: string;
@@ -26,7 +26,7 @@ export interface IUnauthenticatedPost {
 
 export class UnauthenticatedPost implements IUnauthenticatedPost {
   constructor(
-    postRef: string,
+    postUuid: string,
     isRequest: boolean,
     creatorSnapshot: IStrippedUser,
     title: string,
@@ -35,7 +35,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
     createdAt = new Date(),
     updatedAt = new Date(),
   ) {
-    this._postRef = postRef;
+    this._postUuid = postUuid;
     this._isRequest = isRequest;
     this._creatorSnapshot = creatorSnapshot;
     this._title = title;
@@ -46,14 +46,14 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
   }
 
   @ValidateNested()
-  private _postRef: string;
+  private _postUuid: string;
 
-  get postRef(): string {
-    return this._postRef;
+  get postUuid(): string {
+    return this._postUuid;
   }
 
-  set postRef(value: string) {
-    this._postRef = value;
+  set postUuid(value: string) {
+    this._postUuid = value;
   }
 
   @Allow()
@@ -157,7 +157,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
 
   public static fromFirestore(data: DocumentData): UnauthenticatedPost {
     return new UnauthenticatedPost(
-      (data.postRef as DocumentReference).path,
+      (data.postUuid as DocumentReference).path,
       data.isRequest,
       data.userSnapshot,
       data.title,
@@ -173,7 +173,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
 
   public static fromAlgolia(data: Record<string, any>): UnauthenticatedPost {
     return new UnauthenticatedPost(
-      data.postRef,
+      data.postUuid,
       data.isRequest,
       data.pinUserSnapshot,
       data.title,
@@ -186,7 +186,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
 
   public static fromObject(data: IUnauthenticatedPost): UnauthenticatedPost {
     return new UnauthenticatedPost(
-      data.postRef,
+      data.postUuid,
       data.isRequest,
       data.creatorSnapshot,
       data.title,
@@ -199,7 +199,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
 
   toObject(): IUnauthenticatedPost {
     return {
-      postRef: this.postRef,
+      postUuid: this.postUuid,
       isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
@@ -212,7 +212,7 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
 
   toFirestore(): DocumentData {
     return {
-      postRef: db.doc(this.postRef),
+      postUuid: db.doc(this.postUuid),
       isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
@@ -225,9 +225,9 @@ export class UnauthenticatedPost implements IUnauthenticatedPost {
 
   toAlgolia(): object {
     return {
-      postRef: this.postRef,
+      postUuid: this.postUuid,
       isRequest: this.isRequest,
-      objectID: db.doc(this.postRef).id,
+      objectID: db.doc(this.postUuid).id,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,

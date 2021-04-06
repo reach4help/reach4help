@@ -80,7 +80,7 @@ describe('deleteUserData: user with post', () => {
   const ref = db.collection('users').doc(userId);
   const userRef = ref.withConverter(UserFirestoreConverter);
   const privilegedRef = ref.collection('privilegedInformation');
-  const postRef = db.collection('posts').doc(userId);
+  const postUuid = db.collection('posts').doc(userId);
 
   beforeEach(async () => {
     // create a post for new user before each test within this block
@@ -92,14 +92,14 @@ describe('deleteUserData: user with post', () => {
     const testRequest = Post.factory({
       isResponse: false,
       isRequest: false,
-      creatorRef: postRef,
+      creatorRef: postUuid,
       creatorSnapshot: testUser,
       title: 'I need help!',
       description: 'Please help with groceries',
       latLng: new firestore.GeoPoint(10, -122),
       streetAddress: '123 Main St.',
     });
-    await postRef.withConverter(PostFirestoreConverter).set(testRequest);
+    await postUuid.withConverter(PostFirestoreConverter).set(testRequest);
   });
 
   it('all personal data should be deleted', async () => {
@@ -122,7 +122,7 @@ describe('deleteUserData: user with post', () => {
       },
     });
 
-    const postSnap = (await postRef.withConverter(PostFirestoreConverter).get()).data();
+    const postSnap = (await postUuid.withConverter(PostFirestoreConverter).get()).data();
     expect(postSnap?.status).toBe(GenericPostStatus.removed);
     expect(postSnap?.latLng).toBe(JSON.stringify(new firestore.GeoPoint(0, 0)));
     expect(postSnap?.streetAddress).toBe(deletedAddress);

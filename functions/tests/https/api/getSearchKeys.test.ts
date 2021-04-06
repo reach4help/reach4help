@@ -8,6 +8,9 @@ import { v4 as uuid } from 'uuid';
 import { triggerEventsWhenPostIsCreated } from '../../../src/posts';
 import { removeObjectFromIndices } from '../../../src/algolia';
 import { getSearchKey, IgetSearchKeyReturn } from '../../../src/https/api/search/getSearchKeys';
+import { Post } from '../../../src/models/posts/Post';
+import { GenericPostStatus } from '../../../src/models/posts/GenericPostStatus';
+import { User } from '../../../src/models/users/User';
 
 const projectId = 'reach-4-help-test';
 
@@ -79,16 +82,16 @@ describe.skip('Unauthenticated users to find posts', () => {
     const postRef = db.collection('posts').doc(postId);
 
     // create a properly filled and acceptable post object
-    const newRequest = Request.factory({
-      pinUserRef: db.collection('users').doc(pinUserId) as any,
-      pinUserSnapshot: pinUser,
+    const newRequest = Post.factory({
+      isRequest: true,
+      isResponse: false,
       title: 'new reqeust',
       description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
       streetAddress: 'new post street address',
-      status: RequestStatus.pending,
-      createdAt: firebase.firestore.Timestamp.now(),
-      updatedAt: firebase.firestore.Timestamp.now(),
+      postStatus: GenericPostStatus.pending,
+      creatorRef: pinUserId,
+      creatorSnapshot: pinUser,
     });
 
     await postRef.set(newRequest.toObject());
@@ -124,16 +127,16 @@ describe.skip('Authenticated users to find posts', () => {
     const postRef = db.collection('posts').doc(postId);
 
     // create a properly filled and acceptable post object
-    const newRequest = Request.factory({
-      pinUserRef: db.collection('users').doc(pinUserId) as any,
-      pinUserSnapshot: pinUser,
+    const newRequest = Post.factory({
+      isRequest: true,
+      isResponse: false,
       title: 'new reqeust',
       description: 'new post description',
       latLng: new firebase.firestore.GeoPoint(0, 0),
       streetAddress: 'new post street address',
-      status: RequestStatus.pending,
-      createdAt: firebase.firestore.Timestamp.now(),
-      updatedAt: firebase.firestore.Timestamp.now(),
+      postStatus: GenericPostStatus.pending,
+      creatorRef: pinUserId,
+      creatorSnapshot: pinUser,
     });
 
     await postRef.set(newRequest.toObject());

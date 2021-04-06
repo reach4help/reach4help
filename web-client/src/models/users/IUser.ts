@@ -1,9 +1,10 @@
-export interface IUser extends firebase.firestore.DocumentData {
-  username: string;
-  casesCompleted?: number;
-  postsMade?: number;
-  displayNickname?: string | null;
-  displayPicture?: string | null;
-  createdAt?: firebase.firestore.Timestamp;
+import firebase from 'firebase/app';
+
+import { INewUserParams } from './INewUserParams';
+
+export interface IUser extends INewUserParams {
+  casesCompleted: number;
+  postsMade: number;
+  createdAt: firebase.firestore.Timestamp;
   toObject: () => object;
 }

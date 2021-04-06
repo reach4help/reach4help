@@ -54,12 +54,12 @@
     "moment": "^2.24.0",
     "node-fetch": "^2.6.1",
     "twilio": "^3.42.2",
-    "uuid": "^7.0.3"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@firebase/testing": "^0.18.2",
     "@types/jest": "^25.1.4",
-    "@types/uuid": "^8.0.1",
+    "@types/uuid": "^8.3.0",
     "eslint": "^6.8.0",
     "firebase-functions-test": "^0.2.3",
     "firebase-tools": "^9.8.0",

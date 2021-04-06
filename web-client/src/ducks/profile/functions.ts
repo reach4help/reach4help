@@ -4,6 +4,7 @@ import {
   firebaseFunctions,
   firebaseStorage,
 } from 'src/firebaseConfig';
+import { IUser } from 'src/models/users/IUser';
 import {
   PrivilegedUserInformation,
   PrivilegedUserInformationFirestoreConverter,
@@ -116,7 +117,7 @@ export const uploadUserAvatarData = async ({
   filePayload,
 }: {
   userRef: firebase.firestore.DocumentReference<User>;
-  userPayload: User;
+  userPayload: IUser;
   filePayload: File;
 }) => {
   const storageRef = firebaseStorage.ref();

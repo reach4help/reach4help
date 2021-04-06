@@ -8,7 +8,7 @@ import { ResponsePostStatus } from './ResponsePostStatus';
 export class ResponsePost extends Post implements IResponsePost {
   responseStatus: ResponsePostStatus;
 
-  postRef: any;
+  postUuid: any;
 
   constructor(responsePost: IResponsePost) {
     super(responsePost);
@@ -33,7 +33,7 @@ export class ResponsePost extends Post implements IResponsePost {
 
   toFirestore(): firebase.firestore.DocumentData {
     return {
-      postRef: this.postRef,
+      postUuid: this.postUuid,
       isRequest: this.isRequest,
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,

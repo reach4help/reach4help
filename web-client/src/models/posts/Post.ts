@@ -1,12 +1,13 @@
 import firebase from 'firebase/app';
+import { v4 as uuidv4 } from 'uuid';
 
 import { IUser } from '../users/IUser';
-import { User } from '../users/User';
 import { GenericPostStatus } from './GenericPostStatus';
+import { INewPostParams } from './INewPostParams';
 import { IPost } from './IPost';
 
 export class Post implements IPost {
-  postRef: string;
+  postUuid: string;
 
   postStatus: GenericPostStatus;
 
@@ -30,13 +31,13 @@ export class Post implements IPost {
 
   updatedAt?: firebase.firestore.Timestamp | undefined;
 
-  constructor(post: IPost) {
-    this.postRef = post.postRef;
+  constructor(post: INewPostParams) {
+    this.postUuid = uuidv4();
     this.postStatus = post.postStatus;
     this.isResponse = post.isResponse;
     this.isRequest = post.isRequest;
     this.creatorRef = post.creatorRef;
-    this.creatorSnapshot = User.factory(post.creatorSnapshot);
+    this.creatorSnapshot = post.creatorSnapshot;
     this.title = post.title;
     this.description = post.description;
     this.latLng = post.latLng;
@@ -46,7 +47,7 @@ export class Post implements IPost {
     // this._updatedAt = firebase.firestore.Timestamp.now();
   }
 
-  public static factory(data: IPost): Post {
+  public static factory(data: INewPostParams): Post {
     return new Post(data);
   }
 
@@ -62,9 +63,9 @@ export class Post implements IPost {
 
   toAlgolia(): object {
     return {
-      postRef: this.postRef,
+      postUuid: this.postUuid,
       isRequest: this.isRequest,
-      objectID: Post.getObjectId(this.postRef),
+      objectID: Post.getObjectId(this.postUuid),
       creatorSnapshot: this.creatorSnapshot,
       title: this.title,
       description: this.description,

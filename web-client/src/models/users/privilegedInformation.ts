@@ -1,5 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import { IsObject, IsString } from 'class-validator';
+import firebase from 'firebase/app';
 
 export interface IUserAddress {
   name: string;

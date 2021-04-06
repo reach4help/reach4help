@@ -1,7 +1,7 @@
 import * as firebase from '@firebase/testing';
 import * as Test from 'firebase-functions-test';
 import * as fs from 'fs';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import { triggerEventsWhenPostIsCreated } from '../../src/posts';
 import { removeObjectFromIndices, retrieveObjectFromIndex } from '../../src/algolia';
@@ -27,7 +27,7 @@ const authedApp = (auth?: object) => {
   };
 };
 
-const pinUserId = uuid();
+const pinUserId = uuidv4();
 
 const pinUser = User.factory({
   displayPicture: null,
@@ -35,7 +35,7 @@ const pinUser = User.factory({
   username: 'newtestuser',
 });
 
-const postId = uuid();
+const postId = uuidv4();
 
 beforeAll(async () => {
   // To allow reads and writes from authed db
@@ -67,14 +67,14 @@ describe('post creation triggers', () => {
       .doc(pinUserId)
       .set(pinUser.toObject());
 
-    // declare a postRef to which writes should be made to simplify access later
-    const postRef = db.collection('posts').doc(postId);
+    // declare a postUuid to which writes should be made to simplify access later
+    const postUuid = db.collection('posts').doc(postId);
 
-    return postRef
+    return postUuid
       .set({ displayNickname: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
       .then(
         (): Promise<firebase.firestore.DocumentSnapshot> => {
-          return postRef.get();
+          return postUuid.get();
         },
       )
       .then(snap => {
@@ -82,12 +82,12 @@ describe('post creation triggers', () => {
         return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
           params: {
             userId: pinUserId,
-            postId: postRef.id,
+            postId: postUuid.id,
           },
         });
       })
       .then(() => {
-        return postRef.get();
+        return postUuid.get();
       })
       .then(snapAfter => {
         expect(snapAfter.exists).toBeFalsy();
@@ -121,14 +121,14 @@ describe('post creation triggers', () => {
     //   updatedAt: firebase.firestore.Timestamp.now(),
   });
 
-  //   // declare a postRef to which writes should be made to simplify access later
-  //   const postRef = db.collection('posts').doc(postId);
+  //   // declare a postUuid to which writes should be made to simplify access later
+  //   const postUuid = db.collection('posts').doc(postId);
 
-  //   return postRef
+  //   return postUuid
   //     .set(newRequest.toObject())
   //     .then(
   //       (): Promise<firebase.firestore.DocumentSnapshot> => {
-  //         return postRef.get();
+  //         return postUuid.get();
   //       },
   //     )
   //     .then(snap => {
@@ -137,12 +137,12 @@ describe('post creation triggers', () => {
   //       return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
   //         params: {
   //           userId: pinUserId,
-  //           postId: postRef.id,
+  //           postId: postUuid.id,
   //         },
   //       });
   //     })
   //     .then(() => {
-  //       return postRef.get();
+  //       return postUuid.get();
   //     })
   //     .then(snapAfter => {
   //       console.log('snapAfter.exists: ', snapAfter.exists);
@@ -161,15 +161,15 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
       .doc(pinUserId)
       .set(pinUser.toObject());
 
-    // declare a postRef to which writes should be made to simplify access later
-    const postRef = db.collection('posts').doc(postId);
+    // declare a postUuid to which writes should be made to simplify access later
+    const postUuid = db.collection('posts').doc(postId);
 
     return (
-      postRef
+      postUuid
         .set({ displayNickname: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return postRef.get();
+            return postUuid.get();
           },
         )
         .then(snap => {
@@ -177,13 +177,13 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
           return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
-              postId: postRef.id,
+              postId: postUuid.id,
             },
           });
         })
         .then(() => {
           // Try to read the post from algolia
-          return retrieveObjectFromIndex(postRef.id, false);
+          return retrieveObjectFromIndex(postUuid.id, false);
         })
         // Trigger shouldn't add incorrect data into algolia so the above post must fail
         .then(() => expect(false).toBeTruthy())
@@ -198,8 +198,8 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
       .doc(pinUserId)
       .set(pinUser.toObject());
 
-    // declare a postRef to which writes should be made to simplify access later
-    const postRef = db.collection('posts').doc(postId);
+    // declare a postUuid to which writes should be made to simplify access later
+    const postUuid = db.collection('posts').doc(postId);
 
     // create a properly filled and acceptable post object
     const newRequest = Request.factory({
@@ -215,11 +215,11 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
     });
 
     return (
-      postRef
+      postUuid
         .set(newRequest.toObject())
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return postRef.get();
+            return postUuid.get();
           },
         )
         .then(snap => {
@@ -227,12 +227,12 @@ describe.skip('post creation effects on algolia unauthenticated post', () => {
           return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
-              postId: postRef.id,
+              postId: postUuid.id,
             },
           });
         })
         .then(() => {
-          return retrieveObjectFromIndex(postRef.id, false);
+          return retrieveObjectFromIndex(postUuid.id, false);
         })
         // since data is correct, the post should be present in algolia indexed with postId as the objectId
         .then((snapAfter: any) => {
@@ -252,15 +252,15 @@ describe.skip('post creation effects on algolia authenticated post', () => {
       .doc(pinUserId)
       .set(pinUser.toObject());
 
-    // declare a postRef to which writes should be made to simplify access later
-    const postRef = db.collection('posts').doc(postId);
+    // declare a postUuid to which writes should be made to simplify access later
+    const postUuid = db.collection('posts').doc(postId);
 
     return (
-      postRef
+      postUuid
         .set({ displayNickname: 'fsdfs', pinUserSnapshot: pinUser.toObject() })
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return postRef.get();
+            return postUuid.get();
           },
         )
         .then(snap => {
@@ -268,13 +268,13 @@ describe.skip('post creation effects on algolia authenticated post', () => {
           return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
-              postId: postRef.id,
+              postId: postUuid.id,
             },
           });
         })
         .then(() => {
           // Try to read the post from algolia
-          return retrieveObjectFromIndex(postRef.id, true);
+          return retrieveObjectFromIndex(postUuid.id, true);
         })
         // Trigger shouldn't add incorrect data into algolia so the above post must fail
         .then(() => expect(false).toBeTruthy())
@@ -289,8 +289,8 @@ describe.skip('post creation effects on algolia authenticated post', () => {
       .doc(pinUserId)
       .set(pinUser.toObject());
 
-    // declare a postRef to which writes should be made to simplify access later
-    const postRef = db.collection('posts').doc(postId);
+    // declare a postUuid to which writes should be made to simplify access later
+    const postUuid = db.collection('posts').doc(postId);
 
     // create a properly filled and acceptable post object
     const newRequest = Request.factory({
@@ -312,11 +312,11 @@ describe.skip('post creation effects on algolia authenticated post', () => {
     });
 
     return (
-      postRef
+      postUuid
         .set(newRequest.toObject())
         .then(
           (): Promise<firebase.firestore.DocumentSnapshot> => {
-            return postRef.get();
+            return postUuid.get();
           },
         )
         .then(snap => {
@@ -324,12 +324,12 @@ describe.skip('post creation effects on algolia authenticated post', () => {
           return test.wrap(triggerEventsWhenPostIsCreated)(snap, {
             params: {
               userId: pinUserId,
-              postId: postRef.id,
+              postId: postUuid.id,
             },
           });
         })
         .then(() => {
-          return retrieveObjectFromIndex(postRef.id, true);
+          return retrieveObjectFromIndex(postUuid.id, true);
         })
         // since data is correct, the post should be present in algolia indexed with postId as the objectId
         .then(snapAfter => {
