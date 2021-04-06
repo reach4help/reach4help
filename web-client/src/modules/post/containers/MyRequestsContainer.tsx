@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { observeMyRequests } from 'src/ducks/MyRequests/actions';
-import { MyRequestsState } from 'src/ducks/MyRequests/types';
+import { observeMyRequests } from 'src/ducks/myRequests2/actions';
+import { MyRequestsState } from 'src/ducks/myRequests2/types';
 import { ProfileState } from 'src/ducks/profile/types';
 
 import LoadingWrapper from '../../../components/LoadingComponent/LoadingComponent';

@@ -11,6 +11,7 @@ import {
 import LoadingWrapper from 'src/components/LoadingComponent/LoadingComponent';
 import { useSearchKey } from 'src/ducks/search/operations';
 import { GeneralPost } from 'src/models/posts/GeneralPost';
+import { Post } from 'src/models/posts/Post';
 
 const PostInfoDisplay = ({ post }: { post: GeneralPost }) => {
   const {
@@ -19,7 +20,7 @@ const PostInfoDisplay = ({ post }: { post: GeneralPost }) => {
     title,
   } = post;
   const onClickHandler = () => {
-    // to call createReponseOffer from src/ducks/MyOffers/actions and set loading screen until promise is fulfilled
+    // to call createReponseOffer from src/ducks/myOffers2/actions and set loading screen until promise is fulfilled
   };
 
   return (
@@ -78,7 +79,7 @@ const FindRequestsContainer: React.FC = () => {
                         key={hit.objectID}
                         hit={hit}
                         onClick={() => {
-                          setSelectedMarker(GeneralPost.fromAlgolia(hit));
+                          setSelectedMarker(Post.fromAlgolia(hit));
                         }}
                       />
                     ))}

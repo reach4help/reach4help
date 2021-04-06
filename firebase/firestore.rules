@@ -91,15 +91,12 @@ function verifyLatLngObject(latLng) {
 }
 
 function verifyHelpRequestDataComplete(data) {
-   return ('pinUserRef' in data) &&
-          ('pinUserSnapshot' in data) &&
+   return 
           ('title' in data) &&
           ('description' in data) &&
-          ('status' in data) &&
+          ('postStatus' in data) &&
           ('createdAt' in data) &&
           ('updatedAt' in data) &&
-          verifyHelpRequestAttributesForStatus(data.status, data) &&
-          verifyLatLngObject(data.latLng) &&
           ('streetAddress' in data ) &&
           ('createdAt' in data) &&
           data.createdAt is timestamp
@@ -164,9 +161,9 @@ service cloud.firestore {
 
     match /posts/{postID} {
       // Only the PIN or CAV of the request can read the offers
-      allow read: true
+      allow read: if true
       // Only CAVs can submit offers (as themselves) | issue - pin needs to accespt TODO: need more complicated logic for ensuring correct CAV and PIN
-      allow write: verifyHelpRequestDataComplete(request.resource.data);
+      allow write: if verifyHelpRequestDataComplete(request.resource.data);
     }
 
     match /questionnaires/{questID} {

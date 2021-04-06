@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
 
 import { IUser } from '../users/IUser';
+import { User } from '../users/User';
 import { GenericPostStatus } from './GenericPostStatus';
 import { INewPostParams } from './INewPostParams';
 import { IPost } from './IPost';
@@ -37,7 +38,7 @@ export class Post implements IPost {
     this.isResponse = post.isResponse;
     this.isRequest = post.isRequest;
     this.creatorRef = post.creatorRef;
-    this.creatorSnapshot = post.creatorSnapshot;
+    this.creatorSnapshot = User.factory(post.creatorSnapshot);
     this.title = post.title;
     this.description = post.description;
     this.latLng = post.latLng;
@@ -49,6 +50,10 @@ export class Post implements IPost {
 
   public static factory(data: INewPostParams): Post {
     return new Post(data);
+  }
+
+  public static fromAlgolia(data: Record<string, any>): Post {
+    return new Post(data as IPost);
   }
 
   // TODO: Get rid of path
