@@ -14,3 +14,12 @@ a {
 * {
   box-sizing: border-box;
 }
+.nav {
+  width:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  border:1px solid black; 
+  display:flex;
+  justify-content: space-around;
+}
