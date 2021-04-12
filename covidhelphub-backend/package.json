@@ -1,5 +1,5 @@
 {
-  "name": "covidhelphub-fe",
+  "name": "covidhelphub-backend",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT"
