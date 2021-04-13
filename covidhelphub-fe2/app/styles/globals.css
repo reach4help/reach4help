@@ -22,6 +22,7 @@ a {
   height: 80px;
   padding: 20px;
   display: flex;
+  background-color: white;
   box-shadow: 0 5px 5px rgb(0 0 0 / 20%);
   justify-content: space-between;
   align-items: center;
