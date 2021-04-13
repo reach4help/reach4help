@@ -1,6 +1,6 @@
 import React from 'react';
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
 
 export default function Home() {
   return (
@@ -9,7 +9,17 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav className="nav"><div className="nav_container">Left div</div><div className="nav_container">Right div</div></nav>
+      <nav className="nav">
+        <div className="nav_left">CHH Logo</div>
+        <div className="nav_right">
+          <ul className="nav_links">
+            <li className="nav_item nav--item-wide">Groceries</li>
+            <li className="nav_item nav--item-wide">Get Involved</li>
+            <li className="nav_item nav--item-wide">Donate</li>
+            <li className="nav_item">FR</li>
+          </ul>
+        </div>
+      </nav>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -63,5 +73,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }
