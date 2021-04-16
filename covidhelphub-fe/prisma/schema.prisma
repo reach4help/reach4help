@@ -1,12 +1,61 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-model R4hUser {
-  id string
-  name string
-  address string
-  email string
-  phone string
-  isVolunteer boolean
+
+// Beneficiary (User) ---> Requests
+//                    ---> Programs Assignments <--- Program 
+// Volunteer (User)   ---> Requests (Assigned to Help)
+//                    <--> Programs (userProgram Model)
+// Program            ---> Pipeline Steps              
+//                    ---> Requests
+// Request            <--- Program
+//                    <--- Pipeline Step
+//                    <--- Beneficiary
+//                    <--- AssignedVolunteer
+//                    ---> Volunteer Responses <-- Volunteer
+
+model User {
+  uuid String @unique
+  address String
+  email String
+  phone String
+  isVolunteer Boolean
+  volunteerNotes String
+  isBenificiary Boolean
+  beneficiaryNotes String
+  newField String
+}
+
+model Program {
+  programuuid String @unique
+  name String
+  description String
+}
+
+model PipelineStep {
+  uuid String @unique
+  programuuid String @unique
+  sequence Int
+  name String
+  code String
+  description String
+}
+
+model Request {
+  uuid String @unique
+  beneficiaryuuid String @unique
+  volunteeeruuid String @unique
+  summary String
+  description String
+  programuuid String @unique
+  pipelineStatusuuid String @unique
+}
+
+model UserProgramAssignment {
+  uuid String @unique
+  isVolunteer String
+  isBeneficiary String
+  programuuid String @unique
+  useruuid String @unique
 }
 
 datasource db {
@@ -17,3 +66,4 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
