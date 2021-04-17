@@ -37,5 +37,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 To learn how to set up a Prisma schema, use this tutorial: [Prisma in Typescript](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch-typescript-postgres) But instead of creating the schema they suggest here, use the schema in this tutorial: [Next with Prisma tutorial](https://dev.to/aryanjnyc/introduction-to-prisma-with-next-js-1l0). Once you're done with the first tutorial, then start the "Add a POST Endpoint" section in the second tutorial.
 
 ## Deploy on Vercel
-
 Deployment to be determined.
