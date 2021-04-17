@@ -1,20 +1,30 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Beneficiary (User) ---> Requests
-//                    ---> Programs Assignments <--- Program 
-// Volunteer (User)   ---> Requests (Assigned to Help)
-//                    <--> Programs (userProgram Model)
+// Database Model 
+
+// Legend:
+// < and > indicate there are multiple of that entity
+// o indicates optional
+
+//    owner ---> pet:   every owner has one or more pets
+// .  pet <--- owner:   every owner has one or more pets
+// .  person o---> car: a person optionally owns one or more cars
+
+// Beneficiary (User) o---> Requests
+//                    ----> Programs Assignments <---o Program 
+// Volunteer (User)   o--> Requests (Assigned to Help)
+//                    ---> Programs Assignments <---o Program 
 // Program            ---> Pipeline Steps              
-//                    ---> Requests
-// Request            <--- Program
-//                    <--- Pipeline Step
-//                    <--- Beneficiary
-//                    <--- AssignedVolunteer
-//                    ---> Volunteer Responses <-- Volunteer
+//                    o--> Requests
+// Request            <--o Program
+//                    <--o Pipeline Step
+//                    <--o Beneficiary
+//                    <--o AssignedVolunteer
+//                    o--> Volunteer Responses <--o Volunteer
 
 model User {
-  uuid String @unique
+  UUID String @unique
   address String
   email String
   phone String
@@ -26,14 +36,14 @@ model User {
 }
 
 model Program {
-  programuuid String @unique
+  programUUID String @unique
   name String
   description String
 }
 
 model PipelineStep {
-  uuid String @unique
-  programuuid String @unique
+  UUID String @unique
+  programUUID String @unique
   sequence Int
   name String
   code String
@@ -41,27 +51,35 @@ model PipelineStep {
 }
 
 model Request {
-  uuid String @unique
-  beneficiaryuuid String @unique
-  volunteeeruuid String @unique
+  UUID String @unique
+  beneficiaryUUID String @unique
+  volunteeerUUID String @unique
   summary String
   description String
-  programuuid String @unique
-  pipelineStatusuuid String @unique
+  programUUID String @unique
+  pipelineStatusUUID String @unique
 }
 
 model UserProgramAssignment {
-  uuid String @unique
+  UUID String @unique
   isVolunteer String
   isBeneficiary String
-  programuuid String @unique
-  useruuid String @unique
+  programUUID String @unique
+  userUUID String @unique
+}
+
+model responses {
+  UUID: String
+  volunterUUID: string
+  isWilling: String
+  responseText: String
 }
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
 
 generator client {
   provider = "prisma-client-js"
