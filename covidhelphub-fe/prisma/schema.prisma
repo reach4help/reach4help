@@ -1,17 +1,27 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Beneficiary (User) ---> Requests
-//                    ---> Programs Assignments <--- Program 
-// Volunteer (User)   ---> Requests (Assigned to Help)
-//                    <--> Programs (userProgram Model)
+// Database Model 
+
+// Legend:
+// < and > indicate there are multiple of that entity
+// o indicates optional
+
+//    owner ---> pet:   every owner has one or more pets
+// .  pet <--- owner:   every owner has one or more pets
+// .  person o---> car: a person optionally owns one or more cars
+
+// Beneficiary (User) o---> Requests
+//                    ----> Programs Assignments <---o Program 
+// Volunteer (User)   o--> Requests (Assigned to Help)
+//                    ---> Programs Assignments <---o Program 
 // Program            ---> Pipeline Steps              
-//                    ---> Requests
-// Request            <--- Program
-//                    <--- Pipeline Step
-//                    <--- Beneficiary
-//                    <--- AssignedVolunteer
-//                    ---> Volunteer Responses <-- Volunteer
+//                    o--> Requests
+// Request            <--o Program
+//                    <--o Pipeline Step
+//                    <--o Beneficiary
+//                    <--o AssignedVolunteer
+//                    o--> Volunteer Responses <--o Volunteer
 
 model User {
   UUID String @unique
