@@ -14,7 +14,7 @@
 //                    ---> Volunteer Responses <-- Volunteer
 
 model User {
-  uuid String @unique
+  UUID String @unique
   address String
   email String
   phone String
@@ -26,14 +26,14 @@ model User {
 }
 
 model Program {
-  programuuid String @unique
+  programUUID String @unique
   name String
   description String
 }
 
 model PipelineStep {
-  uuid String @unique
-  programuuid String @unique
+  UUID String @unique
+  programUUID String @unique
   sequence Int
   name String
   code String
@@ -41,27 +41,35 @@ model PipelineStep {
 }
 
 model Request {
-  uuid String @unique
-  beneficiaryuuid String @unique
-  volunteeeruuid String @unique
+  UUID String @unique
+  beneficiaryUUID String @unique
+  volunteeerUUID String @unique
   summary String
   description String
-  programuuid String @unique
-  pipelineStatusuuid String @unique
+  programUUID String @unique
+  pipelineStatusUUID String @unique
 }
 
 model UserProgramAssignment {
-  uuid String @unique
+  UUID String @unique
   isVolunteer String
   isBeneficiary String
-  programuuid String @unique
-  useruuid String @unique
+  programUUID String @unique
+  userUUID String @unique
+}
+
+model responses {
+  UUID: String
+  volunterUUID: string
+  isWilling: String
+  responseText: String
 }
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
 
 generator client {
   provider = "prisma-client-js"
