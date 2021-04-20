@@ -1,0 +1,46 @@
+Title
+CHH: System Admin: Create Email Template and assign to a program
+CHH: System Admin: Update Email Template
+CHH: System Admin: Delete Email Template
+CHH: System Admin: Create Questions - Create a question
+CHH: System Admin: Create Questions - Assign Question to a. Program
+CHH: Program Admin: Create
+CHH: Program Admin: Create Program - name and description
+CHH: Program Admin: Create program - Add Pipeline Steps
+CHH: Program Admin: Create Volunteer - basic contact info
+CHH: Program Admin: Create Volunteer - Schedule Info
+CHH: Program Admin: Create Volunteer - Available checkbox
+CHH: Program Admin: Update Volunteer - basic contact info
+CHH: Program Admin: Update Volunteer - Schedule Info
+CHH: Program Admin: Update Volunteer - Available checkbox
+CHH: Program Admin: Create -r reRequest - Basic Contact Info
+CHH: Program Admin: Create Request - Notes
+CHH: Program Admin: Create Request - Assign to a Program
+CHH: Program Admin: Create Request - List of Questions relevant to the program
+CHH: Program Admin: Update Request - Basic Contact Info
+CHH: Program Admin: Update Request - Notes
+CHH: Program Admin: Update Request - Assign to a Program
+CHH: Program Admin: Update Request - List of Questions relevant to the program
+CHH: Program Admin: Create Email Blast - Generate an automated draft email asking for volunteers to help with a request
+CHH: Program Admin: Create Email Blast - Revise automated draft email
+CHH: Program Admin: Create Email Blast - Send to all volunteers in a program or selected Volunteers from the program
+CHH: Program Admin: Create Text Blast - Generate an automated draft Text
+CHH: Program Admin: Create Text Blast - Revise automated draft Text
+CHH: Program Admin: Create Text Blast - Send to all volunteers in a program or selected Volunteers from the program
+CHH: Program Admin: (System) Process Replies - Associate response text of email to Request for that blast
+CHH: Program Admin: List Replies - List replies for a request
+CHH: Program Admin: Assign Volunteer - From the Reply list - select a reply and assign the volunteer to the request
+CHH: Program Admin: Create Confirmation email - generate a draft to volunteer asking for confirmation
+CHH: Program Admin: Create Confirmation email - Revise automated draft email
+CHH: Program Admin: Create Already Assigned email - Generate automated draft email to volunteers that were declined
+CHH: Program Admin: Reconcile receipts from volunteers for a request with credit card
+CHH: Program Admin: (System) Based on reply to confirmation email - mark as Confirmed or Unavailable
+CHH: Program Admin: (System) Associate email replies to a request with the request so all replies asbout a request can be viewed together 
+CHH: Program Admin: (System) Automated reminder via text or email a day before
+CHH: Volunteer: Sign Up - create a volunteer record for oneself with contact info and contact preference
+CHH: Beneficiary: Create a Request - check off one program
+CHH: Beneficiary: Create a Request - Check off Multiple Programs
+CHH: Beneficiary: Create a Request - Create a second request at a later point
+CHH: Beneficiary: Create a Request - Create a repeating request
+
+
