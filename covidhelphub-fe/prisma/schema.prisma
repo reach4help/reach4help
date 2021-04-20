@@ -1,7 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Database Model 
+// Database Model
 
 // Legend:
 // < and > indicate there are multiple of that entity
@@ -12,67 +12,66 @@
 // .  person o---> car: a person optionally owns one or more cars
 
 // Beneficiary (User) o---> Requests
-//                    ----> Programs Assignments <---o Program 
+//                    ----> Programs Assignments <---o Program
 // Volunteer (User)   o--> Requests (Assigned to Help)
-//                    ---> Programs Assignments <---o Program 
-// Program            ---> Pipeline Steps              
+//                    ---> Programs Assignments <---o Program
+// Program            ---> Pipeline Steps
 //                    o--> Requests
 // Request            <--o Program
 //                    <--o Pipeline Step
 //                    <--o Beneficiary
 //                    <--o AssignedVolunteer
 //                    o--> Volunteer Responses <--o Volunteer
+// Request            o--- Email Receipt
 
-model User {
-  UUID String @unique
-  address String
-  email String
-  phone String
-  isVolunteer Boolean
-  volunteerNotes String
-  isBenificiary Boolean
-  beneficiaryNotes String
-  newField String
-}
+// model User {
+//   UUID String @unique
+//   address String
+//   email String
+//   phone String
+//   isVolunteer Boolean
+//   volunteerNotes String
+//   isBenificiary Boolean
+//   beneficiaryNotes String
+//   beneficiaryRequests Request[] @relation(name: "beneficiary")
+//   assignedRequests Request[] @relation(name: "assigned")
+//   programAssignments UserProgramAssignment[]
+// }
 
 model Program {
-  programUUID String @unique
-  name String
-  description String
+  programUUID  Int @id @default(autoincrement())
+  name         String
+  programSteps ProgramStep[]
 }
 
-model PipelineStep {
-  UUID String @unique
-  programUUID String @unique
-  sequence Int
-  name String
-  code String
-  description String
+model ProgramStep {
+  UUID        String    @unique
+  sequence    Int
+  name        String
+  requests    Request[]
+  program     Program?  @relation(fields: [programUUID], references: [programUUID])
+  programUUID Int?
 }
 
 model Request {
-  UUID String @unique
-  beneficiaryUUID String @unique
-  volunteeerUUID String @unique
-  summary String
-  description String
-  programUUID String @unique
-  pipelineStatusUUID String @unique
+  UUID            String       @unique
+  summary         String
+  description     String
+  programStep     ProgramStep? @relation(fields: [programStepUUID], references: [UUID])
+  programStepUUID String?
 }
 
 model UserProgramAssignment {
-  UUID String @unique
-  isVolunteer String
+  UUID          String @unique
+  isVolunteer   String
   isBeneficiary String
-  programUUID String @unique
-  userUUID String @unique
 }
 
 model responses {
-  UUID: String
-  volunterUUID: string
-  isWilling: String
-  responseText: String
+  UUID         String @unique
+  volunterUUID String
+  isWilling    String
+  responseText String
 }
 
 datasource db {
@@ -80,8 +79,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 generator client {
   provider = "prisma-client-js"
 }
-
