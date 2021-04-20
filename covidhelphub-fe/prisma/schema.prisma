@@ -22,53 +22,61 @@
 //                    <--o Beneficiary
 //                    <--o AssignedVolunteer
 //                    o--> Volunteer Responses <--o Volunteer
-// Request            o--- Email Receipt
+//                    o--- Email Receipt
 
-// model User {
-//   UUID String @unique
-//   address String
-//   email String
-//   phone String
-//   isVolunteer Boolean
-//   volunteerNotes String
-//   isBenificiary Boolean
-//   beneficiaryNotes String
-//   beneficiaryRequests Request[] @relation(name: "beneficiary")
-//   assignedRequests Request[] @relation(name: "assigned")
-//   programAssignments UserProgramAssignment[]
-// }
+model User {
+  UUID                String    @id @default(uuid())
+  address             String
+  email               String
+  phone               String
+  isVolunteer         Boolean
+  volunteerNotes      String
+  isBenificiary       Boolean
+  beneficiaryNotes    String
+  assignedRequests    Request[] @relation(name: "assigned")
+  beneficiaryRequests Request[] @relation(name: "beneficiary")
+
+  // programAssignments UserProgramAssignment[]
+}
 
 model Program {
-  programUUID  Int @id @default(autoincrement())
+  programUUID  String        @id @default(uuid())
   name         String
-  programSteps ProgramStep[]
+  ProgramSteps ProgramStep[]
 }
 
 model ProgramStep {
-  UUID        String    @unique
+  UUID        String    @id @default(uuid())
   sequence    Int
   name        String
-  requests    Request[]
-  program     Program?  @relation(fields: [programUUID], references: [programUUID])
-  programUUID Int?
+  Program     Program   @relation(fields: [programUUID], references: [programUUID])
+  Requests    Request[]
+  programUUID String
 }
 
 model Request {
-  UUID            String       @unique
-  summary         String
-  description     String
-  programStep     ProgramStep? @relation(fields: [programStepUUID], references: [UUID])
-  programStepUUID String?
+  UUID                String                  @id @default(uuid())
+  summary             String
+  description         String
+  ProgramStep         ProgramStep?            @relation(fields: [programStepUUID], references: [UUID])
+  BeneficiaryUser     User?                   @relation("beneficiary", fields: [beneficiaryUserUUID], references: [UUID])
+  AssignedUser        User?                   @relation("assigned", fields: [assignedUserUUID], references: [UUID])
+  ProgramAssignments  UserProgramAssignment[]
+  programStepUUID     String?
+  beneficiaryUserUUID String?
+  assignedUserUUID    String?
 }
 
 model UserProgramAssignment {
-  UUID          String @unique
+  UUID          String   @id @default(uuid())
   isVolunteer   String
   isBeneficiary String
+  Request       Request? @relation(fields: [requestUUID], references: [UUID])
+  requestUUID   String?
 }
 
 model responses {
-  UUID         String @unique
+  UUID         String @id @default(uuid())
   volunterUUID String
   isWilling    String
   responseText String
