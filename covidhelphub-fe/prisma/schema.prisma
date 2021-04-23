@@ -11,18 +11,24 @@
 // .  pet <--- owner:   every owner has one or more pets
 // .  person o---> car: a person optionally owns one or more cars
 
-// Beneficiary (User) o---> Requests
-//                    ----> Programs Assignments <---o Program
+// 
+// 
 // Volunteer (User)   o--> Requests (Assigned to Help)
-//                    ---> Programs Assignments <---o Program
-// Program            ---> Pipeline Steps
+//                    ---> X Programs Assignments <---o Program
+// Program            <--o X Pipeline --> Pipeline Steps
 //                    o--> Requests
-// Request            <--o Program
-//                    <--o Pipeline Step
-//                    <--o Beneficiary
-//                    <--o AssignedVolunteer
-//                    o--> Volunteer Responses <--o Volunteer
-//                    o--- Email Receipt
+//                    o--> Questions
+// Request            <--o X Program
+// (including benef   <--o X Pipeline Step
+//    info)           <--o X AssignedVolunteer
+//                    o--> X Volunteer Responses <--o Volunteer
+//                    o--> X Answers --o Question
+//                    o--- X Email Receipt
+//
+// EmailTemplates
+// Pipeline
+// Question
+// Answer
 
 model User {
   UUID                String    @id @default(uuid())

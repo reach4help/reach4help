@@ -6,7 +6,7 @@
     "map",
     "site",
     "web-client",
-    "covidhelphub-fe2"
+    "covidhelphub-fe"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
