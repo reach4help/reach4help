@@ -28,6 +28,11 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 <a id="LearnMore"></a>
 
+## Modifying Schema
+- Delete migrations directory
+- Delete chh.db
+- Run: ```yarn prisma migrate dev --name init```
+
 ## Learn More
 
 To learn more about Next.js and Prisma, take a look at the following resources:

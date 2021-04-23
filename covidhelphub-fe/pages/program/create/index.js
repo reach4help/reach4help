@@ -15,16 +15,18 @@ const Home = () => {
           });
         }}
       >
-        <label>
-          Name:
-          <input
-            value={name}
-            onChange={e => handleChange(e)}
-            type="text"
-            name="name"
-          />
-        </label>
-        <input type="submit" value="Submit" />
+        <div className="form-control">
+          <label>
+            Name
+            <input
+              value={name}
+              onChange={e => handleChange(e)}
+              type="text"
+              name="name"
+            />
+          </label>
+        </div>
+        <input type="submit" value="Add" />
       </form>
     </div>
   );

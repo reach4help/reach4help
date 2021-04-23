@@ -15,11 +15,21 @@ a {
   box-sizing: border-box;
 }
 .nav {
-  width:100%;
-  position:fixed;
-  top:0;
-  left:0;
-  border:1px solid black; 
-  display:flex;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 1px solid black;
+  display: flex;
   justify-content: space-around;
+}
+.container {
+  width: 300px;
+  margin: 200px auto;
+  padding: 10px;
+  border: 1px solid gray;
+}
+.form-control input {
+  display: block;
+  margin: 10px 0;
 }

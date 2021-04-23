@@ -11,8 +11,8 @@
 // .  pet <--- owner:   every owner has one or more pets
 // .  person o---> car: a person optionally owns one or more cars
 
-// 
-// 
+//
+//
 // Volunteer (User)   o--> Requests (Assigned to Help)
 //                    ---> X Programs Assignments <---o Program
 // Program            <--o X Pipeline --> Pipeline Steps
@@ -46,16 +46,24 @@ model User {
 }
 
 model Program {
-  programUUID  String        @id @default(uuid())
-  name         String
-  ProgramSteps ProgramStep[]
+  UUID     String   @id @default(uuid())
+  name     String
+  Pipeline Pipeline? @relation(fields: [pipelineUUID], references: [UUID])
+  pipelineUUID String?
 }
 
-model ProgramStep {
+model Pipeline {
+  UUID         String         @id @default(uuid())
+  name         String
+  PipelineStep PipelineStep[]
+  Program      Program[]
+}
+
+model PipelineStep {
   UUID        String    @id @default(uuid())
   sequence    Int
   name        String
-  Program     Program   @relation(fields: [programUUID], references: [programUUID])
+  Pipeline    Pipeline  @relation(fields: [UUID], references: [UUID])
   Requests    Request[]
   programUUID String
 }
@@ -64,7 +72,7 @@ model Request {
   UUID                String                  @id @default(uuid())
   summary             String
   description         String
-  ProgramStep         ProgramStep?            @relation(fields: [programStepUUID], references: [UUID])
+  ProgramStep         PipelineStep?           @relation(fields: [programStepUUID], references: [UUID])
   BeneficiaryUser     User?                   @relation("beneficiary", fields: [beneficiaryUserUUID], references: [UUID])
   AssignedUser        User?                   @relation("assigned", fields: [assignedUserUUID], references: [UUID])
   ProgramAssignments  UserProgramAssignment[]
