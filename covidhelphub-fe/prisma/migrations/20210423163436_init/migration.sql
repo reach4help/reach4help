@@ -29,8 +29,8 @@ CREATE TABLE "PipelineStep" (
     "UUID" TEXT NOT NULL PRIMARY KEY,
     "sequence" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
-    "programUUID" TEXT NOT NULL,
-    FOREIGN KEY ("UUID") REFERENCES "Pipeline" ("UUID") ON DELETE CASCADE ON UPDATE CASCADE
+    "pipelineUUID" TEXT NOT NULL,
+    FOREIGN KEY ("pipelineUUID") REFERENCES "Pipeline" ("UUID") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -38,10 +38,10 @@ CREATE TABLE "Request" (
     "UUID" TEXT NOT NULL PRIMARY KEY,
     "summary" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "programStepUUID" TEXT,
+    "pipelineStepUUID" TEXT,
     "beneficiaryUserUUID" TEXT,
     "assignedUserUUID" TEXT,
-    FOREIGN KEY ("programStepUUID") REFERENCES "PipelineStep" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY ("pipelineStepUUID") REFERENCES "PipelineStep" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY ("beneficiaryUserUUID") REFERENCES "User" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY ("assignedUserUUID") REFERENCES "User" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE
 );
@@ -56,9 +56,11 @@ CREATE TABLE "UserProgramAssignment" (
 );
 
 -- CreateTable
-CREATE TABLE "responses" (
+CREATE TABLE "Response" (
     "UUID" TEXT NOT NULL PRIMARY KEY,
     "volunterUUID" TEXT NOT NULL,
     "isWilling" TEXT NOT NULL,
-    "responseText" TEXT NOT NULL
+    "responseText" TEXT NOT NULL,
+    "requestUUID" TEXT,
+    FOREIGN KEY ("requestUUID") REFERENCES "Request" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE
 );

@@ -5,30 +5,40 @@
 
 // Legend:
 // < and > indicate there are multiple of that entity
-// o indicates optional
+// o - in a many to one, indicates relationship to parent is optional
+//     A parent is never required to have children
 
-//    owner ---> pet:   every owner has one or more pets
-// .  pet <--- owner:   every owner has one or more pets
-// .  person o---> car: a person optionally owns one or more cars
+//    owner ---> pet:   every pet has an owner
+//    pet <--- owner:   every pet has an owner
+//    buyer o---> car: a car can optionally have a buyer
 
 //
 //
-// Volunteer (User)   o--> Requests (Assigned to Help)
-//                    ---> X Programs Assignments <---o Program
-// Program            <--o X Pipeline --> Pipeline Steps
-//                    o--> Requests
-//                    o--> Questions
-// Request            <--o X Program
-// (including benef   <--o X Pipeline Step
-//    info)           <--o X AssignedVolunteer
-//                    o--> X Volunteer Responses <--o Volunteer
-//                    o--> X Answers --o Question
-//                    o--- X Email Receipt
+// Volunteer (User)   o--> Requests (Assigned to Help) : no UI
+//                    ---> Programs Assignments <--- Program : UI
+// Program            <--- Pipeline --> Pipeline Steps : UI
+//                    ---> Programs Assignments <--- Volunteer : No UI
+//                    ---> Requests : No UI
+//                    ---> Questions : UI
+// Request            <--- Program : UI
+// (including benef   <--- Pipeline Step : UI
+//    info)           <--o AssignedVolunteer : UI
+//                    ---> Volunteer Responses <--- Volunteer : UI
+//                    ---> Answers <--- Question : UI
+//                    ---> EmailReceipt : UI
 //
-// EmailTemplates
-// Pipeline
-// Question
-// Answer
+// EmailTemplates     <--- Program : UI
+//                    <--- Pipeline: UI
+// Pipeline           o--> Pipeline Steps : UI
+//                    o--> Program : No UI
+//
+// Following resources do not have screens devoted just to that resource
+// Instead, these are entered as children of a parent object
+//
+// Question           o--> Answer <--- Request
+//                    <--o Program
+// Answer             <--o Request
+//
 
 model User {
   UUID                String    @id @default(uuid())
@@ -46,9 +56,9 @@ model User {
 }
 
 model Program {
-  UUID     String   @id @default(uuid())
-  name     String
-  Pipeline Pipeline? @relation(fields: [pipelineUUID], references: [UUID])
+  UUID         String    @id @default(uuid())
+  name         String
+  Pipeline     Pipeline? @relation(fields: [pipelineUUID], references: [UUID])
   pipelineUUID String?
 }
 
@@ -60,23 +70,24 @@ model Pipeline {
 }
 
 model PipelineStep {
-  UUID        String    @id @default(uuid())
-  sequence    Int
-  name        String
-  Pipeline    Pipeline  @relation(fields: [UUID], references: [UUID])
-  Requests    Request[]
-  programUUID String
+  UUID         String    @id @default(uuid())
+  sequence     Int
+  name         String
+  Pipeline     Pipeline  @relation(fields: [pipelineUUID], references: [UUID])
+  Requests     Request[]
+  pipelineUUID String
 }
 
 model Request {
   UUID                String                  @id @default(uuid())
   summary             String
   description         String
-  ProgramStep         PipelineStep?           @relation(fields: [programStepUUID], references: [UUID])
+  PipelineStep        PipelineStep?           @relation(fields: [pipelineStepUUID], references: [UUID])
   BeneficiaryUser     User?                   @relation("beneficiary", fields: [beneficiaryUserUUID], references: [UUID])
   AssignedUser        User?                   @relation("assigned", fields: [assignedUserUUID], references: [UUID])
   ProgramAssignments  UserProgramAssignment[]
-  programStepUUID     String?
+  Responses           Response[]
+  pipelineStepUUID    String?
   beneficiaryUserUUID String?
   assignedUserUUID    String?
 }
@@ -89,11 +100,13 @@ model UserProgramAssignment {
   requestUUID   String?
 }
 
-model responses {
-  UUID         String @id @default(uuid())
+model Response {
+  UUID         String   @id @default(uuid())
   volunterUUID String
   isWilling    String
   responseText String
+  Request      Request? @relation(fields: [requestUUID], references: [UUID])
+  requestUUID  String?
 }
 
 datasource db {
@@ -103,4 +116,4 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-}
+} 
