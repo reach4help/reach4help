@@ -31,6 +31,11 @@ app.get("/program/list", async (req, res) => {
     return res.json( programs );
   });
   
+app.post("/program/create", async (req, res) => {
+  const { body } = req;
+  const program = await prisma.program.create({ data: body });
+  return res.json(program);
+})
   
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
