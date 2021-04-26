@@ -5,95 +5,122 @@
 
 // Legend:
 // < and > indicate there are multiple of that entity
-// o indicates optional
+// o - in a many to one, indicates relationship to parent is optional
+//     A parent is never required to have children
 
-//    owner ---> pet:   every owner has one or more pets
-// .  pet <--- owner:   every owner has one or more pets
-// .  person o---> car: a person optionally owns one or more cars
+//    owner ---> pet:   every pet has an owner
+//    pet <--- owner:   every pet has an owner
+//    buyer o---> car: a car can optionally have a buyer
 
 //
 //
-// Volunteer (User)   o--> Requests (Assigned to Help)
-//                    ---> X Programs Assignments <---o Program
-// Program            <--o X Pipeline --> Pipeline Steps
-//                    o--> Requests
-//                    o--> Questions
-// Request            <--o X Program
-// (including benef   <--o X Pipeline Step
-//    info)           <--o X AssignedVolunteer
-//                    o--> X Volunteer Responses <--o Volunteer
-//                    o--> X Answers --o Question
-//                    o--- X Email Receipt
+// Volunteer (User)   o--> Requests (Assigned to Help) : no UI
+//                    ---> Programs Assignments <--- Program : UI
+// Program            <--- Program --> Program Steps : UI
+//                    ---> Programs Assignments <--- Volunteer : No UI
+//                    ---> Requests : No UI
+//                    ---> Questions : UI
+// Request            <--- Program : UI
+// (including benef   <--- Program Step : UI
+//    info)           <--o AssignedVolunteer : UI
+//                    ---> Volunteer Responses <--- Volunteer : UI
+//                    ---> Answers <--- Question : UI
+//                    ---> EmailReceipt : UI
 //
-// EmailTemplates
-// Pipeline
-// Question
-// Answer
+// EmailTemplates     <--- Program : UI
+//                    <--- Program: UI
+// Program            o--> Program Steps : UI
+//                    o--> Program : No UI
+//
+// Following resources do not have screens devoted just to that resource
+// Instead, these are entered as children of a parent object
+//
+// Question           o--> Answer <--- Request
+//                    <--o Program
+// Answer             <--o Request
+//                    <--o Question
+//
 
-model User {
-  UUID                String    @id @default(uuid())
-  address             String
-  email               String
-  phone               String
-  isVolunteer         Boolean
-  volunteerNotes      String
-  isBenificiary       Boolean
-  beneficiaryNotes    String
-  assignedRequests    Request[] @relation(name: "assigned")
-  beneficiaryRequests Request[] @relation(name: "beneficiary")
-
+model Volunteer {
+  isVolunteer      Boolean
+  UUID             String    @id @default(uuid())
+  address          String
+  email            String
+  phone            String
+  notes            String
+  assignedRequests Request[] @relation(name: "volunteer")
   // programAssignments UserProgramAssignment[]
 }
 
+model Beneficiary {
+  isVolunteer                  Boolean
+  UUID                         String                         @id @default(uuid())
+  address                      String
+  email                        String
+  phone                        String
+  notes                        String
+  assignedRequests             Request[]                      @relation(name: "beneficiary")
+  // programAssignments UserProgramAssignment[]
+  BeneficiaryProgramAssignment BeneficiaryProgramAssignment[]
+  VolunteerProgramAssignment   VolunteerProgramAssignment[]
+}
+
 model Program {
-  UUID     String   @id @default(uuid())
-  name     String
-  Pipeline Pipeline? @relation(fields: [pipelineUUID], references: [UUID])
-  pipelineUUID String?
+  UUID                         String                         @id @default(uuid())
+  name                         String
+  programStep                  ProgramStep[]
+  request                      Request[]
+  beneficiaryProgramAssignment BeneficiaryProgramAssignment[]
+  volunteerProgramAssignment   VolunteerProgramAssignment[]
 }
 
-model Pipeline {
-  UUID         String         @id @default(uuid())
-  name         String
-  PipelineStep PipelineStep[]
-  Program      Program[]
-}
-
-model PipelineStep {
+model ProgramStep {
   UUID        String    @id @default(uuid())
   sequence    Int
   name        String
-  Pipeline    Pipeline  @relation(fields: [UUID], references: [UUID])
-  Requests    Request[]
+  program     Program   @relation(fields: [programUUID], references: [UUID])
+  requests    Request[]
   programUUID String
 }
 
 model Request {
-  UUID                String                  @id @default(uuid())
-  summary             String
-  description         String
-  ProgramStep         PipelineStep?           @relation(fields: [programStepUUID], references: [UUID])
-  BeneficiaryUser     User?                   @relation("beneficiary", fields: [beneficiaryUserUUID], references: [UUID])
-  AssignedUser        User?                   @relation("assigned", fields: [assignedUserUUID], references: [UUID])
-  ProgramAssignments  UserProgramAssignment[]
-  programStepUUID     String?
-  beneficiaryUserUUID String?
-  assignedUserUUID    String?
+  UUID              String      @id @default(uuid())
+  summary           String
+  description       String
+  programStep       ProgramStep @relation(fields: [programStepUUID], references: [UUID])
+  beneficiary       Beneficiary @relation("beneficiary", fields: [beneficiaryUUID], references: [UUID])
+  volunteer         Volunteer?  @relation("volunteer", fields: [volunteerUUID], references: [UUID])
+  programAssignment Program     @relation(fields: [programUUID], references: [UUID])
+  responses         Response[]
+  programUUID       String
+  programStepUUID   String
+  beneficiaryUUID   String
+  volunteerUUID     String?
 }
 
-model UserProgramAssignment {
-  UUID          String   @id @default(uuid())
-  isVolunteer   String
-  isBeneficiary String
-  Request       Request? @relation(fields: [requestUUID], references: [UUID])
-  requestUUID   String?
+model BeneficiaryProgramAssignment {
+  UUID            String      @id @default(uuid())
+  program         Program     @relation(fields: [programUUID], references: [UUID])
+  beneficiary     Beneficiary @relation(fields: [beneficiaryUUID], references: [UUID])
+  programUUID     String
+  beneficiaryUUID String
 }
 
-model responses {
-  UUID         String @id @default(uuid())
+model VolunteerProgramAssignment {
+  UUID          String      @id @default(uuid())
+  program       Program     @relation(fields: [programUUID], references: [UUID])
+  volunteer     Beneficiary @relation(fields: [volunteerUUID], references: [UUID])
+  programUUID   String
+  volunteerUUID String
+}
+
+model Response {
+  UUID         String   @id @default(uuid())
   volunterUUID String
   isWilling    String
   responseText String
+  request      Request? @relation(fields: [requestUUID], references: [UUID])
+  requestUUID  String?
 }
 
 datasource db {
