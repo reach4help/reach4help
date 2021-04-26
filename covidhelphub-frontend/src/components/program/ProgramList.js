@@ -9,7 +9,7 @@ const Programs = () => {
   // NOTE on React Hook: useEffect: syntax by React Hooks. Code is called when component mounts,
   // or is updated
   useEffect(() => {
-    fetch('http://localhost:3000/api/program/listProgram') // returns promise to get Programs
+    fetch('http://localhost:8080/program/list') // returns promise to get Programs
       .then(res => res.json())
       .then(data => {
         setPrograms(data);
