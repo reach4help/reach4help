@@ -33,7 +33,9 @@ app.get("/program/list", async (req, res) => {
   
 app.post("/program/create", async (req, res) => {
   const { body } = req;
-  const program = await prisma.program.create({ data: body });
+  console.log("baby debug", body);
+  console.log( ' body 2 ', body);
+  const program = await prisma.program.create( { data: body } );
   return res.json(program);
 })
   

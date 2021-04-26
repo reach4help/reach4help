@@ -9,10 +9,14 @@ const Home = () => {
     <div className="container">
       <form
         onSubmit={() => {
-          fetch('http://localhost:3000/api/program/create', {
+          const requestOptions = {
             method: 'POST',
-            body: JSON.stringify({ name }),
-          });
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name  })
+        };
+          console.log("Name", name);
+          fetch('http://localhost:8080/program/create', requestOptions)
+           .then(res => console.log('res',res));
         }}
       >
         <div className="form-control">

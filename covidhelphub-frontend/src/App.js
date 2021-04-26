@@ -1,10 +1,10 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
 
+import ProgramCreate from './components/program/ProgramCreate';
 import ProgramList from "./components/program/ProgramList";
 
 import "./App.css";
-
 
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
 
       <div className="container mt-3">
         <Switch>
+          <Route exact path="/program/create" component={ProgramCreate} />
           <Route exact path="/program/list" component={ProgramList} />
         </Switch>
       </div>
