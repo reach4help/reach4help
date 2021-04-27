@@ -11,25 +11,46 @@ a {
   text-decoration: none;
 }
 
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
 * {
   box-sizing: border-box;
 }
-.nav {
+.navbar {
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  border: 1px solid black;
+  box-shadow: 0 5px 5px grey;
+  padding: 10px;
   display: flex;
-  justify-content: space-around;
+  background: white;
+}
+.nav-link {
+  margin-right: 10px;
 }
 .container {
   width: 300px;
-  margin: 200px auto;
+  margin: 60px auto;
   padding: 10px;
   border: 1px solid gray;
 }
 .form-control input {
   display: block;
   margin: 10px 0;
+}
+
+.list-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  height: 30px;
+}
+
+.list-btn {
+  margin-left: auto;
+  height: 20px;
 }

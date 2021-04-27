@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Programs = () => {
   // NOTE on React Hook: useState is used by React Hooks to create state variables and
@@ -11,24 +12,36 @@ const Programs = () => {
   useEffect(() => {
     fetch('http://localhost:8080/program/list') // returns promise to get Programs
       .then(res => res.json())
-      .then(data => {
-        setPrograms(data);
+      .then(json => {
+        setPrograms(json.data);
       });
   }, []);
 
   const ProgramsLinks = programs.map(program => (
-     <li key={`Program${program.programUUID}`}>
-       {program.name}
-     </li>
-   ))
+    <tr>
+      <td>
+        <Link to={{ pathname: '/program/display', name: program.name }}>
+          {program.name}
+        </Link>
+      </td>
+    </tr>
+  ));
 
   // === return fragment with a h4 and the list of Programs.
   return (
     <div>
-      <h4>Programs!</h4>
-      <ul>
-          {ProgramsLinks}
-        </ul> 
+      <header className="list-header">
+        <h4>Programs</h4>
+        <Link className="list-btn" to="/program/create">
+          <button>Add</button>
+        </Link>
+      </header>
+      <table>
+        <tr>
+          <th>Name</th>
+        </tr>
+        {ProgramsLinks}
+      </table>
     </div>
   );
 };
