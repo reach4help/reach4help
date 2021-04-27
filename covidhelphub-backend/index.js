@@ -28,15 +28,18 @@ app.get("/", (req, res) => {
 
 app.get("/program/list", async (req, res) => {
     const programs = await prisma.program.findMany();
-    return res.json( programs );
+    return res.json( { data: programs } );
   });
   
 app.post("/program/create", async (req, res) => {
   const { body } = req;
-  console.log("baby debug", body);
-  console.log( ' body 2 ', body);
-  const program = await prisma.program.create( { data: body } );
-  return res.json(program);
+  try {
+    const program = await prisma.program.create( { data: body }) ;
+    return res.json({ data: program });
+  } catch (err) {
+    const x = {err: err.message};
+    return res.json ( x );
+  }
 })
   
 // set port, listen for requests
