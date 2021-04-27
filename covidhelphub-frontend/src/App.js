@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
-import HomePage from './components/HomePage';
-import ProgramCreate from './components/program/ProgramCreate';
-import ProgramDisplay from './components/program/ProgramDisplay';
-import ProgramList from './components/program/ProgramList';
+import HomeComponent from './components/HomeComponent';
+import ProgramCreateComponent from './components/program/ProgramCreateComponent';
+import ProgramDisplayComponent from './components/program/ProgramDisplayComponent';
+import ProgramListComponent from './components/program/ProgramListComponent';
 
 import './globals.css';
 
@@ -12,20 +12,28 @@ function App() {
   return (
     <div>
       <nav className="navbar">
-          <Link to={'/program/list'} className="nav-link">
-            Programs
-          </Link>
-          <Link to={''} className="nav-link">
-            Requests
-          </Link>
+        <Link to={'/program/list'} className="nav-link">
+          Programs
+        </Link>
+        <Link to={''} className="nav-link">
+          Requests
+        </Link>
       </nav>
 
       <div className="container mt-3">
         <Switch>
-          <Route exact path="/" component={HomePage}></Route>
-          <Route exact path="/program/create" component={ProgramCreate} />
-          <Route exact path="/program/list" component={ProgramList} />
-          <Route exact path="/program/display" component={ProgramDisplay} />
+          <Route exact path="/" component={HomeComponent}></Route>
+          <Route
+            exact
+            path="/program/create"
+            component={ProgramCreateComponent}
+          />
+          <Route exact path="/program/list" component={ProgramListComponent} />
+          <Route
+            exact
+            path="/program/display"
+            component={ProgramDisplayComponent}
+          />
         </Switch>
       </div>
     </div>

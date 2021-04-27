@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 
-const Home = () => {
+const ProgramCreateComponent = () => {
   const [name, setName] = useState('');
   const history = useHistory();
   const handleChange = e => {
@@ -58,4 +58,4 @@ const Home = () => {
     </div>
   );
 };
-export default Home;
+export default ProgramCreateComponent;

@@ -1,4 +1,4 @@
-const ProgramDisplay = props => {
+const ProgramDisplayComponent = props => {
   return (
     <div>
       <h1>Program</h1>
@@ -16,4 +16,4 @@ const ProgramDisplay = props => {
   );
 };
 
-export default ProgramDisplay;
+export default ProgramDisplayComponent;

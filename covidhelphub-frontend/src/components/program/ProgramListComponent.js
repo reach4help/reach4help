@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Programs = () => {
+const ProgramListComponent = () => {
   // NOTE on React Hook: useState is used by React Hooks to create state variables and
   // setter function for component
   const [programs, setPrograms] = useState([]);
@@ -45,4 +45,4 @@ const Programs = () => {
     </div>
   );
 };
-export default Programs;
+export default ProgramListComponent;
