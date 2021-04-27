@@ -1,6 +1,5 @@
 -- CreateTable
 CREATE TABLE "Volunteer" (
-    "isVolunteer" BOOLEAN NOT NULL,
     "UUID" TEXT NOT NULL PRIMARY KEY,
     "address" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -10,11 +9,10 @@ CREATE TABLE "Volunteer" (
 
 -- CreateTable
 CREATE TABLE "Beneficiary" (
-    "isVolunteer" BOOLEAN NOT NULL,
     "UUID" TEXT NOT NULL PRIMARY KEY,
     "address" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "phone" TEXT NOT NULL,
+    "email" TEXT,
+    "phone" TEXT,
     "notes" TEXT NOT NULL
 );
 
@@ -75,3 +73,6 @@ CREATE TABLE "Response" (
     "requestUUID" TEXT,
     FOREIGN KEY ("requestUUID") REFERENCES "Request" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Program.name_unique" ON "Program"("name");

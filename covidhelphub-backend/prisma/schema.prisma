@@ -42,7 +42,6 @@
 //
 
 model Volunteer {
-  isVolunteer      Boolean
   UUID             String    @id @default(uuid())
   address          String
   email            String
@@ -53,11 +52,10 @@ model Volunteer {
 }
 
 model Beneficiary {
-  isVolunteer                  Boolean
   UUID                         String                         @id @default(uuid())
   address                      String
-  email                        String
-  phone                        String
+  email                        String?
+  phone                        String?
   notes                        String
   assignedRequests             Request[]                      @relation(name: "beneficiary")
   // programAssignments UserProgramAssignment[]
@@ -67,7 +65,7 @@ model Beneficiary {
 
 model Program {
   UUID                         String                         @id @default(uuid())
-  name                         String
+  name                         String                         @unique
   programStep                  ProgramStep[]
   request                      Request[]
   beneficiaryProgramAssignment BeneficiaryProgramAssignment[]
