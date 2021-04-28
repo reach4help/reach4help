@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ProgramService from '../services/ProgramService';
 
 const ProgramListComponent = () => {
   // NOTE on React Hook: useState is used by React Hooks to create state variables and
@@ -10,17 +11,17 @@ const ProgramListComponent = () => {
   // NOTE on React Hook: useEffect: syntax by React Hooks. Code is called when component mounts,
   // or is updated
   useEffect(() => {
-    fetch('http://localhost:8080/program/list') // returns promise to get Programs
-      .then(res => res.json())
-      .then(json => {
-        setPrograms(json.data);
-      });
+    async function getData() {
+      const programs = await ProgramService.list();
+      setPrograms(programs);
+    }
+    getData();
   }, []);
 
-  const ProgramsLinks = programs.map(program => (
+  const ProgramLinks = programs.map(program => (
     <tr>
       <td>
-        <Link to={{ pathname: '/program/display', name: program.name }}>
+        <Link key={`Program${program.name}`} to={{ pathname: '/program/display', name: program.name }}>
           {program.name}
         </Link>
       </td>
@@ -40,7 +41,7 @@ const ProgramListComponent = () => {
         <tr>
           <th>Name</th>
         </tr>
-        {ProgramsLinks}
+        {ProgramLinks}
       </table>
     </div>
   );
