@@ -2,8 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 
 const DynamicTable = () => {
-
-
   // updateMessage(event) {
   //   this.setState({
   //     message: event.target.value,
@@ -65,32 +63,30 @@ const DynamicTable = () => {
   //   });
   // }
 
-  render() {
-    return (
-      <div>
-        <table className="">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>{this.renderRows()}</tbody>
-        </table>
-        <hr />
-        <input
-          type="text"
-          value={this.state.message}
-          // onChange={this.updateMessage.bind(this)}
-        />
-        <button
-        //onClick={this.handleClick.bind(this)}
-        >
-          Add Item
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <table className="">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{this.renderRows()}</tbody>
+      </table>
+      <hr />
+      <input
+        type="text"
+        value={this.state.message}
+        // onChange={this.updateMessage.bind(this)}
+      />
+      <button
+      //onClick={this.handleClick.bind(this)}
+      >
+        Add Item
+      </button>
+    </div>
+  );
+};
 
 export default DynamicTable;
