@@ -1,15 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-export default class DynamicTable extends React.Component {
-  constructor(props) {
-    super(props);
+const DynamicTable = () => {
 
-    this.state = {
-      message: '',
-      items: [],
-    };
-  }
 
   // updateMessage(event) {
   //   this.setState({
@@ -47,30 +40,30 @@ export default class DynamicTable extends React.Component {
   //   });
   // }
 
-  renderRows() {
-    var context = this;
+  // renderRows() {
+  //   var context = this;
 
-    return this.state.items.map(function(o, i) {
-      return (
-        <tr key={'item-' + i}>
-          <td>
-            <input
-              type="text"
-              value={o}
-              // onChange={context.handleItemChanged.bind(context, i)}
-            />
-          </td>
-          <td>
-            <button
-            // onClick={context.handleItemDeleted.bind(context, i)}
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      );
-    });
-  }
+  //   return this.state.items.map(function(o, i) {
+  //     return (
+  //       <tr key={'item-' + i}>
+  //         <td>
+  //           <input
+  //             type="text"
+  //             value={o}
+  //             // onChange={context.handleItemChanged.bind(context, i)}
+  //           />
+  //         </td>
+  //         <td>
+  //           <button
+  //           // onClick={context.handleItemDeleted.bind(context, i)}
+  //           >
+  //             Delete
+  //           </button>
+  //         </td>
+  //       </tr>
+  //     );
+  //   });
+  // }
 
   render() {
     return (
@@ -99,4 +92,5 @@ export default class DynamicTable extends React.Component {
     );
   }
 }
-render(<DynamicTable />, document.getElementById('root'));
+
+export default DynamicTable;
