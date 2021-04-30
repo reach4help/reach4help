@@ -26,9 +26,9 @@ const ProgramListComponent = () => {
       <td>
         <Link
           key={`Program${program}`}
-          to={{ pathname: '/program/display', name: program }}
+          to={{ pathname: '/program/display', name: program.code }}
         >
-          {program}
+          {program.code}
         </Link>
       </td>
     </tr>
