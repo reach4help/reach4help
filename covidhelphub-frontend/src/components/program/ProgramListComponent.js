@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAppContext } from '../../AppContext';
 
 const DynamicTable = () => {
+  const { listPrograms } = useAppContext();
+  const [programs, setPrograms] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const programs = listPrograms();
+      setPrograms(programs);
+    }
+    getData();
+  }, [programs]);
+
+  const ProgramLinks = programs.map(program => (
+    <tr>
+      <td>{program.code}</td>
+    </tr>
+  ));
+
   // updateMessage(event) {
   //   this.setState({
   //     message: event.target.value,
@@ -71,7 +89,7 @@ const DynamicTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        {/* <tbody>{this.renderRows()}</tbody> */}
+        <tbody>{ProgramLinks}</tbody> */}
       </table>
       <hr />
       <input
