@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ProgramService from '../services/ProgramService';
+//import ProgramService from '../services/ProgramService';
+import { useAppContext } from '../../AppContext';
 
 const ProgramListComponent = () => {
   // NOTE on React Hook: useState is used by React Hooks to create state variables and
   // setter function for component
+  const { listPrograms } = useAppContext();
+
   const [programs, setPrograms] = useState([]);
 
   // ==== Fetch Programs into Programs variable ===
@@ -12,17 +15,20 @@ const ProgramListComponent = () => {
   // or is updated
   useEffect(() => {
     async function getData() {
-      const programs = await ProgramService.list();
+      const programs = listPrograms();
       setPrograms(programs);
     }
     getData();
-  }, []);
+  }, [programs]);
 
   const ProgramLinks = programs.map(program => (
     <tr>
       <td>
-        <Link key={`Program${program.name}`} to={{ pathname: '/program/display', name: program.name }}>
-          {program.name}
+        <Link
+          key={`Program${program}`}
+          to={{ pathname: '/program/display', name: program }}
+        >
+          {program}
         </Link>
       </td>
     </tr>
