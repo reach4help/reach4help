@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useAppContext } from '../../AppContext';
+import { Program, useAppContext } from '../../AppContext';
 
 const DynamicTable = () => {
   const { listPrograms } = useAppContext();
   const [programs, setPrograms] = useState([]);
+  const [newProgramCode, setNewProgramCode] = useState('');
 
   useEffect(() => {
     async function getData() {
       const programs = listPrograms();
       setPrograms(programs);
     }
+    console.log('Here');
     getData();
-  }, [programs]);
+  }, [programs, listPrograms]);
 
   const ProgramLinks = programs.map(program => (
     <tr>
       <td>{program.code}</td>
     </tr>
   ));
+  console.log('program links', ProgramLinks);
 
   // updateMessage(event) {
   //   this.setState({
@@ -79,6 +82,16 @@ const DynamicTable = () => {
   //     );
   //   });
   // }
+  function addProgramToArray() {
+    programs.push(new Program(newProgramCode));
+    setPrograms(programs);
+    setNewProgramCode('');
+    console.log('Programs', programs);
+  }
+
+  function refreshNewProgramCode(e) {
+    setNewProgramCode(e.target.value);
+  }
 
   return (
     <div>
@@ -94,14 +107,10 @@ const DynamicTable = () => {
       <hr />
       <input
         type="text"
-        defaultValue=""
-        // onChange={this.updateMessage.bind(this)}
+        value={newProgramCode}
+        onChange={e => refreshNewProgramCode(e)}
       />
-      <button
-      //onClick={this.handleClick.bind(this)}
-      >
-        Add Item
-      </button>
+      <button onClick={e > addProgramToArray()}>Add Item</button>
     </div>
   );
 };
