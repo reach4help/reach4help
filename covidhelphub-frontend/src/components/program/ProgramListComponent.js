@@ -72,12 +72,12 @@ const DynamicTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>{this.renderRows()}</tbody>
+        {/* <tbody>{this.renderRows()}</tbody> */}
       </table>
       <hr />
       <input
         type="text"
-        value={this.state.message}
+        defaultValue=""
         // onChange={this.updateMessage.bind(this)}
       />
       <button
