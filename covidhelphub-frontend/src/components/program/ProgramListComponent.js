@@ -110,7 +110,7 @@ const DynamicTable = () => {
         value={newProgramCode}
         onChange={e => refreshNewProgramCode(e)}
       />
-      <button onClick={e > addProgramToArray()}>Add Item</button>
+      <button onClick={addProgramToArray}>Add Item</button>
     </div>
   );
 };

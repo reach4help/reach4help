@@ -7,7 +7,7 @@ const appContext = createContext(
   }
 );
 
-class Program {
+export class Program {
   constructor(code: String) {
     this.code = code
   }
