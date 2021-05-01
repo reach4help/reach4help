@@ -1,39 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { Program, useAppContext } from '../../AppContext';
+import { Program } from '../../AppContext';
 import ProgramService from '../../services/ProgramService';
 
-const DynamicTable = () => {
-  const { listPrograms } = useAppContext();
+const ProgramListComponent = () => {
   const [programs, setPrograms] = useState([]);
   const [newProgramCode, setNewProgramCode] = useState('');
 
   useEffect(() => {
     async function getData() {
-      console.log('there');
       const programs = await ProgramService.list();
-      console.log('done setting programs');
       setPrograms(programs);
     }
-    console.log('Here');
     getData();
   }, []);
 
-  const ProgramLinks = programs.map(program => (
+  const ProgramLinks = programs.map((program, i) => (
     <tr>
-      <td>{program.code}</td>
+      <td>
+        <input
+          type="text"
+          defaultValue={program.code}
+          onChange={e => updateArrayRow(e, i)}
+        />
+      </td>
     </tr>
   ));
-  console.log('program links', ProgramLinks);
 
   function addProgramToArray() {
     programs.push(new Program(newProgramCode));
     setPrograms(programs);
     setNewProgramCode('');
-    console.log('Programs', programs);
   }
 
   function refreshNewProgramCode(e) {
     setNewProgramCode(e.target.value);
+  }
+
+  function updateArrayRow(e, i) {
+    programs[i].code = e.target.value;
+    setPrograms(programs);
   }
 
   async function savePrograms() {
@@ -50,7 +55,7 @@ const DynamicTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>{ProgramLinks}</tbody> */}
+        <tbody>{ProgramLinks}</tbody>
       </table>
       <hr />
       <input
@@ -59,9 +64,9 @@ const DynamicTable = () => {
         onChange={e => refreshNewProgramCode(e)}
       />
       <button onClick={addProgramToArray}>Add Item</button>
-      <button onClick={savePrograms}>Add Item</button>
+      <button onClick={savePrograms}>Save</button>
     </div>
   );
 };
 
-export default DynamicTable;
+export default ProgramListComponent;
