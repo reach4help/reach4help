@@ -18,12 +18,8 @@ const ProgramListComponent = () => {
   }, []);
 
   let ProgramLinks = {};
-  console.log('figuring out program links', programs);
-  // if (deleted) {
-  //   ProgramLinks = <p>Deleted</p>;
-  // } else {
+
   ProgramLinks = programs.map((program, i) => {
-    console.log('adding to link', program.code);
     return (
       <tr key={`item-${program.code}-${i}`}>
         <td>
@@ -49,12 +45,7 @@ const ProgramListComponent = () => {
   }
 
   function deleteArrayRow(i) {
-    console.log('deleting', i);
-    console.log('debug 1', programs);
-    console.log('debug 2', programs[i]);
     programs.splice(i, 1);
-    console.log('debug 3', programs);
-    console.log('debug 4', programs[i]);
     setPrograms(programs);
     setProgramCount(programs.length);
     setDeleted(true);
@@ -84,9 +75,7 @@ const ProgramListComponent = () => {
 
   async function savePrograms() {
     const newPrograms = await ProgramService.saveMany(programs);
-    console.log('new programs', newPrograms);
   }
-  console.log('programs', programs, ProgramLinks);
   return (
     <div>
       <table className="">
