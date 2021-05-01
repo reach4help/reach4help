@@ -62,13 +62,14 @@ model Beneficiary {
 }
 
 model Program {
+  sequence    Int
   code                         String                         @unique
   // programStep                  ProgramStep[]
   request                         Request[]
   volunteerProgramAssignment      VolunteerProgramAssignment[]
 }
 
-model Steps {
+model Step {
   sequence    Int
   code        String    @unique
   // program     Program   @relation(fields: [programUUID], references: [UUID])
@@ -80,7 +81,7 @@ model Request {
   UUID              String       @id @default(uuid())
   summary           String
   description       String
-  programStep       Steps        @relation(fields: [stepCode], references: [code])
+  programStep       Step        @relation(fields: [stepCode], references: [code])
   beneficiary       Beneficiary  @relation(fields: [beneficiaryUUID], references: [UUID])
   volunteer         Volunteer?   @relation(fields: [volunteerUUID], references: [UUID])
   programAssignment Program      @relation(fields: [programCode], references: [code])

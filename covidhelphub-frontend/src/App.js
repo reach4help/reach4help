@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 import HomeComponent from './components/HomeComponent';
 import ProgramListComponent from './components/program/ProgramListComponent';
+import StepListComponent from './components/step/StepListComponent';
 
 import './globals.css';
 
@@ -22,7 +23,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomeComponent}></Route>
           <Route exact path="/program/list" component={ProgramListComponent} />
-          <Route exact path="/program/display" />
+          <Route exact path="/step/list" component={StepListComponent} />
         </Switch>
       </div>
     </div>

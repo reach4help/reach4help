@@ -19,11 +19,12 @@ CREATE TABLE "Beneficiary" (
 
 -- CreateTable
 CREATE TABLE "Program" (
+    "sequence" INTEGER NOT NULL,
     "code" TEXT NOT NULL
 );
 
 -- CreateTable
-CREATE TABLE "Steps" (
+CREATE TABLE "Step" (
     "sequence" INTEGER NOT NULL,
     "code" TEXT NOT NULL
 );
@@ -37,7 +38,7 @@ CREATE TABLE "Request" (
     "stepCode" TEXT NOT NULL,
     "beneficiaryUUID" TEXT NOT NULL,
     "volunteerUUID" TEXT,
-    FOREIGN KEY ("stepCode") REFERENCES "Steps" ("code") ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY ("stepCode") REFERENCES "Step" ("code") ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY ("beneficiaryUUID") REFERENCES "Beneficiary" ("UUID") ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY ("volunteerUUID") REFERENCES "Volunteer" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY ("programCode") REFERENCES "Program" ("code") ON DELETE CASCADE ON UPDATE CASCADE
@@ -66,4 +67,4 @@ CREATE TABLE "Response" (
 CREATE UNIQUE INDEX "Program.code_unique" ON "Program"("code");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Steps.code_unique" ON "Steps"("code");
+CREATE UNIQUE INDEX "Step.code_unique" ON "Step"("code");

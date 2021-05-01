@@ -26,8 +26,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/program/list', async (req, res) => {
-  const programs = await prisma.program.findMany();
-  console.log('list', programs);
+  const programs = await prisma.program.findMany({
+    orderBy: [{ sequence: 'asc' }],
+  });
   return res.json({ data: programs });
 });
 
@@ -43,19 +44,36 @@ app.post('/program/create', async (req, res) => {
 });
 
 app.post('/program/savemany', async (req, res) => {
-  console.log('starting');
   const { body } = req;
   await prisma.program.deleteMany({});
   const programs = body;
-  const newPrograms = await programs.map(async program => {
-    console.log('saving', program);
-    const newProgram = await prisma.program.create({ data: program });
-    console.log('new', newProgram);
-    return newProgram;
+  const newPrograms = await programs.map(async (program, i) => {
+    const newProgram = { ...program, sequence: i };
+    const resultProgram = await prisma.program.create({ data: newProgram });
+    return resultProgram;
   });
   const x = await newPrograms;
-  console.log('x', x);
   return res.json({ data: newPrograms });
+});
+
+app.get('/step/list', async (req, res) => {
+  console.log('aaa');
+  const steps = await prisma.step.findMany({ orderBy: [{ sequence: 'asc' }] });
+  console.log('steps', steps);
+  return res.json({ data: steps });
+});
+
+app.post('/step/savemany', async (req, res) => {
+  const { body } = req;
+  await prisma.step.deleteMany({});
+  const steps = body;
+  const newSteps = await steps.map(async (step, i) => {
+    const newStep = { ...step, sequence: i };
+    const resultStep = await prisma.step.create({ data: newStep });
+    return resultStep;
+  });
+
+  return res.json({ data: newSteps });
 });
 
 // set port, listen for requests
