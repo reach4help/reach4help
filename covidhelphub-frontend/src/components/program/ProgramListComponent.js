@@ -6,14 +6,14 @@ const ProgramListComponent = () => {
   const [programs, setPrograms] = useState([]);
   const [newProgramCode, setNewProgramCode] = useState('');
   const [programCount, setProgramCount] = useState(0);
-  const [forceUpdateCount, setForceUpdateCount] = useState(0);
+  const [forceUpdateTime, setForceUpdateTime] = useState(new Date());
+  const [forceAddCount, setForceAddCount] = useState(0);
 
   useEffect(() => {
     async function getData() {
       const programs = await ProgramService.list();
       setPrograms(programs);
       setProgramCount(programs.length);
-      setForceUpdateCount(forceUpdateCount + 1);
     }
     getData();
   }, []);
@@ -44,14 +44,15 @@ const ProgramListComponent = () => {
     setPrograms(programs);
     setNewProgramCode('');
     setProgramCount(programs.length);
-    setForceUpdateCount(forceUpdateCount + 1);
+    setForceUpdateTime(forceUpdateTime + 1);
+    setForceAddCount(forceAddCount + 1);
   }
 
   function deleteArrayRow(i) {
     programs.splice(i, 1);
     setPrograms(programs);
     setProgramCount(programs.length);
-    setForceUpdateCount(forceUpdateCount + 1);
+    setForceUpdateTime(forceUpdateTime + 1);
   }
 
   function refreshNewProgramCode(e) {
@@ -63,7 +64,7 @@ const ProgramListComponent = () => {
       const programs = await ProgramService.list();
       setPrograms(programs);
       setProgramCount(programs.length);
-      setForceUpdateCount(forceUpdateCount + 1);
+      setForceUpdateTime(forceUpdateTime + 1);
     }
     getData();
   }
@@ -76,6 +77,7 @@ const ProgramListComponent = () => {
   async function savePrograms() {
     await ProgramService.saveMany(programs);
   }
+
   return (
     <div>
       <p>Count: {programCount}</p>
@@ -91,6 +93,8 @@ const ProgramListComponent = () => {
       <hr />
       <div>
         <input
+          key={`addnewprogramvalue-${forceAddCount}`}
+          aria-label={'Value for new program'}
           type="text"
           defaultValue={newProgramCode}
           onChange={e => refreshNewProgramCode(e)}
