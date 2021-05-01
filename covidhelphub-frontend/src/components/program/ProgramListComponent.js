@@ -36,6 +36,14 @@ const ProgramListComponent = () => {
     setNewProgramCode(e.target.value);
   }
 
+  function revertPrograms() {
+    async function getData() {
+      const programs = await ProgramService.list();
+      setPrograms(programs);
+    }
+    getData();
+  }
+
   function updateArrayRow(e, i) {
     programs[i].code = e.target.value;
     setPrograms(programs);
@@ -58,13 +66,16 @@ const ProgramListComponent = () => {
         <tbody>{ProgramLinks}</tbody>
       </table>
       <hr />
-      <input
-        type="text"
-        value={newProgramCode}
-        onChange={e => refreshNewProgramCode(e)}
-      />
-      <button onClick={addProgramToArray}>Add Item</button>
+      <div>
+        <input
+          type="text"
+          value={newProgramCode}
+          onChange={e => refreshNewProgramCode(e)}
+        />
+        <button onClick={addProgramToArray}>Add Item</button>
+      </div>
       <button onClick={savePrograms}>Save</button>
+      <button onClick={revertPrograms}>Revert</button>
     </div>
   );
 };
