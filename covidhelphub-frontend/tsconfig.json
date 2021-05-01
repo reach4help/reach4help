@@ -3,9 +3,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
-    "lib": [
-      "esnext", "DOM"
-    ],
+    "lib": ["esnext", "DOM"],
     "esModuleInterop": true,
     "target": "es5",
     "allowJs": true,
@@ -21,6 +19,8 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "src",
+    "src/__tests__/CheckboxWithLabel.test.js",
+    "src/scratch/CheckboxWithLabel.js"
   ]
 }
