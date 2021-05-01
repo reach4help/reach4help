@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Program, useAppContext } from '../../AppContext';
+import ProgramService from '../../services/ProgramService';
 
 const DynamicTable = () => {
   const { listPrograms } = useAppContext();
@@ -8,12 +9,14 @@ const DynamicTable = () => {
 
   useEffect(() => {
     async function getData() {
-      const programs = listPrograms();
+      console.log('there');
+      const programs = await ProgramService.list();
+      console.log('done setting programs');
       setPrograms(programs);
     }
     console.log('Here');
     getData();
-  }, [programs, listPrograms]);
+  }, []);
 
   const ProgramLinks = programs.map(program => (
     <tr>
@@ -22,66 +25,6 @@ const DynamicTable = () => {
   ));
   console.log('program links', ProgramLinks);
 
-  // updateMessage(event) {
-  //   this.setState({
-  //     message: event.target.value,
-  //   });
-  // }
-
-  // handleClick() {
-  //   var items = this.state.items;
-
-  //   items.push(this.state.message);
-
-  //   this.setState({
-  //     items: items,
-  //     message: '',
-  //   });
-  // }
-
-  // handleItemChanged(i, event) {
-  //   var items = this.state.items;
-  //   items[i] = event.target.value;
-
-  //   this.setState({
-  //     items: items,
-  //   });
-  // }
-
-  // handleItemDeleted(i) {
-  //   var items = this.state.items;
-
-  //   items.splice(i, 1);
-
-  //   this.setState({
-  //     items: items,
-  //   });
-  // }
-
-  // renderRows() {
-  //   var context = this;
-
-  //   return this.state.items.map(function(o, i) {
-  //     return (
-  //       <tr key={'item-' + i}>
-  //         <td>
-  //           <input
-  //             type="text"
-  //             value={o}
-  //             // onChange={context.handleItemChanged.bind(context, i)}
-  //           />
-  //         </td>
-  //         <td>
-  //           <button
-  //           // onClick={context.handleItemDeleted.bind(context, i)}
-  //           >
-  //             Delete
-  //           </button>
-  //         </td>
-  //       </tr>
-  //     );
-  //   });
-  // }
   function addProgramToArray() {
     programs.push(new Program(newProgramCode));
     setPrograms(programs);
@@ -91,6 +34,11 @@ const DynamicTable = () => {
 
   function refreshNewProgramCode(e) {
     setNewProgramCode(e.target.value);
+  }
+
+  async function savePrograms() {
+    const newPrograms = await ProgramService.createMany(programs);
+    console.log('new programs', newPrograms);
   }
 
   return (
@@ -111,6 +59,7 @@ const DynamicTable = () => {
         onChange={e => refreshNewProgramCode(e)}
       />
       <button onClick={addProgramToArray}>Add Item</button>
+      <button onClick={savePrograms}>Add Item</button>
     </div>
   );
 };

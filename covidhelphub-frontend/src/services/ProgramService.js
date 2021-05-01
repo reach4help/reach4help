@@ -1,25 +1,33 @@
-class Program {
-  constructor(name) {
-    this.name = name;
-    this.uuid = new Date().toISOString();
-  }
-  uuid;
-  name;
-}
-
 class ProgramService {
-  static programs = [];
-  programs = [];
+  static async create(code) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code }),
+    };
+    fetch('http://localhost:8080/program/create', requestOptions).then(res => {
+      return res.json();
+    });
+  }
+
+  static async createMany(programs) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(programs),
+    };
+    fetch('http://localhost:8080/program/createMany', requestOptions).then(
+      res => {
+        return res.json();
+      },
+    );
+  }
 
   static async list() {
-    return ProgramService.programs;
+    const response = await fetch('http://localhost:8080/program/list'); // returns promise to get Programs
+    const json = await response.json();
+    return json.data;
   }
-  //static async create(name) {
-  // const program = new Program(name);
-  // console.log('programs', ProgramService.programs);
-  // await programs.push(program);
-  //return program;
-  //}
 }
 
 export default ProgramService;

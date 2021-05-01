@@ -47,9 +47,9 @@ model Volunteer {
   email            String
   phone            String
   notes            String
+  programCode      String
   assignedRequests Request[]
   volunteerProgramAssignment   VolunteerProgramAssignment[]
-  // programAssignments UserProgramAssignment[]
 }
 
 model Beneficiary {
@@ -59,45 +59,43 @@ model Beneficiary {
   phone                        String?
   notes                        String
   requests                     Request[]
-  // programAssignments UserProgramAssignment[]
 }
 
 model Program {
-  UUID                         String                         @id @default(uuid())
-  name                         String                         @unique
-  programStep                  ProgramStep[]
-  request                      Request[]
-  volunteerProgramAssignment   VolunteerProgramAssignment[]
+  code                         String                         @unique
+  // programStep                  ProgramStep[]
+  request                         Request[]
+  volunteerProgramAssignment      VolunteerProgramAssignment[]
 }
 
-model ProgramStep {
+model Steps {
   sequence    Int
   code        String    @unique
-  program     Program   @relation(fields: [programUUID], references: [UUID])
+  // program     Program   @relation(fields: [programUUID], references: [UUID])
   requests    Request[]
-  programUUID String
+  // programUUID String
 }
 
 model Request {
   UUID              String       @id @default(uuid())
   summary           String
   description       String
-  programStep       ProgramStep  @relation(fields: [programStepCode], references: [code])
+  programStep       Steps        @relation(fields: [stepCode], references: [code])
   beneficiary       Beneficiary  @relation(fields: [beneficiaryUUID], references: [UUID])
   volunteer         Volunteer?   @relation(fields: [volunteerUUID], references: [UUID])
-  programAssignment Program      @relation(fields: [programUUID], references: [UUID])
+  programAssignment Program      @relation(fields: [programCode], references: [code])
   responses         Response[]
-  programUUID       String
-  programStepCode   String
+  programCode       String
+  stepCode          String
   beneficiaryUUID   String
   volunteerUUID     String?
 }
 
 model VolunteerProgramAssignment {
   UUID          String      @id @default(uuid())
-  program       Program     @relation(fields: [programUUID], references: [UUID])
+  program       Program     @relation(fields: [programCode], references: [code])
   volunteer     Volunteer   @relation(fields: [volunteerUUID], references: [UUID])
-  programUUID   String
+  programCode   String
   volunteerUUID String
 }
 
