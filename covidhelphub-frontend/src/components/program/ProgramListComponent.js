@@ -6,13 +6,14 @@ const ProgramListComponent = () => {
   const [programs, setPrograms] = useState([]);
   const [newProgramCode, setNewProgramCode] = useState('');
   const [programCount, setProgramCount] = useState(0);
-  const [deleted, setDeleted] = useState(false);
+  const [forceUpdateCount, setForceUpdateCount] = useState(0);
 
   useEffect(() => {
     async function getData() {
       const programs = await ProgramService.list();
       setPrograms(programs);
       setProgramCount(programs.length);
+      setForceUpdateCount(forceUpdateCount + 1);
     }
     getData();
   }, []);
@@ -20,8 +21,9 @@ const ProgramListComponent = () => {
   let ProgramLinks = {};
 
   ProgramLinks = programs.map((program, i) => {
+    const dateString = new Date().toISOString();
     return (
-      <tr key={`item-${program.code}-${i}`}>
+      <tr key={`item-${program.code}-${i}=${dateString}`}>
         <td>
           <input
             type="text"
@@ -42,13 +44,14 @@ const ProgramListComponent = () => {
     setPrograms(programs);
     setNewProgramCode('');
     setProgramCount(programs.length);
+    setForceUpdateCount(forceUpdateCount + 1);
   }
 
   function deleteArrayRow(i) {
     programs.splice(i, 1);
     setPrograms(programs);
     setProgramCount(programs.length);
-    setDeleted(true);
+    setForceUpdateCount(forceUpdateCount + 1);
   }
 
   function refreshNewProgramCode(e) {
@@ -60,6 +63,7 @@ const ProgramListComponent = () => {
       const programs = await ProgramService.list();
       setPrograms(programs);
       setProgramCount(programs.length);
+      setForceUpdateCount(forceUpdateCount + 1);
     }
     getData();
   }
@@ -69,19 +73,16 @@ const ProgramListComponent = () => {
     setPrograms(programs);
   }
 
-  async function refreshScreen() {
-    setDeleted(false);
-  }
-
   async function savePrograms() {
-    const newPrograms = await ProgramService.saveMany(programs);
+    await ProgramService.saveMany(programs);
   }
   return (
     <div>
+      <p>Count: {programCount}</p>
       <table className="">
         <thead>
           <tr>
-            <th>Item</th>
+            <th>Program</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -98,7 +99,6 @@ const ProgramListComponent = () => {
       </div>
       <br />
       <button onClick={savePrograms}>Save</button>
-      <button onClick={refreshScreen}>Refresh</button>
       <button onClick={revertPrograms}>Revert</button>
     </div>
   );

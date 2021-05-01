@@ -2,8 +2,6 @@ import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
 import HomeComponent from './components/HomeComponent';
-import ProgramCreateComponent from './components/program/ProgramCreateComponent';
-import ProgramDisplayComponent from './components/program/ProgramDisplayComponent';
 import ProgramListComponent from './components/program/ProgramListComponent';
 
 import './globals.css';
@@ -23,17 +21,8 @@ function App() {
       <div className="container mt-3">
         <Switch>
           <Route exact path="/" component={HomeComponent}></Route>
-          <Route
-            exact
-            path="/program/create"
-            component={ProgramCreateComponent}
-          />
           <Route exact path="/program/list" component={ProgramListComponent} />
-          <Route
-            exact
-            path="/program/display"
-            component={ProgramDisplayComponent}
-          />
+          <Route exact path="/program/display" />
         </Switch>
       </div>
     </div>
