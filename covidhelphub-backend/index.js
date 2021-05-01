@@ -42,12 +42,11 @@ app.post('/program/create', async (req, res) => {
   }
 });
 
-app.post('/program/createmany', async (req, res) => {
+app.post('/program/savemany', async (req, res) => {
   console.log('starting');
   const { body } = req;
   await prisma.program.deleteMany({});
   const programs = body;
-  console.log('got programs', programs);
   const newPrograms = await programs.map(async program => {
     console.log('saving', program);
     const newProgram = await prisma.program.create({ data: program });

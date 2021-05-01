@@ -5,11 +5,13 @@ import ProgramService from '../../services/ProgramService';
 const ProgramListComponent = () => {
   const [programs, setPrograms] = useState([]);
   const [newProgramCode, setNewProgramCode] = useState('');
+  const [programCount, setProgramCount] = useState(0);
 
   useEffect(() => {
     async function getData() {
       const programs = await ProgramService.list();
       setPrograms(programs);
+      setProgramCount(programs.length);
     }
     getData();
   }, []);
@@ -23,6 +25,9 @@ const ProgramListComponent = () => {
           onChange={e => updateArrayRow(e, i)}
         />
       </td>
+      <td>
+        <button onClick={() => deleteArrayRow(i)}>Delete</button>
+      </td>
     </tr>
   ));
 
@@ -30,6 +35,13 @@ const ProgramListComponent = () => {
     programs.push(new Program(newProgramCode));
     setPrograms(programs);
     setNewProgramCode('');
+    setProgramCount(programs.length);
+  }
+
+  function deleteArrayRow(i) {
+    programs.splice(i, 1);
+    setPrograms(programs);
+    setProgramCount(programs.length);
   }
 
   function refreshNewProgramCode(e) {
@@ -40,6 +52,7 @@ const ProgramListComponent = () => {
     async function getData() {
       const programs = await ProgramService.list();
       setPrograms(programs);
+      setProgramCount(programs.length);
     }
     getData();
   }
@@ -50,7 +63,7 @@ const ProgramListComponent = () => {
   }
 
   async function savePrograms() {
-    const newPrograms = await ProgramService.createMany(programs);
+    const newPrograms = await ProgramService.saveMany(programs);
     console.log('new programs', newPrograms);
   }
 
@@ -74,6 +87,7 @@ const ProgramListComponent = () => {
         />
         <button onClick={addProgramToArray}>Add Item</button>
       </div>
+      <br />
       <button onClick={savePrograms}>Save</button>
       <button onClick={revertPrograms}>Revert</button>
     </div>

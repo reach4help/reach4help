@@ -10,13 +10,13 @@ class ProgramService {
     });
   }
 
-  static async createMany(programs) {
+  static async saveMany(programs) {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(programs),
     };
-    fetch('http://localhost:8080/program/createMany', requestOptions).then(
+    fetch('http://localhost:8080/program/savemany', requestOptions).then(
       res => {
         return res.json();
       },
