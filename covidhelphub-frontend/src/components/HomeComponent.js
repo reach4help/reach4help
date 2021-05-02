@@ -1,7 +1,7 @@
 import React from 'react';
 
-const HomeComponent = () => {
-    return <h1>Content TBD</h1>
-}
+const HomeComponent = ({ location }) => {
+  return <h1>Content for "{location.pathname}" TBD</h1>;
+};
 
 export default HomeComponent;
