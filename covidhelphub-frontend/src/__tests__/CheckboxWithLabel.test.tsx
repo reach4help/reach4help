@@ -8,13 +8,13 @@ import CheckboxWithLabel from '../scratch/CheckboxWithLabel';
 afterEach(cleanup);
 
 it('CheckboxWithLabel changes the text after click', () => {
-  const { queryByLabelText, getByLabelText } = render(
+  const { getByLabelText }: { getByLabelText: (value: RegExp) => HTMLElement } = render(
     <CheckboxWithLabel labelOn="On" labelOff="Off" />,
   );
 
   expect(getByLabelText(/off/i)).toBeTruthy();
 
-  fireEvent.click(queryByLabelText(/off/i));
+  fireEvent.click(getByLabelText(/off/i));
 
-  expect(queryByLabelText(/on/i)).toBeTruthy();
+  expect(getByLabelText(/on/i)).toBeTruthy();
 });

@@ -8,7 +8,7 @@ test('Link changes the class when hovered', () => {
   const component = renderer.create(
     <Link page="http://www.facebook.com">Facebook</Link>,
   );
-  let tree = component.toJSON();
+  let tree: any = component.toJSON();
   expect(tree).toMatchSnapshot();
 
   // manually trigger the callback

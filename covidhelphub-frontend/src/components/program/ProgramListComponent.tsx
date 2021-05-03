@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Program } from '../../AppContext';
+import { Program } from '../../objectModel/Program';
 import ProgramService from '../../services/ProgramService';
 
 const ProgramListComponent = () => {
-  const [programs, setPrograms] = useState([]);
+  const [programs, setPrograms] = useState([] as Program[]);
   const [newProgramCode, setNewProgramCode] = useState('');
   const [programCount, setProgramCount] = useState(0);
-  const [forceUpdateTime, setForceUpdateTime] = useState(new Date());
-  const [forceAddCount, setForceAddCount] = useState(0);
+  const [forceUpdateCount, setForceUpdateCount] = useState(0);
 
   useEffect(() => {
     async function getData() {
@@ -44,18 +43,17 @@ const ProgramListComponent = () => {
     setPrograms(programs);
     setNewProgramCode('');
     setProgramCount(programs.length);
-    setForceUpdateTime(forceUpdateTime + 1);
-    setForceAddCount(forceAddCount + 1);
+    setForceUpdateCount(forceUpdateCount + 1);
   }
 
-  function deleteArrayRow(i) {
+  function deleteArrayRow(i: number) {
     programs.splice(i, 1);
     setPrograms(programs);
     setProgramCount(programs.length);
-    setForceUpdateTime(forceUpdateTime + 1);
+    setForceUpdateCount(forceUpdateCount + 1);
   }
 
-  function refreshNewProgramCode(e) {
+  function refreshNewProgramCode(e: React.ChangeEvent<HTMLInputElement>) {
     setNewProgramCode(e.target.value);
   }
 
@@ -64,12 +62,12 @@ const ProgramListComponent = () => {
       const programs = await ProgramService.list();
       setPrograms(programs);
       setProgramCount(programs.length);
-      setForceUpdateTime(forceUpdateTime + 1);
+      setForceUpdateCount(forceUpdateCount + 1);
     }
     getData();
   }
 
-  function updateArrayRow(e, i) {
+  function updateArrayRow(e: React.ChangeEvent<HTMLInputElement>, i: number) {
     programs[i].code = e.target.value;
     setPrograms(programs);
   }
@@ -93,7 +91,7 @@ const ProgramListComponent = () => {
       <hr />
       <div>
         <input
-          key={`addnewprogramvalue-${forceAddCount}`}
+          key={`addnewprogramvalue-${forceUpdateCount}`}
           aria-label={'Value for new program'}
           type="text"
           defaultValue={newProgramCode}

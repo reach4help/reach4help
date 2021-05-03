@@ -2,8 +2,6 @@ import React from 'react';
 import {
   cleanup,
   fireEvent,
-  getByDisplayValue,
-  getByLabelText,
   render,
 } from '@testing-library/react';
 import ProgramListComponent from '../components/program/ProgramListComponent';

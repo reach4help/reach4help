@@ -1,5 +1,7 @@
+import { Step } from '../objectModel/Step';
+
 class StepService {
-  static async create(code) {
+  static async create(code: string) {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -10,7 +12,7 @@ class StepService {
     });
   }
 
-  static async saveMany(steps) {
+  static async saveMany(steps: Step[]) {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

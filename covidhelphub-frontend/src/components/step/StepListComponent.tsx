@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import StepService from '../../services/StepService';
+import { Step } from '../../objectModel/Step';
 
 const StepListComponent = () => {
-  const [steps, setSteps] = useState([]);
+  const [steps, setSteps] = useState([] as Step[]);
   const [newStepCode, setNewStepCode] = useState('');
   const [stepCount, setStepCount] = useState(0);
-  const [forceUpdateTime, setForceUpdateTime] = useState(new Date());
-  const [forceAddCount, setForceAddCount] = useState(0);
+  const [forceUpdateCount, setForceUpdateCount] = useState(0);
 
   useEffect(() => {
     async function getData() {
@@ -43,18 +43,17 @@ const StepListComponent = () => {
     setSteps(steps);
     setNewStepCode('');
     setStepCount(steps.length);
-    setForceUpdateTime(forceUpdateTime + 1);
-    setForceAddCount(forceAddCount + 1);
+    setForceUpdateCount(forceUpdateCount + 1);
   }
 
-  function deleteArrayRow(i) {
+  function deleteArrayRow(i: number) {
     steps.splice(i, 1);
     setSteps(steps);
     setStepCount(steps.length);
-    setForceUpdateTime(forceUpdateTime + 1);
+    setForceUpdateCount(forceUpdateCount + 1);
   }
 
-  function refreshNewStepCode(e) {
+  function refreshNewStepCode(e: React.ChangeEvent<HTMLInputElement>) {
     setNewStepCode(e.target.value);
   }
 
@@ -63,12 +62,12 @@ const StepListComponent = () => {
       const steps = await StepService.list();
       setSteps(steps);
       setStepCount(steps.length);
-      setForceUpdateTime(forceUpdateTime + 1);
+      setForceUpdateCount(forceUpdateCount + 1);
     }
     getData();
   }
 
-  function updateArrayRow(e, i) {
+  function updateArrayRow(e: React.ChangeEvent<HTMLInputElement>, i: number) {
     steps[i].code = e.target.value;
     setSteps(steps);
   }
@@ -92,7 +91,7 @@ const StepListComponent = () => {
       <hr />
       <div>
         <input
-          key={`addnewstepvalue-${forceAddCount}`}
+          key={`addnewstepvalue-${forceUpdateCount}`}
           aria-label={'Value for new step'}
           type="text"
           defaultValue={newStepCode}

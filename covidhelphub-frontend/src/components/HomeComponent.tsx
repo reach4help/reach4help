@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HomeComponent = ({ location }) => {
+const HomeComponent = ({ location }: { location: any }) => {
   return <h1>Content for "{location.pathname}" TBD</h1>;
 };
 

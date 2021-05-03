@@ -6,7 +6,7 @@ const STATUS = {
   NORMAL: 'normal',
 };
 
-const Link = ({ page, children }) => {
+const Link = ({ page, children }: { page: any, children: any }) => {
   const [status, setStatus] = useState(STATUS.NORMAL);
 
   const onMouseEnter = () => {

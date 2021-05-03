@@ -9,7 +9,7 @@ import './globals.css';
 
 function App() {
   const [showAdminMenu, setShowAdmin] = useState(false);
-  let NavBar = {};
+  let NavBar = () => { return (<div></div>) };
   if (showAdminMenu) {
     NavBar = () => {
       return (
@@ -36,7 +36,7 @@ function App() {
       );
     };
   } else {
-    NavBar = NavBar = () => {
+    NavBar = () => {
       return (
         <div>
           <Link to={'/admin'} className="nav-link">
