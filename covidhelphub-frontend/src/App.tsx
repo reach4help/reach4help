@@ -9,9 +9,7 @@ import './globals.css';
 import { NavBarFunc } from './NavBarFunc';
 
 function App() {
-  const [showAdminMenu, setShowAdmin] = useState(false);
-  let NavBar = () => { return (<div></div>) };
-  NavBar = NavBarFunc(showAdminMenu, NavBar, setShowAdmin);
+  const NavBar = NavBarFunc();
 
   return (
     <div>

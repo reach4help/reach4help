@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export function NavBarFunc(showAdminMenu: boolean, NavBar: () => JSX.Element, setShowAdmin: React.Dispatch<React.SetStateAction<boolean>>) {
+function getNavBarHTML(mainMenuOptions: { link: string; menuText: string; implemented: boolean; }[]) {
+    return mainMenuOptions.map(menuOption => {
+        return (
+            <Link to={menuOption.link} className={`nav-link ${menuOption.implemented ? "" : "tbd-font"}`}>
+                {menuOption.menuText}
+            </Link>
+        );
+    });
+}
+
+export function NavBarFunc() {
+    const [showAdminMenu, setShowAdmin] = useState(false);
     const adminMenuOptions = [
         { link: "/program/list", menuText: "Programs", implemented: true },
         { link: "/step/list", menuText: "Steps", implemented: true },
@@ -16,6 +27,8 @@ export function NavBarFunc(showAdminMenu: boolean, NavBar: () => JSX.Element, se
     ];
     const adminMenuHTML = getNavBarHTML(adminMenuOptions);
     const mainnMenuHTML = getNavBarHTML(mainMenuOptions);
+
+    let NavBar = (() => { return (<div></div>) });
     if (showAdminMenu) {
         NavBar = () => {
             return (
@@ -40,10 +53,5 @@ export function NavBarFunc(showAdminMenu: boolean, NavBar: () => JSX.Element, se
         };
     }
     return NavBar;
-}
-function getNavBarHTML(mainMenuOptions: { link: string; menuText: string; implemented: boolean; }[]) {
-    return mainMenuOptions.map(menuOption => {
-        return <Link to={menuOption.link} className={`nav-link ${menuOption.implemented ? "" : "tbd-font"}`}>{menuOption.menuText}</Link>;
-    });
 }
 
