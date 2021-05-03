@@ -6,6 +6,9 @@ const StepListComponent = () => {
   const [steps, setSteps] = useState([] as Step[]);
   const [newStepCode, setNewStepCode] = useState('');
   const [stepCount, setStepCount] = useState(0);
+  // forceUpdateCount used to update key of table row
+  // If key is not changed, even though value of input field changes, React only refreshes
+  // new rows or reduces number of rows, but does not update 
   const [forceUpdateCount, setForceUpdateCount] = useState(0);
 
   useEffect(() => {
@@ -20,9 +23,8 @@ const StepListComponent = () => {
   let StepLinks = {};
 
   StepLinks = steps.map((step, i) => {
-    const dateString = new Date().toISOString();
     return (
-      <tr key={`item-${step.code}-${i}=${dateString}`}>
+      <tr key={`item-${step.code}-${i}=${forceUpdateCount}`}>
         <td>
           <input
             type="text"
