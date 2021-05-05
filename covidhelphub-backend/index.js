@@ -1,7 +1,7 @@
+/* eslint-disable guard-for-in */
 import { PrismaClient } from '@prisma/client';
 
 import express from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 
 const prisma = new PrismaClient();
@@ -13,12 +13,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get('/', (req, res) => {
@@ -47,31 +41,32 @@ app.post('/program/savemany', async (req, res) => {
   const { body } = req;
   await prisma.program.deleteMany({});
   const programs = body;
-  const newPrograms = await programs.map(async (program, i) => {
+
+  const newProgramsPromise = programs.map(async (program, i) => {
     const newProgram = { ...program, sequence: i };
     const resultProgram = await prisma.program.create({ data: newProgram });
     return resultProgram;
   });
-  const x = await newPrograms;
+  const newPrograms = await Promise.all(newProgramsPromise);
   return res.json({ data: newPrograms });
 });
 
 app.get('/step/list', async (req, res) => {
-  console.log('aaa');
   const steps = await prisma.step.findMany({ orderBy: [{ sequence: 'asc' }] });
-  console.log('steps', steps);
   return res.json({ data: steps });
 });
 
 app.post('/step/savemany', async (req, res) => {
   const { body } = req;
-  await prisma.step.deleteMany({});
   const steps = body;
-  const newSteps = await steps.map(async (step, i) => {
+  await prisma.step.deleteMany({});
+
+  const newStepPromises = steps.map(async (step, i) => {
     const newStep = { ...step, sequence: i };
     const resultStep = await prisma.step.create({ data: newStep });
     return resultStep;
   });
+  const newSteps = await Promise.all(newStepPromises);
 
   return res.json({ data: newSteps });
 });

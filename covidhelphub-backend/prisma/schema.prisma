@@ -43,6 +43,7 @@
 
 model Volunteer {
   UUID             String    @id @default(uuid())
+  name             String
   address          String
   email            String
   phone            String
@@ -79,16 +80,19 @@ model Step {
 
 model Request {
   UUID              String       @id @default(uuid())
-  summary           String
-  description       String
+  name              String
+  address           String
+  email             String
+  phone             String
+  notes             String
   programStep       Step        @relation(fields: [stepCode], references: [code])
-  beneficiary       Beneficiary  @relation(fields: [beneficiaryUUID], references: [UUID])
+  beneficiary       Beneficiary?  @relation(fields: [beneficiaryUUID], references: [UUID])
   volunteer         Volunteer?   @relation(fields: [volunteerUUID], references: [UUID])
   programAssignment Program      @relation(fields: [programCode], references: [code])
   responses         Response[]
   programCode       String
   stepCode          String
-  beneficiaryUUID   String
+  beneficiaryUUID   String?
   volunteerUUID     String?
 }
 
