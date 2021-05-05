@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 const prisma = new PrismaClient();
 
@@ -13,6 +14,12 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(express.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
 // simple route
 app.get('/', (req, res) => {
@@ -57,6 +64,7 @@ app.get('/step/list', async (req, res) => {
 });
 
 app.post('/step/savemany', async (req, res) => {
+  console.log('req', req.json());
   const { body } = req;
   const steps = body;
   await prisma.step.deleteMany({});
