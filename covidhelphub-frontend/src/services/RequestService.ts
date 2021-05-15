@@ -1,13 +1,14 @@
-import { Request } from '../objectModel/RequestModel';
+import { RequestModel } from '../objectModel/RequestModel';
 
 class RequestService {
   static emptyRequestJson = '{ "requests": [{"requestorName": "Ethan"}] }';
 
-  static async create(request: Request) {
+  static async create(request: RequestModel) {
     const requestsFromStorage =
       localStorage.getItem('requests') || RequestService.emptyRequestJson;
     const requestsJson = JSON.parse(requestsFromStorage);
     requestsJson.requests.push(request);
+    console.log('Saving', requestsJson, 'r', request);
     localStorage.setItem('requests', JSON.stringify(requestsJson));
   }
 

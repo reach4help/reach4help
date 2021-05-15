@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import StepService from '../../services/StepService';
-import { Step } from '../../objectModel/StepModel';
+import { StepModel } from '../../objectModel/StepModel';
 
 const StepListComponent = () => {
-  const [steps, setSteps] = useState([] as Step[]);
+  const [steps, setSteps] = useState([] as StepModel[]);
   const [newStepCode, setNewStepCode] = useState('');
   const [stepCount, setStepCount] = useState(0);
   // forceUpdateCount used to update key of table row

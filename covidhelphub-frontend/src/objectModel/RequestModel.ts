@@ -1,4 +1,4 @@
-export class Request {
+export class RequestModel {
   constructor(request: {
     requestorName: string;
     address: string;
@@ -11,12 +11,11 @@ export class Request {
     this.email = request.email;
     this.phone = request.phone;
     this.programCode = request.programCode;
-    this.stepCode = 'START';
   }
   requestorName: string;
   address: string;
   email: string;
   phone: string;
   programCode: string;
-  stepCode: string;
+  stepCode: string = 'Open';
 }

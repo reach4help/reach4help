@@ -1,4 +1,4 @@
-import { Program } from '../objectModel/ProgramModel';
+import { ProgramModel } from '../objectModel/ProgramModel';
 
 class ProgramService {
   static async create(code: string) {
@@ -12,7 +12,7 @@ class ProgramService {
     });
   }
 
-  static async saveMany(programs: Program[]) {
+  static async saveMany(programs: ProgramModel[]) {
     // const requestOptions = {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'application/json' },

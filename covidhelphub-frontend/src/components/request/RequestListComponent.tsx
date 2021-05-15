@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Request } from '../../objectModel/RequestModel';
+import { RequestModel } from '../../objectModel/RequestModel';
 import RequestService from '../../services/RequestService';
 import { useHistory } from 'react-router-dom';
 
 const RequestListComponent = () => {
-  const [requests, setRequests] = useState([] as Request[]);
+  const [requests, setRequests] = useState([] as RequestModel[]);
   const [requestCount, setRequestCount] = useState(0);
   const history = useHistory();
   // forceUpdateCount used to update key of table row
@@ -24,10 +24,14 @@ const RequestListComponent = () => {
   let RequestLinks = {};
   console.log('requests for links', requests);
   RequestLinks = requests.map((request, i) => {
+    console.log("Name", request.requestorName);
     return (
       <tr key={`item-${request.requestorName}-${i}=${forceUpdateCount}`}>
-        <td>{request.requestorName}
-        </td>
+        <td>{request.requestorName}</td>
+        <td>{request.address}</td>
+        <td>{request.phone}</td>
+        <td>{request.programCode}</td>
+        <td>{request.email}</td>
         <td>
           <button onClick={e => deleteArrayRow(i)}>Delete</button>
         </td>
@@ -54,6 +58,10 @@ const RequestListComponent = () => {
         <thead>
           <tr>
             <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Program</th>
+            <th>Email</th>
           </tr>
         </thead>
         <tbody>{RequestLinks}</tbody>

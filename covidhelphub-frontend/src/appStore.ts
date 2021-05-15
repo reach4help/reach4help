@@ -1,9 +1,9 @@
 import { Store } from 'react-stores';
-import { Program } from './objectModel/ProgramModel';
+import { ProgramModel } from './objectModel/ProgramModel';
 export interface IMyStoreState {
-  Programs: Program[];
+  Programs: ProgramModel[];
 }
 
 export const myStore = new Store<IMyStoreState>({
-  Programs: [] as Program[], // initial state values
+  Programs: [] as ProgramModel[], // initial state values
 });
