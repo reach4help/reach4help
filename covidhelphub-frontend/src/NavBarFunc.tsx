@@ -23,7 +23,7 @@ export function NavBarFunc() {
     const mainMenuOptions = [
         { link: "/request/list", menuText: "Requests", implemented: false },
         { link: "/volunteer/list", menuText: "Volunteers", implemented: false },
-        { link: "/beneficiary/list", menuText: "Beneficiaries", implemented: false },
+        { link: "/requestor/list", menuText: "Beneficiaries", implemented: false },
     ];
     const adminMenuHTML = getNavBarHTML(adminMenuOptions);
     const mainnMenuHTML = getNavBarHTML(mainMenuOptions);

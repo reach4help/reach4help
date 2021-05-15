@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Program } from '../../objectModel/Program';
+import { Program } from '../../objectModel/ProgramModel';
 import ProgramService from '../../services/ProgramService';
 
 const ProgramListComponent = () => {

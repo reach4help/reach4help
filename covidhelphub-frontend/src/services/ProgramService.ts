@@ -1,4 +1,4 @@
-import { Program } from '../objectModel/Program';
+import { Program } from '../objectModel/ProgramModel';
 
 class ProgramService {
   static async create(code: string) {

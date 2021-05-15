@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import StepService from '../../services/StepService';
-import { Step } from '../../objectModel/Step';
+import { Step } from '../../objectModel/StepModel';
 
 const StepListComponent = () => {
   const [steps, setSteps] = useState([] as Step[]);

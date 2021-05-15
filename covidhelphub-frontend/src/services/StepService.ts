@@ -1,4 +1,4 @@
-import { Step } from '../objectModel/Step';
+import { Step } from '../objectModel/StepModel';
 
 class StepService {
   static async create(code: string) {

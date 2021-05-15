@@ -1,5 +1,5 @@
 import { Store } from 'react-stores';
-import { Program } from './objectModel/Program';
+import { Program } from './objectModel/ProgramModel';
 export interface IMyStoreState {
   Programs: Program[];
 }
