@@ -9,11 +9,8 @@ const RequestListComponent = () => {
   const [requests, setRequests] = useState([] as RequestModel[]);
   const [steps, setSteps] = useState([] as StepModel[]);
   const history = useHistory();
-  const { programCode } = useParams<{ programCode: string }>();
+  const { programCode, stepCode = "Open" } = useParams<{ programCode: string, stepCode: string }>();
 
-  // forceUpdateCount used to update key of table row
-  // If key is not changed, even though value of input field changes, React only refreshes
-  // new rows or reduces number of rows, but does not update 
 
   useEffect(() => {
     async function getData() {
@@ -26,12 +23,14 @@ const RequestListComponent = () => {
   }, []);
 
   let RequestLinks = {};
+  // TODO: move styling to CSS or define at bottom
   const StepButtons = steps.map(step => {
-    return <Link to={`/request/list/${step.code}`} style={{ padding: "0px 50px 0px 0px" }}> {step.code}</Link >
+    const fontWeight = step.code.toUpperCase() === stepCode.toUpperCase() ? "bold" : "normal";
+    return <Link key={`step-${step.code}`} to={`/request/list/${programCode}/${step.code}`} style={{ padding: "0px 50px 0px 0px", fontWeight: `${fontWeight}` }}> {step.code}</Link >
   })
-  RequestLinks = requests.filter(request => request.programCode === programCode).map((request, i) => {
+  RequestLinks = requests.filter(request => request.programCode === programCode.toUpperCase()).map((request, i) => {
     return (
-      <tr key={`item-${request.requestorName}-${i}`}>
+      <tr key={`requestrow-${request.requestorName}-${i}`}>
         <td>{request.requestorName}</td>
         <td>{request.address}</td>
         <td>{request.phone}</td>
@@ -45,7 +44,7 @@ const RequestListComponent = () => {
     history.push('/request/create');
   }
 
-
+  // TODO: move styling to CSS file
   return (
     <div>
       <button onClick={addRequest}>Add</button>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ProgramModel } from '../../objectModel/ProgramModel';
 import ProgramService from '../../services/ProgramService';
 
-const ProgramListComponent = () => {
+const RequestProgramSelection = () => {
   const [programs, setPrograms] = useState([] as ProgramModel[]);
   const [programCount, setProgramCount] = useState(0);
   // forceUpdateCount used to update key of table row
@@ -22,17 +22,16 @@ const ProgramListComponent = () => {
   let ProgramLinks = {};
 
   ProgramLinks = programs.map((program, i) => {
-    return <p><Link to={`/request/list/${program.code}`}>{program.code}</Link></p>
+    return <p key={`${program.code}`}><Link to={`/request/list/${program.code}`}>{program.code}</Link></p>
   })
 
 
 
   return (
     <div>
-      <p>Count: {programCount}</p>
       {ProgramLinks}
     </div>
   );
 };
 
-export default ProgramListComponent;
+export default RequestProgramSelection;

@@ -9,11 +9,12 @@ import StepListComponent from './components/step/StepListComponent';
 
 import './globals.css';
 import { NavBarFunc } from './NavBarFunc';
-import ProgramRequestSelection from './components/request/ProgramRequestSelection';
+import ProgramRequestSelection from './components/request/RequestProgramSelection';
 
 function App() {
   const NavBar = NavBarFunc();
 
+  // TODO: rethink lines for request/list with multiple parameters - combine?
   return (
     <div>
       <nav className="navbar">
@@ -23,6 +24,7 @@ function App() {
       <div className="container mt-3">
         <Switch>
           <Route exact path="/" component={HomeComponent}></Route>
+          <Route path="/request/list/:programCode/:stepCode" component={RequestListComponent} />
           <Route path="/request/list/:programCode" component={RequestListComponent} />
           <Route exact path="/request/list" component={ProgramRequestSelection} />
           <Route exact path="/request/create" component={RequestCreateComponent} />

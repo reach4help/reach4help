@@ -28,7 +28,6 @@ const RequestCreateComponent = () => {
       programCode: requestObj.programCode,
       email: requestObj.email
     });
-    console.log("Data", data, "obj", requestObj);
 
     await RequestService.create(data);
     history.push("/request/list")
