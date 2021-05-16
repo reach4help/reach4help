@@ -45,8 +45,11 @@
 import csv
 import json
 
-# category_and_headers is an array like this: ['category1', ['h1', 'h2', 'h3']]
-# data values is an array
+# category: String
+# headers: List[String]
+# data_values: List[String]
+# Converts data from a row into a dict of multiple items. 
+# The number of items in the output corresponds to the number of nonempty categories in the row.
 def convert_item_to_dict(category, headers, data_values):
   header_map = {
     'Distributor Name': 'Distributor Name', 
@@ -59,10 +62,15 @@ def convert_item_to_dict(category, headers, data_values):
     'Medicine name': 'Description',
     'Any other details': 'Description',
     'Cost per day': 'Description',
-    'Blood group': 'Description', 
-
+    'Blood group': 'Description'
   }
-  item_dict = {'General Area (State)': 'Delhi', 'Services Offered': category, 'Description': ''}
+
+  item_dict = {
+    'General Area (State)': 'Delhi', 
+    'Services Offered': category, 
+    'Description': ''
+  }
+
   j = 0
   for data in data_values:
     if header_map[headers[j]] == 'Description':
@@ -80,18 +88,22 @@ with open('Delhi.csv') as csvfile:
   delhireader = csv.reader(csvfile)
   for row in delhireader:
     i += 1 
+    
     if i == 4:
-      categories = ["Medicines", 
-      "Oxygen",
-      "Hospital Beds",
-      "Plasma / Blood",
-      "Tiffin Services",
-      "Quarantine Centres", 
-      "Other"]
+      categories = [
+        "Medicines", 
+        "Oxygen",
+        "Hospital Beds",
+        "Plasma / Blood",
+        "Tiffin Services",
+        "Quarantine Centres", 
+        "Other"
+      ]
       
       headers = []
       categories_and_headers = []
       cat_number = 0
+
       for header in row:
         if header != '':
           headers.append(header)
@@ -99,9 +111,12 @@ with open('Delhi.csv') as csvfile:
           categories_and_headers.append([categories[cat_number], headers])
           cat_number+=1
           headers = []
+
       categories_and_headers.append([categories[cat_number], headers])
+
     elif i > 4:
       starting_column = 0
+
       for category_pair in categories_and_headers:
         num_of_headers = len(category_pair[1])
         data_values = []
