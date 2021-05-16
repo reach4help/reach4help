@@ -50,6 +50,39 @@ import googlemaps
 import os
 gmaps_api_key = os.environ.get('REACT_APP_GMAPS_API_KEY')
 gmaps = googlemaps.Client(key=gmaps_api_key)
+
+# Uses google maps api to retrieve lat long iniformation about a location
+# returns an array of [lat, lng] coordinates. Float if the location exists, None if it doesn't
+def extract_lat_lng(location_string):
+      if location_string == '':
+        return [None, None]
+      else:
+        geocode_result = gmaps.geocode(location_string)
+        if geocode_result != []:
+          return [
+            geocode_result[0]['geometry']['location']['lat'],
+            geocode_result[0]['geometry']['location']['lng']
+          ]
+        else:
+          return [None, None]
+
+def extract_phone_contact(phone_string):
+  if ';' in phone_string:
+    return phone_string.split(';')
+  elif ',' in phone_string:
+    return phone_string.split(',')
+  else:
+    return [phone_string]
+
+def format_description(header, notes_string):
+  if header == 'Any other details':
+    if notes_string == '':
+      return ''
+    else:
+      return ('Notes' + ': ' + notes_string + ', ')
+  else:
+    return (header + ': ' + notes_string + ', ')
+
 # category: String
 # headers: List[String]
 # data_values: List[String]
@@ -80,30 +113,14 @@ def convert_item_to_dict(category, headers, data_values):
   for data in data_values:
     key = header_map[headers[j]]
     if key == 'Description':
-      if headers[j] == 'Any other details':
-        if data == '':
-          item_dict[key] += ''
-        else:
-          item_dict[key] += ('Notes' + ': ' + data + ', ')
-      else:
-        item_dict[key] += (headers[j] + ': ' + data + ', ')
+      item_dict[key] += format_description(headers[j], data)
+    elif key == 'Distributor Contact (Phone)':
+      item_dict[key] = extract_phone_contact(data)
     elif key == 'Location':
-      if data == '':
-        item_dict['lat'] = ''
-        item_dict['lng'] = ''
-      else:
-        geocode_result = gmaps.geocode(data)
-        if geocode_result != []:
-          item_dict['lat'] = geocode_result[0]['geometry']['location']['lat']
-          item_dict['lng'] = geocode_result[0]['geometry']['location']['lng']
-        else:
-          item_dict['lat'] = ''
-          item_dict['lng'] = ''
-     
-
-      item_dict[header_map[headers[j]]] = data
+      item_dict['lat'], item_dict['lng'] = extract_lat_lng(data)
+      item_dict[key] = data
     else:
-      item_dict[header_map[headers[j]]] = data
+      item_dict[key] = data
     j += 1
   return item_dict
 
@@ -141,7 +158,6 @@ with open('Delhi.csv') as csvfile:
           headers = []
 
       categories_and_headers.append([categories[cat_number], headers])
-
     elif i > 4:
       starting_column = 0
 
