@@ -25,16 +25,14 @@ const RequestListComponent = () => {
 
   let RequestLinks = {};
   console.log('requests for links', requests);
-  RequestLinks = requests.map((request, i) => {
+  RequestLinks = requests.filter(request => request.programCode === programCode).map((request, i) => {
     return (
       <tr key={`item-${request.requestorName}-${i}=${forceUpdateCount}`}>
         <td>{request.requestorName}</td>
         <td>{request.address}</td>
         <td>{request.phone}</td>
         <td>{request.email}</td>
-        <td>
-          <button onClick={e => deleteArrayRow(i)}>Delete</button>
-        </td>
+
       </tr>
     );
   });
@@ -61,7 +59,6 @@ const RequestListComponent = () => {
             <th>Name</th>
             <th>Address</th>
             <th>Phone</th>
-            <th>Program</th>
             <th>Email</th>
           </tr>
         </thead>
