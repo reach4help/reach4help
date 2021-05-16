@@ -14,16 +14,6 @@ You may find instructions on how to contribute data to the map [here](src/data/R
 
 In the project directory, you can run:
 
-### Build @reach4help/model dependency:
-
-`cd ../model` `yarn build`
-
-Without this step, you will see this error:
-
-```
-Module not found: Can’t resolve ‘@reach4help/model/lib/markers’ in ‘~/projects/reach4help/map/src/data’
-```
-
 ### Development: `yarn start`
 
 Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
