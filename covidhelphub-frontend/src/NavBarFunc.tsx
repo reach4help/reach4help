@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function getNavBarHTML(mainMenuOptions: { link: string; menuText: string; implemented: boolean; }[]) {
     return mainMenuOptions.map(menuOption => {
         return (
-            <Link to={menuOption.link} className={`nav-link ${menuOption.implemented ? "" : "tbd-font"}`}>
+            <Link to={menuOption.link} key={menuOption.menuText} className={`nav-link ${menuOption.implemented ? "" : "tbd-font"}`}>
                 {menuOption.menuText}
             </Link>
         );
@@ -21,9 +21,9 @@ export function NavBarFunc() {
         { link: "/question/list", menuText: "Questions", implemented: false },
     ];
     const mainMenuOptions = [
-        { link: "/request/list", menuText: "Requests", implemented: false },
+        { link: "/request/list", menuText: "Requests", implemented: true },
         { link: "/volunteer/list", menuText: "Volunteers", implemented: false },
-        { link: "/beneficiary/list", menuText: "Beneficiaries", implemented: false },
+        { link: "/requestor/list", menuText: "Beneficiaries", implemented: false },
     ];
     const adminMenuHTML = getNavBarHTML(adminMenuOptions);
     const mainnMenuHTML = getNavBarHTML(mainMenuOptions);

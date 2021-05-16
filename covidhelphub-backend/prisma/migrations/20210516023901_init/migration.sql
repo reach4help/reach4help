@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "Volunteer" (
     "UUID" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
@@ -32,14 +33,17 @@ CREATE TABLE "Step" (
 -- CreateTable
 CREATE TABLE "Request" (
     "UUID" TEXT NOT NULL PRIMARY KEY,
-    "summary" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "notes" TEXT NOT NULL,
     "programCode" TEXT NOT NULL,
     "stepCode" TEXT NOT NULL,
-    "beneficiaryUUID" TEXT NOT NULL,
+    "beneficiaryUUID" TEXT,
     "volunteerUUID" TEXT,
     FOREIGN KEY ("stepCode") REFERENCES "Step" ("code") ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY ("beneficiaryUUID") REFERENCES "Beneficiary" ("UUID") ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY ("beneficiaryUUID") REFERENCES "Beneficiary" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY ("volunteerUUID") REFERENCES "Volunteer" ("UUID") ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY ("programCode") REFERENCES "Program" ("code") ON DELETE CASCADE ON UPDATE CASCADE
 );
