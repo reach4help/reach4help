@@ -5,7 +5,6 @@ import ProgramService from '../../services/ProgramService';
 
 const RequestProgramSelection = () => {
   const [programs, setPrograms] = useState([] as ProgramModel[]);
-  const [programCount, setProgramCount] = useState(0);
   // forceUpdateCount used to update key of table row
   // If key is not changed, even though value of input field changes, React only refreshes
   // new rows or reduces number of rows, but does not update 
@@ -14,7 +13,6 @@ const RequestProgramSelection = () => {
     async function getData() {
       const programs = await ProgramService.list();
       setPrograms(programs);
-      setProgramCount(programs.length);
     }
     getData();
   }, []);
@@ -22,7 +20,7 @@ const RequestProgramSelection = () => {
   let ProgramLinks = {};
 
   ProgramLinks = programs.map((program, i) => {
-    return <p key={`${program.code}`}><Link to={`/request/list/${program.code}`}>{program.code}</Link></p>
+    return <p key={`programlink-${program.code}`}><Link to={`/request/list/${program.code}`}>{program.code}</Link></p>
   })
 
 
