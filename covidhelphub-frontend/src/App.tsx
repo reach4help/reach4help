@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomeComponent from './components/HomeComponent';
@@ -9,6 +9,7 @@ import StepListComponent from './components/step/StepListComponent';
 
 import './globals.css';
 import { NavBarFunc } from './NavBarFunc';
+import ProgramRequestSelection from './components/request/ProgramRequestSelection';
 
 function App() {
   const NavBar = NavBarFunc();
@@ -22,7 +23,8 @@ function App() {
       <div className="container mt-3">
         <Switch>
           <Route exact path="/" component={HomeComponent}></Route>
-          <Route exact path="/request/list" component={RequestListComponent} />
+          <Route path="/request/list/:programCode" component={RequestListComponent} />
+          <Route exact path="/request/list" component={ProgramRequestSelection} />
           <Route exact path="/request/create" component={RequestCreateComponent} />
           <Route exact path="/program/list" component={ProgramListComponent} />
           <Route exact path="/step/list" component={StepListComponent} />
