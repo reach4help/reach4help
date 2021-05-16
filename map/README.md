@@ -10,6 +10,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You may find instructions on how to contribute data to the map [here](src/data/README.md).
 
+## Configure Keys
+
+- Request access to development [config](https://docs.google.com/document/d/1MaEKEUexkF0TF-pgPpS9RYvDrOPJt9WTmrzNUr35vMo/edit) file, if you don't have it.
+- Create a .env file in the map directory. Copy contents from here:
+- Copy contents of development [config](https://docs.google.com/document/d/1MaEKEUexkF0TF-pgPpS9RYvDrOPJt9WTmrzNUr35vMo/edit) file.
+
 ## Available Scripts
 
 In the project directory, you can run:
