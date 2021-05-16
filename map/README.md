@@ -21,7 +21,7 @@ In the project directory, you can run:
 Without this step, you will see this error:
 
 ```
-Module not found: Can’t resolve ‘@reach4help/model/lib/markers’ in ‘/Users/ethanstrominger/projects/reach4help/map/src/data’
+Module not found: Can’t resolve ‘@reach4help/model/lib/markers’ in ‘~/projects/reach4help/map/src/data’
 ```
 
 ### Development: `yarn start`
