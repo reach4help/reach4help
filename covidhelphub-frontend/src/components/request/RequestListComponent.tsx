@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { RequestModel } from '../../objectModel/RequestModel';
 import RequestService from '../../services/RequestService';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import StepService from '../../services/StepService';
 import { StepModel } from '../../objectModel/StepModel';
 
@@ -26,14 +26,12 @@ const RequestListComponent = () => {
   }, []);
 
   let RequestLinks = {};
-  console.log('requests for links', requests);
-  console.log('buttons', steps);
   const StepButtons = steps.map(step => {
-    return <button>{step.code}</button>
+    return <Link to={`/request/list/${step.code}`} style={{ padding: "0px 50px 0px 0px" }}> {step.code}</Link >
   })
   RequestLinks = requests.filter(request => request.programCode === programCode).map((request, i) => {
     return (
-      <tr key={`item-${request.requestorName}-${i}=${forceUpdateCount}`}>
+      <tr key={`item-${request.requestorName}-${i}`}>
         <td>{request.requestorName}</td>
         <td>{request.address}</td>
         <td>{request.phone}</td>
@@ -47,12 +45,13 @@ const RequestListComponent = () => {
     history.push('/request/create');
   }
 
+
   return (
     <div>
-      <p>Count: {requestCount}</p>
       <button onClick={addRequest}>Add</button>
       <p>Program: {programCode}</p>
-      {StepButtons}
+      <div style={{ padding: "20px 0px" }}>{StepButtons}</div>
+
       <table className="">
         <thead>
           <tr>
