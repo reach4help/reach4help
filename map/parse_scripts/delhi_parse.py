@@ -1,4 +1,6 @@
-# python
+# How to run:
+# REACT_APP_GMAPS_API_KEY=<api_key> python delhi_parse.py
+
 # Medicines (Remdesivir and Others)
   # Distributor Name,   -> Distributor Name
   # Medicine name,	    -> Description (append)
@@ -44,7 +46,10 @@
 
 import csv
 import json
-
+import googlemaps
+import os
+gmaps_api_key = os.environ.get('REACT_APP_GMAPS_API_KEY')
+gmaps = googlemaps.Client(key=gmaps_api_key)
 # category: String
 # headers: List[String]
 # data_values: List[String]
@@ -73,8 +78,30 @@ def convert_item_to_dict(category, headers, data_values):
 
   j = 0
   for data in data_values:
-    if header_map[headers[j]] == 'Description':
-      item_dict[header_map[headers[j]]] += (headers[j] + ': ' + data + ', ')
+    key = header_map[headers[j]]
+    if key == 'Description':
+      if headers[j] == 'Any other details':
+        if data == '':
+          item_dict[key] += ''
+        else:
+          item_dict[key] += ('Notes' + ': ' + data + ', ')
+      else:
+        item_dict[key] += (headers[j] + ': ' + data + ', ')
+    elif key == 'Location':
+      if data == '':
+        item_dict['lat'] = ''
+        item_dict['lng'] = ''
+      else:
+        geocode_result = gmaps.geocode(data)
+        if geocode_result != []:
+          item_dict['lat'] = geocode_result[0]['geometry']['location']['lat']
+          item_dict['lng'] = geocode_result[0]['geometry']['location']['lng']
+        else:
+          item_dict['lat'] = ''
+          item_dict['lng'] = ''
+     
+
+      item_dict[header_map[headers[j]]] = data
     else:
       item_dict[header_map[headers[j]]] = data
     j += 1
@@ -86,9 +113,10 @@ final_dict = {}
 
 with open('Delhi.csv') as csvfile:
   delhireader = csv.reader(csvfile)
+  print('Starting parse...')
   for row in delhireader:
     i += 1 
-    
+
     if i == 4:
       categories = [
         "Medicines", 
@@ -130,5 +158,9 @@ with open('Delhi.csv') as csvfile:
           json_i += 1
 
         starting_column += num_of_headers + 1
+
+    # This print statement is purely a visual to let you know the script is still running
+    if i%100 == 0:
+      print('Parsed ' + str(i) + ' rows. Still parsing...')
 
 print(json.dumps(final_dict, sort_keys=True, indent=4))
