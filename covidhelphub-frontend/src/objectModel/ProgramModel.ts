@@ -1,4 +1,4 @@
-export class Program {
+export class ProgramModel {
   constructor(code: string) {
     this.code = code;
   }

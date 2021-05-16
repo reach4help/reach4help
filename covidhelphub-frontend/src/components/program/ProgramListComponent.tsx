@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Program } from '../../objectModel/Program';
+import { ProgramModel } from '../../objectModel/ProgramModel';
 import ProgramService from '../../services/ProgramService';
 
 const ProgramListComponent = () => {
-  const [programs, setPrograms] = useState([] as Program[]);
+  const [programs, setPrograms] = useState([] as ProgramModel[]);
   const [newProgramCode, setNewProgramCode] = useState('');
   const [programCount, setProgramCount] = useState(0);
   // forceUpdateCount used to update key of table row
@@ -41,7 +41,7 @@ const ProgramListComponent = () => {
   // }
 
   function addProgramToArray() {
-    programs.push(new Program(newProgramCode));
+    programs.push(new ProgramModel(newProgramCode));
     setPrograms(programs);
     setNewProgramCode('');
     setProgramCount(programs.length);

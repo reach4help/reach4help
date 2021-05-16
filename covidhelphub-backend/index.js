@@ -60,13 +60,13 @@ app.post('/program/savemany', async (req, res) => {
 
 app.get('/step/list', async (req, res) => {
   const steps = await prisma.step.findMany({ orderBy: [{ sequence: 'asc' }] });
+  console.log('steps', steps);
   return res.json({ data: steps });
 });
 
 app.post('/step/savemany', async (req, res) => {
-  console.log('req', req.json());
   const { body } = req;
-  const steps = body;
+  const { steps } = body;
   await prisma.step.deleteMany({});
 
   const newStepPromises = steps.map(async (step, i) => {
