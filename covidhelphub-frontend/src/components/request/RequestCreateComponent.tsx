@@ -9,16 +9,45 @@ const RequestCreateComponent = () => {
     address: "",
     phone: "",
     programCode: "",
-    email: ""
+    email: "",
   });
   const [requestObj, setRequestObj] = useState(initialRequestState);
   const [submitted, setSubmitted] = useState(false);
   const history = useHistory();
 
+
   const handleInputChange = (event: { target: { name: string; value: string; }; }) => {
     const { name, value } = event.target;
     setRequestObj({ ...requestObj, [name]: value });
   };
+
+  const TextInputField = ({ fieldName, labelText }: { fieldName: string, labelText: string }) => {
+    return (
+      <div className="form-group">
+        <label htmlFor={fieldName}>{labelText}</label>
+        <input
+          type="text"
+          className="form-control"
+          id={fieldName}
+          required
+          onChange={handleInputChange}
+          name={fieldName}
+        />
+      </div>
+      // <div className="form-group">
+      //   <label htmlFor={fieldName}>Name</label>
+      //   <input
+      //     type="text"
+      //     className="form-control"
+      //     id={fieldName}
+      //     required
+      //     defaultValue={defaultValue}
+      //     onChange={handleInputChange}
+      //     name={fieldName}
+      //   />
+      // </div>
+    );
+  }
 
   const saveRequest = async () => {
     const data = new RequestModel({
@@ -26,7 +55,9 @@ const RequestCreateComponent = () => {
       address: requestObj.address,
       phone: requestObj.phone,
       programCode: requestObj.programCode,
-      email: requestObj.email
+      email: requestObj.email,
+      flexibleDate: requestObj.flexibleDate,
+      targetDate: requestObj.targetDate,
     });
 
     await RequestService.create(data);
@@ -39,6 +70,7 @@ const RequestCreateComponent = () => {
     setSubmitted(false);
   };
 
+
   return (
     <div className="submit-form">
       {submitted ? (
@@ -50,70 +82,36 @@ const RequestCreateComponent = () => {
         </div>
       ) : (
         <div>
+          {TextInputField({ fieldName: "requestorName", labelText: "Name" })}
+          {TextInputField({ fieldName: "address", labelText: "Address" })}
+          {TextInputField({ fieldName: "phone", labelText: "Phone" })}
+          {TextInputField({ fieldName: "programCode", labelText: "Program Code" })}
+          {TextInputField({ fieldName: "email", labelText: "Email" })}
+
           <div className="form-group">
-            <label htmlFor="requestorName">Name</label>
+            <label htmlFor="targetDate">Target Date</label>
             <input
-              type="text"
+              type="date"
               className="form-control"
-              id="requestorName"
+              id="targetDate"
               required
-              defaultValue={requestObj.requestorName}
               onChange={handleInputChange}
-              name="requestorName"
+              name="targetDate"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="address">Address</label>
+            <label htmlFor="flexibleDate">Flexible  Date</label>
             <input
-              type="text"
+              type="date"
               className="form-control"
-              id="address"
+              id="flexibleDate"
               required
-              defaultValue={requestObj.address}
               onChange={handleInputChange}
-              name="address"
+              name="flexibleDate"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="text"
-              className="form-control"
-              id="phone"
-              required
-              defaultValue={requestObj.phone}
-              onChange={handleInputChange}
-              name="phone"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="programCode">Program Code</label>
-            <input
-              type="text"
-              className="form-control"
-              id="programCode"
-              required
-              defaultValue={requestObj.programCode}
-              onChange={handleInputChange}
-              name="programCode"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              className="form-control"
-              id="email"
-              required
-              defaultValue={requestObj.programCode}
-              onChange={handleInputChange}
-              name="email"
-            />
-          </div>
           <button onClick={saveRequest} className="btn btn-success">
             Submit
           </button>

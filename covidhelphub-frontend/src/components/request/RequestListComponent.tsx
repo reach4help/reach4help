@@ -28,13 +28,16 @@ const RequestListComponent = () => {
     const fontWeight = step.code.toUpperCase() === stepCode.toUpperCase() ? "bold" : "normal";
     return <Link key={`step-${step.code}`} to={`/request/list/${programCode}/${step.code}`} style={{ padding: "0px 50px 0px 0px", fontWeight: `${fontWeight}` }}> {step.code}</Link >
   })
-  RequestLinks = requests.filter(request => request.programCode === programCode.toUpperCase()).map((request, i) => {
+  RequestLinks = requests.filter(request => request.programCode === programCode.toUpperCase()).map((requestObj, i) => {
     return (
-      <tr key={`requestrow-${request.requestorName}-${i}`}>
-        <td>{request.requestorName}</td>
-        <td>{request.address}</td>
-        <td>{request.phone}</td>
-        <td>{request.email}</td>
+      <tr key={`requestrow-${requestObj.requestorName}-${i}`}>
+        <td>{requestObj.targetDate}</td>
+        <td>{requestObj.flexibleDate}</td>
+        <td>{requestObj.creationTs}</td>
+        <td>{requestObj.requestorName}</td>
+        <td>{requestObj.address}</td>
+        <td>{requestObj.phone}</td>
+        <td>{requestObj.email}</td>
 
       </tr>
     );
@@ -54,6 +57,9 @@ const RequestListComponent = () => {
       <table className="">
         <thead>
           <tr>
+            <th>Target Date</th>
+            <th>Flexible Date</th>
+            <th>Submitted Date</th>
             <th>Name</th>
             <th>Address</th>
             <th>Phone</th>
