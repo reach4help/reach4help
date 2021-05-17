@@ -38,7 +38,7 @@ const RequestListComponent = () => {
         <td>{requestObj.address}</td>
         <td>{requestObj.phone}</td>
         <td>{requestObj.email}</td>
-
+        <td><button>Email Blast</button></td>
       </tr>
     );
   });
