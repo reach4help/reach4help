@@ -57,7 +57,7 @@ def extract_lat_lng(location_string):
       if location_string == '':
         return [None, None]
       else:
-        geocode_result = gmaps.geocode(location_string)
+        geocode_result = gmaps.geocode(location_string, region='IN')
         if geocode_result != []:
           return [
             geocode_result[0]['geometry']['location']['lat'],
@@ -75,13 +75,12 @@ def extract_phone_contact(phone_string):
     return [phone_string]
 
 def format_description(header, notes_string):
-  if header == 'Any other details':
-    if notes_string == '':
-      return ''
-    else:
+  if notes_string: # If the notes_string is empty, don't add it to the description
+    if header == 'Any other details':
       return ('Notes' + ': ' + notes_string + ', ')
-  else:
-    return (header + ': ' + notes_string + ', ')
+    else:
+      return (header + ': ' + notes_string + ', ')
+  return ''
 
 # category: String
 # headers: List[String]
@@ -98,9 +97,9 @@ def convert_item_to_dict(category, headers, data_values):
     'Contact ': 'Distributor Contact (Phone)',
     'Mobile no.': 'Distributor Contact (Phone)',
     'Medicine name': 'Description',
-    'Any other details': 'Description',
     'Cost per day': 'Description',
-    'Blood group': 'Description'
+    'Blood group': 'Description',
+    'Any other details': 'Description'
   }
 
   item_dict = {
@@ -117,7 +116,7 @@ def convert_item_to_dict(category, headers, data_values):
     elif key == 'Distributor Contact (Phone)':
       item_dict[key] = extract_phone_contact(data)
     elif key == 'Location':
-      item_dict['lat'], item_dict['lng'] = extract_lat_lng(data)
+      item_dict['lat'], item_dict['lng'] = extract_lat_lng(data + ' ' + item_dict['General Area (State)'])
       item_dict[key] = data
     else:
       item_dict[key] = data
@@ -128,7 +127,7 @@ i = 0
 json_i = 0
 final_dict = {}
 
-with open('Delhi.csv') as csvfile:
+with open('Delhi.csv', encoding='utf-8') as csvfile:
   delhireader = csv.reader(csvfile)
   print('Starting parse...')
   for row in delhireader:
@@ -179,4 +178,5 @@ with open('Delhi.csv') as csvfile:
     if i%100 == 0:
       print('Parsed ' + str(i) + ' rows. Still parsing...')
 
-print(json.dumps(final_dict, sort_keys=True, indent=4))
+# Export clean data to separate file
+json.dump(final_dict, open('delhi_clean.json', 'w+'), sort_keys=True, indent=4)
