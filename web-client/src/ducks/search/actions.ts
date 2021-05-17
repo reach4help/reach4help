@@ -1,4 +1,5 @@
-import { getSearchKey } from './functions';
+import { getSearchKey } from 'src/services/search';
+
 import { GET_SEARCH_KEY } from './types';
 
 export const getAuthenticatedSearchKey = () => (dispatch: Function) => {

@@ -4,10 +4,7 @@ import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
 import { observeUserAction } from 'src/ducks/auth/actions';
 import { observePrivileged, observeProfile } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import {
-  PersonalDataLocation,
-  RoleInfoLocation,
-} from 'src/modules/personalData/constants';
+import { PersonalDataLocation } from 'src/modules/personalData/constants';
 import { AppState } from 'src/store';
 
 import LoadingWrapper from '../../components/LoadingComponent/LoadingComponent';
@@ -64,22 +61,11 @@ const ProtectedRoute: React.FC<RouteProps> = ({ path, component }) => {
     return <LoadingWrapper />;
   }
 
-  if (!(profileState && profileState.profile?.displayName)) {
+  if (!(profileState && profileState.profile?.displayNickname)) {
     return (
       <Redirect
         to={{
           pathname: PersonalDataLocation.path,
-          state: { redirectBack: `${location.pathname}${location.search}` },
-        }}
-      />
-    );
-  }
-
-  if (!profileState.profile.applicationPreference) {
-    return (
-      <Redirect
-        to={{
-          pathname: RoleInfoLocation.path,
           state: { redirectBack: `${location.pathname}${location.search}` },
         }}
       />

@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import { RootUrl } from 'src/modules/myRequests/constants';
+import { RootUrl } from 'src/modules/post/constants';
 import { Module } from 'src/types/module';
 
 import modules from '../modules';
@@ -34,29 +34,14 @@ const MasterPage = (): ReactElement => {
       case '/phone':
       case `${RootUrl}`:
       case '/personal-data':
-      case '/timeline':
       case '/personal-data/role-info':
       case '/phone/entry':
       case '/phone/verify':
-      case `${RootUrl}/accepted`:
-      case `${RootUrl}/archived`:
-      case `${RootUrl}/find`:
-      case `${RootUrl}/finished`:
-      case `${RootUrl}/new`:
-      case `${RootUrl}/ongoing`:
-      case `${RootUrl}/open`:
         return `${title}: `.concat(
           t(`routeSubtitles.${path.replace(/\//g, '_')}`),
         );
-
-      /* TODO  Not currently working for timeline routes
-            "/timeline/accepted/:requestId",
-            "/timeline/:requestId"
-        */
       default:
-        return path.startsWith('/timeline')
-          ? `${title}: Request Timeline`
-          : title;
+        return title;
     }
   };
 

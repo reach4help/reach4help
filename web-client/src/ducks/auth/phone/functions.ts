@@ -1,4 +1,4 @@
-import firebase, { firebaseAuth } from 'src/firebase';
+import firebase, { firebaseAuth } from 'src/firebaseConfig';
 
 import { IOTPAuth, IPhoneNumberAuth } from './types';
 

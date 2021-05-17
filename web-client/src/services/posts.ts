@@ -1,105 +1,62 @@
 import { isDefined } from 'class-validator';
-import { firestore as firestore2 } from 'firebase';
-import { firestore } from 'src/firebase';
-import { Post, PostFirestoreConverter, PostStatus } from 'src/models/posts';
-import { User } from 'src/models/users';
-
-const RADIUS = 5; // In Miles
-type firebaseRefType = firebase.firestore.DocumentReference<
-  firebase.firestore.DocumentData
->;
+import firebase from 'firebase/app';
+import { firebaseFirestore } from 'src/firebaseConfig';
+import { Post } from 'src/models/posts/Post';
+import { PostFirestoreConverter } from 'src/models/posts/PostFirestoreConverter';
+import { User } from 'src/models/users/User';
 
 export const createPost = async (postPayload: Post) => {
   const tempPost = Post.factory(postPayload);
-  tempPost.createdAt = firestore2.Timestamp.fromDate(new Date());
+  tempPost.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
   tempPost.updatedAt = tempPost.createdAt;
-  tempPost.postId = `P-${new Date().getTime().toString()}`;
-  return firestore
+  const postId = `P-${new Date().getTime().toString()}`;
+  const success = await firebaseFirestore
     .collection('posts')
-    .doc(tempPost.postId)
+    .doc(postId)
     .withConverter(PostFirestoreConverter)
     .set(tempPost);
+  return success;
 };
 
 export const updatePost = async (postPayload: Post, postId: string) =>
-  firestore
+  firebaseFirestore
     .collection('posts')
     .doc(postId)
     .withConverter(PostFirestoreConverter)
     .set(postPayload);
 
-export const getPosts = (
+export const observePosts = (
   nextValue: Function,
   {
-    sourcePublicPostId,
-    requestingHelp,
+    isRequest,
     offeringHelp,
     status,
     userRef,
-    lat,
-    lng,
-    radius,
   }: {
-    sourcePublicPostId?: string;
-    requestingHelp?: boolean;
+    isRequest?: boolean;
     offeringHelp?: boolean;
-    status?: string | null;
+    status?: string;
     userRef?: firebase.firestore.DocumentReference<User>;
-    lat?: number;
-    lng?: number;
-    radius?: number;
   },
 ): firebase.Unsubscribe => {
-  let filter = firestore
-    .collection('posts')
-    .where('isResponse', 'in', [true, false]); // TODO: (es) figure out how to eliminate
+  let filter: firebase.firestore.Query<firebase.firestore.DocumentData> = firebaseFirestore.collection(
+    'posts',
+  );
 
   if (userRef) {
-    filter = filter.where('userRef', '==', userRef);
+    filter = filter.where('creatorRef', '==', userRef);
   }
 
-  if (isDefined(requestingHelp)) {
-    filter = filter.where('requestingHelp', '==', requestingHelp);
+  if (isDefined(isRequest)) {
+    filter = filter.where('isRequest', '==', isRequest);
   }
 
   if (isDefined(offeringHelp)) {
-    filter = filter.where('requestingHelp', '==', !offeringHelp);
+    filter = filter.where('isRequest', '==', !offeringHelp);
   }
 
-  if (isDefined(sourcePublicPostId)) {
-    filter = filter.where('sourcePublicPostId', '==', sourcePublicPostId);
-  }
-  if (lat && lng) {
-    const r = radius || RADIUS;
-    const unitLat = 0.0144927536231884;
-    const unitLng = 0.0181818181818182;
-
-    const lowerLat = lat - unitLat * r;
-    const lowerLng = lng - unitLng * r;
-
-    const greaterLat = lat + unitLat * r;
-    const greaterLng = lng + unitLng * r;
-
-    const lesserGeopoint = new firestore2.GeoPoint(lowerLat, lowerLng);
-    const greateGeopoint = new firestore2.GeoPoint(greaterLat, greaterLng);
-    filter = filter
-      .where('latLng', '>=', lesserGeopoint)
-      .where('latLng', '<=', greateGeopoint);
-  }
   if (status) {
-    const statusArray: string[] = [];
-    if (status === 'Open' || status === 'Active') {
-      statusArray.push(PostStatus.ongoing);
-      statusArray.push(PostStatus.pending);
-      statusArray.push(PostStatus.open);
-      statusArray.push(PostStatus.active);
-    }
-    if (status === 'Closed') {
-      statusArray.push(PostStatus.completed);
-      statusArray.push(PostStatus.closed);
-      statusArray.push(PostStatus.removed);
-    }
-    filter = filter.where('status', 'in', statusArray);
+    filter = filter.where('status', '==', status);
   }
 
   return filter

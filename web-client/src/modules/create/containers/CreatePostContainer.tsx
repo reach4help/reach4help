@@ -1,20 +1,21 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StepTracker from 'src/components/StepTracker/StepTracker';
+import { createOffer } from 'src/ducks/myOffers2/actions';
+import { createRequest } from 'src/ducks/myRequests2/actions';
 import { ProfileState } from 'src/ducks/profile/types';
-import { dispatchCreatePublicOffer } from 'src/ducks/PublicOffers/actions';
-import { dispatchCreatePublicRequest } from 'src/ducks/PublicRequests/actions';
-import { IPost, Post, PostStatus } from 'src/models/posts';
-import { IUser } from 'src/models/users';
+import { GenericPostStatus } from 'src/models/posts/GenericPostStatus';
+import { IPost } from 'src/models/posts/IPost';
+import { IUser } from 'src/models/users/IUser';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
 import NewAddressModal from 'src/modules/create/components/NewAddressModal';
 import PostDetailsStep from 'src/modules/create/components/PostDetailsStep';
 import PostLocationStep from 'src/modules/create/components/PostLocationStep';
 import PostSummary from 'src/modules/create/components/PostSummaryStep';
-import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/post/constants';
 import AuthenticationModal from 'src/pages/modals/AuthenticationModal';
 import { AppState } from 'src/store';
 import styled from 'styled-components';
@@ -30,7 +31,6 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   const IS_OFFER_POST = createPostType === CreatePostTypes.offer;
   const POST_TYPE_PREFIX = IS_OFFER_POST ? t('Offer') : t('Request');
 
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const profileState = useSelector(
@@ -63,7 +63,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
     state: '',
     postalCode: '',
     country: '',
-    coords: new firestore.GeoPoint(0, 0),
+    coords: new firebase.firestore.GeoPoint(0, 0),
   };
   const addresses = useSelector(
     (state: AppState) => state.profile.privilegedInformation?.addresses,
@@ -94,7 +94,7 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
   };
 
   /* CreatePost */
-  const submitPost = () => {
+  const submitPost = async () => {
     const { title, description } = postDetails;
     const {
       address1,
@@ -107,30 +107,23 @@ const CreatePostContainer: React.FC<ICreatePostContainer> = ({
     } = postLocation;
     if (profileState.profile) {
       const newPost = {
-        postId: null,
         isResponse: false,
-        requestingHelp: !IS_OFFER_POST,
-        sourcePublicPostId: null,
-        status: PostStatus.pending,
-        creatorGivenRating: 0,
-        parentCreatorGivenRating: 0,
-        updateSeenBy: [],
-        creatorRatedAt: null,
-        parentCreatorRatedAt: null,
-        positiveResponseCount: 0,
-        negativeResponseCount: 0,
+        isRequest: !IS_OFFER_POST,
+        postStatus: GenericPostStatus.pending,
         title,
         description,
-        userRef: profileState.userRef,
+        creatorRef: profileState.userRef,
         streetAddress: `${address1} ${address2} ${city} ${state} ${postalCode} ${country}`,
-        latLng: new firestore.GeoPoint(coords.latitude, coords.longitude),
-        userSnapshot: profileState.profile.toObject() as IUser,
-        // TODO: (es) Why do I get an error if I change "as IPost" to "Post"
+        latLng: new firebase.firestore.GeoPoint(
+          coords.latitude,
+          coords.longitude,
+        ),
+        creatorSnapshot: profileState.profile.toObject() as IUser,
       } as IPost;
-      const newPost2 = Post.factory(newPost);
-      return IS_OFFER_POST
-        ? dispatch(dispatchCreatePublicOffer(newPost2))
-        : dispatch(dispatchCreatePublicRequest(newPost2));
+      const success = IS_OFFER_POST
+        ? await createOffer(newPost)
+        : await createRequest(newPost);
+      return success;
     }
   };
 

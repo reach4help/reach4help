@@ -57,9 +57,7 @@ function isNotSameCAVPIN(data) {
 
 function verifyUserDataComplete(data) {
    return data.casesCompleted >= 0 &&
-          data.requestsMade >= 0 &&
-          data.cavRatingsReceived >= 0 &&
-          data.pinRatingsReceived >= 0 &&
+          data.postsMade >= 0 &&
           ('username' in data) &&
           ('createdAt' in data) &&
           data.createdAt is timestamp
@@ -82,11 +80,7 @@ function verifyHelpRequestAttributesForStatus(status, data) {
            ) ||
            (
              (status == 'completed') &&
-             ('cavUserRef' in data) &&
-             ('pinRating' in data) &&
-             ('cavRating' in data) &&
-             ('pinRatedAt' in data) &&
-             ('cavRatedAt' in data)
+             ('cavUserRef' in data) 
            ) ||
            true // for other statuses we don't have extra requirements
 }
@@ -97,15 +91,12 @@ function verifyLatLngObject(latLng) {
 }
 
 function verifyHelpRequestDataComplete(data) {
-   return ('pinUserRef' in data) &&
-          ('pinUserSnapshot' in data) &&
+   return 
           ('title' in data) &&
           ('description' in data) &&
-          ('status' in data) &&
+          ('postStatus' in data) &&
           ('createdAt' in data) &&
           ('updatedAt' in data) &&
-          verifyHelpRequestAttributesForStatus(data.status, data) &&
-          verifyLatLngObject(data.latLng) &&
           ('streetAddress' in data ) &&
           ('createdAt' in data) &&
           data.createdAt is timestamp
@@ -114,7 +105,7 @@ function verifyHelpRequestDataComplete(data) {
 function verifyOfferDataComplete(data) {
    return ('cavUserRef' in data) &&
           ('pinUserRef' in data) &&
-          ('requestRef' in data) &&
+          ('postUuid' in data) &&
           ('cavUserSnapshot' in data) &&
           ('message' in data) &&
           ('status' in data) &&
@@ -168,19 +159,11 @@ service cloud.firestore {
         allow write: if isUser(userID) && userID == subDocID && verifyUserPrivilegedInformationDataComplete(request.resource.data);
     }
 
-    match /offers/{offerID} {
+    match /posts/{postID} {
       // Only the PIN or CAV of the request can read the offers
-      allow read: if (isVerifiedCAV() || isVerifiedPIN()) && confirmEitherPINorCAV(request.auth.uid, database, resource.data)
+      allow read: if true
       // Only CAVs can submit offers (as themselves) | issue - pin needs to accespt TODO: need more complicated logic for ensuring correct CAV and PIN
-      allow write: if verifyOfferDataComplete(request.resource.data);
-    }
-
-    match /requests/{reqID} {
-      // Only CAVs can see requests
-      allow read: if isVerifiedCAV() || isVerifiedPIN();
-      // TODO: need more complicated logic for ensuring correct CAV and PIN
-      allow write: if isNotSameCAVPIN(request.resource.data) &&
-       verifyHelpRequestDataComplete(request.resource.data);
+      allow write: if verifyHelpRequestDataComplete(request.resource.data);
     }
 
     match /questionnaires/{questID} {

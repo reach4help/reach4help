@@ -73,10 +73,10 @@ const SettingsContainer: React.FC = () => {
     });
   };
 
-  const changeNameSubmitHandler = (displayName, username) => {
+  const changeNameSubmitHandler = (displayNickname, username) => {
     const user = profileState.profile;
     if (user && authState.user) {
-      user.displayName = displayName;
+      user.displayNickname = displayNickname;
       user.username = username;
 
       dispatch(updateUserProfile(authState.user.uid, user));
@@ -93,7 +93,7 @@ const SettingsContainer: React.FC = () => {
         changeNameSubmitHandler={changeNameSubmitHandler}
         deleteAccountClickHandler={deleteAccountClickHandler}
         initialValues={{
-          displayName: profileState.profile.displayName,
+          displayNickname: profileState.profile.displayNickname,
           username: profileState.profile.username,
         }}
       />

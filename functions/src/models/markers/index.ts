@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import {
   Location as BaseLocation,
   MarkerInfo as BaseMarkerInfo,

@@ -1,40 +1,27 @@
-import { BellFilled as NotificationsIcon } from '@ant-design/icons';
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
-// import { FindRequestsLocation } from 'src/modules/requests/pages/routes/FindRequestsRoute/constants';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { ReactComponent as CreateNewIcon } from 'src/assets/navbar/create_new.svg';
 import { ReactComponent as HomeIcon } from 'src/assets/navbar/home.svg';
 import { ReactComponent as OffersIcon } from 'src/assets/navbar/offers.svg';
-import { ReactComponent as ProfileIcon } from 'src/assets/navbar/profile.svg';
 import { ReactComponent as RequestsIcon } from 'src/assets/navbar/requests.svg';
 import { DEVICE_MAX } from 'src/constants/mediaQueries';
-import { AppState } from 'src/store';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
-// import { NewRequestsLocation } from '../../modules/requests/pages/routes/NewRequestsRoute/constants';
-
 interface BottomNavbarProps {
   openMenu: () => void;
-  openNotifications: () => void;
-  isCav?: boolean;
   visible?: boolean;
   unseenOffersCount: number;
 }
 
 const BottomNavbar: React.FC<BottomNavbarProps> = ({
   openMenu,
-  openNotifications,
   visible = true,
-  unseenOffersCount,
 }) => {
-  const isLoggedIn = useSelector((state: AppState) => !!state.auth.user?.email);
   const { t } = useTranslation();
 
   if (visible) {
-    // const history = useHistory();
+    // TODO: (es) Restore? What is this for?const history = useHistory();
 
     return (
       <BottomNavbarWrapper>
@@ -44,7 +31,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
         </NavButton>
 
         <NavButton
-        // onClick={() => history.push(FindRequestsLocation.path)}
+        // TODO: (es) Restore? What is this for?onClick={() => history.push(FindRequestsLocation.path)}
         >
           <RequestsIcon />
           {t('navbar.my_requests')}
@@ -52,35 +39,18 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
 
         <NavButton>
           <CoolNavButton
-          // onClick={() => history.push(NewRequestsLocation.path)}
+          // TODO: (es) Restore? What is this for? onClick={() => history.push(NewRequestsLocation.path)}
           >
             <CreateNewIcon />
           </CoolNavButton>
         </NavButton>
 
         <NavButton
-        // onClick={() => history.push(NewRequestsLocation.path)}
+        // TODO: (es) Restore? What is this for?onClick={() => history.push(NewRequestsLocation.path)}
         >
           <OffersIcon />
           {t('navbar.my_offers')}
         </NavButton>
-
-        {isLoggedIn ? (
-          <NavButton onClick={openNotifications}>
-            {unseenOffersCount > 0 ? (
-              <NotificationsIcon style={{ color: 'red' }} />
-            ) : (
-              <NotificationsIcon />
-            )}
-          </NavButton>
-        ) : (
-          <NavButton
-          // onClick={() => history.push(NewRequestsLocation.path)}
-          >
-            <ProfileIcon />
-            {t('navbar.login')}
-          </NavButton>
-        )}
       </BottomNavbarWrapper>
     );
   }

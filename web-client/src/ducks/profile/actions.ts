@@ -1,9 +1,9 @@
-import firebase from 'src/firebase';
-import { User } from 'src/models/users';
+import firebase from 'src/firebaseConfig';
 import {
   IUserAddress,
   PrivilegedUserInformation,
 } from 'src/models/users/privilegedInformation';
+import { User } from 'src/models/users/User';
 
 import {
   deleteUserAvatarData,
@@ -76,9 +76,8 @@ export const observePrivileged = (
 export const setUserProfile = (
   addresses: Record<string, IUserAddress>,
   termsAndPrivacyAccepted: Date,
-  displayName: string,
+  displayNickname: string,
   uid: string,
-  sendNotifications: firebase.firestore.Timestamp | null,
   displayPic?: string | null,
 ) => (dispatch: Function) => {
   const privilegedPayload = PrivilegedUserInformation.factory({
@@ -93,11 +92,11 @@ export const setUserProfile = (
       termsAndPrivacyAccepted,
     ),
     privacyVersion: '1.0',
-    sendNotifications,
   });
+
   const userPayload = User.factory({
-    username: displayName,
-    displayName,
+    username: displayNickname,
+    displayNickname,
     displayPicture: displayPic,
   });
   dispatch({

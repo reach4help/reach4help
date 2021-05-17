@@ -1,4 +1,4 @@
-import firebase, { firebaseAuth } from 'src/firebase';
+import firebase, { firebaseAuth } from 'src/firebaseConfig';
 
 export const facebookLoginWithFirebasePopUp = async (): Promise<firebase.auth.UserCredential> => {
   const provider = new firebase.auth.FacebookAuthProvider();

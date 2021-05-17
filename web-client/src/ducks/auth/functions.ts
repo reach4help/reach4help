@@ -1,4 +1,4 @@
-import firebase, { firebaseAuth } from 'src/firebase';
+import firebase, { firebaseAuth } from 'src/firebaseConfig';
 
 export const observeUser = (nextValue: Function): firebase.Unsubscribe =>
   firebaseAuth.onAuthStateChanged((user: firebase.User | null) => {

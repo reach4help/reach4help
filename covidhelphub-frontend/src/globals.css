@@ -1,0 +1,61 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+* {
+  box-sizing: border-box;
+}
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 5px 5px grey;
+  padding: 10px;
+  display: flex;
+  background: white;
+}
+.nav-link {
+  margin-right: 10px;
+}
+.container {
+  margin: 60px auto;
+  padding: 10px;
+  border: 1px solid gray;
+}
+.form-control input {
+  display: block;
+  margin: 10px 0;
+}
+
+.list-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  height: 30px;
+}
+
+.list-btn {
+  margin-left: auto;
+  height: 20px;
+}
+
+.tbd-font {
+  color: red;
+}

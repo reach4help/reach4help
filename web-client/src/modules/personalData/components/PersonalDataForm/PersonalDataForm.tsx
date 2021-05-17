@@ -3,8 +3,8 @@ import words from 'lodash/words';
 import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { DEVICE_MIN } from 'src/constants/mediaQueries';
-import { User } from 'src/models/users';
 import { IUserAddress } from 'src/models/users/privilegedInformation';
+import { User } from 'src/models/users/User';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -22,7 +22,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   const [fullName, setFullName] = useState<string | undefined | null>(
     undefined,
   );
-  const [displayName, setDisplayName] = useState<string | undefined | null>(
+  const [displayNickname, setDisplayName] = useState<string | undefined | null>(
     undefined,
   );
   const [displayPic, setDisplayPic] = useState<string | undefined | null>(
@@ -32,9 +32,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
     string | undefined | null
   >(undefined);
   const [acceptToUsePhoto, setAcceptToUsePhoto] = useState<boolean>(true);
-  const [allowSendNotifications, setAllowSendNotifications] = useState<boolean>(
-    false,
-  );
+
   const [
     termsAndPrivacyAccepted,
     setTermsAndPrivacyAccepted,
@@ -47,13 +45,13 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       }
       setUserDataSet(true);
       setTempDisplayPic(user.photoURL);
-      setDisplayName(user.displayName);
-      setFullName(user.displayName);
+      setDisplayName(user.displayNickname);
+      setFullName(user.displayNickname);
     }
-    if (!profileDataSet && profile && profile.displayName) {
+    if (!profileDataSet && profile && profile.displayNickname) {
       setProfileDataSet(true);
-      if (profile.displayName) {
-        setDisplayName(profile.displayName);
+      if (profile.displayNickname) {
+        setDisplayName(profile.displayNickname);
       }
       if (profile.displayPicture) {
         if (acceptToUsePhoto) {
@@ -63,9 +61,9 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
       } else {
         setAcceptToUsePhoto(false);
       }
-      if (profile.displayName) {
-        setDisplayName(profile.displayName);
-        setFullName(profile.displayName);
+      if (profile.displayNickname) {
+        setDisplayName(profile.displayNickname);
+        setFullName(profile.displayNickname);
       }
     }
   }, [user, profile, acceptToUsePhoto, profileDataSet, userDataSet]);
@@ -83,25 +81,24 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
   const onSubmitForm = () => {
     const newPersonalInfo = {
       fullName,
-      displayName,
+      displayNickname,
       displayPic,
       termsAndPrivacyAccepted,
       address: {},
-      sendNotificatoins: allowSendNotifications ? new Date() : null,
     };
     handleFormSubmit(newPersonalInfo);
   };
 
   useEffect(() => {
-    if (fullName && fullName.includes(' ') && displayName === '') {
+    if (fullName && fullName.includes(' ') && displayNickname === '') {
       setDisplayName(words(fullName)[0]);
     }
     // super important to make controlled components in Ant Design
     form.setFieldsValue({
       fullName,
-      displayName,
+      displayNickname,
     });
-  }, [fullName, displayName, form]);
+  }, [fullName, displayNickname, form]);
 
   return (
     <Introduction className="withContentPaddingDesktop">
@@ -141,7 +138,7 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
           </Col>
           <Col span="24" md={12}>
             <Form.Item
-              name="displayName"
+              name="displayNickname"
               label={t('display_name')}
               rules={[
                 {
@@ -177,18 +174,6 @@ const PersonalDataForm: React.FC<PersonalDataFormProps> = ({
             >
               {t(
                 'modules.personal-data.components.PersonalDataForm.accept_to_use_profile_pic',
-              )}
-            </Checkbox>
-          </Form.Item>
-          <Form.Item name="useSendNotifications">
-            <Checkbox
-              checked={allowSendNotifications}
-              onChange={({ target }) =>
-                setAllowSendNotifications(target.checked)
-              }
-            >
-              {t(
-                'modules.personal-data.components.PersonalDataForm.allow_send_notifications',
               )}
             </Checkbox>
           </Form.Item>
@@ -288,11 +273,10 @@ interface PersonalDataFormProps {
 
 export interface IPersonalData {
   fullName?: string | null;
-  displayName?: string | null;
+  displayNickname?: string | null;
   displayPic?: string | null;
   termsAndPrivacyAccepted?: Date;
   address: IUserAddress;
-  sendNotificatoins: firebase.firestore.Timestamp | null;
 }
 
 // TODO: Instructions modal text needs to be completed and eventually

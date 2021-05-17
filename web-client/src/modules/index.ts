@@ -3,11 +3,10 @@ import { Module } from 'src/types/module';
 import Create from './create';
 import LandingPage from './landing-page';
 import Login from './login';
-import Posts from './myRequests';
 import PersonalData from './personalData';
 import Phone from './phone';
+import Posts from './post';
 import Settings from './settings';
-import Timeline from './timeline';
 
 const modules: Record<string, Module> = {
   Create,
@@ -17,7 +16,6 @@ const modules: Record<string, Module> = {
   PersonalData,
   Posts, // TODO: (es) More refactoring
   Settings,
-  Timeline,
 };
 
 export default modules;

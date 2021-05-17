@@ -2,7 +2,8 @@
   "projects": {
     "default": "reach4help-dev",
     "staging": "reach4help-staging",
-    "production": "reach4help"
+    "production": "reach4help",
+    "try-out-change": "reach4help-try-out-change"
   },
   "targets": {
     "reach4help-dev": {
@@ -18,6 +19,22 @@
         ],
         "site": [
           "reach4help-dev"
+        ]
+      }
+    },
+    "reach4help-try-out-change": {
+      "hosting": {
+        "web-client": [
+          "reach4help-try-out-change-web-client"
+        ],
+        "map": [
+          "reach4help-try-out-change-map"
+        ],
+        "api": [
+          "reach4help-try-out-change-api"
+        ],
+        "site": [
+          "reach4help-try-out-change"
         ]
       }
     },

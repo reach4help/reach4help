@@ -8,7 +8,8 @@
       "yarn --ignore-engines --cwd functions install",
       "yarn --ignore-engines --cwd functions lint",
       "yarn --ignore-engines --cwd functions build"
-    ]
+    ],
+    "source": "functions"
   },
   "hosting": [
     {
@@ -75,5 +76,21 @@
   "storage": {
     "rules": "firebase/storage.rules"
   },
-  "emulators": {}
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    }
+  }
 }

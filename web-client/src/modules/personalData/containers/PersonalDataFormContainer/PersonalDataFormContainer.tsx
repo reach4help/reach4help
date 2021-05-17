@@ -45,18 +45,16 @@ const PersonalDataFormContainer: React.FC = (): React.ReactElement => {
   const handleFormSubmit = (personalInfo: IPersonalData) => {
     const {
       termsAndPrivacyAccepted,
-      displayName,
+      displayNickname,
       displayPic,
-      sendNotificatoins,
     } = personalInfo;
-    if (termsAndPrivacyAccepted && displayName && user) {
+    if (termsAndPrivacyAccepted && displayNickname && user) {
       dispatch(
         setUserProfile(
           {},
           termsAndPrivacyAccepted,
-          displayName,
+          displayNickname,
           user.uid,
-          sendNotificatoins,
           displayPic,
         ),
       );

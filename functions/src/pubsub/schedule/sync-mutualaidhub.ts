@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import { CollectionReference, FieldPath, GeoPoint, QueryDocumentSnapshot } from '@google-cloud/firestore';
 import * as functions from 'firebase-functions';
 

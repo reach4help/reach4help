@@ -11,7 +11,7 @@ import {
   MapDisplay,
 } from 'src/modules/create/components/DisplayElements';
 import PostConfirmation from 'src/modules/create/components/PostConfirmationModal';
-import { MyRequestPostsLocationUrl } from 'src/modules/myRequests/constants';
+import { MyRequestPostsLocationUrl } from 'src/modules/post/constants';
 import { COLORS } from 'src/theme/colors';
 import styled from 'styled-components';
 
@@ -32,9 +32,9 @@ const PostSummary: React.FC<PostSummaryProps> = ({
       .then(() => {
         setShowConfirmationPage(true);
       })
-      .catch(() => {
+      .catch(err => {
         // eslint-disable-next-line no-console
-        console.error('Could not submit new Post');
+        console.error(`Could not submit new Post ${err}`);
       });
   };
 

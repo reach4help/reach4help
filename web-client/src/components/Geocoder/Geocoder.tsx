@@ -1,4 +1,4 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 import GoogleMapReact from 'google-map-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +31,7 @@ export const GeocoderComponent = <P extends ISubComponent>({
           const lng = results[0].geometry.location.lng();
           resolve({
             ...addressToGeocode,
-            coords: new firestore.GeoPoint(lat, lng),
+            coords: new firebase.firestore.GeoPoint(lat, lng),
           });
         } else {
           alert(

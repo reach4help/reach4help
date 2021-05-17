@@ -7,7 +7,6 @@ let internalDB: FirebaseFirestore.Firestore;
 let internalAuth: admin.auth.Auth | null;
 let internalMessaging;
 let internalFieldIncrementer;
-
 if (config.get('env') !== 'test') {
   // firebase-functions import needs to happen before admin.initializeApp() as
   // it populates the FIREBASE_CONFIG variable
