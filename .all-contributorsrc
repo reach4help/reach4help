@@ -442,6 +442,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "iamtimleonard",
+      "name": "Tim Leonard",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69484330?v=4",
+      "profile": "https://github.com/iamtimleonard",
+      "contributions": [
+        "projectManagement",
+        "code",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,

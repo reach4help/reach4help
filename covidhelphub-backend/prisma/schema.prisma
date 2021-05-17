@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Database Model
+
+// Legend:
+// < and > indicate there are multiple of that entity
+// o - in a many to one, indicates relationship to parent is optional
+//     A parent is never required to have children
+
+//    owner ---> pet:   every pet has an owner
+//    pet <--- owner:   every pet has an owner
+//    buyer o---> car: a car can optionally have a buyer
+
+//
+//
+// Volunteer (User)   o--> Requests (Assigned to Help) : no UI
+//                    ---> Programs Assignments <--- Program : UI
+// Program            <--- Program --> Program Steps : UI
+//                    ---> Programs Assignments <--- Volunteer : No UI
+//                    ---> Requests : No UI
+//                    ---> Questions : UI
+// Request            <--- Program : UI
+// (including benef   <--- Program Step : UI
+//    info)           <--o AssignedVolunteer : UI
+//                    ---> Volunteer Responses <--- Volunteer : UI
+//                    ---> Answers <--- Question : UI
+//                    ---> EmailReceipt : UI
+//
+// EmailTemplates     <--- Program : UI
+//                    <--- Program: UI
+// Program            o--> Program Steps : UI
+//                    o--> Program : No UI
+//
+// Following resources do not have screens devoted just to that resource
+// Instead, these are entered as children of a parent object
+//
+// Question           o--> Answer <--- Request
+//                    <--o Program
+// Answer             <--o Request
+//                    <--o Question
+//
+
+model Volunteer {
+  UUID             String    @id @default(uuid())
+  name             String
+  address          String
+  email            String
+  phone            String
+  notes            String
+  programCode      String
+  assignedRequests Request[]
+  volunteerProgramAssignment   VolunteerProgramAssignment[]
+}
+
+model Beneficiary {
+  UUID                         String                         @id @default(uuid())
+  address                      String
+  email                        String?
+  phone                        String?
+  notes                        String
+  requests                     Request[]
+}
+
+model Program {
+  sequence    Int
+  code                         String                         @unique
+  // programStep                  ProgramStep[]
+  request                         Request[]
+  volunteerProgramAssignment      VolunteerProgramAssignment[]
+}
+
+model Step {
+  sequence    Int
+  code        String    @unique
+  // program     Program   @relation(fields: [programUUID], references: [UUID])
+  requests    Request[]
+  // programUUID String
+}
+
+model Request {
+  UUID              String       @id @default(uuid())
+  name              String
+  address           String
+  email             String
+  phone             String
+  notes             String
+  programStep       Step        @relation(fields: [stepCode], references: [code])
+  beneficiary       Beneficiary?  @relation(fields: [beneficiaryUUID], references: [UUID])
+  volunteer         Volunteer?   @relation(fields: [volunteerUUID], references: [UUID])
+  programAssignment Program      @relation(fields: [programCode], references: [code])
+  responses         Response[]
+  programCode       String
+  stepCode          String
+  beneficiaryUUID   String?
+  volunteerUUID     String?
+}
+
+model VolunteerProgramAssignment {
+  UUID          String      @id @default(uuid())
+  program       Program     @relation(fields: [programCode], references: [code])
+  volunteer     Volunteer   @relation(fields: [volunteerUUID], references: [UUID])
+  programCode   String
+  volunteerUUID String
+}
+
+model Response {
+  UUID         String   @id @default(uuid())
+  volunterUUID String
+  isWilling    String
+  responseText String
+  request      Request? @relation(fields: [requestUUID], references: [UUID])
+  requestUUID  String?
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
