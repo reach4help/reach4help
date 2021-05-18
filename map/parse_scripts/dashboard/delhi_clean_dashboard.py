@@ -8,8 +8,11 @@ import streamlit as st
 """
 
 # Import data
-# df = pd.read_json("delhi_clean.json").transpose()
-df = pd.read_csv("delhi_clean.csv", keep_default_na=False)
+# df = pd.read_json("../delhi_clean.json").transpose()
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/reach4help/reach4help/map/map/parse_scripts/delhi_clean.csv",
+    keep_default_na=False,
+)
 # Rearrange columns
 df = df[
     [
