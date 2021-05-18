@@ -43,7 +43,8 @@
     "screen": {
       "title": "Añadir información a este mapa",
       "information": {
-        "acceptedInformation": "Por el momento, sólo estamos poniendo información sobre organizaciones o empresas que proporcionan ayuda y asistencia, iniciativas de asistencia financiera específicas para la región y grupos de ayuda mutua. No aceptamos información sobre personas que ofrecen ayuda en estos momentos.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Por favor, rellene el siguiente formulario para comenzar a agregar información, le pediremos la ubicación y los datos de contacto después de eso.",
         "form": {
           "type": "Tipo de proyecto / grupo / organización / iniciativa",
@@ -93,7 +94,7 @@
         "loading": "Enviando información al mapa...",
         "error": "Error al agregar información",
         "success": "Tu solicitud se ha enviado con éxito.",
-        "successExtra": "Antes de que hagamos visible su información en el mapa, tendrá que ser revisada por un voluntario de nuestro equipo. Es de esperar que esto se haga dentro de un par de días."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Grupo de apoyo mutuo",
     "org": "Organización / Empresa",
+    "vaccine": "Vaccination Sites",
     "financial": "Financiero",
     "information": "Información",
     "other": "Otros"

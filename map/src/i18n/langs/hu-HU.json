@@ -44,6 +44,7 @@
       "title": "Információ hozzáadása ehhez a térképhez",
       "information": {
         "acceptedInformation": "Jelenleg csak segélyt és támogatást nyújtó szervezetekről vagy vállalatokról, régióspecifikus pénzügyi segítségnyújtási kezdeményezésekről és kölcsönös ségélynyújtó csoportokról adunk tájékoztatást, támogatást nyújtó személyekről nem fogadunk el információt.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Kérjük, töltse ki az alábbi űrlapot az információk hozzáadásának megkezdéséhez. Ezután megkérdezzük a tartózkodási helyet és elérhetőségeket.",
         "form": {
           "type": "Projekt / csoport / szervezet / kezdeményezés típusa",

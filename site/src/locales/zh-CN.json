@@ -21,10 +21,7 @@
           "Use the map to find and join mutual aid efforts near you or create your own.",
           "If you are an aid organization, add your information to the map so others can find you."
         ],
-        "buttons": [
-          "获得帮助",
-          "志愿者"
-        ]
+        "buttons": ["获得帮助", "志愿者"]
       },
       "ReasonsSection": {
         "heading": "Why Use Reach4Help",
@@ -107,9 +104,7 @@
         "heading": "About",
         "subheading": "We’re a group of volunteers driven to unify help worldwide",
         "paragraph": "Meet the minds behind this initiative and join us!",
-        "buttons": [
-          "More About Us"
-        ]
+        "buttons": ["More About Us"]
       },
       "SupportersSection": {
         "heading": "Supporters",
@@ -129,10 +124,7 @@
     },
     "ImpactPage": {
       "WorldMapSection": {
-        "heading": [
-          "We're already helping",
-          "600+ people across 38 countries!"
-        ],
+        "heading": ["We're helping people", "across 38 countries!"],
         "hoverInfo": {
           "users": "Users: ",
           "noUsers": "No users yet <br/> (maybe you?)"
@@ -151,9 +143,7 @@
         "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
       "join": "Interested in joining us?",
-      "buttons": [
-        "Join us on our mission!"
-      ]
+      "buttons": ["Join us on our mission!"]
     },
     "Footer": {
       "sections": [

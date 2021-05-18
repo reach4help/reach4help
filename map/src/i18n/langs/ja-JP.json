@@ -43,7 +43,8 @@
     "screen": {
       "title": "この地図に情報を追加",
       "information": {
-        "acceptedInformation": "現時点では、援助や支援を行っている組織や企業、地域別の金融支援活動、相互援助団体などについてのみ情報を提供しています。 現時点では援助を行う個人に関する情報は受け付けておりません。",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "以下のフォームにご記入の上、情報を追加してください。その後、場所と連絡先の詳細をお伺いします。",
         "form": {
           "type": "プロジェクト / グループ / 組織 / イニシアチブの種類",
@@ -93,7 +94,7 @@
         "loading": "地図に情報を送信しています...",
         "error": "情報の保存中にエラーが発生しました",
         "success": "Your information has been successfully sent!",
-        "successExtra": "地図上にあなたの情報を表示する前に、私たちのチームのボランティアによって確認される必要があります。 これは数日以内に行われることを願っています。"
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "相互援助グループ",
     "org": "組織/会社",
+    "vaccine": "Vaccination Sites",
     "financial": "財務",
     "information": "情報",
     "other": "その他"

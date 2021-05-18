@@ -43,7 +43,8 @@
     "screen": {
       "title": "Voeg informatie toe aan deze kaart",
       "information": {
-        "acceptedInformation": "Op dit moment verstrekken we alleen informatie over organisaties of bedrijven die hulp en bijstand verlenen, regionale specifische initiatieven voor financiële bijstand en wederzijdse hulporganisaties. We accepteren op dit moment geen informatie over personen die hulp bieden.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Vul het formulier hieronder in om de informatie toe te voegen. We zullen u daarna om locatie en contactgegevens vragen.",
         "form": {
           "type": "Type project / groep / organisatie / initiatief",
@@ -93,7 +94,7 @@
         "loading": "Gegevens verzenden naar map...",
         "error": "Fout bij opslaan informatie",
         "success": "Uw formulier is succesvol ingediend",
-        "successExtra": "Voordat we uw gegevens zichtbaar maken op de kaart, moet deze worden beoordeeld door een vrijwilliger van ons team. Hopelijk zal dit binnen een paar dagen gebeuren."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Wederzijdse Hulpgroep",
     "org": "Organisatie / bedrijf",
+    "vaccine": "Vaccination Sites",
     "financial": "Financieel",
     "information": "Informatie",
     "other": "Overig"
