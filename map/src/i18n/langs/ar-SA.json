@@ -1,155 +1,157 @@
 {
-  "title": "خريطة المساعدة المجتمعة ضد كوفيد-19",
-  "inFrameLink": "حول هذا الخريطة / اضافة معلومات ",
+  "title": "COVID-19 Mutual Aid Map",
+  "inFrameLink": "About this map / add information",
   "aboutScreen": {
-    "intro": "نؤمن ان التكافل يبرز افضل ما يمكن لدى الافراد ",
-    "info": "لمساعدة الناس في العثور على جهود المساعدة المتبادلة والانضمام إليها في المكان الذي يعيشون فيه ، وتقديم الإلهام لبدء حياتهم الخاصة ، و / أو رفع المعنويات ببساطة ، تقدم هذه الخريطة قائمة متزايدة بمشاريع الإغاثة من جائحة المساعدة المتبادلة في جميع أنحاء العالم.",
-    "warning": "ملحوظة: كل مشروع مستقل ذاتي التنظيم. مما يجعل الكثير يستخدم جداول البيانات العامة لمشاركة المعلومات ، لذا كن حذرًا عند إدخال معلومات خاصة لا تريد أن تكون عامة.",
-    "project": "هذه الخريطة جزء من {access4Help} ، وهو مشروع يديره متطوعون.  المصدر متاح ويمكن أن يكون {githubSource}.  لأية استفسارات ، يمكنك الوصول إلينا على العنوان {email}.",
-    "githubSourceLabel": "وجدت على GitHub",
-    "otherAreasHeading": "هل انت مهتم بإحد هذه المجالات؟",
-    "otherAreasInfo": "تحقق من هذه الخرائط البديلة بدلا من ذلك:",
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "found on GitHub",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
     "otherAreasLocations": {
-      "france": "فرنسا",
-      "nyc": "نيويورك"
+      "france": "France",
+      "nyc": "New York"
     },
-    "sourceHeading": "من اين اتات هذه المعلومات؟!",
-    "sourceInfo": "المعلومات الواردة في هذه الخريطة هي مزيج من البيانات التي جمعها متطوعونا ، والتي قدمها مستخدمونا ، والتي قدمتها المشاريع الأخرى التي يديرها المتطوعون بما في ذلك {mutualaidwiki} و {mutuaidhub}.",
-    "sourceSubmit": "نحن نشجعك على {addinfo} حول أي مشروعات تعرفها غير موجودة بالفعل على الخريطة.",
-    "sourceSubmitButton": "اضافة المعلومات",
-    "usageHeading": "هل يمكنني استخدام هذه البيانات لمشروعي الخاص؟",
-    "usageInfo": "نرحب باستخدام البيانات المقدمة من خريطتنا لمشاريعك الخاصة ، طالما أنك تتبع التراخيص المعنية.",
-    "usageLicenses": "البيانات التي يقدمها المتطوعون والمستخدمون لدينا مرخصة بموجب {license} ، ويتم توفير البيانات من مصادر أخرى بموجب التراخيص الخاصة بهم.",
-    "usageApi": "يمكنك الوصول إلى البيانات الأولية ،إلى جانب تفاصيل حول كيفية ترخيص كل نقطة بيانات ،على عنوان التالي {URL : {api"
+    "sourceHeading": "Where does this information come from?",
+    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
+    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
+    "sourceSubmitButton": "add information",
+    "usageHeading": "Can I use this data for my own project?",
+    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
+    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
+    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
-    "about": "عن",
-    "map": "عرض الخريطة"
+    "about": "About",
+    "map": "View Map"
   },
   "social": {
-    "email": "راسل لنا عبر البريد الإكتروني",
-    "twitter": "تابعنا على تويتر",
-    "facebook": "اضغط جرس الاعجاب على صفحتنا على الفيس بوك",
-    "github": "تجدنا على GitHub"
+    "email": "Email Us",
+    "twitter": "Follow us on Twitter",
+    "facebook": "Like us on Facebook",
+    "github": "Find us on GitHub"
   },
   "addInformation": {
-    "button": "إضافة معلومات",
-    "backToMap": "الرجوع إلى الخريطة",
-    "prev": "رجوع",
-    "continue": "الاستمرار",
-    "submit": "إرسال",
-    "addMore": "إضافة معلومات أخرى",
-    "tryAgain": "إعادة المحاولة",
+    "button": "Add information",
+    "backToMap": "Back to map",
+    "prev": "Back",
+    "continue": "Continue",
+    "submit": "Submit",
+    "addMore": "Add more info",
+    "tryAgain": "Try again",
     "screen": {
-      "title": "إضافة معلومات إلى هذه الخريطة",
+      "title": "Add information to this map",
       "information": {
-        "acceptedInformation": "في الوقت الحاضر، لا نقدم سوى معلومات عن المنظمات و الجمعيات التي تقدم المساعدةو المعاونة المشتركة، ومبادرات المساهمة المالية الخاصة بالمنطقة.\n لا تقبل حاليا معلومات عن الأفراد الذين يقدمون المساعدة في الوقت الراهن.",
-        "intro": "المرجو ملء النموذج أدناه لبدء إضافة المعلومات.\n في المرحاة التالية: معلومات تحديد الموقع وتفاصيل الاتصال.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
+        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
         "form": {
-          "type": "نوع المشروع/المجموعة/المنظمة/المبادرة",
-          "typePleaseSelect": "الرجاء تحديد نوع",
-          "services": "الخدمات أو الدعم الذي تقدمه هذه المنظمة/الشركة",
-          "name": "اسم المشروع / المجموعة / المنظمة",
-          "namePlaceholder": "مثل: المعونة المتبادلة في أنكارا",
-          "description": "(اختياري) وصف مفصل للمشروع/المجموعة/المنظمة، وما يهدف إلى القيام به لتيسير المعونة المتبادلة",
-          "locationName": "وصف المنطقة الجغرافية التي يتم خدمتها. مثلا : الدولة الولاية, المدينة...",
-          "locationNamePlaceholder": "على سبيل المثال: منطقة خليج سان فرانسيسكو، CA، الولايات المتحدة الأمريكية",
-          "continue": "إضغط لاستمرار إدخال معلومات الموقع"
+          "type": "Type of project / group / organization / initiative",
+          "typePleaseSelect": "Please select type",
+          "services": "Services or support that this organization / company provides",
+          "name": "Name of the project / group / organization",
+          "namePlaceholder": "e.g. Mutual Aid Antarctica",
+          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
+          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
+          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
+          "continue": "Click continue to enter location information"
         },
-        "mutualAidInstead": "إذا كنت تريد إرسال معلومات حول مجموعة مساعدة تعاونية جديدة، فيرجى الانتقال إلى {link} .سيتم إضافة المجموعات المضافة هناك تلقائيًا في خريطتنا."
+        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
       },
       "placeMarker": {
-        "instructions": "حدد مكان المنطقة التي يخدمها هذا المشروع / المجموعة/المنظمة / المبادرة بالنقر على الخريطة لوضع علامة ، ثم ضبط حجم الدائرة بحيث يشمل المساحة حسب الاقتضاء.",
-        "continue": "عند انضباط الموقع، انقر فوق الاستمرار في إضافة معلومات للمواصلة.",
+        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
+        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "معلومات الاتصال الخاصة بـ {name}",
-        "info": "الرجاء إدخال معلومات عن كيفية اتصال الناس بـ {name}. إذا كانت هناك طرق اتصال محددة يجب استخدامها للتطوع بالمساعدة، أو لطلب المساعدة، يرجى وصفها هنا. ",
-        "deleteInfo": "حذف",
+        "header": "Contact information for {name}",
+        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
+        "deleteInfo": "Delete",
         "addInfo": {
-          "general": "إضافة معلومات الاتصال العامة",
-          "volunteers": "إضافة معلومات الاتصال للمتطوعين",
-          "getHelp": "إضافة معلومات الاتصال للأشخاص المحتاجين للمساعدة"
+          "general": "Add general contact information",
+          "volunteers": "Add contact information for volunteers",
+          "getHelp": "Add contact information for people that need help"
         },
         "sections": {
-          "general": "معلومات الاتصال العامة",
-          "volunteers": "معلومات الاتصال للمتطوعين",
-          "getHelp": "معلومات الاتصال للناس المحتاجين للمساعدة"
+          "general": "General contact info",
+          "volunteers": "Contact info for volunteers",
+          "getHelp": "Contact info for people that need help"
         },
         "method": {
-          "phone": "رقم الهاتف",
-          "email": "عناوين البريد الإلكترونية",
-          "web": "روابط الويب / عناوين URL"
+          "phone": "Phone Numbers",
+          "email": "Email Addresses",
+          "web": "Web Links / URLs"
         },
         "placeholder": {
-          "phone": "أضف رقم هاتف",
-          "email": "إضافة عنوان بريد إلكتروني",
+          "phone": "Add a phone number",
+          "email": "Add an email address",
           "webURL": "URL",
-          "webLabel": "الإسم"
+          "webLabel": "Name"
         }
       },
       "submitted": {
-        "loading": "إرسال المعلومات إلى الخريطة...",
-        "error": "خطأ في إضافة معلومات",
-        "success": "تم إرسال معلوماتك بنجاح.",
-        "successExtra": "قبل إضافة معلوماتكم على الخريطة، سيتم مراجعتها من طرف متطوع من Reach4Help."
+        "loading": "Submitting information to map...",
+        "error": "Error adding information",
+        "success": "Your information was successfully submitted.",
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
-      "missingType": "الرجاء تحديد نوع المشروع / المجموعة / المؤسسة",
-      "missingServices": "يرجى التحقق من جميع الخدمات التي تقدمها هذه المؤسسة (مطلوب 1 على الأقل)",
-      "missingTitle": "الرجاء إدخال اسم المشروع / المجموعة / المؤسسة",
-      "missingLocationName": "الرجاء إدخال وصف للمنطقة التي تقدم لها الخدمات",
-      "markerRequired": "الرجاء النقر على الخريطة لدخول منطقة الخدمة قبل المتابعة.",
-      "noContactDetails": "الرجاء إدخال تفاصيل الاتصال لفئة واحدة على الأقل",
-      "emptyContactSection": "الرجاء إدخال بعض معلومات الاتصال لـ {section} أو حذفها",
-      "urlMissingLabel": "اسم URL لـ {section} غير موجود ",
-      "urlMissingURL": "اسم URL لـ {section} غير موجود ",
-      "dataError": "حدثت مشكلة في المعلومات االمقدمة، المرجو المحاولة مرة أخرى ",
-      "submitError": "حدثت مشكلة في تقديم معلوماتك: {error}. الرجاء المحاولة مرة أخرى لاحقاً",
+      "missingType": "Please select the type of the project / group / organization",
+      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
+      "missingTitle": "Please enter the name of the project / group / organization",
+      "missingLocationName": "Please enter a description of the area served",
+      "markerRequired": "Please click on the map to enter the service area before continuing.",
+      "noContactDetails": "Please enter contact details for at least one category",
+      "emptyContactSection": "Please enter some contact information for {section} or delete it",
+      "urlMissingLabel": "A URL for {section} is missing a Name",
+      "urlMissingURL": "A URL entry for {section} is missing the URL",
+      "dataError": "There was a problem with the information you submitted, please go back and try again",
+      "submitError": "There was a problem submitting your information: {error}. Please try again later",
       "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
     }
   },
   "buttons": {
-    "fullScreen": "ملء الشاشة",
-    "exitFullScreen": "الخروج من ملء الشاشة"
+    "fullScreen": "Fullscreen",
+    "exitFullScreen": "Exit Fullscreen"
   },
-  "loading": "نحميل...",
-  "filterBy": "تصنيف بحسب:",
+  "loading": "Loading...",
+  "filterBy": "Filter by:",
   "services": {
-    "any": "أي",
-    "food": "تغذية",
-    "medicine": "دواء",
-    "supplies": "لوازم أخرى",
-    "mobility": "التنقّل",
-    "shelter": "مأوي",
-    "support": "المساندة",
-    "information": "معلومات",
-    "network": "الشبكة",
-    "manufacturing": "تصنيع",
-    "financial": "الأمور المالية",
-    "other": "أخرى"
+    "any": "Any",
+    "food": "Food",
+    "medicine": "Medicine",
+    "supplies": "Other Supplies",
+    "mobility": "Mobility",
+    "shelter": "Shelter",
+    "support": "Support",
+    "information": "Information",
+    "network": "Network",
+    "manufacturing": "Manufactoring",
+    "financial": "Financial",
+    "other": "Other"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "لوازم أخرى غير الأغذية أو الأدوية",
-    "mobility": "نقل الأشخاص من مكان إلى آخر",
+    "supplies": "Supplies other than food or medicine",
+    "mobility": "Transporting people from one location to another",
     "shelter": null,
-    "support": "دعم مخصص لمجموعات ضعيفة محددة، مثل المشردين، والأشخاص المعرضين لخطر الإيذاء المنزلي، إلخ...",
-    "information": "مساعدة الناس في الحصول على معلومات أصيلة",
-    "network": "توفير الموارد لإقامة شبكات لتقديم المعونة، على سبيل المثال بين منظمات المعونة المتبادلة",
-    "manufacturing": "يوفر اللوازم أو القدرة التصنيعية اللازمة للتعامل مع الأزمة",
+    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
+    "information": "Help people find relevent information",
+    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
+    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
     "financial": null,
-    "other": "شئ آخر غير موجود في هذه القائمة"
+    "other": "Something else not on this list"
   },
   "markerTypes": {
-    "mutual-aid-group": "مجموعة المساعدة المشتركة",
-    "org": "منظمة / شركة",
-    "financial": "الأمور المالية",
-    "information": "معلومات",
-    "other": "أخرى"
+    "mutual-aid-group": "Mutual Aid Group",
+    "org": "Organization / Company",
+    "vaccine": "Vaccination Sites",
+    "financial": "Financial",
+    "information": "Information",
+    "other": "Other"
   },
   "markerTypeSentence": {
     "mutual-aid-group": "mutual aid group",
@@ -157,20 +159,20 @@
     "project": "project"
   },
   "map": {
-    "jumpToLocation": "الانتقال إلى موقع على الخريطة...",
-    "updateResultsForThisArea": "تحديث نتائج هذا المجال",
-    "myLocation": "موقعي"
+    "jumpToLocation": "Jump to a location on the map...",
+    "updateResultsForThisArea": "Update results for this area",
+    "myLocation": "My Location"
   },
   "results": {
-    "backToResults": "العودة إلى النتائج",
+    "backToResults": "Back to results",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
     "showMore": "Show more results",
     "contact": {
-      "general": "معلومات عامة:",
-      "getHelp": "الحصول على مساعدة:",
-      "volunteer": "تطوع:",
-      "facebookGroup": "مجموعة Facebook"
+      "general": "General Information:",
+      "getHelp": "Get Help:",
+      "volunteer": "Volunteer:",
+      "facebookGroup": "Facebook group"
     },
     "details": {
       "disclaimer": {
@@ -180,22 +182,22 @@
       "source": "Information about this {type} is provided by {source}."
     }
   },
-  "lang": "اللغة:",
-  "langSelect": "اختر اللغة",
+  "lang": "Language:",
+  "langSelect": "Select Language",
   "footer": {
-    "netlifyNote": "هذه الخريطة {link}",
+    "netlifyNote": "This map {link}",
     "netlifyLinkText": "is hosted by Netlify",
     "githubRepo": "GitHub Repo",
     "codeOfConduct": "Code of Conduct",
-    "showHidden": "إظهار المعلومات المخفية",
-    "hideHidden": "إخفاء المعلومات المخفية"
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   },
   "hiddenMarkers": {
-    "visiblility": "الظاهرة: {visibility}",
+    "visiblility": "Visibility: {visibility}",
     "filter": {
-      "any": "الكل",
-      "visible": "ظاهر فقط",
-      "hidden": "مخفي فقط"
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
     }
   }
 }
