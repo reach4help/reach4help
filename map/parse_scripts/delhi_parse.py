@@ -49,7 +49,7 @@ import json
 import googlemaps
 import os
 import pandas as pd
-
+import phonenumbers
 
 gmaps_api_key = os.environ.get("REACT_APP_GMAPS_API_KEY")
 gmaps = googlemaps.Client(key=gmaps_api_key)
@@ -74,17 +74,17 @@ def extract_state(geocode_result):
 
 
 def extract_phone_contact(phone_string):
-    if ";" in phone_string:
-        return phone_string.split(";")
-    elif "," in phone_string:
-        return phone_string.split(",")
-    else:
-        return [phone_string]
+    phone_numbers = []
+    for match in phonenumbers.PhoneNumberMatcher(phone_string, region="IN"):
+        num = phonenumbers.parse(match.raw_string, "IN")
+        num = phonenumbers.format_number(num, phonenumbers.PhoneNumberFormat.E164)
+        phone_numbers.append(num)
+    return phone_numbers
 
 
 def format_description(header, string):
     # If the notes_string is empty, don't add it to the description
-    if string.strip():
+    if string:
         if header == "Any other details":
             return "Notes" + ": " + string
         else:
@@ -113,26 +113,48 @@ def convert_item_to_dict(category, headers, data_values):
 
     item_dict = {
         "General Area (State)": "Delhi",
+        "General Area (City)": "Delhi",
         "Services Offered": category,
         "Description": [],
+        "Marked for Cleaning": None,  # we manually set this as False to be reparsed
     }
 
     j = 0
     for data in data_values:
+        data = data.strip()
         key = header_map[headers[j]]
-        if key == "Description":
+
+        if key == "Distributor Name":
+            item_dict[key] = data.title()
+        elif key == "Description":
             desc = format_description(headers[j], data)
             if desc:
                 item_dict[key].append(desc)
         elif key == "Distributor Contact (Phone)":
             item_dict[key] = extract_phone_contact(data)
-        elif key == "Location" and data:  # if data is not empty
-            geocode_result = gmaps.geocode(data, region="IN")
+        elif key == "Location":
+            # Sorry for making this so messy, TODO: move this logic into a separate function
+            # If keywords like "Oxygen" or "Cylinder" pop up that shouldn't be in the location, let's mark this for cleaning
+            if any(fluff in data for fluff in ["Oxygen", "Cylinder"]):
+                item_dict["Marked for Cleaning"] = True
+
+            # If the city isn't already included, add it (helps with getting the location via google)
+            if item_dict["General Area (City)"] not in data:
+                geocode_result = gmaps.geocode(data + " Delhi", region="IN")
+            else:
+                geocode_result = gmaps.geocode(data, region="IN")
+
             item_dict["lat"], item_dict["lng"] = extract_lat_lng(geocode_result)
-            # If Google's state is mismatched with the given state, then mark it for verification
+
+            # If Google's state is mismatched with the given state, then the given location is possibly wrong, so let's mark it for cleaning
             if extract_state(geocode_result) != item_dict["General Area (State)"]:
-                item_dict["To Clean"] = True
-            item_dict[key] = data
+                item_dict["Marked for Cleaning"] = True
+
+            # If the location is empty, then also mark it for cleaning
+            if not data:
+                item_dict["Marked for Cleaning"] = True
+
+            item_dict[key] = data.title()
         else:
             item_dict[key] = data
 
@@ -205,4 +227,3 @@ with open("Delhi.csv", encoding="utf-8") as csvfile:
 
 # Export clean data to csv for now (easier to look at quickly)
 pd.DataFrame.from_dict(final_dict).transpose().to_csv("delhi_clean.csv", index=False)
-
