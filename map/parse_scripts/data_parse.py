@@ -1,5 +1,5 @@
 # How to run:
-# REACT_APP_GMAPS_API_KEY=<api_key> python delhi_parse.py
+# REACT_APP_GMAPS_API_KEY=<api_key> python data_parse.py
 
 # Medicines (Remdesivir and Others)
 ## Distributor Name,    -> Distributor Name
@@ -50,6 +50,10 @@ import googlemaps
 import os
 import pandas as pd
 import phonenumbers
+import sys
+import getopt
+import datetime
+
 
 gmaps_api_key = os.environ.get("REACT_APP_GMAPS_API_KEY")
 gmaps = googlemaps.Client(key=gmaps_api_key)
@@ -96,7 +100,7 @@ def format_description(header, string):
 # data_values: List[String]
 # Converts data from a row into a dict of multiple items.
 # The number of items in the output corresponds to the number of nonempty categories in the row.
-def convert_item_to_dict(category, headers, data_values):
+def convert_item_to_dict(category, headers, city, state, data_values):
     header_map = {
         "Distributor Name": "Distributor Name",
         "Hospital Name": "Distributor Name",
@@ -112,8 +116,8 @@ def convert_item_to_dict(category, headers, data_values):
     }
 
     item_dict = {
-        "General Area (State)": "Delhi",
-        "General Area (City)": "Delhi",
+        "General Area (State)": state,
+        "General Area (City)": city,
         "Services Offered": category,
         "Description": [],
         "Marked for Cleaning": None,  # we manually set this as False to be reparsed
@@ -140,7 +144,7 @@ def convert_item_to_dict(category, headers, data_values):
 
             # If the city isn't already included, add it (helps with getting the location via google)
             if item_dict["General Area (City)"] not in data:
-                geocode_result = gmaps.geocode(data + " Delhi", region="IN")
+                geocode_result = gmaps.geocode(data + f" {city}", region="IN")
             else:
                 geocode_result = gmaps.geocode(data, region="IN")
 
@@ -164,66 +168,98 @@ def convert_item_to_dict(category, headers, data_values):
     item_dict["Description"] = " ; ".join(item_dict["Description"])
     return item_dict
 
+def extract_categories_and_headers(row):
+    categories = [
+        "Medicines",
+        "Oxygen",
+        "Hospital Beds",
+        "Plasma / Blood",
+        "Tiffin Services",
+        "Quarantine Centres",
+        "Other",
+    ]
 
-i = 0
-json_i = 0
-final_dict = {}
+    headers = []
+    categories_and_headers = []
+    cat_number = 0
 
-with open("Delhi.csv", encoding="utf-8") as csvfile:
-    delhireader = csv.reader(csvfile)
-    print("Starting parse...")
-    for row in delhireader:
-        i += 1
+    for header in row:
+            if header != "":
+                headers.append(header)
+            else:
+                categories_and_headers.append(
+                    [categories[cat_number], headers])
+                cat_number += 1
+                headers = []
 
-        if i == 4:
-            categories = [
-                "Medicines",
-                "Oxygen",
-                "Hospital Beds",
-                "Plasma / Blood",
-                "Tiffin Services",
-                "Quarantine Centres",
-                "Other",
-            ]
+    categories_and_headers.append([categories[cat_number], headers])
+    return categories_and_headers
 
-            headers = []
-            categories_and_headers = []
-            cat_number = 0
+def main(argv): 
+    inputfolder = ''
+    try:
+        opts, args = getopt.getopt(argv,"hi:",["ifile="])
+    except getopt.GetoptError:
+        print('test.py -i <inputfolder>')
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print('test.py -i <inputfolder>')
+            sys.exit()
+        elif opt in ("-i", "--ifolder"):
+            inputfolder = arg
 
-            for header in row:
-                if header != "":
-                    headers.append(header)
-                else:
-                    categories_and_headers.append([categories[cat_number], headers])
-                    cat_number += 1
-                    headers = []
+    current_time = datetime.datetime.now()
 
-            categories_and_headers.append([categories[cat_number], headers])
-        elif i > 4:
-            starting_column = 0
+    output_dir = f"parsed_output_{current_time}"
+    os.mkdir(output_dir)
 
-            for category_pair in categories_and_headers:
-                num_of_headers = len(category_pair[1])
-                data_values = []
+    for file in os.listdir(inputfolder):
+        i = 0
+        json_i = 0
+        final_dict = {}
 
-                for num in range(starting_column, starting_column + num_of_headers):
-                    data_values.append(row[num])
+        with open(f"{inputfolder}/{file}", encoding="utf-8") as csvfile:
+            datareader = csv.reader(csvfile)
+            print(f"Starting parse for {file}...")
+            naive_city_name = file.split('.')[0]
+            for row in datareader:
+                i += 1
 
-                if "".join(data_values) != "":
-                    item_dict = convert_item_to_dict(
-                        category_pair[0], category_pair[1], data_values
-                    )
-                    final_dict[json_i] = item_dict
-                    json_i += 1
+                if i == 4:
+                    categories_and_headers = extract_categories_and_headers(row)
+                elif i > 4:
+                    starting_column = 0
 
-                starting_column += num_of_headers + 1
+                    for category_pair in categories_and_headers:
+                        num_of_headers = len(category_pair[1])
+                        data_values = []
 
-        # This print statement is purely a visual to let you know the script is still running
-        if i % 100 == 0:
-            print("Parsed " + str(i) + " rows. Still parsing...")
+                        for num in range(starting_column, starting_column + num_of_headers):
+                            data_values.append(row[num])
 
-# Export clean data to separate file
-# json.dump(final_dict, open("delhi_clean.json", "w+"), sort_keys=True, indent=4)
+                        if "".join(data_values) != "":
+                            item_dict = convert_item_to_dict(
+                                category_pair[0], category_pair[1], naive_city_name, naive_city_name, data_values
+                            )
+                            final_dict[json_i] = item_dict
+                            json_i += 1
 
-# Export clean data to csv for now (easier to look at quickly)
-pd.DataFrame.from_dict(final_dict).transpose().to_csv("delhi_clean.csv", index=False)
+                        starting_column += num_of_headers + 1
+
+                # This print statement is purely a visual to let you know the script is still running
+                if i % 100 == 0:
+                    print("Parsed " + str(i) + " rows. Still parsing...")
+
+
+        # Export clean data to separate file
+        # json.dump(final_dict, open("delhi_clean.json", "w+"), sort_keys=True, indent=4)
+        #     
+        # Export clean data to csv for now (easier to look at quickly)
+        output_file_name = f"{output_dir}/{naive_city_name}_clean.csv"
+        pd.DataFrame.from_dict(final_dict).transpose().to_csv(output_file_name, index=False)
+        print(f"Output stored in {output_file_name}")
+
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
