@@ -43,7 +43,8 @@
     "screen": {
       "title": "Informationen auf der Karte ergänzen",
       "information": {
-        "acceptedInformation": "Derzeit stellen wir ausschließlich Informationen über Organisationen und Unternehmen, die Hilfe oder Unterstützung anbieten, auf die jeweilige Region bezogene Initiativen zur finanziellen Unterstützung und Gruppen der gegenseitigen Hilfe bereit. Im Moment nehmen wir keine Informationen von Einzelpersonen auf, die Hilfe anbieten.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Bitte füllen Sie das untenstehende Formular aus, um Informationen zu ergänzen. Wir werden Sie danach nach den geografischen und Kontaktdaten fragen.",
         "form": {
           "type": "Art des Projekts / der Gruppe / der Organisation / der Initiative",
@@ -93,7 +94,7 @@
         "loading": "Informationen werden zur Karte übertragen.",
         "error": "Fehler beim Hinzufügen der Informationen",
         "success": "Ihre Informationen wurden erfolgreich übermittelt.",
-        "successExtra": "Bevor Ihre Informationen auf der Karte sichtbar sind, werden sie von einer/einem Freiwilligen aus unserem Team überprüft. Das sollte (hoffentlich) in ein paar Tagen erledigt sein."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Gruppen der gegenseitigen Hilfe",
     "org": "Organisation / Unternehmen",
+    "vaccine": "Vaccination Sites",
     "financial": "Finanzierung",
     "information": "Informationen",
     "other": "Andere"

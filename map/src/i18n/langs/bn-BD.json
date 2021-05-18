@@ -43,7 +43,8 @@
     "screen": {
       "title": "এই মানচিত্রে তথ্য যুক্ত করুন",
       "information": {
-        "acceptedInformation": "এই মুহুর্তে, আমরা কেবল সহায়তা বা সহায়তা প্রদানকারী সংস্থা বা সংস্থাগুলি, অঞ্চল-নির্দিষ্ট আর্থিক সহায়তার উদ্যোগ এবং পারস্পরিক সহায়তা গোষ্ঠীগুলির তথ্য রাখছি। এই মুহুর্তে ব্যক্তিদের সহায়তা দেওয়ার বিষয়ে আমরা কোনও তথ্য গ্রহণ করছি না।",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "তথ্য যুক্ত করতে নীচের ফর্মটি পূরণ করুন, আমরা আপনাকে তার পরে অবস্থান এবং যোগাযোগের বিশদ জানতে চাইব।",
         "form": {
           "type": "প্রকল্প / গোষ্ঠী / সংস্থা / উদ্যোগের ধরণ",
@@ -93,7 +94,7 @@
         "loading": "Submitting information to map...",
         "error": "Error adding information",
         "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -147,6 +148,7 @@
   "markerTypes": {
     "mutual-aid-group": "Mutual Aid Group",
     "org": "Organization / Company",
+    "vaccine": "Vaccination Sites",
     "financial": "Financial",
     "information": "তথ্য",
     "other": "অন্যান্য"

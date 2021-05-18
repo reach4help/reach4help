@@ -1,10 +1,12 @@
 {
   "common": {
+    "or": "or",
     "i_understand": "אני מבינ.ה.",
     "okay": "אוקיי",
     "cancel": "בטל",
     "welcome": "ברוך.ה הבא.ה",
     "continue": "המשך",
+    "back": "Back",
     "verify": "אמת",
     "spinner": "טוען...",
     "name": "שם",
@@ -90,15 +92,92 @@
       "sub_title": "פרטי הרשמה",
       "info": "שלום! תודה רבה שהבעת ענין בעזרה לקהילה שלך! כדי להבטיח את בטחונם של כל המשתמשים שלנו, אנו מבקשים לאמת את פרטיך על-ידי כניסה לחשבון בעזרת חשבון הGoogle או Facebook. אימות זה גם יעזור לנו לפנות אליך במקרה ויצוצו חוסר התאמות.",
       "facebookButtonLabel": "המשך באמצעות פייסבוק",
-      "googleButtonLabel": "המשך באמצעות גוגל"
+      "googleButtonLabel": "המשך באמצעות גוגל",
+      "sign_in": {
+        "title": "Login with email",
+        "password_label": "Password",
+        "password_error_message": "Please input your password"
+      },
+      "steps": {
+        "continue": "Continue",
+        "footer": {
+          "contact": "If you have any questions or need assistance feel free to email us at "
+        },
+        "0_welcome": {
+          "title": "Welcome",
+          "welcome": "Welcome to Reach4Help!",
+          "thanks": "Thank you so much for your interest in helping your community"
+        },
+        "1_select_language": {
+          "title": "Language",
+          "select_language_label": "What is your primary language?"
+        },
+        "2_explanation": {
+          "title": "Explanation",
+          "purpose": "Through our platform, you’ll be able to connect with people to recieve and provide help to people in your area!",
+          "connect": "You can connect with volunteers and people in need and people in need by creating requests for help and offering support for those requests."
+        },
+        "2_authentication": {
+          "email_signup": "Sign up with email",
+          "email_signin": "Continue with email",
+          "title": "Identity",
+          "please": "Please sign up with one of the providers below",
+          "popup_explanation": {
+            "main_question": "Why do you need an external account?",
+            "main_answer": "To ensure the safety of our users, we currently require login through Google or Facebook. This is to provide another layer of verification for our users in case we need to contact you.",
+            "second_question": "Can I use other means to verify my identity?",
+            "second_answer": "If you’re uncomfortable using Google/Facebook, you’re welcome to suggest an alternative to"
+          }
+        },
+        "3_email_signin": {
+          "title": "Login with email",
+          "signin": "Login",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        },
+        "4_email_signup": {
+          "title": "Sign up with email",
+          "create_account": "Create Account",
+          "email_label": "Email",
+          "email_error_message": "Please input your email",
+          "password_label": "Password",
+          "password_error_message": "Please input the password you will use for Reach4Help",
+          "password_confirm_label": "Confirm password",
+          "password_confirm_empty_message": "Please confirm your password",
+          "password_confirm_error_message": "Your passwords must match"
+        }
+      }
     },
     "menuDrawer": {
       "contactUs": "צרו קשר",
       "logout": "התנתקות",
       "switchToCAV": "החלף להצעת תמיכה",
-      "switchToPIN": "החלף לבקשת עזרה"
+      "switchToPIN": "החלף לבקשת עזרה",
+      "settings": "Settings"
+    },
+    "settings": {
+      "heading": "Settings",
+      "changeName": "Change my name",
+      "deleteAccount": "Delete my account",
+      "changeNameForm": {
+        "full_name_error_message": "Please enter your name",
+        "display_name_error_message": "Please enter your display name",
+        "cancel": "Cancel",
+        "submit": "Save"
+      },
+      "deleteAccountModal": {
+        "title": "Are you sure you want to delete your account",
+        "body": "Closing your account means you will no longer be able to provide help or ask for help",
+        "deleteAccount": "Delete my account"
+      }
     },
     "phoneNumber": {
+      "title": "Before you continue...",
       "select_instructions": "בחר.י מרשימה",
       "input_instructions": "הזן.י את ספרותיך",
       "sub_title": "הזן.י את מספר הטלפון שלך כדי להתחיל",
@@ -113,7 +192,11 @@
       "country_label": "מדינתך",
       "country_placeholder": "בחר.י מדינה",
       "phone_label": "הנכס.י מספר פלאפון",
-      "bad_11_prefix": "מספר שגוי: +11 הינו קידומת המדינה של בולגריה, לא של קנדה או ארצות-הברית. נא לא להשתמש בספרה ׳1׳ כספרה הראשונה שלך"
+      "bad_11_prefix": "מספר שגוי: +11 הינו קידומת המדינה של בולגריה, לא של קנדה או ארצות-הברית. נא לא להשתמש בספרה ׳1׳ כספרה הראשונה שלך",
+      "popup_explanation": {
+        "main_question": "How is my phone number used?",
+        "main_answer": "Your number is shared only with the person you explicitly accept to help you so that you can communicate with each other to carry out the request."
+      }
     },
     "verificationCode": {
       "sub_title": "שלחנו לך הודעת טקסט עם קוד אימות. הכנס.י אותו למטה.",
@@ -177,7 +260,8 @@
       "_requests_finished": "בקשות שהושלמו",
       "_requests_new": "בקשה חדשה",
       "_requests_ongoing": "בקשות מתמשכות",
-      "_requests_open": "בקשות פתוחות"
+      "_requests_open": "בקשות פתוחות",
+      "_settings": "Settings"
     },
     "timeline": {
       "CREATE_REQUEST": "{{actorName}} יצר.ה בקשה זאת",
@@ -277,6 +361,13 @@
         "bottom_warning": "בקשתך נצפתה על-ידי מספר מתנדבים, אך לא התקבלה. אנו מציעים &ldquo;לבטל בקשה&rdquo; וליצור בקשה חדשה עם תיאור פשוט יותר.",
         "cannot_help": "לא ניתן לעזור",
         "containers": {
+          "FoundRequestsContainer": {
+            "FoundRequestsContainer": {
+              "map_tab_label": "View Map of Requests",
+              "list_tab_label": "View List of Requests",
+              "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
+            }
+          },
           "AcceptedRequestContainer": {
             "accepted": "התקבל"
           },
