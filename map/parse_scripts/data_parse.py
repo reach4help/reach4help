@@ -49,6 +49,7 @@ import json
 import googlemaps
 import os
 import pandas as pd
+import openpyxl
 import phonenumbers
 import sys
 import getopt
@@ -198,7 +199,7 @@ def extract_categories_and_headers(row):
 def main(argv): 
     inputfolder = ''
     try:
-        opts, args = getopt.getopt(argv,"hi:",["ifile="])
+        opts, args = getopt.getopt(argv,"hi:",["ifolder="])
     except getopt.GetoptError:
         print('test.py -i <inputfolder>')
         sys.exit(2)
@@ -219,46 +220,56 @@ def main(argv):
         json_i = 0
         final_dict = {}
 
-        with open(f"{inputfolder}/{file}", encoding="utf-8") as csvfile:
-            datareader = csv.reader(csvfile)
-            print(f"Starting parse for {file}...")
-            naive_city_name = file.split('.')[0]
-            for row in datareader:
-                i += 1
+        naive_city_name, file_ext = file.split('.')[0], file.split('.')[1]
+        if file_ext == 'xls' or file_ext == 'xlsx':
+            xls = pd.ExcelFile(f"{inputfolder}/{file}")
+            sheet_names = xls.sheet_names
+            sheet_to_df_map = {}
+            for sheet in sheet_names:
+                sheet_to_df_map[sheet] = xls.parse(sheet)
+            # *** This parsing section is incomplete ****
 
-                if i == 4:
-                    categories_and_headers = extract_categories_and_headers(row)
-                elif i > 4:
-                    starting_column = 0
+        else:
+            with open(f"{inputfolder}/{file}", encoding="utf-8") as csvfile:
+                datareader = csv.reader(csvfile)
+                print(f"Starting parse for {file}...")
+                
+                for row in datareader:
+                    i += 1
 
-                    for category_pair in categories_and_headers:
-                        num_of_headers = len(category_pair[1])
-                        data_values = []
+                    if i == 4:
+                        categories_and_headers = extract_categories_and_headers(row)
+                    elif i > 4:
+                        starting_column = 0
 
-                        for num in range(starting_column, starting_column + num_of_headers):
-                            data_values.append(row[num])
+                        for category_pair in categories_and_headers:
+                            num_of_headers = len(category_pair[1])
+                            data_values = []
 
-                        if "".join(data_values) != "":
-                            item_dict = convert_item_to_dict(
-                                category_pair[0], category_pair[1], naive_city_name, naive_city_name, data_values
-                            )
-                            final_dict[json_i] = item_dict
-                            json_i += 1
+                            for num in range(starting_column, starting_column + num_of_headers):
+                                data_values.append(row[num])
 
-                        starting_column += num_of_headers + 1
+                            if "".join(data_values) != "":
+                                item_dict = convert_item_to_dict(
+                                    category_pair[0], category_pair[1], naive_city_name, naive_city_name, data_values
+                                )
+                                final_dict[json_i] = item_dict
+                                json_i += 1
 
-                # This print statement is purely a visual to let you know the script is still running
-                if i % 100 == 0:
-                    print("Parsed " + str(i) + " rows. Still parsing...")
+                            starting_column += num_of_headers + 1
+
+                    # This print statement is purely a visual to let you know the script is still running
+                    if i % 100 == 0:
+                        print("Parsed " + str(i) + " rows. Still parsing...")
 
 
-        # Export clean data to separate file
-        # json.dump(final_dict, open("delhi_clean.json", "w+"), sort_keys=True, indent=4)
-        #     
-        # Export clean data to csv for now (easier to look at quickly)
-        output_file_name = f"{output_dir}/{naive_city_name}_clean.csv"
-        pd.DataFrame.from_dict(final_dict).transpose().to_csv(output_file_name, index=False)
-        print(f"Output stored in {output_file_name}")
+            # Export clean data to separate file
+            # json.dump(final_dict, open("delhi_clean.json", "w+"), sort_keys=True, indent=4)
+            #     
+            # Export clean data to csv for now (easier to look at quickly)
+            output_file_name = f"{output_dir}/{naive_city_name}_clean.csv"
+            pd.DataFrame.from_dict(final_dict).transpose().to_csv(output_file_name, index=False)
+            print(f"Output stored in {output_file_name}")
 
 
 if __name__ == "__main__":
