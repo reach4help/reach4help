@@ -1,201 +1,203 @@
 {
-  "title": "Carte d'entraide face au COVID-19",
-  "inFrameLink": "À propos de cette carte / ajouter des informations",
+  "title": "COVID-19 Mutual Aid Map",
+  "inFrameLink": "About this map / add information",
   "aboutScreen": {
-    "intro": "Nous croyons que la solidarité fait ressortir le meilleur chez les individus.",
-    "info": "Afin d'aider les gens à trouver et à joindre leurs efforts d'aide mutuelle là où ils vivent, les inspirer pour commencer leurs propres initiatives ou encore remonter le moral, cette carte présente une liste grandissante de projets d'aide mutuelle en cas de pandémie mondiale.",
-    "warning": "Remarque : chaque projet est autonome et indépendant ; certains groupes utilisent des feuilles de calcul publiques pour partager les informations, nous vous conseillons de rester prudents lorsque vous entrez des informations que vous ne voulez pas diffuser publiquement.",
-    "project": "Cette carte fait partie de {reach4Help}, un projet porté par des volontaires. Notre projet est open source et peut être trouvé ici: {githubSource}. Pour toute question, vous pouvez nous contacter à l'adresse {email}.",
-    "githubSourceLabel": "trouvé sur GitHub",
-    "otherAreasHeading": "Vous êtes intéressé par l'une de ces zones géographiques?",
-    "otherAreasInfo": "Découvrez ces cartes alternatives :",
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "found on GitHub",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
     "otherAreasLocations": {
       "france": "France",
       "nyc": "New York"
     },
-    "sourceHeading": "D'où viennent ces informations ?",
-    "sourceInfo": "Les informations sur cette carte sont une combinaison de données collectées par nos volontaires, soumises par nos utilisateurs, et fournies par d'autres projets menés par des volontaires, y compris {mutualaidwiki} et {mutualaidhub}.",
-    "sourceSubmit": "Nous vous encourageons à {addinfo} sur tous les projets que vous connaissez qui ne sont pas déjà sur la carte.",
-    "sourceSubmitButton": "ajouter des informations",
-    "usageHeading": "Puis-je utiliser ces données pour mon propre projet?",
-    "usageInfo": "Nous vous invitons à utiliser les données fournies par notre carte pour vos propres projets, à condition que vous suiviez les licences respectives.",
-    "usageLicenses": "Les données fournies par nos bénévoles et nos utilisateurs sont sous licence {license}, et les données provenant d'autres sources sont distribuées sous leurs licences respectives.",
-    "usageApi": "Vous pouvez accéder aux données brutes, ainsi qu'aux détails de licence de chaque point de données, à l'URL suivante : {api}"
+    "sourceHeading": "Where does this information come from?",
+    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
+    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
+    "sourceSubmitButton": "add information",
+    "usageHeading": "Can I use this data for my own project?",
+    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
+    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
+    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
-    "about": "À propos",
-    "map": "Afficher la carte"
+    "about": "About",
+    "map": "View Map"
   },
   "social": {
-    "email": "Nous contacter par e-mail",
-    "twitter": "Suivez-nous sur Twitter",
-    "facebook": "Nous liker sur Facebook",
-    "github": "Retrouvez-nous sur GitHub"
+    "email": "Email Us",
+    "twitter": "Follow us on Twitter",
+    "facebook": "Like us on Facebook",
+    "github": "Find us on GitHub"
   },
   "addInformation": {
-    "button": "Ajouter des informations",
-    "backToMap": "Retour à la carte",
-    "prev": "Retour",
-    "continue": "Continuer",
-    "submit": "Envoyer",
-    "addMore": "Ajouter plus d'informations",
-    "tryAgain": "Essayez de nouveau",
+    "button": "Add information",
+    "backToMap": "Back to map",
+    "prev": "Back",
+    "continue": "Continue",
+    "submit": "Submit",
+    "addMore": "Add more info",
+    "tryAgain": "Try again",
     "screen": {
-      "title": "Ajouter des informations à cette carte",
+      "title": "Add information to this map",
       "information": {
-        "acceptedInformation": "Pour le moment, nous ne fournissons que des informations sur des organisations ou des entreprises fournissant une aide et une assistance, des initiatives d'assistance financière spécifiques à une région, et des groupes d'entraide. Nous n'acceptons actuellement pas les informations sur des personnes offrant de l'aide à titre individuel.",
-        "intro": "Veuillez remplir le formulaire ci-dessous pour commencer à ajouter des informations, nous vous demanderons ensuite de nous indiquer votre localisation et vos coordonnées.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
+        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
         "form": {
-          "type": "Type de projet / groupe / organisation / initiative",
-          "typePleaseSelect": "Veuillez choisir un type",
-          "services": "Services ou aide que cette organisation / entreprise propose",
-          "name": "Nom du projet / groupe / organisation",
-          "namePlaceholder": "par ex. Aide mutuelle Antarctique",
-          "description": "(optionnel) Description détaillée du projet / groupe / organisation, et ce qu'il fait pour faciliter l'entraide",
-          "locationName": "Décrivez la zone géographique desservie. Ex. : Pays, états, comtés, villes, etc.",
-          "locationNamePlaceholder": "Par exemple: Zone de la baie de San Francisco, CA, USA",
-          "continue": "Cliquez sur continuer pour entrer les informations de localisation"
+          "type": "Type of project / group / organization / initiative",
+          "typePleaseSelect": "Please select type",
+          "services": "Services or support that this organization / company provides",
+          "name": "Name of the project / group / organization",
+          "namePlaceholder": "e.g. Mutual Aid Antarctica",
+          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
+          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
+          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
+          "continue": "Click continue to enter location information"
         },
-        "mutualAidInstead": "Si vous souhaitez soumettre des informations sur un nouveau groupe d'entraide, veuillez visiter {link}. Les groupes qui y sont ajoutés seront automatiquement inclus dans notre carte."
+        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
       },
       "placeMarker": {
-        "instructions": "Localisez la zone desservie par ce projet / groupe / organisation / initiative en cliquant sur la carte pour placer un marqueur, ajustez ensuite la taille du cercle pour englober la zone au besoin.",
-        "continue": "Une fois que vous êtes satisfait de l'emplacement, cliquez sur continuer pour ajouter les informations de contact.",
+        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
+        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "Coordonnées de {name}",
-        "info": "Vous y êtes presque! Veuillez renseigner la façon par laquelle les gens peuvent contacter {name}. S'il y a des méthodes de contact spécifiques à utiliser pour se porter volontaire pour aider ou pour demander de l'aide, veuillez les saisir!",
-        "deleteInfo": "Supprimer",
+        "header": "Contact information for {name}",
+        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
+        "deleteInfo": "Delete",
         "addInfo": {
-          "general": "Ajouter des coordonnées générales",
-          "volunteers": "Ajouter des informations de contact pour les bénévoles",
-          "getHelp": "Ajouter des informations de contact pour les personnes qui ont besoin d'aide"
+          "general": "Add general contact information",
+          "volunteers": "Add contact information for volunteers",
+          "getHelp": "Add contact information for people that need help"
         },
         "sections": {
-          "general": "Coordonnées générales",
-          "volunteers": "Coordonnées pour les bénévoles",
-          "getHelp": "Informations de contact pour les personnes qui ont besoin d'aide"
+          "general": "General contact info",
+          "volunteers": "Contact info for volunteers",
+          "getHelp": "Contact info for people that need help"
         },
         "method": {
-          "phone": "Numéros de téléphone",
-          "email": "Adresses email",
-          "web": "Liens Web / URLs"
+          "phone": "Phone Numbers",
+          "email": "Email Addresses",
+          "web": "Web Links / URLs"
         },
         "placeholder": {
-          "phone": "Ajouter un numéro de téléphone",
-          "email": "Ajouter une adresse email",
+          "phone": "Add a phone number",
+          "email": "Add an email address",
           "webURL": "URL",
-          "webLabel": "Nom"
+          "webLabel": "Name"
         }
       },
       "submitted": {
-        "loading": "Envoi des informations à la carte...",
-        "error": "Erreur lors de l'ajout des informations",
-        "success": "Vos informations ont bien été envoyées.",
-        "successExtra": "Avant de rendre vos informations visibles sur la carte, elles devront être examinées par un volontaire de notre équipe. Ce devrait être fait d'ici quelques jours."
+        "loading": "Submitting information to map...",
+        "error": "Error adding information",
+        "success": "Your information was successfully submitted.",
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
-      "missingType": "Veuillez sélectionner le type de projet / groupe / organisation",
-      "missingServices": "Veuillez cocher tous les services fournis par cette organisation (au moins 1 est requis)",
-      "missingTitle": "Veuillez entrer le nom du projet / groupe / organisation",
-      "missingLocationName": "Veuillez entrer une description de la zone desservie",
-      "markerRequired": "Veuillez cliquer sur la carte pour entrer dans la zone de service avant de continuer.",
-      "noContactDetails": "Veuillez entrer les coordonnées pour au moins une catégorie",
-      "emptyContactSection": "Veuillez entrer des informations de contact pour {section} ou supprimez-les",
-      "urlMissingLabel": "Il manque un nom à une URL pour {section}",
-      "urlMissingURL": "Une entrée d'URL pour {section} ne contient pas l'URL",
-      "dataError": "Il y a eu un problème avec les informations que vous avez soumises, veuillez revenir en arrière et réessayer",
-      "submitError": "Un problème est survenu lors de l'envoi de vos informations : {error}. Veuillez réessayer plus tard",
-      "mutualAidGroupsNotAccepted": "Veuillez plutôt soumettre des informations sur de nouveaux groupes d'entraide sur {link}."
+      "missingType": "Please select the type of the project / group / organization",
+      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
+      "missingTitle": "Please enter the name of the project / group / organization",
+      "missingLocationName": "Please enter a description of the area served",
+      "markerRequired": "Please click on the map to enter the service area before continuing.",
+      "noContactDetails": "Please enter contact details for at least one category",
+      "emptyContactSection": "Please enter some contact information for {section} or delete it",
+      "urlMissingLabel": "A URL for {section} is missing a Name",
+      "urlMissingURL": "A URL entry for {section} is missing the URL",
+      "dataError": "There was a problem with the information you submitted, please go back and try again",
+      "submitError": "There was a problem submitting your information: {error}. Please try again later",
+      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
     }
   },
   "buttons": {
-    "fullScreen": "Plein écran",
-    "exitFullScreen": "Quitter le plein écran"
+    "fullScreen": "Fullscreen",
+    "exitFullScreen": "Exit Fullscreen"
   },
-  "loading": "Chargement en cours...",
-  "filterBy": "Filtrer par:",
+  "loading": "Loading...",
+  "filterBy": "Filter by:",
   "services": {
-    "any": "Tous",
-    "food": "Alimentation",
-    "medicine": "Santé",
-    "supplies": "Autres Fournitures",
-    "mobility": "Mobilité",
-    "shelter": "Refuge",
+    "any": "Any",
+    "food": "Food",
+    "medicine": "Medicine",
+    "supplies": "Other Supplies",
+    "mobility": "Mobility",
+    "shelter": "Shelter",
     "support": "Support",
-    "information": "Renseignements ",
-    "network": "Réseau",
-    "manufacturing": "Production",
-    "financial": "Finances",
-    "other": "Autre"
+    "information": "Information",
+    "network": "Network",
+    "manufacturing": "Manufactoring",
+    "financial": "Financial",
+    "other": "Other"
   },
   "serviceDescriptions": {
     "food": null,
     "medicine": null,
-    "supplies": "Fournitures autres que la nourriture ou les médicaments",
-    "mobility": "Transporter des personnes d'un lieu à un autre",
+    "supplies": "Supplies other than food or medicine",
+    "mobility": "Transporting people from one location to another",
     "shelter": null,
-    "support": "Un soutien adapté aux groupes vulnérables comme les sans-abri, les personnes exposées aux risques d'abus domestiques, etc.",
-    "information": "Aidez les gens à trouver des informations pertinentes",
-    "network": "Faciliter la communication et l'échange d'information pour fournir de l'aide et du soutien, par exemple entre les organisations d'entraide",
-    "manufacturing": "Fournit des fournitures ou des capacités de fabrication nécessaires pour faire face à la crise",
+    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
+    "information": "Help people find relevent information",
+    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
+    "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
     "financial": null,
-    "other": "Ne figure pas dans cette liste"
+    "other": "Something else not on this list"
   },
   "markerTypes": {
-    "mutual-aid-group": "Groupe d’entraide",
-    "org": "Organisation / Entreprise",
-    "financial": "Financier",
-    "information": "Renseignements",
-    "other": "Autres "
+    "mutual-aid-group": "Mutual Aid Group",
+    "org": "Organization / Company",
+    "vaccine": "Vaccination Sites",
+    "financial": "Financial",
+    "information": "Information",
+    "other": "Other"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "groupe d’entraide",
-    "org": "organisation / société",
-    "project": "projet"
+    "mutual-aid-group": "mutual aid group",
+    "org": "organization / company",
+    "project": "project"
   },
   "map": {
-    "jumpToLocation": "Aller à un emplacement sur la carte...",
-    "updateResultsForThisArea": "Mettre à jour les résultats pour cette zone",
-    "myLocation": "Ma position"
+    "jumpToLocation": "Jump to a location on the map...",
+    "updateResultsForThisArea": "Update results for this area",
+    "myLocation": "My Location"
   },
   "results": {
-    "backToResults": "Retour aux résultats",
-    "openResults": "Voir {results, plural, =0 {no results} =1 {# résultat} other {# résultats}}",
-    "closeResults": "Masquer {results, plural, one {} =0 {aucun résultat} =1 {1 résultat} other {# résultats}}",
-    "showMore": "Afficher plus de résultats",
+    "backToResults": "Back to results",
+    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "showMore": "Show more results",
     "contact": {
-      "general": "Informations Générales:",
-      "getHelp": "Obtenir de l'aide:",
-      "volunteer": "Bénévole:",
-      "facebookGroup": "Groupe Facebook"
+      "general": "General Information:",
+      "getHelp": "Get Help:",
+      "volunteer": "Volunteer:",
+      "facebookGroup": "Facebook group"
     },
     "details": {
       "disclaimer": {
         "header": "Note",
-        "content": "Chaque projet est autonome et auto-organisé; beaucoup utilisent des feuilles de calcul publiques ou des forums pour partager des informations, soyez prudent lorsque vous entrez des informations privées que vous ne souhaitez pas rendre publiques."
+        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
       },
-      "source": "Les informations relatives à ce {type} sont fournies par {source}."
+      "source": "Information about this {type} is provided by {source}."
     }
   },
-  "lang": "Langue:",
-  "langSelect": "Sélectionner la langue",
+  "lang": "Language:",
+  "langSelect": "Select Language",
   "footer": {
-    "netlifyNote": "Cette carte {link}",
-    "netlifyLinkText": "est hébergé par Netlify",
-    "githubRepo": "Dépôt GitHub",
-    "codeOfConduct": "Code de conduite",
-    "showHidden": "Afficher les informations masquées",
-    "hideHidden": "Masquer les informations masquées"
+    "netlifyNote": "This map {link}",
+    "netlifyLinkText": "is hosted by Netlify",
+    "githubRepo": "GitHub Repo",
+    "codeOfConduct": "Code of Conduct",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   },
   "hiddenMarkers": {
-    "visiblility": "Visibilité : {visibility}",
+    "visiblility": "Visibility: {visibility}",
     "filter": {
-      "any": "Tous",
-      "visible": "Visible uniquement",
-      "hidden": "Masqué uniquement"
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
     }
   }
 }
