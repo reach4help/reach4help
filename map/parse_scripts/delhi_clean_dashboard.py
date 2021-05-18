@@ -8,7 +8,8 @@ import streamlit as st
 """
 
 # Import data
-df = pd.read_json("delhi_clean.json").transpose()
+# df = pd.read_json("delhi_clean.json").transpose()
+df = pd.read_csv("delhi_clean.csv", keep_default_na=False)
 # Rearrange columns
 df = df[
     [
@@ -17,15 +18,23 @@ df = df[
         "Services Offered",
         "Distributor Contact (Phone)",
         "General Area (State)",
+        "General Area (City)",
         "Location",
         "lat",
         "lng",
+        "Marked for Cleaning",
     ]
 ]
+df["lat"] = pd.to_numeric(df["lat"], errors="coerce")
+df["lng"] = pd.to_numeric(df["lng"], errors="coerce")
+
+
+df["lat"] = df["lat"].astype("float64")
+df["lng"] = df["lng"].astype("float64")
 
 # Query all fields by search string
 search_string = st.sidebar.text_input("Search any field")
-df = df[df.apply(lambda row: search_string in str(row), axis=1)]
+df = df[df.apply(lambda row: search_string.lower() in str(row).lower(), axis=1)]
 
 # Query by service category
 services = list(df["Services Offered"].unique())
