@@ -1,5 +1,5 @@
 {
-  "name": "web-client",
+  "name": "volunteer-matcher",
   "version": "0.0.1",
   "private": true,
   "dependencies": {

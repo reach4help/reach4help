@@ -7,8 +7,8 @@
   "targets": {
     "reach4help-dev": {
       "hosting": {
-        "web-client": [
-          "reach4help-dev-web-client"
+        "volunteer-matcher": [
+          "reach4help-dev-volunteer-matcher"
         ],
         "map": [
           "reach4help-dev-map-web"
@@ -23,8 +23,8 @@
     },
     "reach4help-staging": {
       "hosting": {
-        "web-client": [
-          "reach4help-staging-web-client"
+        "volunteer-matcher": [
+          "reach4help-staging-volunteer-matcher"
         ],
         "map": [
           "reach4help-staging-map"
@@ -39,7 +39,7 @@
     },
     "reach4help": {
       "hosting": {
-        "web-client": [
+        "volunteer-matcher": [
           "reach4help-webclient"
         ],
         "map": [
