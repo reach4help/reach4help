@@ -9,7 +9,7 @@ firebase-rules:
   - firebase/**/*
 
 frontend:
-  - volunteer-matcher/**/*
+  - web-client/**/*
 
 css:
   - ./**/*.css
@@ -23,8 +23,8 @@ site:
 security:
   - firebase/**/*
 
-'mgmt / ops / product':
+"mgmt / ops / product":
   - branding/**/*
 
-'infra / devops':
+"infra / devops":
   - .github/**/*

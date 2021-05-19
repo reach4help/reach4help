@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  volunteer-matcher:
+  web-client:
     build: .
     ports:
       - '3002:3000'
