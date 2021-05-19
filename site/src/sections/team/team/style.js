@@ -17,20 +17,6 @@ export const Wrapper = styled.div`
     width: 100%;
     padding: 10px;
   }
-
-  .imageWrapper {
-    position: relative;
-    width: 40%;
-    min-width: 300px;
-    margin-left: 3em;
-
-    ${p => p.theme.breakpoints.medium} {
-      top: 0;
-      margin-top: 2em;
-      margin-left: 0;
-      width: 60%;
-    }
-  }
 `
 
 export const ContentWrapper = styled(SectionWrapper)`
@@ -73,6 +59,8 @@ export const TeamContainer = styled.div`
 
       img {
         width: 175px;
+        height: 175px;
+        object-fit: cover;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
       }
