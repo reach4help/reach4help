@@ -60,7 +60,7 @@ export const TeamContainer = styled.div`
       img {
         width: 175px;
         height: 175px;
-        object-fit: cover;
+        object-fit: contain;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
       }
