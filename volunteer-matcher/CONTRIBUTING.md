@@ -1,4 +1,4 @@
-# Contributing to web-client for Reach4Help
+# Contributing to volunteer-matcher for Reach4Help
 
 🎉🚀🙌🏻 First off, thanks for taking the time to contribute! 🙌🏻🚀🎉
 
@@ -68,10 +68,10 @@ We use the following data services in our stack and in the situation that we exc
 yarn
 ```
 
-2 - Run the `web-client` project in development mode.
+2 - Run the `volunteer-matcher` project in development mode.
 
 ```
-cd ./web-client && yarn start
+cd ./volunteer-matcher && yarn start
 ```
 
 3 - The client is now available under [localhost:3000](http://localhost:3000)
@@ -113,7 +113,7 @@ We follow the conventional commits guidelines. Check [here](https://www.conventi
 ## Naming, Declaring items and Where to declare items
 
 You must refer to this document for understanding the conventions followed in this project for naming and the order in which declarations have to be made.
-[web-client Coding Conventions](/web-client/docs/CodingConventions/NAMING_AND_DECLARATION_CONVENTIONS.md)
+[volunteer-matcher Coding Conventions](/volunteer-matcher/docs/CodingConventions/NAMING_AND_DECLARATION_CONVENTIONS.md)
 
 ## Application Breakdown (Modules, Pages, Routes, Ducks)
 

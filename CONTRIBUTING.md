@@ -79,7 +79,7 @@ The Guidelines for each project is detailed in the section below
 Each project counts with it's own contributing guidelines, since they are different.
 So to read the specific guidelines for each project please refer to:
 
-[**web-client**](web-client/CONTRIBUTING.md)
+[**volunteer-matcher**](volunteer-matcher/CONTRIBUTING.md)
 
 # How to report a bug
 
