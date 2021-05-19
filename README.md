@@ -10,9 +10,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
 [![All Contributors](https://img.shields.io/badge/all_contributors-45-orange.svg?style=flat-square)](#contributors-)
-
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
@@ -25,9 +23,9 @@ We're currently looking for help on the project in several fields, especially in
 
 # Projects
 
-## [Reach4Help App](volunteer-matcher)
+## [Reach4Help App](web-client)
 
-Our main app connecting people in need with volunteers who can help. We’re working with volunteer organizations across the world, amassing over 150 volunteers in 13 countries worldwide, providing support for charity events, food banks, and day-to-day delivery services. Our [backend layer](functions) manages all the data for our [main app](/volunteer-matcher/src/firebase/index.ts). **Check it out live [here](https://app.reach4help.org/)!**
+Our main app connecting people in need with volunteers who can help. We’re working with volunteer organizations across the world, amassing over 150 volunteers in 13 countries worldwide, providing support for charity events, food banks, and day-to-day delivery services. Our [backend layer](functions) manages all the data for our [main app](/web-client/src/firebase/index.ts). **Check it out live [here](https://app.reach4help.org/)!**
 
 ## [Global Mutual Aid Map](map)
 
