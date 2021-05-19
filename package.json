@@ -5,7 +5,7 @@
     "model",
     "map",
     "site",
-    "web-client"
+    "volunteer-matcher"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
