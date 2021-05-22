@@ -26,10 +26,11 @@ Module not found: Can’t resolve ‘@reach4help/model/lib/markers’ in ‘~/pr
 
 ### Install map packages: `yarn` (from map directory)
 
+Installs `yarn` packages specified in `yarn.lock`.
 
-### Start Deveopment Server: `yarn start` (from map directory)
+### Start Development Server: `yarn start` (from map directory)
 
-Switch to map directory if not there.  Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits. You will also see any lint errors in the console.
 
