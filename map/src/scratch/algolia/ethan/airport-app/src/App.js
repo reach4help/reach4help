@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { InstantSearch } from 'react-instantsearch-dom';
 import {
   GoogleMapsLoader,
@@ -50,6 +50,13 @@ const App = () => {
         Long {currentLongitude} {currentLatitude});
       </p>
       <InstantSearch indexName="airports" searchClient={searchClient}>
+        {/* <Configure
+          filters="free_shipping:true"
+          hitsPerPage={4}
+          analytics={false}
+          enablePersonalization={true}
+          distinct
+        /> */}
         <div style={{ width: '500px', height: '500px' }}>
           <GoogleMapsLoader apiKey={GOOGLE_MAPS_API_KEY}>
             {google => (
