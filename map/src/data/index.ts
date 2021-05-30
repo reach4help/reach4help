@@ -14,7 +14,7 @@ export const SERVICES = {
     colors: COLORS.red,
   },
   medicine: {
-    color: COLORS.brand,
+    color: COLORS.purple,
   },
   'home-care': {
     colors: COLORS.orange,
@@ -31,14 +31,14 @@ export const SERVICES = {
   },
   financial: {
     // TODO: rename to donations
-    color: COLORS.orange,
+    color: COLORS.green,
   },
   mobility: {
     // TODO: rename to transportation
     color: COLORS.purple,
   },
   information: {
-    color: COLORS.orange,
+    color: COLORS.purple,
   },
   manufacturing: {
     color: COLORS.orange,
@@ -67,15 +67,12 @@ export const MARKER_TYPES = {
   org: {
     color: COLORS.blue,
   },
-  vaccine: {
-    color: COLORS.red,
-  },
-  financial: {
-    color: COLORS.green,
-  },
-  information: {
-    color: COLORS.purple,
-  },
+  // financial: {
+  //   color: COLORS.green,
+  // },
+  // information: {
+  //   color: COLORS.purple,
+  // },
   other: {
     color: COLORS.orange,
   },

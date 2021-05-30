@@ -937,11 +937,14 @@ class AddInstructions extends React.Component<Props, State> {
                                 .typePleaseSelect,
                           )}
                         </option>
-                        {MARKER_TYPE_STRINGS.map(type => (
-                          <option key={type} value={type}>
-                            {t(lang, s => s.markerTypes[type])}
-                          </option>
-                        ))}
+                        {MARKER_TYPE_STRINGS.map(type =>
+                          // TEMP "FIX": https://github.com/reach4help/reach4help/issues/1290
+                          type !== 'mutual-aid-group' ? (
+                            <option key={type} value={type}>
+                              {t(lang, s => s.markerTypes[type])}
+                            </option>
+                          ) : null,
+                        )}
                       </select>
                     </>
                   ))}
