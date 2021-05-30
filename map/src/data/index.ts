@@ -4,35 +4,59 @@ export const SERVICES = {
   food: {
     color: COLORS.red,
   },
-  medicine: {
-    color: COLORS.blue,
-  },
-  supplies: {
-    color: COLORS.green,
-  },
-  mobility: {
-    color: COLORS.purple,
-  },
   shelter: {
     color: COLORS.orange,
   },
-  support: {
-    color: COLORS.yellow,
+  beds: {
+    colors: COLORS.red,
+  },
+  oxygen: {
+    colors: COLORS.red,
+  },
+  medicine: {
+    color: COLORS.purple,
+  },
+  'home-care': {
+    colors: COLORS.orange,
+  },
+  blood: {
+    colors: COLORS.red,
+  },
+  quarantine: {
+    colors: COLORS.gray,
+  },
+  telehealth: {
+    // TODO: Might need to rename this?
+    colors: COLORS.blue,
+  },
+  financial: {
+    // TODO: rename to donations
+    color: COLORS.green,
+  },
+  mobility: {
+    // TODO: rename to transportation
+    color: COLORS.purple,
   },
   information: {
-    color: COLORS.orange,
-  },
-  network: {
-    color: COLORS.yellow,
+    color: COLORS.purple,
   },
   manufacturing: {
     color: COLORS.orange,
   },
-  financial: {
-    color: COLORS.orange,
-  },
   other: {
     color: COLORS.yellow,
+  },
+  network: {
+    // TODO: define more clearly
+    color: COLORS.yellow,
+  },
+  support: {
+    // TODO: remove since too vague
+    color: COLORS.yellow,
+  },
+  supplies: {
+    // TODO: remove since too vague
+    color: COLORS.green,
   },
 } as const;
 
@@ -43,15 +67,12 @@ export const MARKER_TYPES = {
   org: {
     color: COLORS.blue,
   },
-  vaccine: {
-    color: COLORS.red,
-  },
-  financial: {
-    color: COLORS.green,
-  },
-  information: {
-    color: COLORS.purple,
-  },
+  // financial: {
+  //   color: COLORS.green,
+  // },
+  // information: {
+  //   color: COLORS.purple,
+  // },
   other: {
     color: COLORS.orange,
   },
