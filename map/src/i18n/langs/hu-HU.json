@@ -1,202 +1,215 @@
 {
-  "title": "COVID-19 kölcsönös segélytérkép",
-  "inFrameLink": "A térképről / információ hozzáadása",
+  "title": "COVID-19 Mutual Aid Map",
+  "inFrameLink": "About this map / add information",
   "aboutScreen": {
-    "intro": "Hisszük, hogy a szolidaritás az egyének legjobbjait hozza ki.",
-    "info": "A térkép célja, hogy bemutassa a világ kölcsönös járvány-elhárítási projektjeit, és hogy arra ösztönözze az embereket, hogy csatlakozzanak helyi projektekhez, vagy akár létrehozzák saját szervezetüket.",
-    "warning": "Megjegyzés: Minden projekt önálló és saját szervezésű; sokan nyilvános táblázatokban osztják meg az információkat, ezért vigyázzon olyan privát információk megadásakor, amelyeket nem szeretne megosztani másokkal.",
-    "project": "Ez a térkép a {reach4Help}, egy önkéntesek által vezetett projekt része. Nyílt forráskódú, így {githubSource}. Bármely kérdéssel kapcsolatba léphet velünk a {email} címen.",
-    "githubSourceLabel": "megtalálható a GitHub-on",
-    "otherAreasHeading": "Érdekli az egyik terület?",
-    "otherAreasInfo": "Vessen pillantást ezekre az alternatív térképekre:",
+    "intro": "We believe solidarity brings out the best in individuals.",
+    "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
+    "warning": "Note: Each project is autonomous and self-organized; many use public spreadsheets to share information, so be careful when entering private information that you don't want to be public.",
+    "project": "This map is part of {reach4Help}, a volunteer-run project. It is open source and can be {githubSource}. For any enquiries, you can reach us as at {email}.",
+    "githubSourceLabel": "found on GitHub",
+    "otherAreasHeading": "Interested in one of these areas?",
+    "otherAreasInfo": "Check out these alternative maps instead:",
     "otherAreasLocations": {
-      "france": "Franciaország",
+      "france": "France",
       "nyc": "New York"
     },
-    "sourceHeading": "Honnan származnak ezek az információk?",
-    "sourceInfo": "A térképen található információk az önkénteseink által gyűjtött, felhasználóink által benyújtott és más önkéntes projektek, köztük a {mutualaidwiki} és a {mutualaidhub} által szolgáltatott adatok kombinációja.",
-    "sourceSubmit": "Javasoljuk, hogy {addinfo} azokról a projektekről, amelyeket ismer, de még nem szerepelnek a térképen.",
-    "sourceSubmitButton": "járuljon hozzá információval",
-    "usageHeading": "Felhasználhatom ezeket az adatokat a saját projektemhez?",
-    "usageInfo": "Felhasználhatja a térképünk által megadott adatokat saját projektjeihez, mindaddig, amíg követi a megfelelő licencfeltételeket.",
-    "usageLicenses": "Az önkénteseink és felhasználóink által benyújtott adatok a {license} licenc alatt vannak engedélyezve, más forrásokból származó adatok pedig a saját licenceik alapján kerülnek hozzáférhetővé.",
-    "usageApi": "A nyers adatokat az egyes adatpontok licencelésének részleteivel együtt a következő URL-en érheti el: {api}"
+    "sourceHeading": "Where does this information come from?",
+    "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
+    "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
+    "sourceSubmitButton": "add information",
+    "usageHeading": "Can I use this data for my own project?",
+    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
+    "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
+    "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
-    "about": "Névjegy",
-    "map": "Térkép megtekintése"
+    "about": "About",
+    "map": "View Map"
   },
   "social": {
-    "email": "Írjon nekünk",
-    "twitter": "Kövessen minket Twitteren",
-    "facebook": "Lájkolj minket Facebookon",
-    "github": "Keressen minket GitHub-on"
+    "email": "Email Us",
+    "twitter": "Follow us on Twitter",
+    "facebook": "Like us on Facebook",
+    "github": "Find us on GitHub"
   },
   "addInformation": {
-    "button": "Információ hozzáadása",
-    "backToMap": "Vissza a térképhez",
-    "prev": "Vissza",
-    "continue": "Folytatás",
-    "submit": "Küldés",
-    "addMore": "További információ hozzáadása",
-    "tryAgain": "Próbálja újra",
+    "button": "Add information",
+    "backToMap": "Back to map",
+    "prev": "Back",
+    "continue": "Continue",
+    "submit": "Submit",
+    "addMore": "Add more info",
+    "tryAgain": "Try again",
     "screen": {
-      "title": "Információ hozzáadása ehhez a térképhez",
+      "title": "Add information to this map",
       "information": {
-        "acceptedInformation": "Jelenleg csak segélyt és támogatást nyújtó szervezetekről vagy vállalatokról, régióspecifikus pénzügyi segítségnyújtási kezdeményezésekről és kölcsönös ségélynyújtó csoportokról adunk tájékoztatást, támogatást nyújtó személyekről nem fogadunk el információt.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
         "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
-        "intro": "Kérjük, töltse ki az alábbi űrlapot az információk hozzáadásának megkezdéséhez. Ezután megkérdezzük a tartózkodási helyet és elérhetőségeket.",
+        "intro": "Please fill out the form below to begin adding information, we will ask you for location and contact details after that.",
         "form": {
-          "type": "Projekt / csoport / szervezet / kezdeményezés típusa",
-          "typePleaseSelect": "Kérjük, válasszon egy típust",
-          "services": "A szervezet / vállalat által nyújtott szolgáltatások vagy támogatás",
-          "name": "Projekt / csoport / szervezet neve",
-          "namePlaceholder": "pl. Mutual Aid Antarctica",
-          "description": "(nem kötelező) Projekt / csoport / szervezet részletes leírása, valamint az, hogy mit tesznek a kölcsönös segítségnyújtás megkönnyítése érdekében",
-          "locationName": "Írja le a kiszolgált földrajzi területet., pl. országok, államok, megyék, városok stb...",
-          "locationNamePlaceholder": "pl. San Francisco Bay Area, CA, USA",
-          "continue": "Kattintson a Folytatás gombra a helyadatok megadásához"
+          "type": "Type of project / group / organization / initiative",
+          "typePleaseSelect": "Please select type",
+          "services": "Services or support that this organization / company provides",
+          "name": "Name of the project / group / organization",
+          "namePlaceholder": "e.g. Mutual Aid Antarctica",
+          "description": "(optional) Detailed description of the project / group / organization, and what it aims to do to facilitate mutual-aid",
+          "locationName": "Describe the geographic area served. E.g. Countries, states, counties, towns etc...",
+          "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, USA",
+          "continue": "Click continue to enter location information"
         },
-        "mutualAidInstead": "Ha egy új kölcsönös segítségnyújtási csoporttal kapcsolatos információkat szeretne benyújtani, kérjük, látogasson el a {link} oldalra. Az ott hozzáadott csoportok automatikusan a térképünkre kerülnek."
+        "mutualAidInstead": "If you want to submit information about a new mutual aid group, please visit {link} instead. Groups added there will automatically be included in our map."
       },
       "placeMarker": {
-        "instructions": "Jelölje be a projekt / csoport / szervezet / kezdeményezés által kiszolgált területet a térképre kattintva, majd állítsa be a kör sugarát a terület beállításához.",
-        "continue": "Miután elégedett a jelöléssel, kattintson a Folytatás gombra a kapcsolattartási adatok hozzáadásához.",
-        "distance": "{kilometers, number} km ({miles, number} mérföld)"
+        "instructions": "Locate the area served by this project / group / organization / initiative by clicking on the map to place a marker, then adjust the size of the circle to encompass the area as required.",
+        "continue": "Once you are happy with the location, click continue to proceed with adding contact information.",
+        "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "A(z) {name} elérhetőségi adatai",
-        "info": "Már majdnem kész! Kérjük, írja le, az emberek hogyan vehetik fel a kapcsolatot a(z) {name} szervezettel. Ha vannak önkéntes-jelentkezési vagy segélykérési elérhetőségek, azokat adja meg!",
-        "deleteInfo": "Eltávolítás",
+        "header": "Contact information for {name}",
+        "info": "Almost there! Please enter information on how people can contact {name}. If there are specific contact methods that should be used to volunteer to help, or to request help, please enter those!",
+        "deleteInfo": "Delete",
         "addInfo": {
-          "general": "Általános elérhetőség hozzáadása",
-          "volunteers": "Önkéntes-jelentkezési elérhetőség",
-          "getHelp": "Segélykérési elérhetőség"
+          "general": "Add general contact information",
+          "volunteers": "Add contact information for volunteers",
+          "getHelp": "Add contact information for people that need help"
         },
         "sections": {
-          "general": "Általános elérhetőség",
-          "volunteers": "Kapcsolattartási információ önkéntesek számára",
-          "getHelp": "Kapcsolattartási információ segélykérők számára"
+          "general": "General contact info",
+          "volunteers": "Contact info for volunteers",
+          "getHelp": "Contact info for people that need help"
         },
         "method": {
-          "phone": "Telefonszámok",
-          "email": "E-mail címek",
-          "web": "Linkek / URL-ek"
+          "phone": "Phone Numbers",
+          "email": "Email Addresses",
+          "web": "Web Links / URLs"
         },
         "placeholder": {
-          "phone": "Telefonszám hozzáadása",
-          "email": "E-mail cím hozzáadása",
+          "phone": "Add a phone number",
+          "email": "Add an email address",
           "webURL": "URL",
-          "webLabel": "Név"
+          "webLabel": "Name"
         }
       },
       "submitted": {
-        "loading": "Információ hozzáadása a térképhez...",
-        "error": "Hiba az információ hozzáadása során",
-        "success": "Az információkat sikeresen elküldtük.",
-        "successExtra": "Mielőtt az Ön információt láthatóvá tesszük a térképen, egy, a csapatunkban lévő önkéntes megvizsgálja azokat, ami jobb esetben néhány napon belül megtörténik."
+        "loading": "Submitting information to map...",
+        "error": "Error adding information",
+        "success": "Your information was successfully submitted.",
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
-      "missingType": "Kérjük, válassza ki a projekt / csoport / szervezet típusát",
-      "missingServices": "Kérjük, jelölje ki a szervezet által nyújtott összes szolgáltatást (legalább 1 szükséges)",
-      "missingTitle": "Kérjük, adja meg a projekt / csoport / szervezet nevét",
-      "missingLocationName": "Kérjük, írja le a kiszolgált területet",
-      "markerRequired": "Kérjük, helyezze el a térképen a kiszolgálási területet, mielőtt folytatná.",
-      "noContactDetails": "Kérjük, adjon meg elérhetőséget legalább egy kategóriában",
-      "emptyContactSection": "Kérjük, adjon meg {section} információt, vagy távolítsa el azt",
-      "urlMissingLabel": "A(z) {section} URL-nél nincs megadva név",
-      "urlMissingURL": "A(z) {section} URL bejegyzésnél hiányzik az URL",
-      "dataError": "Probléma merült fel az Ön által beküldött információkkal kapcsolatban. Kérjük, térjen vissza, és próbálja újra",
-      "submitError": "Hiba történt az adatok elküldése során: {error}. Kérjük, próbálja újra később",
-      "mutualAidGroupsNotAccepted": "Kérjük, a {link} oldalon adja meg az új kölcsönös segítségnyújtási csoportokra vonatkozó információkat."
+      "missingType": "Please select the type of the project / group / organization",
+      "missingServices": "Please check all services supplied by this organization (at least 1 is required)",
+      "missingTitle": "Please enter the name of the project / group / organization",
+      "missingLocationName": "Please enter a description of the area served",
+      "markerRequired": "Please click on the map to enter the service area before continuing.",
+      "noContactDetails": "Please enter contact details for at least one category",
+      "emptyContactSection": "Please enter some contact information for {section} or delete it",
+      "urlMissingLabel": "A URL for {section} is missing a Name",
+      "urlMissingURL": "A URL entry for {section} is missing the URL",
+      "dataError": "There was a problem with the information you submitted, please go back and try again",
+      "submitError": "There was a problem submitting your information: {error}. Please try again later",
+      "mutualAidGroupsNotAccepted": "Please enter information about new mutual aid groups at the {link} instead."
     }
   },
   "buttons": {
-    "fullScreen": "Teljes képernyő",
-    "exitFullScreen": "Kilépés a teljes képernyőből"
+    "fullScreen": "Fullscreen",
+    "exitFullScreen": "Exit Fullscreen"
   },
-  "loading": "Betöltés...",
-  "filterBy": "Szűrés:",
+  "loading": "Loading...",
+  "filterBy": "Filter by:",
   "services": {
-    "any": "Bármely",
-    "food": "Élelmiszer",
-    "medicine": "Gyógyszerek",
-    "supplies": "Egyéb ellátmány",
-    "mobility": "Mobilitás",
-    "shelter": "Menedék",
-    "support": "Támogatás",
-    "information": "Információnyújtás",
-    "network": "Hálózat",
-    "manufacturing": "Gyártás",
-    "financial": "Pénzügy",
-    "other": "Egyéb"
+    "any": "Any",
+    "food": "Food",
+    "shelter": "Shelter",
+    "beds": "Hospital Beds",
+    "oxygen": "Oxygen",
+    "medicine": "Medicine",
+    "home-care": "Home Care",
+    "blood": "Plasma / Blood",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth",
+    "financial": "Donations",
+    "mobility": "Transportation",
+    "information": "Information",
+    "manufacturing": "Manufacturing",
+    "support": "Support",
+    "network": "Network",
+    "supplies": "Other Supplies",
+    "other": "Other"
   },
   "serviceDescriptions": {
-    "food": null,
-    "medicine": null,
-    "supplies": "Élelmiszeren vagy gyógyszeren kívüli ellátás",
-    "mobility": "Személyszállítás egyik helyről a másikra",
-    "shelter": null,
-    "support": "Az egyes kiszolgáltatott csoportok, például a hajléktalanok, a családon belüli erőszak által veszélyeztetett személyek stb. számára nyújtott támogatás",
-    "information": "Segítsen az emberknek releváns információ megtalálásában",
-    "network": "Támogatás nyújtására szolgáló hálózati források előállítása, például kölcsönös segítségnyújtási szervezetek között",
-    "manufacturing": "Biztosítja a válság kezeléséhez szükséges készleteket vagy gyártási kapacitást",
-    "financial": null,
-    "other": "Egyéb, a listán nem szereplő tevékenység"
+    "food": "Food and/or water",
+    "shelter": "Shelter for the homeless and those who need it",
+    "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
+    "oxygen": "Oxygen cylinders or refills",
+    "medicine": "COVID-19 medicines like remdesivir",
+    "home-care": "Home care for the elderly",
+    "blood": "Plasma / Blood transfusions",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth/teleconsultation services",
+    "financial": "Donations and fundraising",
+    "mobility": "Transport people from one location to another",
+    "information": "Help people find relevent information",
+    "manufacturing": "Provide supplies or manufacturing capacity needed to deal with the crisis",
+    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
+    "network": "Producing resources for networking to provide aid, e.g. between mutual aid organizations",
+    "supplies": "Supplies other than food or medicine",
+    "other": "Any other services not included on this list"
   },
   "markerTypes": {
-    "mutual-aid-group": "Kölcsönös segélycsoport",
-    "org": "Szervezet / vállalat",
-    "financial": "Pénzügy",
-    "information": "Információ",
-    "other": "Egyéb"
+    "mutual-aid-group": "Mutual Aid Group",
+    "org": "Organization",
+    "individual": "Individual",
+    "financial": "Financial",
+    "information": "Information",
+    "other": "Other"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "kölcsönös segélycsoport",
-    "org": "szervezet / vállalat",
-    "project": "projekt"
+    "mutual-aid-group": "mutual aid group",
+    "org": "organization / company",
+    "project": "project"
   },
   "map": {
-    "jumpToLocation": "Ugrás a térképen elhelyezett pontra...",
-    "updateResultsForThisArea": "A terület eredményeinek frissítése",
-    "myLocation": "Saját pozíció"
+    "jumpToLocation": "Jump to a location on the map...",
+    "updateResultsForThisArea": "Update results for this area",
+    "myLocation": "My Location"
   },
   "results": {
-    "backToResults": "Vissza az eredményekhez",
-    "openResults": "{results, plural, one {} =0 {Nincs eredmény} =1 {Eredmény megtekintése} other {# eredmény megtekintése}}",
-    "closeResults": "{results, plural, one {} =0 {Nincs eredmény} =1 {Eredmény elrejtése} other {# eredmény elrejtése}}",
-    "showMore": "További eredmények",
+    "backToResults": "Back to results",
+    "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "closeResults": "Hide {results, plural, =0 {no results} =1 {1 result} other {# results}}",
+    "showMore": "Show more results",
     "contact": {
-      "general": "Általános információ:",
-      "getHelp": "Segélykérés:",
-      "volunteer": "Jelentkezzen:",
-      "facebookGroup": "Facebook-csoport"
+      "general": "General Information:",
+      "getHelp": "Get Help:",
+      "volunteer": "Volunteer:",
+      "facebookGroup": "Facebook group"
     },
     "details": {
       "disclaimer": {
-        "header": "Megjegyzés",
-        "content": "Minden projekt önálló és saját szervezésű; sokan nyilvános táblázatokban, illetve üzenőfalakon osztják meg az információkat, ezért vigyázzon olyan privát információk megadásakor, amelyeket nem szeretne megosztani másokkal."
+        "header": "Note",
+        "content": "Each project is autonomous and self-organized; many use public spreadsheets or message-boards to share information, so be careful when entering private information that you don't want to be public."
       },
-      "source": "A {type} információt {source} szolgáltatja."
+      "source": "Information about this {type} is provided by {source}."
     }
   },
-  "lang": "Nyelv:",
-  "langSelect": "Nyelv kiválasztása",
+  "lang": "Language:",
+  "langSelect": "Select Language",
   "footer": {
-    "netlifyNote": "Ezt a térképet a {link}",
-    "netlifyLinkText": "Netlify szolgáltatja",
-    "githubRepo": "GitHub-repó",
-    "codeOfConduct": "Magatartási kódex",
-    "showHidden": "Rejtett információk megjelenítése",
-    "hideHidden": "Rejtett információk elrejtése"
+    "netlifyNote": "This map {link}",
+    "netlifyLinkText": "is hosted by Netlify",
+    "githubRepo": "GitHub Repo",
+    "codeOfConduct": "Code of Conduct",
+    "showHidden": "Show Hidden Information",
+    "hideHidden": "Hide Hidden Information"
   },
   "hiddenMarkers": {
-    "visiblility": "Láthatóság: {visibility}",
+    "visiblility": "Visibility: {visibility}",
     "filter": {
-      "any": "Bármely",
-      "visible": "Csak látható",
-      "hidden": "Csak rejtett"
+      "any": "Any",
+      "visible": "Visible only",
+      "hidden": "Hidden only"
     }
   }
 }
