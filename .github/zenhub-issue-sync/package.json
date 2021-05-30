@@ -13,6 +13,6 @@
     "@types/node-fetch": "^2.5.5",
     "@zeit/ncc": "^0.22.1",
     "dotenv": "^8.2.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   }
 }
