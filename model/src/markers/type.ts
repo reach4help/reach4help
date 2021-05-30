@@ -1,15 +1,21 @@
 export const SERVICE_STRINGS = [
   'food',
-  'medicine',
-  'supplies',
-  'mobility',
   'shelter',
-  'support',
-  'information',
-  'network',
-  'manufacturing',
+  'beds',
+  'oxygen',
+  'medicine',
+  'home-care',
+  'blood',
+  'quarantine',
+  'telehealth',
   'financial',
+  'mobility',
+  'information',
+  'manufacturing',
   'other',
+  'network',
+  'support',
+  'supplies',
 ] as const;
 
 export type Service = typeof SERVICE_STRINGS[number];
@@ -20,9 +26,8 @@ export const isService = (service?: string): service is Service =>
 export const MARKER_TYPE_STRINGS = [
   'mutual-aid-group',
   'org',
-  'vaccine',
-  'financial',
-  'information',
+  // 'financial',
+  // 'information',
   'other',
 ] as const;
 
@@ -41,24 +46,18 @@ export type MarkerType =
       type: 'org';
       services: Service[];
     }
-  | {
-      /**
-       * Verified vaccine administration sites
-       */
-      type: 'vaccine';
-    }
-  | {
-      /**
-       * A fundraising effort that can be donated to, or have requests made of it
-       */
-      type: 'financial';
-    }
-  | {
-      /**
-       * An information provider for a specific region (e.g: a local website)
-       */
-      type: 'information';
-    }
+  // | {
+  //     /**
+  //      * A fundraising effort that can be donated to, or have requests made of it
+  //      */
+  //     type: 'financial';
+  //   }
+  // | {
+  //     /**
+  //      * An information provider for a specific region (e.g: a local website)
+  //      */
+  //     type: 'information';
+  //   }
   | {
       type: 'other';
     };
