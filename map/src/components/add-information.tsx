@@ -714,10 +714,10 @@ class AddInstructions extends React.Component<Props, State> {
             // Remove array completely if empty
             if (arr.length === 0) {
               // eslint-disable-next-line no-param-reassign
-              delete (info.contact[type] as ContactDetails)[method];
+              delete info.contact[type][method];
             } else {
               // eslint-disable-next-line no-param-reassign
-              (info.contact[type] as ContactDetails)[method] = arr;
+              info.contact[type][method] = arr;
             }
           }
         });
@@ -937,11 +937,14 @@ class AddInstructions extends React.Component<Props, State> {
                                 .typePleaseSelect,
                           )}
                         </option>
-                        {MARKER_TYPE_STRINGS.map(type => (
-                          <option key={type} value={type}>
-                            {t(lang, s => s.markerTypes[type])}
-                          </option>
-                        ))}
+                        {MARKER_TYPE_STRINGS.map(type =>
+                          // TEMP "FIX": https://github.com/reach4help/reach4help/issues/1290
+                          type !== 'mutual-aid-group' ? (
+                            <option key={type} value={type}>
+                              {t(lang, s => s.markerTypes[type])}
+                            </option>
+                          ) : null,
+                        )}
                       </select>
                     </>
                   ))}
