@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TagManager from 'react-gtm-module';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createGlobalStyle, THEME, ThemeProvider } from './styling';
-
-TagManager.initialize({ gtmId: 'GTM-NGVT3FS' });
 
 const GlobalStyle = createGlobalStyle`
   body {
