@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
 import About from 'src/components/about';
 import MapLayout from 'src/components/map-layout';
@@ -31,6 +32,8 @@ interface State {
   inFrame: boolean;
   page: Page;
 }
+
+ReactGA.initialize('G-6D1Y2TLV4P');
 
 class App extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -129,6 +132,9 @@ class App extends React.Component<Props, State> {
       lang,
       inFrame,
     } = this.state;
+
+    ReactGA.pageview(window.location.pathname + window.location.search);
+
     return (
       <AppContext.Provider value={{ lang }}>
         <div dir={i18n.getMeta(lang).direction} className={className}>
