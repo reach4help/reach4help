@@ -1,27 +1,27 @@
 version: 2
 updates:
-  - package-ecosystem: "yarn"
+  - package-ecosystem: "npm"
     # Files stored in repository root
     directory: "/"
     schedule:
       interval: "daily"
-  - package-ecosystem: "yarn"
+  - package-ecosystem: "npm"
     directory: "/map"
     schedule:
       interval: "daily"
-  - package-ecosystem: "yarn"
+  - package-ecosystem: "npm"
     directory: "/site"
     schedule:
       interval: "daily"
-  - package-ecosystem: "yarn"
+  - package-ecosystem: "npm"
     directory: "/web-client"
     schedule:
       interval: "daily"
-  - package-ecosystem: "yarn"
+  - package-ecosystem: "npm"
     directory: "/model"
     schedule:
       interval: "daily"
-  - package-ecosystem: "yarn"
+  - package-ecosystem: "npm"
     directory: "/functions"
     schedule:
       interval: "daily"
