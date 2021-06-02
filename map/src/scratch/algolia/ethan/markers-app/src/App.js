@@ -6,6 +6,7 @@ import {
   GeoSearch,
   Marker,
 } from 'react-instantsearch-dom-maps';
+import MarkerClusterer from '@googlemaps/markerclustererplus';
 
 const ALGOLIA_SEARCH_KEY = process.env.REACT_APP_ALGOLIA_SEARCH_KEY;
 const ALGOLIA_APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
@@ -48,7 +49,9 @@ const App = () => {
   const long = currentLongitude || -71.0373524;
   return (
     <div style={{ width: '500px', height: '500px' }}>
-<p>{currentLatitude} {currentLongitude}</p>
+      <p>
+        {currentLatitude} {currentLongitude}
+      </p>
       <InstantSearch indexName="markers-dev" searchClient={searchClient}>
         <div style={{ width: '500px', height: '500px' }}>
           <GoogleMapsLoader apiKey={GOOGLE_MAPS_API_KEY}>
@@ -57,19 +60,23 @@ const App = () => {
                 google={google}
                 mapTypeId={google.maps.MapTypeId.ROADMAP}
                 initialPosition={{ lat: lat, lng: long }}
-                initialZoom={ 18 }
+                initialZoom={18}
                 mapObject={{ zoom: 18 }}
               >
-                {({ hits }) => (
-                  <div>
-                    <p>{console.log(`Records: ${hits.length}`)}</p>
-                    {hits.map((hit, i) => (
-                      <div key={`div-${i}`}> 
-                        <Marker hit={hit} />
-                      </div>
-                    ))}
-                  </div>
-                )}
+                {props => {
+                  console.log('zzzz', props);
+                  var markerCluster = new MarkerClusterer(google.maps, hits);
+                  return (
+                    <div>
+                      <p>{console.log(`Records: ${hits.length}`, google)}</p>
+                      {hits.map((hit, i) => (
+                        <div key={`div-${i}`}>
+                          <Marker hit={hit} />
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }}
               </GeoSearch>
             )}
           </GoogleMapsLoader>

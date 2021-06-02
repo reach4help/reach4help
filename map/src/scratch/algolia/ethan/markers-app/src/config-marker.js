@@ -21,4 +21,3 @@ index
   .catch(err => {
     console.log('err', err);
   });
-
