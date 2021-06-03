@@ -112,4 +112,4 @@ Start the backend tutorial:
       - Skip this section entirely. The code is for a an HTML based system and the tutorial just has code without explanation. Use Frontend Tutorial in next section
       - Instead, see next session for recommended front end tutorial.
 
-- [Frontend Tutorial - read errata below](https://www.algolia.com/doc/guides/getting-started/quick-start/tutorials/quick-start-with-the-api-client/javascript/?
+- [Frontend Tutorial](https://www.algolia.com/doc/guides/getting-started/quick-start/tutorials/quick-start-with-the-api-client/react)
