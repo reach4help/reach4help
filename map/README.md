@@ -109,5 +109,7 @@ Start the backend tutorial:
     - **Search**
       - add the code to the file you created in the previous section
     - **Search UI**
+      - Skip this section entirely. The code is for a an HTML based system and the tutorial just has code without explanation. Use Frontend Tutorial in next section
+      - Instead, see next session for recommended front end tutorial.
 
-      I recommend skipping this section entirely. The code is for a an HTML based system and the tutorial just has code without explanation. Instead, go to this tutorial for a React tutorial: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react/
+- [Frontend Tutorial - read errata below](https://www.algolia.com/doc/guides/getting-started/quick-start/tutorials/quick-start-with-the-api-client/javascript/?
