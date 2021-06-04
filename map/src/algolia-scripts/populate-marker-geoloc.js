@@ -1,14 +1,8 @@
-/* eslint-disable no-console */
-/**
- * Loads a json file of markers into a new or existing Algolia index
- *
- * @param param1 Name of json file
- * @param param2 Name of new or existing Algolia index
- * @param param3 Confirm parameter, if loading into markers index.  Must have value 'markers' if loading into markers index.
- */
-
 import algoliasearch from 'algoliasearch';
 import fs from 'fs';
+
+// eslint-disable-next-line import/extensions
+import { markerConfig } from './config-marker.js';
 
 // argv holds an array of values passed to this script
 // argv[0] => info about node
@@ -30,20 +24,9 @@ const algoliaAdminKey = process.env.ALGOLIA_ADMIN_KEY || 'undefined';
 const algoliaAppId = process.env.ALGOLIA_APP_ID || 'undefined';
 const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 const index = client.initIndex(indexName);
-await client.deleteIndex(indexName);
-
-index
-  .setSettings({
-    searchableAttributes: ['source.name'],
-    paginationLimitedTo: 5000,
-    customRanking: ['desc(links_count)'],
-  })
-  .then(() => {
-    console.log('done');
-  })
-  .catch(err => {
-    console.log('err', err);
-  });
+await index.clearObjects();
+ca;
+markerConfig(indexName);
 
 let dataJSON = fs.readFileSync(jsonFilename, {
   encoding: 'utf8',
