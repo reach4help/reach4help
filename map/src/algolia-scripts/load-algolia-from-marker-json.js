@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 
 // eslint-disable-next-line import/extensions
-import { markerConfig } from './config-marker.js';
+import { markerConfig } from './config-algolia-index.js';
 
 dotenv.config();
 // argv holds an array of values passed to this script
