@@ -20,7 +20,7 @@ for file in files_xlsx:
     for sheetname in sheetnames:
 
         sheet = wb[sheetname]
-        csvfilename = "input_files" + file[:-5] + "-" + sheetname + ".csv"
+        csvfilename = "input_files/" + file[:-5] + "-" + sheetname + ".csv"
         col = csv.writer(open(csvfilename, 'w', newline=""))
         for r in sheet.rows:
             # row by row write
