@@ -1,6 +1,7 @@
-/* eslint-disable no-console */
 import algoliasearch from 'algoliasearch';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const algoliaAdminKey = process.env.ALGOLIA_ADMIN_KEY;
 const algoliaAppId = process.env.ALGOLIA_APP_ID;
 const client = algoliasearch(algoliaAppId, algoliaAdminKey);
@@ -15,7 +16,7 @@ export const markerConfig = indexName => {
       customRanking: ['desc(links_count)'],
     })
     .then(() => {
-      console.log('done');
+      console.log('Configured.');
     })
     .catch(err => {
       console.log('err', err);

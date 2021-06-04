@@ -1,15 +1,18 @@
+/* eslint-disable no-console */
 import algoliasearch from 'algoliasearch';
+import dotenv from 'dotenv';
 import fs from 'fs';
 
 // eslint-disable-next-line import/extensions
 import { markerConfig } from './config-marker.js';
 
+dotenv.config();
 // argv holds an array of values passed to this script
 // argv[0] => info about node
 // argv[1] => file spec for the script
 // argv[2...n] => values passed to the script
 const { argv } = process;
-let jsonFilename = argv[2] ? argv[2] : 'not provided';
+let jsonFilename = argv[2];
 const indexName = argv[3];
 const confirm = argv[4];
 
@@ -20,31 +23,43 @@ if (indexName === 'markers' && confirm !== 'confirm-markers') {
   throw 'If index is marker,  third parameter must be "confirm-markers".';
 }
 
+/* eslint-disable no-console */
+/**
+ * Loads a json file of markers into a new or existing Algolia index
+ *
+ * @param param1 Name of json file
+ * @param param2 Name of new or existing Algolia index
+ * @param param3 Confirm parameter, if loading into markers index.  Must have value 'markers' if loading into markers index.
+ */
+
 const algoliaAdminKey = process.env.ALGOLIA_ADMIN_KEY || 'undefined';
 const algoliaAppId = process.env.ALGOLIA_APP_ID || 'undefined';
 const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 const index = client.initIndex(indexName);
 await index.clearObjects();
-ca;
+
 markerConfig(indexName);
 
 let dataJSON = fs.readFileSync(jsonFilename, {
   encoding: 'utf8',
   flag: 'r',
 });
-
 dataJSON = JSON.parse(dataJSON);
+
+const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
 let num = 0;
-for (const marker of dataJSON) {
+
+for (const marker of hits) {
   const latlng = marker.loc?.latlng;
   if (latlng) {
     num += 1;
     marker._geoloc = { lat: latlng.latitude, lng: latlng.longitude };
+    marker.objectID = marker.id;
   }
 }
-console.log('num', num, dataJSON.length);
+
 index
-  .addObjects(dataJSON, {
+  .saveObjects(dataJSON, {
     autoGenerateObjectIDIfNotExist: true,
   })
   .then(console.log('Records processed..wait for completed'))
