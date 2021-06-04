@@ -118,7 +118,8 @@ class App extends React.Component<Props, State> {
   };
 
   public render() {
-    const { className } = this.props;
+    let { className } = this.props;
+    className = className || 'unknown';
     const {
       filter,
       results,

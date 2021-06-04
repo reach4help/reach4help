@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable no-console */
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -26,6 +28,7 @@ type Config = {
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 };
 
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
