@@ -18,6 +18,7 @@ module.exports = {
    * APPLY TO THE functions DIRECTORY, AND NOTHING ELSE!!!
    */
   plugins: [
+    'prefer-arrow',
     // see ../.eslintrc-ts.js
   ],
   rules: {
