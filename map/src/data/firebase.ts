@@ -6,6 +6,7 @@ import {
   MARKERS_STORAGE_PATH,
 } from '@reach4help/model/lib/markers';
 import * as firebase from 'firebase/app';
+import algoliasearch from 'algoliasearch';
 
 // eslint-disable-next-line import/no-duplicates
 import 'firebase/firestore';
@@ -30,6 +31,14 @@ const config = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
+
+const algoliaAdminKey = process.env.REACT_APP_ALGOLIA_ADMIN_KEY || 'undefined';
+const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID || 'undefined';
+const algoliaIndexName =
+  process.env.REACT_APP_ALGOLIA_INDEX_NAME || 'undefined';
+
+const client = algoliasearch(algoliaAppId, algoliaAdminKey);
+const index = client.initIndex(algoliaIndexName);
 
 const LOCAL_STORAGE_KEY = 'dataConfig';
 
@@ -147,22 +156,30 @@ export const removeInformationListener = (l: InformationListener) => {
   listeners.delete(l);
 };
 
+// TODO:
+// X Import marker data into algoia index
+// X Set up Algoia API keys for the index
+// - Replace below code with code to return a promise to load from algolia
+// - look at index settings to set what is returned from Algoli
+
+// - text search
+// - zoom into current position
+// - how to re-execute as map moves
+
+// - rename firebase.ts to something else
+
 const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
   if (state.data[mode].initialLoadDone) {
     return;
   }
   state.data[mode].initialLoadDone = true;
-  const promise = firebase
-    .storage()
-    .ref(MARKERS_STORAGE_PATH[mode])
-    .getDownloadURL()
-    .then(async (url: string) => {
-      const result = await fetch(url);
-      const data: MarkerInfoWithId[] = await result.json();
-      for (const marker of data) {
-        state.data[mode].markers.set(marker.id, marker);
-      }
-    });
+
+  const promise = index.search('').then(data => {
+    const hits = (data.hits as unknown) as MarkerInfoWithId[];
+    for (const marker of hits) {
+      state.data[mode].markers.set(marker.id, marker);
+    }
+  });
   processPromise(promise);
   return promise;
 };
