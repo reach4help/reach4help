@@ -12,7 +12,7 @@ import algoliasearch from 'algoliasearch';
 
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config(); // enables process.env to work.  Required for JS, not React.
 const { argv } = process;
 const jsonFilename = argv[2];
 const indexName = argv[3];
@@ -23,14 +23,12 @@ const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 const index = client.initIndex(indexName);
 
 let hits = [];
-console.log('AAAA');
 index
   .browseObjects({
     // eslint-disable-next-line no-return-assign
     query: '', // Empty query will match all records
     hitsPerPage: 1000,
     batch: batch => {
-      console.log(batch.length);
       hits = hits.concat(batch);
     },
   })
