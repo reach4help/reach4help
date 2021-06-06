@@ -109,9 +109,12 @@ Start the backend tutorial:
     - **Search**
       - add the code to the file you created in the previous section
     - **Search UI**
+
+      I recommend skipping this section entirely. The code is for a an HTML based system and the tutorial just has code without explanation. Instead, go to this tutorial for a React tutorial: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react/
+
       - Skip this section entirely. The code is for a an HTML based system and the tutorial just has code without explanation. Use Frontend Tutorial in next section
       - Instead, see next session for recommended front end tutorial.
 
 - Frontend Tutorial
-  - [Using React/Algolia components]  (https://www.algolia.com/doc/api-reference/widgets/geo-search/react/) - up to part about Leaflet
+  - [Using React/Algolia components](https://www.algolia.com/doc/api-reference/widgets/geo-search/react/) - up to part about Leaflet
   - Uaing Leaflet: second part of above tutorial
