@@ -1,5 +1,5 @@
 import React from 'react';
-import * as firebase from 'src/data/firebase';
+import * as firebase from 'src/data/dataDriver';
 import { t } from 'src/i18n';
 
 import styled, { NON_LARGE_DEVICES } from '../styling';
@@ -38,7 +38,7 @@ class Footer extends React.PureComponent<Props, State> {
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <footer className={className}>
+          <footer className={className || ''}>
             <div className="netlify">
               {t(lang, s => s.footer.netlifyNote, {
                 link: key => (

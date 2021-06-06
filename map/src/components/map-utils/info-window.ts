@@ -1,4 +1,4 @@
-import { MarkerInfo } from 'src/data/firebase';
+import { MarkerInfo } from 'src/data/dataDriver';
 
 import { escapeHtml } from './escape';
 

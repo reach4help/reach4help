@@ -20,7 +20,7 @@ import {
   MdRefresh,
 } from 'react-icons/md';
 import Search from 'src/components/search';
-import { Location, MarkerInfo, submitInformation } from 'src/data/firebase';
+import { Location, MarkerInfo, submitInformation } from 'src/data/dataDriver';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
@@ -77,10 +77,10 @@ interface State {
       url: string;
     }>;
   };
-  validation?: Validation;
-  submissionResult?:
-    | { state: 'success' }
-    | { state: 'error'; error: (lang: Language) => string | JSX.Element[] };
+  validation?: Validation | undefined;
+  submissionResult?: undefined
+  | { state: 'success' }
+  | { state: 'error'; error: (lang: Language) => string | JSX.Element[] };
 }
 
 const INITIAL_STATE: State = {
@@ -241,7 +241,7 @@ class AddInstructions extends React.Component<Props, State> {
     this.mapsListeners.forEach(l => l.remove());
     this.mapsListeners.clear();
     map.setOptions({
-      draggableCursor: undefined,
+      draggableCursor: undefined || '',
     });
   };
 
@@ -321,7 +321,7 @@ class AddInstructions extends React.Component<Props, State> {
         } else {
           this.setInfo(info => {
             // eslint-disable-next-line no-param-reassign
-            info.type = undefined;
+            info.type = {};
           });
         }
         break;
@@ -461,7 +461,7 @@ class AddInstructions extends React.Component<Props, State> {
       const typeInfo = info.contact[type];
       if (typeInfo) {
         if (typeInfo.email) {
-          completeTypeInfo.email = typeInfo.email.filter(isDefined);
+          completeTypeInfo.email = removeUndefined(typeInfo.email);
         }
         if (typeInfo.phone) {
           completeTypeInfo.phone = typeInfo.phone.filter(isDefined);
@@ -1452,3 +1452,7 @@ export default styled(AddInstructions)`
     }
   }
 `;
+function removeUndefined(email: (string | undefined)[]): string[] {
+  throw new Error('Function not implemented.');
+}
+

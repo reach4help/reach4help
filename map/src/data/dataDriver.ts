@@ -2,35 +2,13 @@ import {
   Location as BaseLocation,
   MarkerInfo as BaseMarkerInfo,
   MarkerInfoWithId as BaseMarkerInfoWithId,
-  MARKER_COLLECTION_ID,
-  MARKERS_STORAGE_PATH,
 } from '@reach4help/model/lib/markers';
-import * as firebase from 'firebase/app';
 import algoliasearch from 'algoliasearch';
+import { R4HGeoPoint } from './R4hGeoPoint';
 
-// eslint-disable-next-line import/no-duplicates
-import 'firebase/firestore';
-// eslint-disable-next-line import/no-duplicates
-import 'firebase/storage';
-// eslint-disable-next-line import/no-duplicates
-import 'firebase/analytics';
-
-export type Location = BaseLocation<firebase.firestore.GeoPoint>;
-export type MarkerInfo = BaseMarkerInfo<firebase.firestore.GeoPoint>;
-export type MarkerInfoWithId = BaseMarkerInfoWithId<
-  firebase.firestore.GeoPoint
->;
-
-const config = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-};
+export type Location = BaseLocation<R4HGeoPoint>;
+export type MarkerInfo = BaseMarkerInfo<R4HGeoPoint>;
+export type MarkerInfoWithId = BaseMarkerInfoWithId<R4HGeoPoint>;
 
 const algoliaAdminKey = process.env.REACT_APP_ALGOLIA_ADMIN_KEY || 'undefined';
 const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID || 'undefined';
@@ -60,13 +38,11 @@ const setDataConfig = (dataConfig: DataConfig) => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataConfig));
 };
 
-firebase.initializeApp(config);
-firebase.analytics();
-const db = firebase.firestore();
-const markers = db.collection(MARKER_COLLECTION_ID);
-
 export const submitInformation = async (info: MarkerInfo) => {
-  await markers.add(info);
+  info.objectId = info.id || '';
+
+  throw 'not implemented';
+  // await markers.add(info);
 };
 
 export interface InformationUpdate {
@@ -165,8 +141,6 @@ export const removeInformationListener = (l: InformationListener) => {
 // - text search
 // - zoom into current position
 // - how to re-execute as map moves
-
-// - rename firebase.ts to something else
 
 const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
   if (state.data[mode].initialLoadDone) {

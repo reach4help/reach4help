@@ -7,7 +7,7 @@ import mapState, {
   MARKER_SET_KEYS,
 } from 'src/components/map-utils/map-state';
 import { MARKER_TYPES } from 'src/data';
-import * as firebase from 'src/data/firebase';
+import * as firebase from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
 
