@@ -8,26 +8,26 @@ export const SERVICES = {
     color: COLORS.orange,
   },
   beds: {
-    colors: COLORS.red,
+    color: COLORS.orange,
   },
   oxygen: {
-    colors: COLORS.red,
+    color: COLORS.red,
   },
   medicine: {
-    color: COLORS.purple,
+    color: COLORS.grayDark,
   },
   'home-care': {
-    colors: COLORS.orange,
+    color: COLORS.orange,
   },
   blood: {
-    colors: COLORS.red,
+    color: COLORS.red,
   },
   quarantine: {
-    colors: COLORS.gray,
+    color: COLORS.gray,
   },
   telehealth: {
     // TODO: Might need to rename this?
-    colors: COLORS.blue,
+    color: COLORS.blue,
   },
   financial: {
     // TODO: rename to donations
@@ -48,7 +48,7 @@ export const SERVICES = {
   },
   network: {
     // TODO: define more clearly
-    color: COLORS.yellow,
+    color: COLORS.blueDark,
   },
   support: {
     // TODO: remove since too vague
