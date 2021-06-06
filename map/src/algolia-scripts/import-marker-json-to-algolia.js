@@ -53,12 +53,6 @@ const algoliaAppId = process.env.ALGOLIA_APP_ID || 'undefined';
 const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 const index = client.initIndex(indexName);
 
-if (deleteAppendMode != 'DELETE' && deleteAppendMode != 'UPSERT') {
-  throw 'Specify DELETE or UPSERT for third parameter';
-} else if (deleteAppendMode === 'DELETE') {
-  await index.clearObjects();
-}
-
 let dataJSON = fs.readFileSync(jsonFilename, {
   encoding: 'utf8',
   flag: 'r',
@@ -85,7 +79,14 @@ hits.forEach(marker => {
 });
 
 await processAlgolia();
+
 async function processAlgolia() {
+  if (deleteAppendMode != 'DELETE' && deleteAppendMode != 'UPSERT') {
+    throw 'Specify DELETE or UPSERT for third parameter';
+  } else if (deleteAppendMode === 'DELETE') {
+    console.log('Deleting');
+    await index.clearObjects();
+  }
   console.log('Getting initial count');
   const initialSearch = await index.search('', { attributesToRetrieve: null });
   const initialCount = initialSearch.nbHits;
@@ -97,5 +98,5 @@ async function processAlgolia() {
   const finalCount = finalSearch.nbHits;
   await configAlgoliaIndex(indexName);
   console.log(`Initial count: ${initialCount}`);
-  console.log(`Final count: ${finalCount}`);
+  console.log(`Final count (may not be accurate due to timing): ${finalCount}`);
 }
