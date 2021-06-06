@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import algoliasearch from 'algoliasearch';
 import dotenv from 'dotenv';
 
@@ -18,7 +19,6 @@ export const configAlgoliaIndex = async indexName => {
     searchableAttributes: ['source.name'],
     paginationLimitedTo: 5000,
     hitsPerPage: 1000,
-    customRanking: ['desc(links_count)'],
   });
   console.log('Index configured.');
 };
@@ -31,18 +31,19 @@ export async function processAlgolia(dataJSON, indexName, deleteAppendMode) {
   }
   hits.forEach(marker => {
     // double check JSON is valid
-    console.log('a');
     if (isValidMarkerJSON(marker)) {
       const latlng = marker?.loc?.latlng;
       marker._geoloc = {
         lat: latlng?.latitude,
         lng: latlng?.longitude,
       };
+      if (!marker.id) {
+        marker.id = uuidv4();
+      }
       marker.objectID = marker.id;
     } else {
       throw 'One or more records are invalid.  Run validate script.';
     }
-    console.log('b', marker.objectID, marker._geoloc);
   });
   const index = client.initIndex(indexName);
   console.log('Getting initial count');

@@ -43,8 +43,7 @@ export const submitInformation = async (info: MarkerInfo) => {
   info.objectID = info.id || '';
   const latlng = info.loc.latlng;
   info._geoloc = { lat: latlng.latitude, lng: latlng.latitude };
-  console.log('trying other way');
-  processAlgolia([info], 'markers-debug1', 'DELETE');
+  processAlgolia([info], algoliaIndexName, 'UPSERT');
 
   // await markers.add(info);
 };

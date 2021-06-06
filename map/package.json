@@ -32,7 +32,8 @@
     "react-scripts": "3.4.3",
     "react-select": "^3.1.0",
     "styled-components": "^5.0.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts start",
