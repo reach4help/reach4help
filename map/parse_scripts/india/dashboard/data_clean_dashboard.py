@@ -13,7 +13,7 @@ import os
 # Import data
 # df = pd.read_json("../data_clean.json").transpose()
 df = pd.read_csv(
-    "https://raw.githubusercontent.com/reach4help/reach4help/map/map/parse_scripts/data_clean.csv",
+    "https://raw.githubusercontent.com/reach4help/reach4help/map/map/parse_scripts/india/pan_india/data_clean.csv",
     keep_default_na=False,
 )
 

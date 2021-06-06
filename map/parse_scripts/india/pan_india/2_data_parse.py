@@ -54,9 +54,11 @@ import phonenumbers
 import sys
 import getopt
 import datetime
+from dotenv import load_dotenv
 
+load_dotenv("../../.env")
 
-gmaps_api_key = os.environ.get("REACT_APP_GMAPS_API_KEY")
+gmaps_api_key = os.environ.get("GMAPS_API_KEY")
 gmaps = googlemaps.Client(key=gmaps_api_key)
 
 # Uses google maps api to retrieve lat long iniformation about a location
@@ -152,19 +154,20 @@ def convert_item_to_dict(category, headers, state, city, data_values):
                 geo_search_string = item_dict["Distributor Name"]
                 item_dict["Marked for Cleaning"] = True
 
+            # Commenting out functionality for location searching since we do it more effecitvely in a further step
             # If the city isn't already included, add it (helps with getting the location via google)
-            if item_dict["General Area (City)"] not in data:
-                geocode_result = gmaps.geocode(
-                    geo_search_string + f" {city}", region="IN"
-                )
-            else:
-                geocode_result = gmaps.geocode(geo_search_string, region="IN")
+            # if item_dict["General Area (City)"] not in data:
+            #     geocode_result = gmaps.geocode(
+            #         geo_search_string + f" {city}", region="IN"
+            #     )
+            # else:
+            #     geocode_result = gmaps.geocode(geo_search_string, region="IN")
 
-            item_dict["lat"], item_dict["lng"] = extract_lat_lng(geocode_result)
+            # item_dict["lat"], item_dict["lng"] = extract_lat_lng(geocode_result)
 
             # If Google's state is mismatched with the given state, then the given location is possibly wrong, so let's mark it for cleaning
-            if extract_state(geocode_result) != item_dict["General Area (State)"]:
-                item_dict["Marked for Cleaning"] = True
+            # if extract_state(geocode_result) != item_dict["General Area (State)"]:
+            #     item_dict["Marked for Cleaning"] = True
 
             # If the location is empty, then also mark it for cleaning
             if not data:
@@ -285,6 +288,7 @@ def main(argv):
                     # This print statement is purely a visual to let you know the script is still running
                     if i % 100 == 0:
                         print("Parsed " + str(i) + " rows. Still parsing...")
+                        break
 
             # Export clean data to separate file
             # json.dump(final_dict, open("delhi_clean.json", "w+"), sort_keys=True, indent=4)
