@@ -91,7 +91,7 @@ async function processAlgolia() {
   const initialSearch = await index.search('', { attributesToRetrieve: null });
   const initialCount = initialSearch.nbHits;
   console.log('Saving');
-  const result = await index.saveObjects(dataJSON);
+  await index.saveObjects(dataJSON);
   console.log('Getting final count');
   const finalSearch = await index.search('', { attributesToRetrieve: null });
   const finalCount = finalSearch.nbHits;

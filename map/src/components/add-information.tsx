@@ -1,4 +1,5 @@
 import { ContactDetails, ContactGroup } from '@reach4help/model/lib/markers';
+import { R4HGeoPoint } from '../data/R4hGeoPoint'
 import {
   isMarkerType,
   isService,
@@ -7,7 +8,6 @@ import {
   Service,
   SERVICE_STRINGS,
 } from '@reach4help/model/lib/markers/type';
-import firebase from 'firebase/app';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
@@ -250,10 +250,13 @@ class AddInstructions extends React.Component<Props, State> {
     if (!map) {
       return;
     }
-    const updateLoc = (loc: google.maps.LatLng) =>
+    const updateLoc = (loc: google.maps.LatLng) => {
+      console.log('loc', loc);
+      console.log(loc.lat(), loc.lng());
       this.setInfoValues({
-        loc: { latlng: new firebase.firestore.GeoPoint(loc.lat(), loc.lng()) },
-      });
+        loc: { latlng: new R4HGeoPoint(loc.lat(), loc.lng()) },
+      })
+    };
     if (addInfoStep === 'place-marker') {
       if (!this.markerInfo) {
         const bounds = map.getBounds();
@@ -282,6 +285,7 @@ class AddInstructions extends React.Component<Props, State> {
         updateRadiusFromCircle();
 
         circle.addListener('center_changed', () => {
+          console.log('here', circle.getCenter());
           updateLoc(circle.getCenter());
           radiusInfoWindow.setPosition(circle.getCenter());
         });
@@ -292,6 +296,8 @@ class AddInstructions extends React.Component<Props, State> {
       } else {
         this.markerInfo.circle.setCenter(evt.latLng);
       }
+      console.log('there', evt, evt.latLng);
+
       updateLoc(evt.latLng);
     }
   };
@@ -570,6 +576,7 @@ class AddInstructions extends React.Component<Props, State> {
             },
           });
         } else {
+          console.log('submit');
           submitInformation(completeInfo).then(
             () => this.setState({ submissionResult: { state: 'success' } }),
             error =>

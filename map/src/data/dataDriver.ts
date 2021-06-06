@@ -40,8 +40,11 @@ const setDataConfig = (dataConfig: DataConfig) => {
 
 export const submitInformation = async (info: MarkerInfo) => {
   info.objectId = info.id || '';
-
-  throw 'not implemented';
+  const latlng = info.loc.latlng;
+  info._geoloc = { lat: latlng.latitude, lng: latlng.latitude };
+  console.log('debug: submitting', index);
+  const w = await index.saveObject(info);
+  console.log('submitted', w);
   // await markers.add(info);
 };
 
