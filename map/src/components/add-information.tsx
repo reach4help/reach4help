@@ -464,7 +464,7 @@ class AddInstructions extends React.Component<Props, State> {
           completeTypeInfo.email = removeUndefined(typeInfo.email);
         }
         if (typeInfo.phone) {
-          completeTypeInfo.phone = typeInfo.phone.filter(isDefined);
+          completeTypeInfo.phone = removeUndefined(typeInfo.phone);
         }
       }
       const typeUrls = urls[type];
@@ -621,7 +621,7 @@ class AddInstructions extends React.Component<Props, State> {
           type="text"
           id={input}
           name={input}
-          placeholder={placeholder}
+          placeholder={placeholder || ''}
           onChange={this.handleInputChange}
           value={value}
         />
@@ -635,6 +635,8 @@ class AddInstructions extends React.Component<Props, State> {
   }) => {
     const { lang } = this.props;
     const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
+    const f = () => { };
+    const nextScreenFunc = nextScreen || f;
     return (
       <div className="actions">
         {previousScreen && (
@@ -650,7 +652,7 @@ class AddInstructions extends React.Component<Props, State> {
             <div className="grow" />
           </>
         )}
-        <button type="submit" className="next-button" onClick={nextScreen}>
+        <button type="submit" className="next-button" onClick={nextScreenFunc}>
           {t(lang, s => s.addInformation[nextLabel])}
           <MdChevronRight className="icon icon-end" />
         </button>
@@ -707,17 +709,18 @@ class AddInstructions extends React.Component<Props, State> {
       if (method === 'phone' || method === 'email') {
         this.setInfo(info => {
           if (info.contact?.[type]) {
-            const arr: string[] | undefined = (
-              info.contact?.[type]?.[method] || []
-            ).filter(isDefined);
+            const arr = removeUndefined(info.contact?.[type]?.[method] || []);
             arr.splice(i, 1);
             // Remove array completely if empty
-            if (arr.length === 0) {
-              // eslint-disable-next-line no-param-reassign
-              delete info.contact[type][method];
-            } else {
-              // eslint-disable-next-line no-param-reassign
-              info.contact[type][method] = arr;
+            const infoContactObj = info.contact[type];
+            if (infoContactObj) {
+              if (arr.length === 0) {
+                // eslint-disable-next-line no-param-reassign
+                delete infoContactObj[method];
+              } else {
+                // eslint-disable-next-line no-param-reassign
+                infoContactObj[method] = arr;
+              }
             }
           }
         });
@@ -757,7 +760,7 @@ class AddInstructions extends React.Component<Props, State> {
               key={i}
               type={method === 'phone' ? 'tel' : 'email'}
               id={contactInputId(type, method, i)}
-              value={value}
+              value={value || ''}
               placeholder={t(
                 lang,
                 s => s.addInformation.screen.contactInfo.placeholder[method],
@@ -885,7 +888,7 @@ class AddInstructions extends React.Component<Props, State> {
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <div className={className}>
+          <div className={className || ''}>
             {addInfoStep === 'information' && (
               <div className="screen">
                 <h2>{t(lang, s => s.addInformation.screen.title)}</h2>
@@ -1452,7 +1455,14 @@ export default styled(AddInstructions)`
     }
   }
 `;
-function removeUndefined(email: (string | undefined)[]): string[] {
+function removeUndefined(array: (string | undefined)[]): string[] {
+  const retVal = [] as string[];
+  array.forEach(element => {
+    if (element) {
+      retVal.push(element);
+    }
+  })
+  return retVal;
   throw new Error('Function not implemented.');
 }
 
