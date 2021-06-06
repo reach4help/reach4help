@@ -8,13 +8,13 @@ export const SERVICES = {
     color: COLORS.orange,
   },
   beds: {
-    color: COLORS.red,
+    color: COLORS.orange,
   },
   oxygen: {
     color: COLORS.red,
   },
   medicine: {
-    color: COLORS.purple,
+    color: COLORS.grayDark,
   },
   'home-care': {
     color: COLORS.orange,
@@ -48,7 +48,7 @@ export const SERVICES = {
   },
   network: {
     // TODO: define more clearly
-    color: COLORS.yellow,
+    color: COLORS.blueDark,
   },
   support: {
     // TODO: remove since too vague
