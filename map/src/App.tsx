@@ -129,6 +129,7 @@ class App extends React.Component<Props, State> {
       lang,
       inFrame,
     } = this.state;
+
     return (
       <AppContext.Provider value={{ lang }}>
         <div dir={i18n.getMeta(lang).direction} className={className}>

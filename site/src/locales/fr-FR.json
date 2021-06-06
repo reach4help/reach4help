@@ -21,7 +21,10 @@
           "Utilisez la carte pour trouver et rejoindre les efforts d'entraide près de chez vous ou créez le vôtre.",
           "Si vous êtes une organisation d'aide, ajoutez vos informations à la carte pour que d'autres puissent vous trouver."
         ],
-        "buttons": ["Obtenir de l'aide", "Bénévole"]
+        "buttons": [
+          "Obtenir de l'aide",
+          "Bénévole"
+        ]
       },
       "ReasonsSection": {
         "heading": "Pourquoi Utiliser Reach4Help",
@@ -104,7 +107,9 @@
         "heading": "À propos",
         "subheading": "Nous sommes un groupe de bénévoles motivés pour unifier l'aide dans le monde entier",
         "paragraph": "Rencontrez les esprits derrière cette initiative et rejoignez-nous!",
-        "buttons": ["À propos de nous"]
+        "buttons": [
+          "À propos de nous"
+        ]
       },
       "SupportersSection": {
         "heading": "Les supporters",
@@ -124,7 +129,10 @@
     },
     "ImpactPage": {
       "WorldMapSection": {
-        "heading": ["We're helping people", "across 38 countries!"],
+        "heading": [
+          "We're helping people",
+          "across 38 countries!"
+        ],
         "hoverInfo": {
           "users": "Utilisateurs: ",
           "noUsers": "Pas encore d'utilisateurs <br/> (peut-être vous?)"
@@ -143,7 +151,9 @@
         "Nous recherchons des développeurs volontaires ReactJS, des stratèges en marketing et relations publiques et des concepteurs d'interface UI/UX pour aider à accroître nos efforts en soutenant les communautés dans le besoin par le biais de la COVID-19 et des crises futures à venir."
       ],
       "join": "Intéressé à nous rejoindre?",
-      "buttons": ["Vous êtes l'aide à côté. Rejoignez-nous!"]
+      "buttons": [
+        "Vous êtes l'aide à côté. Rejoignez-nous!"
+      ]
     },
     "Footer": {
       "sections": [
