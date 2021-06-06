@@ -4,7 +4,7 @@
  * Loads a json file of markers into a new or existing Algolia index.
  * Deletes any records if index already exists.
  *
- * Required env variables: ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY
+ * Required env variables: REACT_APP_ALGOLIA_APP_ID, REACT_APP_ALGOLIA_ADMIN_KEY
  *
  * Example:
  * node import-marker-json-to-algolia-index.js markers-dev.json markers-dev delete =>
@@ -21,16 +21,11 @@
  */
 
 /* eslint-disable no-console */
-import algoliasearch from 'algoliasearch';
 import dotenv from 'dotenv';
 import fs from 'fs';
 
 // eslint-disable-next-line import/extensions
-import {
-  configAlgoliaIndex,
-  isValidMarkerJson,
-} from './algoliaScriptHelper.js';
-import { validateMarkerJson } from './validateMarkerJson.js';
+import { processAlgolia } from './algoliaScriptHelper.js';
 
 dotenv.config(); // enables process.env to work.  Required for JS, not React.
 const { argv } = process;
@@ -48,54 +43,10 @@ if (indexName === 'markers' && confirm !== 'confirm-markers') {
 
 /* eslint-disable no-console */
 
-const algoliaAdminKey = process.env.ALGOLIA_ADMIN_KEY || 'undefined';
-const algoliaAppId = process.env.ALGOLIA_APP_ID || 'undefined';
-const client = algoliasearch(algoliaAppId, algoliaAdminKey);
-const index = client.initIndex(indexName);
-
 let dataJSON = fs.readFileSync(jsonFilename, {
   encoding: 'utf8',
   flag: 'r',
 });
 dataJSON = JSON.parse(dataJSON);
 
-const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
-
-if (!validateMarkerJson(jsonFilename)) {
-  throw 'Invalid json';
-}
-hits.forEach(marker => {
-  // double check Json is valid
-  if (isValidMarkerJson(marker)) {
-    const latlng = marker?.loc?.latlng;
-    marker._geoloc = {
-      lat: latlng?.latitude,
-      lng: latlng?.longitude,
-    };
-    marker.objectID = marker.id;
-  } else {
-    throw 'One or more records are invalid.  Run validate script.';
-  }
-});
-
-await processAlgolia();
-
-async function processAlgolia() {
-  if (deleteAppendMode != 'DELETE' && deleteAppendMode != 'UPSERT') {
-    throw 'Specify DELETE or UPSERT for third parameter';
-  } else if (deleteAppendMode === 'DELETE') {
-    console.log('Deleting');
-    await index.clearObjects();
-  }
-  console.log('Getting initial count');
-  const initialSearch = await index.search('', { attributesToRetrieve: null });
-  const initialCount = initialSearch.nbHits;
-  console.log('Saving');
-  await index.saveObjects(dataJSON);
-  console.log('Getting final count');
-  const finalSearch = await index.search('', { attributesToRetrieve: null });
-  const finalCount = finalSearch.nbHits;
-  await configAlgoliaIndex(indexName);
-  console.log(`Initial count: ${initialCount}`);
-  console.log(`Final count (may not be accurate due to timing): ${finalCount}`);
-}
+await processAlgolia(dataJSON, indexName, deleteAppendMode);

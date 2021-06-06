@@ -17,8 +17,8 @@ const { argv } = process;
 const jsonFilename = argv[2];
 const indexName = argv[3];
 
-const algoliaAdminKey = process.env.ALGOLIA_ADMIN_KEY;
-const algoliaAppId = process.env.ALGOLIA_APP_ID;
+const algoliaAdminKey = process.env.REACT_APP_ALGOLIA_ADMIN_KEY;
+const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID;
 const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 const index = client.initIndex(indexName);
 

@@ -17,23 +17,23 @@ function getObjectIDs(filename) {
         console.log('duplicate id', hit.id);
       }
     } else {
-      console.log('Missing', hit.objectId, hit);
+      console.log('Missing', hit.objectID, hit);
     }
   });
   return ids;
 }
 
 const { argv } = process;
-const objectIds1 = getObjectIDs(argv[2]);
-const objectIds2 = getObjectIDs(argv[3]);
+const objectIDs1 = getObjectIDs(argv[2]);
+const objectIDs2 = getObjectIDs(argv[3]);
 let same = 0;
 let diff = 0;
 let undef = 0;
-const keys = Object.keys(objectIds1);
-const keys2 = Object.keys(objectIds2);
+const keys = Object.keys(objectIDs1);
+const keys2 = Object.keys(objectIDs2);
 console.log(keys.length, keys2.length);
 keys.forEach(key => {
-  if (objectIds2[key]) {
+  if (objectIDs2[key]) {
     same = same + 1;
   } else {
     diff = diff + 1;

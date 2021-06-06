@@ -1470,6 +1470,5 @@ function removeUndefined(array: (string | undefined)[]): string[] {
     }
   })
   return retVal;
-  throw new Error('Function not implemented.');
 }
 
