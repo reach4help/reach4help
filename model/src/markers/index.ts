@@ -81,6 +81,8 @@ export interface MarkerInfo<GeoPoint>
    * (i.e. has it been reviewed for accuraccy).
    */
   visible: boolean;
+  objectID?: string;
+  _geoLoc?: { lat: number; lng: number };
   source?: {
     name: 'hardcoded' | 'mutualaid.wiki' | 'mutualaidhub.org';
     id: string;
