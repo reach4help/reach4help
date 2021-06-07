@@ -115,6 +115,7 @@ def convert_item_to_dict(category, headers, state, city, data_values):
         "Contact ": "Distributor Contact (Phone)",
         "Mobile no.": "Distributor Contact (Phone)",
         "Mobile No.": "Distributor Contact (Phone)",
+        "Email ID": "Description",
         "Medicine name": "Description",
         "Cost per day": "Description",
         "Blood group": "Description",
