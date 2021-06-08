@@ -9,7 +9,7 @@ const {
   createGlobalStyle,
   keyframes,
   ThemeProvider,
-} = styledComponents as ThemedStyledComponentsModule<Theme>;
+} = (styledComponents as unknown) as ThemedStyledComponentsModule<Theme>;
 
 export { css, createGlobalStyle, keyframes, ThemeProvider, THEME };
 export default styled;
