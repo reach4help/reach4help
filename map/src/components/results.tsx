@@ -137,16 +137,15 @@ class Results extends React.PureComponent<Props, {}> {
       selectedResult?.info.source && SOURCES[selectedResult.info.source.name];
     const selectedResultSentenceType =
       selectedResult?.info.type.type === 'mutual-aid-group' ||
-      selectedResult?.info.type.type === 'org'
+        selectedResult?.info.type.type === 'org'
         ? selectedResult.info.type.type
         : 'project';
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div
-            className={`${className} ${open ? 'open' : ''} ${
-              selectedResult ? 'selected-result' : ''
-            }`}
+            className={`${className} ${open ? 'open' : ''} ${selectedResult ? 'selected-result' : ''
+              }`}
           >
             <button
               type="button"
@@ -161,8 +160,8 @@ class Results extends React.PureComponent<Props, {}> {
                     selectedResult
                       ? s.results.backToResults
                       : open
-                      ? s.results.closeResults
-                      : s.results.openResults,
+                        ? s.results.closeResults
+                        : s.results.openResults,
                   {
                     results: (results?.results || []).length,
                   },
@@ -239,7 +238,7 @@ class Results extends React.PureComponent<Props, {}> {
                               lang,
                               s =>
                                 s.markerTypeSentence[
-                                  selectedResultSentenceType
+                                selectedResultSentenceType
                                 ],
                             )}
                           </span>

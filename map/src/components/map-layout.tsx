@@ -1,6 +1,6 @@
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
-import * as firebase from 'src/data/firebase';
+import * as firebase from 'src/data/dataDriver';
 import { Filter, FilterMutator, Page } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
