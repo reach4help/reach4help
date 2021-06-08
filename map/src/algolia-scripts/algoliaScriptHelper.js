@@ -27,7 +27,7 @@ export async function processAlgolia(dataJSON, indexName, deleteAppendMode) {
   const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
 
   if (!validateMarkerJSON(dataJSON)) {
-    throw 'Invalid json';
+    throw new Error('Invalid json');
   }
   hits.forEach(marker => {
     // double check JSON is valid
@@ -42,15 +42,15 @@ export async function processAlgolia(dataJSON, indexName, deleteAppendMode) {
       }
       marker.objectID = marker.id;
     } else {
-      throw 'One or more records are invalid.  Run validate script.';
+      throw new Error('One or more records are invalid.  Run validate script.');
     }
   });
   const index = client.initIndex(indexName);
   console.log('Getting initial count');
   const initialSearch = await index.search('', { attributesToRetrieve: null });
   const initialCount = initialSearch.nbHits;
-  if (deleteAppendMode != 'DELETE' && deleteAppendMode != 'UPSERT') {
-    throw 'Specify DELETE or UPSERT for third parameter';
+  if (deleteAppendMode !== 'DELETE' && deleteAppendMode !== 'UPSERT') {
+    throw new Error('Specify DELETE or UPSERT for third parameter');
   } else if (deleteAppendMode === 'DELETE') {
     console.log('Deleting', algoliaAdminKey, algoliaAppId);
     await index.clearObjects();
