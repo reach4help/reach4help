@@ -1,5 +1,5 @@
 import { ContactDetails, ContactGroup } from '@reach4help/model/lib/markers';
-import { R4HGeoPoint } from '../data/R4hGeoPoint'
+
 import {
   isMarkerType,
   isService,
@@ -25,6 +25,7 @@ import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
 import { trackEvent } from 'src/util/tracking';
+import { R4HGeoPoint } from '../data/R4hGeoPoint';
 
 import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
@@ -170,6 +171,16 @@ const extractContactInputIdData = (target: HTMLElement) => {
 
 type ContactInputIdData = ReturnType<typeof extractContactInputIdData>;
 
+function removeUndefined(array: (string | undefined)[]): string[] {
+  const retVal = [] as string[];
+  array.forEach(element => {
+    if (element) {
+      retVal.push(element);
+    }
+  })
+  return retVal;
+}
+
 class AddInstructions extends React.Component<Props, State> {
   private markerInfo: MarkerInputInfo | null = null;
 
@@ -251,11 +262,9 @@ class AddInstructions extends React.Component<Props, State> {
       return;
     }
     const updateLoc = (loc: google.maps.LatLng) => {
-      console.log('loc', loc);
-      console.log(loc.lat(), loc.lng());
       this.setInfoValues({
         loc: { latlng: new R4HGeoPoint(loc.lat(), loc.lng()) },
-      })
+      });
     };
     if (addInfoStep === 'place-marker') {
       if (!this.markerInfo) {
@@ -285,7 +294,6 @@ class AddInstructions extends React.Component<Props, State> {
         updateRadiusFromCircle();
 
         circle.addListener('center_changed', () => {
-          console.log('here', circle.getCenter());
           updateLoc(circle.getCenter());
           radiusInfoWindow.setPosition(circle.getCenter());
         });
@@ -296,7 +304,6 @@ class AddInstructions extends React.Component<Props, State> {
       } else {
         this.markerInfo.circle.setCenter(evt.latLng);
       }
-      console.log('there', evt, evt.latLng);
 
       updateLoc(evt.latLng);
     }
@@ -576,7 +583,6 @@ class AddInstructions extends React.Component<Props, State> {
             },
           });
         } else {
-          console.log('submit');
           submitInformation(completeInfo).then(
             () => this.setState({ submissionResult: { state: 'success' } }),
             error =>
@@ -642,7 +648,7 @@ class AddInstructions extends React.Component<Props, State> {
   }) => {
     const { lang } = this.props;
     const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
-    const f = () => { };
+    const f = () => {throw new Error("function nextScreen not defined")};
     const nextScreenFunc = nextScreen || f;
     return (
       <div className="actions">
@@ -1462,13 +1468,4 @@ export default styled(AddInstructions)`
     }
   }
 `;
-function removeUndefined(array: (string | undefined)[]): string[] {
-  const retVal = [] as string[];
-  array.forEach(element => {
-    if (element) {
-      retVal.push(element);
-    }
-  })
-  return retVal;
-}
 
