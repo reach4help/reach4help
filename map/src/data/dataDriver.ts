@@ -5,7 +5,7 @@ import {
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
 
-import { processAlgolia } from '../algolia-scripts/algoliaScriptHelper';
+import { processAlgolia } from '../algoliaUtil';
 import { R4HGeoPoint } from './R4hGeoPoint';
 
 export type Location = BaseLocation<R4HGeoPoint>;
