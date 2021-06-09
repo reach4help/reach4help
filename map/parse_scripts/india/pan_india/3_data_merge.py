@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from ast import literal_eval
 
-clean_data_dirs = ["./parsed_output_2021-06-05 09:50:56.724522"]
+clean_data_dirs = ["parsed_output_2021-06-07 11:18:58.162689"]
 cities_data = []
 for data_dir in clean_data_dirs:
     for city_data in sorted(os.listdir(data_dir)):
