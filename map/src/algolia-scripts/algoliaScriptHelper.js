@@ -45,7 +45,7 @@ export const validateMarkerJSON = dataJSON => {
   return false;
 };
 
-export const processAlgolia = (dataJSON, indexName, deleteAppendMode) => {
+export const processAlgolia = async (dataJSON, indexName, deleteAppendMode) => {
   console.log(indexName, deleteAppendMode);
   const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
 
@@ -70,7 +70,7 @@ export const processAlgolia = (dataJSON, indexName, deleteAppendMode) => {
   });
   const index = client.initIndex(indexName);
   console.log('Getting initial count');
-  const initialSearch = index.search('', { attributesToRetrieve: null });
+  const initialSearch = await index.search('', { attributesToRetrieve: null });
   console.log(initialSearch);
   //   const initialCount = initialSearch.nbHits;
   //   if (deleteAppendMode !== 'DELETE' && deleteAppendMode !== 'UPSERT') {
