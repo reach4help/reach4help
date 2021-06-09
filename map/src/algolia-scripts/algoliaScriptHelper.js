@@ -46,7 +46,6 @@ export const validateMarkerJSON = dataJSON => {
 };
 
 export const processAlgolia = async (dataJSON, indexName, deleteAppendMode) => {
-  console.log(indexName, deleteAppendMode);
   const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
 
   if (!validateMarkerJSON(dataJSON)) {
@@ -71,21 +70,20 @@ export const processAlgolia = async (dataJSON, indexName, deleteAppendMode) => {
   const index = client.initIndex(indexName);
   console.log('Getting initial count');
   const initialSearch = await index.search('', { attributesToRetrieve: null });
-  console.log(initialSearch);
-  //   const initialCount = initialSearch.nbHits;
-  //   if (deleteAppendMode !== 'DELETE' && deleteAppendMode !== 'UPSERT') {
-  //     throw new Error('Specify DELETE or UPSERT for third parameter');
-  //   } else if (deleteAppendMode === 'DELETE') {
-  //     console.log('Deleting', algoliaAdminKey, algoliaAppId);
-  //     await index.clearObjects();
-  //   }
-  //   console.log(`Found ${initialCount}`);
-  //   console.log('Saving');
-  //   await index.saveObjects(dataJSON);
-  //   console.log('Getting final count');
-  //   const finalSearch = await index.search('', { attributesToRetrieve: null });
-  //   const finalCount = finalSearch.nbHits;
-  //   await configAlgoliaIndex(indexName);
-  //   console.log(`Initial count: ${initialCount}`);
-  //   console.log(`Final count (may not be accurate due to timing): ${finalCount}`);
+  const initialCount = initialSearch.nbHits;
+  if (deleteAppendMode !== 'DELETE' && deleteAppendMode !== 'UPSERT') {
+    throw new Error('Specify DELETE or UPSERT for third parameter');
+  } else if (deleteAppendMode === 'DELETE') {
+    console.log('Deleting', algoliaAdminKey, algoliaAppId);
+    await index.clearObjects();
+  }
+  console.log(`Found ${initialCount}`);
+  console.log('Saving');
+  await index.saveObjects(dataJSON);
+  console.log('Getting final count');
+  const finalSearch = await index.search('', { attributesToRetrieve: null });
+  const finalCount = finalSearch.nbHits;
+  await configAlgoliaIndex(indexName);
+  console.log(`Initial count: ${initialCount}`);
+  console.log(`Final count (may not be accurate due to timing): ${finalCount}`);
 };
