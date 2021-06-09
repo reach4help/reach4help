@@ -481,6 +481,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tzou2024",
+      "name": "Trevor Zou",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78239895?v=4",
+      "profile": "https://github.com/tzou2024",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
