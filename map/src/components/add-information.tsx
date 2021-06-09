@@ -1,5 +1,4 @@
 import { ContactDetails, ContactGroup } from '@reach4help/model/lib/markers';
-
 import {
   isMarkerType,
   isService,
@@ -25,8 +24,8 @@ import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
 import { trackEvent } from 'src/util/tracking';
-import { R4HGeoPoint } from '../data/R4hGeoPoint';
 
+import { R4HGeoPoint } from '../data/R4hGeoPoint';
 import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
   button,
@@ -177,7 +176,7 @@ function removeUndefined(array: (string | undefined)[]): string[] {
     if (element) {
       retVal.push(element);
     }
-  })
+  });
   return retVal;
 }
 
@@ -648,7 +647,9 @@ class AddInstructions extends React.Component<Props, State> {
   }) => {
     const { lang } = this.props;
     const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
-    const f = () => {throw new Error("function nextScreen not defined")};
+    const f = () => {
+throw new Error('function nextScreen not defined');
+};
     const nextScreenFunc = nextScreen || f;
     return (
       <div className="actions">

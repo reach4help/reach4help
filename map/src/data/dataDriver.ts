@@ -5,6 +5,7 @@ import {
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
 import { processAlgolia } from 'src/algolia-scripts/algoliaScriptHelper';
+
 import { R4HGeoPoint } from './R4hGeoPoint';
 
 export type Location = BaseLocation<R4HGeoPoint>;
@@ -41,7 +42,7 @@ const setDataConfig = (dataConfig: DataConfig) => {
 
 export const submitInformation = async (info: MarkerInfo) => {
   info.objectID = info.id || '';
-  const latlng = info.loc.latlng;
+  const { latlng } = info.loc;
   info._geoloc = { lat: latlng.latitude, lng: latlng.latitude };
   processAlgolia([info], algoliaIndexName, 'UPSERT');
 

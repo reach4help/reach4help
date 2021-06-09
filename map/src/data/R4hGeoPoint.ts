@@ -20,6 +20,7 @@ export class R4HGeoPoint {
    * The latitude of this GeoPoint instance.
    */
   readonly latitude: number;
+
   /**
    * The longitude of this GeoPoint instance.
    */
