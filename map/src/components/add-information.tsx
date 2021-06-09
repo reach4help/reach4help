@@ -78,9 +78,10 @@ interface State {
     }>;
   };
   validation?: Validation | undefined;
-  submissionResult?: undefined
-  | { state: 'success' }
-  | { state: 'error'; error: (lang: Language) => string | JSX.Element[] };
+  submissionResult?:
+    | undefined
+    | { state: 'success' }
+    | { state: 'error'; error: (lang: Language) => string | JSX.Element[] };
 }
 
 const INITIAL_STATE: State = {
@@ -648,8 +649,8 @@ class AddInstructions extends React.Component<Props, State> {
     const { lang } = this.props;
     const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
     const f = () => {
-throw new Error('function nextScreen not defined');
-};
+      throw new Error('function nextScreen not defined');
+    };
     const nextScreenFunc = nextScreen || f;
     return (
       <div className="actions">
@@ -1469,4 +1470,3 @@ export default styled(AddInstructions)`
     }
   }
 `;
-

@@ -4,8 +4,8 @@ import {
   MarkerInfoWithId as BaseMarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
-import { processAlgolia } from 'src/algolia-scripts/algoliaScriptHelper';
 
+import { processAlgolia } from '../algolia-scripts/algoliaScriptHelper';
 import { R4HGeoPoint } from './R4hGeoPoint';
 
 export type Location = BaseLocation<R4HGeoPoint>;
@@ -40,10 +40,12 @@ const setDataConfig = (dataConfig: DataConfig) => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataConfig));
 };
 
-export const submitInformation = async (info: MarkerInfo) => {
+export const submitInformation = (info: MarkerInfo) => {
+  // eslint-disable-next-line no-param-reassign
   info.objectID = info.id || '';
   const { latlng } = info.loc;
-  info._geoloc = { lat: latlng.latitude, lng: latlng.latitude };
+  // eslint-disable-next-line no-param-reassign
+  info._geoLoc = { lat: latlng.latitude, lng: latlng.latitude };
   processAlgolia([info], algoliaIndexName, 'UPSERT');
 
   // await markers.add(info);
