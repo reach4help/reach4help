@@ -68,9 +68,10 @@ export const processAlgolia = (dataJSON, indexName, deleteAppendMode) => {
       throw new Error('One or more records are invalid.  Run validate script.');
     }
   });
-  // const index = client.initIndex(indexName);
+  const index = client.initIndex(indexName);
   console.log('Getting initial count');
-  // const initialSearch = await index.search('', { attributesToRetrieve: null });
+  const initialSearch = index.search('', { attributesToRetrieve: null });
+  console.log(initialSearch);
   //   const initialCount = initialSearch.nbHits;
   //   if (deleteAppendMode !== 'DELETE' && deleteAppendMode !== 'UPSERT') {
   //     throw new Error('Specify DELETE or UPSERT for third parameter');
