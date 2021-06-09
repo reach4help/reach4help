@@ -7,7 +7,7 @@
  * Required env variables: REACT_APP_ALGOLIA_APP_ID, REACT_APP_ALGOLIA_ADMIN_KEY
  *
  * Example:
- * node import-marker-json-to-algolia-index.js markers-dev.json markers-dev delete =>
+ * node import-marker-json-to-algolia-index markers-devon markers-dev delete =>
  *    uploads json file to an Algolia index, deleting all records if the index exists.
  *
  * @param param1 Name of json file
@@ -25,7 +25,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 
 // eslint-disable-next-line import/extensions
-import { processAlgolia } from './algoliaScriptHelper.js';
+import { processAlgolia } from './algoliaScriptHelper.mjs';
 
 dotenv.config(); // enables process.env to work.  Required for JS, not React.
 const { argv } = process;
