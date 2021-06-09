@@ -45,7 +45,7 @@ export const validateMarkerJSON = dataJSON => {
   return false;
 };
 
-export const processAlgolia = (dataJSON, indexName, deleteAppendMode) => {
+export const processAlgolia = async (dataJSON, indexName, deleteAppendMode) => {
   const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
 
   if (!validateMarkerJSON(dataJSON)) {
