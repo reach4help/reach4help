@@ -1,6 +1,8 @@
-import { v4 as uuidv4 } from 'uuid';
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 import algoliasearch from 'algoliasearch';
 import dotenv from 'dotenv';
+import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config();
 const algoliaAdminKey = process.env.REACT_APP_ALGOLIA_ADMIN_KEY || 'undefined';
@@ -10,6 +12,7 @@ const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 export const isValidMarkerJSON = json => {
   const latlng = json?.loc?.latlng;
   const isValid = latlng?.latitude && latlng?.longitude;
+  // eslint-disable-next-line no-unneeded-ternary
   return isValid ? true : false;
 };
 
@@ -23,7 +26,26 @@ export const configAlgoliaIndex = async indexName => {
   console.log('Index configured.');
 };
 
-export async function processAlgolia(dataJSON, indexName, deleteAppendMode) {
+export const validateMarkerJSON = dataJSON => {
+  const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
+  const badJSON = [];
+  hits.forEach((marker, i) => {
+    if (!isValidMarkerJSON(marker)) {
+      badJSON.push({ record: i + 1, marker });
+    }
+  });
+
+  if (badJSON.length === 0) {
+    console.log('Records are valid');
+    return true;
+  }
+  console.log(`${badJSON.length} records are invalid.`);
+  console.log('Bad JSON', badJSON);
+  console.log('Bad JSON as string', JSON.stringify(badJSON));
+  return false;
+};
+
+export const processAlgolia = (dataJSON, indexName, deleteAppendMode) => {
   const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
 
   if (!validateMarkerJSON(dataJSON)) {
@@ -64,23 +86,4 @@ export async function processAlgolia(dataJSON, indexName, deleteAppendMode) {
   await configAlgoliaIndex(indexName);
   console.log(`Initial count: ${initialCount}`);
   console.log(`Final count (may not be accurate due to timing): ${finalCount}`);
-}
-
-export function validateMarkerJSON(dataJSON) {
-  const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
-  let badJSON = [];
-  hits.forEach((marker, i) => {
-    if (!isValidMarkerJSON(marker)) {
-      badJSON.push({ record: i + 1, marker });
-    }
-  });
-
-  if (badJSON.length === 0) {
-    console.log('Records are valid');
-    return true;
-  }
-  console.log(`${badJSON.length} records are invalid.`);
-  console.log('Bad JSON', badJSON);
-  console.log('Bad JSON as string', JSON.stringify(badJSON));
-  return false;
-}
+};

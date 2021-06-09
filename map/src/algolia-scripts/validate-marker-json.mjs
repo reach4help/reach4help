@@ -7,7 +7,9 @@
  */
 
 import dotenv from 'dotenv';
-import { validateMarkerJSON } from './algoliaScriptHelper.js';
+import fs from 'fs';
+
+import { validateMarkerJSON } from './algoliaScriptHelper.mjs';
 
 dotenv.config(); // enables process.env to work.  Required for JS, not React.
 const { argv } = process;

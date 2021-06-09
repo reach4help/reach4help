@@ -7,10 +7,9 @@
  * @param param2 Name of existing Algolia index
  */
 
-import fs from 'fs';
 import algoliasearch from 'algoliasearch';
-
 import dotenv from 'dotenv';
+import fs from 'fs';
 
 dotenv.config(); // enables process.env to work.  Required for JS, not React.
 const { argv } = process;
@@ -21,6 +20,10 @@ const algoliaAdminKey = process.env.REACT_APP_ALGOLIA_ADMIN_KEY;
 const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID;
 const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 const index = client.initIndex(indexName);
+
+if (!indexName) {
+  throw new Error('Index name required');
+}
 
 let hits = [];
 index
