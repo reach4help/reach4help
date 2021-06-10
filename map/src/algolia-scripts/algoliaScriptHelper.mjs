@@ -63,6 +63,7 @@ export const processAlgolia = async (dataJSON, indexName, deleteAppendMode) => {
         marker.id = uuidv4();
       }
       marker.objectID = marker.id;
+      marker.createdAt = new Date();
     } else {
       throw new Error('One or more records are invalid.  Run validate script.');
     }
