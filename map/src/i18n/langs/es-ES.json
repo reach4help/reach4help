@@ -136,6 +136,7 @@
     "support": "Apoyo",
     "network": "Red",
     "supplies": "Otros suministros",
+    "vaccine": "Vaccinations",
     "other": "Otros"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Apoyar a medida para grupos vulnerables específicos, como personas sin hogar, personas en riesgo de abuso doméstico, etc...",
     "network": "Prodicción de recursos para el trabajo en red para proporcionar ayuda, por ejemplo, entre organizaciones de apoyo mutuo",
     "supplies": "Suministros distintos de alimentos o medicinas",
+    "vaccine": "Verified vaccination site",
     "other": "Otra cosa que no está en esta lista"
   },
   "markerTypes": {
     "mutual-aid-group": "Grupo de apoyo mutuo",
     "org": "Organización / Empresa",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Financiero",
-    "information": "Información",
     "other": "Otros"
   },
   "markerTypeSentence": {
