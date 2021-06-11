@@ -136,6 +136,7 @@
     "support": "支援",
     "network": "社交",
     "supplies": "其他物品",
+    "vaccine": "Vaccinations",
     "other": "其它"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "专门为特定弱势群体提供的支持，如无家可归者、有遭受家庭虐待危险的人等...",
     "network": "鼓励为提供援助建立网络联系提供的资源，例如在互助组织之间提供的资源",
     "supplies": "食品或药品以外的供应",
+    "vaccine": "Verified vaccination site",
     "other": "不在这个列表中的其他事项"
   },
   "markerTypes": {
     "mutual-aid-group": "相互援助小组",
     "org": "组织 / 公司",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "金融",
-    "information": "信息",
     "other": "其它"
   },
   "markerTypeSentence": {
