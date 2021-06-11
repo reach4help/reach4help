@@ -43,7 +43,7 @@ export type MarkerType =
        * The main datapoints we're interested in
        */
       type: 'mutual-aid-group';
-      services: Service[];
+      services?: Service[];
     }
   | {
       /**
