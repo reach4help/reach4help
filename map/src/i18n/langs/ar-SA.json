@@ -136,6 +136,7 @@
     "support": "المساندة",
     "network": "الشبكة",
     "supplies": "لوازم أخرى",
+    "vaccine": "Vaccinations",
     "other": "أخرى"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "دعم مخصص لمجموعات ضعيفة محددة، مثل المشردين، والأشخاص المعرضين لخطر الإيذاء المنزلي، إلخ...",
     "network": "توفير الموارد لإقامة شبكات لتقديم المعونة، على سبيل المثال بين منظمات المعونة المتبادلة",
     "supplies": "لوازم أخرى غير الأغذية أو الأدوية",
+    "vaccine": "Verified vaccination site",
     "other": "شئ آخر غير موجود في هذه القائمة"
   },
   "markerTypes": {
     "mutual-aid-group": "مجموعة المساعدة المشتركة",
     "org": "منظمة / شركة",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "الأمور المالية",
-    "information": "معلومات",
     "other": "أخرى"
   },
   "markerTypeSentence": {
