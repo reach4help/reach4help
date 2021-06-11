@@ -136,6 +136,7 @@
     "support": "সমর্থন",
     "network": "Network",
     "supplies": "অন্যান্য সরবরাহ",
+    "vaccine": "Vaccinations",
     "other": "Other"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
     "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
     "supplies": "Supplies other than food or medicine",
+    "vaccine": "Verified vaccination site",
     "other": "Something else not on this list"
   },
   "markerTypes": {
     "mutual-aid-group": "Mutual Aid Group",
     "org": "Organization / Company",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Financial",
-    "information": "তথ্য",
     "other": "অন্যান্য"
   },
   "markerTypeSentence": {
