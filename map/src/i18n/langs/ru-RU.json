@@ -136,6 +136,7 @@
     "support": "Поддержка",
     "network": "Контакты",
     "supplies": "Другие ресурсы",
+    "vaccine": "Vaccinations",
     "other": "Другое"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "• оказание поддержки конкретным уязвимым группам, например бездомным людям, группам риска, связанным с бытовым насилием, и т.д. ...",
     "network": "Прогнозируемые ресурсы для создания сетей по оказанию помощи, например между организациями по оказанию взаимной помощи",
     "supplies": "Принадлежности, отличные от продуктов питания или лекарств",
+    "vaccine": "Verified vaccination site",
     "other": "Что-то еще не в этом списке"
   },
   "markerTypes": {
     "mutual-aid-group": "Группа взаимопомощи",
     "org": "Организация / Компания",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Финансирование",
-    "information": "Информация",
     "other": "Другое"
   },
   "markerTypeSentence": {
