@@ -68,9 +68,13 @@ export const processAlgolia = async (dataJSON, indexName, deleteAppendMode) => {
     }
   });
   const index = client.initIndex(indexName);
-  console.log('Getting initial count');
-  const initialSearch = await index.search('', { attributesToRetrieve: null });
-  const initialCount = initialSearch.nbHits;
+  let initialCount = 0;
+  if (await index.exists()) {
+    const initialSearch = await index.search('', {
+      attributesToRetrieve: null,
+    });
+    initialCount = initialSearch.nbHits;
+  }
   if (deleteAppendMode !== 'DELETE' && deleteAppendMode !== 'UPSERT') {
     throw new Error('Specify DELETE or UPSERT for third parameter');
   } else if (deleteAppendMode === 'DELETE') {
