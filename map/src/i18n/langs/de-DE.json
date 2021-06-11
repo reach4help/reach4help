@@ -136,6 +136,7 @@
     "support": "Unterstützung",
     "network": "Netzwerke",
     "supplies": "Andere Materialien",
+    "vaccine": "Vaccinations",
     "other": "Andere"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Spezielle Unterstützung besonders gefährdeter Menschen, z.B. Wohnungs- oder Obdachlose, Menschen, die häuslicher Gewalt ausgesetzt sein könnten usw.",
     "network": "Bereitstellung von Ressourcen zur Vernetzung von Hilfeleistungen, z.B. zwischen Organisationen der gegenseitigen Hilfe",
     "supplies": "Andere Güter als Lebensmittel oder Medikamente",
+    "vaccine": "Verified vaccination site",
     "other": "Etwas, was nicht auf der Liste ist"
   },
   "markerTypes": {
     "mutual-aid-group": "Gruppen der gegenseitigen Hilfe",
     "org": "Organisation / Unternehmen",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Finanzierung",
-    "information": "Informationen",
     "other": "Andere"
   },
   "markerTypeSentence": {
