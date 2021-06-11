@@ -136,6 +136,7 @@
     "support": "Podpora",
     "network": "Síť",
     "supplies": "Ostatní zásoby",
+    "vaccine": "Vaccinations",
     "other": "Ostatní"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Podpora zaměřená na konkrétní zranitelné skupiny, např. osoby bez domova, osoby ohrožené domácím zneužíváním atd....",
     "network": "Zajišťování prostředků na vytváření sítí pro poskytování pomoci, např. mezi organizacemi pro vzájemnou pomoc",
     "supplies": "Jiné dodávky než potraviny nebo léky",
+    "vaccine": "Verified vaccination site",
     "other": "Něco jiného není v tomto seznamu"
   },
   "markerTypes": {
     "mutual-aid-group": "Skupina vzájemné podpory",
     "org": "Organizace / společnost",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Finanční prostředky",
-    "information": "Informace",
     "other": "Ostatní"
   },
   "markerTypeSentence": {
