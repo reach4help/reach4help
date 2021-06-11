@@ -26,6 +26,10 @@ export const isService = (service?: string): service is Service =>
 export const MARKER_TYPE_STRINGS = [
   'mutual-aid-group',
   'org',
+  'hospital',
+  'medical',
+  'company',
+  'individual',
   // 'financial',
   // 'information',
   'other',
@@ -42,9 +46,37 @@ export type MarkerType =
     }
   | {
       /**
-       * Organization / Government-Run / NPO / Company
+       * Organization / Government-Run / NGO
        */
       type: 'org';
+      services: Service[];
+    }
+  | {
+      /**
+       * Hospital
+       */
+      type: 'hospital';
+      services: Service[];
+    }
+  | {
+      /**
+       * Medical Services (volunteer doctors, pharmacies, clinics)
+       */
+      type: 'medical';
+      services: Service[];
+    }
+  | {
+      /**
+       * Company (for-profit)
+       */
+      type: 'company';
+      services: Service[];
+    }
+  | {
+      /**
+       * Individual good samaritans
+       */
+      type: 'individual';
       services: Service[];
     }
   // | {
@@ -61,6 +93,7 @@ export type MarkerType =
   //   }
   | {
       type: 'other';
+      services: Service[];
     };
 
 export type MarkerTypeString = MarkerType['type'];
