@@ -136,6 +136,7 @@
     "support": "Támogatás",
     "network": "Hálózat",
     "supplies": "Egyéb ellátmány",
+    "vaccine": "Vaccinations",
     "other": "Egyéb"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Az egyes kiszolgáltatott csoportok, például a hajléktalanok, a családon belüli erőszak által veszélyeztetett személyek stb. számára nyújtott támogatás",
     "network": "Támogatás nyújtására szolgáló hálózati források előállítása, például kölcsönös segítségnyújtási szervezetek között",
     "supplies": "Élelmiszeren vagy gyógyszeren kívüli ellátás",
+    "vaccine": "Verified vaccination site",
     "other": "Egyéb, a listán nem szereplő tevékenység"
   },
   "markerTypes": {
     "mutual-aid-group": "Kölcsönös segélycsoport",
     "org": "Szervezet / vállalat",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Pénzügy",
-    "information": "Információ",
     "other": "Egyéb"
   },
   "markerTypeSentence": {
