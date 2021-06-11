@@ -136,6 +136,7 @@
     "support": "Suporte",
     "network": "Rede",
     "supplies": "Outros Recursos",
+    "vaccine": "Vaccinations",
     "other": "Outros"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Suporte sob medida para grupos vulneráveis específicos, por exemplo, pessoas sem abrigo, pessoas em risco de abuso doméstico, etc...",
     "network": "Proibido recursos para redes de ajuda por exemplo, entre organizações de auxílio mútuo",
     "supplies": "Suprimentos que não sejam comida ou medicamento",
+    "vaccine": "Verified vaccination site",
     "other": "Algo mais não está nesta lista"
   },
   "markerTypes": {
     "mutual-aid-group": "Organização de Solidariedade",
     "org": "Organização / Empresa",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Financeiro",
-    "information": "Informação",
     "other": "Outros"
   },
   "markerTypeSentence": {
