@@ -136,6 +136,7 @@
     "support": "サポート",
     "network": "ネットワーク",
     "supplies": "ホーム用品",
+    "vaccine": "Vaccinations",
     "other": "その他"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "特定の脆弱なグループに合わせたサポート, 例えばホームレスの人, 家庭内虐待の危険にさらされている人など.",
     "network": "相互援助組織間など、援助を提供するためのネットワークのためのリソースを提供する",
     "supplies": "食料や薬以外の用品",
+    "vaccine": "Verified vaccination site",
     "other": "このリストにないものがあります"
   },
   "markerTypes": {
     "mutual-aid-group": "相互援助グループ",
     "org": "組織/会社",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "財務",
-    "information": "情報",
     "other": "その他"
   },
   "markerTypeSentence": {
