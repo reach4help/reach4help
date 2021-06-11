@@ -136,6 +136,7 @@
     "support": "Wsparcie",
     "network": "Sieć",
     "supplies": "Inne materiały",
+    "vaccine": "Vaccinations",
     "other": "Inne"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Wsparcie dostosowane do potrzeb określonych grup szczególnie wrażliwych, np. bezdomnych, osób zagrożonych wykorzystywaniem w gospodarstwie domowym itp....",
     "network": "Zapewnianie środków na tworzenie sieci w celu zapewnienia pomocy, np. między organizacjami wzajemnej pomocy",
     "supplies": "Dostawy inne niż żywność lub leki",
+    "vaccine": "Verified vaccination site",
     "other": "Coś innego nie na tej liście"
   },
   "markerTypes": {
     "mutual-aid-group": "Grupa ds. wzajemnej pomocy",
     "org": "Organizacja / Firma",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Finanse",
-    "information": "Informacje",
     "other": "Inne"
   },
   "markerTypeSentence": {
