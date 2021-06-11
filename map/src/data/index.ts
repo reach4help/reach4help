@@ -45,6 +45,9 @@ export const SERVICES = {
   manufacturing: {
     color: COLORS.orange,
   },
+  vaccine: {
+    color: COLORS.green,
+  },
   other: {
     color: COLORS.yellow,
   },

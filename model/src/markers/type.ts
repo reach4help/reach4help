@@ -12,10 +12,11 @@ export const SERVICE_STRINGS = [
   'mobility',
   'information',
   'manufacturing',
-  'other',
+  'vaccine',
   'network',
   'support',
   'supplies',
+  'other',
 ] as const;
 
 export type Service = typeof SERVICE_STRINGS[number];
