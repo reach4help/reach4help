@@ -136,6 +136,7 @@
     "support": "Ondersteuning",
     "network": "Netwerk",
     "supplies": "Opgeslagen Voorraden",
+    "vaccine": "Vaccinations",
     "other": "Overig"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Ondersteuning afgestemd op specifieke kwetsbare groepen, zoals daklozen, mensen die gevaar lopen door huiselijk misbruik, etc...",
     "network": "Voordelen van netwerken om hulp te bieden, bijvoorbeeld tussen wederzijdse hulporganisaties",
     "supplies": "Bevoorraden, behalve voedsel of medicijnen,",
+    "vaccine": "Verified vaccination site",
     "other": "Iets anders niet in deze lijst"
   },
   "markerTypes": {
     "mutual-aid-group": "Wederzijdse Hulpgroep",
     "org": "Organisatie / bedrijf",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Financieel",
-    "information": "Informatie",
     "other": "Overig"
   },
   "markerTypeSentence": {
