@@ -12,7 +12,7 @@ interface Props {
 }
 
 const MarkerTypeDisplay = ({ className, type }: Props) => {
-  const services = type.type === 'org' ? type.services : false;
+  const { services } = type;
   return (
     <AppContext.Consumer>
       {({ lang }) => (

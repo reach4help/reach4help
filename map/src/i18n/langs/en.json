@@ -160,9 +160,10 @@
   "markerTypes": {
     "mutual-aid-group": "Mutual Aid Group",
     "org": "Organization",
+    "hospital": "Hospital",
+    "medical": "Medical Services",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Financial",
-    "information": "Information",
     "other": "Other"
   },
   "markerTypeSentence": {

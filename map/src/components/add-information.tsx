@@ -391,7 +391,7 @@ class AddInstructions extends React.Component<Props, State> {
         }),
       );
     } else {
-      if (info.type.type === 'org' && (info.type.services || []).length === 0) {
+      if (info.type.type && (info.type.services || []).length === 0) {
         validation.errors.push(lang =>
           t(lang, s => s.addInformation.errors.missingServices),
         );

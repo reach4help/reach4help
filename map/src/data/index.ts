@@ -1,5 +1,7 @@
 import { COLORS } from '../styling/theme';
 
+// TODO: figure out a way to combine possibly duplicate code from
+// /model/src/markers/type.ts AND /map/src/i18n/langs/en.json
 export const SERVICES = {
   food: {
     color: COLORS.red,
@@ -66,6 +68,18 @@ export const MARKER_TYPES = {
   },
   org: {
     color: COLORS.blue,
+  },
+  hospital: {
+    color: COLORS.red,
+  },
+  medical: {
+    color: COLORS.purple,
+  },
+  company: {
+    color: COLORS.gray,
+  },
+  individual: {
+    color: COLORS.green,
   },
   // financial: {
   //   color: COLORS.green,
