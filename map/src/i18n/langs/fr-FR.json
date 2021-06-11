@@ -136,6 +136,7 @@
     "support": "Support",
     "network": "Réseau",
     "supplies": "Autres Fournitures",
+    "vaccine": "Vaccinations",
     "other": "Autre"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Un soutien adapté aux groupes vulnérables comme les sans-abri, les personnes exposées aux risques d'abus domestiques, etc.",
     "network": "Faciliter la communication et l'échange d'information pour fournir de l'aide et du soutien, par exemple entre les organisations d'entraide",
     "supplies": "Fournitures autres que la nourriture ou les médicaments",
+    "vaccine": "Verified vaccination site",
     "other": "Ne figure pas dans cette liste"
   },
   "markerTypes": {
     "mutual-aid-group": "Groupe d’entraide",
     "org": "Organisation / Entreprise",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Financier",
-    "information": "Renseignements",
     "other": "Autres "
   },
   "markerTypeSentence": {
