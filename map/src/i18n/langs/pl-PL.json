@@ -43,8 +43,8 @@
     "screen": {
       "title": "Dodaj informacje do tej mapy",
       "information": {
-        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
-        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
+        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Proszę wypełnić poniższy formularz, aby zacząć dodawać informacje, poprosimy Cię o lokalizację i dane kontaktowe po tym terminie.",
         "form": {
           "type": "Rodzaj projektu / grupa / organizacja / inicjatywa",
@@ -144,14 +144,14 @@
     "shelter": "Shelter for the homeless and those who need it",
     "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
     "oxygen": "Oxygen cylinders or refills",
-    "medicine": "COVID-19 medicines like remdesivir",
+    "medicine": "COVID-19 medicines like Remdesivir",
     "home-care": "Home care for the elderly",
     "blood": "Plasma / Blood transfusions",
     "quarantine": "Quarantine Centres",
     "telehealth": "Telehealth/teleconsultation services",
     "financial": "Donations and fundraising",
     "mobility": "Przenoszenie ludzi z jednego miejsca do drugiego",
-    "information": "Pomóż ludziom znaleźć odpowiednie informacje",
+    "information": "Help people find relevant information",
     "manufacturing": "Zapewnianie dostaw lub zdolności produkcyjnych potrzebnych do radzenia sobie z kryzysem",
     "support": "Wsparcie dostosowane do potrzeb określonych grup szczególnie wrażliwych, np. bezdomnych, osób zagrożonych wykorzystywaniem w gospodarstwie domowym itp....",
     "network": "Zapewnianie środków na tworzenie sieci w celu zapewnienia pomocy, np. między organizacjami wzajemnej pomocy",
