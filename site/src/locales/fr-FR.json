@@ -1,49 +1,166 @@
 {
   "common": {
     "Navigation": {
-      "IndexPage": [
-        { "title": "Accueil", "link": "/#home" },
-        { "title": "Mission", "link": "/#mission" },
-        { "title": "Équipe", "link": "/#team" },
-        { "title": "Partenaires", "link": "/#partners" }
-      ],
-      "PrivacyPage": [
-        { "title": "Accueil", "link": "/" },
-        { "title": "Carte", "link": "https://map.reach4help.org" }
-      ]
+      "buttons": {
+        "map": "Carte d'entraide",
+        "signIn": "Se connecter"
+      },
+      "pages": {
+        "home": "Accueil",
+        "mission": "Mission",
+        "impact": "Impact",
+        "team": "Équipe"
+      }
     },
-    "Home": {
-      "heading": "Nous connectons les personnes dans le besoin aux personnes qui peuvent aider.",
-      "subheading": "",
-      "description": [
-        "Notre carte contient une liste croissante d'organisations d'aide et de projets de soins en cas de pandémie.",
-        "Utilisez la carte pour trouver et rejoindre les efforts d'entraide près de chez vous ou créez le vôtre.",
-        "Si vous êtes une organisation d'aide, ajoutez vos informations à la carte pour que d'autres puissent vous trouver."
-      ],
-      "buttons": ["Carte d'entraide", "Inscription BETA"]
+    "HomePage": {
+      "HeroSection": {
+        "heading": "Mettre en contact les personnes dans le besoin avec des personnes qui peuvent aider",
+        "subheading": "Nous vous mettons en contact avec des bénévoles locaux et aidons les organisations lorsque vous en avez le plus besoin.",
+        "description": [
+          "Notre carte contient une liste croissante d'organisations d'aide et de projets de soins en cas de pandémie.",
+          "Utilisez la carte pour trouver et rejoindre les efforts d'entraide près de chez vous ou créez le vôtre.",
+          "Si vous êtes une organisation d'aide, ajoutez vos informations à la carte pour que d'autres puissent vous trouver."
+        ],
+        "buttons": [
+          "Obtenir de l'aide",
+          "Bénévole"
+        ]
+      },
+      "ReasonsSection": {
+        "heading": "Pourquoi Utiliser Reach4Help",
+        "items": [
+          {
+            "title": "Guichet Unique",
+            "description": "Ne perdez pas d'heures à la recherche. Obtenez de l'aide rapidement avec notre base de données de bénévoles."
+          },
+          {
+            "title": "Facilement Disponible",
+            "description": "Utilisez notre application depuis n'importe quel appareil mobile, tablette ou ordinateur de bureau."
+          },
+          {
+            "title": "Entièrement Gratuit",
+            "description": "Pas d'abonnements ou de frais cachés. Vous pouvez naviguer et poster gratuitement."
+          }
+        ]
+      },
+      "GettingHelpSection": {
+        "heading": "Comment obtenir de l'aide",
+        "items": {
+          "step1": {
+            "title": "Étape 1",
+            "items": [
+              {
+                "title": "Demander de l'aide",
+                "description": "Faites-nous savoir ce dont vous avez besoin et nous enverrons votre demande aux bénévoles et aux organisations locales."
+              },
+              {
+                "or": "OU"
+              },
+              {
+                "title": "Choisir une offre de bénévolat",
+                "description": "Choisissez une offre d'aide de bénévoles de votre région."
+              }
+            ]
+          },
+          "step2": {
+            "title": "Étape 2",
+            "items": [
+              {
+                "title": "Aide à l'obtention des coordonnées",
+                "description": "Un volontaire vous contactera pour planifier la livraison des articles que vous avez demandés."
+              }
+            ]
+          }
+        }
+      },
+      "VolunteeringSection": {
+        "heading": "Comment fonctionne le bénévolat",
+        "items": {
+          "step1": {
+            "title": "Étape 1",
+            "items": [
+              {
+                "title": "Offrir de l'aide",
+                "description": "Faites-nous savoir ce que vous pouvez aider et nous vous contacterons à quelqu'un qui en a besoin."
+              },
+              {
+                "or": "OU"
+              },
+              {
+                "title": "Choisir qui aider",
+                "description": "Sélectionnez une ou plusieurs personnes dans le besoin dont vous pouvez répondre aux demandes."
+              }
+            ]
+          },
+          "step2": {
+            "title": "Étape 2",
+            "items": [
+              {
+                "title": "Coordonner l'aide",
+                "description": "Contactez et coordonnez un ramassage ou une livraison des articles demandés."
+              }
+            ]
+          }
+        }
+      },
+      "AboutSection": {
+        "heading": "À propos",
+        "subheading": "Nous sommes un groupe de bénévoles motivés pour unifier l'aide dans le monde entier",
+        "paragraph": "Rencontrez les esprits derrière cette initiative et rejoignez-nous!",
+        "buttons": [
+          "À propos de nous"
+        ]
+      },
+      "SupportersSection": {
+        "heading": "Les supporters",
+        "subheading": [
+          "Merci à toutes les entreprises qui nous soutiennent dans notre mission !",
+          "En janvier 2021, Google pour les Nonprofits nous a accordé 120 000 $ cette année pour les activités de proximité!"
+        ]
+      }
     },
-    "Mission": {
+    "MissionPage": {
+      "topHeading": "Nous sommes un groupe de bénévoles motivés pour unifier l'aide dans le monde entier",
       "heading": "Notre Mission",
       "description": [
-        "Reach4Help est un projet ouvert entièrement géré par des bénévoles qui vise à résoudre des problèmes tels que fournir un accès plus facile à l'épicerie, aux médicaments ou une simple aide pour promener les chiens pour ceux qui ne peuvent pas le faire pour le moment.",
+        "Nous sommes un organisme à but non lucratif qui démocratise l'accès à l'aide bénévole dans le monde entier. Grâce à la technologie, nous fournissons un accès rapide et facile à l'aide et aux ressources dans votre région avec des organisations locales comme AIESEC au Portugal, la Maison des bonnes actions à NYC et plus encore.",
         "<strong>NOTRE OBJECTIF</strong> est de permettre à ceux qui en ont besoin de recevoir de l'aide, et aux groupes et organisations partenaires d'aider plus efficacement, en mobilisant leurs bénévoles avec l'aide de notre propre système."
       ]
     },
-    "Partners": {
-      "heading": "Partenaires",
-      "subheading": "Nous tenons à remercier toutes les marques, entreprises et supporters de la communauté qui nous ont aidés dans notre mission."
+    "ImpactPage": {
+      "WorldMapSection": {
+        "heading": [
+          "We're helping people",
+          "across 38 countries!"
+        ],
+        "hoverInfo": {
+          "users": "Utilisateurs: ",
+          "noUsers": "Pas encore d'utilisateurs <br/> (peut-être vous?)"
+        }
+      },
+      "PartnersSection": {
+        "heading": "Partenaires",
+        "subheading": "Merci à nos organisations bénévoles et partenaires à but non lucratif qui nous aident à construire un réseau d’aides à travers le monde!"
+      }
     },
-    "Team": {
-      "heading": "Équipe",
-      "subheading": "Nous recherchons plus de personnes pour rejoindre nos équipes, si vous souhaitez vous joindre.",
+    "TeamPage": {
+      "heading": "Rencontrez notre équipe",
+      "subheading": "",
       "description": [
-        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial."
+        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial.",
+        "Nous recherchons des développeurs volontaires ReactJS, des stratèges en marketing et relations publiques et des concepteurs d'interface UI/UX pour aider à accroître nos efforts en soutenant les communautés dans le besoin par le biais de la COVID-19 et des crises futures à venir."
       ],
-      "buttons": ["Vous êtes l'aide à côté. Rejoignez-nous!"]
+      "join": "Intéressé à nous rejoindre?",
+      "buttons": [
+        "Vous êtes l'aide à côté. Rejoignez-nous!"
+      ]
     },
     "Footer": {
       "sections": [
-        { "title": "Politique de Confidentialité", "link": "/confidentialite" },
+        {
+          "title": "Politique de Confidentialité",
+          "link": "/confidentialite"
+        },
         {
           "title": "Code de conduite",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"

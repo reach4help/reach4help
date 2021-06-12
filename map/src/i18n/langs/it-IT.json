@@ -43,7 +43,8 @@
     "screen": {
       "title": "Aggiungi informazioni a questa mappa",
       "information": {
-        "acceptedInformation": "Al momento, stiamo solo fornendo informazioni su organizzazioni o imprese che forniscono aiuti e assistenza, iniziative regionali di assistenza finanziaria e gruppi di mutuo aiuto. Non stiamo accettando informazioni sulle persone che offrono aiuti in questo momento.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
+        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Si prega di compilare il modulo qui sotto per iniziare ad aggiungere informazioni, vi chiederemo la posizione e i dettagli di contatto dopo che.",
         "form": {
           "type": "Tipo di progetto / gruppo / organizzazione / iniziativa",
@@ -93,7 +94,7 @@
         "loading": "Inviando informazioni alla mappa...",
         "error": "Errore salvataggio informazioni",
         "success": "La vostra richiesta è stata inviata con successo.",
-        "successExtra": "Prima di rendere visibili le tue informazioni sulla mappa, sarà necessario rivederle da un volontario del nostro team. Si spera che ciò avvenga entro un paio di giorni."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -120,33 +121,46 @@
   "services": {
     "any": "Qualsiasi",
     "food": "Cibo",
-    "medicine": "Medicina",
-    "supplies": "Altri rifornimenti",
-    "mobility": "mobilità",
     "shelter": "Difesa",
-    "support": "Support",
-    "information": "Informazioni",
-    "network": "Rete",
-    "manufacturing": "Produzione",
+    "beds": "Hospital Beds",
+    "oxygen": "Oxygen",
+    "medicine": "Medicina",
+    "home-care": "Home Care",
+    "blood": "Plasma / Blood",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth",
     "financial": "Finanziario",
+    "mobility": "mobilità",
+    "information": "Informazioni",
+    "manufacturing": "Produzione",
+    "support": "Support",
+    "network": "Rete",
+    "supplies": "Altri rifornimenti",
     "other": "Altro"
   },
   "serviceDescriptions": {
-    "food": null,
-    "medicine": null,
-    "supplies": "Forniture diverse da alimenti o medicinali",
+    "food": "Food and/or water",
+    "shelter": "Shelter for the homeless and those who need it",
+    "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
+    "oxygen": "Oxygen cylinders or refills",
+    "medicine": "COVID-19 medicines like remdesivir",
+    "home-care": "Home care for the elderly",
+    "blood": "Plasma / Blood transfusions",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth/teleconsultation services",
+    "financial": "Donations and fundraising",
     "mobility": "Trasportare persone da un luogo all'altro",
-    "shelter": null,
-    "support": "Sostegno su misura per gruppi vulnerabili specifici, ad esempio senzatetto, persone a rischio di abusi domestici, ecc...",
     "information": "Aiuta le persone a trovare informazioni rilevanti",
-    "network": "Prodicing risorse per la messa in rete per fornire aiuto, ad esempio tra le organizzazioni di mutua assistenza",
     "manufacturing": "Fornisce forniture o capacità di produzione necessarie per far fronte alla crisi",
-    "financial": null,
+    "support": "Sostegno su misura per gruppi vulnerabili specifici, ad esempio senzatetto, persone a rischio di abusi domestici, ecc...",
+    "network": "Prodicing risorse per la messa in rete per fornire aiuto, ad esempio tra le organizzazioni di mutua assistenza",
+    "supplies": "Forniture diverse da alimenti o medicinali",
     "other": "Qualcosa altro non in questa lista"
   },
   "markerTypes": {
     "mutual-aid-group": "Gruppo di mutuo soccorso",
     "org": "Organizzazione / azienda",
+    "individual": "Individual",
     "financial": "Finanziario",
     "information": "Informazioni",
     "other": "Altro"

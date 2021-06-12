@@ -1,38 +1,67 @@
 import { COLORS } from '../styling/theme';
 
+// TODO: figure out a way to combine possibly duplicate code from
+// /model/src/markers/type.ts AND /map/src/i18n/langs/en.json
 export const SERVICES = {
   food: {
     color: COLORS.red,
   },
-  medicine: {
-    color: COLORS.blue,
-  },
-  supplies: {
-    color: COLORS.green,
-  },
-  mobility: {
-    color: COLORS.purple,
-  },
   shelter: {
     color: COLORS.orange,
   },
-  support: {
-    color: COLORS.yellow,
-  },
-  information: {
+  beds: {
     color: COLORS.orange,
   },
-  network: {
-    color: COLORS.yellow,
+  oxygen: {
+    color: COLORS.red,
+  },
+  medicine: {
+    color: COLORS.grayDark,
+  },
+  'home-care': {
+    color: COLORS.orange,
+  },
+  blood: {
+    color: COLORS.red,
+  },
+  quarantine: {
+    color: COLORS.gray,
+  },
+  telehealth: {
+    // TODO: Might need to rename this?
+    color: COLORS.blue,
+  },
+  financial: {
+    // TODO: rename to donations
+    color: COLORS.green,
+  },
+  mobility: {
+    // TODO: rename to transportation
+    color: COLORS.purple,
+  },
+  information: {
+    color: COLORS.purple,
   },
   manufacturing: {
     color: COLORS.orange,
   },
-  financial: {
-    color: COLORS.orange,
+  vaccine: {
+    color: COLORS.green,
   },
   other: {
     color: COLORS.yellow,
+  },
+  network: {
+    // TODO: define more clearly
+    color: COLORS.blueDark,
+  },
+  support: {
+    // TODO: remove since too vague
+    color: COLORS.yellow,
+  },
+  supplies: {
+    // TODO: remove since too vague
+    color: COLORS.green,
   },
 } as const;
 
@@ -43,12 +72,24 @@ export const MARKER_TYPES = {
   org: {
     color: COLORS.blue,
   },
-  financial: {
-    color: COLORS.green,
+  hospital: {
+    color: COLORS.red,
   },
-  information: {
+  medical: {
     color: COLORS.purple,
   },
+  company: {
+    color: COLORS.gray,
+  },
+  individual: {
+    color: COLORS.green,
+  },
+  // financial: {
+  //   color: COLORS.green,
+  // },
+  // information: {
+  //   color: COLORS.purple,
+  // },
   other: {
     color: COLORS.orange,
   },

@@ -11,6 +11,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 // eslint-disable-next-line import/no-duplicates
 import 'firebase/storage';
+// eslint-disable-next-line import/no-duplicates
+import 'firebase/analytics';
 
 export type Location = BaseLocation<firebase.firestore.GeoPoint>;
 export type MarkerInfo = BaseMarkerInfo<firebase.firestore.GeoPoint>;
@@ -50,6 +52,7 @@ const setDataConfig = (dataConfig: DataConfig) => {
 };
 
 firebase.initializeApp(config);
+firebase.analytics();
 const db = firebase.firestore();
 const markers = db.collection(MARKER_COLLECTION_ID);
 

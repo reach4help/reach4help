@@ -15,20 +15,21 @@ module.exports = {
       resolve: "gatsby-plugin-manifest",
       options: manifestConfig,
     },
-    "gatsby-plugin-offline",
     {
       resolve: "gatsby-source-filesystem",
       options: { name: "src", path: `${__dirname}/src/` },
     },
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-plugin-webfonts`,
       options: {
-        fonts: [
-          {
-            family: `Roboto`,
-            variants: [`400`, `700`],
-          },
-        ],
+        fonts: {
+          google: [
+            {
+              family: `Roboto`,
+              variants: [`300`, `400`, `500`, `700`],
+            },
+          ],
+        },
       },
     },
   ],

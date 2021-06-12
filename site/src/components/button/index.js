@@ -7,10 +7,10 @@ import { ButtonWrapper } from "./style"
 function Button({
   textColor,
   backgroundColor,
-  outlineColor,
   onClick,
   children,
   fontSize,
+  border,
 }) {
   return (
     <ButtonWrapper
@@ -18,7 +18,7 @@ function Button({
       onClick={onClick}
       textColor={textColor}
       backgroundColor={backgroundColor}
-      outlineColor={outlineColor}
+      border={border}
       fontSize={fontSize}
     >
       {children}
@@ -29,10 +29,10 @@ function Button({
 Button.propTypes = {
   textColor: PropTypes.string,
   backgroundColor: PropTypes.string,
-  outlineColor: PropTypes.string, // border color on hover
   onClick: PropTypes.func,
   children: PropTypes.node,
   fontSize: PropTypes.string,
+  border: PropTypes.string,
 }
 
 export default Button

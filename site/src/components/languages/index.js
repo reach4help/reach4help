@@ -14,7 +14,7 @@ function Languages({ languages, onChange }) {
       options={languages}
       isSearchable={false} // remove this as we add more langs
       classNamePrefix="react-select"
-      placeholder="Language..."
+      placeholder="Language"
     />
   )
 }

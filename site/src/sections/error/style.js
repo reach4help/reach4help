@@ -4,7 +4,7 @@ import { SectionWrapper } from "src/components/sectionLayout/style"
 export const Wrapper = styled(SectionWrapper)``
 
 export const ContentWrapper = styled.div`
-  max-width: 35em;
+  max-width: 40em;
   display: flex;
   flex-direction: column;
   /* margin-bottom: 3em; */

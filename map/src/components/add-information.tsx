@@ -391,7 +391,7 @@ class AddInstructions extends React.Component<Props, State> {
         }),
       );
     } else {
-      if (info.type.type === 'org' && (info.type.services || []).length === 0) {
+      if (info.type.type && (info.type.services || []).length === 0) {
         validation.errors.push(lang =>
           t(lang, s => s.addInformation.errors.missingServices),
         );
@@ -714,10 +714,10 @@ class AddInstructions extends React.Component<Props, State> {
             // Remove array completely if empty
             if (arr.length === 0) {
               // eslint-disable-next-line no-param-reassign
-              delete (info.contact[type] as ContactDetails)[method];
+              delete info.contact[type][method];
             } else {
               // eslint-disable-next-line no-param-reassign
-              (info.contact[type] as ContactDetails)[method] = arr;
+              info.contact[type][method] = arr;
             }
           }
         });
@@ -896,6 +896,19 @@ class AddInstructions extends React.Component<Props, State> {
                       s.addInformation.screen.information.acceptedInformation,
                   )}
                 </p>
+                <p className="muted">
+                  {t(
+                    lang,
+                    s => s.addInformation.screen.information.moreInformation,
+                    {
+                      contactEmail: key => (
+                        <a key={key} href="mailto:support@reach4help.org">
+                          support@reach4help.org
+                        </a>
+                      ),
+                    },
+                  )}
+                </p>
                 <p>{t(lang, s => s.addInformation.screen.information.intro)}</p>
                 <form onSubmit={this.completeInformation}>
                   {this.validatedInput(FORM_INPUT_NAMES.type, valid => (
@@ -924,11 +937,15 @@ class AddInstructions extends React.Component<Props, State> {
                                 .typePleaseSelect,
                           )}
                         </option>
-                        {MARKER_TYPE_STRINGS.map(type => (
-                          <option key={type} value={type}>
-                            {t(lang, s => s.markerTypes[type])}
-                          </option>
-                        ))}
+                        {MARKER_TYPE_STRINGS.map(type =>
+                          // TEMP "FIX": https://github.com/reach4help/reach4help/issues/1290
+                          type !== 'mutual-aid-group' &&
+                          type !== 'individual' ? (
+                            <option key={type} value={type}>
+                              {t(lang, s => s.markerTypes[type])}
+                            </option>
+                          ) : null,
+                        )}
                       </select>
                     </>
                   ))}
