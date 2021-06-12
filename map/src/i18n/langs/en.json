@@ -136,6 +136,7 @@
     "support": "Support",
     "network": "Network",
     "supplies": "Other Supplies",
+    "vaccine": "Vaccinations",
     "other": "Other"
   },
   "serviceDescriptions": {
@@ -155,14 +156,16 @@
     "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
     "network": "Producing resources for networking to provide aid, e.g. between mutual aid organizations",
     "supplies": "Supplies other than food or medicine",
+    "vaccine": "Verified vaccination site",
     "other": "Any other services not included on this list"
   },
   "markerTypes": {
     "mutual-aid-group": "Mutual Aid Group",
     "org": "Organization",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Financial",
-    "information": "Information",
     "other": "Other"
   },
   "markerTypeSentence": {

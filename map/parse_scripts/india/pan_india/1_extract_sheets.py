@@ -18,12 +18,12 @@ for file in files_xlsx:
     print(wb.sheetnames)
     sheetnames = wb.sheetnames[1:]  # skipping the first sheet
     for sheetname in sheetnames:
-
-        sheet = wb[sheetname]
-        csvfilename = os.path.join(
-            "input_files", file[:-5] + " - " + sheetname + ".csv"
-        )
-        col = csv.writer(open(csvfilename, "w", newline=""))
-        for r in sheet.rows:
-            # row by row write
-            col.writerow([cell.value for cell in r])
+        if "Sheet" not in sheetname:  # skipping empty sheets with "Sheet#"
+            sheet = wb[sheetname]
+            csvfilename = os.path.join(
+                "input_files", file[:-5] + " - " + sheetname + ".csv"
+            )
+            col = csv.writer(open(csvfilename, "w", newline=""))
+            for r in sheet.rows:
+                # row by row write
+                col.writerow([cell.value for cell in r])
