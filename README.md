@@ -10,9 +10,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-48-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-49-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
@@ -135,6 +133,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Lakshmi-Jayakumar"><img src="https://avatars.githubusercontent.com/u/33493410?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lakshmi-Jayakumar</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=Lakshmi-Jayakumar" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/tzou2024"><img src="https://avatars.githubusercontent.com/u/78239895?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Trevor Zou</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=tzou2024" title="Code">💻</a> <a href="#maintenance-tzou2024" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/ssameghini"><img src="https://avatars.githubusercontent.com/u/9827845?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sebastián Sameghini</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ssameghini" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jensren"><img src="https://avatars.githubusercontent.com/u/41408654?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jensren</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=jensren" title="Code">💻</a></td>
   </tr>
 </table>
 
