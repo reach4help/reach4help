@@ -1,0 +1,83 @@
+- table:
+    schema: public
+    name: Availability
+- table:
+    schema: public
+    name: Location
+- table:
+    schema: public
+    name: Request
+- table:
+    schema: public
+    name: Response
+- table:
+    schema: public
+    name: Steps
+- table:
+    schema: public
+    name: Volunteer
+- table:
+    schema: public
+    name: action_enum_type
+  is_enum: true
+- table:
+    schema: public
+    name: entity_enum_types
+  is_enum: true
+- table:
+    schema: public
+    name: programs
+- table:
+    schema: public
+    name: step_condition
+- table:
+    schema: public
+    name: users
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        id:
+          _is_null: true
+      columns:
+      - first_name
+      - id
+      - last_name
+      - primary_email
+      - primary_phone
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - first_name
+      - id
+      - last_name
+      - primary_email
+      - primary_phone
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - first_name
+      - last_name
+      - primary_email
+      - primary_phone
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: volunteer_status_enum_type
+  is_enum: true
