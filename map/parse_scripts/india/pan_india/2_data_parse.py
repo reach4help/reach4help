@@ -229,7 +229,7 @@ def main(argv):
         elif opt in ("-i", "--ifolder"):
             inputfolder = arg
 
-    current_time = datetime.datetime.now()
+    current_time = str(datetime.datetime.now()).replace(":", "-")
 
     output_dir = f"parsed_output_{current_time}"
     os.mkdir(output_dir)

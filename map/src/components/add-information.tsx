@@ -404,7 +404,7 @@ class AddInstructions extends React.Component<Props, State> {
         }),
       );
     } else {
-      if (info.type.type === 'org' && (info.type.services || []).length === 0) {
+      if (info.type.type && (info.type.services || []).length === 0) {
         validation.errors.push(lang =>
           t(lang, s => s.addInformation.errors.missingServices),
         );
@@ -957,7 +957,8 @@ class AddInstructions extends React.Component<Props, State> {
                         </option>
                         {MARKER_TYPE_STRINGS.map(type =>
                           // TEMP "FIX": https://github.com/reach4help/reach4help/issues/1290
-                          type !== 'mutual-aid-group' ? (
+                          type !== 'mutual-aid-group' &&
+                          type !== 'individual' ? (
                             <option key={type} value={type}>
                               {t(lang, s => s.markerTypes[type])}
                             </option>
