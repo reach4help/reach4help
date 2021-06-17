@@ -7,7 +7,7 @@ import mapState, {
   MARKER_SET_KEYS,
 } from 'src/components/map-utils/map-state';
 import { MARKER_TYPES } from 'src/data';
-import * as firebase from 'src/data/dataDriver';
+import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
 
@@ -18,13 +18,13 @@ import { createGoogleMap, haversineDistance } from './map-utils/google-maps';
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
-type MarkerInfo = firebase.MarkerInfo;
+type MarkerInfo = dataDriver.MarkerInfo;
 
-interface MarkerData {
-  firebase: Map<string, MarkerIdAndInfo>;
+interface DataDriverData {
+  dataDriverData: Map<string, MarkerIdAndInfo>;
 }
 
-type DataSet = keyof MarkerData;
+type DataSet = keyof DataDriverData;
 
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
@@ -93,8 +93,8 @@ interface State {
 }
 
 class MapComponent extends React.Component<Props, State> {
-  private readonly data: MarkerData = {
-    firebase: new Map(),
+  private readonly data: DataDriverData = {
+    dataDriverData: new Map(),
   };
 
   private addInfoMapClickedListener:
@@ -113,8 +113,8 @@ class MapComponent extends React.Component<Props, State> {
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
-    firebase.addInformationListener(this.informationUpdated);
-    firebase.loadInitialData();
+    dataDriver.addInformationListener(this.informationUpdated);
+    dataDriver.loadInitialData();
   }
 
   public componentDidUpdate(prevProps: Props) {
@@ -146,7 +146,7 @@ class MapComponent extends React.Component<Props, State> {
   public componentWillUnmount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(null);
-    firebase.removeInformationListener(this.informationUpdated);
+    dataDriver.removeInformationListener(this.informationUpdated);
   }
 
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
@@ -231,13 +231,13 @@ class MapComponent extends React.Component<Props, State> {
     return marker;
   };
 
-  private informationUpdated: firebase.InformationListener = update => {
+  private informationUpdated: dataDriver.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
 
-    this.data.firebase = new Map();
+    this.data.dataDriverData = new Map();
     for (const entry of update.markers.entries()) {
-      this.data.firebase.set(entry[0], {
-        id: { set: 'firebase', id: entry[0] },
+      this.data.dataDriverData.set(entry[0], {
+        id: { set: 'dataDriverData', id: entry[0] },
         info: entry[1],
       });
     }
@@ -247,7 +247,7 @@ class MapComponent extends React.Component<Props, State> {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
       for (const [id, info] of update.markers.entries()) {
-        const marker = map.activeMarkers.firebase.get(id);
+        const marker = map.activeMarkers.dataDriverData.get(id);
         if (marker) {
           // Update info
           marker.setPosition({
@@ -257,17 +257,17 @@ class MapComponent extends React.Component<Props, State> {
           marker.setTitle(info.contentTitle);
         } else {
           newMarkers.push(
-            this.createMarker(map.activeMarkers, 'firebase', id, info),
+            this.createMarker(map.activeMarkers, 'dataDriverData', id, info),
           );
         }
       }
       map.markerClusterer.addMarkers(newMarkers, true);
       // Delete removed markers
       const removedMarkers: google.maps.Marker[] = [];
-      for (const [id, marker] of map.activeMarkers.firebase.entries()) {
+      for (const [id, marker] of map.activeMarkers.dataDriverData.entries()) {
         if (!update.markers.has(id)) {
           removedMarkers.push(marker);
-          map.activeMarkers.firebase.delete(id);
+          map.activeMarkers.dataDriverData.delete(id);
           // const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
           // if (circle) {
           //   circle.setMap(null);
@@ -345,7 +345,7 @@ class MapComponent extends React.Component<Props, State> {
     }
     const map = createGoogleMap(ref);
     const activeMarkers: ActiveMarkers = {
-      firebase: new Map(),
+      dataDriverData: new Map(),
     };
 
     // Create initial markers

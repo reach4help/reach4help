@@ -1,6 +1,6 @@
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
-import * as firebase from 'src/data/dataDriver';
+import * as dataDriver from 'src/data/dataDriver';
 import { Filter, FilterMutator, Page } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
@@ -28,19 +28,19 @@ class MapLayout extends React.Component<Props, State> {
   public constructor(props: Props) {
     super(props);
     this.state = {
-      includingHidden: firebase.includingHidden(),
+      includingHidden: dataDriver.includingHidden(),
     };
   }
 
   public componentDidMount() {
-    firebase.addInformationListener(this.firebaseInformationUpdated);
+    dataDriver.addInformationListener(this.dataDriverInformationUpdated);
   }
 
   public componentWillUnmount() {
-    firebase.removeInformationListener(this.firebaseInformationUpdated);
+    dataDriver.removeInformationListener(this.dataDriverInformationUpdated);
   }
 
-  private firebaseInformationUpdated: firebase.InformationListener = update =>
+  private dataDriverInformationUpdated: dataDriver.InformationListener = update =>
     this.setState({ includingHidden: update.includingHidden });
 
   public render() {
