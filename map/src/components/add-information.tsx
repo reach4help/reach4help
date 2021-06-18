@@ -100,7 +100,7 @@ const isCompleteMarkerType = (
   if (!type) {
     return false;
   }
-  if (type.type === 'org') {
+  if (type.type) {
     return !!type.services;
   }
   return !!type.type;
