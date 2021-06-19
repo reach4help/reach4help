@@ -11,9 +11,9 @@ const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 
 export const isValidMarkerJSON = json => {
   const latlng = json?.loc?.latlng;
-  const isValid = latlng?.latitude && latlng?.longitude;
+  const isValid = !!(latlng?.latitude && latlng?.longitude);
   // eslint-disable-next-line no-unneeded-ternary
-  return isValid ? true : false;
+  return isValid;
 };
 
 export const configAlgoliaIndex = async indexName => {
@@ -45,7 +45,26 @@ export const validateMarkerJSON = dataJSON => {
   return false;
 };
 
-export const processAlgolia = async (dataJSON, indexName, deleteAppendMode) => {
+export const deleteAll = async indexName => {
+  const index = client.initIndex(indexName);
+  await index.clearObjects();
+};
+
+export const deleteByKeyWord = async (indexName, keyWord) => {
+  const index = client.initIndex(indexName);
+  try {
+    // note: for below to work, source.name has to be specified in config of
+    // Algolia index for both filters and facetFilters.
+    const results = await index
+      .deleteBy({ filters: `source.name:${keyWord}` })
+      .catch(err => console.log(err));
+    console.log('Deleted ', indexName, keyWord, results);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const processAlgolia = async (dataJSON, indexName) => {
   const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
 
   if (!validateMarkerJSON(dataJSON)) {
@@ -76,19 +95,16 @@ export const processAlgolia = async (dataJSON, indexName, deleteAppendMode) => {
     });
     initialCount = initialSearch.nbHits;
   }
-  if (deleteAppendMode !== 'DELETE' && deleteAppendMode !== 'UPSERT') {
-    throw new Error('Specify DELETE or UPSERT for third parameter');
-  } else if (deleteAppendMode === 'DELETE') {
-    console.log('Deleting', algoliaAdminKey, algoliaAppId);
-    await index.clearObjects();
-  }
+
   console.log(`Found ${initialCount}`);
   console.log('Saving');
   await index.saveObjects(dataJSON);
-  console.log('Getting final count');
+  console.log('Getting temporary count.');
   const finalSearch = await index.search('', { attributesToRetrieve: null });
   const finalCount = finalSearch.nbHits;
+  console.log(
+    `Temporary count: ${finalCount}.  Count may not be accurate as processing ` +
+      'may not be complete.',
+  );
   await configAlgoliaIndex(indexName);
-  console.log(`Initial count: ${initialCount}`);
-  console.log(`Final count (may not be accurate due to timing): ${finalCount}`);
 };

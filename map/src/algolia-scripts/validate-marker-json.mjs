@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 /**
- * Validates json file has objectID and loc.latlng
+ * Validates json file has loc.latlng
  *
  * @param param1 Name of json file
  */

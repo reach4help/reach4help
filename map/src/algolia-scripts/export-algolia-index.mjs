@@ -37,7 +37,7 @@ index
   })
   .then(() => {
     console.log(
-      'Loading inished! We got %d hits.  Now, writing file.',
+      'Loading finished! We got %d hits.  Now, writing file.',
       hits.length,
     );
     fs.writeFileSync(
