@@ -101,7 +101,7 @@ const isCompleteMarkerType = (
   if (!type) {
     return false;
   }
-  if (type.type === 'org') {
+  if (type.type) {
     return !!type.services;
   }
   return !!type.type;
@@ -360,7 +360,7 @@ class AddInstructions extends React.Component<Props, State> {
     const { checked } = target;
     if (isService(service)) {
       this.setInfo(info => {
-        if (info.type?.type === 'org') {
+        if (info.type?.type) {
           if (!info.type.services) {
             // eslint-disable-next-line no-param-reassign
             info.type.services = [];
@@ -969,7 +969,7 @@ class AddInstructions extends React.Component<Props, State> {
                   ))}
 
                   {this.validatedInput(FORM_INPUT_NAMES.services, valid => {
-                    if (info.type?.type !== 'org') {
+                    if (!info.type?.type) {
                       return;
                     }
                     const services: (Service | undefined)[] =
