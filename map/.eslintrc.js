@@ -5,7 +5,6 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    extraFileExtensions: ['.mjs'],
     ecmaVersion: 2018,
     sourceType: 'module',
     tsconfigRootDir: __dirname,

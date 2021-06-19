@@ -1,16 +1,16 @@
 import {
-  Location as BaseLocation,
-  MarkerInfo as BaseMarkerInfo,
-  MarkerInfoWithId as BaseMarkerInfoWithId,
+  BaseLocation,
+  BaseMarkerInfo,
+  BaseMarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
+import { v4 as uuidv4 } from 'uuid';
 
-import { processAlgolia } from '../algoliaUtil';
-import { R4HGeoPoint } from './R4hGeoPoint';
+import { R4HGeoPoint } from './R4HGeoPoint';
 
-export type Location = BaseLocation<R4HGeoPoint>;
-export type MarkerInfo = BaseMarkerInfo<R4HGeoPoint>;
-export type MarkerInfoWithId = BaseMarkerInfoWithId<R4HGeoPoint>;
+export type LocationType = BaseLocation<R4HGeoPoint>;
+export type MarkerInfoType = BaseMarkerInfo<R4HGeoPoint>;
+export type MarkerInfoWithIdType = BaseMarkerInfoWithId<R4HGeoPoint>;
 
 const algoliaAdminKey = process.env.REACT_APP_ALGOLIA_ADMIN_KEY || 'undefined';
 const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID || 'undefined';
@@ -18,7 +18,7 @@ const algoliaIndexName =
   process.env.REACT_APP_ALGOLIA_INDEX_NAME || 'undefined';
 
 const client = algoliasearch(algoliaAppId, algoliaAdminKey);
-const index = client.initIndex(algoliaIndexName);
+const algoliaIndex = client.initIndex(algoliaIndexName);
 
 const LOCAL_STORAGE_KEY = 'dataConfig';
 
@@ -40,20 +40,26 @@ const setDataConfig = (dataConfig: DataConfig) => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataConfig));
 };
 
-export const submitInformation = (info: MarkerInfo) => {
+export const submitInformation = async (marker: MarkerInfoType) => {
   // eslint-disable-next-line no-param-reassign
-  info.objectID = info.id || '';
-  const { latlng } = info.loc;
+  const latlng = marker?.loc?.latlng;
+  const newMarker = { ...marker } as MarkerInfoWithIdType;
+  newMarker._geoLoc = {
+    lat: latlng?.latitude,
+    lng: latlng?.longitude,
+  };
+  newMarker.id = `MAH-${marker?.source?.id || uuidv4()}`;
+  newMarker.objectID = newMarker.id;
+  newMarker.createdAt = new Date();
+  newMarker.updatedAt = new Date();
   // eslint-disable-next-line no-param-reassign
-  info._geoLoc = { lat: latlng.latitude, lng: latlng.latitude };
-  processAlgolia([info], algoliaIndexName, 'UPSERT');
-
-  // await markers.add(info);
+  newMarker._geoLoc = { lat: latlng.latitude, lng: latlng.latitude };
+  await algoliaIndex.saveObject(newMarker);
 };
 
 export interface InformationUpdate {
   loading: boolean;
-  markers: Map<string, MarkerInfo>;
+  markers: Map<string, MarkerInfoType>;
   /**
    * True iff the data includes hidden markers that have not yet been
    * reviewed and approved.
@@ -65,7 +71,7 @@ export type InformationListener = (event: InformationUpdate) => void;
 
 interface CategoryData {
   initialLoadDone: boolean;
-  markers: Map<string, MarkerInfo>;
+  markers: Map<string, MarkerInfoType>;
 }
 
 const listeners = new Set<InformationListener>();
@@ -154,8 +160,8 @@ const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
   }
   state.data[mode].initialLoadDone = true;
 
-  const promise = index.search('').then(data => {
-    const hits = (data.hits as unknown) as MarkerInfoWithId[];
+  const promise = algoliaIndex.search('').then(data => {
+    const hits = (data.hits as unknown) as MarkerInfoWithIdType[];
     for (const marker of hits) {
       state.data[mode].markers.set(marker.id, marker);
     }

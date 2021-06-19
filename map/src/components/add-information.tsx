@@ -19,13 +19,17 @@ import {
   MdRefresh,
 } from 'react-icons/md';
 import Search from 'src/components/search';
-import { Location, MarkerInfo, submitInformation } from 'src/data/dataDriver';
+import {
+  LocationType,
+  MarkerInfoType,
+  submitInformation,
+} from 'src/data/dataDriver';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
 import { trackEvent } from 'src/util/tracking';
 
-import { R4HGeoPoint } from '../data/R4hGeoPoint';
+import { R4HGeoPoint } from '../data/R4HGeoPoint';
 import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
   button,
@@ -67,7 +71,7 @@ interface Props {
 }
 
 interface State {
-  info: RecursivePartial<MarkerInfo>;
+  info: RecursivePartial<MarkerInfoType>;
   /**
    * Store URLs in state separately as it's easier to manipulate as an array
    */
@@ -108,8 +112,8 @@ const isCompleteMarkerType = (
 };
 
 const isCompleteMarkerLocation = (
-  loc: RecursivePartial<Location> | undefined,
-): loc is Location =>
+  loc: RecursivePartial<LocationType> | undefined,
+): loc is LocationType =>
   !!loc &&
   loc.description !== undefined &&
   loc.latlng?.latitude !== undefined &&
@@ -122,9 +126,9 @@ const displayKm = (lang: Language, meters: number): string =>
     miles: ((meters / 1000) * 0.621371).toFixed(2),
   });
 
-type ContactType = keyof MarkerInfo['contact'];
+type ContactType = keyof MarkerInfoType['contact'];
 const CONTACT_TYPES: ContactType[] = ['general', 'getHelp', 'volunteers'];
-type ContactMethod = keyof (MarkerInfo['contact'][ContactType] & {});
+type ContactMethod = keyof (MarkerInfoType['contact'][ContactType] & {});
 const CONTACT_METHODS: ContactMethod[] = [
   'email',
   'facebookGroup',
@@ -309,11 +313,13 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
-  private setInfoValues = (newInfo: RecursivePartial<MarkerInfo>) => {
+  private setInfoValues = (newInfo: RecursivePartial<MarkerInfoType>) => {
     this.setState(({ info }) => ({ info: merge({}, info, newInfo) }));
   };
 
-  private setInfo = (mutate: (info: RecursivePartial<MarkerInfo>) => void) => {
+  private setInfo = (
+    mutate: (info: RecursivePartial<MarkerInfoType>) => void,
+  ) => {
     this.setState(({ info }) => {
       // eslint-disable-next-line no-param-reassign
       info = cloneDeep(info);
@@ -458,7 +464,7 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
-  private getCompleteInformation = (): MarkerInfo | null => {
+  private getCompleteInformation = (): MarkerInfoType | null => {
     const { info, urls } = this.state;
     if (
       !info.contentTitle ||
@@ -491,7 +497,7 @@ class AddInstructions extends React.Component<Props, State> {
         contact[type] = completeTypeInfo;
       }
     }
-    const completeInfo: MarkerInfo = {
+    const completeInfo: MarkerInfoType = {
       contentTitle: info.contentTitle,
       type: info.type,
       loc: info.loc,
@@ -648,10 +654,7 @@ class AddInstructions extends React.Component<Props, State> {
   }) => {
     const { lang } = this.props;
     const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
-    const f = () => {
-      throw new Error('function nextScreen not defined');
-    };
-    const nextScreenFunc = nextScreen || f;
+    const nextScreenFunc = nextScreen;
     return (
       <div className="actions">
         {previousScreen && (
@@ -688,7 +691,7 @@ class AddInstructions extends React.Component<Props, State> {
       this.setInfo(info => {
         const arr = info.contact?.[type]?.[method] || [];
         arr[i] = target.value;
-        const newInfo: RecursivePartial<MarkerInfo> = {
+        const newInfo: RecursivePartial<MarkerInfoType> = {
           contact: { [type]: { [method]: arr } },
         };
         merge(info, newInfo);
@@ -967,7 +970,6 @@ class AddInstructions extends React.Component<Props, State> {
                       </select>
                     </>
                   ))}
-
                   {this.validatedInput(FORM_INPUT_NAMES.services, valid => {
                     if (!info.type?.type) {
                       return;
@@ -1015,7 +1017,6 @@ class AddInstructions extends React.Component<Props, State> {
                       </>
                     );
                   })}
-
                   {info.type?.type === 'mutual-aid-group' && (
                     <p className="info-box">
                       {t(
@@ -1037,7 +1038,6 @@ class AddInstructions extends React.Component<Props, State> {
                       )}
                     </p>
                   )}
-
                   {info.type &&
                     info.type.type !== 'mutual-aid-group' &&
                     this.formTextInput(
@@ -1054,7 +1054,6 @@ class AddInstructions extends React.Component<Props, State> {
                             .namePlaceholder,
                       ),
                     )}
-
                   {info.type &&
                     info.type.type !== 'mutual-aid-group' &&
                     this.formTextInput(
@@ -1072,7 +1071,6 @@ class AddInstructions extends React.Component<Props, State> {
                             .namePlaceholder,
                       ),
                     )}
-
                   {info.type &&
                     info.type.type !== 'mutual-aid-group' &&
                     this.formTextInput(
@@ -1090,7 +1088,6 @@ class AddInstructions extends React.Component<Props, State> {
                             .locationNamePlaceholder,
                       ),
                     )}
-
                   {info.type && info.type.type !== 'mutual-aid-group' && (
                     <p>
                       {t(
@@ -1099,7 +1096,6 @@ class AddInstructions extends React.Component<Props, State> {
                       )}
                     </p>
                   )}
-
                   {validation && (
                     <ul className="errors">
                       {validation.errors.map((error, i) => (
@@ -1107,7 +1103,7 @@ class AddInstructions extends React.Component<Props, State> {
                       ))}
                     </ul>
                   )}
-
+                  ButtonsA
                   {this.actionButtons({})}
                 </form>
               </div>
@@ -1130,7 +1126,7 @@ class AddInstructions extends React.Component<Props, State> {
                         {error(lang)}
                       </p>
                     ))}
-
+                  action 2
                   {this.actionButtons({
                     previousScreen: 'information',
                     nextScreen: this.completeMarkerPlacement,
@@ -1155,7 +1151,6 @@ class AddInstructions extends React.Component<Props, State> {
                 </p>
                 <form onSubmit={this.completeContactInformation}>
                   {CONTACT_TYPES.map(type => this.contactTypeGroup(type))}
-
                   {validation && (
                     <ul className="errors">
                       {validation.errors.map((error, i) => (
@@ -1163,7 +1158,7 @@ class AddInstructions extends React.Component<Props, State> {
                       ))}
                     </ul>
                   )}
-
+                  action 3
                   {this.actionButtons({
                     previousScreen: 'place-marker',
                     nextLabel: 'submit',

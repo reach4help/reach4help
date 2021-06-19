@@ -18,7 +18,7 @@ import { createGoogleMap, haversineDistance } from './map-utils/google-maps';
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
-type MarkerInfo = dataDriver.MarkerInfo;
+type MarkerInfo = dataDriver.MarkerInfoType;
 
 interface DataDriverData {
   dataDriverData: Map<string, MarkerIdAndInfo>;
