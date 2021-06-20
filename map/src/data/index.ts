@@ -93,4 +93,7 @@ export const MARKER_TYPES = {
   other: {
     color: COLORS.orange,
   },
+  notFound: {
+    color: COLORS.yellow,
+  },
 };

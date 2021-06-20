@@ -160,12 +160,19 @@ const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
   }
   state.data[mode].initialLoadDone = true;
 
-  const promise = algoliaIndex.search('').then(data => {
-    const hits = (data.hits as unknown) as MarkerInfoWithIdType[];
-    for (const marker of hits) {
-      state.data[mode].markers.set(marker.id, marker);
-    }
-  });
+  const promise = algoliaIndex
+    .browseObjects({
+      // eslint-disable-next-line no-return-assign
+      query: '', // Empty query will match all records
+      hitsPerPage: 1000,
+      batch: batch => {
+        batch.forEach(batchMarker => {
+          const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
+          state.data[mode].markers.set(marker.id, marker);
+        });
+      },
+    })
+    .then(() => 'finished');
   processPromise(promise);
   return promise;
 };

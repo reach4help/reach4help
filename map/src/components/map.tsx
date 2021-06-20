@@ -391,7 +391,10 @@ class MapComponent extends React.Component<Props, State> {
       if (!info) {
         return;
       }
-      const { color } = MARKER_TYPES[info.info.type.type];
+      const markerTypeInfo = MARKER_TYPES[info.info.type.type];
+      const color = markerTypeInfo
+        ? markerTypeInfo.color
+        : MARKER_TYPES.notFound.color;
 
       const mapBoundingBox = map.getBounds();
       if (mapBoundingBox) {
@@ -425,7 +428,7 @@ class MapComponent extends React.Component<Props, State> {
                 fillColor: color,
                 fillOpacity: 0.15,
                 map,
-                center: marker.getPosition() || undefined,
+                center: marker.getPosition() || new google.maps.LatLng(90, 90),
                 radius,
                 // If we change this, we need to ensure that we make appropriate
                 // changes to the marker placement when adding new data so that
@@ -585,7 +588,7 @@ class MapComponent extends React.Component<Props, State> {
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <div className={className}>
+          <div className={className || 'undefined'}>
             <div className="map" ref={this.updateGoogleMapRef} />
             {page.page === 'add-information' && (
               <AddInstructions
