@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import About from 'src/components/about';
 import MapLayout from 'src/components/map-layout';
 import * as i18n from 'src/i18n';
-import { Filter, FilterMutator, Page } from 'src/state';
+import { Filter, UpdateFilter, Page } from 'src/state';
 
 import { AppContext } from './components/context';
 import Header from './components/header';
@@ -50,8 +50,13 @@ class App extends React.Component<Props, State> {
     };
   }
 
-  private setFilter = (mutator: FilterMutator) => {
-    this.setState(state => ({ filter: mutator(state.filter) }));
+  private setFilter: UpdateFilter = (
+    fieldName: string,
+    value: string,
+  ) => {
+    this.setState(state => ({
+      filter: { ...state.filter, [fieldName]: value},
+    }));
   };
 
   private setResults = (results: ResultsSet, openResults?: boolean) => {

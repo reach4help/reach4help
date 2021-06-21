@@ -26,3 +26,7 @@ export interface Filter {
 }
 
 export type FilterMutator = (filter: Filter) => Filter;
+export type UpdateFilter = (
+  option: string,
+  value: string,
+) => void;

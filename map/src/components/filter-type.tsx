@@ -1,7 +1,8 @@
+import { isService } from '@reach4help/model/lib/markers/type';
 import {
-  isMarkerType,
+  isMarkerType as isOrgType,
   MARKER_TYPE_STRINGS,
-  MarkerTypeString,
+  MarkerTypeString as OrgTypeString,
 } from '@reach4help/model/lib/markers/type';
 import React from 'react';
 import Select, { ValueType } from 'react-select';
@@ -12,13 +13,13 @@ import { Filter, FilterMutator } from 'src/state';
 import styled from '../styling';
 import { AppContext } from './context';
 
-type Option = {
-  value: MarkerTypeString | undefined;
+type OrgOption = {
+  value: OrgTypeString | undefined;
   label: string;
 };
 
-const isOption = (option: ValueType<Option>): option is Option =>
-  !!(option && isMarkerType((option as Option).value));
+const isOrgOption = (orgOption: ValueType<OrgOption>): orgOption is OrgOption =>
+  !!(orgOption && isOrgType((orgOption as OrgOption).value));
 
 interface Props {
   className?: string;
@@ -27,11 +28,11 @@ interface Props {
 }
 
 class FilterType extends React.Component<Props, {}> {
-  private changeService = (option: ValueType<Option>): void => {
+  private changeService = (fieldValue: ValueType<OrgOption>): void => {
     const { updateFilter } = this.props;
     updateFilter(filter => ({
       ...filter,
-      orgType: isOption(option) ? option.value : undefined,
+      orgType: isOrgOption(fieldValue) ? fieldValue.value : undefined,
     }));
   };
 
@@ -45,14 +46,14 @@ class FilterType extends React.Component<Props, {}> {
       ]),
     );
 
-    const any: Option = {
+    const any: OrgOption = {
       value: undefined,
       label: t(lang, s => s.services.any),
     };
 
-    const options: Option[] = [any, ...optionsMap.values()];
+    const options: OrgOption[] = [any, ...optionsMap.values()];
 
-    const value = (filter.orgType && optionsMap.get(filter.orgType)) || any;
+    const value = (filter.orgType && optionsMap.get(filter.orgType));
 
     return (
       <Select
