@@ -19,7 +19,7 @@ export type AddInfoStep =
   | 'submitted';
 
 export interface Filter {
-  type?: MarkerTypeString;
+  orgType?: OrgTypeString;
   visibility?: 'visible' | 'hidden' | 'any';
 }
 

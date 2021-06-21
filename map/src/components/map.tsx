@@ -156,7 +156,7 @@ class MapComponent extends React.Component<Props, State> {
         map.activeMarkers[set].forEach(marker => {
           const info = this.getMarkerInfo(marker);
           const validType =
-            !filter.type || info?.info.type.type === filter.type;
+            !filter.orgType || info?.info.type.type === filter.orgType;
           const validVisibility = !!(
             !filter.visibility ||
             filter.visibility === 'any' ||
