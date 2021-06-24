@@ -115,6 +115,34 @@ class MapComponent extends React.Component<Props, State> {
     setUpdateResultsCallback(this.updateResults);
     firebase.addInformationListener(this.informationUpdated);
     firebase.loadInitialData();
+
+    navigator.permissions.query({ name: 'geolocation' }).then(result => {
+      if (result.state === 'granted') {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            const { map } = mapState();
+            if (!map) {
+              return;
+            }
+            map.map.setCenter(pos);
+            map.map.setZoom(8);
+            mapState().updateResultsOnNextBoundsChange = true;
+          },
+          error => {
+            // eslint-disable-next-line no-alert
+            alert('Unable to get geolocation!');
+            // eslint-disable-next-line no-console
+            console.error(error.message);
+          },
+        );
+      }
+      // If geolocation permission is not granted, it shows the whole map (default behaviour).
+      // The lacking 'else' block should handle public IP for positioning.
+    });
   }
 
   public componentDidUpdate(prevProps: Props) {
