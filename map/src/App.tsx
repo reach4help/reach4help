@@ -52,7 +52,7 @@ class App extends React.Component<Props, State> {
 
   private setFilter: UpdateFilter = (
     fieldName: string,
-    value: string,
+    value: any,
   ) => {
     this.setState(state => ({
       filter: { ...state.filter, [fieldName]: value},

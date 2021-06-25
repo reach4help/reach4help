@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable react/destructuring-assignment */
+import {
+  MARKER_TYPE_STRINGS,
+  SERVICE_STRINGS,
+} from '@reach4help/model/lib/markers/type';
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
 import * as dataDriver from 'src/data/dataDriver';
-import { Filter, FilterMutator, Page } from 'src/state';
+import { Filter, UpdateFilter, Page } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
 import FilterType from './filter-type';
-import FilterVisibility from './filter-visibility';
 import MyLocation from './my-location-button';
 import Search from './search';
 
@@ -15,7 +18,7 @@ interface Props {
   className?: string;
   page: Page;
   filter: Filter;
-  updateFilter: (mutator: FilterMutator) => void;
+  updateFilter: UpdateFilter;
   components: {
     map: () => JSX.Element;
     results: (props: { className: string }) => JSX.Element;
@@ -49,17 +52,11 @@ class MapLayout extends React.Component<Props, State> {
 
   handleChange(e: any) {
     const textValue = e.target.value;
-    this.props.updateFilter(tFilter => ({
-      ...tFilter,
-      searchText: textValue,
-    }));
+    this.props.updateFilter("searchText", textValue);
   }
 
   handleSubmit(e: any) {
-    this.props.updateFilter(tFilter => ({
-      ...tFilter,
-      filterExecuted: false,
-    }));
+    this.props.updateFilter("filterExecuted", false);
     e.preventDefault();
   }
 
@@ -84,30 +81,39 @@ class MapLayout extends React.Component<Props, State> {
                     onChange={this.handleChange}
                   />
                 </div>
-
+                <div className="row">
+                  <MyLocation className="my-location" />
+                </div>
                 <div className="row">
                   <FilterType
                     className="filter"
+                    translationKey={'markerTypes'}
+                    dropDownValues={MARKER_TYPE_STRINGS}
                     filter={filter}
                     updateFilter={updateFilter}
                   />
-
-                  <MyLocation className="my-location" />
+                  <FilterType
+                    className="filter"
+                    translationKey={'services'}
+                    dropDownValues={SERVICE_STRINGS}
+                    filter={filter}
+                    updateFilter={updateFilter}
+                  />
                 </div>
                 {includingHidden && (
                   <div className="row">
-                    <FilterVisibility
+                    <FilterType
                       className="filter"
+                      translationKey={['hiddenMarkers', 'filter']}
+                      dropDownValues={['visible', 'hidden']}
                       filter={filter}
                       updateFilter={updateFilter}
                     />
                   </div>
                 )}
-
                 <input type="submit" value="Search" />
               </form>
             </div>
-
             {components.results({
               className: 'results',
             })}

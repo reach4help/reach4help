@@ -30,7 +30,7 @@ class FilterType extends React.Component<Props, {}> {
     const { updateFilter } = this.props;
     updateFilter(filter => ({
       ...filter,
-      visibility: isOption(option) ? option.value : undefined,
+      hiddenMarkers: isOption(option) ? option.value : undefined,
     }));
   };
 
@@ -46,7 +46,7 @@ class FilterType extends React.Component<Props, {}> {
 
     const options: Option[] = [...optionsMap.values()];
 
-    const value = optionsMap.get(filter.visibility || 'any');
+    const value = optionsMap.get(filter.hiddenMarkers || 'any');
 
     return (
       <Select

@@ -1,4 +1,7 @@
-import { MarkerTypeString } from '@reach4help/model/lib/markers/type';
+import {
+  MarkerTypeString,
+  Service,
+} from '@reach4help/model/lib/markers/type';
 
 export type Page =
   | {
@@ -18,15 +21,18 @@ export type AddInfoStep =
   | 'contact-details'
   | 'submitted';
 
+export type VisibilityOptions = 'visible' | 'hidden' | 'any';
+
 export interface Filter {
-  orgType?: MarkerTypeString;
-  visibility?: 'visible' | 'hidden' | 'any';
+  markerTypes?: MarkerTypeString;
+  services?: Service;
+  hiddenMarkers?: VisibilityOptions;
   searchText?: string;
   filterExecuted?: boolean;
 }
 
 export type FilterMutator = (filter: Filter) => Filter;
 export type UpdateFilter = (
-  option: string,
-  value: string,
+  fieldName: string,
+  value: any,
 ) => void;
