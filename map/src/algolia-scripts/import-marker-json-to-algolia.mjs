@@ -26,14 +26,8 @@ dotenv.config(); // enables process.env to work.  Required for JS, not React.
 const { argv } = process;
 let jsonFilename = argv[2];
 const indexName = argv[3];
-const confirm = argv[4];
 
 jsonFilename = jsonFilename?.includes('/') ? jsonFilename : `./${jsonFilename}`;
-
-if (indexName === 'markers' && confirm !== 'confirm-markers') {
-  // eslint-disable-next-line no-throw-literal
-  throw 'If index is marker,  fourth parameter must be "confirm-markers".';
-}
 
 /* eslint-disable no-console */
 

@@ -40,7 +40,7 @@ const setDataConfig = (dataConfig: DataConfig) => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataConfig));
 };
 
-export const submitInformation = async (marker: MarkerInfoType) => {
+export const addMarker = async (marker: MarkerInfoType, visible: boolean) => {
   // eslint-disable-next-line no-param-reassign
   const latlng = marker?.loc?.latlng;
   const newMarker = { ...marker } as MarkerInfoWithIdType;
@@ -49,6 +49,7 @@ export const submitInformation = async (marker: MarkerInfoType) => {
     lng: latlng?.longitude,
   };
   newMarker.id = `MAH-${marker?.source?.id || uuidv4()}`;
+  newMarker.visible = visible;
   newMarker.objectID = newMarker.id;
   newMarker.createdAt = new Date();
   newMarker.updatedAt = new Date();

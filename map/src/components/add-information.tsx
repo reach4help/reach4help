@@ -19,11 +19,7 @@ import {
   MdRefresh,
 } from 'react-icons/md';
 import Search from 'src/components/search';
-import {
-  LocationType,
-  MarkerInfoType,
-  submitInformation,
-} from 'src/data/dataDriver';
+import { addMarker, LocationType, MarkerInfoType } from 'src/data/dataDriver';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
@@ -589,7 +585,7 @@ class AddInstructions extends React.Component<Props, State> {
             },
           });
         } else {
-          submitInformation(completeInfo).then(
+          addMarker(completeInfo, false).then(
             () => this.setState({ submissionResult: { state: 'success' } }),
             error =>
               this.setState({
@@ -1103,7 +1099,6 @@ class AddInstructions extends React.Component<Props, State> {
                       ))}
                     </ul>
                   )}
-                  ButtonsA
                   {this.actionButtons({})}
                 </form>
               </div>
