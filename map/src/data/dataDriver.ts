@@ -144,16 +144,6 @@ export const removeInformationListener = (l: InformationListener) => {
   listeners.delete(l);
 };
 
-// TODO:
-// X Import marker data into algoia index
-// X Set up Algoia API keys for the index
-// - Replace below code with code to return a promise to load from algolia
-// - look at index settings to set what is returned from Algoli
-
-// - text search
-// - zoom into current position
-// - how to re-execute as map moves
-
 const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
   if (state.data[mode].initialLoadDone) {
     return;
