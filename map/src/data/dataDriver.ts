@@ -1,16 +1,16 @@
 import {
-  BaseLocation,
-  BaseMarkerInfo,
-  BaseMarkerInfoWithId,
+  Location,
+  MarkerInfo,
+  MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
 
-export type LocationType = BaseLocation<R4HGeoPoint>;
-export type MarkerInfoType = BaseMarkerInfo<R4HGeoPoint>;
-export type MarkerInfoWithIdType = BaseMarkerInfoWithId<R4HGeoPoint>;
+export type LocationType = Location<R4HGeoPoint>;
+export type MarkerInfoType = MarkerInfo<R4HGeoPoint>;
+export type MarkerInfoWithIdType = MarkerInfoWithId<R4HGeoPoint>;
 
 const algoliaAdminKey = process.env.REACT_APP_ALGOLIA_ADMIN_KEY || 'undefined';
 const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID || 'undefined';
