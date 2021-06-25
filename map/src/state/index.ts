@@ -1,4 +1,7 @@
-import { MarkerTypeString } from '@reach4help/model/lib/markers/type';
+import {
+  MarkerTypeString as OrgTypeString,
+  Service,
+} from '@reach4help/model/lib/markers/type';
 
 export type Page =
   | {
@@ -18,9 +21,13 @@ export type AddInfoStep =
   | 'contact-details'
   | 'submitted';
 
+export type VisibilityOptions = 'visible' | 'hidden' | 'any';
+export type FilterOptions = 'orgType' | 'services' | 'visibility';
+
 export interface Filter {
   orgType?: OrgTypeString;
-  visibility?: 'visible' | 'hidden' | 'any';
+  services?: Service;
+  visibility?: VisibilityOptions;
 }
 
 export type FilterMutator = (filter: Filter) => Filter;

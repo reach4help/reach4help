@@ -1,0 +1,1 @@
+const markerVisibility = require('../src/components/map');

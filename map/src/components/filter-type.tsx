@@ -3,37 +3,36 @@ import {
   isMarkerType as isOrgType,
   MARKER_TYPE_STRINGS,
   MarkerTypeString as OrgTypeString,
+  Service,
 } from '@reach4help/model/lib/markers/type';
 import React from 'react';
 import Select, { ValueType } from 'react-select';
 import Chevron from 'src/components/assets/chevron';
 import { Language, t } from 'src/i18n';
-import { Filter, FilterMutator } from 'src/state';
+import { Filter, UpdateFilter } from 'src/state';
+import { VisibilityOptions, FilterOptions } from '../state/index';
 
 import styled from '../styling';
 import { AppContext } from './context';
 
-type OrgOption = {
-  value: OrgTypeString | undefined;
+// TODO: the form's value should be an array of OptionType when multi filter implemented
+type OptionType = {
+  value: string | undefined;  
   label: string;
 };
 
-const isOrgOption = (orgOption: ValueType<OrgOption>): orgOption is OrgOption =>
-  !!(orgOption && isOrgType((orgOption as OrgOption).value));
-
 interface Props {
   className?: string;
+  filterType: FilterOptions;
   filter: Filter;
-  updateFilter: (mutator: FilterMutator) => void;
+  updateFilter: UpdateFilter;
 }
 
 class FilterType extends React.Component<Props, {}> {
-  private changeService = (fieldValue: ValueType<OrgOption>): void => {
-    const { updateFilter } = this.props;
-    updateFilter(filter => ({
-      ...filter,
-      orgType: isOrgOption(fieldValue) ? fieldValue.value : undefined,
-    }));
+  private changeService = (fieldName: string, fieldValue: string | undefined): void => {
+    if (fieldValue) {
+      this.props.updateFilter(fieldName, fieldValue);
+    }
   };
 
   private select = (lang: Language) => {
@@ -46,22 +45,33 @@ class FilterType extends React.Component<Props, {}> {
       ]),
     );
 
-    const any: OrgOption = {
+    // For filter-visibility:
+    // const optionsMap = new Map(
+    //   OPTION_VALUES.map(value => [
+    //     value,
+    //     { value, label: t(lang, s => s.hiddenMarkers.filter[value]) },
+    //   ]),
+    // );
+
+    // For services: SERVICE_STRINGS, s.services
+
+    const any: OptionType = {
       value: undefined,
       label: t(lang, s => s.services.any),
     };
 
-    const options: OrgOption[] = [any, ...optionsMap.values()];
-    const options: Option[] = [any, ...optionsMap.values()];
+    const options: OptionType[] = [any, ...optionsMap.values()];
+    console.log('options:', options);
 
-    const value = (filter.orgType && optionsMap.get(filter.orgType));
+    // TODO: change value to use local state
+    const value = filter.orgType && optionsMap.get(filter.orgType);
 
     return (
       <Select
         className={className}
         classNamePrefix="select"
         value={value}
-        onChange={this.changeService}
+        onChange={() => this.changeService(this.props.filterType, value?.value)}
         options={options}
         isSearchable={false}
         components={{

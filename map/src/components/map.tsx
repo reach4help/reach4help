@@ -154,16 +154,21 @@ class MapComponent extends React.Component<Props, State> {
     if (map) {
       for (const set of MARKER_SET_KEYS) {
         map.activeMarkers[set].forEach(marker => {
+          console.log('this in update Markers Filter:', this);
           const info = this.getMarkerInfo(marker);
           const validType =
             !filter.orgType || info?.info.type.type === filter.orgType;
+          // Only organizations have service tags
+          const validService = info?.info.type.type === 'org'  
+            ? info?.info.type.services === filter.services 
+            : true;
           const validVisibility = !!(
             !filter.visibility ||
             filter.visibility === 'any' ||
             (filter.visibility === 'hidden' && !info?.info.visible) ||
             (filter.visibility === 'visible' && info?.info.visible)
           );
-          const visible = validType && validVisibility;
+          const visible = validType && validService && validVisibility;
           marker.setVisible(visible);
         });
       }

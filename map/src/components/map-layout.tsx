@@ -1,7 +1,7 @@
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
 import * as firebase from 'src/data/dataDriver';
-import { Filter, FilterMutator, Page } from 'src/state';
+import { Filter, UpdateFilter, Page } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
 import FilterType from './filter-type';
@@ -13,7 +13,7 @@ interface Props {
   className?: string;
   page: Page;
   filter: Filter;
-  updateFilter: (mutator: FilterMutator) => void;
+  updateFilter: UpdateFilter;
   components: {
     map: () => JSX.Element;
     results: (props: { className: string }) => JSX.Element;
@@ -56,12 +56,20 @@ class MapLayout extends React.Component<Props, State> {
                 <Search className="search" searchInputId="main" />
               </div>
               <div className="row">
+                <MyLocation className="my-location" />
+              </div>
+              <div className="row">
+                <FilterType
+                  className="filter"
+                  filter={filter}
+                  field={"org"}
+                  updateFilter={updateFilter}
+                />
                 <FilterType
                   className="filter"
                   filter={filter}
                   updateFilter={updateFilter}
                 />
-                <MyLocation className="my-location" />
               </div>
               {includingHidden && (
                 <div className="row">
