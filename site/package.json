@@ -47,7 +47,7 @@
     "babel-eslint": "^10.1.0",
     "babel-plugin-styled-components": "^1.10.7",
     "gatsby-plugin-root-import": "^2.0.5",
-    "lint-staged": "^10.2.7",
+    "lint-staged": "^11.0.0",
     "prettier": "2.0.5"
   },
   "lint-staged": {
