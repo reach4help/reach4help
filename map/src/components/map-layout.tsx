@@ -74,15 +74,15 @@ class MapLayout extends React.Component<Props, State> {
                   <Search className="search" searchInputId="main" />
                 </div>
                 <div className="row">
+                  <MyLocation className="my-location" />
+                </div>
+                <div className="row">
                   <input
                     type="text"
                     className="filter"
                     placeholder="Search text"
                     onChange={this.handleChange}
                   />
-                </div>
-                <div className="row">
-                  <MyLocation className="my-location" />
                 </div>
                 <div className="row">
                   <FilterType
