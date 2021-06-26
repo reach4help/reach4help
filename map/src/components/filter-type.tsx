@@ -31,7 +31,7 @@ class FilterType extends React.Component<Props, {}> {
     const { updateFilter } = this.props;
     updateFilter(filter => ({
       ...filter,
-      type: isOption(option) ? option.value : undefined,
+      orgType: isOption(option) ? option.value : undefined,
     }));
   };
 
@@ -52,7 +52,7 @@ class FilterType extends React.Component<Props, {}> {
 
     const options: Option[] = [any, ...optionsMap.values()];
 
-    const value = (filter.type && optionsMap.get(filter.type)) || any;
+    const value = (filter.orgType && optionsMap.get(filter.orgType)) || any;
 
     return (
       <Select

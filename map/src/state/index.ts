@@ -19,8 +19,10 @@ export type AddInfoStep =
   | 'submitted';
 
 export interface Filter {
-  type?: MarkerTypeString;
+  orgType?: MarkerTypeString;
   visibility?: 'visible' | 'hidden' | 'any';
+  searchText?: string;
+  filterExecuted?: boolean;
 }
 
 export type FilterMutator = (filter: Filter) => Filter;

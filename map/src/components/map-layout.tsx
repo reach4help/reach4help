@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
 import * as dataDriver from 'src/data/dataDriver';
@@ -30,6 +32,8 @@ class MapLayout extends React.Component<Props, State> {
     this.state = {
       includingHidden: dataDriver.includingHidden(),
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   public componentDidMount() {
@@ -43,6 +47,22 @@ class MapLayout extends React.Component<Props, State> {
   private dataDriverInformationUpdated: dataDriver.InformationListener = update =>
     this.setState({ includingHidden: update.includingHidden });
 
+  handleChange(e: any) {
+    const textValue = e.target.value;
+    this.props.updateFilter(tFilter => ({
+      ...tFilter,
+      searchText: textValue,
+    }));
+  }
+
+  handleSubmit(e: any) {
+    this.props.updateFilter(tFilter => ({
+      ...tFilter,
+      filterExecuted: false,
+    }));
+    e.preventDefault();
+  }
+
   public render() {
     const { className, components, page, filter, updateFilter } = this.props;
     const { includingHidden } = this.state;
@@ -52,27 +72,42 @@ class MapLayout extends React.Component<Props, State> {
         <div className="overlay">
           <div className="panel">
             <div className="controls">
-              <div className="row">
-                <Search className="search" searchInputId="main" />
-              </div>
-              <div className="row">
-                <FilterType
-                  className="filter"
-                  filter={filter}
-                  updateFilter={updateFilter}
-                />
-                <MyLocation className="my-location" />
-              </div>
-              {includingHidden && (
+              <form onSubmit={this.handleSubmit}>
                 <div className="row">
-                  <FilterVisibility
+                  <Search className="search" searchInputId="main" />
+                </div>
+                <div className="row">
+                  <input
+                    type="text"
+                    className="filter"
+                    placeholder="Search text"
+                    onChange={this.handleChange}
+                  />
+                </div>
+
+                <div className="row">
+                  <FilterType
                     className="filter"
                     filter={filter}
                     updateFilter={updateFilter}
                   />
+
+                  <MyLocation className="my-location" />
                 </div>
-              )}
+                {includingHidden && (
+                  <div className="row">
+                    <FilterVisibility
+                      className="filter"
+                      filter={filter}
+                      updateFilter={updateFilter}
+                    />
+                  </div>
+                )}
+
+                <input type="submit" value="Search" />
+              </form>
             </div>
+
             {components.results({
               className: 'results',
             })}

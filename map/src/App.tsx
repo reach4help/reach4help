@@ -36,7 +36,7 @@ class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      filter: {},
+      filter: { filterExecuted: false },
       results: null,
       nextResults: null,
       resultsOpen: false,

@@ -1,5 +1,4 @@
 import debounce from 'lodash/debounce';
-import isEqual from 'lodash/isEqual';
 import React from 'react';
 import mapState, {
   ActiveMarkers,
@@ -121,8 +120,9 @@ class MapComponent extends React.Component<Props, State> {
     const { map } = mapState();
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
-    if (map && !isEqual(filter, map.currentFilter)) {
+    if (map && !filter.filterExecuted) {
       this.updateMarkersVisibilityUsingFilter(filter);
+      filter.filterExecuted = true;
       map.currentFilter = filter;
     }
     if (nextResults && !results) {
@@ -156,14 +156,20 @@ class MapComponent extends React.Component<Props, State> {
         map.activeMarkers[set].forEach(marker => {
           const info = this.getMarkerInfo(marker);
           const validType =
-            !filter.type || info?.info.type.type === filter.type;
+            !filter.orgType || info?.info.type.type === filter.orgType;
           const validVisibility = !!(
             !filter.visibility ||
             filter.visibility === 'any' ||
             (filter.visibility === 'hidden' && !info?.info.visible) ||
             (filter.visibility === 'visible' && info?.info.visible)
           );
-          const visible = validType && validVisibility;
+          const validText = !!(
+            !filter.searchText ||
+            JSON.stringify(info?.info)
+              .toUpperCase()
+              .includes(filter.searchText.toUpperCase())
+          );
+          const visible = validType && validVisibility && validText;
           marker.setVisible(visible);
         });
       }
