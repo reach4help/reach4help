@@ -37,11 +37,24 @@ class MyLocation extends React.Component<Props, State> {
         map.map.setCenter(pos);
         map.map.setZoom(8);
         mapState().updateResultsOnNextBoundsChange = true;
+        if (
+          !localStorage.getItem(
+            'reach4help__CenterMapLocation_PermissionGranted',
+          )
+        ) {
+          localStorage.setItem(
+            'reach4help__CenterMapLocation_PermissionGranted',
+            'true',
+          );
+        }
         this.setState({ active: false });
       },
       error => {
         // eslint-disable-next-line no-alert
         alert('Unable to get geolocation!');
+        localStorage.removeItem(
+          'reach4help__CenterMapLocation_PermissionGranted',
+        );
         // eslint-disable-next-line no-console
         console.error(error.message);
         this.setState({ active: false });
