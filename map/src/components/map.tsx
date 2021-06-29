@@ -154,13 +154,11 @@ class MapComponent extends React.Component<Props, State> {
     if (map) {
       for (const set of MARKER_SET_KEYS) {
         map.activeMarkers[set].forEach(marker => {
-          console.log('this in update Markers Filter:', this);
           const info = this.getMarkerInfo(marker);
           const validType =
             !filter.markerTypes || info?.info.type.type === filter.markerTypes;
-          // Only organizations have service tags
-          const validService = info?.info.type.type === 'org'  
-            ? info?.info.type.services.includes(filter.services)  
+          const validService = (typeof filter.services !== 'undefined')
+            ? info?.info.type.services?.includes(filter.services) || false
             : true;
           const validVisibility = !!(
             !filter.hiddenMarkers ||
@@ -174,7 +172,7 @@ class MapComponent extends React.Component<Props, State> {
               .toUpperCase()
               .includes(filter.searchText.toUpperCase())
           );
-          const visible = validType && validVisibility && validText;
+          const visible = validType && validService && validVisibility && validText;
           marker.setVisible(visible);
         });
       }

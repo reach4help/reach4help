@@ -1,30 +1,17 @@
-import { isService } from '@reach4help/model/lib/markers/type';
-import {
-  isMarkerType as isOrgType,
-  MARKER_TYPE_STRINGS,
-  MarkerTypeString as OrgTypeString,
-  Service,
-} from '@reach4help/model/lib/markers/type';
 import React from 'react';
 import Select, { ValueType } from 'react-select';
 import Chevron from 'src/components/assets/chevron';
 import { Language, t } from 'src/i18n';
 import { Filter, UpdateFilter } from 'src/state';
-import { VisibilityOptions } from '../state/index';
 
 import styled from '../styling';
 import { AppContext } from './context';
 
-// TODO: the form's value should be an array of OptionType when multi filter implemented
 type OptionType = {
   value: string | undefined;
   label: string;
 };
 
-// TODO: add docs
-/** Property
- *
- */
 interface Props {
   className?: string;
   translationKey: 'markerTypes' | 'services' | ['hiddenMarkers', 'filter'];
@@ -36,10 +23,10 @@ interface Props {
 class FilterType extends React.Component<Props, {}> {
   private changeService = (
     fieldName: string,
-    fieldValue: string | undefined,
+    selectedValue: ValueType<OptionType>,
   ): void => {
-    if (fieldValue) {
-      this.props.updateFilter(fieldName, fieldValue);
+    if (selectedValue) {
+      this.props.updateFilter(fieldName, (selectedValue as OptionType).value);
     }
   };
 
@@ -71,16 +58,6 @@ class FilterType extends React.Component<Props, {}> {
       ]),
     );
 
-    // For filter-visibility:
-    // const optionsMap = new Map(
-    //   OPTION_VALUES.map(value => [
-    //     value,
-    //     { value, label: t(lang, s => s.hiddenMarkers.filter[value]) },
-    //   ]),
-    // );
-
-    // For services: SERVICE_STRINGS, s.services
-
     const filterFieldName =
       typeof this.props.translationKey === 'string'
         ? this.props.translationKey
@@ -92,18 +69,20 @@ class FilterType extends React.Component<Props, {}> {
     };
 
     const options: OptionType[] = [any, ...optionsMap.values()];
-    console.log('options:', options);
 
-    // TODO: change value to use local state?
-    const value = filter.markerTypes && optionsMap.get(filter.markerTypes);
+    const searchInOptions = filter[filterFieldName];
+    const value =
+      typeof searchInOptions !== 'undefined'
+        ? optionsMap.get(searchInOptions)
+        : undefined;
 
     return (
       <Select
         className={className}
         classNamePrefix="select"
         value={value}
-        onChange={() =>
-          this.changeService(filterFieldName, value?.value)
+        onChange={selectedValue =>
+          this.changeService(filterFieldName, selectedValue)
         }
         options={options}
         isSearchable={false}
