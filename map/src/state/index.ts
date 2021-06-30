@@ -1,7 +1,4 @@
-import {
-  MarkerTypeString,
-  Service,
-} from '@reach4help/model/lib/markers/type';
+import { MarkerTypeString, Service } from '@reach4help/model/lib/markers/type';
 
 export type Page =
   | {
@@ -34,5 +31,6 @@ export interface Filter {
 export type FilterMutator = (filter: Filter) => Filter;
 export type UpdateFilter = (
   fieldName: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any,
 ) => void;

@@ -171,7 +171,7 @@ const extractContactInputIdData = (target: HTMLElement) => {
 
 type ContactInputIdData = ReturnType<typeof extractContactInputIdData>;
 
-function removeUndefined(array: (string | undefined)[]): string[] {
+const removeUndefined = (array: (string | undefined)[]): string[] => {
   const retVal = [] as string[];
   array.forEach(element => {
     if (element) {
@@ -179,7 +179,7 @@ function removeUndefined(array: (string | undefined)[]): string[] {
     }
   });
   return retVal;
-}
+};
 
 class AddInstructions extends React.Component<Props, State> {
   private markerInfo: MarkerInputInfo | null = null;

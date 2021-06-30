@@ -26,42 +26,41 @@ class FilterType extends React.Component<Props, {}> {
     selectedValue: ValueType<OptionType>,
   ): void => {
     if (selectedValue) {
-      this.props.updateFilter(fieldName, (selectedValue as OptionType).value);
+      const { updateFilter } = this.props;
+      updateFilter(fieldName, (selectedValue as OptionType).value);
     }
   };
 
   private select = (lang: Language) => {
-    const { className, filter } = this.props;
+    const { className, filter, dropDownValues, translationKey } = this.props;
 
     const getTranslation = (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       s: any,
-      translationKey: string | [string, string],
+      key: string | [string, string],
       value: string,
     ): string => {
-      if (typeof translationKey === 'string' && s[translationKey]) {
-        return s[translationKey][value];
-      } else if (s[translationKey[0]][translationKey[1]]) {
-        return s[translationKey[0]][translationKey[1]][value];
+      if (typeof key === 'string' && s[key]) {
+        return s[key][value];
+      }
+      if (s[key[0]][key[1]]) {
+        return s[key[0]][key[1]][value];
       }
       return value;
     };
 
     const optionsMap = new Map(
-      this.props.dropDownValues.map(value => [
+      dropDownValues.map(value => [
         value,
         {
           value,
-          label: t(lang, s =>
-            getTranslation(s, this.props.translationKey, value),
-          ),
+          label: t(lang, s => getTranslation(s, translationKey, value)),
         },
       ]),
     );
 
     const filterFieldName =
-      typeof this.props.translationKey === 'string'
-        ? this.props.translationKey
-        : this.props.translationKey[0];
+      typeof translationKey === 'string' ? translationKey : translationKey[0];
 
     const any: OptionType = {
       value: undefined,

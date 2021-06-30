@@ -1,1 +1,5 @@
-const markerVisibility = require('../src/components/map');
+describe('test filter', () => {
+  it('dummy test', () => {
+    /* TODO */
+  });
+});

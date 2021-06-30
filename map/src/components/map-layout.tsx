@@ -7,7 +7,7 @@ import {
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
 import * as dataDriver from 'src/data/dataDriver';
-import { Filter, UpdateFilter, Page } from 'src/state';
+import { Filter, Page, UpdateFilter } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
 import FilterType from './filter-type';
@@ -50,13 +50,13 @@ class MapLayout extends React.Component<Props, State> {
   private dataDriverInformationUpdated: dataDriver.InformationListener = update =>
     this.setState({ includingHidden: update.includingHidden });
 
-  handleChange(e: any) {
+  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const textValue = e.target.value;
-    this.props.updateFilter("searchText", textValue);
+    this.props.updateFilter('searchText', textValue);
   }
 
-  handleSubmit(e: any) {
-    this.props.updateFilter("filterExecuted", false);
+  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    this.props.updateFilter('filterExecuted', false);
     e.preventDefault();
   }
 
@@ -87,14 +87,14 @@ class MapLayout extends React.Component<Props, State> {
                 <div className="row">
                   <FilterType
                     className="filter"
-                    translationKey={'markerTypes'}
+                    translationKey="markerTypes"
                     dropDownValues={MARKER_TYPE_STRINGS}
                     filter={filter}
                     updateFilter={updateFilter}
                   />
                   <FilterType
                     className="filter"
-                    translationKey={'services'}
+                    translationKey="services"
                     dropDownValues={SERVICE_STRINGS}
                     filter={filter}
                     updateFilter={updateFilter}
