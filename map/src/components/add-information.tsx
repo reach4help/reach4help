@@ -20,12 +20,12 @@ import {
 } from 'react-icons/md';
 import Search from 'src/components/search';
 import { addMarker, LocationType, MarkerInfoType } from 'src/data/dataDriver';
+import { R4HGeoPoint } from 'src/data/R4HGeoPoint';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
 import { trackEvent } from 'src/util/tracking';
 
-import { R4HGeoPoint } from '../data/R4HGeoPoint';
 import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
   button,
