@@ -1,65 +1,97 @@
-import {
-  isMarkerType,
-  MARKER_TYPE_STRINGS,
-  MarkerTypeString,
-} from '@reach4help/model/lib/markers/type';
 import React from 'react';
 import Select, { ValueType } from 'react-select';
 import Chevron from 'src/components/assets/chevron';
 import { Language, t } from 'src/i18n';
-import { Filter, FilterMutator } from 'src/state';
+import { Filter, UpdateFilter } from 'src/state';
 
 import styled from '../styling';
 import { AppContext } from './context';
 
-type Option = {
-  value: MarkerTypeString | undefined;
+type OptionType = {
+  value: string | undefined;
   label: string;
 };
 
-const isOption = (option: ValueType<Option>): option is Option =>
-  !!(option && isMarkerType((option as Option).value));
-
 interface Props {
   className?: string;
+  translationKey: string;
+  filterScreenField: string;
+  dropDownValues: readonly string[];
   filter: Filter;
-  updateFilter: (mutator: FilterMutator) => void;
+  updateFilter: UpdateFilter;
 }
 
-class FilterType extends React.Component<Props, {}> {
-  private changeService = (option: ValueType<Option>): void => {
-    const { updateFilter } = this.props;
-    updateFilter(filter => ({
-      ...filter,
-      orgType: isOption(option) ? option.value : undefined,
-    }));
+class DropDown extends React.Component<Props, {}> {
+  private changeService = (
+    fieldName: string,
+    selectedValue: ValueType<OptionType>,
+  ): void => {
+    if (selectedValue) {
+      const { updateFilter } = this.props;
+      updateFilter(fieldName, (selectedValue as OptionType).value);
+    }
+  };
+
+  private lookUpValue = (
+    // TODO: add some docs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    translationObject: any,
+    propKey: string,
+    valueKey: string,
+  ): string => {
+    let val = translationObject;
+    const keys = propKey.split('.');
+    keys.forEach(key => {
+      val = val[key];
+    });
+    return val[valueKey];
   };
 
   private select = (lang: Language) => {
-    const { className, filter } = this.props;
+    const {
+      className,
+      filter,
+      dropDownValues,
+      translationKey,
+      filterScreenField,
+    } = this.props;
 
     const optionsMap = new Map(
-      MARKER_TYPE_STRINGS.map(value => [
+      dropDownValues.map(value => [
         value,
-        { value, label: t(lang, s => s.markerTypes[value]) },
+        {
+          value,
+          label: t(lang, translationObject =>
+            this.lookUpValue(translationObject, translationKey, value),
+          ),
+        },
       ]),
     );
 
-    const any: Option = {
+    // TODO: refactor .services
+    const any: OptionType = {
       value: undefined,
-      label: t(lang, s => s.services.any),
+      label: t(lang, translationObject => translationObject.services.any),
     };
 
-    const options: Option[] = [any, ...optionsMap.values()];
+    const options: OptionType[] = [any, ...optionsMap.values()];
 
-    const value = (filter.orgType && optionsMap.get(filter.orgType)) || any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const searchInOptions = (filterScreen: any) =>
+      filterScreen[filterScreenField];
+    const value =
+      typeof searchInOptions !== 'undefined'
+        ? optionsMap.get(searchInOptions(filter))
+        : undefined;
 
     return (
       <Select
         className={className}
         classNamePrefix="select"
         value={value}
-        onChange={this.changeService}
+        onChange={selectedValue =>
+          this.changeService(filterScreenField, selectedValue)
+        }
         options={options}
         isSearchable={false}
         components={{
@@ -79,7 +111,7 @@ class FilterType extends React.Component<Props, {}> {
   }
 }
 
-export default styled(FilterType)`
+export default styled(DropDown)`
   .select__control {
     border: 1px solid ${p => p.theme.colors.borderBase};
     box-shadow: none;

@@ -20,12 +20,12 @@ import {
 } from 'react-icons/md';
 import Search from 'src/components/search';
 import { addMarker, LocationType, MarkerInfoType } from 'src/data/dataDriver';
+import { R4HGeoPoint } from 'src/data/R4HGeoPoint';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
 import { trackEvent } from 'src/util/tracking';
 
-import { R4HGeoPoint } from '../data/R4HGeoPoint';
 import styled, { LARGE_DEVICES, Z_INDICES } from '../styling';
 import {
   button,
@@ -171,7 +171,7 @@ const extractContactInputIdData = (target: HTMLElement) => {
 
 type ContactInputIdData = ReturnType<typeof extractContactInputIdData>;
 
-function removeUndefined(array: (string | undefined)[]): string[] {
+const removeUndefined = (array: (string | undefined)[]): string[] => {
   const retVal = [] as string[];
   array.forEach(element => {
     if (element) {
@@ -179,7 +179,7 @@ function removeUndefined(array: (string | undefined)[]): string[] {
     }
   });
   return retVal;
-}
+};
 
 class AddInstructions extends React.Component<Props, State> {
   private markerInfo: MarkerInputInfo | null = null;
