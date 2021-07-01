@@ -14,7 +14,8 @@ type OptionType = {
 
 interface Props {
   className?: string;
-  translationKey: 'markerTypes' | 'services' | ['hiddenMarkers', 'filter'];
+  translationKey: string;
+  filterScreenField: string;
   dropDownValues: readonly string[];
   filter: Filter;
   updateFilter: UpdateFilter;
@@ -32,45 +33,55 @@ class DropDown extends React.Component<Props, {}> {
   };
 
   private lookUpValue = (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // TODO: add some docs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     translationObject: any,
-    key: string | [string, string],
+    propKey: string,
     valueKey: string,
   ): string => {
-    if (typeof key === 'string' && translationObject[key]) {
-      return translationObject[key][valueKey];
-    }
-    return translationObject[key[0]][key[1]] ? translationObject[key[0]][key[1]][valueKey] : valueKey;
+    let val = translationObject;
+    const keys = propKey.split('.');
+    keys.forEach(key => {
+      val = val[key];
+    });
+    return val[valueKey];
   };
 
   private select = (lang: Language) => {
-    const { className, filter, dropDownValues, translationKey } = this.props;
+    const {
+      className,
+      filter,
+      dropDownValues,
+      translationKey,
+      filterScreenField,
+    } = this.props;
 
     const optionsMap = new Map(
       dropDownValues.map(value => [
         value,
         {
           value,
-          label: t(lang, s => this.lookUpValue(s, translationKey, value)),
+          label: t(lang, translationObject =>
+            this.lookUpValue(translationObject, translationKey, value),
+          ),
         },
       ]),
     );
 
-    const filterFieldName =
-      typeof translationKey === 'string' ? translationKey : translationKey[0];
-
+    // TODO: refactor .services
     const any: OptionType = {
       value: undefined,
-      label: t(lang, s => s.services.any),
+      label: t(lang, translationObject => translationObject.services.any),
     };
 
     const options: OptionType[] = [any, ...optionsMap.values()];
 
-    const searchInOptions = filter[filterFieldName];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const searchInOptions = (filterScreen: any) =>
+      filterScreen[filterScreenField];
     const value =
       typeof searchInOptions !== 'undefined'
-        ? optionsMap.get(searchInOptions)
+        ? optionsMap.get(searchInOptions(filter))
         : undefined;
 
     return (
@@ -79,7 +90,7 @@ class DropDown extends React.Component<Props, {}> {
         classNamePrefix="select"
         value={value}
         onChange={selectedValue =>
-          this.changeService(filterFieldName, selectedValue)
+          this.changeService(filterScreenField, selectedValue)
         }
         options={options}
         isSearchable={false}

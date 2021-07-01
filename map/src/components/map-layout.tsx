@@ -88,6 +88,7 @@ class MapLayout extends React.Component<Props, State> {
                   <DropDown
                     className="filter"
                     translationKey="markerTypes"
+                    filterScreenField="markerTypes"
                     dropDownValues={MARKER_TYPE_STRINGS}
                     filter={filter}
                     updateFilter={updateFilter}
@@ -95,6 +96,7 @@ class MapLayout extends React.Component<Props, State> {
                   <DropDown
                     className="filter"
                     translationKey="services"
+                    filterScreenField="services"
                     dropDownValues={SERVICE_STRINGS}
                     filter={filter}
                     updateFilter={updateFilter}
@@ -104,7 +106,8 @@ class MapLayout extends React.Component<Props, State> {
                   <div className="row">
                     <DropDown
                       className="filter"
-                      translationKey={['hiddenMarkers', 'filter']}
+                      translationKey="hiddenMarkers.filter"
+                      filterScreenField="hiddenMarkers"
                       dropDownValues={['visible', 'hidden']}
                       filter={filter}
                       updateFilter={updateFilter}
