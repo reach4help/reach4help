@@ -17,5 +17,5 @@
     "jsx": "react",
     "downlevelIteration": true
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

@@ -1,10 +1,8 @@
 {
   "common": {
     "or": "or",
-    "submit": "Submit",
     "i_understand": "Я понимаю.",
     "okay": "Окей",
-    "next": "Next",
     "cancel": "Отменить",
     "welcome": "Добро пожаловать",
     "continue": "Продолжить",
@@ -23,25 +21,6 @@
     "State": "Штат / Область",
     "country": "Страна",
     "for": " для ",
-    "Offer": "Offer",
-    "Request": "Request",
-    "navbar": {
-      "home": "Home",
-      "my_requests": "Requests",
-      "my_offers": "Offers",
-      "create_new": {
-        "title": "Create New",
-        "options": {
-          "request": "Help Request",
-          "offer": "Volunteer Offer"
-        }
-      },
-      "about": "About Us",
-      "login": "Login",
-      "sign_up": "Sign Up",
-      "profile": "Profile",
-      "notifications": "Notifications"
-    },
     "information_modal": {
       "instructions": "Инструкции",
       "footer": "Если у вас есть вопросы или вам нужна помощь, пишите нам на support@reach4help.org.",
@@ -175,20 +154,16 @@
       }
     },
     "menuDrawer": {
-      "changeLanguage": "Change Language",
       "contactUs": "Напишите нам",
       "logout": "Выйти из учетной записи",
       "switchToCAV": "Переключиться на поддержку предложения",
       "switchToPIN": "Переключиться на помощь по поиску",
-      "settings": "Settings",
-      "login-signup": "Log in / Signup"
+      "settings": "Settings"
     },
     "settings": {
       "heading": "Settings",
-      "changeAvatar": "Change my avatar",
       "changeName": "Change my name",
       "deleteAccount": "Delete my account",
-      "changeAddresses": "Change saved addresses",
       "changeNameForm": {
         "full_name_error_message": "Please enter your name",
         "display_name_error_message": "Please enter your display name",
@@ -199,17 +174,6 @@
         "title": "Are you sure you want to delete your account",
         "body": "Closing your account means you will no longer be able to provide help or ask for help",
         "deleteAccount": "Delete my account"
-      },
-      "changeAddressForm": {
-        "deliveryAddress": "Delivery Address",
-        "nameOfAddress": "Name of Address",
-        "address": "Address",
-        "cancel": "Cancel",
-        "submit": "Save",
-        "next": "Next",
-        "back": "Back",
-        "saveChangesCheckbox": "Save Address",
-        "dontSaveChangesCheckbox": "Don't Save Address"
       }
     },
     "phoneNumber": {
@@ -255,7 +219,6 @@
         "search": "Поиск",
         "useMyLocation": "Найти меня на карте",
         "address_error_message": "Пожалуйста, введите Ваш адрес.",
-        "title_error_message": "Please enter the title",
         "type_error_message": "Вы должны указать сумму.",
         "other_error_message": "Введите название.",
         "body_error_message": "Пожалуйста, введите описание проблемы."
@@ -390,38 +353,6 @@
           }
         }
       },
-      "create": {
-        "stepTitles": {
-          "details": "Details",
-          "map": "Location",
-          "summary": "Summary"
-        },
-        "displayElements": {
-          "address": "Address"
-        },
-        "postSummary": {
-          "confirmation": "Confirmation"
-        },
-        "postDetails": {
-          "header": "Post Details",
-          "titleLabel": "Title",
-          "typeLabel": "Type",
-          "detailsLabel": "Enter details of what is needed"
-        },
-        "postLocation": {
-          "add": "Add a new one",
-          "public": "Do you show my location publicly?",
-          "publicText": "Your location will only be shared with the volunteer you accept to help you. All users are also not allowed to save your location unless you explicitly say otherwise."
-        },
-        "title": "Title",
-        "defaults": {
-          "postDetails": {
-            "title": "I need something",
-            "type": "Deliveries",
-            "body": "Please bring me supplies"
-          }
-        }
-      },
       "requests": {
         "a11y_profile_pic": "Пик профиля",
         "AcceptedRequestItem": {
@@ -437,20 +368,14 @@
               "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
             }
           },
-          "TabbedPostPage": {
-            "requests_tab_label": "My Requests",
-            "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
-            "filterBy": "Filter By"
-          },
           "AcceptedRequestContainer": {
             "accepted": "Принятые"
           },
           "FindRequestsContainer": {
             "want_to_help": "Я хочу Продать"
           },
-          "ClosedRequestsContainer": {
-            "closed": "Closed"
+          "FinishedRequestsContainer": {
+            "finished": "Готово"
           },
           "NewRequestsContainer": {
             "address_error": "Не удалось найти адрес",
@@ -461,10 +386,6 @@
           },
           "OpenRequestContainer": {
             "open": "Открыть"
-          },
-          "AllRequestsContainer": {
-            "requests": "All Requests",
-            "offers": "All Offers"
           },
           "no_reply": "Никто не ответил на ваш запрос."
         }

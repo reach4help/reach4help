@@ -1,98 +1,77 @@
 {
   "common": {
-    "or": "vagy",
-    "submit": "Küldés",
-    "i_understand": "Értem.",
-    "okay": "Rendben",
-    "next": "Következő",
-    "cancel": "Mégse",
-    "welcome": "Üdvözöljük",
-    "continue": "Folytatás",
-    "back": "Vissza",
-    "verify": "Hitelesítés",
-    "spinner": "Betöltés ...",
-    "name": "Név",
-    "full_name": "Teljes név",
-    "display_name": "Megjelenítendő név",
-    "display_name_placeholder": "Üdvözletkor használt név, alapesetben keresztnév",
-    "address": "Cím",
-    "address1": "Cím első sora",
-    "address2": "Cím második sora (nem kötelező)",
-    "city": "Település",
-    "code": "Irányítószám",
-    "State": "Megye / tartomány",
-    "country": "Ország",
+    "or": "or",
+    "i_understand": "I understand.",
+    "okay": "Okay",
+    "cancel": "Cancel",
+    "welcome": "Welcome",
+    "continue": "Continue",
+    "back": "Back",
+    "verify": "Verify",
+    "spinner": "Loading ...",
+    "name": "Name",
+    "full_name": "Full name",
+    "display_name": "Display name",
+    "display_name_placeholder": "Name used in greetings, defaults to 1st name",
+    "address": "Address",
+    "address1": "Address line 1",
+    "address2": "Address line 2 (optional)",
+    "city": "City",
+    "code": "Postal / Zip Code",
+    "State": "State / Province",
+    "country": "Country",
     "for": " for ",
-    "Offer": "Ajánlat",
-    "Request": "Kérelem",
-    "navbar": {
-      "home": "Kezdőlap",
-      "my_requests": "Kérelmek",
-      "my_offers": "Ajánlatok",
-      "create_new": {
-        "title": "Létrehozás",
-        "options": {
-          "request": "Segélykérés",
-          "offer": "Önkéntes ajánlat"
-        }
-      },
-      "about": "Rólunk",
-      "login": "Bejelentkezés",
-      "sign_up": "Regisztráció",
-      "profile": "Profil",
-      "notifications": "Értesítések"
-    },
     "information_modal": {
-      "instructions": "Utasítások",
-      "footer": "Ha bármilyen kérdése van, vagy segítségre van szüksége, írjon nekünk bizalommal a support@reach4help.org e-mail címre.",
-      "a11y_logo": "Reach for Help logó",
+      "instructions": "Instructions",
+      "footer": "If you have any questions or need assistance feel free to email us at support@reach4help.org.",
+      "a11y_logo": "Reach for Help logo",
       "OpenRequestsContainer": {
-        "title": "Még mindig segítségre van szükségem ...",
-        "0": "Kérései nyilvánosak, de még senki sem jelentkezett önként",
-        "1": "Értesítéseket is kap, amelyek tájékoztatják Önt kérelmei állapotáról.",
-        "2": " Ha bármilyen kérdése vagy problémája van ezzel kapcsolatban, írjon nekünk bizalommal a support@reach4help.org e-mail címre!"
+        "title": "Still looking for help ...",
+        "0": "Your requests are out there but no one has yet volunteered to help",
+        "1": "You will also be receiving notifications to update you about the status of your requests.",
+        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
-        "title": "Van, aki szívesen segítene Önnek!",
-        "0": "Valaki felajánlotta, hogy segítséget nyújt Önnek.",
-        "1": "Vegye fel vele a kapcsolatot telefonon a részletek kidolgozásához."
+        "title": "Someone has offered to help!",
+        "0": "Someone has offered to help you out.",
+        "1": "Get in touch with them by phone to work out the details."
       },
       "OngoingRequestsContainer": {
         "title": "Matched with a Volunteer!",
         "0": "You matched with someone who is taking care of your request."
       },
       "FinishedRequestsContainer": {
-        "title": "Kész!",
-        "0": "Egységesen megegyeztek abban, hogy a kérelem teljesült."
+        "title": "All Done!",
+        "0": "You and the volunteer agree that everything is done."
       },
       "ArchivedRequestsContainer": {
         "title": "You decided not to do it",
         "0": "You changed your mind and deleted your request."
       },
       "TimelineViewContainer": {
-        "title": "Tekintse meg kérelmének minden lépését",
-        "0": "Kérelem létrehozva.",
-        "1": "Valaki segítséget kínál.",
-        "2": "A segítségnyújtás elfogadásra vagy elutasításra kerül.",
-        "3": "A kérelem beteljesül.",
-        "4": "A kérelem lezárul.",
-        "5": "A kérelem eltávolításra kerül.",
-        "6": "Az önkéntesek és a rászoruló emberek értékelhetik egymást."
+        "title": "View each step of your request",
+        "0": "A request is created.",
+        "1": "Someone offers help.",
+        "2": "The offer is accepted or rejected.",
+        "3": "The request is completed.",
+        "4": "The request is closed.",
+        "5": "The request was removed.",
+        "6": "Volunteers and People In Need rate each other."
       },
       "MenuDrawer": {
         "title": "Using the Bottom Buttons",
         "0": "Press the Left Menu to keep track of each step of your request",
-        "1": "Nyílt: Önkéntesre váró kérelmek",
-        "2": "Elfogadott: Valaki felajánlotta, hogy segít.",
-        "3": "Folyamatban: Egy önkéntes jelenleg az Ön kérelmén dolgozik.",
-        "4": "Teljesítve: Az önkéntes teljesítette a kérést.",
-        "5": "Archivált: Az Ön által törölt kérelmek.",
-        "6": "Nyomja meg a jobb oldali harangot az értesítések megtekintéséhez"
+        "1": "Open: Requests that still need a volunteer",
+        "2": "Accepted: Someone has offered to help you out.",
+        "3": "Ongoing: A volunteer is working on your request now.",
+        "4": "Finished: The volunteer has completed the request.",
+        "5": "Archived: Requests you deleted.",
+        "6": "Press the Left Bell to see your notifications"
       },
       "FindRequestsContainer": {
-        "title": "Üdvözöljük a Reach4Help-nél!",
-        "0": "Köszönjük, hogy csatlakozott a Reach4Help-hez!",
-        "1": "Önkéntesként segíthet a környéken élő embereknek, ha válaszol a segítségkéréseikre.",
+        "title": "Welcome to Reach4Help!",
+        "0": "Thank you for joining Reach4Help!",
+        "1": "As a volunteer, you'll be able to help people in your area by responding to their help requests.",
         "2": "Use this map to search for people in need.",
         "3": "Click on an orange marker to view that person's request and decide whether to accept it",
         "4": "Once the person in need accepts your offer for help, you will exchange contact information.",
@@ -175,20 +154,16 @@
       }
     },
     "menuDrawer": {
-      "changeLanguage": "Change Language",
       "contactUs": "Contact us",
       "logout": "Sign out",
       "switchToCAV": "Switch to Offering Support",
       "switchToPIN": "Switch to Seeking Help",
-      "settings": "Settings",
-      "login-signup": "Log in / Signup"
+      "settings": "Settings"
     },
     "settings": {
       "heading": "Settings",
-      "changeAvatar": "Change my avatar",
       "changeName": "Change my name",
       "deleteAccount": "Delete my account",
-      "changeAddresses": "Change saved addresses",
       "changeNameForm": {
         "full_name_error_message": "Please enter your name",
         "display_name_error_message": "Please enter your display name",
@@ -199,17 +174,6 @@
         "title": "Are you sure you want to delete your account",
         "body": "Closing your account means you will no longer be able to provide help or ask for help",
         "deleteAccount": "Delete my account"
-      },
-      "changeAddressForm": {
-        "deliveryAddress": "Delivery Address",
-        "nameOfAddress": "Name of Address",
-        "address": "Address",
-        "cancel": "Cancel",
-        "submit": "Save",
-        "next": "Next",
-        "back": "Back",
-        "saveChangesCheckbox": "Save Address",
-        "dontSaveChangesCheckbox": "Don't Save Address"
       }
     },
     "phoneNumber": {
@@ -255,7 +219,6 @@
         "search": "Search",
         "useMyLocation": "Use my location",
         "address_error_message": "Please enter your address.",
-        "title_error_message": "Please enter the title",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
         "body_error_message": "Please enter your description."
@@ -390,38 +353,6 @@
           }
         }
       },
-      "create": {
-        "stepTitles": {
-          "details": "Details",
-          "map": "Location",
-          "summary": "Summary"
-        },
-        "displayElements": {
-          "address": "Address"
-        },
-        "postSummary": {
-          "confirmation": "Confirmation"
-        },
-        "postDetails": {
-          "header": "Post Details",
-          "titleLabel": "Title",
-          "typeLabel": "Type",
-          "detailsLabel": "Enter details of what is needed"
-        },
-        "postLocation": {
-          "add": "Add a new one",
-          "public": "Do you show my location publicly?",
-          "publicText": "Your location will only be shared with the volunteer you accept to help you. All users are also not allowed to save your location unless you explicitly say otherwise."
-        },
-        "title": "Title",
-        "defaults": {
-          "postDetails": {
-            "title": "I need something",
-            "type": "Deliveries",
-            "body": "Please bring me supplies"
-          }
-        }
-      },
       "requests": {
         "a11y_profile_pic": "Profile Pic",
         "AcceptedRequestItem": {
@@ -437,20 +368,14 @@
               "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
             }
           },
-          "TabbedPostPage": {
-            "requests_tab_label": "My Requests",
-            "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
-            "filterBy": "Filter By"
-          },
           "AcceptedRequestContainer": {
             "accepted": "Accepted"
           },
           "FindRequestsContainer": {
             "want_to_help": "I want to help!"
           },
-          "ClosedRequestsContainer": {
-            "closed": "Closed"
+          "FinishedRequestsContainer": {
+            "finished": "Finished"
           },
           "NewRequestsContainer": {
             "address_error": "Unable to find address",
@@ -461,10 +386,6 @@
           },
           "OpenRequestContainer": {
             "open": "Open"
-          },
-          "AllRequestsContainer": {
-            "requests": "All Requests",
-            "offers": "All Offers"
           },
           "no_reply": "No one has replied to your request."
         }

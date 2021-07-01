@@ -1,10 +1,8 @@
 {
   "common": {
     "or": "or",
-    "submit": "Submit",
     "i_understand": "我明白了。",
     "okay": "好",
-    "next": "Next",
     "cancel": "取消",
     "welcome": "欢迎使用",
     "continue": "继续",
@@ -23,25 +21,6 @@
     "State": "州 / 省",
     "country": "国家",
     "for": "为",
-    "Offer": "Offer",
-    "Request": "Request",
-    "navbar": {
-      "home": "Home",
-      "my_requests": "Requests",
-      "my_offers": "Offers",
-      "create_new": {
-        "title": "Create New",
-        "options": {
-          "request": "Help Request",
-          "offer": "Volunteer Offer"
-        }
-      },
-      "about": "About Us",
-      "login": "Login",
-      "sign_up": "Sign Up",
-      "profile": "Profile",
-      "notifications": "Notifications"
-    },
     "information_modal": {
       "instructions": "说明",
       "footer": "如果您有任何问题或需要援助，请随时发送电子邮件给我们 support@reach4help.org。",
@@ -175,20 +154,16 @@
       }
     },
     "menuDrawer": {
-      "changeLanguage": "Change Language",
       "contactUs": "聯絡我們",
       "logout": "登出",
       "switchToCAV": "切换到提供支持",
       "switchToPIN": "切换到寻找帮助",
-      "settings": "Settings",
-      "login-signup": "Log in / Signup"
+      "settings": "Settings"
     },
     "settings": {
       "heading": "Settings",
-      "changeAvatar": "Change my avatar",
       "changeName": "Change my name",
       "deleteAccount": "Delete my account",
-      "changeAddresses": "Change saved addresses",
       "changeNameForm": {
         "full_name_error_message": "Please enter your name",
         "display_name_error_message": "Please enter your display name",
@@ -199,17 +174,6 @@
         "title": "Are you sure you want to delete your account",
         "body": "Closing your account means you will no longer be able to provide help or ask for help",
         "deleteAccount": "Delete my account"
-      },
-      "changeAddressForm": {
-        "deliveryAddress": "Delivery Address",
-        "nameOfAddress": "Name of Address",
-        "address": "Address",
-        "cancel": "Cancel",
-        "submit": "Save",
-        "next": "Next",
-        "back": "Back",
-        "saveChangesCheckbox": "Save Address",
-        "dontSaveChangesCheckbox": "Don't Save Address"
       }
     },
     "phoneNumber": {
@@ -255,7 +219,6 @@
         "search": "搜索​​​​",
         "useMyLocation": "更新我的位置：",
         "address_error_message": "请输入您的地址。",
-        "title_error_message": "Please enter the title",
         "type_error_message": "您需要选择一种语言。",
         "other_error_message": "您需要输入标题。",
         "body_error_message": "请输入问题描述。"
@@ -390,38 +353,6 @@
           }
         }
       },
-      "create": {
-        "stepTitles": {
-          "details": "Details",
-          "map": "Location",
-          "summary": "Summary"
-        },
-        "displayElements": {
-          "address": "Address"
-        },
-        "postSummary": {
-          "confirmation": "Confirmation"
-        },
-        "postDetails": {
-          "header": "Post Details",
-          "titleLabel": "Title",
-          "typeLabel": "Type",
-          "detailsLabel": "Enter details of what is needed"
-        },
-        "postLocation": {
-          "add": "Add a new one",
-          "public": "Do you show my location publicly?",
-          "publicText": "Your location will only be shared with the volunteer you accept to help you. All users are also not allowed to save your location unless you explicitly say otherwise."
-        },
-        "title": "Title",
-        "defaults": {
-          "postDetails": {
-            "title": "I need something",
-            "type": "Deliveries",
-            "body": "Please bring me supplies"
-          }
-        }
-      },
       "requests": {
         "a11y_profile_pic": "个人资料图片",
         "AcceptedRequestItem": {
@@ -437,20 +368,14 @@
               "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
             }
           },
-          "TabbedPostPage": {
-            "requests_tab_label": "My Requests",
-            "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
-            "filterBy": "Filter By"
-          },
           "AcceptedRequestContainer": {
             "accepted": "已接受"
           },
           "FindRequestsContainer": {
             "want_to_help": "我们乐于提供帮助。"
           },
-          "ClosedRequestsContainer": {
-            "closed": "Closed"
+          "FinishedRequestsContainer": {
+            "finished": "清理完成"
           },
           "NewRequestsContainer": {
             "address_error": "无法找到订单。",
@@ -461,10 +386,6 @@
           },
           "OpenRequestContainer": {
             "open": "打开"
-          },
-          "AllRequestsContainer": {
-            "requests": "All Requests",
-            "offers": "All Offers"
           },
           "no_reply": "没有人回复您的请求。"
         }

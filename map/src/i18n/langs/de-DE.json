@@ -43,7 +43,8 @@
     "screen": {
       "title": "Informationen auf der Karte ergänzen",
       "information": {
-        "acceptedInformation": "Derzeit stellen wir ausschließlich Informationen über Organisationen und Unternehmen, die Hilfe oder Unterstützung anbieten, auf die jeweilige Region bezogene Initiativen zur finanziellen Unterstützung und Gruppen der gegenseitigen Hilfe bereit. Im Moment nehmen wir keine Informationen von Einzelpersonen auf, die Hilfe anbieten.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
+        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Bitte füllen Sie das untenstehende Formular aus, um Informationen zu ergänzen. Wir werden Sie danach nach den geografischen und Kontaktdaten fragen.",
         "form": {
           "type": "Art des Projekts / der Gruppe / der Organisation / der Initiative",
@@ -93,7 +94,7 @@
         "loading": "Informationen werden zur Karte übertragen.",
         "error": "Fehler beim Hinzufügen der Informationen",
         "success": "Ihre Informationen wurden erfolgreich übermittelt.",
-        "successExtra": "Bevor Ihre Informationen auf der Karte sichtbar sind, werden sie von einer/einem Freiwilligen aus unserem Team überprüft. Das sollte (hoffentlich) in ein paar Tagen erledigt sein."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -120,35 +121,51 @@
   "services": {
     "any": "Alles",
     "food": "Lebensmittel",
-    "medicine": "Medikamente",
-    "supplies": "Andere Materialien",
-    "mobility": "Mobilität",
     "shelter": "Unterkunft",
-    "support": "Unterstützung",
-    "information": "Informationen",
-    "network": "Netzwerke",
-    "manufacturing": "Fertigung",
+    "beds": "Hospital Beds",
+    "oxygen": "Oxygen",
+    "medicine": "Medikamente",
+    "home-care": "Home Care",
+    "blood": "Plasma / Blood",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth",
     "financial": "Finanzierung",
+    "mobility": "Mobilität",
+    "information": "Informationen",
+    "manufacturing": "Fertigung",
+    "support": "Unterstützung",
+    "network": "Netzwerke",
+    "supplies": "Andere Materialien",
+    "vaccine": "Vaccinations",
     "other": "Andere"
   },
   "serviceDescriptions": {
-    "food": null,
-    "medicine": null,
-    "supplies": "Andere Güter als Lebensmittel oder Medikamente",
+    "food": "Food and/or water",
+    "shelter": "Shelter for the homeless and those who need it",
+    "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
+    "oxygen": "Oxygen cylinders or refills",
+    "medicine": "COVID-19 medicines like Remdesivir",
+    "home-care": "Home care for the elderly",
+    "blood": "Plasma / Blood transfusions",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth/teleconsultation services",
+    "financial": "Donations and fundraising",
     "mobility": "Menschen von einem Ort zum anderen transportieren",
-    "shelter": null,
-    "support": "Spezielle Unterstützung besonders gefährdeter Menschen, z.B. Wohnungs- oder Obdachlose, Menschen, die häuslicher Gewalt ausgesetzt sein könnten usw.",
-    "information": "Menschen helfen, für sie relevante Informationen zu finden",
-    "network": "Bereitstellung von Ressourcen zur Vernetzung von Hilfeleistungen, z.B. zwischen Organisationen der gegenseitigen Hilfe",
+    "information": "Help people find relevant information",
     "manufacturing": "Bereitstellen von Liefer- oder Produktionskapazitäten für die Bewältigung der Krise",
-    "financial": null,
+    "support": "Spezielle Unterstützung besonders gefährdeter Menschen, z.B. Wohnungs- oder Obdachlose, Menschen, die häuslicher Gewalt ausgesetzt sein könnten usw.",
+    "network": "Bereitstellung von Ressourcen zur Vernetzung von Hilfeleistungen, z.B. zwischen Organisationen der gegenseitigen Hilfe",
+    "supplies": "Andere Güter als Lebensmittel oder Medikamente",
+    "vaccine": "Verified vaccination site",
     "other": "Etwas, was nicht auf der Liste ist"
   },
   "markerTypes": {
     "mutual-aid-group": "Gruppen der gegenseitigen Hilfe",
     "org": "Organisation / Unternehmen",
-    "financial": "Finanzierung",
-    "information": "Informationen",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
+    "individual": "Individual",
     "other": "Andere"
   },
   "markerTypeSentence": {

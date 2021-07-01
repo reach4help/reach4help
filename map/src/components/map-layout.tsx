@@ -1,11 +1,16 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable react/destructuring-assignment */
+import {
+  MARKER_TYPE_STRINGS,
+  SERVICE_STRINGS,
+} from '@reach4help/model/lib/markers/type';
 import React from 'react';
 import MapLoader from 'src/components/map-loader';
-import * as firebase from 'src/data/firebase';
-import { Filter, FilterMutator, Page } from 'src/state';
+import * as dataDriver from 'src/data/dataDriver';
+import { Filter, Page, UpdateFilter } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
-import FilterType from './filter-type';
-import FilterVisibility from './filter-visibility';
+import DropDown from './drop-down';
 import MyLocation from './my-location-button';
 import Search from './search';
 
@@ -13,7 +18,7 @@ interface Props {
   className?: string;
   page: Page;
   filter: Filter;
-  updateFilter: (mutator: FilterMutator) => void;
+  updateFilter: UpdateFilter;
   components: {
     map: () => JSX.Element;
     results: (props: { className: string }) => JSX.Element;
@@ -28,20 +33,32 @@ class MapLayout extends React.Component<Props, State> {
   public constructor(props: Props) {
     super(props);
     this.state = {
-      includingHidden: firebase.includingHidden(),
+      includingHidden: dataDriver.includingHidden(),
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   public componentDidMount() {
-    firebase.addInformationListener(this.firebaseInformationUpdated);
+    dataDriver.addInformationListener(this.dataDriverInformationUpdated);
   }
 
   public componentWillUnmount() {
-    firebase.removeInformationListener(this.firebaseInformationUpdated);
+    dataDriver.removeInformationListener(this.dataDriverInformationUpdated);
   }
 
-  private firebaseInformationUpdated: firebase.InformationListener = update =>
+  private dataDriverInformationUpdated: dataDriver.InformationListener = update =>
     this.setState({ includingHidden: update.includingHidden });
+
+  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const textValue = e.target.value;
+    this.props.updateFilter('searchText', textValue);
+  }
+
+  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    this.props.updateFilter('filterExecuted', false);
+    e.preventDefault();
+  }
 
   public render() {
     const { className, components, page, filter, updateFilter } = this.props;
@@ -52,26 +69,53 @@ class MapLayout extends React.Component<Props, State> {
         <div className="overlay">
           <div className="panel">
             <div className="controls">
-              <div className="row">
-                <Search className="search" searchInputId="main" />
-              </div>
-              <div className="row">
-                <FilterType
-                  className="filter"
-                  filter={filter}
-                  updateFilter={updateFilter}
-                />
-                <MyLocation className="my-location" />
-              </div>
-              {includingHidden && (
+              <form onSubmit={this.handleSubmit}>
                 <div className="row">
-                  <FilterVisibility
+                  <Search className="search" searchInputId="main" />
+                </div>
+                <div className="row">
+                  <MyLocation className="my-location" />
+                </div>
+                <div className="row">
+                  <input
+                    type="text"
                     className="filter"
+                    placeholder="Search text"
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="row">
+                  <DropDown
+                    className="filter"
+                    translationKey="markerTypes"
+                    filterScreenField="markerTypes"
+                    dropDownValues={MARKER_TYPE_STRINGS}
+                    filter={filter}
+                    updateFilter={updateFilter}
+                  />
+                  <DropDown
+                    className="filter"
+                    translationKey="services"
+                    filterScreenField="services"
+                    dropDownValues={SERVICE_STRINGS}
                     filter={filter}
                     updateFilter={updateFilter}
                   />
                 </div>
-              )}
+                {includingHidden && (
+                  <div className="row">
+                    <DropDown
+                      className="filter"
+                      translationKey="hiddenMarkers.filter"
+                      filterScreenField="hiddenMarkers"
+                      dropDownValues={['visible', 'hidden']}
+                      filter={filter}
+                      updateFilter={updateFilter}
+                    />
+                  </div>
+                )}
+                <input type="submit" value="Search" />
+              </form>
             </div>
             {components.results({
               className: 'results',

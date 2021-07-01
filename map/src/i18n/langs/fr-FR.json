@@ -43,7 +43,8 @@
     "screen": {
       "title": "Ajouter des informations à cette carte",
       "information": {
-        "acceptedInformation": "Pour le moment, nous ne fournissons que des informations sur des organisations ou des entreprises fournissant une aide et une assistance, des initiatives d'assistance financière spécifiques à une région, et des groupes d'entraide. Nous n'acceptons actuellement pas les informations sur des personnes offrant de l'aide à titre individuel.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
+        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Veuillez remplir le formulaire ci-dessous pour commencer à ajouter des informations, nous vous demanderons ensuite de nous indiquer votre localisation et vos coordonnées.",
         "form": {
           "type": "Type de projet / groupe / organisation / initiative",
@@ -93,7 +94,7 @@
         "loading": "Envoi des informations à la carte...",
         "error": "Erreur lors de l'ajout des informations",
         "success": "Vos informations ont bien été envoyées.",
-        "successExtra": "Avant de rendre vos informations visibles sur la carte, elles devront être examinées par un volontaire de notre équipe. Ce devrait être fait d'ici quelques jours."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -120,35 +121,51 @@
   "services": {
     "any": "Tous",
     "food": "Alimentation",
-    "medicine": "Santé",
-    "supplies": "Autres Fournitures",
-    "mobility": "Mobilité",
     "shelter": "Refuge",
-    "support": "Support",
-    "information": "Renseignements ",
-    "network": "Réseau",
-    "manufacturing": "Production",
+    "beds": "Hospital Beds",
+    "oxygen": "Oxygen",
+    "medicine": "Santé",
+    "home-care": "Home Care",
+    "blood": "Plasma / Blood",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth",
     "financial": "Finances",
+    "mobility": "Mobilité",
+    "information": "Renseignements ",
+    "manufacturing": "Production",
+    "support": "Support",
+    "network": "Réseau",
+    "supplies": "Autres Fournitures",
+    "vaccine": "Vaccinations",
     "other": "Autre"
   },
   "serviceDescriptions": {
-    "food": null,
-    "medicine": null,
-    "supplies": "Fournitures autres que la nourriture ou les médicaments",
+    "food": "Food and/or water",
+    "shelter": "Shelter for the homeless and those who need it",
+    "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
+    "oxygen": "Oxygen cylinders or refills",
+    "medicine": "COVID-19 medicines like Remdesivir",
+    "home-care": "Home care for the elderly",
+    "blood": "Plasma / Blood transfusions",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth/teleconsultation services",
+    "financial": "Donations and fundraising",
     "mobility": "Transporter des personnes d'un lieu à un autre",
-    "shelter": null,
-    "support": "Un soutien adapté aux groupes vulnérables comme les sans-abri, les personnes exposées aux risques d'abus domestiques, etc.",
-    "information": "Aidez les gens à trouver des informations pertinentes",
-    "network": "Faciliter la communication et l'échange d'information pour fournir de l'aide et du soutien, par exemple entre les organisations d'entraide",
+    "information": "Help people find relevant information",
     "manufacturing": "Fournit des fournitures ou des capacités de fabrication nécessaires pour faire face à la crise",
-    "financial": null,
+    "support": "Un soutien adapté aux groupes vulnérables comme les sans-abri, les personnes exposées aux risques d'abus domestiques, etc.",
+    "network": "Faciliter la communication et l'échange d'information pour fournir de l'aide et du soutien, par exemple entre les organisations d'entraide",
+    "supplies": "Fournitures autres que la nourriture ou les médicaments",
+    "vaccine": "Verified vaccination site",
     "other": "Ne figure pas dans cette liste"
   },
   "markerTypes": {
     "mutual-aid-group": "Groupe d’entraide",
     "org": "Organisation / Entreprise",
-    "financial": "Financier",
-    "information": "Renseignements",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
+    "individual": "Individual",
     "other": "Autres "
   },
   "markerTypeSentence": {

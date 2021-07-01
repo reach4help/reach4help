@@ -6,6 +6,10 @@ export const LanguageWrapper = styled(Select)`
   margin: auto;
   /* padding-top: 0.5em; */
 
+  ${p => p.theme.breakpoints.small} {
+    margin-top: 10px;
+  }
+
   .react-select__control {
     :hover {
       border-color: ${p => p.theme.colors.accent};

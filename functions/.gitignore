@@ -9,6 +9,4 @@ node_modules/
 
 **/*.log
 
-# firebase-functions-test online mode
-serviceAccountKey-dev.json
 .runtimeconfig.json

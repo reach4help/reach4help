@@ -1,85 +1,149 @@
 {
   "common": {
     "Navigation": {
-      "Header": {
-        "language": "English",
-        "buttons": [
+      "buttons": {
+        "map": "Mapa de Ajuda Mútua",
+        "signIn": "Assinar em"
+      },
+      "pages": {
+        "home": "Início",
+        "mission": "Missão",
+        "impact": "Equipa",
+        "team": "Parceiros"
+      }
+    },
+    "HomePage": {
+      "HeroSection": {
+        "heading": "Conectando pessoas necessitadas com pessoas que podem ajudar",
+        "subheading": "Conectamos você com voluntários locais e organizações de ajuda quando você mais precisa.",
+        "description": [
+          "O nosso mapa contém uma lista crescente de organizações e projetos de ajuda.",
+          "Usa o mapa para encontrares e te juntares a esforços de Ajuda Mútua perto de ti, ou criares o teu",
+          "Se representas uma organização de ajuda mútua, adiciona informação ao mapa para que outros vos possam encontrar."
+        ],
+        "buttons": ["Obter ajuda", "Voluntário"]
+      },
+      "ReasonsSection": {
+        "heading": "Por que Usar Reach4Help",
+        "items": [
           {
-            "title": "Mutual Aid Map",
-            "link": "https://map.reach4help.org"
+            "title": "Loja de uma parada",
+            "description": "Não desperdice horas pesquisando. Obtenha ajuda rápida com nossa base de dados de voluntários."
           },
           {
-            "title": "Sign in",
-            "link": "https://app.reach4help.org"
+            "title": "Disponível Facilmente",
+            "description": "Use nosso aplicativo em qualquer dispositivo móvel, tablet ou desktop."
+          },
+          {
+            "title": "Completamente Grátis",
+            "description": "Sem assinaturas ou taxas ocultas. Você pode navegar e publicar gratuitamente."
           }
         ]
       },
-      "IndexPage": [
-        {
-          "title": "Início",
-          "link": "/#home"
-        },
-        {
-          "title": "Missão",
-          "link": "/#mission"
-        },
-        {
-          "title": "Equipa",
-          "link": "/#team"
-        },
-        {
-          "title": "Parceiros",
-          "link": "/#partners"
+      "GettingHelpSection": {
+        "heading": "Como Obter Ajuda funciona",
+        "items": {
+          "step1": {
+            "title": "Passo 1",
+            "items": [
+              {
+                "title": "Pedir Ajuda",
+                "description": "Conte-nos o que você precisa e enviaremos seu pedido para voluntários e organizações locais."
+              },
+              {
+                "or": "OU"
+              },
+              {
+                "title": "Escolher Oferta de Voluntário",
+                "description": "Escolha uma oferta de ajuda de voluntários em sua região."
+              }
+            ]
+          },
+          "step2": {
+            "title": "Passo 2",
+            "items": [
+              {
+                "title": "Obter ajuda de coordenada",
+                "description": "Um voluntário entrará em contato com você para agendar a entrega de seus itens solicitados."
+              }
+            ]
+          }
         }
-      ],
-      "PrivacyPage": [
-        {
-          "title": "Início",
-          "link": "/"
-        },
-        {
-          "title": "Mapa",
-          "link": "https://map.reach4help.org"
+      },
+      "VolunteeringSection": {
+        "heading": "Como funciona o Voluntário",
+        "items": {
+          "step1": {
+            "title": "Passo 1",
+            "items": [
+              {
+                "title": "Ajuda da Oferta",
+                "description": "Conte-nos com o que você pode ajudar, e vamos conectá-lo a alguém que precise."
+              },
+              {
+                "or": "OU"
+              },
+              {
+                "title": "Escolher quem ajudar",
+                "description": "Selecione uma ou mais pessoas necessitadas cujos pedidos você pode atender."
+              }
+            ]
+          },
+          "step2": {
+            "title": "Passo 2",
+            "items": [
+              {
+                "title": "Ajuda da Coordenada",
+                "description": "Alcance e coordene uma retirada ou entrega dos itens solicitados."
+              }
+            ]
+          }
         }
-      ]
+      },
+      "AboutSection": {
+        "heading": "Sobre",
+        "subheading": "Somos um grupo de voluntários impulsionados a unificar a ajuda no mundo",
+        "paragraph": "Conheça as mentes por trás desta iniciativa e junte-se a nós!",
+        "buttons": ["Mais Sobre Nós"]
+      },
+      "SupportersSection": {
+        "heading": "Os Apoiadores",
+        "subheading": [
+          "Obrigado a todas as empresas que nos apoiam na nossa missão!",
+          "Em janeiro de 2021, o Google para Nonprofits nos concedeu Us$120.000 deste ano por outreach!"
+        ]
+      }
     },
-    "Home": {
-      "heading": "Ligamos pessoas que precisam de ajuda a quem pode ajudar.",
-      "subheading": "We connect you with local volunteers and help organizations when you need it most.",
-      "description": [
-        "O nosso mapa contém uma lista crescente de organizações e projetos de ajuda.",
-        "Usa o mapa para encontrares e te juntares a esforços de Ajuda Mútua perto de ti, ou criares o teu",
-        "Se representas uma organização de ajuda mútua, adiciona informação ao mapa para que outros vos possam encontrar."
-      ],
-      "buttons": [
-        "Mapa de Ajuda Mútua",
-        "Registo para o BETA"
-      ]
-    },
-    "Mission": {
+    "MissionPage": {
+      "topHeading": "Somos um grupo de voluntários impulsionados a unificar a ajuda no mundo",
       "heading": "A Nossa Missão",
       "description": [
-        "O Reach4Help é um projeto de código aberto totalmente gerido por voluntários que procura encontrar soluções para problemas como o acesso fácil a bens, medicamentos ou simplesmente passear o cão daqueles que não o conseguem fazer em determinado momento",
+        "Somos uma organização sem fins lucrativos que democratiza o acesso à ajuda voluntária em todo o mundo. Por meio da tecnologia, estamos fornecendo acesso rápido e fácil para ajuda e recursos em sua área com organizações locais como AIESEC em Portugal, a House of Good Deeds em NYC e muito mais.",
         "O <strong>NOSSO OBJETIVO</strong> é permitir que aqueles que necessitam de ajuda que a recebam e que organizações e grupos parceiros ajudem de forma mais eficiente, ao mobilizarem os seus voluntários com a ajuda do nosso sistema."
       ]
     },
-    "Partners": {
-      "heading": "Parceiros",
-      "subheading": "Queremos agradecer a todos as marcas, empresas e comunidades que nos ajudaram na nossa missão"
+    "ImpactPage": {
+      "WorldMapSection": {
+        "heading": ["We're helping people", "across 38 countries!"],
+        "hoverInfo": {
+          "users": "Utilisateurs: ",
+          "noUsers": "Pas encore d'utilisateurs <br/> (peut-être vous?)"
+        }
+      },
+      "PartnersSection": {
+        "heading": "Partenaires",
+        "subheading": "Obrigado aos nossos voluntários e organizações parceiras sem fins lucrativos nos ajudando a construir uma rede de ajudantes em todo o mundo!"
+      }
     },
-    "Team": {
-      "heading": "Equipa",
+    "TeamPage": {
+      "heading": "Conheça a nossa equipa",
       "subheading": "",
       "description": [
         "Somos parte da Helpful Engineering, um coletivo de voluntários que se juntaram para arranjar soluções durante a Pandemia da COVID-19, sem qualquer fim comercial.",
-        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts fighting the US West Coast wildfires and the incoming second wave of COVID-19."
+        "Estamos procurando desenvolvedores em ReactJS voluntários, estrategistas de marketing/PR e designers de UI/UX para ajudar a intensificar nossos esforços de apoio às comunidades necessitadas por meio de crises futuras e COVID-19."
       ],
-      "members": {
-        "heading": "Key Contacts"
-      },
-      "buttons": [
-        "Tu és a ajuda de proximidade. Junta-te a nós!"
-      ]
+      "join": "Interessou-se em nos juntar?",
+      "buttons": ["Tu és a ajuda de proximidade. Junta-te a nós!"]
     },
     "Footer": {
       "sections": [

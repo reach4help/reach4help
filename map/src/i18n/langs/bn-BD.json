@@ -43,7 +43,8 @@
     "screen": {
       "title": "এই মানচিত্রে তথ্য যুক্ত করুন",
       "information": {
-        "acceptedInformation": "এই মুহুর্তে, আমরা কেবল সহায়তা বা সহায়তা প্রদানকারী সংস্থা বা সংস্থাগুলি, অঞ্চল-নির্দিষ্ট আর্থিক সহায়তার উদ্যোগ এবং পারস্পরিক সহায়তা গোষ্ঠীগুলির তথ্য রাখছি। এই মুহুর্তে ব্যক্তিদের সহায়তা দেওয়ার বিষয়ে আমরা কোনও তথ্য গ্রহণ করছি না।",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
+        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "তথ্য যুক্ত করতে নীচের ফর্মটি পূরণ করুন, আমরা আপনাকে তার পরে অবস্থান এবং যোগাযোগের বিশদ জানতে চাইব।",
         "form": {
           "type": "প্রকল্প / গোষ্ঠী / সংস্থা / উদ্যোগের ধরণ",
@@ -93,7 +94,7 @@
         "loading": "Submitting information to map...",
         "error": "Error adding information",
         "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -120,35 +121,51 @@
   "services": {
     "any": "Any",
     "food": "খাবার",
-    "medicine": "ওষুধ",
-    "supplies": "অন্যান্য সরবরাহ",
-    "mobility": "Mobility",
     "shelter": "Shelter",
-    "support": "সমর্থন",
-    "information": "তথ্য",
-    "network": "Network",
-    "manufacturing": "Manufactoring",
+    "beds": "Hospital Beds",
+    "oxygen": "Oxygen",
+    "medicine": "ওষুধ",
+    "home-care": "Home Care",
+    "blood": "Plasma / Blood",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth",
     "financial": "আর্থিক",
+    "mobility": "Mobility",
+    "information": "তথ্য",
+    "manufacturing": "Manufactoring",
+    "support": "সমর্থন",
+    "network": "Network",
+    "supplies": "অন্যান্য সরবরাহ",
+    "vaccine": "Vaccinations",
     "other": "Other"
   },
   "serviceDescriptions": {
-    "food": null,
-    "medicine": null,
-    "supplies": "Supplies other than food or medicine",
+    "food": "Food and/or water",
+    "shelter": "Shelter for the homeless and those who need it",
+    "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
+    "oxygen": "Oxygen cylinders or refills",
+    "medicine": "COVID-19 medicines like Remdesivir",
+    "home-care": "Home care for the elderly",
+    "blood": "Plasma / Blood transfusions",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth/teleconsultation services",
+    "financial": "Donations and fundraising",
     "mobility": "Transporting people from one location to another",
-    "shelter": null,
-    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
-    "information": "Help people find relevent information",
-    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
+    "information": "Help people find relevant information",
     "manufacturing": "Provides supplies or manufacturing capacity needed to deal with the crisis",
-    "financial": null,
+    "support": "Support tailored for specific vulnerable groups, e.g. homeless people, people at risk from domestic abuse, etc...",
+    "network": "Prodicing resources for networking to provide aid, e.g. between mutual aid organizations",
+    "supplies": "Supplies other than food or medicine",
+    "vaccine": "Verified vaccination site",
     "other": "Something else not on this list"
   },
   "markerTypes": {
     "mutual-aid-group": "Mutual Aid Group",
     "org": "Organization / Company",
-    "financial": "Financial",
-    "information": "তথ্য",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
+    "individual": "Individual",
     "other": "অন্যান্য"
   },
   "markerTypeSentence": {

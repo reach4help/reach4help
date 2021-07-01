@@ -1,14 +1,12 @@
 {
   "common": {
-    "or": "অথবা",
-    "submit": "Submit",
+    "or": "or",
     "i_understand": "আমি বুঝেছি",
     "okay": "ঠিক",
-    "next": "Next",
     "cancel": "বাতিল",
     "welcome": "স্বাগতম",
     "continue": "চালিয়ে",
-    "back": "পেছনে",
+    "back": "Back",
     "verify": "যাচাই",
     "spinner": "লোড হচ্ছে...",
     "name": "নাম",
@@ -22,26 +20,7 @@
     "code": "জিপ / পোস্টাল কোড",
     "State": "রাজ্য / প্রদেশ",
     "country": "দেশ",
-    "for": " জন্য ",
-    "Offer": "Offer",
-    "Request": "Request",
-    "navbar": {
-      "home": "Home",
-      "my_requests": "Requests",
-      "my_offers": "Offers",
-      "create_new": {
-        "title": "Create New",
-        "options": {
-          "request": "Help Request",
-          "offer": "Volunteer Offer"
-        }
-      },
-      "about": "About Us",
-      "login": "Login",
-      "sign_up": "Sign Up",
-      "profile": "Profile",
-      "notifications": "Notifications"
-    },
+    "for": " for ",
     "information_modal": {
       "instructions": "নির্দেশনা",
       "footer": "আপনার কোনো প্রশ্ন ও প্রয়োজন থাকলে, \nআমাদেরকে support@reach4help.org এ ইমেল করুন।",
@@ -50,11 +29,11 @@
         "title": "এখনও সাহায্য খুঁজছি...",
         "0": "আপনার অনুরোধগুলি প্রেরণ করা হয়েছে তবে এখনও কেউ সাহায্য করতে পারেনি",
         "1": "You will also be receiving notifications to update you about the status of your requests.",
-        "2": " আপনার যদি কোনও প্রশ্ন বা সমস্যা থাকে তবে দয়া করে ইমেল করুন support@reach4help.org!"
+        "2": " If you have any questions or difficulty with this, don't hesitate to contact support@reach4help.org!"
       },
       "AcceptedRequestsContainer": {
         "title": "কেউ সাহায্য করার প্রস্তাব দিয়েছেন!",
-        "0": "কেউ সাহায্য করার প্রস্তাব দিয়েছেন.",
+        "0": "Someone has offered to help you out.",
         "1": "Get in touch with them by phone to work out the details."
       },
       "OngoingRequestsContainer": {
@@ -66,7 +45,7 @@
         "0": "You and the volunteer agree that everything is done."
       },
       "ArchivedRequestsContainer": {
-        "title": "আপনি এটি না করার সিদ্ধান্ত নিয়েছেন",
+        "title": "You decided not to do it",
         "0": "You changed your mind and deleted your request."
       },
       "TimelineViewContainer": {
@@ -175,20 +154,16 @@
       }
     },
     "menuDrawer": {
-      "changeLanguage": "Change Language",
       "contactUs": "Contact us",
       "logout": "Sign out",
       "switchToCAV": "Switch to Offering Support",
       "switchToPIN": "Switch to Seeking Help",
-      "settings": "Settings",
-      "login-signup": "Log in / Signup"
+      "settings": "Settings"
     },
     "settings": {
       "heading": "Settings",
-      "changeAvatar": "Change my avatar",
       "changeName": "Change my name",
       "deleteAccount": "Delete my account",
-      "changeAddresses": "Change saved addresses",
       "changeNameForm": {
         "full_name_error_message": "Please enter your name",
         "display_name_error_message": "Please enter your display name",
@@ -199,17 +174,6 @@
         "title": "Are you sure you want to delete your account",
         "body": "Closing your account means you will no longer be able to provide help or ask for help",
         "deleteAccount": "Delete my account"
-      },
-      "changeAddressForm": {
-        "deliveryAddress": "Delivery Address",
-        "nameOfAddress": "Name of Address",
-        "address": "Address",
-        "cancel": "Cancel",
-        "submit": "Save",
-        "next": "Next",
-        "back": "Back",
-        "saveChangesCheckbox": "Save Address",
-        "dontSaveChangesCheckbox": "Don't Save Address"
       }
     },
     "phoneNumber": {
@@ -255,7 +219,6 @@
         "search": "Search",
         "useMyLocation": "Use my location",
         "address_error_message": "Please enter your address.",
-        "title_error_message": "Please enter the title",
         "type_error_message": "You need to select a type.",
         "other_error_message": "You need to enter details.",
         "body_error_message": "Please enter your description."
@@ -273,7 +236,7 @@
       "deliveryAddress": "Delivery address"
     },
     "roleinfo": {
-      "title": "রিচ4হেল্প",
+      "title": "Reach4Help",
       "sub_title": "How can we assist you ?",
       "manifesto": "We believe that everything we do is meaningful. We believe we are capable of enabling people in their sense of togetherness and community. We believe solidarity brings out the best in individuals.",
       "info": "Please tell us what is your purpose to use Reach4Help",
@@ -390,38 +353,6 @@
           }
         }
       },
-      "create": {
-        "stepTitles": {
-          "details": "Details",
-          "map": "Location",
-          "summary": "Summary"
-        },
-        "displayElements": {
-          "address": "Address"
-        },
-        "postSummary": {
-          "confirmation": "Confirmation"
-        },
-        "postDetails": {
-          "header": "Post Details",
-          "titleLabel": "Title",
-          "typeLabel": "Type",
-          "detailsLabel": "Enter details of what is needed"
-        },
-        "postLocation": {
-          "add": "Add a new one",
-          "public": "Do you show my location publicly?",
-          "publicText": "Your location will only be shared with the volunteer you accept to help you. All users are also not allowed to save your location unless you explicitly say otherwise."
-        },
-        "title": "Title",
-        "defaults": {
-          "postDetails": {
-            "title": "I need something",
-            "type": "Deliveries",
-            "body": "Please bring me supplies"
-          }
-        }
-      },
       "requests": {
         "a11y_profile_pic": "Profile Pic",
         "AcceptedRequestItem": {
@@ -437,20 +368,14 @@
               "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need"
             }
           },
-          "TabbedPostPage": {
-            "requests_tab_label": "My Requests",
-            "offers_tab_label": "My Offers",
-            "no_requests": "Currently there are no requests in your area.  Check the map later.  Also feel free to place a Request for Need",
-            "filterBy": "Filter By"
-          },
           "AcceptedRequestContainer": {
             "accepted": "Accepted"
           },
           "FindRequestsContainer": {
             "want_to_help": "I want to help!"
           },
-          "ClosedRequestsContainer": {
-            "closed": "Closed"
+          "FinishedRequestsContainer": {
+            "finished": "Finished"
           },
           "NewRequestsContainer": {
             "address_error": "Unable to find address",
@@ -461,10 +386,6 @@
           },
           "OpenRequestContainer": {
             "open": "Open"
-          },
-          "AllRequestsContainer": {
-            "requests": "All Requests",
-            "offers": "All Offers"
           },
           "no_reply": "No one has replied to your request."
         }

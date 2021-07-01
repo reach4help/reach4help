@@ -5,7 +5,7 @@
     "intro": "نؤمن ان التكافل يبرز افضل ما يمكن لدى الافراد ",
     "info": "لمساعدة الناس في العثور على جهود المساعدة المتبادلة والانضمام إليها في المكان الذي يعيشون فيه ، وتقديم الإلهام لبدء حياتهم الخاصة ، و / أو رفع المعنويات ببساطة ، تقدم هذه الخريطة قائمة متزايدة بمشاريع الإغاثة من جائحة المساعدة المتبادلة في جميع أنحاء العالم.",
     "warning": "ملحوظة: كل مشروع مستقل ذاتي التنظيم. مما يجعل الكثير يستخدم جداول البيانات العامة لمشاركة المعلومات ، لذا كن حذرًا عند إدخال معلومات خاصة لا تريد أن تكون عامة.",
-    "project": "هذه الخريطة جزء من {access4Help} ، وهو مشروع يديره متطوعون.  المصدر متاح ويمكن أن يكون {githubSource}.  لأية استفسارات ، يمكنك الوصول إلينا على العنوان {email}.",
+    "project": "هذه الخريطة جزء من {reach4Help} ، وهو مشروع يديره متطوعون. المصدر متاح ويمكن أن يكون {githubSource}. لأية استفسارات ، يمكنك الوصول إلينا على العنوان {email}.",
     "githubSourceLabel": "وجدت على GitHub",
     "otherAreasHeading": "هل انت مهتم بإحد هذه المجالات؟",
     "otherAreasInfo": "تحقق من هذه الخرائط البديلة بدلا من ذلك:",
@@ -14,13 +14,13 @@
       "nyc": "نيويورك"
     },
     "sourceHeading": "من اين اتات هذه المعلومات؟!",
-    "sourceInfo": "المعلومات الواردة في هذه الخريطة هي مزيج من البيانات التي جمعها متطوعونا ، والتي قدمها مستخدمونا ، والتي قدمتها المشاريع الأخرى التي يديرها المتطوعون بما في ذلك {mutualaidwiki} و {mutuaidhub}.",
+    "sourceInfo": "المعلومات الواردة في هذه الخريطة هي مزيج من البيانات التي جمعها متطوعونا ، والتي قدمها مستخدمونا ، والتي قدمتها المشاريع الأخرى التي يديرها المتطوعون بما في ذلك {mutualaidwiki} و {mutualaidhub}.",
     "sourceSubmit": "نحن نشجعك على {addinfo} حول أي مشروعات تعرفها غير موجودة بالفعل على الخريطة.",
     "sourceSubmitButton": "اضافة المعلومات",
     "usageHeading": "هل يمكنني استخدام هذه البيانات لمشروعي الخاص؟",
     "usageInfo": "نرحب باستخدام البيانات المقدمة من خريطتنا لمشاريعك الخاصة ، طالما أنك تتبع التراخيص المعنية.",
     "usageLicenses": "البيانات التي يقدمها المتطوعون والمستخدمون لدينا مرخصة بموجب {license} ، ويتم توفير البيانات من مصادر أخرى بموجب التراخيص الخاصة بهم.",
-    "usageApi": "يمكنك الوصول إلى البيانات الأولية ،إلى جانب تفاصيل حول كيفية ترخيص كل نقطة بيانات ،على عنوان التالي {URL : {api"
+    "usageApi": "يمكنك الوصول إلى البيانات الأولية ،إلى جانب تفاصيل حول كيفية ترخيص كل نقطة بيانات ،على عنوان التالي URL: {api}"
   },
   "menu": {
     "about": "عن",
@@ -43,7 +43,8 @@
     "screen": {
       "title": "إضافة معلومات إلى هذه الخريطة",
       "information": {
-        "acceptedInformation": "في الوقت الحاضر، لا نقدم سوى معلومات عن المنظمات و الجمعيات التي تقدم المساعدةو المعاونة المشتركة، ومبادرات المساهمة المالية الخاصة بالمنطقة.\n لا تقبل حاليا معلومات عن الأفراد الذين يقدمون المساعدة في الوقت الراهن.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
+        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "المرجو ملء النموذج أدناه لبدء إضافة المعلومات.\n في المرحاة التالية: معلومات تحديد الموقع وتفاصيل الاتصال.",
         "form": {
           "type": "نوع المشروع/المجموعة/المنظمة/المبادرة",
@@ -61,7 +62,7 @@
       "placeMarker": {
         "instructions": "حدد مكان المنطقة التي يخدمها هذا المشروع / المجموعة/المنظمة / المبادرة بالنقر على الخريطة لوضع علامة ، ثم ضبط حجم الدائرة بحيث يشمل المساحة حسب الاقتضاء.",
         "continue": "عند انضباط الموقع، انقر فوق الاستمرار في إضافة معلومات للمواصلة.",
-        "distance": "{kilometers, number}km ({miles, number}miles)"
+        "distance": "{kilometers, number} كيلومترات ({miles, number} اميال)"
       },
       "contactInfo": {
         "header": "معلومات الاتصال الخاصة بـ {name}",
@@ -93,7 +94,7 @@
         "loading": "إرسال المعلومات إلى الخريطة...",
         "error": "خطأ في إضافة معلومات",
         "success": "تم إرسال معلوماتك بنجاح.",
-        "successExtra": "قبل إضافة معلوماتكم على الخريطة، سيتم مراجعتها من طرف متطوع من Reach4Help."
+        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
       }
     },
     "errors": {
@@ -120,35 +121,51 @@
   "services": {
     "any": "أي",
     "food": "تغذية",
-    "medicine": "دواء",
-    "supplies": "لوازم أخرى",
-    "mobility": "التنقّل",
     "shelter": "مأوي",
-    "support": "المساندة",
-    "information": "معلومات",
-    "network": "الشبكة",
-    "manufacturing": "تصنيع",
+    "beds": "Hospital Beds",
+    "oxygen": "Oxygen",
+    "medicine": "دواء",
+    "home-care": "Home Care",
+    "blood": "Plasma / Blood",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth",
     "financial": "الأمور المالية",
+    "mobility": "التنقّل",
+    "information": "معلومات",
+    "manufacturing": "تصنيع",
+    "support": "المساندة",
+    "network": "الشبكة",
+    "supplies": "لوازم أخرى",
+    "vaccine": "Vaccinations",
     "other": "أخرى"
   },
   "serviceDescriptions": {
-    "food": null,
-    "medicine": null,
-    "supplies": "لوازم أخرى غير الأغذية أو الأدوية",
+    "food": "Food and/or water",
+    "shelter": "Shelter for the homeless and those who need it",
+    "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
+    "oxygen": "Oxygen cylinders or refills",
+    "medicine": "COVID-19 medicines like Remdesivir",
+    "home-care": "Home care for the elderly",
+    "blood": "Plasma / Blood transfusions",
+    "quarantine": "Quarantine Centres",
+    "telehealth": "Telehealth/teleconsultation services",
+    "financial": "Donations and fundraising",
     "mobility": "نقل الأشخاص من مكان إلى آخر",
-    "shelter": null,
-    "support": "دعم مخصص لمجموعات ضعيفة محددة، مثل المشردين، والأشخاص المعرضين لخطر الإيذاء المنزلي، إلخ...",
-    "information": "مساعدة الناس في الحصول على معلومات أصيلة",
-    "network": "توفير الموارد لإقامة شبكات لتقديم المعونة، على سبيل المثال بين منظمات المعونة المتبادلة",
+    "information": "Help people find relevant information",
     "manufacturing": "يوفر اللوازم أو القدرة التصنيعية اللازمة للتعامل مع الأزمة",
-    "financial": null,
+    "support": "دعم مخصص لمجموعات ضعيفة محددة، مثل المشردين، والأشخاص المعرضين لخطر الإيذاء المنزلي، إلخ...",
+    "network": "توفير الموارد لإقامة شبكات لتقديم المعونة، على سبيل المثال بين منظمات المعونة المتبادلة",
+    "supplies": "لوازم أخرى غير الأغذية أو الأدوية",
+    "vaccine": "Verified vaccination site",
     "other": "شئ آخر غير موجود في هذه القائمة"
   },
   "markerTypes": {
     "mutual-aid-group": "مجموعة المساعدة المشتركة",
     "org": "منظمة / شركة",
-    "financial": "الأمور المالية",
-    "information": "معلومات",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
+    "individual": "Individual",
     "other": "أخرى"
   },
   "markerTypeSentence": {
