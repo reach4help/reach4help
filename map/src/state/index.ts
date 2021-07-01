@@ -18,17 +18,14 @@ export type AddInfoStep =
   | 'contact-details'
   | 'submitted';
 
-export type VisibilityOptions = 'visible' | 'hidden' | 'any';
-
 export interface Filter {
   markerTypes?: MarkerTypeString;
   services?: Service;
-  hiddenMarkers?: VisibilityOptions;
+  hiddenMarkers?: 'visible' | 'hidden' | 'any';
   searchText?: string;
   filterExecuted?: boolean;
 }
 
-export type FilterMutator = (filter: Filter) => Filter;
 export type UpdateFilter = (
   fieldName: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

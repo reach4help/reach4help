@@ -10,7 +10,7 @@ import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page, UpdateFilter } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
-import FilterType from './filter-type';
+import DropDown from './drop-down';
 import MyLocation from './my-location-button';
 import Search from './search';
 
@@ -85,14 +85,14 @@ class MapLayout extends React.Component<Props, State> {
                   />
                 </div>
                 <div className="row">
-                  <FilterType
+                  <DropDown
                     className="filter"
                     translationKey="markerTypes"
                     dropDownValues={MARKER_TYPE_STRINGS}
                     filter={filter}
                     updateFilter={updateFilter}
                   />
-                  <FilterType
+                  <DropDown
                     className="filter"
                     translationKey="services"
                     dropDownValues={SERVICE_STRINGS}
@@ -102,7 +102,7 @@ class MapLayout extends React.Component<Props, State> {
                 </div>
                 {includingHidden && (
                   <div className="row">
-                    <FilterType
+                    <DropDown
                       className="filter"
                       translationKey={['hiddenMarkers', 'filter']}
                       dropDownValues={['visible', 'hidden']}

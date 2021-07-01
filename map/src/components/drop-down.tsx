@@ -20,7 +20,7 @@ interface Props {
   updateFilter: UpdateFilter;
 }
 
-class FilterType extends React.Component<Props, {}> {
+class DropDown extends React.Component<Props, {}> {
   private changeService = (
     fieldName: string,
     selectedValue: ValueType<OptionType>,
@@ -31,30 +31,28 @@ class FilterType extends React.Component<Props, {}> {
     }
   };
 
+  private lookUpValue = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // TODO: add some docs
+    translationObject: any,
+    key: string | [string, string],
+    valueKey: string,
+  ): string => {
+    if (typeof key === 'string' && translationObject[key]) {
+      return translationObject[key][valueKey];
+    }
+    return translationObject[key[0]][key[1]] ? translationObject[key[0]][key[1]][valueKey] : valueKey;
+  };
+
   private select = (lang: Language) => {
     const { className, filter, dropDownValues, translationKey } = this.props;
-
-    const getTranslation = (
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      s: any,
-      key: string | [string, string],
-      value: string,
-    ): string => {
-      if (typeof key === 'string' && s[key]) {
-        return s[key][value];
-      }
-      if (s[key[0]][key[1]]) {
-        return s[key[0]][key[1]][value];
-      }
-      return value;
-    };
 
     const optionsMap = new Map(
       dropDownValues.map(value => [
         value,
         {
           value,
-          label: t(lang, s => getTranslation(s, translationKey, value)),
+          label: t(lang, s => this.lookUpValue(s, translationKey, value)),
         },
       ]),
     );
@@ -102,7 +100,7 @@ class FilterType extends React.Component<Props, {}> {
   }
 }
 
-export default styled(FilterType)`
+export default styled(DropDown)`
   .select__control {
     border: 1px solid ${p => p.theme.colors.borderBase};
     box-shadow: none;
