@@ -39,11 +39,7 @@ class MyLocation extends React.Component<Props, State> {
         mapState().updateResultsOnNextBoundsChange = true;
         this.setState({ active: false });
       },
-      error => {
-        // eslint-disable-next-line no-alert
-        alert('Unable to get geolocation!');
-        // eslint-disable-next-line no-console
-        console.error(error.message);
+      () => {
         this.setState({ active: false });
       },
     );

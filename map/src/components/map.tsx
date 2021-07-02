@@ -114,6 +114,34 @@ class MapComponent extends React.Component<Props, State> {
     setUpdateResultsCallback(this.updateResults);
     dataDriver.addInformationListener(this.informationUpdated);
     dataDriver.loadInitialData();
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        const { map } = mapState();
+        if (!map) {
+          return;
+        }
+        map.map.setCenter(pos);
+        map.map.setZoom(8);
+        mapState().updateResultsOnNextBoundsChange = true;
+      },
+      () => {
+        const pos = {
+          lat: 21.7679,
+          lng: 78.8718,
+        };
+        const { map } = mapState();
+        if (!map) {
+          return;
+        }
+        map.map.setCenter(pos);
+        map.map.setZoom(4);
+        mapState().updateResultsOnNextBoundsChange = true;
+      },
+    );
   }
 
   public componentDidUpdate(prevProps: Props) {
