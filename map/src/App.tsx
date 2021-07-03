@@ -22,6 +22,7 @@ interface Props {
 
 interface State {
   filter: Filter;
+  searchOpen: boolean;
   results: ResultsSet | null;
   nextResults: ResultsSet | null;
   resultsOpen: boolean;
@@ -37,6 +38,7 @@ class App extends React.Component<Props, State> {
     super(props);
     this.state = {
       filter: { filterExecuted: false },
+      searchOpen: true,
       results: null,
       nextResults: null,
       resultsOpen: false,
@@ -55,6 +57,10 @@ class App extends React.Component<Props, State> {
     this.setState(state => ({
       filter: { ...state.filter, [fieldName]: value },
     }));
+  };
+
+  private setSearchOpen = (searchOpen: boolean) => {
+    this.setState({ searchOpen });
   };
 
   private setResults = (results: ResultsSet, openResults?: boolean) => {
@@ -125,6 +131,7 @@ class App extends React.Component<Props, State> {
     className = className || 'unknown';
     const {
       filter,
+      searchOpen,
       results,
       nextResults,
       resultsOpen,
@@ -155,6 +162,8 @@ class App extends React.Component<Props, State> {
               page={page}
               filter={filter}
               updateFilter={this.setFilter}
+              searchOpen={searchOpen}
+              setSearchOpen={this.setSearchOpen}
               components={{
                 map: () => (
                   <Map

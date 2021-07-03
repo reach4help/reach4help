@@ -5,6 +5,7 @@ import {
   SERVICE_STRINGS,
 } from '@reach4help/model/lib/markers/type';
 import React from 'react';
+import Chevron from 'src/components/assets/chevron';
 import MapLoader from 'src/components/map-loader';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page, UpdateFilter } from 'src/state';
@@ -19,6 +20,8 @@ interface Props {
   page: Page;
   filter: Filter;
   updateFilter: UpdateFilter;
+  searchOpen: boolean;
+  setSearchOpen: (searchOpen: boolean) => void;
   components: {
     map: () => JSX.Element;
     results: (props: { className: string }) => JSX.Element;
@@ -61,15 +64,49 @@ class MapLayout extends React.Component<Props, State> {
   }
 
   public render() {
-    const { className, components, page, filter, updateFilter } = this.props;
+    const {
+      className,
+      components,
+      page,
+      filter,
+      updateFilter,
+      searchOpen,
+      setSearchOpen,
+    } = this.props;
     const { includingHidden } = this.state;
     return (
       <div className={`${className} page-${page.page}`}>
         <MapLoader className="map" child={components.map} />
         <div className="overlay">
           <div className="panel">
-            <div className="controls">
-              <form onSubmit={this.handleSubmit}>
+            <div
+              className={`controls ${searchOpen ? 'open' : ''}
+            `}
+            >
+              <button
+                type="button"
+                className="header"
+                onClick={() => setSearchOpen(!searchOpen)}
+              >
+                <span className="count">
+                  {/* {format(
+                  lang,
+                  s =>
+                    selectedResult
+                      ? s.results.backToResults
+                      : open
+                      ? s.results.closeResults
+                      : s.results.openResults,
+                  {
+                    results: (results?.results || []).length,
+                  },
+                )} */}
+                  Placeholder for search bar.
+                </span>
+                <span className="grow" />
+                <Chevron className="toggle chevron" />
+              </button>
+              <form onSubmit={this.handleSubmit} className="form">
                 <div className="row">
                   <Search className="search" searchInputId="main" />
                 </div>
@@ -178,17 +215,68 @@ export default styled(MapLayout)`
         flex-direction: column;
         pointer-events: initial;
 
-        .row {
+        > .row {
           display: flex;
           flex-wrap: wrap;
         }
 
-        .search,
-        .my-location,
-        .filter {
+        > .search,
+        > .my-location,
+        > .filter {
           margin: 9px 8px;
           flex-grow: 1;
           flex-basis: 40%;
+        }
+
+        > button.header {
+          background: #d9bbd6;
+          cursor: pointer;
+          outline: none;
+          border: none;
+          display: flex;
+          color: ${p => p.theme.colors.brand.primaryDark};
+          padding: 5px 8px;
+          align-items: center;
+          pointer-events: initial;
+
+          > .chevron,
+          .count {
+            margin: 0 8px;
+          }
+
+          > .count {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 22px;
+            white-space: nowrap;
+          }
+
+          > .grow {
+            flex-grow: 1;
+          }
+
+          > .chevron.toggle {
+            transition: opacity ${p => p.theme.transitionSpeedQuick};
+          }
+
+          &:hover,
+          &:focus {
+            color: rgb(129, 30, 120, 0.7);
+          }
+        }
+
+        > .form {
+          display: none;
+        }
+
+        &.open {
+          > .header > .chevron.toggle {
+            transform: rotate(180deg);
+          }
+
+          > .form {
+            display: block;
+          }
         }
       }
     }
