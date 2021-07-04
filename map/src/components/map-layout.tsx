@@ -8,9 +8,11 @@ import React from 'react';
 import Chevron from 'src/components/assets/chevron';
 import MapLoader from 'src/components/map-loader';
 import * as dataDriver from 'src/data/dataDriver';
+import { t } from 'src/i18n';
 import { Filter, Page, UpdateFilter } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
+import { AppContext } from './context';
 import DropDown from './drop-down';
 import MyLocation from './my-location-button';
 import Search from './search';
@@ -20,8 +22,8 @@ interface Props {
   page: Page;
   filter: Filter;
   updateFilter: UpdateFilter;
-  searchOpen: boolean;
-  setSearchOpen: (searchOpen: boolean) => void;
+  searchClosed: boolean;
+  setSearchClosed: (searchClosed: boolean) => void;
   components: {
     map: () => JSX.Element;
     results: (props: { className: string }) => JSX.Element;
@@ -70,96 +72,92 @@ class MapLayout extends React.Component<Props, State> {
       page,
       filter,
       updateFilter,
-      searchOpen,
-      setSearchOpen,
+      searchClosed,
+      setSearchClosed,
     } = this.props;
     const { includingHidden } = this.state;
     return (
-      <div className={`${className} page-${page.page}`}>
-        <MapLoader className="map" child={components.map} />
-        <div className="overlay">
-          <div className="panel">
-            <div
-              className={`controls ${searchOpen ? 'open' : ''}
-            `}
-            >
-              <button
-                type="button"
-                className="header"
-                onClick={() => setSearchOpen(!searchOpen)}
-              >
-                <span className="count">
-                  {/* {format(
-                  lang,
-                  s =>
-                    selectedResult
-                      ? s.results.backToResults
-                      : open
-                      ? s.results.closeResults
-                      : s.results.openResults,
-                  {
-                    results: (results?.results || []).length,
-                  },
-                )} */}
-                  Placeholder for search bar.
-                </span>
-                <span className="grow" />
-                <Chevron className="toggle chevron" />
-              </button>
-              <form onSubmit={this.handleSubmit} className="form">
-                <div className="row">
-                  <Search className="search" searchInputId="main" />
+      <AppContext.Consumer>
+        {({ lang }) => (
+          <div className={`${className} page-${page.page}`}>
+            <MapLoader className="map" child={components.map} />
+            <div className="overlay">
+              <div className="panel">
+                <div
+                  className={`controls ${searchClosed ? 'close' : ''}
+                `}
+                >
+                  <button
+                    type="button"
+                    className="header"
+                    onClick={() => setSearchClosed(!searchClosed)}
+                  >
+                    <span className="label">
+                      {t(lang, s =>
+                        searchClosed
+                          ? s.controls.openSearch
+                          : s.controls.closeSearch,
+                      )}
+                    </span>
+                    <span className="grow" />
+                    <Chevron className="toggle chevron" />
+                  </button>
+                  <form onSubmit={this.handleSubmit} className="form">
+                    <div className="row">
+                      <Search className="search" searchInputId="main" />
+                    </div>
+                    <div className="row">
+                      <MyLocation className="my-location" />
+                    </div>
+                    <div className="row">
+                      <input
+                        type="text"
+                        className="filter"
+                        placeholder="Search text"
+                        onChange={this.handleChange}
+                      />
+                    </div>
+                    <div className="row">
+                      <DropDown
+                        className="filter"
+                        translationKey="markerTypes"
+                        filterScreenField="markerTypes"
+                        dropDownValues={MARKER_TYPE_STRINGS}
+                        filter={filter}
+                        updateFilter={updateFilter}
+                      />
+                      <DropDown
+                        className="filter"
+                        translationKey="services"
+                        filterScreenField="services"
+                        dropDownValues={SERVICE_STRINGS}
+                        filter={filter}
+                        updateFilter={updateFilter}
+                      />
+                    </div>
+                    {includingHidden && (
+                      <div className="row">
+                        <DropDown
+                          className="filter"
+                          translationKey="hiddenMarkers.filter"
+                          filterScreenField="hiddenMarkers"
+                          dropDownValues={['visible', 'hidden']}
+                          filter={filter}
+                          updateFilter={updateFilter}
+                        />
+                      </div>
+                    )}
+                    <input type="submit" value="Search" />
+                  </form>
                 </div>
-                <div className="row">
-                  <MyLocation className="my-location" />
-                </div>
-                <div className="row">
-                  <input
-                    type="text"
-                    className="filter"
-                    placeholder="Search text"
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <div className="row">
-                  <DropDown
-                    className="filter"
-                    translationKey="markerTypes"
-                    filterScreenField="markerTypes"
-                    dropDownValues={MARKER_TYPE_STRINGS}
-                    filter={filter}
-                    updateFilter={updateFilter}
-                  />
-                  <DropDown
-                    className="filter"
-                    translationKey="services"
-                    filterScreenField="services"
-                    dropDownValues={SERVICE_STRINGS}
-                    filter={filter}
-                    updateFilter={updateFilter}
-                  />
-                </div>
-                {includingHidden && (
-                  <div className="row">
-                    <DropDown
-                      className="filter"
-                      translationKey="hiddenMarkers.filter"
-                      filterScreenField="hiddenMarkers"
-                      dropDownValues={['visible', 'hidden']}
-                      filter={filter}
-                      updateFilter={updateFilter}
-                    />
-                  </div>
-                )}
-                <input type="submit" value="Search" />
-              </form>
+                {components.results({
+                  className: 'results',
+                })}
+              </div>
             </div>
-            {components.results({
-              className: 'results',
-            })}
           </div>
-        </div>
-      </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }
@@ -210,19 +208,22 @@ export default styled(MapLayout)`
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
-        padding: 9px 8px;
         display: flex;
         flex-direction: column;
         pointer-events: initial;
 
-        > .row {
+        .form {
+          padding: 9px 8px;
+        }
+
+        .row {
           display: flex;
           flex-wrap: wrap;
         }
 
-        > .search,
-        > .my-location,
-        > .filter {
+        .search,
+        .my-location,
+        .filter {
           margin: 9px 8px;
           flex-grow: 1;
           flex-basis: 40%;
@@ -240,11 +241,15 @@ export default styled(MapLayout)`
           pointer-events: initial;
 
           > .chevron,
-          .count {
+          .label {
             margin: 0 8px;
           }
 
-          > .count {
+          > .chevron {
+            transform: rotate(180deg);
+          }
+
+          > .label {
             font-weight: bold;
             font-size: 14px;
             line-height: 22px;
@@ -265,17 +270,13 @@ export default styled(MapLayout)`
           }
         }
 
-        > .form {
-          display: none;
-        }
-
-        &.open {
+        &.close {
           > .header > .chevron.toggle {
-            transform: rotate(180deg);
+            transform: rotate(0deg);
           }
 
           > .form {
-            display: block;
+            display: none;
           }
         }
       }
