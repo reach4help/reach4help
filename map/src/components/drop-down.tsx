@@ -38,7 +38,7 @@ class DropDown extends React.Component<Props, {}> {
     translationObject: any,
     propKey: string,
     valueKey: string,
-  ): string => {
+  ): string | undefined => {
     let val = translationObject;
     const keys = propKey.split('.');
     keys.forEach(key => {
@@ -61,17 +61,30 @@ class DropDown extends React.Component<Props, {}> {
         value,
         {
           value,
-          label: t(lang, translationObject =>
-            this.lookUpValue(translationObject, translationKey, value),
+          label: t(
+            lang,
+            translationObject =>
+              this.lookUpValue(
+                translationObject,
+                translationKey,
+                value,
+              ) as string,
           ),
         },
       ]),
     );
 
-    // TODO: refactor .services
     const any: OptionType = {
       value: undefined,
-      label: t(lang, translationObject => translationObject.services.any),
+      label: t(lang, translationObject =>
+        this.lookUpValue(translationObject, translationKey, 'any')
+          ? (this.lookUpValue(
+              translationObject,
+              translationKey,
+              'any',
+            ) as string)
+          : translationObject.services.any,
+      ),
     };
 
     const options: OptionType[] = [any, ...optionsMap.values()];
