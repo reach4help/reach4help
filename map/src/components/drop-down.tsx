@@ -12,6 +12,14 @@ type OptionType = {
   label: string;
 };
 
+/**
+ * @param className the class name
+ * @param translationKey a dot-separated list of keys used to index a translationObject generated from json
+ * @param filterScreenField the property of filter this drop-down updates
+ * @param dropDownValues the drop down values
+ * @param filter the filter applied to the map
+ * @param updateFilter a callback that updates filter
+ */
 interface Props {
   className?: string;
   translationKey: string;
@@ -32,13 +40,22 @@ class DropDown extends React.Component<Props, {}> {
     }
   };
 
+  /**
+   * Returns the translated word at translationObject.propKey.valueKey if it exists, else undefined.
+   * For example, translationObject.services.org returns "Organization" if the translationObject
+   * is in English.
+   *
+   * @param translationObject an object generated from a json translation file
+   * @param propKey a dot-separated list of keys used to index into the translationObject
+   * @param valueKey a dropDownValue
+   * @return the translated label if it exists, else undefined
+   */
   private lookUpValue = (
-    // TODO: add some docs
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     translationObject: any,
     propKey: string,
     valueKey: string,
-  ): string => {
+  ): string | undefined => {
     let val = translationObject;
     const keys = propKey.split('.');
     keys.forEach(key => {
@@ -61,27 +78,37 @@ class DropDown extends React.Component<Props, {}> {
         value,
         {
           value,
-          label: t(lang, translationObject =>
-            this.lookUpValue(translationObject, translationKey, value),
+          label: t(
+            lang,
+            translationObject =>
+              this.lookUpValue(
+                translationObject,
+                translationKey,
+                value,
+              ) as string,
           ),
         },
       ]),
     );
 
-    // TODO: refactor .services
     const any: OptionType = {
       value: undefined,
-      label: t(lang, translationObject => translationObject.services.any),
+      label: t(lang, translationObject =>
+        this.lookUpValue(translationObject, translationKey, 'any')
+          ? (this.lookUpValue(
+              translationObject,
+              translationKey,
+              'any',
+            ) as string)
+          : translationObject.services.any,
+      ),
     };
 
     const options: OptionType[] = [any, ...optionsMap.values()];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const searchInOptions = (filterScreen: any) =>
-      filterScreen[filterScreenField];
     const value =
-      typeof searchInOptions !== 'undefined'
-        ? optionsMap.get(searchInOptions(filter))
+      typeof filter[filterScreenField as keyof Filter] !== 'undefined'
+        ? optionsMap.get(filter[filterScreenField as keyof Filter] as string)
         : undefined;
 
     return (
