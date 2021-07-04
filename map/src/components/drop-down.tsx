@@ -12,6 +12,14 @@ type OptionType = {
   label: string;
 };
 
+/**
+ * @param className the class name
+ * @param translationKey a dot-separated list of keys used to index a translationObject generated from json
+ * @param filterScreenField the property of filter this drop-down updates
+ * @param dropDownValues the drop down values
+ * @param filter the filter applied to the map
+ * @param updateFilter a callback that updates filter
+ */
 interface Props {
   className?: string;
   translationKey: string;
@@ -32,8 +40,17 @@ class DropDown extends React.Component<Props, {}> {
     }
   };
 
+  /**
+   * Returns the translated word at translationObject.propKey.valueKey if it exists, else undefined.
+   * For example, translationObject.services.org returns "Organization" if the translationObject
+   * is in English.
+   *
+   * @param translationObject an object generated from a json translation file
+   * @param propKey a dot-separated list of keys used to index into the translationObject
+   * @param valueKey a dropDownValue
+   * @return the translated label if it exists, else undefined
+   */
   private lookUpValue = (
-    // TODO: add some docs
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     translationObject: any,
     propKey: string,
