@@ -22,8 +22,6 @@ interface Props {
   page: Page;
   filter: Filter;
   updateFilter: UpdateFilter;
-  searchClosed: boolean;
-  setSearchClosed: (searchClosed: boolean) => void;
   components: {
     map: () => JSX.Element;
     results: (props: { className: string }) => JSX.Element;
@@ -32,6 +30,7 @@ interface Props {
 
 interface State {
   includingHidden: boolean;
+  searchClosed: boolean;
 }
 
 class MapLayout extends React.Component<Props, State> {
@@ -39,6 +38,7 @@ class MapLayout extends React.Component<Props, State> {
     super(props);
     this.state = {
       includingHidden: dataDriver.includingHidden(),
+      searchClosed: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,6 +55,10 @@ class MapLayout extends React.Component<Props, State> {
   private dataDriverInformationUpdated: dataDriver.InformationListener = update =>
     this.setState({ includingHidden: update.includingHidden });
 
+  private setSearchClosed = (searchClosed: boolean) => {
+    this.setState({ searchClosed });
+  };
+
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const textValue = e.target.value;
     this.props.updateFilter('searchText', textValue);
@@ -66,16 +70,8 @@ class MapLayout extends React.Component<Props, State> {
   }
 
   public render() {
-    const {
-      className,
-      components,
-      page,
-      filter,
-      updateFilter,
-      searchClosed,
-      setSearchClosed,
-    } = this.props;
-    const { includingHidden } = this.state;
+    const { className, components, page, filter, updateFilter } = this.props;
+    const { includingHidden, searchClosed } = this.state;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
@@ -83,14 +79,11 @@ class MapLayout extends React.Component<Props, State> {
             <MapLoader className="map" child={components.map} />
             <div className="overlay">
               <div className="panel">
-                <div
-                  className={`controls ${searchClosed ? 'close' : ''}
-                `}
-                >
+                <div className={`controls ${searchClosed ? 'close' : ''}`}>
                   <button
                     type="button"
                     className="header"
-                    onClick={() => setSearchClosed(!searchClosed)}
+                    onClick={() => this.setSearchClosed(!searchClosed)}
                   >
                     <span className="label">
                       {t(lang, s =>
