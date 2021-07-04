@@ -76,12 +76,9 @@ class DropDown extends React.Component<Props, {}> {
 
     const options: OptionType[] = [any, ...optionsMap.values()];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const searchInOptions = (filterScreen: any) =>
-      filterScreen[filterScreenField];
     const value =
-      typeof searchInOptions !== 'undefined'
-        ? optionsMap.get(searchInOptions(filter))
+      typeof filter[filterScreenField as keyof Filter] !== 'undefined'
+        ? optionsMap.get(filter[filterScreenField as keyof Filter] as string)
         : undefined;
 
     return (
