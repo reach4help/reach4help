@@ -11,7 +11,6 @@ import { Filter, Page, UpdateFilter } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
 import DropDown from './drop-down';
-import MyLocation from './my-location-button';
 import Search from './search';
 
 interface Props {
@@ -72,9 +71,6 @@ class MapLayout extends React.Component<Props, State> {
               <form onSubmit={this.handleSubmit}>
                 <div className="row">
                   <Search className="search" searchInputId="main" />
-                </div>
-                <div className="row">
-                  <MyLocation className="my-location" />
                 </div>
                 <div className="row">
                   <input
