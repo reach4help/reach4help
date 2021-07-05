@@ -1,26 +1,26 @@
 {
-  "title": "Mapa de ayuda mutual para COVID-19",
+  "title": "Mapa de ayuda mutua para COVID-19",
   "inFrameLink": "Acerca de este mapa / añadir información",
   "aboutScreen": {
     "intro": "Creemos que la solidaridad saca lo mejor de las personas.",
-    "info": "Para ayudar a las personas a encontrar y unirse a los esfuerzos de ayuda mutua donde viven, ofrecer inspiración para comenzar su propia y/o simplemente levantar espíritus, este mapa presenta una lista creciente de proyectos de ayuda pandémica de ayuda mutua a nivel mundial.",
-    "warning": "Nota: Cada proyecto es autónoma y autoorganizado; Muchos usan hojas de cálculo públicas para compartir información, así que ten cuidado al introducir información privada que no quieres ser pública.",
-    "project": "Este mapa es parte de {reach4Help}, un proyecto de voluntariado. Es de código abierto y puede ser de {githubSource}. Para cualquier consulta, puedes contactarnos como en {email}.",
-    "githubSourceLabel": "Código fuente en GitHub",
-    "otherAreasHeading": "¿Interesado en una de estas areas?",
+    "info": "Para ayudar a las personas a encontrar y unirse a los esfuerzos de ayuda mutua donde viven, ofrecer inspiración para comenzar por su cuenta y/o simplemente levantar ánimos, este mapa presenta una lista creciente de proyectos de ayuda mutua para el alivio en pandemia a nivel mundial.",
+    "warning": "Nota: Cada proyecto es autónomo y autoorganizado; muchos usan hojas de cálculo públicas para compartir información, así que ten cuidado al introducir información privada que no quieres que se publique.",
+    "project": "Este mapa es parte de {reach4Help}, un proyecto de voluntariado. Es de código abierto y puede ser {githubSource}. Para cualquier consulta, puedes contactarnos en {email}.",
+    "githubSourceLabel": "encontrado en GitHub",
+    "otherAreasHeading": "¿Interesado en una de estas áreas?",
     "otherAreasInfo": "Revise estos mapas alternativos:",
     "otherAreasLocations": {
       "france": "Francia",
       "nyc": "Nueva York"
     },
     "sourceHeading": "¿De dónde proviene esta información?",
-    "sourceInfo": "La información en este mapa es una combinación de datos recopilados por nuestros voluntarios, enviados por nuestros usuarios. y proporcionado por otros proyectos de voluntariado incluyendo {mutualaidwiki} y {mutualaidhub}.",
-    "sourceSubmit": "Te animamos a {addinfo} sobre cualquier proyecto que conozcas que no esté ya en el mapa.",
+    "sourceInfo": "La información en este mapa es una combinación de datos recopilados por nuestros voluntarios, enviados por nuestros usuarios, y proporcionados por otros proyectos de voluntariado incluyendo {mutualaidwiki} y {mutualaidhub}.",
+    "sourceSubmit": "Te invitamos a {addinfo} sobre cualquier proyecto que conozcas que no esté ya en el mapa.",
     "sourceSubmitButton": "Agregar Información",
     "usageHeading": "¿Puedo utilizar estos datos para mi propio proyecto?",
-    "usageInfo": "Le invitamos a utilizar los datos proporcionados por nuestro mapa para sus propios proyectos, siempre que siga las respectivas licencias.",
-    "usageLicenses": "Los datos proporcionados por nuestros voluntarios y usuarios están licenciados bajo una {license}y los datos de otras fuentes están disponibles bajo sus respectivas licencias.",
-    "usageApi": "Puede acceder a los datos crudos, junto con detalles sobre cómo se licencia cada punto de datos, en la siguiente URL: {api}"
+    "usageInfo": "Te invitamos a utilizar los datos proporcionados por nuestro mapa para tus propios proyectos, siempre que sigas las respectivas licencias.",
+    "usageLicenses": "Los datos proporcionados por nuestros voluntarios y usuarios están licenciados bajo una {license}, y los datos de otras fuentes están disponibles bajo sus respectivas licencias.",
+    "usageApi": "Puedes acceder a los datos crudos, junto con detalles sobre cómo se licencia cada punto de datos, en la siguiente URL: {api}"
   },
   "menu": {
     "about": "Acerca de",
@@ -28,9 +28,9 @@
   },
   "social": {
     "email": "Envíenos un correo electrónico",
-    "twitter": "¡Síguenos en Twitter",
-    "facebook": "Dale a \"Me gusta\" en Facebook",
-    "github": "Encuéntralo en Github"
+    "twitter": "Síguenos en Twitter",
+    "facebook": "Danos \"Me gusta\" en Facebook",
+    "github": "Encuéntranos en Github"
   },
   "addInformation": {
     "button": "Agregar Información",
@@ -43,30 +43,30 @@
     "screen": {
       "title": "Añadir información a este mapa",
       "information": {
-        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
-        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
-        "intro": "Por favor, rellene el siguiente formulario para comenzar a agregar información, le pediremos la ubicación y los datos de contacto después de eso.",
+        "acceptedInformation": "Al momento, estamos incluyendo organizaciones que provean ayuda y asistencia local (comida, refugio, tubos de oxígeno, donaciones, etc.).",
+        "moreInformation": "Por razones de seguridad no podemos aceptar información directamente sobre individuos que ofrezcan ayuda. Pero por favor contáctanos a {contactEmail} si te gustaría ayudar.",
+        "intro": "Por favor, rellena el siguiente formulario para comenzar a agregar información, te pediremos la ubicación y los datos de contacto después de eso.",
         "form": {
           "type": "Tipo de proyecto / grupo / organización / iniciativa",
           "typePleaseSelect": "Por favor, selecciona un tipo",
           "services": "Servicios o apoyo que proporciona esta organización / empresa",
           "name": "Nombre del proyecto / grupo / organización",
-          "namePlaceholder": "ej. Ayuda Mutua Antártica",
+          "namePlaceholder": "ej. Ayuda Mutua Antártida",
           "description": "(opcional) Descripción detallada del proyecto / grupo / organización y lo que pretende hacer para facilitar la ayuda mutua",
-          "locationName": "Describa el área geográfica servida, por ejemplo, países, estados, condados, pueblos, etc...",
+          "locationName": "Describe el área geográfica abarcada, por ejemplo: países, estados, condados, pueblos, etc...",
           "locationNamePlaceholder": "E.g: San Francisco Bay Area, CA, EE.UU.",
-          "continue": "Haga clic en continuar para ingresar información de ubicación"
+          "continue": "Haz clic en continuar para ingresar información de ubicación"
         },
-        "mutualAidInstead": "Si desea enviar información sobre un nuevo grupo de ayuda mutua, visite {link} en su lugar. Los grupos añadidos se incluirán automáticamente en nuestro mapa."
+        "mutualAidInstead": "Si deseas enviar información sobre un nuevo grupo de ayuda mutua, visita {link} en su lugar. Los grupos añadidos allí se incluirán automáticamente en nuestro mapa."
       },
       "placeMarker": {
-        "instructions": "Localice el área atendida por este proyecto / grupo / organización / iniciativa haciendo clic en el mapa para colocar un marcador, luego ajustar el tamaño del círculo para englobar la zona según sea necesario.",
-        "continue": "Una vez que esté satisfecho con la ubicación, haga clic en continuar añadiendo información de contacto.",
+        "instructions": "Localiza el área abarcada por este proyecto / grupo / organización / iniciativa haciendo clic en el mapa para colocar un marcador, luego ajusta el tamaño del círculo para englobar la zona según sea necesario.",
+        "continue": "Una vez que estés satisfecho con la ubicación, haz clic en continuar para añadir información de contacto.",
         "distance": "{kilometers, number}km ({miles, number}miles)"
       },
       "contactInfo": {
-        "header": "Información de contacto para las solicitudes",
-        "info": "¡Ya casi está! Por favor, introduzca información sobre cómo la gente puede ponerse en contacto con {name}. Si hay métodos específicos de contacto que deben ser utilizados para ayudar o para solicitar ayuda, por favor introdúzcalos!",
+        "header": "Información de contacto para {name}",
+        "info": "¡Ya casi está! Por favor, introduce información sobre cómo la gente puede ponerse en contacto con {name}. Si hay métodos específicos de contacto que deben ser utilizados para ayudar o para solicitar ayuda, ¡por favor introdúcelos!",
         "deleteInfo": "Borrar",
         "addInfo": {
           "general": "Agregar información general de contacto",
@@ -74,14 +74,14 @@
           "getHelp": "Agregar información de contacto para personas que necesitan ayuda"
         },
         "sections": {
-          "general": "Introduzca la información de contacto",
+          "general": "Introduce la información de contacto",
           "volunteers": "Información de contacto para voluntarios",
           "getHelp": "Información de contacto para personas que necesitan ayuda"
         },
         "method": {
           "phone": "Número de teléfono o móvil",
           "email": "Direcciones de Correo Electrónico",
-          "web": "Enlaces Web"
+          "web": "Enlaces / Direcciones Web"
         },
         "placeholder": {
           "phone": "Agregar número de teléfono o móvil",
@@ -94,22 +94,22 @@
         "loading": "Enviando información al mapa...",
         "error": "Error al agregar información",
         "success": "Tu solicitud se ha enviado con éxito.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "Antes de que tu información sea visible en el mapa, deberá ser revisada por un voluntario en nuestro equipo. Esperamos que sea resuelto en los próximos días. Mientras tanto, podrás verla haciendo clic en 'Mostrar información oculta', al pie de la pestaña 'Acerca de'."
       }
     },
     "errors": {
-      "missingType": "Por favor, seleccione el tipo de proyecto / grupo / organización",
-      "missingServices": "Por favor, compruebe todos los servicios proporcionados por esta organización (al menos 1 es requerido)",
-      "missingTitle": "Por favor, introduzca el nombre del proyecto / grupo / organización",
-      "missingLocationName": "Por favor ingrese una descripción del área servida",
-      "markerRequired": "Por favor, haga clic en el mapa para entrar en el área de servicio antes de continuar.",
-      "noContactDetails": "Por favor, introduzca los datos de contacto para al menos una categoría",
-      "emptyContactSection": "Por favor, introduzca algunos datos de contacto para {section} o borrarlos",
+      "missingType": "Por favor, selecciona el tipo de proyecto / grupo / organización",
+      "missingServices": "Por favor, selecciona todos los servicios proporcionados por esta organización (al menos 1 es requerido)",
+      "missingTitle": "Por favor, introduce el nombre del proyecto / grupo / organización",
+      "missingLocationName": "Por favor, ingresa una descripción del área abarcada",
+      "markerRequired": "Por favor, haz clic en el mapa para indicar el área de servicio antes de continuar.",
+      "noContactDetails": "Por favor, introduce los datos de contacto para al menos una categoría",
+      "emptyContactSection": "Por favor, introduce algunos datos de contacto para {section} o bórrala",
       "urlMissingLabel": "A una URL para {section} le falta un nombre",
-      "urlMissingURL": "A una URL para {section} le falta un nombre",
+      "urlMissingURL": "A una entrada para {section} le falta una URL",
       "dataError": "Hubo un problema con la información que enviaste, por favor regresa e inténtalo de nuevo",
-      "submitError": "Hubo un problema al designar tu asignación automática. Intenta de nuevo más tarde.",
-      "mutualAidGroupsNotAccepted": "Por favor, introduce en su lugar información sobre los nuevos grupos de ayuda mutua en el {link}."
+      "submitError": "Hubo un problema con la validación de tu información. Intenta de nuevo más tarde.",
+      "mutualAidGroupsNotAccepted": "Por favor, introduce en su lugar información sobre nuevos grupos de ayuda mutua en el {link}."
     }
   },
   "buttons": {
@@ -122,54 +122,54 @@
     "any": "Cualquiera",
     "food": "Comida",
     "shelter": "Refugio",
-    "beds": "Hospital Beds",
-    "oxygen": "Oxygen",
+    "beds": "Camas de Hospital",
+    "oxygen": "Oxígeno",
     "medicine": "Medicina",
-    "home-care": "Home Care",
-    "blood": "Plasma / Blood",
-    "quarantine": "Quarantine Centres",
-    "telehealth": "Telehealth",
+    "home-care": "Atención Doméstica",
+    "blood": "Plasma / Sangre",
+    "quarantine": "Centros de Cuarentena",
+    "telehealth": "Telesalud",
     "financial": "Financiero",
     "mobility": "Movilidad",
     "information": "Información",
     "manufacturing": "Fabricación",
     "support": "Apoyo",
     "network": "Red",
-    "supplies": "Otros suministros",
-    "vaccine": "Vaccinations",
+    "supplies": "Otros Suministros",
+    "vaccine": "Vacunaciones",
     "other": "Otros"
   },
   "serviceDescriptions": {
-    "food": "Food and/or water",
-    "shelter": "Shelter for the homeless and those who need it",
-    "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
-    "oxygen": "Oxygen cylinders or refills",
-    "medicine": "COVID-19 medicines like Remdesivir",
-    "home-care": "Home care for the elderly",
-    "blood": "Plasma / Blood transfusions",
-    "quarantine": "Quarantine Centres",
-    "telehealth": "Telehealth/teleconsultation services",
-    "financial": "Donations and fundraising",
+    "food": "Comida y/o agua",
+    "shelter": "Refugio para personas sin techo y quienes lo necesiten",
+    "beds": "Camas de Hospital (General, UCI o Camas Hiperbáricas)",
+    "oxygen": "Tubos de oxígeno o recargas",
+    "medicine": "Medicinas para el COVID-19 como Remdesivir",
+    "home-care": "Atención doméstica para los más ancianos",
+    "blood": "Transfusiones de sangre / plasma",
+    "quarantine": "Centros de Cuarentena",
+    "telehealth": "Servicios de telesalud/teleconsulta",
+    "financial": "Donaciones y recaudaciones",
     "mobility": "Transportando personas de una ubicación a otra",
-    "information": "Help people find relevant information",
+    "information": "Ayudar a las personas a encontrar información relevante",
     "manufacturing": "Proporciona suministros o capacidad manufacturera necesaria para hacer frente a la crisis",
-    "support": "Apoyar a medida para grupos vulnerables específicos, como personas sin hogar, personas en riesgo de abuso doméstico, etc...",
-    "network": "Prodicción de recursos para el trabajo en red para proporcionar ayuda, por ejemplo, entre organizaciones de apoyo mutuo",
+    "support": "Apoyo a medida para grupos vulnerables específicos, como personas sin hogar, personas en riesgo de abuso doméstico, etc...",
+    "network": "Producción de recursos de red para proporcionar ayuda, por ejemplo, entre organizaciones de ayuda mutua",
     "supplies": "Suministros distintos de alimentos o medicinas",
-    "vaccine": "Verified vaccination site",
-    "other": "Otra cosa que no está en esta lista"
+    "vaccine": "Sitio de vacunación verificado",
+    "other": "Cualquier otro servicio que no esté en esta lista"
   },
   "markerTypes": {
-    "mutual-aid-group": "Grupo de apoyo mutuo",
+    "mutual-aid-group": "Grupo de ayuda mutua",
     "org": "Organización / Empresa",
     "hospital": "Hospital",
-    "medical": "Medical Service",
-    "company": "Company",
+    "medical": "Servicio Médico",
+    "company": "Compañía",
     "individual": "Individual",
     "other": "Otros"
   },
   "markerTypeSentence": {
-    "mutual-aid-group": "grupo de apoyo mutuo",
+    "mutual-aid-group": "grupo de ayuda mutua",
     "org": "Organización / Empresa",
     "project": "proyecto"
   },
@@ -180,21 +180,21 @@
   },
   "results": {
     "backToResults": "Volver a los resultados",
-    "openResults": "¡Mira {results, plural, one {} =0 {¡No hay resultados} =1 {¡1 resultado} other {# resultados}}",
-    "closeResults": "¡Oculta {results, plural, one {} =0 {¡No hay resultados} =1 {¡1 resultado} other {¡# resultados}}",
+    "openResults": "Mira {results, plural, one {} =0 {0 resultados} =1 {1 resultado} other {# resultados}}",
+    "closeResults": "Oculta {results, plural, one {} =0 {0 resultados} =1 {1 resultado} other {# resultados}}",
     "showMore": "Mostrar más resultados",
     "contact": {
       "general": "Información general:",
       "getHelp": "Conseguir ayuda:",
       "volunteer": "Voluntario:",
-      "facebookGroup": "Grupo Facebook"
+      "facebookGroup": "Grupo de Facebook"
     },
     "details": {
       "disclaimer": {
         "header": "Nota",
-        "content": "Nota: Cada proyecto es autónoma y autoorganizado; Muchos usan hojas de cálculo públicas para compartir información, así que ten cuidado al introducir información privada que no quieres ser pública."
+        "content": "Cada proyecto es autónomo y autoorganizado; muchos usan hojas de cálculo públicas o foros para compartir información, así que ten cuidado al introducir información privada que no quieres que se haga pública."
       },
-      "source": "La información sobre este {type} es proporcionada por {source}."
+      "source": "La información sobre este/a {type} es proporcionada por {source}."
     }
   },
   "lang": "Idioma:",
@@ -205,13 +205,13 @@
     "githubRepo": "Repositorio de GitHub",
     "codeOfConduct": "Código de conducta",
     "showHidden": "Mostrar información oculta",
-    "hideHidden": "Ocultar información"
+    "hideHidden": "Esconder información oculta"
   },
   "hiddenMarkers": {
     "visiblility": "Visibilidad: {visibility}",
     "filter": {
       "any": "Cualquiera",
-      "visible": "Solo visible",
+      "visible": "Sólo visibles",
       "hidden": "Sólo ocultos"
     }
   }
