@@ -13,24 +13,24 @@ type OptionType = {
 };
 
 /**
- * @param className the class name
+ * @param className the className of the Select component
  * @param translationKey a dot-separated list of keys used to index a translationObject generated from json
- * @param filterScreenField the property of filter this drop-down updates
+ * @param filterScreenField the name of the property of filter this drop-down updates
  * @param dropDownValues the drop down values
- * @param filter the filter applied to the map
+ * @param filter the filter state that tracks the values entered into the filter dialog
  * @param updateFilter a callback that updates filter
  */
-interface Props {
+interface DropDownProps {
   className?: string;
   translationKey: string;
-  filterScreenField: string;
+  filterScreenField: keyof Filter;
   dropDownValues: readonly string[];
   filter: Filter;
   updateFilter: UpdateFilter;
 }
 
-class DropDown extends React.Component<Props, {}> {
-  private changeService = (
+class DropDown extends React.Component<DropDownProps, {}> {
+  private onChangeHandler = (
     fieldName: string,
     selectedValue: ValueType<OptionType>,
   ): void => {
@@ -42,8 +42,8 @@ class DropDown extends React.Component<Props, {}> {
 
   /**
    * Returns the translated word at translationObject.propKey.valueKey if it exists, else undefined.
-   * For example, translationObject.services.org returns "Organization" if the translationObject
-   * is in English.
+   * For example, lookUpValue(translationObject, 'visibility.filter", "visible") returns  "Visible markers"
+   * if the visibility.filter.visible property of translationObject.visibilty.filter is "Visible marker".
    *
    * @param translationObject an object generated from a json translation file
    * @param propKey a dot-separated list of keys used to index into the translationObject
@@ -64,7 +64,14 @@ class DropDown extends React.Component<Props, {}> {
     return val[valueKey];
   };
 
-  private select = (lang: Language) => {
+  private getLabel = (lang: Language, translationKey: string, value: string) =>
+    t(
+      lang,
+      translationObject =>
+        this.lookUpValue(translationObject, translationKey, value) as string,
+    );
+
+  private SelectComponent = (lang: Language) => {
     const {
       className,
       filter,
@@ -78,15 +85,7 @@ class DropDown extends React.Component<Props, {}> {
         value,
         {
           value,
-          label: t(
-            lang,
-            translationObject =>
-              this.lookUpValue(
-                translationObject,
-                translationKey,
-                value,
-              ) as string,
-          ),
+          label: this.getLabel(lang, translationKey, value),
         },
       ]),
     );
@@ -107,8 +106,8 @@ class DropDown extends React.Component<Props, {}> {
     const options: OptionType[] = [any, ...optionsMap.values()];
 
     const value =
-      typeof filter[filterScreenField as keyof Filter] !== 'undefined'
-        ? optionsMap.get(filter[filterScreenField as keyof Filter] as string)
+      typeof filter[filterScreenField] !== 'undefined'
+        ? optionsMap.get(filter[filterScreenField] as string)
         : undefined;
 
     return (
@@ -117,7 +116,7 @@ class DropDown extends React.Component<Props, {}> {
         classNamePrefix="select"
         value={value}
         onChange={selectedValue =>
-          this.changeService(filterScreenField, selectedValue)
+          this.onChangeHandler(filterScreenField, selectedValue)
         }
         options={options}
         isSearchable={false}
@@ -132,7 +131,7 @@ class DropDown extends React.Component<Props, {}> {
   public render() {
     return (
       <AppContext.Consumer>
-        {({ lang }) => this.select(lang)}
+        {({ lang }) => this.SelectComponent(lang)}
       </AppContext.Consumer>
     );
   }
