@@ -18,7 +18,6 @@ type OptionType = {
  * @param filterScreenField the name of the property of filter this drop-down updates
  * @param dropDownValues the drop down values
  * @param isMulti true iff multi-select is enabled
- * @param filter the filter state that tracks the values entered into the filter dialog
  * @param updateFilter a callback that updates filter
  */
 interface DropDownProps {
@@ -27,7 +26,6 @@ interface DropDownProps {
   filterScreenField: keyof Filter;
   dropDownValues: readonly string[];
   isMulti?: boolean;
-  filter: Filter;
   updateFilter: UpdateFilter;
 }
 
@@ -52,7 +50,11 @@ class DropDown extends React.Component<DropDownProps, DropDownState> {
     let newVal;
     if (selected) {
       newVal = isMulti
-        ? (selected as OptionType[]).map(selectedOption => selectedOption.value)
+        ? new Set(
+            (selected as OptionType[]).map(
+              selectedOption => selectedOption.value,
+            ),
+          )
         : (selected as OptionType).value;
     }
     updateFilter(fieldName, newVal);
@@ -133,6 +135,7 @@ class DropDown extends React.Component<DropDownProps, DropDownState> {
         isMulti={isMulti}
         classNamePrefix="select"
         value={selectedValues}
+        defaultValue={isMulti ? undefined : any}
         onChange={selected => this.onChangeHandler(filterScreenField, selected)}
         options={options}
         isSearchable={false}

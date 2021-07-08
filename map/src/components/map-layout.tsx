@@ -9,7 +9,7 @@ import Chevron from 'src/components/assets/chevron';
 import MapLoader from 'src/components/map-loader';
 import * as dataDriver from 'src/data/dataDriver';
 import { t } from 'src/i18n';
-import { Filter, Page, UpdateFilter } from 'src/state';
+import { Page, UpdateFilter } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
 import { AppContext } from './context';
@@ -19,7 +19,6 @@ import Search from './search';
 interface Props {
   className?: string;
   page: Page;
-  filter: Filter;
   updateFilter: UpdateFilter;
   components: {
     map: () => JSX.Element;
@@ -69,7 +68,7 @@ class MapLayout extends React.Component<Props, State> {
   }
 
   public render() {
-    const { className, components, page, filter, updateFilter } = this.props;
+    const { className, components, page, updateFilter } = this.props;
     const { includingHidden, searchClosed } = this.state;
     return (
       <AppContext.Consumer>
@@ -102,7 +101,6 @@ class MapLayout extends React.Component<Props, State> {
                     filterScreenField="markerTypes"
                     dropDownValues={MARKER_TYPE_STRINGS}
                     isMulti
-                    filter={filter}
                     updateFilter={updateFilter}
                   />
                 </div>
@@ -113,7 +111,6 @@ class MapLayout extends React.Component<Props, State> {
                     filterScreenField="services"
                     dropDownValues={SERVICE_STRINGS}
                     isMulti
-                    filter={filter}
                     updateFilter={updateFilter}
                   />
                 </div>
@@ -124,7 +121,6 @@ class MapLayout extends React.Component<Props, State> {
                       translationKey="hiddenMarkers.filter"
                       filterScreenField="hiddenMarkers"
                       dropDownValues={['visible', 'hidden']}
-                      filter={filter}
                       updateFilter={updateFilter}
                     />
                   </div>

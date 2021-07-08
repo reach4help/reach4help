@@ -66,8 +66,8 @@ const getMarkerId = (marker: google.maps.Marker): MarkerId =>
   marker.get(MARKER_DATA_ID);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const hasIntersection = (array1: Array<any>, array2: Array<any>): boolean =>
-  array1.filter(value => array2.includes(value)).length > 0;
+const hasIntersection = (set_: Set<any>, array_: Array<any>): boolean =>
+  array_.some(value => set_.has(value));
 
 interface Props {
   className?: string;
@@ -185,48 +185,51 @@ class MapComponent extends React.Component<Props, State> {
     );
   };
 
+  private isValidMarker = (filter: Filter, info: MarkerIdAndInfo): boolean => {
+    let validTypes = true;
+    if (
+      filter.markerTypes &&
+      filter.markerTypes.size > 0 &&
+      (typeof info.info.type.type === 'undefined' ||
+        !filter.markerTypes.has(info.info.type.type))
+    ) {
+      validTypes = false;
+    }
+
+    let validServices = true;
+    if (
+      filter.services &&
+      filter.services.size > 0 &&
+      (typeof info.info.type.services === 'undefined' ||
+        !hasIntersection(filter.services, info.info.type.services))
+    ) {
+      validServices = false;
+    }
+
+    const validVisibility = !!(
+      !filter.hiddenMarkers ||
+      filter.hiddenMarkers === 'any' ||
+      (filter.hiddenMarkers === 'hidden' && !info.info.visible) ||
+      (filter.hiddenMarkers === 'visible' && info.info.visible)
+    );
+    const validText = !!(
+      !filter.searchText ||
+      JSON.stringify(info.info)
+        .toUpperCase()
+        .includes(filter.searchText.toUpperCase())
+    );
+    return validTypes && validServices && validVisibility && validText;
+  };
+
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
     const { map } = mapState();
     if (map) {
       for (const set of MARKER_SET_KEYS) {
         map.activeMarkers[set].forEach(marker => {
           const info = this.getMarkerInfo(marker);
-
-          let validTypes = true;
-          if (
-            filter.markerTypes &&
-            (!info ||
-              typeof info.info.type.type === 'undefined' ||
-              !filter.markerTypes.includes(info.info.type.type))
-          ) {
-            validTypes = false;
+          if (info) {
+            marker.setVisible(this.isValidMarker(filter, info));
           }
-
-          let validServices = true;
-          if (
-            filter.services &&
-            (!info ||
-              typeof info.info.type.services === 'undefined' ||
-              !hasIntersection(filter.services, info.info.type.services))
-          ) {
-            validServices = false;
-          }
-
-          const validVisibility = !!(
-            !filter.hiddenMarkers ||
-            filter.hiddenMarkers === 'any' ||
-            (filter.hiddenMarkers === 'hidden' && !info?.info.visible) ||
-            (filter.hiddenMarkers === 'visible' && info?.info.visible)
-          );
-          const validText = !!(
-            !filter.searchText ||
-            JSON.stringify(info?.info)
-              .toUpperCase()
-              .includes(filter.searchText.toUpperCase())
-          );
-          const visible =
-            validTypes && validServices && validVisibility && validText;
-          marker.setVisible(visible);
         });
       }
       // Ensure that the results are updated given the filter has changed
