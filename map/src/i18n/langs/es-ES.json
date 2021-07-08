@@ -43,8 +43,8 @@
     "screen": {
       "title": "Añadir información a este mapa",
       "information": {
-        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
-        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
+        "acceptedInformation": "Por el momento, estamos incluyendo organizaciones que provean ayuda y asistencia específica para cada región (alimentos, refugio, tubos de oxígeno, donaciones, etc.).",
+        "moreInformation": "Por razones de seguridad no podemos aceptar información directamente sobre individuos que ofrecen ayuda, pero por favor contáctanos a {contactEmail} si quieres ayudar.",
         "intro": "Por favor, rellene el siguiente formulario para comenzar a agregar información, le pediremos la ubicación y los datos de contacto después de eso.",
         "form": {
           "type": "Tipo de proyecto / grupo / organización / iniciativa",
@@ -62,7 +62,7 @@
       "placeMarker": {
         "instructions": "Localice el área atendida por este proyecto / grupo / organización / iniciativa haciendo clic en el mapa para colocar un marcador, luego ajustar el tamaño del círculo para englobar la zona según sea necesario.",
         "continue": "Una vez que esté satisfecho con la ubicación, haga clic en continuar añadiendo información de contacto.",
-        "distance": "{kilometers, number}km ({miles, number}miles)"
+        "distance": "{kilometers, number}km ({miles, number} millas)"
       },
       "contactInfo": {
         "header": "Información de contacto para las solicitudes",
@@ -94,7 +94,7 @@
         "loading": "Enviando información al mapa...",
         "error": "Error al agregar información",
         "success": "Tu solicitud se ha enviado con éxito.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "Antes de que hagamos visible tu información en el mapa, tendrá que ser revisada por un voluntario de nuestro equipo. Es de esperar que esto se haga dentro de un par de días. Mientras tanto, podrás verlo haciendo clic en 'Mostrar información oculta' en la parte inferior de la página 'Acerca de'."
       }
     },
     "errors": {
