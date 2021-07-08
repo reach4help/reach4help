@@ -95,48 +95,41 @@ class MapLayout extends React.Component<Props, State> {
                     <Chevron className="toggle chevron" />
                   </button>
                   <form onSubmit={this.handleSubmit} className="form">
-                    <div className="row">
-                      <Search className="search" searchInputId="main" />
-                    </div>
-                    <div className="row">
-                      <input
-                        type="text"
-                        className="filter"
-                        placeholder="Search text"
-                        onChange={this.handleChange}
-                      />
-                    </div>
-                    <div className="row">
-                      <DropDown
-                        className="filter"
-                        translationKey="markerTypes"
-                        filterScreenField="markerTypes"
-                        dropDownValues={MARKER_TYPE_STRINGS}
-                        filter={filter}
-                        updateFilter={updateFilter}
-                      />
-                      <DropDown
-                        className="filter"
-                        translationKey="services"
-                        filterScreenField="services"
-                        dropDownValues={SERVICE_STRINGS}
-                        filter={filter}
-                        updateFilter={updateFilter}
-                      />
-                    </div>
-                    {includingHidden && (
-                      <div className="row">
-                        <DropDown
-                          className="filter"
-                          translationKey="hiddenMarkers.filter"
-                          filterScreenField="hiddenMarkers"
-                          dropDownValues={['visible', 'hidden']}
-                          filter={filter}
-                          updateFilter={updateFilter}
-                        />
-                      </div>
-                    )}
-                    <input type="submit" value="Search" />
+                  <div className="row">
+                  <DropDown
+                    className="filter"
+                    translationKey="markerTypes"
+                    filterScreenField="markerTypes"
+                    dropDownValues={MARKER_TYPE_STRINGS}
+                    isMulti
+                    filter={filter}
+                    updateFilter={updateFilter}
+                  />
+                </div>
+                <div className="row">
+                  <DropDown
+                    className="filter"
+                    translationKey="services"
+                    filterScreenField="services"
+                    dropDownValues={SERVICE_STRINGS}
+                    isMulti
+                    filter={filter}
+                    updateFilter={updateFilter}
+                  />
+                </div>
+                {includingHidden && (
+                  <div className="row">
+                    <DropDown
+                      className="filter"
+                      translationKey="hiddenMarkers.filter"
+                      filterScreenField="hiddenMarkers"
+                      dropDownValues={['visible', 'hidden']}
+                      filter={filter}
+                      updateFilter={updateFilter}
+                    />
+                  </div>
+                )}
+                <input type="submit" value="Search" />
                   </form>
                 </div>
                 {components.results({

@@ -17,6 +17,7 @@ type OptionType = {
  * @param translationKey a dot-separated list of keys used to index a translationObject generated from json
  * @param filterScreenField the name of the property of filter this drop-down updates
  * @param dropDownValues the drop down values
+ * @param isMulti true iff multi-select is enabled
  * @param filter the filter state that tracks the values entered into the filter dialog
  * @param updateFilter a callback that updates filter
  */
@@ -25,19 +26,37 @@ interface DropDownProps {
   translationKey: string;
   filterScreenField: keyof Filter;
   dropDownValues: readonly string[];
+  isMulti?: boolean;
   filter: Filter;
   updateFilter: UpdateFilter;
 }
 
-class DropDown extends React.Component<DropDownProps, {}> {
+interface DropDownState {
+  selectedValues: ValueType<OptionType>;
+}
+
+class DropDown extends React.Component<DropDownProps, DropDownState> {
+  constructor(props: DropDownProps) {
+    super(props);
+
+    this.state = {
+      selectedValues: undefined,
+    };
+  }
+
   private onChangeHandler = (
     fieldName: string,
-    selectedValue: ValueType<OptionType>,
+    selected: ValueType<OptionType>,
   ): void => {
-    if (selectedValue) {
-      const { updateFilter } = this.props;
-      updateFilter(fieldName, (selectedValue as OptionType).value);
+    const { updateFilter, isMulti } = this.props;
+    let newVal;
+    if (selected) {
+      newVal = isMulti
+        ? (selected as OptionType[]).map(selectedOption => selectedOption.value)
+        : (selected as OptionType).value;
     }
+    updateFilter(fieldName, newVal);
+    this.setState({ selectedValues: selected });
   };
 
   /**
@@ -74,11 +93,12 @@ class DropDown extends React.Component<DropDownProps, {}> {
   private SelectComponent = (lang: Language) => {
     const {
       className,
-      filter,
       dropDownValues,
       translationKey,
       filterScreenField,
+      isMulti,
     } = this.props;
+    const { selectedValues } = this.state;
 
     const optionsMap = new Map(
       dropDownValues.map(value => [
@@ -103,21 +123,17 @@ class DropDown extends React.Component<DropDownProps, {}> {
       ),
     };
 
-    const options: OptionType[] = [any, ...optionsMap.values()];
-
-    const value =
-      typeof filter[filterScreenField] !== 'undefined'
-        ? optionsMap.get(filter[filterScreenField] as string)
-        : undefined;
+    const options: OptionType[] = isMulti
+      ? [...optionsMap.values()]
+      : [any, ...optionsMap.values()];
 
     return (
       <Select
         className={className}
+        isMulti={isMulti}
         classNamePrefix="select"
-        value={value}
-        onChange={selectedValue =>
-          this.onChangeHandler(filterScreenField, selectedValue)
-        }
+        value={selectedValues}
+        onChange={selected => this.onChangeHandler(filterScreenField, selected)}
         options={options}
         isSearchable={false}
         components={{

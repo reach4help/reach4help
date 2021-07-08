@@ -65,6 +65,10 @@ export interface ResultsSet {
 const getMarkerId = (marker: google.maps.Marker): MarkerId =>
   marker.get(MARKER_DATA_ID);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const hasIntersection = (array1: Array<any>, array2: Array<any>): boolean =>
+  array1.filter(value => array2.includes(value)).length > 0;
+
 interface Props {
   className?: string;
   filter: Filter;
@@ -187,12 +191,27 @@ class MapComponent extends React.Component<Props, State> {
       for (const set of MARKER_SET_KEYS) {
         map.activeMarkers[set].forEach(marker => {
           const info = this.getMarkerInfo(marker);
-          const validType =
-            !filter.markerTypes || info?.info.type.type === filter.markerTypes;
-          const validService =
-            typeof filter.services !== 'undefined'
-              ? info?.info.type.services?.includes(filter.services) || false
-              : true;
+
+          let validTypes = true;
+          if (
+            filter.markerTypes &&
+            (!info ||
+              typeof info.info.type.type === 'undefined' ||
+              !filter.markerTypes.includes(info.info.type.type))
+          ) {
+            validTypes = false;
+          }
+
+          let validServices = true;
+          if (
+            filter.services &&
+            (!info ||
+              typeof info.info.type.services === 'undefined' ||
+              !hasIntersection(filter.services, info.info.type.services))
+          ) {
+            validServices = false;
+          }
+
           const validVisibility = !!(
             !filter.hiddenMarkers ||
             filter.hiddenMarkers === 'any' ||
@@ -206,7 +225,7 @@ class MapComponent extends React.Component<Props, State> {
               .includes(filter.searchText.toUpperCase())
           );
           const visible =
-            validType && validService && validVisibility && validText;
+            validTypes && validServices && validVisibility && validText;
           marker.setVisible(visible);
         });
       }
