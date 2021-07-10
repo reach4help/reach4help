@@ -178,6 +178,10 @@
     "updateResultsForThisArea": "Update results for this area",
     "myLocation": "My Location"
   },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
   "results": {
     "backToResults": "Back to results",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
