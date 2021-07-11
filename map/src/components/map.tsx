@@ -1,5 +1,4 @@
 import debounce from 'lodash/debounce';
-import isEqual from 'lodash/isEqual';
 import React from 'react';
 import mapState, {
   ActiveMarkers,
@@ -7,7 +6,7 @@ import mapState, {
   MARKER_SET_KEYS,
 } from 'src/components/map-utils/map-state';
 import { MARKER_TYPES } from 'src/data';
-import * as firebase from 'src/data/firebase';
+import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
 
@@ -18,13 +17,13 @@ import { createGoogleMap, haversineDistance } from './map-utils/google-maps';
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
-type MarkerInfo = firebase.MarkerInfo;
+type MarkerInfo = dataDriver.MarkerInfoType;
 
-interface MarkerData {
-  firebase: Map<string, MarkerIdAndInfo>;
+interface DataDriverData {
+  dataDriverData: Map<string, MarkerIdAndInfo>;
 }
 
-type DataSet = keyof MarkerData;
+type DataSet = keyof DataDriverData;
 
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
@@ -93,8 +92,8 @@ interface State {
 }
 
 class MapComponent extends React.Component<Props, State> {
-  private readonly data: MarkerData = {
-    firebase: new Map(),
+  private readonly data: DataDriverData = {
+    dataDriverData: new Map(),
   };
 
   private addInfoMapClickedListener:
@@ -113,42 +112,18 @@ class MapComponent extends React.Component<Props, State> {
   public componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
-    firebase.addInformationListener(this.informationUpdated);
-    firebase.loadInitialData();
-    if (
-      localStorage.getItem('reach4help__CenterMapLocation_PermissionGranted')
-    ) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          const { map } = mapState();
-          if (!map) {
-            return;
-          }
-          map.map.setCenter(pos);
-          map.map.setZoom(8);
-          mapState().updateResultsOnNextBoundsChange = true;
-        },
-        error => {
-          localStorage.removeItem(
-            'reach4help__CenterMapLocation_PermissionGranted',
-          );
-          // eslint-disable-next-line no-console
-          console.error(error.message);
-        },
-      );
-    }
+    dataDriver.addInformationListener(this.informationUpdated);
+    dataDriver.loadInitialData();
+    this.centerMap();
   }
 
   public componentDidUpdate(prevProps: Props) {
     const { map } = mapState();
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
-    if (map && !isEqual(filter, map.currentFilter)) {
+    if (map && !filter.filterExecuted) {
       this.updateMarkersVisibilityUsingFilter(filter);
+      filter.filterExecuted = true;
       map.currentFilter = filter;
     }
     if (nextResults && !results) {
@@ -172,8 +147,39 @@ class MapComponent extends React.Component<Props, State> {
   public componentWillUnmount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(null);
-    firebase.removeInformationListener(this.informationUpdated);
+    dataDriver.removeInformationListener(this.informationUpdated);
   }
+
+  private centerMap = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        const { map } = mapState();
+        if (!map) {
+          return;
+        }
+        map.map.setCenter(pos);
+        map.map.setZoom(8);
+        mapState().updateResultsOnNextBoundsChange = true;
+      },
+      () => {
+        const positionOfIndia = {
+          lat: 21.7679,
+          lng: 78.8718,
+        };
+        const { map } = mapState();
+        if (!map) {
+          return;
+        }
+        map.map.setCenter(positionOfIndia);
+        map.map.setZoom(4);
+        mapState().updateResultsOnNextBoundsChange = true;
+      },
+    );
+  };
 
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
     const { map } = mapState();
@@ -182,14 +188,25 @@ class MapComponent extends React.Component<Props, State> {
         map.activeMarkers[set].forEach(marker => {
           const info = this.getMarkerInfo(marker);
           const validType =
-            !filter.type || info?.info.type.type === filter.type;
+            !filter.markerTypes || info?.info.type.type === filter.markerTypes;
+          const validService =
+            typeof filter.services !== 'undefined'
+              ? info?.info.type.services?.includes(filter.services) || false
+              : true;
           const validVisibility = !!(
-            !filter.visibility ||
-            filter.visibility === 'any' ||
-            (filter.visibility === 'hidden' && !info?.info.visible) ||
-            (filter.visibility === 'visible' && info?.info.visible)
+            !filter.hiddenMarkers ||
+            filter.hiddenMarkers === 'any' ||
+            (filter.hiddenMarkers === 'hidden' && !info?.info.visible) ||
+            (filter.hiddenMarkers === 'visible' && info?.info.visible)
           );
-          const visible = validType && validVisibility;
+          const validText = !!(
+            !filter.searchText ||
+            JSON.stringify(info?.info)
+              .toUpperCase()
+              .includes(filter.searchText.toUpperCase())
+          );
+          const visible =
+            validType && validService && validVisibility && validText;
           marker.setVisible(visible);
         });
       }
@@ -257,13 +274,13 @@ class MapComponent extends React.Component<Props, State> {
     return marker;
   };
 
-  private informationUpdated: firebase.InformationListener = update => {
+  private informationUpdated: dataDriver.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
 
-    this.data.firebase = new Map();
+    this.data.dataDriverData = new Map();
     for (const entry of update.markers.entries()) {
-      this.data.firebase.set(entry[0], {
-        id: { set: 'firebase', id: entry[0] },
+      this.data.dataDriverData.set(entry[0], {
+        id: { set: 'dataDriverData', id: entry[0] },
         info: entry[1],
       });
     }
@@ -273,7 +290,7 @@ class MapComponent extends React.Component<Props, State> {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
       for (const [id, info] of update.markers.entries()) {
-        const marker = map.activeMarkers.firebase.get(id);
+        const marker = map.activeMarkers.dataDriverData.get(id);
         if (marker) {
           // Update info
           marker.setPosition({
@@ -283,17 +300,17 @@ class MapComponent extends React.Component<Props, State> {
           marker.setTitle(info.contentTitle);
         } else {
           newMarkers.push(
-            this.createMarker(map.activeMarkers, 'firebase', id, info),
+            this.createMarker(map.activeMarkers, 'dataDriverData', id, info),
           );
         }
       }
       map.markerClusterer.addMarkers(newMarkers, true);
       // Delete removed markers
       const removedMarkers: google.maps.Marker[] = [];
-      for (const [id, marker] of map.activeMarkers.firebase.entries()) {
+      for (const [id, marker] of map.activeMarkers.dataDriverData.entries()) {
         if (!update.markers.has(id)) {
           removedMarkers.push(marker);
-          map.activeMarkers.firebase.delete(id);
+          map.activeMarkers.dataDriverData.delete(id);
           // const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
           // if (circle) {
           //   circle.setMap(null);
@@ -371,7 +388,7 @@ class MapComponent extends React.Component<Props, State> {
     }
     const map = createGoogleMap(ref);
     const activeMarkers: ActiveMarkers = {
-      firebase: new Map(),
+      dataDriverData: new Map(),
     };
 
     // Create initial markers
@@ -417,7 +434,10 @@ class MapComponent extends React.Component<Props, State> {
       if (!info) {
         return;
       }
-      const { color } = MARKER_TYPES[info.info.type.type];
+      const markerTypeInfo = MARKER_TYPES[info.info.type.type];
+      const color = markerTypeInfo
+        ? markerTypeInfo.color
+        : MARKER_TYPES.notFound.color;
 
       const mapBoundingBox = map.getBounds();
       if (mapBoundingBox) {
@@ -451,7 +471,7 @@ class MapComponent extends React.Component<Props, State> {
                 fillColor: color,
                 fillOpacity: 0.15,
                 map,
-                center: marker.getPosition() || undefined,
+                center: marker.getPosition() || new google.maps.LatLng(90, 90),
                 radius,
                 // If we change this, we need to ensure that we make appropriate
                 // changes to the marker placement when adding new data so that
@@ -611,7 +631,7 @@ class MapComponent extends React.Component<Props, State> {
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <div className={className}>
+          <div className={className || 'undefined'}>
             <div className="map" ref={this.updateGoogleMapRef} />
             {page.page === 'add-information' && (
               <AddInstructions

@@ -1,4 +1,4 @@
-import { MarkerTypeString } from '@reach4help/model/lib/markers/type';
+import { MarkerTypeString, Service } from '@reach4help/model/lib/markers/type';
 
 export type Page =
   | {
@@ -19,8 +19,15 @@ export type AddInfoStep =
   | 'submitted';
 
 export interface Filter {
-  type?: MarkerTypeString;
-  visibility?: 'visible' | 'hidden' | 'any';
+  markerTypes?: MarkerTypeString;
+  services?: Service;
+  hiddenMarkers?: 'visible' | 'hidden' | 'any';
+  searchText?: string;
+  filterExecuted?: boolean;
 }
 
-export type FilterMutator = (filter: Filter) => Filter;
+export type UpdateFilter = (
+  fieldName: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any,
+) => void;
