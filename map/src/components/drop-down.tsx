@@ -166,9 +166,9 @@ export default styled(DropDown)`
     justify-content: center;
     align-items: middle;
     min-height: initial;
-    padding: 5px 4px;
+    padding: 6px 8px;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 20px;
     color: ${p => p.theme.colors.brand.primaryDark1};
 
     .chevron {
@@ -180,13 +180,18 @@ export default styled(DropDown)`
     .select__value-container {
       margin: 0;
       padding: 0;
-      height: 22px;
+      min-height: 22px;
     }
 
     &.select__control--menu-is-open {
       .chevron {
         transform: rotate(180deg);
       }
+    }
+
+    .select__placeholder {
+      color: ${p => p.theme.colors.gray};
+      opacity: 0.75;
     }
 
     &:hover,
@@ -201,6 +206,7 @@ export default styled(DropDown)`
   .select__menu {
     width: initial;
     min-width: 100%;
+    font-size: 14px;
   }
   .select__option {
     cursor: pointer;

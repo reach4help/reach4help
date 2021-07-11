@@ -94,38 +94,68 @@ class MapLayout extends React.Component<Props, State> {
                     <Chevron className="toggle chevron" />
                   </button>
                   <form onSubmit={this.handleSubmit} className="form">
-                  <div className="row">
-                  <DropDown
-                    className="filter"
-                    translationKey="markerTypes"
-                    filterScreenField="markerTypes"
-                    dropDownValues={MARKER_TYPE_STRINGS}
-                    isMulti
-                    updateFilter={updateFilter}
-                  />
-                </div>
-                <div className="row">
-                  <DropDown
-                    className="filter"
-                    translationKey="services"
-                    filterScreenField="services"
-                    dropDownValues={SERVICE_STRINGS}
-                    isMulti
-                    updateFilter={updateFilter}
-                  />
-                </div>
-                {includingHidden && (
-                  <div className="row">
-                    <DropDown
-                      className="filter"
-                      translationKey="hiddenMarkers.filter"
-                      filterScreenField="hiddenMarkers"
-                      dropDownValues={['visible', 'hidden']}
-                      updateFilter={updateFilter}
-                    />
-                  </div>
-                )}
-                <input type="submit" value="Search" />
+                    <div className="row">
+                      <Search className="search" searchInputId="main" />
+                    </div>
+                    <h3 className="filter filter-heading">Filter Markers</h3>
+                    <div className="row">
+                      <input
+                        type="text"
+                        className="filter filter-search"
+                        placeholder="Search by keyword..."
+                        onChange={this.handleChange}
+                      />
+                    </div>
+                    <div className="row">
+                      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                      <label className="filter filter-label">
+                        <div className="filter-label-text">
+                          Organization Type
+                        </div>
+                        <DropDown
+                          className="drop-down"
+                          translationKey="markerTypes"
+                          filterScreenField="markerTypes"
+                          dropDownValues={MARKER_TYPE_STRINGS}
+                          isMulti
+                          updateFilter={updateFilter}
+                        />
+                      </label>
+                    </div>
+                    <div className="row">
+                      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                      <label className="filter filter-label">
+                        <div className="filter-label-text">
+                          Services Offered
+                        </div>
+                        <DropDown
+                          className="drop-down"
+                          translationKey="services"
+                          filterScreenField="services"
+                          dropDownValues={SERVICE_STRINGS}
+                          isMulti
+                          updateFilter={updateFilter}
+                        />
+                      </label>
+                    </div>
+                    {includingHidden && (
+                      <div className="row">
+                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                        <label className="filter filter-label">
+                          <div className="filter-label-text">Visibility</div>
+                          <DropDown
+                            className="drop-down"
+                            translationKey="hiddenMarkers.filter"
+                            filterScreenField="hiddenMarkers"
+                            dropDownValues={['visible', 'hidden']}
+                            updateFilter={updateFilter}
+                          />
+                        </label>
+                      </div>
+                    )}
+                    <button type="submit" className="filter filter-button">
+                      Search
+                    </button>
                   </form>
                 </div>
                 {components.results({
@@ -202,9 +232,57 @@ export default styled(MapLayout)`
         .search,
         .my-location,
         .filter {
-          margin: 9px 8px;
+          margin: 4px 8px;
           flex-grow: 1;
           flex-basis: 40%;
+        }
+
+        .filter-label-text {
+          margin-bottom: 2px;
+          font-size: 14px;
+        }
+
+        .filter-search {
+          box-sizing: border-box;
+          max-width: 100%;
+          flex-grow: 1;
+          background: #fff;
+          border: 1px solid ${p => p.theme.colors.borderBase};
+          outline: none;
+          font-size: 14px;
+          line-height: 20px;
+          padding: 6px 8px;
+          border-radius: 4px;
+
+          ::placeholder {
+            color: ${p => p.theme.colors.gray};
+            opacity: 0.75;
+          }
+
+          &:focus {
+            border-color: ${p => p.theme.colors.brand.primaryDark};
+          }
+        }
+
+        .filter-button {
+          background: ${p => p.theme.colors.brand.primaryDark};
+          padding: 6px 20px;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 18px;
+          color: #fff;
+          outline: none;
+          border: none;
+          cursor: pointer;
+          box-sizing: border-box;
+          border-radius: 6px;
+          white-space: nowrap;
+
+          &: hover, &:focus {
+            background: ${p => p.theme.colors.brand.primary};
+          }
         }
 
         > button.header {
