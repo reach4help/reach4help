@@ -2,31 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { RequestModel } from '../../objectModel/RequestModel';
 import RequestService from '../../services/RequestService';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import StepService from '../../services/StepService';
-import { StepModel } from '../../objectModel/StepModel';
+import StageService from '../../services/StageService';
+import { StageModel } from '../../objectModel/StageModel';
 
 const RequestListComponent = () => {
   const [requests, setRequests] = useState([] as RequestModel[]);
-  const [steps, setSteps] = useState([] as StepModel[]);
+  const [stages, setStages] = useState([] as StageModel[]);
   const history = useHistory();
-  const { programCode, stepCode = "Open" } = useParams<{ programCode: string, stepCode: string }>();
+  const { programCode, stageCode = "Open" } = useParams<{ programCode: string, stageCode: string }>();
 
 
   useEffect(() => {
     async function getData() {
       const requests = await RequestService.list();
       setRequests(requests);
-      const steps = await StepService.list()
-      setSteps(steps);
+      const stages = await StageService.list()
+      setStages(stages);
     }
     getData();
   }, []);
 
   let RequestLinks = {};
   // TODO: move styling to CSS or define at bottom
-  const StepButtons = steps.map(step => {
-    const fontWeight = step.code.toUpperCase() === stepCode.toUpperCase() ? "bold" : "normal";
-    return <Link key={`step-${step.code}`} to={`/request/list/${programCode}/${step.code}`} style={{ padding: "0px 50px 0px 0px", fontWeight: `${fontWeight}` }}> {step.code}</Link >
+  const StageButtons = stages.map(stage => {
+    const fontWeight = stage.code.toUpperCase() === stageCode.toUpperCase() ? "bold" : "normal";
+    return <Link key={`stage-${stage.code}`} to={`/request/list/${programCode}/${stage.code}`} style={{ padding: "0px 50px 0px 0px", fontWeight: `${fontWeight}` }}> {stage.code}</Link >
   })
   RequestLinks = requests.filter(request => request.programCode === programCode.toUpperCase()).map((requestObj, i) => {
     return (
@@ -52,7 +52,7 @@ const RequestListComponent = () => {
     <div>
       <button onClick={addRequest}>Add</button>
       <p>Program: {programCode}</p>
-      <div style={{ padding: "20px 0px" }}>{StepButtons}</div>
+      <div style={{ padding: "20px 0px" }}>{StageButtons}</div>
 
       <table className="">
         <thead>

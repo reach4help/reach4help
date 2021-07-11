@@ -24,7 +24,7 @@ export class RequestModel {
   programCode: string;
   flexibleDate?: Date;
   targetDate?: Date;
-  stepCode: string = 'Open';
+  stageCode: string = 'Open';
   creationTs: Date = new Date();
   modificationTs: Date = new Date();
 }

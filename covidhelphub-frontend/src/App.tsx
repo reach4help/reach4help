@@ -5,7 +5,7 @@ import HomeComponent from './components/HomeComponent';
 import ProgramListComponent from './components/program/ProgramListComponent';
 import RequestListComponent from './components/request/RequestListComponent';
 import RequestCreateComponent from './components/request/RequestCreateComponent';
-import StepListComponent from './components/step/StepListComponent';
+import StageListComponent from './components/stage/StageListComponent';
 
 import './globals.css';
 import { NavBarFunc } from './NavBarFunc';
@@ -24,12 +24,12 @@ function App() {
       <div className="container mt-3">
         <Switch>
           <Route exact path="/" component={HomeComponent}></Route>
-          <Route path="/request/list/:programCode/:stepCode" component={RequestListComponent} />
+          <Route path="/request/list/:programCode/:stageCode" component={RequestListComponent} />
           <Route path="/request/list/:programCode" component={RequestListComponent} />
           <Route exact path="/request/list" component={ProgramRequestSelection} />
           <Route exact path="/request/create" component={RequestCreateComponent} />
           <Route exact path="/program/list" component={ProgramListComponent} />
-          <Route exact path="/step/list" component={StepListComponent} />
+          <Route exact path="/stage/list" component={StageListComponent} />
           <Route component={HomeComponent} />
         </Switch>
       </div>

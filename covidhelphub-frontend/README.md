@@ -1,77 +1,34 @@
-# Getting Started with Create React App
+# Getting Started With Covid Helphub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Functionality
 
-## Available Scripts
+The best way to start is to learn about the applicaton and what it does.
 
-In the project directory, you can run:
+### Current Functionality
 
-### `yarn start`
+Covid Helphub is an organization in Canada that matches volunteers with people who need something ("beneficiaries"). Volunteers sign up through the website on a Googe form. Beneficiaries create a request through a Google form that asks for their contact info and what they need. If a volunteers and beneficiaries needs to update information, they have to contact staff at CHH. Volunteers and beneficiaries can also call CHH directly who can enter the information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Information entered into the Google forms populates an Airtable table. CHH staff uses a combination of email and Airtable to manage the volunteers and requests. CHH staff may send out an email to find a volunteer for a request or may assign volunteers to a request based on what they know about a volunteer's avaialability. They then move the requests through a set of stages (open, matching, in progress, closed, cancelled) until the volunteer confirms the request is complete.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Existing Forms
 
-### `yarn test`
+Please view the current forms (but don't submit) by going to covid19helphup19.org and clicking on Get Help or Get Involved.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### New Functionality
 
-### `yarn build`
+Airtable is expensive and in the current solution the beneficiary information has to be re-entered for all requests for a beneficiary. CHH would also like to see some enhancements, including making the system more user friendly, automating moving requests through the stages, using sentiment analysis to indicate likelihood a volunteer could assign, and utilizing text messages.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+For the MVP, Reach4Help is building a system that implements the current functionality except storing beneficiaries in a separate table so their information could be re-used. After MVP, enhancements will be prioritized and implemented.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Deploying Locally and Viewing Code
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+From your projects directory, clone the reach4help repository.
 
-### `yarn eject`
+**Front end:**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+cd reach4help
+cd covidhelphub-frontend
+yarn install # first time you clone only
+yarn start # start web server
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-### Research
-
-    "react-bootstrap-table": "^4.3.1",
-    "react-bootstrap-table-next": "^4.0.3",
-    "react-bootstrap-table2-editor": "^1.4.0",
-    "react-data-grid": "^7.0.0-canary.43",
+**Backend**

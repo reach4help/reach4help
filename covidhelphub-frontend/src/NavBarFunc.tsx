@@ -15,7 +15,7 @@ export function NavBarFunc() {
     const [showAdminMenu, setShowAdmin] = useState(false);
     const adminMenuOptions = [
         { link: "/program/list", menuText: "Programs", implemented: true },
-        { link: "/step/list", menuText: "Steps", implemented: true },
+        { link: "/stage/list", menuText: "Stages", implemented: true },
         { link: "/email/list", menuText: "Email Templates", implemented: false },
         { link: "/text/list", menuText: "Text Templates", implemented: false },
         { link: "/question/list", menuText: "Questions", implemented: false },

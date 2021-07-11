@@ -1,4 +1,4 @@
-export class StepModel {
+export class StageModel {
   constructor(code: string) {
     this.code = code;
   }

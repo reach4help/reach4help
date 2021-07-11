@@ -1,17 +1,6 @@
 import { ProgramModel } from '../objectModel/ProgramModel';
 
 class ProgramService {
-  static async create(code: string) {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code }),
-    };
-    fetch('http://localhost:8080/program/create', requestOptions).then(res => {
-      return res.json();
-    });
-  }
-
   static async saveMany(programs: ProgramModel[]) {
     // const requestOptions = {
     //   method: 'POST',
