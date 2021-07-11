@@ -20,7 +20,18 @@ Airtable is expensive and in the current solution the beneficiary information ha
 
 For the MVP, Reach4Help is building a system that implements the current functionality except storing beneficiaries in a separate table so their information could be re-used. After MVP, enhancements will be prioritized and implemented.
 
-### Deploying Locally and Viewing Code
+### Figma Wireframes
+
+To understand what is being built, explore the wireframes. See https://www.figma.com/file/PgYaf0sV88x6P9UxoEgXJB/Reach4Help-Organization-Dashboard?node-id=2087%3A6546 for wireframe of the request flow. See https://www.figma.com/file/PgYaf0sV88x6P9UxoEgXJB/Reach4Help-Organization-Dashboard?node-id=1224%3A3203 for the flow for creating a request.  
+**IGNORE** the page title which says "Help us make a difference".
+
+There will be questions as you start to look at the screens in detail and build the screens. Funnel questions through Ethan. Use your best judgement about what to implement rather than waiting to get an answer and if it is different than the mockups, the UI team can review.
+
+### Figma Tips
+
+To scroll on the Mac, use the mouse scroll without holding down any keys. Zoom out to see all the flows, then Zoom in to look at a specific flow.
+
+## Deploying Locally and Viewing Code
 
 From your projects directory, clone the reach4help repository.
 
@@ -32,3 +43,12 @@ yarn install # first time you clone only
 yarn start # start web server
 
 **Backend**
+
+The frontend currently uses local storage. The backend which is in hasura is in development. To work on the backend,
+look at the README.md in hasura-backend.
+
+## Coding
+
+Look for issues with CHH-project as a tag that are not assigned. Eventually CHH will use Zenhub for priority of issues and to see what stage it is in. It is best to take issues from Product backlog or Sprint backlog of https://app.zenhub.com/workspaces/reach4help-chh-60d5ed8864e63f0010924781/board?repos=248581239. If you don't have access, contact Ethan, Shayan, or any other development lead and provide your github email.
+
+For now, we are using a Google sheet https://docs.google.com/spreadsheets/d/1JQNCwXmnOZr_lYDI2b2JO-RwfHkmIee4/edit#gid=710538609. This will be migrated to Github Issues.
