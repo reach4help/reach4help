@@ -1,4 +1,22 @@
-## Staring Hasura/Postgres locally
+## Starting Hasura/Postgres locally - Mac
+
+If not installed, install docker and hasura.
+
+Each session:
+
+    cd <hasura dir>/
+    docker # if this does not work, search for Docker and execute
+    docker-compose up
+
+Once you see: "message":"starting API server" the server has started
+
+docker ps # shows what docker services are installed
+
+Optional:
+
+hasura console --admin-secret myadminsecretkey
+
+## Starting Hasura/Postgres locally - Mac
 
 If not installed:
 
@@ -13,7 +31,7 @@ Each session:
 
 Once you see: "message":"starting API server" the server has started
 
-docker ps
+docker ps # shows what docker services are installed
 
 Optional:
 
