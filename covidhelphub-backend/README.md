@@ -25,7 +25,7 @@ If not installed:
 
 Each session:
 
-    cd <hasura dir>/
+    cd covidhelphub-backend/
     open /Applications/Docker.app
     docker-compose up
 
@@ -42,5 +42,5 @@ hasura console --admin-secret myadminsecretkey
 - [Download and Install Docker](https://docs.docker.com/docker-for-windows/install/).
 - [Download Hasura](https://hasura.io/docs/latest/graphql/core/hasura-cli/install-hasura-cli.html).
   or run `npm install --global hasura-cli` from the terminal.
-- From the terminal CD to `hasuraBackend` in `dev-chh` branch and run `docker-compose up`.
-- From another terminal CD to `hasuraBackend` and run `hasura console --admin-secret myadminsecretkey`.
+- From the terminal CD to `covidhelphub-backend` in `dev-chh` branch and run `docker-compose up`.
+- From another terminal CD to `covidhelphub-bacend` and run `hasura console --admin-secret myadminsecretkey`.
