@@ -2,14 +2,14 @@
   "common": {
     "Navigation": {
       "buttons": {
-        "map": "Mutual Aid Map",
-        "signIn": "Sign in"
+        "map": "Mapa de Ayuda Mutua",
+        "signIn": "Inicia sesión"
       },
       "pages": {
-        "home": "Home",
-        "mission": "Mission",
-        "impact": "Impact",
-        "team": "Team"
+        "home": "Inicio",
+        "mission": "Misión",
+        "impact": "Impacto",
+        "team": "Equipo"
       }
     },
     "HomePage": {
