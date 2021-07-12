@@ -182,6 +182,15 @@
     "openSearch": "View search fields and filters",
     "closeSearch": "Hide controls"
   },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
+  },
   "results": {
     "backToResults": "Back to results",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",

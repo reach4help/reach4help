@@ -97,12 +97,14 @@ class MapLayout extends React.Component<Props, State> {
                     <div className="row">
                       <Search className="search" searchInputId="main" />
                     </div>
-                    <h3 className="filter filter-heading">Filter Markers</h3>
+                    <h3 className="filter filter-heading">
+                      {t(lang, s => s.filterForm.title)}
+                    </h3>
                     <div className="row">
                       <input
                         type="text"
                         className="filter filter-search"
-                        placeholder="Search by keyword..."
+                        placeholder={t(lang, s => s.filterForm.searchBox)}
                         onChange={this.handleChange}
                       />
                     </div>
@@ -110,7 +112,7 @@ class MapLayout extends React.Component<Props, State> {
                       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                       <label className="filter filter-label">
                         <div className="filter-label-text">
-                          Organization Type
+                          {t(lang, s => s.filterForm.org)}
                         </div>
                         <DropDown
                           className="drop-down"
@@ -118,6 +120,7 @@ class MapLayout extends React.Component<Props, State> {
                           filterScreenField="markerTypes"
                           dropDownValues={MARKER_TYPE_STRINGS}
                           isMulti
+                          placeholder={t(lang, s => s.filterForm.select)}
                           updateFilter={updateFilter}
                         />
                       </label>
@@ -126,7 +129,7 @@ class MapLayout extends React.Component<Props, State> {
                       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                       <label className="filter filter-label">
                         <div className="filter-label-text">
-                          Services Offered
+                          {t(lang, s => s.filterForm.service)}
                         </div>
                         <DropDown
                           className="drop-down"
@@ -134,6 +137,7 @@ class MapLayout extends React.Component<Props, State> {
                           filterScreenField="services"
                           dropDownValues={SERVICE_STRINGS}
                           isMulti
+                          placeholder={t(lang, s => s.filterForm.select)}
                           updateFilter={updateFilter}
                         />
                       </label>
@@ -142,7 +146,9 @@ class MapLayout extends React.Component<Props, State> {
                       <div className="row">
                         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                         <label className="filter filter-label">
-                          <div className="filter-label-text">Visibility</div>
+                          <div className="filter-label-text">
+                            {t(lang, s => s.filterForm.visibility)}
+                          </div>
                           <DropDown
                             className="drop-down"
                             translationKey="hiddenMarkers.filter"
@@ -154,7 +160,7 @@ class MapLayout extends React.Component<Props, State> {
                       </div>
                     )}
                     <button type="submit" className="filter filter-button">
-                      Search
+                      {t(lang, s => s.filterForm.search)}
                     </button>
                   </form>
                 </div>
