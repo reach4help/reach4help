@@ -153,7 +153,6 @@ class App extends React.Component<Props, State> {
             <MapLayout
               className="map-area"
               page={page}
-              filter={filter}
               updateFilter={this.setFilter}
               components={{
                 map: () => (

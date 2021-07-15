@@ -19,8 +19,8 @@ export type AddInfoStep =
   | 'submitted';
 
 export interface Filter {
-  markerTypes?: MarkerTypeString;
-  services?: Service;
+  markerTypes?: Set<MarkerTypeString>;
+  services?: Set<Service>;
   hiddenMarkers?: 'visible' | 'hidden' | 'any';
   searchText?: string;
   filterExecuted?: boolean;

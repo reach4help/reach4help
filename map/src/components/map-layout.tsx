@@ -9,7 +9,7 @@ import Chevron from 'src/components/assets/chevron';
 import MapLoader from 'src/components/map-loader';
 import * as dataDriver from 'src/data/dataDriver';
 import { t } from 'src/i18n';
-import { Filter, Page, UpdateFilter } from 'src/state';
+import { Page, UpdateFilter } from 'src/state';
 import styled, { LARGE_DEVICES, SMALL_DEVICES } from 'src/styling';
 
 import { AppContext } from './context';
@@ -19,7 +19,6 @@ import Search from './search';
 interface Props {
   className?: string;
   page: Page;
-  filter: Filter;
   updateFilter: UpdateFilter;
   components: {
     map: () => JSX.Element;
@@ -69,7 +68,7 @@ class MapLayout extends React.Component<Props, State> {
   }
 
   public render() {
-    const { className, components, page, filter, updateFilter } = this.props;
+    const { className, components, page, updateFilter } = this.props;
     const { includingHidden, searchClosed } = this.state;
     return (
       <AppContext.Consumer>
@@ -98,45 +97,71 @@ class MapLayout extends React.Component<Props, State> {
                     <div className="row">
                       <Search className="search" searchInputId="main" />
                     </div>
+                    <h3 className="filter filter-heading">
+                      {t(lang, s => s.filterForm.title)}
+                    </h3>
                     <div className="row">
                       <input
                         type="text"
-                        className="filter"
-                        placeholder="Search text"
+                        className="filter filter-search"
+                        placeholder={t(lang, s => s.filterForm.searchBox)}
                         onChange={this.handleChange}
                       />
                     </div>
                     <div className="row">
-                      <DropDown
-                        className="filter"
-                        translationKey="markerTypes"
-                        filterScreenField="markerTypes"
-                        dropDownValues={MARKER_TYPE_STRINGS}
-                        filter={filter}
-                        updateFilter={updateFilter}
-                      />
-                      <DropDown
-                        className="filter"
-                        translationKey="services"
-                        filterScreenField="services"
-                        dropDownValues={SERVICE_STRINGS}
-                        filter={filter}
-                        updateFilter={updateFilter}
-                      />
+                      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                      <label className="filter filter-label">
+                        <div className="filter-label-text">
+                          {t(lang, s => s.filterForm.org)}
+                        </div>
+                        <DropDown
+                          className="drop-down"
+                          translationKey="markerTypes"
+                          filterScreenField="markerTypes"
+                          dropDownValues={MARKER_TYPE_STRINGS}
+                          isMulti
+                          placeholder={t(lang, s => s.filterForm.select)}
+                          updateFilter={updateFilter}
+                        />
+                      </label>
+                    </div>
+                    <div className="row">
+                      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                      <label className="filter filter-label">
+                        <div className="filter-label-text">
+                          {t(lang, s => s.filterForm.service)}
+                        </div>
+                        <DropDown
+                          className="drop-down"
+                          translationKey="services"
+                          filterScreenField="services"
+                          dropDownValues={SERVICE_STRINGS}
+                          isMulti
+                          placeholder={t(lang, s => s.filterForm.select)}
+                          updateFilter={updateFilter}
+                        />
+                      </label>
                     </div>
                     {includingHidden && (
                       <div className="row">
-                        <DropDown
-                          className="filter"
-                          translationKey="hiddenMarkers.filter"
-                          filterScreenField="hiddenMarkers"
-                          dropDownValues={['visible', 'hidden']}
-                          filter={filter}
-                          updateFilter={updateFilter}
-                        />
+                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                        <label className="filter filter-label">
+                          <div className="filter-label-text">
+                            {t(lang, s => s.filterForm.visibility)}
+                          </div>
+                          <DropDown
+                            className="drop-down"
+                            translationKey="hiddenMarkers.filter"
+                            filterScreenField="hiddenMarkers"
+                            dropDownValues={['visible', 'hidden']}
+                            updateFilter={updateFilter}
+                          />
+                        </label>
                       </div>
                     )}
-                    <input type="submit" value="Search" />
+                    <button type="submit" className="filter filter-button">
+                      {t(lang, s => s.filterForm.search)}
+                    </button>
                   </form>
                 </div>
                 {components.results({
@@ -213,9 +238,57 @@ export default styled(MapLayout)`
         .search,
         .my-location,
         .filter {
-          margin: 9px 8px;
+          margin: 4px 8px;
           flex-grow: 1;
           flex-basis: 40%;
+        }
+
+        .filter-label-text {
+          margin-bottom: 2px;
+          font-size: 14px;
+        }
+
+        .filter-search {
+          box-sizing: border-box;
+          max-width: 100%;
+          flex-grow: 1;
+          background: #fff;
+          border: 1px solid ${p => p.theme.colors.borderBase};
+          outline: none;
+          font-size: 14px;
+          line-height: 20px;
+          padding: 6px 8px;
+          border-radius: 4px;
+
+          ::placeholder {
+            color: ${p => p.theme.colors.gray};
+            opacity: 0.75;
+          }
+
+          &:focus {
+            border-color: ${p => p.theme.colors.brand.primaryDark};
+          }
+        }
+
+        .filter-button {
+          background: ${p => p.theme.colors.brand.primaryDark};
+          padding: 6px 20px;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 18px;
+          color: #fff;
+          outline: none;
+          border: none;
+          cursor: pointer;
+          box-sizing: border-box;
+          border-radius: 6px;
+          white-space: nowrap;
+
+          &: hover, &:focus {
+            background: ${p => p.theme.colors.brand.primary};
+          }
         }
 
         > button.header {

@@ -13,37 +13,60 @@ type OptionType = {
 };
 
 /**
- * @param className the class name
+ * @param className the className of the Select component
  * @param translationKey a dot-separated list of keys used to index a translationObject generated from json
- * @param filterScreenField the property of filter this drop-down updates
+ * @param filterScreenField the name of the property of filter this drop-down updates
  * @param dropDownValues the drop down values
- * @param filter the filter applied to the map
+ * @param isMulti true iff multi-select is enabled
+ * @param placeholder the place holder text displayed in input box if multi-select is enabled
  * @param updateFilter a callback that updates filter
  */
-interface Props {
+interface DropDownProps {
   className?: string;
   translationKey: string;
-  filterScreenField: string;
+  filterScreenField: keyof Filter;
   dropDownValues: readonly string[];
-  filter: Filter;
+  isMulti?: boolean;
+  placeholder?: string;
   updateFilter: UpdateFilter;
 }
 
-class DropDown extends React.Component<Props, {}> {
-  private changeService = (
+interface DropDownState {
+  selectedValues: ValueType<OptionType>;
+}
+
+class DropDown extends React.Component<DropDownProps, DropDownState> {
+  constructor(props: DropDownProps) {
+    super(props);
+
+    this.state = {
+      selectedValues: undefined,
+    };
+  }
+
+  private onChangeHandler = (
     fieldName: string,
-    selectedValue: ValueType<OptionType>,
+    selected: ValueType<OptionType>,
   ): void => {
-    if (selectedValue) {
-      const { updateFilter } = this.props;
-      updateFilter(fieldName, (selectedValue as OptionType).value);
+    const { updateFilter, isMulti } = this.props;
+    let newVal;
+    if (selected) {
+      newVal = isMulti
+        ? new Set(
+            (selected as OptionType[]).map(
+              selectedOption => selectedOption.value,
+            ),
+          )
+        : (selected as OptionType).value;
     }
+    updateFilter(fieldName, newVal);
+    this.setState({ selectedValues: selected });
   };
 
   /**
    * Returns the translated word at translationObject.propKey.valueKey if it exists, else undefined.
-   * For example, translationObject.services.org returns "Organization" if the translationObject
-   * is in English.
+   * For example, lookUpValue(translationObject, 'visibility.filter", "visible") returns  "Visible markers"
+   * if the visibility.filter.visible property of translationObject.visibilty.filter is "Visible marker".
    *
    * @param translationObject an object generated from a json translation file
    * @param propKey a dot-separated list of keys used to index into the translationObject
@@ -64,29 +87,30 @@ class DropDown extends React.Component<Props, {}> {
     return val[valueKey];
   };
 
-  private select = (lang: Language) => {
+  private getLabel = (lang: Language, translationKey: string, value: string) =>
+    t(
+      lang,
+      translationObject =>
+        this.lookUpValue(translationObject, translationKey, value) as string,
+    );
+
+  private SelectComponent = (lang: Language) => {
     const {
       className,
-      filter,
       dropDownValues,
       translationKey,
       filterScreenField,
+      isMulti,
+      placeholder,
     } = this.props;
+    const { selectedValues } = this.state;
 
     const optionsMap = new Map(
       dropDownValues.map(value => [
         value,
         {
           value,
-          label: t(
-            lang,
-            translationObject =>
-              this.lookUpValue(
-                translationObject,
-                translationKey,
-                value,
-              ) as string,
-          ),
+          label: this.getLabel(lang, translationKey, value),
         },
       ]),
     );
@@ -104,21 +128,19 @@ class DropDown extends React.Component<Props, {}> {
       ),
     };
 
-    const options: OptionType[] = [any, ...optionsMap.values()];
-
-    const value =
-      typeof filter[filterScreenField as keyof Filter] !== 'undefined'
-        ? optionsMap.get(filter[filterScreenField as keyof Filter] as string)
-        : undefined;
+    const options: OptionType[] = isMulti
+      ? [...optionsMap.values()]
+      : [any, ...optionsMap.values()];
 
     return (
       <Select
         className={className}
+        isMulti={isMulti}
         classNamePrefix="select"
-        value={value}
-        onChange={selectedValue =>
-          this.changeService(filterScreenField, selectedValue)
-        }
+        value={selectedValues}
+        defaultValue={isMulti ? undefined : any}
+        onChange={selected => this.onChangeHandler(filterScreenField, selected)}
+        placeholder={placeholder}
         options={options}
         isSearchable={false}
         components={{
@@ -132,7 +154,7 @@ class DropDown extends React.Component<Props, {}> {
   public render() {
     return (
       <AppContext.Consumer>
-        {({ lang }) => this.select(lang)}
+        {({ lang }) => this.SelectComponent(lang)}
       </AppContext.Consumer>
     );
   }
@@ -148,9 +170,9 @@ export default styled(DropDown)`
     justify-content: center;
     align-items: middle;
     min-height: initial;
-    padding: 5px 4px;
+    padding: 6px 8px;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 20px;
     color: ${p => p.theme.colors.brand.primaryDark1};
 
     .chevron {
@@ -162,13 +184,18 @@ export default styled(DropDown)`
     .select__value-container {
       margin: 0;
       padding: 0;
-      height: 22px;
+      min-height: 22px;
     }
 
     &.select__control--menu-is-open {
       .chevron {
         transform: rotate(180deg);
       }
+    }
+
+    .select__placeholder {
+      color: ${p => p.theme.colors.gray};
+      opacity: 0.75;
     }
 
     &:hover,
@@ -183,6 +210,7 @@ export default styled(DropDown)`
   .select__menu {
     width: initial;
     min-width: 100%;
+    font-size: 14px;
   }
   .select__option {
     cursor: pointer;
