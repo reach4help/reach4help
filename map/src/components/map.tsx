@@ -151,34 +151,59 @@ class MapComponent extends React.Component<Props, State> {
   }
 
   private centerMap = () => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        const { map } = mapState();
-        if (!map) {
-          return;
+    let location: {
+      lat: number;
+      lng: number;
+    };
+    fetch('https://get.geojs.io/v1/ip/geo.json')
+      .then(response => response.json())
+      .then(data => {
+        // If the API returns a geolocation
+        if (data.longitude && data.latitude) {
+          location = {
+            lat: parseFloat(data.latitude),
+            lng: parseFloat(data.longitude),
+          };
+          const { map } = mapState();
+          if (!map) {
+            return;
+          }
+          map.map.setCenter(location);
+          map.map.setZoom(8);
+          mapState().updateResultsOnNextBoundsChange = true;
+        } else {
+          // Call the browser's geolocation API (will prompt the first time)
+          navigator.geolocation.getCurrentPosition(
+            position => {
+              location = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+              const { map } = mapState();
+              if (!map) {
+                return;
+              }
+              map.map.setCenter(location);
+              map.map.setZoom(8);
+              mapState().updateResultsOnNextBoundsChange = true;
+            },
+            () => {
+              // Position over India if no other option works
+              location = {
+                lat: 21.7679,
+                lng: 78.8718,
+              };
+              const { map } = mapState();
+              if (!map) {
+                return;
+              }
+              map.map.setCenter(location);
+              map.map.setZoom(4);
+              mapState().updateResultsOnNextBoundsChange = true;
+            },
+          );
         }
-        map.map.setCenter(pos);
-        map.map.setZoom(8);
-        mapState().updateResultsOnNextBoundsChange = true;
-      },
-      () => {
-        const positionOfIndia = {
-          lat: 21.7679,
-          lng: 78.8718,
-        };
-        const { map } = mapState();
-        if (!map) {
-          return;
-        }
-        map.map.setCenter(positionOfIndia);
-        map.map.setZoom(4);
-        mapState().updateResultsOnNextBoundsChange = true;
-      },
-    );
+      });
   };
 
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
