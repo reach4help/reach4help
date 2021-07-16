@@ -218,6 +218,7 @@ export default styled(MapLayout)`
       }
 
       > .controls {
+        max-height: 70%;
         background: #fff;
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
         border-top-left-radius: 4px;
@@ -228,6 +229,7 @@ export default styled(MapLayout)`
 
         .form {
           padding: 9px 8px;
+          overflow-y: auto;
         }
 
         .row {

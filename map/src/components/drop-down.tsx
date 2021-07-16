@@ -146,6 +146,7 @@ class DropDown<IsMulti extends boolean> extends React.Component<
 
     return (
       <Select
+        menuPosition="fixed"
         className={className}
         isMulti={isMulti}
         classNamePrefix="select"
