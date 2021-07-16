@@ -32,7 +32,7 @@ interface DropDownProps {
 }
 
 interface DropDownState {
-  selectedValues: ValueType<OptionType>;
+  selectedValues: string | string[] | undefined;
 }
 
 class DropDown extends React.Component<DropDownProps, DropDownState> {
@@ -52,15 +52,16 @@ class DropDown extends React.Component<DropDownProps, DropDownState> {
     let newVal;
     if (selected) {
       newVal = isMulti
-        ? new Set(
-            (selected as OptionType[]).map(
-              selectedOption => selectedOption.value,
-            ),
+        ? (selected as OptionType[]).map(
+            selectedOption => selectedOption.value as string,
           )
         : (selected as OptionType).value;
     }
+    this.setState({ selectedValues: newVal });
+    if (newVal && typeof newVal !== 'string') {
+      newVal = new Set(newVal);
+    }
     updateFilter(fieldName, newVal);
-    this.setState({ selectedValues: selected });
   };
 
   /**
@@ -132,12 +133,21 @@ class DropDown extends React.Component<DropDownProps, DropDownState> {
       ? [...optionsMap.values()]
       : [any, ...optionsMap.values()];
 
+    let value: ValueType<OptionType>;
+    if (!isMulti) {
+      value = selectedValues ? optionsMap.get(selectedValues as string) : any;
+    } else if (selectedValues) {
+      value = (selectedValues as string[]).map(
+        val => optionsMap.get(val) as OptionType,
+      );
+    }
+
     return (
       <Select
         className={className}
         isMulti={isMulti}
         classNamePrefix="select"
-        value={selectedValues}
+        value={value}
         defaultValue={isMulti ? undefined : any}
         onChange={selected => this.onChangeHandler(filterScreenField, selected)}
         placeholder={placeholder}
