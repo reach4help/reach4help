@@ -12,6 +12,7 @@ class ProgramService {
     //     return res.json();
     //   },
     // );
+    console.log('savemany', programs);
     localStorage.setItem('programs', JSON.stringify(programs));
   }
 

@@ -37,8 +37,6 @@ From your projects directory, clone the reach4help repository.
 
 **Front end:**
 
-cd reach4help
-cd covidhelphub-frontend
 yarn install # first time you clone only
 yarn start # start web server
 

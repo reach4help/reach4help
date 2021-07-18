@@ -1,16 +1,35 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
+import { Route, Router } from 'react-router-dom';
 
-import App from './App';
+import './Auth.css';
 
-ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root'),
+import { Auth0Provider } from './Auth/react-auth0-spa';
+import history from './utils/history';
+import { AUTH_CONFIG } from './Auth/auth0-variables';
+
+const onRedirectCallback = appState => {
+  history.push(
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname,
+  );
+};
+
+const mainRoutes = (
+  <Router history={history}>
+    <Route
+      path="/"
+      render={props => (
+        <Auth0Provider
+          domain={AUTH_CONFIG.domain}
+          client_id={AUTH_CONFIG.clientId}
+          redirect_uri={AUTH_CONFIG.callbackUrl}
+          onRedirectCallback={onRedirectCallback}
+        />
+      )}
+    />
+  </Router>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+ReactDOM.render(mainRoutes, document.getElementById('root'));
