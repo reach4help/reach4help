@@ -10,6 +10,17 @@ query programs {
 }
 }`;
 
+const GET_MY_TODOS = gql`
+  query getMyTodos {
+    todos {
+      id
+      title
+      created_at
+      is_completed
+    }
+  }
+`;
+
 const ProgramListComponent = ({ programs }: { programs: ProgramModel[] }) => {
   // const [programs, setPrograms] = useState([] as ProgramModel[]);
   const [newProgramCode, setNewProgramCode] = useState('');
@@ -122,7 +133,8 @@ const ProgramListComponent = ({ programs }: { programs: ProgramModel[] }) => {
 };
 
 const ProgramListQuery = () => {
-  console.log('Here')
+  console.log('debug Here')
+
   const { loading, error, data } = useQuery(GET_MY_PROGRAMS);
 
   if (loading) {
@@ -132,6 +144,7 @@ const ProgramListQuery = () => {
     console.error(error);
     return <div>Error!</div>;
   }
+  console.log('debug data2', data)
   return <ProgramListComponent programs={data.programs} />;
 };
 
