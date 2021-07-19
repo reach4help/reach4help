@@ -55,3 +55,5 @@ For now, we are using a Google sheet https://docs.google.com/spreadsheets/d/1JQN
 It is recommended to reviewing code for programs and how it is divided into model (objectModel), fetching data (services), and UI (components). Some of the code in programComponent is complicated in order to handle multi-record updates. In most cases, you will be working with single record updates.
 
 Most issues will involve all three. If additional fields are needed or thiere is no resource, you can modify the objectModel.
+
+Ethan is investigating how to call Hasura for the backend from the frontend. If interested in that, see the ethan/dev-chh-frontend-hasura-investigation branch.
