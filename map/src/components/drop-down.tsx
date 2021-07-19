@@ -141,7 +141,7 @@ class DropDown<IsMulti extends boolean> extends React.Component<
           val => optionsMap.get(val) as OptionType,
         )
       : selectedValues
-      ? optionsMap.get(selectedValues as string)!
+      ? optionsMap.get(selectedValues as string)
       : any;
 
     return (
