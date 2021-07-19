@@ -1,25 +1,16 @@
 import React from 'react';
 import Select, { ValueType } from 'react-select';
 import Chevron from 'src/components/assets/chevron';
-import {
-  isValidLanguage,
-  Language,
-  LANGUAGE_KEYS,
-  LANGUAGES,
-  setLanguage,
-} from 'src/i18n';
+import { Language, LANGUAGE_KEYS, LANGUAGES, setLanguage } from 'src/i18n';
 import { trackEvent } from 'src/util/tracking';
 
 import styled from '../styling';
 import { AppContext } from './context';
 
-type Option = {
+type OptionType = {
   value: Language;
   label: string;
 };
-
-const isOption = (option: ValueType<Option>): option is Option =>
-  !!(option && isValidLanguage((option as Option).value));
 
 const OPTIONS_MAP = new Map(
   LANGUAGE_KEYS.map(value => [
@@ -36,8 +27,8 @@ interface Props {
 }
 
 class Languages extends React.Component<Props, {}> {
-  private changeLanguage = (option: ValueType<Option>): void => {
-    if (isOption(option)) {
+  private changeLanguage = (option: ValueType<OptionType, false>): void => {
+    if (option) {
       setLanguage(option.value);
       trackEvent('config', 'change-language', option.value);
     }
