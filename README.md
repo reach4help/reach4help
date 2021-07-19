@@ -55,6 +55,37 @@ Then, install the packages in the root directory:
 yarn install
 ```
 
+## Recommendations
+
+### No-Verify
+
+If you are unable to commit, it may be the pre-commit trigger is preventing you. First run yarn lint:fix. If you still have errors, you can try to fix the errors. If you don't know how or want to save time when doing1 multiple commits, you can use --no-verify. The final commit before the last push should not use this flag if possible.
+
+### Committing from VSCode: Set up vscode for commit no-verify.
+
+- See (How to configure options for the Version Control's git commit command)[https://stackoverflow.com/questions/52986809/how-to-configure-options-for-the-version-controls-git-commit-command]
+- Enable no-verify
+- Disable ask when commit when not verifying
+- In VSCode there will be an option for committing without verifying
+
+### Committing from terminal
+
+Add --no-verify to the end of the git commit command
+
+### Recommended VSCode Packages
+
+- `Babel` Javascript
+- Bracket Pair Colorizer
+- ESLint
+- GitLens
+- JS Refactor
+- Live Share
+- Live Share Mob Timer
+- Move TS
+- Overtype
+- Prettier
+- Visual Code Intellisense
+
 ## Adding new NPM Packages to the monorepo
 
 To add a new project to the repo,

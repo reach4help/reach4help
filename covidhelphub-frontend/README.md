@@ -54,6 +54,37 @@ For now, we are using a Google sheet https://docs.google.com/spreadsheets/d/1JQN
 
 It is recommended to reviewing code for programs and how it is divided into model (objectModel), fetching data (services), and UI (components). Some of the code in programComponent is complicated in order to handle multi-record updates. In most cases, you will be working with single record updates.
 
-Most issues will involve all three. If additional fields are needed or thiere is no resource, you can modify the objectModel.
+Most issues will involve all three. If additional fields are needed or there is no resource, you can modify the objectModel.
 
 Ethan is investigating how to call Hasura for the backend from the frontend. If interested in that, see the ethan/dev-chh-frontend-hasura-investigation branch.
+
+## Recommendations
+
+### Committing from terminal
+
+Add --no-verify to the end of the git commit command
+
+### Recommended VSCode Packages
+
+- `Babel` Javascript
+- Bracket Pair Colorizer
+- ESLint
+- GitLens
+- JS Refactor
+- Live Share
+- Live Share Mob Timer
+- Move TS
+- Overtype
+- Prettier
+- Visual Code Intellisense
+
+## Adding new NPM Packages to the monorepo
+
+To add a new project to the repo,
+simply create a new folder and its `package.json` file,
+then add it to the `"workspaces"` property in the `package.json` file in the
+root of this repository.
+
+At this point running `yarn add` or `yarn install` in any of the sub directories
+should update the appropriate `package.json`,
+and update the `yarn.lock` in the root of the repo.
