@@ -22,8 +22,8 @@ For the MVP, Reach4Help is building a system that implements the current functio
 
 ### Figma Wireframes
 
-To understand what is being built, explore the wireframes. See https://www.figma.com/file/PgYaf0sV88x6P9UxoEgXJB/Reach4Help-Organization-Dashboard?node-id=2087%3A6546 for wireframe of the request flow. See https://www.figma.com/file/PgYaf0sV88x6P9UxoEgXJB/Reach4Help-Organization-Dashboard?node-id=1224%3A3203 for the flow for creating a request.  
-**IGNORE** the page title which says "Help us make a difference".
+To understand what is being built, explore the wireframes. See https://www.figma.com/file/PgYaf0sV88x6P9UxoEgXJB/Reach4Help-Organization-Dashboard?node-id=2087%3A6546 for wireframe of the request flow after it is created. See https://www.figma.com/file/PgYaf0sV88x6P9UxoEgXJB/Reach4Help-Organization-Dashboard?node-id=1224%3A3203 for the flow for creating a request.  
+**IGNORE** the page title which says "Help us make a difference". It should be something like "What do you need?"
 
 There will be questions as you start to look at the screens in detail and build the screens. Funnel questions through Ethan. Use your best judgement about what to implement rather than waiting to get an answer and if it is different than the mockups, the UI team can review.
 
@@ -44,11 +44,14 @@ yarn start # start web server
 
 **Backend**
 
-The frontend currently uses local storage. The backend which is in hasura is in development. To work on the backend,
-look at the README.md in hasura-backend.
+The frontend currently uses local storage. The backend which is in hasura is in development. To work on the backend look at the README.md in covidhelphub-backend.
 
 ## Coding
 
 Look for issues with CHH-project as a tag that are not assigned. Eventually CHH will use Zenhub for priority of issues and to see what stage it is in. It is best to take issues from Product backlog or Sprint backlog of https://app.zenhub.com/workspaces/reach4help-chh-60d5ed8864e63f0010924781/board?repos=248581239. If you don't have access, contact Ethan, Shayan, or any other development lead and provide your github email.
 
 For now, we are using a Google sheet https://docs.google.com/spreadsheets/d/1JQNCwXmnOZr_lYDI2b2JO-RwfHkmIee4/edit#gid=710538609. This will be migrated to Github Issues.
+
+It is recommended to reviewing code for programs and how it is divided into model (objectModel), fetching data (services), and UI (components). Some of the code in programComponent is complicated in order to handle multi-record updates. In most cases, you will be working with single record updates.
+
+Most issues will involve all three. If additional fields are needed or thiere is no resource, you can modify the objectModel.
