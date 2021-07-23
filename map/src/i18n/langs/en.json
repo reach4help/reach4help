@@ -118,6 +118,7 @@
   },
   "loading": "Loading...",
   "filterBy": "Filter by:",
+  "noOptions": "No Options",
   "services": {
     "any": "Any",
     "food": "Food",
