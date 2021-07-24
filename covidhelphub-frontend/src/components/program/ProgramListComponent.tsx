@@ -3,6 +3,11 @@ import { ProgramModel } from '../../objectModel/ProgramModel';
 import ProgramService from '../../services/ProgramService';
 import { gql, useQuery } from '@apollo/client';
 
+
+interface ProgramData {
+  programs: ProgramModel[];
+}
+
 const GET_MY_PROGRAMS = gql`
 query programs {
   programs {
@@ -10,19 +15,9 @@ query programs {
 }
 }`;
 
-const GET_MY_TODOS = gql`
-  query getMyTodos {
-    todos {
-      id
-      title
-      created_at
-      is_completed
-    }
-  }
-`;
-
-const ProgramListComponent = ({ programs }: { programs: ProgramModel[] }) => {
-  // const [programs, setPrograms] = useState([] as ProgramModel[]);
+// const ProgramListComponent = ({ programs }: { programs: ProgramModel[] }) => {
+const ProgramListComponent = () => {
+  const [programs, setPrograms] = useState([] as ProgramModel[]);
   const [newProgramCode, setNewProgramCode] = useState('');
   const [programCount, setProgramCount] = useState(0);
   // forceUpdateCount used to update key of table row
@@ -135,7 +130,7 @@ const ProgramListComponent = ({ programs }: { programs: ProgramModel[] }) => {
 const ProgramListQuery = () => {
   console.log('debug Here')
 
-  const { loading, error, data } = useQuery(GET_MY_PROGRAMS);
+  const { loading, error, data } = useQuery<ProgramData>(GET_MY_PROGRAMS);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -145,7 +140,17 @@ const ProgramListQuery = () => {
     return <div>Error!</div>;
   }
   console.log('debug data2', data)
-  return <ProgramListComponent programs={data.programs} />;
+  console.log('debug data3', data && data.programs[0])
+  // return <ProgramListComponent programs={data.programs} />;
+  return(
+    <ul> (
+        {data && data.programs && data.programs.map(thingy => (
+          <li key={ thingy.code }> {thingy.code} </li>
+        ))}
+      )
+    </ul>
+  )
+
 };
 
 export default ProgramListQuery;

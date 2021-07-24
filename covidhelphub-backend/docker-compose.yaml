@@ -23,7 +23,8 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
       # HASURA_GRAPHQL_AUTH_HOOK: "auth:3000"
-      # HASURA_GRAPHQL_AUTH_HOOK_MODE: POST
+      # HASURA_GRAPHQL_AUTH_HOOK_MODE: GET
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
     volumes:
     - ./metadata:/hasura-metadata
     - ./migrations:/hasura-migrations
