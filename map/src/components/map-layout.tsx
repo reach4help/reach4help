@@ -197,14 +197,12 @@ export default styled(MapLayout)`
     left: 0;
     right: 0;
     display: flex;
-    padding: ${p => p.theme.overlayPaddingPx}px;
     opacity: 0;
     transition: opacity ${p => p.theme.transitionSpeedNormal};
     pointer-events: none;
 
     ${LARGE_DEVICES} {
       top: ${p => p.theme.secondaryHeaderSizePx}px;
-      padding: ${p => p.theme.overlayPaddingLargePx}px;
     }
 
     > .panel {
