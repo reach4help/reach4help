@@ -44,3 +44,8 @@ hasura console --admin-secret myadminsecretkey
   or run `npm install --global hasura-cli` from the terminal.
 - From the terminal CD to `covidhelphub-backend` in `dev-chh` branch and run `docker-compose up`.
 - From another terminal CD to `covidhelphub-bacend` and run `hasura console --admin-secret myadminsecretkey`.
+
+## Some Hasura information
+
+More information on using Hasura with Typescript:
+https://www.apollographql.com/docs/react/development-testing/static-typing/
