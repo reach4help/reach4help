@@ -6,6 +6,8 @@ import ProgramListComponent from './components/program/ProgramListComponent';
 import RequestListComponent from './components/request/RequestListComponent';
 import RequestCreateComponent from './components/request/RequestCreateComponent';
 import StageListComponent from './components/stage/StageListComponent';
+import BeneficiariesComponent from "./components/beneficiariesRequest/BeneficiariesRequestComponent"
+
 
 import './globals.css';
 import { NavBarFunc } from './NavBarFunc';
@@ -13,7 +15,7 @@ import ProgramRequestSelection from './components/request/RequestProgramSelectio
 
 function App() {
   const NavBar = NavBarFunc();
-
+  // console.log(NavBar)
   // TODO: rethink lines for request/list with multiple parameters - combine?
   return (
     <div>
@@ -30,6 +32,7 @@ function App() {
           <Route exact path="/request/create" component={RequestCreateComponent} />
           <Route exact path="/program/list" component={ProgramListComponent} />
           <Route exact path="/stage/list" component={StageListComponent} />
+          <Route exact path="/beneficiaries/list" component={BeneficiariesComponent} />
           <Route component={HomeComponent} />
         </Switch>
       </div>
