@@ -1,0 +1,92 @@
+/* 
+* The global compnent style for beneficiaries request
+*/
+.formsComponent {
+    --gray1: #333333;
+}
+.formsComponent nav {
+    display: flex;
+    justify-content: center;
+}
+.formsComponent nav input {
+    height: 40px;
+    width: 346px;
+    border: none;
+    background-color: transparent;
+    font-weight: 400;
+    color: #828282;
+    border-bottom: 1px solid #828282;
+}
+.formsComponent nav .activeTab {
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: var(--gray1);
+    border-bottom: 2px solid var(--gray1);
+}
+
+/* Tab 1: Get Support */
+.getSupport {
+    padding: 1rem;
+}
+
+.informationCategory {
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: var(--gray1);
+}
+
+.personalDetails {
+    display: flex;
+    flex-direction: column;
+}
+.personalDetails form {
+    display: flex;
+    flex-direction: column;
+}
+.personalDetails form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+.personalDetails form label span {
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+.personalDetails form label input,
+.personalDetails form label select {
+    background: #fafafa;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    max-width: 514px;
+    padding: 5px 10px;
+    height: 30px;
+}
+.zipcodeInput {
+    width: 151px;
+}
+
+.submit {
+    height: 48px;
+    width: 160px;
+    border: none;
+    border-radius: 10px;
+    background: #c4c4c4;
+}
+/* -------------------------------------------- */
+/* Tab 2: Get Involved */
+.getInvolved {
+}
