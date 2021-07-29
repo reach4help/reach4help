@@ -1,6 +1,6 @@
 import React from 'react';
-import Style from '../beneficiariesRequest/BeneficiariesRequestComponet.module.css';
-import { FormField, UpdateFormData } from '../../objectModel/FormModel';
+import Style from './VolunteerRequestComponent.module.css';
+import { FormSection, UpdateFormData } from '../../objectModel/FormModel';
 import FieldComponent from './FieldComponent';
 
 // export default function GetInvolved() {
@@ -12,7 +12,7 @@ import FieldComponent from './FieldComponent';
 // }
 
 interface Props {
-  formFields: FormField[];
+  formSections: FormSection[];
   handleChange: UpdateFormData;
 }
 
@@ -22,17 +22,22 @@ interface State {
 
 class GetInvolved extends React.Component<Props, {}> {
   public render() {
-    const { formFields, handleChange } = this.props;
+    const { formSections, handleChange } = this.props;
     return (
       <div className={Style.getInvolved}>
         <h2>Get Involved</h2>
-        <form className="">
-          {formFields.map(formField => (
-            <FieldComponent
-              key={formField.id}
-              formField={formField}
-              handleChange={handleChange}
-            />
+        <form className={Style.volunteerForm}>
+          {formSections.map(formSection => (
+            <div key={formSection.id}>
+              <h2>{formSection.label}</h2>
+              {formSection.formFields.map(formField => (
+                <FieldComponent
+                  key={formField.id}
+                  formField={formField}
+                  handleChange={handleChange}
+                />
+              ))}
+            </div>
           ))}
         </form>
       </div>

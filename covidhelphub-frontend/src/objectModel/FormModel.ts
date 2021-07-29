@@ -13,6 +13,12 @@ export type FormField = Partial<HTMLInputElement> & {
   options?: FieldOption[];
 }
 
+export interface FormSection {
+  id: string;
+  label: string;
+  formFields: FormField[];
+}
+
 export type UpdateFormData = (
   fieldName: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

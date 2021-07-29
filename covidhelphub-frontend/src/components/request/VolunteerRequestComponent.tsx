@@ -1,7 +1,7 @@
 import React from 'react';
 import GetInvolved from './GetInvolved';
 
-const EXAMPLE_FORM = [
+const EXAMPLE_FORM_FIELDS = [
   {
     type: 'text',
     id: 'volunteer-name',
@@ -17,6 +17,14 @@ const EXAMPLE_FORM = [
   },
 ];
 
+const EXAMPLE_FORM = [
+  {
+    id: "volunteer-info",
+    label: "Personal Information",
+    formFields: EXAMPLE_FORM_FIELDS,
+  }
+]
+
 class VolunteerRequestComponent extends React.Component<{}, {}> {
   /**
    * Gets the form field data from the back end
@@ -29,7 +37,7 @@ class VolunteerRequestComponent extends React.Component<{}, {}> {
   public render() {
     return (
       <GetInvolved
-        formFields={this.getData()}
+        formSections={this.getData()}
         handleChange={(fieldName: string, value: any) => {}}
       />
     );
