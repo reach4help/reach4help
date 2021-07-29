@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 import Style from './BeneficiariesRequestComponet.module.css'
 import GetSupport from './GetSupport'
-import GetInvolved from './GetInvolved'
+import GetInvolved from '../request/GetInvolved'
 export default function BeneficiariesRequest() {
     const initialRequestState: BeneficiariesRequestModel = new BeneficiariesRequestModel({
         name: "",
