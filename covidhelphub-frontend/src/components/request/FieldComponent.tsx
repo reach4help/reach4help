@@ -31,10 +31,13 @@ class FieldComponent extends React.Component<Props, {}> {
     if (textFieldSet.has(formField.type)) {
       return (
         <label>
-          <span>{formField.label}</span>
+          <span className={formField.required ? Style.requiredLabel : ''}>
+            {formField.label}
+          </span>
           <input
             type={formField.type}
             id={formField.id}
+            className={formField.className}
             name={formField.name}
             value={formField.value}
             required={formField.required}
@@ -49,20 +52,27 @@ class FieldComponent extends React.Component<Props, {}> {
     if (multiFieldSet.has(formField.type)) {
       return (
         <fieldset>
-          <legend>{formField.label}</legend>
-          {formField.options?.map(option => (
-            <label key={option.value}>
-              <div className={Style.option}>
-                <input
-                  type={formField.type}
-                  name={formField.name}
-                  value={option.value}
-                  checked={option.default}
-                />
-                <span>{option.label}</span>
-              </div>
-            </label>
-          ))}
+          <legend className={formField.required ? Style.requiredLabel : ''}>
+            {formField.label}
+          </legend>
+          <div className={Style.optionList}>
+            {formField.options?.map(option => (
+              <label key={option.value}>
+                <div className={Style.option}>
+                  <input
+                    type={formField.type}
+                    id={formField.id}
+                    className={formField.className}
+                    name={formField.name}
+                    value={option.value}
+                    required={formField.required}
+                    checked={option.default}
+                  />
+                  <span>{option.label}</span>
+                </div>
+              </label>
+            ))}
+          </div>
         </fieldset>
       );
     }

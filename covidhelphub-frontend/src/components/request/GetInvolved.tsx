@@ -32,6 +32,9 @@ class GetInvolved extends React.Component<Props, {}> {
               </div>
             </div>
           ))}
+          <button type="submit" className={Style.submit}>
+            Submit
+          </button>
         </form>
       </div>
     );
