@@ -1,88 +1,84 @@
-/* 
-* The global compnent style for beneficiaries request
-*/
-.formsComponent {
-    --gray1: #333333;
-}
-.formsComponent nav {
-    display: flex;
-    justify-content: center;
-}
-.formsComponent nav input {
-    height: 40px;
-    width: 346px;
-    border: none;
-    background-color: transparent;
-    font-weight: 400;
-    color: #828282;
-    border-bottom: 1px solid #828282;
-}
-.formsComponent nav .activeTab {
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-    letter-spacing: 0px;
-    color: var(--gray1);
-    border-bottom: 2px solid var(--gray1);
-}
-
-/*  */
 .getInvolved {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .informationCategory {
-    font-family: Roboto;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 32px;
-    letter-spacing: 0px;
-    text-align: left;
-    color: var(--gray1);
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: var(--gray1);
 }
 
 .volunteerForm {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-.personalDetails form {
-    display: flex;
-    flex-direction: column;
+.formField {
+  display: flex;
+  flex-direction: column;
 }
-.personalDetails form label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
+.formField label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
 }
-.personalDetails form label span {
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-    letter-spacing: 0px;
-    text-align: left;
+.formField label span,
+.formField fieldset legend {
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+  padding: 0;
 }
-.personalDetails form label input,
-.personalDetails form label select {
-    background: #fafafa;
-    border: 1px solid #000000;
-    box-sizing: border-box;
-    max-width: 514px;
-    padding: 5px 10px;
-    height: 30px;
+
+.formField label input,
+.formField label select {
+  background: #fafafa;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  max-width: 514px;
+  padding: 5px 10px;
+  height: 30px;
 }
+
+.formField fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.formField label {
+  margin: 8px 0px;
+}
+
+.formField fieldset .option {
+  display: flex;
+  flex-direction: row;
+}
+
+.formField fieldset .option input {
+  margin: -5px 10px 0px 5px;
+}
+
+.formField fieldset .option span {
+  font-weight: lighter;
+}
+
 .zipcodeInput {
-    width: 151px;
+  width: 151px;
 }
 
 .submit {
-    height: 48px;
-    width: 160px;
-    border: none;
-    border-radius: 10px;
-    background: #c4c4c4;
+  height: 48px;
+  width: 160px;
+  border: none;
+  border-radius: 10px;
+  background: #c4c4c4;
 }

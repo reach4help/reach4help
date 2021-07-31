@@ -1,4 +1,5 @@
 import React from 'react';
+import Style from './VolunteerRequestComponent.module.css';
 import { FormField, UpdateFormData } from '../../objectModel/FormModel';
 
 interface Props {
@@ -50,13 +51,16 @@ class FieldComponent extends React.Component<Props, {}> {
         <fieldset>
           <legend>{formField.label}</legend>
           {formField.options?.map(option => (
-            <label key={option.id}>
-              <span>{option.label}</span>
-              <input
-                type={formField.type}
-                value={option.value}
-                checked={option.default}
-              />
+            <label key={option.value}>
+              <div className={Style.option}>
+                <input
+                  type={formField.type}
+                  name={formField.name}
+                  value={option.value}
+                  checked={option.default}
+                />
+                <span>{option.label}</span>
+              </div>
             </label>
           ))}
         </fieldset>

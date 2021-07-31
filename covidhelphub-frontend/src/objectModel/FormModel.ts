@@ -1,12 +1,10 @@
 export interface FieldOption {
-  id: string;
   label: string;
   value: string;
   default?: boolean;
 }
 
 export type FormField = Partial<HTMLInputElement> & {
-  id: string;
   type: string;
   name: string;
   label: string;

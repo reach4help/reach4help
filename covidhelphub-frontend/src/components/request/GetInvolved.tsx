@@ -3,14 +3,6 @@ import Style from './VolunteerRequestComponent.module.css';
 import { FormSection, UpdateFormData } from '../../objectModel/FormModel';
 import FieldComponent from './FieldComponent';
 
-// export default function GetInvolved() {
-//     return (
-//         <div className={Style.getInvolved}>
-//             Get Involved
-//         </div>
-//     )
-// }
-
 interface Props {
   formSections: FormSection[];
   handleChange: UpdateFormData;
@@ -25,18 +17,19 @@ class GetInvolved extends React.Component<Props, {}> {
     const { formSections, handleChange } = this.props;
     return (
       <div className={Style.getInvolved}>
-        <h2>Get Involved</h2>
         <form className={Style.volunteerForm}>
           {formSections.map(formSection => (
-            <div key={formSection.id}>
-              <h2>{formSection.label}</h2>
-              {formSection.formFields.map(formField => (
-                <FieldComponent
-                  key={formField.id}
-                  formField={formField}
-                  handleChange={handleChange}
-                />
-              ))}
+            <div key={formSection.id} className={Style.formField}>
+              <h2 className={Style.informationCategory}>{formSection.label}</h2>
+              <div>
+                {formSection.formFields.map(formField => (
+                  <FieldComponent
+                    key={formField.name}
+                    formField={formField}
+                    handleChange={handleChange}
+                  />
+                ))}
+              </div>
             </div>
           ))}
         </form>
