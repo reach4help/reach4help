@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from './VolunteerRequestComponent.module.css';
-import GetInvolved from './GetInvolved';
+import FieldComponent from './FieldComponent';
 
 const YES_NO_OPTIONS = [
   {
@@ -174,7 +174,21 @@ const EXAMPLE_FORM = [
   },
 ];
 
-class VolunteerRequestComponent extends React.Component<{}, {}> {
+interface Props {}
+
+interface State {
+  formData: any;
+}
+
+class VolunteerRequestComponent extends React.Component<Props, State> {
+  public constructor(props: Props) {
+    super(props);
+    this.state = {
+      formData: {},
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   /**
    * Gets the form field data from the back end
    * TODO: complete the function
@@ -183,12 +197,35 @@ class VolunteerRequestComponent extends React.Component<{}, {}> {
     return EXAMPLE_FORM;
   };
 
+  handleChange = (fieldName: string, value: any) => {
+    return;
+  };
+
   public render() {
+    const formSections = this.getData();
+
     return (
-      <GetInvolved
-        formSections={this.getData()}
-        handleChange={(fieldName: string, value: any) => {}}
-      />
+      <div className={Style.getInvolved}>
+        <form className={Style.volunteerForm}>
+          {formSections.map(formSection => (
+            <div key={formSection.id} className={Style.formField}>
+              <h2 className={Style.informationCategory}>{formSection.label}</h2>
+              <div>
+                {formSection.formFields.map(formField => (
+                  <FieldComponent
+                    key={formField.name}
+                    formField={formField}
+                    handleChange={this.handleChange}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+          <button type="submit" className={Style.submit}>
+            Submit
+          </button>
+        </form>
+      </div>
     );
   }
 }

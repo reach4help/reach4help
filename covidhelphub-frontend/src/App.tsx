@@ -7,7 +7,6 @@ import RequestListComponent from './components/request/RequestListComponent';
 import RequestCreateComponent from './components/request/RequestCreateComponent';
 import StageListComponent from './components/stage/StageListComponent';
 import BeneficiariesComponent from "./components/beneficiariesRequest/BeneficiariesRequestComponent"
-import GetInvolved from "./components/request/VolunteerRequestComponent"
 
 
 

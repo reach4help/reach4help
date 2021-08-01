@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 
 import Style from './BeneficiariesRequestComponet.module.css'
 import GetSupport from './GetSupport'
-import GetInvolved from '../request/GetInvolved'
 export default function BeneficiariesRequest() {
     const initialRequestState: BeneficiariesRequestModel = new BeneficiariesRequestModel({
         name: "",
@@ -38,7 +37,7 @@ export default function BeneficiariesRequest() {
                 <input type="button" value="Get Support" name="getSupport" className={Style.activeTab} onClick={() => setTab(0)} />
                 <input type="button" value="Get Involved" name="getInvolved" onClick={() => setTab(1)} />
             </nav>
-            {tab === 0 ? <GetSupport /> : <GetInvolved />}
+            {tab === 0 ? <GetSupport /> : null }
         </section>
     )
 }
