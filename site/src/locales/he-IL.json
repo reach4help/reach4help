@@ -2,55 +2,55 @@
   "common": {
     "Navigation": {
       "buttons": {
-        "map": "Mutual Aid Map",
-        "signIn": "Sign in"
+        "map": "מפה של עזרה הדדית",
+        "signIn": "התחברות"
       },
       "pages": {
-        "home": "Home",
-        "mission": "Mission",
-        "impact": "Impact",
-        "team": "Team"
+        "home": "דף הבית",
+        "mission": "משימה",
+        "impact": "השפעה",
+        "team": "קבוצה"
       }
     },
     "HomePage": {
       "HeroSection": {
-        "heading": "Connecting people in need with people who can help",
-        "subheading": "We connect you with local volunteers and help organizations when you need it most.",
+        "heading": "לחבר בין אנשים שזקוקים לעזרה לאנשים שיכולים לעזור",
+        "subheading": "אנחנו מחברים אותך למתנדבים מקומיים ולארגוני עזרה כשאת.ה הכי זקוק.ה להם.",
         "description": [
-          "Our map houses a growing list of aid organizations and pandemic care projects.",
-          "Use the map to find and join mutual aid efforts near you or create your own.",
-          "If you are an aid organization, add your information to the map so others can find you."
+          "במפה שלנו אפשר לראות רשימה הולכת וגדלה של ארגוני עזרה ופרויקטים לעזרה במגפה.",
+          "השתמש.י במפה כדי למצוא ולהצטרף למאמצי העזרה ההדדית הקרובים אליך, או שאת.ה יכול.ה ליצור כאלה בעצמך.",
+          "ארגוני עזרה, הוסיפו מידע על עצמכם כדי שאנשים יוכלו למצוא אתכם."
         ],
         "buttons": [
-          "Get Help",
-          "Volunteer"
+          "קבלו עזרה",
+          "התנדבות"
         ]
       },
       "ReasonsSection": {
-        "heading": "Why Use Reach4Help",
+        "heading": "למה להשתמש בReach4Help",
         "items": [
           {
-            "title": "One-Stop Shop",
-            "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
+            "title": "החנות המרכזית",
+            "description": "אין צורך לבזבז שעות בחיפוש. קבלו עזרה מהר עם מאגר המידע שלנו על מתנדבים."
           },
           {
-            "title": "Easily Available",
-            "description": "Use our app on the go from any mobile device, tablet, or desktop."
+            "title": "זמינים בקלות",
+            "description": "אפשר להשתמש באפליקציה שלנו על הדרך מכל מכשיר נייד, טאבלט, או מחשב."
           },
           {
-            "title": "Completely Free",
-            "description": "No subscriptions or hidden fees. You can browse and post for free."
+            "title": "חינם לגמרי",
+            "description": "אין מנויים או עמלות נסתרות. אפשר לדפדף ולהעלות מידע בחינם."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "How Getting Help Works",
+        "heading": "איך זה עובד",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "צעד 1",
             "items": [
               {
-                "title": "Request Help",
+                "title": "בקשת עזרה",
                 "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
               },
               {
