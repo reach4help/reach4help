@@ -197,14 +197,12 @@ export default styled(MapLayout)`
     left: 0;
     right: 0;
     display: flex;
-    padding: ${p => p.theme.overlayPaddingPx}px;
     opacity: 0;
     transition: opacity ${p => p.theme.transitionSpeedNormal};
     pointer-events: none;
 
     ${LARGE_DEVICES} {
       top: ${p => p.theme.secondaryHeaderSizePx}px;
-      padding: ${p => p.theme.overlayPaddingLargePx}px;
     }
 
     > .panel {
@@ -218,6 +216,7 @@ export default styled(MapLayout)`
       }
 
       > .controls {
+        max-height: 70%;
         background: #fff;
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
         border-top-left-radius: 4px;
@@ -228,6 +227,7 @@ export default styled(MapLayout)`
 
         .form {
           padding: 9px 8px;
+          overflow-y: auto;
         }
 
         .row {

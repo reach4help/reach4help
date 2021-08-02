@@ -47,8 +47,6 @@ export const THEME = {
   colors: COLORS,
   transitionSpeedQuick: '130ms',
   transitionSpeedNormal: '200ms',
-  overlayPaddingLargePx: 40,
-  overlayPaddingPx: 17,
   overlayPanelWidthPx: 320,
 };
 
