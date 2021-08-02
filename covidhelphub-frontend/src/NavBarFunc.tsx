@@ -23,7 +23,7 @@ export function NavBarFunc() {
     const mainMenuOptions = [
         { link: "/request/list", menuText: "Requests", implemented: true },
         { link: "/volunteer/list", menuText: "Volunteers", implemented: false },
-        { link: "/requestor/list", menuText: "Beneficiaries", implemented: false },
+        { link: "/beneficiaries/list", menuText: "Beneficiaries", implemented: false },
     ];
     const adminMenuHTML = getNavBarHTML(adminMenuOptions);
     const mainnMenuHTML = getNavBarHTML(mainMenuOptions);
@@ -52,6 +52,7 @@ export function NavBarFunc() {
             );
         };
     }
+    console.log(mainMenuOptions)
     return NavBar;
 }
 
