@@ -162,18 +162,18 @@
           "link": "/פרטיות"
         },
         {
-          "title": "Code of Conduct",
+          "title": "תנאי שימוש",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
         }
       ]
     },
     "404": {
-      "heading": "404 Not Found",
+      "heading": "404 העמוד לא נמצא",
       "description": [
-        "You've found a glitch in the matrix...",
-        "Or you're just clowning around. 🤡"
+        "עלית על תקלה...",
+        "או שאת.ה פשוט משתטה 🤡"
       ],
-      "linkBackToHome": "Go back home"
+      "linkBackToHome": "חזרה לדף הבית"
     }
   }
 }
