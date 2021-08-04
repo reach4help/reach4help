@@ -9,7 +9,7 @@ export type FormField = Partial<HTMLInputElement> & {
   name: string;
   label: string;
   options?: FieldOption[];
-}
+};
 
 export interface FormSection {
   id: string;
@@ -21,4 +21,5 @@ export type UpdateFormData = (
   fieldName: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any,
+  checked?: boolean,
 ) => void;

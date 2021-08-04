@@ -85,7 +85,7 @@
   font-weight: lighter;
 }
 
-.zipcodeInput {
+.zipcodeInput, .hoursInput {
   width: 151px;
 }
 

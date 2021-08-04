@@ -1,6 +1,7 @@
 import React from 'react';
 import Style from './VolunteerRequestComponent.module.css';
 import FieldComponent from './FieldComponent';
+import { UpdateFormData } from '../../objectModel/FormModel';
 
 const YES_NO_OPTIONS = [
   {
@@ -99,6 +100,7 @@ const EXAMPLE_VOLUNTEERING = [
     name: 'time',
     label: 'Time commitment per week (approximate):',
     placeholder: 'Hours',
+    className: Style.hoursInput,
   },
   {
     type: 'radio',
@@ -174,6 +176,11 @@ const EXAMPLE_FORM = [
   },
 ];
 
+const removeFromSet = (set: Set<any>, item: any) => {
+  set.delete(item);
+  return set;
+};
+
 interface Props {}
 
 interface State {
@@ -187,6 +194,7 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
       formData: {},
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   /**
@@ -197,16 +205,50 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
     return EXAMPLE_FORM;
   };
 
-  handleChange = (fieldName: string, value: any) => {
-    return;
+  handleChange: UpdateFormData = (
+    fieldName: string,
+    value: any,
+    checked?: boolean,
+  ) => {
+    if (typeof checked === 'undefined') {
+      this.setState(state => ({
+        formData: { ...state.formData, [fieldName]: value },
+      }));
+    } else {
+      this.setState(state => {
+        {
+          if (!state.formData[fieldName]) {
+            return {
+              formData: { ...state.formData, [fieldName]: new Set([value]) },
+            };
+          }
+          return checked
+            ? {
+                formData: {
+                  ...state.formData,
+                  [fieldName]: state.formData[fieldName].add(value),
+                },
+              }
+            : {
+                ...state.formData,
+                [fieldName]: removeFromSet(state.formData[fieldName], value),
+              };
+        }
+      });
+    }
   };
+
+  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(this.state.formData);
+  }
 
   public render() {
     const formSections = this.getData();
 
     return (
       <div className={Style.getInvolved}>
-        <form className={Style.volunteerForm}>
+        <form className={Style.volunteerForm} onSubmit={this.handleSubmit}>
           {formSections.map(formSection => (
             <div key={formSection.id} className={Style.formField}>
               <h2 className={Style.informationCategory}>{formSection.label}</h2>

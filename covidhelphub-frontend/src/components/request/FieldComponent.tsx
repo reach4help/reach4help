@@ -2,11 +2,6 @@ import React from 'react';
 import Style from './VolunteerRequestComponent.module.css';
 import { FormField, UpdateFormData } from '../../objectModel/FormModel';
 
-interface Props {
-  formField: FormField;
-  handleChange: UpdateFormData;
-}
-
 const textFieldSet = new Set([
   'color',
   'date',
@@ -24,7 +19,12 @@ const textFieldSet = new Set([
 
 const multiFieldSet = new Set(['checkbox', 'radio']);
 
-class FieldComponent extends React.Component<Props, {}> {
+interface Props {
+  formField: FormField;
+  handleChange: UpdateFormData;
+}
+
+class FieldComponent extends React.Component<Props> {
   public render() {
     const { formField, handleChange } = this.props;
 
@@ -65,8 +65,14 @@ class FieldComponent extends React.Component<Props, {}> {
                     className={formField.className}
                     name={formField.name}
                     value={option.value}
-                    required={formField.required}
                     checked={option.default}
+                    onChange={e => {
+                      handleChange(
+                        formField.name,
+                        e.target.value,
+                        e.target.checked,
+                      );
+                    }}
                   />
                   <span>{option.label}</span>
                 </div>
