@@ -141,7 +141,7 @@ class DropDown<IsMulti extends boolean> extends React.Component<
           val => optionsMap.get(val) as OptionType,
         )
       : selectedValues
-      ? optionsMap.get(selectedValues as string)!
+      ? optionsMap.get(selectedValues as string)
       : any;
 
     return (
@@ -152,6 +152,9 @@ class DropDown<IsMulti extends boolean> extends React.Component<
         classNamePrefix="select"
         value={value}
         defaultValue={isMulti ? undefined : any}
+        noOptionsMessage={() =>
+          t(lang, translationObject => translationObject.noOptions)
+        }
         onChange={selected => this.onChangeHandler(filterScreenField, selected)}
         placeholder={placeholder}
         options={options}
