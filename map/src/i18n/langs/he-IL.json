@@ -18,7 +18,7 @@
     "sourceSubmit": "אנחנו מעודדים אותך להוסיף מידע {addinfo} לגבי כל פרויקט שידוע לך עליו ושעדיין לא נמצא על המפה.",
     "sourceSubmitButton": "הוספת מידע",
     "usageHeading": "האם מותר לי להשתמש במידע הזה לפרויקט משלי?",
-    "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
+    "usageInfo": "כן, כל עוד הינך פועל.ת לפי האישורים הרלוונטיים.",
     "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
     "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
