@@ -25,23 +25,25 @@ interface Props {
 }
 
 class FieldComponent extends React.Component<Props> {
+  private filterFormField(formField: FormField) {}
+
   public render() {
     const { formField, handleChange } = this.props;
 
     if (textFieldSet.has(formField.type)) {
       return (
         <label>
-          <span className={formField.required ? Style.requiredLabel : ''}>
+          <span
+            className={
+              formField.required ? Style.requiredLabel : ''
+            }
+          >
             {formField.label}
           </span>
           <input
+            {...formField.htmlInputAttributes}
             type={formField.type}
-            id={formField.id}
-            className={formField.className}
             name={formField.name}
-            value={formField.value}
-            required={formField.required}
-            placeholder={formField.placeholder}
             onChange={e => {
               handleChange(formField.name, e.target.value);
             }}
@@ -52,7 +54,11 @@ class FieldComponent extends React.Component<Props> {
     if (multiFieldSet.has(formField.type)) {
       return (
         <fieldset>
-          <legend className={formField.required ? Style.requiredLabel : ''}>
+          <legend
+            className={
+              formField.required ? Style.requiredLabel : ''
+            }
+          >
             {formField.label}
           </legend>
           <div className={Style.optionList}>
@@ -60,9 +66,8 @@ class FieldComponent extends React.Component<Props> {
               <label key={option.value}>
                 <div className={Style.option}>
                   <input
+                    {...formField.htmlInputAttributes}
                     type={formField.type}
-                    id={formField.id}
-                    className={formField.className}
                     name={formField.name}
                     value={option.value}
                     checked={option.default}

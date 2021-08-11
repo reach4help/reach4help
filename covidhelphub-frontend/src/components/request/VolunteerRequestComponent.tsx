@@ -19,35 +19,45 @@ const EXAMPLE_PERSONAL = [
     type: 'text',
     name: 'name',
     label: 'Full Name',
-    placeholder: 'Full Name',
     required: true,
+    htmlInputAttributes: {
+      placeholder: 'Full Name',
+    },
   },
   {
     type: 'email',
     name: 'email',
     label: 'Email',
-    placeholder: 'Email',
     required: true,
+    htmlInputAttributes: {
+      placeholder: 'Email',
+    },
   },
   {
     type: 'tel',
     name: 'phone',
     label: 'Phone Number',
-    placeholder: 'Phone Number',
+    htmlInputAttributes: {
+      placeholder: 'Phone Number',
+    },
   },
   {
     type: 'text',
     name: 'address',
     label: 'Address',
-    placeholder: 'Address',
+    htmlInputAttributes: {
+      placeholder: 'Address',
+    },
   },
   {
     type: 'text',
     name: 'postal',
     label: 'Postal Code',
-    placeholder: 'Postal Code',
     required: true,
-    className: Style.zipcodeInput,
+    htmlInputAttributes: {
+      placeholder: 'Postal Code',
+      className: Style.zipcodeInput,
+    },
   },
   {
     type: 'checkbox',
@@ -70,8 +80,8 @@ const EXAMPLE_VOLUNTEERING = [
   {
     type: 'checkbox',
     name: 'offer',
-    required: true,
     label: 'What I would like to do:',
+    required: true,
     options: [
       {
         label: 'Run grocery shopping errands',
@@ -99,8 +109,10 @@ const EXAMPLE_VOLUNTEERING = [
     type: 'number',
     name: 'time',
     label: 'Time commitment per week (approximate):',
-    placeholder: 'Hours',
-    className: Style.hoursInput,
+    htmlInputAttributes: {
+      placeholder: 'Hours',
+      className: Style.hoursInput,
+    },
   },
   {
     type: 'radio',
@@ -216,24 +228,22 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
       }));
     } else {
       this.setState(state => {
-        {
-          if (!state.formData[fieldName]) {
-            return {
-              formData: { ...state.formData, [fieldName]: new Set([value]) },
-            };
-          }
-          return checked
-            ? {
-                formData: {
-                  ...state.formData,
-                  [fieldName]: state.formData[fieldName].add(value),
-                },
-              }
-            : {
-                ...state.formData,
-                [fieldName]: removeFromSet(state.formData[fieldName], value),
-              };
+        if (!state.formData[fieldName]) {
+          return {
+            formData: { ...state.formData, [fieldName]: new Set([value]) },
+          };
         }
+        return checked
+          ? {
+              formData: {
+                ...state.formData,
+                [fieldName]: state.formData[fieldName].add(value),
+              },
+            }
+          : {
+              ...state.formData,
+              [fieldName]: removeFromSet(state.formData[fieldName], value),
+            };
       });
     }
   };
