@@ -12,7 +12,7 @@ export type FormField = {
   label: string;
   required?: boolean;
   options?: FieldOption[];
-  validityCheckers?: ValidityChecker[];
+  validityChecker?: ValidityChecker;
   htmlInputAttributes?: InputHTMLAttributes<HTMLInputElement>;
 };
 
@@ -22,17 +22,17 @@ export interface FormSection {
   formFields: FormField[];
 }
 
-export type SelectedValue = undefined | string | Set<string>;
-
 /**
- * @param value: the form input value
+ * @param e: an HTML form event
  * @returns: an error message if the value is invalid, else ""
  */
-export type ValidityChecker = (value: SelectedValue) => string;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ValidityChecker = (e: React.FormEvent<any>) => string;
 
-export type UpdateFormData = (
+export type HandleFormFieldChange = (
+  isMulti: boolean,
   fieldName: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: SelectedValue,
-  checked?: boolean,
+  e: React.FormEvent<any>,
+  validityChecker?: ValidityChecker,
 ) => void;

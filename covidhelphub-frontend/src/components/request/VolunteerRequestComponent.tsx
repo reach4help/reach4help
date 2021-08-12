@@ -1,7 +1,7 @@
 import React from 'react';
 import Style from './VolunteerRequestComponent.module.css';
 import FieldComponent from './FieldComponent';
-import { UpdateFormData } from '../../objectModel/FormModel';
+import { HandleFormFieldChange, ValidityChecker } from '../../objectModel/FormModel';
 
 const YES_NO_OPTIONS = [
   {
@@ -22,6 +22,12 @@ const EXAMPLE_PERSONAL = [
     required: true,
     htmlInputAttributes: {
       placeholder: 'Full Name',
+    },
+    validityChecker: (e: React.FormEvent<HTMLInputElement>) => {
+      if (!e.currentTarget.validity.valid) {
+        return 'Please enter your full name';
+      }
+      return '';
     },
   },
   {
@@ -57,6 +63,15 @@ const EXAMPLE_PERSONAL = [
     htmlInputAttributes: {
       placeholder: 'Postal Code',
       className: Style.zipcodeInput,
+      pattern: '[a-zA-Z][0-9][a-zA-Z] ?[a-zA-Z][0-9][a-zA-Z]|([a-zA-Z]{2})?[0-9]{5}',
+    },
+    validityChecker: (e: React.FormEvent<HTMLInputElement>) => {
+      if (e.currentTarget.validity.patternMismatch) {
+        return 'Please enter a valid postal code (A1A A1A) or zip code (00000)'
+      } else if (!e.currentTarget.validity.valid) {
+        return 'Please enter your postal code';
+      }
+      return '';
     },
   },
   {
@@ -112,6 +127,8 @@ const EXAMPLE_VOLUNTEERING = [
     htmlInputAttributes: {
       placeholder: 'Hours',
       className: Style.hoursInput,
+      min: '0',
+      max: '168',
     },
   },
   {
@@ -217,16 +234,26 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
     return EXAMPLE_FORM;
   };
 
-  handleChange: UpdateFormData = (
+  handleChange: HandleFormFieldChange = (
+    isMulti: boolean,
     fieldName: string,
-    value: any,
-    checked?: boolean,
+    e: React.FormEvent<any>,
+    validityChecker?: ValidityChecker,
   ) => {
-    if (typeof checked === 'undefined') {
+    // check validity
+    if (validityChecker) {
+      e.currentTarget.setCustomValidity('');
+      e.currentTarget.setCustomValidity(validityChecker(e));
+    }
+
+    // update the form data
+    const value = e.currentTarget.value;
+    if (!isMulti) {
       this.setState(state => ({
         formData: { ...state.formData, [fieldName]: value },
       }));
     } else {
+      const checked = e.currentTarget.checked;
       this.setState(state => {
         if (!state.formData[fieldName]) {
           return {
