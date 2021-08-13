@@ -29,10 +29,13 @@ export interface FormSection {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ValidityChecker = (e: React.FormEvent<any>) => string;
 
+export type UpdateAtLeastOneSelected = (selected: boolean) => void;
+
 export type HandleFormFieldChange = (
   isMulti: boolean,
   fieldName: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   e: React.FormEvent<any>,
   validityChecker?: ValidityChecker,
+  updateAtLeastOneSelected?: UpdateAtLeastOneSelected,
 ) => void;

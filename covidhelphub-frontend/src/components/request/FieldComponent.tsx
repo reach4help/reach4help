@@ -24,10 +24,19 @@ interface Props {
   handleChange: HandleFormFieldChange;
 }
 
-class FieldComponent extends React.Component<Props> {
+/** Used for required multiselect */
+interface State {
+  atLeastOneSelected: boolean;
+}
+
+class FieldComponent extends React.Component<Props, State> {
   public constructor(props: Props) {
     super(props);
+    this.state = {
+      atLeastOneSelected: false,
+    };
     this.handleInvalid = this.handleInvalid.bind(this);
+    this.updateAtLeastOneSelected = this.updateAtLeastOneSelected.bind(this);
   }
 
   handleInvalid(e: React.FormEvent<any>) {
@@ -37,6 +46,10 @@ class FieldComponent extends React.Component<Props> {
         this.props.formField.validityChecker(e),
       );
     }
+  }
+
+  updateAtLeastOneSelected(selected: boolean) {
+    this.setState({atLeastOneSelected: selected});
   }
 
   public render() {
@@ -77,6 +90,7 @@ class FieldComponent extends React.Component<Props> {
                     {...formField.htmlInputAttributes}
                     type={formField.type}
                     name={formField.name}
+                    required={formField.required && !this.state.atLeastOneSelected}
                     value={option.value}
                     checked={option.default}
                     onChange={e => {
@@ -85,6 +99,7 @@ class FieldComponent extends React.Component<Props> {
                         formField.name,
                         e,
                         formField.validityChecker,
+                        this.updateAtLeastOneSelected,
                       );
                     }}
                     onInvalid={

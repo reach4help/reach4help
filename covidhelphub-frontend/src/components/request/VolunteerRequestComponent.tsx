@@ -1,7 +1,11 @@
 import React from 'react';
 import Style from './VolunteerRequestComponent.module.css';
 import FieldComponent from './FieldComponent';
-import { HandleFormFieldChange, ValidityChecker } from '../../objectModel/FormModel';
+import {
+  HandleFormFieldChange,
+  ValidityChecker,
+  UpdateAtLeastOneSelected,
+} from '../../objectModel/FormModel';
 
 const YES_NO_OPTIONS = [
   {
@@ -63,11 +67,12 @@ const EXAMPLE_PERSONAL = [
     htmlInputAttributes: {
       placeholder: 'Postal Code',
       className: Style.zipcodeInput,
-      pattern: '[a-zA-Z][0-9][a-zA-Z] ?[a-zA-Z][0-9][a-zA-Z]|([a-zA-Z]{2})?[0-9]{5}',
+      pattern:
+        '[a-zA-Z][0-9][a-zA-Z] ?[a-zA-Z][0-9][a-zA-Z]|([a-zA-Z]{2})?[0-9]{5}',
     },
     validityChecker: (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.patternMismatch) {
-        return 'Please enter a valid postal code (A1A A1A) or zip code (00000)'
+        return 'Please enter a valid postal code (A1A A1A) or zip code (00000)';
       } else if (!e.currentTarget.validity.valid) {
         return 'Please enter your postal code';
       }
@@ -119,6 +124,12 @@ const EXAMPLE_VOLUNTEERING = [
         value: 'tech',
       },
     ],
+    validityChecker: (e: React.FormEvent<HTMLInputElement>) => {
+      if (!e.currentTarget.validity.valid) {
+        return 'Please select at least one option';
+      }
+      return '';
+    },
   },
   {
     type: 'number',
@@ -239,6 +250,7 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
     fieldName: string,
     e: React.FormEvent<any>,
     validityChecker?: ValidityChecker,
+    updateAtLeastOneSelected?: UpdateAtLeastOneSelected,
   ) => {
     // check validity
     if (validityChecker) {
@@ -256,9 +268,17 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
       const checked = e.currentTarget.checked;
       this.setState(state => {
         if (!state.formData[fieldName]) {
+          if (updateAtLeastOneSelected) {
+            updateAtLeastOneSelected(true);
+          }
           return {
             formData: { ...state.formData, [fieldName]: new Set([value]) },
           };
+        }
+        if (updateAtLeastOneSelected && !checked && state.formData[fieldName].size === 1) {
+          updateAtLeastOneSelected(false);
+        } else if (updateAtLeastOneSelected) {
+          updateAtLeastOneSelected(true);
         }
         return checked
           ? {
