@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from './VolunteerRequestComponent.module.css';
-import FieldComponent from './FieldComponent';
+import FieldComponent from './fieldComponents/FieldComponent';
 import {
   HandleFormFieldChange,
   ValidityChecker,
@@ -252,15 +252,12 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
     validityChecker?: ValidityChecker,
     updateAtLeastOneSelected?: UpdateAtLeastOneSelected,
   ) => {
-    // check validity
-    if (validityChecker) {
-      e.currentTarget.setCustomValidity('');
-      e.currentTarget.setCustomValidity(validityChecker(e));
-    }
-
     // update the form data
     const value = e.currentTarget.value;
     if (!isMulti) {
+      if (updateAtLeastOneSelected) {
+        updateAtLeastOneSelected(true);
+      }
       this.setState(state => ({
         formData: { ...state.formData, [fieldName]: value },
       }));
@@ -275,6 +272,7 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
             formData: { ...state.formData, [fieldName]: new Set([value]) },
           };
         }
+        console.log("name:", fieldName, "state.formData[fieldName]:", state.formData[fieldName]);
         if (updateAtLeastOneSelected && !checked && state.formData[fieldName].size === 1) {
           updateAtLeastOneSelected(false);
         } else if (updateAtLeastOneSelected) {
@@ -292,6 +290,12 @@ class VolunteerRequestComponent extends React.Component<Props, State> {
               [fieldName]: removeFromSet(state.formData[fieldName], value),
             };
       });
+    }
+
+    // check validity
+    if (validityChecker) {
+      e.currentTarget.setCustomValidity('');
+      e.currentTarget.setCustomValidity(validityChecker(e));
     }
   };
 

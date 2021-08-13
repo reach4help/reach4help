@@ -1,5 +1,24 @@
 import { InputHTMLAttributes } from 'react';
 
+export const textFieldSet = new Set([
+  'color',
+  'date',
+  'datetime-local',
+  'email',
+  'month',
+  'number',
+  'password',
+  'tel',
+  'text',
+  'time',
+  'url',
+  'week',
+]);
+
+export const checkRadioFieldSet = new Set(['checkbox', 'radio']);
+
+export const multiFieldSet = new Set(['checkbox']);
+
 export interface FieldOption {
   label: string;
   value: string;
@@ -30,6 +49,8 @@ export interface FormSection {
 export type ValidityChecker = (e: React.FormEvent<any>) => string;
 
 export type UpdateAtLeastOneSelected = (selected: boolean) => void;
+
+export type HandleFormFieldInvalid = (e: React.FormEvent<any>) => void;
 
 export type HandleFormFieldChange = (
   isMulti: boolean,
