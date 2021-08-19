@@ -60,7 +60,7 @@
     "jest": "^25.2.4",
     "lint-staged": "^10.0.9",
     "prettier": "^1.19.1",
-    "ts-jest": "^25.3.0",
+    "ts-jest": "^25.5.1",
     "typescript": "^3.8.3"
   },
   "private": true
