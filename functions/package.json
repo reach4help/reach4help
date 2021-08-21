@@ -37,7 +37,7 @@
     "@googlemaps/google-maps-services-js": "^2.4.2",
     "@types/convict": "^4.2.1",
     "@types/flat": "^5.0.0",
-    "@types/googlemaps": "^3.39.3",
+    "@types/googlemaps": "^3.43.3",
     "@types/node-fetch": "^2.5.7",
     "algoliasearch": "^4.1.0",
     "class-validator": "^0.11.1",
@@ -60,7 +60,7 @@
     "jest": "^25.2.4",
     "lint-staged": "^10.0.9",
     "prettier": "^1.19.1",
-    "ts-jest": "^25.3.0",
+    "ts-jest": "^25.5.1",
     "typescript": "^3.8.3"
   },
   "private": true
