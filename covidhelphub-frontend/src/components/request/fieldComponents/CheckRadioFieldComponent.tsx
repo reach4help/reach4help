@@ -1,37 +1,48 @@
 import React from 'react';
 import Style from '../VolunteerRequestComponent.module.css';
+import CheckboxGroup from 'antd/lib/checkbox/Group';
 import {
   multiFieldSet,
   FormField,
   HandleFormFieldInvalid,
   HandleFormFieldChange,
 } from '../../../objectModel/FormModel';
+import * as Yup from 'yup';
+import { Field, ErrorMessage } from 'formik';
 
 interface Props {
   formField: FormField;
-  handleInvalid: HandleFormFieldInvalid;
-  handleChange: HandleFormFieldChange;
+  // handleInvalid: HandleFormFieldInvalid;
+  // handleChange: HandleFormFieldChange;
 }
 
-interface State {
-  atLeastOneSelected: boolean;
-}
+// interface State {
+//   atLeastOneSelected: boolean;
+// }
 
-class CheckRadioFieldComponent extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      atLeastOneSelected: false,
-    };
-    this.updateAtLeastOneSelected = this.updateAtLeastOneSelected.bind(this);
-  }
+function CheckRadioFieldComponent (props: Props) {
+  // constructor(props: Props) {
+  //   super(props);
+  //   // this.state = {
+  //   //   atLeastOneSelected: false,
+  //   // };
+  //   // this.updateAtLeastOneSelected = this.updateAtLeastOneSelected.bind(this);
+  // }
 
-  updateAtLeastOneSelected(selected: boolean) {
-    this.setState({ atLeastOneSelected: selected });
-  }
+  // updateAtLeastOneSelected(selected: boolean) {
+  //   this.setState({ atLeastOneSelected: selected });
+  // }
 
-  public render() {
-    const { formField, handleInvalid, handleChange } = this.props;
+  // const field = (
+  //   <Field
+  //     name={formField.name}
+  //     component={CheckboxGroup}
+  //     options={formField.options}
+  //     label={formField.label}
+  //   />
+  // );
+
+  const { formField } = props;
     return (
       <fieldset>
         <legend className={formField.required ? Style.requiredLabel : ''}>
@@ -41,13 +52,10 @@ class CheckRadioFieldComponent extends React.Component<Props, State> {
           {formField.options?.map(option => (
             <label key={option.value}>
               <div className={Style.option}>
-                <input
+                {/* <input
                   {...formField.htmlInputAttributes}
                   type={formField.type}
                   name={formField.name}
-                  required={
-                    formField.required && !this.state.atLeastOneSelected
-                  }
                   value={option.value}
                   checked={option.default}
                   onChange={e => {
@@ -60,15 +68,26 @@ class CheckRadioFieldComponent extends React.Component<Props, State> {
                     );
                   }}
                   onInvalid={e => handleInvalid(e)}
+                /> */}
+                <Field 
+                  type={formField.type}
+                  name={formField.name}
+                  value={option.value}
                 />
                 <span>{option.label}</span>
               </div>
             </label>
           ))}
         </div>
+        <ErrorMessage name={formField.name}/>
       </fieldset>
+      // <Field
+      //   name={formField.name}
+      //   component={CheckboxGroup}
+      //   options={formField.options}
+      //   label={formField.label}
+      // />
     );
-  }
 }
 
 export default CheckRadioFieldComponent;

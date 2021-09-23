@@ -1,3 +1,7 @@
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import Style from './VolunteerRequestComponent.module.css';
 
 const YES_NO_OPTIONS = [
@@ -208,3 +212,72 @@ export const EXAMPLE_FORM = [
     formFields: EXAMPLE_HEALTH,
   },
 ];
+
+export type ExampleVolunteerForm = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  postal: string;
+  languages: Set<string>;
+  offer: Set<string>;
+  time: number;
+  license: Set<string>;
+  covid: string;
+  contactedCovid: string;
+  travelledCovid: string;
+};
+
+export const EXAMPLE_SCHEMA = Yup.object().shape({
+  name: Yup.string().required('Please enter your name'),
+  email: Yup.string()
+    .required('Please enter your email')
+    .email('Please enter a valid email'),
+  phone: Yup.string(),
+  address: Yup.string(),
+  postal: Yup.string()
+    .required()
+    .matches(
+      /[a-zA-Z][0-9][a-zA-Z] ?[a-zA-Z][0-9][a-zA-Z]|([a-zA-Z]{2})?[0-9]{5}/,
+      'Please enter a valid Postal code or Zip code',
+    ),
+  languages: Yup.array(),
+  offer: Yup.array().required('Please check at least one option'),
+  time: Yup.number()
+    .min(0)
+    .max(168),
+  license: Yup.array().required('Please check at least one option'),
+  covid: Yup.array().required('Please select an option'),
+  contactedCovid: Yup.array().required('Please select an option'),
+  travelledCovid: Yup.array().required('Please select an option'),
+});
+
+type submittedForm = {
+  name: string;
+  email: string;
+  phone?: string;
+  address?: string;
+  postal: string;
+  languages?: Set<string>;
+  offer: Set<string>;
+  time?: number;
+  license: Set<string>;
+  covid: string;
+  contactedCovid: string;
+  travelledCovid: string;
+};
+
+export const EXAMPLE_INITAL_VALUES = {
+  name: '',
+  email: '',
+  phone: '',
+  address: '',
+  postal: '',
+  languages: [],
+  offer: [],
+  time: '',
+  license: [],
+  covid: [],
+  contactedCovid: [],
+  travelledCovid: [],
+}
