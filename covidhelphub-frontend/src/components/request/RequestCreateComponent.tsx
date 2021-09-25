@@ -383,25 +383,6 @@ export default function GetSupport() {
             )
         }
 
-        // If you would like to explain your situation, or would like to share more details, please write it here.
-        const BeneficiariesText = () => {
-            return (
-                <div>
-                    <label className={Style.BeneficiariesTextLabel}>
-                        <span className={Style.inputTitle}>If you would like to explain your situation, or would like to share more details, please write it here.</span>
-                        <input
-                            type="text"
-                            name="beneficiariesText"
-                            value={requestObj.beneficiariesText}
-                            placeholder="Miscellaneous"
-                            className={Style.BeneficiariesTextInput}
-                            onChange={(e) => handleInputChange(e)}
-                        />
-                    </label>
-
-                </div>
-            )
-        }
         let next = requestObj.weakImuneSystem !== '' && requestObj.chronicIllness !== '' && requestObj.livingAlone !== '' && requestObj.sickWithCovid !== '';
         return (
             <div className={Style.healthDetails}>
@@ -416,7 +397,23 @@ export default function GetSupport() {
                     <ChronicIll />
                     <LivingCondition />
                     <SickWithCovid />
-                    <BeneficiariesText />
+                    {/* If you would like to explain your situation, or would like to share more details, please write it here. */}
+                    <div>
+                        <label className={Style.BeneficiariesTextLabel}>
+                            <span className={Style.inputTitle}>
+                                If you would like to explain your situation, or would like to share more details, please write it here.
+                            </span>
+                            <input
+                                type="text"
+                                name="beneficiariesText"
+                                value={requestObj.beneficiariesText}
+                                placeholder="Miscellaneous"
+                                className={Style.BeneficiariesTextInput}
+                                onChange={(e) => handleInputChange(e)}
+                            />
+                        </label>
+
+                    </div>
                     <input type="submit" value="Next" className={next ? Style.submit : Style.inactiveSubmit} />
                 </form>
             </div>
@@ -481,7 +478,6 @@ export default function GetSupport() {
             )
         }
 
-
         let groceryOptionsInputs = [
             [
                 { title: "Canned and packaged goods" },
@@ -519,56 +515,9 @@ export default function GetSupport() {
                 { type: "text", name: "yougurtTeaOrCoffee", value: requestObj.yougurtTeaOrCoffee.value, placeholder: "Yougurt, Tea, Coffee", class: Style.input }
             ],
         ]
-        // 4- Grocery Options
-        const GroceryOptions = () => {
-            return (
-                <div>
-                    <p className={Style.inputTitle}>Grocery delivery</p>
-                    {
-                        groceryOptionsInputs.map(input => {
-                            return (
-                                <div className={Style.checkBoxDivs}>
-                                    <label>
-                                        <input
-                                            type={input[1].type}
-                                            name={input[1].name}
-                                            checked={input[1].checked}
-                                            onChange={(e) => handleCheckBoxInput(e)}
-                                        />
-                                        <span>{input[0].title}</span>
-                                    </label>
-                                    {
-                                        input[1].checked ?
-                                            <input
-                                                type={input[2].type}
-                                                placeholder={input[2].placeholder}
-                                                value={input[2].value}
-                                                name={input[2].name}
-                                                className={input[2].class}
-                                                onChange={(e) => handleInputChange(e)}
-                                            />
-                                            : null
-                                    }
-                                </div>
-                            )
-                        })
-                    }
-                    {/* H- miscellaneous */}
-                    <label className={Style.BeneficiariesTextLabel}>
-                        <span className={Style.inputTitle}>Miscellaneous</span>
-                        <input
-                            type="text"
-                            name="miscellaneous"
-                            value={requestObj.miscellaneous}
-                            placeholder="Miscellaneous"
-                            className={Style.BeneficiariesTextInput}
-                            onChange={(e) => handleCheckBoxInput(e)}
-                        />
-                    </label>
-                </div>
-            )
-        }
+
         let readyToSubmit = (requestObj.vaccination || requestObj.wellnessCalls) || (requestObj.groceryDelivery && (requestObj.cannedAndPackagedGoods || requestObj.freezerOrRefrigeratedGoods || requestObj.fruitsAndVegetables || requestObj.dairyAndEggs || requestObj.meat || requestObj.bread || requestObj.yougurtTeaOrCoffee))
+        
         return (
             <div>
                 <h2 className={Style.informationCategory}>Program Details</h2>
@@ -580,7 +529,53 @@ export default function GetSupport() {
                     <WellnessCalls />
                     <GroceryDelivery />
                     {
-                        requestObj.groceryDelivery ? <GroceryOptions /> : null
+                        requestObj.groceryDelivery ?
+                            // 4- Grocery Options
+                            <div>
+                                <p className={Style.inputTitle}>Grocery delivery</p>
+                                {
+                                    groceryOptionsInputs.map(input => {
+                                        return (
+                                            <div className={Style.checkBoxDivs}>
+                                                <label>
+                                                    <input
+                                                        type={input[1].type}
+                                                        name={input[1].name}
+                                                        checked={input[1].checked}
+                                                        onChange={(e) => handleCheckBoxInput(e)}
+                                                    />
+                                                    <span>{input[0].title}</span>
+                                                </label>
+                                                {
+                                                    input[1].checked ?
+                                                        <input
+                                                            type={input[2].type}
+                                                            placeholder={input[2].placeholder}
+                                                            value={input[2].value}
+                                                            name={input[2].name}
+                                                            className={input[2].class}
+                                                            onChange={(e) => handleInputChange(e)}
+                                                        />
+                                                        : null
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                }
+                                {/* H- miscellaneous */}
+                                <label className={Style.BeneficiariesTextLabel}>
+                                    <span className={Style.inputTitle}>Miscellaneous</span>
+                                    <input
+                                        type="text"
+                                        name="miscellaneous"
+                                        value={requestObj.miscellaneous}
+                                        placeholder="Miscellaneous"
+                                        className={Style.BeneficiariesTextInput}
+                                        onChange={(e) => handleInputChange(e)}
+                                    />
+                                </label>
+                            </div>
+                            : null
                     }
 
                     {/* next button */}

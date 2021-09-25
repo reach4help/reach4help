@@ -174,28 +174,24 @@
 
 /* div represents radio button*/
 .radioButton {
-    width: 1rem;
-    height: 1rem;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 
-    margin: 0.2rem;
     cursor: pointer;
 }
 /* active radio button */
 .activeRadioButton {
-    width: 1rem;
-    height: 1rem;
+    width: 22px;
+    height: 22px;
     background-color: var(--darkBlack);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    margin: 0.2rem;
 }
 .activeRadioButton::before,
 .radioButton::before {
@@ -205,7 +201,6 @@
     height: 22px;
     border: 1px solid black;
     border-radius: 50%;
-    position: absolute;
 }
 
 .radioButtonsWrapper label span {
