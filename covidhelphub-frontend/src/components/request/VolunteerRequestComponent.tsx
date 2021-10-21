@@ -1,18 +1,12 @@
 import React from 'react';
 import Style from './VolunteerRequestComponent.module.css';
-import FieldComponent from './fieldComponents/FieldComponent';
-import {
-  HandleFormFieldChange,
-  ValidityChecker,
-  UpdateAtLeastOneSelected,
-} from '../../objectModel/FormModel';
+// import FieldComponent from './fieldComponents/FieldComponent';
 import {
   EXAMPLE_FORM,
   EXAMPLE_INITAL_VALUES,
   EXAMPLE_SCHEMA,
 } from './VolunteerRequestData';
-import VolunteerRequestFormComponent from './VolunteerRequestFormComponent';
-import { Formik, Field, Form, ErrorMessage, withFormik } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const removeFromSet = (set: Set<any>, item: any) => {
@@ -113,12 +107,12 @@ function VolunteerRequestComponent(props: Props) {
   //   }
   // };
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    // console.log(this.state.formData);
-  }
+  // function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   // console.log(this.state.formData);
+  // }
 
-  const { form: formSections, initialValues, schema } = getData();
+  // const { form: formSections, initialValues, schema } = getData();
 
   return (
     <div className={Style.getInvolved}>
