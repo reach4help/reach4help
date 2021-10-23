@@ -1,6 +1,3 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Style from './VolunteerRequestComponent.module.css';
 
@@ -21,60 +18,34 @@ const EXAMPLE_PERSONAL = [
     name: 'name',
     label: 'Full Name',
     required: true,
-    htmlInputAttributes: {
-      placeholder: 'Full Name',
-    },
-    validityChecker: (e: React.FormEvent<HTMLInputElement>) => {
-      if (!e.currentTarget.validity.valid) {
-        return 'Please enter your full name';
-      }
-      return '';
-    },
+    placeholder: 'Full Name',
   },
   {
     type: 'email',
     name: 'email',
     label: 'Email',
     required: true,
-    htmlInputAttributes: {
-      placeholder: 'Email',
-    },
+    placeholder: 'Email',
   },
   {
     type: 'tel',
     name: 'phone',
     label: 'Phone Number',
-    htmlInputAttributes: {
-      placeholder: 'Phone Number',
-    },
+    placeholder: 'Phone Number',
   },
   {
     type: 'text',
     name: 'address',
     label: 'Address',
-    htmlInputAttributes: {
-      placeholder: 'Address',
-    },
+    placeholder: 'Address',
   },
   {
     type: 'text',
     name: 'postal',
     label: 'Postal Code',
     required: true,
-    htmlInputAttributes: {
-      placeholder: 'Postal Code',
-      className: Style.zipcodeInput,
-      pattern:
-        '[a-zA-Z][0-9][a-zA-Z] ?[a-zA-Z][0-9][a-zA-Z]|([a-zA-Z]{2})?[0-9]{5}',
-    },
-    validityChecker: (e: React.FormEvent<HTMLInputElement>) => {
-      if (e.currentTarget.validity.patternMismatch) {
-        return 'Please enter a valid postal code (A1A A1A) or zip code (00000)';
-      } else if (!e.currentTarget.validity.valid) {
-        return 'Please enter your postal code';
-      }
-      return '';
-    },
+    placeholder: 'Postal Code',
+    className: Style.zipcodeInput,
   },
   {
     type: 'checkbox',
@@ -121,23 +92,13 @@ const EXAMPLE_VOLUNTEERING = [
         value: 'tech',
       },
     ],
-    validityChecker: (e: React.FormEvent<HTMLInputElement>) => {
-      if (!e.currentTarget.validity.valid) {
-        return 'Please select at least one option';
-      }
-      return '';
-    },
   },
   {
     type: 'number',
     name: 'time',
     label: 'Time commitment per week (approximate):',
-    htmlInputAttributes: {
-      placeholder: 'Hours',
-      className: Style.hoursInput,
-      min: '0',
-      max: '168',
-    },
+    placeholder: 'Hours',
+    className: Style.hoursInput,
   },
   {
     type: 'radio',
@@ -246,26 +207,11 @@ export const EXAMPLE_SCHEMA = Yup.object().shape({
   time: Yup.number()
     .min(0)
     .max(168),
-  license: Yup.array().required('Please check at least one option'),
+  license: Yup.array(),
   covid: Yup.array().required('Please select an option'),
   contactedCovid: Yup.array().required('Please select an option'),
   travelledCovid: Yup.array().required('Please select an option'),
 });
-
-type submittedForm = {
-  name: string;
-  email: string;
-  phone?: string;
-  address?: string;
-  postal: string;
-  languages?: Set<string>;
-  offer: Set<string>;
-  time?: number;
-  license: Set<string>;
-  covid: string;
-  contactedCovid: string;
-  travelledCovid: string;
-};
 
 export const EXAMPLE_INITAL_VALUES = {
   name: '',
@@ -280,4 +226,4 @@ export const EXAMPLE_INITAL_VALUES = {
   covid: [],
   contactedCovid: [],
   travelledCovid: [],
-}
+};
