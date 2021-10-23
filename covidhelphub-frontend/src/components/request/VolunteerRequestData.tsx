@@ -182,7 +182,7 @@ export const EXAMPLE_SCHEMA = Yup.object().shape({
   phone: Yup.string(),
   address: Yup.string(),
   postal: Yup.string()
-    .required()
+    .required('Please enter a Postal code or Zip code')
     .matches(
       /[a-zA-Z][0-9][a-zA-Z] ?[a-zA-Z][0-9][a-zA-Z]|([a-zA-Z]{2})?[0-9]{5}/,
       'Please enter a valid Postal code or Zip code',
