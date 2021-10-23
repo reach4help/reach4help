@@ -28,7 +28,9 @@ function CheckRadioFieldComponent(props: Props) {
           </label>
         ))}
       </div>
-      <ErrorMessage name={formField.name} />
+      <div className={Style.errorMessage}>
+        <ErrorMessage name={formField.name} />
+      </div>
     </fieldset>
   );
 }

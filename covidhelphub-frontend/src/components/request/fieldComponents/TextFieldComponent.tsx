@@ -1,15 +1,13 @@
 import React from 'react';
 import Style from '../VolunteerRequestComponent.module.css';
-import {
-  FormField,
-} from '../../../objectModel/FormModel';
+import { FormField } from '../../../objectModel/FormModel';
 import { Field, ErrorMessage } from 'formik';
 
 interface Props {
   formField: FormField;
 }
 
-function TextFieldComponent (props: Props) {
+function TextFieldComponent(props: Props) {
   const { formField } = props;
   return (
     <>
@@ -19,11 +17,13 @@ function TextFieldComponent (props: Props) {
         </span>
         <Field
           type={formField.type}
-          name={formField.name} 
+          name={formField.name}
           placeholder={formField.placeholder}
         />
+        <div className={`${Style.errorMessage} ${Style.textInput}`}>
+          <ErrorMessage name={formField.name} />
+        </div>
       </label>
-      <ErrorMessage name={formField.name}/>
     </>
   );
 }

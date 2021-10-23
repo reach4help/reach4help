@@ -16,6 +16,7 @@
 .volunteerForm {
   display: flex;
   flex-direction: column;
+  font-family: Roboto;
 }
 
 .formField {
@@ -87,6 +88,17 @@
 
 .zipcodeInput, .hoursInput {
   width: 151px;
+  margin-top: -5px;
+}
+
+.errorMessage {
+  display: flex;
+  flex-direction: column;
+  color: red;
+}
+
+.errorMessage.textInput {
+  padding-top: 5px;
 }
 
 .submit {
