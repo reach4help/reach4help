@@ -207,10 +207,10 @@ export const EXAMPLE_SCHEMA = Yup.object().shape({
   time: Yup.number()
     .min(0)
     .max(168),
-  license: Yup.array(),
-  covid: Yup.array().required('Please select an option'),
-  contactedCovid: Yup.array().required('Please select an option'),
-  travelledCovid: Yup.array().required('Please select an option'),
+  license: Yup.string(),
+  covid: Yup.string().required('Please select an option'),
+  contactedCovid: Yup.string().required('Please select an option'),
+  travelledCovid: Yup.string().required('Please select an option'),
 });
 
 export const EXAMPLE_INITAL_VALUES = {
@@ -222,8 +222,8 @@ export const EXAMPLE_INITAL_VALUES = {
   languages: [],
   offer: [],
   time: '',
-  license: [],
-  covid: [],
-  contactedCovid: [],
-  travelledCovid: [],
+  license: '',
+  covid: '',
+  contactedCovid: '',
+  travelledCovid: '',
 };
