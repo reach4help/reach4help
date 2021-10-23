@@ -140,7 +140,7 @@ const EXAMPLE_HEALTH = [
   },
   {
     type: 'radio',
-    name: 'contactedcovid',
+    name: 'contactedCovid',
     label:
       'Have you been in close contact with someone with COVID-19 or someone who may have COVID-19?',
     required: true,
@@ -148,7 +148,7 @@ const EXAMPLE_HEALTH = [
   },
   {
     type: 'radio',
-    name: 'travelledcovid',
+    name: 'travelledCovid',
     label:
       'Have you travelled abroad in the past two weeks or been in close contact with someone who has?',
     required: true,
@@ -174,21 +174,6 @@ export const EXAMPLE_FORM = [
   },
 ];
 
-export type ExampleVolunteerForm = {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  postal: string;
-  languages: Set<string>;
-  offer: Set<string>;
-  time: number;
-  license: Set<string>;
-  covid: string;
-  contactedCovid: string;
-  travelledCovid: string;
-};
-
 export const EXAMPLE_SCHEMA = Yup.object().shape({
   name: Yup.string().required('Please enter your name'),
   email: Yup.string()
@@ -203,7 +188,7 @@ export const EXAMPLE_SCHEMA = Yup.object().shape({
       'Please enter a valid Postal code or Zip code',
     ),
   languages: Yup.array(),
-  offer: Yup.array().required('Please check at least one option'),
+  offer: Yup.array().min(1, 'Please check at least one option'),
   time: Yup.number()
     .min(0)
     .max(168),
