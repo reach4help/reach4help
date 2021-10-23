@@ -108,3 +108,12 @@
   border-radius: 10px;
   background: #c4c4c4;
 }
+
+.submit:hover {
+  background: #a5a5a5;
+}
+
+.submit:active {
+  color: #fafafa;
+  background: #3d3d3d;
+}
