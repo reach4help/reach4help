@@ -49,7 +49,8 @@ export const difference = <
       // eslint-disable-next-line no-param-reassign
       (result as any)[key] =
         typeof value === 'object' && typeof base[key] === 'object'
-          ? difference<any, any>(value, base[key])
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            difference<any, any>(value, base[key])
           : value;
     }
   });

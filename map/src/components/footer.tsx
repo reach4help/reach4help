@@ -1,5 +1,5 @@
 import React from 'react';
-import * as firebase from 'src/data/firebase';
+import * as dataDriver from 'src/data/dataDriver';
 import { t } from 'src/i18n';
 
 import styled, { NON_LARGE_DEVICES } from '../styling';
@@ -17,19 +17,19 @@ class Footer extends React.PureComponent<Props, State> {
   public constructor(props: {}) {
     super(props);
     this.state = {
-      includingHidden: firebase.includingHidden(),
+      includingHidden: dataDriver.includingHidden(),
     };
   }
 
   public componentDidMount() {
-    firebase.addInformationListener(this.firebaseInformationUpdated);
+    dataDriver.addInformationListener(this.dataDriverInformationUpdated);
   }
 
   public componentWillUnmount() {
-    firebase.removeInformationListener(this.firebaseInformationUpdated);
+    dataDriver.removeInformationListener(this.dataDriverInformationUpdated);
   }
 
-  private firebaseInformationUpdated: firebase.InformationListener = update =>
+  private dataDriverInformationUpdated: dataDriver.InformationListener = update =>
     this.setState({ includingHidden: update.includingHidden });
 
   public render = () => {
@@ -38,7 +38,7 @@ class Footer extends React.PureComponent<Props, State> {
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <footer className={className}>
+          <footer className={className || ''}>
             <div className="netlify">
               {t(lang, s => s.footer.netlifyNote, {
                 link: key => (
@@ -58,7 +58,9 @@ class Footer extends React.PureComponent<Props, State> {
             <div className="links">
               <button
                 type="button"
-                onClick={() => firebase.includeHiddenMarkers(!includingHidden)}
+                onClick={() =>
+                  dataDriver.includeHiddenMarkers(!includingHidden)
+                }
               >
                 {t(
                   lang,
