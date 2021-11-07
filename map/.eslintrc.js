@@ -1,12 +1,14 @@
 module.exports = {
   extends: ['../.eslintrc-ts.js'],
   parserOptions: {
-    project: 'tsconfig.json',
+    project: './tsconfig.json',
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 2018,
     sourceType: 'module',
+    tsconfigRootDir: __dirname,
+    extraFileExtensions: ['mjs'],
   },
   env: {
     browser: true,
@@ -17,6 +19,7 @@ module.exports = {
    * APPLY TO THE functions DIRECTORY, AND NOTHING ELSE!!!
    */
   plugins: [
+    'prefer-arrow',
     // see ../.eslintrc-ts.js
   ],
   rules: {

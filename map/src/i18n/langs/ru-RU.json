@@ -43,8 +43,8 @@
     "screen": {
       "title": "Добавить информацию на карту",
       "information": {
-        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, financial, etc.) and COVID-19 Vaccination Clinics.",
-        "moreInformation": "We aren't able to accept information about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
+        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
+        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Пожалуйста, заполните приведенную ниже форму, чтобы начать добавлять информацию, после этого мы попросим вас указать местоположение и контактную информацию.",
         "form": {
           "type": "Тип проекта/группы / организация/инициатива",
@@ -136,6 +136,7 @@
     "support": "Поддержка",
     "network": "Контакты",
     "supplies": "Другие ресурсы",
+    "vaccine": "Vaccinations",
     "other": "Другое"
   },
   "serviceDescriptions": {
@@ -143,26 +144,28 @@
     "shelter": "Shelter for the homeless and those who need it",
     "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
     "oxygen": "Oxygen cylinders or refills",
-    "medicine": "COVID-19 medicines like remdesivir",
+    "medicine": "COVID-19 medicines like Remdesivir",
     "home-care": "Home care for the elderly",
     "blood": "Plasma / Blood transfusions",
     "quarantine": "Quarantine Centres",
     "telehealth": "Telehealth/teleconsultation services",
     "financial": "Donations and fundraising",
     "mobility": "Перемещение людей из одной точки в другую",
-    "information": "Помогите людям найти необходимую информацию",
+    "information": "Help people find relevant information",
     "manufacturing": "Обеспечивает поставки или производственные мощности, необходимые для преодоления кризиса",
     "support": "• оказание поддержки конкретным уязвимым группам, например бездомным людям, группам риска, связанным с бытовым насилием, и т.д. ...",
     "network": "Прогнозируемые ресурсы для создания сетей по оказанию помощи, например между организациями по оказанию взаимной помощи",
     "supplies": "Принадлежности, отличные от продуктов питания или лекарств",
+    "vaccine": "Verified vaccination site",
     "other": "Что-то еще не в этом списке"
   },
   "markerTypes": {
     "mutual-aid-group": "Группа взаимопомощи",
     "org": "Организация / Компания",
+    "hospital": "Hospital",
+    "medical": "Medical Service",
+    "company": "Company",
     "individual": "Individual",
-    "financial": "Финансирование",
-    "information": "Информация",
     "other": "Другое"
   },
   "markerTypeSentence": {
