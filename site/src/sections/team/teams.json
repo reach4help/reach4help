@@ -1,6 +1,7 @@
 [
   {
     "title": "Management",
+    "color": "#f0ebff",
     "members": [
       {
         "name": "Shayan Chowdhury",
@@ -55,6 +56,7 @@
   },
   {
     "title": "Development",
+    "color": "#ddf1f0",
     "members": [
       {
         "name": "Katherine Rodriguez",
@@ -95,8 +97,7 @@
       {
         "name": "Hajar Nasr",
         "avatar_url": "https://avatars0.githubusercontent.com/u/43115763?v=4",
-        "contact": "https://github.com/hajarNasr",
-        "countries": ["BD"]
+        "contact": "https://github.com/hajarNasr"
       },
       {
         "name": "Daniel Lima",
@@ -197,6 +198,7 @@
   },
   {
     "title": "Design",
+    "color": "#fff8e7",
     "members": [
       {
         "name": "Riddhi Sangani",
@@ -221,11 +223,6 @@
         "contact": "https://www.linkedin.com/in/samantha-uebel-uxdesigner/"
       },
       {
-        "name": "Shaina Danzinger",
-        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01FGNACPD0-a8f3d2c29428-512",
-        "contact": ""
-      },
-      {
         "name": "Mayra Vargas",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01DXHXCTV4-2f624eac4081-512",
         "contact": ""
@@ -243,7 +240,7 @@
       },
       {
         "name": "Rita Serra",
-        "avatar_url": "https://avatars1.githubusercontent.com/u/62537457?v=4",
+        "avatar_url": "https://media-exp1.licdn.com/dms/image/C5603AQEAf3y32upBXw/profile-displayphoto-shrink_400_400/0/1620326982590?e=1642032000&v=beta&t=Uj84dOVRkLzxfiTXlwTAnNP8ypXzkAyDyl6zu8sb2D4",
         "contact": "https://github.com/r13serra11"
       },
       {
@@ -260,6 +257,7 @@
   },
   {
     "title": "Marketing",
+    "color": "#ffebff",
     "members": [
       {
         "name": "Jamie Dubow",
@@ -290,6 +288,7 @@
   },
   {
     "title": "Product",
+    "color": "#fdebde",
     "members": [
       {
         "name": "Despot Jakimovski",
