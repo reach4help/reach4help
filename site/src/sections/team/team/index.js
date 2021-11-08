@@ -37,14 +37,16 @@ function Team() {
                     <b>{member.name}</b>
                   </h3>
                   <p>{member.title}</p>
-                  <div className="flags">
-                    {member.countries?.map(country => (
-                      <Flag
-                        key={country.id}
-                        code={country}
-                        title={CountryCodeMap[country]}
-                      />
-                    ))}
+                  <div>
+                    <div className="flags">
+                      {member.countries?.map(country => (
+                        <Flag
+                          key={country.id}
+                          code={country}
+                          title={CountryCodeMap[country]}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </a>
               )
