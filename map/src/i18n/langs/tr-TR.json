@@ -118,6 +118,7 @@
   },
   "loading": "Yükleniyor...",
   "filterBy": "Filtrele:",
+  "noOptions": "No Options",
   "services": {
     "any": "Tümü",
     "food": "Gıda / Yiyecek",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Haritadaki bir bölgeye geç...",
     "updateResultsForThisArea": "Bu bölge için sonuçları göster",
     "myLocation": "Konumum"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Back to results",
