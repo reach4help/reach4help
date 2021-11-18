@@ -45,14 +45,13 @@ export default styled(Search)`
     background: #fff;
     border: 1px solid ${p => p.theme.colors.borderBase};
     outline: none;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 20px;
     padding: 6px 8px;
     border-radius: 4px;
 
     ::placeholder {
-      color: ${p => p.theme.colors.gray};
-      opacity: 0.75;
+      color: rgba(0, 0, 0, 0.45);
     }
 
     &:focus {
