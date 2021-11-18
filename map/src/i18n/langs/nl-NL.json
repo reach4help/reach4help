@@ -118,7 +118,6 @@
   },
   "loading": "Bezig met laden...",
   "filterBy": "Filteren op",
-  "noOptions": "No Options",
   "services": {
     "any": "Elke",
     "food": "Voedsel",
@@ -178,19 +177,6 @@
     "jumpToLocation": "Spring naar een locatie op de kaart...",
     "updateResultsForThisArea": "Update de resultaten voor dit gebied",
     "myLocation": "Mijn locatie"
-  },
-  "controls": {
-    "openSearch": "View search fields and filters",
-    "closeSearch": "Hide controls"
-  },
-  "filterForm": {
-    "title": "Filter Markers",
-    "searchBox": "Search by keyword...",
-    "org": "Organization Type",
-    "service": "Services Offered",
-    "visibility": "Visibility",
-    "search": "Search",
-    "select": "Select..."
   },
   "results": {
     "backToResults": "Ga terug naar resultaat",
