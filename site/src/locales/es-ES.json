@@ -21,10 +21,7 @@
           "Usa el mapa para encontrar y unirte a esfuerzos de ayuda mutua cerca de ti o para crear el tuyo.",
           "Si eres una organización de ayuda, añade tu información al mapa para que otros puedan encontrarte."
         ],
-        "buttons": [
-          "Obtén Ayuda",
-          "Ofrece Ayuda"
-        ]
+        "buttons": ["Obtén Ayuda", "Ofrece Ayuda"]
       },
       "ReasonsSection": {
         "heading": "Por Qué Usar Reach4Help",
@@ -107,9 +104,7 @@
         "heading": "Acerca de",
         "subheading": "Somos un grupo de voluntarios impulsados a unificar la ayuda en todo el mundo",
         "paragraph": "¡Conoce las mentes detrás de esta iniciativa y únete a nosotros!",
-        "buttons": [
-          "Más Acerca de Nosotros"
-        ]
+        "buttons": ["Más Acerca de Nosotros"]
       },
       "SupportersSection": {
         "heading": "Colaboradores",
@@ -129,10 +124,7 @@
     },
     "ImpactPage": {
       "WorldMapSection": {
-        "heading": [
-          "We're helping people",
-          "across 38 countries!"
-        ],
+        "heading": ["We're helping people", "across 38 countries!"],
         "hoverInfo": {
           "users": "Users: ",
           "noUsers": "No users yet <br/> (maybe you?)"
@@ -151,9 +143,7 @@
         "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
       "join": "Interested in joining us?",
-      "buttons": [
-        "Join us on our mission!"
-      ]
+      "buttons": ["Join us on our mission!"]
     },
     "Footer": {
       "sections": [

@@ -474,10 +474,29 @@
       ]
     },
     {
+      "login": "tzou2024",
+      "name": "Trevor Zou",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78239895?v=4",
+      "profile": "https://github.com/tzou2024",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
+    },
+    {
       "login": "ssameghini",
       "name": "Sebastián Sameghini",
       "avatar_url": "https://avatars.githubusercontent.com/u/9827845?v=4",
       "profile": "https://github.com/ssameghini",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jensren",
+      "name": "jensren",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41408654?v=4",
+      "profile": "https://github.com/jensren",
       "contributions": [
         "code"
       ]
