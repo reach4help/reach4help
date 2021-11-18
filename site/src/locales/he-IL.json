@@ -21,7 +21,10 @@
           "השתמש.י במפה כדי למצוא ולהצטרף למאמצי העזרה ההדדית הקרובים אליך, או שאת.ה יכול.ה ליצור כאלה בעצמך.",
           "ארגוני עזרה, הוסיפו מידע על עצמכם כדי שאנשים יוכלו למצוא אתכם."
         ],
-        "buttons": ["קבלו עזרה", "התנדבות"]
+        "buttons": [
+          "קבלו עזרה",
+          "התנדבות"
+        ]
       },
       "ReasonsSection": {
         "heading": "למה להשתמש בReach4Help",
@@ -104,7 +107,9 @@
         "heading": "אודות",
         "subheading": "אנחנו קבוצה של מתנדבים ומתנדבות ששואפים לאחד את העזרה ברחבי העולם.",
         "paragraph": "בואו לפגוש את הראשים שמאחורי היוזמה ולהצטרף אלינו!",
-        "buttons": ["עוד עלינו"]
+        "buttons": [
+          "עוד עלינו"
+        ]
       },
       "SupportersSection": {
         "heading": "תמיכה",
@@ -124,7 +129,10 @@
     },
     "ImpactPage": {
       "WorldMapSection": {
-        "heading": ["אנחנו עוזרים לאנשים", "ב38 מדינות!"],
+        "heading": [
+          "אנחנו עוזרים לאנשים",
+          "ב38 מדינות!"
+        ],
         "hoverInfo": {
           "users": "משתמשים.ות:",
           "noUsers": "אין משתמשים עדיין <br/> (אולי את.ה?)"
@@ -143,7 +151,9 @@
         "דרושים לנו מתנדבים בתחומים הבאים: מפתחי react.js, שיווק/אסטרטגיות PR ומעצבי UI/UX כדי להקפיץ ברמה את המאמצים שלנו לתמוך בקהילות נזקקות בזמן המגפה ובמשברים עתידיים."
       ],
       "join": "רוצה להצטרף אלינו?",
-      "buttons": ["בואו והצטרפו אלינו במשימה שלנו!"]
+      "buttons": [
+        "בואו והצטרפו אלינו במשימה שלנו!"
+      ]
     },
     "Footer": {
       "sections": [
@@ -159,7 +169,10 @@
     },
     "404": {
       "heading": "404 העמוד לא נמצא",
-      "description": ["עלית על תקלה...", "או שאת.ה פשוט משתטה 🤡"],
+      "description": [
+        "עלית על תקלה...",
+        "או שאת.ה פשוט משתטה 🤡"
+      ],
       "linkBackToHome": "חזרה לדף הבית"
     }
   }
