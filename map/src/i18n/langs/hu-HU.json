@@ -118,6 +118,7 @@
   },
   "loading": "Betöltés...",
   "filterBy": "Szűrés:",
+  "noOptions": "No Options",
   "services": {
     "any": "Bármely",
     "food": "Élelmiszer",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Ugrás a térképen elhelyezett pontra...",
     "updateResultsForThisArea": "A terület eredményeinek frissítése",
     "myLocation": "Saját pozíció"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Vissza az eredményekhez",
