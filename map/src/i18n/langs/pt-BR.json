@@ -118,6 +118,7 @@
   },
   "loading": "Carregando...",
   "filterBy": "Filtrar por:",
+  "noOptions": "No Options",
   "services": {
     "any": "Qualquer",
     "food": "Comida",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Jump to a location on the map...",
     "updateResultsForThisArea": "Update results for this area",
     "myLocation": "My Location"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Back to results",
