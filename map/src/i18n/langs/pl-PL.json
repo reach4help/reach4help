@@ -118,6 +118,7 @@
   },
   "loading": "Wczytywanie...",
   "filterBy": "Filtruj według:",
+  "noOptions": "No Options",
   "services": {
     "any": "Any",
     "food": "Żywność",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Przejdź do lokalizacji na mapie...",
     "updateResultsForThisArea": "Aktualizuj wyniki dla tego obszaru",
     "myLocation": "Moja Lokalizacja"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Przejdź do wyników",
