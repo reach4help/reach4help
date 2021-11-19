@@ -118,6 +118,7 @@
   },
   "loading": "読み込んでいます.",
   "filterBy": "Filter by:",
+  "noOptions": "No Options",
   "services": {
     "any": "任意の",
     "food": "食料",
@@ -177,6 +178,19 @@
     "jumpToLocation": "地図上の場所に移動...",
     "updateResultsForThisArea": "このエリアの結果を更新",
     "myLocation": "自分の場所"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "結果に戻る",
