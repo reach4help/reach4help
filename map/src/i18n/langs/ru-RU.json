@@ -118,6 +118,7 @@
   },
   "loading": "Загружается...",
   "filterBy": "Фильтровать по:",
+  "noOptions": "No Options",
   "services": {
     "any": "Все",
     "food": "Продовольствие",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Показать на карте...",
     "updateResultsForThisArea": "Обновить результаты для этой области",
     "myLocation": "Мое местоположение"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Назад к результатам",
