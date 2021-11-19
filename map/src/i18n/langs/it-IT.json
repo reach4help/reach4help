@@ -118,6 +118,7 @@
   },
   "loading": "Caricamento...",
   "filterBy": "Filtra per:",
+  "noOptions": "No Options",
   "services": {
     "any": "Qualsiasi",
     "food": "Cibo",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Vai a una posizione sulla mappa...",
     "updateResultsForThisArea": "Aggiorna i risultati per questa area",
     "myLocation": "La mia Posizione"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Torna ai risultati",
