@@ -7,7 +7,7 @@ export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
     center: query.map
       ? query.map.pos
       : {
-          // TODO: calculate based off average of dataDriver data
+          // TODO: calculate based off average of firebase data
           lat: 40.5055,
           lng: -89.8734,
         },

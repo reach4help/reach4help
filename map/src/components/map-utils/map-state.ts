@@ -5,11 +5,11 @@
 import { Filter } from 'src/state';
 
 export interface ActiveMarkers {
-  /** map from data driver id to marker */
-  dataDriverData: Map<string, google.maps.Marker>;
+  /** map from firebase id to marker */
+  firebase: Map<string, google.maps.Marker>;
 }
 
-export const MARKER_SET_KEYS: Array<keyof ActiveMarkers> = ['dataDriverData'];
+export const MARKER_SET_KEYS: Array<keyof ActiveMarkers> = ['firebase'];
 
 export interface MapInfo {
   map: google.maps.Map;

@@ -84,16 +84,13 @@ export const MARKER_TYPES = {
   individual: {
     color: COLORS.green,
   },
-  financial: {
-    color: COLORS.yellow,
-  },
-  information: {
-    color: COLORS.orange,
-  },
+  // financial: {
+  //   color: COLORS.green,
+  // },
+  // information: {
+  //   color: COLORS.purple,
+  // },
   other: {
     color: COLORS.orange,
-  },
-  notFound: {
-    color: COLORS.yellow,
   },
 };
