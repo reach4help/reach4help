@@ -1,6 +1,7 @@
 [
   {
     "title": "Management",
+    "color": "#f0ebff",
     "members": [
       {
         "name": "Shayan Chowdhury",
@@ -55,17 +56,12 @@
   },
   {
     "title": "Development",
+    "color": "#ddf1f0",
     "members": [
       {
         "name": "Katherine Rodriguez",
         "avatar_url": "",
         "contact": "https://github.com/edmkitty",
-        "countries": ["US"]
-      },
-      {
-        "name": "Tim Leonard",
-        "avatar_url": "https://avatars.githubusercontent.com/u/69484330?v=4?s=100",
-        "contact": "https://github.com/iamtimleonard",
         "countries": ["US"]
       },
       {
@@ -81,12 +77,6 @@
         "countries": ["US"]
       },
       {
-        "name": "Alex Ball",
-        "avatar_url": "https://avatars3.githubusercontent.com/u/8595776?v=4",
-        "contact": "https://github.com/alexjball",
-        "countries": ["US"]
-      },
-      {
         "name": "Warisul Imam",
         "avatar_url": "https://avatars2.githubusercontent.com/u/57336955?v=4",
         "contact": "https://github.com/leadersheir",
@@ -96,13 +86,7 @@
         "name": "Hajar Nasr",
         "avatar_url": "https://avatars0.githubusercontent.com/u/43115763?v=4",
         "contact": "https://github.com/hajarNasr",
-        "countries": ["BD"]
-      },
-      {
-        "name": "Daniel Lima",
-        "avatar_url": "https://avatars.githubusercontent.com/u/43587144?v=4",
-        "contact": "https://github.com/Danieleclima",
-        "countries": ["GB"]
+        "countries": ["QA"]
       },
       {
         "name": "David Alecrim",
@@ -129,9 +113,16 @@
         "countries": ["US"]
       },
       {
+        "name": "Rongkai Liu",
+        "avatar_url": "https://avatars2.githubusercontent.com/u/15906981?v=4",
+        "contact": "http://codingeric.com",
+        "countries": ["US", "HK"]
+      },
+      {
         "name": "Madhvi Sharma",
         "avatar_url": "https://avatars1.githubusercontent.com/u/5454024?v=4",
-        "contact": "https://github.com/sharmmad"
+        "contact": "https://github.com/sharmmad",
+        "countries": ["US", "IN"]
       },
       {
         "name": "Sean Spade",
@@ -140,20 +131,16 @@
         "countries": ["US"]
       },
       {
+        "name": "Alex Ball",
+        "avatar_url": "https://avatars3.githubusercontent.com/u/8595776?v=4",
+        "contact": "https://github.com/alexjball",
+        "countries": ["US"]
+      },
+      {
         "name": "Thomas Huynh",
         "avatar_url": "https://avatars1.githubusercontent.com/u/16145617?v=4",
-        "contact": "https://github.com/thomas-t-huynh"
-      },
-      {
-        "name": "Juozas Gaigalas",
-        "avatar_url": "https://avatars3.githubusercontent.com/u/4100?v=4",
-        "contact": "https://github.com/juozasg"
-      },
-      {
-        "name": "Rongkai Liu",
-        "avatar_url": "https://avatars2.githubusercontent.com/u/15906981?v=4",
-        "contact": "http://codingeric.com",
-        "countries": ["US", "HK"]
+        "contact": "https://github.com/thomas-t-huynh",
+        "countries": ["US"]
       },
       {
         "name": "Alex Vanino",
@@ -163,46 +150,58 @@
         "countries": ["US"]
       },
       {
-        "name": "Stephen Sharp",
-        "avatar_url": "https://avatars0.githubusercontent.com/u/43449026?v=4",
-        "contact": "https://github.com/14ssharp"
-      },
-      {
         "name": "Divyesh Parmar",
         "avatar_url": "https://avatars3.githubusercontent.com/u/8810813?v=4",
         "contact": "https://github.com/Tapudp",
         "countries": ["IN"]
       },
       {
-        "name": "Ansh Saini",
-        "avatar_url": "https://avatars1.githubusercontent.com/u/32511936?v=4",
-        "contact": "https://ansh-saini.github.io"
-      },
-      {
-        "name": "Danai Nanou",
-        "avatar_url": "https://avatars2.githubusercontent.com/u/22467291?v=4",
-        "contact": "https://www.linkedin.com/in/dnanou/"
-      },
-      {
         "name": "Hazal Büşra Yoleri",
         "avatar_url": "https://avatars3.githubusercontent.com/u/39515623?v=4",
-        "contact": "https://github.com/HazalYoleri"
+        "contact": "https://github.com/HazalYoleri",
+        "countries": ["TR"]
       },
       {
         "name": "Crue Jameson (Eric Gerlach)",
         "avatar_url": "https://avatars1.githubusercontent.com/u/60672128?v=4",
-        "contact": "http://cruejameson.com"
+        "contact": "http://cruejameson.com",
+        "countries": ["US"]
       }
     ]
   },
   {
     "title": "Design",
+    "color": "#fff8e7",
     "members": [
+      {
+        "name": "Rita Serra",
+        "avatar_url": "https://media-exp1.licdn.com/dms/image/C5603AQEAf3y32upBXw/profile-displayphoto-shrink_400_400/0/1620326982590?e=1642032000&v=beta&t=Uj84dOVRkLzxfiTXlwTAnNP8ypXzkAyDyl6zu8sb2D4",
+        "contact": "https://github.com/r13serra11",
+        "countries": ["PT"]
+      },
+      {
+        "name": "Cinthya Jauregui",
+        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U010LS54HD4-d62810bce698-512",
+        "contact": "https://github.com/cinthyaejh",
+        "countries": ["US"]
+      },
+      {
+        "name": "Telmo Dias",
+        "avatar_url": "https://avatars1.githubusercontent.com/u/30916?v=4",
+        "contact": "https://github.com/telmodias",
+        "countries": ["PT", "DE"]
+      },
+      {
+        "name": "Samantha Uebel",
+        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U019GRKMCH1-b09e1ad189bd-512",
+        "contact": "https://www.linkedin.com/in/samantha-uebel-uxdesigner/",
+        "countries": ["US"]
+      },
       {
         "name": "Riddhi Sangani",
         "avatar_url": "",
         "contact": "",
-        "countries": ["US"]
+        "countries": ["US", "IN"]
       },
       {
         "name": "Rebeka Kukusheva",
@@ -211,105 +210,58 @@
         "countries": ["DE"]
       },
       {
-        "name": "Siva Krishna",
-        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U019QLQU61L-97ee6ecfda56-512",
-        "contact": ""
-      },
-      {
-        "name": "Samantha Uebel",
-        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U019GRKMCH1-b09e1ad189bd-512",
-        "contact": "https://www.linkedin.com/in/samantha-uebel-uxdesigner/"
-      },
-      {
-        "name": "Shaina Danzinger",
-        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01FGNACPD0-a8f3d2c29428-512",
-        "contact": ""
-      },
-      {
-        "name": "Mayra Vargas",
-        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01DXHXCTV4-2f624eac4081-512",
-        "contact": ""
-      },
-      {
         "name": "Brian Dang",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01GT6M6GGJ-17ec6940a306-512",
         "contact": "https://briandang.co/",
         "countries": ["CA", "VN"]
-      },
-      {
-        "name": "Crystal Li",
-        "avatar_url": "",
-        "contact": ""
-      },
-      {
-        "name": "Rita Serra",
-        "avatar_url": "https://avatars1.githubusercontent.com/u/62537457?v=4",
-        "contact": "https://github.com/r13serra11"
-      },
-      {
-        "name": "Cinthya Jauregui",
-        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U010LS54HD4-d62810bce698-512",
-        "contact": "https://github.com/cinthyaejh"
-      },
-      {
-        "name": "Telmo Dias",
-        "avatar_url": "https://avatars1.githubusercontent.com/u/30916?v=4",
-        "contact": "https://github.com/telmodias"
       }
     ]
   },
   {
     "title": "Marketing",
+    "color": "#ffebff",
     "members": [
       {
         "name": "Jamie Dubow",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01AGS6RA2D-19f552e32170-512",
-        "contact": ""
+        "contact": "",
+        "countries": ["US"]
       },
       {
         "name": "Shafaat Razin",
         "avatar_url": "/images/team/shafaat-razin.jpg",
-        "contact": ""
-      },
-      {
-        "name": "Janiya Riley",
-        "avatar_url": "",
-        "contact": ""
-      },
-      {
-        "name": "Anna Busch",
-        "avatar_url": "",
-        "contact": ""
+        "contact": "",
+        "countries": ["BD"]
       },
       {
         "name": "Patricia Miranda",
         "avatar_url": "https://avatars1.githubusercontent.com/u/62437898?v=4",
-        "contact": "https://github.com/PatriciaMiranda"
+        "contact": "https://github.com/PatriciaMiranda",
+        "countries": ["PT"]
       }
     ]
   },
   {
     "title": "Product",
+    "color": "#fdebde",
     "members": [
       {
         "name": "Despot Jakimovski",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01DF0XUN94-a133244be06c-512",
-        "contact": "mailto:despot.jakimovski@reach4help.org"
+        "contact": "mailto:despot.jakimovski@reach4help.org",
+        "countries": ["MK"]
       },
       {
         "name": "Ken Harlan",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U017DHDPQTD-0956a4e11952-512",
-        "contact": "https://www.linkedin.com/in/kenharlan07/"
+        "contact": "https://www.linkedin.com/in/kenharlan07/",
+        "countries": ["US"]
       },
       {
         "name": "Javier Gorostiaga",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U017SD87G81-4dd55b7d1a9f-512",
-        "contact": "https://github.com/gorostiaga"
-      },
-      {
-        "name": "Iyshwarya",
-        "avatar_url": "",
-        "contact": ""
+        "contact": "https://github.com/gorostiaga",
+        "countries": ["BO"]
       },
       {
         "name": "Esther Handy-Malouin",

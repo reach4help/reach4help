@@ -13,74 +13,37 @@ interface Props {
 
 const MarkerTypeDisplay = ({ className, type }: Props) => {
   const { services } = type;
-  if (type.type) {
-    return (
-      <AppContext.Consumer>
-        {({ lang }) => (
-          <div className={`${className} ${services ? 'services' : ''}`}>
-            <span
-              style={{
-                backgroundColor:
-                  MARKER_TYPES[type.type]?.color || MARKER_TYPES.notFound.color,
-              }}
-            >
-              <span className="label">
-                {t(lang, s => s.markerTypes[type.type] || type.type)}
-              </span>
-              {services && (
-                <span className="services">
-                  {services.map(service => (
-                    <span
-                      key={service}
-                      style={{
-                        backgroundColor:
-                          SERVICES[service]?.color || SERVICES.other.color,
-                      }}
-                    >
-                      {t(lang, s => s.services[service] || service)}
-                    </span>
-                  ))}
-                </span>
-              )}
-            </span>
-          </div>
-        )}
-      </AppContext.Consumer>
-    );
-  }
-  if (services) {
-    return (
-      <AppContext.Consumer>
-        {({ lang }) => (
-          <div
-            className={`${className} ${services ? 'services' : ''}`}
+  return (
+    <AppContext.Consumer>
+      {({ lang }) => (
+        <div className={`${className} ${services ? 'services' : ''}`}>
+          <span
             style={{
-              marginTop: '0',
+              backgroundColor: MARKER_TYPES[type.type].color,
             }}
           >
-            <span>
-              {services && (
-                <span className="services">
-                  {services.map(service => (
-                    <span
-                      key={service}
-                      style={{
-                        backgroundColor:
-                          SERVICES[service]?.color || SERVICES.other.color,
-                      }}
-                    >
-                      {t(lang, s => s.services[service] || service)}
-                    </span>
-                  ))}
-                </span>
-              )}
+            <span className="label">
+              {t(lang, s => s.markerTypes[type.type])}
             </span>
-          </div>
-        )}
-      </AppContext.Consumer>
-    );
-  }
-  return null;
+            {services && (
+              <span className="services">
+                {services.map(service => (
+                  <span
+                    key={service}
+                    style={{
+                      backgroundColor: SERVICES[service].color,
+                    }}
+                  >
+                    {t(lang, s => s.services[service])}
+                  </span>
+                ))}
+              </span>
+            )}
+          </span>
+        </div>
+      )}
+    </AppContext.Consumer>
+  );
 };
 
 export default styled(MarkerTypeDisplay)`

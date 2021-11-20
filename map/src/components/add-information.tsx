@@ -7,6 +7,7 @@ import {
   Service,
   SERVICE_STRINGS,
 } from '@reach4help/model/lib/markers/type';
+import firebase from 'firebase/app';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import React from 'react';
@@ -19,8 +20,7 @@ import {
   MdRefresh,
 } from 'react-icons/md';
 import Search from 'src/components/search';
-import { addMarker, LocationType, MarkerInfoType } from 'src/data/dataDriver';
-import { R4HGeoPoint } from 'src/data/R4HGeoPoint';
+import { Location, MarkerInfo, submitInformation } from 'src/data/firebase';
 import { format, Language, t } from 'src/i18n';
 import { AddInfoStep, Page } from 'src/state';
 import { isDefined, RecursivePartial } from 'src/util';
@@ -67,7 +67,7 @@ interface Props {
 }
 
 interface State {
-  info: RecursivePartial<MarkerInfoType>;
+  info: RecursivePartial<MarkerInfo>;
   /**
    * Store URLs in state separately as it's easier to manipulate as an array
    */
@@ -77,9 +77,8 @@ interface State {
       url: string;
     }>;
   };
-  validation?: Validation | undefined;
+  validation?: Validation;
   submissionResult?:
-    | undefined
     | { state: 'success' }
     | { state: 'error'; error: (lang: Language) => string | JSX.Element[] };
 }
@@ -108,8 +107,8 @@ const isCompleteMarkerType = (
 };
 
 const isCompleteMarkerLocation = (
-  loc: RecursivePartial<LocationType> | undefined,
-): loc is LocationType =>
+  loc: RecursivePartial<Location> | undefined,
+): loc is Location =>
   !!loc &&
   loc.description !== undefined &&
   loc.latlng?.latitude !== undefined &&
@@ -122,9 +121,9 @@ const displayKm = (lang: Language, meters: number): string =>
     miles: ((meters / 1000) * 0.621371).toFixed(2),
   });
 
-type ContactType = keyof MarkerInfoType['contact'];
+type ContactType = keyof MarkerInfo['contact'];
 const CONTACT_TYPES: ContactType[] = ['general', 'getHelp', 'volunteers'];
-type ContactMethod = keyof (MarkerInfoType['contact'][ContactType] & {});
+type ContactMethod = keyof (MarkerInfo['contact'][ContactType] & {});
 const CONTACT_METHODS: ContactMethod[] = [
   'email',
   'facebookGroup',
@@ -170,16 +169,6 @@ const extractContactInputIdData = (target: HTMLElement) => {
 };
 
 type ContactInputIdData = ReturnType<typeof extractContactInputIdData>;
-
-const removeUndefined = (array: (string | undefined)[]): string[] => {
-  const retVal = [] as string[];
-  array.forEach(element => {
-    if (element) {
-      retVal.push(element);
-    }
-  });
-  return retVal;
-};
 
 class AddInstructions extends React.Component<Props, State> {
   private markerInfo: MarkerInputInfo | null = null;
@@ -252,7 +241,7 @@ class AddInstructions extends React.Component<Props, State> {
     this.mapsListeners.forEach(l => l.remove());
     this.mapsListeners.clear();
     map.setOptions({
-      draggableCursor: undefined || '',
+      draggableCursor: undefined,
     });
   };
 
@@ -261,11 +250,10 @@ class AddInstructions extends React.Component<Props, State> {
     if (!map) {
       return;
     }
-    const updateLoc = (loc: google.maps.LatLng) => {
+    const updateLoc = (loc: google.maps.LatLng) =>
       this.setInfoValues({
-        loc: { latlng: new R4HGeoPoint(loc.lat(), loc.lng()) },
+        loc: { latlng: new firebase.firestore.GeoPoint(loc.lat(), loc.lng()) },
       });
-    };
     if (addInfoStep === 'place-marker') {
       if (!this.markerInfo) {
         const bounds = map.getBounds();
@@ -304,18 +292,15 @@ class AddInstructions extends React.Component<Props, State> {
       } else {
         this.markerInfo.circle.setCenter(evt.latLng);
       }
-
       updateLoc(evt.latLng);
     }
   };
 
-  private setInfoValues = (newInfo: RecursivePartial<MarkerInfoType>) => {
+  private setInfoValues = (newInfo: RecursivePartial<MarkerInfo>) => {
     this.setState(({ info }) => ({ info: merge({}, info, newInfo) }));
   };
 
-  private setInfo = (
-    mutate: (info: RecursivePartial<MarkerInfoType>) => void,
-  ) => {
+  private setInfo = (mutate: (info: RecursivePartial<MarkerInfo>) => void) => {
     this.setState(({ info }) => {
       // eslint-disable-next-line no-param-reassign
       info = cloneDeep(info);
@@ -336,7 +321,7 @@ class AddInstructions extends React.Component<Props, State> {
         } else {
           this.setInfo(info => {
             // eslint-disable-next-line no-param-reassign
-            info.type = {};
+            info.type = undefined;
           });
         }
         break;
@@ -460,7 +445,7 @@ class AddInstructions extends React.Component<Props, State> {
     }
   };
 
-  private getCompleteInformation = (): MarkerInfoType | null => {
+  private getCompleteInformation = (): MarkerInfo | null => {
     const { info, urls } = this.state;
     if (
       !info.contentTitle ||
@@ -476,10 +461,10 @@ class AddInstructions extends React.Component<Props, State> {
       const typeInfo = info.contact[type];
       if (typeInfo) {
         if (typeInfo.email) {
-          completeTypeInfo.email = removeUndefined(typeInfo.email);
+          completeTypeInfo.email = typeInfo.email.filter(isDefined);
         }
         if (typeInfo.phone) {
-          completeTypeInfo.phone = removeUndefined(typeInfo.phone);
+          completeTypeInfo.phone = typeInfo.phone.filter(isDefined);
         }
       }
       const typeUrls = urls[type];
@@ -493,7 +478,7 @@ class AddInstructions extends React.Component<Props, State> {
         contact[type] = completeTypeInfo;
       }
     }
-    const completeInfo: MarkerInfoType = {
+    const completeInfo: MarkerInfo = {
       contentTitle: info.contentTitle,
       type: info.type,
       loc: info.loc,
@@ -585,7 +570,7 @@ class AddInstructions extends React.Component<Props, State> {
             },
           });
         } else {
-          addMarker(completeInfo, false).then(
+          submitInformation(completeInfo).then(
             () => this.setState({ submissionResult: { state: 'success' } }),
             error =>
               this.setState({
@@ -636,7 +621,7 @@ class AddInstructions extends React.Component<Props, State> {
           type="text"
           id={input}
           name={input}
-          placeholder={placeholder || ''}
+          placeholder={placeholder}
           onChange={this.handleInputChange}
           value={value}
         />
@@ -650,7 +635,6 @@ class AddInstructions extends React.Component<Props, State> {
   }) => {
     const { lang } = this.props;
     const { previousScreen, nextScreen, nextLabel = 'continue' } = opts;
-    const nextScreenFunc = nextScreen;
     return (
       <div className="actions">
         {previousScreen && (
@@ -666,7 +650,7 @@ class AddInstructions extends React.Component<Props, State> {
             <div className="grow" />
           </>
         )}
-        <button type="submit" className="next-button" onClick={nextScreenFunc}>
+        <button type="submit" className="next-button" onClick={nextScreen}>
           {t(lang, s => s.addInformation[nextLabel])}
           <MdChevronRight className="icon icon-end" />
         </button>
@@ -687,7 +671,7 @@ class AddInstructions extends React.Component<Props, State> {
       this.setInfo(info => {
         const arr = info.contact?.[type]?.[method] || [];
         arr[i] = target.value;
-        const newInfo: RecursivePartial<MarkerInfoType> = {
+        const newInfo: RecursivePartial<MarkerInfo> = {
           contact: { [type]: { [method]: arr } },
         };
         merge(info, newInfo);
@@ -723,18 +707,17 @@ class AddInstructions extends React.Component<Props, State> {
       if (method === 'phone' || method === 'email') {
         this.setInfo(info => {
           if (info.contact?.[type]) {
-            const arr = removeUndefined(info.contact?.[type]?.[method] || []);
+            const arr: string[] | undefined = (
+              info.contact?.[type]?.[method] || []
+            ).filter(isDefined);
             arr.splice(i, 1);
             // Remove array completely if empty
-            const infoContactObj = info.contact[type];
-            if (infoContactObj) {
-              if (arr.length === 0) {
-                // eslint-disable-next-line no-param-reassign
-                delete infoContactObj[method];
-              } else {
-                // eslint-disable-next-line no-param-reassign
-                infoContactObj[method] = arr;
-              }
+            if (arr.length === 0) {
+              // eslint-disable-next-line no-param-reassign
+              delete info.contact[type][method];
+            } else {
+              // eslint-disable-next-line no-param-reassign
+              info.contact[type][method] = arr;
             }
           }
         });
@@ -774,7 +757,7 @@ class AddInstructions extends React.Component<Props, State> {
               key={i}
               type={method === 'phone' ? 'tel' : 'email'}
               id={contactInputId(type, method, i)}
-              value={value || ''}
+              value={value}
               placeholder={t(
                 lang,
                 s => s.addInformation.screen.contactInfo.placeholder[method],
@@ -902,7 +885,7 @@ class AddInstructions extends React.Component<Props, State> {
     return (
       <AppContext.Consumer>
         {({ lang }) => (
-          <div className={className || ''}>
+          <div className={className}>
             {addInfoStep === 'information' && (
               <div className="screen">
                 <h2>{t(lang, s => s.addInformation.screen.title)}</h2>
@@ -966,6 +949,7 @@ class AddInstructions extends React.Component<Props, State> {
                       </select>
                     </>
                   ))}
+
                   {this.validatedInput(FORM_INPUT_NAMES.services, valid => {
                     if (!info.type?.type) {
                       return;
@@ -1013,6 +997,7 @@ class AddInstructions extends React.Component<Props, State> {
                       </>
                     );
                   })}
+
                   {info.type?.type === 'mutual-aid-group' && (
                     <p className="info-box">
                       {t(
@@ -1034,6 +1019,7 @@ class AddInstructions extends React.Component<Props, State> {
                       )}
                     </p>
                   )}
+
                   {info.type &&
                     info.type.type !== 'mutual-aid-group' &&
                     this.formTextInput(
@@ -1050,6 +1036,7 @@ class AddInstructions extends React.Component<Props, State> {
                             .namePlaceholder,
                       ),
                     )}
+
                   {info.type &&
                     info.type.type !== 'mutual-aid-group' &&
                     this.formTextInput(
@@ -1067,6 +1054,7 @@ class AddInstructions extends React.Component<Props, State> {
                             .namePlaceholder,
                       ),
                     )}
+
                   {info.type &&
                     info.type.type !== 'mutual-aid-group' &&
                     this.formTextInput(
@@ -1084,6 +1072,7 @@ class AddInstructions extends React.Component<Props, State> {
                             .locationNamePlaceholder,
                       ),
                     )}
+
                   {info.type && info.type.type !== 'mutual-aid-group' && (
                     <p>
                       {t(
@@ -1092,6 +1081,7 @@ class AddInstructions extends React.Component<Props, State> {
                       )}
                     </p>
                   )}
+
                   {validation && (
                     <ul className="errors">
                       {validation.errors.map((error, i) => (
@@ -1099,6 +1089,7 @@ class AddInstructions extends React.Component<Props, State> {
                       ))}
                     </ul>
                   )}
+
                   {this.actionButtons({})}
                 </form>
               </div>
@@ -1121,7 +1112,7 @@ class AddInstructions extends React.Component<Props, State> {
                         {error(lang)}
                       </p>
                     ))}
-                  action 2
+
                   {this.actionButtons({
                     previousScreen: 'information',
                     nextScreen: this.completeMarkerPlacement,
@@ -1146,6 +1137,7 @@ class AddInstructions extends React.Component<Props, State> {
                 </p>
                 <form onSubmit={this.completeContactInformation}>
                   {CONTACT_TYPES.map(type => this.contactTypeGroup(type))}
+
                   {validation && (
                     <ul className="errors">
                       {validation.errors.map((error, i) => (
@@ -1153,7 +1145,7 @@ class AddInstructions extends React.Component<Props, State> {
                       ))}
                     </ul>
                   )}
-                  action 3
+
                   {this.actionButtons({
                     previousScreen: 'place-marker',
                     nextLabel: 'submit',
