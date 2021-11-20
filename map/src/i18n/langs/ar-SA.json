@@ -118,7 +118,6 @@
   },
   "loading": "نحميل...",
   "filterBy": "تصنيف بحسب:",
-  "noOptions": "No Options",
   "services": {
     "any": "أي",
     "food": "تغذية",
@@ -178,19 +177,6 @@
     "jumpToLocation": "الانتقال إلى موقع على الخريطة...",
     "updateResultsForThisArea": "تحديث نتائج هذا المجال",
     "myLocation": "موقعي"
-  },
-  "controls": {
-    "openSearch": "View search fields and filters",
-    "closeSearch": "Hide controls"
-  },
-  "filterForm": {
-    "title": "Filter Markers",
-    "searchBox": "Search by keyword...",
-    "org": "Organization Type",
-    "service": "Services Offered",
-    "visibility": "Visibility",
-    "search": "Search",
-    "select": "Select..."
   },
   "results": {
     "backToResults": "العودة إلى النتائج",
