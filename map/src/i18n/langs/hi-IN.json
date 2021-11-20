@@ -118,7 +118,6 @@
   },
   "loading": "लोड हो रहा है...",
   "filterBy": "श्रेणी के अनुसार छाने",
-  "noOptions": "No Options",
   "services": {
     "any": "विभिन्न",
     "food": "खान पान",
@@ -178,19 +177,6 @@
     "jumpToLocation": "नक़्शे पर उचित स्थान पर जाएं...",
     "updateResultsForThisArea": "इस क्षेत्र के लिए नतीजे अपडेट करें",
     "myLocation": "मेरा स्थान"
-  },
-  "controls": {
-    "openSearch": "View search fields and filters",
-    "closeSearch": "Hide controls"
-  },
-  "filterForm": {
-    "title": "Filter Markers",
-    "searchBox": "Search by keyword...",
-    "org": "Organization Type",
-    "service": "Services Offered",
-    "visibility": "Visibility",
-    "search": "Search",
-    "select": "Select..."
   },
   "results": {
     "backToResults": "Back to results",
