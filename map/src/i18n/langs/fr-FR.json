@@ -118,7 +118,6 @@
   },
   "loading": "Chargement en cours...",
   "filterBy": "Filtrer par:",
-  "noOptions": "No Options",
   "services": {
     "any": "Tous",
     "food": "Alimentation",
@@ -178,19 +177,6 @@
     "jumpToLocation": "Aller à un emplacement sur la carte...",
     "updateResultsForThisArea": "Mettre à jour les résultats pour cette zone",
     "myLocation": "Ma position"
-  },
-  "controls": {
-    "openSearch": "View search fields and filters",
-    "closeSearch": "Hide controls"
-  },
-  "filterForm": {
-    "title": "Filter Markers",
-    "searchBox": "Search by keyword...",
-    "org": "Organization Type",
-    "service": "Services Offered",
-    "visibility": "Visibility",
-    "search": "Search",
-    "select": "Select..."
   },
   "results": {
     "backToResults": "Retour aux résultats",
