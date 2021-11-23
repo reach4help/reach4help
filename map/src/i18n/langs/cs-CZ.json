@@ -118,6 +118,7 @@
   },
   "loading": "Načítáva se...",
   "filterBy": "Filtrováno podle:",
+  "noOptions": "No Options",
   "services": {
     "any": "Jakýkoliv",
     "food": "Jídlo",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Přejít na místo na mapě...",
     "updateResultsForThisArea": "Aktualizovat výsledky pro tuto oblast",
     "myLocation": "Moje poloha"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Zpět na výsledky",
