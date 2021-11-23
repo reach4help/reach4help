@@ -2,178 +2,178 @@
   "common": {
     "Navigation": {
       "buttons": {
-        "map": "מפה של עזרה הדדית",
-        "signIn": "התחברות"
+        "map": "Mutual Aid Map",
+        "signIn": "Sign in"
       },
       "pages": {
-        "home": "דף הבית",
-        "mission": "משימה",
-        "impact": "השפעה",
-        "team": "קבוצה"
+        "home": "Home",
+        "mission": "Mission",
+        "impact": "Impact",
+        "team": "Team"
       }
     },
     "HomePage": {
       "HeroSection": {
-        "heading": "לחבר בין אנשים שזקוקים לעזרה לאנשים שיכולים לעזור",
-        "subheading": "אנחנו מחברים אותך למתנדבים מקומיים ולארגוני עזרה כשאת.ה הכי זקוק.ה להם.",
+        "heading": "Connecting people in need with people who can help",
+        "subheading": "We connect you with local volunteers and help organizations when you need it most.",
         "description": [
-          "במפה שלנו אפשר לראות רשימה הולכת וגדלה של ארגוני עזרה ופרויקטים לעזרה במגפה.",
-          "השתמש.י במפה כדי למצוא ולהצטרף למאמצי העזרה ההדדית הקרובים אליך, או שאת.ה יכול.ה ליצור כאלה בעצמך.",
-          "ארגוני עזרה, הוסיפו מידע על עצמכם כדי שאנשים יוכלו למצוא אתכם."
+          "Our map houses a growing list of aid organizations and pandemic care projects.",
+          "Use the map to find and join mutual aid efforts near you or create your own.",
+          "If you are an aid organization, add your information to the map so others can find you."
         ],
         "buttons": [
-          "קבלו עזרה",
-          "התנדבות"
+          "Get Help",
+          "Volunteer"
         ]
       },
       "ReasonsSection": {
-        "heading": "למה להשתמש בReach4Help",
+        "heading": "Why Use Reach4Help",
         "items": [
           {
-            "title": "החנות המרכזית",
-            "description": "אין צורך לבזבז שעות בחיפוש. קבלו עזרה מהר עם מאגר המידע שלנו על מתנדבים."
+            "title": "One-Stop Shop",
+            "description": "Don’t waste hours searching. Get help fast with our database of volunteers."
           },
           {
-            "title": "זמינים בקלות",
-            "description": "אפשר להשתמש באפליקציה שלנו על הדרך מכל מכשיר נייד, טאבלט, או מחשב."
+            "title": "Easily Available",
+            "description": "Use our app on the go from any mobile device, tablet, or desktop."
           },
           {
-            "title": "חינם לגמרי",
-            "description": "אין מנויים או עמלות נסתרות. אפשר לדפדף ולהעלות מידע בחינם."
+            "title": "Completely Free",
+            "description": "No subscriptions or hidden fees. You can browse and post for free."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "איך זה עובד",
+        "heading": "How Getting Help Works",
         "items": {
           "step1": {
-            "title": "צעד 1",
+            "title": "Step 1",
             "items": [
               {
-                "title": "בקשת עזרה",
-                "description": "ידע.י אותנו למה את.ה זקוק.ה ואנחנו נשלח את הבקשה שלך למתנדבים וארגונים מקומיים."
+                "title": "Request Help",
+                "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
               },
               {
-                "or": "או"
+                "or": "OR"
               },
               {
-                "title": "בחירת הצעה מהמתנדבים",
-                "description": "בחר.י הצעת עזרה מהמתנדבים באזורך."
+                "title": "Choose Volunteer Offer",
+                "description": "Pick an offer of help from volunteers in your area."
               }
             ]
           },
           "step2": {
-            "title": "צעד 2",
+            "title": "Step 2",
             "items": [
               {
-                "title": "תיאום קבלת עזרה",
-                "description": "מתנדב או מתנדבת ייצרו איתך קשר כדי לתאם את הבאת הפריטים שביקשת."
+                "title": "Coordinate Getting Help",
+                "description": "A volunteer will reach out to you to schedule delivery of your requested items."
               }
             ]
           }
         }
       },
       "VolunteeringSection": {
-        "heading": "איך עובדת ההתנדבות",
+        "heading": "How Volunteering Works",
         "items": {
           "step1": {
-            "title": "צעד 1",
+            "title": "Step 1",
             "items": [
               {
-                "title": "הצעת עזרה",
-                "description": "ידע.י אותנו במה את.ה יכול.ה לעזור, ואנחנו נקשר אותך למישהו או מישהי שצריכים את זה."
+                "title": "Offer Help",
+                "description": "Let us know what you can help with, and we'll connect you to someone who needs it."
               },
               {
-                "or": "או"
+                "or": "OR"
               },
               {
-                "title": "בחירה למי לעזור",
-                "description": "בחר.י באדם אחד או יותר שביכולתך לעזור להם."
+                "title": "Choose Who to Help",
+                "description": "Select one or more people in need whose requests you can fulfill."
               }
             ]
           },
           "step2": {
-            "title": "צעד 2",
+            "title": "Step 2",
             "items": [
               {
-                "title": "תיאום העזרה",
-                "description": "יש ליצור קשר ולתאם איסוף או הבאה של הפריטים."
+                "title": "Coordinate Helping",
+                "description": "Reach out and coordinate a pickup or delivery of the requested items."
               }
             ]
           }
         }
       },
       "AboutSection": {
-        "heading": "אודות",
-        "subheading": "אנחנו קבוצה של מתנדבים ומתנדבות ששואפים לאחד את העזרה ברחבי העולם.",
-        "paragraph": "בואו לפגוש את הראשים שמאחורי היוזמה ולהצטרף אלינו!",
+        "heading": "About",
+        "subheading": "We’re a group of volunteers driven to unify help worldwide",
+        "paragraph": "Meet the minds behind this initiative and join us!",
         "buttons": [
-          "עוד עלינו"
+          "More About Us"
         ]
       },
       "SupportersSection": {
-        "heading": "תמיכה",
+        "heading": "Supporters",
         "subheading": [
-          "תודה רבה לכל החברות שתומכות בנו במשימה שלנו!",
-          "בינואר 2021, גוגל לעמותות העניקה לנו השנה 120,000$ כדי שנגיע לקבוצות אוכלוסיה נוספות!"
+          "Thank you to all the companies supporting us on our mission!",
+          "In January 2021, Google for Nonprofits granted us $120,000 this year for outreach!"
         ]
       }
     },
     "MissionPage": {
-      "topHeading": "אנחנו קבוצת מתנדבים ומתנדבות ששואפת לאחד את העזרה ברחבי העולם",
-      "heading": "המשימה שלנו",
+      "topHeading": "We're a group of volunteers driven to unify help worldwide",
+      "heading": "Our Mission",
       "description": [
-        "אנחנו ארגון ללא מטרות רווח שמנגיש לאנשים בכל רחבי העולם את האפשרות לקבל סיוע ממתנדבים ומתנדבות. באמצעות הטכנולוגיה, אנו מספקים גישה קלה ומהירה לעזרה ומשאבים באזורך בשיתוף פעולה עם ארגונים מקומיים כמו AIESEC בפורטוגל, בית המעשים הטובים בניו יורק, ועוד.",
-        "עם יותר מ300 מתנדבים ב25 ארצות ו6 יבשות, אנחנו מחברים בין קהילות נזקקות לבנקי מזון, אירועי צדקה, ושירותים יומיומיים ברחבי העולם. ביחד, אנחנו בונים רשת של עזרה שתהפוך אותנו לחזקים יותר בזמן מגפת הקורונה ואחריה."
+        "We're a nonprofit democratizing access to volunteer help worldwide. Through technology, we’re providing quick and easy access to help and resources in your area with local organizations like AIESEC in Portugal, the House of Good Deeds in NYC and more.",
+        "With over 300 volunteers in 25 countries and 6 continents, we're connecting communities in need to food banks, charity events, and day-to-day services worldwide. Together, we're building a network of help to keep us stronger and more connected through COVID-19 and beyond."
       ]
     },
     "ImpactPage": {
       "WorldMapSection": {
         "heading": [
-          "אנחנו עוזרים לאנשים",
-          "ב38 מדינות!"
+          "We're helping people",
+          "across 38 countries!"
         ],
         "hoverInfo": {
-          "users": "משתמשים.ות:",
-          "noUsers": "אין משתמשים עדיין <br/> (אולי את.ה?)"
+          "users": "Users: ",
+          "noUsers": "No users yet <br/> (maybe you?)"
         }
       },
       "PartnersSection": {
-        "heading": "שותפים",
-        "subheading": "תודה למתנדבים ולמתנדבות שלנו ולארגונים שמשתפים איתנו פעולה ועוזרים לנו לבנות רשת של עזרה ברחבי העולם!"
+        "heading": "Partners",
+        "subheading": "Thank you to our volunteer and nonprofit partner organizations helping us build out a network of helpers across the world!"
       }
     },
     "TeamPage": {
-      "heading": "בואו לפגוש את הצוות שלנו",
+      "heading": "Meet Our Team",
       "subheading": "",
       "description": [
-        "החל מלוס אנג'לס דרך מרוקו ופורטוגל ועד לבנגלדש, אנחנו מפעל שיתופי בינלאומי של מתנדבים ומתנדבות מכל שבילי החיים, שמאוחדים כדי להבטיח שכל אדם, מכל מקום, יוכל לקבל עזרה.",
-        "דרושים לנו מתנדבים בתחומים הבאים: מפתחי react.js, שיווק/אסטרטגיות PR ומעצבי UI/UX כדי להקפיץ ברמה את המאמצים שלנו לתמוך בקהילות נזקקות בזמן המגפה ובמשברים עתידיים."
+        "Hailing from LA to Morocco to Portugal to Bangladesh, we’re an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
+        "We’re looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
-      "join": "רוצה להצטרף אלינו?",
+      "join": "Interested in joining us?",
       "buttons": [
-        "בואו והצטרפו אלינו במשימה שלנו!"
+        "Join us on our mission!"
       ]
     },
     "Footer": {
       "sections": [
         {
-          "title": "מדיניות הפרטיות",
-          "link": "/פרטיות"
+          "title": "Privacy Policy",
+          "link": "/privacy"
         },
         {
-          "title": "תנאי שימוש",
+          "title": "Code of Conduct",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
         }
       ]
     },
     "404": {
-      "heading": "404 העמוד לא נמצא",
+      "heading": "404 Not Found",
       "description": [
-        "עלית על תקלה...",
-        "או שאת.ה פשוט משתטה 🤡"
+        "You've found a glitch in the matrix...",
+        "Or you're just clowning around. 🤡"
       ],
-      "linkBackToHome": "חזרה לדף הבית"
+      "linkBackToHome": "Go back home"
     }
   }
 }
