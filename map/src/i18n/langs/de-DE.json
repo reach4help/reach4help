@@ -118,6 +118,7 @@
   },
   "loading": "Lade...",
   "filterBy": "Filtern nach:",
+  "noOptions": "No Options",
   "services": {
     "any": "Alles",
     "food": "Lebensmittel",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Springe an einen Ort auf der Karte.",
     "updateResultsForThisArea": "Ergebnisse für dieses Gebiet aktualisieren",
     "myLocation": "Mein Standort"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Zurück zu den Ergebnissen",
