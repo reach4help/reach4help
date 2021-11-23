@@ -118,6 +118,7 @@
   },
   "loading": "载入中",
   "filterBy": "过滤条件：",
+  "noOptions": "No Options",
   "services": {
     "any": "任何",
     "food": "食品",
@@ -177,6 +178,19 @@
     "jumpToLocation": "跳转到地图上的位置...",
     "updateResultsForThisArea": "更新此区域的结果",
     "myLocation": "我的位置"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "返回成绩",
