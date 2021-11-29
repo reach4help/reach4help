@@ -224,7 +224,7 @@
   "hiddenMarkers": {
     "visiblility": "Visibility: {visibility}",
     "filter": {
-      "any": "Any",
+      "any": "Tümü",
       "visible": "Visible only",
       "hidden": "Hidden only"
     }
