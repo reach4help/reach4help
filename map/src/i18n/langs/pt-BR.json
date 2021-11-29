@@ -167,7 +167,7 @@
     "medical": "Medical Service",
     "company": "Company",
     "individual": "Individual",
-    "other": "Other"
+    "other": "Outro"
   },
   "markerTypeSentence": {
     "mutual-aid-group": "mutual aid group",
@@ -224,7 +224,7 @@
   "hiddenMarkers": {
     "visiblility": "Visibility: {visibility}",
     "filter": {
-      "any": "Any",
+      "any": "Qualquer",
       "visible": "Visible only",
       "hidden": "Hidden only"
     }
