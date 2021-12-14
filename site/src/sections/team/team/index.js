@@ -3,22 +3,15 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 
 import Button from "src/components/button"
+import Flag from "react-world-flags"
 import teams from "../teams.json"
 
 import defaultProfilePic from "./default_profile.png"
 
 import { Wrapper, ContentWrapper, TeamContainer } from "./style"
-// import CountryCodeMap from "./countryCodeMap.json"
+import CountryCodeMap from "./countryCodeMap.json"
 
 function Team() {
-  const sectionColors = {
-    Management: "#f0ebff",
-    Development: "#ddf1f0",
-    Design: "#fff8e7",
-    Marketing: "#ffebff",
-    Product: "#fdebde",
-  }
-
   const { t } = useTranslation()
 
   return (
@@ -30,13 +23,13 @@ function Team() {
 
       {/* For every member in each team */}
       {teams.map(team => (
-        <TeamContainer color={sectionColors[team.title]} key={team.id}>
+        <TeamContainer color={team.color} key={team.id}>
           <h2>{team.title} Team</h2>
           {/* TODO SHAYAN: don't be lazy and split these up into components */}
           <div className="members">
             {team.members.map(member => {
+              // if the fetched avatar url is undefined, then use a default one
               const avatarURL = member.avatar_url || defaultProfilePic
-              // if the fetched avatar url is undefined, then set a default one
               return (
                 <a className="member" key={member.id} href={member.contact}>
                   <img src={avatarURL} alt={member.name} />
@@ -44,16 +37,17 @@ function Team() {
                     <b>{member.name}</b>
                   </h3>
                   <p>{member.title}</p>
-                  {/* TODO: Uncomment after confirming everyone's countries */}
-                  {/* <div className="flags">
-                  {member.countries?.map(country => (
-                    <Flag
-                      key={country.id}
-                      code={country}
-                      title={CountryCodeMap[country]}
-                    />
-                  ))}
-                </div> */}
+                  <div>
+                    <div className="flags">
+                      {member.countries?.map(country => (
+                        <Flag
+                          key={country.id}
+                          code={country}
+                          title={CountryCodeMap[country]}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </a>
               )
             })}
