@@ -43,8 +43,8 @@
     "screen": {
       "title": "Ajouter des informations à cette carte",
       "information": {
-        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
-        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
+        "acceptedInformation": "Pour le moment, nous incluons des organisations fournissant une aide et une assistance spécifiques à la région (nourriture, abris, bouteilles d'oxygène, dons, etc.).",
+        "moreInformation": "Nous ne sommes pas en mesure d'accepter directement des informations sur les personnes qui offrent de l'aide pour des raisons de sécurité, mais veuillez nous contacter à {contactEmail} si vous souhaitez aider.",
         "intro": "Veuillez remplir le formulaire ci-dessous pour commencer à ajouter des informations, nous vous demanderons ensuite de nous indiquer votre localisation et vos coordonnées.",
         "form": {
           "type": "Type de projet / groupe / organisation / initiative",
