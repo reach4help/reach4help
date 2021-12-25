@@ -4,6 +4,7 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
+import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -71,27 +72,27 @@ export interface InformationUpdate {
 export type InformationListener = (event: InformationUpdate) => void;
 
 interface CategoryData {
-  initialLoadDone: boolean;
+  loadDone: boolean;
   markers: Map<string, MarkerInfoType>;
 }
 
 const listeners = new Set<InformationListener>();
 const state: {
   data: {
-    hidden: CategoryData;
-    visible: CategoryData;
+    initial: CategoryData;
+    detail: CategoryData;
   };
   includeHidden: boolean;
   loadingOperations: Set<Promise<unknown>>;
   errors: Set<Error>;
 } = {
   data: {
-    hidden: {
-      initialLoadDone: false,
+    initial: {
+      loadDone: false,
       markers: new Map(),
     },
-    visible: {
-      initialLoadDone: false,
+    detail: {
+      loadDone: false,
       markers: new Map(),
     },
   },
@@ -103,8 +104,8 @@ const state: {
 const getInfoForListeners = (): InformationUpdate => ({
   loading: state.loadingOperations.size > 0,
   markers: new Map([
-    ...state.data.visible.markers,
-    ...(state.includeHidden ? state.data.hidden.markers : []),
+    ...state.data.detail.markers,
+    ...(state.includeHidden ? state.data.initial.markers : []),
   ]),
   includingHidden: state.includeHidden,
 });
@@ -145,11 +146,11 @@ export const removeInformationListener = (l: InformationListener) => {
   listeners.delete(l);
 };
 
-const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
-  if (state.data[mode].initialLoadDone) {
+const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
+  if (state.data[mode].loadDone) {
     return;
   }
-  state.data[mode].initialLoadDone = true;
+  state.data[mode].loadDone = true;
 
   const promise = algoliaIndex
     .browseObjects({
@@ -161,6 +162,7 @@ const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
           const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
           state.data[mode].markers.set(marker.id, marker);
         });
+        debugLog('batch', mode, state?.data[mode]?.markers?.entries.length);
       },
     })
     .then(() => 'finished');
@@ -168,11 +170,8 @@ const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
   return promise;
 };
 
-export const loadInitialData = () => {
-  loadInitialDataForMode('visible');
-  if (state.includeHidden) {
-    loadInitialDataForMode('hidden');
-  }
+export const loadData = () => {
+  loadInitialDataForMode('initial');
 };
 
 export const includingHidden = () => state.includeHidden;
@@ -182,7 +181,7 @@ export const includeHiddenMarkers = (include: boolean) => {
     includingHidden: include,
   });
   state.includeHidden = include;
-  loadInitialData();
+  loadData();
   updateListeners();
 };
 
@@ -190,7 +189,7 @@ window.addEventListener('storage', e => {
   if (e.key === LOCAL_STORAGE_KEY) {
     const dataConfig = getDataConfig();
     state.includeHidden = dataConfig.includingHidden;
-    loadInitialData();
+    loadData();
     updateListeners();
   }
 });

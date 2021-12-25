@@ -117,7 +117,7 @@ class MapComponent extends React.Component<Props, State> {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
     dataDriver.addInformationListener(this.informationUpdated);
-    dataDriver.loadInitialData();
+    dataDriver.loadData();
     this.centerMap();
   }
 
