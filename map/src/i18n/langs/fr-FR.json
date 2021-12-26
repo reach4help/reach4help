@@ -181,12 +181,12 @@
   },
   "controls": {
     "openSearch": "Voir les paramètres de recherche et filtre",
-    "closeSearch": "Hide controls"
+    "closeSearch": "Cache les contrôles"
   },
   "filterForm": {
-    "title": "Filter Markers",
-    "searchBox": "Search by keyword...",
-    "org": "Organization Type",
+    "title": "Filtre des marqueurs",
+    "searchBox": "Recherche par des mots-clefs...",
+    "org": "Type d'organisation",
     "service": "Services Offered",
     "visibility": "Visibility",
     "search": "Search",
