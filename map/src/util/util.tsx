@@ -9,10 +9,11 @@ export const debugLog = (...args: any[]) => {
       text += `${arg} `;
     } else {
       if (text) {
-        console.log(`${text}`);
-        text = '';
+        console.log(text, arg);
+      } else {
+        console.log(text, arg);
       }
-      console.log(arg);
+      text = '';
     }
   });
   if (text) {

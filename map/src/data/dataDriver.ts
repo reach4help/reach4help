@@ -103,10 +103,7 @@ const state: {
 
 const getInfoForListeners = (): InformationUpdate => ({
   loading: state.loadingOperations.size > 0,
-  markers: new Map([
-    ...state.data.detail.markers,
-    ...(state.includeHidden ? state.data.initial.markers : []),
-  ]),
+  markers: new Map([...state.data.initial.markers]),
   includingHidden: state.includeHidden,
 });
 
@@ -151,18 +148,31 @@ const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
     return;
   }
   state.data[mode].loadDone = true;
+  let attributesToDisplay;
+  if (mode === 'initial') {
+    if (mode === 'initial') {
+      attributesToDisplay = ['id', 'contentTitle', 'loc', 'type'];
+      attributesToDisplay = ['*'];
+    } else {
+      attributesToDisplay = ['*'];
+    }
+  }
 
   const promise = algoliaIndex
     .browseObjects({
       // eslint-disable-next-line no-return-assign
       query: '', // Empty query will match all records
       hitsPerPage: 1000,
+      attributesToRetrieve: attributesToDisplay,
       batch: batch => {
         batch.forEach(batchMarker => {
           const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
           state.data[mode].markers.set(marker.id, marker);
         });
-        debugLog('batch', mode, state?.data[mode]?.markers?.entries.length);
+        const e = state.data[mode].markers;
+        debugLog('batch', mode, e.size, e.keys(), e.entries(), e.values());
+        const array = Array.from(e);
+        debugLog('array', array.length, array[0], array);
       },
     })
     .then(() => 'finished');
@@ -172,6 +182,7 @@ const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
 
 export const loadData = () => {
   loadInitialDataForMode('initial');
+  loadInitialDataForMode('detail');
 };
 
 export const includingHidden = () => state.includeHidden;
