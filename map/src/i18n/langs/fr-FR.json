@@ -190,7 +190,7 @@
     "service": "Services Offered",
     "visibility": "Visibilité",
     "search": "Search",
-    "select": "Select..."
+    "select": "Sélecte..."
   },
   "results": {
     "backToResults": "Retour aux résultats",
@@ -205,7 +205,7 @@
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
+        "header": "La note",
         "content": "Chaque projet est autonome et auto-organisé; beaucoup utilisent des feuilles de calcul publiques ou des forums pour partager des informations, soyez prudent lorsque vous entrez des informations privées que vous ne souhaitez pas rendre publiques."
       },
       "source": "Les informations relatives à ce {type} sont fournies par {source}."
