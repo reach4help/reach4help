@@ -19,11 +19,11 @@ import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string'
 
 type MarkerInfo = dataDriver.MarkerInfoType;
 
-interface DataDriverData {
-  dataDriverData: Map<string, MarkerIdAndInfo>;
+interface MarkersData {
+  markersData: Map<string, MarkerIdAndInfo>;
 }
 
-type DataSet = keyof DataDriverData;
+type DataSet = keyof MarkersData;
 
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
@@ -96,8 +96,8 @@ interface State {
 }
 
 class MapComponent extends React.Component<Props, State> {
-  private readonly data: DataDriverData = {
-    dataDriverData: new Map(),
+  private readonly data: MarkersData = {
+    markersData: new Map(),
   };
 
   private addInfoMapClickedListener:
@@ -249,14 +249,12 @@ class MapComponent extends React.Component<Props, State> {
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
     const { map } = mapState();
     if (map) {
-      for (const set of MARKER_SET_KEYS) {
-        map.activeMarkers[set].forEach(marker => {
-          const info = this.getMarkerInfo(marker);
-          if (info) {
-            marker.setVisible(this.isValidMarker(filter, info));
-          }
-        });
-      }
+      map.activeMarkers.markersData.forEach(marker => {
+        const info = this.getMarkerInfo(marker);
+        if (info) {
+          marker.setVisible(this.isValidMarker(filter, info));
+        }
+      });
       // Ensure that the results are updated given the filter has changed
       mapState().updateResultsOnNextBoundsChange = true;
       // Trigger reclustering
@@ -324,10 +322,10 @@ class MapComponent extends React.Component<Props, State> {
   private informationUpdated: dataDriver.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
 
-    this.data.dataDriverData = new Map();
+    this.data.markersData = new Map();
     for (const entry of update.markers.entries()) {
-      this.data.dataDriverData.set(entry[0], {
-        id: { set: 'dataDriverData', id: entry[0] },
+      this.data.markersData.set(entry[0], {
+        id: { set: 'markersData', id: entry[0] },
         info: entry[1],
       });
     }
@@ -337,7 +335,7 @@ class MapComponent extends React.Component<Props, State> {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
       for (const [id, info] of update.markers.entries()) {
-        const marker = map.activeMarkers.dataDriverData.get(id);
+        const marker = map.activeMarkers.markersData.get(id);
         if (marker) {
           // Update info
           marker.setPosition({
@@ -347,17 +345,17 @@ class MapComponent extends React.Component<Props, State> {
           marker.setTitle(info.contentTitle);
         } else {
           newMarkers.push(
-            this.createMarker(map.activeMarkers, 'dataDriverData', id, info),
+            this.createMarker(map.activeMarkers, 'markersData', id, info),
           );
         }
       }
       map.markerClusterer.addMarkers(newMarkers, true);
       // Delete removed markers
       const removedMarkers: google.maps.Marker[] = [];
-      for (const [id, marker] of map.activeMarkers.dataDriverData.entries()) {
+      for (const [id, marker] of map.activeMarkers.markersData.entries()) {
         if (!update.markers.has(id)) {
           removedMarkers.push(marker);
-          map.activeMarkers.dataDriverData.delete(id);
+          map.activeMarkers.markersData.delete(id);
           // const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
           // if (circle) {
           //   circle.setMap(null);
@@ -385,22 +383,23 @@ class MapComponent extends React.Component<Props, State> {
 
       // Go through every marker, and add to results if it is within the bounds
       // of the map, and visible
-      for (const set of MARKER_SET_KEYS) {
-        for (const markerIdAndInfo of this.data[set].values()) {
-          if (
-            !bounds ||
-            bounds.contains({
-              lat: markerIdAndInfo.info.loc.latlng.latitude,
-              lng: markerIdAndInfo.info.loc.latlng.longitude,
-            })
-          ) {
-            const marker = map.activeMarkers[set].get(markerIdAndInfo.id.id);
-            if (marker && marker.getVisible()) {
-              nextResults.results.push(markerIdAndInfo);
-            }
+      for (const markerIdAndInfo of this.data.markersData.values()) {
+        if (
+          !bounds ||
+          bounds.contains({
+            lat: markerIdAndInfo.info.loc.latlng.latitude,
+            lng: markerIdAndInfo.info.loc.latlng.longitude,
+          })
+        ) {
+          const marker = map.activeMarkers.markersData.get(
+            markerIdAndInfo.id.id,
+          );
+          if (marker && marker.getVisible()) {
+            nextResults.results.push(markerIdAndInfo);
           }
         }
       }
+      // }
 
       const {
         results,
@@ -435,7 +434,7 @@ class MapComponent extends React.Component<Props, State> {
     }
     const map = createGoogleMap(ref);
     const activeMarkers: ActiveMarkers = {
-      dataDriverData: new Map(),
+      markersData: new Map(),
     };
 
     // Create initial markers
