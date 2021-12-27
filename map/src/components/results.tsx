@@ -258,24 +258,26 @@ class Results extends React.PureComponent<Props, {}> {
                     </div>
                   )}
                   {selectedResult.info.contentBody && (
-                    <div className="content">
-                      {selectedResult.info.contentBody}
+                    <div>
+                      <div className="content">
+                        {selectedResult.info.contentBody}
+                      </div>
+                      {contactInfo(
+                        lang,
+                        t(lang, s => s.results.contact.general),
+                        selectedResult.info.contact.general,
+                      )}
+                      {contactInfo(
+                        lang,
+                        t(lang, s => s.results.contact.getHelp),
+                        selectedResult.info.contact.getHelp,
+                      )}
+                      {contactInfo(
+                        lang,
+                        t(lang, s => s.results.contact.volunteer),
+                        selectedResult.info.contact.volunteers,
+                      )}
                     </div>
-                  )}
-                  {contactInfo(
-                    lang,
-                    t(lang, s => s.results.contact.general),
-                    selectedResult.info.contact.general,
-                  )}
-                  {contactInfo(
-                    lang,
-                    t(lang, s => s.results.contact.getHelp),
-                    selectedResult.info.contact.getHelp,
-                  )}
-                  {contactInfo(
-                    lang,
-                    t(lang, s => s.results.contact.volunteer),
-                    selectedResult.info.contact.volunteers,
                   )}
                 </div>
               )}

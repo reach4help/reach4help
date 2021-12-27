@@ -150,12 +150,9 @@ const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
   state.data[mode].loadDone = true;
   let attributesToDisplay;
   if (mode === 'initial') {
-    if (mode === 'initial') {
-      attributesToDisplay = ['id', 'contentTitle', 'loc', 'type'];
-      attributesToDisplay = ['*'];
-    } else {
-      attributesToDisplay = ['*'];
-    }
+    attributesToDisplay = ['id', 'contentTitle', 'loc', 'type'];
+  } else {
+    attributesToDisplay = ['*'];
   }
 
   const promise = algoliaIndex
