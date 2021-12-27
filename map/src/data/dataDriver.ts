@@ -4,7 +4,6 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
-import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -166,10 +165,9 @@ const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
           const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
           state.data[mode].markers.set(marker.id, marker);
         });
-        const e = state.data[mode].markers;
-        debugLog('batch', mode, e.size, e.keys(), e.entries(), e.values());
-        const array = Array.from(e);
-        debugLog('array', array.length, array[0], array);
+        // const e = state.data[mode].markers;
+        // const array = Array.from(e);
+        // debugLog('array', array.length, array[0], array);
       },
     })
     .then(() => 'finished');

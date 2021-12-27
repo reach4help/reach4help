@@ -438,11 +438,9 @@ class MapComponent extends React.Component<Props, State> {
     };
 
     // Create initial markers
-    for (const set of MARKER_SET_KEYS) {
-      const data = this.data[set];
-      for (const [id, info] of data) {
-        this.createMarker(activeMarkers, set, id, info.info);
-      }
+    const data = this.data.markersData;
+    for (const [id, info] of data) {
+      this.createMarker(activeMarkers, MARKER_SET_KEYS[0], id, info.info);
     }
 
     const allMarkers = MARKER_SET_KEYS.map(s => [
