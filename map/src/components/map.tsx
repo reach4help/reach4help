@@ -9,7 +9,6 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
-import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
@@ -63,10 +62,6 @@ export interface ResultsSet {
   showRows: number;
 }
 
-const getMarkerId = (marker: google.maps.Marker): string => {
-  debugLog('getMarkerId');
-  marker.get(MARKER_DATA_ID);
-};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const hasIntersection = (set_: Set<any>, array_: Array<any>): boolean =>
   array_.some(value => set_.has(value));
@@ -94,7 +89,7 @@ interface State {
    * Shall we display service areas?
    * Can be disabled when the device has decreased performance
    */
-  displayServiceAreas: boolean;
+  displayServiceAreaCircle: boolean;
 }
 
 class MapComponent extends React.Component<Props, State> {
@@ -111,7 +106,7 @@ class MapComponent extends React.Component<Props, State> {
   public constructor(props: Props) {
     super(props);
     this.state = {
-      displayServiceAreas: true,
+      displayServiceAreaCircle: true,
     };
   }
 
@@ -286,7 +281,7 @@ class MapComponent extends React.Component<Props, State> {
   private getMarkerInfo = (
     marker: google.maps.Marker,
   ): MarkerIdAndInfo | null => {
-    const id = getMarkerId(marker);
+    const id = marker.get('id');
     const info = this.data.markersData.get(id);
     return info || null;
   };
@@ -296,7 +291,6 @@ class MapComponent extends React.Component<Props, State> {
     id: string,
     info: MarkerInfo,
   ) => {
-    debugLog('create markers');
     const marker = new window.google.maps.Marker({
       position: {
         lat: info.loc.latlng.latitude,
@@ -556,7 +550,7 @@ class MapComponent extends React.Component<Props, State> {
     markerClusterer.addListener(
       'clusteringend',
       (newClusterParent: MarkerClusterer) => {
-        const { displayServiceAreas } = this.state;
+        const { displayServiceAreaCircle } = this.state;
         m.clustering = {
           clusterMarkers: new Map(),
         };
@@ -591,27 +585,25 @@ class MapComponent extends React.Component<Props, State> {
           }
 
           // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
-          if (displayServiceAreas && maxMarker) {
+          if (displayServiceAreaCircle && maxMarker) {
             markersWithAreaDrawn.add(maxMarker.marker);
             drawMarkerServiceArea(maxMarker.marker);
           }
         }
 
-        if (displayServiceAreas) {
+        if (displayServiceAreaCircle) {
           // Iterate through ALL markers (including hidden ones) to hide all
           // service areas we don't want to be visible
-          MARKER_SET_KEYS.forEach(s =>
-            m.activeMarkers[s].forEach(marker => {
-              if (!markersWithAreaDrawn.has(marker)) {
-                const circle: google.maps.Circle | undefined = marker.get(
-                  MARKER_DATA_CIRCLE,
-                );
-                if (circle) {
-                  circle.setVisible(false);
-                }
+          m.activeMarkers.markersData.forEach(marker => {
+            if (!markersWithAreaDrawn.has(marker)) {
+              const circle: google.maps.Circle | undefined = marker.get(
+                MARKER_DATA_CIRCLE,
+              );
+              if (circle) {
+                circle.setVisible(false);
               }
-            }),
-          );
+            }
+          });
         }
 
         // Update tooltip position if neccesary
