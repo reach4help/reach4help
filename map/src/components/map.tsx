@@ -9,6 +9,7 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
+import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
@@ -36,7 +37,7 @@ export interface MarkerId {
 }
 
 export interface MarkerIdAndInfo {
-  id: MarkerId;
+  id;
   info: MarkerInfo;
 }
 
@@ -62,9 +63,10 @@ export interface ResultsSet {
   showRows: number;
 }
 
-const getMarkerId = (marker: google.maps.Marker): MarkerId =>
+const getMarkerId = (marker: google.maps.Marker): string => {
+  debugLog('getMarkerId');
   marker.get(MARKER_DATA_ID);
-
+};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const hasIntersection = (set_: Set<any>, array_: Array<any>): boolean =>
   array_.some(value => set_.has(value));
@@ -285,16 +287,16 @@ class MapComponent extends React.Component<Props, State> {
     marker: google.maps.Marker,
   ): MarkerIdAndInfo | null => {
     const id = getMarkerId(marker);
-    const info = this.data[id.set].get(id.id);
+    const info = this.data.markersData.get(id);
     return info || null;
   };
 
   private createMarker = (
     activeMarkers: ActiveMarkers,
-    set: DataSet,
     id: string,
     info: MarkerInfo,
   ) => {
+    debugLog('create markers');
     const marker = new window.google.maps.Marker({
       position: {
         lat: info.loc.latlng.latitude,
@@ -302,9 +304,8 @@ class MapComponent extends React.Component<Props, State> {
       },
       title: info.contentTitle,
     });
-    const idData: MarkerId = { set, id };
-    marker.set(MARKER_DATA_ID, idData);
-    activeMarkers[set].set(id, marker);
+    marker.set(MARKER_DATA_ID, id);
+    activeMarkers.markersData.set(id, marker);
 
     // Add marker listeners
     marker.addListener('click', event => {
@@ -344,9 +345,7 @@ class MapComponent extends React.Component<Props, State> {
           });
           marker.setTitle(info.contentTitle);
         } else {
-          newMarkers.push(
-            this.createMarker(map.activeMarkers, 'markersData', id, info),
-          );
+          newMarkers.push(this.createMarker(map.activeMarkers, id, info));
         }
       }
       map.markerClusterer.addMarkers(newMarkers, true);
@@ -440,7 +439,7 @@ class MapComponent extends React.Component<Props, State> {
     // Create initial markers
     const data = this.data.markersData;
     for (const [id, info] of data) {
-      this.createMarker(activeMarkers, MARKER_SET_KEYS[0], id, info.info);
+      this.createMarker(activeMarkers, id, info.info);
     }
 
     const allMarkers = MARKER_SET_KEYS.map(s => [
