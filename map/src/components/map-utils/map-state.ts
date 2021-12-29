@@ -8,9 +8,6 @@ export interface ActiveMarkers {
   /** map from data driver id to marker */
   markersData: Map<string, google.maps.Marker>;
 }
-
-export const MARKER_SET_KEYS: Array<keyof ActiveMarkers> = ['markersData'];
-
 export interface MapInfo {
   map: google.maps.Map;
   activeMarkers: ActiveMarkers;

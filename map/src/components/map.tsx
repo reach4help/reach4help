@@ -3,7 +3,6 @@ import React from 'react';
 import mapState, {
   ActiveMarkers,
   MapInfo,
-  MARKER_SET_KEYS,
 } from 'src/components/map-utils/map-state';
 import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
@@ -316,11 +315,10 @@ class MapComponent extends React.Component<Props, State> {
 
   private informationUpdated: dataDriver.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
-
     this.data.markersData = new Map();
     for (const entry of update.markers.entries()) {
       this.data.markersData.set(entry[0], {
-        id: { set: 'markersData', id: entry[0] },
+        id: entry[0],
         info: entry[1],
       });
     }
@@ -436,9 +434,7 @@ class MapComponent extends React.Component<Props, State> {
       this.createMarker(activeMarkers, id, info.info);
     }
 
-    const allMarkers = MARKER_SET_KEYS.map(s => [
-      ...activeMarkers[s].values(),
-    ]).flat();
+    const allMarkers = [...activeMarkers.markersData.values()];
 
     // Add a marker clusterer to manage the markers.
     const markerClusterer = new MarkerClusterer(map, allMarkers, {
