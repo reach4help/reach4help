@@ -29,13 +29,8 @@ const MARKER_DATA_CIRCLE = 'circle';
 
 const INITIAL_NUMBER_OF_RESULTS = 20;
 
-export interface MarkerId {
-  set: DataSet;
-  id: string;
-}
-
 export interface MarkerIdAndInfo {
-  id;
+  id: string;
   info: MarkerInfo;
 }
 
