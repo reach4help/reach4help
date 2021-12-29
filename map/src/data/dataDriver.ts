@@ -4,6 +4,7 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
+import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -81,6 +82,7 @@ const state: {
     initial: CategoryData;
     detail: CategoryData;
   };
+  increment: number;
   includeHidden: boolean;
   loadingOperations: Set<Promise<unknown>>;
   errors: Set<Error>;
@@ -95,16 +97,39 @@ const state: {
       markers: new Map(),
     },
   },
+  increment: 0,
   includeHidden: getDataConfig().includingHidden,
   loadingOperations: new Set(),
   errors: new Set(),
 };
 
-const getInfoForListeners = (): InformationUpdate => ({
-  loading: state.loadingOperations.size > 0,
-  markers: new Map([...state.data.initial.markers]),
-  includingHidden: state.includeHidden,
-});
+const getInfoForListeners = (): InformationUpdate => {
+  debugLog(
+    'getInfoForListeners',
+    state.increment,
+    state.data.initial.markers.size,
+    state.data.detail.markers.size,
+  );
+  if (state.data.initial.markers.size > 5) {
+    debugLog(
+      'initial',
+      Array.from(state.data.initial.markers)[5][1],
+      Array.from(state.data.initial.markers)[5][1].contentBody,
+    );
+  }
+  if (state.data.detail.markers.size > 5) {
+    debugLog(
+      'detail',
+      Array.from(state.data.detail.markers)[5][1],
+      Array.from(state.data.detail.markers)[5][1].contentBody,
+    );
+  }
+  return {
+    loading: state.loadingOperations.size > 0,
+    markers: new Map([...state.data.initial.markers]),
+    includingHidden: state.includeHidden,
+  };
+};
 
 const updateListeners = () => {
   const data = getInfoForListeners();
@@ -143,28 +168,28 @@ export const removeInformationListener = (l: InformationListener) => {
 };
 
 const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
-  if (state.data[mode].loadDone) {
+  const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
+  if (dataMode.loadDone) {
     return;
   }
-  state.data[mode].loadDone = true;
-  let attributesToDisplay;
-  if (mode === 'initial') {
-    attributesToDisplay = ['id', 'contentTitle', 'loc', 'type'];
-  } else {
-    attributesToDisplay = ['*'];
-  }
-
+  dataMode.loadDone = true;
+  const attributesToDisplay = ['*'];
+  // const attributesToDisplay = mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['id', 'contentTitle', 'contentBody',
+  // 'type'];
+  debugLog(mode, attributesToDisplay);
   const promise = algoliaIndex
     .browseObjects({
       // eslint-disable-next-line no-return-assign
       query: '', // Empty query will match all records
       hitsPerPage: 1000,
-      attributesToRetrieve: attributesToDisplay,
+      // attributesToRetrieve: attributesToDisplay,
       batch: batch => {
         batch.forEach(batchMarker => {
           const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
-          state.data[mode].markers.set(marker.id, marker);
+          dataMode.markers.set(marker.id, marker);
         });
+        state.increment += 1;
+        debugLog('increment', mode, state.increment);
         // const e = state.data[mode].markers;
         // const array = Array.from(e);
         // debugLog('array', array.length, array[0], array);

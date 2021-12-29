@@ -262,6 +262,10 @@ class Results extends React.PureComponent<Props, {}> {
                       <div className="content">
                         {selectedResult.info.contentBody}
                       </div>
+                    </div>
+                  )}
+                  {contactInfo && (
+                    <div>
                       {contactInfo(
                         lang,
                         t(lang, s => s.results.contact.general),
