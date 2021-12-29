@@ -621,8 +621,7 @@ class MapComponent extends React.Component<Props, State> {
       return;
     }
     const marker =
-      selectedResult &&
-      map.activeMarkers[selectedResult.id].get(selectedResult.id);
+      selectedResult && map.activeMarkers.markersData.get(selectedResult.id);
     if (selectedResult && marker) {
       const clusterCenter = map.clustering?.clusterMarkers.get(marker);
       const contentString = infoWindowContent(selectedResult.info);
