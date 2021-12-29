@@ -377,9 +377,7 @@ class MapComponent extends React.Component<Props, State> {
             lng: markerIdAndInfo.info.loc.latlng.longitude,
           })
         ) {
-          const marker = map.activeMarkers.markersData.get(
-            markerIdAndInfo.id.id,
-          );
+          const marker = map.activeMarkers.markersData.get(markerIdAndInfo.id);
           if (marker && marker.getVisible()) {
             nextResults.results.push(markerIdAndInfo);
           }
@@ -624,7 +622,7 @@ class MapComponent extends React.Component<Props, State> {
     }
     const marker =
       selectedResult &&
-      map.activeMarkers[selectedResult.id.set].get(selectedResult.id.id);
+      map.activeMarkers[selectedResult.id].get(selectedResult.id);
     if (selectedResult && marker) {
       const clusterCenter = map.clustering?.clusterMarkers.get(marker);
       const contentString = infoWindowContent(selectedResult.info);
