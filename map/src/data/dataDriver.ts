@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Location,
   MarkerInfo,
@@ -114,14 +115,14 @@ const getInfoForListeners = (): InformationUpdate => {
     debugLog(
       'initial',
       Array.from(state.data.initial.markers)[5][1],
-      Array.from(state.data.initial.markers)[5][1].contentBody,
+      Array.from(state.data.initial.markers)[5][1].contact,
     );
   }
   if (state.data.detail.markers.size > 5) {
     debugLog(
       'detail',
       Array.from(state.data.detail.markers)[5][1],
-      Array.from(state.data.detail.markers)[5][1].contentBody,
+      Array.from(state.data.detail.markers)[5][1].contact,
     );
   }
   return {
@@ -173,16 +174,17 @@ const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
     return;
   }
   dataMode.loadDone = true;
-  const attributesToDisplay = ['*'];
-  // const attributesToDisplay = mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['id', 'contentTitle', 'contentBody',
-  // 'type'];
+  const attributesToDisplay =
+    mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
   debugLog(mode, attributesToDisplay);
+  // eslint-disable-next-line no-console
+  console.time(mode);
   const promise = algoliaIndex
     .browseObjects({
       // eslint-disable-next-line no-return-assign
       query: '', // Empty query will match all records
       hitsPerPage: 1000,
-      // attributesToRetrieve: attributesToDisplay,
+      attributesToRetrieve: attributesToDisplay,
       batch: batch => {
         batch.forEach(batchMarker => {
           const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
@@ -195,14 +197,17 @@ const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
         // debugLog('array', array.length, array[0], array);
       },
     })
-    .then(() => 'finished');
+    .then(() => {
+      debugLog('debug timing');
+      console.timeEnd(mode);
+    });
   processPromise(promise);
   return promise;
 };
 
 export const loadData = () => {
   loadInitialDataForMode('initial');
-  loadInitialDataForMode('detail');
+  // loadInitialDataForMode('detail');
 };
 
 export const includingHidden = () => state.includeHidden;
