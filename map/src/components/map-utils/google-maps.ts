@@ -1,9 +1,12 @@
+import { debugLog } from 'src/util/util';
+
 import { parseQueryString } from './query-string';
 
 export const createGoogleMap = (ref: HTMLDivElement): google.maps.Map => {
+  debugLog('create google map');
   const query = parseQueryString();
   return new google.maps.Map(ref, {
-    zoom: query.map ? query.map.zoom : 3,
+    zoom: query.map ? query.map.zoom : 1,
     center: query.map
       ? query.map.pos
       : {

@@ -8,6 +8,7 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
+import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
@@ -17,6 +18,7 @@ import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
 type MarkerInfo = dataDriver.MarkerInfoType;
+dataDriver.addStorageListener();
 
 interface MarkersData {
   markersData: Map<string, MarkerIdAndInfo>;
@@ -109,6 +111,7 @@ class MapComponent extends React.Component<Props, State> {
     setUpdateResultsCallback(this.updateResults);
     dataDriver.addInformationListener(this.informationUpdated);
     dataDriver.loadData();
+
     this.centerMap();
   }
 
@@ -150,6 +153,7 @@ class MapComponent extends React.Component<Props, State> {
       lat: number;
       lng: number;
     };
+    debugLog('centerMap');
     fetch('https://get.geojs.io/v1/ip/geo.json')
       .then(response => response.json())
       .then(data => {

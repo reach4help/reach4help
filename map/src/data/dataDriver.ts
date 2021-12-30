@@ -5,7 +5,7 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
-import { debugLog } from 'src/util/util';
+import { debugLog, printStackTrace } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -175,7 +175,8 @@ const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
   }
   dataMode.loadDone = true;
   const attributesToDisplay =
-    mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
+  // mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
+  mode === 'initial' ? ['*'] : ['*'];
   debugLog(mode, attributesToDisplay);
   // eslint-disable-next-line no-console
   console.time(mode);
@@ -183,7 +184,7 @@ const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
     .browseObjects({
       // eslint-disable-next-line no-return-assign
       query: '', // Empty query will match all records
-      hitsPerPage: 1000,
+      hitsPerPage: 12000,
       attributesToRetrieve: attributesToDisplay,
       batch: batch => {
         batch.forEach(batchMarker => {
@@ -220,12 +221,18 @@ export const includeHiddenMarkers = (include: boolean) => {
   loadData();
   updateListeners();
 };
+debugLog('file dataDriver ');
 
-window.addEventListener('storage', e => {
-  if (e.key === LOCAL_STORAGE_KEY) {
-    const dataConfig = getDataConfig();
-    state.includeHidden = dataConfig.includingHidden;
-    loadData();
-    updateListeners();
-  }
-});
+export const addStorageListener = () => {
+  window.addEventListener('storage', e => {
+    debugLog('addEventListener');
+    printStackTrace();
+    debugLog('stacked');
+    if (e.key === LOCAL_STORAGE_KEY) {
+      const dataConfig = getDataConfig();
+      state.includeHidden = dataConfig.includingHidden;
+      loadData();
+      updateListeners();
+    }
+  });
+};
