@@ -5,7 +5,7 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
-import { debugLog, printStackTrace } from 'src/util/util';
+import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -221,13 +221,9 @@ export const includeHiddenMarkers = (include: boolean) => {
   loadData();
   updateListeners();
 };
-debugLog('file dataDriver ');
 
 export const addStorageListener = () => {
   window.addEventListener('storage', e => {
-    debugLog('addEventListener');
-    printStackTrace();
-    debugLog('stacked');
     if (e.key === LOCAL_STORAGE_KEY) {
       const dataConfig = getDataConfig();
       state.includeHidden = dataConfig.includingHidden;
