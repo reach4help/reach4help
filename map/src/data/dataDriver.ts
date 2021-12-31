@@ -5,7 +5,6 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
-import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -104,20 +103,11 @@ const state: {
   errors: new Set(),
 };
 
-const getInfoForListeners = (): InformationUpdate => {
-  debugLog(
-    'getInfoForListeners',
-    state.increment,
-    state.data.initial.markers.size,
-    state.data.detail.markers.size,
-  );
-
-  return {
+const getInfoForListeners = (): InformationUpdate => ({
     loading: state.loadingOperations.size > 0,
     markers: new Map([...state.data.initial.markers]),
     includingHidden: state.includeHidden,
-  };
-};
+  });
 
 const updateListeners = () => {
   const data = getInfoForListeners();
@@ -157,35 +147,38 @@ export const removeInformationListener = (l: InformationListener) => {
 
 const loadInitialDataForMode = (
   mode: 'initial' | 'detail',
-  corner1?: google.maps.LatLng,
-  corner2?: google.maps.LatLng,
+  // todo: implement query by boundingBox
+  // corner1?: google.maps.LatLng,
+  // corner2?: google.maps.LatLng,
 ) => {
   const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
   if (dataMode.loadDone) {
     return;
   }
   dataMode.loadDone = true;
-  const boundingBox =
-    corner1 && corner2
-      ? [corner1.lat(), corner1.lng(), corner2.lat(), corner2.lng()]
-      : undefined;
-  let boundingBoxParam = boundingBox
-    ? { insideBoundingBox: [boundingBox] }
-    : {};
-  boundingBoxParam = {};
+  // todo: implement query by boundingBox
+  // const boundingBox =
+  //   corner1 && corner2
+  //     ? [corner1.lat(), corner2.lng(), corner2.lat(), corner1.lng()]
+  //     : undefined;
+  // let boundingBoxParam = boundingBox
+  //   ? { insideBoundingBox: [boundingBox] }
+  //   : {};
+  // debugLog('boundingBox', ...boundingBox);
+  // boundingBoxParam = {};
   const attributesToDisplay =
     // mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
     mode === 'initial' ? ['*'] : ['*'];
-  debugLog(
-    'loadInitialDataForMode',
-    mode,
-    attributesToDisplay,
-    boundingBoxParam,
-  );
+  // debugLog(
+  //   'loadInitialDataForMode',
+  //   mode,
+  //   attributesToDisplay,
+  //   boundingBoxParam,
+  // );
 
   const promise = algoliaIndex.browseObjects({
     query: '',
-    ...boundingBoxParam,
+    // insideBoundingBox: [boundingBox],
     hitsPerPage: 12000,
     attributesToRetrieve: attributesToDisplay,
     batch: batch => {
@@ -202,10 +195,12 @@ const loadInitialDataForMode = (
 };
 
 export const loadData = (
-  corner1?: google.maps.LatLng,
-  corner2?: google.maps.LatLng,
+  // todo: implement query by boundingBox
+  // corner1?: google.maps.LatLng,
+  // corner2?: google.maps.LatLng,
 ) => {
-  loadInitialDataForMode('initial', corner1, corner2);
+  // todo: implement query by boundingBox
+  loadInitialDataForMode('initial' /* , corner1, corner2 */);
   // loadInitialDataForMode('detail');
 };
 
@@ -216,7 +211,7 @@ export const includeHiddenMarkers = (include: boolean) => {
     includingHidden: include,
   });
   state.includeHidden = include;
-  debugLog('calling loadData from includeHiddenMarkers');
+  // debugLog('calling loadData from includeHiddenMarkers');
   loadData();
   updateListeners();
 };
@@ -224,7 +219,7 @@ export const includeHiddenMarkers = (include: boolean) => {
 export const addStorageListener = () => {
   window.addEventListener('storage', e => {
     if (e.key === LOCAL_STORAGE_KEY) {
-      debugLog('listener calling loadData');
+      // debugLog('listener calling loadData');
       const dataConfig = getDataConfig();
       state.includeHidden = dataConfig.includingHidden;
       loadData();

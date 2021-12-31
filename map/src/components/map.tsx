@@ -8,7 +8,7 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
-import { debugLog } from 'src/util/util';
+// import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
@@ -110,15 +110,15 @@ class MapComponent extends React.Component<Props, State> {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
     dataDriver.addInformationListener(this.informationUpdated);
-    debugLog('Calling from mount');
-    const result: google.maps.Map = await this.centerMap();
+    // debugLog('Calling from mount');
+    const result: google.maps.Map | null = await this.centerMap();
     if (!result) {
       return;
     }
-    const p1 = result.getBounds()?.getNorthEast();
-    const p2 = result.getBounds()?.getSouthWest();
-    debugLog('bounds', p1, p2);
-    dataDriver.loadData(p1, p2);
+    // const p1 = result.getBounds()?.getNorthEast();
+    // const p2 = result.getBounds()?.getSouthWest();
+    // debugLog('pint bounds', p1?.lat(), p2?.lat());
+    dataDriver.loadData();
   }
 
   public componentDidUpdate(prevProps: Props) {
@@ -154,12 +154,12 @@ class MapComponent extends React.Component<Props, State> {
     dataDriver.removeInformationListener(this.informationUpdated);
   }
 
-  private centerMap = async (): Promise<google.maps.Map> => {
+  private centerMap = async () /*: Promise<google.maps.Map> */ => {
     let location: {
       lat: number;
       lng: number;
     };
-    let centeredMap;
+    let centeredMap: google.maps.Map | null = null;
     await fetch('https://get.geojs.io/v1/ip/geo.json')
       .then(response => response.json())
       .then(data => {
@@ -211,6 +211,7 @@ class MapComponent extends React.Component<Props, State> {
           );
         }
       });
+    // debugLog('centeredMap', centeredMap);
     return centeredMap;
   };
 
