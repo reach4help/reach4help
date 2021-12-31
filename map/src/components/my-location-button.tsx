@@ -30,7 +30,7 @@ class MyLocation extends React.Component<Props, State> {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        const { map } = mapState();
+        const { mapInfo: map } = mapState();
         if (!map) {
           return;
         }

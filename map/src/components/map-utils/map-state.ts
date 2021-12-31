@@ -37,14 +37,14 @@ interface SearchBox {
 let state: MapState | null = null;
 
 class MapState {
-  private _map: MapInfo | null = null;
+  private _mapInfo: MapInfo | null = null;
 
   private readonly searchBoxes = new Map<SearchBoxId, SearchBox>();
 
   private _updateResultsOnNextClustering = false;
 
-  public set map(map: MapInfo | null) {
-    this._map = map;
+  public set mapInfo(map: MapInfo | null) {
+    this._mapInfo = map;
     if (map) {
       // Add listener that update the search boxes when
       map.map.addListener('bounds_changed', () => {
@@ -66,8 +66,8 @@ class MapState {
     }
   }
 
-  public get map() {
-    return this._map;
+  public get mapInfo() {
+    return this._mapInfo;
   }
 
   public updateSearchInputRef = (
@@ -84,7 +84,7 @@ class MapState {
   };
 
   private initializeSearchInput = (search: SearchBox) => {
-    if (!this.map) {
+    if (!this.mapInfo) {
       // Map has not been initialized yet, wait until it is as the google
       // libraries may not have loaded yet
       return;
@@ -98,7 +98,7 @@ class MapState {
     search.box = box;
 
     box.addListener('places_changed', () => {
-      if (!this.map) {
+      if (!this.mapInfo) {
         return;
       }
 
@@ -121,10 +121,10 @@ class MapState {
         }
       });
 
-      this.map.map.fitBounds(bounds);
+      this.mapInfo.map.fitBounds(bounds);
     });
 
-    const bounds = this.map.map.getBounds();
+    const bounds = this.mapInfo.map.getBounds();
     if (bounds) {
       box.setBounds(bounds);
     }

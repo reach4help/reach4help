@@ -106,17 +106,23 @@ class MapComponent extends React.Component<Props, State> {
     };
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
     dataDriver.addInformationListener(this.informationUpdated);
-    dataDriver.loadData();
-
-    this.centerMap();
+    debugLog('Calling from mount');
+    const result: google.maps.Map = await this.centerMap();
+    if (!result) {
+      return;
+    }
+    const p1 = result.getBounds()?.getNorthEast();
+    const p2 = result.getBounds()?.getSouthWest();
+    debugLog('bounds', p1, p2);
+    dataDriver.loadData(p1, p2);
   }
 
   public componentDidUpdate(prevProps: Props) {
-    const { map } = mapState();
+    const { mapInfo: map } = mapState();
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
     if (map && !filter.filterExecuted) {
@@ -148,13 +154,13 @@ class MapComponent extends React.Component<Props, State> {
     dataDriver.removeInformationListener(this.informationUpdated);
   }
 
-  private centerMap = () => {
+  private centerMap = async (): Promise<google.maps.Map> => {
     let location: {
       lat: number;
       lng: number;
     };
-    debugLog('centerMap');
-    fetch('https://get.geojs.io/v1/ip/geo.json')
+    let centeredMap;
+    await fetch('https://get.geojs.io/v1/ip/geo.json')
       .then(response => response.json())
       .then(data => {
         // If the API returns a geolocation
@@ -163,10 +169,11 @@ class MapComponent extends React.Component<Props, State> {
             lat: parseFloat(data.latitude),
             lng: parseFloat(data.longitude),
           };
-          const { map } = mapState();
+          const { mapInfo: map } = mapState();
           if (!map) {
             return;
           }
+          centeredMap = map.map;
           map.map.setCenter(location);
           map.map.setZoom(8);
           mapState().updateResultsOnNextBoundsChange = true;
@@ -178,10 +185,11 @@ class MapComponent extends React.Component<Props, State> {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
               };
-              const { map } = mapState();
+              const { mapInfo: map } = mapState();
               if (!map) {
                 return;
               }
+              centeredMap = map.map;
               map.map.setCenter(location);
               map.map.setZoom(8);
               mapState().updateResultsOnNextBoundsChange = true;
@@ -192,7 +200,7 @@ class MapComponent extends React.Component<Props, State> {
                 lat: 21.7679,
                 lng: 78.8718,
               };
-              const { map } = mapState();
+              const { mapInfo: map } = mapState();
               if (!map) {
                 return;
               }
@@ -203,6 +211,7 @@ class MapComponent extends React.Component<Props, State> {
           );
         }
       });
+    return centeredMap;
   };
 
   private isValidMarker = (filter: Filter, info: MarkerIdAndInfo): boolean => {
@@ -242,7 +251,7 @@ class MapComponent extends React.Component<Props, State> {
   };
 
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
-    const { map } = mapState();
+    const { mapInfo: map } = mapState();
     if (map) {
       map.activeMarkers.markersData.forEach(marker => {
         const info = this.getMarkerInfo(marker);
@@ -322,7 +331,7 @@ class MapComponent extends React.Component<Props, State> {
       });
     }
 
-    const { map } = mapState();
+    const { mapInfo: map } = mapState();
     if (map) {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
@@ -359,7 +368,7 @@ class MapComponent extends React.Component<Props, State> {
 
   // eslint-disable-next-line react/sort-comp
   private updateResultsBasedOnViewport = debounce(() => {
-    const { map } = mapState();
+    const { mapInfo: map } = mapState();
     if (map) {
       const bounds = map.map.getBounds() || null;
 
@@ -448,7 +457,7 @@ class MapComponent extends React.Component<Props, State> {
       currentFilter: filter,
       markerClusterer,
     };
-    mapState().map = m;
+    mapState().mapInfo = m;
 
     this.updateMarkersVisibilityUsingFilter(filter);
 
@@ -607,7 +616,7 @@ class MapComponent extends React.Component<Props, State> {
   };
 
   private updateResults = () => {
-    const { map } = mapState();
+    const { mapInfo: map } = mapState();
     const { results, nextResults, setResults } = this.props;
     if (map && nextResults && results !== nextResults) {
       setResults(nextResults, false);
@@ -619,7 +628,7 @@ class MapComponent extends React.Component<Props, State> {
    * selected. And return the coordinates that were used to place the tooltip.
    */
   private updateInfoWindow = (): google.maps.LatLng | undefined => {
-    const { map } = mapState();
+    const { mapInfo: map } = mapState();
     const { selectedResult, setSelectedResult } = this.props;
     if (!map) {
       return;
@@ -653,7 +662,7 @@ class MapComponent extends React.Component<Props, State> {
   };
 
   public render() {
-    const { map } = mapState();
+    const { mapInfo: map } = mapState();
     const { className, page, setPage } = this.props;
     return (
       <AppContext.Consumer>

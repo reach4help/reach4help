@@ -111,20 +111,7 @@ const getInfoForListeners = (): InformationUpdate => {
     state.data.initial.markers.size,
     state.data.detail.markers.size,
   );
-  if (state.data.initial.markers.size > 5) {
-    debugLog(
-      'initial',
-      Array.from(state.data.initial.markers)[5][1],
-      Array.from(state.data.initial.markers)[5][1].contact,
-    );
-  }
-  if (state.data.detail.markers.size > 5) {
-    debugLog(
-      'detail',
-      Array.from(state.data.detail.markers)[5][1],
-      Array.from(state.data.detail.markers)[5][1].contact,
-    );
-  }
+
   return {
     loading: state.loadingOperations.size > 0,
     markers: new Map([...state.data.initial.markers]),
@@ -168,46 +155,57 @@ export const removeInformationListener = (l: InformationListener) => {
   listeners.delete(l);
 };
 
-const loadInitialDataForMode = (mode: 'initial' | 'detail') => {
+const loadInitialDataForMode = (
+  mode: 'initial' | 'detail',
+  corner1?: google.maps.LatLng,
+  corner2?: google.maps.LatLng,
+) => {
   const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
   if (dataMode.loadDone) {
     return;
   }
   dataMode.loadDone = true;
+  const boundingBox =
+    corner1 && corner2
+      ? [corner1.lat(), corner1.lng(), corner2.lat(), corner2.lng()]
+      : undefined;
+  let boundingBoxParam = boundingBox
+    ? { insideBoundingBox: [boundingBox] }
+    : {};
+  boundingBoxParam = {};
   const attributesToDisplay =
-  // mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
-  mode === 'initial' ? ['*'] : ['*'];
-  debugLog(mode, attributesToDisplay);
-  // eslint-disable-next-line no-console
-  console.time(mode);
-  const promise = algoliaIndex
-    .browseObjects({
-      // eslint-disable-next-line no-return-assign
-      query: '', // Empty query will match all records
-      hitsPerPage: 12000,
-      attributesToRetrieve: attributesToDisplay,
-      batch: batch => {
-        batch.forEach(batchMarker => {
-          const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
-          dataMode.markers.set(marker.id, marker);
-        });
-        state.increment += 1;
-        debugLog('increment', mode, state.increment);
-        // const e = state.data[mode].markers;
-        // const array = Array.from(e);
-        // debugLog('array', array.length, array[0], array);
-      },
-    })
-    .then(() => {
-      debugLog('debug timing');
-      console.timeEnd(mode);
-    });
+    // mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
+    mode === 'initial' ? ['*'] : ['*'];
+  debugLog(
+    'loadInitialDataForMode',
+    mode,
+    attributesToDisplay,
+    boundingBoxParam,
+  );
+
+  const promise = algoliaIndex.browseObjects({
+    query: '',
+    ...boundingBoxParam,
+    hitsPerPage: 12000,
+    attributesToRetrieve: attributesToDisplay,
+    batch: batch => {
+      batch.forEach(batchMarker => {
+        const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
+        dataMode.markers.set(marker.id, marker);
+      });
+      state.increment += 1;
+    },
+  });
+
   processPromise(promise);
   return promise;
 };
 
-export const loadData = () => {
-  loadInitialDataForMode('initial');
+export const loadData = (
+  corner1?: google.maps.LatLng,
+  corner2?: google.maps.LatLng,
+) => {
+  loadInitialDataForMode('initial', corner1, corner2);
   // loadInitialDataForMode('detail');
 };
 
@@ -218,6 +216,7 @@ export const includeHiddenMarkers = (include: boolean) => {
     includingHidden: include,
   });
   state.includeHidden = include;
+  debugLog('calling loadData from includeHiddenMarkers');
   loadData();
   updateListeners();
 };
@@ -225,6 +224,7 @@ export const includeHiddenMarkers = (include: boolean) => {
 export const addStorageListener = () => {
   window.addEventListener('storage', e => {
     if (e.key === LOCAL_STORAGE_KEY) {
+      debugLog('listener calling loadData');
       const dataConfig = getDataConfig();
       state.includeHidden = dataConfig.includingHidden;
       loadData();
