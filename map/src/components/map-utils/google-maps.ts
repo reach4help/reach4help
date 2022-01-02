@@ -3,7 +3,7 @@ import { parseQueryString } from './query-string';
 export const insertMapIntoHtml = (ref: HTMLDivElement): google.maps.Map => {
   const query = parseQueryString();
   return new google.maps.Map(ref, {
-    zoom: query.map ? query.map.zoom : 1,
+    zoom: query.map ? query.map.zoom : 4,
     center: query.map
       ? query.map.pos
       : {
