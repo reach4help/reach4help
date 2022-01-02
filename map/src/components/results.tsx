@@ -211,6 +211,10 @@ class Results extends React.PureComponent<Props, {}> {
                   </div>
                 )}
               </div>
+              {!selectedResult?.info.contentBody &&
+                !selectedResult?.info.contact && (
+                  <div className="details">Data loading. Try again later.</div>
+                )}
               {selectedResult && (
                 <div className="details">
                   <div className="disclaimer">
@@ -258,24 +262,30 @@ class Results extends React.PureComponent<Props, {}> {
                     </div>
                   )}
                   {selectedResult.info.contentBody && (
-                    <div className="content">
-                      {selectedResult.info.contentBody}
+                    <div>
+                      <div className="content">
+                        {selectedResult.info.contentBody}
+                      </div>
                     </div>
                   )}
-                  {contactInfo(
-                    lang,
-                    t(lang, s => s.results.contact.general),
-                    selectedResult.info.contact.general,
-                  )}
-                  {contactInfo(
-                    lang,
-                    t(lang, s => s.results.contact.getHelp),
-                    selectedResult.info.contact.getHelp,
-                  )}
-                  {contactInfo(
-                    lang,
-                    t(lang, s => s.results.contact.volunteer),
-                    selectedResult.info.contact.volunteers,
+                  {selectedResult.info.contact && (
+                    <div>
+                      {contactInfo(
+                        lang,
+                        t(lang, s => s.results.contact.general),
+                        selectedResult.info.contact.general,
+                      )}
+                      {contactInfo(
+                        lang,
+                        t(lang, s => s.results.contact.getHelp),
+                        selectedResult.info.contact.getHelp,
+                      )}
+                      {contactInfo(
+                        lang,
+                        t(lang, s => s.results.contact.volunteer),
+                        selectedResult.info.contact.volunteers,
+                      )}
+                    </div>
                   )}
                 </div>
               )}

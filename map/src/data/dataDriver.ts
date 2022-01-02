@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Location,
   MarkerInfo,
@@ -61,6 +62,7 @@ export const addMarker = async (marker: MarkerInfoType, visible: boolean) => {
 export interface InformationUpdate {
   loading: boolean;
   markers: Map<string, MarkerInfoType>;
+  details: Map<string, MarkerInfoType>;
   /**
    * True iff the data includes hidden markers that have not yet been
    * reviewed and approved.
@@ -71,30 +73,32 @@ export interface InformationUpdate {
 export type InformationListener = (event: InformationUpdate) => void;
 
 interface CategoryData {
-  initialLoadDone: boolean;
+  loadDone: boolean;
   markers: Map<string, MarkerInfoType>;
 }
 
 const listeners = new Set<InformationListener>();
 const state: {
   data: {
-    hidden: CategoryData;
-    visible: CategoryData;
+    initial: CategoryData;
+    detail: CategoryData;
   };
+  increment: number;
   includeHidden: boolean;
   loadingOperations: Set<Promise<unknown>>;
   errors: Set<Error>;
 } = {
   data: {
-    hidden: {
-      initialLoadDone: false,
+    initial: {
+      loadDone: false,
       markers: new Map(),
     },
-    visible: {
-      initialLoadDone: false,
+    detail: {
+      loadDone: false,
       markers: new Map(),
     },
   },
+  increment: 0,
   includeHidden: getDataConfig().includingHidden,
   loadingOperations: new Set(),
   errors: new Set(),
@@ -102,10 +106,8 @@ const state: {
 
 const getInfoForListeners = (): InformationUpdate => ({
   loading: state.loadingOperations.size > 0,
-  markers: new Map([
-    ...state.data.visible.markers,
-    ...(state.includeHidden ? state.data.hidden.markers : []),
-  ]),
+  markers: new Map([...state.data.initial.markers]),
+  details: new Map([...state.data.detail.markers]),
   includingHidden: state.includeHidden,
 });
 
@@ -145,34 +147,61 @@ export const removeInformationListener = (l: InformationListener) => {
   listeners.delete(l);
 };
 
-const loadInitialDataForMode = (mode: 'hidden' | 'visible') => {
-  if (state.data[mode].initialLoadDone) {
+const loadInitialDataForMode = (
+  mode: 'initial' | 'detail',
+  // todo: Ethan, Jan 2, 2021
+  // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
+  // todo: See https://github.com/reach4help/reach4help/issues/1620
+  // corner1?: google.maps.LatLng,
+  // corner2?: google.maps.LatLng,
+) => {
+  const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
+  if (dataMode.loadDone) {
     return;
   }
-  state.data[mode].initialLoadDone = true;
+  dataMode.loadDone = true;
+  // todo: Ethan, Jan 2, 2021
+  // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
+  // todo: See https://github.com/reach4help/reach4help/issues/1620
+  // const boundingBox =
+  //   corner1 && corner2
+  //     ? [corner1.lat(), corner2.lng(), corner2.lat(), corner1.lng()]
+  //     : undefined;
+  // let boundingBoxParam = boundingBox
+  //   ? { insideBoundingBox: [boundingBox] }
+  //   : {};
+  // debugLog('boundingBox', ...boundingBox);
+  const attributesToDisplay =
+    mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
 
-  const promise = algoliaIndex
-    .browseObjects({
-      // eslint-disable-next-line no-return-assign
-      query: '', // Empty query will match all records
-      hitsPerPage: 1000,
-      batch: batch => {
-        batch.forEach(batchMarker => {
-          const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
-          state.data[mode].markers.set(marker.id, marker);
-        });
-      },
-    })
-    .then(() => 'finished');
+  const promise = algoliaIndex.browseObjects({
+    query: '',
+    // todo: Ethan, Jan 2, 2021
+    // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
+    // todo: See https://github.com/reach4help/reach4help/issues/1620
+    // insideBoundingBox: [boundingBox],
+    hitsPerPage: 12000,
+    attributesToRetrieve: attributesToDisplay,
+    batch: batch => {
+      batch.forEach(batchMarker => {
+        const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
+        dataMode.markers.set(marker.id, marker);
+      });
+      state.increment += 1;
+    },
+  });
+
   processPromise(promise);
   return promise;
 };
 
-export const loadInitialData = () => {
-  loadInitialDataForMode('visible');
-  if (state.includeHidden) {
-    loadInitialDataForMode('hidden');
-  }
+export const loadData = () => {
+  // todo: implement query by boundingBox
+  // corner1?: google.maps.LatLng,
+  // corner2?: google.maps.LatLng,
+  // todo: implement query by boundingBox
+  loadInitialDataForMode('initial' /* , corner1, corner2 */);
+  // loadInitialDataForMode('detail');
 };
 
 export const includingHidden = () => state.includeHidden;
@@ -182,15 +211,18 @@ export const includeHiddenMarkers = (include: boolean) => {
     includingHidden: include,
   });
   state.includeHidden = include;
-  loadInitialData();
+  loadData();
   updateListeners();
 };
 
-window.addEventListener('storage', e => {
-  if (e.key === LOCAL_STORAGE_KEY) {
-    const dataConfig = getDataConfig();
-    state.includeHidden = dataConfig.includingHidden;
-    loadInitialData();
-    updateListeners();
-  }
-});
+export const addStorageListener = () => {
+  window.addEventListener('storage', e => {
+    if (e.key === LOCAL_STORAGE_KEY) {
+      // debugLog('listener calling loadData');
+      const dataConfig = getDataConfig();
+      state.includeHidden = dataConfig.includingHidden;
+      loadData();
+      updateListeners();
+    }
+  });
+};
