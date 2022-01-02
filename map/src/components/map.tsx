@@ -8,7 +8,6 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
-import { debugLog } from 'src/util/util';
 // import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
@@ -100,7 +99,6 @@ class MapComponent extends React.Component<Props, State> {
       // Call the browser's geolocation API (will prompt the first time)
       navigator.geolocation.getCurrentPosition(
         position => {
-          debugLog('debug b', position.coords.latitude, position.coords.longitude);
           location = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -108,7 +106,6 @@ class MapComponent extends React.Component<Props, State> {
         },
         () => {
           // Position over India if no other option works
-          debugLog('debug c');
           location = {
             lat: 21.7679,
             lng: 78.8718,
@@ -140,14 +137,16 @@ class MapComponent extends React.Component<Props, State> {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
     dataDriver.addInformationListener(this.informationUpdated);
-    // debugLog('Calling from mount');
     const result: google.maps.Map | null = await this.centerMap();
     if (!result) {
       return;
     }
+    // todo: Ethan, Jan 2, 2021
+    // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
+    // todo: See https://github.com/reach4help/reach4help/issues/1620    
     // const p1 = result.getBounds()?.getNorthEast();
     // const p2 = result.getBounds()?.getSouthWest();
-    // debugLog('pint bounds', p1?.lat(), p2?.lat());
+    // debugLog('point bounds', p1?.lat(), p2?.lat());
     dataDriver.loadData();
   }
 
@@ -323,9 +322,15 @@ class MapComponent extends React.Component<Props, State> {
 
   private informationUpdated: dataDriver.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
-    debugLog('informationUpdated start', update);
     this.data.markersData = new Map();
     for (const entry of update.markers.entries()) {
+      this.data.markersData.set(entry[0], {
+        id: entry[0],
+        info: entry[1],
+      });
+    }
+
+    for (const entry of update.details.entries()) {
       this.data.markersData.set(entry[0], {
         id: entry[0],
         info: entry[1],
@@ -426,10 +431,7 @@ class MapComponent extends React.Component<Props, State> {
   }, 50);
 
   private insertMapAndMarkersIntoHtml = (ref: HTMLDivElement) => {
-    debugLog('updateGoogleMapRef start');
     const { filter } = this.props;
-    debugLog('updateGoogleMapRef continue');
-
     const map = insertMapIntoHtml(ref);
     const activeMarkers: ActiveMarkers = {
       markersData: new Map(),

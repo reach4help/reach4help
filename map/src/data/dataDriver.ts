@@ -105,25 +105,12 @@ const state: {
   errors: new Set(),
 };
 
-export const displayDebugInfo = () => {
-  debugLog('state data detail', state.data.detail.markers.size);
-};
-
-const getInfoForListeners = (): InformationUpdate => {
-  debugLog(
-    'getInfoForListeners',
-    state.data.initial.markers.size,
-    state.data.detail.markers.size,
-    state.loadingOperations.size,
-    state.includeHidden,
-  );
-  return {
-    loading: state.loadingOperations.size > 0,
-    markers: new Map([...state.data.initial.markers]),
-    details: new Map([...state.data.detail.markers]),
-    includingHidden: state.includeHidden,
-  };
-};
+const getInfoForListeners = (): InformationUpdate => ({
+  loading: state.loadingOperations.size > 0,
+  markers: new Map([...state.data.initial.markers]),
+  details: new Map([...state.data.detail.markers]),
+  includingHidden: state.includeHidden,
+});
 
 const updateListeners = () => {
   const data = getInfoForListeners();
@@ -163,17 +150,20 @@ export const removeInformationListener = (l: InformationListener) => {
 
 const loadInitialDataForMode = (
   mode: 'initial' | 'detail',
-  // todo: implement query by boundingBox
+  // todo: Ethan, Jan 2, 2021
+  // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
+  // todo: See https://github.com/reach4help/reach4help/issues/1620
   // corner1?: google.maps.LatLng,
   // corner2?: google.maps.LatLng,
 ) => {
-  debugLog('loadInitialDataForMode', mode);
   const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
   if (dataMode.loadDone) {
     return;
   }
   dataMode.loadDone = true;
-  // todo: implement query by boundingBox
+  // todo: Ethan, Jan 2, 2021
+  // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
+  // todo: See https://github.com/reach4help/reach4help/issues/1620
   // const boundingBox =
   //   corner1 && corner2
   //     ? [corner1.lat(), corner2.lng(), corner2.lat(), corner1.lng()]
@@ -182,19 +172,14 @@ const loadInitialDataForMode = (
   //   ? { insideBoundingBox: [boundingBox] }
   //   : {};
   // debugLog('boundingBox', ...boundingBox);
-  // boundingBoxParam = {};
   const attributesToDisplay =
-    // mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
-    mode === 'initial' ? ['*'] : ['*'];
-  // debugLog(
-  //   'loadInitialDataForMode',
-  //   mode,
-  //   attributesToDisplay,
-  //   boundingBoxParam,
-  // );
+    mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
 
   const promise = algoliaIndex.browseObjects({
     query: '',
+    // todo: Ethan, Jan 2, 2021
+    // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
+    // todo: See https://github.com/reach4help/reach4help/issues/1620
     // insideBoundingBox: [boundingBox],
     hitsPerPage: 12000,
     attributesToRetrieve: attributesToDisplay,
@@ -217,7 +202,7 @@ export const loadData = () => {
   // corner2?: google.maps.LatLng,
   // todo: implement query by boundingBox
   loadInitialDataForMode('initial' /* , corner1, corner2 */);
-  loadInitialDataForMode('detail');
+  // loadInitialDataForMode('detail');
 };
 
 export const includingHidden = () => state.includeHidden;
@@ -227,7 +212,6 @@ export const includeHiddenMarkers = (include: boolean) => {
     includingHidden: include,
   });
   state.includeHidden = include;
-  // debugLog('calling loadData from includeHiddenMarkers');
   loadData();
   updateListeners();
 };

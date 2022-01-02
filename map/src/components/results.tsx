@@ -212,6 +212,9 @@ class Results extends React.PureComponent<Props, {}> {
                   </div>
                 )}
               </div>
+              {!selectedResult?.info.contentBody && !selectedResult?.info.contact && (
+                <div className="details">Data loading.  Try again later.</div>
+              )}
               {selectedResult && (
                 <div className="details">
                   <div className="disclaimer">
