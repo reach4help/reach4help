@@ -6,7 +6,6 @@ import mapState, {
 } from 'src/components/map-utils/map-state';
 import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
-import { R4HGeoPoint } from 'src/data/R4HGeoPoint';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
 import { debugLog } from 'src/util/util';
@@ -90,10 +89,9 @@ interface State {
 
 class MapComponent extends React.Component<Props, State> {
 
-  private static getCenterLocation(data: R4HGeoPoint) {
+  private static getCenterLocation(data: { latitude: number; longitude: number }) {
     let location: { lat: number; lng: number } | null = null;
     if (data.longitude && data.latitude) {
-      debugLog('debug a', data.latitude, data.longitude);
       location = {
         lat: data.latitude,
         lng: data.longitude,
@@ -189,9 +187,15 @@ class MapComponent extends React.Component<Props, State> {
   private centerMap = async () /*: Promise<google.maps.Map> */ => {
     let centeredMap: google.maps.Map | null = null;
     const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
-    const data: R4HGeoPoint = await response.json();
-    debugLog('centerMap Data', data?.latitude, data?.longitude);
-    const location: { lat: number; lng: number } | null = MapComponent.getCenterLocation(data);
+    const data = await response.json();
+    if (!data) {
+      return null;
+    }
+    const coords = {
+      latitude: parseFloat(data.latitude),
+      longitude: parseFloat(data.longitude),
+    };
+    const location: { lat: number; lng: number } | null = MapComponent.getCenterLocation(coords);
     if (!location) {
       return null;
     };
