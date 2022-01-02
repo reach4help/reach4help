@@ -8,12 +8,13 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
+import { debugLog } from 'src/util/util';
 // import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
 import { AppContext } from './context';
-import { createGoogleMap, haversineDistance } from './map-utils/google-maps';
+import { haversineDistance, insertMapIntoHtml } from './map-utils/google-maps';
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
@@ -23,8 +24,6 @@ dataDriver.addStorageListener();
 interface MarkersData {
   markersData: Map<string, MarkerIdAndInfo>;
 }
-
-type DataSet = keyof MarkersData;
 
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
@@ -324,6 +323,7 @@ class MapComponent extends React.Component<Props, State> {
 
   private informationUpdated: dataDriver.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
+    debugLog('informationUpdated start', update);
     this.data.markersData = new Map();
     for (const entry of update.markers.entries()) {
       this.data.markersData.set(entry[0], {
@@ -425,12 +425,12 @@ class MapComponent extends React.Component<Props, State> {
     }
   }, 50);
 
-  private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
+  private insertMapAndMarkersIntoHtml = (ref: HTMLDivElement) => {
+    debugLog('updateGoogleMapRef start');
     const { filter } = this.props;
-    if (!ref) {
-      return;
-    }
-    const map = createGoogleMap(ref);
+    debugLog('updateGoogleMapRef continue');
+
+    const map = insertMapIntoHtml(ref);
     const activeMarkers: ActiveMarkers = {
       markersData: new Map(),
     };
@@ -669,7 +669,7 @@ class MapComponent extends React.Component<Props, State> {
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className || 'undefined'}>
-            <div className="map" ref={this.updateGoogleMapRef} />
+            <div className="map" ref={this.insertMapAndMarkersIntoHtml} />
             {page.page === 'add-information' && (
               <AddInstructions
                 lang={lang}

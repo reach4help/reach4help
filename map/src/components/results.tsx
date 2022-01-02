@@ -5,6 +5,7 @@ import { MdEmail, MdExpandMore, MdLanguage, MdPhone } from 'react-icons/md';
 import Chevron from 'src/components/assets/chevron';
 import Refresh from 'src/components/assets/refresh';
 import { MarkerIdAndInfo, ResultsSet } from 'src/components/map';
+import { displayDebugInfo } from 'src/data/dataDriver';
 import { format, Language, t } from 'src/i18n';
 
 import styled from '../styling';
@@ -130,6 +131,7 @@ class Results extends React.PureComponent<Props, {}> {
       setSelectedResult,
       showMoreResults,
     } = this.props;
+    displayDebugInfo();
     const canUpdateResults =
       !isEqual(results?.context, nextResults?.context) ||
       !isEqual(results?.results, nextResults?.results);

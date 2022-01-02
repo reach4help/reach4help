@@ -5,6 +5,7 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
+import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -62,6 +63,7 @@ export const addMarker = async (marker: MarkerInfoType, visible: boolean) => {
 export interface InformationUpdate {
   loading: boolean;
   markers: Map<string, MarkerInfoType>;
+  details: Map<string, MarkerInfoType>;
   /**
    * True iff the data includes hidden markers that have not yet been
    * reviewed and approved.
@@ -103,11 +105,19 @@ const state: {
   errors: new Set(),
 };
 
-const getInfoForListeners = (): InformationUpdate => ({
+export const displayDebugInfo = () => {
+  debugLog('state data detail', state.data.detail.markers.size);
+};
+
+const getInfoForListeners = (): InformationUpdate => {
+  debugLog('getInfoForListeners', state.data.initial.markers.size, state.data.detail.markers.size, state.loadingOperations.size, state.includeHidden);
+  return {
     loading: state.loadingOperations.size > 0,
     markers: new Map([...state.data.initial.markers]),
+    details: new Map([...state.data.detail.markers]),
     includingHidden: state.includeHidden,
-  });
+  };
+};
 
 const updateListeners = () => {
   const data = getInfoForListeners();
@@ -151,6 +161,7 @@ const loadInitialDataForMode = (
   // corner1?: google.maps.LatLng,
   // corner2?: google.maps.LatLng,
 ) => {
+  debugLog('loadInitialDataForMode', mode);
   const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
   if (dataMode.loadDone) {
     return;
@@ -201,7 +212,7 @@ export const loadData = (
 ) => {
   // todo: implement query by boundingBox
   loadInitialDataForMode('initial' /* , corner1, corner2 */);
-  // loadInitialDataForMode('detail');
+  loadInitialDataForMode('detail');
 };
 
 export const includingHidden = () => state.includeHidden;
