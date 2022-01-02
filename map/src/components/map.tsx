@@ -190,6 +190,7 @@ class MapComponent extends React.Component<Props, State> {
     let centeredMap: google.maps.Map | null = null;
     const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
     const data: R4HGeoPoint = await response.json();
+    debugLog('centerMap Data', data?.latitude, data?.longitude);
     const location: { lat: number; lng: number } | null = MapComponent.getCenterLocation(data);
     if (!location) {
       return null;
