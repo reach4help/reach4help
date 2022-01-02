@@ -87,8 +87,10 @@ interface State {
 }
 
 class MapComponent extends React.Component<Props, State> {
-
-  private static getCenterLocation(data: { latitude: number; longitude: number }) {
+  private static getCenterLocation(data: {
+    latitude: number;
+    longitude: number;
+  }) {
     let location: { lat: number; lng: number } | null = null;
     if (data.longitude && data.latitude) {
       location = {
@@ -114,7 +116,7 @@ class MapComponent extends React.Component<Props, State> {
       );
     }
     return location;
-  };
+  }
 
   private readonly data: MarkersData = {
     markersData: new Map(),
@@ -143,7 +145,7 @@ class MapComponent extends React.Component<Props, State> {
     }
     // todo: Ethan, Jan 2, 2021
     // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-    // todo: See https://github.com/reach4help/reach4help/issues/1620    
+    // todo: See https://github.com/reach4help/reach4help/issues/1620
     // const p1 = result.getBounds()?.getNorthEast();
     // const p2 = result.getBounds()?.getSouthWest();
     // debugLog('point bounds', p1?.lat(), p2?.lat());
@@ -194,10 +196,13 @@ class MapComponent extends React.Component<Props, State> {
       latitude: parseFloat(data.latitude),
       longitude: parseFloat(data.longitude),
     };
-    const location: { lat: number; lng: number } | null = MapComponent.getCenterLocation(coords);
+    const location: {
+      lat: number;
+      lng: number;
+    } | null = MapComponent.getCenterLocation(coords);
     if (!location) {
       return null;
-    };
+    }
     // If the API returns a geolocation
     const { mapInfo: map } = mapState();
     if (!map) {
