@@ -6,6 +6,7 @@ import mapState, {
 } from 'src/components/map-utils/map-state';
 import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
+import { R4HGeoPoint } from 'src/data/R4HGeoPoint';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
 import { debugLog } from 'src/util/util';
@@ -88,6 +89,38 @@ interface State {
 }
 
 class MapComponent extends React.Component<Props, State> {
+
+  private static getCenterLocation(data: R4HGeoPoint) {
+    let location: { lat: number; lng: number } | null = null;
+    if (data.longitude && data.latitude) {
+      debugLog('debug a', data.latitude, data.longitude);
+      location = {
+        lat: data.latitude,
+        lng: data.longitude,
+      };
+    } else {
+      // Call the browser's geolocation API (will prompt the first time)
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          debugLog('debug b', position.coords.latitude, position.coords.longitude);
+          location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+        },
+        () => {
+          // Position over India if no other option works
+          debugLog('debug c');
+          location = {
+            lat: 21.7679,
+            lng: 78.8718,
+          };
+        },
+      );
+    }
+    return location;
+  };
+
   private readonly data: MarkersData = {
     markersData: new Map(),
   };
@@ -154,62 +187,24 @@ class MapComponent extends React.Component<Props, State> {
   }
 
   private centerMap = async () /*: Promise<google.maps.Map> */ => {
-    let location: {
-      lat: number;
-      lng: number;
-    };
     let centeredMap: google.maps.Map | null = null;
-    await fetch('https://get.geojs.io/v1/ip/geo.json')
-      .then(response => response.json())
-      .then(data => {
-        // If the API returns a geolocation
-        if (data.longitude && data.latitude) {
-          location = {
-            lat: parseFloat(data.latitude),
-            lng: parseFloat(data.longitude),
-          };
-          const { mapInfo: map } = mapState();
-          if (!map) {
-            return;
-          }
-          centeredMap = map.map;
-          map.map.setCenter(location);
-          map.map.setZoom(8);
-          mapState().updateResultsOnNextBoundsChange = true;
-        } else {
-          // Call the browser's geolocation API (will prompt the first time)
-          navigator.geolocation.getCurrentPosition(
-            position => {
-              location = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              };
-              const { mapInfo: map } = mapState();
-              if (!map) {
-                return;
-              }
-              centeredMap = map.map;
-              map.map.setCenter(location);
-              map.map.setZoom(8);
-              mapState().updateResultsOnNextBoundsChange = true;
-            },
-            () => {
-              // Position over India if no other option works
-              location = {
-                lat: 21.7679,
-                lng: 78.8718,
-              };
-              const { mapInfo: map } = mapState();
-              if (!map) {
-                return;
-              }
-              map.map.setCenter(location);
-              map.map.setZoom(4);
-              mapState().updateResultsOnNextBoundsChange = true;
-            },
-          );
-        }
-      });
+    const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
+    const data: R4HGeoPoint = await response.json();
+    const location: { lat: number; lng: number } | null = MapComponent.getCenterLocation(data);
+    if (!location) {
+      return null;
+    };
+    // If the API returns a geolocation
+    const { mapInfo: map } = mapState();
+    if (!map) {
+      return null;
+    }
+
+    centeredMap = map.map;
+    map.map.setCenter(location);
+    map.map.setZoom(8);
+    mapState().updateResultsOnNextBoundsChange = true;
+
     // debugLog('centeredMap', centeredMap);
     return centeredMap;
   };

@@ -110,7 +110,13 @@ export const displayDebugInfo = () => {
 };
 
 const getInfoForListeners = (): InformationUpdate => {
-  debugLog('getInfoForListeners', state.data.initial.markers.size, state.data.detail.markers.size, state.loadingOperations.size, state.includeHidden);
+  debugLog(
+    'getInfoForListeners',
+    state.data.initial.markers.size,
+    state.data.detail.markers.size,
+    state.loadingOperations.size,
+    state.includeHidden,
+  );
   return {
     loading: state.loadingOperations.size > 0,
     markers: new Map([...state.data.initial.markers]),
@@ -205,11 +211,10 @@ const loadInitialDataForMode = (
   return promise;
 };
 
-export const loadData = (
+export const loadData = () => {
   // todo: implement query by boundingBox
   // corner1?: google.maps.LatLng,
   // corner2?: google.maps.LatLng,
-) => {
   // todo: implement query by boundingBox
   loadInitialDataForMode('initial' /* , corner1, corner2 */);
   loadInitialDataForMode('detail');
