@@ -8,7 +8,7 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
-// import { debugLog } from 'src/util/util';
+import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
@@ -143,13 +143,13 @@ class MapComponent extends React.Component<Props, State> {
     if (!result) {
       return;
     }
-    // todo: Ethan, Jan 2, 2021
-    // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-    // todo: See https://github.com/reach4help/reach4help/issues/1620
-    // const p1 = result.getBounds()?.getNorthEast();
-    // const p2 = result.getBounds()?.getSouthWest();
-    // debugLog('point bounds', p1?.lat(), p2?.lat());
-    dataDriver.loadData();
+    const p1 = result.getBounds()?.getNorthEast();
+    const p2 = result.getBounds()?.getSouthWest();
+    if (p1 && p2) {
+      dataDriver.loadData({ lat: p1?.lat(), lng: p2?.lng() }, { lat: p2?.lat(), lng: p1?.lng() });
+    } else {
+      dataDriver.loadData();
+    }
   }
 
   public componentDidUpdate(prevProps: Props) {
@@ -211,10 +211,8 @@ class MapComponent extends React.Component<Props, State> {
 
     centeredMap = map.map;
     map.map.setCenter(location);
-    map.map.setZoom(4);
+    map.map.setZoom(10);
     mapState().updateResultsOnNextBoundsChange = true;
-
-    // debugLog('centeredMap', centeredMap);
     return centeredMap;
   };
 
@@ -328,14 +326,14 @@ class MapComponent extends React.Component<Props, State> {
   private informationUpdated: dataDriver.InformationListener = update => {
     // Update existing markers, add new markers and delete removed markers
     this.data.markersData = new Map();
-    for (const entry of update.markers.entries()) {
+    for (const entry of update.initialMarkers.entries()) {
       this.data.markersData.set(entry[0], {
         id: entry[0],
         info: entry[1],
       });
     }
 
-    for (const entry of update.details.entries()) {
+    for (const entry of update.detailMarkers.entries()) {
       this.data.markersData.set(entry[0], {
         id: entry[0],
         info: entry[1],
@@ -346,7 +344,10 @@ class MapComponent extends React.Component<Props, State> {
     if (map) {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
-      for (const [id, info] of update.markers.entries()) {
+      debugLog('markersData', this.data.markersData.size, map.activeMarkers.markersData.size);
+      for (const markerEntry of this.data.markersData.entries()) {
+        // for (const [id, info] of update.markers.entries()) {
+        const { id, info } = markerEntry[1];
         const marker = map.activeMarkers.markersData.get(id);
         if (marker) {
           // Update info
@@ -360,10 +361,12 @@ class MapComponent extends React.Component<Props, State> {
         }
       }
       map.markerClusterer.addMarkers(newMarkers, true);
+      debugLog(`added ${map.activeMarkers.markersData.size} ${newMarkers.length}`, map.markerClusterer.getTotalClusters());
       // Delete removed markers
       const removedMarkers: google.maps.Marker[] = [];
+
       for (const [id, marker] of map.activeMarkers.markersData.entries()) {
-        if (!update.markers.has(id)) {
+        if (!update.initialMarkers.has(id)) {
           removedMarkers.push(marker);
           map.activeMarkers.markersData.delete(id);
           // const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
@@ -443,8 +446,8 @@ class MapComponent extends React.Component<Props, State> {
     };
 
     // Create initial markers
-    const data = this.data.markersData;
-    for (const [id, info] of data) {
+    debugLog('insert map and markers', this.data.markersData.size);
+    for (const [id, info] of this.data.markersData) {
       this.createMarker(activeMarkers, id, info.info);
     }
 

@@ -5,6 +5,7 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
+import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -61,8 +62,8 @@ export const addMarker = async (marker: MarkerInfoType, visible: boolean) => {
 
 export interface InformationUpdate {
   loading: boolean;
-  markers: Map<string, MarkerInfoType>;
-  details: Map<string, MarkerInfoType>;
+  initialMarkers: Map<string, MarkerInfoType>;
+  detailMarkers: Map<string, MarkerInfoType>;
   /**
    * True iff the data includes hidden markers that have not yet been
    * reviewed and approved.
@@ -106,8 +107,8 @@ const state: {
 
 const getInfoForListeners = (): InformationUpdate => ({
   loading: state.loadingOperations.size > 0,
-  markers: new Map([...state.data.initial.markers]),
-  details: new Map([...state.data.detail.markers]),
+  initialMarkers: new Map([...state.data.initial.markers]),
+  detailMarkers: new Map([...state.data.detail.markers]),
   includingHidden: state.includeHidden,
 });
 
@@ -149,37 +150,30 @@ export const removeInformationListener = (l: InformationListener) => {
 
 const loadInitialDataForMode = (
   mode: 'initial' | 'detail',
-  // todo: Ethan, Jan 2, 2021
-  // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-  // todo: See https://github.com/reach4help/reach4help/issues/1620
-  // corner1?: google.maps.LatLng,
-  // corner2?: google.maps.LatLng,
+  corner1?: { lat: number; lng: number },
+  corner2?: { lat: number; lng: number },
 ) => {
   const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
   if (dataMode.loadDone) {
     return;
   }
   dataMode.loadDone = true;
-  // todo: Ethan, Jan 2, 2021
-  // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-  // todo: See https://github.com/reach4help/reach4help/issues/1620
-  // const boundingBox =
-  //   corner1 && corner2
-  //     ? [corner1.lat(), corner2.lng(), corner2.lat(), corner1.lng()]
-  //     : undefined;
-  // let boundingBoxParam = boundingBox
-  //   ? { insideBoundingBox: [boundingBox] }
-  //   : {};
-  // debugLog('boundingBox', ...boundingBox);
+  const boundingBox =
+    corner1 && corner2
+      ? [corner1.lat, corner2.lng, corner2.lat, corner1.lng]
+      : undefined;
+  const boundingBoxParam = boundingBox
+    ? { insideBoundingBox: [boundingBox] }
+    : {};
+  if (boundingBox) {
+    debugLog('boundingBox', ...boundingBox);
+  }
   const attributesToDisplay =
     mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
 
   const promise = algoliaIndex.browseObjects({
     query: '',
-    // todo: Ethan, Jan 2, 2021
-    // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-    // todo: See https://github.com/reach4help/reach4help/issues/1620
-    // insideBoundingBox: [boundingBox],
+    ...boundingBoxParam,
     hitsPerPage: 12000,
     attributesToRetrieve: attributesToDisplay,
     batch: batch => {
@@ -195,13 +189,12 @@ const loadInitialDataForMode = (
   return promise;
 };
 
-export const loadData = () => {
-  // todo: implement query by boundingBox
-  // corner1?: google.maps.LatLng,
-  // corner2?: google.maps.LatLng,
-  // todo: implement query by boundingBox
-  loadInitialDataForMode('initial' /* , corner1, corner2 */);
-  // loadInitialDataForMode('detail');
+export const loadData = (
+  upperLeftCorner?: { lat: number; lng: number },
+  lowerRightCorner?: { lat: number; lng: number },
+) => {
+  loadInitialDataForMode('initial', upperLeftCorner, lowerRightCorner);
+  loadInitialDataForMode('detail');
 };
 
 export const includingHidden = () => state.includeHidden;
@@ -218,7 +211,6 @@ export const includeHiddenMarkers = (include: boolean) => {
 export const addStorageListener = () => {
   window.addEventListener('storage', e => {
     if (e.key === LOCAL_STORAGE_KEY) {
-      // debugLog('listener calling loadData');
       const dataConfig = getDataConfig();
       state.includeHidden = dataConfig.includingHidden;
       loadData();

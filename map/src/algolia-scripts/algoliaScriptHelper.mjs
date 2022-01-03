@@ -11,7 +11,8 @@ const client = algoliasearch(algoliaAppId, algoliaAdminKey);
 
 export const isValidMarkerJSON = json => {
   const latlng = json?.loc?.latlng;
-  const isValid = !!(latlng?.latitude && latlng?.longitude);
+  const isValid =
+    latlng?.latitude != undefined && latlng?.longitude != undefined;
   // eslint-disable-next-line no-unneeded-ternary
   return isValid;
 };
@@ -66,20 +67,26 @@ export const deleteByKeyWord = async (indexName, keyWord) => {
 
 export const processAlgolia = async (dataJSON, indexName) => {
   const hits = dataJSON.hits ? dataJSON.hits : dataJSON;
+  console.log(`hits ${hits.length}`);
 
   if (!validateMarkerJSON(dataJSON)) {
     throw new Error('Invalid json');
   }
+  let count = 0;
   hits.forEach(marker => {
+    count++;
     // double check JSON is valid
     if (isValidMarkerJSON(marker)) {
       const latlng = marker?.loc?.latlng;
       marker._geoloc = {
-        lat: latlng?.latitude,
-        lng: latlng?.longitude,
+        lat: parseFloat(latlng?.latitude),
+        lng: parseFloat(latlng?.longitude),
       };
+      if (count < 10) {
+        console.log('marker geoloc', marker._geoloc);
+      }
       if (!marker.id) {
-        marker.id = uuidv4();
+        marker.id = `U-${uuidv4()}`;
       }
       marker.objectID = marker.id;
       marker.createdAt = new Date();
