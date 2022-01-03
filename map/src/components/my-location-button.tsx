@@ -35,7 +35,7 @@ class MyLocation extends React.Component<Props, State> {
           return;
         }
         map.map.setCenter(pos);
-        map.map.setZoom(4);
+        map.map.setZoom(10);
         mapState().updateResultsOnNextBoundsChange = true;
         this.setState({ active: false });
       },

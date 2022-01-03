@@ -211,7 +211,7 @@ class MapComponent extends React.Component<Props, State> {
 
     centeredMap = map.map;
     map.map.setCenter(location);
-    map.map.setZoom(4);
+    map.map.setZoom(10);
     mapState().updateResultsOnNextBoundsChange = true;
 
     // debugLog('centeredMap', centeredMap);
