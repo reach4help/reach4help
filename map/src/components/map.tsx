@@ -8,6 +8,7 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
+import { debugLog, debugMarkers } from 'src/util/util';
 // import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
@@ -143,23 +144,22 @@ class MapComponent extends React.Component<Props, State> {
     if (!result) {
       return;
     }
-    // todo: Ethan, Jan 2, 2021
-    // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-    // todo: See https://github.com/reach4help/reach4help/issues/1620
-    // const p1 = result.getBounds()?.getNorthEast();
-    // const p2 = result.getBounds()?.getSouthWest();
-    // debugLog('point bounds', p1?.lat(), p2?.lat());
-    dataDriver.loadData();
+
+    const p1 = result.getBounds()?.getNorthEast();
+    const p2 = result.getBounds()?.getSouthWest();
+    const upperLeft = { lat: p1?.lat() as number, lng: p2?.lng() as number };
+    const lowerRight = { lat: p2?.lat() as number, lng: p1?.lng() as number };
+    dataDriver.loadData({ upperLeft, lowerRight });
   }
 
   public componentDidUpdate(prevProps: Props) {
-    const { mapInfo: map } = mapState();
+    const { mapInfo } = mapState();
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
-    if (map && !filter.filterExecuted) {
+    if (mapInfo && !filter.filterExecuted) {
       this.updateMarkersVisibilityUsingFilter(filter);
       filter.filterExecuted = true;
-      map.currentFilter = filter;
+      mapInfo.currentFilter = filter;
     }
     if (nextResults && !results) {
       // If we have next results queued up, but no results yet, set the results
@@ -167,10 +167,10 @@ class MapComponent extends React.Component<Props, State> {
     }
     // Update selected point if changed
     if (selectedResult !== prevProps.selectedResult) {
-      if (map && selectedResult) {
+      if (mapInfo && selectedResult) {
         // Center selected result
         // selectedResult.info.loc.
-        map.map.panTo({
+        mapInfo.map.panTo({
           lat: selectedResult.info.loc.latlng.latitude,
           lng: selectedResult.info.loc.latlng.longitude,
         });
@@ -204,14 +204,14 @@ class MapComponent extends React.Component<Props, State> {
       return null;
     }
     // If the API returns a geolocation
-    const { mapInfo: map } = mapState();
-    if (!map) {
+    const { mapInfo } = mapState();
+    if (!mapInfo) {
       return null;
     }
 
-    centeredMap = map.map;
-    map.map.setCenter(location);
-    map.map.setZoom(10);
+    centeredMap = mapInfo.map;
+    mapInfo.map.setCenter(location);
+    mapInfo.map.setZoom(10);
     mapState().updateResultsOnNextBoundsChange = true;
 
     // debugLog('centeredMap', centeredMap);
@@ -255,9 +255,9 @@ class MapComponent extends React.Component<Props, State> {
   };
 
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
-    const { mapInfo: map } = mapState();
-    if (map) {
-      map.activeMarkers.markersData.forEach(marker => {
+    const { mapInfo } = mapState();
+    if (mapInfo) {
+      mapInfo.activeMarkers.markersData.forEach(marker => {
         const info = this.getMarkerInfo(marker);
         if (info) {
           marker.setVisible(this.isValidMarker(filter, info));
@@ -266,9 +266,11 @@ class MapComponent extends React.Component<Props, State> {
       // Ensure that the results are updated given the filter has changed
       mapState().updateResultsOnNextBoundsChange = true;
       // Trigger reclustering
-      map.markerClusterer.repaint();
+      mapInfo.markerClusterer.repaint();
+      debugMarkers('update marker visibility b, clustering size, total:');
       // Trigger recomputation of results
       this.updateResultsBasedOnViewport();
+      debugMarkers('update marker visibility c, clustering size, total:');
     }
   };
 
@@ -342,12 +344,12 @@ class MapComponent extends React.Component<Props, State> {
       });
     }
 
-    const { mapInfo: map } = mapState();
-    if (map) {
+    const { mapInfo } = mapState();
+    if (mapInfo) {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
       for (const [id, info] of update.markers.entries()) {
-        const marker = map.activeMarkers.markersData.get(id);
+        const marker = mapInfo.activeMarkers.markersData.get(id);
         if (marker) {
           // Update info
           marker.setPosition({
@@ -356,32 +358,34 @@ class MapComponent extends React.Component<Props, State> {
           });
           marker.setTitle(info.contentTitle);
         } else {
-          newMarkers.push(this.createMarker(map.activeMarkers, id, info));
+          newMarkers.push(this.createMarker(mapInfo.activeMarkers, id, info));
         }
       }
-      map.markerClusterer.addMarkers(newMarkers, true);
+      mapInfo.markerClusterer.addMarkers(newMarkers, true);
+      debugMarkers('Cluster informationUpdated clustering size, cluster total');
       // Delete removed markers
       const removedMarkers: google.maps.Marker[] = [];
-      for (const [id, marker] of map.activeMarkers.markersData.entries()) {
+      for (const [id, marker] of mapInfo.activeMarkers.markersData.entries()) {
         if (!update.markers.has(id)) {
           removedMarkers.push(marker);
-          map.activeMarkers.markersData.delete(id);
+          mapInfo.activeMarkers.markersData.delete(id);
           // const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
           // if (circle) {
           //   circle.setMap(null);
           // }
         }
       }
-      map.markerClusterer.removeMarkers(removedMarkers, true);
-      this.updateMarkersVisibilityUsingFilter(map.currentFilter);
+      mapInfo.markerClusterer.removeMarkers(removedMarkers, true);
+      this.updateMarkersVisibilityUsingFilter(mapInfo.currentFilter);
     }
   };
 
   // eslint-disable-next-line react/sort-comp
   private updateResultsBasedOnViewport = debounce(() => {
-    const { mapInfo: map } = mapState();
-    if (map) {
-      const bounds = map.map.getBounds() || null;
+    const { mapInfo } = mapState();
+    debugMarkers('updateResultsBasedOnViewPort');
+    if (mapInfo) {
+      const bounds = mapInfo.map.getBounds() || null;
 
       const nextResults: ResultsSet = {
         context: {
@@ -401,7 +405,7 @@ class MapComponent extends React.Component<Props, State> {
             lng: markerIdAndInfo.info.loc.latlng.longitude,
           })
         ) {
-          const marker = map.activeMarkers.markersData.get(markerIdAndInfo.id);
+          const marker = mapInfo.activeMarkers.markersData.get(markerIdAndInfo.id);
           if (marker && marker.getVisible()) {
             nextResults.results.push(markerIdAndInfo);
           }
@@ -458,6 +462,7 @@ class MapComponent extends React.Component<Props, State> {
       zoomOnClick: false,
       minimumClusterSize: 6,
     });
+    debugMarkers('insertMapAndMarkers');
 
     const m: MapInfo = {
       map,
@@ -555,6 +560,7 @@ class MapComponent extends React.Component<Props, State> {
         true,
       );
     });
+    debugMarkers('insertMapAndMarkersIntoHTML markerCluster total');
 
     // The clusters have been computed so we can
     markerClusterer.addListener(
@@ -621,12 +627,13 @@ class MapComponent extends React.Component<Props, State> {
         this.updateInfoWindow();
       },
     );
+    debugMarkers('marker cluster x clusterer total');
   };
 
   private updateResults = () => {
-    const { mapInfo: map } = mapState();
+    const { mapInfo } = mapState();
     const { results, nextResults, setResults } = this.props;
-    if (map && nextResults && results !== nextResults) {
+    if (mapInfo && nextResults && results !== nextResults) {
       setResults(nextResults, false);
     }
   };
@@ -636,15 +643,15 @@ class MapComponent extends React.Component<Props, State> {
    * selected. And return the coordinates that were used to place the tooltip.
    */
   private updateInfoWindow = (): google.maps.LatLng | undefined => {
-    const { mapInfo: map } = mapState();
+    const { mapInfo } = mapState();
     const { selectedResult, setSelectedResult } = this.props;
-    if (!map) {
+    if (!mapInfo) {
       return;
     }
     const marker =
-      selectedResult && map.activeMarkers.markersData.get(selectedResult.id);
+      selectedResult && mapInfo.activeMarkers.markersData.get(selectedResult.id);
     if (selectedResult && marker) {
-      const clusterCenter = map.clustering?.clusterMarkers.get(marker);
+      const clusterCenter = mapInfo.clustering?.clusterMarkers.get(marker);
       const contentString = infoWindowContent(selectedResult.info);
       if (!this.infoWindow) {
         this.infoWindow = new window.google.maps.InfoWindow({
@@ -657,11 +664,11 @@ class MapComponent extends React.Component<Props, State> {
       }
       this.infoWindow.setContent(contentString);
       if (clusterCenter) {
-        this.infoWindow.open(map.map);
+        this.infoWindow.open(mapInfo.map);
         this.infoWindow.setPosition(clusterCenter);
         return clusterCenter;
       }
-      this.infoWindow.open(map.map, marker);
+      this.infoWindow.open(mapInfo.map, marker);
       return marker.getPosition() || undefined;
     }
     if (this.infoWindow) {
@@ -670,7 +677,7 @@ class MapComponent extends React.Component<Props, State> {
   };
 
   public render() {
-    const { mapInfo: map } = mapState();
+    const { mapInfo } = mapState();
     const { className, page, setPage } = this.props;
     return (
       <AppContext.Consumer>
@@ -680,7 +687,7 @@ class MapComponent extends React.Component<Props, State> {
             {page.page === 'add-information' && (
               <AddInstructions
                 lang={lang}
-                map={(map && map.map) || null}
+                map={(mapInfo && mapInfo.map) || null}
                 addInfoStep={page.step}
                 setPage={setPage}
                 setAddInfoMapClickedListener={this.setAddInfoMapClickedListener}

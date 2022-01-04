@@ -6,9 +6,11 @@ import Chevron from 'src/components/assets/chevron';
 import Refresh from 'src/components/assets/refresh';
 import { MarkerIdAndInfo, ResultsSet } from 'src/components/map';
 import { format, Language, t } from 'src/i18n';
+import { debugLog, debugMarkers } from 'src/util/util';
 
 import styled from '../styling';
 import { AppContext } from './context';
+import mapState from './map-utils/map-state';
 import MarkerType from './marker-type';
 
 interface Props {
@@ -22,7 +24,7 @@ interface Props {
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
   showMoreResults: (count: number) => void;
 }
-
+debugMarkers('results clusterer total');
 const SOURCES = {
   'mutualaid.wiki': {
     label: 'Mutual Aid Wiki',
@@ -120,6 +122,8 @@ class Results extends React.PureComponent<Props, {}> {
   };
 
   public render() {
+    debugMarkers('results b clustering total:');
+
     const {
       className,
       results,
@@ -137,16 +141,15 @@ class Results extends React.PureComponent<Props, {}> {
       selectedResult?.info.source && SOURCES[selectedResult.info.source.name];
     const selectedResultSentenceType =
       selectedResult?.info.type.type === 'mutual-aid-group' ||
-      selectedResult?.info.type.type === 'org'
+        selectedResult?.info.type.type === 'org'
         ? selectedResult.info.type.type
         : 'project';
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div
-            className={`${className} ${open ? 'open' : ''} ${
-              selectedResult ? 'selected-result' : ''
-            }`}
+            className={`${className} ${open ? 'open' : ''} ${selectedResult ? 'selected-result' : ''
+              }`}
           >
             <button
               type="button"
@@ -161,8 +164,8 @@ class Results extends React.PureComponent<Props, {}> {
                     selectedResult
                       ? s.results.backToResults
                       : open
-                      ? s.results.closeResults
-                      : s.results.openResults,
+                        ? s.results.closeResults
+                        : s.results.openResults,
                   {
                     results: (results?.results || []).length,
                   },
@@ -243,7 +246,7 @@ class Results extends React.PureComponent<Props, {}> {
                               lang,
                               s =>
                                 s.markerTypeSentence[
-                                  selectedResultSentenceType
+                                selectedResultSentenceType
                                 ],
                             )}
                           </span>

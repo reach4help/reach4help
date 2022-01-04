@@ -1,3 +1,5 @@
+import mapState from 'src/components/map-utils/map-state';
+
 /* eslint-disable no-console */
 export const debugLog = (...args: any[]) => {
   let text = '';
@@ -19,4 +21,11 @@ export const debugLog = (...args: any[]) => {
   if (text) {
     console.log(`${text}`);
   }
+};
+
+export const debugMarkers = (msg: string) => {
+  const { mapInfo } = mapState();
+  debugLog(msg,
+    mapInfo?.clustering?.clusterMarkers.size, mapInfo?.markerClusterer.getTotalClusters(), 'markers',
+    mapInfo?.markerClusterer.getMarkers().length, mapInfo?.map);
 };

@@ -5,6 +5,7 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
+import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -149,37 +150,39 @@ export const removeInformationListener = (l: InformationListener) => {
 
 const loadInitialDataForMode = (
   mode: 'initial' | 'detail',
-  // todo: Ethan, Jan 2, 2021
-  // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-  // todo: See https://github.com/reach4help/reach4help/issues/1620
-  // corner1?: google.maps.LatLng,
-  // corner2?: google.maps.LatLng,
+  bounds?: {
+    upperLeft: { lat: number; lng: number };
+    lowerRight: { lat: number; lng: number };
+  },
 ) => {
   const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
   if (dataMode.loadDone) {
     return;
   }
   dataMode.loadDone = true;
-  // todo: Ethan, Jan 2, 2021
-  // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-  // todo: See https://github.com/reach4help/reach4help/issues/1620
-  // const boundingBox =
-  //   corner1 && corner2
-  //     ? [corner1.lat(), corner2.lng(), corner2.lat(), corner1.lng()]
-  //     : undefined;
-  // let boundingBoxParam = boundingBox
-  //   ? { insideBoundingBox: [boundingBox] }
-  //   : {};
-  // debugLog('boundingBox', ...boundingBox);
+
+  const boundingBox = bounds
+    ? [
+        bounds.upperLeft.lat,
+        bounds.upperLeft.lng,
+        bounds.lowerRight.lat,
+        bounds.lowerRight.lng,
+      ]
+    : undefined;
+  const boundingBoxParam = boundingBox
+    ? { insideBoundingBox: [boundingBox] }
+    : {};
+  if (boundingBox) {
+    debugLog('boundingBox', ...boundingBox);
+  } else {
+    debugLog('boundingBox undefined');
+  }
   const attributesToDisplay =
     mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
 
   const promise = algoliaIndex.browseObjects({
     query: '',
-    // todo: Ethan, Jan 2, 2021
-    // todo: QUERY_BY_BOUNDS (waiting for Algolia support issue)
-    // todo: See https://github.com/reach4help/reach4help/issues/1620
-    // insideBoundingBox: [boundingBox],
+    ...boundingBoxParam,
     hitsPerPage: 12000,
     attributesToRetrieve: attributesToDisplay,
     batch: batch => {
@@ -195,12 +198,11 @@ const loadInitialDataForMode = (
   return promise;
 };
 
-export const loadData = () => {
-  // todo: implement query by boundingBox
-  // corner1?: google.maps.LatLng,
-  // corner2?: google.maps.LatLng,
-  // todo: implement query by boundingBox
-  loadInitialDataForMode('initial' /* , corner1, corner2 */);
+export const loadData = (bounds?: {
+  upperLeft: { lat: number; lng: number };
+  lowerRight: { lat: number; lng: number };
+}) => {
+  loadInitialDataForMode('initial', bounds);
   loadInitialDataForMode('detail');
 };
 
