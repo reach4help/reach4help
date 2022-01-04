@@ -201,7 +201,7 @@ export const loadData = () => {
   // corner2?: google.maps.LatLng,
   // todo: implement query by boundingBox
   loadInitialDataForMode('initial' /* , corner1, corner2 */);
-  // loadInitialDataForMode('detail');
+  loadInitialDataForMode('detail');
 };
 
 export const includingHidden = () => state.includeHidden;
