@@ -8,8 +8,6 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
-import { debugLog, debugMarkers } from 'src/util/util';
-// import { debugLog } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
@@ -139,7 +137,7 @@ class MapComponent extends React.Component<Props, State> {
   public async componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
-    dataDriver.addInformationListener(this.informationUpdated);
+    dataDriver.addInformationListener(this.updateClusterAndMarkersListener);
     const result: google.maps.Map | null = await this.centerMap();
     if (!result) {
       return;
@@ -182,7 +180,7 @@ class MapComponent extends React.Component<Props, State> {
   public componentWillUnmount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(null);
-    dataDriver.removeInformationListener(this.informationUpdated);
+    dataDriver.removeInformationListener(this.updateClusterAndMarkersListener);
   }
 
   private centerMap = async () /*: Promise<google.maps.Map> */ => {
@@ -214,16 +212,15 @@ class MapComponent extends React.Component<Props, State> {
     mapInfo.map.setZoom(10);
     mapState().updateResultsOnNextBoundsChange = true;
 
-    // debugLog('centeredMap', centeredMap);
     return centeredMap;
   };
 
-  private isValidMarker = (filter: Filter, info: MarkerIdAndInfo): boolean => {
+  private isMatch = (filter: Filter, info: MarkerIdAndInfo): boolean => {
     let validTypes = true;
     if (
       filter.markerTypes &&
       filter.markerTypes.size > 0 &&
-      (typeof info.info.type.type === 'undefined' ||
+      (typeof info.info?.type?.type === 'undefined' ||
         !filter.markerTypes.has(info.info.type.type))
     ) {
       validTypes = false;
@@ -233,7 +230,7 @@ class MapComponent extends React.Component<Props, State> {
     if (
       filter.services &&
       filter.services.size > 0 &&
-      (typeof info.info.type.services === 'undefined' ||
+      (typeof info.info?.type?.services === 'undefined' ||
         !hasIntersection(filter.services, info.info.type.services))
     ) {
       validServices = false;
@@ -260,17 +257,15 @@ class MapComponent extends React.Component<Props, State> {
       mapInfo.activeMarkers.markersData.forEach(marker => {
         const info = this.getMarkerInfo(marker);
         if (info) {
-          marker.setVisible(this.isValidMarker(filter, info));
+          marker.setVisible(this.isMatch(filter, info));
         }
       });
       // Ensure that the results are updated given the filter has changed
       mapState().updateResultsOnNextBoundsChange = true;
       // Trigger reclustering
       mapInfo.markerClusterer.repaint();
-      debugMarkers('update marker visibility b, clustering size, total:');
       // Trigger recomputation of results
-      this.updateResultsBasedOnViewport();
-      debugMarkers('update marker visibility c, clustering size, total:');
+      this.debouncedUpdateResultsBasedOnViewport();
     }
   };
 
@@ -327,17 +322,22 @@ class MapComponent extends React.Component<Props, State> {
     return marker;
   };
 
-  private informationUpdated: dataDriver.InformationListener = update => {
+  /**
+   * Populate mapState().mapInfo.markClusterer from initialMarkers and detailMarkers
+   * @param update: data.driverInformationUpdate {initialMarkers,detailMarkers}
+   */
+  private updateClusterAndMarkersListener: dataDriver.MarkersListener = update => {
     // Update existing markers, add new markers and delete removed markers
     this.data.markersData = new Map();
-    for (const entry of update.markers.entries()) {
-      this.data.markersData.set(entry[0], {
-        id: entry[0],
-        info: entry[1],
-      });
+
+    const allMarkers = update.initialMarkers;
+    for (const marker of update.detailMarkers.entries()) {
+      const id = marker[0];
+      const markerInfo = marker[1];
+      allMarkers.set(id, markerInfo);
     }
 
-    for (const entry of update.details.entries()) {
+    for (const entry of allMarkers.entries()) {
       this.data.markersData.set(entry[0], {
         id: entry[0],
         info: entry[1],
@@ -348,7 +348,7 @@ class MapComponent extends React.Component<Props, State> {
     if (mapInfo) {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
-      for (const [id, info] of update.markers.entries()) {
+      for (const [id, info] of allMarkers) {
         const marker = mapInfo.activeMarkers.markersData.get(id);
         if (marker) {
           // Update info
@@ -361,12 +361,12 @@ class MapComponent extends React.Component<Props, State> {
           newMarkers.push(this.createMarker(mapInfo.activeMarkers, id, info));
         }
       }
+
       mapInfo.markerClusterer.addMarkers(newMarkers, true);
-      debugMarkers('Cluster informationUpdated clustering size, cluster total');
       // Delete removed markers
       const removedMarkers: google.maps.Marker[] = [];
       for (const [id, marker] of mapInfo.activeMarkers.markersData.entries()) {
-        if (!update.markers.has(id)) {
+        if (!update.initialMarkers.has(id) && !update.detailMarkers.has(id)) {
           removedMarkers.push(marker);
           mapInfo.activeMarkers.markersData.delete(id);
           // const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
@@ -380,10 +380,13 @@ class MapComponent extends React.Component<Props, State> {
     }
   };
 
+  /**
+   * After 50 milliseconds, asynchronously populate nextResults based on markers
+   * within bounds and set results to same value
+   */
   // eslint-disable-next-line react/sort-comp
-  private updateResultsBasedOnViewport = debounce(() => {
+  private debouncedUpdateResultsBasedOnViewport = debounce(() => {
     const { mapInfo } = mapState();
-    debugMarkers('updateResultsBasedOnViewPort');
     if (mapInfo) {
       const bounds = mapInfo.map.getBounds() || null;
 
@@ -405,7 +408,9 @@ class MapComponent extends React.Component<Props, State> {
             lng: markerIdAndInfo.info.loc.latlng.longitude,
           })
         ) {
-          const marker = mapInfo.activeMarkers.markersData.get(markerIdAndInfo.id);
+          const marker = mapInfo.activeMarkers.markersData.get(
+            markerIdAndInfo.id,
+          );
           if (marker && marker.getVisible()) {
             nextResults.results.push(markerIdAndInfo);
           }
@@ -462,7 +467,6 @@ class MapComponent extends React.Component<Props, State> {
       zoomOnClick: false,
       minimumClusterSize: 6,
     });
-    debugMarkers('insertMapAndMarkers');
 
     const m: MapInfo = {
       map,
@@ -478,7 +482,7 @@ class MapComponent extends React.Component<Props, State> {
       if ('replaceState' in window.history) {
         debouncedUpdateQueryStringMapLocation(map);
       }
-      this.updateResultsBasedOnViewport();
+      this.debouncedUpdateResultsBasedOnViewport();
     });
 
     const drawMarkerServiceArea = (marker: google.maps.Marker) => {
@@ -560,7 +564,6 @@ class MapComponent extends React.Component<Props, State> {
         true,
       );
     });
-    debugMarkers('insertMapAndMarkersIntoHTML markerCluster total');
 
     // The clusters have been computed so we can
     markerClusterer.addListener(
@@ -627,7 +630,6 @@ class MapComponent extends React.Component<Props, State> {
         this.updateInfoWindow();
       },
     );
-    debugMarkers('marker cluster x clusterer total');
   };
 
   private updateResults = () => {
@@ -649,7 +651,8 @@ class MapComponent extends React.Component<Props, State> {
       return;
     }
     const marker =
-      selectedResult && mapInfo.activeMarkers.markersData.get(selectedResult.id);
+      selectedResult &&
+      mapInfo.activeMarkers.markersData.get(selectedResult.id);
     if (selectedResult && marker) {
       const clusterCenter = mapInfo.clustering?.clusterMarkers.get(marker);
       const contentString = infoWindowContent(selectedResult.info);

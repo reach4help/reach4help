@@ -25,7 +25,14 @@ export const debugLog = (...args: any[]) => {
 
 export const debugMarkers = (msg: string) => {
   const { mapInfo } = mapState();
-  debugLog(msg,
-    mapInfo?.clustering?.clusterMarkers.size, mapInfo?.markerClusterer.getTotalClusters(), 'markers',
-    mapInfo?.markerClusterer.getMarkers().length, mapInfo?.map);
+  debugLog(msg);
+  debugLog(
+    'clustering size',
+    mapInfo?.clustering?.clusterMarkers.size,
+    'clusterer total',
+    mapInfo?.markerClusterer.getTotalClusters(),
+    'markers',
+    'clusterer getMarkers size',
+    mapInfo?.markerClusterer.getMarkers().length,
+  );
 };

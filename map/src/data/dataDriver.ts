@@ -5,7 +5,6 @@ import {
   MarkerInfoWithId,
 } from '@reach4help/model/lib/markers';
 import algoliasearch from 'algoliasearch';
-import { debugLog } from 'src/util/util';
 import { v4 as uuidv4 } from 'uuid';
 
 import { R4HGeoPoint } from './R4HGeoPoint';
@@ -60,10 +59,10 @@ export const addMarker = async (marker: MarkerInfoType, visible: boolean) => {
   await algoliaIndex.saveObject(newMarker);
 };
 
-export interface InformationUpdate {
+export interface MarkersUpdate {
   loading: boolean;
-  markers: Map<string, MarkerInfoType>;
-  details: Map<string, MarkerInfoType>;
+  initialMarkers: Map<string, MarkerInfoType>;
+  detailMarkers: Map<string, MarkerInfoType>;
   /**
    * True iff the data includes hidden markers that have not yet been
    * reviewed and approved.
@@ -71,18 +70,18 @@ export interface InformationUpdate {
   includingHidden: boolean;
 }
 
-export type InformationListener = (event: InformationUpdate) => void;
+export type MarkersListener = (event: MarkersUpdate) => void;
 
-interface CategoryData {
+interface MarkersDataInfo {
   loadDone: boolean;
   markers: Map<string, MarkerInfoType>;
 }
 
-const listeners = new Set<InformationListener>();
+const listeners = new Set<MarkersListener>();
 const state: {
   data: {
-    initial: CategoryData;
-    detail: CategoryData;
+    initialMarkersInfo: MarkersDataInfo;
+    detailMarkersInfo: MarkersDataInfo;
   };
   increment: number;
   includeHidden: boolean;
@@ -90,11 +89,11 @@ const state: {
   errors: Set<Error>;
 } = {
   data: {
-    initial: {
+    initialMarkersInfo: {
       loadDone: false,
       markers: new Map(),
     },
-    detail: {
+    detailMarkersInfo: {
       loadDone: false,
       markers: new Map(),
     },
@@ -105,15 +104,15 @@ const state: {
   errors: new Set(),
 };
 
-const getInfoForListeners = (): InformationUpdate => ({
+const getMarkersDataForListener = (): MarkersUpdate => ({
   loading: state.loadingOperations.size > 0,
-  markers: new Map([...state.data.initial.markers]),
-  details: new Map([...state.data.detail.markers]),
+  initialMarkers: state.data.initialMarkersInfo.markers,
+  detailMarkers: state.data.detailMarkersInfo.markers,
   includingHidden: state.includeHidden,
 });
 
 const updateListeners = () => {
-  const data = getInfoForListeners();
+  const data = getMarkersDataForListener();
   listeners.forEach(l => l(data));
 };
 
@@ -139,27 +138,30 @@ const processPromise = (promise: Promise<unknown>) => {
   );
 };
 
-export const addInformationListener = (l: InformationListener) => {
+export const addInformationListener = (l: MarkersListener) => {
   listeners.add(l);
-  l(getInfoForListeners());
+  l(getMarkersDataForListener());
 };
 
-export const removeInformationListener = (l: InformationListener) => {
+export const removeInformationListener = (l: MarkersListener) => {
   listeners.delete(l);
 };
 
-const loadInitialDataForMode = (
+const loadDataForMode = (
   mode: 'initial' | 'detail',
   bounds?: {
     upperLeft: { lat: number; lng: number };
     lowerRight: { lat: number; lng: number };
   },
 ) => {
-  const dataMode = mode === 'initial' ? state.data.initial : state.data.detail;
-  if (dataMode.loadDone) {
+  const dataModeMarkers =
+    mode === 'initial'
+      ? state.data.initialMarkersInfo
+      : state.data.detailMarkersInfo;
+  if (dataModeMarkers.loadDone) {
     return;
   }
-  dataMode.loadDone = true;
+  dataModeMarkers.loadDone = true;
 
   const boundingBox = bounds
     ? [
@@ -172,23 +174,19 @@ const loadInitialDataForMode = (
   const boundingBoxParam = boundingBox
     ? { insideBoundingBox: [boundingBox] }
     : {};
-  if (boundingBox) {
-    debugLog('boundingBox', ...boundingBox);
-  } else {
-    debugLog('boundingBox undefined');
-  }
+
   const attributesToDisplay =
     mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
 
   const promise = algoliaIndex.browseObjects({
     query: '',
-    ...boundingBoxParam,
     hitsPerPage: 12000,
+    ...boundingBoxParam,
     attributesToRetrieve: attributesToDisplay,
     batch: batch => {
       batch.forEach(batchMarker => {
         const marker = (batchMarker as unknown) as MarkerInfoWithIdType;
-        dataMode.markers.set(marker.id, marker);
+        dataModeMarkers.markers.set(marker.id, marker);
       });
       state.increment += 1;
     },
@@ -202,8 +200,8 @@ export const loadData = (bounds?: {
   upperLeft: { lat: number; lng: number };
   lowerRight: { lat: number; lng: number };
 }) => {
-  loadInitialDataForMode('initial', bounds);
-  loadInitialDataForMode('detail');
+  loadDataForMode('initial', bounds);
+  loadDataForMode('detail');
 };
 
 export const includingHidden = () => state.includeHidden;
@@ -220,7 +218,6 @@ export const includeHiddenMarkers = (include: boolean) => {
 export const addStorageListener = () => {
   window.addEventListener('storage', e => {
     if (e.key === LOCAL_STORAGE_KEY) {
-      // debugLog('listener calling loadData');
       const dataConfig = getDataConfig();
       state.includeHidden = dataConfig.includingHidden;
       loadData();
