@@ -4,6 +4,9 @@ import mapState from 'src/components/map-utils/map-state';
 export const debugLog = (...args: any[]) => {
   let text = '';
   args.forEach(arg => {
+    text = `${Date()
+      .toLocaleLowerCase()
+      .substring(16, 24)} ms: ${new Date().getMilliseconds()} `;
     const isPrimitive = ['string', 'number', 'boolean', 'undefined'].includes(
       typeof arg,
     );
@@ -13,7 +16,7 @@ export const debugLog = (...args: any[]) => {
       if (text) {
         console.log(text, arg);
       } else {
-        console.log(text, arg);
+        console.log(arg);
       }
       text = '';
     }
@@ -35,4 +38,19 @@ export const debugMarkers = (msg: string) => {
     'clusterer getMarkers size',
     mapInfo?.markerClusterer.getMarkers().length,
   );
+};
+
+export const debugLogTimeStart = (startLabel: string, ...args: any[]) => {
+  console.time(startLabel);
+  debugLog(`Time log: Starting ${startLabel}`, ...args);
+};
+
+export const debugLogTimeEnd = (endLabel: string, ...args: any[]) => {
+  console.timeEnd(endLabel);
+  debugLog(`Time log: Ending ${endLabel}`, ...args);
+};
+
+export const debugLogTime = (timeLabel: string, ...args: any[]) => {
+  console.timeLog(timeLabel);
+  debugLog('Time log: Logging', ...args);
 };
