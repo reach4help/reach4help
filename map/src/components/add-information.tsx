@@ -1121,7 +1121,6 @@ class AddInstructions extends React.Component<Props, State> {
                         {error(lang)}
                       </p>
                     ))}
-                  action 2
                   {this.actionButtons({
                     previousScreen: 'information',
                     nextScreen: this.completeMarkerPlacement,
@@ -1153,7 +1152,6 @@ class AddInstructions extends React.Component<Props, State> {
                       ))}
                     </ul>
                   )}
-                  action 3
                   {this.actionButtons({
                     previousScreen: 'place-marker',
                     nextLabel: 'submit',
