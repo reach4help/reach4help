@@ -50,7 +50,7 @@ class MapLayout extends React.Component<Props, State> {
     dataDriver.removeInformationListener(this.dataDriverInformationUpdated);
   }
 
-  private dataDriverInformationUpdated: dataDriver.InformationListener = update =>
+  private dataDriverInformationUpdated: dataDriver.MarkersListener = update =>
     this.setState({ includingHidden: update.includingHidden });
 
   private setSearchClosed = (searchClosed: boolean) => {
