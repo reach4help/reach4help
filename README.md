@@ -17,7 +17,9 @@
 
 ## Who We Are
 
-[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond.
+[Reach4Help](https://reach4help.org/) is an open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools like [our global map of aid organizations](https://map.reach4help.org/) for volunteers, people in need, and volunteer organizations alike, we’re building a large-scale network of help. 
+
+Our vision is to create a global network of resilient local volunteers organizations to empower and support their communities through the COVID-19 pandemic and future crises beyond. Ultimately, our goal is to ensure that anyone, anywhere can reach for help. 
 
 ## How _You_ Can Contribute
 
@@ -25,17 +27,22 @@ We're currently looking for help on the project in several fields, especially in
 
 # Projects
 
-## [Reach4Help App](web-client)
-
-Our main app connecting people in need with volunteers who can help. We’re working with volunteer organizations across the world, amassing over 150 volunteers in 13 countries worldwide, providing support for charity events, food banks, and day-to-day delivery services. Our [backend layer](functions) manages all the data for our [main app](/web-client/src/firebase/index.ts). **Check it out live [here](https://app.reach4help.org/)!**
-
 ## [Global Mutual Aid Map](map)
 
 A global interactive map visualizing over 10,000 volunteer organizations supporting communities in need around the world! We're looking for help reaching out to more organizations and for developing the map further (especially in optimizing loading all those data points). **Check it out live [here](https://map.reach4help.org/)!**
 
+## [Organization Dashboard](https://github.com/reach4help/covidhelphub-frontend)
+
+Alongside organizations like the COVID-19 Help Hub in Montréal, India One Alliance headquartered in Delhi and EMK Center in Dhaka, we're currently prototyping a platform to automate the menial tasks of volunteer coordination and request management, thereby cutting down valuable time and money for these organizations. Going forward, our goal is to engage more organizations in the design and development of this platform to make sure we can scale it effectively for various charitable campaigns, from food distribution for needy communities to vaccination drives for the elderly. 
+
+
 ## [Official Website](site)
 
 Our website highlighting the project and our hardworking team of volunteers. **Check it out live [here](https://reach4help.org/)!**
+
+## [Peer-to-Peer App (Discontinued)](web-client)
+
+Our first app matching individual people in need with individual nearby volunteers who can help. With over 300 volunteers and users across the world, this became a successful proof of concept for us to take the project to the next stage, involving community aid organizations directly. Our [backend layer](functions) manages all the data for our [main app](/web-client/src/firebase/index.ts). **Check it out live [here](https://app.reach4help.org/)!**
 
 # Development
 
