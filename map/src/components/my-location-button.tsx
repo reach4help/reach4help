@@ -30,12 +30,12 @@ class MyLocation extends React.Component<Props, State> {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        const { map } = mapState();
-        if (!map) {
+        const { mapInfo } = mapState();
+        if (!mapInfo) {
           return;
         }
-        map.map.setCenter(pos);
-        map.map.setZoom(8);
+        mapInfo.map.setCenter(pos);
+        mapInfo.map.setZoom(10);
         mapState().updateResultsOnNextBoundsChange = true;
         this.setState({ active: false });
       },

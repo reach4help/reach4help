@@ -1121,7 +1121,6 @@ class AddInstructions extends React.Component<Props, State> {
                         {error(lang)}
                       </p>
                     ))}
-                  action 2
                   {this.actionButtons({
                     previousScreen: 'information',
                     nextScreen: this.completeMarkerPlacement,
@@ -1153,7 +1152,6 @@ class AddInstructions extends React.Component<Props, State> {
                       ))}
                     </ul>
                   )}
-                  action 3
                   {this.actionButtons({
                     previousScreen: 'place-marker',
                     nextLabel: 'submit',
@@ -1424,7 +1422,7 @@ export default styled(AddInstructions)`
 
     > .search-wrapper {
       display: flex;
-      margin: ${p => p.theme.overlayPaddingPx}px;
+      margin: ${p => p.theme.overlayPanelWidthPx}px;
       background: #fff;
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
       border-radius: 4px;
