@@ -3,13 +3,13 @@
     "Navigation": {
       "buttons": {
         "map": "Mutual Aid Map",
-        "signIn": "Sign in"
+        "signIn": "로그인"
       },
       "pages": {
-        "home": "Home",
+        "home": "홈",
         "mission": "Mission",
         "impact": "Impact",
-        "team": "Team"
+        "team": "팀"
       }
     },
     "HomePage": {
@@ -158,7 +158,7 @@
     "Footer": {
       "sections": [
         {
-          "title": "Privacy Policy",
+          "title": "개인정보 취급방침",
           "link": "/privacy"
         },
         {
@@ -168,7 +168,7 @@
       ]
     },
     "404": {
-      "heading": "404 Not Found",
+      "heading": "404 찾을 수 없음",
       "description": [
         "You've found a glitch in the matrix...",
         "Or you're just clowning around. 🤡"
