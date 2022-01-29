@@ -15,7 +15,7 @@
     },
     "sourceHeading": "D'où viennent ces informations ?",
     "sourceInfo": "Les informations sur cette carte sont une combinaison de données collectées par nos volontaires, soumises par nos utilisateurs, et fournies par d'autres projets menés par des volontaires, y compris {mutualaidwiki} et {mutualaidhub}.",
-    "sourceSubmit": "Nous vous encourageons à {addinfo} sur tous les projets que vous connaissez qui ne sont pas déjà sur la carte.",
+    "sourceSubmit": "Nous vous encourageons à ajouter des informations {addinfo} sur tous les projets que vous connaissez qui ne sont pas déjà sur la carte.",
     "sourceSubmitButton": "ajouter des informations",
     "usageHeading": "Puis-je utiliser ces données pour mon propre projet?",
     "usageInfo": "Nous vous invitons à utiliser les données fournies par notre carte pour vos propres projets, à condition que vous suiviez les licences respectives.",
