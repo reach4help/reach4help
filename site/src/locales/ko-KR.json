@@ -54,7 +54,7 @@
                 "description": "Let us know what you need and we'll send your request to local volunteers and organizations."
               },
               {
-                "or": "OR"
+                "or": "또는"
               },
               {
                 "title": "Choose Volunteer Offer",
@@ -84,7 +84,7 @@
                 "description": "Let us know what you can help with, and we'll connect you to someone who needs it."
               },
               {
-                "or": "OR"
+                "or": "또는"
               },
               {
                 "title": "Choose Who to Help",
