@@ -94,7 +94,7 @@
         "loading": "Enviando información al mapa...",
         "error": "Error al agregar información",
         "success": "Tu solicitud se ha enviado con éxito.",
-        "successExtra": "Antes de que hagamos visible tu información en el mapa, tendrá que ser revisada por un voluntario de nuestro equipo. Es de esperar que esto se haga dentro de un par de días. Mientras tanto, podrás verlo haciendo clic en 'Mostrar información oculta' en la parte inferior de la página 'Acerca de'."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
