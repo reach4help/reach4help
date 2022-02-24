@@ -94,7 +94,7 @@
         "loading": "Információ hozzáadása a térképhez...",
         "error": "Hiba az információ hozzáadása során",
         "success": "Az információkat sikeresen elküldtük.",
-        "successExtra": "Mielőtt az Ön információt láthatóvá tesszük a térképen, egy, a csapatunkban lévő önkéntes megvizsgálja azokat, ami jobb esetben néhány napon belül megtörténik."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
