@@ -94,7 +94,7 @@
         "loading": "Informationen werden zur Karte übertragen.",
         "error": "Fehler beim Hinzufügen der Informationen",
         "success": "Ihre Informationen wurden erfolgreich übermittelt.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
