@@ -94,7 +94,7 @@
         "loading": "Envoi des informations à la carte...",
         "error": "Erreur lors de l'ajout des informations",
         "success": "Vos informations ont bien été envoyées.",
-        "successExtra": "Avant de rendre vos informations visibles sur la carte, elles devront être examinées par un bénévole de notre équipe. Espérons que cela puisse se faire dans les prochaines jours. En attendant, vous pourrez le voir en cliquant sur « Afficher les informations cachées » en bas de la page À Propos."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
