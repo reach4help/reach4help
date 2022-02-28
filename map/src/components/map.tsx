@@ -190,10 +190,27 @@ class MapComponent extends React.Component<Props, State> {
     if (!data) {
       return null;
     }
-    const coords = {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const urlLoc = urlParams.get('map');
+    let urlCoords;
+    let zoomLevel;
+
+    if (urlLoc) {
+      const [urlLatitude, urlLongitude, urlZoomLevel] = urlLoc.split(',');
+      urlCoords = {
+        latitude: parseFloat(urlLatitude),
+        longitude: parseFloat(urlLongitude),
+      };
+      zoomLevel = parseFloat(urlZoomLevel);
+    }
+
+    // only use the location data from geojs if url doesnt have location param
+    const coords = urlCoords || {
       latitude: parseFloat(data.latitude),
       longitude: parseFloat(data.longitude),
     };
+
     const location: {
       lat: number;
       lng: number;
@@ -209,7 +226,8 @@ class MapComponent extends React.Component<Props, State> {
 
     centeredMap = mapInfo.map;
     mapInfo.map.setCenter(location);
-    mapInfo.map.setZoom(10);
+    // If zoomLevel data exists in the url, setZoom to this value, else use 10 as default
+    mapInfo.map.setZoom(zoomLevel || 10);
     mapState().updateResultsOnNextBoundsChange = true;
 
     return centeredMap;
