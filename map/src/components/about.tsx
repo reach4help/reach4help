@@ -202,7 +202,7 @@ export default styled(About)`
   }
 
   > .content {
-    margin: 120px auto 0;
+    margin: 3em auto 0;
     color: #fff;
     max-width: 700px;
     display: flex;

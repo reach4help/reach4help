@@ -185,7 +185,7 @@
   },
   "filterForm": {
     "title": "Filter Markers",
-    "searchBox": "Search by keyword...",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
     "org": "Organization Type",
     "service": "Services Offered",
     "visibility": "Visibility",

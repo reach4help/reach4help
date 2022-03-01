@@ -143,7 +143,7 @@ class Header extends React.Component<Props, State> {
   };
 }
 
-const TOP_HEIGHT = '70px';
+const TOP_HEIGHT = '55px';
 const PADDING_HORIZONTAL = '50px';
 
 export default styled(Header)`
@@ -195,6 +195,7 @@ export default styled(Header)`
 
     ${NON_LARGE_DEVICES} {
       padding: 0 15px;
+      height: 3em;
     }
 
     &.in-frame {
