@@ -58,7 +58,7 @@
     "firebase-functions-test": "^0.1.6",
     "firebase-tools": "^8.4.3",
     "jest": "^25.2.4",
-    "lint-staged": "^10.0.9",
+    "lint-staged": "^12.3.4",
     "prettier": "^1.19.1",
     "ts-jest": "^25.3.0",
     "typescript": "^3.8.3"
