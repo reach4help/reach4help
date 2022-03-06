@@ -1,15 +1,24 @@
 import * as functions from 'firebase-functions';
 import * as Client from 'twilio';
 
-const TWILIO_ACCOUNT_SID = functions.config().twilio.account_sid;
-const TWILIO_SERVICE_SID = functions.config().twilio.service_sid;
-const TWILIO_AUTH_TOKEN = functions.config().twilio.auth_token;
+let twilioAccountSid: string;
+let twilioServiceSid: string;
+let twilioAuthToken: string;
+let client: Client.Twilio;
 
-const client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+try {
+  twilioAccountSid = functions.config().twilio.account_sid;
+  twilioServiceSid = functions.config().twilio.service_sid;
+  twilioAuthToken = functions.config().twilio.auth_token;
+  client = Client(twilioAccountSid, twilioAuthToken);
+} catch (err) {
+  console.error('WARNING - twilio not configured properly');
+  console.error(err);
+}
 
 export const sendSMS = (body: string, to: string) =>
   client.messages.create({
     body,
-    from: TWILIO_SERVICE_SID,
+    from: twilioServiceSid,
     to,
   });

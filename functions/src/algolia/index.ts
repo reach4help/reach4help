@@ -1,14 +1,25 @@
 import * as functions from 'firebase-functions';
-import algolia from 'algoliasearch';
+import algolia, { SearchClient } from 'algoliasearch';
 import { firestore } from 'firebase-admin';
 import { IRequest, Request } from '../models/requests';
 import DocumentSnapshot = firestore.DocumentSnapshot;
 
-const ALGOLIA_ID = functions.config().algolia.id;
-const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
-const ALGOLIA_REQUESTS_INDEX = functions.config().algolia.requests_index;
-
-const adminClient = algolia(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
+let algoliaId: string;
+let algoliaAdminKey: string;
+let algoliaRequestsIndex: string;
+let adminClient: SearchClient;
+try {
+  algoliaId = functions.config().algolia.id;
+  algoliaAdminKey = functions.config().algolia.key;
+  algoliaRequestsIndex = functions.config().algolia.requests_index;
+  adminClient = algolia(algoliaId, algoliaAdminKey);
+  if (algoliaId && algoliaAdminKey && algoliaRequestsIndex) {
+    throw new Error('One or more algolia parameters not configured');
+  }
+} catch (err) {
+  console.error('WARNING Algolia configuration error');
+  console.error(err);
+}
 
 /**
  * When records in the DB are updated, add/update the text index
@@ -20,7 +31,7 @@ export const indexRequest = (snap: DocumentSnapshot) => {
 
   if (data) {
     const request = Request.factory(data as IRequest);
-    const index = adminClient.initIndex(ALGOLIA_REQUESTS_INDEX);
+    const index = adminClient.initIndex(algoliaRequestsIndex);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const indexData: any = { ...request.toObject() };
@@ -51,6 +62,6 @@ export const indexRequest = (snap: DocumentSnapshot) => {
  */
 export const removeRequestFromIndex = (snap: DocumentSnapshot) => {
   const objectID = snap.id;
-  const index = adminClient.initIndex(ALGOLIA_REQUESTS_INDEX);
+  const index = adminClient.initIndex(algoliaRequestsIndex);
   return index.deleteObject(objectID);
 };
