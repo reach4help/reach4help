@@ -14,13 +14,11 @@ This allows the rest of the system to handle actions without competing for the s
 
 ## How To Contribute
 
-We store all of our issues within GitHub and you can see the relevant issues on the [back end project board](https://github.com/reach4help/reach4help/projects/1).
+Join out **#team-development** channel with the [Reach4Help Slack](https://join.slack.com/t/reach4help/shared_invite/zt-cu9pfz83-pAIKBDha17r5~W4thvn2Bw)
 
-Join out **#team-back-end** channel with the [Reach4Help Slack](https://join.slack.com/t/reach4help/shared_invite/zt-cu9pfz83-pAIKBDha17r5~W4thvn2Bw)
+## Useage
 
-## Team Scope and Responsibilities 
-
-The back end team is responsible for maintaing and developing the following:
+The functions directory is a subrepo within a monorepo.  This used as the backend for Reach4Help website and resource map.
 
 - [Firestore Triggers](https://firebase.google.com/docs/functions/firestore-events): Functions that are invoked by collection events (Create/Update/Delete of records in Firestore)
 - [Firestore Rules](https://firebase.google.com/docs/firestore/security/get-started): A set of rules and computations that prevent access (read/write/delete) to certain records and collections. 
@@ -29,3 +27,13 @@ These rules are also responsible for maintaining data integrity.
 Currently we do not write data to this layer, but the back-end team is responsible for controlling access to this component.
 - Third Party REST API: An additional component of our back-end that exposes our data to third-party developers via a REST API build on top of cloud functions.
 This component will be developed after the inital MVP Launch.
+
+## Development Environment
+- Create a .runtimeconfig.json file
+- Copy in contents from https://docs.google.com/document/d/1DNklTnhFZWYsJKnOzHK3VhFznAck1UP9biVd9P9wyok/edit If you don't have access, check with a development lead.
+- Run
+  ```
+  yarn
+  yarn serve
+  ```
+- 

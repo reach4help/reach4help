@@ -10,7 +10,7 @@ let algoliaRequestsIndex: string;
 let adminClient: SearchClient;
 try {
   algoliaId = functions.config().algolia.id;
-  algoliaAdminKey = functions.config().algolia.key;
+  algoliaAdminKey = functions.config().algolia.admin_key;
   algoliaRequestsIndex = functions.config().algolia.requests_index;
   adminClient = algolia(algoliaId, algoliaAdminKey);
   if (algoliaId && algoliaAdminKey && algoliaRequestsIndex) {
