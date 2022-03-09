@@ -86,36 +86,17 @@ interface State {
 }
 
 class MapComponent extends React.Component<Props, State> {
-  private static getCenterLocation(data: {
-    latitude: number;
-    longitude: number;
-  }) {
-    let location: { lat: number; lng: number } | null = null;
-    if (data.longitude && data.latitude) {
-      location = {
-        lat: data.latitude,
-        lng: data.longitude,
-      };
-    } else {
-      // Call the browser's geolocation API (will prompt the first time)
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          location = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-        },
-        () => {
-          // Position over India if no other option works
-          location = {
-            lat: 21.7679,
-            lng: 78.8718,
-          };
-        },
-      );
-    }
-    return location;
-  }
+  private static getCurrentPositionPromise() {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+  };
+
+  private static async getCurrentLocation() {
+    // up to calling function to catch exceptions, which will happen if location service declined or blocked
+    const position = (await this.getCurrentPositionPromise()) as { coords: { latitude: number; longitude: number } };
+    return { lat: position.coords.latitude, lng: position.coords.longitude };
+  };
 
   private readonly data: MarkersData = {
     markersData: new Map(),
@@ -147,6 +128,9 @@ class MapComponent extends React.Component<Props, State> {
     const p2 = result.getBounds()?.getSouthWest();
     const upperLeft = { lat: p1?.lat() as number, lng: p2?.lng() as number };
     const lowerRight = { lat: p2?.lat() as number, lng: p1?.lng() as number };
+    console.log('debug loadData', upperLeft, lowerRight, p1, p2, p1?.lat(), p2?.lng());
+    console.log('debug 1', result);
+    console.log('debug2', result.getBounds(), result.getBounds()?.getNorthEast());
     dataDriver.loadData({ upperLeft, lowerRight });
   }
 
@@ -185,39 +169,39 @@ class MapComponent extends React.Component<Props, State> {
 
   private centerMap = async () /*: Promise<google.maps.Map> */ => {
     let centeredMap: google.maps.Map | null = null;
-    const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
-    const data = await response.json();
-    if (!data) {
-      return null;
-    }
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const urlLoc = urlParams.get('map');
-    let urlCoords;
-    let zoomLevel;
+    let zoomLevel = 10;
+    let urlDefined = false;
+    // default to location in India
+    let centerCoords = {
+      lat: 21.7679,
+      lng: 78.8718,
+    };
 
     if (urlLoc) {
       const [urlLatitude, urlLongitude, urlZoomLevel] = urlLoc.split(',');
-      urlCoords = {
-        latitude: parseFloat(urlLatitude),
-        longitude: parseFloat(urlLongitude),
+      if (urlLatitude && urlLongitude) {
+        centerCoords = {
+          lat: parseFloat(urlLatitude),
+          lng: parseFloat(urlLongitude),
+        };
+        zoomLevel = parseFloat(urlZoomLevel) || zoomLevel;
+        urlDefined = true;
       };
-      zoomLevel = parseFloat(urlZoomLevel);
     }
 
-    // only use the location data from geojs if url doesnt have location param
-    const coords = urlCoords || {
-      latitude: parseFloat(data.latitude),
-      longitude: parseFloat(data.longitude),
-    };
-
-    const location: {
-      lat: number;
-      lng: number;
-    } | null = MapComponent.getCenterLocation(coords);
-    if (!location) {
-      return null;
+    if (!urlDefined) {
+      try {
+        centerCoords = await MapComponent.getCurrentLocation() as { lat: number; lng: number };
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn(err);
+      }
     }
+    console.log('debug 2', centerCoords);
     // If the API returns a geolocation
     const { mapInfo } = mapState();
     if (!mapInfo) {
@@ -225,7 +209,7 @@ class MapComponent extends React.Component<Props, State> {
     }
 
     centeredMap = mapInfo.map;
-    mapInfo.map.setCenter(location);
+    mapInfo.map.setCenter(centerCoords);
     // If zoomLevel data exists in the url, setZoom to this value, else use 10 as default
     mapInfo.map.setZoom(zoomLevel || 10);
     mapState().updateResultsOnNextBoundsChange = true;
