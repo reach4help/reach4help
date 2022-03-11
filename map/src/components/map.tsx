@@ -174,10 +174,10 @@ class MapComponent extends React.Component<Props, State> {
     const urlLoc = urlParams.get('map');
     let zoomLevel = 10;
     let urlDefined = false;
-    // default to location in India
+    // default to location in New Dehli, India
     let centerCoords = {
-      lat: 21.7679,
-      lng: 78.8718,
+      lat: 28.6527,
+      lng: 77.2307,
     };
 
     if (urlLoc) {
@@ -202,7 +202,10 @@ class MapComponent extends React.Component<Props, State> {
         centerCoords = currentLocation;
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.warn(err);
+        console.warn(
+          'WARNING - could not find user location.  Permission may be blocked.',
+          err,
+        );
       }
     }
     const { mapInfo } = mapState();

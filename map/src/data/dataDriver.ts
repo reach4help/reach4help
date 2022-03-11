@@ -171,12 +171,9 @@ const loadDataForMode = (
         bounds.lowerRight.lng,
       ]
     : undefined;
-  console.log('bounds', bounds);
-  console.log('bounding box', boundingBox);
   const boundingBoxParam = boundingBox
     ? { insideBoundingBox: [boundingBox] }
     : {};
-  console.log('insideBoundingBox', boundingBoxParam);
 
   const attributesToDisplay =
     mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
