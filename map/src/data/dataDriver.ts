@@ -171,9 +171,12 @@ const loadDataForMode = (
         bounds.lowerRight.lng,
       ]
     : undefined;
+  console.log('bounds', bounds);
+  console.log('bounding box', boundingBox);
   const boundingBoxParam = boundingBox
     ? { insideBoundingBox: [boundingBox] }
     : {};
+  console.log('insideBoundingBox', boundingBoxParam);
 
   const attributesToDisplay =
     mode === 'initial' ? ['id', 'contentTitle', 'loc', 'type'] : ['*'];
@@ -200,7 +203,10 @@ export const loadData = (bounds?: {
   upperLeft: { lat: number; lng: number };
   lowerRight: { lat: number; lng: number };
 }) => {
-  loadDataForMode('initial', bounds);
+  // note: if nothing passed to bounds, bounds still set to an object
+  //       validBounds corrects this
+  const validBounds = bounds?.upperLeft?.lat ? bounds : undefined;
+  loadDataForMode('initial', validBounds);
   loadDataForMode('detail');
 };
 

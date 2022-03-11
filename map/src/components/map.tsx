@@ -90,13 +90,15 @@ class MapComponent extends React.Component<Props, State> {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resolve, reject);
     });
-  };
+  }
 
   private static async getCurrentLocation() {
     // up to calling function to catch exceptions, which will happen if location service declined or blocked
-    const position = (await this.getCurrentPositionPromise()) as { coords: { latitude: number; longitude: number } };
+    const position = (await this.getCurrentPositionPromise()) as {
+      coords: { latitude: number; longitude: number };
+    };
     return { lat: position.coords.latitude, lng: position.coords.longitude };
-  };
+  }
 
   private readonly data: MarkersData = {
     markersData: new Map(),
@@ -128,9 +130,6 @@ class MapComponent extends React.Component<Props, State> {
     const p2 = result.getBounds()?.getSouthWest();
     const upperLeft = { lat: p1?.lat() as number, lng: p2?.lng() as number };
     const lowerRight = { lat: p2?.lat() as number, lng: p1?.lng() as number };
-    console.log('debug loadData', upperLeft, lowerRight, p1, p2, p1?.lat(), p2?.lng());
-    console.log('debug 1', result);
-    console.log('debug2', result.getBounds(), result.getBounds()?.getNorthEast());
     dataDriver.loadData({ upperLeft, lowerRight });
   }
 
@@ -190,19 +189,22 @@ class MapComponent extends React.Component<Props, State> {
         };
         zoomLevel = parseFloat(urlZoomLevel) || zoomLevel;
         urlDefined = true;
-      };
+      }
     }
 
     if (!urlDefined) {
       try {
-        centerCoords = await MapComponent.getCurrentLocation() as { lat: number; lng: number };
+        // centerCoords not directly assigned to results of await in case there is an error
+        const currentLocation = (await MapComponent.getCurrentLocation()) as {
+          lat: number;
+          lng: number;
+        };
+        centerCoords = currentLocation;
       } catch (err) {
         // eslint-disable-next-line no-console
         console.warn(err);
       }
     }
-    console.log('debug 2', centerCoords);
-    // If the API returns a geolocation
     const { mapInfo } = mapState();
     if (!mapInfo) {
       return null;
