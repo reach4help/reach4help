@@ -86,35 +86,18 @@ interface State {
 }
 
 class MapComponent extends React.Component<Props, State> {
-  private static getCenterLocation(data: {
-    latitude: number;
-    longitude: number;
-  }) {
-    let location: { lat: number; lng: number } | null = null;
-    if (data.longitude && data.latitude) {
-      location = {
-        lat: data.latitude,
-        lng: data.longitude,
-      };
-    } else {
-      // Call the browser's geolocation API (will prompt the first time)
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          location = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-        },
-        () => {
-          // Position over India if no other option works
-          location = {
-            lat: 21.7679,
-            lng: 78.8718,
-          };
-        },
-      );
-    }
-    return location;
+  private static getCurrentPositionPromise() {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+  }
+
+  private static async getCurrentLocation() {
+    // up to calling function to catch exceptions, which will happen if location service declined or blocked
+    const position = (await this.getCurrentPositionPromise()) as {
+      coords: { latitude: number; longitude: number };
+    };
+    return { lat: position.coords.latitude, lng: position.coords.longitude };
   }
 
   private readonly data: MarkersData = {
@@ -185,47 +168,53 @@ class MapComponent extends React.Component<Props, State> {
 
   private centerMap = async () /*: Promise<google.maps.Map> */ => {
     let centeredMap: google.maps.Map | null = null;
-    const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
-    const data = await response.json();
-    if (!data) {
-      return null;
-    }
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const urlLoc = urlParams.get('map');
-    let urlCoords;
-    let zoomLevel;
+    let zoomLevel = 10;
+    let urlDefined = false;
+    // default to location in New Dehli, India
+    let centerCoords = {
+      lat: 28.6527,
+      lng: 77.2307,
+    };
 
     if (urlLoc) {
       const [urlLatitude, urlLongitude, urlZoomLevel] = urlLoc.split(',');
-      urlCoords = {
-        latitude: parseFloat(urlLatitude),
-        longitude: parseFloat(urlLongitude),
-      };
-      zoomLevel = parseFloat(urlZoomLevel);
+      if (urlLatitude && urlLongitude) {
+        centerCoords = {
+          lat: parseFloat(urlLatitude),
+          lng: parseFloat(urlLongitude),
+        };
+        zoomLevel = parseFloat(urlZoomLevel) || zoomLevel;
+        urlDefined = true;
+      }
     }
 
-    // only use the location data from geojs if url doesnt have location param
-    const coords = urlCoords || {
-      latitude: parseFloat(data.latitude),
-      longitude: parseFloat(data.longitude),
-    };
-
-    const location: {
-      lat: number;
-      lng: number;
-    } | null = MapComponent.getCenterLocation(coords);
-    if (!location) {
-      return null;
+    if (!urlDefined) {
+      try {
+        // centerCoords not directly assigned to results of await in case there is an error
+        const currentLocation = (await MapComponent.getCurrentLocation()) as {
+          lat: number;
+          lng: number;
+        };
+        centerCoords = currentLocation;
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          'WARNING - could not find user location.  Permission may be blocked.',
+          err,
+        );
+      }
     }
-    // If the API returns a geolocation
     const { mapInfo } = mapState();
     if (!mapInfo) {
       return null;
     }
 
     centeredMap = mapInfo.map;
-    mapInfo.map.setCenter(location);
+    mapInfo.map.setCenter(centerCoords);
     // If zoomLevel data exists in the url, setZoom to this value, else use 10 as default
     mapInfo.map.setZoom(zoomLevel || 10);
     mapState().updateResultsOnNextBoundsChange = true;
