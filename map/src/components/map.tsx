@@ -426,8 +426,20 @@ class MapComponent extends React.Component<Props, State> {
     const { mapInfo } = mapState();
     if (mapInfo) {
       const bounds = mapInfo.map.getBounds() || null;
-      localStorage.setItem(MAP_STORAGE_KEY_LOCATION_LAT, mapInfo.map.getCenter().lat().toString());
-      localStorage.setItem(MAP_STORAGE_KEY_LOCATION_LNG, mapInfo.map.getCenter().lat().toString());
+      localStorage.setItem(
+        MAP_STORAGE_KEY_LOCATION_LAT,
+        mapInfo.map
+          .getCenter()
+          .lat()
+          .toString(),
+      );
+      localStorage.setItem(
+        MAP_STORAGE_KEY_LOCATION_LNG,
+        mapInfo.map
+          .getCenter()
+          .lng()
+          .toString(),
+      );
       const nextResults: ResultsSet = {
         context: {
           bounds,
