@@ -8,6 +8,7 @@ import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
+import { logInfo, logWarning } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
@@ -86,18 +87,29 @@ interface State {
 }
 
 class MapComponent extends React.Component<Props, State> {
-  private static getCurrentPositionPromise() {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
-  }
-
-  private static async getCurrentLocation() {
-    // up to calling function to catch exceptions, which will happen if location service declined or blocked
-    const position = (await this.getCurrentPositionPromise()) as {
-      coords: { latitude: number; longitude: number };
-    };
-    return { lat: position.coords.latitude, lng: position.coords.longitude };
+  private static geoCenterMap() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        const { mapInfo } = mapState();
+        if (!mapInfo) {
+          return;
+        }
+        logInfo('Geo centered', pos);
+        mapInfo.map.setCenter(pos);
+        mapInfo.map.setZoom(10);
+        mapState().updateResultsOnNextBoundsChange = true;
+      },
+      error => {
+        // eslint-disable-next-line no-alert
+        logWarning('Unable to get geolocation!');
+        // eslint-disable-next-line no-console
+        logWarning(error.message);
+      },
+    );
   }
 
   private readonly data: MarkersData = {
@@ -172,13 +184,10 @@ class MapComponent extends React.Component<Props, State> {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const urlLoc = urlParams.get('map');
+    const enableGeo = urlParams.get('geo')?.toUpperCase();
     let zoomLevel = 10;
-    let urlDefined = false;
     // default to location in New Dehli, India
-    let centerCoords = {
-      lat: 28.6527,
-      lng: 77.2307,
-    };
+    let centerCoords: { lat: number; lng: number } | null = null;
 
     if (urlLoc) {
       const [urlLatitude, urlLongitude, urlZoomLevel] = urlLoc.split(',');
@@ -188,26 +197,36 @@ class MapComponent extends React.Component<Props, State> {
           lng: parseFloat(urlLongitude),
         };
         zoomLevel = parseFloat(urlZoomLevel) || zoomLevel;
-        urlDefined = true;
       }
     }
 
-    if (!urlDefined) {
-      try {
-        // centerCoords not directly assigned to results of await in case there is an error
-        const currentLocation = (await MapComponent.getCurrentLocation()) as {
-          lat: number;
-          lng: number;
+    if (!centerCoords && enableGeo !== 'Y') {
+      const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
+      const data = await response.json();
+      if (data) {
+        centerCoords = {
+          lat: parseFloat(data.latitude),
+          lng: parseFloat(data.longitude),
         };
-        centerCoords = currentLocation;
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          'WARNING - could not find user location.  Permission may be blocked.',
-          err,
-        );
+        logInfo('Position retrieved from get.geojs', centerCoords);
       }
     }
+
+    // This is too slow in some cases. Making execution provisional.
+    // Currently geoCenterMap recenters code provisionally.
+    // Could be changed into a promise.
+    // See https://github.com/reach4help/reach4help/issues/1739
+    if (enableGeo === 'Y') {
+      MapComponent.geoCenterMap();
+    }
+
+    if (!centerCoords) {
+      centerCoords = {
+        lat: 28.6527,
+        lng: 77.2307,
+      };
+    }
+
     const { mapInfo } = mapState();
     if (!mapInfo) {
       return null;
