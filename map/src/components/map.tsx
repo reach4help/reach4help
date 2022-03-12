@@ -26,6 +26,8 @@ interface MarkersData {
 
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
+const MAP_STORAGE_KEY_LOCATION_LAT = 'location_lat';
+const MAP_STORAGE_KEY_LOCATION_LNG = 'location_lng';
 
 const INITIAL_NUMBER_OF_RESULTS = 20;
 
@@ -198,6 +200,15 @@ class MapComponent extends React.Component<Props, State> {
         };
         zoomLevel = parseFloat(urlZoomLevel) || zoomLevel;
       }
+    }
+
+    if (!centerCoords) {
+      const lat = localStorage.getItem(MAP_STORAGE_KEY_LOCATION_LAT);
+      const lng = localStorage.getItem(MAP_STORAGE_KEY_LOCATION_LNG);
+      if (lat && lng) {
+        centerCoords = { lat: parseFloat(lat), lng: parseFloat(lng) };
+      }
+      logInfo('Found previous position', centerCoords);
     }
 
     if (!centerCoords && enableGeo !== 'Y') {
@@ -415,7 +426,8 @@ class MapComponent extends React.Component<Props, State> {
     const { mapInfo } = mapState();
     if (mapInfo) {
       const bounds = mapInfo.map.getBounds() || null;
-
+      localStorage.setItem(MAP_STORAGE_KEY_LOCATION_LAT, mapInfo.map.getCenter().lat().toString());
+      localStorage.setItem(MAP_STORAGE_KEY_LOCATION_LNG, mapInfo.map.getCenter().lat().toString());
       const nextResults: ResultsSet = {
         context: {
           bounds,
