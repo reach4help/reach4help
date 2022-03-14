@@ -1,3 +1,4 @@
+import { config } from 'dotenv'; // DO NOT REMOVE, necessary to read .env files in dev
 import debounce from 'lodash/debounce';
 import React from 'react';
 import mapState, {
@@ -17,6 +18,9 @@ import { haversineDistance, insertMapIntoHtml } from './map-utils/google-maps';
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
+config(); // importing config enables reading .env files in development without calling it
+// added here to suppress warning that config is not used
+
 type MarkerInfo = dataDriver.MarkerInfoType;
 dataDriver.addStorageListener();
 
@@ -26,8 +30,12 @@ interface MarkersData {
 
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
-const MAP_STORAGE_KEY_LOCATION_LAT = 'location_lat';
-const MAP_STORAGE_KEY_LOCATION_LNG = 'location_lng';
+const MAP_STORAGE_KEY = 'map_storage';
+interface MapConfig {
+  lat: number;
+  lng: number;
+  zoom: number;
+}
 
 const INITIAL_NUMBER_OF_RESULTS = 20;
 
@@ -139,12 +147,7 @@ class MapComponent extends React.Component<Props, State> {
     if (!result) {
       return;
     }
-
-    const p1 = result.getBounds()?.getNorthEast();
-    const p2 = result.getBounds()?.getSouthWest();
-    const upperLeft = { lat: p1?.lat() as number, lng: p2?.lng() as number };
-    const lowerRight = { lat: p2?.lat() as number, lng: p1?.lng() as number };
-    dataDriver.loadData({ upperLeft, lowerRight });
+    dataDriver.loadData();
   }
 
   public componentDidUpdate(prevProps: Props) {
@@ -186,9 +189,12 @@ class MapComponent extends React.Component<Props, State> {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const urlLoc = urlParams.get('map');
-    const enableGeo = urlParams.get('geo')?.toUpperCase();
+    const debugNavigatorGeo = urlParams.get('debugNavigatorGeo')?.toUpperCase();
+    const newDehliLoc = {
+      lat: 28.6527,
+      lng: 77.2307,
+    };
     let zoomLevel = 10;
-    // default to location in New Dehli, India
     let centerCoords: { lat: number; lng: number } | null = null;
 
     if (urlLoc) {
@@ -202,16 +208,19 @@ class MapComponent extends React.Component<Props, State> {
       }
     }
 
-    if (!centerCoords) {
-      const lat = localStorage.getItem(MAP_STORAGE_KEY_LOCATION_LAT);
-      const lng = localStorage.getItem(MAP_STORAGE_KEY_LOCATION_LNG);
-      if (lat && lng) {
-        centerCoords = { lat: parseFloat(lat), lng: parseFloat(lng) };
+    const mapConfig = localStorage.getItem(MAP_STORAGE_KEY);
+    if (!centerCoords && mapConfig) {
+      const configJson: MapConfig = JSON.parse(mapConfig);
+      if (configJson.lat && configJson.lng) {
+        centerCoords = { lat: configJson.lat, lng: configJson.lng };
+      }
+      if (configJson.zoom) {
+        zoomLevel = configJson.zoom;
       }
       logInfo('Found previous position', centerCoords);
     }
 
-    if (!centerCoords && enableGeo !== 'Y') {
+    if (!centerCoords && debugNavigatorGeo !== 'Y') {
       const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
       const data = await response.json();
       if (data) {
@@ -227,10 +236,11 @@ class MapComponent extends React.Component<Props, State> {
     // Currently geoCenterMap recenters code provisionally.
     // Could be changed into a promise.
     // See https://github.com/reach4help/reach4help/issues/1739
-    if (enableGeo === 'Y') {
+    if (debugNavigatorGeo === 'Y') {
       MapComponent.geoCenterMap();
     }
 
+    // default to location in New Dehli, India
     if (!centerCoords) {
       centerCoords = {
         lat: 28.6527,
@@ -244,9 +254,8 @@ class MapComponent extends React.Component<Props, State> {
     }
 
     centeredMap = mapInfo.map;
-    mapInfo.map.setCenter(centerCoords);
-    // If zoomLevel data exists in the url, setZoom to this value, else use 10 as default
-    mapInfo.map.setZoom(zoomLevel || 10);
+    mapInfo.map.setCenter(newDehliLoc);
+    mapInfo.map.setZoom(zoomLevel);
     mapState().updateResultsOnNextBoundsChange = true;
 
     return centeredMap;
@@ -426,20 +435,12 @@ class MapComponent extends React.Component<Props, State> {
     const { mapInfo } = mapState();
     if (mapInfo) {
       const bounds = mapInfo.map.getBounds() || null;
-      localStorage.setItem(
-        MAP_STORAGE_KEY_LOCATION_LAT,
-        mapInfo.map
-          .getCenter()
-          .lat()
-          .toString(),
-      );
-      localStorage.setItem(
-        MAP_STORAGE_KEY_LOCATION_LNG,
-        mapInfo.map
-          .getCenter()
-          .lng()
-          .toString(),
-      );
+      const lat: number = mapInfo.map.getCenter().lat();
+      const lng: number = mapInfo.map.getCenter().lng();
+      const zoom: number = mapInfo.map.getZoom();
+
+      localStorage.setItem(MAP_STORAGE_KEY, JSON.stringify({ lat, lng, zoom }));
+
       const nextResults: ResultsSet = {
         context: {
           bounds,

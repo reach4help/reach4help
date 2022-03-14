@@ -1,7 +1,7 @@
 import mapState from 'src/components/map-utils/map-state';
 
 /* eslint-disable no-console */
-export const debugLog = (...args: any[]) => {
+export const debugLog = (...args: unknown[]) => {
   let text = '';
   args.forEach(arg => {
     text = `${Date()
@@ -40,17 +40,17 @@ export const debugMarkers = (msg: string) => {
   );
 };
 
-export const debugLogTimeStart = (startLabel: string, ...args: any[]) => {
+export const debugLogTimeStart = (startLabel: string, ...args: unknown[]) => {
   console.time(startLabel);
   debugLog(`Time log: Starting ${startLabel}`, ...args);
 };
 
-export const debugLogTimeEnd = (endLabel: string, ...args: any[]) => {
+export const debugLogTimeEnd = (endLabel: string, ...args: unknown[]) => {
   console.timeEnd(endLabel);
   debugLog(`Time log: Ending ${endLabel}`, ...args);
 };
 
-export const debugLogTime = (timeLabel: string, ...args: any[]) => {
+export const debugLogTime = (timeLabel: string, ...args: unknown[]) => {
   console.timeLog(timeLabel);
   debugLog('Time log: Logging', ...args);
 };
