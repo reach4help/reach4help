@@ -29,7 +29,8 @@ class Footer extends React.PureComponent<Props, State> {
     dataDriver.removeInformationListener(this.dataDriverInformationUpdated);
   }
 
-  private dataDriverInformationUpdated: dataDriver.InformationListener = update =>
+  // todo: review includeHidden and need for this function at all
+  private dataDriverInformationUpdated: dataDriver.MarkersListener = update =>
     this.setState({ includingHidden: update.includingHidden });
 
   public render = () => {
