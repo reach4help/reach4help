@@ -196,14 +196,8 @@ const loadDataForMode = (
   return promise;
 };
 
-export const loadData = (bounds?: {
-  upperLeft: { lat: number; lng: number };
-  lowerRight: { lat: number; lng: number };
-}) => {
-  // note: if nothing passed to bounds, bounds still set to an object
-  //       validBounds corrects this
-  const validBounds = bounds?.upperLeft?.lat ? bounds : undefined;
-  loadDataForMode('initial', validBounds);
+export const loadData = () => {
+  loadDataForMode('initial');
   loadDataForMode('detail');
 };
 
