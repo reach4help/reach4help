@@ -196,11 +196,8 @@ const loadDataForMode = (
   return promise;
 };
 
-export const loadData = (bounds?: {
-  upperLeft: { lat: number; lng: number };
-  lowerRight: { lat: number; lng: number };
-}) => {
-  loadDataForMode('initial', bounds);
+export const loadData = () => {
+  loadDataForMode('initial');
   loadDataForMode('detail');
 };
 
