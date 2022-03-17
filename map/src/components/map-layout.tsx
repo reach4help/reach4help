@@ -97,9 +97,9 @@ class MapLayout extends React.Component<Props, State> {
                     <div className="row">
                       <Search className="search" searchInputId="main" />
                     </div>
-                    <h3 className="filter filter-heading">
+                    {/* <h3 className="filter filter-heading">
                       {t(lang, s => s.filterForm.title)}
-                    </h3>
+                    </h3> */}
                     <div className="row">
                       <input
                         type="text"

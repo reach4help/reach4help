@@ -1,5 +1,5 @@
 {
-  "title": "कोविड -19 आपसी सहायता का नक्शा",
+  "title": "Global Map of Aid",
   "inFrameLink": "About this map / add information",
   "aboutScreen": {
     "intro": "We believe solidarity brings out the best in individuals.",
@@ -94,7 +94,7 @@
         "loading": "Submitting information to map...",
         "error": "Error adding information",
         "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
@@ -118,6 +118,7 @@
   },
   "loading": "लोड हो रहा है...",
   "filterBy": "श्रेणी के अनुसार छाने",
+  "noOptions": "No Options",
   "services": {
     "any": "विभिन्न",
     "food": "खान पान",
@@ -178,6 +179,19 @@
     "updateResultsForThisArea": "इस क्षेत्र के लिए नतीजे अपडेट करें",
     "myLocation": "मेरा स्थान"
   },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
+  },
   "results": {
     "backToResults": "Back to results",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
@@ -210,7 +224,7 @@
   "hiddenMarkers": {
     "visiblility": "Visibility: {visibility}",
     "filter": {
-      "any": "Any",
+      "any": "विभिन्न",
       "visible": "Visible only",
       "hidden": "Hidden only"
     }
