@@ -83,8 +83,8 @@ function Header() {
       <DrawerWrapper show={drawerClose}>
         <nav>
           <ul>
-            {navLinks.map((linkItem, idx) => (
-              <li key={`${linkItem.title}-${idx}`}>
+            {navLinks.map(linkItem => (
+              <li key={`${linkItem.title}`}>
                 <Link
                   to={linkItem.link}
                   onClick={() => setDrawerClose(true)}
