@@ -37,7 +37,11 @@ function Home() {
           <p>{t("HomePage.HeroSection.subheading")}</p>
         </div>
         <ButtonsWrapper>
-          <a href="https://map.reach4help.org/" target="blank" rel="noopener">
+          <a
+            href="https://map.reach4help.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Button
               backgroundColor="#ff7b02"
               textColor="white"
@@ -50,7 +54,7 @@ function Home() {
             <a
               href={process.env.GATSBY_BUTTON_URL1}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               <Button
                 backgroundColor="transparent"
@@ -66,7 +70,7 @@ function Home() {
             <a
               href={process.env.GATSBY_BUTTON_URL2}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               <Button
                 backgroundColor="#ff7b02"

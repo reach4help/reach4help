@@ -84,7 +84,7 @@ function Header() {
         <nav>
           <ul>
             {navLinks.map((linkItem, idx) => (
-              <li key={idx}>
+              <li key={`${linkItem.title}-${idx}`}>
                 <Link
                   to={linkItem.link}
                   onClick={() => setDrawerClose(true)}
