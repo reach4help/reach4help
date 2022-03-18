@@ -1,5 +1,5 @@
 {
-  "title": "Carte d'entraide face au COVID-19",
+  "title": "Global Map of Aid",
   "inFrameLink": "À propos de cette carte / ajouter des informations",
   "aboutScreen": {
     "intro": "Nous croyons que la solidarité fait ressortir le meilleur chez les individus.",
@@ -10,12 +10,12 @@
     "otherAreasHeading": "Vous êtes intéressé par l'une de ces zones géographiques?",
     "otherAreasInfo": "Découvrez ces cartes alternatives :",
     "otherAreasLocations": {
-      "france": "France",
+      "france": "La France",
       "nyc": "New York"
     },
     "sourceHeading": "D'où viennent ces informations ?",
     "sourceInfo": "Les informations sur cette carte sont une combinaison de données collectées par nos volontaires, soumises par nos utilisateurs, et fournies par d'autres projets menés par des volontaires, y compris {mutualaidwiki} et {mutualaidhub}.",
-    "sourceSubmit": "Nous vous encourageons à {addinfo} sur tous les projets que vous connaissez qui ne sont pas déjà sur la carte.",
+    "sourceSubmit": "Nous vous encourageons à ajouter des informations {addinfo} sur tous les projets que vous connaissez qui ne sont pas déjà sur la carte.",
     "sourceSubmitButton": "ajouter des informations",
     "usageHeading": "Puis-je utiliser ces données pour mon propre projet?",
     "usageInfo": "Nous vous invitons à utiliser les données fournies par notre carte pour vos propres projets, à condition que vous suiviez les licences respectives.",
@@ -43,8 +43,8 @@
     "screen": {
       "title": "Ajouter des informations à cette carte",
       "information": {
-        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
-        "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
+        "acceptedInformation": "Pour le moment, nous incluons des organisations fournissant une aide et une assistance spécifiques à la région (nourriture, abris, bouteilles d'oxygène, dons, etc.).",
+        "moreInformation": "Nous ne sommes pas en mesure d'accepter directement des informations sur les personnes qui offrent de l'aide pour des raisons de sécurité, mais veuillez nous contacter à {contactEmail} si vous souhaitez aider.",
         "intro": "Veuillez remplir le formulaire ci-dessous pour commencer à ajouter des informations, nous vous demanderons ensuite de nous indiquer votre localisation et vos coordonnées.",
         "form": {
           "type": "Type de projet / groupe / organisation / initiative",
@@ -94,7 +94,7 @@
         "loading": "Envoi des informations à la carte...",
         "error": "Erreur lors de l'ajout des informations",
         "success": "Vos informations ont bien été envoyées.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
@@ -118,53 +118,54 @@
   },
   "loading": "Chargement en cours...",
   "filterBy": "Filtrer par:",
+  "noOptions": "Pas d'options",
   "services": {
     "any": "Tous",
     "food": "Alimentation",
     "shelter": "Refuge",
-    "beds": "Hospital Beds",
-    "oxygen": "Oxygen",
+    "beds": "Des lits d'hôpital",
+    "oxygen": "L'Oxygène",
     "medicine": "Santé",
-    "home-care": "Home Care",
-    "blood": "Plasma / Blood",
-    "quarantine": "Quarantine Centres",
-    "telehealth": "Telehealth",
+    "home-care": "Soin à domicile",
+    "blood": "Le plasma / Le sang",
+    "quarantine": "Centres de quarantaine",
+    "telehealth": "La télésanté",
     "financial": "Finances",
     "mobility": "Mobilité",
     "information": "Renseignements ",
     "manufacturing": "Production",
-    "support": "Support",
+    "support": "Le support",
     "network": "Réseau",
     "supplies": "Autres Fournitures",
-    "vaccine": "Vaccinations",
+    "vaccine": "Les vaccinations",
     "other": "Autre"
   },
   "serviceDescriptions": {
-    "food": "Food and/or water",
-    "shelter": "Shelter for the homeless and those who need it",
-    "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
-    "oxygen": "Oxygen cylinders or refills",
-    "medicine": "COVID-19 medicines like Remdesivir",
-    "home-care": "Home care for the elderly",
-    "blood": "Plasma / Blood transfusions",
-    "quarantine": "Quarantine Centres",
-    "telehealth": "Telehealth/teleconsultation services",
-    "financial": "Donations and fundraising",
+    "food": "La nourriture et/ou l'eau",
+    "shelter": "Refuge pour les sans-abri et ceux qui en ont besoin",
+    "beds": "Lits d'hôpital (les lits généraux, les lits ICU ou les lits d'oxygènes)",
+    "oxygen": "Des bouteilles ou Des recharges d'oxygène",
+    "medicine": "Des médicaments COVID-19 comme Remdesivir",
+    "home-care": "Soins à domicile pour les personnes âgées",
+    "blood": "Transfusions du plasma / sang",
+    "quarantine": "Centres de quarantaine",
+    "telehealth": "Les services de télésanté / téléconsultation",
+    "financial": "Dons et collecte de fonds",
     "mobility": "Transporter des personnes d'un lieu à un autre",
-    "information": "Help people find relevant information",
+    "information": "Aidez les gens à trouver des informations pertinentes",
     "manufacturing": "Fournit des fournitures ou des capacités de fabrication nécessaires pour faire face à la crise",
     "support": "Un soutien adapté aux groupes vulnérables comme les sans-abri, les personnes exposées aux risques d'abus domestiques, etc.",
     "network": "Faciliter la communication et l'échange d'information pour fournir de l'aide et du soutien, par exemple entre les organisations d'entraide",
     "supplies": "Fournitures autres que la nourriture ou les médicaments",
-    "vaccine": "Verified vaccination site",
+    "vaccine": "Site de vaccination vérifié",
     "other": "Ne figure pas dans cette liste"
   },
   "markerTypes": {
     "mutual-aid-group": "Groupe d’entraide",
     "org": "Organisation / Entreprise",
-    "hospital": "Hospital",
-    "medical": "Medical Service",
-    "company": "Company",
+    "hospital": "L'hôpital",
+    "medical": "Des services médicaux",
+    "company": "Société",
     "individual": "Individual",
     "other": "Autres "
   },
@@ -177,6 +178,19 @@
     "jumpToLocation": "Aller à un emplacement sur la carte...",
     "updateResultsForThisArea": "Mettre à jour les résultats pour cette zone",
     "myLocation": "Ma position"
+  },
+  "controls": {
+    "openSearch": "Voir les paramètres de recherche et filtre",
+    "closeSearch": "Cache les contrôles"
+  },
+  "filterForm": {
+    "title": "Filtre des marqueurs",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
+    "org": "Type d'organisation",
+    "service": "Services Offered",
+    "visibility": "Visibilité",
+    "search": "Search",
+    "select": "Sélecte..."
   },
   "results": {
     "backToResults": "Retour aux résultats",
@@ -191,7 +205,7 @@
     },
     "details": {
       "disclaimer": {
-        "header": "Note",
+        "header": "La note",
         "content": "Chaque projet est autonome et auto-organisé; beaucoup utilisent des feuilles de calcul publiques ou des forums pour partager des informations, soyez prudent lorsque vous entrez des informations privées que vous ne souhaitez pas rendre publiques."
       },
       "source": "Les informations relatives à ce {type} sont fournies par {source}."

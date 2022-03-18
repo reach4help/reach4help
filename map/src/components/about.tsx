@@ -58,7 +58,7 @@ const About = ({ className, page, setPage }: Props) => (
             type="button"
             className="view-map"
             onClick={() => {
-              trackEvent('cta', 'home-map');
+              // trackEvent('cta', 'home-map'); // TODO: set up with Google Analytics
               setPage({ page: 'map' });
             }}
           >
@@ -202,7 +202,7 @@ export default styled(About)`
   }
 
   > .content {
-    margin: 120px auto 0;
+    margin: 3em auto 0;
     color: #fff;
     max-width: 700px;
     display: flex;

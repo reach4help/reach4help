@@ -242,10 +242,7 @@ class MapComponent extends React.Component<Props, State> {
 
     // default to location in New Dehli, India
     if (!centerCoords) {
-      centerCoords = {
-        lat: 28.6527,
-        lng: 77.2307,
-      };
+      centerCoords = newDehliLoc;
     }
 
     const { mapInfo } = mapState();
@@ -254,7 +251,7 @@ class MapComponent extends React.Component<Props, State> {
     }
 
     centeredMap = mapInfo.map;
-    mapInfo.map.setCenter(newDehliLoc);
+    mapInfo.map.setCenter(centerCoords);
     mapInfo.map.setZoom(zoomLevel);
     mapState().updateResultsOnNextBoundsChange = true;
 
