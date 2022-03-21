@@ -1,5 +1,5 @@
 {
-  "title": "خريطة المساعدة المجتمعة ضد كوفيد-19",
+  "title": "Global Map of Aid",
   "inFrameLink": "حول هذا الخريطة / اضافة معلومات ",
   "aboutScreen": {
     "intro": "نؤمن ان التكافل يبرز افضل ما يمكن لدى الافراد ",
@@ -94,7 +94,7 @@
         "loading": "إرسال المعلومات إلى الخريطة...",
         "error": "خطأ في إضافة معلومات",
         "success": "تم إرسال معلوماتك بنجاح.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
@@ -118,6 +118,7 @@
   },
   "loading": "نحميل...",
   "filterBy": "تصنيف بحسب:",
+  "noOptions": "No Options",
   "services": {
     "any": "أي",
     "food": "تغذية",
@@ -178,6 +179,19 @@
     "updateResultsForThisArea": "تحديث نتائج هذا المجال",
     "myLocation": "موقعي"
   },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
+  },
   "results": {
     "backToResults": "العودة إلى النتائج",
     "openResults": "View {results, plural, =0 {no results} =1 {1 result} other {# results}}",
@@ -203,7 +217,7 @@
     "netlifyNote": "هذه الخريطة {link}",
     "netlifyLinkText": "is hosted by Netlify",
     "githubRepo": "GitHub Repo",
-    "codeOfConduct": "Code of Conduct",
+    "codeOfConduct": "القواعد السلوكية",
     "showHidden": "إظهار المعلومات المخفية",
     "hideHidden": "إخفاء المعلومات المخفية"
   },

@@ -1,5 +1,5 @@
 {
-  "title": "COVID-19 kölcsönös segélytérkép",
+  "title": "Global Map of Aid",
   "inFrameLink": "A térképről / információ hozzáadása",
   "aboutScreen": {
     "intro": "Hisszük, hogy a szolidaritás az egyének legjobbjait hozza ki.",
@@ -94,7 +94,7 @@
         "loading": "Információ hozzáadása a térképhez...",
         "error": "Hiba az információ hozzáadása során",
         "success": "Az információkat sikeresen elküldtük.",
-        "successExtra": "Mielőtt az Ön információt láthatóvá tesszük a térképen, egy, a csapatunkban lévő önkéntes megvizsgálja azokat, ami jobb esetben néhány napon belül megtörténik."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
@@ -118,6 +118,7 @@
   },
   "loading": "Betöltés...",
   "filterBy": "Szűrés:",
+  "noOptions": "No Options",
   "services": {
     "any": "Bármely",
     "food": "Élelmiszer",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Ugrás a térképen elhelyezett pontra...",
     "updateResultsForThisArea": "A terület eredményeinek frissítése",
     "myLocation": "Saját pozíció"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Vissza az eredményekhez",
