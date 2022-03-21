@@ -1,5 +1,5 @@
 {
-  "title": "COVID-19 Wederzijdse Hulpkaart",
+  "title": "Global Map of Aid",
   "inFrameLink": "Over deze kaart / voeg informatie toe",
   "aboutScreen": {
     "intro": "Wij zijn van mening dat solidariteit het beste is van individuen.",
@@ -94,7 +94,7 @@
         "loading": "Gegevens verzenden naar map...",
         "error": "Fout bij opslaan informatie",
         "success": "Uw formulier is succesvol ingediend",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
@@ -118,6 +118,7 @@
   },
   "loading": "Bezig met laden...",
   "filterBy": "Filteren op",
+  "noOptions": "No Options",
   "services": {
     "any": "Elke",
     "food": "Voedsel",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Spring naar een locatie op de kaart...",
     "updateResultsForThisArea": "Update de resultaten voor dit gebied",
     "myLocation": "Mijn locatie"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Ga terug naar resultaat",

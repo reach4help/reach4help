@@ -1,5 +1,5 @@
 {
-  "title": "Mapa de Organizações de Solidariedade contra COVID-19",
+  "title": "Global Map of Aid",
   "inFrameLink": "Sobre este mapa / Adicionar informações",
   "aboutScreen": {
     "intro": "Acreditamos que a solidariedade revela o melhor das pessoas.",
@@ -94,7 +94,7 @@
         "loading": "Enviando informações para o mapa...",
         "error": "Erro ao inserir informações",
         "success": "Suas informações foram enviadas com sucesso.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
@@ -118,6 +118,7 @@
   },
   "loading": "Carregando...",
   "filterBy": "Filtrar por:",
+  "noOptions": "No Options",
   "services": {
     "any": "Qualquer",
     "food": "Comida",
@@ -166,7 +167,7 @@
     "medical": "Medical Service",
     "company": "Company",
     "individual": "Individual",
-    "other": "Other"
+    "other": "Outro"
   },
   "markerTypeSentence": {
     "mutual-aid-group": "mutual aid group",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Jump to a location on the map...",
     "updateResultsForThisArea": "Update results for this area",
     "myLocation": "My Location"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Back to results",
@@ -210,7 +224,7 @@
   "hiddenMarkers": {
     "visiblility": "Visibility: {visibility}",
     "filter": {
-      "any": "Any",
+      "any": "Qualquer",
       "visible": "Visible only",
       "hidden": "Hidden only"
     }
