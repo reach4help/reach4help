@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Node
-        uses: actions/setup-node@v2.4.0
+        uses: actions/setup-node@v1
         with:
           node-version: 10.x
 
@@ -22,6 +22,10 @@ jobs:
 
       - name: Build
         env:
+          REACT_APP_ALGOLIA_ADMIN_KEY: ${{ secrets.STAGING_ALGOLIA_ADMIN_KEY}}
+          REACT_APP_ALGOLIA_APP_ID: ${{ secrets.STAGING_ALGOLIA_APP_ID }}
+          REACT_APP_ALGOLIA_SEARCH_KEY: ${{ secrets.STAGING_ALGOLIA_SEARCH_KEY }}
+          REACT_APP_ALGOLIA_INDEX_NAME: ${{ secrets.STAGING_ALGOLIA_INDEX_NAME }}
           REACT_APP_FACEBOOK_APP_ID: ${{ secrets.STAGING_FACEBOOK_API_KEY }}
           REACT_APP_FIREBASE_API_KEY: ${{ secrets.STAGING_FIREBASE_API_KEY }}
           REACT_APP_FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
@@ -36,10 +40,6 @@ jobs:
           REACT_APP_DATADOG_APP_ID: ${{ secrets.STAGING_DATADOG_APP_ID }}
           REACT_APP_DATADOG_RUM_CLIENT_TOKEN: ${{ secrets.STAGING_DATADOG_RUM_CLIENT_TOKEN }}
           REACT_APP_DATADOG_LOGS_CLIENT_TOKEN: ${{ secrets.STAGING_DATADOG_LOGS_CLIENT_TOKEN }}
-          REACT_APP_ALGOLIA_ADMIN_KEY: ${{ secrets.STAGING_ALGOLIA_ADMIN_KEY}}
-          REACT_APP_ALGOLIA_APP_ID: ${{ secrets.STAGING_ALGOLIA_APP_ID }}
-          REACT_APP_ALGOLIA_SEARCH_KEY: ${{ secrets.STAGING_ALGOLIA_SEARCH_KEY }}
-          REACT_APP_ALGOLIA_INDEX_NAME: ${{ secrets.STAGING_ALGOLIA_INDEX_NAME }}
         run: yarn workspaces run build
 
       - name: Deploy

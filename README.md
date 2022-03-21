@@ -11,13 +11,15 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-49-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-47-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Who We Are
 
-[Reach4Help](https://reach4help.org/) is a global open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools for volunteers (like [our app](https://app.reach4help.org/)), people in need, and volunteer organizations alike, we’re building a large-scale network of help to keep us stronger and more connected during this pandemic and beyond.
+[Reach4Help](https://reach4help.org/) is an open-source and volunteer-run initiative connecting people in need with volunteers who can help during the COVID-19 pandemic and beyond. Through the development of open-source and accessible tools like [our global map of aid organizations](https://map.reach4help.org/) for volunteers, people in need, and volunteer organizations alike, we’re building a large-scale network of help. 
+
+Our vision is to create a global network of resilient local volunteers organizations to empower and support their communities through the COVID-19 pandemic and future crises beyond. Ultimately, our goal is to ensure that anyone, anywhere can reach for help. 
 
 ## How _You_ Can Contribute
 
@@ -25,17 +27,22 @@ We're currently looking for help on the project in several fields, especially in
 
 # Projects
 
-## [Reach4Help App](web-client)
-
-Our main app connecting people in need with volunteers who can help. We’re working with volunteer organizations across the world, amassing over 150 volunteers in 13 countries worldwide, providing support for charity events, food banks, and day-to-day delivery services. Our [backend layer](functions) manages all the data for our [main app](/web-client/src/firebase/index.ts). **Check it out live [here](https://app.reach4help.org/)!**
-
 ## [Global Mutual Aid Map](map)
 
 A global interactive map visualizing over 10,000 volunteer organizations supporting communities in need around the world! We're looking for help reaching out to more organizations and for developing the map further (especially in optimizing loading all those data points). **Check it out live [here](https://map.reach4help.org/)!**
 
+## [Organization Dashboard](https://github.com/reach4help/covidhelphub-frontend)
+
+Alongside organizations like the COVID-19 Help Hub in Montréal, India One Alliance headquartered in Delhi and EMK Center in Dhaka, we're currently prototyping a platform to automate the menial tasks of volunteer coordination and request management, thereby cutting down valuable time and money for these organizations. Going forward, our goal is to engage more organizations in the design and development of this platform to make sure we can scale it effectively for various charitable campaigns, from food distribution for needy communities to vaccination drives for the elderly. 
+
+
 ## [Official Website](site)
 
 Our website highlighting the project and our hardworking team of volunteers. **Check it out live [here](https://reach4help.org/)!**
+
+## [Peer-to-Peer App (Discontinued)](web-client)
+
+Our first app matching individual people in need with individual nearby volunteers who can help. With over 300 volunteers and users across the world, this became a successful proof of concept for us to take the project to the next stage, involving community aid organizations directly. Our [backend layer](functions) manages all the data for our [main app](/web-client/src/firebase/index.ts). **Check it out live [here](https://app.reach4help.org/)!**
 
 # Development
 
@@ -133,9 +140,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/iamtimleonard"><img src="https://avatars.githubusercontent.com/u/69484330?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tim Leonard</b></sub></a><br /><a href="#projectManagement-iamtimleonard" title="Project Management">📆</a> <a href="https://github.com/reach4help/reach4help/commits?author=iamtimleonard" title="Code">💻</a> <a href="https://github.com/reach4help/reach4help/pulls?q=is%3Apr+reviewed-by%3Aiamtimleonard" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/edmkitty"><img src="https://avatars.githubusercontent.com/u/6203233?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Katherine Rodriguez</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=edmkitty" title="Code">💻</a> <a href="#ideas-edmkitty" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/Lakshmi-Jayakumar"><img src="https://avatars.githubusercontent.com/u/33493410?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lakshmi-Jayakumar</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=Lakshmi-Jayakumar" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/tzou2024"><img src="https://avatars.githubusercontent.com/u/78239895?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Trevor Zou</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=tzou2024" title="Code">💻</a> <a href="#maintenance-tzou2024" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/ssameghini"><img src="https://avatars.githubusercontent.com/u/9827845?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sebastián Sameghini</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=ssameghini" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jensren"><img src="https://avatars.githubusercontent.com/u/41408654?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jensren</b></sub></a><br /><a href="https://github.com/reach4help/reach4help/commits?author=jensren" title="Code">💻</a></td>
   </tr>
 </table>
 

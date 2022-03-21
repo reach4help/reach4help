@@ -1,42 +1,46 @@
+import { config } from 'dotenv'; // DO NOT REMOVE, necessary to read .env files in dev
 import debounce from 'lodash/debounce';
 import React from 'react';
 import mapState, {
   ActiveMarkers,
   MapInfo,
-  MARKER_SET_KEYS,
 } from 'src/components/map-utils/map-state';
 import { MARKER_TYPES } from 'src/data';
 import * as dataDriver from 'src/data/dataDriver';
 import { Filter, Page } from 'src/state';
 import { isDefined } from 'src/util';
+import { logInfo, logWarning } from 'src/util/util';
 
 import styled, { LARGE_DEVICES } from '../styling';
 import AddInstructions from './add-information';
 import { AppContext } from './context';
-import { createGoogleMap, haversineDistance } from './map-utils/google-maps';
+import { haversineDistance, insertMapIntoHtml } from './map-utils/google-maps';
 import infoWindowContent from './map-utils/info-window';
 import { debouncedUpdateQueryStringMapLocation } from './map-utils/query-string';
 
+config(); // importing config enables reading .env files in development without calling it
+// added here to suppress warning that config is not used
+
 type MarkerInfo = dataDriver.MarkerInfoType;
+dataDriver.addStorageListener();
 
-interface DataDriverData {
-  dataDriverData: Map<string, MarkerIdAndInfo>;
+interface MarkersData {
+  markersData: Map<string, MarkerIdAndInfo>;
 }
-
-type DataSet = keyof DataDriverData;
 
 const MARKER_DATA_ID = 'id';
 const MARKER_DATA_CIRCLE = 'circle';
+const MAP_STORAGE_KEY = 'map_storage';
+interface MapConfig {
+  lat: number;
+  lng: number;
+  zoom: number;
+}
 
 const INITIAL_NUMBER_OF_RESULTS = 20;
 
-export interface MarkerId {
-  set: DataSet;
-  id: string;
-}
-
 export interface MarkerIdAndInfo {
-  id: MarkerId;
+  id: string;
   info: MarkerInfo;
 }
 
@@ -61,9 +65,6 @@ export interface ResultsSet {
    */
   showRows: number;
 }
-
-const getMarkerId = (marker: google.maps.Marker): MarkerId =>
-  marker.get(MARKER_DATA_ID);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const hasIntersection = (set_: Set<any>, array_: Array<any>): boolean =>
@@ -92,12 +93,37 @@ interface State {
    * Shall we display service areas?
    * Can be disabled when the device has decreased performance
    */
-  displayServiceAreas: boolean;
+  displayServiceAreaCircle: boolean;
 }
 
 class MapComponent extends React.Component<Props, State> {
-  private readonly data: DataDriverData = {
-    dataDriverData: new Map(),
+  private static geoCenterMap() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        const { mapInfo } = mapState();
+        if (!mapInfo) {
+          return;
+        }
+        logInfo('Geo centered', pos);
+        mapInfo.map.setCenter(pos);
+        mapInfo.map.setZoom(10);
+        mapState().updateResultsOnNextBoundsChange = true;
+      },
+      error => {
+        // eslint-disable-next-line no-alert
+        logWarning('Unable to get geolocation!');
+        // eslint-disable-next-line no-console
+        logWarning(error.message);
+      },
+    );
+  }
+
+  private readonly data: MarkersData = {
+    markersData: new Map(),
   };
 
   private addInfoMapClickedListener:
@@ -109,26 +135,29 @@ class MapComponent extends React.Component<Props, State> {
   public constructor(props: Props) {
     super(props);
     this.state = {
-      displayServiceAreas: true,
+      displayServiceAreaCircle: true,
     };
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(this.updateResults);
-    dataDriver.addInformationListener(this.informationUpdated);
-    dataDriver.loadInitialData();
-    this.centerMap();
+    dataDriver.addInformationListener(this.updateClusterAndMarkersListener);
+    const result: google.maps.Map | null = await this.centerMap();
+    if (!result) {
+      return;
+    }
+    dataDriver.loadData();
   }
 
   public componentDidUpdate(prevProps: Props) {
-    const { map } = mapState();
+    const { mapInfo } = mapState();
     const { filter, results, nextResults, selectedResult } = this.props;
     // Update filter if changed
-    if (map && !filter.filterExecuted) {
+    if (mapInfo && !filter.filterExecuted) {
       this.updateMarkersVisibilityUsingFilter(filter);
       filter.filterExecuted = true;
-      map.currentFilter = filter;
+      mapInfo.currentFilter = filter;
     }
     if (nextResults && !results) {
       // If we have next results queued up, but no results yet, set the results
@@ -136,10 +165,10 @@ class MapComponent extends React.Component<Props, State> {
     }
     // Update selected point if changed
     if (selectedResult !== prevProps.selectedResult) {
-      if (map && selectedResult) {
+      if (mapInfo && selectedResult) {
         // Center selected result
         // selectedResult.info.loc.
-        map.map.panTo({
+        mapInfo.map.panTo({
           lat: selectedResult.info.loc.latlng.latitude,
           lng: selectedResult.info.loc.latlng.longitude,
         });
@@ -151,71 +180,90 @@ class MapComponent extends React.Component<Props, State> {
   public componentWillUnmount() {
     const { setUpdateResultsCallback } = this.props;
     setUpdateResultsCallback(null);
-    dataDriver.removeInformationListener(this.informationUpdated);
+    dataDriver.removeInformationListener(this.updateClusterAndMarkersListener);
   }
 
-  private centerMap = () => {
-    let location: {
-      lat: number;
-      lng: number;
+  private centerMap = async () /*: Promise<google.maps.Map> */ => {
+    let centeredMap: google.maps.Map | null = null;
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const urlLoc = urlParams.get('map');
+    const debugNavigatorGeo = urlParams.get('debugNavigatorGeo')?.toUpperCase();
+    const newDehliLoc = {
+      lat: 28.6527,
+      lng: 77.2307,
     };
-    fetch('https://get.geojs.io/v1/ip/geo.json')
-      .then(response => response.json())
-      .then(data => {
-        // If the API returns a geolocation
-        if (data.longitude && data.latitude) {
-          location = {
-            lat: parseFloat(data.latitude),
-            lng: parseFloat(data.longitude),
-          };
-          const { map } = mapState();
-          if (!map) {
-            return;
-          }
-          map.map.setCenter(location);
-          map.map.setZoom(8);
-          mapState().updateResultsOnNextBoundsChange = true;
-        } else {
-          // Call the browser's geolocation API (will prompt the first time)
-          navigator.geolocation.getCurrentPosition(
-            position => {
-              location = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              };
-              const { map } = mapState();
-              if (!map) {
-                return;
-              }
-              map.map.setCenter(location);
-              map.map.setZoom(8);
-              mapState().updateResultsOnNextBoundsChange = true;
-            },
-            () => {
-              // Position over India if no other option works
-              location = {
-                lat: 21.7679,
-                lng: 78.8718,
-              };
-              const { map } = mapState();
-              if (!map) {
-                return;
-              }
-              map.map.setCenter(location);
-              map.map.setZoom(4);
-              mapState().updateResultsOnNextBoundsChange = true;
-            },
-          );
-        }
-      });
+    let zoomLevel = 10;
+    let centerCoords: { lat: number; lng: number } | null = null;
+
+    if (urlLoc) {
+      const [urlLatitude, urlLongitude, urlZoomLevel] = urlLoc.split(',');
+      if (urlLatitude && urlLongitude) {
+        centerCoords = {
+          lat: parseFloat(urlLatitude),
+          lng: parseFloat(urlLongitude),
+        };
+        zoomLevel = parseFloat(urlZoomLevel) || zoomLevel;
+      }
+    }
+
+    const mapConfig = localStorage.getItem(MAP_STORAGE_KEY);
+    if (!centerCoords && mapConfig) {
+      const configJson: MapConfig = JSON.parse(mapConfig);
+      if (configJson.lat && configJson.lng) {
+        centerCoords = { lat: configJson.lat, lng: configJson.lng };
+      }
+      if (configJson.zoom) {
+        zoomLevel = configJson.zoom;
+      }
+      logInfo('Found previous position', centerCoords);
+    }
+
+    if (!centerCoords && debugNavigatorGeo !== 'Y') {
+      const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
+      const data = await response.json();
+      if (data) {
+        centerCoords = {
+          lat: parseFloat(data.latitude),
+          lng: parseFloat(data.longitude),
+        };
+        logInfo('Position retrieved from get.geojs', centerCoords);
+      }
+    }
+
+    // This is too slow in some cases. Making execution provisional.
+    // Currently geoCenterMap recenters code provisionally.
+    // Could be changed into a promise.
+    // See https://github.com/reach4help/reach4help/issues/1739
+    if (debugNavigatorGeo === 'Y') {
+      MapComponent.geoCenterMap();
+    }
+
+    // default to location in New Dehli, India
+    if (!centerCoords) {
+      centerCoords = newDehliLoc;
+    }
+
+    const { mapInfo } = mapState();
+    if (!mapInfo) {
+      return null;
+    }
+
+    centeredMap = mapInfo.map;
+    mapInfo.map.setCenter(centerCoords);
+    mapInfo.map.setZoom(zoomLevel);
+    mapState().updateResultsOnNextBoundsChange = true;
+
+    return centeredMap;
   };
 
-  private isValidMarker = (filter: Filter, info: MarkerIdAndInfo): boolean => {
+  private isMatch = (filter: Filter, info: MarkerIdAndInfo): boolean => {
     let validTypes = true;
     if (
       filter.markerTypes &&
       filter.markerTypes.size > 0 &&
-      (typeof info.info.type.type === 'undefined' ||
+      (typeof info.info?.type?.type === 'undefined' ||
         !filter.markerTypes.has(info.info.type.type))
     ) {
       validTypes = false;
@@ -225,7 +273,7 @@ class MapComponent extends React.Component<Props, State> {
     if (
       filter.services &&
       filter.services.size > 0 &&
-      (typeof info.info.type.services === 'undefined' ||
+      (typeof info.info?.type?.services === 'undefined' ||
         !hasIntersection(filter.services, info.info.type.services))
     ) {
       validServices = false;
@@ -247,22 +295,20 @@ class MapComponent extends React.Component<Props, State> {
   };
 
   private updateMarkersVisibilityUsingFilter = (filter: Filter) => {
-    const { map } = mapState();
-    if (map) {
-      for (const set of MARKER_SET_KEYS) {
-        map.activeMarkers[set].forEach(marker => {
-          const info = this.getMarkerInfo(marker);
-          if (info) {
-            marker.setVisible(this.isValidMarker(filter, info));
-          }
-        });
-      }
+    const { mapInfo } = mapState();
+    if (mapInfo) {
+      mapInfo.activeMarkers.markersData.forEach(marker => {
+        const info = this.getMarkerInfo(marker);
+        if (info) {
+          marker.setVisible(this.isMatch(filter, info));
+        }
+      });
       // Ensure that the results are updated given the filter has changed
       mapState().updateResultsOnNextBoundsChange = true;
       // Trigger reclustering
-      map.markerClusterer.repaint();
+      mapInfo.markerClusterer.repaint();
       // Trigger recomputation of results
-      this.updateResultsBasedOnViewport();
+      this.debouncedUpdateResultsBasedOnViewport();
     }
   };
 
@@ -286,14 +332,13 @@ class MapComponent extends React.Component<Props, State> {
   private getMarkerInfo = (
     marker: google.maps.Marker,
   ): MarkerIdAndInfo | null => {
-    const id = getMarkerId(marker);
-    const info = this.data[id.set].get(id.id);
+    const id = marker.get('id');
+    const info = this.data.markersData.get(id);
     return info || null;
   };
 
   private createMarker = (
     activeMarkers: ActiveMarkers,
-    set: DataSet,
     id: string,
     info: MarkerInfo,
   ) => {
@@ -304,9 +349,8 @@ class MapComponent extends React.Component<Props, State> {
       },
       title: info.contentTitle,
     });
-    const idData: MarkerId = { set, id };
-    marker.set(MARKER_DATA_ID, idData);
-    activeMarkers[set].set(id, marker);
+    marker.set(MARKER_DATA_ID, id);
+    activeMarkers.markersData.set(id, marker);
 
     // Add marker listeners
     marker.addListener('click', event => {
@@ -321,23 +365,34 @@ class MapComponent extends React.Component<Props, State> {
     return marker;
   };
 
-  private informationUpdated: dataDriver.InformationListener = update => {
+  /**
+   * Populate mapState().mapInfo.markClusterer from initialMarkers and detailMarkers
+   * @param update: data.driverInformationUpdate {initialMarkers,detailMarkers}
+   */
+  private updateClusterAndMarkersListener: dataDriver.MarkersListener = update => {
     // Update existing markers, add new markers and delete removed markers
+    this.data.markersData = new Map();
 
-    this.data.dataDriverData = new Map();
-    for (const entry of update.markers.entries()) {
-      this.data.dataDriverData.set(entry[0], {
-        id: { set: 'dataDriverData', id: entry[0] },
+    const allMarkers = update.initialMarkers;
+    for (const marker of update.detailMarkers.entries()) {
+      const id = marker[0];
+      const markerInfo = marker[1];
+      allMarkers.set(id, markerInfo);
+    }
+
+    for (const entry of allMarkers.entries()) {
+      this.data.markersData.set(entry[0], {
+        id: entry[0],
         info: entry[1],
       });
     }
 
-    const { map } = mapState();
-    if (map) {
+    const { mapInfo } = mapState();
+    if (mapInfo) {
       // Update existing markers and add new markers
       const newMarkers: google.maps.Marker[] = [];
-      for (const [id, info] of update.markers.entries()) {
-        const marker = map.activeMarkers.dataDriverData.get(id);
+      for (const [id, info] of allMarkers) {
+        const marker = mapInfo.activeMarkers.markersData.get(id);
         if (marker) {
           // Update info
           marker.setPosition({
@@ -346,34 +401,42 @@ class MapComponent extends React.Component<Props, State> {
           });
           marker.setTitle(info.contentTitle);
         } else {
-          newMarkers.push(
-            this.createMarker(map.activeMarkers, 'dataDriverData', id, info),
-          );
+          newMarkers.push(this.createMarker(mapInfo.activeMarkers, id, info));
         }
       }
-      map.markerClusterer.addMarkers(newMarkers, true);
+
+      mapInfo.markerClusterer.addMarkers(newMarkers, true);
       // Delete removed markers
       const removedMarkers: google.maps.Marker[] = [];
-      for (const [id, marker] of map.activeMarkers.dataDriverData.entries()) {
-        if (!update.markers.has(id)) {
+      for (const [id, marker] of mapInfo.activeMarkers.markersData.entries()) {
+        if (!update.initialMarkers.has(id) && !update.detailMarkers.has(id)) {
           removedMarkers.push(marker);
-          map.activeMarkers.dataDriverData.delete(id);
+          mapInfo.activeMarkers.markersData.delete(id);
           // const circle: google.maps.Circle = marker.get(MARKER_DATA_CIRCLE);
           // if (circle) {
           //   circle.setMap(null);
           // }
         }
       }
-      map.markerClusterer.removeMarkers(removedMarkers, true);
-      this.updateMarkersVisibilityUsingFilter(map.currentFilter);
+      mapInfo.markerClusterer.removeMarkers(removedMarkers, true);
+      this.updateMarkersVisibilityUsingFilter(mapInfo.currentFilter);
     }
   };
 
+  /**
+   * After 50 milliseconds, asynchronously populate nextResults based on markers
+   * within bounds and set results to same value
+   */
   // eslint-disable-next-line react/sort-comp
-  private updateResultsBasedOnViewport = debounce(() => {
-    const { map } = mapState();
-    if (map) {
-      const bounds = map.map.getBounds() || null;
+  private debouncedUpdateResultsBasedOnViewport = debounce(() => {
+    const { mapInfo } = mapState();
+    if (mapInfo) {
+      const bounds = mapInfo.map.getBounds() || null;
+      const lat: number = mapInfo.map.getCenter().lat();
+      const lng: number = mapInfo.map.getCenter().lng();
+      const zoom: number = mapInfo.map.getZoom();
+
+      localStorage.setItem(MAP_STORAGE_KEY, JSON.stringify({ lat, lng, zoom }));
 
       const nextResults: ResultsSet = {
         context: {
@@ -385,22 +448,23 @@ class MapComponent extends React.Component<Props, State> {
 
       // Go through every marker, and add to results if it is within the bounds
       // of the map, and visible
-      for (const set of MARKER_SET_KEYS) {
-        for (const markerIdAndInfo of this.data[set].values()) {
-          if (
-            !bounds ||
-            bounds.contains({
-              lat: markerIdAndInfo.info.loc.latlng.latitude,
-              lng: markerIdAndInfo.info.loc.latlng.longitude,
-            })
-          ) {
-            const marker = map.activeMarkers[set].get(markerIdAndInfo.id.id);
-            if (marker && marker.getVisible()) {
-              nextResults.results.push(markerIdAndInfo);
-            }
+      for (const markerIdAndInfo of this.data.markersData.values()) {
+        if (
+          !bounds ||
+          bounds.contains({
+            lat: markerIdAndInfo.info.loc.latlng.latitude,
+            lng: markerIdAndInfo.info.loc.latlng.longitude,
+          })
+        ) {
+          const marker = mapInfo.activeMarkers.markersData.get(
+            markerIdAndInfo.id,
+          );
+          if (marker && marker.getVisible()) {
+            nextResults.results.push(markerIdAndInfo);
           }
         }
       }
+      // }
 
       const {
         results,
@@ -428,27 +492,20 @@ class MapComponent extends React.Component<Props, State> {
     }
   }, 50);
 
-  private updateGoogleMapRef = (ref: HTMLDivElement | null) => {
+  private insertMapAndMarkersIntoHtml = (ref: HTMLDivElement) => {
     const { filter } = this.props;
-    if (!ref) {
-      return;
-    }
-    const map = createGoogleMap(ref);
+    const map = insertMapIntoHtml(ref);
     const activeMarkers: ActiveMarkers = {
-      dataDriverData: new Map(),
+      markersData: new Map(),
     };
 
     // Create initial markers
-    for (const set of MARKER_SET_KEYS) {
-      const data = this.data[set];
-      for (const [id, info] of data) {
-        this.createMarker(activeMarkers, set, id, info.info);
-      }
+    const data = this.data.markersData;
+    for (const [id, info] of data) {
+      this.createMarker(activeMarkers, id, info.info);
     }
 
-    const allMarkers = MARKER_SET_KEYS.map(s => [
-      ...activeMarkers[s].values(),
-    ]).flat();
+    const allMarkers = [...activeMarkers.markersData.values()];
 
     // Add a marker clusterer to manage the markers.
     const markerClusterer = new MarkerClusterer(map, allMarkers, {
@@ -465,7 +522,7 @@ class MapComponent extends React.Component<Props, State> {
       currentFilter: filter,
       markerClusterer,
     };
-    mapState().map = m;
+    mapState().mapInfo = m;
 
     this.updateMarkersVisibilityUsingFilter(filter);
 
@@ -473,7 +530,7 @@ class MapComponent extends React.Component<Props, State> {
       if ('replaceState' in window.history) {
         debouncedUpdateQueryStringMapLocation(map);
       }
-      this.updateResultsBasedOnViewport();
+      this.debouncedUpdateResultsBasedOnViewport();
     });
 
     const drawMarkerServiceArea = (marker: google.maps.Marker) => {
@@ -560,7 +617,7 @@ class MapComponent extends React.Component<Props, State> {
     markerClusterer.addListener(
       'clusteringend',
       (newClusterParent: MarkerClusterer) => {
-        const { displayServiceAreas } = this.state;
+        const { displayServiceAreaCircle } = this.state;
         m.clustering = {
           clusterMarkers: new Map(),
         };
@@ -595,27 +652,25 @@ class MapComponent extends React.Component<Props, State> {
           }
 
           // Draw a circle for the marker with the largest radius for each cluster (even clusters with 1 marker)
-          if (displayServiceAreas && maxMarker) {
+          if (displayServiceAreaCircle && maxMarker) {
             markersWithAreaDrawn.add(maxMarker.marker);
             drawMarkerServiceArea(maxMarker.marker);
           }
         }
 
-        if (displayServiceAreas) {
+        if (displayServiceAreaCircle) {
           // Iterate through ALL markers (including hidden ones) to hide all
           // service areas we don't want to be visible
-          MARKER_SET_KEYS.forEach(s =>
-            m.activeMarkers[s].forEach(marker => {
-              if (!markersWithAreaDrawn.has(marker)) {
-                const circle: google.maps.Circle | undefined = marker.get(
-                  MARKER_DATA_CIRCLE,
-                );
-                if (circle) {
-                  circle.setVisible(false);
-                }
+          m.activeMarkers.markersData.forEach(marker => {
+            if (!markersWithAreaDrawn.has(marker)) {
+              const circle: google.maps.Circle | undefined = marker.get(
+                MARKER_DATA_CIRCLE,
+              );
+              if (circle) {
+                circle.setVisible(false);
               }
-            }),
-          );
+            }
+          });
         }
 
         // Update tooltip position if neccesary
@@ -626,9 +681,9 @@ class MapComponent extends React.Component<Props, State> {
   };
 
   private updateResults = () => {
-    const { map } = mapState();
+    const { mapInfo } = mapState();
     const { results, nextResults, setResults } = this.props;
-    if (map && nextResults && results !== nextResults) {
+    if (mapInfo && nextResults && results !== nextResults) {
       setResults(nextResults, false);
     }
   };
@@ -638,16 +693,16 @@ class MapComponent extends React.Component<Props, State> {
    * selected. And return the coordinates that were used to place the tooltip.
    */
   private updateInfoWindow = (): google.maps.LatLng | undefined => {
-    const { map } = mapState();
+    const { mapInfo } = mapState();
     const { selectedResult, setSelectedResult } = this.props;
-    if (!map) {
+    if (!mapInfo) {
       return;
     }
     const marker =
       selectedResult &&
-      map.activeMarkers[selectedResult.id.set].get(selectedResult.id.id);
+      mapInfo.activeMarkers.markersData.get(selectedResult.id);
     if (selectedResult && marker) {
-      const clusterCenter = map.clustering?.clusterMarkers.get(marker);
+      const clusterCenter = mapInfo.clustering?.clusterMarkers.get(marker);
       const contentString = infoWindowContent(selectedResult.info);
       if (!this.infoWindow) {
         this.infoWindow = new window.google.maps.InfoWindow({
@@ -660,11 +715,11 @@ class MapComponent extends React.Component<Props, State> {
       }
       this.infoWindow.setContent(contentString);
       if (clusterCenter) {
-        this.infoWindow.open(map.map);
+        this.infoWindow.open(mapInfo.map);
         this.infoWindow.setPosition(clusterCenter);
         return clusterCenter;
       }
-      this.infoWindow.open(map.map, marker);
+      this.infoWindow.open(mapInfo.map, marker);
       return marker.getPosition() || undefined;
     }
     if (this.infoWindow) {
@@ -673,17 +728,17 @@ class MapComponent extends React.Component<Props, State> {
   };
 
   public render() {
-    const { map } = mapState();
+    const { mapInfo } = mapState();
     const { className, page, setPage } = this.props;
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div className={className || 'undefined'}>
-            <div className="map" ref={this.updateGoogleMapRef} />
+            <div className="map" ref={this.insertMapAndMarkersIntoHtml} />
             {page.page === 'add-information' && (
               <AddInstructions
                 lang={lang}
-                map={(map && map.map) || null}
+                map={(mapInfo && mapInfo.map) || null}
                 addInfoStep={page.step}
                 setPage={setPage}
                 setAddInfoMapClickedListener={this.setAddInfoMapClickedListener}
