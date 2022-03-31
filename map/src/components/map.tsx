@@ -78,7 +78,10 @@ interface Props {
   nextResults: ResultsSet | null;
   setNextResults: (nextResults: ResultsSet) => void;
   selectedResult: MarkerIdAndInfo | null;
-  setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
+  setSelectedResult: (
+    selectedResult: MarkerIdAndInfo | null,
+    showDetails?: boolean,
+  ) => void;
   /**
    * Call this
    */
@@ -358,7 +361,7 @@ class MapComponent extends React.Component<Props, State> {
       if (!this.mapClicked(event)) {
         const i = this.getMarkerInfo(marker);
         if (i) {
-          setSelectedResult(i);
+          setSelectedResult(i, true);
         }
       }
     });

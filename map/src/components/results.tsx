@@ -18,6 +18,7 @@ interface Props {
   updateResults: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
+  showResultDetails: boolean;
   selectedResult: MarkerIdAndInfo | null;
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
   showMoreResults: (count: number) => void;
@@ -107,7 +108,12 @@ const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
   );
 };
 
-class Results extends React.PureComponent<Props, {}> {
+class Results extends React.PureComponent<Props, { expandResult: boolean }> {
+  constructor(props) {
+    super(props);
+    this.state = { expandResult: false };
+  }
+
   private headerClicked = () => {
     const { open, setOpen, selectedResult, setSelectedResult } = this.props;
     if (selectedResult) {
@@ -118,15 +124,24 @@ class Results extends React.PureComponent<Props, {}> {
     }
   };
 
+  private resultClicked = (result: MarkerIdAndInfo | null) => {
+    const { expandResult } = this.state;
+    const { selectedResult, setSelectedResult } = this.props;
+    const show = result?.id === selectedResult?.id ? !expandResult : true;
+    this.setState({ expandResult: show });
+    setSelectedResult(result);
+  };
+
   public render() {
+    const { expandResult } = this.state;
     const {
       className,
       results,
       nextResults,
       updateResults,
       open,
+      showResultDetails,
       selectedResult,
-      setSelectedResult,
       showMoreResults,
     } = this.props;
     const canUpdateResults =
@@ -144,7 +159,7 @@ class Results extends React.PureComponent<Props, {}> {
         {({ lang }) => (
           <div
             className={`${className} ${open ? 'open' : ''} ${
-              selectedResult ? 'selected-result' : ''
+              selectedResult && showResultDetails ? 'selected-result' : ''
             }`}
           >
             <button
@@ -157,7 +172,7 @@ class Results extends React.PureComponent<Props, {}> {
                 {format(
                   lang,
                   s =>
-                    selectedResult
+                    selectedResult && showResultDetails
                       ? s.results.backToResults
                       : open
                       ? s.results.closeResults
@@ -186,18 +201,100 @@ class Results extends React.PureComponent<Props, {}> {
                     <div
                       key={index}
                       className="result"
-                      onClick={() => setSelectedResult(result)}
+                      onClick={() => {
+                        this.resultClicked(result);
+                      }}
                     >
-                      <div className="number">{index + 1}</div>
-                      <div className="info">
-                        {result.info.loc.description && (
-                          <div className="location">
-                            {result.info.loc.description}
+                      <div className="flexContainer">
+                        <div className="resultItem">
+                          <div className="number">{index + 1}</div>
+                          <div className="info">
+                            {result.info.loc.description && (
+                              <div className="location">
+                                {result.info.loc.description}
+                              </div>
+                            )}
+                            <div className="name">
+                              {result.info.contentTitle}
+                            </div>
+                            <MarkerType type={result.info.type} />
                           </div>
-                        )}
-                        <div className="name">{result.info.contentTitle}</div>
-                        <MarkerType type={result.info.type} />
+                        </div>
+                        <Chevron
+                          className={`${'toggle chevron'} ${
+                            selectedResult?.id === result.id && expandResult
+                              ? 'open'
+                              : ''
+                          }`}
+                        />
                       </div>
+                      {selectedResult?.id === result.id && expandResult && (
+                        <div className="details preview">
+                          <div className="disclaimer">
+                            <strong>
+                              {t(
+                                lang,
+                                s => s.results.details.disclaimer.header,
+                              )}
+                            </strong>
+                            <br />
+                            {t(lang, s => s.results.details.disclaimer.content)}
+                          </div>
+                          {selectedResultSource && (
+                            <div className="source">
+                              {t(lang, s => s.results.details.source, {
+                                type: key => (
+                                  <span key={key}>
+                                    {t(
+                                      lang,
+                                      s =>
+                                        s.markerTypeSentence[
+                                          selectedResultSentenceType
+                                        ],
+                                    )}
+                                  </span>
+                                ),
+                                source: key => (
+                                  <a
+                                    key={key}
+                                    href={selectedResultSource.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {selectedResultSource.label}
+                                  </a>
+                                ),
+                              })}
+                            </div>
+                          )}
+                          {result.info.contentBody && (
+                            <div>
+                              <div className="content">
+                                {result.info.contentBody}
+                              </div>
+                            </div>
+                          )}
+                          {result.info.contact && (
+                            <div>
+                              {contactInfo(
+                                lang,
+                                t(lang, s => s.results.contact.general),
+                                result.info.contact.general,
+                              )}
+                              {contactInfo(
+                                lang,
+                                t(lang, s => s.results.contact.getHelp),
+                                result.info.contact.getHelp,
+                              )}
+                              {contactInfo(
+                                lang,
+                                t(lang, s => s.results.contact.volunteer),
+                                result.info.contact.volunteers,
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   ))}
                 {results && results.showRows < results.results.length && (
@@ -210,7 +307,8 @@ class Results extends React.PureComponent<Props, {}> {
                   </div>
                 )}
               </div>
-              {selectedResult &&
+              {showResultDetails &&
+                selectedResult &&
                 !selectedResult?.info.contentBody &&
                 !selectedResult?.info.contact && (
                   <div className="details">Data loading. Try again later.</div>
@@ -413,39 +511,57 @@ export default styled(Results)`
         color: ${p => p.theme.textColor};
         border-bottom: ${p => p.theme.borderLight};
         padding: ${p => p.theme.spacingPx}px;
-        display: flex;
-        align-items: start;
+        /* display: flex; */
+        /* align-items: start; */
         font-size: 1rem;
         cursor: pointer;
-
         &:hover {
           background: ${p => p.theme.colors.grayLight5};
-
-          .location {
-            color: ${p => p.theme.textColorLight};
-          }
         }
+        > .flexContainer {
+          display: flex;
+          justify-content: space-between;
 
-        .number {
-          color: ${p => p.theme.textColor};
-          font-size: 20px;
-          font-weight: 600;
-          margin-right: ${p => p.theme.spacingPx}px;
+          .resultItem {
+            display: flex;
+            align-items: start;
+            padding: ${p => p.theme.spacingPx}px;
 
-          [dir='rtl'] & {
-            margin: 0 0 0 ${p => p.theme.spacingPx}px;
+            .location {
+              color: ${p => p.theme.textColorLight};
+            }
+
+            .number {
+              color: ${p => p.theme.textColor};
+              font-size: 20px;
+              font-weight: 600;
+              margin-right: ${p => p.theme.spacingPx}px;
+
+              [dir='rtl'] & {
+                margin: 0 0 0 ${p => p.theme.spacingPx}px;
+              }
+            }
+
+            .location {
+              color: ${p => p.theme.textColorLight};
+              font-size: 0.9rem;
+              margin-bottom: ${p => p.theme.spacingPx / 2}px;
+            }
           }
-        }
-
-        .location {
-          color: ${p => p.theme.textColorLight};
-          font-size: 0.9rem;
-          margin-bottom: ${p => p.theme.spacingPx / 2}px;
+          .chevron.toggle {
+            flex-shrink: 0;
+            transition: opacity ${p => p.theme.transitionSpeedQuick};
+            padding: ${p => p.theme.spacingPx}px 0;
+            align-self: flex-start;
+            &.open {
+              transform: rotate(180deg);
+            }
+          }
         }
       }
     }
 
-    > .details {
+    .details {
       overflow-y: auto;
       max-height: 100%;
       background: #fff;
@@ -456,6 +572,10 @@ export default styled(Results)`
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       pointer-events: initial;
+
+      /* &.preview {
+        padding: 0;
+      } */
 
       > .disclaimer,
       > .source {
