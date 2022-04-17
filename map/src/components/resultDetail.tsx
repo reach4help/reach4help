@@ -13,7 +13,7 @@ interface Props {
   fullDetail?: boolean;
 }
 
-const Div = styled('div')`
+const ResultDetailDiv = styled('div')`
   overflow-y: auto;
   max-height: 100%;
   background: #fff;
@@ -174,14 +174,14 @@ const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
 
 const ResultDetail = ({ result, lang, fullDetail = false }: Props) => {
   const selectedResultSource =
-    result?.info.source && SOURCES[result.info.source.name];
+    result.info.source && SOURCES[result.info.source.name];
   const selectedResultSentenceType =
-    result?.info.type.type === 'mutual-aid-group' ||
-    result?.info.type.type === 'org'
+    result.info.type.type === 'mutual-aid-group' ||
+    result.info.type.type === 'org'
       ? result.info.type.type
       : 'project';
   return (
-    <Div>
+    <ResultDetailDiv>
       <div className="disclaimer">
         <strong>{t(lang, s => s.results.details.disclaimer.header)}</strong>
         <br />
@@ -240,7 +240,7 @@ const ResultDetail = ({ result, lang, fullDetail = false }: Props) => {
           )}
         </div>
       )}
-    </Div>
+    </ResultDetailDiv>
   );
 };
 

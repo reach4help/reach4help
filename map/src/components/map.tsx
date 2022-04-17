@@ -80,7 +80,7 @@ interface Props {
   selectedResult: MarkerIdAndInfo | null;
   setSelectedResult: (
     selectedResult: MarkerIdAndInfo | null,
-    showDetails?: boolean,
+    markerClicked?: boolean,
   ) => void;
   /**
    * Call this

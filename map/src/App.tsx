@@ -26,7 +26,7 @@ interface State {
   nextResults: ResultsSet | null;
   resultsOpen: boolean;
   selectedResult: MarkerIdAndInfo | null;
-  showResultDetails: boolean;
+  mapMarkerClicked: boolean;
   updateResultsCallback: (() => void) | null;
   lang: i18n.Language;
   inFrame: boolean;
@@ -41,7 +41,7 @@ class App extends React.Component<Props, State> {
       results: null,
       nextResults: null,
       resultsOpen: false,
-      showResultDetails: false,
+      mapMarkerClicked: false,
       selectedResult: null,
       updateResultsCallback: null,
       lang: i18n.getLanguage(),
@@ -72,11 +72,11 @@ class App extends React.Component<Props, State> {
 
   private setSelectedResult = (
     selectedResult: MarkerIdAndInfo | null,
-    showDetails = false,
+    markerClicked = false,
   ) => {
     this.setState({
       selectedResult,
-      showResultDetails: showDetails,
+      mapMarkerClicked: markerClicked,
     });
   };
 
@@ -136,7 +136,7 @@ class App extends React.Component<Props, State> {
       results,
       nextResults,
       resultsOpen,
-      showResultDetails,
+      mapMarkerClicked,
       selectedResult,
       page,
       lang,
@@ -190,7 +190,7 @@ class App extends React.Component<Props, State> {
                     setSelectedResult={this.setSelectedResult}
                     updateResults={this.updateResults}
                     showMoreResults={this.showMoreResults}
-                    showResultDetails={showResultDetails}
+                    mapMarkerClicked={mapMarkerClicked}
                   />
                 ),
               }}

@@ -18,16 +18,16 @@ interface Props {
   updateResults: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
-  showResultDetails: boolean;
+  mapMarkerClicked: boolean;
   selectedResult: MarkerIdAndInfo | null;
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
   showMoreResults: (count: number) => void;
 }
 
-class Results extends React.PureComponent<Props, { expandResult: boolean }> {
+class Results extends React.PureComponent<Props, { expandAccordion: boolean }> {
   constructor(props: Props) {
     super(props);
-    this.state = { expandResult: false };
+    this.state = { expandAccordion: false };
   }
 
   private headerClicked = () => {
@@ -41,22 +41,24 @@ class Results extends React.PureComponent<Props, { expandResult: boolean }> {
   };
 
   private resultClicked = (result: MarkerIdAndInfo | null) => {
-    const { expandResult } = this.state;
     const { selectedResult, setSelectedResult } = this.props;
-    const show = result?.id === selectedResult?.id ? !expandResult : true;
-    this.setState({ expandResult: show });
+    this.setState(state => {
+      const expand =
+        result?.id === selectedResult?.id ? !state.expandAccordion : true;
+      return { expandAccordion: expand };
+    });
     setSelectedResult(result);
   };
 
   public render() {
-    const { expandResult } = this.state;
+    const { expandAccordion } = this.state;
     const {
       className,
       results,
       nextResults,
       updateResults,
       open,
-      showResultDetails,
+      mapMarkerClicked,
       selectedResult,
       showMoreResults,
     } = this.props;
@@ -68,7 +70,7 @@ class Results extends React.PureComponent<Props, { expandResult: boolean }> {
         {({ lang }) => (
           <div
             className={`${className} ${open ? 'open' : ''} ${
-              selectedResult && showResultDetails ? 'selected-result' : ''
+              selectedResult && mapMarkerClicked ? 'selected-result' : ''
             }`}
           >
             <button
@@ -81,7 +83,7 @@ class Results extends React.PureComponent<Props, { expandResult: boolean }> {
                 {format(
                   lang,
                   s =>
-                    selectedResult && showResultDetails
+                    selectedResult && mapMarkerClicked
                       ? s.results.backToResults
                       : open
                       ? s.results.closeResults
@@ -130,13 +132,13 @@ class Results extends React.PureComponent<Props, { expandResult: boolean }> {
                         </div>
                         <Chevron
                           className={`${'toggle chevron'} ${
-                            selectedResult?.id === result.id && expandResult
+                            selectedResult?.id === result.id && expandAccordion
                               ? 'open'
                               : ''
                           }`}
                         />
                       </div>
-                      {selectedResult?.id === result.id && expandResult && (
+                      {selectedResult?.id === result.id && expandAccordion && (
                         <ResultDetail result={selectedResult} lang={lang} />
                       )}
                     </div>
@@ -151,7 +153,7 @@ class Results extends React.PureComponent<Props, { expandResult: boolean }> {
                   </div>
                 )}
               </div>
-              {showResultDetails &&
+              {mapMarkerClicked &&
                 selectedResult &&
                 !selectedResult?.info.contentBody &&
                 !selectedResult?.info.contact && (
