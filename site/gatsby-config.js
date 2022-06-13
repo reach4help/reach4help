@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env`,
+})
+
 const manifestConfig = require("./manifest-config")
 const metadata = require("./metadata")
 

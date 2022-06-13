@@ -37,25 +37,50 @@ function Home() {
           <p>{t("HomePage.HeroSection.subheading")}</p>
         </div>
         <ButtonsWrapper>
-          <a href="https://app.reach4help.org/gethelp" rel="noopener">
+          <a
+            href="https://map.reach4help.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Button
               backgroundColor="#ff7b02"
               textColor="white"
               fontSize="0.95em"
             >
-              {t("HomePage.HeroSection.buttons.0")}
+              {t(`HomePage.HeroSection.buttons.0`)}
             </Button>
           </a>
-          <a href="https://app.reach4help.org/volunteer" rel="noopener">
-            <Button
-              backgroundColor="transparent"
-              border="2px solid white"
-              textColor="white"
-              fontSize="0.95em"
+          {process.env.GATSBY_BUTTON_LABEL1 && (
+            <a
+              href={process.env.GATSBY_BUTTON_URL1}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {t("HomePage.HeroSection.buttons.1")}
-            </Button>
-          </a>
+              <Button
+                backgroundColor="transparent"
+                border="2px solid white"
+                textColor="white"
+                fontSize="0.95em"
+              >
+                {t(`${process.env.GATSBY_BUTTON_LABEL1}`)}
+              </Button>
+            </a>
+          )}
+          {process.env.GATSBY_BUTTON_LABEL2 && (
+            <a
+              href={process.env.GATSBY_BUTTON_URL2}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                backgroundColor="#ff7b02"
+                textColor="white"
+                fontSize="0.95em"
+              >
+                {t(`${process.env.GATSBY_BUTTON_LABEL2}`)}
+              </Button>
+            </a>
+          )}
         </ButtonsWrapper>
         <Socials />
       </div>
