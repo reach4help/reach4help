@@ -1,5 +1,5 @@
 import React from "react"
-import { useTranslation, Trans } from "react-i18next"
+import { useTranslation } from "react-i18next"
 
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
@@ -43,9 +43,9 @@ function Mission() {
           <h2>{t("MissionPage.heading")}</h2>
           <p>{t("MissionPage.description.0")}</p>
           <br />
-          <Trans transSupportBasicHtmlNodes>
-            <p>{t("MissionPage.description.1")}</p>
-          </Trans>
+          <p>{t("MissionPage.description.1")}</p>
+          <br />
+          <p>{t("MissionPage.description.2")}</p>
         </ContentWrapper>
       </Wrapper>
     </>

@@ -4,10 +4,10 @@
     "members": [
       {
         "name": "Shayan Chowdhury",
-        "title": "Executive Director & Co-founder",
+        "title": "Executive Director & Co-Founder",
         "avatar_url": "/images/team/shayan-chowdhury.jpg",
-        "contact": "mailto:shayan@reach4help.org",
-        "countries": ["US", "BD"]
+        "contact": "https://linkedin.com/in/shayanhchowdhury",
+        "countries": ["BD", "US"]
       },
       {
         "name": "Joseph Ashwin Kottapurath",
@@ -17,6 +17,20 @@
         "countries": ["IN"]
       },
       {
+        "name": "Emily Diaz",
+        "title": "Design Lead",
+        "avatar_url": "/images/team/emily-diaz.jpg",
+        "contact": "",
+        "countries": ["US"]
+      },
+      {
+        "name": "Jamie Dubow",
+        "title": "Marketing & Outreach Lead",
+        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01AGS6RA2D-19f552e32170-512",
+        "contact": "",
+        "countries": ["US"]
+      },
+      {
         "name": "Ethan Strominger",
         "title": "Product Lead & Developer",
         "avatar_url": "https://avatars0.githubusercontent.com/u/32078396?v=4",
@@ -24,29 +38,22 @@
         "countries": ["US"]
       },
       {
-        "name": "Zina Codita",
-        "title": "Design Lead",
-        "avatar_url": "",
-        "contact": "",
-        "countries": ["US"]
-      },
-      {
         "name": "Yi Zhou",
-        "title": "Marketing & Outreach Lead",
+        "title": "Co-Founder & Marketing Advisor",
         "avatar_url": "/images/team/yi-zhou.jpg",
         "contact": "mailto:yi@reach4help.org",
         "countries": ["CA"]
       },
       {
         "name": "Pedro Filipe",
-        "title": "Co-founder",
+        "title": "Co-Founder & Developer",
         "avatar_url": "https://avatars0.githubusercontent.com/u/35262512?v=4",
         "contact": "https://github.com/puzzledbytheweb",
         "countries": ["PT"]
       },
       {
         "name": "Sam Lanning",
-        "title": "Co-founder",
+        "title": "Co-Founder & Development Lead",
         "avatar_url": "/images/team/sam-lanning.jpg",
         "contact": "https://sam.lanni.ng",
         "countries": ["GB"]
@@ -186,7 +193,8 @@
       {
         "name": "Hazal Büşra Yoleri",
         "avatar_url": "https://avatars3.githubusercontent.com/u/39515623?v=4",
-        "contact": "https://github.com/HazalYoleri"
+        "contact": "https://github.com/HazalYoleri",
+        "countries": ["TR", "NL"]
       },
       {
         "name": "Crue Jameson (Eric Gerlach)",
@@ -198,6 +206,20 @@
   {
     "title": "Design",
     "members": [
+      {
+        "name": "Zina Codita",
+        "title": "Former Design Lead",
+        "avatar_url": "",
+        "contact": "",
+        "countries": ["US"]
+      },
+      {
+        "name": "Kristofer Todd",
+        "title": "",
+        "avatar_url": "",
+        "contact": "https://www.ktoddux.com/reach4help",
+        "countries": ["US"]
+      },
       {
         "name": "Riddhi Sangani",
         "avatar_url": "",
@@ -213,17 +235,14 @@
       {
         "name": "Siva Krishna",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U019QLQU61L-97ee6ecfda56-512",
-        "contact": ""
+        "contact": "",
+        "countries": ["IN"]
       },
       {
         "name": "Samantha Uebel",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U019GRKMCH1-b09e1ad189bd-512",
-        "contact": "https://www.linkedin.com/in/samantha-uebel-uxdesigner/"
-      },
-      {
-        "name": "Shaina Danzinger",
-        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01FGNACPD0-a8f3d2c29428-512",
-        "contact": ""
+        "contact": "https://www.linkedin.com/in/samantha-uebel-uxdesigner/",
+        "countries": ["US"]
       },
       {
         "name": "Mayra Vargas",
@@ -244,17 +263,20 @@
       {
         "name": "Rita Serra",
         "avatar_url": "https://avatars1.githubusercontent.com/u/62537457?v=4",
-        "contact": "https://github.com/r13serra11"
+        "contact": "https://github.com/r13serra11",
+        "countries": ["IT"]
       },
       {
         "name": "Cinthya Jauregui",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U010LS54HD4-d62810bce698-512",
-        "contact": "https://github.com/cinthyaejh"
+        "contact": "https://github.com/cinthyaejh",
+        "countries": ["US"]
       },
       {
         "name": "Telmo Dias",
         "avatar_url": "https://avatars1.githubusercontent.com/u/30916?v=4",
-        "contact": "https://github.com/telmodias"
+        "contact": "https://github.com/telmodias",
+        "countries": ["IT", "DE"]
       }
     ]
   },
@@ -262,19 +284,25 @@
     "title": "Marketing",
     "members": [
       {
-        "name": "Jamie Dubow",
-        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01AGS6RA2D-19f552e32170-512",
-        "contact": ""
+        "name": "Heramb Podar",
+        "title": "Market Research Coordinator",
+        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U02R1TNP52L-367df7a4ecc9-512",
+        "contact": "mailto:heramb@reach4help.org",
+        "countries": ["IN"]
       },
       {
         "name": "Shafaat Razin",
-        "avatar_url": "/images/team/shafaat-razin.jpg",
-        "contact": ""
+        "title": "Marketing Intern",
+        "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01CVV5RMGU-17452888cda5-512",
+        "contact": "",
+        "countries": ["BD"]
       },
       {
         "name": "Janiya Riley",
+        "title": "Marketing Intern",
         "avatar_url": "",
-        "contact": ""
+        "contact": "",
+        "countries": ["US"]
       },
       {
         "name": "Anna Busch",
@@ -283,8 +311,10 @@
       },
       {
         "name": "Patricia Miranda",
+        "title": "Former Marketing Lead",
         "avatar_url": "https://avatars1.githubusercontent.com/u/62437898?v=4",
-        "contact": "https://github.com/PatriciaMiranda"
+        "contact": "https://github.com/PatriciaMiranda",
+        "countries": ["PT"]
       }
     ]
   },
@@ -294,17 +324,20 @@
       {
         "name": "Despot Jakimovski",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01DF0XUN94-a133244be06c-512",
-        "contact": "mailto:despot.jakimovski@reach4help.org"
+        "contact": "mailto:despot.jakimovski@reach4help.org",
+        "countries": ["MK"]
       },
       {
         "name": "Ken Harlan",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U017DHDPQTD-0956a4e11952-512",
-        "contact": "https://www.linkedin.com/in/kenharlan07/"
+        "contact": "https://www.linkedin.com/in/kenharlan07/",
+        "countries": ["US"]
       },
       {
         "name": "Javier Gorostiaga",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U017SD87G81-4dd55b7d1a9f-512",
-        "contact": "https://github.com/gorostiaga"
+        "contact": "https://github.com/gorostiaga",
+        "countries": ["BO"]
       },
       {
         "name": "Iyshwarya",

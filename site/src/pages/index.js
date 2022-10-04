@@ -10,7 +10,7 @@ import Footer from "src/components/footer"
 import Hero from "src/sections/home/hero"
 import Reasons from "src/sections/home/reasons"
 import GetHelpInfo from "src/sections/home/getHelpInfo"
-import GiveHelpInfo from "src/sections/home/giveHelpInfo"
+// import GiveHelpInfo from "src/sections/home/giveHelpInfo"
 import AboutInfo from "src/sections/home/aboutInfo"
 
 function HomePage() {
@@ -22,7 +22,7 @@ function HomePage() {
         <Hero />
         <Reasons />
         <GetHelpInfo />
-        <GiveHelpInfo />
+        {/* <GiveHelpInfo /> */}
         <AboutInfo />
       </div>
       <Footer />

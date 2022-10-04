@@ -37,7 +37,7 @@ function Home() {
           <p>{t("HomePage.HeroSection.subheading")}</p>
         </div>
         <ButtonsWrapper>
-          <a href="https://app.reach4help.org/gethelp" rel="noopener">
+          <a href="https://map.reach4help.org/" rel="noopener">
             <Button
               backgroundColor="#ff7b02"
               textColor="white"
@@ -46,7 +46,7 @@ function Home() {
               {t("HomePage.HeroSection.buttons.0")}
             </Button>
           </a>
-          <a href="https://app.reach4help.org/volunteer" rel="noopener">
+          {/* <a href="https://app.reach4help.org/volunteer" rel="noopener">
             <Button
               backgroundColor="transparent"
               border="2px solid white"
@@ -55,7 +55,7 @@ function Home() {
             >
               {t("HomePage.HeroSection.buttons.1")}
             </Button>
-          </a>
+          </a> */}
         </ButtonsWrapper>
         <Socials />
       </div>

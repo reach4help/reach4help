@@ -111,7 +111,7 @@ export const ButtonsWrapper = styled.div`
   /* width: 80%; */
 
   a {
-    width: 45%;
+    /* width: 45%; */
 
     button {
       height: 75%;
