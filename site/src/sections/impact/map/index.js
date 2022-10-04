@@ -16,10 +16,11 @@ function WorldMapSection() {
 
   return (
     <WorldMapWrapper>
-      <h2>
-        <span>{t("ImpactPage.WorldMapSection.heading.0")}</span>
-        <span>{t("ImpactPage.WorldMapSection.heading.1")}</span>
-      </h2>
+      <div className="heading">
+        <h2>
+          <span>{t("ImpactPage.WorldMapSection.description")}</span>
+        </h2>
+      </div>
       {WorldMap && <WorldMap />}
     </WorldMapWrapper>
   )
