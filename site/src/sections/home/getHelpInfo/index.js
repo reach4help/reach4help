@@ -2,7 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 
 import HelpInfoRequest from "src/assets/getHelpInfo/requestHelpLogo.svg"
-import HelpInfoOffer from "src/assets/getHelpInfo/chooseVolunteerOffer.svg"
+// import HelpInfoOffer from "src/assets/getHelpInfo/chooseVolunteerOffer.svg"
 import HelpInfoCoordinate from "src/assets/getHelpInfo/coordinateGettingHelp.svg"
 
 import {
@@ -34,8 +34,8 @@ function GetHelpInfo() {
                   )}
                 </p>
               </InfoCard>
-              <h4>{t("HomePage.GettingHelpSection.items.step1.items.1.or")}</h4>
-              <InfoCard>
+              {/* <h4>{t("HomePage.GettingHelpSection.items.step1.items.1.or")}</h4> */}
+              {/* <InfoCard>
                 <img alt="HelpInfoOffer" src={HelpInfoOffer} />
                 <h3>
                   {t("HomePage.GettingHelpSection.items.step1.items.2.title")}
@@ -45,7 +45,7 @@ function GetHelpInfo() {
                     "HomePage.GettingHelpSection.items.step1.items.2.description",
                   )}
                 </p>
-              </InfoCard>
+              </InfoCard> */}
             </div>
           </HelpInfoCardContainer>
 

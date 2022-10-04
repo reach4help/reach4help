@@ -3,12 +3,13 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 
 import Button from "src/components/button"
+import Flag from "react-world-flags"
 import teams from "../teams.json"
 
 import defaultProfilePic from "./default_profile.png"
 
 import { Wrapper, ContentWrapper, TeamContainer } from "./style"
-// import CountryCodeMap from "./countryCodeMap.json"
+import CountryCodeMap from "./countryCodeMap.json"
 
 function Team() {
   const sectionColors = {
@@ -39,21 +40,23 @@ function Team() {
               // if the fetched avatar url is undefined, then set a default one
               return (
                 <a className="member" key={member.id} href={member.contact}>
-                  <img src={avatarURL} alt={member.name} />
-                  <h3>
-                    <b>{member.name}</b>
-                  </h3>
-                  <p>{member.title}</p>
+                  <div>
+                    <img src={avatarURL} alt={member.name} />
+                    <h3>
+                      <b>{member.name}</b>
+                    </h3>
+                    <p>{member.title}</p>
+                  </div>
                   {/* TODO: Uncomment after confirming everyone's countries */}
-                  {/* <div className="flags">
-                  {member.countries?.map(country => (
-                    <Flag
-                      key={country.id}
-                      code={country}
-                      title={CountryCodeMap[country]}
-                    />
-                  ))}
-                </div> */}
+                  <div className="flags">
+                    {member.countries?.map(country => (
+                      <Flag
+                        key={country.id}
+                        code={country}
+                        title={CountryCodeMap[country]}
+                      />
+                    ))}
+                  </div>
                 </a>
               )
             })}

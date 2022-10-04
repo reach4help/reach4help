@@ -38,7 +38,7 @@ export const TopSection = styled.div`
   h1 {
     max-width: 600px;
     margin-left: auto;
-    margin-right auto;
+    margin-right: auto;
 
     ${p => p.theme.breakpoints.medium} {
       max-width: 400px;
@@ -47,24 +47,19 @@ export const TopSection = styled.div`
 `
 
 export const ContentWrapper = styled.div`
+  padding: 20px;
   max-width: 40em;
   display: flex;
   flex-direction: column;
   /* margin-bottom: 3em; */
 
-  h2 {
-    margin-bottom: 0.75em;
-    color: ${p => p.theme.colors.accent};
+  ${p => p.theme.breakpoints.medium} {
+    padding: 10px;
+  }
 
-    ::after {
-      margin-top: 7px;
-      margin-left: 2px;
-      display: block;
-      content: "";
-      width: 20px;
-      height: 5px;
-      background-color: ${p => p.theme.colors.secondary};
-    }
+  h2 {
+    margin-bottom: 0.25em;
+    color: ${p => p.theme.colors.accent};
   }
 
   p {

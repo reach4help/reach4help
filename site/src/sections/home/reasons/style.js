@@ -57,6 +57,7 @@ export const ReasonsCardIconContainer = styled(Container)`
 `
 
 export const ReasonsCard = styled(Container)`
+  flex: 1;
   margin-top: 30px;
   justify-content: flex-start;
   align-items: center;
@@ -68,5 +69,6 @@ export const ReasonsCard = styled(Container)`
 
   ${p => p.theme.breakpoints.medium} {
     margin: 20px 0;
+    flex: auto;
   }
 `
