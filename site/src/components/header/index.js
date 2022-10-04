@@ -66,7 +66,7 @@ function Header() {
               {buttonLinks[0].title}
             </Button>
           </a>
-          <a href={buttonLinks[1].link} rel="noopener">
+          {/* <a href={buttonLinks[1].link} rel="noopener">
             <Button
               backgroundColor="#ff7b02"
               textColor="white"
@@ -74,7 +74,7 @@ function Header() {
             >
               {buttonLinks[1].title}
             </Button>
-          </a>
+          </a> */}
         </div>
 
         <Hamburger show={drawerClose} onClick={drawerToggler} />

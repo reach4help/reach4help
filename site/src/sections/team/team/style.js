@@ -56,11 +56,15 @@ export const TeamContainer = styled.div`
       text-decoration: none;
       color: black;
       width: 175px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       img {
         width: 175px;
         height: 175px;
-        object-fit: contain;
+        object-fit: cover;
+        object-position: 50% 0%;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
       }
@@ -83,6 +87,7 @@ export const TeamContainer = styled.div`
       .flags {
         display: flex;
         justify-content: center;
+        margin-bottom: 5px;
 
         img {
           border-radius: 0px;
