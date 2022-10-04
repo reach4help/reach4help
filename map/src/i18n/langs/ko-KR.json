@@ -1,6 +1,6 @@
 {
-  "title": "COVID-19 Mutual Aid Map",
-  "inFrameLink": "About this map / add information",
+  "title": "Global Map of Aid",
+  "inFrameLink": "이 지도 소개 / 정보 추가",
   "aboutScreen": {
     "intro": "We believe solidarity brings out the best in individuals.",
     "info": "To help people find and join mutual aid efforts where they live, offer inspiration to start their own, and/or simply lift spirits, this map presents a growing list of mutual aid pandemic relief projects worldwide.",
@@ -10,21 +10,21 @@
     "otherAreasHeading": "Interested in one of these areas?",
     "otherAreasInfo": "Check out these alternative maps instead:",
     "otherAreasLocations": {
-      "france": "France",
-      "nyc": "New York"
+      "france": "프랑스",
+      "nyc": "뉴욕"
     },
     "sourceHeading": "Where does this information come from?",
     "sourceInfo": "The information on this map is a combination of data collected by our volunteers, submitted by our users, and provided by other volunteer-run projects including {mutualaidwiki} and {mutualaidhub}.",
     "sourceSubmit": "We encourage you to {addinfo} about any projects you know of that are not already on the map.",
-    "sourceSubmitButton": "add information",
-    "usageHeading": "Can I use this data for my own project?",
+    "sourceSubmitButton": "정보 추가",
+    "usageHeading": "이 데이터를 제 프로젝트에 사용할 수 있나요?",
     "usageInfo": "You are welcome to use the data provided by our map for your own projects, as long as you follow the respective licenses.",
     "usageLicenses": "Data provided by our volunteers and users is licensed under a {license}, and data from other sources are made available under their respective licenses.",
     "usageApi": "You can access the raw data, along with details on how each data-point is licensed, at the following URL: {api}"
   },
   "menu": {
     "about": "About",
-    "map": "View Map"
+    "map": "지도 보기"
   },
   "social": {
     "email": "Email Us",
@@ -94,7 +94,7 @@
         "loading": "Submitting information to map...",
         "error": "Error adding information",
         "success": "Your information was successfully submitted.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
@@ -118,6 +118,7 @@
   },
   "loading": "Loading...",
   "filterBy": "Filter by:",
+  "noOptions": "No Options",
   "services": {
     "any": "Any",
     "food": "Food",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Jump to a location on the map...",
     "updateResultsForThisArea": "Update results for this area",
     "myLocation": "My Location"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Back to results",

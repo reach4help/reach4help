@@ -1,5 +1,5 @@
 {
-  "title": "Mapa de ayuda mutual para COVID-19",
+  "title": "Global Map of Aid",
   "inFrameLink": "Acerca de este mapa / añadir información",
   "aboutScreen": {
     "intro": "Creemos que la solidaridad saca lo mejor de las personas.",
@@ -94,7 +94,7 @@
         "loading": "Enviando información al mapa...",
         "error": "Error al agregar información",
         "success": "Tu solicitud se ha enviado con éxito.",
-        "successExtra": "Before we make your information visible on the map, it will need to be reviewed by a volunteer on our team. This should hopefully be done within a couple of days. In the meantime, you'll be able to see it by clicking 'Show Hidden Information' at the bottom of the About page."
+        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
       }
     },
     "errors": {
@@ -118,6 +118,7 @@
   },
   "loading": "Cargando...",
   "filterBy": "Filtrar por:",
+  "noOptions": "No Options",
   "services": {
     "any": "Cualquiera",
     "food": "Comida",
@@ -177,6 +178,19 @@
     "jumpToLocation": "Ir a una ubicación en el mapa...",
     "updateResultsForThisArea": "Actualizar resultados para esta área",
     "myLocation": "Mi ubicación"
+  },
+  "controls": {
+    "openSearch": "View search fields and filters",
+    "closeSearch": "Hide controls"
+  },
+  "filterForm": {
+    "title": "Filter Markers",
+    "searchBox": "Search by keyword (i.e. food, medicine)...",
+    "org": "Organization Type",
+    "service": "Services Offered",
+    "visibility": "Visibility",
+    "search": "Search",
+    "select": "Select..."
   },
   "results": {
     "backToResults": "Volver a los resultados",

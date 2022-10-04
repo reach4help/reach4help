@@ -58,7 +58,7 @@ const About = ({ className, page, setPage }: Props) => (
             type="button"
             className="view-map"
             onClick={() => {
-              trackEvent('cta', 'home-map');
+              // trackEvent('cta', 'home-map'); // TODO: set up with Google Analytics
               setPage({ page: 'map' });
             }}
           >
