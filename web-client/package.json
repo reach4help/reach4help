@@ -21,7 +21,7 @@
     "@types/styled-components": "^5.0.1",
     "antd": "^4.19.2",
     "awesome-phonenumber": "^2.34.0",
-    "axios": "^0.19.2",
+    "axios": "^1.2.0",
     "babel-plugin-import": "^1.13.0",
     "class-validator": "^0.12.1",
     "country-telephone-data": "^0.6.2",
