@@ -23,7 +23,7 @@
     "awesome-phonenumber": "^2.34.0",
     "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.0",
-    "class-validator": "^0.12.1",
+    "class-validator": "^0.14.0",
     "country-telephone-data": "^0.6.2",
     "customize-cra": "^0.9.1",
     "firebase": "^7.13.1",
