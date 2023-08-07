@@ -2,19 +2,19 @@
   "common": {
     "Navigation": {
       "buttons": {
-        "map": "Mutual Aid Map",
-        "signIn": "Sign in"
+        "map": "Wederzijdse hulpkaart",
+        "signIn": "Inloggen"
       },
       "pages": {
-        "home": "Home",
-        "mission": "Mission",
-        "impact": "Impact",
+        "home": "Startscherm",
+        "mission": "Missie",
+        "impact": "Invloed",
         "team": "Team"
       }
     },
     "HomePage": {
       "HeroSection": {
-        "heading": "Connecting people in need with people who can help",
+        "heading": "Mensen in nood verbinden met mensen die kunnen helpen",
         "subheading": "We make humanitarian aid more accessible for the world's most vulnerable and remote communities",
         "description": [
           "Our map houses a growing list of aid organizations and pandemic care projects.",
@@ -33,11 +33,11 @@
             "description": "Don't waste hours searching. Get help fast with our database of aid organizations and resources."
           },
           {
-            "title": "Easily Available",
+            "title": "Eenvoudig beschikbaar",
             "description": "View our mutual aid map on the go from any mobile device, tablet, or desktop."
           },
           {
-            "title": "Completely Free",
+            "title": "Helemaal gratis",
             "description": "No subscriptions or hidden fees."
           }
         ]
@@ -46,16 +46,16 @@
         "heading": "How Reach4Help Works",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "Stap 1",
             "items": [
               {
-                "title": "Request Help",
+                "title": "Hulp vragen",
                 "description": "When someone in need reaches out to one of our partner organizations for assistance, we receive the request and assess a list of organizations with the resources to help (based on type of need, location, etc.)."
               }
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "Stap 2",
             "items": [
               {
                 "title": "Coordinate Getting Help",
@@ -66,26 +66,26 @@
         }
       },
       "VolunteeringSection": {
-        "heading": "How Volunteering Works",
+        "heading": "Hoe het vrijwilligerswerk werkt",
         "items": {
           "step1": {
-            "title": "Step 1",
+            "title": "Stap 1",
             "items": [
               {
-                "title": "Offer Help",
-                "description": "Let us know what you can help with, and we'll connect you to someone who needs it."
+                "title": "Hulp aanbieden",
+                "description": "Laat ons weten waarmee je kunt helpen, en we verbinden je met iemand die het nodig heeft."
               },
               {
-                "or": "OR"
+                "or": "OF"
               },
               {
-                "title": "Choose Who to Help",
-                "description": "Select one or more people in need whose requests you can fulfill."
+                "title": "Kies wie u wilt helpen",
+                "description": "Selecteer een of meer mensen in nood wier verzoek u kunt vervullen."
               }
             ]
           },
           "step2": {
-            "title": "Step 2",
+            "title": "Stap 2",
             "items": [
               {
                 "title": "Coordinate Helping",
@@ -96,7 +96,7 @@
         }
       },
       "AboutSection": {
-        "heading": "About",
+        "heading": "Over",
         "subheading": "We're a worldwide team of volunteers who come together to help make resources accessible for those in need around the globe",
         "paragraph": "Meet the minds behind this initiative and join us!",
         "buttons": [
@@ -104,7 +104,7 @@
         ]
       },
       "SupportersSection": {
-        "heading": "Supporters",
+        "heading": "Ondersteuners",
         "subheading": [
           "Thank you to all the companies supporting us on our mission!",
           "Just this January, Google for Nonprofits granted us $120,000 this year for outreach!"
