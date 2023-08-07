@@ -15,50 +15,42 @@
     "HomePage": {
       "HeroSection": {
         "heading": "Conectando pessoas necessitadas com pessoas que podem ajudar",
-        "subheading": "Conectamos você com voluntários locais e organizações de ajuda quando você mais precisa.",
+        "subheading": "We make humanitarian aid more accessible for the world's most vulnerable and remote communities",
         "description": [
           "O nosso mapa contém uma lista crescente de organizações e projetos de ajuda.",
           "Usa o mapa para encontrares e te juntares a esforços de Ajuda Mútua perto de ti, ou criares o teu",
           "Se representas uma organização de ajuda mútua, adiciona informação ao mapa para que outros vos possam encontrar."
         ],
         "buttons": [
-          "Obter ajuda",
-          "Voluntário"
+          "See Our Global Map of 10K+ Aid Organizations"
         ]
       },
       "ReasonsSection": {
-        "heading": "Por que Usar Reach4Help",
+        "heading": "Why Work With Reach4Help",
         "items": [
           {
             "title": "Loja de uma parada",
-            "description": "Não desperdice horas pesquisando. Obtenha ajuda rápida com nossa base de dados de voluntários."
+            "description": "Don't waste hours searching. Get help fast with our database of aid organizations and resources."
           },
           {
             "title": "Disponível Facilmente",
-            "description": "Use nosso aplicativo em qualquer dispositivo móvel, tablet ou desktop."
+            "description": "View our mutual aid map on the go from any mobile device, tablet, or desktop."
           },
           {
             "title": "Completamente Grátis",
-            "description": "Sem assinaturas ou taxas ocultas. Você pode navegar e publicar gratuitamente."
+            "description": "No subscriptions or hidden fees."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "Como Obter Ajuda funciona",
+        "heading": "How Reach4Help Works",
         "items": {
           "step1": {
             "title": "Passo 1",
             "items": [
               {
                 "title": "Pedir Ajuda",
-                "description": "Conte-nos o que você precisa e enviaremos seu pedido para voluntários e organizações locais."
-              },
-              {
-                "or": "OU"
-              },
-              {
-                "title": "Escolher Oferta de Voluntário",
-                "description": "Escolha uma oferta de ajuda de voluntários em sua região."
+                "description": "When someone in need reaches out to one of our partner organizations for assistance, we receive the request and assess a list of organizations with the resources to help (based on type of need, location, etc.)."
               }
             ]
           },
@@ -67,7 +59,7 @@
             "items": [
               {
                 "title": "Obter ajuda de coordenada",
-                "description": "Um voluntário entrará em contato com você para agendar a entrega de seus itens solicitados."
+                "description": "Then, we coordinate the logistics necessary to connect the person in need with the organization(s) that can assist them."
               }
             ]
           }
@@ -105,17 +97,17 @@
       },
       "AboutSection": {
         "heading": "Sobre",
-        "subheading": "Somos um grupo de voluntários impulsionados a unificar a ajuda no mundo",
+        "subheading": "We're a worldwide team of volunteers who come together to help make resources accessible for those in need around the globe",
         "paragraph": "Conheça as mentes por trás desta iniciativa e junte-se a nós!",
         "buttons": [
-          "Mais Sobre Nós"
+          "Learn More"
         ]
       },
       "SupportersSection": {
         "heading": "Os Apoiadores",
         "subheading": [
           "Obrigado a todas as empresas que nos apoiam na nossa missão!",
-          "Em janeiro de 2021, o Google para Nonprofits nos concedeu Us$120.000 deste ano por outreach!"
+          "Just this January, Google for Nonprofits granted us $120,000 this year for outreach!"
         ]
       }
     },
@@ -123,8 +115,10 @@
       "topHeading": "Somos um grupo de voluntários impulsionados a unificar a ajuda no mundo",
       "heading": "A Nossa Missão",
       "description": [
-        "Somos uma organização sem fins lucrativos que democratiza o acesso à ajuda voluntária em todo o mundo. Por meio da tecnologia, estamos fornecendo acesso rápido e fácil para ajuda e recursos em sua área com organizações locais como AIESEC em Portugal, a House of Good Deeds em NYC e muito mais.",
-        "O <strong>NOSSO OBJETIVO</strong> é permitir que aqueles que necessitam de ajuda que a recebam e que organizações e grupos parceiros ajudem de forma mais eficiente, ao mobilizarem os seus voluntários com a ajuda do nosso sistema."
+        "We're a nonprofit organization dedicated to creating access to resources worldwide. Through our logistical technology and mutual aid network, we help bridge the gap between people in need in the most vulnerable communities of the world and organizations that can help.",
+        "Our humble mission started out as a small peer-to-peer platform to help those who needed it most during the outbreak of COVID-19 in 2020. Since then, Reach4Help has evolved into a tech nonprofit offering other organizations access to a vast network of organizations. We now connect hundreds of thousands of people with the resources they need.",
+        "We work with a variety of organizations on the ground across the globe, ranging from local charities to national helpline call centers. When one of our partner organizations receives a request for help, we use our mutual aid map and NGO dashboard to facilitate a connection between the requesting party and the organization(s) that can help.",
+        "With over 600 volunteers across 25 countries and 6 continents, we're connecting communities in need to food banks, charity events, and day-to-day services worldwide. Together, we're building a network of help to keep us stronger and more connected through COVID-19 and beyond."
       ]
     },
     "ImpactPage": {
@@ -133,6 +127,7 @@
           "We're helping people",
           "across 38 countries!"
         ],
+        "description": "From coordinating food drives across 38 countries during the COVID-19 pandemic to raising €170K+ for medical aid in Ukraine to serving 60K+ households displaced by the summer 2022 floods in Bangladesh and Pakistan, Reach4Help supports local NGOs in the field through the world's biggest crises.",
         "hoverInfo": {
           "users": "Utilisateurs: ",
           "noUsers": "Pas encore d'utilisateurs <br/> (peut-être vous?)"
@@ -147,12 +142,12 @@
       "heading": "Conheça a nossa equipa",
       "subheading": "",
       "description": [
-        "Somos parte da Helpful Engineering, um coletivo de voluntários que se juntaram para arranjar soluções durante a Pandemia da COVID-19, sem qualquer fim comercial.",
-        "Estamos procurando desenvolvedores em ReactJS voluntários, estrategistas de marketing/PR e designers de UI/UX para ajudar a intensificar nossos esforços de apoio às comunidades necessitadas por meio de crises futuras e COVID-19."
+        "Hailing from LA to Morocco to Portugal to Bangladesh, we're an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
+        "We're looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
       "join": "Interessou-se em nos juntar?",
       "buttons": [
-        "Tu és a ajuda de proximidade. Junta-te a nós!"
+        "Join us!"
       ]
     },
     "Footer": {

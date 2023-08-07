@@ -15,50 +15,42 @@
     "HomePage": {
       "HeroSection": {
         "heading": "Mettre en contact les personnes dans le besoin avec des personnes qui peuvent aider",
-        "subheading": "Nous vous mettons en contact avec des bénévoles locaux et aidons les organisations lorsque vous en avez le plus besoin.",
+        "subheading": "We make humanitarian aid more accessible for the world's most vulnerable and remote communities",
         "description": [
           "Notre carte contient une liste croissante d'organisations d'aide et de projets de soins en cas de pandémie.",
           "Utilisez la carte pour trouver et rejoindre les efforts d'entraide près de chez vous ou créez le vôtre.",
           "Si vous êtes une organisation d'aide, ajoutez vos informations à la carte pour que d'autres puissent vous trouver."
         ],
         "buttons": [
-          "Obtenir de l'aide",
-          "Bénévole"
+          "See Our Global Map of 10K+ Aid Organizations"
         ]
       },
       "ReasonsSection": {
-        "heading": "Pourquoi Utiliser Reach4Help",
+        "heading": "Why Work With Reach4Help",
         "items": [
           {
             "title": "Guichet Unique",
-            "description": "Ne perdez pas d'heures à la recherche. Obtenez de l'aide rapidement avec notre base de données de bénévoles."
+            "description": "Don't waste hours searching. Get help fast with our database of aid organizations and resources."
           },
           {
             "title": "Facilement Disponible",
-            "description": "Utilisez notre application depuis n'importe quel appareil mobile, tablette ou ordinateur de bureau."
+            "description": "View our mutual aid map on the go from any mobile device, tablet, or desktop."
           },
           {
             "title": "Entièrement Gratuit",
-            "description": "Pas d'abonnements ou de frais cachés. Vous pouvez naviguer et poster gratuitement."
+            "description": "No subscriptions or hidden fees."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "Comment obtenir de l'aide",
+        "heading": "How Reach4Help Works",
         "items": {
           "step1": {
             "title": "Étape 1",
             "items": [
               {
                 "title": "Demander de l'aide",
-                "description": "Faites-nous savoir ce dont vous avez besoin et nous enverrons votre demande aux bénévoles et aux organisations locales."
-              },
-              {
-                "or": "OU"
-              },
-              {
-                "title": "Choisir une offre de bénévolat",
-                "description": "Choisissez une offre d'aide de bénévoles de votre région."
+                "description": "When someone in need reaches out to one of our partner organizations for assistance, we receive the request and assess a list of organizations with the resources to help (based on type of need, location, etc.)."
               }
             ]
           },
@@ -67,7 +59,7 @@
             "items": [
               {
                 "title": "Aide à l'obtention des coordonnées",
-                "description": "Un volontaire vous contactera pour planifier la livraison des articles que vous avez demandés."
+                "description": "Then, we coordinate the logistics necessary to connect the person in need with the organization(s) that can assist them."
               }
             ]
           }
@@ -105,17 +97,17 @@
       },
       "AboutSection": {
         "heading": "À propos",
-        "subheading": "Nous sommes un groupe de bénévoles motivés pour unifier l'aide dans le monde entier",
+        "subheading": "We're a worldwide team of volunteers who come together to help make resources accessible for those in need around the globe",
         "paragraph": "Rencontrez les esprits derrière cette initiative et rejoignez-nous!",
         "buttons": [
-          "À propos de nous"
+          "Learn More"
         ]
       },
       "SupportersSection": {
         "heading": "Les supporters",
         "subheading": [
           "Merci à toutes les entreprises qui nous soutiennent dans notre mission !",
-          "En janvier 2021, Google pour les Nonprofits nous a accordé 120 000 $ cette année pour les activités de proximité!"
+          "Just this January, Google for Nonprofits granted us $120,000 this year for outreach!"
         ]
       }
     },
@@ -123,8 +115,10 @@
       "topHeading": "Nous sommes un groupe de bénévoles motivés pour unifier l'aide dans le monde entier",
       "heading": "Notre Mission",
       "description": [
-        "Nous sommes un organisme à but non lucratif qui démocratise l'accès à l'aide bénévole dans le monde entier. Grâce à la technologie, nous fournissons un accès rapide et facile à l'aide et aux ressources dans votre région avec des organisations locales comme AIESEC au Portugal, la Maison des bonnes actions à NYC et plus encore.",
-        "<strong>NOTRE OBJECTIF</strong> est de permettre à ceux qui en ont besoin de recevoir de l'aide, et aux groupes et organisations partenaires d'aider plus efficacement, en mobilisant leurs bénévoles avec l'aide de notre propre système."
+        "We're a nonprofit organization dedicated to creating access to resources worldwide. Through our logistical technology and mutual aid network, we help bridge the gap between people in need in the most vulnerable communities of the world and organizations that can help.",
+        "Our humble mission started out as a small peer-to-peer platform to help those who needed it most during the outbreak of COVID-19 in 2020. Since then, Reach4Help has evolved into a tech nonprofit offering other organizations access to a vast network of organizations. We now connect hundreds of thousands of people with the resources they need.",
+        "We work with a variety of organizations on the ground across the globe, ranging from local charities to national helpline call centers. When one of our partner organizations receives a request for help, we use our mutual aid map and NGO dashboard to facilitate a connection between the requesting party and the organization(s) that can help.",
+        "With over 600 volunteers across 25 countries and 6 continents, we're connecting communities in need to food banks, charity events, and day-to-day services worldwide. Together, we're building a network of help to keep us stronger and more connected through COVID-19 and beyond."
       ]
     },
     "ImpactPage": {
@@ -133,6 +127,7 @@
           "We're helping people",
           "across 38 countries!"
         ],
+        "description": "From coordinating food drives across 38 countries during the COVID-19 pandemic to raising €170K+ for medical aid in Ukraine to serving 60K+ households displaced by the summer 2022 floods in Bangladesh and Pakistan, Reach4Help supports local NGOs in the field through the world's biggest crises.",
         "hoverInfo": {
           "users": "Utilisateurs: ",
           "noUsers": "Pas encore d'utilisateurs <br/> (peut-être vous?)"
@@ -147,12 +142,12 @@
       "heading": "Rencontrez notre équipe",
       "subheading": "",
       "description": [
-        "Nous faisons partie de Helpful Engineering, un collectif de bénévoles qui se sont rassemblés pour trouver des solutions à la pandémie de coronavirus COVID-19, sans aucun objectif commercial.",
-        "Nous recherchons des développeurs volontaires ReactJS, des stratèges en marketing et relations publiques et des concepteurs d'interface UI/UX pour aider à accroître nos efforts en soutenant les communautés dans le besoin par le biais de la COVID-19 et des crises futures à venir."
+        "Hailing from LA to Morocco to Portugal to Bangladesh, we're an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
+        "We're looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
       "join": "Intéressé à nous rejoindre?",
       "buttons": [
-        "Vous êtes l'aide à côté. Rejoignez-nous!"
+        "Join us!"
       ]
     },
     "Footer": {
