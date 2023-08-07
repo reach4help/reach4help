@@ -15,7 +15,7 @@
     "HomePage": {
       "HeroSection": {
         "heading": "Mensen in nood verbinden met mensen die kunnen helpen",
-        "subheading": "We make humanitarian aid more accessible for the world's most vulnerable and remote communities",
+        "subheading": "We maken humanitaire hulp toegankelijker voor de meest kwetsbare en afgelegen gemeenschappen ter wereld",
         "description": [
           "Our map houses a growing list of aid organizations and pandemic care projects.",
           "Use the map to find and join mutual aid efforts near you or create your own.",
@@ -26,11 +26,11 @@
         ]
       },
       "ReasonsSection": {
-        "heading": "Why Work With Reach4Help",
+        "heading": "Waarom werken met Reach4Help",
         "items": [
           {
             "title": "One-Stop Shop",
-            "description": "Don't waste hours searching. Get help fast with our database of aid organizations and resources."
+            "description": "Verspil geen uren met zoeken. Krijg snel hulp met onze database van hulporganisaties en middelen."
           },
           {
             "title": "Eenvoudig beschikbaar",
@@ -38,12 +38,12 @@
           },
           {
             "title": "Helemaal gratis",
-            "description": "No subscriptions or hidden fees."
+            "description": "Geen abonnementen of verborgen kosten."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "How Reach4Help Works",
+        "heading": "Hoe Reach4Help werkt",
         "items": {
           "step1": {
             "title": "Stap 1",
@@ -100,20 +100,20 @@
         "subheading": "We're a worldwide team of volunteers who come together to help make resources accessible for those in need around the globe",
         "paragraph": "Meet the minds behind this initiative and join us!",
         "buttons": [
-          "Learn More"
+          "Meer informatie"
         ]
       },
       "SupportersSection": {
         "heading": "Ondersteuners",
         "subheading": [
-          "Thank you to all the companies supporting us on our mission!",
+          "Dank aan alle bedrijven die ons op onze missie steunen!",
           "Just this January, Google for Nonprofits granted us $120,000 this year for outreach!"
         ]
       }
     },
     "MissionPage": {
       "topHeading": "We're a group of volunteers driven to unify help worldwide",
-      "heading": "Our Mission",
+      "heading": "Onze missie",
       "description": [
         "We're a nonprofit organization dedicated to creating access to resources worldwide. Through our logistical technology and mutual aid network, we help bridge the gap between people in need in the most vulnerable communities of the world and organizations that can help.",
         "Our humble mission started out as a small peer-to-peer platform to help those who needed it most during the outbreak of COVID-19 in 2020. Since then, Reach4Help has evolved into a tech nonprofit offering other organizations access to a vast network of organizations. We now connect hundreds of thousands of people with the resources they need.",
@@ -124,13 +124,13 @@
     "ImpactPage": {
       "WorldMapSection": {
         "heading": [
-          "We're helping people",
-          "across 38 countries!"
+          "We helpen mensen",
+          "in 38 landen!"
         ],
         "description": "From coordinating food drives across 38 countries during the COVID-19 pandemic to raising €170K+ for medical aid in Ukraine to serving 60K+ households displaced by the summer 2022 floods in Bangladesh and Pakistan, Reach4Help supports local NGOs in the field through the world's biggest crises.",
         "hoverInfo": {
-          "users": "Users: ",
-          "noUsers": "No users yet <br/> (maybe you?)"
+          "users": "Gebruikers: ",
+          "noUsers": "Nog geen gebruikers <br/> (misschien jij?)"
         }
       },
       "PartnersSection": {
@@ -139,33 +139,33 @@
       }
     },
     "TeamPage": {
-      "heading": "Meet Our Team",
+      "heading": "Maak kennis met het team",
       "subheading": "",
       "description": [
         "Hailing from LA to Morocco to Portugal to Bangladesh, we're an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
         "We're looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
-      "join": "Interested in joining us?",
+      "join": "Geïnteresseerd om zich bij ons te aansluiten?",
       "buttons": [
-        "Join us!"
+        "Sluit u bij ons aan!"
       ]
     },
     "Footer": {
       "sections": [
         {
-          "title": "Privacy Policy",
+          "title": "Privacybeleid",
           "link": "/privacy"
         },
         {
-          "title": "Code of Conduct",
+          "title": "Gedragscode",
           "link": "https://github.com/reach4help/reach4help/blob/master/CODE_OF_CONDUCT.md"
         }
       ]
     },
     "404": {
-      "heading": "404 Not Found",
+      "heading": "404 Niet Gevonden",
       "description": [
-        "You've found a glitch in the matrix...",
+        "Je hebt een glitch in de matrix gevonden...",
         "Or you're just clowning around. 🤡"
       ],
       "linkBackToHome": "Go back home"
