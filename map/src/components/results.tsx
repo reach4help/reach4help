@@ -1,15 +1,15 @@
-import { ContactDetails } from '@reach4help/model/lib/markers';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { MdEmail, MdExpandMore, MdLanguage, MdPhone } from 'react-icons/md';
+import { MdExpandMore } from 'react-icons/md';
 import Chevron from 'src/components/assets/chevron';
 import Refresh from 'src/components/assets/refresh';
 import { MarkerIdAndInfo, ResultsSet } from 'src/components/map';
-import { format, Language, t } from 'src/i18n';
+import { format, t } from 'src/i18n';
 
 import styled from '../styling';
 import { AppContext } from './context';
 import MarkerType from './marker-type';
+import ResultDetail from './resultDetail';
 
 interface Props {
   className?: string;
@@ -18,96 +18,18 @@ interface Props {
   updateResults: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
+  mapMarkerClicked: boolean;
   selectedResult: MarkerIdAndInfo | null;
   setSelectedResult: (selectedResult: MarkerIdAndInfo | null) => void;
   showMoreResults: (count: number) => void;
 }
-const SOURCES = {
-  'mutualaid.wiki': {
-    label: 'Mutual Aid Wiki',
-    href: 'https://mutualaid.wiki/',
-  },
-  'mutualaidhub.org': {
-    label: 'Mutual Aid Hub',
-    href: 'https://www.mutualaidhub.org/',
-  },
-  hardcoded: null,
-};
 
-const contactInfo = (lang: Language, label: string, info?: ContactDetails) => {
-  if (!info) {
-    return null;
+class Results extends React.PureComponent<Props, { expandAccordion: boolean }> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { expandAccordion: false };
   }
-  const items: Array<JSX.Element> = [];
-  if (info.phone) {
-    items.push(
-      ...info.phone.map(number => (
-        <a key={items.length} href={`tel:${number.replace(/\s/g, '')}`}>
-          <MdPhone />
-          {number}
-        </a>
-      )),
-    );
-  }
-  if (info.email) {
-    items.push(
-      ...info.email.map(email => (
-        <a
-          key={items.length}
-          href={`mailto:${email}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <MdEmail />
-          {email}
-        </a>
-      )),
-    );
-  }
-  if (info.facebookGroup) {
-    items.push(
-      <a
-        key={items.length}
-        href={info.facebookGroup}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <MdLanguage />
-        {t(lang, s => s.results.contact.facebookGroup)}
-      </a>,
-    );
-  }
-  if (info.web) {
-    items.push(
-      ...Object.entries(info.web).map(entry => (
-        <a
-          key={items.length}
-          href={entry[1]}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <MdLanguage />
-          {entry[0]}
-        </a>
-      )),
-    );
-  }
-  if (items.length === 0) {
-    return null;
-  }
-  return (
-    <div className="contact-group">
-      <strong>{label}</strong>
-      <ul>
-        {items.map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
 
-class Results extends React.PureComponent<Props, {}> {
   private headerClicked = () => {
     const { open, setOpen, selectedResult, setSelectedResult } = this.props;
     if (selectedResult) {
@@ -118,33 +40,37 @@ class Results extends React.PureComponent<Props, {}> {
     }
   };
 
+  private resultClicked = (result: MarkerIdAndInfo | null) => {
+    const { selectedResult, setSelectedResult } = this.props;
+    this.setState(state => {
+      const expand =
+        result?.id === selectedResult?.id ? !state.expandAccordion : true;
+      return { expandAccordion: expand };
+    });
+    setSelectedResult(result);
+  };
+
   public render() {
+    const { expandAccordion } = this.state;
     const {
       className,
       results,
       nextResults,
       updateResults,
       open,
+      mapMarkerClicked,
       selectedResult,
-      setSelectedResult,
       showMoreResults,
     } = this.props;
     const canUpdateResults =
       !isEqual(results?.context, nextResults?.context) ||
       !isEqual(results?.results, nextResults?.results);
-    const selectedResultSource =
-      selectedResult?.info.source && SOURCES[selectedResult.info.source.name];
-    const selectedResultSentenceType =
-      selectedResult?.info.type.type === 'mutual-aid-group' ||
-      selectedResult?.info.type.type === 'org'
-        ? selectedResult.info.type.type
-        : 'project';
     return (
       <AppContext.Consumer>
         {({ lang }) => (
           <div
             className={`${className} ${open ? 'open' : ''} ${
-              selectedResult ? 'selected-result' : ''
+              selectedResult && mapMarkerClicked ? 'selected-result' : ''
             }`}
           >
             <button
@@ -157,7 +83,7 @@ class Results extends React.PureComponent<Props, {}> {
                 {format(
                   lang,
                   s =>
-                    selectedResult
+                    selectedResult && mapMarkerClicked
                       ? s.results.backToResults
                       : open
                       ? s.results.closeResults
@@ -183,21 +109,38 @@ class Results extends React.PureComponent<Props, {}> {
                 {(results?.results || [])
                   .slice(0, results?.showRows)
                   .map((result, index) => (
-                    <div
-                      key={index}
-                      className="result"
-                      onClick={() => setSelectedResult(result)}
-                    >
-                      <div className="number">{index + 1}</div>
-                      <div className="info">
-                        {result.info.loc.description && (
-                          <div className="location">
-                            {result.info.loc.description}
+                    <div key={index} className="result">
+                      <div
+                        className="flexContainer"
+                        onClick={() => {
+                          this.resultClicked(result);
+                        }}
+                      >
+                        <div className="resultItem">
+                          <div className="number">{index + 1}</div>
+                          <div className="info">
+                            {result.info.loc.description && (
+                              <div className="location">
+                                {result.info.loc.description}
+                              </div>
+                            )}
+                            <div className="name">
+                              {result.info.contentTitle}
+                            </div>
+                            <MarkerType type={result.info.type} />
                           </div>
-                        )}
-                        <div className="name">{result.info.contentTitle}</div>
-                        <MarkerType type={result.info.type} />
+                        </div>
+                        <Chevron
+                          className={`${'toggle chevron'} ${
+                            selectedResult?.id === result.id && expandAccordion
+                              ? 'open'
+                              : ''
+                          }`}
+                        />
                       </div>
+                      {selectedResult?.id === result.id && expandAccordion && (
+                        <ResultDetail result={selectedResult} lang={lang} />
+                      )}
                     </div>
                   ))}
                 {results && results.showRows < results.results.length && (
@@ -210,84 +153,14 @@ class Results extends React.PureComponent<Props, {}> {
                   </div>
                 )}
               </div>
-              {selectedResult &&
+              {mapMarkerClicked &&
+                selectedResult &&
                 !selectedResult?.info.contentBody &&
                 !selectedResult?.info.contact && (
                   <div className="details">Data loading. Try again later.</div>
                 )}
               {selectedResult && (
-                <div className="details">
-                  <div className="disclaimer">
-                    <strong>
-                      {t(lang, s => s.results.details.disclaimer.header)}
-                    </strong>
-                    <br />
-                    {t(lang, s => s.results.details.disclaimer.content)}
-                  </div>
-                  <div className="name">{selectedResult.info.contentTitle}</div>
-                  {selectedResult.info.loc.description && (
-                    <div className="location">
-                      {selectedResult.info.loc.description}
-                    </div>
-                  )}
-                  <MarkerType
-                    className="marker-type"
-                    type={selectedResult.info.type}
-                  />
-                  {selectedResultSource && (
-                    <div className="source">
-                      {t(lang, s => s.results.details.source, {
-                        type: key => (
-                          <span key={key}>
-                            {t(
-                              lang,
-                              s =>
-                                s.markerTypeSentence[
-                                  selectedResultSentenceType
-                                ],
-                            )}
-                          </span>
-                        ),
-                        source: key => (
-                          <a
-                            key={key}
-                            href={selectedResultSource.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {selectedResultSource.label}
-                          </a>
-                        ),
-                      })}
-                    </div>
-                  )}
-                  {selectedResult.info.contentBody && (
-                    <div>
-                      <div className="content">
-                        {selectedResult.info.contentBody}
-                      </div>
-                    </div>
-                  )}
-                  {selectedResult.info.contact && (
-                    <div>
-                      {contactInfo(
-                        lang,
-                        t(lang, s => s.results.contact.general),
-                        selectedResult.info.contact.general,
-                      )}
-                      {contactInfo(
-                        lang,
-                        t(lang, s => s.results.contact.getHelp),
-                        selectedResult.info.contact.getHelp,
-                      )}
-                      {contactInfo(
-                        lang,
-                        t(lang, s => s.results.contact.volunteer),
-                        selectedResult.info.contact.volunteers,
-                      )}
-                    </div>
-                  )}
-                </div>
+                <ResultDetail result={selectedResult} lang={lang} fullDetail />
               )}
             </div>
           </div>
@@ -413,34 +286,46 @@ export default styled(Results)`
         color: ${p => p.theme.textColor};
         border-bottom: ${p => p.theme.borderLight};
         padding: ${p => p.theme.spacingPx}px;
-        display: flex;
-        align-items: start;
         font-size: 1rem;
         cursor: pointer;
-
         &:hover {
           background: ${p => p.theme.colors.grayLight5};
-
-          .location {
-            color: ${p => p.theme.textColorLight};
-          }
         }
+        > .flexContainer {
+          display: flex;
+          justify-content: space-between;
 
-        .number {
-          color: ${p => p.theme.textColor};
-          font-size: 20px;
-          font-weight: 600;
-          margin-right: ${p => p.theme.spacingPx}px;
+          > .resultItem {
+            display: flex;
+            align-items: start;
+            padding: ${p => p.theme.spacingPx}px;
 
-          [dir='rtl'] & {
-            margin: 0 0 0 ${p => p.theme.spacingPx}px;
+            > .number {
+              color: ${p => p.theme.textColor};
+              font-size: 20px;
+              font-weight: 600;
+              margin-right: ${p => p.theme.spacingPx}px;
+
+              [dir='rtl'] & {
+                margin: 0 0 0 ${p => p.theme.spacingPx}px;
+              }
+            }
+
+            .location {
+              color: ${p => p.theme.textColorLight};
+              font-size: 0.9rem;
+              margin-bottom: ${p => p.theme.spacingPx / 2}px;
+            }
           }
-        }
-
-        .location {
-          color: ${p => p.theme.textColorLight};
-          font-size: 0.9rem;
-          margin-bottom: ${p => p.theme.spacingPx / 2}px;
+          .chevron.toggle {
+            flex-shrink: 0;
+            transition: opacity ${p => p.theme.transitionSpeedQuick};
+            padding: ${p => p.theme.spacingPx}px 0;
+            align-self: flex-start;
+            &.open {
+              transform: rotate(180deg);
+            }
+          }
         }
       }
     }
@@ -456,66 +341,6 @@ export default styled(Results)`
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       pointer-events: initial;
-
-      > .disclaimer,
-      > .source {
-        background: rgba(0, 0, 0, 0.05);
-        border-radius: 3px;
-        padding: 10px 8px;
-        color: rgba(0, 0, 0, 0.5);
-        margin-bottom: 20px;
-
-        strong {
-          text-transform: uppercase;
-        }
-      }
-
-      > .disclaimer {
-        font-size: 10px;
-        line-height: 16px;
-      }
-
-      > .source {
-        font-size: 12px;
-        line-height: 150%;
-      }
-
-      > .name {
-        font-size: 1.5rem;
-        padding-bottom: ${p => p.theme.spacingPx / 2}px;
-      }
-
-      > .location {
-        color: ${p => p.theme.textColorLight};
-        font-size: 0.9rem;
-      }
-
-      > .marker-type {
-        margin-bottom: ${p => p.theme.spacingPx / 2}px;
-      }
-
-      > .contact-group {
-        margin-top: ${p => p.theme.spacingPx}px;
-        color: ${p => p.theme.textColorLight};
-
-        ul {
-          padding-left: ${p => p.theme.spacingPx}px;
-          margin-left: ${p => p.theme.spacingPx}px;
-          a {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-
-            &:hover {
-              text-decoration: underline;
-            }
-
-            svg {
-              margin-right: ${p => p.theme.spacingPx / 2}px;
-            }
-          }
-        }
-      }
     }
   }
 
