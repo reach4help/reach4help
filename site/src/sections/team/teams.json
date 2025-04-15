@@ -24,6 +24,13 @@
         "countries": ["US"]
       },
       {
+        "name": "Miguel Toral",
+        "title": "Marketing Lead",
+        "avatar_url": "/images/team/miguel-toral.jpeg",
+        "contact": "",
+        "countries": ["EC", "US"]
+      },
+      {
         "name": "Jamie Dubow",
         "title": "Marketing & Outreach Lead",
         "avatar_url": "https://ca.slack-edge.com/T010H81FF60-U01AGS6RA2D-19f552e32170-512",
