@@ -33,7 +33,7 @@
     "node": "10"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^3.7.3",
+    "@google-cloud/firestore": "^7.6.0",
     "@googlemaps/google-maps-services-js": "^2.4.2",
     "@types/convict": "^4.2.1",
     "@types/flat": "^5.0.0",
