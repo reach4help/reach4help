@@ -17,8 +17,8 @@
         "heading": "Connecting people in need with people who can help",
         "subheading": "We make humanitarian aid more accessible for the world's most vulnerable and remote communities",
         "description": [
-          "Our map houses a growing list of aid organizations and pandemic care projects.",
-          "Use the map to find and join mutual aid efforts near you or create your own.",
+          "Our map houses a growing list of 10,000+ aid organizations and disaster relief projects worldwide.",
+          "Use the map to find and join humanitarian aid efforts near you or create your own.",
           "If you are an aid organization, add your information to the map so others can find you."
         ],
         "buttons": ["See Our Global Map of 10K+ Aid Organizations"]
@@ -111,10 +111,10 @@
       "topHeading": "We're a group of volunteers driven to unify help worldwide",
       "heading": "Our Mission",
       "description": [
-        "We're a nonprofit organization dedicated to creating access to resources worldwide. Through our logistical technology and mutual aid network, we help bridge the gap between people in need in the most vulnerable communities of the world and organizations that can help.",
-        "Our humble mission started out as a small peer-to-peer platform to help those who needed it most during the outbreak of COVID-19 in 2020. Since then, Reach4Help has evolved into a tech nonprofit offering other organizations access to a vast network of organizations. We now connect hundreds of thousands of people with the resources they need.",
-        "We work with a variety of organizations on the ground across the globe, ranging from local charities to national helpline call centers. When one of our partner organizations receives a request for help, we use our mutual aid map and NGO dashboard to facilitate a connection between the requesting party and the organization(s) that can help.",
-        "With over 600 volunteers across 25 countries and 6 continents, we're connecting communities in need to food banks, charity events, and day-to-day services worldwide. Together, we're building a network of help to keep us stronger and more connected through COVID-19 and beyond."
+        "We're a tech nonprofit dedicated to democratizing disaster response for the world's most vulnerable communities. Through our logistical technology and coordination network, we help bridge the gap between people in need and the organizations that can help—from climate disasters to public health crises to conflict zones.",
+        "Our mission started during the outbreak of COVID-19 in 2020 as a peer-to-peer mutual aid platform. Since then, Reach4Help has grown into a global disaster response coordination organization, serving over 60,000 households across 38 countries and connecting 10,000+ NGOs and aid organizations through our open-source platform.",
+        "We work with a variety of organizations on the ground across the globe, ranging from local charities to national helpline call centers. When one of our partner organizations receives a request for help, we use our global aid map and NGO dashboard to facilitate a connection between the requesting party and the organization(s) that can help.",
+        "With over 600 volunteers across 25 countries and 6 continents, we're coordinating disaster response, climate adaptation, and humanitarian relief worldwide, through floods in Bangladesh, medical aid in Ukraine, food relief in Gaza and more."
       ]
     },
     "ImpactPage": {
@@ -136,7 +136,7 @@
       "subheading": "",
       "description": [
         "Hailing from LA to Morocco to Portugal to Bangladesh, we're an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
-        "We're looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
+        "We're looking for volunteers across engineering, marketing, design, and operations to help ramp up our disaster response and humanitarian coordination efforts worldwide."
       ],
       "join": "Interested in joining us?",
       "buttons": ["Join us!"]
