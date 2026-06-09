@@ -1,5 +1,5 @@
 {
-  "title": "Global Map of Aid",
+  "title": "Globale Hulpkaart",
   "inFrameLink": "Over deze kaart / voeg informatie toe",
   "aboutScreen": {
     "intro": "Wij zijn van mening dat solidariteit het beste is van individuen.",
@@ -43,7 +43,7 @@
     "screen": {
       "title": "Voeg informatie toe aan deze kaart",
       "information": {
-        "acceptedInformation": "At the moment, we are including organizations providing region-specific aid and assistance (food, shelter, oxygen cylinders, donations, etc.).",
+        "acceptedInformation": "Op dit moment zijn er ook organisaties die regionale hulp en bijstand verlenen (voedsel, onderdak, zuurstofcylinders, donaties, enz.).",
         "moreInformation": "We aren't able to accept information directly about individuals offering aid for safety reasons, but please contact us at {contactEmail} if you'd like to help.",
         "intro": "Vul het formulier hieronder in om de informatie toe te voegen. We zullen u daarna om locatie en contactgegevens vragen.",
         "form": {
@@ -94,7 +94,7 @@
         "loading": "Gegevens verzenden naar map...",
         "error": "Fout bij opslaan informatie",
         "success": "Uw formulier is succesvol ingediend",
-        "successExtra": "We're in the process of verifying your submission and will make it visible on the map shortly. Thank you for helping make aid accessible across the world!"
+        "successExtra": "We zijn bezig met het verifiëren van je uitwerking en zullen deze binnenkort zichtbaar maken op de kaart. Bedankt voor het helpen om hulp wereldwijd toegankelijk te maken!"
       }
     },
     "errors": {
@@ -118,18 +118,18 @@
   },
   "loading": "Bezig met laden...",
   "filterBy": "Filteren op",
-  "noOptions": "No Options",
+  "noOptions": "Geen opties",
   "services": {
     "any": "Elke",
     "food": "Voedsel",
     "shelter": "Schuilplaats",
-    "beds": "Hospital Beds",
-    "oxygen": "Oxygen",
+    "beds": "Ziekenhuisbedden",
+    "oxygen": "Zuurstof",
     "medicine": "Geneeskunde",
-    "home-care": "Home Care",
-    "blood": "Plasma / Blood",
-    "quarantine": "Quarantine Centres",
-    "telehealth": "Telehealth",
+    "home-care": "Thuiszorg",
+    "blood": "Plasma / bloed",
+    "quarantine": "Quarantaine centra",
+    "telehealth": "Telegezondheid",
     "financial": "Financieel",
     "mobility": "Mobiliteit",
     "information": "Informatie",
@@ -137,36 +137,36 @@
     "support": "Ondersteuning",
     "network": "Netwerk",
     "supplies": "Opgeslagen Voorraden",
-    "vaccine": "Vaccinations",
+    "vaccine": "Vaccinaties",
     "other": "Overig"
   },
   "serviceDescriptions": {
-    "food": "Food and/or water",
-    "shelter": "Shelter for the homeless and those who need it",
+    "food": "Voedsel en/of water",
+    "shelter": "Schuilplaats voor daklozen en degenen die het nodig hebben",
     "beds": "Hospital Beds (General, ICU or Oxygen Beds)",
     "oxygen": "Oxygen cylinders or refills",
     "medicine": "COVID-19 medicines like Remdesivir",
-    "home-care": "Home care for the elderly",
-    "blood": "Plasma / Blood transfusions",
-    "quarantine": "Quarantine Centres",
-    "telehealth": "Telehealth/teleconsultation services",
-    "financial": "Donations and fundraising",
+    "home-care": "Huishoudelijke zorg voor ouderen",
+    "blood": "Plasma / Bloedtransfusies",
+    "quarantine": "Quarantaine centra",
+    "telehealth": "Telegezondheid/teleconsulatiediensten",
+    "financial": "Donaties en fondsenwerving",
     "mobility": "Mensen verplaatsen van de ene locatie naar de andere",
-    "information": "Help people find relevant information",
+    "information": "Help mensen relevante informatie te vinden",
     "manufacturing": "Biedt voorraden of productiecapaciteit die nodig zijn om de crisis het hoofd te bieden",
     "support": "Ondersteuning afgestemd op specifieke kwetsbare groepen, zoals daklozen, mensen die gevaar lopen door huiselijk misbruik, etc...",
     "network": "Voordelen van netwerken om hulp te bieden, bijvoorbeeld tussen wederzijdse hulporganisaties",
     "supplies": "Bevoorraden, behalve voedsel of medicijnen,",
-    "vaccine": "Verified vaccination site",
+    "vaccine": "Geverifieerde vaccinatiesite",
     "other": "Iets anders niet in deze lijst"
   },
   "markerTypes": {
     "mutual-aid-group": "Wederzijdse Hulpgroep",
     "org": "Organisatie / bedrijf",
-    "hospital": "Hospital",
-    "medical": "Medical Service",
-    "company": "Company",
-    "individual": "Individual",
+    "hospital": "Ziekenhuis",
+    "medical": "Medische dienst",
+    "company": "Bedrijf",
+    "individual": "Individueel",
     "other": "Overig"
   },
   "markerTypeSentence": {
@@ -180,17 +180,17 @@
     "myLocation": "Mijn locatie"
   },
   "controls": {
-    "openSearch": "View search fields and filters",
-    "closeSearch": "Hide controls"
+    "openSearch": "Bekijk zoekvelden en filters",
+    "closeSearch": "Verbergen van besturingselementen"
   },
   "filterForm": {
-    "title": "Filter Markers",
-    "searchBox": "Search by keyword (i.e. food, medicine)...",
-    "org": "Organization Type",
-    "service": "Services Offered",
-    "visibility": "Visibility",
-    "search": "Search",
-    "select": "Select..."
+    "title": "Filter markeringen",
+    "searchBox": "Zoeken op woord (bijv. voedsel, medicijn)...",
+    "org": "Organisatietype",
+    "service": "Aangeboden diensten",
+    "visibility": "Zichtbaarheid",
+    "search": "Zoeken",
+    "select": "Selecteren..."
   },
   "results": {
     "backToResults": "Ga terug naar resultaat",

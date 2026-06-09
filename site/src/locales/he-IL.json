@@ -15,50 +15,42 @@
     "HomePage": {
       "HeroSection": {
         "heading": "לחבר בין אנשים שזקוקים לעזרה לאנשים שיכולים לעזור",
-        "subheading": "אנחנו מחברים אותך למתנדבים מקומיים ולארגוני עזרה כשאת.ה הכי זקוק.ה להם.",
+        "subheading": "We make humanitarian aid more accessible for the world's most vulnerable and remote communities",
         "description": [
           "במפה שלנו אפשר לראות רשימה הולכת וגדלה של ארגוני עזרה ופרויקטים לעזרה במגפה.",
           "השתמש.י במפה כדי למצוא ולהצטרף למאמצי העזרה ההדדית הקרובים אליך, או שאת.ה יכול.ה ליצור כאלה בעצמך.",
           "ארגוני עזרה, הוסיפו מידע על עצמכם כדי שאנשים יוכלו למצוא אתכם."
         ],
         "buttons": [
-          "קבלו עזרה",
-          "התנדבות"
+          "See Our Global Map of 10K+ Aid Organizations"
         ]
       },
       "ReasonsSection": {
-        "heading": "למה להשתמש בReach4Help",
+        "heading": "Why Work With Reach4Help",
         "items": [
           {
             "title": "החנות המרכזית",
-            "description": "אין צורך לבזבז שעות בחיפוש. קבלו עזרה מהר עם מאגר המידע שלנו על מתנדבים."
+            "description": "Don't waste hours searching. Get help fast with our database of aid organizations and resources."
           },
           {
             "title": "זמינים בקלות",
-            "description": "אפשר להשתמש באפליקציה שלנו על הדרך מכל מכשיר נייד, טאבלט, או מחשב."
+            "description": "View our mutual aid map on the go from any mobile device, tablet, or desktop."
           },
           {
             "title": "חינם לגמרי",
-            "description": "אין מנויים או עמלות נסתרות. אפשר לדפדף ולהעלות מידע בחינם."
+            "description": "No subscriptions or hidden fees."
           }
         ]
       },
       "GettingHelpSection": {
-        "heading": "איך זה עובד",
+        "heading": "How Reach4Help Works",
         "items": {
           "step1": {
             "title": "צעד 1",
             "items": [
               {
                 "title": "בקשת עזרה",
-                "description": "ידע.י אותנו למה את.ה זקוק.ה ואנחנו נשלח את הבקשה שלך למתנדבים וארגונים מקומיים."
-              },
-              {
-                "or": "או"
-              },
-              {
-                "title": "בחירת הצעה מהמתנדבים",
-                "description": "בחר.י הצעת עזרה מהמתנדבים באזורך."
+                "description": "When someone in need reaches out to one of our partner organizations for assistance, we receive the request and assess a list of organizations with the resources to help (based on type of need, location, etc.)."
               }
             ]
           },
@@ -67,7 +59,7 @@
             "items": [
               {
                 "title": "תיאום קבלת עזרה",
-                "description": "מתנדב או מתנדבת ייצרו איתך קשר כדי לתאם את הבאת הפריטים שביקשת."
+                "description": "Then, we coordinate the logistics necessary to connect the person in need with the organization(s) that can assist them."
               }
             ]
           }
@@ -105,17 +97,17 @@
       },
       "AboutSection": {
         "heading": "אודות",
-        "subheading": "אנחנו קבוצה של מתנדבים ומתנדבות ששואפים לאחד את העזרה ברחבי העולם.",
+        "subheading": "We're a worldwide team of volunteers who come together to help make resources accessible for those in need around the globe",
         "paragraph": "בואו לפגוש את הראשים שמאחורי היוזמה ולהצטרף אלינו!",
         "buttons": [
-          "עוד עלינו"
+          "Learn More"
         ]
       },
       "SupportersSection": {
         "heading": "תמיכה",
         "subheading": [
           "תודה רבה לכל החברות שתומכות בנו במשימה שלנו!",
-          "בינואר 2021, גוגל לעמותות העניקה לנו השנה 120,000$ כדי שנגיע לקבוצות אוכלוסיה נוספות!"
+          "Just this January, Google for Nonprofits granted us $120,000 this year for outreach!"
         ]
       }
     },
@@ -123,8 +115,10 @@
       "topHeading": "אנחנו קבוצת מתנדבים ומתנדבות ששואפת לאחד את העזרה ברחבי העולם",
       "heading": "המשימה שלנו",
       "description": [
-        "אנחנו ארגון ללא מטרות רווח שמנגיש לאנשים בכל רחבי העולם את האפשרות לקבל סיוע ממתנדבים ומתנדבות. באמצעות הטכנולוגיה, אנו מספקים גישה קלה ומהירה לעזרה ומשאבים באזורך בשיתוף פעולה עם ארגונים מקומיים כמו AIESEC בפורטוגל, בית המעשים הטובים בניו יורק, ועוד.",
-        "עם יותר מ300 מתנדבים ב25 ארצות ו6 יבשות, אנחנו מחברים בין קהילות נזקקות לבנקי מזון, אירועי צדקה, ושירותים יומיומיים ברחבי העולם. ביחד, אנחנו בונים רשת של עזרה שתהפוך אותנו לחזקים יותר בזמן מגפת הקורונה ואחריה."
+        "We're a nonprofit organization dedicated to creating access to resources worldwide. Through our logistical technology and mutual aid network, we help bridge the gap between people in need in the most vulnerable communities of the world and organizations that can help.",
+        "Our humble mission started out as a small peer-to-peer platform to help those who needed it most during the outbreak of COVID-19 in 2020. Since then, Reach4Help has evolved into a tech nonprofit offering other organizations access to a vast network of organizations. We now connect hundreds of thousands of people with the resources they need.",
+        "We work with a variety of organizations on the ground across the globe, ranging from local charities to national helpline call centers. When one of our partner organizations receives a request for help, we use our mutual aid map and NGO dashboard to facilitate a connection between the requesting party and the organization(s) that can help.",
+        "With over 600 volunteers across 25 countries and 6 continents, we're connecting communities in need to food banks, charity events, and day-to-day services worldwide. Together, we're building a network of help to keep us stronger and more connected through COVID-19 and beyond."
       ]
     },
     "ImpactPage": {
@@ -133,6 +127,7 @@
           "אנחנו עוזרים לאנשים",
           "ב38 מדינות!"
         ],
+        "description": "From coordinating food drives across 38 countries during the COVID-19 pandemic to raising €170K+ for medical aid in Ukraine to serving 60K+ households displaced by the summer 2022 floods in Bangladesh and Pakistan, Reach4Help supports local NGOs in the field through the world's biggest crises.",
         "hoverInfo": {
           "users": "משתמשים.ות:",
           "noUsers": "אין משתמשים עדיין <br/> (אולי את.ה?)"
@@ -147,12 +142,12 @@
       "heading": "בואו לפגוש את הצוות שלנו",
       "subheading": "",
       "description": [
-        "החל מלוס אנג'לס דרך מרוקו ופורטוגל ועד לבנגלדש, אנחנו מפעל שיתופי בינלאומי של מתנדבים ומתנדבות מכל שבילי החיים, שמאוחדים כדי להבטיח שכל אדם, מכל מקום, יוכל לקבל עזרה.",
-        "דרושים לנו מתנדבים בתחומים הבאים: מפתחי react.js, שיווק/אסטרטגיות PR ומעצבי UI/UX כדי להקפיץ ברמה את המאמצים שלנו לתמוך בקהילות נזקקות בזמן המגפה ובמשברים עתידיים."
+        "Hailing from LA to Morocco to Portugal to Bangladesh, we're an international collective of volunteers from all walks of life, united to ensure that everyone, everywhere can Reach4Help.",
+        "We're looking for volunteer ReactJS developers, marketing/PR strategists and UI/UX designers to help ramp up our efforts supporting communities in need through COVID-19 and future crises to come."
       ],
       "join": "רוצה להצטרף אלינו?",
       "buttons": [
-        "בואו והצטרפו אלינו במשימה שלנו!"
+        "Join us!"
       ]
     },
     "Footer": {
