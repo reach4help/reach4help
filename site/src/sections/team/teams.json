@@ -4,9 +4,9 @@
     "members": [
       {
         "name": "Shayan Chowdhury",
-        "title": "Executive Director & Co-Founder",
+        "title": "Executive Director & Founder",
         "avatar_url": "/images/team/shayan-chowdhury.jpg",
-        "contact": "https://linkedin.com/in/shayanhchowdhury",
+        "contact": "https://shayan.tech/",
         "countries": ["BD", "US"]
       },
       {
@@ -25,7 +25,7 @@
       },
       {
         "name": "Miguel Toral",
-        "title": "Marketing Lead",
+        "title": "Marketing & Legal Lead",
         "avatar_url": "/images/team/miguel-toral.jpeg",
         "contact": "",
         "countries": ["EC", "US"]
