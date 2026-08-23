@@ -17,7 +17,7 @@ declare global {
  * To use your own key,
  * set the environment variable `REACT_APP_GOOGLE_MAPS_API_KEY` to the key.
  */
-const PUBLIC_API_KEY = 'AIzaSyC9MNxwBw6ZAOqrSVDPZFiaYhFmuRwtobc';
+const PUBLIC_API_KEY = '';
 
 const apiKey =
   (window.GOOGLE_MAPS_API_KEY !== '%REACT_APP_GOOGLE_MAPS_API_KEY%' &&
